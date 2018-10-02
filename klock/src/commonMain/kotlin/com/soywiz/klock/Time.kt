@@ -283,6 +283,8 @@ class OffsetDateTime private constructor(
 	override fun add(deltaMonths: Int, deltaMilliseconds: Long): DateTime =
 		OffsetDateTime(utc.add(deltaMonths, deltaMilliseconds), offset)
 
+	override fun toUtc(): DateTime = utc
+
 	override fun toString(): String = SimplerDateFormat.DEFAULT_FORMAT.format(this)
 }
 
@@ -527,7 +529,7 @@ inline val Number.seconds get() = TimeSpan.fromMilliseconds((this.toDouble() * 1
 
 class SimplerDateFormat(val format: String) {
 	companion object {
-		private val rx = Regex("('[\\w]+'|[\\w]+)")
+		private val rx = Regex("('[\\w]+'|[\\w]+\\B[^X]|[X]{1,3}|[\\w]+)")
 		private val englishDaysOfWeek = listOf(
 			"sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"
 		)
@@ -538,7 +540,7 @@ class SimplerDateFormat(val format: String) {
 		private val englishMonths3 = englishMonths.map { it.substr(0, 3) }
 
 		val DEFAULT_FORMAT by lazy { SimplerDateFormat("EEE, dd MMM yyyy HH:mm:ss z") }
-		val FORMAT1 by lazy { SimplerDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'") }
+		val FORMAT1 by lazy { SimplerDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX") }
 
 		val FORMATS = listOf(DEFAULT_FORMAT, FORMAT1)
 
@@ -564,8 +566,10 @@ class SimplerDateFormat(val format: String) {
 		parts += v
 		if (v.startsWith("'")) {
 			"(" + Regex.escapeReplacement(v.trim('\'')) + ")"
+		} else if (v.startsWith("X")) {
+			"([Z]|[+-]\\d\\d|[+-]\\d\\d\\d\\d|[+-]\\d\\d:\\d\\d)?"
 		} else {
-			"([\\w\\+\\-]+)"
+			"([\\w\\+\\-]+?[^Z^+^-])"
 		}
 	} + "$")
 
@@ -593,6 +597,17 @@ class SimplerDateFormat(val format: String) {
 				"HH" -> "%02d".format(dd.hours)
 				"mm" -> "%02d".format(dd.minutes)
 				"ss" -> "%02d".format(dd.seconds)
+				"X", "XX", "XXX" -> {
+					val p = if (dd.offset >= 0) "+" else "-"
+					val hours = dd.offset / 60
+					val minutes = dd.offset % 60
+					when (name) {
+						"X" -> "$p${"%02d".format(hours)}"
+						"XX" -> "$p${"%02d".format(hours)}${"%02d".format(minutes)}"
+						"XXX" -> "$p${"%02d".format(hours)}:${"%02d".format(minutes)}"
+						else -> name
+					}
+				}
 				else -> name
 			}
 		}
@@ -600,6 +615,7 @@ class SimplerDateFormat(val format: String) {
 	}
 
 	fun parse(str: String): Long = parseDate(str).unix
+	fun parseUtc(str: String): Long = parseDate(str).toUtc().unix
 
 	fun parseOrNull(str: String?): Long? = try {
 		str?.let { parse(str) }
@@ -618,6 +634,7 @@ class SimplerDateFormat(val format: String) {
 		var day = 1
 		var month = 1
 		var fullYear = 1970
+		var offset: Int? = null
 		val result = rx2.find(str) ?: return null
 		for ((name, value) in parts.zip(result.groupValues.drop(1))) {
 			when (name) {
@@ -630,13 +647,29 @@ class SimplerDateFormat(val format: String) {
 				"HH" -> hour = value.toInt()
 				"mm" -> minute = value.toInt()
 				"ss" -> second = value.toInt()
+				"X", "XX", "XXX" -> when {
+					value.first() == 'Z' -> offset = 0
+					else -> {
+						val hours = value.drop(1).substringBefore(':').toInt()
+						val minutes = value.substringAfter(':', "0").toInt()
+						offset = (hours * 60) + minutes
+						if (value.first() == '-') {
+							offset = -offset
+						}
+					}
+				}
 				else -> {
 					// ...
 				}
 			}
 		}
 		//return DateTime.createClamped(fullYear, month, day, hour, minute, second)
-		return DateTime.createAdjusted(fullYear, month, day, hour, minute, second)
+		val dateTime = DateTime.createAdjusted(fullYear, month, day, hour, minute, second)
+		return when (offset) {
+			null -> dateTime
+			0 -> dateTime.toUtc()
+			else -> dateTime.minus(TimeDistance(minutes = (offset).toDouble())).toOffset(offset)
+		}
 	}
 }
 
