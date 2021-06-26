@@ -105,3 +105,6 @@
 [submodule "blog.korge.org"]
 	path = blog.korge.org
 	url = git@github.com:soywiz/blog.korge.org.git
+[submodule "korge-show"]
+	path = korge-show
+	url = git@github.com:korlibs/korge-show.git

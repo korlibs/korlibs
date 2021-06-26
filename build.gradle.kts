@@ -60,8 +60,8 @@ fun generatePairForRepo(subproject: String): Pair<String, String> {
 tasks {
 	val subprojects = listOf(
 		"kbignum", "kbox2d", "kds", "klock", "klogger", "kmem", "korau", "korge",
-		"korge-dragonbones", "korge-spine", "korge-swf", "korgw", "korim", "korinject",
-		"korio", "korma", "korma-shape", "korte", "korvi", "krypto", "luak"
+		"korge-dragonbones", "korge-spine", "korge-swf", "korge-editor", "korgw", "korim", "korinject",
+		"korio", "korma", "korte", "korvi", "krypto", "luak"
 	)
 	val repoList = subprojects.map { it.substringBefore('-') }.toSet().toList()
 
