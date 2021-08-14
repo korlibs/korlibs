@@ -108,3 +108,6 @@
 [submodule "korge-show"]
 	path = korge-show
 	url = git@github.com:korlibs/korge-show.git
+[submodule "korge-starter-kit-rpg"]
+	path = korge-starter-kit-rpg
+	url = git@github.com:korlibs/korge-starter-kit-rpg.git
