@@ -71,6 +71,34 @@ tasks {
 			"korge-plugins/korge-gradle-plugin" to "korge-gradle-plugin"
 	)
 
+	val baseRepo = "luak"
+
+	val githubDeploySync by creating(Task::class) {
+		group = "sync"
+		doLast {
+			for (repo in repoList) {
+				if (repo == baseRepo) continue
+				copy {
+					from("$baseRepo/.github/workflows/DEPLOY.yml")
+					into("$repo/.github/workflows")
+				}
+			}
+		}
+	}
+
+	val gradleVersionSync by creating(Task::class) {
+		group = "sync"
+		doLast {
+			for (repo in repoList) {
+				if (repo == baseRepo) continue
+				copy {
+					from("$baseRepo/gradle/wrapper/gradle-wrapper.properties")
+					into("$repo/gradle/wrapper")
+				}
+			}
+		}
+	}
+
 	val gitSyncMaster by creating(Task::class) {
 		group = "sync"
 		doLast {
