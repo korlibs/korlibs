@@ -1,0 +1,57 @@
+name: TEST
+# https://docs.github.com/en/actions/learn-github-actions/expressions
+
+on:
+  push:
+    branches: [ main, 'release/**' ]
+  pull_request:
+    branches: [ main, 'release/**' ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  CI: true
+
+  JAVA_VERSION: 17
+  JAVA_DISTRIBUTION: zulu
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false # Once working, comment this
+      matrix:
+        include:
+          - { outputKey: testWindows, os: windows-latest, testTask: mingwX64Test, enableKotlinNative: true }
+          - { outputKey: testLinux, os: ubuntu-latest, testTask: linuxX64Test, buildTasks: publishLinuxArm64PublicationToMavenLocal, enableKotlinNative: true }
+          - { outputKey: testMacos, os: macos-11, testTask: macosX64Test, buildTasks: publishMacosArm64PublicationToMavenLocal, enableKotlinNative: true }
+          - { outputKey: testIos, os: macos-11, testTask: iosX64Test, enableKotlinNative: true }
+          - { outputKey: testJs, os: ubuntu-latest, testTask: "wasmJsBrowserTest", buildTasks: "jsNodeTest jsBrowserTest" }
+          - { outputKey: testAndroid, os: ubuntu-latest, enableAndroid: true }
+          - { outputKey: testJvmMacos, os: macos-11, testTask: jvmTest }
+          - { outputKey: testJvmLinux, os: ubuntu-latest, testTask: jvmTest, precompileTask: compileTestKotlinJvm, enableKotlinNative: true, enableSandbox: true, e2e: true }
+          - { outputKey: testJvmWindows, os: windows-latest, testTask: jvmTest, precompileTask: compileTestKotlinJvm }
+    #if: ${{ needs.changes.outputs[matrix.outputKey] == 'true' }}
+    timeout-minutes: 30
+    runs-on: ${{ matrix.os }}
+    steps:
+      - { uses: actions/checkout@v4 }
+      - { name: Use Node.js 20.x, uses: actions/setup-node@v4, with: { node-version: 20.x } }
+      - { name: Configure parallel in local.properties, run: "echo org.gradle.parallel=true >> local.properties" }
+      - { name: Replace gradle wrapper, run: "sed 's/-all/-bin/g' gradle/wrapper/gradle-wrapper.properties > gradle/wrapper/gradle-wrapper.properties.bak; cp gradle/wrapper/gradle-wrapper.properties.bak gradle/wrapper/gradle-wrapper.properties" }
+      - { name: Set up JDK, uses: actions/setup-java@v4, with: { distribution: "${{ env.JAVA_DISTRIBUTION }}", java-version: "${{ env.JAVA_VERSION }}" } }
+      - { name: Prepare Gradle, uses: gradle/actions/setup-gradle@29c0906b64b8fc82467890bfb7a0a7ef34bda89e } # v3.1.0
+      - { name: Start gradle, run: ./gradlew }
+      - { if: "${{ matrix.precompileTask }}", name: "Building ${{ matrix.precompileTask }} classes", run: "./gradlew --stacktrace --parallel ${{ matrix.precompileTask }}" }
+      - { if: "${{ matrix.testTask }}", name: "Run ${{ matrix.testTask }} tests", run: "./gradlew ${{ matrix.testTask }}" }
+      - { if: "${{ matrix.buildTasks }}", name: "Run ${{ matrix.buildTasks }}", run: "./gradlew ${{ matrix.buildTasks }}" }
+      - name: Enable KVM
+        if: "${{ matrix.enableAndroid }}"
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - { name: "Run Android Tests", if: "${{ matrix.enableAndroid }}", uses: reactivecircus/android-emulator-runner@v2, with: { "api-level": 21, "script": "./gradlew connectedCheck" } }
+      - { name: Archive Test Results, if: failure(), uses: actions/upload-artifact@v4, with: { name: "test-results-${{ matrix.os }}", retention-days: 21, path: "**/build/reports", if-no-files-found: ignore } }
+      - { if: "${{ matrix.e2e }}", name: Publish to maven local, run: ./gradlew --parallel publishJvmLocal publishKotlinMultiplatformPublicationToMavenLocal }
