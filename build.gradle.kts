@@ -1,3 +1,8 @@
+plugins {
+    //kotlin("multiplatform") version "1.9.23"
+    kotlin("multiplatform") //apply false
+}
+
 allprojects {
     repositories {
         mavenCentral()
@@ -9,5 +14,20 @@ allprojects {
     }
     afterEvaluate {
         group = "com.soywiz"
+    }
+}
+
+kotlin {
+    jvm()
+}
+
+subprojects {
+    //apply<KotlinMultiplatformPlugin>()
+    apply(plugin = "kotlin-multiplatform")
+
+    kotlin {
+        js() {
+            nodejs()
+        }
     }
 }
