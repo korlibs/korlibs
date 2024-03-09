@@ -3,6 +3,7 @@ product:
   platforms: [jvm, js, android]
 
 dependencies:
+  - ../korlibs-util
 
 test-dependencies:
   - org.jetbrains.kotlin:kotlin-test:1.8.0
