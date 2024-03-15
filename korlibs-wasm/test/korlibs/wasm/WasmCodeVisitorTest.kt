@@ -4,11 +4,14 @@ import korlibs.io.async.*
 import korlibs.io.file.std.*
 import korlibs.io.stream.*
 import korlibs.memory.*
+import korlibs.platform.*
 import kotlin.test.*
 
 class WasmCodeVisitorTest {
     @Test
     fun test() = suspendTest {
+        if (Platform.isIos) return@suspendTest
+
         val module = WasmReaderBinary()
             .doTrace(false)
             .read(resourcesVfs["wasm/webp.wasm"].readBytes().openSync())

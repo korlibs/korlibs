@@ -46,10 +46,29 @@ subprojects {
     }
 
     afterEvaluate {
-        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class) {
-            kotlinOptions {
-                suppressWarnings = true
-                //freeCompilerArgs += "-Xjavac-arguments=-Xlint:-deprecation"
+        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask::class) {
+            compilerOptions.suppressWarnings.set(true)
+            //println(this::class.java)
+        }
+
+        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinNativeLink::class) {
+            // /Users/soywiz/projects/korge-korlibs/korlibs-io/build/bin/iosSimulatorArm64/debugTest
+            //println(this.target)
+            //val target = Regex("^link(.*?)Test.*$").find(this.name)?.groupValues?.getOrNull(1)?.replaceFirstChar { it.lowercaseChar() }
+            //println(target)
+            //val compileTaskName = this.name.replace(Regex("^link(.*?)Test.*$")) { "compileTestKotlin${it.groupValues[1]}" }
+            //val compileTask = tasks.findByName(compileTaskName) as? KotlinNativeCompile?
+
+            doLast {
+                val folder = this.outputs.files.toList().firstOrNull()
+                if (folder != null) {
+                    copy {
+                        //from(compileTask.defaultSourceSet.resources)
+                        from(File(project.projectDir, "testresources"))
+                        //from(File(project.rootDir, "build/bin/$target/debugTest"))
+                        into(folder)
+                    }
+                }
             }
         }
 
