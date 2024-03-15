@@ -1,5 +1,6 @@
 import org.gradle.api.tasks.testing.logging.*
 import org.jetbrains.kotlin.gradle.plugin.*
+import org.jetbrains.kotlin.gradle.targets.js.ir.*
 
 plugins {
     //kotlin("multiplatform") version "1.9.23"
@@ -28,20 +29,11 @@ subprojects {
     //apply<KotlinMultiplatformPlugin>()
     apply(plugin = "kotlin-multiplatform")
 
+
     kotlin {
-        js() {
+        js {
             nodejs()
-            browser {
-                //testTask { useKarma { useChromeHeadless() } }
-                testRuns.getByName(KotlinTargetWithTests.DEFAULT_TEST_RUN_NAME).executionTask.configure {
-                    useKarma {
-                        useChromeHeadless()
-                        File(project.rootProject.rootDir, "karma.config.d").takeIf { it.exists() }?.let {
-                            useConfigDirectory(it)
-                        }
-                    }
-                }
-            }
+            browser()
         }
     }
 
@@ -82,6 +74,20 @@ subprojects {
                 exceptionFormat = TestExceptionFormat.FULL
                 showStandardStreams = true
                 showStackTraces = true
+            }
+        }
+        kotlin.targets.withType(KotlinJsIrTarget::class) {
+            //println("TARGET: $this")
+            browser {
+                //testTask { useKarma { useChromeHeadless() } }
+                testRuns.getByName(KotlinTargetWithTests.DEFAULT_TEST_RUN_NAME).executionTask.configure {
+                    useKarma {
+                        useChromeHeadless()
+                        File(project.rootProject.rootDir, "karma.config.d").takeIf { it.exists() }?.let {
+                            useConfigDirectory(it)
+                        }
+                    }
+                }
             }
         }
     }
