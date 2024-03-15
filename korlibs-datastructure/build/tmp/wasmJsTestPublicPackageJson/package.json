@@ -1,0 +1,24 @@
+{
+  "name": "korge-root-korlibs-datastructure-wasm-js-test",
+  "version": "999.0.0-999",
+  "main": "korge-root-korlibs-datastructure-wasm-js-test.mjs",
+  "types": "korge-root-korlibs-datastructure-wasm-js-test.d.ts",
+  "devDependencies": {
+    "karma": "6.4.2",
+    "karma-mocha": "2.0.1",
+    "mocha": "10.2.0",
+    "karma-webpack": "5.0.0",
+    "webpack": "5.82.0",
+    "webpack-cli": "5.1.0",
+    "source-map-loader": "4.0.1",
+    "karma-sourcemap-loader": "0.4.0",
+    "karma-chrome-launcher": "3.2.0",
+    "typescript": "5.0.4"
+  },
+  "dependencies": {
+    "format-util": "^1.0.5"
+  },
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": []
+}
