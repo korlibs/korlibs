@@ -12,3 +12,6 @@ pluginManagement {
 plugins {
     id("org.jetbrains.amper.settings.plugin").version("0.2.1-dev-470")
 }
+
+//val localProperties = File(rootDir, "local.properties")
+//if (!localProperties.exists()) { }
