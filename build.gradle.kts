@@ -1,4 +1,5 @@
 import org.gradle.api.tasks.testing.logging.*
+import org.jetbrains.kotlin.gradle.plugin.*
 
 plugins {
     //kotlin("multiplatform") version "1.9.23"
@@ -30,6 +31,17 @@ subprojects {
     kotlin {
         js() {
             nodejs()
+            browser {
+                //testTask { useKarma { useChromeHeadless() } }
+                testRuns.getByName(KotlinTargetWithTests.DEFAULT_TEST_RUN_NAME).executionTask.configure {
+                    useKarma {
+                        useChromeHeadless()
+                        File(project.rootProject.rootDir, "karma.config.d").takeIf { it.exists() }?.let {
+                            useConfigDirectory(it)
+                        }
+                    }
+                }
+            }
         }
     }
 
