@@ -1,4 +1,4 @@
-package korlibs.time
+package korlibs.time.darwin
 
 import korlibs.time.*
 import platform.Foundation.*

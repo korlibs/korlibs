@@ -1,6 +1,7 @@
 @file:Suppress("PackageDirectoryMismatch")
+@file:OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 
-package korlibs.time
+package korlibs.time.internal
 
 import korlibs.time.*
 import korlibs.time.darwin.*
