@@ -110,7 +110,7 @@ class LocalVfsTest {
     @Test
     fun testListFlow() = suspendTest {
         // @TODO: catalog not being generated with amper
-        if (Platform.isJs) return@suspendTest
+        if (Platform.isJs || Platform.isWasm) return@suspendTest
 
         val cwd = localCurrentDirVfs
         val list = cwd.list().toList()
