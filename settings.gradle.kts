@@ -13,5 +13,18 @@ plugins {
     id("org.jetbrains.amper.settings.plugin").version("0.2.1-dev-470")
 }
 
-//val localProperties = File(rootDir, "local.properties")
-//if (!localProperties.exists()) { }
+File(rootDir, "local.properties").also { localProperties ->
+    if (localProperties.exists()) return@also
+
+    fun detectAndroidHome(): File? = listOf(
+        System.getenv("ANDROID_HOME")?.let { File(it) },
+        File(System.getProperty("user.home"), "/Library/Android/sdk"),
+        File(System.getProperty("user.home"), "/Android/Sdk"),
+        File(System.getProperty("user.home"), "/AppData/Local/Android/Sdk"),
+    ).firstNotNullOfOrNull { it?.takeIf { it.isDirectory } }
+
+    detectAndroidHome().let {
+        localProperties.writeText("sdk.dir=$it")
+    }
+}
+

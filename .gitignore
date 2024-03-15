@@ -2,3 +2,4 @@
 /.idea
 /build
 /java_*.hprof
+/local.properties

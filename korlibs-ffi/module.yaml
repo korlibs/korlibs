@@ -1,0 +1,20 @@
+product:
+  type: lib
+  platforms: [jvm, js, wasm, android, linuxX64, linuxArm64, tvosArm64, tvosX64, tvosSimulatorArm64, macosX64, macosArm64, iosArm64, iosSimulatorArm64, iosX64, watchosArm64, watchosArm32, watchosDeviceArm64, watchosSimulatorArm64, mingwX64]
+
+dependencies:
+  - ../korlibs-util: exported
+  - ../korlibs-platform: exported
+  - ../korlibs-datastructure: exported
+  - ../korlibs-memory: exported
+  - ../korlibs-annotations: exported
+  - ../korlibs-concurrent: exported
+  - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0: exported
+
+dependencies@jvm:
+  - net.java.dev.jna:jna:5.13.0: exported
+  - net.java.dev.jna:jna-platform:5.13.0: exported
+
+test-dependencies:
+  - org.jetbrains.kotlin:kotlin-test:1.8.0
+  - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0

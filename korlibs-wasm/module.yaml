@@ -1,0 +1,19 @@
+product:
+  type: lib
+  #platforms: [jvm, js, wasm, android, linuxX64, linuxArm64, tvosArm64, tvosX64, tvosSimulatorArm64, macosX64, macosArm64, iosArm64, iosSimulatorArm64, iosX64, watchosArm64, watchosArm32, watchosDeviceArm64, watchosSimulatorArm64, mingwX64]
+  platforms: [jvm, js, wasm, android, tvosArm64, tvosX64, tvosSimulatorArm64, iosArm64, iosSimulatorArm64, iosX64]
+
+dependencies:
+  - ../korlibs-memory
+  - ../korlibs-logger
+  - ../korlibs-math-core
+  - ../korlibs-datastructure
+  - ../korlibs-io
+
+dependencies@jvm:
+  - org.ow2.asm:asm:9.5
+  - org.ow2.asm:asm-util:9.5
+
+test-dependencies:
+  - org.jetbrains.kotlin:kotlin-test:1.8.0
+

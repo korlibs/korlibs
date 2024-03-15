@@ -1,0 +1,15 @@
+product:
+  type: lib
+  #platforms: [jvm, js, wasm, android, linuxX64, linuxArm64, tvosArm64, tvosX64, tvosSimulatorArm64, macosX64, macosArm64, iosArm64, iosSimulatorArm64, iosX64, watchosArm64, watchosArm32, watchosDeviceArm64, watchosSimulatorArm64, mingwX64]
+  platforms: [jvm, js, wasm, android, tvosArm64, tvosX64, tvosSimulatorArm64, iosArm64, iosSimulatorArm64, iosX64]
+
+dependencies:
+  - ../korlibs-io: exported
+  - ../korlibs-math: exported
+  - ../korlibs-ffi: exported
+  - ../korlibs-wasm: exported
+  - org.jetbrains.kotlinx:atomicfu:0.23.1
+
+test-dependencies:
+  - org.jetbrains.kotlin:kotlin-test:1.8.0
+  - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0
