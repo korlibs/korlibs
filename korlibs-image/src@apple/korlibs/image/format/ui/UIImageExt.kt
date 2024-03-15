@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalForeignApi::class)
+
 package korlibs.image.format.ui
 
 import cnames.structs.CGContext

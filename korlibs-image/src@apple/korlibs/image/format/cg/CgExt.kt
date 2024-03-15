@@ -1,7 +1,9 @@
+@file:OptIn(ExperimentalForeignApi::class)
+
 package korlibs.image.format.cg
 
 import korlibs.math.geom.*
-import kotlinx.cinterop.CValue
+import kotlinx.cinterop.*
 import platform.CoreGraphics.CGRect
 import platform.CoreGraphics.CGRectMake
 
