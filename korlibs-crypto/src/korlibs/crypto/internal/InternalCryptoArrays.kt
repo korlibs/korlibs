@@ -1,4 +1,4 @@
-package korlibs.internal
+package korlibs.crypto.internal
 
 /** Copies [size] elements of [src] starting at [srcPos] into [dst] at [dstPos]  */
 internal fun arraycopy(src: ByteArray, srcPos: Int, dst: ByteArray, dstPos: Int, size: Int) {
