@@ -30,4 +30,13 @@ subprojects {
             nodejs()
         }
     }
+
+    afterEvaluate {
+        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class) {
+            kotlinOptions {
+                suppressWarnings = true
+                //freeCompilerArgs += "-Xjavac-arguments=-Xlint:-deprecation"
+            }
+        }
+    }
 }

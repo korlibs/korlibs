@@ -1,9 +1,8 @@
+@file:OptIn(ExperimentalForeignApi::class)
+
 package korlibs.crypto
 
-import kotlinx.cinterop.addressOf
-import kotlinx.cinterop.convert
-import kotlinx.cinterop.get
-import kotlinx.cinterop.usePinned
+import kotlinx.cinterop.*
 import platform.posix.fclose
 import platform.posix.fopen
 import platform.posix.fread
