@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalForeignApi::class)
+
 package korlibs.audio.sound
 
 import korlibs.io.lang.printStackTrace

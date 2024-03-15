@@ -1,3 +1,4 @@
+@file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 package korlibs.concurrent.lock
 
 import korlibs.concurrent.thread.*

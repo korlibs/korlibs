@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
+
 package korlibs.memory
 
 import kotlinx.cinterop.*

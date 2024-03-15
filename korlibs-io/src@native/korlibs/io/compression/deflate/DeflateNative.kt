@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalNativeApi::class)
+@file:OptIn(ExperimentalNativeApi::class, ExperimentalForeignApi::class, UnsafeNumber::class)
 
 package korlibs.io.compression.deflate
 

@@ -1,3 +1,5 @@
+@file:OptIn(UnsafeNumber::class, ExperimentalForeignApi::class)
+
 package korlibs.io.posix
 
 import kotlinx.cinterop.*

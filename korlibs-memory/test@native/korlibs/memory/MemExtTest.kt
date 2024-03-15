@@ -1,6 +1,8 @@
+@file:OptIn(ExperimentalForeignApi::class)
+
 package korlibs.memory
 
-import kotlinx.cinterop.usePinned
+import kotlinx.cinterop.*
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 

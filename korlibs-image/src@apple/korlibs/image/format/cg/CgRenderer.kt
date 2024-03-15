@@ -1,4 +1,5 @@
 @file:Suppress("UnusedImport")
+@file:OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 
 package korlibs.image.format.cg
 
