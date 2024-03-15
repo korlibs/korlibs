@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.testing.logging.*
+
 plugins {
     //kotlin("multiplatform") version "1.9.23"
     kotlin("multiplatform") //apply false
@@ -36,6 +38,19 @@ subprojects {
             kotlinOptions {
                 suppressWarnings = true
                 //freeCompilerArgs += "-Xjavac-arguments=-Xlint:-deprecation"
+            }
+        }
+
+        tasks.withType(org.gradle.api.tasks.testing.AbstractTestTask::class) {
+            testLogging {
+                events = mutableSetOf(
+                    TestLogEvent.SKIPPED,
+                    TestLogEvent.FAILED,
+                    TestLogEvent.STANDARD_OUT, TestLogEvent.STANDARD_ERROR
+                )
+                exceptionFormat = TestExceptionFormat.FULL
+                showStandardStreams = true
+                showStackTraces = true
             }
         }
     }
