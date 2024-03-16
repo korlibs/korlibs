@@ -3,3 +3,4 @@
 /build
 /java_*.hprof
 /local.properties
+$catalog.json

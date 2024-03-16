@@ -76,6 +76,7 @@ subprojects {
                 showStackTraces = true
             }
         }
+
         kotlin.targets.withType(KotlinJsIrTarget::class) {
             //println("TARGET: $this")
             browser {
@@ -90,5 +91,42 @@ subprojects {
                 }
             }
         }
+
+        fun String.escape(): String = buildString(length) {
+            for (c in this@escape) when (c) { '\n' -> append("\\n"); '\r' -> append("\\r"); '\t' -> append("\\t"); '\\' -> append("\\\\"); else -> append(c)  }
+        }
+        fun String.quote(): String = "\"${escape()}\""
+
+        fun generateCatalog(folder: File): String = buildString {
+            appendLine("{")
+            for (file in folder.listFiles() ?: arrayOf()) {
+                val fileName = if (file.isDirectory) "${file.name}/" else file.name
+                appendLine(" ${fileName.quote()} : [${file.length()}, ${file.lastModified()}],")
+            }
+            appendLine("}")
+        }
+
+        for (taskName in listOf("jsTestProcessResources", "wasmTestProcessResources")) {
+            tasks.findByName(taskName)?.apply {
+                doLast {
+                    for (dir in this.outputs.files.toList().filter { it.isDirectory }) {
+                        for (file in dir.walkTopDown()) {
+                            if (file.isDirectory) {
+                                //println("file=$file")
+                                File(file, "\$catalog.json").writeText(generateCatalog(file))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        tasks.withType(ProcessResources::class) {
+            doFirst {
+            }
+            //println(this.outputs.files.toList())
+        }
+
+        //println(tasks.findByName("jsProcessResources")!!::class)
     }
 }
