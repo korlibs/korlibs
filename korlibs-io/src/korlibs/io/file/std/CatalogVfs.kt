@@ -14,12 +14,10 @@ import korlibs.io.file.VfsStat
 import korlibs.io.file.baseName
 import korlibs.io.file.normalize
 import korlibs.io.file.parent
-import korlibs.io.lang.FileNotFoundException
+import korlibs.io.lang.*
 import korlibs.io.serialization.json.Json
-import korlibs.io.stream.AsyncStream
-import korlibs.io.stream.AsyncStreamBase
-import korlibs.io.stream.buffered
-import korlibs.io.stream.toAsyncStream
+import korlibs.io.stream.*
+import korlibs.io.util.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.withContext
@@ -30,8 +28,20 @@ fun VfsFile.withCatalogJail(): VfsFile = CatalogVfs(this.jail()).root
 open class CatalogVfs(val parent: VfsFile) : Vfs.Proxy() {
     private val logger = Logger("CatalogVfs")
 
+    override suspend fun readRange(path: String, range: LongRange): ByteArray {
+        //println("READ RANGE: $path, $range\n")
+        return super.readRange(path, range)
+    }
+
     override suspend fun open(path: String, mode: VfsOpenMode): AsyncStream {
+        //println("OPEN: path=$path, mode=$mode\n")
         val fstat = statOrNull(path)
+
+        val READ_FULL_FILE_MAX_SIZE = 2L * 1024 * 1024
+        if (fstat != null && mode == VfsOpenMode.READ && fstat.size <= READ_FULL_FILE_MAX_SIZE) {
+            return this.readRange(path, LONG_ZERO_TO_MAX_RANGE).openAsync()
+        }
+
         val base = withContext(VfsCachedStatContext(fstat)) {
             super.open(path, mode).base
         }

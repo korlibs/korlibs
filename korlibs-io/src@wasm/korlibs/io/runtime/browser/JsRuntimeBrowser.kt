@@ -74,6 +74,9 @@ class HttpClientBrowserWasm : HttpClient() {
         content: AsyncInputStreamWithLength?
     ): Response {
         val deferred = CompletableDeferred<Response>(Job())
+
+        //println("HTTP REQUEST: $method, $url, $headers, $content\n")
+
         val xhr = XMLHttpRequest()
         xhr.open(method.name, url, true)
         //xhr.responseType = XMLHttpRequestResponseType.ARRAYBUFFER // @TODO: Error calling this accessor
