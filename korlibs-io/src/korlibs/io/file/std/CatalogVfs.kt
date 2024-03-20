@@ -22,10 +22,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.withContext
 
-fun VfsFile.withCatalog(): VfsFile = CatalogVfs(this).root
-fun VfsFile.withCatalogJail(): VfsFile = CatalogVfs(this.jail()).root
+inline fun VfsFile.withCatalog(config: (CatalogVfs) -> Unit = {}): VfsFile = CatalogVfs(this).also(config).root
+inline fun VfsFile.withCatalogJail(config: (CatalogVfs) -> Unit = {}): VfsFile = CatalogVfs(this.jail()).also(config).root
 
 open class CatalogVfs(val parent: VfsFile) : Vfs.Proxy() {
+    var readFullFileMaxSize: Long = 2 * 1024 * 1024
+
     private val logger = Logger("CatalogVfs")
 
     override suspend fun readRange(path: String, range: LongRange): ByteArray {
@@ -37,21 +39,32 @@ open class CatalogVfs(val parent: VfsFile) : Vfs.Proxy() {
         //println("OPEN: path=$path, mode=$mode\n")
         val fstat = statOrNull(path)
 
-        val READ_FULL_FILE_MAX_SIZE = 2L * 1024 * 1024
-        if (fstat != null && mode == VfsOpenMode.READ && fstat.size <= READ_FULL_FILE_MAX_SIZE) {
+        if (fstat != null && mode == VfsOpenMode.READ && fstat.size <= readFullFileMaxSize) {
             return this.readRange(path, LONG_ZERO_TO_MAX_RANGE).openAsync()
         }
 
         val base = withContext(VfsCachedStatContext(fstat)) {
             super.open(path, mode).base
         }
+        var maxSize: Long = if (fstat?.exists == true) fstat.size else base.getLength()
         return object : AsyncStreamBase() {
-            override suspend fun read(position: Long, buffer: ByteArray, offset: Int, len: Int): Int =
-                base.read(position, buffer, offset, len)
-            override suspend fun write(position: Long, buffer: ByteArray, offset: Int, len: Int) =
+            override fun toString(): String = "CatalogVfs@$parent:$base"
+
+            override suspend fun read(position: Long, buffer: ByteArray, offset: Int, len: Int): Int {
+                val rlen = minOf(len.toLong(), maxSize - position).toInt()
+                //println("READ: position=$position, offset=$offset, len=$len, rlen=$rlen, maxSize=$maxSize\n")
+                return base.read(position, buffer, offset, rlen)
+            }
+            override suspend fun write(position: Long, buffer: ByteArray, offset: Int, len: Int) {
                 base.write(position, buffer, offset, len)
-            override suspend fun setLength(value: Long) = base.setLength(value)
-            override suspend fun getLength(): Long = if (fstat?.exists == true) fstat.size else base.getLength()
+                maxSize = maxOf(maxSize, position + len)
+            }
+            override suspend fun setLength(value: Long) {
+                base.setLength(value)
+                maxSize = value
+                //maxSize = base.getLength()
+            }
+            override suspend fun getLength(): Long = maxSize
             override suspend fun close() = base.close()
         }.toAsyncStream().buffered()
     }

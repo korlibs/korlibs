@@ -129,4 +129,6 @@ subprojects {
 
         //println(tasks.findByName("jsProcessResources")!!::class)
     }
+
+    //println(KotlinCompilerVersion.VERSION)
 }
