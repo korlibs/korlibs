@@ -121,10 +121,16 @@ subprojects {
             }
         }
 
+        // This is required on linux because testResources / testresources mismatch (that doesn't happen on Windows or Mac)
+        // See https://github.com/korlibs/korge-korlibs/issues/6
         tasks.withType(ProcessResources::class) {
-            doFirst {
+            if (this.name.contains("js", ignoreCase = true) || this.name.contains("wasm", ignoreCase = true)) {
+                if (this.name.contains("Test")) {
+                    from("testresources")
+                }
+                from("resources")
+                duplicatesStrategy = DuplicatesStrategy.EXCLUDE
             }
-            //println(this.outputs.files.toList())
         }
 
         //println(tasks.findByName("jsProcessResources")!!::class)
