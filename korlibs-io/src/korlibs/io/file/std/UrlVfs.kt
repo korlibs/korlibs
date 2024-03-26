@@ -74,6 +74,8 @@ class UrlVfs(
 			}
 
 			return object : AsyncStreamBase() {
+				override fun toString(): String = "UrlVfs:$url:$path:$mode"
+
 				override suspend fun read(position: Long, buffer: ByteArray, offset: Int, len: Int): Int {
 					if (len == 0) return 0
 					val res = _readRangeBase(fullUrl, position until (position + len))

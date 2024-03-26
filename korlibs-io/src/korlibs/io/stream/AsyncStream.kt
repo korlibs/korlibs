@@ -288,11 +288,16 @@ class BufferedStreamBase(val base: AsyncStreamBase, val blockSize: Int = 2048, v
 	var cachedData = byteArrayOf()
 	var cachedSector = -1L
 
+	override fun toString(): String = "Buffered[$blocksToRead*$blockSize]:$base"
+
 	suspend fun _read(position: Long, buffer: ByteArray, offset: Int, len: Int): Int {
 		if (base.hasLength() && position >= base.getLength()) return -1
 		val sector = position / bsize
 		if (cachedSector != sector) {
-			cachedData = base.readBytes(sector * bsize, bsize)
+			val pos = sector * bsize
+			val len = if (base.hasLength()) minOf(bsize.toLong(), base.getLength() - pos).toInt() else bsize
+			//println("$base, position=$position, offset=$offset, len=$len, base.getLength()=${base.getLength()}\n")
+			cachedData = base.readBytes(pos, len)
 			cachedSector = sector
 		}
 		val soffset = (position % bsize).toInt()
