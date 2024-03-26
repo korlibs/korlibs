@@ -23,8 +23,8 @@ File(rootDir, "local.properties").also { localProperties ->
         File(System.getProperty("user.home"), "/AppData/Local/Android/Sdk"),
     ).firstNotNullOfOrNull { it?.takeIf { it.isDirectory } }
 
-    detectAndroidHome().let {
-        localProperties.writeText("sdk.dir=$it")
+    detectAndroidHome()?.let {
+        localProperties.writeText("sdk.dir=${it!!.absolutePath.replace("\\", "\\\\")}")
     }
 }
 
