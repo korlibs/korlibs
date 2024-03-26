@@ -102,7 +102,7 @@ var REAL_VERSION = System.getenv("FORCED_VERSION")
     ?.replaceFirst(Regex("^v"), "")
     ?.replaceFirst(Regex("^w"), "")
     ?.replaceFirst(Regex("^z"), "")
-    ?: rootProject.findProperty("version")
+    //?: rootProject.findProperty("version")
     ?: "999.0.0.999"
 
 //val REAL_VERSION = System.getenv("FORCED_VERSION") ?: "999.0.0.999"
