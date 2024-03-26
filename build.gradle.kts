@@ -97,7 +97,15 @@ if (stagedRepositoryId != null) {
     println("stagedRepositoryId=$stagedRepositoryId")
 }
 
-val REAL_VERSION = System.getenv("FORCED_VERSION") ?: "999.0.0.999"
+var REAL_VERSION = System.getenv("FORCED_VERSION")
+    ?.replaceFirst(Regex("^refs/tags/"), "")
+    ?.replaceFirst(Regex("^v"), "")
+    ?.replaceFirst(Regex("^w"), "")
+    ?.replaceFirst(Regex("^z"), "")
+    ?: rootProject.findProperty("version")
+    ?: "999.0.0.999"
+
+//val REAL_VERSION = System.getenv("FORCED_VERSION") ?: "999.0.0.999"
 
 allprojects {
     version = REAL_VERSION
