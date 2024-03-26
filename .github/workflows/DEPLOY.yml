@@ -30,6 +30,7 @@ jobs:
       - { name: Set up JDK, uses: actions/setup-java@v3, with: { distribution: "${{ env.JAVA_DISTRIBUTION }}", java-version: "${{ env.JAVA_VERSION }}" } }
       - { name: Replace Gradle Wrapper, run: "sed 's/-all/-bin/g' gradle/wrapper/gradle-wrapper.properties > gradle/wrapper/gradle-wrapper.properties.bak; cp gradle/wrapper/gradle-wrapper.properties.bak gradle/wrapper/gradle-wrapper.properties" }
       - { name: Prepare Gradle, uses: gradle/gradle-build-action@ef76a971e2fa3f867b617efd72f2fbd72cf6f8bc } # v2.8.0
+      - { name: Initialize Gradle, run: ./gradlew }
       - { name: Start Maven Central Staging Repository, run: ./gradlew checkReleasingMavenCentral }
       - { name: Publish Publications To Maven Repository, run: ./gradlew publishAllPublicationsToMavenRepository }
       - { name: Release to Maven Central, run: ./gradlew releaseMavenCentral }
