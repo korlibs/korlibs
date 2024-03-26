@@ -4,3 +4,4 @@
 /java_*.hprof
 /local.properties
 $catalog.json
+/stagedRepositoryId
