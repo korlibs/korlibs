@@ -4,6 +4,8 @@ settings:
     languageVersion: 1.9
   jvm:
     target: 1.8
+  android:
+    compileSdk: 33
 
 test-dependencies:
   - org.jetbrains.kotlin:kotlin-test:1.8.0

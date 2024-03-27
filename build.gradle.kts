@@ -143,6 +143,13 @@ subprojects {
     }
 
     afterEvaluate {
+        kotlin {
+            androidTarget {
+                publishAllLibraryVariants()
+                //publishLibraryVariants("release", "debug")
+            }
+        }
+
         tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask::class) {
             compilerOptions.suppressWarnings.set(true)
             //println(this::class.java)
@@ -258,6 +265,8 @@ subprojects {
                     doOnce("showDeployTo") { logger.info("DEPLOY mavenRepository: $url") }
                 }
             }
+
+            // publications.all { println("publication: $this : ${this.name}") }
 
             publications.withType(MavenPublication::class) {
                 val publication = this

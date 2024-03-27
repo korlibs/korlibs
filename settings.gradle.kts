@@ -29,4 +29,3 @@ File(rootDir, "local.properties").also { localProperties ->
         localProperties.writeText("sdk.dir=${it.absolutePath.replace("\\", "\\\\")}")
     }
 }
-
