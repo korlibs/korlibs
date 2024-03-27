@@ -10,7 +10,7 @@ dependencies:
   - ../korlibs-math: exported
   - ../korlibs-ffi: exported
   - ../korlibs-wasm: exported
-  - org.jetbrains.kotlinx:atomicfu:0.23.1
+  - org.jetbrains.kotlinx:atomicfu:0.23.1: exported
 
 test-dependencies:
   - org.jetbrains.kotlin:kotlin-test:1.8.0

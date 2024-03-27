@@ -5,9 +5,9 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
-  - org.jetbrains.kotlinx:atomicfu:0.23.1
-  #- ../korlibs-memory
-  - ../korlibs-concurrent
+  - org.jetbrains.kotlinx:atomicfu:0.23.1: exported
+  #- ../korlibs-memory: exported
+  - ../korlibs-concurrent: exported
 
 test-dependencies:
   - org.jetbrains.kotlin:kotlin-test:1.8.0

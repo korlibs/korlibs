@@ -5,8 +5,8 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
-  - ../korlibs-concurrent
-  - ../korlibs-time
+  - ../korlibs-concurrent: exported
+  - ../korlibs-time: exported
 
 test-dependencies:
   - org.jetbrains.kotlin:kotlin-test:1.8.0
