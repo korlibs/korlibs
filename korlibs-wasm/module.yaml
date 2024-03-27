@@ -6,11 +6,11 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
-  - ../korlibs-memory
-  - ../korlibs-logger
-  - ../korlibs-math-core
-  - ../korlibs-datastructure
-  - ../korlibs-io
+  - ../korlibs-memory: exported
+  - ../korlibs-logger: exported
+  - ../korlibs-math-core: exported
+  - ../korlibs-datastructure: exported
+  - ../korlibs-io: exported
 
 dependencies@jvm:
   - org.ow2.asm:asm:9.5

@@ -5,7 +5,7 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
-  - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0
+  - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0: exported
 
 test-dependencies:
   - org.jetbrains.kotlin:kotlin-test:1.8.0
