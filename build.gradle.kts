@@ -122,6 +122,19 @@ subprojects {
     apply(plugin = "maven-publish")
     apply(plugin = "signing")
 
+    //val JDK_VERSION = 8
+    //java.toolchain.languageVersion = JavaLanguageVersion.of(JDK_VERSION)
+    //kotlin.jvmToolchain(JDK_VERSION)
+    //afterEvaluate {
+    //    tasks.withType(Test::class) {
+    //        //this.javaLauncher.set()
+    //        this.javaLauncher.set(javaToolchains.launcherFor {
+    //            // 17 is latest at the current moment
+    //            languageVersion.set(JavaLanguageVersion.of(JDK_VERSION))
+    //        })
+    //    }
+    //}
+
     kotlin {
         js {
             nodejs()
