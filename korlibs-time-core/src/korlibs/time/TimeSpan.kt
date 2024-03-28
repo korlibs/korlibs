@@ -137,12 +137,6 @@ val Duration.millisecondsInt: Int get() = milliseconds.toInt()
 
 fun TimeSpan(milliseconds: Double): Duration = milliseconds.milliseconds
 
-operator fun Duration.plus(other: MonthSpan): DateTimeSpan = DateTimeSpan(other, this)
-operator fun Duration.plus(other: DateTimeSpan): DateTimeSpan = DateTimeSpan(other.monthSpan, other.timeSpan + this)
-
-operator fun Duration.minus(other: MonthSpan): DateTimeSpan = this + (-other)
-operator fun Duration.minus(other: DateTimeSpan): DateTimeSpan = this + (-other)
-
 operator fun Duration.times(scale: Float): Duration = TimeSpan((this.milliseconds * scale))
 operator fun Duration.div(scale: Float): Duration = TimeSpan(this.milliseconds / scale)
 
@@ -153,23 +147,6 @@ infix fun Duration.umod(other: Duration): Duration = (this.milliseconds umod oth
 /** Return true if [Duration.NIL] */
 val Duration.isNil: Boolean get() = this == DURATION_NIL
 
-fun Duration.Companion.now(): Duration = KlockInternal.now
-
-/**
- * Formats this [TimeSpan] into something like `12:30:40.100`.
- *
- * For 3 hour, 20 minutes and 15 seconds
- *
- * 1 [components] (seconds): 12015
- * 2 [components] (minutes): 200:15
- * 3 [components] (hours)  : 03:20:15
- * 4 [components] (days)   : 00:03:20:15
- *
- * With milliseconds would add decimals to the seconds part.
- */
-fun Duration.toTimeString(components: Int = 3, addMilliseconds: Boolean = false): String =
-    toTimeString(milliseconds, components, addMilliseconds)
-
 fun Duration.roundMilliseconds(): Duration = kotlin.math.round(milliseconds).milliseconds
 fun max(a: Duration, b: Duration): Duration = max(a.milliseconds, b.milliseconds).milliseconds
 fun min(a: Duration, b: Duration): Duration = min(a.milliseconds, b.milliseconds).milliseconds
@@ -179,30 +156,3 @@ fun Duration.clamp(min: Duration, max: Duration): Duration = when {
     else -> this
 }
 inline fun Duration.coalesce(block: () -> Duration): Duration = if (this != Duration.NIL) this else block()
-
-private val timeSteps = listOf(60, 60, 24)
-private fun toTimeStringRaw(totalMilliseconds: Double, components: Int = 3): String {
-    var timeUnit = floor(totalMilliseconds / 1000.0).toInt()
-
-    val out = arrayListOf<String>()
-
-    for (n in 0 until components) {
-        if (n == components - 1) {
-            out += timeUnit.padded(2)
-            break
-        }
-        val step = timeSteps.getOrNull(n) ?: throw RuntimeException("Just supported ${timeSteps.size} steps")
-        val cunit = timeUnit % step
-        timeUnit /= step
-        out += cunit.padded(2)
-    }
-
-    return out.reversed().joinToString(":")
-}
-
-@PublishedApi
-internal fun toTimeString(totalMilliseconds: Double, components: Int = 3, addMilliseconds: Boolean = false): String {
-    val milliseconds = (totalMilliseconds % 1000).toInt()
-    val out = toTimeStringRaw(totalMilliseconds, components)
-    return if (addMilliseconds) "$out.$milliseconds" else out
-}
