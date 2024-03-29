@@ -17,7 +17,6 @@ class CharReaderTest {
         assertEquals("á,éí,óúñ", listOf(reader.read(1), reader.read(2), reader.read(3)).joinToString(","))
 
         assertFailsWith<IllegalArgumentException> { "áéíóúñ".toByteArray(UTF8).toCharReader(charset = UTF8, chunkSize = CharReaderFromSyncStream.MIN_CHUNK_SIZE -1) }
-
     }
 
     @Test
@@ -32,14 +31,14 @@ class CharReaderTest {
             "Sm糛҆Òう楢ょ😽ê.",
             "X5O!P%@AP[4\\PZX54(P^)7CC)7}\$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!\$H+H*"
         )
-        (1..5).forEach { readCount ->
+        (1..20).forEach { readCount ->
             randomStrings.forEach { inputData ->
                 val dataSegments: List<String> = inputData.splitInChunks(readCount)
 
-                for (chunkSize in 8 until 2000) {
+                for (chunkSize in ((8 until 80).toList() + listOf(1000, 1333, 1500, 2000, 2048))) {
                     val charReader = inputData.openSync().toCharReader(charset = Charsets.UTF8, chunkSize = chunkSize)
                     dataSegments.forEach { data ->
-                        val strBuilder = StringBuilder()
+                        val strBuilder = StringBuilder(readCount)
                         assertEquals(data.length, charReader.read(strBuilder, readCount))
                         assertEquals(data, strBuilder.toString())
                     }
