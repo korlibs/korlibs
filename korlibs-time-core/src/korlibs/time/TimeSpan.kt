@@ -20,72 +20,72 @@ internal val DURATION_NIL: Duration = (-0x001FFFFFFFFFFFF3L).toDuration(Duration
 inline val Duration.Companion.NIL: Duration get() = DURATION_NIL
 //val Duration.Companion.ZERO get() = Duration.ZERO
 
-/** [TimeSpan] representing this number as [nanoseconds] or 1 / 1_000_000_000 [seconds]. */
+/** [Duration] representing this number as [nanoseconds] or 1 / 1_000_000_000 [seconds]. */
 inline val Long.nanoseconds: Duration get() = toDuration(DurationUnit.NANOSECONDS)
-/** [TimeSpan] representing this number as [microseconds] or 1 / 1_000_000 [seconds]. */
+/** [Duration] representing this number as [microseconds] or 1 / 1_000_000 [seconds]. */
 inline val Long.microseconds: Duration get() = toDuration(DurationUnit.MICROSECONDS)
-/** [TimeSpan] representing this number as [milliseconds] or 1 / 1_000 [seconds]. */
+/** [Duration] representing this number as [milliseconds] or 1 / 1_000 [seconds]. */
 inline val Long.milliseconds: Duration get() = toDuration(DurationUnit.MILLISECONDS)
-/** [TimeSpan] representing this number as [seconds]. */
+/** [Duration] representing this number as [seconds]. */
 inline val Long.seconds: Duration get() = toDuration(DurationUnit.SECONDS)
-/** [TimeSpan] representing this number as [minutes] or 60 [seconds]. */
+/** [Duration] representing this number as [minutes] or 60 [seconds]. */
 inline val Long.minutes: Duration get() = toDuration(DurationUnit.MINUTES)
-/** [TimeSpan] representing this number as [hours] or 3_600 [seconds]. */
+/** [Duration] representing this number as [hours] or 3_600 [seconds]. */
 inline val Long.hours: Duration get() = toDuration(DurationUnit.HOURS)
-/** [TimeSpan] representing this number as [days] or 86_400 [seconds]. */
+/** [Duration] representing this number as [days] or 86_400 [seconds]. */
 inline val Long.days: Duration get() = toDuration(DurationUnit.DAYS)
-/** [TimeSpan] representing this number as [weeks] or 604_800 [seconds]. */
+/** [Duration] representing this number as [weeks] or 604_800 [seconds]. */
 inline val Long.weeks: Duration get() = (this * 7).days
 
-/** [TimeSpan] representing this number as [nanoseconds] or 1 / 1_000_000_000 [seconds]. */
+/** [Duration] representing this number as [nanoseconds] or 1 / 1_000_000_000 [seconds]. */
 inline val Float.nanoseconds get() = this.toDouble().nanoseconds
-/** [TimeSpan] representing this number as [microseconds] or 1 / 1_000_000 [seconds]. */
+/** [Duration] representing this number as [microseconds] or 1 / 1_000_000 [seconds]. */
 inline val Float.microseconds get() = this.toDouble().microseconds
-/** [TimeSpan] representing this number as [milliseconds] or 1 / 1_000 [seconds]. */
+/** [Duration] representing this number as [milliseconds] or 1 / 1_000 [seconds]. */
 inline val Float.milliseconds get() = this.toDouble().milliseconds
-/** [TimeSpan] representing this number as [seconds]. */
+/** [Duration] representing this number as [seconds]. */
 inline val Float.seconds get() = this.toDouble().seconds
-/** [TimeSpan] representing this number as [minutes] or 60 [seconds]. */
+/** [Duration] representing this number as [minutes] or 60 [seconds]. */
 inline val Float.minutes get() = this.toDouble().minutes
-/** [TimeSpan] representing this number as [hours] or 3_600 [seconds]. */
+/** [Duration] representing this number as [hours] or 3_600 [seconds]. */
 inline val Float.hours get() = this.toDouble().hours
-/** [TimeSpan] representing this number as [days] or 86_400 [seconds]. */
+/** [Duration] representing this number as [days] or 86_400 [seconds]. */
 inline val Float.days get() = this.toDouble().days
-/** [TimeSpan] representing this number as [weeks] or 604_800 [seconds]. */
+/** [Duration] representing this number as [weeks] or 604_800 [seconds]. */
 inline val Float.weeks get() = this.toDouble().weeks
 
-/** [TimeSpan] representing this number as [nanoseconds] or 1 / 1_000_000_000 [seconds]. */
+/** [Duration] representing this number as [nanoseconds] or 1 / 1_000_000_000 [seconds]. */
 inline val Int.nanoseconds: Duration get() = this.toDouble().nanoseconds
-/** [TimeSpan] representing this number as [microseconds] or 1 / 1_000_000 [seconds]. */
+/** [Duration] representing this number as [microseconds] or 1 / 1_000_000 [seconds]. */
 inline val Int.microseconds: Duration get() = this.toDouble().microseconds
-/** [TimeSpan] representing this number as [milliseconds] or 1 / 1_000 [seconds]. */
+/** [Duration] representing this number as [milliseconds] or 1 / 1_000 [seconds]. */
 inline val Int.milliseconds: Duration get() = this.toDouble().milliseconds
-/** [TimeSpan] representing this number as [seconds]. */
+/** [Duration] representing this number as [seconds]. */
 inline val Int.seconds: Duration get() = this.toDouble().seconds
-/** [TimeSpan] representing this number as [minutes] or 60 [seconds]. */
+/** [Duration] representing this number as [minutes] or 60 [seconds]. */
 inline val Int.minutes: Duration get() = this.toDouble().minutes
-/** [TimeSpan] representing this number as [hours] or 3_600 [seconds]. */
+/** [Duration] representing this number as [hours] or 3_600 [seconds]. */
 inline val Int.hours: Duration get() = this.toDouble().hours
-/** [TimeSpan] representing this number as [days] or 86_400 [seconds]. */
+/** [Duration] representing this number as [days] or 86_400 [seconds]. */
 inline val Int.days: Duration get() = this.toDouble().days
-/** [TimeSpan] representing this number as [weeks] or 604_800 [seconds]. */
+/** [Duration] representing this number as [weeks] or 604_800 [seconds]. */
 inline val Int.weeks: Duration get() = this.toDouble().weeks
 
-/** [TimeSpan] representing this number as [nanoseconds] or 1 / 1_000_000_000 [seconds]. */
+/** [Duration] representing this number as [nanoseconds] or 1 / 1_000_000_000 [seconds]. */
 inline val Double.nanoseconds: Duration get() = toDuration(DurationUnit.NANOSECONDS)
-/** [TimeSpan] representing this number as [microseconds] or 1 / 1_000_000 [seconds]. */
+/** [Duration] representing this number as [microseconds] or 1 / 1_000_000 [seconds]. */
 inline val Double.microseconds: Duration get() = toDuration(DurationUnit.MICROSECONDS)
-/** [TimeSpan] representing this number as [milliseconds] or 1 / 1_000 [seconds]. */
+/** [Duration] representing this number as [milliseconds] or 1 / 1_000 [seconds]. */
 inline val Double.milliseconds: Duration get() = toDuration(DurationUnit.MILLISECONDS)
-/** [TimeSpan] representing this number as [seconds]. */
+/** [Duration] representing this number as [seconds]. */
 inline val Double.seconds: Duration get() = toDuration(DurationUnit.SECONDS)
-/** [TimeSpan] representing this number as [minutes] or 60 [seconds]. */
+/** [Duration] representing this number as [minutes] or 60 [seconds]. */
 inline val Double.minutes: Duration get() = toDuration(DurationUnit.MINUTES)
-/** [TimeSpan] representing this number as [hours] or 3_600 [seconds]. */
+/** [Duration] representing this number as [hours] or 3_600 [seconds]. */
 inline val Double.hours: Duration get() = toDuration(DurationUnit.HOURS)
-/** [TimeSpan] representing this number as [days] or 86_400 [seconds]. */
+/** [Duration] representing this number as [days] or 86_400 [seconds]. */
 inline val Double.days: Duration get() = toDuration(DurationUnit.DAYS)
-/** [TimeSpan] representing this number as [weeks] or 604_800 [seconds]. */
+/** [Duration] representing this number as [weeks] or 604_800 [seconds]. */
 inline val Double.weeks: Duration get() = (this * 7).days
 
 inline fun Duration.Companion.fromNanoseconds(value: Double): Duration = value.nanoseconds
@@ -118,27 +118,27 @@ inline operator fun Duration.unaryPlus(): Duration = this
 
 val Duration.milliseconds: Double get() = this.inWholeNanoseconds.toDouble() / 1_000_000.0
 
-/** Returns the total number of [nanoseconds] for this [TimeSpan] (1 / 1_000_000_000 [seconds]) */
+/** Returns the total number of [nanoseconds] for this [Duration] (1 / 1_000_000_000 [seconds]) */
 inline val Duration.nanoseconds: Double get() = this.inWholeNanoseconds.toDouble()
-/** Returns the total number of [nanoseconds] for this [TimeSpan] (1 / 1_000_000_000 [seconds]) */
+/** Returns the total number of [nanoseconds] for this [Duration] (1 / 1_000_000_000 [seconds]) */
 inline val Duration.nanosecondsLong: Long get() = this.inWholeNanoseconds
-/** Returns the total number of [nanoseconds] for this [TimeSpan] (1 / 1_000_000_000 [seconds]) as Integer */
+/** Returns the total number of [nanoseconds] for this [Duration] (1 / 1_000_000_000 [seconds]) as Integer */
 inline val Duration.nanosecondsInt: Int get() = this.inWholeNanoseconds.toInt()
 
-/** Returns the total number of [microseconds] for this [TimeSpan] (1 / 1_000_000 [seconds]) */
+/** Returns the total number of [microseconds] for this [Duration] (1 / 1_000_000 [seconds]) */
 inline val Duration.microseconds: Double get() = this.inWholeNanoseconds.toDouble() / 1_000.0
-/** Returns the total number of [microseconds] for this [TimeSpan] (1 / 1_000_000 [seconds]) as Integer */
+/** Returns the total number of [microseconds] for this [Duration] (1 / 1_000_000 [seconds]) as Integer */
 inline val Duration.microsecondsInt: Int get() = microseconds.toInt()
 
-/** Returns the total number of [seconds] for this [TimeSpan] */
+/** Returns the total number of [seconds] for this [Duration] */
 val Duration.seconds: Double get() = this.milliseconds / MILLIS_PER_SECOND
-/** Returns the total number of [minutes] for this [TimeSpan] (60 [seconds]) */
+/** Returns the total number of [minutes] for this [Duration] (60 [seconds]) */
 val Duration.minutes: Double get() = this.milliseconds / MILLIS_PER_MINUTE
-/** Returns the total number of [hours] for this [TimeSpan] (3_600 [seconds]) */
+/** Returns the total number of [hours] for this [Duration] (3_600 [seconds]) */
 val Duration.hours: Double get() = this.milliseconds / MILLIS_PER_HOUR
-/** Returns the total number of [days] for this [TimeSpan] (86_400 [seconds]) */
+/** Returns the total number of [days] for this [Duration] (86_400 [seconds]) */
 val Duration.days: Double get() = this.milliseconds / MILLIS_PER_DAY
-/** Returns the total number of [weeks] for this [TimeSpan] (604_800 [seconds]) */
+/** Returns the total number of [weeks] for this [Duration] (604_800 [seconds]) */
 val Duration.weeks: Double get() = this.milliseconds / MILLIS_PER_WEEK
 
 /** Returns the total number of [milliseconds] as a [Long] */
