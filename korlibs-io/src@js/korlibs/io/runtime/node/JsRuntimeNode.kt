@@ -389,7 +389,7 @@ private class NodeJsLocalVfs : LocalVfs() {
                 "w+"
             }
             VfsOpenMode.CREATE -> "wx+"
-            VfsOpenMode.APPEND -> "a"
+            VfsOpenMode.APPEND -> "a+"
         }
 
         return _open(path, cmode)
@@ -403,7 +403,9 @@ private class NodeJsLocalVfs : LocalVfs() {
                 if (err != null || fd == null) {
                     cc.resumeWithException(FileNotFoundException("Can't open '$path' with mode '$cmode': err=$err"))
                 } else {
-                    cc.resume(NodeFDStream(file, fd).toAsyncStream())
+                    nodeFS.fstat(fd) { _, stats ->
+                        cc.resume(NodeFDStream(file, fd).toAsyncStream(if (cmode == "a+") stats?.size?.toLong() ?: 0L else 0L))
+                    }
                 }
                 Unit
             }

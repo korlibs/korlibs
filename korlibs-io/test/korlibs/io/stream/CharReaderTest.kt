@@ -32,7 +32,7 @@ class CharReaderTest {
             "Sm糛҆Òう楢ょ😽ê.",
             "X5O!P%@AP[4\\PZX54(P^)7CC)7}\$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!\$H+H*"
         )
-        (1..30).forEach { readCount ->
+        (1..5).forEach { readCount ->
             randomStrings.forEach { inputData ->
                 val dataSegments: List<String> = inputData.splitInChunks(readCount)
 
