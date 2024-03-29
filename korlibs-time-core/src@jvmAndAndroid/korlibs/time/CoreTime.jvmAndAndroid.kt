@@ -1,3 +1,4 @@
 package korlibs.time
 
-actual fun currentTimeMillis(): Long = System.currentTimeMillis()
+var currentTimeMillisJvm: () -> Long = { System.currentTimeMillis() }
+actual fun currentTimeMillis(): Long = currentTimeMillisJvm()

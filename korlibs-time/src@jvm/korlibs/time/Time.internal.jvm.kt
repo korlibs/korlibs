@@ -18,9 +18,12 @@ internal actual object KlockInternal {
 inline fun <T> TemporalKlockInternalJvm(impl: KlockInternalJvm, callback: () -> T): T {
     val old = CurrentKlockInternalJvm
     CurrentKlockInternalJvm = impl
+    val oldCurrentTimeMillis = currentTimeMillisJvm
+    currentTimeMillisJvm = { impl.currentTime.toLong() }
     try {
         return callback()
     } finally {
+        currentTimeMillisJvm = oldCurrentTimeMillis
         CurrentKlockInternalJvm = old
     }
 }

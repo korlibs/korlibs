@@ -1,7 +1,6 @@
 package korlibs.time.internal
 
 import korlibs.time.*
-import korlibs.time.internal.umod
 import kotlin.math.*
 
 internal infix fun Int.umod(other: Int): Int {
@@ -39,7 +38,14 @@ internal const val MILLIS_PER_WEEK = MILLIS_PER_DAY * 7 // 604800_000
 internal const val MILLIS_PER_MICROSECOND = 1.0 / 1000.0
 internal const val MILLIS_PER_NANOSECOND = MILLIS_PER_MICROSECOND / 1000.0
 
-internal val MONTH_START_DAYS: Array<IntArray> by lazy { Array(2) { leap -> IntArray(13) { if (it == 0) 0 else Month_days(it + 1, leap != 0) } } }
+internal val MONTH_START_DAYS: Array<IntArray> by lazy { Array(2) { leap ->
+    var acc = 0
+    IntArray(13) { month ->
+        acc += if (month == 0) 0 else Month_days(month, leap != 0)
+        acc
+    } }
+}
+
 
 internal fun Month_daysToStart(month: Int, year: Int): Int = Month_daysToStart(month, Year_isLeap(year))
 internal fun Month_daysToStart(month: Int, leap: Boolean): Int = MONTH_START_DAYS[if (leap) 1 else 0][Month_adjust(month) - 1]
