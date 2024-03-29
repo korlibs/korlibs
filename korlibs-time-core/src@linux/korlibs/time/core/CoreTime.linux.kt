@@ -15,14 +15,6 @@ actual var CoreTime: ICoreTime = object : ICoreTime {
         ((sec * 1_000L) + (usec / 1_000L))
     }
 
-    override fun nanoTime(): Long = memScoped {
-        val timeVal = alloc<timeval>()
-        gettimeofday(timeVal.ptr, null)
-        val sec = timeVal.tv_sec
-        val usec = timeVal.tv_usec
-        (TimeSpan.fromSeconds(sec.toInt()) + TimeSpan.fromMicroseconds(usec.toInt())).inWholeNanoseconds
-    }
-
     override fun localTimezoneOffset(time: Long): Duration = memScoped {
         val t = alloc<time_tVar>()
         val tm = alloc<tm>()

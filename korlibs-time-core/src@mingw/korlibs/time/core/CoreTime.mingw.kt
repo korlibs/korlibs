@@ -16,14 +16,6 @@ actual var CoreTime: ICoreTime = object : ICoreTime {
         ((sec * 1_000L) + (usec / 1_000L))
     }
 
-    override fun nanoTime(): Long = memScoped {
-        val timeVal = alloc<timeval>()
-        mingw_gettimeofday(timeVal.ptr, null)
-        val sec = timeVal.tv_sec
-        val usec = timeVal.tv_usec
-        return (TimeSpan.fromSeconds(sec) + TimeSpan.fromMicroseconds(usec)).nanosecondsLong
-    }
-
     override fun localTimezoneOffset(time: Long): Duration = memScoped {
         val timeAsFileTime = UnixMillisecondsToWindowsTicks(time)
         val utcFtime = FILETIME_fromWindowsTicks(this, timeAsFileTime)

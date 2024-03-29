@@ -14,14 +14,6 @@ actual var CoreTime: ICoreTime = object : ICoreTime {
         ((sec * 1_000L) + (usec / 1_000L)).toLong()
     }
 
-    override fun nanoTime(): Long = memScoped {
-        val timeVal = alloc<timeval>()
-        gettimeofday(timeVal.ptr, null)
-        val sec = timeVal.tv_sec
-        val usec = timeVal.tv_usec
-        (TimeSpan.fromSeconds(sec.toInt()) + TimeSpan.fromMicroseconds(usec.toInt())).nanosecondsLong
-    }
-
     override fun localTimezoneOffset(time: Long): Duration = autoreleasepool {
         CFAbsoluteTimeGetCurrent()
         return getLocalTimezoneOffsetDarwin(CFTimeZoneCopySystem(), DateTime(time))

@@ -24,14 +24,11 @@ inline fun <T> TestUnsafeSetTemporalCoreTime(tempCoreTime: ICoreTime, block: () 
 interface ICoreTime {
     /** Unix timestamp in milliseconds */
     fun currentTimeMillis(): Long
-    /** Nano-second resolution */
-    fun nanoTime(): Long
     /** Timezone offset for a specific [time]stamp */
     fun localTimezoneOffset(time: Long): Duration
     /** Synchronous sleep (may spinlock, use with care) */
     fun sleep(time: Duration) {
-        val start = nanoTime()
-        val timeNanoseconds = time.nanoseconds
-        while (nanoTime() - start < timeNanoseconds) Unit
+        val start = TimeSource.Monotonic.markNow()
+        while (start.elapsedNow() < time) Unit
     }
 }

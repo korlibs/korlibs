@@ -6,7 +6,6 @@ import kotlin.time.*
 
 actual var CoreTime: ICoreTime = object : ICoreTime {
     override fun currentTimeMillis(): Long = System.currentTimeMillis()
-    override fun nanoTime(): Long = System.nanoTime()
     override fun localTimezoneOffset(time: Long): Duration = TimeZone.getDefault().getOffset(time).milliseconds
     override fun sleep(time: Duration) {
         val nanos = time.nanoseconds.toLong()

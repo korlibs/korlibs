@@ -9,23 +9,25 @@ import kotlin.time.*
  */
 @OptIn(CoreTimeInternalApi::class)
 object PerformanceCounter {
+    private val start = TimeSource.Monotonic.markNow()
+
     /**
      * Returns a performance counter measure in nanoseconds.
      */
-    val nanoseconds: Double get() = CoreTime.nanoTime().toDouble()
+    val nanoseconds: Double get() = start.elapsedNow().nanoseconds
 
     /**
      * Returns a performance counter measure in microseconds.
      */
-    val microseconds: Double get() = CoreTime.nanoTime().toDouble() / 1_000.0
+    val microseconds: Double get() = start.elapsedNow().microseconds
 
     /**
      * Returns a performance counter measure in milliseconds.
      */
-    val milliseconds: Double get() = CoreTime.nanoTime().toDouble() / 1_000_000.0
+    val milliseconds: Double get() = start.elapsedNow().milliseconds
 
     /**
      * Returns a performance counter as a [Duration].
      */
-    val reference: Duration get() = CoreTime.nanoTime().nanoseconds
+    val reference: Duration get() = start.elapsedNow()
 }
