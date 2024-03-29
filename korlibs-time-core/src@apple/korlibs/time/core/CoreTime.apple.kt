@@ -1,6 +1,7 @@
 package korlibs.time.core
 
 import korlibs.time.*
+import korlibs.time.darwin.*
 import kotlinx.cinterop.*
 import platform.posix.*
 import platform.Foundation.*
