@@ -3,7 +3,7 @@ package korlibs.time.darwin
 import korlibs.time.*
 import platform.Foundation.*
 
-private val APPLE_REFERENCE_NSDATE = DateTime(2001, Month.January, 1, 0, 0, 0, 0)
+private val APPLE_REFERENCE_NSDATE = DateTime(2001, 1, 1, 0, 0, 0, 0)
 
 val DateTime.Companion.APPLE_REFERENCE_DATE: DateTime get() = APPLE_REFERENCE_NSDATE
 
