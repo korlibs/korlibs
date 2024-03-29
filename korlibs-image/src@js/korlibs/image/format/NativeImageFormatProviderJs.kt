@@ -85,7 +85,7 @@ open class HtmlNativeImage(val texSourceBase: TexImageSource, width: Int, height
 
         if (texSourceBase is HTMLVideoElement) {
             // Must refresh
-            val now = PerformanceCounter.reference
+            val now = jsGlobalThis.asDynamic().performance.now().unsafeCast<Double>().milliseconds
             val elapsedTime = now - lastRefresh
             if (elapsedTime >= 16.milliseconds) {
                 lastRefresh = now
