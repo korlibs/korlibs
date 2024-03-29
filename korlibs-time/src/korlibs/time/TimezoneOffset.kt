@@ -1,6 +1,6 @@
 package korlibs.time
 
-import korlibs.time.internal.KlockInternal
+import korlibs.time.core.*
 import korlibs.time.internal.MILLIS_PER_MINUTE
 import korlibs.time.internal.Serializable
 import korlibs.time.internal.padded
@@ -59,7 +59,8 @@ value class TimezoneOffset(
          * For example, GMT+01 would return 60.minutes.
          * This uses the Operating System to compute daylight offsets when required.
          */
-        fun local(time: DateTime): TimezoneOffset = KlockInternal.localTimezoneOffsetMinutes(time).offset
+        @OptIn(CoreTimeInternalApi::class)
+        fun local(time: DateTime): TimezoneOffset = CoreTime.localTimezoneOffset(time.unixMillisLong).offset
     }
 
     override fun compareTo(other: TimezoneOffset): Int = totalMilliseconds.compareTo(other.totalMilliseconds)

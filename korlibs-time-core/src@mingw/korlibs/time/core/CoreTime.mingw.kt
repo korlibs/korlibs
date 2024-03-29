@@ -1,42 +1,31 @@
-@file:OptIn(ExperimentalForeignApi::class)
-@file:Suppress("PackageDirectoryMismatch")
-
-package korlibs.time.internal
+package korlibs.time.core
 
 import korlibs.time.*
 import kotlinx.cinterop.*
-import platform.posix.mingw_gettimeofday
-import platform.posix.timeval
-import platform.windows.FILETIME
-import platform.windows.FileTimeToSystemTime
-import platform.windows.GetTimeZoneInformation
-import platform.windows.SYSTEMTIME
-import platform.windows.SystemTimeToFileTime
-import platform.windows.SystemTimeToTzSpecificLocalTime
-import platform.windows.TIME_ZONE_INFORMATION
-import platform.windows.TzSpecificLocalTimeToSystemTime
+import platform.posix.*
+import platform.windows.*
+import kotlin.time.*
 
-internal actual object KlockInternal {
-    actual val currentTime: Double
-        get() = memScoped {
-            val timeVal = alloc<timeval>()
-            mingw_gettimeofday(timeVal.ptr, null) // mingw: doesn't expose gettimeofday, but mingw_gettimeofday
-            val sec = timeVal.tv_sec
-            val usec = timeVal.tv_usec
-            ((sec * 1_000L) + (usec / 1_000L)).toDouble()
-        }
+@OptIn(ExperimentalForeignApi::class)
+actual var CoreTime: ICoreTime = object : ICoreTime {
+    override fun currentTimeMillis(): Long = memScoped {
+        val timeVal = alloc<timeval>()
+        mingw_gettimeofday(timeVal.ptr, null) // mingw: doesn't expose gettimeofday, but mingw_gettimeofday
+        val sec = timeVal.tv_sec
+        val usec = timeVal.tv_usec
+        ((sec * 1_000L) + (usec / 1_000L))
+    }
 
-    actual val now: TimeSpan
-        get() = memScoped {
-            val timeVal = alloc<timeval>()
-            mingw_gettimeofday(timeVal.ptr, null)
-            val sec = timeVal.tv_sec
-            val usec = timeVal.tv_usec
-            TimeSpan.fromSeconds(sec) + TimeSpan.fromMicroseconds(usec)
-        }
+    override fun nanoTime(): Long = memScoped {
+        val timeVal = alloc<timeval>()
+        mingw_gettimeofday(timeVal.ptr, null)
+        val sec = timeVal.tv_sec
+        val usec = timeVal.tv_usec
+        return (TimeSpan.fromSeconds(sec) + TimeSpan.fromMicroseconds(usec)).nanosecondsLong
+    }
 
-    actual fun localTimezoneOffsetMinutes(time: DateTime): TimeSpan = memScoped {
-        val timeAsFileTime = UnixMillisecondsToWindowsTicks(time.unixMillisLong)
+    override fun localTimezoneOffset(time: Long): Duration = memScoped {
+        val timeAsFileTime = UnixMillisecondsToWindowsTicks(time)
         val utcFtime = FILETIME_fromWindowsTicks(this, timeAsFileTime)
         val timezone = getTimeZoneInformation(this)
         val utcStime = utcFtime.toSystemTime(this)
@@ -46,7 +35,7 @@ internal actual object KlockInternal {
         return (localUnix - utcUnix).milliseconds
     }
 
-    actual fun sleep(time: TimeSpan) {
+    override fun sleep(time: TimeSpan) {
         val micros = time.inWholeMicroseconds
         val s = micros / 1_000_000
         val u = micros % 1_000_000
@@ -63,8 +52,8 @@ internal actual object KlockInternal {
     fun FILETIME.toWindowsTicks() = ((dwHighDateTime.toULong() shl 32) or (dwLowDateTime.toULong())).toLong()
     fun FILETIME.toUnix() = WindowsTickToUnixMilliseconds(toWindowsTicks())
     fun FILETIME_fromUnix(scope: NativePlacement, unix: Long): FILETIME = FILETIME_fromWindowsTicks(scope, UnixMillisecondsToWindowsTicks(unix))
-    const val WINDOWS_TICK = 10_000L
-    const val MS_TO_UNIX_EPOCH = 11644473600_000L
+    private val WINDOWS_TICK = 10_000L
+    private val MS_TO_UNIX_EPOCH = 11644473600_000L
     fun WindowsTickToUnixMilliseconds(windowsTicks: Long) = (windowsTicks / WINDOWS_TICK - MS_TO_UNIX_EPOCH)
     fun UnixMillisecondsToWindowsTicks(unix: Long) = ((unix + MS_TO_UNIX_EPOCH) * WINDOWS_TICK)
 }

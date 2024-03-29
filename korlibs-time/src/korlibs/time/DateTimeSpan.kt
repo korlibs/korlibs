@@ -1,18 +1,15 @@
 package korlibs.time
 
-import korlibs.time.internal.MILLIS_PER_DAY
-import korlibs.time.internal.MILLIS_PER_HOUR
-import korlibs.time.internal.MILLIS_PER_MINUTE
-import korlibs.time.internal.MILLIS_PER_SECOND
-import korlibs.time.internal.MILLIS_PER_WEEK
+import korlibs.time.core.*
+import korlibs.time.internal.*
 import korlibs.time.internal.Moduler
-import korlibs.time.internal.Serializable
 
 /**
  * Immutable structure representing a set of a [monthSpan] and a [timeSpan].
  * This structure loses information about which months are included, that makes it impossible to generate a real [TimeSpan] including months.
  * You can use [DateTimeRange.duration] to get this information from two real [DateTime].
  */
+@OptIn(CoreTimeInternalApi::class)
 data class DateTimeSpan(
     /** The [MonthSpan] part */
     val monthSpan: MonthSpan,
@@ -95,7 +92,7 @@ data class DateTimeSpan(
     val milliseconds: Double get() = computed.milliseconds
 
     /** The [secondsIncludingMilliseconds] part as a doble including seconds and milliseconds. */
-    val secondsIncludingMilliseconds: Double get() = computed.seconds + computed.milliseconds / MILLIS_PER_SECOND
+    val secondsIncludingMilliseconds: Double get() = computed.seconds + computed.milliseconds / CoreTimeInternal.MILLIS_PER_SECOND
 
     /**
      * Note that if milliseconds overflow months this could not be exactly true. But probably will work in most cases.
@@ -128,11 +125,11 @@ data class DateTimeSpan(
     private class ComputedTime(val weeks: Int, val days: Int, val hours: Int, val minutes: Int, val seconds: Int, val milliseconds: Double) {
         companion object {
             operator fun invoke(time: TimeSpan): ComputedTime = Moduler(time.milliseconds).run {
-                val weeks = int(MILLIS_PER_WEEK)
-                val days = int(MILLIS_PER_DAY)
-                val hours = int(MILLIS_PER_HOUR)
-                val minutes = int(MILLIS_PER_MINUTE)
-                val seconds = int(MILLIS_PER_SECOND)
+                val weeks = int(CoreTimeInternal.MILLIS_PER_WEEK)
+                val days = int(CoreTimeInternal.MILLIS_PER_DAY)
+                val hours = int(CoreTimeInternal.MILLIS_PER_HOUR)
+                val minutes = int(CoreTimeInternal.MILLIS_PER_MINUTE)
+                val seconds = int(CoreTimeInternal.MILLIS_PER_SECOND)
                 val milliseconds = double(1)
                 return ComputedTime(weeks, days, hours, minutes, seconds, milliseconds)
             }

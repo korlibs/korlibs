@@ -1,9 +1,9 @@
 package korlibs.time
 
+import korlibs.time.core.*
 import korlibs.time.internal.*
 import korlibs.time.internal.CoreTimeInternal.Year_leapCountSinceOne
-import kotlin.jvm.JvmInline
-import kotlin.math.min
+import kotlin.jvm.*
 
 /**
  * Represents a Year in a typed way.

@@ -1,7 +1,8 @@
 package korlibs.time
 
-import korlibs.time.internal.*
+import korlibs.time.core.*
 
 /** Sleeps the thread during the specified time. Spinlocks on JS */
+@OptIn(CoreTimeInternalApi::class)
 @ExperimentalStdlibApi
-fun blockingSleep(time: TimeSpan) = KlockInternal.sleep(time)
+fun blockingSleep(time: TimeSpan): Unit = CoreTime.sleep(time)

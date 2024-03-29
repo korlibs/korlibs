@@ -1,6 +1,7 @@
 package korlibs.time
 
 import korlibs.time.DateTime.Companion.EPOCH
+import korlibs.time.core.*
 import korlibs.time.internal.*
 import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_DAY
 import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_HOUR
@@ -158,12 +159,12 @@ value class DateTime(
         fun fromUnixMillis(unix: Long): DateTime = fromUnixMillis(unix.toDouble())
 
         /** Returns the current time as [DateTime]. Note that since [DateTime] is inline, this property doesn't allocate on JavaScript. */
-        fun now(): DateTime = DateTime(currentTimeMillis())
+        fun now(): DateTime = DateTime(CoreTime.currentTimeMillis())
 
         /** Returns the total milliseconds since unix epoch. The same as [nowUnixMillisLong] but as double. To prevent allocation on targets without Long support. */
-        fun nowUnixMillis(): Double = currentTimeMillis().toDouble()
+        fun nowUnixMillis(): Double = CoreTime.currentTimeMillis().toDouble()
         /** Returns the total milliseconds since unix epoch. */
-        fun nowUnixMillisLong(): Long = currentTimeMillis()
+        fun nowUnixMillisLong(): Long = CoreTime.currentTimeMillis()
 
         internal const val EPOCH_INTERNAL_MILLIS =
             62135596800000.0 // Millis since 00-00-0000 00:00 UTC to UNIX EPOCH

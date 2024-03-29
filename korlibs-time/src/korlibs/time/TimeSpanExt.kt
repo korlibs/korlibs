@@ -1,5 +1,6 @@
 package korlibs.time
 
+import korlibs.time.core.*
 import korlibs.time.internal.*
 import kotlin.math.*
 import kotlin.time.*
@@ -51,5 +52,3 @@ internal fun toTimeString(totalMilliseconds: Double, components: Int = 3, addMil
     val out = toTimeStringRaw(totalMilliseconds, components)
     return if (addMilliseconds) "$out.$milliseconds" else out
 }
-
-fun Duration.Companion.now(): Duration = Duration.fromMilliseconds(currentTimeMillis())

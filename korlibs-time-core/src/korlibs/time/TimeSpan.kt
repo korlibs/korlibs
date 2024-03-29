@@ -2,6 +2,7 @@
 
 package korlibs.time
 
+import korlibs.time.core.*
 import korlibs.time.internal.*
 import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_DAY
 import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_HOUR
@@ -118,6 +119,8 @@ val Duration.milliseconds: Double get() = this.inWholeNanoseconds.toDouble() / 1
 
 /** Returns the total number of [nanoseconds] for this [TimeSpan] (1 / 1_000_000_000 [seconds]) */
 val Duration.nanoseconds: Double get() = this.inWholeNanoseconds.toDouble()
+/** Returns the total number of [nanoseconds] for this [TimeSpan] (1 / 1_000_000_000 [seconds]) */
+val Duration.nanosecondsLong: Long get() = this.inWholeNanoseconds
 /** Returns the total number of [nanoseconds] for this [TimeSpan] (1 / 1_000_000_000 [seconds]) as Integer */
 val Duration.nanosecondsInt: Int get() = this.inWholeNanoseconds.toInt()
 
@@ -163,3 +166,6 @@ fun Duration.clamp(min: Duration, max: Duration): Duration = when {
     else -> this
 }
 inline fun Duration.coalesce(block: () -> Duration): Duration = if (this != Duration.NIL) this else block()
+
+@OptIn(CoreTimeInternalApi::class)
+fun Duration.Companion.now(): Duration = Duration.fromMilliseconds(CoreTime.currentTimeMillis())

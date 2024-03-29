@@ -8,7 +8,7 @@ aliases:
   - jvmAndAndroid: [jvm, android]
 
 dependencies:
-  - ../korlibs-annotations
+  - ../korlibs-annotations: exported
 
 test-dependencies:
   - org.jetbrains.kotlin:kotlin-test:1.8.0

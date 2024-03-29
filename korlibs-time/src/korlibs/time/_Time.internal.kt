@@ -88,8 +88,6 @@ internal fun String.splitKeep(regex: Regex): List<String> {
     return out
 }
 
-
-
 internal class Moduler(val value: Double) {
     private var avalue = abs(value)
     private val sign = sign(value)
@@ -107,14 +105,8 @@ internal class Moduler(val value: Double) {
     fun int(count: Float): Int = int(count.toDouble())
 }
 
-internal expect object KlockInternal {
-    val currentTime: Double
-    val now: TimeSpan
-    fun localTimezoneOffsetMinutes(time: DateTime): TimeSpan
-    fun sleep(time: TimeSpan)
-}
-
-expect interface Serializable
+@Deprecated("", replaceWith = ReplaceWith("korlibs.Serializable"))
+typealias Serializable = korlibs.Serializable
 
 internal fun <K> MutableMap<K, Int>.increment(key: K) {
     this.getOrPut(key) { 0 }
@@ -192,11 +184,6 @@ internal class MicroStrReader(val str: String, var offset: Int = 0) {
         }
         return num.toDouble() + (den.toDouble() * 10.0.pow(-denCount))
     }
-}
-
-internal fun spinlock(time: TimeSpan) {
-    val start = TimeSpan.now()
-    while (TimeSpan.now() - start < time) Unit
 }
 
 internal fun MicroStrReader.readTimeZoneOffset(tzNames: TimezoneNames = TimezoneNames.DEFAULT): TimeSpan? {

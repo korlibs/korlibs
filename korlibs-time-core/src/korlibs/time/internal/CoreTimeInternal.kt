@@ -1,6 +1,7 @@
 package korlibs.time.internal
 
 import korlibs.time.*
+import korlibs.time.core.*
 import kotlin.math.*
 
 internal infix fun Int.umod(other: Int): Int {
@@ -20,6 +21,7 @@ internal infix fun Double.umod(other: Double): Double {
         else -> remainder
     }
 }
+
 internal infix fun Int.div2(other: Int): Int = when {
     this < 0 || this % other == 0 -> this / other
     else -> (this / other) - 1
@@ -29,10 +31,6 @@ internal fun Int.cycle(min: Int, max: Int): Int = ((this - min) umod (max - min 
 internal fun Int.cycleSteps(min: Int, max: Int): Int = (this - min) / (max - min + 1)
 internal fun Double.toInt2(): Int = if (this < 0.0) floor(this).toInt() else this.toInt()
 internal fun Double.toIntMod(mod: Int): Int = (this umod mod.toDouble()).toInt2()
-
-@Retention(value = AnnotationRetention.BINARY)
-@RequiresOptIn(level = RequiresOptIn.Level.ERROR)
-public annotation class CoreTimeInternalApi
 
 @CoreTimeInternalApi
 object CoreTimeInternal {
@@ -108,6 +106,7 @@ object CoreTimeInternal {
         val res = (y1 / 4) - (y1 / 100) + (y1 / 400)
         return res
     }
+
     fun Year_fromDays(days: Int): Int {
         // https://en.wikipedia.org/wiki/Leap_year#Algorithm
         // Each 400 years the modular cycle is completed

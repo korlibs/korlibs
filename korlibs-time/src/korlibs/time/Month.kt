@@ -1,6 +1,7 @@
 package korlibs.time
 
 import korlibs.time.Month.*
+import korlibs.time.core.*
 import korlibs.time.internal.*
 import kotlin.math.*
 
