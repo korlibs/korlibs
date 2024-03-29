@@ -13,6 +13,7 @@ internal infix fun Int.umod(other: Int): Int {
     }
 }
 
+@PublishedApi
 internal infix fun Double.umod(other: Double): Double {
     val rm = this % other
     val remainder = if (rm == -0.0) 0.0 else rm
