@@ -68,7 +68,7 @@ class CSS(val allRules: List<IRuleSet>, unit: Unit = Unit) {
         val properties get() = k0.declarations.declarations.map { it.property }
     }
 
-    data class Animation(val name: String, val duration: TimeSpan, val delay: TimeSpan = 0.seconds, val iterationCount: NumberOfTimes = NumberOfTimes.INFINITE, val direction: Boolean = true, val easing: Easing = Easing.LINEAR)
+    data class Animation(val name: String, val duration: TimeSpan, val delay: TimeSpan = 0.seconds, val iterationCount: Int = -1, val direction: Boolean = true, val easing: Easing = Easing.LINEAR)
 
     data class KeyFrames(val id: Token, val partialKeyFrames: List<KeyFrame>) : IRuleSet {
         val propertyNames = partialKeyFrames.flatMap { it.declarations.declarations.map { it.property } }.distinct()

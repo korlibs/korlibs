@@ -1,6 +1,5 @@
 package korlibs.io.net.http
 
-import korlibs.time.DateFormat
 import korlibs.io.lang.IOException
 import korlibs.io.lang.UTF8
 import korlibs.io.lang.invalidOp
@@ -13,7 +12,8 @@ interface Http {
 		//Sun, 06 Nov 1994 08:49:37 GMT  ; RFC 822, updated by RFC 1123
 		//Sunday, 06-Nov-94 08:49:37 GMT ; RFC 850, obsoleted by RFC 1036
 		//Sun Nov  6 08:49:37 1994       ; ANSI C's asctime() format
-		val Date = DateFormat("EEE, dd MMM yyyy HH:mm:ss z")
+		//val Date = DateFormat("EEE, dd MMM yyyy HH:mm:ss z")
+		val DateFormatStr = "EEE, dd MMM yyyy HH:mm:ss z"
 
 		fun TemporalRedirect(uri: String) = RedirectException(code = 307, redirectUri = uri)
 		fun PermanentRedirect(uri: String) = RedirectException(code = 301, redirectUri = uri)

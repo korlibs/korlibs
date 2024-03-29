@@ -1,14 +1,6 @@
 package korlibs.time.locale
 
-import korlibs.time.DateFormat
-import korlibs.time.DateTime
-import korlibs.time.DayOfWeek
-import korlibs.time.KlockLocale
-import korlibs.time.KlockLocaleContext
-import korlibs.time.KlockLocaleGender
-import korlibs.time.Month
-import korlibs.time.format
-import korlibs.time.parse
+import korlibs.time.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

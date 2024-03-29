@@ -7,7 +7,7 @@ interface CharReader {
     fun read(out: StringBuilder, count: Int): Int
     fun clone(): CharReader
 }
-fun CharReader.read(count: Int): String = buildString { read(this, count) }
+fun CharReader.read(count: Int): String = buildString(count) { read(this, count) }
 
 fun ByteArray.toCharReader(charset: Charset, chunkSize: Int = 1024): CharReader = openSync().toCharReader(charset, chunkSize)
 fun SyncStream.toCharReader(charset: Charset, chunkSize: Int = 1024): CharReader =

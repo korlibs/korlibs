@@ -24,6 +24,7 @@ import org.w3c.dom.url.*
 import org.w3c.files.*
 import kotlin.coroutines.*
 import kotlin.math.*
+import kotlin.time.*
 
 actual val nativeImageFormatProvider: NativeImageFormatProvider = when {
     Platform.isJsNodeJs -> NodeJsNativeImageFormatProvider
@@ -78,14 +79,14 @@ open class HtmlNativeImage(val texSourceBase: TexImageSource, width: Int, height
 
     val ctx: CanvasRenderingContext2D by lazy { lazyCanvasElement.getContext("2d").unsafeCast<CanvasRenderingContext2D>() }
 
-    private var lastRefresh = 0.0.milliseconds
+    private var lastRefresh = TimeSource.Monotonic.markNow()
     override fun readPixelsUnsafe(x: Int, y: Int, width: Int, height: Int, out: IntArray, offset: Int) {
         if (width <= 0 || height <= 0) return
         val size = width * height
 
         if (texSourceBase is HTMLVideoElement) {
             // Must refresh
-            val now = PerformanceCounter.reference
+            val now = TimeSource.Monotonic.markNow()
             val elapsedTime = now - lastRefresh
             if (elapsedTime >= 16.milliseconds) {
                 lastRefresh = now

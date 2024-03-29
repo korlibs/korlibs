@@ -1,6 +1,6 @@
 package korlibs.time
 
-import korlibs.time.internal.Serializable
+import korlibs.Serializable
 
 /**
  * Represents a right-opened range between two dates.

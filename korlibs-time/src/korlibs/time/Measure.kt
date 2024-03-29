@@ -1,21 +1,29 @@
 package korlibs.time
 
+import kotlin.contracts.*
+import kotlin.time.*
+
 /**
  * Executes a [callback] and measure the time it takes to complete.
  */
-inline fun measureTime(callback: () -> Unit): TimeSpan {
-    val start = PerformanceCounter.microseconds
-    callback()
-    val end = PerformanceCounter.microseconds
-    return (end - start).microseconds
+@OptIn(ExperimentalContracts::class)
+public inline fun measureTime(block: () -> Unit): Duration {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    return kotlin.time.measureTime(block)
 }
 
+@OptIn(ExperimentalContracts::class)
 inline fun <T> measureTime(callback: () -> T, handleTime: (TimeSpan) -> Unit): T {
-    val start = PerformanceCounter.microseconds
-    val result = callback()
-    val end = PerformanceCounter.microseconds
-    val elapsed = (end - start).microseconds
-    handleTime(elapsed)
+    contract {
+        callsInPlace(callback, InvocationKind.EXACTLY_ONCE)
+        callsInPlace(handleTime, InvocationKind.EXACTLY_ONCE)
+    }
+    val result: T
+    handleTime(measureTime {
+        result = callback()
+    })
     return result
 }
 
@@ -23,15 +31,18 @@ inline fun <T> measureTime(callback: () -> T, handleTime: (TimeSpan) -> Unit): T
  * Executes the [callback] measuring the time it takes to complete.
  * Returns a [TimedResult] with the time and the return value of the callback.
  */
-inline fun <T> measureTimeWithResult(callback: () -> T): TimedResult<T> {
-    val start = PerformanceCounter.microseconds
-    val result = callback()
-    val end = PerformanceCounter.microseconds
-    val elapsed = (end - start).microseconds
-    return TimedResult(result, elapsed)
+@Deprecated("", ReplaceWith("measureTimedValue(callback)", "kotlin.time.measureTimedValue"))
+@OptIn(ExperimentalContracts::class)
+inline fun <T> measureTimeWithResult(callback: () -> T): TimedValue<T> {
+    contract {
+        callsInPlace(callback, InvocationKind.EXACTLY_ONCE)
+    }
+    return measureTimedValue(callback)
 }
 
-/**
- * Represents a [result] associated to a [time].
- */
-data class TimedResult<T>(val result: T, val time: TimeSpan)
+typealias TimedResult<T> = TimedValue<T>
+
+@Deprecated("", ReplaceWith("value"))
+val <T> TimedValue<T>.result: T get() = value
+@Deprecated("", ReplaceWith("duration"))
+val <T> TimedValue<T>.time: TimeSpan get() = duration

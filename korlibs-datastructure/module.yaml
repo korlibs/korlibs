@@ -6,7 +6,7 @@ apply: [ ../common.module-template.yaml ]
 
 dependencies:
   - ../korlibs-concurrent: exported
-  - ../korlibs-time: exported
+  - ../korlibs-time-core: exported
 
 test-dependencies:
   - org.jetbrains.kotlin:kotlin-test:1.8.0

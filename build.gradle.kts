@@ -152,7 +152,9 @@ subprojects {
 
         tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask::class) {
             compilerOptions.suppressWarnings.set(true)
-            //println(this::class.java)
+            // @TODO: We should actually, convert warnings to errors and start removing warnings
+            compilerOptions.freeCompilerArgs.add("-nowarn")
+            //println("${project.name} ${this::class.java} : ${this.name}")
         }
 
         tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinNativeLink::class) {

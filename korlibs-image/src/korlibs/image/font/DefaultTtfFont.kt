@@ -4,6 +4,7 @@ import korlibs.encoding.*
 import korlibs.io.compression.*
 import korlibs.io.compression.deflate.*
 import korlibs.time.*
+import kotlin.time.*
 
 // Sani Trixie Sans
 // 1.6.1 - December 3, 2014
@@ -21,12 +22,12 @@ private var DefaultTtfFontOrNull: TtfFont? = null
 
 val DefaultTtfFont: TtfFont get() {
     if (DefaultTtfFontOrNull == null) {
-        val res = measureTimeWithResult {
+        val res = measureTimedValue {
             TtfFont(DefaultTtfFontBytes(), extName = "Default Font")
             //TtfFont(DefaultTtfFontBytes, preloadAllGlyphs = false, extName = "Default Font")
         }
         //println("Loaded DefaultTtfFont in... ${res.time}")
-        DefaultTtfFontOrNull = res.result
+        DefaultTtfFontOrNull = res.value
     }
     return DefaultTtfFontOrNull!!
 }

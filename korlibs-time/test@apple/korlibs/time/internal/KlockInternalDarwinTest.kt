@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalForeignApi::class)
+@file:OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 
 package korlibs.time.internal
 
@@ -52,6 +52,7 @@ class KlockInternalDarwinTest {
     }
 }
 
+@OptIn(ExperimentalForeignApi::class)
 fun CFArrayRef?.toStrArray(): Array<String?> {
     val array = this
 

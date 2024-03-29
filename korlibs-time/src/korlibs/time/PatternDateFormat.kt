@@ -1,5 +1,6 @@
 package korlibs.time
 
+import korlibs.Serializable
 import korlibs.time.internal.*
 import korlibs.time.internal.MicroStrReader
 import korlibs.time.internal.increment

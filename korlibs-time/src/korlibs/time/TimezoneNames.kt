@@ -1,6 +1,6 @@
 package korlibs.time
 
-import korlibs.time.internal.Serializable
+import korlibs.Serializable
 
 data class TimezoneNames(val timeZones: List<Timezone>) : Serializable {
     val namesToOffsetsList by lazy { timeZones.groupBy { it.abbr } }
