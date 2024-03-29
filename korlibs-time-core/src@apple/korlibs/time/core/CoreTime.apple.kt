@@ -4,6 +4,7 @@ import kotlinx.cinterop.*
 import platform.posix.*
 import kotlin.time.*
 
+@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 actual var CoreTime: ICoreTime = object : ICoreTime {
     override fun currentTimeMillis(): Long = memScoped {
         val timeVal = alloc<timeval>()
