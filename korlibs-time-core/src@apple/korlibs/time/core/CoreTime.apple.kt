@@ -1,7 +1,9 @@
 package korlibs.time.core
 
+import korlibs.time.*
 import kotlinx.cinterop.*
 import platform.posix.*
+import platform.Foundation.*
 import kotlin.time.*
 
 @OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
@@ -27,7 +29,7 @@ actual var CoreTime: ICoreTime = object : ICoreTime {
         if (u > 0) platform.posix.usleep(u.convert())
     }
 
-    private fun getLocalTimezoneOffsetDarwin(tz: CFTimeZoneRef?, time: DateTime): TimeSpan {
+    private fun getLocalTimezoneOffsetDarwin(tz: CFTimeZoneRef?, time: DateTime): Duration {
         val secondsSince2001 = time.cfAbsoluteTime()
         return (CFTimeZoneGetSecondsFromGMT(tz, secondsSince2001.toDouble()) / 60.0).minutes
     }

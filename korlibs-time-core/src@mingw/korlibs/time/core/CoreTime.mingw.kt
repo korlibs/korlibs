@@ -27,7 +27,7 @@ actual var CoreTime: ICoreTime = object : ICoreTime {
         return (localUnix - utcUnix).milliseconds
     }
 
-    override fun sleep(time: TimeSpan) {
+    override fun sleep(time: Duration) {
         val micros = time.inWholeMicroseconds
         val s = micros / 1_000_000
         val u = micros % 1_000_000

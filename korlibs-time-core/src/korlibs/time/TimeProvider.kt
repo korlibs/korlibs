@@ -1,5 +1,7 @@
 package korlibs.time
 
+import kotlin.time.*
+
 /** Class to provide time that can be overridden to mock or change its behaviour. */
 interface TimeProvider {
     /** Returns a [DateTime] for this provider. */
@@ -15,7 +17,7 @@ interface TimeProvider {
     }
 }
 
-inline fun TimeProvider.measure(block: () -> Unit): TimeSpan {
+inline fun TimeProvider.measure(block: () -> Unit): Duration {
     val start = now()
     block()
     val end = now()

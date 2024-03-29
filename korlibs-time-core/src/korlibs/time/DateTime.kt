@@ -16,6 +16,7 @@ import korlibs.time.core.internal.CoreTimeInternal.Year_daysSinceOne
 import korlibs.time.core.internal.CoreTimeInternal.Year_fromDays
 import korlibs.time.core.internal.CoreTimeInternal.Year_isLeap
 import kotlin.jvm.*
+import kotlin.time.*
 
 /**
  * Represents a Date in UTC (GMT+00) with millisecond precision.
@@ -256,10 +257,10 @@ value class DateTime(
     /** Returns the quarter 1, 2, 3 or 4 */
     val quarter get() = (month0 / 3) + 1
 
-    operator fun plus(delta: TimeSpan): DateTime = DateTime(unixMillis + delta.milliseconds)
-    operator fun minus(delta: TimeSpan): DateTime = DateTime(unixMillis - delta.milliseconds)
+    operator fun plus(delta: Duration): DateTime = DateTime(unixMillis + delta.milliseconds)
+    operator fun minus(delta: Duration): DateTime = DateTime(unixMillis - delta.milliseconds)
 
-    operator fun minus(other: DateTime): TimeSpan = (this.unixMillisDouble - other.unixMillisDouble).milliseconds
+    operator fun minus(other: DateTime): Duration = (this.unixMillisDouble - other.unixMillisDouble).milliseconds
 
     override fun compareTo(other: DateTime): Int = this.unixMillis.compareTo(other.unixMillis)
 
