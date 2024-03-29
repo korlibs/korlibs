@@ -1,5 +1,3 @@
-@file:OptIn(CoreTimeInternalApi::class, CoreTimeInternalApi::class)
-
 package korlibs.time
 
 import korlibs.time.internal.*
@@ -16,6 +14,7 @@ import kotlin.math.min
  * The integrated model is capable of determine if a year is leap for years 1 until 9999 inclusive.
  */
 @JvmInline
+@OptIn(CoreTimeInternalApi::class)
 value class Year(val year: Int) : Comparable<Year>, Serializable {
     companion object {
         @Suppress("MayBeConstant", "unused")
