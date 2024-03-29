@@ -1,8 +1,9 @@
 package korlibs.time
 
 import korlibs.time.core.*
-import korlibs.time.internal.*
-import korlibs.time.internal.CoreTimeInternal.Year_leapCountSinceOne
+import korlibs.Serializable
+import korlibs.time.core.internal.*
+import korlibs.time.core.internal.CoreTimeInternal.Year_leapCountSinceOne
 import kotlin.jvm.*
 
 /**

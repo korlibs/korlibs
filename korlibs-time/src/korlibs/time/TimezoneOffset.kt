@@ -2,7 +2,7 @@ package korlibs.time
 
 import korlibs.time.core.*
 import korlibs.time.internal.MILLIS_PER_MINUTE
-import korlibs.time.internal.Serializable
+import korlibs.Serializable
 import korlibs.time.internal.padded
 import kotlin.jvm.JvmInline
 import kotlin.math.abs

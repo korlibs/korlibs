@@ -16,6 +16,7 @@ import kotlin.collections.component1
 import kotlin.collections.component2
 import kotlin.collections.set
 import kotlin.coroutines.*
+import kotlin.time.*
 
 internal fun createNativeSystemFontProvider(coroutineContext: CoroutineContext, platform: Platform = Platform): NativeSystemFontProvider = when {
     platform.runtime.isJs -> FallbackNativeSystemFontProvider(DefaultTtfFont)
@@ -150,7 +151,7 @@ open class FolderBasedNativeSystemFontProvider(
                     for (f in file.listRecursiveSimple()) {
                         try {
                             val name = fileNamesToName.getOrPut(f.baseName) {
-                                val (ttf, totalTime) = measureTimeWithResult { TtfFont.readNames(f) }
+                                val (ttf, totalTime) = measureTimedValue { TtfFont.readNames(f) }
                                 //if (totalTime >= 1.milliseconds) println("Compute name size[${f.size()}] '${ttf.ttfCompleteName}' $totalTime")
                                 ttf.ttfCompleteName
                             }

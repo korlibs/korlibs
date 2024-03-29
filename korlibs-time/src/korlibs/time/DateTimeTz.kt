@@ -1,6 +1,6 @@
 package korlibs.time
 
-import korlibs.time.internal.Serializable
+import korlibs.Serializable
 
 /** [DateTime] with an associated [TimezoneOffset] */
 class DateTimeTz private constructor(

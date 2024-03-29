@@ -1,6 +1,6 @@
 package korlibs.time
 
-import korlibs.time.internal.Serializable
+import korlibs.Serializable
 import kotlin.jvm.JvmInline
 import kotlin.math.abs
 

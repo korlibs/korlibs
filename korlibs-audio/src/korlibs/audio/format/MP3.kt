@@ -5,7 +5,6 @@ package korlibs.audio.format
 import korlibs.datastructure.DoubleArrayList
 import korlibs.datastructure.binarySearch
 import korlibs.time.TimeSpan
-import korlibs.time.measureTimeWithResult
 import korlibs.time.microseconds
 import korlibs.time.seconds
 import korlibs.io.annotations.Keep
@@ -18,6 +17,7 @@ import korlibs.io.stream.readStream
 import korlibs.io.stream.readString
 import korlibs.io.stream.toSyncOrNull
 import korlibs.memory.*
+import kotlin.time.*
 
 @Keep
 open class MP3 : MP3Base() {
@@ -42,7 +42,7 @@ open class MP3Base : AudioFormat("mp3") {
             if (!isId3 && !isSync) return null
 
             val parser = Parser(data, data.getLength())
-            val (duration, decodingTime) = measureTimeWithResult {
+            val (duration, decodingTime) = measureTimedValue {
                 when (props.exactTimings) {
                     null -> parser.getDurationExact() // Try to guess what's better based on VBR?
                     true -> parser.getDurationExact()

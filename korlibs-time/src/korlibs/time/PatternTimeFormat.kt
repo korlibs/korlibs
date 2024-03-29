@@ -1,5 +1,6 @@
 package korlibs.time
 
+import korlibs.Serializable
 import korlibs.time.internal.*
 import korlibs.time.internal.MicroStrReader
 import korlibs.time.internal.increment
@@ -17,7 +18,7 @@ data class PatternTimeFormat(
         private const val serialVersionUID = 1L
     }
 
-    data class Options(val optionalSupport: Boolean = false) : Serializable {
+    data class Options(val optionalSupport: Boolean = false) : korlibs.Serializable {
         companion object {
             @Suppress("MayBeConstant", "unused")
             private const val serialVersionUID = 1L

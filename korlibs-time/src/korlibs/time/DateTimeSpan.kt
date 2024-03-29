@@ -1,7 +1,8 @@
 package korlibs.time
 
+import korlibs.Serializable
 import korlibs.time.core.*
-import korlibs.time.internal.*
+import korlibs.time.core.internal.*
 import korlibs.time.internal.Moduler
 
 /**

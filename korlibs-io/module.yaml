@@ -21,7 +21,7 @@ dependencies:
   - ../korlibs-platform: exported
   - ../korlibs-datastructure: exported
   - ../korlibs-number: exported
-  - ../korlibs-time: exported
+  - ../korlibs-time-core: exported
   - ../korlibs-logger: exported
   - org.jetbrains.kotlinx:atomicfu:0.23.1: exported
   - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0: exported
@@ -29,3 +29,4 @@ dependencies:
 test-dependencies:
   - org.jetbrains.kotlin:kotlin-test:1.8.0
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0
+  - ../korlibs-time

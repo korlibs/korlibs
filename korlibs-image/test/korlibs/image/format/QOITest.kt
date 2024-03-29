@@ -1,6 +1,5 @@
 package korlibs.image.format
 
-import korlibs.time.measureTimeWithResult
 import korlibs.memory.UByteArrayInt
 import korlibs.image.bitmap.Bitmap32
 import korlibs.image.bitmap.matchContentsDistinctCount
@@ -12,6 +11,7 @@ import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 import kotlin.test.assertNotSame
 import kotlin.test.assertSame
+import kotlin.time.*
 
 class QOITest {
     val formats = ImageFormats(PNG, QOI)
@@ -24,8 +24,8 @@ class QOITest {
         val qoiBytes = resourcesVfs["dice.qoi"].readBytes()
 
         //val (expectedNative, expectedNativeTime) = measureTimeWithResult { nativeImageFormatProvider.decode(pngBytes) }
-        val (expected, expectedTime) = measureTimeWithResult { PNG.decode(pngBytes) }
-        val (output, outputTime) = measureTimeWithResult { QOI.decode(qoiBytes) }
+        val (expected, expectedTime) = measureTimedValue { PNG.decode(pngBytes) }
+        val (output, outputTime) = measureTimedValue { QOI.decode(qoiBytes) }
 
         //QOI=4.280875ms, PNG=37.361000000000004ms, PNG_native=24.31941600036621ms
         //println("QOI=$outputTime, PNG=$expectedTime, PNG_native=$expectedNativeTime")
@@ -53,13 +53,13 @@ class QOITest {
         val pngBytes = resourcesVfs["dice.png"].readBytes()
         val qoiBytes = resourcesVfs["dice.qoi"].readBytes()
 
-        val (expectedNative, expectedNativeTime) = measureTimeWithResult {
+        val (expectedNative, expectedNativeTime) = measureTimedValue {
             nativeImageFormatProvider.decode(
                 pngBytes
             )
         }
-        val (expected, expectedTime) = measureTimeWithResult { PNG.decode(pngBytes) }
-        val (output, outputTime) = measureTimeWithResult { QOI.decode(qoiBytes) }
+        val (expected, expectedTime) = measureTimedValue { PNG.decode(pngBytes) }
+        val (output, outputTime) = measureTimedValue { QOI.decode(qoiBytes) }
 
         //QOI=2.6177000122070315ms, PNG=42.07829998779297ms, PNG_native=25.59229998779297ms
 //        println("QOI=$outputTime, PNG=$expectedTime, PNG_native=$expectedNativeTime")
@@ -95,13 +95,13 @@ class QOITest {
         val pngBytes = resourcesVfs["dice.png"].readBytes()
         val qoiBytes = resourcesVfs["dice.qoi"].readBytes()
 
-        val (expectedNative, expectedNativeTime) = measureTimeWithResult {
+        val (expectedNative, expectedNativeTime) = measureTimedValue {
             nativeImageFormatProvider.decode(
                 pngBytes
             )
         }
-        val (expected, expectedTime) = measureTimeWithResult { PNG.decode(pngBytes) }
-        val (output, outputTime) = measureTimeWithResult {
+        val (expected, expectedTime) = measureTimedValue { PNG.decode(pngBytes) }
+        val (output, outputTime) = measureTimedValue {
             QOI.decode(qoiBytes, ImageDecodingProps.DEFAULT.copy(out = qoiOutBitmap))
         }
 
@@ -120,7 +120,7 @@ class QOITest {
         val qoiOutBitmap = Bitmap32(666, 600, premultiplied = false)
 
         val qoiBytes = resourcesVfs["dice.qoi"].readBytes()
-        val (output, outputTime) = measureTimeWithResult {
+        val (output, outputTime) = measureTimedValue {
             QOI.decode(qoiBytes, ImageDecodingProps.DEFAULT.copy(out = qoiOutBitmap))
         }
 
@@ -134,7 +134,7 @@ class QOITest {
         val qoiOutBitmap = Bitmap32(800, 666, premultiplied = false)
 
         val qoiBytes = resourcesVfs["dice.qoi"].readBytes()
-        val (output, outputTime) = measureTimeWithResult {
+        val (output, outputTime) = measureTimedValue {
             QOI.decode(qoiBytes, ImageDecodingProps.DEFAULT.copy(out = qoiOutBitmap))
         }
 
@@ -148,7 +148,7 @@ class QOITest {
         val qoiOutBitmap = Bitmap32(800, 600, premultiplied = true)
 
         val qoiBytes = resourcesVfs["dice.qoi"].readBytes()
-        val (output, outputTime) = measureTimeWithResult {
+        val (output, outputTime) = measureTimedValue {
             QOI.decode(qoiBytes, ImageDecodingProps.DEFAULT.copy(out = qoiOutBitmap))
         }
         assertSame(qoiOutBitmap, output)

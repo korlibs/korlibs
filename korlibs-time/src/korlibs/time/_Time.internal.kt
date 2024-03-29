@@ -105,9 +105,6 @@ internal class Moduler(val value: Double) {
     fun int(count: Float): Int = int(count.toDouble())
 }
 
-@Deprecated("", replaceWith = ReplaceWith("korlibs.Serializable"))
-typealias Serializable = korlibs.Serializable
-
 internal fun <K> MutableMap<K, Int>.increment(key: K) {
     this.getOrPut(key) { 0 }
     this[key] = this[key]!! + 1

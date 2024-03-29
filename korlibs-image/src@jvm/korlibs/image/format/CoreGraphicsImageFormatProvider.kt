@@ -10,6 +10,7 @@ import korlibs.io.file.std.*
 import korlibs.time.*
 import java.awt.image.*
 import java.io.*
+import kotlin.time.*
 
 open class CoreGraphicsImageFormatProvider : AwtNativeImageFormatProvider() {
     companion object : CoreGraphicsImageFormatProvider()
@@ -111,7 +112,7 @@ open class CoreGraphicsImageFormatProvider : AwtNativeImageFormatProvider() {
     }
 
     override suspend fun decodeInternal(data: ByteArray, props: ImageDecodingProps): NativeImageResult {
-        val (res, time) = measureTimeWithResult { executeIo { _decodeInternal(data, props) } }
+        val (res, time) = measureTimedValue { executeIo { _decodeInternal(data, props) } }
         //println("DECODED IMAGE IN: $time")
         return res
     }

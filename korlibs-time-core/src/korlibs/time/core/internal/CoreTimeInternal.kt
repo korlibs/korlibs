@@ -1,4 +1,4 @@
-package korlibs.time.internal
+package korlibs.time.core.internal
 
 import korlibs.time.*
 import korlibs.time.core.*

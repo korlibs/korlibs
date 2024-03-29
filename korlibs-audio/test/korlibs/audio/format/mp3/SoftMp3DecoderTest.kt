@@ -10,6 +10,7 @@ import korlibs.logger.*
 import korlibs.math.*
 import korlibs.time.*
 import kotlin.test.*
+import kotlin.time.*
 
 class SoftMp3DecoderTest {
     val formats = AudioFormats(MP3Decoder)
@@ -43,11 +44,11 @@ class SoftMp3DecoderTest {
         )
     }
     @Test fun monkeyDramaMiniMp3() = suspendTest({ doIOTest }) {
-        val (mp3Bytes, readTime) = measureTimeWithResult { resourcesVfs["monkey_drama.mp3"].readBytes() }
+        val (mp3Bytes, readTime) = measureTimedValue { resourcesVfs["monkey_drama.mp3"].readBytes() }
         logger.debug { "Read in $readTime" }
-        val (decode, decodeTime) = measureTimeWithResult { formats.decode(mp3Bytes, AudioDecodingProps(maxSamples = 569088)) }
+        val (decode, decodeTime) = measureTimedValue { formats.decode(mp3Bytes, AudioDecodingProps(maxSamples = 569088)) }
         logger.debug { "Decoded in $decodeTime" }
-        val (fingerprint, fingerprintTime) = measureTimeWithResult { decode?.toFingerprintString() }
+        val (fingerprint, fingerprintTime) = measureTimedValue { decode?.toFingerprintString() }
         logger.debug { "Fingerprint in in $fingerprintTime" }
         assertEquals(
             "2,44100,569088,f43f395b2029b060f9f6ef06a1a96b2e1e6f3860",

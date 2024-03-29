@@ -1,7 +1,7 @@
 package korlibs.time
 
 import korlibs.time.internal.BSearchResult
-import korlibs.time.internal.Serializable
+import korlibs.Serializable
 import korlibs.time.internal.fastForEach
 import korlibs.time.internal.genericBinarySearch
 

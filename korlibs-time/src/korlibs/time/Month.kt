@@ -1,7 +1,9 @@
 package korlibs.time
 
+import korlibs.Serializable
 import korlibs.time.Month.*
 import korlibs.time.core.*
+import korlibs.time.core.internal.*
 import korlibs.time.internal.*
 import kotlin.math.*
 

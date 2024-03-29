@@ -3,12 +3,12 @@
 package korlibs.time
 
 import korlibs.time.core.*
-import korlibs.time.internal.*
-import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_DAY
-import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_HOUR
-import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_MINUTE
-import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_SECOND
-import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_WEEK
+import korlibs.time.core.internal.*
+import korlibs.time.core.internal.CoreTimeInternal.MILLIS_PER_DAY
+import korlibs.time.core.internal.CoreTimeInternal.MILLIS_PER_HOUR
+import korlibs.time.core.internal.CoreTimeInternal.MILLIS_PER_MINUTE
+import korlibs.time.core.internal.CoreTimeInternal.MILLIS_PER_SECOND
+import korlibs.time.core.internal.CoreTimeInternal.MILLIS_PER_WEEK
 import kotlin.jvm.*
 import kotlin.math.*
 import kotlin.time.*

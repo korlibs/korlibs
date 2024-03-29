@@ -2,19 +2,19 @@ package korlibs.time
 
 import korlibs.time.DateTime.Companion.EPOCH
 import korlibs.time.core.*
-import korlibs.time.internal.*
-import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_DAY
-import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_HOUR
-import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_MINUTE
-import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_SECOND
-import korlibs.time.internal.CoreTimeInternal.Month_check
-import korlibs.time.internal.CoreTimeInternal.Month_days
-import korlibs.time.internal.CoreTimeInternal.Month_daysToStart
-import korlibs.time.internal.CoreTimeInternal.Month_fromDayOfYear
-import korlibs.time.internal.CoreTimeInternal.Year_days
-import korlibs.time.internal.CoreTimeInternal.Year_daysSinceOne
-import korlibs.time.internal.CoreTimeInternal.Year_fromDays
-import korlibs.time.internal.CoreTimeInternal.Year_isLeap
+import korlibs.time.core.internal.*
+import korlibs.time.core.internal.CoreTimeInternal.MILLIS_PER_DAY
+import korlibs.time.core.internal.CoreTimeInternal.MILLIS_PER_HOUR
+import korlibs.time.core.internal.CoreTimeInternal.MILLIS_PER_MINUTE
+import korlibs.time.core.internal.CoreTimeInternal.MILLIS_PER_SECOND
+import korlibs.time.core.internal.CoreTimeInternal.Month_check
+import korlibs.time.core.internal.CoreTimeInternal.Month_days
+import korlibs.time.core.internal.CoreTimeInternal.Month_daysToStart
+import korlibs.time.core.internal.CoreTimeInternal.Month_fromDayOfYear
+import korlibs.time.core.internal.CoreTimeInternal.Year_days
+import korlibs.time.core.internal.CoreTimeInternal.Year_daysSinceOne
+import korlibs.time.core.internal.CoreTimeInternal.Year_fromDays
+import korlibs.time.core.internal.CoreTimeInternal.Year_isLeap
 import kotlin.jvm.*
 
 /**

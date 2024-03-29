@@ -1,5 +1,6 @@
 package korlibs.time
 
+import korlibs.Serializable
 import korlibs.time.DayOfWeek.Friday
 import korlibs.time.DayOfWeek.Monday
 import korlibs.time.DayOfWeek.Saturday

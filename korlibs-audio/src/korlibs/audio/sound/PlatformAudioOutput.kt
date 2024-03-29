@@ -7,6 +7,8 @@ import korlibs.io.lang.*
 import korlibs.math.*
 import korlibs.math.geom.*
 import korlibs.time.*
+import korlibs.time.core.*
+import korlibs.time.core.internal.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
 
@@ -124,7 +126,7 @@ abstract class ThreadBasedPlatformAudioOutput(
         }
     }
 
-    @OptIn(ExperimentalStdlibApi::class)
+    @OptIn(CoreTimeInternalApi::class)
     protected fun writeFully(data: AudioSamples, count: Int) {
         var offset = 0
         var pending = count
@@ -137,7 +139,7 @@ abstract class ThreadBasedPlatformAudioOutput(
             }
             if (written == 0) {
                 println("ThreadBasedPlatformAudioOutput.nothingWritten: offset=$offset, pending=$pending, written=$written")
-                blockingSleep(1.milliseconds)
+                CoreTime.sleep(1.milliseconds)
                 nonAdvancingCount++
             }
             offset += written
