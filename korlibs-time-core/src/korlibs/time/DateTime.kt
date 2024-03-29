@@ -2,6 +2,18 @@ package korlibs.time
 
 import korlibs.time.DateTime.Companion.EPOCH
 import korlibs.time.internal.*
+import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_DAY
+import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_HOUR
+import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_MINUTE
+import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_SECOND
+import korlibs.time.internal.CoreTimeInternal.Month_check
+import korlibs.time.internal.CoreTimeInternal.Month_days
+import korlibs.time.internal.CoreTimeInternal.Month_daysToStart
+import korlibs.time.internal.CoreTimeInternal.Month_fromDayOfYear
+import korlibs.time.internal.CoreTimeInternal.Year_days
+import korlibs.time.internal.CoreTimeInternal.Year_daysSinceOne
+import korlibs.time.internal.CoreTimeInternal.Year_fromDays
+import korlibs.time.internal.CoreTimeInternal.Year_isLeap
 import kotlin.jvm.*
 
 /**
@@ -13,6 +25,7 @@ import kotlin.jvm.*
  * - Wed May 23 144683 18:29:30 GMT+0200 (Central European Summer Time)
  */
 @JvmInline
+@OptIn(CoreTimeInternalApi::class)
 value class DateTime(
     /** Number of milliseconds since UNIX [EPOCH] */
     val unixMillis: Double
@@ -192,7 +205,7 @@ value class DateTime(
             if (part == DatePart.DayOfYear) return dayOfYear
 
             // Month
-            val month = Month_fromDayOfYear(dayOfYear, isLeap)
+            val month = Month_fromDayOfYear(dayOfYear, isLeap).takeIf { it >= 0 }
                 ?: error("Invalid dayOfYear=$dayOfYear, isLeap=$isLeap")
             if (part == DatePart.Month) return month
 

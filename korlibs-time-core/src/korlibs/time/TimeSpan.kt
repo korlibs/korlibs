@@ -1,6 +1,13 @@
+@file:OptIn(CoreTimeInternalApi::class)
+
 package korlibs.time
 
 import korlibs.time.internal.*
+import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_DAY
+import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_HOUR
+import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_MINUTE
+import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_SECOND
+import korlibs.time.internal.CoreTimeInternal.MILLIS_PER_WEEK
 import kotlin.jvm.*
 import kotlin.math.*
 import kotlin.time.*

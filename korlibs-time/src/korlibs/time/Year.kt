@@ -1,6 +1,9 @@
+@file:OptIn(CoreTimeInternalApi::class, CoreTimeInternalApi::class)
+
 package korlibs.time
 
-import korlibs.time.internal.Serializable
+import korlibs.time.internal.*
+import korlibs.time.internal.CoreTimeInternal.Year_leapCountSinceOne
 import kotlin.jvm.JvmInline
 import kotlin.math.min
 
@@ -33,31 +36,12 @@ value class Year(val year: Int) : Comparable<Year>, Serializable {
         /**
          * Determines if a year is leap. The model works for years between 1..9999. Outside this range, the result might be invalid.
          */
-        fun isLeap(year: Int): Boolean = (year % 4 == 0) && (year % 100 != 0 || year % 400 == 0)
+        fun isLeap(year: Int): Boolean = CoreTimeInternal.Year_isLeap(year)
 
         /**
          * Computes the year from the number of days since 0001-01-01.
          */
-        fun fromDays(days: Int): Year {
-            // https://en.wikipedia.org/wiki/Leap_year#Algorithm
-            // Each 400 years the modular cycle is completed
-
-            val v400 = days / DAYS_PER_400_YEARS
-            val r400 = days - (v400 * DAYS_PER_400_YEARS)
-
-            val v100 = min(r400 / DAYS_PER_100_YEARS, 3)
-            val r100 = r400 - (v100 * DAYS_PER_100_YEARS)
-
-            val v4 = r100 / DAYS_PER_4_YEARS
-            val r4 = r100 - (v4 * DAYS_PER_4_YEARS)
-
-            val v1 = min(r4 / DAYS_COMMON, 3)
-
-            val extra = if (days < 0) 0 else 1
-            //val extra = 1
-
-            return Year(extra + v1 + (v4 * 4) + (v100 * 100) + (v400 * 400))
-        }
+        fun fromDays(days: Int): Year = Year(CoreTimeInternal.Year_fromDays(days))
 
         /**
          * Get the number of days of a year depending on being leap or not.
@@ -68,21 +52,7 @@ value class Year(val year: Int) : Comparable<Year>, Serializable {
         /**
          * Return the number of leap years that happened between 1 and the specified [year].
          */
-        fun leapCountSinceOne(year: Int): Int {
-            if (year < 1) {
-                // @TODO: Hack for negative numbers. Maybe we can do some kind of offset and subtract.
-                var leapCount = 0
-                var y = 1
-                while (y >= year) {
-                    if (Year(y).isLeap) leapCount--
-                    y--
-                }
-                return leapCount
-            }
-            val y1 = (year - 1)
-            val res = (y1 / 4) - (y1 / 100) + (y1 / 400)
-            return res
-        }
+        fun leapCountSinceOne(year: Int): Int = Year_leapCountSinceOne(year)
 
         /**
          * Number of days since 1 and the beginning of the specified [year].
@@ -92,20 +62,12 @@ value class Year(val year: Int) : Comparable<Year>, Serializable {
         /**
          * Number of days in a normal year.
          */
-        const val DAYS_COMMON = 365
+        const val DAYS_COMMON = CoreTimeInternal.DAYS_COMMON
 
         /**
          * Number of days in a leap year.
          */
-        const val DAYS_LEAP = 366
-
-        private const val LEAP_PER_4_YEARS = 1
-        private const val LEAP_PER_100_YEARS = 24 // 24 or 25 (25 the first chunk)
-        private const val LEAP_PER_400_YEARS = 97
-
-        private const val DAYS_PER_4_YEARS = 4 * DAYS_COMMON + LEAP_PER_4_YEARS
-        private const val DAYS_PER_100_YEARS = 100 * DAYS_COMMON + LEAP_PER_100_YEARS
-        private const val DAYS_PER_400_YEARS = 400 * DAYS_COMMON + LEAP_PER_400_YEARS
+        const val DAYS_LEAP = CoreTimeInternal.DAYS_LEAP
     }
 
     /**
