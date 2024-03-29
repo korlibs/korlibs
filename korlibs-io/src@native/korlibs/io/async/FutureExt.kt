@@ -1,6 +1,6 @@
 package korlibs.io.async
 
-import korlibs.time.*
+import kotlin.time.*
 
 // @TODO: Use select when waiting for sockets, and integrate it in the eventloop?
 suspend fun <T> kotlin.native.concurrent.Future<T>.await(): T {

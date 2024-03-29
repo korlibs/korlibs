@@ -13,6 +13,7 @@ import platform.posix.*
 import platform.zlib.*
 import kotlin.assert
 import kotlin.experimental.*
+import kotlin.time.*
 
 //actual fun Deflate(windowBits: Int): CompressionMethod = DeflatePortable(windowBits)
 actual fun Deflate(windowBits: Int): CompressionMethod = DeflateNative(windowBits)

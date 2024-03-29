@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.*
 import platform.posix.*
 import kotlin.math.*
 import kotlin.native.concurrent.*
+import kotlin.time.*
 
 @ThreadLocal
 val tmpdir: String by lazy { Environment["TMPDIR"] ?: Environment["TEMP"] ?: Environment["TMP"] ?: "/tmp" }
