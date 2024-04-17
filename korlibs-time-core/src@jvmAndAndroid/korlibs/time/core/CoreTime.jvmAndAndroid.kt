@@ -10,8 +10,10 @@ actual var CoreTime: ICoreTime = object : ICoreTime {
     override fun localTimezoneOffset(time: Long): Duration = TimeZone.getDefault().getOffset(time).milliseconds
     override fun unaccurateSleep(duration: Duration) {
         Thread.sleep(duration.inWholeMilliseconds)
-        if (Thread.interrupted()) throw InterruptedException()
     }
 
-    override fun unaccurateYield() = Thread.yield()
+    override fun unaccurateYield() {
+        Thread.yield()
+        if (Thread.interrupted()) throw InterruptedException()
+    }
 }
