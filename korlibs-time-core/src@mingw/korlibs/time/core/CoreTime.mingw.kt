@@ -27,12 +27,16 @@ actual var CoreTime: ICoreTime = object : ICoreTime {
         return (localUnix - utcUnix).milliseconds
     }
 
-    override fun sleep(time: Duration) {
-        val micros = time.inWholeMicroseconds
+    override fun unaccurateSleep(duration: Duration) {
+        val micros = duration.inWholeMicroseconds
         val s = micros / 1_000_000
         val u = micros % 1_000_000
         if (s > 0) platform.posix.sleep(s.convert())
         if (u > 0) platform.posix.usleep(u.convert())
+    }
+
+    override fun unaccurateYield() {
+        platform.posix.sched_yield()
     }
 
     fun FILETIME_fromWindowsTicks(scope: NativePlacement, ticks: Long): FILETIME = scope.run { alloc<FILETIME>().apply { dwHighDateTime = (ticks ushr 32).toUInt(); dwLowDateTime = ticks.toUInt() } }
