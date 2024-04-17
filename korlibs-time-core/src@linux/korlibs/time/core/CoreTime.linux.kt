@@ -23,11 +23,15 @@ actual var CoreTime: ICoreTime = object : ICoreTime {
         tm.tm_gmtoff.toInt().seconds
     }
 
-    override fun sleep(time: Duration) {
-        val micros = time.inWholeMicroseconds
+    override fun unaccurateSleep(duration: Duration) {
+        val micros = duration.inWholeMicroseconds
         val s = micros / 1_000_000
         val u = micros % 1_000_000
         if (s > 0) platform.posix.sleep(s.convert())
         if (u > 0) platform.posix.usleep(u.convert())
+    }
+
+    override fun unaccurateYield() {
+        platform.posix.sched_yield()
     }
 }
