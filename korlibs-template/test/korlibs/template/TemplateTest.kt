@@ -431,6 +431,14 @@ class TemplateTest : BaseTest() {
         )
     }
 
+    @Test
+    fun testFrontMatterWindows() = suspendTest {
+        assertEquals(
+            "hello",
+            KorteTemplate("---\r\ntitle: hello\r\n---\r\n{{ title }}")()
+        )
+    }
+
     class TestMethods : KorteDynamicType<TestMethods> by KorteDynamicType({
         register("mytest123") { mytest123() }
         register("sum") { sum(it[0].toDynamicInt(), it[1].toDynamicInt()) }

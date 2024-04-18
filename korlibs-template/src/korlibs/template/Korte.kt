@@ -444,6 +444,8 @@ interface KorteBlock : KorteDynamicContext {
         fun group(children: List<KorteBlock>): KorteBlock =
             if (children.size == 1) children[0] else DefaultBlocks.BlockGroup(children)
 
+        private val LINES_REGEX = Regex("(\\r\\n|\\n)")
+
         class Parse(val tokens: List<KorteToken>, val parseContext: KorteTemplate.ParseContext) {
             val tr = KorteListReader(tokens, tokens.lastOrNull())
 
@@ -463,7 +465,7 @@ interface KorteBlock : KorteDynamicContext {
                             var text = it.content
                             // it.content.startsWith("---")
                             if (children.isEmpty() && it.content.startsWith("---")) {
-                                val lines = it.content.split('\n')
+                                val lines = it.content.split(LINES_REGEX)
                                 if (lines[0] == "---") {
                                     val slines = lines.drop(1)
                                     val index = slines.indexOf("---")
