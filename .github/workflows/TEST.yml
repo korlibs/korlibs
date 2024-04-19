@@ -53,5 +53,5 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
       - { name: "Run Android Tests", if: "${{ matrix.enableAndroid }}", uses: reactivecircus/android-emulator-runner@v2, with: { "api-level": 21, "script": "./gradlew connectedCheck" } }
-      - { name: Archive Test Results, if: failure(), uses: actions/upload-artifact@v4, with: { name: "test-results-${{ matrix.os }}", retention-days: 21, path: "**/build/reports", if-no-files-found: ignore } }
+      - { name: Archive Test Results, if: failure(), uses: actions/upload-artifact@v4, with: { name: "test-results-${{ matrix.outputKey }}", retention-days: 21, path: "**/build/reports", if-no-files-found: ignore } }
       - { if: "${{ matrix.e2e }}", name: Publish to maven local, run: ./gradlew --parallel publishJvmLocal publishKotlinMultiplatformPublicationToMavenLocal }
