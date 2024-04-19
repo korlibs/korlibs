@@ -102,16 +102,7 @@ abstract class BasePatternDateTimeFormat(
             "mm" -> """(\d{2})"""
             "s" -> """(\d{1,2})"""
             "ss" -> """(\d{2})"""
-            "S" -> """(\d{1,9})""" // @TODO: This should be \d{1} to keep semantics
-            "S*" -> """(\d{1,9})"""
-            "SS" -> """(\d{2})"""
-            "SSS" -> """(\d{3})"""
-            "SSSS" -> """(\d{4})"""
-            "SSSSS" -> """(\d{5})"""
-            "SSSSSS" -> """(\d{6})"""
-            "SSSSSSS" -> """(\d{7})"""
-            "SSSSSSSS" -> """(\d{8})"""
-            "SSSSSSSSS" -> """(\d{9})"""
+            "S*", "S", "SS", "SSS", "SSSS", "SSSSS", "SSSSSS", "SSSSSSS", "SSSSSSSS", "SSSSSSSSS" -> """(\d{1,9})"""
             "a" -> """(\w+)"""
             " " -> """(\s+)"""
             else -> null
@@ -163,18 +154,8 @@ abstract class BasePatternDateTimeFormat(
                 }
                 "m", "mm" -> minute = value.toInt()
                 "s", "ss" -> second = value.toInt()
-                "S*" -> {
-                    millisecond = ("0.${value}".toDouble() * 1000).toInt()
-                }
-                "S", "SS", "SSS", "SSSS", "SSSSS", "SSSSSS", "SSSSSSS", "SSSSSSSS", "SSSSSSSSS" -> {
-                    val base10length = log10(value.toDouble()).toInt() + 1
-                    millisecond = if (base10length > 3) {
-                        // only precision to millisecond supported, ignore the rest. ex: 9999999 => 999"
-                        (value.toDouble() * 10.0.pow(-1 * (base10length - 3))).toInt()
-                    } else {
-                        value.toInt()
-                    }
-                }
+                "S*" -> millisecond = ("0.${value}".toDouble() * 1000).toInt()
+                "S", "SS", "SSS", "SSSS", "SSSSS", "SSSSSS", "SSSSSSS", "SSSSSSSS", "SSSSSSSSS" -> millisecond = value.toInt()
                 "X", "XX", "XXX", "x", "xx", "xxx" -> {
                     when {
                         name.startsWith("X") && value.first() == 'Z' -> offset = 0.hours
@@ -283,13 +264,8 @@ abstract class BasePatternDateTimeFormat(
 
                 "S*" -> (millisecond.toDouble() / 1000).toString().removePrefix("0.").trimStart('0').takeIf { it.isNotEmpty() } ?: "0"
                 "S", "SS", "SSS", "SSSS", "SSSSS", "SSSSSS", "SSSSSSS", "SSSSSSSS", "SSSSSSSSS" -> {
-                    val milli = millisecond
-                    val numberLength = log10(millisecond.toDouble()).toInt() + 1
-                    if (numberLength > name.length) {
-                        (milli.toDouble() / 10.0.pow(numberLength - name.length)).toInt().toString()
-                    } else {
-                        "${milli.padded(3)}000000".substr(0, name.length)
-                    }
+                    val res = millisecond.toString()
+                    if (res.length < name.length) "000000000$millisecond".takeLast(name.length) else res
                 }
                 //"a" -> if (hour < 12) "am" else if (hour < 24) "pm" else ""
                 "a" -> realLocale.h12Marker[if (hour < 12) 0 else 1]

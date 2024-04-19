@@ -16,8 +16,11 @@ class TimeFormatTest {
         assertEquals("00:23:12", TimeFormat("KK:mm:ss").format(time1))
 
         val time2 = Time(hour = 50, minute = 2, second = 0, millisecond = 109)
-        assertEquals("2:2:0.10", TimeFormat("h:m:s.SS").format(time2))
-        assertEquals("2:2:0.1", TimeFormat("h:m:s.S").format(time2))
+        assertEquals("2:2:0.00109", TimeFormat("h:m:s.SSSSS").format(time2))
+        assertEquals("2:2:0.0109", TimeFormat("h:m:s.SSSS").format(time2))
+        assertEquals("2:2:0.109", TimeFormat("h:m:s.SSS").format(time2))
+        assertEquals("2:2:0.109", TimeFormat("h:m:s.SS").format(time2))
+        assertEquals("2:2:0.109", TimeFormat("h:m:s.S").format(time2))
         assertEquals("2:2:0", TimeFormat("K:m:s").format(time2))
     }
 
