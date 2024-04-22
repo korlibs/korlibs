@@ -6,10 +6,10 @@ apply: [ ../common.module-template.yaml ]
 
 dependencies:
   - ../korlibs-math-core: exported
+  - ../korlibs-vector: exported
   - ../korlibs-util: exported
   - ../korlibs-datastructure: exported
   - ../korlibs-number: exported
 
 test-dependencies:
-  - org.jetbrains.kotlin:kotlin-test:1.8.0
   - ../korlibs-platform

@@ -24,8 +24,10 @@ import korlibs.io.stream.write8
 import korlibs.io.stream.writeBytes
 import korlibs.io.stream.writeString
 import korlibs.encoding.hex
+import korlibs.compression.lzo.*
 
 // @TODO: We might want to support a raw version without headers?
+@OptIn(ExperimentalStdlibApi::class)
 open class LZO(val headerType: HeaderType = HeaderType.SHORT) : CompressionMethod {
     override val name: String get() = "LZO"
 

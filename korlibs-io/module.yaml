@@ -12,6 +12,7 @@ aliases:
   - concurrent: [jvm, android, tvosArm64, tvosX64, tvosSimulatorArm64, iosArm64, iosSimulatorArm64, iosX64]
 
 dependencies:
+  - ../korlibs-io-core: exported
   - ../korlibs-math-core: exported
   - ../korlibs-memory: exported
   - ../korlibs-ffi: exported
@@ -23,10 +24,14 @@ dependencies:
   - ../korlibs-number: exported
   - ../korlibs-time-core: exported
   - ../korlibs-logger: exported
+  - ../korlibs-serialization-csv: exported
+  - ../korlibs-serialization-toml: exported
+  - ../korlibs-serialization-yaml: exported
+  - ../korlibs-compression-lzma: exported
+  - ../korlibs-compression-deflate: exported
+  - ../korlibs-compression-lzo: exported
   - org.jetbrains.kotlinx:atomicfu:0.23.1: exported
-  - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0: exported
 
 test-dependencies:
-  - org.jetbrains.kotlin:kotlin-test:1.8.0
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0
   - ../korlibs-time

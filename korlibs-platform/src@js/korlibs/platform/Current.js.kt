@@ -106,3 +106,26 @@ internal actual val currentRawOsName: String = when {
 external object JsObject {
     fun keys(obj: dynamic): dynamic
 }
+
+internal actual val envs: Map<String, String> by lazy {
+    when {
+        isDenoJs -> jsObjectToMap(Deno.env.toObject())
+        isNodeJs -> jsObjectToMap(process.env)
+        else -> LinkedHashMap<String, String>().also { out ->
+            val hash = (document.location?.search ?: "").trimStart('?')
+            for (part in hash.split("&")) {
+                val parts = part.split("=")
+                val key = decodeURIComponent(parts[0])
+                val value = decodeURIComponent(parts.getOrNull(1) ?: key)
+                out[key] = value
+            }
+        }
+    }
+}
+
+private external fun decodeURIComponent(str: String): String
+
+private fun jsObjectKeys(obj: dynamic): dynamic = js("(Object.keys(obj))")
+private fun jsObjectKeysArray(obj: dynamic): Array<String> = jsToArray(jsObjectKeys(obj)) as Array<String>
+private fun jsObjectToMap(obj: dynamic): Map<String, dynamic> = jsObjectKeysArray(obj).associate { it to obj[it] }
+private fun jsToArray(obj: dynamic): Array<Any?> = Array<Any?>(obj.length) { obj[it] }

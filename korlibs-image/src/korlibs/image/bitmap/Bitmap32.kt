@@ -5,6 +5,7 @@ import korlibs.math.clamp
 import korlibs.math.toInt
 import korlibs.image.annotation.KorimInternal
 import korlibs.image.color.*
+import korlibs.image.core.*
 import korlibs.image.vector.Bitmap32Context2d
 import korlibs.image.vector.Context2d
 import korlibs.math.geom.*
@@ -15,16 +16,18 @@ import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
+fun CoreBitmap32.toBitmap32(): Bitmap32 = Bitmap32(width, height, ints, premultiplied)
+
 // @TODO: Create separate classes for premultiplied and non-premultiplied variants
 @OptIn(KorimInternal::class)
 class Bitmap32(
     width: Int,
     height: Int,
-    val ints: IntArray = IntArray(width * height),
+    override val ints: IntArray = IntArray(width * height),
     //premultiplied: Boolean
     premultiplied: Boolean = true
     //premultiplied: Boolean = false
-) : Bitmap(width, height, 32, premultiplied, ints), Iterable<RGBA> {
+) : Bitmap(width, height, 32, premultiplied, ints), CoreBitmap32, Iterable<RGBA> {
 	init {
 		if (ints.size < width * height) throw RuntimeException("Bitmap data is too short: width=$width, height=$height, data=ByteArray(${ints.size}), area=${width * height}")
 	}

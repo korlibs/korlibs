@@ -28,7 +28,7 @@ object Convex {
     fun isConvex(vertices: PointList): Boolean { // Rory Daulton
         var base = 0
         var n = vertices.size
-        val TWO_PI: Double = PI2
+        val TWO_PI: Double = PI * 2
 
         // points is 'strictly convex': points are valid, side lengths non-zero, interior angles are strictly between zero and a straight
         // angle, and the polygon does not intersect itself.

@@ -1,11 +1,10 @@
 package korlibs.audio.sound
 
 import korlibs.audio.internal.*
-import korlibs.datastructure.iterators.*
-import korlibs.io.lang.*
 import korlibs.math.*
-import korlibs.memory.*
 import kotlin.math.*
+
+//inline class AudioAmplitude(val value: Short)
 
 interface IAudioSamples {
     val channels: Int
@@ -104,7 +103,7 @@ class AudioSamples(override val channels: Int, override val totalSamples: Int, v
 
 
     override fun scaleVolume(scale: Float): AudioSamples {
-        data.fastForEach { channel ->
+        for (channel in data) {
             for (n in channel.indices) {
                 channel[n] = (channel[n] * scale).toInt().coerceToShort()
             }
@@ -112,7 +111,8 @@ class AudioSamples(override val channels: Int, override val totalSamples: Int, v
         return this
     }
     override fun scaleVolume(channelScales: FloatArray): AudioSamples {
-        data.fastForEachWithIndex { ch, channel ->
+        for (ch in data.indices) {
+            val channel = data[ch]
             for (n in channel.indices) {
                 channel[n] = (channel[n] * channelScales[ch]).toInt().coerceToShort()
             }
@@ -175,7 +175,7 @@ fun AudioSamples.copyOfRange(start: Int, end: Int): AudioSamples {
 }
 
 fun AudioSamples.interleaved(out: AudioSamplesInterleaved = AudioSamplesInterleaved(channels, totalSamples)): AudioSamplesInterleaved {
-    assert(out.data.size >= totalSamples * channels)
+    check(out.data.size >= totalSamples * channels)
     when (channels) {
         1 -> arraycopy(this.data[0], 0, out.data, 0, totalSamples)
         2 -> arrayinterleave(
@@ -200,7 +200,7 @@ fun AudioSamples.interleaved(out: AudioSamplesInterleaved = AudioSamplesInterlea
 }
 
 fun IAudioSamples.interleaved(out: AudioSamplesInterleaved = AudioSamplesInterleaved(channels, totalSamples)): AudioSamplesInterleaved {
-    assert(out.data.size >= totalSamples * channels)
+    check(out.data.size >= totalSamples * channels)
     when (this) {
         is AudioSamples -> this.interleaved(out)
         is AudioSamplesInterleaved -> arraycopy(this.data, 0, out.data, 0, totalSamples * channels)
@@ -267,4 +267,21 @@ fun AudioSamplesInterleaved.ensureTwoChannels(): AudioSamplesInterleaved {
 fun IAudioSamples.separated(out: AudioSamples = AudioSamples(channels, totalSamples)): AudioSamples {
     for (n in 0 until totalSamples) for (c in 0 until channels) out[c, n] = this[c, n]
     return out
+}
+
+private fun arraycopy(src: ShortArray, srcPos: Int, dst: ShortArray, dstPos: Int, size: Int) {
+    src.copyInto(dst, dstPos, srcPos, srcPos + size)
+}
+
+private fun arrayinterleave(
+    out: ShortArray, outPos: Int,
+    array1: ShortArray, array1Pos: Int,
+    array2: ShortArray, array2Pos: Int,
+    size: Int,
+) {
+    var m = outPos
+    for (n in 0 until size) {
+        out[m++] = array1[array1Pos + n]
+        out[m++] = array2[array2Pos + n]
+    }
 }
