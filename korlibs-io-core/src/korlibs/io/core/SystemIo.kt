@@ -7,31 +7,38 @@ import kotlinx.coroutines.flow.*
 expect val defaultSyncSystemIo: SyncSystemIo
 expect val defaultSystemIo: SystemIo
 
-object NullSyncSystemIo : SyncSystemIo()
-object NullSystemIo : SystemIo()
+object NullSyncSystemIo : SyncSystemIo() {
+    override fun open(path: String, write: Boolean): SyncFileSystemIo? = TODO("Not yet implemented")
+    override fun listdir(path: String): Sequence<String> = TODO("Not yet implemented")
+    override fun mkdir(path: String): Boolean = TODO("Not yet implemented")
+    override fun rmdir(path: String): Boolean = TODO("Not yet implemented")
+    override fun unlink(path: String): Boolean = TODO("Not yet implemented")
+    override fun stat(path: String): FileSystemIoStat? = TODO("Not yet implemented")
+}
+val NullSystemIo: SystemIo = NullSyncSystemIo.toAsync(Dispatchers.Unconfined)
 
-open class SyncSystemIo {
+abstract class SyncSystemIo {
     open fun getcwd(): String = "."
 
-    open fun open(path: String, write: Boolean = false): SyncFileSystemIo? = TODO()
-    open fun listdir(path: String): Sequence<String> = TODO()
-    open fun mkdir(path: String): Boolean = TODO()
-    open fun rmdir(path: String): Boolean = TODO()
-    open fun unlink(path: String): Boolean = TODO()
-    open fun stat(path: String): FileSystemIoStat? = TODO()
+    abstract fun open(path: String, write: Boolean = false): SyncFileSystemIo?
+    abstract fun listdir(path: String): Sequence<String>
+    abstract fun mkdir(path: String): Boolean
+    abstract fun rmdir(path: String): Boolean
+    abstract fun unlink(path: String): Boolean
+    abstract fun stat(path: String): FileSystemIoStat?
 
-    open fun exists(path: String): Boolean = stat(path) != null
-    open fun isFile(path: String): Boolean = stat(path)?.isDirectory == false
-    open fun isDirectory(path: String): Boolean = stat(path)?.isDirectory == true
+    fun exists(path: String): Boolean = stat(path) != null
+    fun isFile(path: String): Boolean = stat(path)?.isDirectory == false
+    fun isDirectory(path: String): Boolean = stat(path)?.isDirectory == true
 }
 
-open class SystemIo {
-    open suspend fun open(path: String, write: Boolean = false): FileSystemIo? = TODO()
-    open suspend fun listdir(path: String): Flow<String> = TODO()
-    open suspend fun mkdir(path: String): Boolean = TODO()
-    open suspend fun rmdir(path: String): Boolean = TODO()
-    open suspend fun unlink(path: String): Boolean = TODO()
-    open suspend fun stat(path: String): FileSystemIoStat? = TODO()
+abstract class SystemIo {
+    abstract suspend fun open(path: String, write: Boolean = false): FileSystemIo?
+    abstract suspend fun listdir(path: String): Flow<String>
+    abstract suspend fun mkdir(path: String): Boolean
+    abstract suspend fun rmdir(path: String): Boolean
+    abstract suspend fun unlink(path: String): Boolean
+    abstract suspend fun stat(path: String): FileSystemIoStat?
 
     suspend fun exists(path: String): Boolean = stat(path) != null
     suspend fun isFile(path: String): Boolean = stat(path)?.isDirectory == false
@@ -49,24 +56,24 @@ data class FileSystemIoStat(
     val inode: Long = 0L,
 )
 
-open class FileSystemIo : Closeable {
-    open suspend fun getLength(): Long = TODO()
-    open suspend fun setLength(value: Long): Unit = TODO()
-    open suspend fun getPosition(): Long = TODO()
-    open suspend fun setPosition(value: Long): Unit = TODO()
-    open suspend fun read(data: ByteArray, offset: Int = 0, size: Int = data.size - offset): Int = TODO()
-    open suspend fun write(data: ByteArray, offset: Int = 0, size: Int = data.size - offset): Unit = TODO()
-    override fun close(): Unit = TODO()
+abstract class FileSystemIo : Closeable {
+    abstract suspend fun getLength(): Long
+    abstract suspend fun setLength(value: Long): Unit
+    abstract suspend fun getPosition(): Long
+    abstract suspend fun setPosition(value: Long): Unit
+    abstract suspend fun read(data: ByteArray, offset: Int = 0, size: Int = data.size - offset): Int
+    abstract suspend fun write(data: ByteArray, offset: Int = 0, size: Int = data.size - offset): Unit
+    abstract override fun close(): Unit
 }
 
-open class SyncFileSystemIo : Closeable {
-    open fun getLength(): Long = TODO()
-    open fun setLength(value: Long): Unit = TODO()
-    open fun getPosition(): Long = TODO()
-    open fun setPosition(value: Long): Unit = TODO()
-    open fun read(data: ByteArray, offset: Int = 0, size: Int = data.size - offset): Int = TODO()
-    open fun write(data: ByteArray, offset: Int = 0, size: Int = data.size - offset): Unit = TODO()
-    override fun close(): Unit = TODO()
+abstract class SyncFileSystemIo : Closeable {
+    abstract fun getLength(): Long
+    abstract fun setLength(value: Long): Unit
+    abstract fun getPosition(): Long
+    abstract fun setPosition(value: Long): Unit
+    abstract fun read(data: ByteArray, offset: Int = 0, size: Int = data.size - offset): Int
+    abstract fun write(data: ByteArray, offset: Int = 0, size: Int = data.size - offset): Unit
+    abstract override fun close(): Unit
 }
 
 fun SyncSystemIo.toAsync(ioDispatcher: CoroutineDispatcher): SystemIo {
