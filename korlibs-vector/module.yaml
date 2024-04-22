@@ -5,6 +5,6 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
-  - ../korlibs-math-core: exported
-  #- ../korlibs-number: exported
-  - ../korlibs-util: exported
+  - ../korlibs-math-core
+  #- ../korlibs-number
+  - ../korlibs-util

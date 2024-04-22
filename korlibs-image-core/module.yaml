@@ -6,12 +6,7 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
-  - ../korlibs-io: exported
-  - ../korlibs-image-core: exported
-  - ../korlibs-math: exported
-  - ../korlibs-ffi: exported
-  - ../korlibs-wasm: exported
-  - org.jetbrains.kotlinx:atomicfu:0.23.1: exported
+  - ../korlibs-util: exported
 
 test-dependencies:
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0
