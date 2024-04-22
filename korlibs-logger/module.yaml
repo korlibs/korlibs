@@ -10,5 +10,4 @@ dependencies:
   - ../korlibs-concurrent: exported
 
 test-dependencies:
-  - org.jetbrains.kotlin:kotlin-test:1.8.0
 

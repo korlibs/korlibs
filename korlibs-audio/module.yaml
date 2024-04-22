@@ -12,5 +12,4 @@ dependencies:
   - ../korlibs-ffi: exported
 
 test-dependencies:
-  - org.jetbrains.kotlin:kotlin-test:1.8.0
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0

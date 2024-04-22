@@ -13,6 +13,6 @@ data class CoreBitmapInfo(
 )
 
 interface CoreBitmapProvider {
-    suspend fun decode(source: Any?, decodePixels: Boolean = true): CoreNativeImage? = TODO()
-    suspend fun encode(bitmap: CoreBitmap, format: String, quality: Float = 1f): ByteArray = TODO()
+    suspend fun decode(source: Any?, decodePixels: Boolean = true): CoreNativeImage? = kotlin.TODO()
+    suspend fun encode(bitmap: CoreBitmap, format: String, quality: Float = 1f): ByteArray = kotlin.TODO()
 }

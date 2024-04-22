@@ -9,6 +9,5 @@ dependencies:
   - ../korlibs-platform: exported
 
 test-dependencies:
-  - org.jetbrains.kotlin:kotlin-test:1.8.0
   - ../korlibs-util
   - ../korlibs-encoding
