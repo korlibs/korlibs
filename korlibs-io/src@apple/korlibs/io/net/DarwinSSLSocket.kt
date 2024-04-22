@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
-
 package korlibs.io.net
 
 import cnames.structs.SSLContext

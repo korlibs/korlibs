@@ -1,10 +1,7 @@
 package korlibs.io.lang
 
-import kotlinx.cinterop.*
-import platform.Foundation.*
-
 internal actual object EnvironmentInternal {
-	val allEnvs: Map<String, String> by lazy { kotlinx.cinterop.autoreleasepool { platform.Foundation.NSProcessInfo.processInfo.environment.map { it.key.toString() to it.value.toString() }.toMap() } }
+	val allEnvs: Map<String, String> get() = korlibs.platform.Platform.envs
 	val allEnvsUpper: Map<String, String> by lazy { allEnvs.map { it.key.toUpperCase() to it.value }.toMap() }
 
 	//actual operator fun get(key: String): String? = platform.posix.getenv(key)?.toKString()

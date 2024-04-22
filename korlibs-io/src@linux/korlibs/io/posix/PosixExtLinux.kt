@@ -1,11 +1,13 @@
-@file:OptIn(UnsafeNumber::class, ExperimentalForeignApi::class)
+@file:OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 
 package korlibs.io.posix
 
 import kotlinx.cinterop.*
 import platform.posix.*
 
-abstract class BasePosixPosix : BasePosix() {
+actual val POSIX: BasePosix = PosixExtLinux()
+
+class PosixExtLinux : BasePosix() {
     override fun posixFopen(filename: String, mode: String): CPointer<FILE>? {
         return fopen(filename, mode)
     }
@@ -34,5 +36,11 @@ abstract class BasePosixPosix : BasePosix() {
 
     override fun posixChmod(rpath: String, value: Int) {
         chmod(rpath, value.convert())
+    }
+
+    override fun ioctlSocketFionRead(sockfd: Int): Int {
+        val v = intArrayOf(0)
+        ioctl(sockfd.convert(), FIONREAD.convert(), v.refTo(0))
+        return v[0]
     }
 }
