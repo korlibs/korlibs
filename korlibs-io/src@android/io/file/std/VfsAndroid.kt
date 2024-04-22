@@ -76,12 +76,12 @@ class AndroidResourcesVfs : Vfs() {
 
     override suspend fun listFlow(path: String): Flow<VfsFile> {
         val context = androidContext()
-        return flow<VfsFile> {
+        return flow {
             val rpath = path.trim('/')
-            val files = context.assets.list(rpath)?.toList() ?: emptyList()
+            val files = context.assets.list(rpath).orEmpty()
             //println("AndroidResourcesVfs.listSimple: path=$path, rpath=$rpath")
             //println(" -> $files")
-            files.map { file(it) }
+            files.forEach { emit(file("$rpath/$it")) }
         }.flowOn(Dispatchers.CIO)
     }
 
