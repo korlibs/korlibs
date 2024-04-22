@@ -103,8 +103,7 @@ class AudioSamples(override val channels: Int, override val totalSamples: Int, v
 
 
     override fun scaleVolume(scale: Float): AudioSamples {
-        for (i in 0 until data.size) {
-            val channel = data[i]
+        for (channel in data) {
             for (n in channel.indices) {
                 channel[n] = (channel[n] * scale).toInt().coerceToShort()
             }
@@ -112,7 +111,7 @@ class AudioSamples(override val channels: Int, override val totalSamples: Int, v
         return this
     }
     override fun scaleVolume(channelScales: FloatArray): AudioSamples {
-        for (ch in 0 until data.size) {
+        for (ch in data.indices) {
             val channel = data[ch]
             for (n in channel.indices) {
                 channel[n] = (channel[n] * channelScales[ch]).toInt().coerceToShort()

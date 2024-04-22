@@ -22,6 +22,8 @@ object Arc {
     //val K = (4.0 / 3.0) * (sqrt(2.0) - 1.0)
     const val K = 0.5522847498307933
 
+    private const val PI2 = PI * 2.0
+
     fun area(radius: Double, angle: Angle): Double = (PI * radius * radius) * angle.ratio
     fun length(radius: Double, angle: Angle): Double = PI2 * radius * angle.ratio
 
@@ -1051,7 +1053,7 @@ class Bezier private constructor(val points: PointList, dummy: Unit) : Curve, Is
             return out
         }
 
-        private const val tau: Double = PI2
+        private const val tau: Double = PI * 2.0
 
         private fun between(v: Double, min: Double, max: Double): Boolean =
             ((min <= v) && (v <= max)) || v.isAlmostEquals(min, 0.0001) || v.isAlmostEquals(max, 0.0001)

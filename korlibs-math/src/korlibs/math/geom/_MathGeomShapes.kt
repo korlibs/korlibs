@@ -14,7 +14,7 @@ data class Circle(override val center: Point, val radius: Double) : AbstractShap
     override val lazyVectorPath: VectorPath by lazy { buildVectorPath { circle(this@Circle.center, this@Circle.radius) } }
 
     override val area: Double get() = (PI * radius * radius)
-    override val perimeter: Double get() = (PI2 * radius)
+    override val perimeter: Double get() = (PI * 2.0 * radius)
     override fun distance(p: Point): Double = (p - center).length - radius
     override fun normalVectorAt(p: Point): Vector2D = (p - center).normalized
 
@@ -32,7 +32,7 @@ data class Circle(override val center: Point, val radius: Double) : AbstractShap
 data class Ellipse(override val center: Point, val radius: Size) : Shape2D {
     override val area: Double get() = (PI * radius.width * radius.height)
     override val perimeter: Double get() {
-        if (radius.width == radius.height) return (PI2 * radius.width) // Circle formula
+        if (radius.width == radius.height) return (PI * 2.0 * radius.width) // Circle formula
         val (a, b) = radius
         val h = ((a - b) * (a - b)) / ((a + b) * (a + b))
         return (PI * (a + b) * (1 + ((3 * h) / (10 + sqrt(4 - (3 * h))))))

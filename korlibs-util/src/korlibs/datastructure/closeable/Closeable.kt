@@ -1,5 +1,3 @@
-@file:Suppress("PackageDirectoryMismatch")
-
 package korlibs.datastructure.closeable
 
 @OptIn(ExperimentalStdlibApi::class)

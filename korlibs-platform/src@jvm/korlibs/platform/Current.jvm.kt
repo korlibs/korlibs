@@ -30,6 +30,7 @@ internal actual val currentArch: Arch by lazy {
     }
 }
 internal actual val multithreadedSharedHeap: Boolean = true
+internal actual val envs: Map<String, String> = System.getenv()
 
 internal actual val currentIsDebug: Boolean by lazy {
     val inputArguments = ManagementFactory.getRuntimeMXBean().inputArguments
