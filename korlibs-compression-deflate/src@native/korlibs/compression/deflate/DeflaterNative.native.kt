@@ -1,40 +1,27 @@
-@file:OptIn(ExperimentalNativeApi::class, ExperimentalForeignApi::class, UnsafeNumber::class)
+@file:OptIn(ExperimentalForeignApi::class)
 
-package korlibs.io.compression.deflate
+package korlibs.compression.deflate
 
-import korlibs.io.compression.*
-import korlibs.io.compression.util.*
-import korlibs.io.experimental.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import korlibs.time.*
 import kotlinx.cinterop.*
 import platform.posix.*
 import platform.zlib.*
-import kotlin.assert
-import kotlin.experimental.*
 import kotlin.time.*
-
-//actual fun Deflate(windowBits: Int): CompressionMethod = DeflatePortable(windowBits)
-actual fun Deflate(windowBits: Int): CompressionMethod = DeflateNative(windowBits)
+import kotlin.time.Duration.Companion.milliseconds
 
 private const val CHUNK = 8 * 1024 * 1024
 
-@OptIn(KorioExperimentalApi::class)
-fun DeflateNative(windowBits: Int): CompressionMethod = object : CompressionMethod {
-    override val name: String get() = "DEFLATE"
-
-    val DEBUG_DEFLATE = Environment["DEBUG_DEFLATE"] == "true"
+actual fun DeflaterNative(windowBits: Int): IDeflater = object : IDeflater {
+    val DEBUG_DEFLATE = getenv("DEBUG_DEFLATE")?.toKStringFromUtf8() == "true"
     //val DEBUG_DEFLATE = true
 
-	override suspend fun uncompress(input: BitReader, output: AsyncOutputStream) {
-		memScoped {
-			val strm: z_stream = alloc()
+    override suspend fun uncompress(input: DeflaterBitReader, output: DeflaterAsyncOutputStream) {
+        memScoped {
+            val strm: z_stream = alloc()
 
-			var ret: Int
+            var ret: Int
 
-			val inpArray = ByteArray(CHUNK)
-			val outArray = ByteArray(CHUNK)
+            val inpArray = ByteArray(CHUNK)
+            val outArray = ByteArray(CHUNK)
 
             //val buffer = ByteArrayDeque(17)
             //suspend fun flush(force: Boolean) {
@@ -55,7 +42,7 @@ fun DeflateNative(windowBits: Int): CompressionMethod = object : CompressionMeth
             var writeCount = 0
             var inflateCount = 0
 
-			try {
+            try {
                 totalTime = measureTime {
                     inpArray.usePinned { _inp ->
                         outArray.usePinned { _out ->
@@ -68,7 +55,7 @@ fun DeflateNative(windowBits: Int): CompressionMethod = object : CompressionMeth
 
                             do {
                                 //println("strm.avail_in: ${strm.avail_in}")
-                                readTime += measureTime {
+                                readTime += kotlin.time.measureTime {
                                     strm.avail_in = input.read(inpArray, 0, CHUNK).convert()
                                     readCount++
                                 }
@@ -80,8 +67,8 @@ fun DeflateNative(windowBits: Int): CompressionMethod = object : CompressionMeth
                                     strm.avail_out = CHUNK.convert()
                                     strm.next_out = out.reinterpret()
                                     inflateCount++
-                                    inflateTime += measureTime {
-                                        ret = inflate(strm.ptr, Z_NO_FLUSH)
+                                    inflateTime += kotlin.time.measureTime {
+                                        ret = platform.zlib.inflate(strm.ptr, platform.zlib.Z_NO_FLUSH)
                                     }
                                     check(ret != Z_STREAM_ERROR)
                                     when (ret) {
@@ -92,7 +79,7 @@ fun DeflateNative(windowBits: Int): CompressionMethod = object : CompressionMeth
                                     val have = CHUNK - strm.avail_out.toInt()
                                     //buffer.write(outArray, 0, have)
                                     //flush(false)
-                                    writeTime += measureTime {
+                                    writeTime += kotlin.time.measureTime {
                                         output.write(outArray, 0, have)
                                         writeCount++
                                     }
@@ -110,71 +97,72 @@ fun DeflateNative(windowBits: Int): CompressionMethod = object : CompressionMeth
                         }
                     }
                 }
-			} finally {
-				inflateEnd(strm.ptr)
+            } finally {
+                inflateEnd(strm.ptr)
                 if (DEBUG_DEFLATE) {
                     println("DeflateNative.uncompress: inflateCount=$inflateCount, inflateTime=$inflateTime, readCount=$readCount, readTime=$readTime, writeCount=$writeCount, writeTime=$writeTime, totalTime=$totalTime, CHUNK=$CHUNK, input=$input, output=$output")
                 }
-			}
-		}
-	}
+            }
+        }
+    }
 
-	override suspend fun compress(
-		input: BitReader,
-		output: AsyncOutputStream,
-		context: CompressionContext
-	) {
-		memScoped {
-			val strm: z_stream = alloc()
+    override suspend fun compress(
+        input: DeflaterBitReader,
+        output: DeflaterAsyncOutputStream,
+        level: Float
+    ) {
+        memScoped {
+            val strm: z_stream = alloc()
 
-			var ret: Int
+            var ret: Int
 
-			val inpArray = ByteArray(CHUNK)
-			val outArray = ByteArray(CHUNK)
+            val inpArray = ByteArray(CHUNK)
+            val outArray = ByteArray(CHUNK)
 
-			try {
-				inpArray.usePinned { _inp ->
-					outArray.usePinned { _out ->
-						val inp = _inp.addressOf(0)
-						val out = _out.addressOf(0)
+            try {
+                inpArray.usePinned { _inp ->
+                    outArray.usePinned { _out ->
+                        val inp = _inp.addressOf(0)
+                        val out = _out.addressOf(0)
                         memset(strm.ptr, 0, z_stream.size.convert())
                         val Z_DEFLATED = 8
-						val MAX_MEM_LEVEL = 9
-						val Z_DEFAULT_STRATEGY = 0
-						ret = deflateInit2_(strm.ptr, context.level, Z_DEFLATED, -windowBits, MAX_MEM_LEVEL, Z_DEFAULT_STRATEGY, zlibVersion()?.toKString(), sizeOf<z_stream>().toInt());
-						if (ret != Z_OK) error("Invalid deflateInit2_")
+                        val MAX_MEM_LEVEL = 9
+                        val Z_DEFAULT_STRATEGY = 0
+                        ret = deflateInit2_(strm.ptr,
+                            (level * 10).toInt(), Z_DEFLATED, -windowBits, MAX_MEM_LEVEL, Z_DEFAULT_STRATEGY, zlibVersion()?.toKString(), sizeOf<z_stream>().toInt());
+                        if (ret != Z_OK) error("Invalid deflateInit2_")
 
-						var finalize = false
-						do {
-							val read = input.read(inpArray, 0, CHUNK)
-							if (read <= 0 || read > CHUNK) {
-								finalize = true
-							}
-							strm.avail_in = read.convert()
-							strm.next_in = inp.reinterpret()
+                        var finalize = false
+                        do {
+                            val read = input.read(inpArray, 0, CHUNK)
+                            if (read <= 0 || read > CHUNK) {
+                                finalize = true
+                            }
+                            strm.avail_in = read.convert()
+                            strm.next_in = inp.reinterpret()
 
-							do {
-								strm.avail_out = CHUNK.convert()
-								strm.next_out = out.reinterpret()
-								ret = deflate(strm.ptr, if (finalize) Z_FINISH else Z_NO_FLUSH)
-								check(ret != Z_STREAM_ERROR)
-								when (ret) {
-									Z_NEED_DICT -> ret = Z_DATA_ERROR
-									Z_DATA_ERROR -> error("data error")
-									Z_MEM_ERROR  -> error("mem error")
-								}
-								val have = CHUNK - strm.avail_out.toInt()
-								output.write(outArray, 0, have)
-							} while (strm.avail_out == 0u)
+                            do {
+                                strm.avail_out = CHUNK.convert()
+                                strm.next_out = out.reinterpret()
+                                ret = deflate(strm.ptr, if (finalize) Z_FINISH else Z_NO_FLUSH)
+                                check(ret != Z_STREAM_ERROR)
+                                when (ret) {
+                                    Z_NEED_DICT -> ret = Z_DATA_ERROR
+                                    Z_DATA_ERROR -> error("data error")
+                                    Z_MEM_ERROR  -> error("mem error")
+                                }
+                                val have = CHUNK - strm.avail_out.toInt()
+                                output.write(outArray, 0, have)
+                            } while (strm.avail_out == 0u)
 
                             check(strm.avail_in == 0u)
 
-						} while (!finalize && ret != Z_STREAM_END)
-					}
-				}
-			} finally {
-				deflateEnd(strm.ptr)
-			}
-		}
-	}
+                        } while (!finalize && ret != Z_STREAM_END)
+                    }
+                }
+            } finally {
+                deflateEnd(strm.ptr)
+            }
+        }
+    }
 }
