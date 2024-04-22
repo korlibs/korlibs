@@ -11,6 +11,8 @@ object NullSyncSystemIo : SyncSystemIo()
 object NullSystemIo : SystemIo()
 
 open class SyncSystemIo {
+    open fun getcwd(): String = "."
+
     open fun open(path: String, write: Boolean = false): SyncFileSystemIo? = TODO()
     open fun listdir(path: String): Sequence<String> = TODO()
     open fun mkdir(path: String): Boolean = TODO()
