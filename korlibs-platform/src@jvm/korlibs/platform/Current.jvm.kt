@@ -30,7 +30,6 @@ internal actual val currentArch: Arch by lazy {
     }
 }
 internal actual val multithreadedSharedHeap: Boolean = true
-internal actual val envs: Map<String, String> = System.getenv()
 
 internal actual val currentIsDebug: Boolean by lazy {
     val inputArguments = ManagementFactory.getRuntimeMXBean().inputArguments
@@ -41,3 +40,5 @@ internal actual val currentIsLittleEndian: Boolean get() = ByteOrder.nativeOrder
 
 internal actual val currentRawPlatformName: String = "jvm-$currentOs-$currentArch-$currentBuildVariant"
 internal actual val currentRawOsName: String = System.getProperty("os.name")
+
+internal actual val envs: Map<String, String> = System.getenv()

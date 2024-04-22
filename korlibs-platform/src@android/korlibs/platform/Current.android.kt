@@ -34,3 +34,5 @@ internal actual val currentIsLittleEndian: Boolean get() = ByteOrder.nativeOrder
 
 internal actual val currentRawPlatformName: String = "android-$currentOs-$currentArch-$currentBuildVariant"
 internal actual val currentRawOsName: String = System.getProperty("os.name") ?: "android"
+
+internal actual val envs: Map<String, String> = System.getenv()

@@ -1,5 +1,6 @@
 package korlibs.platform
 
+import kotlinx.browser.*
 import org.khronos.webgl.*
 
 @JsFun("() => { return (typeof Deno === 'object' && Deno.statSync) }")
@@ -35,6 +36,10 @@ private external class Navigator {
 }
 private external class Process {
     val platform: String
+    val env: JsAny
+}
+private external object Deno {
+    val env: JsAny
 }
 private external val navigator: Navigator // browser
 private external val process: Process // nodejs
@@ -44,3 +49,35 @@ internal actual val currentRawOsName: String = when {
     isWeb() || isWorker() -> navigator.userAgent
     else -> process.platform
 }
+
+internal actual val envs: Map<String, String> by lazy {
+    when {
+        isDenoJs() -> jsObjectToMap(Deno.env).mapValues { it.value.toString() }.toMap()
+        isNodeJs() -> jsObjectToMap(process.env).mapValues { it.value.toString() }.toMap()
+        else -> LinkedHashMap<String, String>().also { out ->
+            val hash = (document.location?.search ?: "").trimStart('?')
+            for (part in hash.split("&")) {
+                val parts = part.split("=")
+                val key = decodeURIComponent(parts[0])
+                val value = decodeURIComponent(parts.getOrNull(1) ?: key)
+                out[key] = value
+            }
+        }
+    }
+}
+
+private external fun decodeURIComponent(str: String): String
+
+fun jsObjectToMap(obj: JsAny): Map<String, JsAny?> = obj.keys().associate { it to obj[it] }
+private fun JsAny.keys(): List<String> = jsArrayToList(jsObjectKeys(this)).map { it.toString() }
+private operator fun JsAny.get(key: String): JsAny? = jsObjectGet(this, key.toJsString())
+
+@JsFun("(obj, key) => { return obj ? obj[key] : null; }")
+@Suppress("UNUSED_PARAMETER")
+private external fun jsObjectGet(obj: JsAny, key: JsString?): JsAny?
+
+@JsFun("(obj) => { return Object.keys(obj); }")
+@Suppress("UNUSED_PARAMETER")
+private external fun jsObjectKeys(obj: JsAny?): JsArray<JsString>
+
+private fun <T : JsAny> jsArrayToList(obj: JsArray<T>): List<T> = List(obj.length) { obj[it]!! }
