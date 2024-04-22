@@ -33,4 +33,3 @@ internal actual val currentIsLittleEndian: Boolean get() = kotlin.native.Platfor
 internal actual val multithreadedSharedHeap: Boolean = true
 internal actual val currentRawPlatformName: String = "native-$currentOs-$currentArch-$currentBuildVariant"
 internal actual val currentRawOsName: String = "$currentOs"
-internal actual val envs: Map<String, String> by lazy { kotlinx.cinterop.autoreleasepool { platform.Foundation.NSProcessInfo.processInfo.environment.map { it.key.toString() to it.value.toString() }.toMap() } }
