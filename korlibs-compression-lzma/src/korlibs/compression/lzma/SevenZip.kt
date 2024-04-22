@@ -1,18 +1,8 @@
-@file:Suppress("PrivatePropertyName", "NAME_SHADOWING", "PropertyName")
+package korlibs.compression.lzma
 
-package korlibs.io.compression.lzma
+import kotlin.math.*
 
-import korlibs.io.experimental.KorioExperimentalApi
-import korlibs.io.stream.SyncInputStream
-import korlibs.io.stream.SyncOutputStream
-import korlibs.io.stream.write8
-import korlibs.io.util.checksum.CRC32
-import kotlin.math.max
-import kotlin.math.min
-
-// Ported from the public domain Java version of the LZMA SDK : https://www.7-zip.org/download.html
-
-@OptIn(KorioExperimentalApi::class)
+@ExperimentalStdlibApi
 object SevenZip {
 	interface ICodeProgress {
 		fun setProgress(inSize: Long, outSize: Long)
@@ -164,9 +154,9 @@ object SevenZip {
 		internal var range: Int = 0
 		internal var code: Int = 0
 
-		internal var stream: SyncInputStream? = null
+		internal var stream: LzmaInputStream? = null
 
-		fun setStream(stream: SyncInputStream) {
+		fun setStream(stream: LzmaInputStream) {
 			this.stream = stream
 		}
 
@@ -238,7 +228,7 @@ object SevenZip {
 
 	class RangeEncoder {
 
-		internal var stream: SyncOutputStream? = null
+		internal var stream: LzmaOutputStream? = null
 
 		private var low: Long = 0
 		internal var range: Int = 0
@@ -247,7 +237,7 @@ object SevenZip {
 
 		private var _position: Long = 0
 
-		fun setStream(stream: SyncOutputStream) {
+		fun setStream(stream: LzmaOutputStream) {
 			this.stream = stream
 		}
 
@@ -571,7 +561,7 @@ object SevenZip {
 			m_RangeDecoder.init()
 		}
 
-		fun code(inStream: SyncInputStream, outStream: SyncOutputStream, outSize: Long): Boolean {
+		fun code(inStream: LzmaInputStream, outStream: LzmaOutputStream, outSize: Long): Boolean {
 			m_RangeDecoder.setStream(inStream)
 			m_OutWindow.setStream(outStream)
 			init()
@@ -747,7 +737,7 @@ object SevenZip {
 
 		private var nowPos64: Long = 0
 		private var _finished: Boolean = false
-		private var _inStream: SyncInputStream? = null
+		private var _inStream: LzmaInputStream? = null
 
 		private var _matchFinderType = EMatchFinderTypeBT4
 		private var _writeEndMark = false
@@ -1821,7 +1811,7 @@ object SevenZip {
 			}
 		}
 
-		private fun setOutStream(outStream: SyncOutputStream) {
+		private fun setOutStream(outStream: LzmaOutputStream) {
 			_rangeEncoder.setStream(outStream)
 		}
 
@@ -1835,7 +1825,7 @@ object SevenZip {
 		}
 
 		@Suppress("UNUSED_PARAMETER")
-		private fun setStreams(inStream: SyncInputStream, outStream: SyncOutputStream, inSize: Long, outSize: Long) {
+		private fun setStreams(inStream: LzmaInputStream, outStream: LzmaOutputStream, inSize: Long, outSize: Long) {
 			_inStream = inStream
 			_finished = false
 			create()
@@ -1856,7 +1846,7 @@ object SevenZip {
 			nowPos64 = 0
 		}
 
-		fun code(inStream: SyncInputStream, outStream: SyncOutputStream, inSize: Long, outSize: Long, progress: ICodeProgress?) {
+		fun code(inStream: LzmaInputStream, outStream: LzmaOutputStream, inSize: Long, outSize: Long, progress: ICodeProgress?) {
 			_needReleaseMFStream = false
 			try {
 				setStreams(inStream, outStream, inSize, outSize)
@@ -1870,7 +1860,7 @@ object SevenZip {
 			}
 		}
 
-		fun writeCoderProperties(outStream: SyncOutputStream) {
+		fun writeCoderProperties(outStream: LzmaOutputStream) {
 			properties[0] = ((_posStateBits * 5 + _numLiteralPosStateBits) * 9 + _numLiteralContextBits).toByte()
 			for (i in 0..3)
 				properties[1 + i] = (_dictionarySize shr 8 * i).toByte()
@@ -2348,13 +2338,17 @@ object SevenZip {
 			internal const val kEmptyHashValue = 0
 			internal const val kMaxValForNormalize = (1 shl 30) - 1
 
-			private val CrcTable = CRC32.TABLE
+			private val CrcTable = IntArray(0x100) {
+				var c = it
+				for (k in 0 until 8) c = (if ((c and 1) != 0) -0x12477ce0 xor (c ushr 1) else c ushr 1)
+				c
+			}
 		}
 	}
 
 	open class LzInWindow {
 		var _bufferBase: ByteArray? = null // pointer to buffer with data
-		private var _stream: SyncInputStream? = null
+		private var _stream: LzmaInputStream? = null
 		private var _posLimit: Int = 0  // offset (from _buffer) of first byte when new block reading must be done
 		private var _streamEndWasReached: Boolean = false // if (true) then _streamPos shows real end of stream
 
@@ -2416,7 +2410,7 @@ object SevenZip {
 			_pointerToLastSafePosition = _blockSize - keepSizeAfter
 		}
 
-		fun setStream(stream: SyncInputStream) {
+		fun setStream(stream: LzmaInputStream) {
 			_stream = stream
 		}
 
@@ -2474,7 +2468,7 @@ object SevenZip {
 		private var _pos: Int = 0
 		private var _windowSize = 0
 		private var _streamPos: Int = 0
-		private var _stream: SyncOutputStream? = null
+		private var _stream: LzmaOutputStream? = null
 
 		fun create(windowSize: Int) {
 			if (_buffer == null || _windowSize != windowSize)
@@ -2484,7 +2478,7 @@ object SevenZip {
 			_streamPos = 0
 		}
 
-		fun setStream(stream: SyncOutputStream) {
+		fun setStream(stream: LzmaOutputStream) {
 			releaseStream()
 			_stream = stream
 		}
@@ -2533,6 +2527,16 @@ object SevenZip {
 			if (pos < 0) pos += _windowSize
 			return _buffer!![pos]
 		}
+	}
+
+	interface LzmaInputStream {
+		fun read(): Int
+		fun read(bytes: ByteArray, offset: Int, size: Int): Int
+	}
+	interface LzmaOutputStream {
+		fun flush()
+		fun write8(value: Int)
+		fun write(bytes: ByteArray, offset: Int, size: Int)
 	}
 }
 

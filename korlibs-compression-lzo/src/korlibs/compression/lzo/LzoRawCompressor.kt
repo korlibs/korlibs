@@ -1,7 +1,8 @@
-package korlibs.io.compression.lzo
+package korlibs.compression.lzo
 
-import korlibs.memory.*
+import korlibs.compression.lzo.internal.*
 
+@ExperimentalStdlibApi
 object LzoRawCompressor {
     const val LAST_LITERAL_SIZE = 5
     const val MIN_MATCH = 4

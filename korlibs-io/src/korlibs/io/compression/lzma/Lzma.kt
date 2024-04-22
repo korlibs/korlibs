@@ -1,22 +1,16 @@
 package korlibs.io.compression.lzma
 
+import korlibs.compression.lzma.*
 import korlibs.io.compression.CompressionContext
 import korlibs.io.compression.CompressionMethod
 import korlibs.io.compression.util.BitReader
 import korlibs.io.experimental.KorioExperimentalApi
-import korlibs.io.stream.AsyncOutputStream
-import korlibs.io.stream.MemorySyncStreamToByteArray
-import korlibs.io.stream.openSync
-import korlibs.io.stream.readAll
-import korlibs.io.stream.readBytesExact
-import korlibs.io.stream.readS64LE
-import korlibs.io.stream.write64LE
-import korlibs.io.stream.writeBytes
+import korlibs.io.stream.*
 
 /**
  * @TODO: Streaming! (right now loads the whole stream in-memory)
  */
-@OptIn(KorioExperimentalApi::class)
+@OptIn(KorioExperimentalApi::class, ExperimentalStdlibApi::class)
 object Lzma : CompressionMethod {
     override val name: String get() = "LZMA"
 
@@ -28,7 +22,7 @@ object Lzma : CompressionMethod {
 		val outSize = input.readS64LE()
 
 		out.writeBytes(MemorySyncStreamToByteArray {
-			if (!decoder.code(input, this, outSize)) throw Exception("Error in data stream")
+			if (!decoder.code(input.toLzmaInput(), this.toLzmaOutput(), outSize)) throw Exception("Error in data stream")
 		})
 	}
 
@@ -45,7 +39,7 @@ object Lzma : CompressionMethod {
 		val input = i.readAll()
 
 		val out = MemorySyncStreamToByteArray {
-			val output = this
+			val output = this.toLzmaOutput()
 			val encoder = SevenZip.LzmaEncoder()
 			if (!encoder.setAlgorithm(algorithm)) throw Exception("Incorrect compression mode")
 			if (!encoder.setDictionarySize(dictionarySize))
@@ -54,12 +48,22 @@ object Lzma : CompressionMethod {
 			if (!encoder.setMatchFinder(matchFinder)) throw Exception("Incorrect -mf value")
 			if (!encoder.setLcLpPb(lc, lp, pb)) throw Exception("Incorrect -lc or -lp or -pb value")
 			encoder.setEndMarkerMode(eos)
-			encoder.writeCoderProperties(this)
+			encoder.writeCoderProperties(output)
 			val fileSize: Long = if (eos) -1 else input.size.toLong()
 			this.write64LE(fileSize)
-			encoder.code(input.openSync(), output, -1, -1, null)
+			encoder.code(input.openSync().toLzmaInput(), output, -1, -1, null)
 		}
 
 		o.writeBytes(out)
+	}
+
+	fun SyncInputStream.toLzmaInput(): SevenZip.LzmaInputStream = object : SevenZip.LzmaInputStream {
+		override fun read(): Int = this@toLzmaInput.read()
+		override fun read(bytes: ByteArray, offset: Int, size: Int): Int = this@toLzmaInput.read(bytes, offset, size)
+	}
+	fun SyncOutputStream.toLzmaOutput(): SevenZip.LzmaOutputStream = object : SevenZip.LzmaOutputStream {
+		override fun flush() = this@toLzmaOutput.flush()
+		override fun write8(value: Int) = this@toLzmaOutput.write8(value)
+		override fun write(bytes: ByteArray, offset: Int, size: Int) = this@toLzmaOutput.write(bytes, offset, size)
 	}
 }

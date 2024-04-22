@@ -1,13 +1,14 @@
-package korlibs.io.compression.lzo
+package korlibs.compression.lzo
 
-import korlibs.io.lang.MalformedInputException
-import korlibs.memory.*
+import korlibs.compression.lzo.internal.*
 
+@ExperimentalStdlibApi
 object LzoRawDecompressor {
     private val DEC_32_TABLE = intArrayOf(4, 1, 2, 1, 4, 4, 4, 4)
     private val DEC_64_TABLE = intArrayOf(0, 0, 0, -1, 0, 1, 2, 3)
 
-    @Throws(MalformedInputException::class)
+    class MalformedInputException(val index: Int, message: String = "Malformed input exception at $index") : Exception(message)
+
     fun decompress(
         inputBase: ByteArray,
         inputAddress: Int,

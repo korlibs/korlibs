@@ -1,6 +1,7 @@
-package korlibs.io.compression.lzo
+package korlibs.compression.lzo
 
-internal object LzoConstants {
+@ExperimentalStdlibApi
+object LzoConstants {
     const val SIZE_OF_SHORT = 2
     const val SIZE_OF_INT = 4
     const val SIZE_OF_LONG = 8
