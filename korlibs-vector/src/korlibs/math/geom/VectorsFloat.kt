@@ -3,7 +3,6 @@
 package korlibs.math.geom
 
 import korlibs.math.*
-import korlibs.math.interpolation.*
 import korlibs.number.*
 import kotlin.math.*
 
@@ -45,18 +44,11 @@ data class Vector2F(val x: Float, val y: Float) {
     inline operator fun unaryMinus(): Vector2F = Vector2F(-x, -y)
     inline operator fun unaryPlus(): Vector2F = this
 
-    inline operator fun plus(that: Size): Vector2F = Vector2F(x + that.width, y + that.height)
-    inline operator fun minus(that: Size): Vector2F = Vector2F(x - that.width, y - that.height)
-
     inline operator fun plus(that: Vector2F): Vector2F = Vector2F(x + that.x, y + that.y)
     inline operator fun minus(that: Vector2F): Vector2F = Vector2F(x - that.x, y - that.y)
     inline operator fun times(that: Vector2F): Vector2F = Vector2F(x * that.x, y * that.y)
-    inline operator fun times(that: Size): Vector2F = Vector2F(x * that.width, y * that.height)
-    inline operator fun times(that: Scale): Vector2F = Vector2F(x * that.scaleX, y * that.scaleY)
     inline operator fun div(that: Vector2F): Vector2F = Vector2F(x / that.x, y / that.y)
-    inline operator fun div(that: Size): Vector2F = Vector2F(x / that.width, y / that.height)
     inline operator fun rem(that: Vector2F): Vector2F = Vector2F(x % that.x, y % that.y)
-    inline operator fun rem(that: Size): Vector2F = Vector2F(x % that.width, y % that.height)
 
     inline operator fun times(scale: Float): Vector2F = Vector2F(x * scale, y * scale)
     inline operator fun times(scale: Double): Vector2F = this * scale.toFloat()
@@ -85,16 +77,6 @@ data class Vector2F(val x: Float, val y: Float) {
     fun angleTo(other: Vector2F, up: Vector2D = Vector2D.UP): Angle = Angle.between(this.x, this.y, other.x, other.y, up)
     val angle: Angle get() = angle()
     fun angle(up: Vector2D = Vector2D.UP): Angle = Angle.between(0f, 0f, this.x, this.y, up)
-
-    inline fun deltaTransformed(m: Matrix): Vector2F = m.deltaTransform(this)
-    inline fun transformed(m: Matrix): Vector2F = m.transform(this)
-
-    fun transformX(m: Matrix): Float = m.transform(this).x
-    fun transformY(m: Matrix): Float = m.transform(this).y
-
-    inline fun transformedNullable(m: Matrix?): Vector2F = if (m != null && m.isNotNIL) m.transform(this) else this
-    fun transformNullableX(m: Matrix?): Float = if (m != null && m.isNotNIL) m.transform(this).x else x
-    fun transformNullableY(m: Matrix?): Float = if (m != null && m.isNotNIL) m.transform(this).y else y
 
     operator fun get(component: Int) = when (component) {
         0 -> x; 1 -> y
@@ -143,8 +125,6 @@ data class Vector2F(val x: Float, val y: Float) {
     fun isNaN(): Boolean = this.x.isNaN() && this.y.isNaN()
 
     val absoluteValue: Vector2F get() = Vector2F(abs(x), abs(y))
-
-    @Deprecated("", ReplaceWith("ratio.interpolate(this, other)", "korlibs.math.interpolation.interpolate")) fun interpolateWith(ratio: Ratio, other: Vector2F): Vector2F = ratio.interpolate(this, other)
 
     companion object {
         val ZERO = Vector2F(0f, 0f)
@@ -264,57 +244,36 @@ data class Vector2F(val x: Float, val y: Float) {
 
         fun minComponents(p1: Vector2F, p2: Vector2F): Vector2F = Vector2F(min(p1.x, p2.x), min(p1.y, p2.y))
         fun minComponents(p1: Vector2F, p2: Vector2F, p3: Vector2F): Vector2F = Vector2F(
-            korlibs.math.min(p1.x, p2.x, p3.x),
-            korlibs.math.min(p1.y, p2.y, p3.y)
+            minOf(p1.x, p2.x, p3.x),
+            minOf(p1.y, p2.y, p3.y)
         )
         fun minComponents(p1: Vector2F, p2: Vector2F, p3: Vector2F, p4: Vector2F): Vector2F = Vector2F(
-            korlibs.math.min(
+            minOf(
                 p1.x,
                 p2.x,
                 p3.x,
                 p4.x
-            ), korlibs.math.min(p1.y, p2.y, p3.y, p4.y)
+            ), minOf(p1.y, p2.y, p3.y, p4.y)
         )
         fun maxComponents(p1: Vector2F, p2: Vector2F): Vector2F = Vector2F(max(p1.x, p2.x), max(p1.y, p2.y))
         fun maxComponents(p1: Vector2F, p2: Vector2F, p3: Vector2F): Vector2F = Vector2F(
-            korlibs.math.max(p1.x, p2.x, p3.x),
-            korlibs.math.max(p1.y, p2.y, p3.y)
+            maxOf(p1.x, p2.x, p3.x),
+            maxOf(p1.y, p2.y, p3.y)
         )
         fun maxComponents(p1: Vector2F, p2: Vector2F, p3: Vector2F, p4: Vector2F): Vector2F = Vector2F(
-            korlibs.math.max(
+            maxOf(
                 p1.x,
                 p2.x,
                 p3.x,
                 p4.x
-            ), korlibs.math.max(p1.y, p2.y, p3.y, p4.y)
+            ), maxOf(p1.y, p2.y, p3.y, p4.y)
         )
     }
-}
-
-internal inline fun getPolylineLength(size: Int, crossinline get: (n: Int) -> Point): Double {
-    var out = 0.0
-    var prev = Point.ZERO
-    for (n in 0 until size) {
-        val p = get(n)
-        if (n > 0) out += Point.distance(prev, p)
-        prev = p
-    }
-    return out
 }
 
 operator fun Int.times(v: Vector2F): Vector2F = v * this
 operator fun Float.times(v: Vector2F): Vector2F = v * this
 operator fun Double.times(v: Vector2F): Vector2F = v * this
-
-fun PointList.getPolylineLength(): Double = getPolylineLength(size) { get(it) }
-fun List<Point>.getPolylineLength(): Double = getPolylineLength(size) { get(it) }
-
-fun List<Point>.bounds(): Rectangle = BoundsBuilder(size) { this + get(it) }.bounds
-fun Iterable<Point>.bounds(): Rectangle {
-    var bb = BoundsBuilder()
-    for (p in this) bb += p
-    return bb.bounds
-}
 
 fun abs(a: Vector2F): Vector2F = a.absoluteValue
 fun min(a: Vector2F, b: Vector2F): Vector2F = Vector2F(min(a.x, b.x), min(a.y, b.y))
@@ -527,20 +486,6 @@ fun max(a: Vector4F, b: Vector4F): Vector4F = Vector4F(max(a.x, b.x), max(a.y, b
 fun Vector4F.clamp(min: Float, max: Float): Vector4F = Vector4F(x.clamp(min, max), y.clamp(min, max), z.clamp(min, max), w.clamp(min, max))
 fun Vector4F.clamp(min: Double, max: Double): Vector4F = clamp(min.toFloat(), max.toFloat())
 fun Vector4F.clamp(min: Vector4F, max: Vector4F): Vector4F = Vector4F(x.clamp(min.x, max.x), y.clamp(min.y, max.y), z.clamp(min.z, max.z), w.clamp(min.w, max.w))
-
-data class PointFixed(val x: Fixed, val y: Fixed) {
-    operator fun unaryMinus(): PointFixed = PointFixed(-this.x, -this.y)
-    operator fun unaryPlus(): PointFixed = this
-
-    operator fun plus(that: PointFixed): PointFixed = PointFixed(this.x + that.x, this.y + that.y)
-    operator fun minus(that: PointFixed): PointFixed = PointFixed(this.x - that.x, this.y - that.y)
-    operator fun times(that: PointFixed): PointFixed = PointFixed(this.x * that.x, this.y * that.y)
-    operator fun times(that: Fixed): PointFixed = PointFixed(this.x * that, this.y * that)
-    operator fun div(that: PointFixed): PointFixed = PointFixed(this.x / that.x, this.y / that.y)
-    operator fun rem(that: PointFixed): PointFixed = PointFixed(this.x % that.x, this.y % that.y)
-
-    override fun toString(): String = "($x, $y)"
-}
 
 data class CylindricalVector(
     val radius: Double = 1.0,

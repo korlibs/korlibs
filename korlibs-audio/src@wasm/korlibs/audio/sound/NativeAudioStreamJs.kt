@@ -114,7 +114,7 @@ class JsPlatformAudioOutput(coroutineContext: CoroutineContext, val freq: Int) :
 				val sample = samples[channel % schannels]
 				val deque = deques[channel]
 				for (n in 0 until size) {
-					deque.write(SampleConvert.shortToFloat(sample[offset + n]))
+					deque.writeOne(SampleConvert.shortToFloat(sample[offset + n]))
 				}
 			}
 

@@ -8,4 +8,4 @@ settings:
     compileSdk: 33
 
 test-dependencies:
-  - org.jetbrains.kotlin:kotlin-test:1.8.0
+  - $kotlin-test

@@ -5,11 +5,6 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
-  - ../korlibs-concurrent: exported
-  - ../korlibs-time-core: exported
-  #- ../korlibs-util: exported
-
-test-dependencies:
-  - org.jetbrains.kotlin:kotlin-test:1.8.0
-  - ../korlibs-platform
-
+  - ../korlibs-math-core: exported
+  #- ../korlibs-number: exported
+  - ../korlibs-util: exported

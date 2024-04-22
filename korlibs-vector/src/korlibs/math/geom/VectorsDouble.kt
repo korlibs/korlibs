@@ -1,7 +1,6 @@
 package korlibs.math.geom
 
 import korlibs.math.*
-import korlibs.math.interpolation.*
 import korlibs.number.*
 import kotlin.math.*
 
@@ -36,18 +35,11 @@ data class Vector2D(val x: Double, val y: Double) : IsAlmostEquals<Vector2D> {
     inline operator fun unaryMinus(): Vector2D = Vector2D(-x, -y)
     inline operator fun unaryPlus(): Vector2D = this
 
-    inline operator fun plus(that: Size): Vector2D = Vector2D(x + that.width, y + that.height)
-    inline operator fun minus(that: Size): Vector2D = Vector2D(x - that.width, y - that.height)
-
     inline operator fun plus(that: Vector2D): Vector2D = Vector2D(x + that.x, y + that.y)
     inline operator fun minus(that: Vector2D): Vector2D = Vector2D(x - that.x, y - that.y)
     inline operator fun times(that: Vector2D): Vector2D = Vector2D(x * that.x, y * that.y)
-    inline operator fun times(that: Size): Vector2D = Vector2D(x * that.width, y * that.height)
-    inline operator fun times(that: Scale): Vector2D = Vector2D(x * that.scaleX, y * that.scaleY)
     inline operator fun div(that: Vector2D): Vector2D = Vector2D(x / that.x, y / that.y)
-    inline operator fun div(that: Size): Vector2D = Vector2D(x / that.width, y / that.height)
     inline operator fun rem(that: Vector2D): Vector2D = Vector2D(x % that.x, y % that.y)
-    inline operator fun rem(that: Size): Vector2D = Vector2D(x % that.width, y % that.height)
 
     inline operator fun times(scale: Double): Vector2D = Vector2D(x * scale, y * scale)
     inline operator fun times(scale: Float): Vector2D = this * scale.toDouble()
@@ -76,16 +68,6 @@ data class Vector2D(val x: Double, val y: Double) : IsAlmostEquals<Vector2D> {
     fun angleTo(other: Vector2D, up: Vector2D = UP): Angle = Angle.between(this.x, this.y, other.x, other.y, up)
     val angle: Angle get() = angle()
     fun angle(up: Vector2D = UP): Angle = Angle.between(0.0, 0.0, this.x, this.y, up)
-
-    inline fun deltaTransformed(m: Matrix): Vector2D = m.deltaTransform(this)
-    inline fun transformed(m: Matrix): Vector2D = m.transform(this)
-
-    fun transformX(m: Matrix): Double = m.transform(this).x
-    fun transformY(m: Matrix): Double = m.transform(this).y
-
-    inline fun transformedNullable(m: Matrix?): Vector2D = if (m != null && m.isNotNIL) m.transform(this) else this
-    fun transformNullableX(m: Matrix?): Double = if (m != null && m.isNotNIL) m.transform(this).x else x
-    fun transformNullableY(m: Matrix?): Double = if (m != null && m.isNotNIL) m.transform(this).y else y
 
     operator fun get(component: Int): Double = when (component) {
         0 -> x; 1 -> y
@@ -134,9 +116,6 @@ data class Vector2D(val x: Double, val y: Double) : IsAlmostEquals<Vector2D> {
     fun isNaN(): Boolean = this.x.isNaN() && this.y.isNaN()
 
     val absoluteValue: Vector2D get() = Vector2D(abs(x), abs(y))
-
-    @Deprecated("", ReplaceWith("ratio.interpolate(this, other)", "korlibs.math.interpolation.interpolate"))
-    fun interpolateWith(ratio: Ratio, other: Vector2D): Vector2D = ratio.interpolate(this, other)
 
     companion object {
         val ZERO = Vector2D(0.0, 0.0)
@@ -256,29 +235,29 @@ data class Vector2D(val x: Double, val y: Double) : IsAlmostEquals<Vector2D> {
 
         fun minComponents(p1: Vector2D, p2: Vector2D): Vector2D = Vector2D(min(p1.x, p2.x), min(p1.y, p2.y))
         fun minComponents(p1: Vector2D, p2: Vector2D, p3: Vector2D): Vector2D = Vector2D(
-            korlibs.math.min(p1.x, p2.x, p3.x),
-            korlibs.math.min(p1.y, p2.y, p3.y)
+            minOf(p1.x, p2.x, p3.x),
+            minOf(p1.y, p2.y, p3.y)
         )
         fun minComponents(p1: Vector2D, p2: Vector2D, p3: Vector2D, p4: Vector2D): Vector2D = Vector2D(
-            korlibs.math.min(
+            minOf(
                 p1.x,
                 p2.x,
                 p3.x,
                 p4.x
-            ), korlibs.math.min(p1.y, p2.y, p3.y, p4.y)
+            ), minOf(p1.y, p2.y, p3.y, p4.y)
         )
         fun maxComponents(p1: Vector2D, p2: Vector2D): Vector2D = Vector2D(max(p1.x, p2.x), max(p1.y, p2.y))
         fun maxComponents(p1: Vector2D, p2: Vector2D, p3: Vector2D): Vector2D = Vector2D(
-            korlibs.math.max(p1.x, p2.x, p3.x),
-            korlibs.math.max(p1.y, p2.y, p3.y)
+            maxOf(p1.x, p2.x, p3.x),
+            maxOf(p1.y, p2.y, p3.y)
         )
         fun maxComponents(p1: Vector2D, p2: Vector2D, p3: Vector2D, p4: Vector2D): Vector2D = Vector2D(
-            korlibs.math.max(
+            maxOf(
                 p1.x,
                 p2.x,
                 p3.x,
                 p4.x
-            ), korlibs.math.max(p1.y, p2.y, p3.y, p4.y)
+            ), maxOf(p1.y, p2.y, p3.y, p4.y)
         )
     }
 }

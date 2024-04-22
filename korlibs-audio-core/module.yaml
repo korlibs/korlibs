@@ -6,11 +6,6 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
-  - ../korlibs-audio-core: exported
-  - ../korlibs-io: exported
-  - ../korlibs-math: exported
-  - ../korlibs-ffi: exported
+  - ../korlibs-math-core: exported
+  - ../korlibs-vector: exported
 
-test-dependencies:
-  - org.jetbrains.kotlin:kotlin-test:1.8.0
-  - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0
