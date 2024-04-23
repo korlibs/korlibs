@@ -22,6 +22,7 @@ fun posixFread(__ptr: CValuesRef<*>?, __size: Long, __nitems: Long, __stream: CV
 fun posixFwrite(__ptr: CValuesRef<*>?, __size: Long, __nitems: Long, __stream: CValuesRef<FILE>?): ULong = POSIX.posixFwrite(__ptr, __size, __nitems, __stream)
 fun posixFseek(file: CValuesRef<FILE>?, offset: Long, whence: Int): Int = POSIX.posixFseek(file, offset, whence)
 fun posixFtell(file: CValuesRef<FILE>?): ULong = POSIX.posixFtell(file)
+fun posixIsCaseSensitive(): Boolean = POSIX.isCaseSensitive()
 fun posixFopen(filename: String, mode: String): CPointer<FILE>? = POSIX.posixFopen(filename, mode)
 fun posixFclose(file: CPointer<FILE>?): Int = POSIX.posixFclose(file)
 fun posixTruncate(file: String, size: Long): Int = POSIX.posixTruncate(file, size)
@@ -56,6 +57,10 @@ abstract class BasePosix {
 
     open fun posixFseek(file: CValuesRef<FILE>?, offset: Long, whence: Int): Int {
         return fseek(file, offset.convert(), whence.convert())
+    }
+
+    open fun isCaseSensitive(): Boolean {
+        return true
     }
 
     open fun posixFtell(file: CValuesRef<FILE>?): ULong {

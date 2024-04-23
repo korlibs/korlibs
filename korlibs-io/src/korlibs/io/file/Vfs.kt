@@ -17,6 +17,8 @@ import kotlin.math.min
 import kotlin.reflect.*
 
 abstract class Vfs : AsyncCloseable {
+	open val isCaseSensitive: Boolean get() = true
+
 	protected open val absolutePath: String get() = ""
 
 	open fun getAbsolutePath(path: String) = absolutePath.pathInfo.lightCombine(path.pathInfo).fullPath
