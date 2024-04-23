@@ -19,7 +19,7 @@ typealias IDoubleArrayList = DoubleList
  * Int growable ArrayList without boxing.
  */
 @Suppress("UNCHECKED_CAST")
-class IntArrayList(capacity: Int = 7) : Collection<Int> {
+class IntArrayList(capacity: Int = 7) : IntList {
     companion object {}
 
     var data: IntArray = IntArray(capacity) as IntArray; private set
@@ -111,10 +111,10 @@ class IntArrayList(capacity: Int = 7) : Collection<Int> {
         for (v in values) add(v)
     }
 
-    operator fun get(index: Int): Int = data[index]
+    override operator fun get(index: Int): Int = data[index]
 
     /** Gets an item of the list without boxing */
-    fun getAt(index: Int): Int = data[index]
+    override fun getAt(index: Int): Int = data[index]
 
     fun setAt(index: Int, value: Int): Int = value.also { set(index, value) }
 
@@ -145,12 +145,12 @@ class IntArrayList(capacity: Int = 7) : Collection<Int> {
     fun first(): Int = if (isEmpty()) throw IndexOutOfBoundsException() else data[0]
     fun last(): Int = if (isEmpty()) throw IndexOutOfBoundsException() else data[length - 1]
 
-    fun indexOf(value: Int, start: Int = 0, end: Int = this.size): Int {
+    override fun indexOf(value: Int, start: Int, end: Int): Int {
         for (n in start until end) if (data[n] == value) return n
         return -1
     }
 
-    fun lastIndexOf(value: Int, start: Int = 0, end: Int = this.size): Int {
+    override fun lastIndexOf(value: Int, start: Int, end: Int): Int {
         for (n in (end - 1) downTo start) if (data[n] == value) return n
         return -1
     }
@@ -189,17 +189,18 @@ class IntArrayList(capacity: Int = 7) : Collection<Int> {
         return out
     }
 
-    fun toIntArray() = this.data.copyOf(length)
+    override fun toIntArray() = this.data.copyOf(length)
     fun toShortArray() = ShortArray(length) { this.data[it].toShort() }
 
     // List interface
 
-    fun indexOf(element: Int): Int = indexOf(element, 0, size)
-    fun lastIndexOf(element: Int): Int = lastIndexOf(element, 0, size)
+    override fun indexOf(element: Int): Int = indexOf(element, 0, size)
+    override fun lastIndexOf(element: Int): Int = lastIndexOf(element, 0, size)
 
-    fun listIterator(): ListIterator<Int> = listIterator(0)
-    fun listIterator(index: Int): ListIterator<Int> = data.take(length).listIterator(index)
-    fun subList(fromIndex: Int, toIndex: Int): List<Int> = data.asList().subList(fromIndex, toIndex)
+    override fun listIterator(): ListIterator<Int> = listIterator(0)
+    override fun listIterator(index: Int): ListIterator<Int> = data.take(length).listIterator(index)
+    override fun subList(fromIndex: Int, toIndex: Int): List<Int> = data.asList().subList(fromIndex, toIndex)
+    override fun clone(): IntList = IntArrayList(this)
 
     // Data
     override fun hashCode(): Int = data.contentHashCode(0, size)
@@ -225,25 +226,6 @@ fun IntArray.toIntArrayList(): IntArrayList = IntArrayList(*this)
 
 
 // Double
-
-interface DoubleList : Collection<Double> {
-    operator fun get(index: Int): Double
-    fun getAt(index: Int): Double
-    fun indexOf(value: Double, start: Int = 0, end: Int = this.size): Int
-    fun lastIndexOf(value: Double, start: Int = 0, end: Int = this.size): Int
-    fun toDoubleArray(): DoubleArray
-    fun indexOf(element: Double): Int = indexOf(element, 0, size)
-    fun lastIndexOf(element: Double): Int = lastIndexOf(element, 0, size)
-    fun listIterator(): ListIterator<Double> = listIterator(0)
-    fun listIterator(index: Int): ListIterator<Double>
-    fun subList(fromIndex: Int, toIndex: Int): List<Double>
-    fun clone(): DoubleList
-    fun isAlmostEquals(other: DoubleList, epsilon: Double): Boolean {
-        if (this.size != other.size) return false
-        for (n in indices) if (!this.getAt(n).isAlmostEquals(other.getAt(n), epsilon)) return false
-        return true
-    }
-}
 
 /**
  * Double growable ArrayList without boxing.
@@ -455,27 +437,6 @@ class DoubleArrayList(capacity: Int = 7) : DoubleList {
 
 fun doubleArrayListOf(vararg values: Double) = DoubleArrayList(*values)
 
-
-// Float
-
-interface FloatList : Collection<Float> {
-    operator fun get(index: Int): Float
-    fun getAt(index: Int): Float
-    fun indexOf(value: Float, start: Int = 0, end: Int = this.size): Int
-    fun lastIndexOf(value: Float, start: Int = 0, end: Int = this.size): Int
-    fun toFloatArray(): FloatArray
-    fun indexOf(element: Float): Int = indexOf(element, 0, size)
-    fun lastIndexOf(element: Float): Int = lastIndexOf(element, 0, size)
-    fun listIterator(): ListIterator<Float> = listIterator(0)
-    fun listIterator(index: Int): ListIterator<Float>
-    fun subList(fromIndex: Int, toIndex: Int): List<Float>
-    fun clone(): FloatList
-    fun isAlmostEquals(other: FloatList, epsilon: Float): Boolean {
-        if (this.size != other.size) return false
-        for (n in indices) if (!this.getAt(n).isAlmostEquals(other.getAt(n), epsilon)) return false
-        return true
-    }
-}
 
 /**
  * Float growable ArrayList without boxing.

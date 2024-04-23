@@ -22,6 +22,7 @@ dependencies:
   - ../korlibs-number: exported
   - ../korlibs-time-core: exported
   - ../korlibs-logger: exported
+  - ../korlibs-dyn: exported
   - ../korlibs-serialization-csv: exported
   - ../korlibs-serialization-toml: exported
   - ../korlibs-serialization-yaml: exported
