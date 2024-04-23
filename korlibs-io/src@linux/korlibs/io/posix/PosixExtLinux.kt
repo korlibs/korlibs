@@ -8,6 +8,8 @@ import platform.posix.*
 actual val POSIX: BasePosix = PosixExtLinux()
 
 class PosixExtLinux : BasePosix() {
+    override fun isCaseSensitive(): Boolean = false
+
     override fun posixFopen(filename: String, mode: String): CPointer<FILE>? {
         return fopen(filename, mode)
     }
