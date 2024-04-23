@@ -19,6 +19,7 @@ import korlibs.io.util.*
 import korlibs.math.*
 import korlibs.math.geom.*
 import korlibs.memory.*
+import korlibs.serialization.*
 import kotlin.collections.component1
 import kotlin.collections.component2
 import kotlin.collections.set

@@ -5,24 +5,16 @@ package korlibs.io.serialization.json
 import korlibs.datastructure.DoubleArrayList
 import korlibs.datastructure.FastArrayList
 import korlibs.datastructure.iterators.fastForEach
-import korlibs.io.dynamic.*
-import korlibs.io.lang.IOException
-import korlibs.io.lang.invalidOp
-import korlibs.io.util.Indenter
 import korlibs.io.util.NumberParser
-import korlibs.io.util.StrReader
+import korlibs.util.*
 import kotlin.collections.set
 
 object Json {
-    fun parse(s: String, context: Context = Context.DEFAULT): Any? = parse(StrReader(s), context)
-    fun parseFast(s: String): Any? = parse(StrReader(s), Context.FAST)
+    fun parse(s: String, context: Context = Context.DEFAULT): Any? = parse(SimpleStrReader(s), context)
+    fun parseFast(s: String): Any? = parse(SimpleStrReader(s), Context.FAST)
 
-    fun parseDyn(s: String, context: Context = Context.DEFAULT): Dyn = parse(s, context).dyn
-    fun parseFastDyn(s: String): Dyn = parseFast(s).dyn
-
-    fun stringify(obj: Dyn, pretty: Boolean = false): String = stringify(obj.value, pretty)
     fun stringify(obj: Any?, pretty: Boolean = false): String = when {
-        pretty -> Indenter().apply { stringifyPretty(obj, this) }.toString(doIndent = true, indentChunk = "\t")
+        pretty -> SimpleIndenter().apply { stringifyPretty(obj, this) }.toString()
         else -> StringBuilder().apply { stringify(obj, this) }.toString()
     }
 
@@ -41,7 +33,7 @@ object Json {
         }
     }
 
-    fun parse(s: StrReader, context: Context = Context.DEFAULT): Any? = when (val ic = s.skipSpaces().peekChar()) {
+    fun parse(s: SimpleStrReader, context: Context = Context.DEFAULT): Any? = when (val ic = s.skipSpaces().peekChar()) {
         '{' -> parseObject(s, context)
         '[' -> parseArray(s, context)
         //'-', '+', in '0'..'9' -> { // @TODO: Kotlin native doesn't optimize char ranges
@@ -49,27 +41,22 @@ object Json {
             val dres = parseNumber(s)
             if (dres.toInt().toDouble() == dres) dres.toInt() else dres
         }
-        't', 'f', 'n', 'u' -> parseBooleanOrNull(s, context)
-        '"' -> s.readStringLit()
-        else -> invalidJson("Not expected '$ic'")
+        't' -> true.also { s.expect("true") }
+        'f' -> false.also { s.expect("false") }
+        'n' -> null.also { s.expect("null") }
+        'u' -> null.also { s.expect("undefined") }
+        '"' -> s.readStringLit().toString()
+        else -> invalidJson("Not expected '$ic' in $s")
     }
 
-    private fun parseBooleanOrNull(s: StrReader, context: Context = Context.DEFAULT): Boolean? {
-        return when {
-            s.tryRead("true") -> true
-            s.tryRead("false") -> false
-            s.tryRead("null") -> null
-            s.tryRead("undefined") -> null
-            else -> invalidJson()
-        }
-    }
-
-    private fun parseObject(s: StrReader, context: Context = Context.DEFAULT): Map<String, Any?> {
+    private fun parseObject(s: SimpleStrReader, context: Context = Context.DEFAULT): Map<String, Any?> {
         s.skipExpect('{')
         return LinkedHashMap<String, Any?>().apply {
             obj@ while (true) {
-                when (s.skipSpaces().read()) {
-                    '}' -> break@obj; ',' -> continue@obj; else -> s.unread()
+                when (s.skipSpaces().peekChar()) {
+                    '}' -> { s.readChar(); break@obj }
+                    ',' -> { s.readChar(); continue@obj }
+                    else -> Unit
                 }
                 val key = parse(s, context) as String
                 s.skipSpaces().skipExpect(':')
@@ -79,13 +66,15 @@ object Json {
         }
     }
 
-    private fun parseArray(s: StrReader, context: Context = Context.DEFAULT): Any {
+    private fun parseArray(s: SimpleStrReader, context: Context = Context.DEFAULT): Any {
         var out: MutableList<Any?>? = null
         var outNumber: DoubleArrayList? = null
         s.skipExpect('[')
         array@ while (true) {
-            when (s.skipSpaces().read()) {
-                ']' -> break@array; ',' -> continue@array; else -> s.unread()
+            when (s.skipSpaces().peekChar()) {
+                ']' -> { s.readChar(); break@array }
+                ',' -> { s.readChar(); continue@array }
+                else -> Unit
             }
             val v = s.peekChar()
             if (out == null && context.optimizedNumericLists && (v in '0'..'9' || v == '-')) {
@@ -110,12 +99,11 @@ object Json {
         else -> false
     }
 
-    private fun parseNumber(s: StrReader): Double {
-        val start = s.pos
-        s.skipWhile { ((it >= '0') && (it <= '9')) || it == '.' || it == 'e' || it == 'E' || it == '-' || it == '+' }
-        val end = s.pos
-        //return s.str.substring(start, end).toDouble()
-        return NumberParser.parseDouble(s.str, start, end)
+    private fun parseNumber(s: SimpleStrReader): Double = NumberParser.parseDouble {
+        val c = s.peekChar()
+        val isC = ((c >= '0') && (c <= '9')) || c == '.' || c == 'e' || c == 'E' || c == '-' || c == '+'
+        if (isC) s.readChar()
+        if (isC) c else '\u0000'
     }
 
     fun stringify(obj: Any?, b: StringBuilder) {
@@ -144,11 +132,11 @@ object Json {
             is String -> encodeString(obj, b)
             is Number -> b.append("$obj")
             is CustomSerializer -> obj.encodeToJson(b)
-            else -> invalidOp("Don't know how to serialize $obj") //encode(ClassFactory(obj::class).toMap(obj), b)
+            else -> throw IllegalArgumentException("Don't know how to serialize $obj") //encode(ClassFactory(obj::class).toMap(obj), b)
         }
     }
 
-    fun stringifyPretty(obj: Any?, b: Indenter) {
+    fun stringifyPretty(obj: Any?, b: SimpleIndenter) {
         when (obj) {
             null -> b.inline("null")
             is Boolean -> b.inline(if (obj) "true" else "false")
@@ -182,7 +170,7 @@ object Json {
             is Number -> b.inline("$obj")
             is CustomSerializer -> b.inline(StringBuilder().apply { obj.encodeToJson(this) }.toString())
             else -> {
-                invalidOp("Don't know how to serialize $obj")
+                throw IllegalArgumentException("Don't know how to serialize $obj")
                 //encode(ClassFactory(obj::class).toMap(obj), b)
             }
         }
@@ -203,7 +191,64 @@ object Json {
         b.append('"')
     }
 
-    private fun invalidJson(msg: String = "Invalid JSON"): Nothing = throw IOException(msg)
+    private fun invalidJson(msg: String = "Invalid JSON"): Nothing = throw IllegalArgumentException(msg)
+
+    fun SimpleStrReader.readStringLit(reportErrors: Boolean = true, out: StringBuilder = StringBuilder()): StringBuilder {
+        val quotec = readChar()
+        when (quotec) {
+            '"', '\'' -> Unit
+            else -> throw IllegalArgumentException("Invalid string literal")
+        }
+        var closed = false
+        loop@ while (hasMore) {
+            when (val c = readChar()) {
+                '\\' -> {
+                    val cc = readChar()
+                    val c: Char = when (cc) {
+                        '\\' -> '\\'; '/' -> '/'; '\'' -> '\''; '"' -> '"'
+                        'b' -> '\b'; 'f' -> '\u000c'; 'n' -> '\n'; 'r' -> '\r'; 't' -> '\t'
+                        'u' -> NumberParser.parseInt(radix = 16) { if (it >= 4) NumberParser.END else readChar() }.toChar()
+                        else -> throw IllegalArgumentException("Invalid char '$cc'")
+                    }
+                    out.append(c)
+                }
+                quotec -> {
+                    closed = true
+                    break@loop
+                }
+                else -> out.append(c)
+            }
+        }
+        if (!closed && reportErrors) {
+            throw RuntimeException("String literal not closed! '${this}'")
+        }
+        return out
+    }
+
+    private fun SimpleStrReader.expect(str: String) {
+        for (n in str.indices) {
+            val c = readChar()
+            if (c != str[n]) throw IllegalStateException("Expected '$str' but found '$c' at $n")
+        }
+    }
+
+    private fun SimpleStrReader.skipSpaces(): SimpleStrReader {
+        this.skipWhile { it.isWhitespaceFast() }
+        return this
+    }
+
+    private inline fun SimpleStrReader.skipWhile(filter: (Char) -> Boolean) {
+        while (hasMore && filter(this.peekChar())) {
+            this.readChar()
+        }
+    }
+
+    private fun SimpleStrReader.skipExpect(expected: Char) {
+        val readed = this.readChar()
+        if (readed != expected) throw IllegalArgumentException("Expected '$expected' but found '$readed' at $pos")
+    }
+
+    private fun Char.isWhitespaceFast(): Boolean = this == ' ' || this == '\t' || this == '\r' || this == '\n'
 }
 
 fun String.fromJson(): Any? = Json.parse(this)

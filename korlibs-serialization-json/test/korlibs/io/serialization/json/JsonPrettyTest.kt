@@ -3,7 +3,7 @@ package korlibs.io.serialization.json
 import kotlin.test.*
 
 class JsonPrettyTest {
-
+	@Test
 	fun encode1() {
 		assertEquals("1", Json.stringify(1, pretty = true))
 		//assertEquals("null", Json.encodePretty(null, mapper))

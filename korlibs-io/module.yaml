@@ -25,6 +25,7 @@ dependencies:
   - ../korlibs-serialization-csv: exported
   - ../korlibs-serialization-toml: exported
   - ../korlibs-serialization-yaml: exported
+  - ../korlibs-serialization-json: exported
   - ../korlibs-compression-lzma: exported
   - ../korlibs-compression-deflate: exported
   - ../korlibs-compression-lzo: exported
