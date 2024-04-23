@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
+@file:OptIn(ExperimentalForeignApi::class, UnsafeNumber::class, ExperimentalForeignApi::class)
 
 package korlibs.io.posix
 
@@ -13,15 +13,16 @@ data class PosixStatInfo(
     val size: Long,
     val isDirectory: Boolean,
     val mode: Int = 0,
-    val timeCreated: DateTime,
-    val timeModified: DateTime,
-    val timeLastAccess: DateTime,
+    val timeCreated: DateTime = DateTime.EPOCH,
+    val timeModified: DateTime = DateTime.EPOCH,
+    val timeLastAccess: DateTime = DateTime.EPOCH,
 )
 
 fun posixFread(__ptr: CValuesRef<*>?, __size: Long, __nitems: Long, __stream: CValuesRef<FILE>?): ULong = POSIX.posixFread(__ptr, __size, __nitems, __stream)
 fun posixFwrite(__ptr: CValuesRef<*>?, __size: Long, __nitems: Long, __stream: CValuesRef<FILE>?): ULong = POSIX.posixFwrite(__ptr, __size, __nitems, __stream)
 fun posixFseek(file: CValuesRef<FILE>?, offset: Long, whence: Int): Int = POSIX.posixFseek(file, offset, whence)
 fun posixFtell(file: CValuesRef<FILE>?): ULong = POSIX.posixFtell(file)
+fun posixIsCaseSensitive(): Boolean = POSIX.isCaseSensitive()
 fun posixFopen(filename: String, mode: String): CPointer<FILE>? = POSIX.posixFopen(filename, mode)
 fun posixFclose(file: CPointer<FILE>?): Int = POSIX.posixFclose(file)
 fun posixTruncate(file: String, size: Long): Int = POSIX.posixTruncate(file, size)
@@ -58,6 +59,10 @@ abstract class BasePosix {
         return fseek(file, offset.convert(), whence.convert())
     }
 
+    open fun isCaseSensitive(): Boolean {
+        return true
+    }
+
     open fun posixFtell(file: CValuesRef<FILE>?): ULong {
         return ftell(file).convert()
     }
@@ -80,9 +85,9 @@ abstract class BasePosix {
                     size = size,
                     isDirectory = isDirectory,
                     mode = s.st_mode.convert(),
-                    timeCreated = s.st_ctimespec.toDateTime(),
-                    timeModified = s.st_mtimespec.toDateTime(),
-                    timeLastAccess = s.st_atimespec.toDateTime(),
+                    //timeCreated = s.st_ctimespec.toDateTime(),
+                    //timeModified = s.st_mtimespec.toDateTime(),
+                    //timeLastAccess = s.st_atimespec.toDateTime(),
                 )
             }
         }

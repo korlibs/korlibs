@@ -63,6 +63,8 @@ interface Platform {
         override val isRelease: Boolean get() = !currentIsDebug
         override val hasMultithreadedSharedHeap: Boolean get() = multithreadedSharedHeap
 
+        val envs: Map<String, String> get() = korlibs.platform.envs
+
         operator fun invoke(
             endian: Endian = Endian.LITTLE_ENDIAN,
             arch: Arch = Arch.UNKNOWN,

@@ -6,11 +6,11 @@ import kotlin.math.*
 // @TODO: Act like a sequence of status (waiting for filling input, waiting for filling output, etc.)
 // @TODO: Use = sequence<Int> { yield(NEED_MORE_INPUT) }
 @ExperimentalStdlibApi
-open class DeflaterPortable(val windowBits: Int) {
-    suspend fun compress(
-        i: DeflateBitReader,
-        o: DeflateAsyncOutputStream,
-        level: Float = 1f
+open class DeflaterPortable(val windowBits: Int) : IDeflater {
+    override suspend fun compress(
+        i: DeflaterBitReader,
+        o: DeflaterAsyncOutputStream,
+        level: Float
     ) {
         while (i.hasAvailable()) {
             val available = i.getAvailable()
@@ -23,7 +23,7 @@ open class DeflaterPortable(val windowBits: Int) {
         }
     }
 
-    suspend fun uncompress(reader: DeflateBitReader, out: DeflateAsyncOutputStream) {
+    override suspend fun uncompress(reader: DeflaterBitReader, out: DeflaterAsyncOutputStream) {
         //println("reader.bigChunkSize=${reader.bigChunkSize}, reader.readWithSize=${reader.readWithSize}")
         val sout = SlidingWindowWithOutput(SlidingWindow(windowBits), out, reader.bigChunkSize, reader.readWithSize)
         var lastBlock = false
@@ -122,11 +122,11 @@ open class DeflaterPortable(val windowBits: Int) {
         //println("uncompress[5]")
     }
 
-    private inline fun DeflateBitReader.read(tree: HuffmanTree): Int = tree.read(this)
+    private inline fun DeflaterBitReader.read(tree: HuffmanTree): Int = tree.read(this)
 
     internal class SlidingWindowWithOutput(
         val sliding: SlidingWindow,
-        val out: DeflateAsyncOutputStream,
+        val out: DeflaterAsyncOutputStream,
         val flushSize: Int = FLUSH_SIZE,
         val extraSize: Int = EXTRA_SIZE
     ) {
@@ -249,7 +249,7 @@ open class DeflaterPortable(val windowBits: Int) {
         //var fastReadCount = 0
         //var slowReadCount = 0
 
-        fun read(reader: DeflateBitReader): Int {
+        fun read(reader: DeflaterBitReader): Int {
             if (ENABLE_EXPERIMENTAL_FAST_READ) reader.ensureBits(FAST_BITS)
             var node = this.root
             if (ENABLE_EXPERIMENTAL_FAST_READ && reader.bitsavailable >= FAST_BITS) {
@@ -472,32 +472,6 @@ open class DeflaterPortable(val windowBits: Int) {
         }
 
         public fun toByteArray(): ByteArray = data.copyOf(size)
-    }
-
-    // @TODO: This interface is not good
-    interface DeflateBitReader {
-        val bigChunkSize: Int
-        val readWithSize: Int
-        val bitsavailable: Int
-        fun ensureBits(bits: Int)
-        suspend fun hasAvailable(): Boolean
-        suspend fun getAvailable(): Long
-        suspend fun abytes(count: Int): ByteArray
-        fun su16LE(): Int
-        fun sreadBit(): Boolean
-        fun skipBits(bits: Int)
-        fun peekBits(count: Int): Int
-        fun readBits(count: Int): Int
-        suspend fun readBytesExact(count: Int): ByteArray
-        suspend fun prepareBigChunkIfRequired()
-    }
-
-    // @TODO: This interface is not good
-    interface DeflateAsyncOutputStream {
-        suspend fun write(bytes: ByteArray, offset: Int, size: Int)
-        suspend fun write8(value: Int)
-        suspend fun write16LE(value: Int)
-        suspend fun writeBytes(bytes: ByteArray)
     }
 }
 

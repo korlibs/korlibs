@@ -60,6 +60,8 @@ open class LocalVfsNativeBase(val async: Boolean = true) : LocalVfs() {
     val that get() = this
     override val absolutePath: String get() = ""
 
+    override suspend fun isCaseSensitive(path: String): Boolean = posixIsCaseSensitive()
+
     fun resolveOrError(path: String): Pair<String, Exception?> {
         val rpath = path
         val pathExpected = rpath.pathInfo

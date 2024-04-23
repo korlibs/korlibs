@@ -22,6 +22,8 @@ data class VfsFile(
     @KorioExperimentalApi
     var cachedStat: VfsStat? = null
 
+	suspend fun isCaseSensitive(): Boolean = vfs.isCaseSensitive(path)
+
     fun relativePathTo(relative: VfsFile): String? {
         if (relative.vfs != this.vfs) return null
         return this.pathInfo.relativePathTo(relative.pathInfo)
