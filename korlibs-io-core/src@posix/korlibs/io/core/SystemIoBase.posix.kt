@@ -1,3 +1,5 @@
+@file:OptIn(UnsafeNumber::class)
+
 package korlibs.io.core
 
 import kotlinx.cinterop.*
@@ -21,10 +23,10 @@ open class SyncSystemIoPosixBase : SyncSystemIoNativeBase() {
 
     override fun createSyncFileSystemIo(file: CPointer<FILE>?): SyncFileSystemIoNativeBase = object : SyncFileSystemIoNativeBase(file) {
         override fun ftruncate64(len: Long) { ftruncate(fd, len) }
-        override fun ftell64(): Long = ftell(file)
+        override fun ftell64(): Long = ftell(file).toLong()
         override fun fseek64(pos: Long, origin: Int): Long {
-            fseek(file, pos, origin)
-            return ftell(file)
+            fseek(file, pos.convert(), origin)
+            return ftell(file).toLong()
         }
     }
 }

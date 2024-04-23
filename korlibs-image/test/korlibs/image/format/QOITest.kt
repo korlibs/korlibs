@@ -5,12 +5,7 @@ import korlibs.image.bitmap.Bitmap32
 import korlibs.image.bitmap.matchContentsDistinctCount
 import korlibs.io.async.suspendTestNoBrowser
 import korlibs.io.file.std.resourcesVfs
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertFalse
-import kotlin.test.assertNotSame
-import kotlin.test.assertSame
+import kotlin.test.*
 import kotlin.time.*
 
 class QOITest {
@@ -45,10 +40,6 @@ class QOITest {
         RegisteredImageFormats.register(PNG) // Required for readBitmapOptimized
 
         val preallocatedArray = UByteArrayInt(QOI.calculateMaxSize(1000, 1000))
-
-        repeat(4) { resourcesVfs["testcard_rgba.png"].readBitmap() }
-        repeat(4) { resourcesVfs["testcard_rgba.png"].readBitmapNoNative(formats) }
-        repeat(4) { resourcesVfs["testcard_rgba.qoi"].readBitmapNoNative(formats) }
 
         val pngBytes = resourcesVfs["dice.png"].readBytes()
         val qoiBytes = resourcesVfs["dice.qoi"].readBytes()
@@ -85,10 +76,6 @@ class QOITest {
     @Test
     fun qoiToOutputBitmapTest() = suspendTestNoBrowser {
         RegisteredImageFormats.register(PNG) // Required for readBitmapOptimized
-
-        repeat(4) { resourcesVfs["testcard_rgba.png"].readBitmap() }
-        repeat(4) { resourcesVfs["testcard_rgba.png"].readBitmapNoNative(formats) }
-        repeat(4) { resourcesVfs["testcard_rgba.qoi"].readBitmapNoNative(formats) }
 
         val qoiOutBitmap = Bitmap32(800, 600, premultiplied = false)
 

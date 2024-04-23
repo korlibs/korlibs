@@ -1,3 +1,5 @@
+@file:OptIn(UnsafeNumber::class)
+
 package korlibs.io.process
 
 import korlibs.datastructure.concurrent.*
