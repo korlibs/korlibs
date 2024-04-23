@@ -15,6 +15,8 @@ plugins {
     id("org.jetbrains.amper.settings.plugin").version("0.2.3-dev-473")
 }
 
+rootProject.name = "korlibs"
+
 File(rootDir, "local.properties").also { localProperties ->
     if (localProperties.exists()) return@also
 
