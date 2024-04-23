@@ -2,40 +2,62 @@
 
 package korlibs.io.serialization.json
 
-import korlibs.datastructure.DoubleArrayList
-import korlibs.datastructure.FastArrayList
-import korlibs.datastructure.iterators.fastForEach
-import korlibs.io.util.NumberParser
+import korlibs.io.util.*
 import korlibs.util.*
 import kotlin.collections.set
 
-object Json {
-    fun parse(s: String, context: Context = Context.DEFAULT): Any? = parse(SimpleStrReader(s), context)
-    fun parseFast(s: String): Any? = parse(SimpleStrReader(s), Context.FAST)
+object JsonFast : Json() {
+    override val optimizeNumbers: Boolean = true
+    override fun createDoubleArrayList(doubles: MiniDoubleArrayList): Any = doubles.toDoubleArray()
+}
+
+open class Json {
+    companion object : Json() { }
+
+    fun parse(s: String): Any? = parse(SimpleStrReader(s))
 
     fun stringify(obj: Any?, pretty: Boolean = false): String = when {
         pretty -> SimpleIndenter().apply { stringifyPretty(obj, this) }.toString()
         else -> StringBuilder().apply { stringify(obj, this) }.toString()
     }
 
+    protected open val optimizeNumbers: Boolean = false
+    protected open fun <T> createArrayList(capacity: Int = 16): MutableList<T> = ArrayList(capacity)
+    protected open fun createDoubleArrayList(doubles: MiniDoubleArrayList): Any = doubles.toDoubleArray().toList()
+
+    protected class MiniDoubleArrayList {
+        var size: Int = 0
+            private set
+        @PublishedApi internal var items = DoubleArray(16)
+        val capacity get() = items.size
+
+        fun clear() {
+            size = 0
+        }
+
+        operator fun get(index: Int): Double = items[index]
+
+        fun add(value: Double) {
+            if (size >= capacity) {
+                items = items.copyOf(items.size * 3)
+            }
+            items[size++] = value
+        }
+
+        inline fun fastForEach(block: (Double) -> Unit) {
+            for (n in 0 until size) block(items[n])
+        }
+
+        fun toDoubleArray(): DoubleArray = items.copyOf(size)
+    }
+
     interface CustomSerializer {
         fun encodeToJson(b: StringBuilder)
     }
 
-    data class Context(val optimizedNumericLists: Boolean, val useFastArrayList: Boolean = false) {
-        companion object {
-            val DEFAULT = Context(optimizedNumericLists = false, useFastArrayList = false)
-            val FAST = Context(optimizedNumericLists = true, useFastArrayList = true)
-        }
-
-        fun <T> createArrayList(): MutableList<T> {
-            return if (useFastArrayList) FastArrayList() else ArrayList()
-        }
-    }
-
-    fun parse(s: SimpleStrReader, context: Context = Context.DEFAULT): Any? = when (val ic = s.skipSpaces().peekChar()) {
-        '{' -> parseObject(s, context)
-        '[' -> parseArray(s, context)
+    fun parse(s: SimpleStrReader): Any? = when (val ic = s.skipSpaces().peekChar()) {
+        '{' -> parseObject(s)
+        '[' -> parseArray(s)
         //'-', '+', in '0'..'9' -> { // @TODO: Kotlin native doesn't optimize char ranges
         '-', '+', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' -> {
             val dres = parseNumber(s)
@@ -49,7 +71,7 @@ object Json {
         else -> invalidJson("Not expected '$ic' in $s")
     }
 
-    private fun parseObject(s: SimpleStrReader, context: Context = Context.DEFAULT): Map<String, Any?> {
+    private fun parseObject(s: SimpleStrReader): Map<String, Any?> {
         s.skipExpect('{')
         return LinkedHashMap<String, Any?>().apply {
             obj@ while (true) {
@@ -58,17 +80,17 @@ object Json {
                     ',' -> { s.readChar(); continue@obj }
                     else -> Unit
                 }
-                val key = parse(s, context) as String
+                val key = parse(s) as String
                 s.skipSpaces().skipExpect(':')
-                val value = parse(s, context)
+                val value = parse(s)
                 this[key] = value
             }
         }
     }
 
-    private fun parseArray(s: SimpleStrReader, context: Context = Context.DEFAULT): Any {
+    private fun parseArray(s: SimpleStrReader): Any {
         var out: MutableList<Any?>? = null
-        var outNumber: DoubleArrayList? = null
+        var outNumber: MiniDoubleArrayList? = null
         s.skipExpect('[')
         array@ while (true) {
             when (s.skipSpaces().peekChar()) {
@@ -77,26 +99,21 @@ object Json {
                 else -> Unit
             }
             val v = s.peekChar()
-            if (out == null && context.optimizedNumericLists && (v in '0'..'9' || v == '-')) {
+            if (out == null && optimizeNumbers && (v in '0'..'9' || v == '-')) {
                 if (outNumber == null) {
-                    outNumber = DoubleArrayList()
+                    outNumber = MiniDoubleArrayList()
                 }
                 outNumber.add(parseNumber(s))
             } else {
-                if (out == null) out = context.createArrayList()
+                if (out == null) out = createArrayList(outNumber?.size ?: 16)
                 if (outNumber != null) {
                     outNumber.fastForEach { out.add(it) }
                     outNumber = null
                 }
-                out.add(parse(s, context))
+                out.add(parse(s))
             }
         }
-        return outNumber ?: out ?: context.createArrayList<Any?>()
-    }
-
-    private fun Char.isNumberStart() = when (this) {
-        '-', '+', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' -> true
-        else -> false
+        return outNumber?.let { createDoubleArrayList(outNumber) } ?: out ?: createArrayList<Any?>()
     }
 
     private fun parseNumber(s: SimpleStrReader): Double = NumberParser.parseDouble {
