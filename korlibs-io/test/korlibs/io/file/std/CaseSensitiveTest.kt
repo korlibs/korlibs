@@ -7,8 +7,8 @@ import kotlin.test.*
 
 class CaseSensitiveTest {
     private val cond: () -> Boolean = { !Platform.isJsOrWasm }
-    private val condResources: () -> Boolean = { cond() && resourcesVfs.isCaseSensitive }
-    private val condLocal: () -> Boolean = { cond() && rootLocalVfs.isCaseSensitive }
+    private val condResources: () -> Boolean = { cond() && runBlockingNoSuspensions { resourcesVfs.isCaseSensitive() } }
+    private val condLocal: () -> Boolean = { cond() && runBlockingNoSuspensions { rootLocalVfs.isCaseSensitive() } }
 
     @Test fun testResourcesVfs() = suspendTest(cond = condResources, preferSyncIo = true) { _testResourcesVfs() }
     @Test fun testResourcesVfsAsync() = suspendTest(cond = condResources, preferSyncIo = false) { _testResourcesVfs() }

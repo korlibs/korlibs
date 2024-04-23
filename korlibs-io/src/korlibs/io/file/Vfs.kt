@@ -17,7 +17,7 @@ import kotlin.math.min
 import kotlin.reflect.*
 
 abstract class Vfs : AsyncCloseable {
-	open val isCaseSensitive: Boolean get() = true
+	open suspend fun isCaseSensitive(path: String): Boolean = true
 
 	protected open val absolutePath: String get() = ""
 
@@ -222,6 +222,8 @@ abstract class Vfs : AsyncCloseable {
 		protected abstract suspend fun access(path: String): VfsFile
 		protected open suspend fun VfsFile.transform(): VfsFile = file(this.path)
 		//suspend protected fun transform2_f(f: VfsFile): VfsFile = transform(f)
+
+		override suspend fun isCaseSensitive(path: String): Boolean = access(path).isCaseSensitive()
 
 		final override suspend fun getUnderlyingUnscapedFile(path: String): FinalVfsFile = initOnce().access(path).getUnderlyingUnscapedFile()
 
