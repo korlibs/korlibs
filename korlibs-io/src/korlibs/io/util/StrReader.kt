@@ -14,7 +14,7 @@ import kotlin.math.min
  **/
 abstract class BaseStrReader : SimpleStrReader {
     abstract val eof: Boolean
-    abstract val pos: Int
+    abstract override val pos: Int
     override val hasMore: Boolean get() = !eof
 
     abstract fun peekOffset(offset: Int = 0): Char

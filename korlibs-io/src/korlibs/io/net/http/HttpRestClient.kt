@@ -21,6 +21,8 @@ class HttpRestClient(val endpoint: HttpClientEndpoint) {
 			Json.parse(stringResult) ?: mapOf<String, String>()
 		} catch (e: IOException) {
 			mapOf<String, String>()
+		} catch (e: IllegalArgumentException) {
+			mapOf<String, String>()
 		}
 	}
 

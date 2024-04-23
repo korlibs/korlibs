@@ -1,21 +1,12 @@
 package korlibs.io.util
 
 import korlibs.datastructure.iterators.fastForEach
+import korlibs.util.*
 
-class Indenter(internal val actions: ArrayList<Action> = arrayListOf()) {
+@OptIn(ExperimentalStdlibApi::class)
+class Indenter(internal val actions: ArrayList<Action> = arrayListOf()) : SimpleIndenter {
 	object INDENTS {
-		private val INDENTS: Array<String> = Array(1024) { "" }.apply {
-			val indent = StringBuilder()
-			for (n in 0 until this.size) {
-				this[n] = indent.toString()
-				indent.append("\t")
-			}
-		}
-
-		operator fun get(index: Int): String {
-			if (index >= INDENTS.size) TODO("Too much indentation $index")
-			return if (index <= 0) "" else INDENTS[index]
-		}
+		operator fun get(index: Int): String = SimpleIndenter.INDENTS.get(index)
 	}
 
 	interface Action {
@@ -61,9 +52,12 @@ class Indenter(internal val actions: ArrayList<Action> = arrayListOf()) {
 
 	var out: String = ""
 
-	fun inline(str: String) = this.apply { this.actions.add(Action.Inline(str)) }
-	fun line(indenter: Indenter) = this.apply { this.actions.addAll(indenter.actions) }
-	fun line(str: String) = this.apply { this.actions.add(Action.Line(str)) }
+	override fun clear() {
+		this.actions.clear()
+	}
+	override fun inline(str: String): Indenter = this.apply { this.actions.add(Action.Inline(str)) }
+	fun line(indenter: Indenter): Indenter = this.apply { this.actions.addAll(indenter.actions) }
+	override fun line(str: String): Indenter = this.apply { this.actions.add(Action.Line(str)) }
 	fun line(str: String?) {
 		if (str != null) line(str)
 	}
@@ -95,20 +89,22 @@ class Indenter(internal val actions: ArrayList<Action> = arrayListOf()) {
 	}
 
 	inline fun indent(callback: () -> Unit): Indenter {
-		_indent()
+		indent()
 		try {
 			callback()
 		} finally {
-			_unindent()
+			unindent()
 		}
 		return this
 	}
 
-	fun _indent() {
+	@OptIn(ExperimentalStdlibApi::class)
+	override fun indent() {
 		actions.add(Action.Indent)
 	}
 
-	fun _unindent() {
+	@ExperimentalStdlibApi
+	override fun unindent() {
 		actions.add(Action.Unindent)
 	}
 
