@@ -1,8 +1,5 @@
 package korlibs.io.dynamic
 
-import korlibs.io.*
-import korlibs.io.wasm.*
-
 @JsFun("(obj, key) => { return obj[key]; }")
 private external fun JsAny_get(obj: JsAny, key: String): JsAny?
 
@@ -11,6 +8,18 @@ private external fun JsAny_set(obj: JsAny, key: String, value: JsAny?)
 
 @JsFun("(obj, key, args) => { obj[key].apply(obj, args); }")
 private external fun JsAny_invoke(obj: JsAny, key: String, args: JsArray<JsAny?>)
+
+@JsFun("() => { return ((typeof globalThis !== 'undefined') ? globalThis : ((typeof global !== 'undefined') ? global : self)); }")
+private external fun getJsGlobalDynamic(): JsAny
+
+private val jsGlobal: JsAny = getJsGlobalDynamic()
+
+private fun <T : JsAny?> jsArrayOf(vararg values: T): JsArray<T> {
+    val array = JsArray<T>()
+    //array.length = values.size
+    for (n in values.indices) array[n] = values[n]
+    return array
+}
 
 internal actual object DynamicInternal : DynApi {
 	override val global: Any get() = jsGlobal
