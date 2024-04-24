@@ -1,9 +1,6 @@
 package korlibs.io.dynamic
 
-import korlibs.datastructure.DoubleArrayList
-import korlibs.datastructure.FloatArrayList
-import korlibs.datastructure.IntArrayList
-import korlibs.io.util.quote
+import korlibs.datastructure.*
 import kotlin.collections.Iterable
 import kotlin.collections.LinkedHashMap
 import kotlin.collections.List
@@ -389,12 +386,16 @@ inline class Dyn(val value: Any?) : Comparable<Dyn> {
     val double: Double get() = toDoubleDefault()
     val long: Long get() = toLongDefault()
 
-    val intArray: IntArray get() = value as? IntArray ?: (value as? IntArrayList)?.toIntArray() ?: list.map { it.dyn.int }.toIntArray()
-    val floatArray: FloatArray get() = value as? FloatArray ?: (value as? FloatArrayList)?.toFloatArray() ?: list.map { it.dyn.float }.toFloatArray()
-    val doubleArray: DoubleArray get() = value as? DoubleArray ?: (value as? DoubleArrayList)?.toDoubleArray() ?: list.map { it.dyn.double }.toDoubleArray()
+    val intArray: IntArray get() = value as? IntArray ?: (value as? IntList)?.toIntArray() ?: list.map { it.dyn.int }.toIntArray()
+    val floatArray: FloatArray get() = value as? FloatArray ?: (value as? FloatList)?.toFloatArray() ?: list.map { it.dyn.float }.toFloatArray()
+    val doubleArray: DoubleArray get() = value as? DoubleArray ?: (value as? DoubleList)?.toDoubleArray() ?: list.map { it.dyn.double }.toDoubleArray()
     val longArray: LongArray get() = value as? LongArray ?: list.map { it.dyn.long }.toLongArray()
 }
 
 private fun String.toIntSafe(radix: Int = 10) = this.toIntOrNull(radix)
 private fun String.toDoubleSafe() = this.toDoubleOrNull()
 private fun String.toLongSafe(radix: Int = 10) = this.toLongOrNull(radix)
+private fun String.escape(): String = buildString(length) {
+    for (c in this@escape) when (c) { '\n' -> append("\\n"); '\r' -> append("\\r"); '\t' -> append("\\t"); '\\' -> append("\\\\"); else -> append(c)  }
+}
+private fun String.quote(): String = "\"${escape()}\""

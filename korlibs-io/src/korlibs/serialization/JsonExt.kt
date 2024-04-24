@@ -12,7 +12,7 @@ object JsonContext {
     val FAST: Json = object : Json() {
         override val optimizeNumbers: Boolean = true
         override fun <T> createArrayList(capacity: Int): MutableList<T> = FastArrayList<T>()
-        override fun createDoubleArrayList(doubles: MiniDoubleArrayList): Any = DoubleArrayList(*doubles.toDoubleArray())
+        override fun createDoubleArrayList(doubles: MiniNumberArrayList): Any = DoubleArrayList(*doubles.toDoubleArray())
     }
 }
 

@@ -2,13 +2,14 @@
 
 package korlibs.io.serialization.json
 
+import korlibs.datastructure.*
 import korlibs.io.util.*
 import korlibs.util.*
 import kotlin.collections.set
 
 object JsonFast : Json() {
     override val optimizeNumbers: Boolean = true
-    override fun createDoubleArrayList(doubles: MiniDoubleArrayList): Any = doubles.toDoubleArray()
+    override fun createDoubleArrayList(doubles: MiniNumberArrayList): Any = doubles
 }
 
 open class Json {
@@ -22,12 +23,15 @@ open class Json {
     }
 
     protected open val optimizeNumbers: Boolean = false
+    //protected open val optimizeNumbers: Boolean = true
     protected open fun <T> createArrayList(capacity: Int = 16): MutableList<T> = ArrayList(capacity)
-    protected open fun createDoubleArrayList(doubles: MiniDoubleArrayList): Any = doubles.toDoubleArray().toList()
+    protected open fun createDoubleArrayList(doubles: MiniNumberArrayList): Any = doubles.toDoubleArray().toList()
+    //protected open fun createDoubleArrayList(doubles: MiniNumberArrayList): Any = doubles
 
-    protected class MiniDoubleArrayList {
-        var size: Int = 0
+    protected class MiniNumberArrayList : DoubleList {
+        override var size: Int = 0
             private set
+
         @PublishedApi internal var items = DoubleArray(16)
         val capacity get() = items.size
 
@@ -35,7 +39,7 @@ open class Json {
             size = 0
         }
 
-        operator fun get(index: Int): Double = items[index]
+        override operator fun get(index: Int): Double = items[index]
 
         fun add(value: Double) {
             if (size >= capacity) {
@@ -48,7 +52,49 @@ open class Json {
             for (n in 0 until size) block(items[n])
         }
 
-        fun toDoubleArray(): DoubleArray = items.copyOf(size)
+        override fun toDoubleArray(): DoubleArray = items.copyOf(size)
+        override fun clone(): DoubleList = MiniNumberArrayList().also {
+            it.size = size
+            it.items = items.copyOf()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (other !is Collection<*>) return false
+            if (other.size != this.size) return false
+            if (other is DoubleList) {
+                for (n in 0 until size) if (this[n] != other[n]) return false
+                return true
+            }
+            if (other is List<*>) {
+                for (n in 0 until size) if (this[n] != other[n]) return false
+                return true
+            }
+            var n = 0
+            for (v in other) if (this[n++] != v) return false
+            return true
+        }
+
+        override fun hashCode(): Int = this.items.contentHashCode(0, size)
+
+        private inline fun hashCoder(count: Int, gen: (index: Int) -> Int): Int {
+            var out = 0
+            for (n in 0 until count) {
+                out *= 7
+                out += gen(n)
+            }
+            return out
+        }
+        private fun DoubleArray.contentHashCode(src: Int, dst: Int): Int = hashCoder(dst - src) { this[src + it].toInt() } // Do not want to use Long (.toRawBits) to prevent boxing on JS
+
+        override fun toString(): String = StringBuilder(2 + 5 * size).also { sb ->
+            sb.append('[')
+            for (n in 0 until size) {
+                if (n != 0) sb.append(", ")
+                val v = this.getAt(n)
+                if (v.toInt().toDouble() == v) sb.append(v.toInt()) else sb.append(v)
+            }
+            sb.append(']')
+        }.toString()
     }
 
     interface CustomSerializer {
@@ -90,7 +136,7 @@ open class Json {
 
     private fun parseArray(s: SimpleStrReader): Any {
         var out: MutableList<Any?>? = null
-        var outNumber: MiniDoubleArrayList? = null
+        var outNumber: MiniNumberArrayList? = null
         s.skipExpect('[')
         array@ while (true) {
             when (s.skipSpaces().peekChar()) {
@@ -101,7 +147,7 @@ open class Json {
             val v = s.peekChar()
             if (out == null && optimizeNumbers && (v in '0'..'9' || v == '-')) {
                 if (outNumber == null) {
-                    outNumber = MiniDoubleArrayList()
+                    outNumber = MiniNumberArrayList()
                 }
                 outNumber.add(parseNumber(s))
             } else {
