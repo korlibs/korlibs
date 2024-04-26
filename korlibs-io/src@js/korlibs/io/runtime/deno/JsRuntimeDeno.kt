@@ -99,9 +99,6 @@ object JsRuntimeDeno : JsRuntime() {
         //return Deno.cwd()
     }
 
-    override fun env(key: String): String? = Deno.env.get(key)
-    override fun envs() = jsObjectToMap(Deno.env.toObject())
-
     override fun openVfs(path: String): VfsFile {
         return DenoLocalVfs()[if (path == ".") currentDir() else path]
     }

@@ -62,7 +62,8 @@ interface Platform {
         override val isRelease: Boolean get() = !currentIsDebug
         override val hasMultithreadedSharedHeap: Boolean get() = multithreadedSharedHeap
 
-        val envs: Map<String, String> get() = korlibs.platform.envs
+        val envs: Map<String, String> by lazy { korlibs.platform.envs }
+        val envsUC: Map<String, String> by lazy { envs.mapKeys { it.key.uppercase() } }
         val languagesRaw: List<String> get() = korlibs.platform.languages
 
         operator fun invoke(
