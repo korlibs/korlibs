@@ -1,5 +1,6 @@
 package korlibs.datastructure.lock
 
+import korlibs.concurrent.lock.*
 import korlibs.datastructure.thread.*
 import korlibs.platform.*
 import korlibs.time.*
@@ -42,7 +43,7 @@ class LockTest {
         lock {
             lock {
                 log += "a"
-                lock.wait(1.seconds)
+                lock.waitForever()
                 log += "c"
             }
         }
