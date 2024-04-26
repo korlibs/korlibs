@@ -1,22 +1,20 @@
 package korlibs.io.concurrent.atomic
 
 import kotlinx.atomicfu.*
+import kotlin.js.*
 
+@JsName("korAtomicRef")
 @Deprecated("", ReplaceWith("atomic(initial)", "kotlinx.atomicfu.atomic"))
 fun <T> korAtomic(initial: T): KorAtomicRef<T> = atomic(initial)
+@JsName("korAtomicBoolean")
 @Deprecated("", ReplaceWith("atomic(initial)", "kotlinx.atomicfu.atomic"))
 fun korAtomic(initial: Boolean): KorAtomicBoolean = atomic(initial)
+@JsName("korAtomicInt")
 @Deprecated("", ReplaceWith("atomic(initial)", "kotlinx.atomicfu.atomic"))
 fun korAtomic(initial: Int): KorAtomicInt = atomic(initial)
+@JsName("korAtomicLong")
 @Deprecated("", ReplaceWith("atomic(initial)", "kotlinx.atomicfu.atomic"))
 fun korAtomic(initial: Long): KorAtomicLong = atomic(initial)
-
-@Deprecated("", ReplaceWith("atomic(value)", "kotlinx.atomicfu.atomic"))
-fun <T> KorAtomicRef(value: T): AtomicRef<T> = atomic(value)
-@Deprecated("", ReplaceWith("atomic(value)", "kotlinx.atomicfu.atomic"))
-fun KorAtomicInt(value: Int): AtomicInt = atomic(value)
-@Deprecated("", ReplaceWith("atomic(value)", "kotlinx.atomicfu.atomic"))
-fun KorAtomicLong(value: Long): AtomicLong = atomic(value)
 
 @Deprecated("kotlinx.atomicfu.AtomicRef<T>")
 typealias KorAtomicRef<T> = AtomicRef<T>
@@ -35,6 +33,17 @@ inline fun KorAtomicInt.update(transform: (Int) -> Int): Int = updateAndGet(tran
 inline fun KorAtomicLong.update(transform: (Long) -> Long): Long = updateAndGet(transform)
 @Deprecated("", ReplaceWith("updateAndGet(transform)", "kotlinx.atomicfu.updateAndGet"))
 inline fun KorAtomicBoolean.update(transform: (Boolean) -> Boolean): Boolean = updateAndGet(transform)
+
+/*
+@Deprecated("", ReplaceWith("atomic(value)", "kotlinx.atomicfu.atomic"))
+inline fun <T> KorAtomicRef(value: T): AtomicRef<T> = atomic(value)
+
+@Deprecated("", ReplaceWith("atomic(value)", "kotlinx.atomicfu.atomic"))
+inline fun KorAtomicInt(value: Int): AtomicInt = atomic(value)
+
+@Deprecated("", ReplaceWith("atomic(value)", "kotlinx.atomicfu.atomic"))
+inline fun KorAtomicLong(value: Long): AtomicLong = atomic(value)
+ */
 
 //fun KorAtomicInt.getAndAdd(delta: Int): Int = addAndGet(delta) - delta
 //fun KorAtomicLong.getAndAdd(delta: Long): Long = addAndGet(delta) - delta
