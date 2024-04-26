@@ -80,7 +80,7 @@ internal actual val workerImpl: _WorkerImpl = object : _WorkerImpl() {
         val worker: org.w3c.dom.Worker =
             js("(new Worker(workerUrl, { type: 'module', deno: { permissions: 'inherit' } }))")
         Environment.getAll()
-        EnvironmentInternal.getAll()
+        Platform.envs
         //worker.postMessage("url", jsObject(Environment.getAll()))
         return worker
     }

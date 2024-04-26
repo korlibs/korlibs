@@ -4,13 +4,6 @@ import korlibs.datastructure.*
 import korlibs.platform.*
 import kotlin.collections.set
 
-internal expect object EnvironmentInternal {
-	// Uses querystring on JS/Browser, and proper env vars in the rest
-	operator fun get(key: String): String?
-
-	fun getAll(): Map<String, String>
-}
-
 private var customEnvironments: CaseInsensitiveStringMap<String>? = null
 
 interface Environment {
@@ -21,7 +14,7 @@ interface Environment {
         val PATH_SEPARATOR: Char get() = if (Platform.isWindows) ';' else ':'
 
         // Uses querystring on JS/Browser, and proper env vars in the rest
-        override operator fun get(key: String): String? = customEnvironments?.get(key) ?: EnvironmentInternal[key]
+        override operator fun get(key: String): String? = customEnvironments?.get(key) ?: Platform.envsUC[key.uppercase()]
         operator override fun set(key: String, value: String) {
             if (customEnvironments != null) {
                 customEnvironments = CaseInsensitiveStringMap()
@@ -29,7 +22,7 @@ interface Environment {
             customEnvironments?.set(key, value)
         }
 
-        override fun getAll(): Map<String, String> = (customEnvironments ?: mapOf()) + EnvironmentInternal.getAll()
+        override fun getAll(): Map<String, String> = (customEnvironments ?: mapOf()) + Platform.envs
     }
 }
 

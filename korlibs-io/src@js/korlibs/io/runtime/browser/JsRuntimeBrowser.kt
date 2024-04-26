@@ -1,25 +1,16 @@
 package korlibs.io.runtime.browser
 
-import korlibs.logger.*
-import korlibs.io.file.SimpleStorage
-import korlibs.io.file.VfsFile
+import korlibs.io.file.*
 import korlibs.io.file.std.*
-import korlibs.io.net.QueryString
-import korlibs.io.net.http.Http
-import korlibs.io.net.http.HttpClient
-import korlibs.io.runtime.JsRuntime
+import korlibs.io.net.http.*
+import korlibs.io.runtime.*
 import korlibs.io.stream.*
-import kotlinx.browser.document
-import kotlinx.browser.window
-import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.Job
-import org.khronos.webgl.ArrayBuffer
-import org.khronos.webgl.Int8Array
+import kotlinx.browser.*
+import kotlinx.coroutines.*
+import org.khronos.webgl.*
 import org.w3c.dom.get
 import org.w3c.dom.set
-import org.w3c.xhr.ARRAYBUFFER
-import org.w3c.xhr.XMLHttpRequest
-import org.w3c.xhr.XMLHttpRequestResponseType
+import org.w3c.xhr.*
 
 private external val navigator: dynamic // browser
 
@@ -38,10 +29,6 @@ object JsRuntimeBrowser : JsRuntime() {
 
     override fun currentDir(): String = baseUrl
 
-    override fun envs(): Map<String, String> =
-        QueryString.decode((document.location?.search ?: "").trimStart('?')).map { it.key to (it.value.firstOrNull() ?: it.key) }.toMap()
-
-    override fun langs(): List<String> = window.navigator.languages.asList()
     override fun openVfs(path: String): VfsFile {
         return UrlVfs(currentDir())[path].withCatalogJail().root.also {
             logger.info { "BROWSER openVfs: currentDir=${currentDir()}, path=$path, urlVfs=$it" }

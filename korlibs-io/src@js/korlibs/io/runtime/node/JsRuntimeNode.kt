@@ -66,8 +66,6 @@ object JsRuntimeNode : JsRuntime() {
 
     override fun existsSync(path: String): Boolean = fs.existsSync(path)
     override fun currentDir(): String = path.resolve(".")
-    override fun env(key: String): String? = process.env[key]
-    override fun envs() = jsObjectToMap(process.env)
     override fun openVfs(path: String): VfsFile {
         val rpath = if (path == ".") {
             val path = jsRuntime.currentDir()
