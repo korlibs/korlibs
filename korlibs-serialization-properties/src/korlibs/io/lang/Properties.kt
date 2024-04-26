@@ -1,11 +1,8 @@
 package korlibs.io.lang
 
-import korlibs.io.file.*
 import kotlin.collections.component1
 import kotlin.collections.component2
 import kotlin.collections.set
-
-expect object SystemProperties : Properties
 
 open class Properties(map: Map<String, String>? = null) {
     //private val map = FastStringMap<String>()
@@ -23,6 +20,12 @@ open class Properties(map: Map<String, String>? = null) {
     open fun remove(key: String) { map.remove(key) }
     open fun getAll(): Map<String, String> = map.toMap()
 
+    override fun toString(): String = buildString {
+        for ((key, value) in map) {
+            appendLine("$key=${value.replace("\n", "\\n")}")
+        }
+    }
+
     companion object {
         fun parseString(data: String): Properties {
             val props = LinkedHashMap<String, String>()
@@ -39,5 +42,3 @@ open class Properties(map: Map<String, String>? = null) {
         }
     }
 }
-
-suspend fun VfsFile.readProperties(charset: Charset = Charsets.UTF8) = Properties.parseString(readString(charset))
