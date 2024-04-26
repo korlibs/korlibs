@@ -1,7 +1,7 @@
 package korlibs.io.util.i18n
 
-import korlibs.io.concurrent.atomic.KorAtomicRef
 import korlibs.platform.*
+import kotlinx.atomicfu.*
 
 internal val systemLanguageStrings: List<String> get() = Platform.languagesRaw
 
@@ -33,4 +33,4 @@ enum class Language(val iso6391: String, val iso6392: String) {
 	}
 }
 
-private val Language_CURRENT: KorAtomicRef<Language> by lazy { KorAtomicRef(Language.SYSTEM) }
+private val Language_CURRENT: AtomicRef<Language> by lazy { atomic(Language.SYSTEM) }

@@ -5,8 +5,10 @@ import korlibs.audio.sound.*
 import korlibs.ffi.*
 import korlibs.io.annotations.*
 import korlibs.io.concurrent.atomic.*
+import kotlinx.atomicfu.*
 import java.util.concurrent.*
 import java.util.concurrent.atomic.*
+import java.util.concurrent.atomic.AtomicLong
 import kotlin.coroutines.*
 
 val jvmCoreAudioNativeSoundProvider: JvmCoreAudioNativeSoundProvider? by lazy {
@@ -81,7 +83,7 @@ private class JvmCoreAudioNewPlatformAudioOutput(
 
     internal var completed = false
 
-    internal var buffer by KorAtomicRef(AudioSamplesInterleaved(nchannels, 0))
+    internal var buffer by atomic(AudioSamplesInterleaved(nchannels, 0))
 
     var queue: Pointer? = null
 

@@ -11,6 +11,7 @@ import korlibs.logger.*
 import korlibs.math.geom.*
 import korlibs.platform.*
 import korlibs.time.*
+import kotlinx.atomicfu.*
 import kotlinx.coroutines.*
 import kotlin.collections.component1
 import kotlin.collections.component2
@@ -189,7 +190,7 @@ open class FolderBasedNativeSystemFontProvider(
 
     override fun listFontNamesWithFiles(): Map<String, VfsFile> = listFontNamesMap()
 
-    private val _namesMapLC = KorAtomicRef<Map<String, VfsFile>?>(null)
+    private val _namesMapLC = atomic<Map<String, VfsFile>?>(null)
     private val namesMapLC: Map<String, VfsFile> get() {
         if (_namesMapLC.value == null) {
             _namesMapLC.value = (listFontNamesMapLC())

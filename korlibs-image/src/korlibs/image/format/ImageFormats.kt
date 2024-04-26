@@ -7,13 +7,14 @@ import korlibs.io.file.*
 import korlibs.io.lang.*
 import korlibs.io.lang.ASCII
 import korlibs.io.stream.*
+import kotlinx.atomicfu.*
 import kotlin.coroutines.cancellation.*
 
 open class ImageFormats(formats: Iterable<ImageFormat>) : ImageFormat("") {
     constructor(vararg formats: ImageFormat) : this(formats.toList())
 
     @PublishedApi
-    internal var _formats: Set<ImageFormat> by KorAtomicRef(formats.listFormats() - this)
+    internal var _formats: Set<ImageFormat> by atomic(formats.listFormats() - this)
 	val formats: Set<ImageFormat> get() = _formats
 
     fun formatByExtOrNull(ext: String): ImageFormat? = formats.firstOrNull { ext in it.extensions }
