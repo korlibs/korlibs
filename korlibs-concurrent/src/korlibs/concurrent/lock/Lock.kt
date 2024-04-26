@@ -62,3 +62,11 @@ fun BaseLock.waitPrecise(time: Duration): Boolean {
 fun BaseLock.wait(time: Duration, precise: Boolean): Boolean {
     return if (precise) waitPrecise(time) else wait(time)
 }
+
+fun NonRecursiveLock.waitForever() {
+    while (!wait(100.seconds)) Unit
+}
+
+fun Lock.waitForever() {
+    this { while (!wait(100.seconds)) Unit }
+}
