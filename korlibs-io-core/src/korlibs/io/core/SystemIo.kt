@@ -18,6 +18,9 @@ object NullSyncSystemIo : SyncSystemIo() {
 val NullSystemIo: SystemIo = NullSyncSystemIo.toAsync(Dispatchers.Unconfined)
 
 abstract class SyncSystemIo {
+    open val fileSeparatorChar: Char = '/'
+    open val pathSeparatorChar: Char = ':'
+
     open fun getcwd(): String = "."
 
     abstract fun open(path: String, write: Boolean = false): SyncFileSystemIo?

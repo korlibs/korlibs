@@ -7,6 +7,9 @@ actual val defaultSyncSystemIo: SyncSystemIo = JvmSyncSystemIo
 actual val defaultSystemIo: SystemIo = defaultSyncSystemIo.toAsync(Dispatchers.IO)
 
 object JvmSyncSystemIo : SyncSystemIo() {
+    override val fileSeparatorChar: Char get() = File.separatorChar
+    override val pathSeparatorChar: Char get() = File.pathSeparatorChar
+
     override fun mkdir(path: String) = File(path).mkdir()
     override fun rmdir(path: String) = File(path).takeIf { it.isDirectory }?.delete() == true
     override fun unlink(path: String) = File(path).takeIf { !it.isDirectory }?.delete() == true

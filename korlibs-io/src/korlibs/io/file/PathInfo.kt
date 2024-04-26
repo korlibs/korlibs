@@ -2,12 +2,14 @@ package korlibs.io.file
 
 import korlibs.datastructure.count
 import korlibs.datastructure.iterators.*
+import korlibs.io.core.*
 import korlibs.io.lang.indexOfOrNull
 import korlibs.io.lang.lastIndexOfOrNull
 import korlibs.io.net.MimeType
 import kotlin.math.min
 
-expect val File_separatorChar: Char
+val File_pathSeparatorChar: Char get() = defaultSyncSystemIo.pathSeparatorChar
+val File_separatorChar: Char get() = defaultSyncSystemIo.fileSeparatorChar
 
 // @TODO: inline classes. Once done PathInfoExt won't be required to do clean allocation-free stuff.
 inline class PathInfo(val fullPath: String)

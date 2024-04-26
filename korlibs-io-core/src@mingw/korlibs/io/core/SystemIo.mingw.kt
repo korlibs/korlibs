@@ -10,6 +10,9 @@ actual val defaultSyncSystemIo: SyncSystemIo = MingwSyncSystemIo
 actual val defaultSystemIo: SystemIo = defaultSyncSystemIo.toAsync(Dispatchers.IO)
 
 object MingwSyncSystemIo : SyncSystemIoNativeBase() {
+    override val fileSeparatorChar: Char = '\\'
+    override val pathSeparatorChar: Char = ';'
+
     override fun getcwd(): String = getExecutableDirectory()
 
     override fun mkdir(path: String): Boolean = platform.posix.mkdir(path) == 0
