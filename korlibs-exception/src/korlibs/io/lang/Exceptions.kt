@@ -1,8 +1,5 @@
 package korlibs.io.lang
 
-import korlibs.logger.Console
-import korlibs.encoding.*
-
 expect open class IOException(msg: String) : Exception
 expect open class EOFException(msg: String) : IOException
 expect open class FileNotFoundException(msg: String) : IOException
@@ -12,7 +9,8 @@ open class MalformedInputException(msg: String) : Exception(msg) {
 
 class FileAlreadyExistsException(msg: String) : IOException(msg)
 
-class InternalException(val code: Int) : Exception("Internal Exception with code $code (0x${code.hex})")
+@OptIn(ExperimentalStdlibApi::class)
+class InternalException(val code: Int) : Exception("Internal Exception with code $code (0x${code.toHexString()})")
 class InvalidOperationException(str: String = "Invalid Operation") : Exception(str)
 class OutOfBoundsException(index: Int = -1, str: String = "Out Of Bounds") : Exception(str)
 class KeyNotFoundException(str: String = "Key Not Found") : Exception(str)
@@ -52,17 +50,6 @@ inline fun <R> runIgnoringExceptions(show: Boolean = false, action: () -> R): R?
 } catch (e: Throwable) {
 	if (show) e.printStackTrace()
 	null
-}
-
-fun Throwable.printStackTraceWithExtraMessage(msg: String) {
-    Console.error(msg)
-    Console.error(stackTraceToString())
-}
-
-fun currentStackTrace(msg: String = "printStackTrace"): String = Exception(msg).stackTraceToString()
-
-fun printStackTrace(msg: String = "printStackTrace") {
-    Console.error(currentStackTrace(msg))
 }
 
 expect fun enterDebugger(): Unit

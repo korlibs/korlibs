@@ -19,6 +19,7 @@ dependencies:
   - ../korlibs-encoding: exported
   - ../korlibs-platform: exported
   - ../korlibs-datastructure: exported
+  - ../korlibs-exception: exported
   - ../korlibs-number: exported
   - ../korlibs-time-core: exported
   - ../korlibs-logger: exported
