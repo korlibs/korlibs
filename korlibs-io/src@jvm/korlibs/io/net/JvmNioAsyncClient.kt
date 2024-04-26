@@ -1,7 +1,6 @@
 package korlibs.io.net
 
 import korlibs.io.async.AsyncThread2
-import korlibs.io.concurrent.atomic.incrementAndGet
 import korlibs.io.util.nioSuspendCompletion
 import java.io.IOException
 import java.net.InetSocketAddress
