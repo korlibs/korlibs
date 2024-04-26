@@ -33,3 +33,5 @@ internal actual val currentIsLittleEndian: Boolean get() = kotlin.native.Platfor
 internal actual val multithreadedSharedHeap: Boolean = true
 internal actual val currentRawPlatformName: String = "native-$currentOs-$currentArch-$currentBuildVariant"
 internal actual val currentRawOsName: String = "$currentOs"
+
+internal actual val languages: List<String> get() = listOf("en-GB")

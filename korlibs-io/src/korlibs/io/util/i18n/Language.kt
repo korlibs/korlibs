@@ -1,8 +1,9 @@
 package korlibs.io.util.i18n
 
 import korlibs.io.concurrent.atomic.KorAtomicRef
+import korlibs.platform.*
 
-internal expect val systemLanguageStrings: List<String>
+internal val systemLanguageStrings: List<String> get() = Platform.languagesRaw
 
 // https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 enum class Language(val iso6391: String, val iso6392: String) {
@@ -20,7 +21,7 @@ enum class Language(val iso6391: String, val iso6392: String) {
 	;
 
 	companion object {
-		val BY_ID = ((values().map { it.name.toLowerCase() to it } + values().map { it.iso6391 to it } + values().map { it.iso6392 to it })).toMap()
+		val BY_ID = ((entries.map { it.name.lowercase() to it } + entries.map { it.iso6391 to it } + entries.map { it.iso6392 to it })).toMap()
 		operator fun get(id: String): Language? = BY_ID[id]
 
 		val SYSTEM_LANGS: List<Language> by lazy { systemLanguageStrings.mapNotNull { BY_ID[it.substringBefore('-')] } }

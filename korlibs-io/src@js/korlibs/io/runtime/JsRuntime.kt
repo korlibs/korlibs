@@ -36,7 +36,7 @@ abstract class JsRuntime {
             ?: Environment["LANGUAGE"]
             ?: Environment["LC_ALL"]
             ?: Environment["LC_MESSAGES"]
-            ?: "english"
+            ?: "en-GB"
     )
 
     abstract fun envs(): Map<String, String>

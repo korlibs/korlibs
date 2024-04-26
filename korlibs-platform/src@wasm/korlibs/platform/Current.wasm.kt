@@ -33,6 +33,8 @@ internal actual val currentRawPlatformName: String = when {
 
 private external class Navigator {
     val userAgent: String
+    val language: String
+    val languages: JsArray<JsString>
 }
 private external class Process {
     val platform: String
@@ -69,7 +71,7 @@ internal actual val envs: Map<String, String> by lazy {
 private external fun decodeURIComponent(str: String): String
 
 fun jsObjectToMap(obj: JsAny): Map<String, JsAny?> = obj.keys().associate { it to obj[it] }
-private fun JsAny.keys(): List<String> = jsArrayToList(jsObjectKeys(this)).map { it.toString() }
+private fun JsAny.keys(): List<String> = jsObjectKeys(this).toList().map { it.toString() }
 private operator fun JsAny.get(key: String): JsAny? = jsObjectGet(this, key.toJsString())
 
 @JsFun("(obj, key) => { return obj ? obj[key] : null; }")
@@ -80,4 +82,6 @@ private external fun jsObjectGet(obj: JsAny, key: JsString?): JsAny?
 @Suppress("UNUSED_PARAMETER")
 private external fun jsObjectKeys(obj: JsAny?): JsArray<JsString>
 
-private fun <T : JsAny> jsArrayToList(obj: JsArray<T>): List<T> = List(obj.length) { obj[it]!! }
+private fun <T : JsAny> JsArray<T>.toList(): List<T?> = List(length) { this[it] }
+
+internal actual val languages: List<String> get() = navigator.languages.toList().map { it.toString() }
