@@ -129,3 +129,12 @@ private fun jsObjectKeys(obj: dynamic): dynamic = js("(Object.keys(obj))")
 private fun jsObjectKeysArray(obj: dynamic): Array<String> = jsToArray(jsObjectKeys(obj)) as Array<String>
 private fun jsObjectToMap(obj: dynamic): Map<String, dynamic> = jsObjectKeysArray(obj).associate { it to obj[it] }
 private fun jsToArray(obj: dynamic): Array<Any?> = Array<Any?>(obj.length) { obj[it] }
+
+internal actual val languages: List<String> get() {
+    val navigator = jsGlobalThis.asDynamic().navigator.unsafeCast<Navigator>()
+    val envs = Platform.envs
+    return when {
+        navigator.asDynamic() -> navigator.languages.toList().map { it.toString() }
+        else -> listOf(envs["LANG"] ?: envs["LANGUAGE"] ?: envs["LC_ALL"] ?: envs["LC_MESSAGES"] ?: "en-GB")
+    }
+}

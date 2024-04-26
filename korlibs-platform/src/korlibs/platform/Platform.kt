@@ -48,7 +48,6 @@ interface Platform {
     val isJsWorker: Boolean get() = rawPlatformName == "js-worker" || rawPlatformName == "wasm-worker"
     val isJsBrowserOrWorker: Boolean get() = isJsBrowser || isJsWorker
 
-
     companion object : Platform {
         override val endian: Endian get() = Endian.NATIVE
         override val isLittleEndian: Boolean get() = currentIsLittleEndian
@@ -64,6 +63,7 @@ interface Platform {
         override val hasMultithreadedSharedHeap: Boolean get() = multithreadedSharedHeap
 
         val envs: Map<String, String> get() = korlibs.platform.envs
+        val languagesRaw: List<String> get() = korlibs.platform.languages
 
         operator fun invoke(
             endian: Endian = Endian.LITTLE_ENDIAN,
