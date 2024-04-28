@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalForeignApi::class)
+@file:OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 
 package korlibs.image.format.ui
 
@@ -23,7 +23,7 @@ fun UIImage.toBitmap32(): Bitmap32 {
     UIGraphicsBeginImageContext(this.size)
     try {
         val ctx: CPointer<CGContext>? = UIGraphicsGetCurrentContext(); // here you don't need this reference for the context but if you want to use in the future for drawing anything else on the context you could get it for it
-        this.drawInRect(CGRectMake(0.cg, 0.cg, out.width.cg, out.height.cg))
+        this.drawInRect(CGRectMakeExt(0, 0, out.width, out.height))
         transferBitmap32CGContext(out, ctx, toBitmap = true)
         return out
     } finally {

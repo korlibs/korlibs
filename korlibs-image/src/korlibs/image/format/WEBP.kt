@@ -12,6 +12,8 @@ import kotlin.coroutines.*
 object WEBP : ImageFormat("webp") {
     private val WebpWASM = WebpWASM()
 
+    val isAvailable: Boolean get() = WebpWASM.isAvailable
+
     /** Returns the WEBP ensuring it is initialized with the context. Required for Android. */
     suspend operator fun invoke(): WEBP = initOnce(coroutineContext)
 

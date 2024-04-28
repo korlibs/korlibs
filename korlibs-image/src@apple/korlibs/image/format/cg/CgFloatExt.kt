@@ -1,16 +1,10 @@
-@file:OptIn(ExperimentalForeignApi::class)
+@file:OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 
 package korlibs.image.format.cg
 
 import korlibs.math.geom.*
 import kotlinx.cinterop.*
 import platform.CoreGraphics.*
-
-// @TODO: K/N .convert() doesn't work to convert integers to doubles
-@OptIn(UnsafeNumber::class)
-inline fun Double.toCgFloat(): CGFloat = this
-@OptIn(UnsafeNumber::class)
-inline fun Float.toCgFloat(): CGFloat = this.toDouble()
 
 @OptIn(UnsafeNumber::class)
 inline val Int.cg: CGFloat get() = this.toDouble().toCgFloat()
