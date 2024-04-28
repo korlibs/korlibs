@@ -8,13 +8,22 @@ import platform.posix.*
 actual open class WASMLib actual constructor(content: ByteArray) : IWASMLib by NativeWASMLib(content)
 
 class NativeWASMLib(content: ByteArray) : IWASMLib, BaseWASMLib(content) {
-    private val runner = WASMRunner().also {
-        it.loadWasmModule(content)
+    private val runner: WASMRunner? by lazy {
+        try {
+            WASMRunner().also {
+                it.loadWasmModule(content)
+            }
+        } catch (e: Throwable) {
+            //e.printStackTrace()
+            null
+        }
     }
 
-    override fun readBytes(pos: Int, size: Int): ByteArray = runner.readBytes(pos, size)
-    override fun writeBytes(pos: Int, data: ByteArray) = runner.writeBytes(pos, data)
-    override fun invokeFunc(name: String, vararg params: Any?): Any? = runner.invokeFunction(name, *params)?.toAny()
+    override val isAvailable: Boolean get() = runner != null
+
+    override fun readBytes(pos: Int, size: Int): ByteArray = runner!!.readBytes(pos, size)
+    override fun writeBytes(pos: Int, data: ByteArray) = runner!!.writeBytes(pos, data)
+    override fun invokeFunc(name: String, vararg params: Any?): Any? = runner!!.invokeFunction(name, *params)?.toAny()
 
     private fun JSValue.toAny(): Any? = when {
         this.isNull -> null
@@ -26,7 +35,7 @@ class NativeWASMLib(content: ByteArray) : IWASMLib, BaseWASMLib(content) {
     }
     //override fun invokeFuncIndirect(address: Int, vararg params: Any?): Any? = runner.invokeFuncIndirect(address, *params)
 
-    override fun close() = runner.close()
+    override fun close() = runner!!.close()
 
     //override fun <T> symGet(name: String, type: KType): T = super.symGet(name, type)
     //override fun <T : Function<*>> funcPointer(address: Int, type: KType): T = super.funcPointer(address, type)
@@ -36,10 +45,12 @@ class NativeWASMLib(content: ByteArray) : IWASMLib, BaseWASMLib(content) {
 class WASMRunner {
     private var _lastException: JSValue? = null
 
-    val js = JSContext().also {
-        it.exceptionHandler = { context, exception ->
-            _lastException = exception
-            //println("Exception: ${platform.posix.exception}")
+    val js: JSContext by lazy {
+        JSContext().also {
+            it.exceptionHandler = { context, exception ->
+                _lastException = exception
+                //println("Exception: ${platform.posix.exception}")
+            }
         }
     }
 
