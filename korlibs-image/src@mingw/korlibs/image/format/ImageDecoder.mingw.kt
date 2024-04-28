@@ -2,13 +2,14 @@ package korlibs.image.format
 
 import korlibs.image.bitmap.*
 import korlibs.image.color.*
+import korlibs.io.async.*
+import korlibs.io.lang.*
 import kotlinx.atomicfu.*
 import kotlinx.cinterop.*
 import kotlinx.coroutines.*
 import platform.posix.*
 import platform.gdiplus.*
 import platform.windows.*
-import kotlin.native.concurrent.*
 
 actual val nativeImageFormatProvider: NativeImageFormatProvider get() = Win32BaseNativeImageFormatProvider
 

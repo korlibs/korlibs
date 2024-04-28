@@ -3,6 +3,7 @@ package korlibs.image.format
 import korlibs.image.format.cg.*
 import korlibs.image.format.ui.*
 import kotlinx.cinterop.*
+import platform.CoreGraphics.*
 import platform.UIKit.*
 
 //actual val nativeImageFormatProvider: NativeImageFormatProvider = UIImageNativeImageFormatProvider
@@ -15,7 +16,7 @@ object UINativeImageFormatProvider : CGNativeImageFormatProvider() {
         val uiImage: UIImage = image.mainBitmap.toBMP32().toUIImage()
         //println("Using UINativeImageFormatProvider.encodeSuspend")
         return when (props.mimeType) {
-            "image/jpeg", "image/jpg" -> UIImageJPEGRepresentation(uiImage, compressionQuality = props.quality.cg)?.toByteArray()
+            "image/jpeg", "image/jpg" -> UIImageJPEGRepresentation(uiImage, compressionQuality = props.quality)?.toByteArray()
             else -> UIImagePNGRepresentation(uiImage)?.toByteArray()
         } ?: error("Can't encode using UIImageRepresentation")
     }

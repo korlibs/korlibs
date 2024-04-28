@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalForeignApi::class)
+@file:OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 
 package korlibs.image.format.cg
 
@@ -8,9 +8,9 @@ import platform.CoreGraphics.*
 
 // @TODO: K/N .convert() doesn't work to convert integers to doubles
 @OptIn(UnsafeNumber::class)
-inline fun Double.toCgFloat(): CGFloat = this
+inline fun Double.toCgFloat(): CGFloat = this.toFloat()
 @OptIn(UnsafeNumber::class)
-inline fun Float.toCgFloat(): CGFloat = this.toDouble()
+inline fun Float.toCgFloat(): CGFloat = this
 
 @OptIn(UnsafeNumber::class)
 inline val Int.cg: CGFloat get() = this.toDouble().toCgFloat()
