@@ -3,11 +3,13 @@ package korlibs.image.format
 import korlibs.image.bitmap.*
 import korlibs.io.async.*
 import korlibs.io.file.std.*
+import korlibs.platform.Platform
 import kotlin.test.*
 
 class HEICTest {
     @Test
     fun test() = suspendTest {
+        if (Platform.isWatchos) return@suspendTest
         val heic = resourcesVfs["heic.heic"].readBitmap().toBMP32().premultiplied()
         val png = resourcesVfs["heic.heic.png"].readBitmap(PNG.toProps()).toBMP32().premultiplied()
         //localVfs("/tmp/heic.heic.png").writeBitmap(heic, PNG)

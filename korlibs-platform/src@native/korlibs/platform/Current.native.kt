@@ -12,6 +12,7 @@ internal actual val currentOs: Os = when (kotlin.native.Platform.osFamily) {
     OsFamily.ANDROID -> Os.ANDROID
     OsFamily.WASM -> Os.WASM
     OsFamily.TVOS -> Os.TVOS
+    OsFamily.WATCHOS -> Os.WATCHOS
     else -> Os.UNKNOWN
 }
 

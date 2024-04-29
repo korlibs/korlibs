@@ -1,7 +1,7 @@
 package korlibs.platform
 
 enum class Os {
-    UNKNOWN, MACOSX, IOS, LINUX, WINDOWS, ANDROID, WASM, TVOS;
+    UNKNOWN, MACOSX, IOS, LINUX, WINDOWS, ANDROID, WASM, TVOS, WATCHOS;
 
     val isWindows: Boolean get() = this == WINDOWS
     val isAndroid: Boolean get() = this == ANDROID
@@ -9,6 +9,7 @@ enum class Os {
     val isMac: Boolean get() = this == MACOSX
     val isIos: Boolean get() = this == IOS
     val isTvos: Boolean get() = this == TVOS
+    val isWatchos: Boolean get() = this == WATCHOS
     val isAppleMobile: Boolean get() = isIos || isTvos
     val isDesktop: Boolean get() = isLinux || isWindows || isMac
     val isMobile: Boolean get() = isAndroid || isAppleMobile
