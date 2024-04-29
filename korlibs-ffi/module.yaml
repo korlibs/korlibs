@@ -6,7 +6,7 @@ apply: [ ../common.module-template.yaml ]
 
 dependencies:
   - ../korlibs-util: exported
-  - ../korlibs-io-core: exported
+  - ../korlibs-io-fs: exported
   - ../korlibs-platform: exported
   - ../korlibs-datastructure: exported
   - ../korlibs-memory: exported
