@@ -20,7 +20,32 @@ expect val FFI_SUPPORTED: Boolean
 expect fun CreateFFIMemory(size: Int): FFIMemory
 expect fun CreateFFIMemory(bytes: ByteArray): FFIMemory
 
+expect inline fun <T> FFIMemory.usePointer(block: (pointer: FFIPointer) -> T): T
+
+@Deprecated("Use temporal")
 expect val FFIMemory.pointer: FFIPointer
+
+internal fun FFIPointer._getStringz(): String {
+    val out = ByteArrayBuilder()
+    for (n in 0 until 0x10000) {
+        val c = getS8(n).toInt()
+        if (c == 0) break
+        out.append(c)
+    }
+    return out.toByteArray().decodeToString()
+}
+
+internal fun FFIPointer._getWideStringz(): String {
+    val out = StringBuilder()
+    for (n in 0 until 0x10000) {
+        val c = getS16(n * 2).toInt()
+        if (c == 0) break
+        out.append(c.toChar())
+    }
+    return out.toString()
+}
+
+internal fun FFIPointer._getIntArray(size: Int, byteOffset: Int): IntArray = IntArray(size) { getS32(byteOffset + it * 4) }
 
 expect fun CreateFFIPointer(ptr: Long): FFIPointer?
 expect val FFIPointer?.address: Long
