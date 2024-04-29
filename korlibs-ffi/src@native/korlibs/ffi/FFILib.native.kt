@@ -21,7 +21,8 @@ actual class FFIPointer(val ptr: NativePtr) {
 
 actual typealias FFIMemory = ByteArray
 
-actual val FFI_SUPPORTED: Boolean = true
+//actual val FFI_SUPPORTED: Boolean = true
+actual val FFI_SUPPORTED: Boolean = false
 
 actual fun CreateFFIMemory(size: Int): FFIMemory = ByteArray(size)
 actual fun CreateFFIMemory(bytes: ByteArray): FFIMemory = bytes
