@@ -6,5 +6,5 @@ apply: [ ../common.module-template.yaml ]
 
 dependencies:
   - ../korlibs-math-core
-  - ../korlibs-vector: exported
+  - ../korlibs-math-vector: exported
   - ../korlibs-ffi
