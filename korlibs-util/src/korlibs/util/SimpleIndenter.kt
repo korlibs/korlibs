@@ -31,10 +31,10 @@ interface SimpleIndenter {
     }
 
     companion object {
-        operator fun invoke(): SimpleIndenter = Impl()
+        operator fun invoke(trailingLine: Boolean = false): SimpleIndenter = Impl(trailingLine)
 
         @OptIn(ExperimentalStdlibApi::class)
-        class Impl : SimpleIndenter {
+        class Impl(val trailingLine: Boolean) : SimpleIndenter {
             var indentation = 0
             val lines = arrayListOf<String>()
             var currentLine = StringBuilder()
@@ -73,7 +73,8 @@ interface SimpleIndenter {
 
             override fun toString(): String {
                 flush()
-                return lines.joinToString("\n")
+                val end = lines.joinToString("\n")
+                return if (trailingLine) "$end\n" else end
             }
         }
     }

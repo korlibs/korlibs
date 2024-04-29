@@ -1,11 +1,9 @@
 package korlibs.io.serialization.xml
 
-import korlibs.io.lang.*
-import korlibs.io.stream.*
 import kotlin.test.*
 
 class XmlTest {
-	@kotlin.test.Test
+	@Test
 	fun name() {
 		val xml = Xml("<hello a=\"10\" Zz='20'><demo c='7' /></hello>")
 		assertEquals(10, xml.int("a"))
@@ -17,20 +15,32 @@ class XmlTest {
 		assertEquals("""<hello a="10" Zz="20"><demo c="7"/></hello>""", xml.toString())
 	}
 
-	@kotlin.test.Test
+    @Test
+    fun testSkipSpaces() {
+        val xml = Xml("<A> hello </a>")
+        assertEquals("A", xml.name)
+
+        assertEquals("hello", xml.text)
+        assertEquals("hello", xml.innerXml)
+    }
+
+	@Test
 	fun name2() {
-		val xml = Xml("<a_b />")
+        assertEquals(
+            listOf(Xml.Stream.Element.OpenCloseTag("a_b", mapOf())),
+            Xml.Stream.xmlSequence("<a_b />").toList()
+        )
+        assertEquals("a_b", Xml("<a_b />"). name)
 	}
 
-	@kotlin.test.Test
+	@Test
 	fun name3() {
 		assertEquals("""<test z="1" b="2"/>""", Xml.Tag("test", linkedMapOf("z" to 1, "b" to 2), listOf()).outerXml)
 	}
 
-	@kotlin.test.Test
+	@Test
 	fun name4() {
-		Xml(
-			"""
+        val xmlStr = """
 			<?xml version="1.0" encoding="UTF-8"?>
 			<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="612" height="254" viewBox="0, 0, 612, 254">
@@ -55,7 +65,13 @@ class XmlTest {
 			  </g>
 			</svg>
 		""".trimIndent()
-		)
+		Xml(xmlStr)
+
+        val items = Xml.Stream.xmlSequence(xmlStr).toList()
+        assertEquals(Xml.Stream.Element.ProcessingInstructionTag("xml", mapOf("version" to "1.0", "encoding" to "UTF-8")), items[0])
+        assertEquals(Xml.Stream.Element.ProcessingInstructionTag("DOCTYPE", mapOf("svg" to "svg", "PUBLIC" to "PUBLIC", "\"-//W3C//DTD SVG 1.1//EN\"" to "\"-//W3C//DTD SVG 1.1//EN\"", "\"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"" to "\"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"")), items[1])
+
+        //println("items=$items")
 	}
 
     @Test
@@ -110,54 +126,16 @@ class XmlTest {
     }
 
     @Test
-    fun testNamedDescendantStream() {
-        val xml = Xml.Stream.parse("<xml><a><b/><b/></a><c><b/><b/></c></xml>".toByteArray(UTF8).toCharReader(UTF8))
-        //val xml = Xml.Stream.parse("<xml><a><b/><b/></a><c><b/><b/></c></xml>")
-        assertEquals(
-            """
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=a, attributes={})
-                OpenCloseTag(name=b, attributes={})
-                OpenCloseTag(name=b, attributes={})
-                CloseTag(name=a)
-                OpenTag(name=c, attributes={})
-                OpenCloseTag(name=b, attributes={})
-                OpenCloseTag(name=b, attributes={})
-                CloseTag(name=c)
-                CloseTag(name=xml)
-            """.trimIndent(),
-            xml.toList().joinToString("\n")
-        )
-    }
-
-    @Test
-    fun testNamedDescendantStreamInfinite() {
-        val xml = Xml.Stream.parse(sequenceSyncStream {
-            while (true) {
-                yield("<xml>".toByteArray())
-            }
-        }.toCharReader(UTF8))
-        assertEquals(
-            """
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-            """.trimIndent(),
-            xml.take(10).toList().joinToString("\n")
-        )
-    }
-
-    @Test
     fun testEntities() {
         assertEquals("&", Xml.Entities.decode("&amp;"))
         assertEquals("’", Xml.Entities.decode("&#8217;"))
         assertEquals("’", Xml.Entities.decode("&#x2019;"))
+    }
+
+    // Verifies: https://wiki.tei-c.org/index.php/XML_Whitespace
+    @Test
+    fun testTrimMixed() {
+        assertEquals("The cat ate the grande croissant. I didn't!", Xml("<p>  The <emph> cat </emph> ate  the <foreign>grande croissant</foreign>. I didn't!\n</p>").text)
+        assertEquals("hello world", Xml("<p>hello <b>wo<i>r</i>ld</b></p>").text)
     }
 }
