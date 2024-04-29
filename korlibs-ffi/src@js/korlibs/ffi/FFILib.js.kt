@@ -193,6 +193,8 @@ actual val FFI_SUPPORTED: Boolean = Deno.isDeno
 actual fun CreateFFIMemory(size: Int): FFIMemory = Uint8Array(size)
 actual fun CreateFFIMemory(bytes: ByteArray): FFIMemory = bytes.asDynamic()
 
+actual inline fun <T> FFIMemory.usePointer(block: (pointer: FFIPointer) -> T): T = block(Deno.UnsafePointer.of(this))
+
 actual val FFIMemory.pointer: FFIPointer get() = Deno.UnsafePointer.of(this)
 
 actual fun FFIPointer.getStringz(): String {
@@ -279,4 +281,4 @@ private fun jsObject(vararg pairs: Pair<String, Any?>): dynamic {
 
 private fun jsEmptyObj(): dynamic = js("({})")
 
-private external val Deno: dynamic
+external val Deno: dynamic
