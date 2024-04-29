@@ -2,13 +2,11 @@
 
 package korlibs.audio.sound
 
-import korlibs.io.lang.printStackTrace
 import kotlinx.cinterop.*
 import platform.AVFAudio.*
 import platform.Foundation.*
 
-actual fun appleInitAudio() {
-    // printStackTrace("appleInitAudio")
+internal actual val appleInitAudioOnce: Unit by lazy {
     memScoped {
         val error = alloc<ObjCObjectVar<NSError?>>().ptr
         //AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error) // Stops Music apps, etc.
@@ -17,4 +15,5 @@ actual fun appleInitAudio() {
         //AVAudioSessionCategoryOptionMixWithOthers
         AVAudioSession.sharedInstance().setActive(true, error)
     }
+    Unit
 }

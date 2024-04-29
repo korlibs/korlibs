@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalForeignApi::class)
+@file:OptIn(ExperimentalForeignApi::class, ExperimentalForeignApi::class)
 
 package korlibs.audio.sound
 
@@ -21,18 +21,17 @@ import kotlin.Unit
 import kotlin.coroutines.*
 
 actual val nativeSoundProvider: NativeSoundProvider get() = CORE_AUDIO_NATIVE_SOUND_PROVIDER
-expect fun appleInitAudio()
+internal expect val appleInitAudioOnce: Unit
 
 val CORE_AUDIO_NATIVE_SOUND_PROVIDER: CoreAudioNativeSoundProvider by lazy { CoreAudioNativeSoundProvider() }
 
 class CoreAudioNativeSoundProvider : NativeSoundProviderNew() {
-    init {
-        appleInitAudio()
-    }
-
     //override suspend fun createSound(data: ByteArray, streaming: Boolean, props: AudioDecodingProps): NativeSound = AVFoundationNativeSoundNoStream(CoroutineScope(coroutineContext), audioFormats.decode(data))
 
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: (AudioSamplesInterleaved) -> Unit): CoreAudioNewPlatformAudioOutput = CoreAudioNewPlatformAudioOutput(coroutineContext, frequency, channels, gen)
+    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: (AudioSamplesInterleaved) -> Unit): CoreAudioNewPlatformAudioOutput {
+        appleInitAudioOnce
+        return CoreAudioNewPlatformAudioOutput(coroutineContext, frequency, channels, gen)
+    }
 }
 
 class CoreAudioNewPlatformAudioOutput(
