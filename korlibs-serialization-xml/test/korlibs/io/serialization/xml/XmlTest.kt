@@ -3,7 +3,7 @@ package korlibs.io.serialization.xml
 import kotlin.test.*
 
 class XmlTest {
-	@kotlin.test.Test
+	@Test
 	fun name() {
 		val xml = Xml("<hello a=\"10\" Zz='20'><demo c='7' /></hello>")
 		assertEquals(10, xml.int("a"))
@@ -15,7 +15,16 @@ class XmlTest {
 		assertEquals("""<hello a="10" Zz="20"><demo c="7"/></hello>""", xml.toString())
 	}
 
-	@kotlin.test.Test
+    @Test
+    fun testSkipSpaces() {
+        val xml = Xml("<A> hello </a>")
+        assertEquals("A", xml.name)
+
+        assertEquals("hello", xml.text)
+        assertEquals("hello", xml.innerXml)
+    }
+
+	@Test
 	fun name2() {
         assertEquals(
             listOf(Xml.Stream.Element.OpenCloseTag("a_b", mapOf())),
@@ -24,15 +33,14 @@ class XmlTest {
         assertEquals("a_b", Xml("<a_b />"). name)
 	}
 
-	@kotlin.test.Test
+	@Test
 	fun name3() {
 		assertEquals("""<test z="1" b="2"/>""", Xml.Tag("test", linkedMapOf("z" to 1, "b" to 2), listOf()).outerXml)
 	}
 
-	@kotlin.test.Test
+	@Test
 	fun name4() {
-		Xml(
-			"""
+        val xmlStr = """
 			<?xml version="1.0" encoding="UTF-8"?>
 			<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="612" height="254" viewBox="0, 0, 612, 254">
@@ -57,7 +65,13 @@ class XmlTest {
 			  </g>
 			</svg>
 		""".trimIndent()
-		)
+		Xml(xmlStr)
+
+        val items = Xml.Stream.xmlSequence(xmlStr).toList()
+        assertEquals(Xml.Stream.Element.ProcessingInstructionTag("xml", mapOf("version" to "1.0", "encoding" to "UTF-8")), items[0])
+        assertEquals(Xml.Stream.Element.ProcessingInstructionTag("DOCTYPE", mapOf("svg" to "svg", "PUBLIC" to "PUBLIC", "\"-//W3C//DTD SVG 1.1//EN\"" to "\"-//W3C//DTD SVG 1.1//EN\"", "\"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"" to "\"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"")), items[1])
+
+        //println("items=$items")
 	}
 
     @Test

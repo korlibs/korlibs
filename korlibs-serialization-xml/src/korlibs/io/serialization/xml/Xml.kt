@@ -36,9 +36,9 @@ data class Xml(
 
         //operator fun invoke(@Language("xml") str: String): Xml = parse(str)
 
-        fun parse(str: String): Xml {
+        fun parse(str: String, skipSpaces: Boolean = true): Xml {
             try {
-                val stream = Xml.Stream.parse(str).iterator()
+                val stream = Xml.Stream.xmlSequence(str, skipSpaces).iterator()
 
                 data class Level(val children: List<Xml>, val close: Xml.Stream.Element.CloseTag?)
 
@@ -54,7 +54,9 @@ data class Xml(
                             is Xml.Stream.Element.OpenCloseTag -> children.add(Xml.Tag(tag.name, tag.attributes, listOf()))
                             is Xml.Stream.Element.OpenTag -> {
                                 val out = level()
-                                if (out.close?.name != tag.name) throw IllegalArgumentException("Expected '${tag.name}' but was ${out.close?.name}")
+                                if (out.close?.name?.equals(tag.name, ignoreCase = true) != true) {
+                                    throw IllegalArgumentException("Expected '${tag.name}' but was ${out.close?.name}")
+                                }
                                 children.add(Xml(Xml.Type.NODE, tag.name, tag.attributes, out.children, ""))
                             }
                             is Xml.Stream.Element.CloseTag -> return Level(children, tag)
@@ -247,13 +249,14 @@ data class Xml(
         }
         fun decode(str: String): String = decode(SimpleStrReader(str))
         fun decode(r: SimpleStrReader): String = buildString {
+            val sb = StringBuilder()
             while (!r.eof) {
                 @Suppress("LiftReturnOrAssignment") // Performance?
-                append(r.readUntil('&'))
+                append(r.readUntil('&', sb.clear()))
                 if (r.eof) break
 
                 r.skipExpect('&')
-                val value = r.readUntil(';', included = true)
+                val value = r.readUntil(';', sb.clear(), included = true)
                 val full = "&$value"
                 when {
                     value.startsWith('#') -> {
@@ -273,26 +276,30 @@ data class Xml(
     }
 
     object Stream {
-        fun parse(str: String): Iterable<Element> = parse(SimpleStrReader(str))
-        fun parse(r: SimpleStrReader): Iterable<Element> = Xml2Iterable(r)
-        fun parse(r: CharReader): Iterable<Element> = Xml2Iterable(CharReaderStrReader(r))
+        fun parse(str: String, skipSpaces: Boolean = true): Iterable<Element> = parse(SimpleStrReader(str), skipSpaces)
+        fun parse(r: SimpleStrReader, skipSpaces: Boolean = true): Iterable<Element> = Xml2Iterable(r, skipSpaces)
+        fun parse(r: CharReader, skipSpaces: Boolean = true): Iterable<Element> = Xml2Iterable(CharReaderStrReader(r), skipSpaces)
 
-        private fun SimpleStrReader.matchStringOrId(out: StringBuilder = StringBuilder()): StringBuilder? = matchSingleOrDoubleQuoteString(out) ?: matchIdentifier(out)
+        private fun SimpleStrReader.matchStringOrId(out: StringBuilder): StringBuilder? = matchSingleOrDoubleQuoteString(out) ?: matchIdentifier(out)
 
-        fun xmlSequence(str: String): Sequence<Element> = xmlSequence(SimpleStrReader(str))
-        fun xmlSequence(r: SimpleStrReader): Sequence<Element> = sequence<Element> {
-            //val tempSB = StringBuilder(128)
+        fun xmlSequence(str: String, skipSpaces: Boolean = true): Sequence<Element> = xmlSequence(SimpleStrReader(str), skipSpaces)
+        fun xmlSequence(r: SimpleStrReader, skipSpaces: Boolean = true): Sequence<Element> = sequence<Element> {
+            val sb = StringBuilder(128)
 
             loop@while (!r.eof) {
-                val str = r.readUntil('<', included = false)
+                val str = r.readUntil('<', sb.clear(), included = false)
                 if (str.isNotEmpty()) {
-                    yield(Element.Text(Xml.Entities.decode(str.toString())))
+                    val text = str.toString()
+                    val textNs = if (skipSpaces) text.trim() else text
+                    if (textNs.isNotEmpty()) {
+                        yield(Element.Text(Xml.Entities.decode(textNs)))
+                    }
                 }
                 if (r.eof) break
 
                 r.skipExpect('<')
                 r.skipSpaces()
-                val sb = StringBuilder()
+                sb.clear()
                 val processingInstruction = r.tryExpect('?')
                 val processingEntityOrDocType = r.tryExpect('!')
                 if (processingEntityOrDocType) {
@@ -332,22 +339,23 @@ data class Xml(
                 }
                 val close = r.tryExpect('/') || processingEntityOrDocType
                 r.skipSpaces()
-                val name = r.matchIdentifier()?.toString()
+                val name = sb.takeIf { it.isNotEmpty() }?.toString()
+                    ?: r.matchIdentifier(sb.clear())?.toString()
                     ?: error("Couldn't match identifier after '<', offset=${r.pos}, near='${r.toStringContext()}'")
                 r.skipSpaces()
                 val attributes = linkedMapOf<String, String>()
                 while (r.peekChar() != '?' && r.peekChar() != '/' && r.peekChar() != '>') {
-                    val key = r.matchStringOrId()?.toString() ?: throw IllegalArgumentException(
+                    val key = r.matchStringOrId(sb.clear())?.toString() ?: throw IllegalArgumentException(
                         "Malformed document or unsupported xml construct around ~${r.toStringContext()}~ for name '$name'"
                     )
                     r.skipSpaces()
                     if (r.tryExpect('=')) {
                         r.skipSpaces()
-                        val argsQuote = r.matchStringOrId()?.toString()
+                        val argsQuote = r.matchStringOrId(sb.clear())?.toString()
                         attributes[key] = when {
                             argsQuote != null && !(argsQuote.startsWith("'") || argsQuote.startsWith("\"")) -> argsQuote
                             argsQuote != null -> Xml.Entities.decode(argsQuote.substring(1, argsQuote.length - 1))
-                            else -> Xml.Entities.decode(r.matchIdentifier()!!.toString())
+                            else -> Xml.Entities.decode(r.matchIdentifier(sb.clear())!!.toString())
                         }
                     } else {
                         attributes[key] = key
@@ -366,9 +374,9 @@ data class Xml(
             }
         }
 
-        class Xml2Iterable(val reader2: SimpleStrReader) : Iterable<Element> {
+        class Xml2Iterable(val reader2: SimpleStrReader, val skipSpaces: Boolean) : Iterable<Element> {
             val reader = reader2.clone()
-            override fun iterator(): Iterator<Element> = xmlSequence(reader).iterator()
+            override fun iterator(): Iterator<Element> = xmlSequence(reader, skipSpaces).iterator()
         }
 
         sealed class Element {
@@ -407,8 +415,8 @@ fun String.toXml(): Xml = Xml.parse(this)
 // language=html
 fun Xml(
     // language=html
-    str: String
-): Xml = Xml.parse(str)
+    str: String, skipSpaces: Boolean = true
+): Xml = Xml.parse(str, skipSpaces)
 
 fun Xml.descendants(name: String) = descendants.filter { it.name.equals(name, ignoreCase = true) }
 fun Xml.firstDescendant(name: String) = descendants(name).firstOrNull()
@@ -548,11 +556,11 @@ private class StrReaderCharReader(val reader: SimpleStrReader) : CharReader {
     override fun clone(): CharReader = StrReaderCharReader(reader.clone())
 }
 
-private fun SimpleStrReader.readUntil(char: Char, out: StringBuilder = StringBuilder(), included: Boolean = false): StringBuilder = readUntil(included, out) { it == char }
+private fun SimpleStrReader.readUntil(char: Char, out: StringBuilder, included: Boolean = false): StringBuilder = readUntil(included, out) { it == char }
 
-private inline fun SimpleStrReader.readWhile(included: Boolean = false, out: StringBuilder = StringBuilder(), cond: (Char) -> Boolean): StringBuilder = readUntil(included, out) { !cond(it) }
+private inline fun SimpleStrReader.readWhile(included: Boolean = false, out: StringBuilder, cond: (Char) -> Boolean): StringBuilder = readUntil(included, out) { !cond(it) }
 
-private inline fun SimpleStrReader.readUntil(included: Boolean = false, out: StringBuilder = StringBuilder(), cond: (Char) -> Boolean): StringBuilder {
+private inline fun SimpleStrReader.readUntil(included: Boolean = false, out: StringBuilder, cond: (Char) -> Boolean): StringBuilder {
     while (hasMore) {
         val c = peekChar()
         if (cond(c)) {
@@ -605,12 +613,12 @@ private fun SimpleStrReader.skipSpaces(): SimpleStrReader {
     return this
 }
 
-private fun SimpleStrReader.matchIdentifier(out: StringBuilder = StringBuilder()): StringBuilder? = readWhile(out = out) { it.isLetterDigitOrUnderscore() || it == '-' || it == '~' || it == ':' }.takeIf { it.isNotEmpty() }
+private fun SimpleStrReader.matchIdentifier(out: StringBuilder): StringBuilder? = readWhile(out = out) { it.isLetterDigitOrUnderscore() || it == '-' || it == '~' || it == ':' }.takeIf { it.isNotEmpty() }
 private fun Char.isWhitespaceFast(): Boolean = this == ' ' || this == '\t' || this == '\r' || this == '\n'
 private fun Char.isLetterOrDigit(): Boolean = isLetter() || isDigit()
 private fun Char.isLetterDigitOrUnderscore(): Boolean = this.isLetterOrDigit() || this == '_' || this == '$'
 
-private fun SimpleStrReader.matchSingleOrDoubleQuoteString(out: StringBuilder = StringBuilder()): StringBuilder? = when (this.peekChar()) {
+private fun SimpleStrReader.matchSingleOrDoubleQuoteString(out: StringBuilder): StringBuilder? = when (this.peekChar()) {
     '\'', '"' -> {
         val quoteType = this.readChar()
         out.append(quoteType)
