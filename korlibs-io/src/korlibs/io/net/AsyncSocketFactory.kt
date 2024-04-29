@@ -3,7 +3,6 @@ package korlibs.io.net
 import korlibs.io.async.AsyncCloseable
 import korlibs.io.async.Signal
 import korlibs.io.async.launchImmediately
-import korlibs.io.concurrent.atomic.korAtomic
 import korlibs.io.lang.Closeable
 import korlibs.io.lang.IOException
 import korlibs.io.lang.printStackTraceWithExtraMessage
@@ -11,6 +10,7 @@ import korlibs.io.stream.AsyncInputStream
 import korlibs.io.stream.AsyncOutputStream
 import korlibs.io.stream.DequeSyncStream
 import korlibs.io.stream.SyncStream
+import kotlinx.atomicfu.*
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -43,9 +43,9 @@ interface AsyncClient : AsyncInputStream, AsyncOutputStream, AsyncCloseable {
 	//suspend open fun reconnect() = Unit
 
 	object Stats {
-		val writeCountStart = korAtomic(0L)
-		val writeCountEnd = korAtomic(0L)
-		val writeCountError = korAtomic(0L)
+		val writeCountStart = atomic(0L)
+		val writeCountEnd = atomic(0L)
+		val writeCountError = atomic(0L)
 
 		override fun toString(): String = "AsyncClient.Stats($writeCountStart/$writeCountEnd/$writeCountError)"
 	}

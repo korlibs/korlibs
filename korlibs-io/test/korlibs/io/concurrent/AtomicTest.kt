@@ -1,16 +1,14 @@
 package korlibs.io.concurrent
 
-import korlibs.io.concurrent.atomic.KorAtomicInt
-import korlibs.io.concurrent.atomic.getAndAdd
-import korlibs.io.concurrent.atomic.getAndIncrement
-import korlibs.io.concurrent.atomic.incrementAndGet
+import korlibs.io.concurrent.atomic.*
+import kotlinx.atomicfu.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class AtomicTest {
 	@Test
 	fun test() {
-		val value = KorAtomicInt(0)
+		val value = atomic(0)
 		assertEquals(1, value.incrementAndGet())
 		assertEquals(1, value.value++)
 		assertEquals(2, value.value)
@@ -37,6 +35,6 @@ class AtomicTest {
     }
 
     companion object {
-        val singleton = KorAtomicInt(0)
+        val singleton = atomic(0)
     }
 }

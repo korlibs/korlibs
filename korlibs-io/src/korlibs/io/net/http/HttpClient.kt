@@ -5,7 +5,6 @@ import korlibs.io.async.AsyncThread
 import korlibs.io.compression.deflate.Deflate
 import korlibs.io.compression.deflate.GZIP
 import korlibs.io.compression.uncompressed
-import korlibs.io.concurrent.atomic.korAtomic
 import korlibs.io.lang.Charset
 import korlibs.io.lang.UTF8
 import korlibs.io.lang.toByteArray
@@ -20,6 +19,7 @@ import korlibs.io.stream.openAsync
 import korlibs.io.stream.readAll
 import korlibs.io.stream.readBytesExact
 import korlibs.io.stream.readLine
+import kotlinx.atomicfu.*
 import kotlinx.coroutines.delay
 
 abstract class HttpClient protected constructor() {
@@ -452,8 +452,8 @@ object HttpStatusMessage {
 }
 
 object HttpStats {
-	val connections = korAtomic(0L)
-	val disconnections = korAtomic(0L)
+	val connections = atomic(0L)
+	val disconnections = atomic(0L)
 
 	override fun toString(): String = "HttpStats(connections=$connections, Disconnections=$disconnections)"
 }

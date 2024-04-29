@@ -17,9 +17,6 @@ import platform.CoreGraphics.*
 import platform.posix.*
 import kotlin.math.*
 
-fun test() {
-}
-
 //fun transferBitmap32CGImageRef(bmp: Bitmap32, image: CGImageRef?, toBitmap: Boolean) {
 //    val width = CGImageGetWidth(image).toInt()
 //    val height = CGImageGetHeight(image).toInt()

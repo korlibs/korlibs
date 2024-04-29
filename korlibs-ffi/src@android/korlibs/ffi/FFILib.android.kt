@@ -19,6 +19,9 @@ actual val FFI_SUPPORTED: Boolean = false
 
 actual fun CreateFFIMemory(size: Int): FFIMemory = TODO()
 actual fun CreateFFIMemory(bytes: ByteArray): FFIMemory = TODO()
+
+actual inline fun <T> FFIMemory.usePointer(block: (pointer: FFIPointer) -> T): T = TODO()
+
 actual val FFIMemory.pointer: FFIPointer get() = TODO()
 
 actual fun CreateFFIPointer(ptr: Long): FFIPointer? = TODO()
