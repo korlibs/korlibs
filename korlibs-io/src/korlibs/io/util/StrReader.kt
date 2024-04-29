@@ -37,14 +37,14 @@ abstract class BaseStrReader : SimpleStrReader {
         return out.toString()
     }
 
-    abstract fun skip(count: Int = 1): BaseStrReader
+    abstract override fun skip(count: Int): BaseStrReader
     fun skipExpect(expected: Char) {
         val readed = this.readChar()
         if (readed != expected) throw IllegalArgumentException("Expected '$expected' but found '$readed' at $pos")
     }
     abstract fun tryLit(lit: String, consume: Boolean = true): String?
 
-    abstract fun clone(): BaseStrReader
+    abstract override fun clone(): BaseStrReader
 
     open fun startBuffering(): Int = pos
     abstract fun endBuffering(start: Int): String

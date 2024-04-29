@@ -2,34 +2,9 @@
 
 package korlibs.io.serialization.xml
 
-import korlibs.datastructure.flip
-import korlibs.datastructure.iterators.fastForEach
-import korlibs.datastructure.toCaseInsensitiveMap
-import korlibs.io.file.VfsFile
-import korlibs.io.lang.*
 import korlibs.io.stream.*
-import korlibs.io.util.*
-import kotlin.collections.Iterable
-import kotlin.collections.Iterator
-import kotlin.collections.LinkedHashMap
-import kotlin.collections.List
-import kotlin.collections.Map
-import kotlin.collections.arrayListOf
-import kotlin.collections.asSequence
-import kotlin.collections.contains
-import kotlin.collections.filter
-import kotlin.collections.first
-import kotlin.collections.firstOrNull
-import kotlin.collections.flatMap
-import kotlin.collections.joinToString
-import kotlin.collections.linkedMapOf
-import kotlin.collections.listOf
-import kotlin.collections.map
-import kotlin.collections.plus
+import korlibs.util.*
 import kotlin.collections.set
-import kotlin.collections.toList
-import kotlin.collections.toMap
-import kotlin.collections.toTypedArray
 
 data class Xml(
     val type: Type,
@@ -40,8 +15,8 @@ data class Xml(
 ) {
     fun withExtraChild(node: Xml) = copy(allChildren = allChildren + node)
 
-    val attributesLC = attributes.toCaseInsensitiveMap()
-    val nameLC: String = name.toLowerCase().trim()
+    val attributesLC: Map<String, String> = attributes.toCaseInsensitiveMap()
+    val nameLC: String = name.lowercase().trim()
     val descendants: Sequence<Xml> get() = allChildren.asSequence().flatMap { it.descendants + it }
     val allChildrenNoComments get() = allChildren.filter { !it.isComment }
     val allNodeChildren get() = allChildren.filter { it.isNode }
@@ -79,7 +54,7 @@ data class Xml(
                             is Xml.Stream.Element.OpenCloseTag -> children.add(Xml.Tag(tag.name, tag.attributes, listOf()))
                             is Xml.Stream.Element.OpenTag -> {
                                 val out = level()
-                                if (out.close?.name != tag.name) throw IllegalArgumentException("Expected ${tag.name} but was ${out.close?.name}")
+                                if (out.close?.name != tag.name) throw IllegalArgumentException("Expected '${tag.name}' but was ${out.close?.name}")
                                 children.add(Xml(Xml.Type.NODE, tag.name, tag.attributes, out.children, ""))
                             }
                             is Xml.Stream.Element.CloseTag -> return Level(children, tag)
@@ -101,16 +76,15 @@ data class Xml(
         }
     }
 
-    val text: String
-        get() = when (type) {
-            Type.NODE -> allChildren.joinToString("") { it.text }
-            Type.TEXT -> content
-            Type.COMMENT -> ""
-        }
+    val text: String get() = when (type) {
+        Type.NODE -> allChildren.joinToString("") { it.text }
+        Type.TEXT -> content
+        Type.COMMENT -> ""
+    }
 
-    fun toOuterXmlIndentedString(indenter: Indenter = Indenter()): String = toOuterXmlIndented(indenter).toString()
+    fun toOuterXmlIndentedString(indenter: SimpleIndenter = SimpleIndenter(trailingLine = true)): String = toOuterXmlIndented(indenter).toString() + "\n"
 
-    fun toOuterXmlIndented(indenter: Indenter = Indenter()): Indenter = indenter.apply {
+    fun toOuterXmlIndented(indenter: SimpleIndenter = SimpleIndenter(trailingLine = true)): SimpleIndenter = indenter.apply {
         when (type) {
             Type.NODE -> {
                 if (allChildren.isEmpty()) {
@@ -137,13 +111,10 @@ data class Xml(
 
     val outerXml: String
         get() = when (type) {
-            Type.NODE -> {
-                if (allChildren.isEmpty()) {
-                    "<$name$attributesStr/>"
-                } else {
-                    // @TODO: Kotlin 1.4-M3 regression: https://youtrack.jetbrains.com/issue/KT-40338
-                    //val children = this.allChildren.map(Xml::outerXml).joinToString("")
-                    val children = this.allChildren.map { it.outerXml }.joinToString("")
+            Type.NODE -> when {
+                allChildren.isEmpty() -> "<$name$attributesStr/>"
+                else -> {
+                    val children = this.allChildren.joinToString("") { it.outerXml }
                     "<$name$attributesStr>$children</$name>"
                 }
             }
@@ -156,13 +127,10 @@ data class Xml(
             Type.COMMENT -> "<!--$content-->"
         }
 
-    val innerXml: String
-        get() = when (type) {
-            // @TODO: Kotlin 1.4-M3 regression: https://youtrack.jetbrains.com/issue/KT-40338
-            //Type.NODE -> this.allChildren.map(Xml::outerXml).joinToString("")
-            Type.NODE -> this.allChildren.map { it.outerXml }.joinToString("")
-            else -> outerXml
-        }
+    val innerXml: String get() = when (type) {
+        Type.NODE -> this.allChildren.joinToString("") { it.outerXml }
+        else -> outerXml
+    }
 
     operator fun get(name: String): Iterable<Xml> = children(name)
 
@@ -231,10 +199,43 @@ data class Xml(
         fun quote(str: String): String = "\"${Entities.encode(str)}\""
     }
 
+    class Literals(
+        private val lits: Array<String>,
+        private val map: MutableMap<String, Boolean>,
+        val lengths: Array<Int>
+    ) {
+        companion object {
+            fun invoke(vararg lits: String): Literals =
+                fromList(lits.toCollection(arrayListOf<String>()).toTypedArray())
+
+            //fun invoke(lits:Array<String>): Literals = fromList(lits)
+            fun fromList(lits: Array<String>): Literals {
+                val lengths = lits.map { it.length }.sorted().reversed().distinct().toTypedArray()
+                val map = linkedMapOf<String, Boolean>()
+                lits.fastForEach { lit ->
+                    map[lit] = true
+                }
+                return Literals(lits, map, lengths)
+            }
+        }
+
+        fun contains(lit: String) = map.containsKey(lit)
+
+        fun matchAt(str: String, offset: Int): String? {
+            lengths.fastForEach { len ->
+                val id = str.substr(offset, len)
+                if (contains(id)) return id
+            }
+            return null
+        }
+
+        override fun toString() = "Literals(${lits.joinToString(" ")})"
+    }
+
     object Entities {
         // Predefined entities in XML 1.0
         private val charToEntity = linkedMapOf('"' to "&quot;", '\'' to "&apos;", '<' to "&lt;", '>' to "&gt;", '&' to "&amp;")
-        private val entities = StrReader.Literals.fromList(charToEntity.values.toTypedArray())
+        private val entities = Literals.fromList(charToEntity.values.toTypedArray())
         private val entityToChar = charToEntity.flip()
 
         fun encode(str: String): String = str.eachBuilder {
@@ -244,15 +245,15 @@ data class Xml(
                 else -> append(it)
             }
         }
-        fun decode(str: String): String = decode(StrReader(str))
-        fun decode(r: StrReader): String = buildString {
+        fun decode(str: String): String = decode(SimpleStrReader(str))
+        fun decode(r: SimpleStrReader): String = buildString {
             while (!r.eof) {
                 @Suppress("LiftReturnOrAssignment") // Performance?
                 append(r.readUntil('&'))
                 if (r.eof) break
 
                 r.skipExpect('&')
-                val value = r.readUntilIncluded(';') ?: ""
+                val value = r.readUntil(';', included = true)
                 val full = "&$value"
                 when {
                     value.startsWith('#') -> {
@@ -272,88 +273,100 @@ data class Xml(
     }
 
     object Stream {
-        fun parse(str: String): Iterable<Element> = parse(StrReader(str))
-        fun parse(r: BaseStrReader): Iterable<Element> = Xml2Iterable(r)
+        fun parse(str: String): Iterable<Element> = parse(SimpleStrReader(str))
+        fun parse(r: SimpleStrReader): Iterable<Element> = Xml2Iterable(r)
         fun parse(r: CharReader): Iterable<Element> = Xml2Iterable(CharReaderStrReader(r))
 
-        private fun BaseStrReader.matchStringOrId(): String? = matchSingleOrDoubleQuoteString() ?: matchIdentifier()
+        private fun SimpleStrReader.matchStringOrId(out: StringBuilder = StringBuilder()): StringBuilder? = matchSingleOrDoubleQuoteString(out) ?: matchIdentifier(out)
 
-        private fun xmlSequence(r: BaseStrReader): Sequence<Element> = sequence<Element> {
-            while (!r.eof) {
-                val str = r.readUntil('<') ?: ""
+        fun xmlSequence(str: String): Sequence<Element> = xmlSequence(SimpleStrReader(str))
+        fun xmlSequence(r: SimpleStrReader): Sequence<Element> = sequence<Element> {
+            //val tempSB = StringBuilder(128)
+
+            loop@while (!r.eof) {
+                val str = r.readUntil('<', included = false)
                 if (str.isNotEmpty()) {
-                    yield(Element.Text(Xml.Entities.decode(str)))
+                    yield(Element.Text(Xml.Entities.decode(str.toString())))
                 }
-
                 if (r.eof) break
 
                 r.skipExpect('<')
-                val res: Element = when {
-                    r.tryExpect("![CDATA[") -> {
-                        val text = r.slice {
-                            while (!r.eof) {
-                                if (r.tryExpect("]]>", consume = false)) break
-                                r.skip(1)
-                            }
-                        }
-                        r.readExpect("]]>")
-                        Element.Text(text).also { it.cdata = true }
-                    }
-                    r.tryExpect("!--") -> {
-                        val text = r.slice {
-                            while (!r.eof) {
-                                if (r.tryExpect("-->", consume = false)) break
-                                r.skip(1)
-                            }
-                        }
-                        r.readExpect("-->")
-                        Element.CommentTag(text)
-                    }
-                    else -> {
-                        r.skipSpaces()
-                        val processingInstruction = r.tryExpect('?')
-                        val processingEntityOrDocType = r.tryExpect('!')
-                        val close = r.tryExpect('/') || processingEntityOrDocType
-                        r.skipSpaces()
-                        val name = r.matchIdentifier()
-                            ?: error("Couldn't match identifier after '<', offset=${r.pos}, around='${r.peek(10)}'")
-                        r.skipSpaces()
-                        val attributes = linkedMapOf<String, String>()
-                        while (r.peekChar() != '?' && r.peekChar() != '/' && r.peekChar() != '>') {
-                            val key = r.matchStringOrId() ?: throw IllegalArgumentException(
-                                "Malformed document or unsupported xml construct around ~${r.peek(10)}~ for name '$name'"
-                            )
-                            r.skipSpaces()
-                            if (r.tryExpect("=")) {
-                                r.skipSpaces()
-                                val argsQuote = r.matchStringOrId()
-                                attributes[key] = when {
-                                    argsQuote != null && !(argsQuote.startsWith("'") || argsQuote.startsWith("\"")) -> argsQuote
-                                    argsQuote != null -> Xml.Entities.decode(argsQuote.substring(1, argsQuote.length - 1))
-                                    else -> Xml.Entities.decode(r.matchIdentifier()!!)
-                                }
-                            } else {
-                                attributes[key] = key
-                            }
-                            r.skipSpaces()
-                        }
-                        val openclose = r.tryExpect('/')
-                        val processingInstructionEnd = r.tryExpect('?')
-                        r.skipExpect('>')
-                        when {
-                            processingInstruction || processingEntityOrDocType -> Element.ProcessingInstructionTag(name, attributes)
-                            openclose -> Element.OpenCloseTag(name, attributes)
-                            close -> Element.CloseTag(name)
-                            else -> Element.OpenTag(name, attributes)
-                        }
-                    }
-                }
+                r.skipSpaces()
+                val sb = StringBuilder()
+                val processingInstruction = r.tryExpect('?')
+                val processingEntityOrDocType = r.tryExpect('!')
+                if (processingEntityOrDocType) {
+                    sb.append('!')
+                    while (!r.eof) {
+                        val c = r.peekChar()
+                        if (c == '>' || c.isWhitespaceFast() || c == '/') break
 
-                yield(res)
+                        sb.append(r.readChar())
+
+                        if (sb.startsWith("!--")) {
+                            sb.clear()
+                            while (!r.eof) {
+                                sb.append(r.readChar())
+                                if (sb.endsWith("-->")) {
+                                    sb.deleteRange(sb.length - 3, sb.length)
+                                    break
+                                }
+                            }
+                            yield(Element.CommentTag(sb.toString()))
+                            continue@loop
+                        }
+                        if (sb.startsWith("![CDATA[")) {
+                            sb.clear()
+                            while (!r.eof) {
+                                sb.append(r.readChar())
+                                if (sb.endsWith("]]>")) {
+                                    sb.deleteRange(sb.length - 3, sb.length)
+                                    break
+                                }
+                            }
+                            yield(Element.Text(sb.toString()).also { it.cdata = true })
+                            continue@loop
+                        }
+                    }
+                    sb.deleteAt(0)
+                }
+                val close = r.tryExpect('/') || processingEntityOrDocType
+                r.skipSpaces()
+                val name = r.matchIdentifier()?.toString()
+                    ?: error("Couldn't match identifier after '<', offset=${r.pos}, near='${r.toStringContext()}'")
+                r.skipSpaces()
+                val attributes = linkedMapOf<String, String>()
+                while (r.peekChar() != '?' && r.peekChar() != '/' && r.peekChar() != '>') {
+                    val key = r.matchStringOrId()?.toString() ?: throw IllegalArgumentException(
+                        "Malformed document or unsupported xml construct around ~${r.toStringContext()}~ for name '$name'"
+                    )
+                    r.skipSpaces()
+                    if (r.tryExpect('=')) {
+                        r.skipSpaces()
+                        val argsQuote = r.matchStringOrId()?.toString()
+                        attributes[key] = when {
+                            argsQuote != null && !(argsQuote.startsWith("'") || argsQuote.startsWith("\"")) -> argsQuote
+                            argsQuote != null -> Xml.Entities.decode(argsQuote.substring(1, argsQuote.length - 1))
+                            else -> Xml.Entities.decode(r.matchIdentifier()!!.toString())
+                        }
+                    } else {
+                        attributes[key] = key
+                    }
+                    r.skipSpaces()
+                }
+                val openclose = r.tryExpect('/')
+                val processingInstructionEnd = r.tryExpect('?')
+                r.skipExpect('>')
+                yield(when {
+                    processingInstruction || processingEntityOrDocType -> Element.ProcessingInstructionTag(name, attributes)
+                    openclose -> Element.OpenCloseTag(name, attributes)
+                    close -> Element.CloseTag(name)
+                    else -> Element.OpenTag(name, attributes)
+                })
             }
         }
 
-        class Xml2Iterable(val reader2: BaseStrReader) : Iterable<Element> {
+        class Xml2Iterable(val reader2: SimpleStrReader) : Iterable<Element> {
             val reader = reader2.clone()
             override fun iterator(): Iterator<Element> = xmlSequence(reader).iterator()
         }
@@ -400,8 +413,6 @@ fun Xml(
 fun Xml.descendants(name: String) = descendants.filter { it.name.equals(name, ignoreCase = true) }
 fun Xml.firstDescendant(name: String) = descendants(name).firstOrNull()
 
-suspend fun VfsFile.readXml(): Xml = Xml(this.readString())
-
 class XmlBuilder @PublishedApi internal constructor() {
     @PublishedApi
     internal val nodes = arrayListOf<Xml>()
@@ -421,3 +432,189 @@ inline fun Xml(rootTag: String, vararg props: Pair<String, Any?>, block: XmlBuil
     XmlBuilder().node(rootTag, *props, block = block)
 inline fun Xml(rootTag: String, props: Map<String, Any?>?, block: XmlBuilder.() -> Unit = {}): Xml =
     XmlBuilder().node(rootTag, *(props ?: emptyMap()).map { it.key to it.value }.toTypedArray(), block = block)
+
+
+
+/**
+ * [Map] with [String] keys that are treated in a insensitive manner.
+ */
+private class CaseInsensitiveStringMap<T> private constructor(
+    private val mapOrig: MutableMap<String, T>,
+    private val lcToOrig: MutableMap<String, String>,
+    private val mapLC: MutableMap<String, T>
+) : MutableMap<String, T> by mapOrig {
+    constructor() : this(LinkedHashMap(), LinkedHashMap(), LinkedHashMap())
+    constructor(data: Map<String, T>) : this() { putAll(data) }
+    constructor(vararg items: Pair<String, T>) : this() { putAll(items.toList()) }
+
+    override fun containsKey(key: String): Boolean = mapLC.containsKey(key.toLowerCase())
+
+    override fun clear() {
+        mapOrig.clear()
+        mapLC.clear()
+        lcToOrig.clear()
+    }
+
+    override fun get(key: String): T? = mapLC[key.toLowerCase()]
+
+    override fun put(key: String, value: T): T? {
+        remove(key)
+        mapOrig[key] = value
+        lcToOrig[key.toLowerCase()] = key
+        return mapLC.put(key.toLowerCase(), value)
+    }
+
+    override fun putAll(from: Map<out String, T>) {
+        for (v in from) put(v.key, v.value)
+    }
+
+    override fun remove(key: String): T? {
+        val lkey = key.toLowerCase()
+        val okey = lcToOrig[lkey]
+        mapOrig.remove(okey)
+        val res = mapLC.remove(lkey)
+        lcToOrig.remove(lkey)
+        return res
+    }
+
+    override fun equals(other: Any?): Boolean = (other is CaseInsensitiveStringMap<*>) && this.mapLC == other.mapLC
+    override fun hashCode(): Int = mapLC.hashCode()
+}
+
+private fun <T> Map<String, T>.toCaseInsensitiveMap(): Map<String, T> =
+    CaseInsensitiveStringMap<T>().also { it.putAll(this) }
+
+private fun <K, V> Map<K, V>.flip(): Map<V, K> = this.map { Pair(it.value, it.key) }.toMap()
+
+@PublishedApi internal inline fun <T> List<T>.fastForEach(callback: (T) -> Unit) {
+    var n = 0
+    while (n < size) callback(this[n++])
+}
+
+@PublishedApi internal inline fun <T> Array<T>.fastForEach(callback: (T) -> Unit) {
+    var n = 0
+    while (n < size) callback(this[n++])
+}
+
+private inline fun String.eachBuilder(transform: StringBuilder.(Char) -> Unit): String = buildString {
+    @Suppress("ReplaceManualRangeWithIndicesCalls") // Performance reasons? Check that plain for doesn't allocate
+    for (n in 0 until this@eachBuilder.length) transform(this, this@eachBuilder[n])
+}
+
+private fun String.substr(start: Int): String = this.substr(start, this.length)
+
+private fun String.substr(start: Int, length: Int): String {
+    val low = (if (start >= 0) start else this.length + start).coerceIn(0, this.length)
+    val high = (if (length >= 0) low + length else this.length + length).coerceIn(0, this.length)
+    return if (high >= low) this.substring(low, high) else ""
+}
+
+private val SimpleStrReader.eof: Boolean get() = !hasMore
+
+// @TODO: Test
+private class CharReaderStrReader(val reader: CharReader, val buffer: StringBuilder = StringBuilder(), var bufferPos: Int = 0) : SimpleStrReader {
+    private fun ensureBuffer(): Int {
+        if (bufferPos >= buffer.length) {
+            buffer.clear()
+            reader.read(buffer, 1024)
+            bufferPos = 0
+        }
+        return buffer.length - bufferPos
+    }
+
+    override var pos: Int = 0
+    override val hasMore: Boolean get() = ensureBuffer() > 0
+
+    override fun readChar(): Char {
+        return peekChar().also { bufferPos++ }
+    }
+
+    override fun peekChar(): Char {
+        if (ensureBuffer() <= 0) return '\u0000'
+        return buffer[bufferPos]
+    }
+
+    override fun clone(): SimpleStrReader = CharReaderStrReader(reader.clone(), StringBuilder(buffer), bufferPos)
+}
+
+private class StrReaderCharReader(val reader: SimpleStrReader) : CharReader {
+    override fun read(out: StringBuilder, count: Int): Int {
+        for (n in 0 until count) {
+            if (!reader.hasMore) return n
+            out.append(reader.readChar())
+        }
+        return count
+    }
+    override fun clone(): CharReader = StrReaderCharReader(reader.clone())
+}
+
+private fun SimpleStrReader.readUntil(char: Char, out: StringBuilder = StringBuilder(), included: Boolean = false): StringBuilder = readUntil(included, out) { it == char }
+
+private inline fun SimpleStrReader.readWhile(included: Boolean = false, out: StringBuilder = StringBuilder(), cond: (Char) -> Boolean): StringBuilder = readUntil(included, out) { !cond(it) }
+
+private inline fun SimpleStrReader.readUntil(included: Boolean = false, out: StringBuilder = StringBuilder(), cond: (Char) -> Boolean): StringBuilder {
+    while (hasMore) {
+        val c = peekChar()
+        if (cond(c)) {
+            if (included) {
+                readChar()
+                out.append(c)
+            }
+            break
+        }
+        readChar()
+        out.append(c)
+    }
+    return out
+}
+
+private fun SimpleStrReader.skipWhile(cond: (Char) -> Boolean): SimpleStrReader {
+    while (hasMore) {
+        val c = peekChar()
+        if (!cond(c)) {
+            return this
+        }
+        readChar()
+    }
+    return this
+}
+
+
+private fun SimpleStrReader.skipExpect(expected: Char) {
+    val readed = this.readChar()
+    if (readed != expected) {
+        throw IllegalArgumentException("Expected '$expected' but found '$readed' at $pos")
+    }
+}
+
+fun SimpleStrReader.tryExpect(char: Char, consume: Boolean = true): Boolean {
+    val read = peekChar()
+    val isExpected = read == char
+    if (consume && isExpected) readChar()
+    return isExpected
+}
+
+fun SimpleStrReader.read(count: Int): String {
+    val out = StringBuilder(count)
+    for (n in 0 until count) out.append(readChar())
+    return out.toString()
+}
+
+private fun SimpleStrReader.skipSpaces(): SimpleStrReader {
+    this.skipWhile { it.isWhitespaceFast() }
+    return this
+}
+
+private fun SimpleStrReader.matchIdentifier(out: StringBuilder = StringBuilder()): StringBuilder? = readWhile(out = out) { it.isLetterDigitOrUnderscore() || it == '-' || it == '~' || it == ':' }.takeIf { it.isNotEmpty() }
+private fun Char.isWhitespaceFast(): Boolean = this == ' ' || this == '\t' || this == '\r' || this == '\n'
+private fun Char.isLetterOrDigit(): Boolean = isLetter() || isDigit()
+private fun Char.isLetterDigitOrUnderscore(): Boolean = this.isLetterOrDigit() || this == '_' || this == '$'
+
+private fun SimpleStrReader.matchSingleOrDoubleQuoteString(out: StringBuilder = StringBuilder()): StringBuilder? = when (this.peekChar()) {
+    '\'', '"' -> {
+        val quoteType = this.readChar()
+        out.append(quoteType)
+        this.readUntil(quoteType, out, included = true)
+    }
+    else -> null
+}

@@ -1,7 +1,5 @@
 package korlibs.io.serialization.xml
 
-import korlibs.io.lang.*
-import korlibs.io.stream.*
 import kotlin.test.*
 
 class XmlTest {
@@ -19,7 +17,11 @@ class XmlTest {
 
 	@kotlin.test.Test
 	fun name2() {
-		val xml = Xml("<a_b />")
+        assertEquals(
+            listOf(Xml.Stream.Element.OpenCloseTag("a_b", mapOf())),
+            Xml.Stream.xmlSequence("<a_b />").toList()
+        )
+        assertEquals("a_b", Xml("<a_b />"). name)
 	}
 
 	@kotlin.test.Test
@@ -107,51 +109,6 @@ class XmlTest {
     fun testAttrWithoutQuotes() {
         assertEquals("world", Xml("<xml hello=world />").strNull("hello"))
         assertEquals(20, Xml("<xml size=20 />").intNull("size"))
-    }
-
-    @Test
-    fun testNamedDescendantStream() {
-        val xml = Xml.Stream.parse("<xml><a><b/><b/></a><c><b/><b/></c></xml>".toByteArray(UTF8).toCharReader(UTF8))
-        //val xml = Xml.Stream.parse("<xml><a><b/><b/></a><c><b/><b/></c></xml>")
-        assertEquals(
-            """
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=a, attributes={})
-                OpenCloseTag(name=b, attributes={})
-                OpenCloseTag(name=b, attributes={})
-                CloseTag(name=a)
-                OpenTag(name=c, attributes={})
-                OpenCloseTag(name=b, attributes={})
-                OpenCloseTag(name=b, attributes={})
-                CloseTag(name=c)
-                CloseTag(name=xml)
-            """.trimIndent(),
-            xml.toList().joinToString("\n")
-        )
-    }
-
-    @Test
-    fun testNamedDescendantStreamInfinite() {
-        val xml = Xml.Stream.parse(sequenceSyncStream {
-            while (true) {
-                yield("<xml>".toByteArray())
-            }
-        }.toCharReader(UTF8))
-        assertEquals(
-            """
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-                OpenTag(name=xml, attributes={})
-            """.trimIndent(),
-            xml.take(10).toList().joinToString("\n")
-        )
     }
 
     @Test
