@@ -150,7 +150,7 @@ data class VfsFile(
 		}
 	}
 
-	suspend fun ensureParents() = this.apply { parent.mkdir() }
+	suspend fun ensureParents() = this.apply { parent.mkdirs() }
 
     /** Renames this file into the [dstPath] relative to the root of this [vfs] */
 	suspend fun renameTo(dstPath: String) = vfs.rename(this.path, dstPath)

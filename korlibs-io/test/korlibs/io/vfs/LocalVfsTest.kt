@@ -108,6 +108,19 @@ class LocalVfsTest {
     }
 
     @Test
+    fun testEnsureParents() = suspendTest {
+        val file = localVfs("__local__/hello/world/this/is/a/test.txt")
+        file.ensureParents()
+        assertEquals(true, file.parent.exists())
+        assertEquals(true, file.parent.isDirectory())
+        file.writeString("Hello")
+        localVfs("__local__").deleteRecursively(includeSelf = true)
+        assertEquals(false, file.parent.exists())
+        assertEquals(false, file.parent.isDirectory())
+        assertEquals(false, localVfs("__local__").isDirectory())
+    }
+
+    @Test
     fun testListFlow() = suspendTest {
         // @TODO: catalog not being generated with amper
         if (Platform.isJs || Platform.isWasm) return@suspendTest
