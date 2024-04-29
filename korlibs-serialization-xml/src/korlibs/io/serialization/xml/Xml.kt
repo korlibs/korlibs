@@ -36,21 +36,22 @@ data class Xml(
 
         //operator fun invoke(@Language("xml") str: String): Xml = parse(str)
 
-        fun parse(str: String, skipSpaces: Boolean = true): Xml {
+        fun parse(str: String, collapseSpaces: Boolean = true): Xml {
             try {
-                val stream = Xml.Stream.xmlSequence(str, skipSpaces).iterator()
+                val stream = Xml.Stream.xmlSequence(str, collapseSpaces).iterator()
 
                 data class Level(val children: List<Xml>, val close: Xml.Stream.Element.CloseTag?)
 
                 fun level(): Level {
                     val children = arrayListOf<Xml>()
 
-                    while (stream.hasNext()) {
-                        val tag = stream.next()
-                        when (tag) {
+                    var textNodes = 0
+                    var endTag: Xml.Stream.Element.CloseTag? = null
+                    loop@while (stream.hasNext()) {
+                        when (val tag = stream.next()) {
                             is Xml.Stream.Element.ProcessingInstructionTag -> Unit
                             is Xml.Stream.Element.CommentTag -> children.add(Xml.Comment(tag.text))
-                            is Xml.Stream.Element.Text -> children.add((if (tag.cdata) Xml.CData(tag.text) else Xml.Text(tag.text)))
+                            is Xml.Stream.Element.Text -> children.add((if (tag.cdata) Xml.CData(tag.text) else Xml.Text(tag.text))).also { textNodes++ }
                             is Xml.Stream.Element.OpenCloseTag -> children.add(Xml.Tag(tag.name, tag.attributes, listOf()))
                             is Xml.Stream.Element.OpenTag -> {
                                 val out = level()
@@ -59,12 +60,28 @@ data class Xml(
                                 }
                                 children.add(Xml(Xml.Type.NODE, tag.name, tag.attributes, out.children, ""))
                             }
-                            is Xml.Stream.Element.CloseTag -> return Level(children, tag)
-                            else -> throw IllegalArgumentException("Unhandled $tag")
+                            is Xml.Stream.Element.CloseTag -> {
+                                endTag = tag
+                                break@loop
+                            }
                         }
                     }
 
-                    return Level(children, null)
+                    return Level(children.mapIndexed { i, it ->
+                        when {
+                            it.type == Xml.Type.TEXT -> {
+                                val firstText = i == 0
+                                val lastText = i == children.size - 1
+                                when{
+                                    firstText && lastText -> it.copy(content = it.content.trim())
+                                    firstText -> it.copy(content = it.content.trimStart())
+                                    lastText -> it.copy(content = it.content.trimEnd())
+                                    else -> it
+                                }
+                            }
+                            else -> it
+                        }
+                    }, endTag)
                 }
 
                 val children = level().children
@@ -276,21 +293,27 @@ data class Xml(
     }
 
     object Stream {
-        fun parse(str: String, skipSpaces: Boolean = true): Iterable<Element> = parse(SimpleStrReader(str), skipSpaces)
-        fun parse(r: SimpleStrReader, skipSpaces: Boolean = true): Iterable<Element> = Xml2Iterable(r, skipSpaces)
-        fun parse(r: CharReader, skipSpaces: Boolean = true): Iterable<Element> = Xml2Iterable(CharReaderStrReader(r), skipSpaces)
+        // https://wiki.tei-c.org/index.php/XML_Whitespace
+        fun parse(str: String, collapseSpaces: Boolean = true): Iterable<Element> = parse(SimpleStrReader(str), collapseSpaces)
+        fun parse(r: SimpleStrReader, collapseSpaces: Boolean = true): Iterable<Element> = Xml2Iterable(r, collapseSpaces)
+        fun parse(r: CharReader, collapseSpaces: Boolean = true): Iterable<Element> = Xml2Iterable(CharReaderStrReader(r), collapseSpaces)
 
         private fun SimpleStrReader.matchStringOrId(out: StringBuilder): StringBuilder? = matchSingleOrDoubleQuoteString(out) ?: matchIdentifier(out)
 
-        fun xmlSequence(str: String, skipSpaces: Boolean = true): Sequence<Element> = xmlSequence(SimpleStrReader(str), skipSpaces)
-        fun xmlSequence(r: SimpleStrReader, skipSpaces: Boolean = true): Sequence<Element> = sequence<Element> {
+        private val SPACES = Regex("\\s+")
+
+        fun xmlSequence(str: String, collapseSpaces: Boolean = true): Sequence<Element> = xmlSequence(SimpleStrReader(str), collapseSpaces)
+        fun xmlSequence(r: SimpleStrReader, collapseSpaces: Boolean = true): Sequence<Element> = sequence<Element> {
             val sb = StringBuilder(128)
 
             loop@while (!r.eof) {
                 val str = r.readUntil('<', sb.clear(), included = false)
                 if (str.isNotEmpty()) {
                     val text = str.toString()
-                    val textNs = if (skipSpaces) text.trim() else text
+                    val textNs = when {
+                        collapseSpaces -> text.replace(SPACES, " ").let { if (it.all { it.isWhitespaceFast() }) "" else it }
+                        else -> text
+                    }
                     if (textNs.isNotEmpty()) {
                         yield(Element.Text(Xml.Entities.decode(textNs)))
                     }
@@ -410,13 +433,13 @@ val Sequence<Xml>.firstText: String? get() = this.firstOrNull()?.text
 val Sequence<Xml>.text: String get() = this.joinToString("") { it.text }
 operator fun Sequence<Xml>.get(name: String): Sequence<Xml> = this.children(name)
 
-fun String.toXml(): Xml = Xml.parse(this)
+fun String.toXml(collapseSpaces: Boolean = true): Xml = Xml.parse(this, collapseSpaces)
 
 // language=html
 fun Xml(
     // language=html
-    str: String, skipSpaces: Boolean = true
-): Xml = Xml.parse(str, skipSpaces)
+    str: String, collapseSpaces: Boolean = true
+): Xml = Xml.parse(str, collapseSpaces)
 
 fun Xml.descendants(name: String) = descendants.filter { it.name.equals(name, ignoreCase = true) }
 fun Xml.firstDescendant(name: String) = descendants(name).firstOrNull()

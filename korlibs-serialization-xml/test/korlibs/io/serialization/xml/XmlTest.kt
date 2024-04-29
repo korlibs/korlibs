@@ -131,4 +131,11 @@ class XmlTest {
         assertEquals("’", Xml.Entities.decode("&#8217;"))
         assertEquals("’", Xml.Entities.decode("&#x2019;"))
     }
+
+    // Verifies: https://wiki.tei-c.org/index.php/XML_Whitespace
+    @Test
+    fun testTrimMixed() {
+        assertEquals("The cat ate the grande croissant. I didn't!", Xml("<p>  The <emph> cat </emph> ate  the <foreign>grande croissant</foreign>. I didn't!\n</p>").text)
+        assertEquals("hello world", Xml("<p>hello <b>wo<i>r</i>ld</b></p>").text)
+    }
 }

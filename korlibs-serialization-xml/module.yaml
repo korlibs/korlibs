@@ -6,6 +6,5 @@ apply: [ ../common.module-template.yaml ]
 
 dependencies:
   - ../korlibs-util
-  - ../korlibs-datastructure-core
 
 test-dependencies:
