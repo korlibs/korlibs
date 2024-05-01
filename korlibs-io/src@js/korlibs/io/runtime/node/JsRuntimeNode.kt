@@ -50,9 +50,15 @@ fun ByteArray.toNodeJsBuffer(offset: Int, size: Int): NodeJsBuffer =
 //private fun require_node(name: String): dynamic = require_req(name)
 
 // DIRTY HACK to prevent webpack to mess with our code
+val IMP get() = "imp"
 val REQ get() = "req"
 private external val eval: dynamic
-internal fun require_node(name: String): dynamic = eval("(${REQ}uire('$name'))")
+
+@JsModule("module")
+private external fun createRequire(path: String): dynamic
+
+//val nodejs_module = js("await import('module')")
+internal fun require_node(name: String): dynamic = eval("(typeof ${REQ}uire !== undefined ? ${REQ}uire('$name') : ${IMP}port('$name'))")
 
 private external val process: dynamic // node.js
 

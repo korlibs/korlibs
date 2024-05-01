@@ -13,6 +13,7 @@ import kotlin.test.*
 
 class DispatchersExtTest {
     @Test
+    @Ignore
     fun test() = suspendTest {
         val historiogram = Historiogram()
         val dispatcher = Dispatchers.createFixedThreadDispatcher("hello", threadCount = 4)

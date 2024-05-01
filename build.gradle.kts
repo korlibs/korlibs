@@ -641,3 +641,10 @@ object GithubCI {
         }
     }
 }
+
+rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin> {
+    rootProject.the<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension>().apply{
+        this.nodeVersion = "20.12.2"
+        //download = false
+    }
+}
