@@ -8,13 +8,13 @@ import kotlin.time.*
 
 @OptIn(ExperimentalForeignApi::class)
 actual var CoreTime: ICoreTime = object : ICoreTime {
-    override fun currentTimeMillis(): Long = memScoped {
+    override fun currentTimeMillisDouble(): Double = memScoped {
         val timeVal = alloc<timeval>()
         mingw_gettimeofday(timeVal.ptr, null) // mingw: doesn't expose gettimeofday, but mingw_gettimeofday
         val sec = timeVal.tv_sec
         val usec = timeVal.tv_usec
         ((sec * 1_000L) + (usec / 1_000L))
-    }
+    }.toDouble()
 
     override fun localTimezoneOffset(time: Long): Duration = memScoped {
         val timeAsFileTime = UnixMillisecondsToWindowsTicks(time)

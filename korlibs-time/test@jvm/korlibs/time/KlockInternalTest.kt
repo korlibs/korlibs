@@ -10,7 +10,7 @@ class KlockInternalTest {
     @Test
     fun testThatNowLocalHasTimezoneIntoAccount() {
 		TestUnsafeSetTemporalCoreTime(object : ICoreTime by CoreTime {
-			override fun currentTimeMillis(): Long = 1561403754469L
+			override fun currentTimeMillisDouble(): Double = 1561403754469L.toDouble()
 			override fun localTimezoneOffset(time: Long): Duration = 2.hours
 		}) {
 			assertEquals("Mon, 24 Jun 2019 19:15:54 UTC", DateTime.now().toStringDefault())
@@ -22,7 +22,7 @@ class KlockInternalTest {
 	fun testBug38() {
 		val fixedUtcTime = 1555326870000L
 		TestUnsafeSetTemporalCoreTime(object : ICoreTime by CoreTime {
-			override fun currentTimeMillis(): Long = fixedUtcTime
+			override fun currentTimeMillisDouble(): Double = fixedUtcTime.toDouble()
 			override fun localTimezoneOffset(time: Long): Duration = (+9).hours
 		}) {
 			assertEquals("Mon, 15 Apr 2019 11:14:30 UTC", DateTime.now().toStringDefault())

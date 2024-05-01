@@ -1,10 +1,11 @@
 package korlibs.concurrent.thread
 
+import korlibs.time.*
 import kotlin.time.*
 import kotlin.time.Duration.Companion.seconds
 
-private fun Duration.toMillisNanos(): Pair<Long, Int> {
-    val nanoSeconds = inWholeNanoseconds
+private fun FastDuration.toMillisNanos(): Pair<Long, Int> {
+    val nanoSeconds = (milliseconds * 1_000_000).toLong()
     val millis = (nanoSeconds / 1_000_000L)
     val nanos = (nanoSeconds % 1_000_000L).toInt()
     return millis to nanos
@@ -47,7 +48,7 @@ actual class NativeThread actual constructor(val code: (NativeThread) -> Unit) {
             System.gc()
         }
 
-        actual fun sleep(time: Duration) {
+        actual fun sleep(time: FastDuration) {
             //val gcTime = measureTime { System.gc() }
             //val compensatedTime = time - gcTime
             val compensatedTime = time

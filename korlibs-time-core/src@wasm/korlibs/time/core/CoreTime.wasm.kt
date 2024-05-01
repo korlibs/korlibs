@@ -4,7 +4,7 @@ import korlibs.time.*
 import kotlin.time.*
 
 actual var CoreTime: ICoreTime = object : ICoreTime {
-    override fun currentTimeMillis(): Long = Date_now().toLong()
+    override fun currentTimeMillisDouble(): Double = Date_now()
     override fun localTimezoneOffset(time: Long): Duration = Date_localTimezoneOffsetMinutes(time.toDouble()).minutes
 }
 

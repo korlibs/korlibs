@@ -23,3 +23,10 @@ inline fun TimeProvider.measure(block: () -> Unit): Duration {
     val end = now()
     return end - start
 }
+
+inline fun TimeProvider.measureFast(block: () -> Unit): FastDuration {
+    val start = now()
+    block()
+    val end = now()
+    return end.fastMinus(start)
+}

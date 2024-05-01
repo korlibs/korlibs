@@ -160,12 +160,12 @@ value class DateTime(
         fun fromUnixMillis(unix: Long): DateTime = fromUnixMillis(unix.toDouble())
 
         /** Returns the current time as [DateTime]. Note that since [DateTime] is inline, this property doesn't allocate on JavaScript. */
-        fun now(): DateTime = DateTime(CoreTime.currentTimeMillis())
+        fun now(): DateTime = DateTime(CoreTime.currentTimeMillisDouble())
 
         /** Returns the total milliseconds since unix epoch. The same as [nowUnixMillisLong] but as double. To prevent allocation on targets without Long support. */
-        fun nowUnixMillis(): Double = CoreTime.currentTimeMillis().toDouble()
+        fun nowUnixMillis(): Double = CoreTime.currentTimeMillisDouble()
         /** Returns the total milliseconds since unix epoch. */
-        fun nowUnixMillisLong(): Long = CoreTime.currentTimeMillis()
+        fun nowUnixMillisLong(): Long = CoreTime.currentTimeMillisDouble().toLong()
 
         internal const val EPOCH_INTERNAL_MILLIS =
             62135596800000.0 // Millis since 00-00-0000 00:00 UTC to UNIX EPOCH
@@ -260,7 +260,11 @@ value class DateTime(
     operator fun plus(delta: Duration): DateTime = DateTime(unixMillis + delta.milliseconds)
     operator fun minus(delta: Duration): DateTime = DateTime(unixMillis - delta.milliseconds)
 
+    operator fun plus(delta: FastDuration): DateTime = DateTime(unixMillis + delta.milliseconds)
+    operator fun minus(delta: FastDuration): DateTime = DateTime(unixMillis - delta.milliseconds)
+
     operator fun minus(other: DateTime): Duration = (this.unixMillisDouble - other.unixMillisDouble).milliseconds
+    fun fastMinus(other: DateTime): FastDuration = (this.unixMillisDouble - other.unixMillisDouble).fastMilliseconds
 
     override fun compareTo(other: DateTime): Int = this.unixMillis.compareTo(other.unixMillis)
 
