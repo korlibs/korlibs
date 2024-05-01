@@ -170,4 +170,5 @@ fun Duration.clamp(min: Duration, max: Duration): Duration = when {
 inline fun Duration.coalesce(block: () -> Duration): Duration = if (this != Duration.NIL) this else block()
 
 @OptIn(CoreTimeInternalApi::class)
-fun Duration.Companion.now(): Duration = Duration.fromMilliseconds(CoreTime.currentTimeMillis())
+fun Duration.Companion.now(): Duration = Duration.fromMilliseconds(CoreTime.currentTimeMillisDouble())
+

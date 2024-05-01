@@ -3,14 +3,18 @@ package korlibs.time
 import korlibs.Serializable
 import korlibs.time.internal.*
 import kotlin.jvm.*
+import kotlin.time.*
 
-val TimeSpan.hz: Frequency get() = timesPerSecond
+val FastDuration.hz: Frequency get() = timesPerSecond
+val Duration.hz: Frequency get() = timesPerSecond
 val Int.hz: Frequency get() = timesPerSecond
 val Double.hz: Frequency get() = timesPerSecond
 
-fun TimeSpan.toFrequency(): Frequency = timesPerSecond
+fun Duration.toFrequency(): Frequency = timesPerSecond
+fun FastDuration.toFrequency(): Frequency = timesPerSecond
 
-val TimeSpan.timesPerSecond get() = Frequency(1.0 / this.seconds)
+val Duration.timesPerSecond get() = Frequency(1.0 / this.seconds)
+val FastDuration.timesPerSecond get() = Frequency(1.0 / this.seconds)
 val Int.timesPerSecond get() = Frequency(this.toDouble())
 val Double.timesPerSecond get() = Frequency(this)
 
@@ -39,5 +43,8 @@ value class Frequency(val hertz: Double) : Comparable<Frequency>, Serializable {
     operator fun rem(other: Frequency): Frequency = Frequency(this.hertz % other.hertz)
     infix fun umod(other: Frequency): Frequency = Frequency(this.hertz umod other.hertz)
 
-    val timeSpan get() = (1.0 / this.hertz).seconds
+    @Deprecated("", ReplaceWith("duration"))
+    val timeSpan: Duration get() = duration
+    val duration: Duration get() = (1.0 / this.hertz).seconds
+    val fastDuration: FastDuration get() = (1.0 / this.hertz).fastSeconds
 }

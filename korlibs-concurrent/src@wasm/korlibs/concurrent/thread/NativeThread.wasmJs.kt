@@ -1,5 +1,6 @@
 package korlibs.concurrent.thread
 
+import korlibs.time.*
 import kotlin.time.*
 
 actual class NativeThread actual constructor(val code: (NativeThread) -> Unit) {
@@ -27,7 +28,7 @@ actual class NativeThread actual constructor(val code: (NativeThread) -> Unit) {
         actual fun gc(full: Boolean) {
         }
 
-        actual fun sleep(time: Duration) {
+        actual fun sleep(time: FastDuration) {
             warnSleep
             val start = TimeSource.Monotonic.markNow()
             spinWhile { start.elapsedNow() < time }

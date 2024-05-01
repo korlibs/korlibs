@@ -7,9 +7,9 @@ import kotlin.test.*
 class CoreTimeTest {
     @Test
     fun test() {
-        val start = CoreTime.currentTimeMillis()
+        val start = CoreTime.currentTimeMillisDouble()
         CoreTime.sleep(10.milliseconds)
-        val end = CoreTime.currentTimeMillis()
+        val end = CoreTime.currentTimeMillisDouble()
         assertTrue { (end - start) > 0 }
     }
 }

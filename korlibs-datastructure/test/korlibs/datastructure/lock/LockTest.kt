@@ -36,7 +36,7 @@ class LockTest {
         val lock = Lock()
         var log = arrayListOf<String>()
         nativeThread(start = true) {
-            NativeThread.sleep(10.milliseconds)
+            NativeThread.sleep(10.fastMilliseconds)
             log += "b"
             lock { lock.notify() }
         }

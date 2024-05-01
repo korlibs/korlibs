@@ -1,6 +1,7 @@
 @file:Suppress("PackageDirectoryMismatch")
 package korlibs.concurrent.thread
 
+import korlibs.time.*
 import platform.posix.*
 import kotlin.native.concurrent.*
 import kotlin.native.runtime.*
@@ -45,9 +46,9 @@ actual class NativeThread actual constructor(val code: (NativeThread) -> Unit) {
             GC.schedule()
         }
 
-        actual fun sleep(time: Duration): Unit {
+        actual fun sleep(time: FastDuration): Unit {
             //platform.posix.nanosleep()
-            platform.posix.usleep(time.inWholeMicroseconds.toUInt())
+            platform.posix.usleep(time.microseconds.toUInt())
 
         }
         actual inline fun spinWhile(cond: () -> Boolean): Unit {

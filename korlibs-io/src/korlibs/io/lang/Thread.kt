@@ -1,6 +1,9 @@
 package korlibs.io.lang
 
+import korlibs.concurrent.thread.*
+import korlibs.concurrent.thread.NativeThread.Companion.sleep
 import korlibs.datastructure.thread.*
+import korlibs.datastructure.thread.NativeThread
 import korlibs.time.*
 
 @Deprecated("", ReplaceWith("NativeThread.currentThreadId", "korlibs.datastructure.thread.NativeThread"))

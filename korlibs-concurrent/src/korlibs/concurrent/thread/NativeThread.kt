@@ -1,5 +1,6 @@
 package korlibs.concurrent.thread
 
+import korlibs.time.*
 import kotlin.time.*
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
@@ -13,7 +14,7 @@ expect class NativeThread(code: (NativeThread) -> Unit)  {
         val currentThreadName: String?
 
         fun gc(full: Boolean): Unit
-        fun sleep(time: Duration): Unit
+        fun sleep(time: FastDuration): Unit
         inline fun spinWhile(cond: () -> Boolean): Unit
     }
     var userData: Any?
@@ -24,6 +25,8 @@ expect class NativeThread(code: (NativeThread) -> Unit)  {
     fun start(): Unit
     fun interrupt(): Unit
 }
+
+fun NativeThread.Companion.sleep(time: Duration): Unit = NativeThread.sleep(time.fast)
 
 public fun nativeThread(
     start: Boolean = true,
@@ -41,13 +44,16 @@ public fun nativeThread(
     return thread
 }
 
-fun NativeThread.Companion.sleep(time: Duration, exact: Boolean) {
+fun NativeThread.Companion.sleep(time: Duration, exact: Boolean) = sleep(time.fast, exact)
+
+fun NativeThread.Companion.sleep(time: FastDuration, exact: Boolean) {
     if (exact) sleepExact(time) else sleep(time)
 }
 
 // https://stackoverflow.com/questions/13397571/precise-thread-sleep-needed-max-1ms-error#:~:text=Scheduling%20Fundamentals
 // https://www.softprayog.in/tutorials/alarm-sleep-and-high-resolution-timers
-fun NativeThread.Companion.sleepExact(time: Duration) {
+fun NativeThread.Companion.sleepExact(time: Duration) = sleepExact(time.fast)
+fun NativeThread.Companion.sleepExact(time: FastDuration) {
     val start = TimeSource.Monotonic.markNow()
     //val imprecision = 10.milliseconds
     //val imprecision = 1.milliseconds

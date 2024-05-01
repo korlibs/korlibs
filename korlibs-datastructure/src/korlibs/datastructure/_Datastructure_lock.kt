@@ -17,3 +17,8 @@ typealias NonRecursiveLock = korlibs.concurrent.lock.NonRecursiveLock
 fun BaseLock.waitPrecise(time: TimeSpan): Boolean = this.waitPreciseConcurrent(time)
 @Deprecated("Use korlibs.concurrent.lock package")
 fun BaseLock.wait(time: TimeSpan, precise: Boolean): Boolean = this.waitConcurrent(time, precise)
+
+@Deprecated("Use korlibs.concurrent.lock package")
+fun BaseLock.waitPrecise(time: FastDuration): Boolean = this.waitPreciseConcurrent(time)
+@Deprecated("Use korlibs.concurrent.lock package")
+fun BaseLock.wait(time: FastDuration, precise: Boolean): Boolean = this.waitConcurrent(time, precise)

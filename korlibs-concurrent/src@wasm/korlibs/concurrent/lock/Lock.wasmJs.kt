@@ -1,5 +1,6 @@
 package korlibs.concurrent.lock
 
+import korlibs.time.*
 import kotlin.time.*
 
 actual class Lock actual constructor() : BaseLock {
@@ -15,7 +16,7 @@ actual class Lock actual constructor() : BaseLock {
     actual override fun notify(unit: Unit) {
         if (!locked) error("Must lock before notifying")
     }
-    actual override fun wait(time: Duration): Boolean {
+    actual override fun wait(time: FastDuration): Boolean {
         if (!locked) error("Must lock before waiting")
         return false
     }
@@ -25,7 +26,7 @@ actual class NonRecursiveLock actual constructor() : BaseLock {
     actual inline operator fun <T> invoke(callback: () -> T): T = callback()
     actual override fun notify(unit: Unit) {
     }
-    actual override fun wait(time: Duration): Boolean {
+    actual override fun wait(time: FastDuration): Boolean {
         return false
     }
 }

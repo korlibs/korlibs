@@ -22,8 +22,11 @@ inline fun <T> TestUnsafeSetTemporalCoreTime(tempCoreTime: ICoreTime, block: () 
 }
 
 interface ICoreTime {
+    fun performanceMillis(): Double = currentTimeMillisDouble()
     /** Unix timestamp in milliseconds */
-    fun currentTimeMillis(): Long
+    fun currentTimeMillis(): Long = currentTimeMillisDouble().toLong()
+    /** Unix timestamp in milliseconds */
+    fun currentTimeMillisDouble(): Double
     /** Timezone offset for a specific [time]stamp */
     fun localTimezoneOffset(time: Long): Duration
     /** Synchronous sleep (may spinlock on JS and WASM, use with care) */

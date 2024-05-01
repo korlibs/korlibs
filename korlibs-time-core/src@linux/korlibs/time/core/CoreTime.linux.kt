@@ -7,13 +7,13 @@ import kotlin.time.*
 
 @OptIn(ExperimentalForeignApi::class)
 actual var CoreTime: ICoreTime = object : ICoreTime {
-    override fun currentTimeMillis(): Long = memScoped {
+    override fun currentTimeMillisDouble(): Double = memScoped {
         val timeVal = alloc<timeval>()
         gettimeofday(timeVal.ptr, null)
         val sec = timeVal.tv_sec
         val usec = timeVal.tv_usec
         ((sec * 1_000L) + (usec / 1_000L))
-    }
+    }.toDouble()
 
     override fun localTimezoneOffset(time: Long): Duration = memScoped {
         val t = alloc<time_tVar>()

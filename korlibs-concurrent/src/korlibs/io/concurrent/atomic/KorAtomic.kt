@@ -59,3 +59,7 @@ inline fun KorAtomicLong(value: Long): AtomicLong = atomic(value)
 //inline operator fun KorAtomicInt.setValue(obj: Any, prop: KProperty<Any?>, v: Int) { this.value = v }
 //inline operator fun KorAtomicLong.getValue(obj: Any, prop: KProperty<Any?>): Long = this.value
 //inline operator fun KorAtomicLong.setValue(obj: Any, prop: KProperty<Any?>, v: Long) { this.value = v }
+
+//fun AtomicInt.addAndGetMod(delta: Int, modulo: Int): Int = updateAndGet { (it + delta) % modulo }
+//fun AtomicRef<Float>.addAndGetMod(delta: Float, modulo: Float): Float = updateAndGet { (it + delta) % modulo }
+//fun AtomicRef<Double>.addAndGetMod(delta: Double, modulo: Double): Double = updateAndGet { (it + delta) % modulo }
