@@ -39,9 +39,13 @@ abstract class SyncSystemIo {
     fun isFile(path: String): Boolean = stat(path)?.isDirectory == false
     fun isDirectory(path: String): Boolean = stat(path)?.isDirectory == true
 
-    abstract fun realpath(path: String): String
-    abstract fun readlink(path: String): String?
-    abstract fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemIoProcess
+    //abstract fun realpath(path: String): String
+    //abstract fun readlink(path: String): String?
+    //abstract fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemIoProcess
+
+    open fun realpath(path: String): String = TODO()
+    open fun readlink(path: String): String? = TODO()
+    open fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemIoProcess = TODO()
 }
 
 open class SyncSystemIoProcess(
