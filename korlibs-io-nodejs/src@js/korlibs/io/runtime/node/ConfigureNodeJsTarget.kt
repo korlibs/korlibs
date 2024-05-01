@@ -1,8 +1,8 @@
-package korlibs.io.nodejs
+package korlibs.io.runtime.node
 
 import korlibs.io.*
 
-fun configureNodeJsTarget() {
+actual fun configureNodeJsTarget() {
     _jsRuntime = JsRuntimeNode
 }
 

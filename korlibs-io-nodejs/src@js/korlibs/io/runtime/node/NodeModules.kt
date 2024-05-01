@@ -1,4 +1,4 @@
-package korlibs.io.nodejs
+package korlibs.io.runtime.node
 
 @JsModule("node:http")
 @JsNonModule

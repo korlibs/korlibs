@@ -1,4 +1,4 @@
-package korlibs.io.nodejs
+package korlibs.io.runtime.node
 
 import korlibs.time.*
 import korlibs.logger.Logger
