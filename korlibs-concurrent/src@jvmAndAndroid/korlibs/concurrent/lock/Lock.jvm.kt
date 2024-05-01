@@ -1,5 +1,6 @@
 package korlibs.concurrent.lock
 
+import korlibs.time.*
 import java.util.concurrent.atomic.*
 import kotlin.time.*
 
@@ -18,8 +19,8 @@ actual class Lock actual constructor() : BaseLock {
         (this as Object).notifyAll()
     }
 
-    actual override fun wait(time: Duration): Boolean {
-        val (millis, nanos) = time.toMillisNanos()
+    actual override fun wait(time: FastDuration): Boolean {
+        val (millis, nanos) = time.slow.toMillisNanos()
         signaled.set(false)
         //println("MyLock.wait: $time")
         val time = TimeSource.Monotonic.measureTime {
@@ -40,8 +41,8 @@ actual class NonRecursiveLock actual constructor() : BaseLock {
         (this as Object).notifyAll()
     }
 
-    actual override fun wait(time: Duration): Boolean {
-        val (millis, nanos) = time.toMillisNanos()
+    actual override fun wait(time: FastDuration): Boolean {
+        val (millis, nanos) = time.slow.toMillisNanos()
         signaled.set(false)
         //println("MyLock.wait: $time")
         val time = TimeSource.Monotonic.measureTime {

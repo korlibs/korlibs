@@ -22,6 +22,7 @@ inline fun <T> TestUnsafeSetTemporalCoreTime(tempCoreTime: ICoreTime, block: () 
 }
 
 interface ICoreTime {
+    fun performanceMillis(): Double = currentTimeMillisDouble()
     /** Unix timestamp in milliseconds */
     fun currentTimeMillis(): Long = currentTimeMillisDouble().toLong()
     /** Unix timestamp in milliseconds */

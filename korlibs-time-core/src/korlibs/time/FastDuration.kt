@@ -19,6 +19,11 @@ inline class FastDuration(private val ms: Double) : Comparable<FastDuration> {
     val microseconds: Double get() = ms * 1_000
     val nanoseconds: Double get() = ms * 1_000_000
 
+    val fastSeconds: Double get() = seconds
+    val fastMilliseconds: Double get() = milliseconds
+    val fastMicroseconds: Double get() = microseconds
+    val fastNanoseconds: Double get() = nanoseconds
+
     operator fun unaryPlus(): FastDuration = this
     operator fun unaryMinus(): FastDuration = FastDuration(-ms)
     operator fun plus(that: FastDuration): FastDuration = FastDuration(this.ms + that.ms)
@@ -52,11 +57,22 @@ fun Duration.toFastDuration(): FastDuration = this.seconds.fastSeconds
 val FastDuration.slow: Duration get() = this.milliseconds.milliseconds
 fun FastDuration.toDuration(): Duration = this.seconds.seconds
 
-val Double.fastSeconds: FastDuration get() = FastDuration(this * 1000)
-val Double.fastMilliseconds: FastDuration get() = FastDuration(this)
-
+val Double.fastSeconds: FastDuration get() = FastDuration(this * 1_000)
 val Int.fastSeconds: FastDuration get() = this.toDouble().fastSeconds
-val Int.fastMilliseconds: FastDuration get() = this.toDouble().fastMilliseconds
-
 val Float.fastSeconds: FastDuration get() = this.toDouble().fastSeconds
+inline val Number.fastSeconds: FastDuration get() = this.toDouble().fastSeconds
+
+val Double.fastMilliseconds: FastDuration get() = FastDuration(this)
+val Int.fastMilliseconds: FastDuration get() = this.toDouble().fastMilliseconds
 val Float.fastMilliseconds: FastDuration get() = this.toDouble().fastMilliseconds
+inline val Number.fastMilliseconds: FastDuration get() = this.toDouble().fastMilliseconds
+
+val Double.fastMicroseconds: FastDuration get() = FastDuration(this / 1_000)
+val Int.fastMicroseconds: FastDuration get() = this.toDouble().fastMilliseconds
+val Float.fastMicroseconds: FastDuration get() = this.toDouble().fastMilliseconds
+inline val Number.fastMicroseconds: FastDuration get() = this.toDouble().fastMilliseconds
+
+val Double.fastNanoseconds: FastDuration get() = FastDuration(this / 1_000_000)
+val Int.fastNanoseconds: FastDuration get() = this.toDouble().fastMilliseconds
+val Float.fastNanoseconds: FastDuration get() = this.toDouble().fastMilliseconds
+inline val Number.fastNanoseconds: FastDuration get() = this.toDouble().fastMilliseconds
