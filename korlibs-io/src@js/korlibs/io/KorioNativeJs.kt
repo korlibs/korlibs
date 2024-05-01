@@ -1,12 +1,11 @@
 package korlibs.io
 
+import korlibs.io.runtime.*
 import korlibs.io.runtime.browser.JsRuntimeBrowser
 import korlibs.io.runtime.deno.JsRuntimeDeno
-import korlibs.io.runtime.node.JsRuntimeNode
 import org.w3c.dom.*
 import org.w3c.dom.events.*
 import org.w3c.performance.*
-import kotlinx.browser.*
 import kotlin.collections.set
 
 abstract external class GlobalScope : EventTarget, WindowOrWorkerGlobalScope, GlobalPerformance {
@@ -24,12 +23,15 @@ val isWorker by lazy { js("(typeof importScripts === 'function')").unsafeCast<Bo
 val isNodeJs by lazy { js("((typeof process !== 'undefined') && process.release && (process.release.name.search(/node|io.js/) !== -1))").unsafeCast<Boolean>() }
 val isShell get() = !isWeb && !isNodeJs && !isWorker
 
-val jsRuntime by lazy {
-    when {
+var _jsRuntime: JsRuntime? = null
+
+val jsRuntime: JsRuntime get() {
+	_jsRuntime = _jsRuntime ?: when {
         isDenoJs -> JsRuntimeDeno
-        isNodeJs -> JsRuntimeNode
+        //isNodeJs -> JsRuntimeNode
         else -> JsRuntimeBrowser
     }
+	return _jsRuntime!!
 }
 
 fun HTMLCollection.toList(): List<Element?> = (0 until length).map { this[it] }

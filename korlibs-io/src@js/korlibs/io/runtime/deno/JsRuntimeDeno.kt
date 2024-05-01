@@ -3,7 +3,6 @@ package korlibs.io.runtime.deno
 import korlibs.io.*
 import korlibs.io.file.*
 import korlibs.io.runtime.*
-import korlibs.io.runtime.node.*
 import korlibs.io.stream.*
 import korlibs.js.*
 import korlibs.platform.*
@@ -165,13 +164,13 @@ class DenoLocalVfs : Vfs() {
 class DenoAsyncStreamBase(val file: DenoFsFile) : AsyncStreamBase() {
     override suspend fun read(position: Long, buffer: ByteArray, offset: Int, len: Int): Int {
         file.seek(position.toDouble(), Deno.SeekMode.Start).await()
-        val read = file.read(Uint8Array(buffer.asUint8Array().buffer, offset, len)).await()
+        val read = file.read(Uint8Array(buffer.unsafeCast<Int8Array>().buffer, offset, len)).await()
         return read?.toInt() ?: -1
     }
 
     override suspend fun write(position: Long, buffer: ByteArray, offset: Int, len: Int) {
         file.seek(position.toDouble(), Deno.SeekMode.Start).await()
-        file.write(Uint8Array(buffer.asUint8Array().buffer, offset, len)).await()
+        file.write(Uint8Array(buffer.unsafeCast<Int8Array>().buffer, offset, len)).await()
     }
 
     override suspend fun setLength(value: Long) {

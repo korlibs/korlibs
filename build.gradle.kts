@@ -137,17 +137,19 @@ subprojects {
 
     kotlin {
         js {
-            nodejs()
+            //nodejs()
             browser()
         }
     }
 
     afterEvaluate {
         kotlin {
-            androidTarget {
-                publishAllLibraryVariants()
-                //publishLibraryVariants("release", "debug")
-            }
+            //if (targets.any { it.name.contains("android") }) {
+                androidTarget {
+                    publishAllLibraryVariants()
+                    //publishLibraryVariants("release", "debug")
+                }
+            //}
         }
 
         tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask::class) {
@@ -193,6 +195,7 @@ subprojects {
 
         kotlin.targets.withType(KotlinJsIrTarget::class) {
             //println("TARGET: $this")
+            //nodejs()
             browser {
                 //testTask { useKarma { useChromeHeadless() } }
                 testRuns.getByName(KotlinTargetWithTests.DEFAULT_TEST_RUN_NAME).executionTask.configure {
@@ -642,9 +645,11 @@ object GithubCI {
     }
 }
 
+/*
 rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin> {
     rootProject.the<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension>().apply{
         this.nodeVersion = "20.12.2"
         //download = false
     }
 }
+*/

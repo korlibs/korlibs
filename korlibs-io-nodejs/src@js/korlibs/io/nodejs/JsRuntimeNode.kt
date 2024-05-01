@@ -1,4 +1,4 @@
-package korlibs.io.runtime.node
+package korlibs.io.nodejs
 
 import korlibs.time.*
 import korlibs.logger.Logger
@@ -30,7 +30,7 @@ import kotlin.coroutines.*
 
 typealias NodeJsBuffer = Uint8Array
 
-fun NodeJsBuffer.toByteArray() = Int8Array(this.unsafeCast<Int8Array>()).unsafeCast<ByteArray>()
+fun Uint8Array.toByteArray() = Int8Array(this.unsafeCast<Int8Array>()).unsafeCast<ByteArray>()
 //fun ByteArray.toNodeJsBufferU8(): NodeBuffer = Uint8Array(this.unsafeCast<ArrayBuffer>()).asDynamic()
 
 fun ByteArray.asInt8Array(): Int8Array = this.unsafeCast<Int8Array>()
@@ -64,7 +64,7 @@ private external val process: dynamic // node.js
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-object JsRuntimeNode : JsRuntime() {
+internal object JsRuntimeNode : JsRuntime() {
     val nodeProcess get() = process
     override val rawOsName: String = process.platform.unsafeCast<String>()
     private val fs by lazy { require_node("fs") }
