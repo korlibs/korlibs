@@ -30,7 +30,7 @@ import kotlin.coroutines.*
 
 typealias NodeJsBuffer = Uint8Array
 
-fun NodeJsBuffer.toByteArray() = Int8Array(this.unsafeCast<Int8Array>()).unsafeCast<ByteArray>()
+fun Uint8Array.toByteArray() = Int8Array(this.unsafeCast<Int8Array>()).unsafeCast<ByteArray>()
 //fun ByteArray.toNodeJsBufferU8(): NodeBuffer = Uint8Array(this.unsafeCast<ArrayBuffer>()).asDynamic()
 
 fun ByteArray.asInt8Array(): Int8Array = this.unsafeCast<Int8Array>()
@@ -45,24 +45,15 @@ fun ByteArray.toNodeJsBuffer(offset: Int, size: Int): NodeJsBuffer =
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//private external val require: dynamic
-//private val require_req: dynamic by lazy { require }
-//private fun require_node(name: String): dynamic = require_req(name)
-
-// DIRTY HACK to prevent webpack to mess with our code
-val REQ get() = "req"
-private external val eval: dynamic
-internal fun require_node(name: String): dynamic = eval("(${REQ}uire('$name'))")
-
 private external val process: dynamic // node.js
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-object JsRuntimeNode : JsRuntime() {
+internal object JsRuntimeNode : JsRuntime() {
     val nodeProcess get() = process
     override val rawOsName: String = process.platform.unsafeCast<String>()
-    private val fs by lazy { require_node("fs") }
-    private val path by lazy { require_node("path") }
+    private val fs = NodeFS
+    private val path = NodePath
 
     override fun existsSync(path: String): Boolean = fs.existsSync(path)
     override fun currentDir(): String = path.resolve(".")
@@ -96,7 +87,7 @@ object JsRuntimeNode : JsRuntime() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 private class NodeJsAsyncClient(val coroutineContext: CoroutineContext) : AsyncClient {
-    private val net = require_node("net")
+    private val net = NodeNet.asDynamic()
     private var connection: dynamic = null
     private val input = AsyncRingBuffer()
 
@@ -166,7 +157,7 @@ private class NodeJsAsyncClient(val coroutineContext: CoroutineContext) : AsyncC
 }
 
 private class NodeJsAsyncServer : AsyncServer {
-    private val net = require_node("net")
+    private val net = NodeNet
     private var server: dynamic = null
     override var requestPort: Int = -1; private set
     override var host: String = ""; private set
@@ -187,7 +178,7 @@ private class NodeJsAsyncServer : AsyncServer {
     }
 
     suspend fun init(port: Int, host: String, backlog: Int): AsyncServer {
-        server = net.createServer(jsObject(
+        server = net.asDynamic().createServer(jsObject(
         )) { connection ->
             clientFlow.trySend(connection)
         }
@@ -216,46 +207,6 @@ private class NodeJsAsyncServer : AsyncServer {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-private external interface NodeFD
-
-private external interface NodeFileStat {
-    val dev: Double
-    val ino: Double
-    val mode: Double
-    val nlinks: Double
-    val uid: Double
-    val gid: Double
-    val rdev: Double
-    val size: Double
-    val blkSize: Int
-    val blocks: Double
-    val atimeMs: Double
-    val mtimeMs: Double
-    val ctimeMs: Double
-    fun isDirectory(): Boolean
-    fun isFile(): Boolean
-    fun isSocket(): Boolean
-    fun isSymbolicLink(): Boolean
-}
-
-private external interface NodeFS {
-    fun mkdir(path: String, mode: Int, callback: (Error?) -> Unit)
-    fun rename(src: String, dst: String, callback: (Error?) -> Unit)
-    fun unlink(path: String, callback: (Error?) -> Unit)
-    fun rmdir(path: String, callback: (Error?) -> Unit)
-    fun stat(path: String, callback: (Error?, NodeFileStat) -> Unit)
-    fun chmod(path: String, value: Int, callback: (Error?) -> Unit)
-    fun open(path: String, cmode: String, callback: (Error?, NodeFD?) -> Unit)
-    fun read(fd: NodeFD?, buffer: NodeJsBuffer, offset: Int, len: Int, position: Double, callback: (Error?, Int, NodeJsBuffer) -> Unit)
-    fun readdir(path: String, callback: (err: Error?, files: Array<String>) -> Unit)
-    fun write(fd: NodeFD?, buffer: NodeJsBuffer, offset: Int, len: Int, position: Double, callback: (Error?, Int, NodeJsBuffer) -> Unit)
-    fun ftruncate(fd: NodeFD?, length: Double, callback: (Error?) -> Unit)
-    fun fstat(fd: NodeFD?, callback: (Error?, NodeFileStat) -> Unit)
-    fun close(fd: NodeFD?, callback: (Error?) -> Unit)
-}
-
-private val nodeFS: NodeFS by lazy { require_node("fs") }
-
 private class NodeJsLocalVfs : LocalVfs() {
     private fun getFullPath(path: String): String {
         return path.pathInfo.normalize()
@@ -281,7 +232,7 @@ private class NodeJsLocalVfs : LocalVfs() {
 
     override suspend fun chmod(path: String, mode: UnixPermissions) {
         val deferred = CompletableDeferred<Unit>()
-        nodeFS.chmod(path, mode.rbits) { err ->
+        NodeFS.chmod(path, mode.rbits) { err ->
             if (err != null) deferred.completeExceptionally(err) else deferred.complete(Unit)
         }
         return deferred.await()
@@ -289,7 +240,7 @@ private class NodeJsLocalVfs : LocalVfs() {
 
     override suspend fun listFlow(path: String): Flow<VfsFile> {
         val deferred = CompletableDeferred<Array<String>>()
-        nodeFS.readdir(path) { err, items ->
+        NodeFS.readdir(path) { err, items ->
             if (err != null) {
                 deferred.completeExceptionally(err)
             } else {
@@ -302,7 +253,7 @@ private class NodeJsLocalVfs : LocalVfs() {
 
     override suspend fun stat(path: String): VfsStat {
         val deferred = CompletableDeferred<VfsStat>()
-        nodeFS.stat(path) { err, stats ->
+        NodeFS.stat(path) { err, stats ->
             //println("err=$err")
             //println("stats=$stats")
             deferred.completeWith(kotlin.runCatching { stats.toVfsStat(path) })
@@ -316,7 +267,7 @@ private class NodeJsLocalVfs : LocalVfs() {
         // @TODO: This fails on windows with characters like '&'
         val realCmdAndArgs = ShellArgs.buildShellExecCommandLineArrayForNodeSpawn(cmdAndArgs)
 
-        val process = require_node("child_process").spawn(realCmdAndArgs.first(), realCmdAndArgs.drop(1).toTypedArray(), jsObject(
+        val process = NodeChildProcess.asDynamic().spawn(realCmdAndArgs.first(), realCmdAndArgs.drop(1).toTypedArray(), jsObject(
             "cwd" to path,
             "env" to env.toJsObject(),
             "encoding" to "buffer",
@@ -334,7 +285,7 @@ private class NodeJsLocalVfs : LocalVfs() {
     }
 
     override suspend fun mkdir(path: String, attributes: List<Attribute>): Boolean = suspendCancellableCoroutine { c ->
-        nodeFS.mkdir(getFullPath(path), "777".toInt(8)) { err ->
+        NodeFS.mkdir(getFullPath(path), "777".toInt(8)) { err ->
             c.resume((err == null))
             Unit
         }
@@ -345,7 +296,7 @@ private class NodeJsLocalVfs : LocalVfs() {
     }
 
     override suspend fun rename(src: String, dst: String): Boolean = suspendCancellableCoroutine { c ->
-        nodeFS.rename(getFullPath(src), getFullPath(dst)) { err ->
+        NodeFS.rename(getFullPath(src), getFullPath(dst)) { err ->
             c.resume((err == null))
             Unit
         }
@@ -356,7 +307,7 @@ private class NodeJsLocalVfs : LocalVfs() {
     }
 
     override suspend fun delete(path: String): Boolean = suspendCancellableCoroutine { c ->
-        nodeFS.unlink(getFullPath(path)) { err ->
+        NodeFS.unlink(getFullPath(path)) { err ->
             c.resume((err == null))
             Unit
         }
@@ -367,7 +318,7 @@ private class NodeJsLocalVfs : LocalVfs() {
     }
 
     override suspend fun rmdir(path: String): Boolean = suspendCancellableCoroutine { c ->
-        nodeFS.rmdir(getFullPath(path)) { err ->
+        NodeFS.rmdir(getFullPath(path)) { err ->
             c.resume((err == null))
             Unit
         }
@@ -396,12 +347,12 @@ private class NodeJsLocalVfs : LocalVfs() {
     suspend fun _open(path: String, cmode: String): AsyncStream {
         val file = this.file(path)
         return suspendCancellableCoroutine { cc ->
-            nodeFS.open(getFullPath(path), cmode) { err: Error?, fd: NodeFD? ->
+            NodeFS.open(getFullPath(path), cmode) { err: Error?, fd: NodeFD? ->
                 //println("OPENED path=$path, cmode=$cmode, err=$err, fd=$fd")
                 if (err != null || fd == null) {
                     cc.resumeWithException(FileNotFoundException("Can't open '$path' with mode '$cmode': err=$err"))
                 } else {
-                    nodeFS.fstat(fd) { _, stats ->
+                    NodeFS.fstat(fd) { _, stats ->
                         cc.resume(NodeFDStream(file, fd).toAsyncStream(if (cmode == "a+") stats?.size?.toLong() ?: 0L else 0L))
                     }
                 }
@@ -424,7 +375,7 @@ private class NodeFDStream(val file: VfsFile, var fd: NodeFD?) : AsyncStreamBase
 
     override suspend fun read(position: Long, buffer: ByteArray, offset: Int, len: Int): Int = suspendCancellableCoroutine { c ->
         checkFd()
-        nodeFS.read(fd, buffer.toNodeJsBuffer(), offset, len, position.toDouble()) { err, bytesRead, buf ->
+        NodeFS.read(fd, buffer.toNodeJsBuffer(), offset, len, position.toDouble()) { err, bytesRead, buf ->
             if (err != null) {
                 c.resumeWithException(IOException("Error reading from $file :: err=$err"))
             } else {
@@ -441,7 +392,7 @@ private class NodeFDStream(val file: VfsFile, var fd: NodeFD?) : AsyncStreamBase
 
     override suspend fun write(position: Long, buffer: ByteArray, offset: Int, len: Int): Unit = suspendCancellableCoroutine { c ->
         checkFd()
-        nodeFS.write(fd, buffer.toNodeJsBuffer(), offset, len, position.toDouble()) { err, bytesWritten, buffer ->
+        NodeFS.write(fd, buffer.toNodeJsBuffer(), offset, len, position.toDouble()) { err, bytesWritten, buffer ->
             if (err != null) {
                 c.resumeWithException(IOException("Error writting to $file :: err=$err"))
             } else {
@@ -457,7 +408,7 @@ private class NodeFDStream(val file: VfsFile, var fd: NodeFD?) : AsyncStreamBase
 
     override suspend fun setLength(value: Long): Unit = suspendCancellableCoroutine { c ->
         checkFd()
-        nodeFS.ftruncate(fd, value.toDouble()) { err ->
+        NodeFS.ftruncate(fd, value.toDouble()) { err ->
             if (err != null) {
                 c.resumeWithException(IOException("Error setting length to $file :: err=$err"))
             } else {
@@ -473,7 +424,7 @@ private class NodeFDStream(val file: VfsFile, var fd: NodeFD?) : AsyncStreamBase
 
     override suspend fun getLength(): Long = suspendCancellableCoroutine { c ->
         checkFd()
-        nodeFS.fstat(fd) { err, stats ->
+        NodeFS.fstat(fd) { err, stats ->
             if (err != null) {
                 c.resumeWithException(IOException("Error getting length from $file :: err=$err"))
             } else {
@@ -495,7 +446,7 @@ private class NodeFDStream(val file: VfsFile, var fd: NodeFD?) : AsyncStreamBase
         //closed = true
         if (fd != null) {
             return suspendCancellableCoroutine { c ->
-                nodeFS.close(fd) { err ->
+                NodeFS.close(fd) { err ->
                     fd = null
                     if (err != null) {
                         //c.resumeWithException(IOException("Error closing err=$err"))
@@ -526,8 +477,8 @@ private class HttpClientNodeJs : HttpClient() {
         val deferred = CompletableDeferred<Response>(Job())
         //println(url)
 
-        val http = require_node("http")
-        val jsurl = require_node("url")
+        val http = NodeHTTP.asDynamic()
+        val jsurl = NodeURL.asDynamic()
         val info = jsurl.parse(url)
         val reqHeaders = jsEmptyObj()
 
@@ -594,7 +545,7 @@ private class HttpSeverNodeJs : HttpServer() {
     private var context: CoroutineContext = EmptyCoroutineContext
     private var handler: suspend (req: dynamic, res: dynamic) -> Unit = { req, res -> }
 
-    val http = require_node("http")
+    val http = NodeHTTP.asDynamic()
     val server = http.createServer { req, res ->
         launchImmediately(context) {
             handler(req, res)

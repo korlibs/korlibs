@@ -83,7 +83,7 @@ class LocalVfsTest {
 	}
 
     @Test
-    fun testUnixPermissions() = suspendTest({ (Platform.isJvm && Platform.isUnix) || Platform.isMac || Platform.isLinux || (Platform.isJsNodeJs) }) {
+    fun testUnixPermissions() = suspendTest({ (Platform.isJvm && Platform.isUnix) || Platform.isMac || Platform.isLinux }) {
         val chmod = "0713".toInt(8)
         val file = tempVfs["korio-temp123.bin"]
         file.delete()

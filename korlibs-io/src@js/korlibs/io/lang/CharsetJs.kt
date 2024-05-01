@@ -1,7 +1,6 @@
 package korlibs.io.lang
 
 import korlibs.memory.ByteArrayBuilder
-import korlibs.io.runtime.node.toByteArray
 import org.khronos.webgl.ArrayBufferView
 import org.khronos.webgl.Uint8Array
 
@@ -31,7 +30,7 @@ actual val platformCharsetProvider: CharsetProvider = CharsetProvider { normaliz
 class JsCharset(val textEncoder: TextEncoder, val textDecoder: TextDecoder) : Charset(textDecoder.encoding) {
     override fun encode(out: ByteArrayBuilder, src: CharSequence, start: Int, end: Int) {
         if (textEncoder.encoding != textDecoder.encoding) unsupported("Unsupported encoding '${textDecoder.encoding}'")
-        out.append(textEncoder.encode(src.substring(start, end)).toByteArray())
+        out.append(textEncoder.encode(src.substring(start, end)).unsafeCast<ByteArray>())
     }
 
     override fun decode(out: StringBuilder, src: ByteArray, start: Int, end: Int): Int {
