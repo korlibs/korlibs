@@ -3,7 +3,7 @@ package korlibs.time
 import korlibs.time.core.*
 import kotlin.time.*
 
-// Required to have a reasonable performance on JS
+/** Analogous to [Duration] but doesn't allocate on the JS target. Important when used intensively in JS code. For example in KorGE. */
 inline class FastDuration(private val ms: Double) : Comparable<FastDuration> {
     companion object {
         val ZERO get() = FastDuration(0.0)
