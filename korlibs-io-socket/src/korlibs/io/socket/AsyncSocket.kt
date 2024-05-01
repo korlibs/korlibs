@@ -1,9 +1,10 @@
 package korlibs.io.socket
 
+import korlibs.io.lang.*
 import kotlinx.atomicfu.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import kotlin.coroutines.*
-import kotlin.coroutines.cancellation.*
 import kotlin.coroutines.cancellation.CancellationException
 
 expect suspend operator fun AsyncSocket.Companion.invoke(secure: Boolean = false): AsyncSocket
@@ -60,7 +61,7 @@ interface AsyncServerSocket : AutoCloseable {
 								} catch (e: Throwable) {
 									kotlin.runCatching { client.close() }
 									if (e !is IOException && e !is CancellationException) {
-										e.printStackTraceWithExtraMessage("Failed in AsyncServer.listen.handler")
+										Exception("Failed in AsyncServer.listen.handler", e).printStackTrace()
 									}
 								}
 							}
@@ -68,7 +69,7 @@ interface AsyncServerSocket : AutoCloseable {
 					} catch (e: Throwable) {
 						//Console.error("AsyncServer.listen.inner.catch: ${e::class}")
 						if (e is CancellationException || e is IOException) throw e
-						e.printStackTraceWithExtraMessage("Failed in AsyncServer.listen.accept")
+						Exception("Failed in AsyncServer.listen.accept", e).printStackTrace()
 					}
 				}
 			} catch (e: Throwable) {
@@ -87,7 +88,7 @@ interface AsyncServerSocket : AutoCloseable {
 		}
 	}
 
-	suspend fun listenFlow(): Flow<AsyncClient> = flow { while (true) emit(accept()) }
+	suspend fun listenFlow(): Flow<AsyncSocket> = flow { while (true) emit(accept()) }
 
 	// Provide a default implementation
 	override fun close() {

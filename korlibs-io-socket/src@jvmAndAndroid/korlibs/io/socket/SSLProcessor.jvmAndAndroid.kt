@@ -1,4 +1,4 @@
-package korlibs.io.net.ssl
+package korlibs.io.socket
 
 import korlibs.datastructure.*
 import java.nio.*

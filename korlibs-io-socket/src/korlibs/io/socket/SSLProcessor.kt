@@ -1,9 +1,6 @@
-package korlibs.io.net.ssl
+package korlibs.io.socket
 
-import korlibs.io.net.AsyncAddress
-import korlibs.io.net.AsyncClient
-
-expect fun DefaultSSLProcessor(): SSLProcessor
+internal expect fun DefaultSSLProcessor(): SSLProcessor
 
 interface SSLProcessor {
     val isAlive: Boolean
@@ -50,8 +47,8 @@ fun SSLProcessor.getAllEncryptedClientData(): List<ByteArray> {
     return out
 }
 
-class AsyncClientSSLProcessor(val client: AsyncClient, val processor: SSLProcessor = DefaultSSLProcessor()) : AsyncClient {
-    override val address: AsyncAddress get() = client.address
+class AsyncClientSSLProcessor(val client: AsyncSocket, val processor: SSLProcessor = DefaultSSLProcessor()) : AsyncSocket {
+    override val address: AsyncSocketAddress get() = client.address
 
     override suspend fun connect(host: String, port: Int) {
         //println("[1]")
@@ -124,7 +121,7 @@ class AsyncClientSSLProcessor(val client: AsyncClient, val processor: SSLProcess
         sync()
     }
 
-    override suspend fun close() {
+    override fun close() {
         return client.close()
     }
 }
