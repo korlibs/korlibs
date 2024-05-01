@@ -9,7 +9,7 @@ fun configureNodeJsTarget() {
 /*
 actual object StandardPaths : StandardPathsBase {
     override val cwd: String get() = when {
-        isNodeJs -> require_node("fs").realpathSync(process.cwd()).unsafeCast<String>()
+        isNodeJs -> FS.realpathSync(process.cwd())
         else -> "."
     }
 
