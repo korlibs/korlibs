@@ -1,12 +1,9 @@
 package korlibs.io.stream
 
-import korlibs.concurrent.lock.*
 import korlibs.datastructure.*
 import korlibs.io.async.*
-import korlibs.io.lang.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.*
-import kotlin.math.*
 
 interface AsyncBaseStream : AsyncCloseable {
 }

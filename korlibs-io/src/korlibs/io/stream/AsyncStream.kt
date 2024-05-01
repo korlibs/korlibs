@@ -547,26 +547,6 @@ suspend fun AsyncOutputStream.write64BE(v: Long): Unit = smallBytesPool.alloc { 
 suspend fun AsyncOutputStream.writeF32BE(v: Float): Unit = smallBytesPool.alloc { it.setF32BE(0, v); write(it, 0, 4) }
 suspend fun AsyncOutputStream.writeF64BE(v: Double): Unit = smallBytesPool.alloc { it.setF64BE(0, v); write(it, 0, 8) }
 
-fun SyncStream.toAsync(): AsyncStream = this.base.toAsync().toAsyncStream(this.position)
-fun SyncStreamBase.toAsync(): AsyncStreamBase = when (this) {
-	is MemorySyncStreamBase -> MemoryAsyncStreamBase(this.data)
-	else -> SyncAsyncStreamBase(this)
-}
-
-fun SyncStream.toAsyncInWorker(): AsyncStream = this.base.toAsyncInWorker().toAsyncStream(this.position)
-fun SyncStreamBase.toAsyncInWorker(): AsyncStreamBase = SyncAsyncStreamBaseInWorker(this)
-
-class SyncAsyncStreamBaseInWorker(val sync: SyncStreamBase) : AsyncStreamBase() {
-	override suspend fun read(position: Long, buffer: ByteArray, offset: Int, len: Int): Int =
-		sync.read(position, buffer, offset, len)
-
-	override suspend fun write(position: Long, buffer: ByteArray, offset: Int, len: Int) =
-		sync.write(position, buffer, offset, len)
-
-	override suspend fun setLength(value: Long) { sync.length = value }
-	override suspend fun getLength(): Long = sync.length
-}
-
 suspend fun AsyncOutputStream.writeStream(source: AsyncInputStream): Long = source.copyTo(this)
 suspend fun AsyncOutputStream.writeFile(source: VfsFile): Long =
 	source.openUse(VfsOpenMode.READ) { this@writeFile.writeStream(this) }
@@ -807,11 +787,17 @@ fun AsyncStreamBase.toSyncOrNull(): SyncStreamBase? = (this as? SyncAsyncStreamB
 
 fun AsyncStream.toSyncOrNull(): SyncStream? = this.base.toSyncOrNull()?.let { SyncStream(it, this.position) }
 
-fun SyncStream.toAsync(dispatcher: CoroutineDispatcher? = Dispatchers.Unconfined): AsyncStream = this.base.toAsync(dispatcher).toAsyncStream(this.position)
-fun SyncStreamBase.toAsync(dispatcher: CoroutineDispatcher? = Dispatchers.Unconfined): AsyncStreamBase = when (this) {
+fun SyncStream.toAsync(dispatcher: CoroutineDispatcher? = null): AsyncStream = this.base.toAsync(dispatcher).toAsyncStream(this.position)
+fun SyncStreamBase.toAsync(dispatcher: CoroutineDispatcher? = null): AsyncStreamBase = when (this) {
 	is MemorySyncStreamBase -> MemoryAsyncStreamBase(this.data)
 	else -> SyncAsyncStreamBase(this, dispatcher)
 }
+
+@Deprecated("", ReplaceWith("toAsync()"))
+fun SyncStream.toAsyncInWorker(): AsyncStream = toAsync()
+@Deprecated("", ReplaceWith("toAsync()"))
+fun SyncStreamBase.toAsyncInWorker(): AsyncStreamBase = toAsync()
+
 
 class MemoryAsyncStreamBase(var data: ByteArrayBuilder) : AsyncStreamBase() {
 	constructor(initialCapacity: Int = 4096) : this(ByteArrayBuilder(initialCapacity))

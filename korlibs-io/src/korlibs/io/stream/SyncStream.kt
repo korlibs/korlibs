@@ -405,9 +405,7 @@ fun SyncOutputStream.writeF64BE(v: Double): Unit = write64BE(v.reinterpretAsLong
 fun SyncStreamBase.toSyncStream(position: Long = 0L) = SyncStream(this, position)
 
 fun ByteArray.openSync(mode: String = "r"): SyncStream = MemorySyncStreamBase(ByteArrayBuilder(this)).toSyncStream(0L)
-fun ByteArray.openAsync(mode: String = "r"): AsyncStream =
-//MemoryAsyncStreamBase(ByteArrayBuffer(this, allowGrow = false)).toAsyncStream(0L)
-	MemoryAsyncStreamBase(ByteArrayBuilder(this, allowGrow = true)).toAsyncStream(0L)
+fun ByteArray.openAsync(mode: String = "r"): AsyncStream = MemoryAsyncStreamBase(ByteArrayBuilder(this, allowGrow = true)).toAsyncStream(0L)
 
 fun String.openSync(charset: Charset = UTF8): SyncStream = toByteArray(charset).openSync("r")
 fun String.openAsync(charset: Charset = UTF8): AsyncStream = toByteArray(charset).openSync("r").toAsync()

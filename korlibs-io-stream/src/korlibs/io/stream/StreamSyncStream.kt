@@ -3,7 +3,6 @@ package korlibs.io.stream
 import korlibs.datastructure.*
 import korlibs.datastructure.closeable.*
 import korlibs.io.lang.*
-import kotlin.math.*
 
 interface SyncInputStream : Closeable {
     fun read(buffer: ByteArray, offset: Int = 0, len: Int = buffer.size - offset): Int
