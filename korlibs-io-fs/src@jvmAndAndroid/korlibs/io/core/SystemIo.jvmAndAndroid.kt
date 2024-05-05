@@ -9,6 +9,13 @@ actual val defaultSystemIo: SystemIo = defaultSyncSystemIo.toAsync(Dispatchers.I
 object JvmSyncSystemIo : SyncSystemIo() {
     override val fileSeparatorChar: Char get() = File.separatorChar
     override val pathSeparatorChar: Char get() = File.pathSeparatorChar
+    override fun realpath(path: String): String {
+        TODO("Not yet implemented")
+    }
+
+    override fun readlink(path: String): String? {
+        TODO("Not yet implemented")
+    }
 
     override fun mkdir(path: String) = File(path).mkdir()
     override fun rmdir(path: String) = File(path).takeIf { it.isDirectory }?.delete() == true
@@ -23,6 +30,11 @@ object JvmSyncSystemIo : SyncSystemIo() {
             isDirectory = file.isDirectory,
         )
     }
+
+    override fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemIoProcess {
+        TODO("Not yet implemented")
+    }
+
     override fun open(path: String, write: Boolean): SyncFileSystemIo? {
         val file = File(path).takeIf { it.exists() } ?: return null
         val s = RandomAccessFile(file, if (write) "rw" else "r")
@@ -31,8 +43,8 @@ object JvmSyncSystemIo : SyncSystemIo() {
             override fun setLength(value: Long) = s.setLength(value)
             override fun getPosition(): Long = s.filePointer
             override fun setPosition(value: Long) = s.seek(value)
-            override fun read(data: ByteArray, offset: Int, size: Int): Int = s.read(data, offset, size)
-            override fun write(data: ByteArray, offset: Int, size: Int): Unit = s.write(data, offset, size)
+            override fun read(buffer: ByteArray, offset: Int, len: Int): Int = s.read(buffer, offset, len)
+            override fun write(buffer: ByteArray, offset: Int, len: Int): Unit = s.write(buffer, offset, len)
             override fun close() = s.close()
         }
     }

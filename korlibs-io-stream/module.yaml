@@ -10,32 +10,11 @@ aliases:
   - concurrent: [jvm, android, linuxX64, linuxArm64, tvosArm64, tvosX64, tvosSimulatorArm64, macosX64, macosArm64, iosArm64, iosSimulatorArm64, iosX64, watchosArm64, watchosArm32, watchosDeviceArm64, watchosSimulatorArm64, mingwX64]
 
 dependencies:
-  - ../korlibs-io-fs
-  - ../korlibs-io-stream: exported
-  - ../korlibs-io-socket
-  - ../korlibs-math-core: exported
-  - ../korlibs-memory: exported
-  - ../korlibs-ffi: exported
   - ../korlibs-util: exported
-  - ../korlibs-crypto: exported
-  - ../korlibs-encoding: exported
-  - ../korlibs-platform: exported
   - ../korlibs-datastructure: exported
-  - ../korlibs-exception: exported
-  - ../korlibs-number: exported
-  - ../korlibs-time-core: exported
-  - ../korlibs-logger: exported
-  - ../korlibs-dyn: exported
-  - ../korlibs-serialization-csv: exported
-  - ../korlibs-serialization-toml: exported
-  - ../korlibs-serialization-yaml: exported
-  - ../korlibs-serialization-json: exported
-  - ../korlibs-serialization-xml: exported
-  - ../korlibs-serialization-properties: exported
-  - ../korlibs-compression-lzma: exported
-  - ../korlibs-compression-deflate: exported
-  - ../korlibs-compression-lzo: exported
-  - org.jetbrains.kotlinx:atomicfu:0.23.1: exported
+  #- ../korlibs-memory: exported
+  - ../korlibs-exception
+  - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0: exported
 
 test-dependencies:
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0

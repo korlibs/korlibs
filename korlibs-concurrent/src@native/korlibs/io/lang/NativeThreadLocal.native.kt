@@ -1,7 +1,7 @@
 package korlibs.io.lang
 
-import korlibs.datastructure.lock.*
-import korlibs.datastructure.thread.*
+import korlibs.concurrent.lock.*
+import korlibs.concurrent.thread.*
 
 actual abstract class NativeThreadLocal<T> {
     private val lock = Lock()
