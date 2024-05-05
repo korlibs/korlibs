@@ -55,9 +55,9 @@ abstract class SyncFileSystemIoNativeBase(val file: CPointer<FILE>?) : SyncFileS
     override fun setLength(value: Long): Unit = run { ftruncate64(value.convert()) }
     override fun getPosition(): Long = ftell64()
     override fun setPosition(value: Long): Unit = run { fseek64(value.convert(), SEEK_SET) }
-    override fun read(data: ByteArray, offset: Int, size: Int): Int = data.usePinned { fread(it.startAddressOf + offset, 1.convert(), size.convert(), file).toInt() }
-    override fun write(data: ByteArray, offset: Int, size: Int): Unit = data.usePinned {
-        fwrite(it.startAddressOf + offset, 1.convert(), size.convert(), file).toInt()
+    override fun read(buffer: ByteArray, offset: Int, len: Int): Int = buffer.usePinned { fread(it.startAddressOf + offset, 1.convert(), len.convert(), file).toInt() }
+    override fun write(buffer: ByteArray, offset: Int, len: Int): Unit = buffer.usePinned {
+        fwrite(it.startAddressOf + offset, 1.convert(), len.convert(), file).toInt()
         Unit
     }
 

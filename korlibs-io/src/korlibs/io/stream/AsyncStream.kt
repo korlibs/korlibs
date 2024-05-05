@@ -23,56 +23,6 @@ import kotlin.native.concurrent.*
 //}
 
 //interface AsyncBaseStream : AsyncCloseable, SmallTemp {
-interface AsyncBaseStream : AsyncCloseable {
-}
-
-interface AsyncInputOpenable {
-	suspend fun openRead(): AsyncInputStream
-}
-
-suspend inline fun <T> AsyncInputOpenable.openUse(block: (AsyncInputStream) -> T): T = openRead().use(block)
-
-interface AsyncInputStream : AsyncBaseStream {
-	suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int
-	suspend fun read(): Int = smallBytesPool.alloc { if (read(it, 0, 1) > 0) it[0].unsigned else -1 }
-	//suspend fun read(): Int
-}
-
-interface AsyncOutputStream : AsyncBaseStream {
-	suspend fun write(buffer: ByteArray, offset: Int = 0, len: Int = buffer.size - offset)
-	suspend fun write(byte: Int) = smallBytesPool.alloc { it[0] = byte.toByte(); write(it, 0, 1) }
-	//suspend fun write(byte: Int)
-}
-
-open class DummyAsyncOutputStream : AsyncOutputStream {
-    companion object : DummyAsyncOutputStream()
-    override suspend fun write(buffer: ByteArray, offset: Int, len: Int) = Unit
-    override suspend fun write(byte: Int) = Unit
-    override suspend fun close() = Unit
-}
-
-interface AsyncGetPositionStream : AsyncBaseStream {
-	suspend fun getPosition(): Long = throw UnsupportedOperationException()
-}
-
-interface AsyncPositionStream : AsyncGetPositionStream {
-	suspend fun setPosition(value: Long): Unit = throw UnsupportedOperationException()
-}
-
-interface AsyncGetLengthStream : AsyncBaseStream {
-    suspend fun hasLength() = try { getLength() >= 0L } catch (t: UnsupportedOperationException) { false }
-	suspend fun getLength(): Long = throw UnsupportedOperationException()
-}
-
-interface AsyncLengthStream : AsyncGetLengthStream {
-	suspend fun setLength(value: Long): Unit = throw UnsupportedOperationException()
-}
-
-interface AsyncPositionLengthStream : AsyncPositionStream, AsyncLengthStream {
-}
-
-interface AsyncInputStreamWithLength : AsyncInputStream, AsyncGetPositionStream, AsyncGetLengthStream {
-}
 
 fun List<AsyncInputStreamWithLength>.combine(): AsyncInputStreamWithLength {
 	val list = this
@@ -101,14 +51,6 @@ operator fun AsyncInputStreamWithLength.plus(other: AsyncInputStreamWithLength):
 suspend fun AsyncInputStreamWithLength.getAvailable(): Long = this.getLength() - this.getPosition()
 suspend fun AsyncInputStreamWithLength.hasAvailable(): Boolean = getAvailable() > 0
 suspend fun AsyncInputStreamWithLength.supportsAvailable() = kotlin.runCatching { hasAvailable() }.isSuccess
-
-interface AsyncRAInputStream {
-	suspend fun read(position: Long, buffer: ByteArray, offset: Int, len: Int): Int
-}
-
-interface AsyncRAOutputStream {
-	suspend fun write(position: Long, buffer: ByteArray, offset: Int, len: Int)
-}
 
 fun AsyncBaseStream.toAsyncStream(): AsyncStream {
 	val input = this as? AsyncInputStream
@@ -152,72 +94,11 @@ fun AsyncBaseStream.toAsyncStream(): AsyncStream {
 
 open class SeekNotSupportedException(message: String = "Seeking not supported!") : UnsupportedOperationException(message)
 
-open class AsyncStreamBase : AsyncCloseable, AsyncRAInputStream, AsyncRAOutputStream, AsyncLengthStream {
-	//var refCount = 0
-
-	override suspend fun read(position: Long, buffer: ByteArray, offset: Int, len: Int): Int =
-		throw UnsupportedOperationException()
-
-	override suspend fun write(position: Long, buffer: ByteArray, offset: Int, len: Int): Unit =
-		throw UnsupportedOperationException()
-
-	override suspend fun setLength(value: Long): Unit = throw UnsupportedOperationException()
-	override suspend fun getLength(): Long = throw UnsupportedOperationException()
-
-	override suspend fun close(): Unit = Unit
-}
-
 suspend fun AsyncStreamBase.readBytes(position: Long, count: Int): ByteArray {
 	val out = ByteArray(count)
 	val readLen = read(position, out, 0, out.size)
 	return out.copyOf(readLen)
 }
-
-fun AsyncStreamBase.toAsyncStream(position: Long = 0L): AsyncStream = AsyncStream(this, position)
-
-class AsyncStream(val base: AsyncStreamBase, var position: Long = 0L, val queue: Boolean = false) : Extra by Extra.Mixin(), AsyncInputStream, AsyncInputStreamWithLength, AsyncOutputStream, AsyncPositionLengthStream,
-	AsyncCloseable {
-    override fun toString(): String = "AsyncStream($base, position=$position)"
-
-    private val readQueue = AsyncThread()
-	private val writeQueue = AsyncThread()
-
-	override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int = when {
-        queue -> readQueue { readInternal(buffer, offset, len) }
-        else -> readInternal(buffer, offset, len)
-    }
-
-	override suspend fun write(buffer: ByteArray, offset: Int, len: Int): Unit = when {
-        queue -> writeQueue { writeInternal(buffer, offset, len) }
-        else -> writeInternal(buffer, offset, len)
-    }
-
-    private suspend fun readInternal(buffer: ByteArray, offset: Int, len: Int): Int {
-        val read = base.read(position, buffer, offset, len)
-        if (read >= 0) position += read
-        return read
-    }
-
-    private suspend fun writeInternal(buffer: ByteArray, offset: Int, len: Int) {
-        base.write(position, buffer, offset, len)
-        position += len
-    }
-
-    override suspend fun setPosition(value: Long) { this.position = value }
-	override suspend fun getPosition(): Long = this.position
-	override suspend fun setLength(value: Long): Unit = base.setLength(value)
-	override suspend fun getLength(): Long = base.getLength()
-	suspend fun size(): Long = base.getLength()
-
-    suspend fun hasAvailable() = hasLength()
-	suspend fun getAvailable(): Long = getLength() - getPosition()
-	suspend fun eof(): Boolean = hasAvailable() && this.getAvailable() <= 0L
-
-	override suspend fun close(): Unit = base.close()
-
-	fun duplicate(): AsyncStream = AsyncStream(base, position)
-}
-
 
 inline fun <T> AsyncStream.keepPosition(callback: () -> T): T {
 	val old = this.position
@@ -385,12 +266,13 @@ suspend fun AsyncStream.sliceWithBounds(start: Long, end: Long, closeParent: Boo
 	val clampedStart = start.clamp(0, len)
 	val clampedEnd = end.clamp(0, len)
 
-	return when (this.base) {
+	val base = this.base
+	return when (base) {
         is SliceAsyncStreamBase -> {
             SliceAsyncStreamBase(
-                this.base.base,
-                this.base.baseStart + clampedStart,
-                this.base.baseStart + clampedEnd,
+                base.base,
+                base.baseStart + clampedStart,
+                base.baseStart + clampedEnd,
                 closeParent
             )
         }
@@ -665,37 +547,6 @@ suspend fun AsyncOutputStream.write64BE(v: Long): Unit = smallBytesPool.alloc { 
 suspend fun AsyncOutputStream.writeF32BE(v: Float): Unit = smallBytesPool.alloc { it.setF32BE(0, v); write(it, 0, 4) }
 suspend fun AsyncOutputStream.writeF64BE(v: Double): Unit = smallBytesPool.alloc { it.setF64BE(0, v); write(it, 0, 8) }
 
-fun SyncStream.toAsync(): AsyncStream = this.base.toAsync().toAsyncStream(this.position)
-fun SyncStreamBase.toAsync(): AsyncStreamBase = when (this) {
-	is MemorySyncStreamBase -> MemoryAsyncStreamBase(this.data)
-	else -> SyncAsyncStreamBase(this)
-}
-
-fun SyncStream.toAsyncInWorker(): AsyncStream = this.base.toAsyncInWorker().toAsyncStream(this.position)
-fun SyncStreamBase.toAsyncInWorker(): AsyncStreamBase = SyncAsyncStreamBaseInWorker(this)
-
-class SyncAsyncStreamBase(val sync: SyncStreamBase) : AsyncStreamBase() {
-	override suspend fun read(position: Long, buffer: ByteArray, offset: Int, len: Int): Int =
-		sync.read(position, buffer, offset, len)
-
-	override suspend fun write(position: Long, buffer: ByteArray, offset: Int, len: Int) =
-		sync.write(position, buffer, offset, len)
-
-	override suspend fun setLength(value: Long) { sync.length = value }
-	override suspend fun getLength(): Long = sync.length
-}
-
-class SyncAsyncStreamBaseInWorker(val sync: SyncStreamBase) : AsyncStreamBase() {
-	override suspend fun read(position: Long, buffer: ByteArray, offset: Int, len: Int): Int =
-		sync.read(position, buffer, offset, len)
-
-	override suspend fun write(position: Long, buffer: ByteArray, offset: Int, len: Int) =
-		sync.write(position, buffer, offset, len)
-
-	override suspend fun setLength(value: Long) { sync.length = value }
-	override suspend fun getLength(): Long = sync.length
-}
-
 suspend fun AsyncOutputStream.writeStream(source: AsyncInputStream): Long = source.copyTo(this)
 suspend fun AsyncOutputStream.writeFile(source: VfsFile): Long =
 	source.openUse(VfsOpenMode.READ) { this@writeFile.writeStream(this) }
@@ -716,6 +567,7 @@ suspend inline fun AsyncInputStream.consume(autoclose: Boolean = true, temp: Byt
 suspend fun AsyncInputStream.copyTo(target: AsyncOutputStream, chunkSize: Int = 8 * 1024 * 1024): Long {
 	// Optimization to reduce suspensions
 	if (this is AsyncStream && base is MemoryAsyncStreamBase) {
+		val base = base as MemoryAsyncStreamBase
 		target.write(base.data.data, position.toInt(), base.ilength - position.toInt())
 		return base.ilength.toLong()
 	}
@@ -796,21 +648,33 @@ suspend fun AsyncInputStream.readLine(eol: Char = '\n', charset: Charset = UTF8,
 }
 
 
-fun SyncInputStream.toAsyncInputStream() = object : AsyncInputStreamWithLength {
-	val sync = this@toAsyncInputStream
 
-	override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int = sync.read(buffer, offset, len)
-	override suspend fun close() { (sync as? Closeable)?.close() }
-	override suspend fun getPosition(): Long = (sync as? SyncPositionStream)?.position ?: super.getPosition()
-    override suspend fun getLength(): Long = (sync as? SyncLengthStream)?.length ?: super.getLength()
+private suspend inline fun <T> doIo(dispatcher: CoroutineDispatcher? = null, crossinline block: () -> T): T = when {
+	dispatcher != null -> withContext(dispatcher) { block() }
+	else -> block()
 }
 
-fun SyncOutputStream.toAsyncOutputStream() = object : AsyncOutputStream {
-	override suspend fun write(buffer: ByteArray, offset: Int, len: Int): Unit =
-		this@toAsyncOutputStream.write(buffer, offset, len)
-
-	override suspend fun close() { (this@toAsyncOutputStream as? Closeable)?.close() }
+fun SyncInputStream.toAsync(dispatcher: CoroutineDispatcher? = null): AsyncInputStream = object : AsyncInputStreamWithLength {
+	val sync = this@toAsync
+	private suspend inline fun <T> doIo(crossinline block: () -> T): T = doIo(dispatcher, block)
+	override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int = doIo { sync.read(buffer, offset, len) }
+	override suspend fun close(): Unit = doIo { (sync as? korlibs.datastructure.closeable.Closeable)?.close() }
+	override suspend fun getPosition(): Long = doIo { (sync as? SyncPositionStream)?.position } ?: super.getPosition()
+	override suspend fun getLength(): Long = doIo { (sync as? SyncLengthStream)?.length } ?: super.getLength()
 }
+
+fun SyncOutputStream.toAsync(dispatcher: CoroutineDispatcher? = null): AsyncOutputStream = object : AsyncOutputStream {
+	val sync = this@toAsync
+	private suspend inline fun <T> doIo(crossinline block: () -> T): T = doIo(dispatcher, block)
+	override suspend fun write(buffer: ByteArray, offset: Int, len: Int) = doIo { sync.write(buffer, offset, len) }
+	override suspend fun close(): Unit = doIo { (sync as? korlibs.datastructure.closeable.Closeable)?.close() }
+}
+
+@Deprecated("", ReplaceWith("toAsync(dispatcher) as AsyncInputStreamWithLength"))
+fun SyncInputStream.toAsyncInputStream(dispatcher: CoroutineDispatcher? = null): AsyncInputStreamWithLength = toAsync(dispatcher) as AsyncInputStreamWithLength
+
+@Deprecated("", ReplaceWith("toAsync(dispatcher)"))
+fun SyncOutputStream.toAsyncOutputStream(dispatcher: CoroutineDispatcher? = null): AsyncOutputStream = toAsync(dispatcher)
 
 fun AsyncStream.asVfsFile(name: String = "unknown.bin"): VfsFile = MemoryVfs(
 	mapOf(name to this)
@@ -849,39 +713,6 @@ fun AsyncInputStream.withLength(length: Long): AsyncInputStream {
 
 fun MemoryAsyncStream(data: korlibs.memory.ByteArrayBuilder): AsyncStream = MemoryAsyncStreamBase(data).toAsyncStream()
 fun MemoryAsyncStream(initialCapacity: Int = 4096): AsyncStream = MemoryAsyncStreamBase(initialCapacity).toAsyncStream()
-
-class MemoryAsyncStreamBase(var data: korlibs.memory.ByteArrayBuilder) : AsyncStreamBase() {
-	constructor(initialCapacity: Int = 4096) : this(ByteArrayBuilder(initialCapacity))
-
-	var ilength: Int
-		get() = data.size
-		set(value) { data.size = value }
-
-	override suspend fun setLength(value: Long) { ilength = value.toInt() }
-	override suspend fun getLength(): Long = ilength.toLong()
-
-	fun checkPosition(position: Long) { if (position < 0) invalidOp("Invalid position $position") }
-
-	override suspend fun read(position: Long, buffer: ByteArray, offset: Int, len: Int): Int {
-		checkPosition(position)
-		if (position !in 0 until ilength) return 0
-		val end = min(this.ilength.toLong(), position + len)
-		val actualLen = max((end - position).toInt(), 0)
-		arraycopy(this.data.data, position.toInt(), buffer, offset, actualLen)
-		return actualLen
-	}
-
-	override suspend fun write(position: Long, buffer: ByteArray, offset: Int, len: Int) {
-		checkPosition(position)
-		data.size = max(data.size, (position + len).toInt())
-		arraycopy(buffer, offset, this.data.data, position.toInt(), len)
-
-	}
-
-	override suspend fun close() = Unit
-
-	override fun toString(): String = "MemoryAsyncStreamBase(${data.size})"
-}
 
 /**
  * Creates a an [AsyncInputStream] from a [process] function that writes to a [AsyncOutputStream].
@@ -955,3 +786,47 @@ fun AsyncStreamBase.toSyncOrNull(): SyncStreamBase? = (this as? SyncAsyncStreamB
     ?: (this as? MemoryAsyncStreamBase?)?.let { MemorySyncStreamBase(it.data) }
 
 fun AsyncStream.toSyncOrNull(): SyncStream? = this.base.toSyncOrNull()?.let { SyncStream(it, this.position) }
+
+fun SyncStream.toAsync(dispatcher: CoroutineDispatcher? = null): AsyncStream = this.base.toAsync(dispatcher).toAsyncStream(this.position)
+fun SyncStreamBase.toAsync(dispatcher: CoroutineDispatcher? = null): AsyncStreamBase = when (this) {
+	is MemorySyncStreamBase -> MemoryAsyncStreamBase(this.data)
+	else -> SyncAsyncStreamBase(this, dispatcher)
+}
+
+@Deprecated("", ReplaceWith("toAsync()"))
+fun SyncStream.toAsyncInWorker(): AsyncStream = toAsync()
+@Deprecated("", ReplaceWith("toAsync()"))
+fun SyncStreamBase.toAsyncInWorker(): AsyncStreamBase = toAsync()
+
+
+class MemoryAsyncStreamBase(var data: ByteArrayBuilder) : AsyncStreamBase() {
+	constructor(initialCapacity: Int = 4096) : this(ByteArrayBuilder(initialCapacity))
+
+	var ilength: Int
+		get() = data.size
+		set(value) { data.size = value }
+
+	override suspend fun setLength(value: Long) { ilength = value.toInt() }
+	override suspend fun getLength(): Long = ilength.toLong()
+
+	fun checkPosition(position: Long) { if (position < 0) invalidOp("Invalid position $position") }
+
+	override suspend fun read(position: Long, buffer: ByteArray, offset: Int, len: Int): Int {
+		checkPosition(position)
+		if (position !in 0 until ilength) return 0
+		val end = min(this.ilength.toLong(), position + len)
+		val actualLen = max((end - position).toInt(), 0)
+		arraycopy(this.data.data, position.toInt(), buffer, offset, actualLen)
+		return actualLen
+	}
+
+	override suspend fun write(position: Long, buffer: ByteArray, offset: Int, len: Int) {
+		checkPosition(position)
+		data.size = max(data.size, (position + len).toInt())
+		arraycopy(buffer, offset, this.data.data, position.toInt(), len)
+	}
+
+	override suspend fun close() = Unit
+
+	override fun toString(): String = "MemoryAsyncStreamBase(${data.size})"
+}
