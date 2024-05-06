@@ -14,23 +14,31 @@ import kotlinx.atomicfu.*
 import kotlinx.coroutines.*
 import kotlin.math.*
 
-val CONCURRENCY_COUNT: Int get() = korlibs.io.concurrent.CONCURRENCY_COUNT
+@Deprecated("", ReplaceWith("Dispatchers.ConcurrencyLevel", "kotlinx.coroutines.Dispatchers", "korlibs.io.async.ConcurrencyLevel"))
+val CONCURRENCY_COUNT: Int get() = Dispatchers.ConcurrencyLevel
 
 @PublishedApi internal val exec by lazy {
-    Dispatchers.createFixedThreadDispatcher("parallel", CONCURRENCY_COUNT)
+    Dispatchers.createFixedThreadDispatcher("parallel", Dispatchers.ConcurrencyLevel)
 }
 
-inline fun parallelForeach(count: Int, dispatcher: CoroutineDispatcher = exec, crossinline block: (n: Int) -> Unit): Unit {
+fun parallelForeach(count: Int, dispatcher: CoroutineDispatcher = exec, block: (n: Int) -> Unit): Unit {
     if (count == 0) return
 
+    if (Dispatchers.ConcurrencyLevel == 1) {
+        for (n in 0 until count) {
+            block(n)
+        }
+        return
+    }
+
     //val futures = arrayListOf<Future<*>>()
-    val countPerChunk = max(1, (count / CONCURRENCY_COUNT) + 1)
+    val countPerChunk = max(1, (count / Dispatchers.ConcurrencyLevel) + 1)
 
     val execCount = atomic(0)
     var m = 0
     val scope = CoroutineScope(dispatcher)
     for (start in 0 until count step countPerChunk) {
-        val end = kotlin.math.min(count, start + countPerChunk)
+        val end = minOf(count, start + countPerChunk)
         m++
         scope.launch {
             try {
