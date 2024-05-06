@@ -8,14 +8,15 @@ import kotlin.math.*
 import kotlin.native.concurrent.*
 
 fun interface CharsetProvider {
+    companion object : CharsetProvider by platformCharsetProvider
     operator fun invoke(normalizedName: String, name: String): Charset?
 }
 
+@Deprecated("Use CharsetProvider companion object instead")
 expect val platformCharsetProvider: CharsetProvider
 
 private val CHARSET_PROVIDERS = arrayListOf<CharsetProvider>()
 private val CHARSET_PROVIDERS_LOCK = NonRecursiveLock()
-
 
 abstract class Charset(val name: String) {
     // Just an estimation, might not be accurate, but hopefully will help setting StringBuilder and ByteArrayBuilder to a better initial capacity
