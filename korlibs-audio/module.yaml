@@ -11,6 +11,7 @@ aliases:
 
 dependencies:
   - ../korlibs-audio-core: exported
+  - ../korlibs-concurrent: exported
   - ../korlibs-io: exported
   - ../korlibs-math: exported
   - ../korlibs-ffi: exported
