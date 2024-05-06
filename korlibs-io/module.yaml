@@ -12,6 +12,7 @@ aliases:
 dependencies:
   - ../korlibs-io-fs
   - ../korlibs-io-stream: exported
+  - ../korlibs-io-charset: exported
   - ../korlibs-io-socket
   - ../korlibs-math-core: exported
   - ../korlibs-memory: exported
