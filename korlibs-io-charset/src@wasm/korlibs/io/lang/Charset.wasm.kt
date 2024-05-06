@@ -2,8 +2,7 @@ package korlibs.io.lang
 
 import korlibs.io.util.*
 import korlibs.memory.ByteArrayBuilder
-import org.khronos.webgl.ArrayBufferView
-import org.khronos.webgl.Uint8Array
+import org.khronos.webgl.*
 
 external class TextDecoder(charset: String) : JsAny {
     val encoding: String
@@ -46,3 +45,49 @@ class JsCharset(val textEncoder: TextEncoder, val textDecoder: TextDecoder) : Ch
     override fun hashCode(): Int = name.hashCode()
     override fun toString(): String = "JsCharset($name)"
 }
+
+@JsFun("(block) => { try { return { result: block(), error: null }; } catch (e) { return { result: null, error: e }; } }")
+private external fun <T : JsAny> runCatchingJsExceptions(block: () -> T): JsResult<T>
+
+private fun <T : JsAny> wrapWasmJsExceptions(block: () -> T): T {
+    val result = runCatchingJsExceptions { block() }
+    if (result.error != null) throw Exception(result.error!!.message)
+    return result.result!!
+}
+
+private external interface JsResult<T : JsAny> : JsAny {
+    val result: T?
+    val error: JsError?
+}
+
+@JsName("Error")
+private external class JsError : JsAny {
+    val message: String?
+}
+
+private fun ByteArray.toInt8Array(): Int8Array {
+    //val tout = this.asDynamic()
+    //if (tout is Int8Array) {
+    //    return tout.unsafeCast<Int8Array>()
+    //} else {
+    val out = Int8Array(this.size)
+    for (n in 0 until out.length) out[n] = this[n]
+    return out
+    //}
+}
+
+private fun ArrayBuffer.toByteArray(): ByteArray = Int8Array(this).toByteArray()
+private fun Uint8Array.toByteArray(): ByteArray {
+    return Int8Array(this.buffer).toByteArray()
+}
+private fun Int8Array.toByteArray(): ByteArray {
+    //val tout = this.asDynamic()
+    //if (tout is ByteArray) {
+    //    return tout.unsafeCast<ByteArray>()
+    //} else {
+    val out = ByteArray(this.length)
+    for (n in out.indices) out[n] = this[n]
+    return out
+    //}
+}
+
