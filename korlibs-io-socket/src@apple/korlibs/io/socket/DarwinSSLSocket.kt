@@ -3,8 +3,6 @@
 package korlibs.io.socket
 
 import cnames.structs.SSLContext
-import korlibs.io.async.*
-import korlibs.io.posix.*
 import kotlinx.cinterop.*
 import kotlinx.cinterop.ByteVar
 import kotlinx.coroutines.*
@@ -34,7 +32,7 @@ class DarwinSSLSocket {
         val socketVar = arena.alloc<LongVar>()
         ctx = SSLCreateContext(null, SSLProtocolSide.kSSLClientSide, SSLConnectionType.kSSLStreamType)
 
-        withContext(Dispatchers.CIO) {
+        withContext(Dispatchers.IO) {
             memScoped {
                 val sockfd = socket(AF_INET, SOCK_STREAM, 0)
                 val timeout = alloc<timeval>()
@@ -312,4 +310,10 @@ private fun SSL_send_callback(
     size?.set(0, sentBytes.convert())
     //println("  --> $sentBytes")
     return if (sentBytes.toInt() != writeBytes.toInt()) ioErr.convert() else noErr.convert()
+}
+
+private fun ioctlSocketFionRead(sockfd: Int): Int {
+    val v = intArrayOf(0)
+    ioctl(sockfd.convert(), FIONREAD.convert(), v.refTo(0))
+    return v[0]
 }
