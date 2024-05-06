@@ -311,9 +311,3 @@ private fun SSL_send_callback(
     //println("  --> $sentBytes")
     return if (sentBytes.toInt() != writeBytes.toInt()) ioErr.convert() else noErr.convert()
 }
-
-private fun ioctlSocketFionRead(sockfd: Int): Int {
-    val v = intArrayOf(0)
-    ioctl(sockfd.convert(), FIONREAD.convert(), v.refTo(0))
-    return v[0]
-}

@@ -132,12 +132,6 @@ class NativeSocket private constructor(internal val sockfd: Int, endpoint: Endpo
             return ioctlSocketFionRead(sockfd)
 		}
 
-	private fun ioctlSocketFionRead(sockfd: Int): Int {
-		val v = uintArrayOf(0u)
-		ioctl(sockfd.convert(), FIONREAD.convert(), v.refTo(0))
-		return v[0].toInt()
-	}
-
 	//val connected: Boolean
 	//    get() {
 	//        memScoped {
