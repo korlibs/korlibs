@@ -7,7 +7,7 @@ import kotlinx.coroutines.*
 import platform.posix.*
 
 actual val defaultSyncSystemIo: SyncSystemIo = MingwSyncSystemIo
-actual val defaultSystemIo: SystemIo = defaultSyncSystemIo.toAsync(Dispatchers.IO)
+actual val defaultSystemIo: SystemIo = SyncSystemIo.toAsync(Dispatchers.IO)
 
 object MingwSyncSystemIo : SyncSystemIoNativeBase() {
     override val fileSeparatorChar: Char = '\\'

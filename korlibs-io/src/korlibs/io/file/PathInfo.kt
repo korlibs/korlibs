@@ -8,8 +8,8 @@ import korlibs.io.lang.lastIndexOfOrNull
 import korlibs.io.net.MimeType
 import kotlin.math.min
 
-val File_pathSeparatorChar: Char get() = defaultSyncSystemIo.pathSeparatorChar
-val File_separatorChar: Char get() = defaultSyncSystemIo.fileSeparatorChar
+val File_pathSeparatorChar: Char get() = SyncSystemIo.pathSeparatorChar
+val File_separatorChar: Char get() = SyncSystemIo.fileSeparatorChar
 
 // @TODO: inline classes. Once done PathInfoExt won't be required to do clean allocation-free stuff.
 inline class PathInfo(val fullPath: String)

@@ -6,7 +6,7 @@ import kotlinx.cinterop.*
 import platform.posix.*
 
 @OptIn(ExperimentalForeignApi::class)
-abstract class SyncSystemIoNativeBase : SyncSystemIo() {
+abstract class SyncSystemIoNativeBase : SyncSystemIo {
     override fun stat(path: String): FileSystemIoStat? = memScoped {
         val st = alloc<stat>()
         if (stat(path, st.ptr) != 0) return@memScoped null
