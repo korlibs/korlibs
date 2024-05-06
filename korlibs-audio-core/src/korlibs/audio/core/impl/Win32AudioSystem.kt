@@ -1,6 +1,7 @@
 package korlibs.audio.core.impl
 
 import korlibs.audio.core.*
+import korlibs.concurrent.thread.*
 import korlibs.datastructure.closeable.*
 import korlibs.ffi.*
 import korlibs.memory.*
@@ -46,7 +47,7 @@ internal object Win32AudioSystem : AudioSystem() {
             @OptIn(ExperimentalStdlibApi::class)
             override fun playStream(rate: Int, channels: Int, gen: (position: Long, data: Array<AudioSampleArray>) -> Int): Closeable {
                 var running = true
-                val nativeThread = korlibs.datastructure.thread.NativeThread {
+                val nativeThread = NativeThread {
                     ffiScoped {
                         val arena = this
                         val handlePtr = allocBytes(8).typed<FFIPointer?>()

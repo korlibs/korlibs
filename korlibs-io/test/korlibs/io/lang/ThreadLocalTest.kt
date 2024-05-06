@@ -1,7 +1,7 @@
 package korlibs.io.lang
 
+import korlibs.concurrent.thread.*
 import korlibs.datastructure.lock.*
-import korlibs.datastructure.thread.*
 import korlibs.time.*
 import kotlin.test.*
 

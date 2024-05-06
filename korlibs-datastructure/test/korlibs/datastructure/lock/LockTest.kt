@@ -1,6 +1,7 @@
 package korlibs.datastructure.lock
 
 import korlibs.concurrent.lock.*
+import korlibs.concurrent.thread.*
 import korlibs.datastructure.thread.*
 import korlibs.platform.*
 import korlibs.time.*

@@ -7,7 +7,7 @@ import kotlin.time.Duration.Companion.seconds
 
 // @TODO: Mark this as experimental or something so people know this is not fully supported in all the targets.
 // @TODO: isSupported is required to be used.
-expect class NativeThread(code: (NativeThread) -> Unit)  {
+expect class NativeThread(code: (NativeThread) -> Unit) {
     companion object {
         val isSupported: Boolean
         val currentThreadId: Long
