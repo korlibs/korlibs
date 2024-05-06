@@ -4,6 +4,9 @@ product:
 
 apply: [ ../common.module-template.yaml ]
 
+aliases:
+  - jvmAndAndroid: [jvm, android]
+
 dependencies:
   - org.jetbrains.kotlinx:atomicfu:0.23.1: exported
 

@@ -4,8 +4,6 @@ import korlibs.io.util.*
 import korlibs.memory.*
 import org.khronos.webgl.*
 
-actual val UTF8: Charset = UTC8CharsetBase("UTF-8")
-
 /**
  * This won't support streaming decoding
  */
