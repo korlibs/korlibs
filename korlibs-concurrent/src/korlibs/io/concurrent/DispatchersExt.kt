@@ -8,6 +8,8 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.Runnable
 import kotlin.coroutines.CoroutineContext
 
+expect val CONCURRENCY_COUNT: Int
+
 expect fun Dispatchers.createFixedThreadDispatcher(name: String, threadCount: Int = 1): CoroutineDispatcher
 
 fun Dispatchers.createSingleThreadedDispatcher(name: String): CoroutineDispatcher = createFixedThreadDispatcher(name, 1)

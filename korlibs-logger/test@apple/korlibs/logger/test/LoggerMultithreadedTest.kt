@@ -1,22 +1,20 @@
 package korlibs.logger.test
 
-import korlibs.logger.Logger
-import kotlin.native.concurrent.TransferMode
-import kotlin.native.concurrent.Worker
+import korlibs.logger.*
+import kotlinx.coroutines.*
 import kotlin.test.*
 
 class LoggerMultithreadedTest {
-
     @Test
-    fun multithreaded() {
-        val worker = Worker.start()
+    fun multithreaded() = runBlocking {
+        val worker = Dispatchers.IO
         val logger = Logger("WorkerLogger")
         val changeLoggerLevel: () -> Logger.Level = {
             logger.level = Logger.Level.INFO
             logger.level
         }
-        val future = worker.execute(TransferMode.SAFE, { changeLoggerLevel }) { it() }
-        val result = future.result
+        val future = CoroutineScope(worker).async { changeLoggerLevel() }
+        val result = future.await()
 
         assertTrue { result == Logger.Level.INFO }
         assertTrue { logger.level == Logger.Level.INFO }
@@ -27,9 +25,8 @@ class LoggerMultithreadedTest {
         val getLoggerLevel: () -> Logger.Level = {
             logger2.level
         }
-        val worker2 = Worker.start()
-        val future2 = worker2.execute(TransferMode.SAFE, { getLoggerLevel }) { it() }
-        val result2 = future2.result
+        val future2 = CoroutineScope(worker).async { getLoggerLevel() }
+        val result2 = future2.await()
 
         assertTrue { result2 == Logger.Level.INFO }
         assertTrue { logger2.level == Logger.Level.INFO }
