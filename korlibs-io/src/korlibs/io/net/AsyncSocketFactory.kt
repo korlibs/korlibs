@@ -6,6 +6,7 @@ import korlibs.io.async.launchImmediately
 import korlibs.io.lang.Closeable
 import korlibs.io.lang.IOException
 import korlibs.io.lang.printStackTraceWithExtraMessage
+import korlibs.io.socket.*
 import korlibs.io.stream.AsyncInputStream
 import korlibs.io.stream.AsyncOutputStream
 import korlibs.io.stream.DequeSyncStream
@@ -22,7 +23,29 @@ abstract class AsyncSocketFactory {
 	open suspend fun createServer(port: Int, host: String = "127.0.0.1", backlog: Int = 511, secure: Boolean = false): AsyncServer = TODO()
 }
 
-internal expect val asyncSocketFactory: AsyncSocketFactory
+//internal expect val asyncSocketFactory: AsyncSocketFactory
+
+class SocketAsyncClient(val socket: AsyncSocket) : AsyncClient {
+    override suspend fun connect(host: String, port: Int) = socket.connect(host, port)
+    override val connected: Boolean get() = socket.connected
+    override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int = socket.read(buffer, offset, len)
+    override suspend fun write(buffer: ByteArray, offset: Int, len: Int) = socket.write(buffer, offset, len)
+    override suspend fun close() = socket.close()
+}
+
+class SocketAsyncServer(val socket: AsyncServerSocket) : AsyncServer {
+    override val requestPort: Int get() = socket.requestPort
+    override val host: String get() = socket.host
+    override val backlog: Int get() = socket.backlog
+    override val port: Int get() = socket.port
+    override suspend fun accept(): AsyncClient = SocketAsyncClient(socket.accept())
+}
+
+internal val asyncSocketFactory: AsyncSocketFactory = object : AsyncSocketFactory() {
+    override suspend fun createClient(secure: Boolean): AsyncClient = SocketAsyncClient(AsyncSocket(secure))
+    override suspend fun createServer(port: Int, host: String, backlog: Int, secure: Boolean): AsyncServer =
+        SocketAsyncServer(AsyncServerSocket(port, host, backlog, secure))
+}
 
 suspend fun AsyncSocketFactory.createClient(host: String, port: Int, secure: Boolean = false): AsyncClient =
     createClient(secure).apply { connect(host, port) }
