@@ -5,11 +5,12 @@ import korlibs.io.async.*
 import korlibs.io.stream.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlin.jvm.*
 
-expect val defaultSyncSystemIo: SyncSystemIo
-expect val defaultSystemIo: SystemIo
+internal expect val defaultSyncSystemIo: SyncSystemIo
+internal expect val defaultSystemIo: SystemIo
 
-object NullSyncSystemIo : SyncSystemIo() {
+object NullSyncSystemIo : SyncSystemIo {
     override fun open(path: String, write: Boolean): SyncFileSystemIo? = TODO("Not yet implemented")
     override fun listdir(path: String): Sequence<String> = TODO("Not yet implemented")
     override fun mkdir(path: String): Boolean = TODO("Not yet implemented")
@@ -22,9 +23,11 @@ object NullSyncSystemIo : SyncSystemIo() {
 }
 val NullSystemIo: SystemIo = NullSyncSystemIo.toAsync(Dispatchers.Unconfined)
 
-abstract class SyncSystemIo {
-    open val fileSeparatorChar: Char = '/'
-    open val pathSeparatorChar: Char = ':'
+interface SyncSystemIo {
+    companion object : SyncSystemIo by defaultSyncSystemIo
+
+    open val fileSeparatorChar: Char get() = '/'
+    open val pathSeparatorChar: Char get() = ':'
 
     open fun getcwd(): String = "."
 
@@ -58,7 +61,9 @@ open class SyncSystemIoProcess(
     override fun close() = Unit
 }
 
-abstract class SystemIo {
+interface SystemIo {
+    companion object : SystemIo by defaultSystemIo
+
     abstract suspend fun open(path: String, write: Boolean = false): FileSystemIo?
     abstract suspend fun listdir(path: String): Flow<String>
     abstract suspend fun mkdir(path: String): Boolean
@@ -118,7 +123,7 @@ abstract class SyncFileSystemIo : Closeable, SyncInputStream, SyncOutputStream {
 
 fun SyncSystemIo.toAsync(ioDispatcher: CoroutineDispatcher?): SystemIo {
     val sync = this@toAsync
-    return object : SystemIo() {
+    return object : SystemIo {
         private suspend inline fun <T> doSyncIo(crossinline block: () -> T): T = doIo(ioDispatcher, block)
 
         override suspend fun open(path: String, write: Boolean): FileSystemIo? {
