@@ -32,7 +32,7 @@ object Win32NativeSoundProvider : NativeSoundProvider(), Disposable {
 
     override fun dispose() {
         while (Win32NativeSoundProvider_workerPool.itemsInPool > 0) {
-            Win32NativeSoundProvider_workerPool.alloc().requestTermination()
+            Win32NativeSoundProvider_workerPool.alloc().cancel()
         }
     }
 }
