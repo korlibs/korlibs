@@ -2,13 +2,11 @@
 
 package korlibs.audio.sound
 
-import korlibs.datastructure.concurrent.ConcurrentDeque
-import korlibs.memory.startAddressOf
+import korlibs.datastructure.concurrent.*
+import korlibs.memory.*
 import kotlinx.cinterop.*
+import kotlinx.coroutines.*
 import platform.windows.*
-import kotlin.native.concurrent.Future
-import kotlin.native.concurrent.TransferMode
-import kotlin.native.concurrent.Worker
 import kotlin.reflect.*
 
 internal object WINMM {
@@ -85,7 +83,7 @@ class WaveOutProcess(val freq: Int, val nchannels: Int) {
     internal val panning = AtomicDouble(0.0)
     private val numPendingChunks = kotlin.concurrent.AtomicLong(0L)
     private val deque = ConcurrentDeque<WaveOutPart>()
-    private val info = kotlin.concurrent.AtomicReference<Future<Unit>?>(null)
+    private val info = kotlin.concurrent.AtomicReference<Job?>(null)
 
     val position get() = sPosition.value
     val length get() = sLength.value
@@ -117,12 +115,12 @@ class WaveOutProcess(val freq: Int, val nchannels: Int) {
 
     fun stopAndWait() {
         stop()
-        info?.value?.consume { }
+        runBlocking { info?.value?.join() }
     }
 
-    fun start(_worker: Worker): WaveOutProcess {
-        val _info = this
-        _info.info.value = _worker.execute(TransferMode.SAFE, { _info }) { info ->
+    fun start(_worker: CoroutineDispatcher): WaveOutProcess {
+        info.value = CoroutineScope(_worker).launch {
+            val info = this@WaveOutProcess
             memScoped {
                 val nchannels = info.nchannels // 2
                 val hWaveOut = alloc<HWAVEOUTVar>()
@@ -211,7 +209,7 @@ class WaveOutProcess(val freq: Int, val nchannels: Int) {
                 }
             }
         }
-        return _info
+        return this
     }
 }
 

@@ -1,7 +1,9 @@
 @file:Suppress("PackageDirectoryMismatch")
 package korlibs.concurrent.thread
 
+import korlibs.io.concurrent.*
 import korlibs.time.*
+import kotlinx.coroutines.*
 import platform.posix.*
 import kotlin.native.concurrent.*
 import kotlin.native.runtime.*
@@ -12,20 +14,21 @@ actual class NativeThread actual constructor(val code: (NativeThread) -> Unit) {
     actual var userData: Any? = null
 
     actual var threadSuggestRunning: Boolean = true
-    var worker: Worker? = null
 
     actual var priority: Int = 0
     actual var name: String? = null
 
+    private var dispatcher: CoroutineDispatcher? = null
+
     actual fun start() {
         threadSuggestRunning = true
-        worker = Worker.start()
-        worker?.executeAfter {
+        dispatcher = Dispatchers.createSingleThreadedDispatcher("NativeThread")
+        CoroutineScope(dispatcher!!).launch {
             try {
-                code(this)
+                code(this@NativeThread)
             } finally {
-                worker?.requestTermination()
-                worker = null
+                dispatcher?.cancel()
+                dispatcher = null
             }
         }
     }
@@ -33,7 +36,8 @@ actual class NativeThread actual constructor(val code: (NativeThread) -> Unit) {
     actual fun interrupt() {
         // No operation
         threadSuggestRunning = false
-        worker = null
+        dispatcher?.cancel()
+        dispatcher = null
     }
 
     actual companion object {

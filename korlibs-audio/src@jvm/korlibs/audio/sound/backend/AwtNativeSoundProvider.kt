@@ -1,7 +1,7 @@
 package korlibs.audio.sound.backend
 
 import korlibs.audio.sound.*
-import korlibs.datastructure.thread.*
+import korlibs.concurrent.thread.*
 import korlibs.memory.*
 import javax.sound.sampled.*
 import kotlin.coroutines.*

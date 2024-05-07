@@ -1,7 +1,7 @@
 package korlibs.audio.sound
 
 import korlibs.audio.sound.backend.*
-import korlibs.datastructure.thread.*
+import korlibs.concurrent.thread.*
 import korlibs.io.time.*
 import korlibs.logger.*
 import korlibs.platform.*

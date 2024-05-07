@@ -7,7 +7,7 @@ import kotlin.time.Duration.Companion.seconds
 
 // @TODO: Mark this as experimental or something so people know this is not fully supported in all the targets.
 // @TODO: isSupported is required to be used.
-expect class NativeThread(code: (NativeThread) -> Unit)  {
+expect class NativeThread(code: (NativeThread) -> Unit) {
     companion object {
         val isSupported: Boolean
         val currentThreadId: Long
@@ -27,6 +27,9 @@ expect class NativeThread(code: (NativeThread) -> Unit)  {
 }
 
 fun NativeThread.Companion.sleep(time: Duration): Unit = NativeThread.sleep(time.fast)
+fun NativeThread.Companion.sleepUntil(date: DateTime, exact: Boolean = true) {
+    sleep(date - DateTime.now(), exact)
+}
 
 public fun nativeThread(
     start: Boolean = true,

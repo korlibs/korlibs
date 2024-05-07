@@ -2,16 +2,55 @@
 
 package korlibs.datastructure.iterators
 
+import korlibs.concurrent.thread.*
 import korlibs.datastructure.DoubleArrayList
 import korlibs.datastructure.FastArrayList
 import korlibs.datastructure.FloatArrayList
 import korlibs.datastructure.IntArrayList
 import korlibs.datastructure.toFastList
+import korlibs.io.async.*
+import korlibs.io.concurrent.*
+import kotlinx.atomicfu.*
+import kotlinx.coroutines.*
+import kotlin.math.*
 
+@Deprecated("", ReplaceWith("Dispatchers.ConcurrencyLevel", "kotlinx.coroutines.Dispatchers", "korlibs.io.async.ConcurrencyLevel"))
+val CONCURRENCY_COUNT: Int get() = Dispatchers.ConcurrencyLevel
 
-expect val CONCURRENCY_COUNT: Int
+@PublishedApi internal val exec by lazy {
+    Dispatchers.createFixedThreadDispatcher("parallel", Dispatchers.ConcurrencyLevel)
+}
 
-expect inline fun parallelForeach(count: Int, crossinline block: (n: Int) -> Unit): Unit
+fun parallelForeach(count: Int, dispatcher: CoroutineDispatcher = exec, block: (n: Int) -> Unit): Unit {
+    if (count == 0) return
+
+    if (Dispatchers.ConcurrencyLevel == 1) {
+        for (n in 0 until count) {
+            block(n)
+        }
+        return
+    }
+
+    //val futures = arrayListOf<Future<*>>()
+    val countPerChunk = max(1, (count / Dispatchers.ConcurrencyLevel) + 1)
+
+    val execCount = atomic(0)
+    var m = 0
+    val scope = CoroutineScope(dispatcher)
+    for (start in 0 until count step countPerChunk) {
+        val end = minOf(count, start + countPerChunk)
+        m++
+        scope.launch {
+            try {
+                for (n in start until end) block(n)
+            } finally {
+                execCount.incrementAndGet()
+            }
+        }
+    }
+
+    NativeThread.spinWhile { execCount.value != m }
+}
 
 @Suppress("UNCHECKED_CAST")
 inline fun <T, reified R> List<T>.parallelMap(crossinline transform: (T) -> R): List<R> = arrayOfNulls<R>(size).also { out ->

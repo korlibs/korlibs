@@ -2,6 +2,7 @@ package korlibs.audio.sound
 
 import korlibs.datastructure.*
 import korlibs.io.async.*
+import korlibs.io.concurrent.*
 import korlibs.io.lang.*
 import korlibs.logger.*
 import korlibs.time.*
@@ -12,8 +13,8 @@ import kotlin.native.concurrent.*
 actual val nativeSoundProvider: NativeSoundProvider = Win32NativeSoundProvider
 
 @ThreadLocal
-private val Win32NativeSoundProvider_workerPool = Pool<Worker> {
-    Worker.start(name = "Win32NativeSoundProvider$it")
+private val Win32NativeSoundProvider_workerPool = Pool<CoroutineDispatcher> {
+    Dispatchers.createSingleThreadedDispatcher("Win32NativeSoundProvider$it")
 }
 
 @ThreadLocal
@@ -31,7 +32,7 @@ object Win32NativeSoundProvider : NativeSoundProvider(), Disposable {
 
     override fun dispose() {
         while (Win32NativeSoundProvider_workerPool.itemsInPool > 0) {
-            Win32NativeSoundProvider_workerPool.alloc().requestTermination()
+            Win32NativeSoundProvider_workerPool.alloc().cancel()
         }
     }
 }

@@ -1,7 +1,7 @@
 package korlibs.audio.sound.backend
 
 import korlibs.audio.sound.*
-import korlibs.datastructure.thread.*
+import korlibs.concurrent.thread.*
 import korlibs.ffi.*
 import korlibs.io.lang.*
 import korlibs.memory.*
@@ -107,7 +107,7 @@ class JvmWaveOutNewPlatformAudioOutput(
         if (running) return
         //println("STARTED")
         running = true
-        nativeThread = korlibs.datastructure.thread.NativeThread {
+        nativeThread = NativeThread {
             ffiScoped {
                 val arena = this
                 val handlePtr = allocBytes(8).typed<FFIPointer?>()

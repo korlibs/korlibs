@@ -1,5 +1,6 @@
 package korlibs.io.concurrent
 
+import korlibs.io.async.*
 import kotlinx.coroutines.CloseableCoroutineDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -8,9 +9,14 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.Runnable
 import kotlin.coroutines.CoroutineContext
 
-expect fun Dispatchers.createFixedThreadDispatcher(name: String, threadCount: Int = 1): CoroutineDispatcher
+@Deprecated("", ReplaceWith("Dispatchers.ConcurrencyLevel", "kotlinx.coroutines.Dispatchers", "korlibs.io.async.ConcurrencyLevel"))
+val CONCURRENCY_COUNT: Int get() = Dispatchers.ConcurrencyLevel
 
-fun Dispatchers.createSingleThreadedDispatcher(name: String): CoroutineDispatcher = createFixedThreadDispatcher(name, 1)
+fun Dispatchers.createFixedThreadDispatcher(name: String, threadCount: Int = 1): CoroutineDispatcher =
+    _createFixedThreadDispatcher(name, threadCount)
+
+fun Dispatchers.createSingleThreadedDispatcher(name: String): CoroutineDispatcher =
+    _createFixedThreadDispatcher(name, 1)
 
 @OptIn(ExperimentalStdlibApi::class)
 fun Dispatchers.createRedirectedDispatcher(name: String, parent: CoroutineDispatcher): CoroutineDispatcher {

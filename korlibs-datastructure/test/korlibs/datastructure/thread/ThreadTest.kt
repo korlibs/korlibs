@@ -1,5 +1,6 @@
 package korlibs.datastructure.thread
 
+import korlibs.concurrent.thread.*
 import korlibs.datastructure.*
 import kotlin.test.*
 

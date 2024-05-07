@@ -1,6 +1,6 @@
 package korlibs.io.worker
 
-import korlibs.datastructure.thread.*
+import korlibs.concurrent.thread.*
 import korlibs.io.lang.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*

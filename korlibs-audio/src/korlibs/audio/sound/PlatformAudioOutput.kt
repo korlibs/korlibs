@@ -1,14 +1,13 @@
 package korlibs.audio.sound
 
+import korlibs.concurrent.thread.*
 import korlibs.datastructure.lock.*
-import korlibs.datastructure.thread.*
 import korlibs.io.async.*
 import korlibs.io.lang.*
 import korlibs.math.*
 import korlibs.math.geom.*
 import korlibs.time.*
 import korlibs.time.core.*
-import korlibs.time.core.internal.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
 

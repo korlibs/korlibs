@@ -4,7 +4,6 @@ import android.content.*
 import android.media.*
 import android.os.*
 import korlibs.datastructure.pauseable.*
-import korlibs.datastructure.thread.*
 import korlibs.io.android.*
 import kotlin.coroutines.*
 
@@ -41,10 +40,10 @@ class AndroidNativeSoundProvider : NativeSoundProviderNew() {
         frequency: Int,
         gen: (AudioSamplesInterleaved) -> Unit
     ) : NewPlatformAudioOutput(coroutineContext, channels, frequency, gen) {
-        var thread: NativeThread? = null
+        var thread: korlibs.concurrent.thread.NativeThread? = null
 
         override fun internalStart() {
-            thread = nativeThread(isDaemon = true) { thread ->
+            thread = korlibs.concurrent.thread.nativeThread(isDaemon = true) { thread ->
                 //val bufferSamples = 4096
                 val bufferSamples = 1024
 
