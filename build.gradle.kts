@@ -691,7 +691,9 @@ class MicroAmper {
     //val kotlinBasePlatforms by lazy { kotlinPlatforms.groupBy { getKotlinBasePlatform(it) }.filter { it.value != listOf(it.key) } }
     val kotlinBasePlatforms by lazy { kotlinPlatforms.groupBy { getKotlinBasePlatform(it) } }
 
-    fun getKotlinBasePlatform(platform: String): String = platform.removeSuffix("X64").removeSuffix("Arm64").removeSuffix("Simulator").removeSuffix("Device")
+    fun getKotlinBasePlatform(platform: String): String = platform.removeSuffix("X64").removeSuffix("X86").removeSuffix("Arm64").removeSuffix("Arm32").removeSuffix("Simulator").removeSuffix("Device").also {
+        check(it.all { it.isLowerCase() && !it.isDigit() })
+    }
 
     data class Dep(val path: String, val exported: Boolean, val test: Boolean, val platform: String) {
         val rplatform = platform.takeIf { it.isNotEmpty() } ?: "common"
