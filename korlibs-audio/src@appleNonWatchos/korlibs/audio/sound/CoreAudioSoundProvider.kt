@@ -21,7 +21,6 @@ import kotlin.Unit
 import kotlin.coroutines.*
 
 actual val nativeSoundProvider: NativeSoundProvider get() = CORE_AUDIO_NATIVE_SOUND_PROVIDER
-internal expect val appleInitAudioOnce: Unit
 
 val CORE_AUDIO_NATIVE_SOUND_PROVIDER: CoreAudioNativeSoundProvider by lazy { CoreAudioNativeSoundProvider() }
 
