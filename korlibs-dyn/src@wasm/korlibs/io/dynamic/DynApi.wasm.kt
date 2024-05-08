@@ -22,16 +22,16 @@ private fun <T : JsAny?> jsArrayOf(vararg values: T): JsArray<T> {
 }
 
 internal actual object DynamicInternal : DynApi {
-	override val global: Any get() = jsGlobal
+	actual override val global: Any = jsGlobal
 
-    override fun get(instance: Any?, key: String): Any? {
+    actual override fun get(instance: Any?, key: String): Any? {
         if (instance == null) return null
         return JsAny_get((instance as JsAny), key)
     }
-    override fun set(instance: Any?, key: String, value: Any?) {
+    actual override fun set(instance: Any?, key: String, value: Any?) {
         if (instance == null) return
         return JsAny_set((instance as JsAny), key, value as? JsAny?)
     }
-    override fun invoke(instance: Any?, key: String, args: Array<out Any?>): Any? =
+    actual override fun invoke(instance: Any?, key: String, args: Array<out Any?>): Any? =
         JsAny_invoke(instance as JsAny, key, jsArrayOf(*args.map { it as? JsAny? }.toTypedArray()))
 }

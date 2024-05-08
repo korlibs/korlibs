@@ -4,7 +4,10 @@ import korlibs.io.lang.*
 import korlibs.memory.*
 import kotlin.coroutines.*
 
-expect open class WASMLib(content: ByteArray) : IWASMLib
+expect open class WASMLib(content: ByteArray) : IWASMLib {
+    override val content: ByteArray
+    override fun close()
+}
 
 @OptIn(ExperimentalStdlibApi::class)
 interface IWASMLib : AutoCloseable {

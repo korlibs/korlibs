@@ -5,7 +5,7 @@ import java.lang.reflect.*
 internal actual object DynamicInternal : DynApi {
     class JavaPackage(val name: String)
 
-    override val global: Any? = JavaPackage("")
+    actual override val global: Any = JavaPackage("")
 
     private fun tryGetField(clazz: Class<*>, name: String): Field? {
         val field = runCatching { clazz.getDeclaredField(name) }.getOrNull()
@@ -42,9 +42,9 @@ internal actual object DynamicInternal : DynApi {
         }
     }
 
-    override fun get(instance: Any?, key: String): Any? = getBase(instance, key, doThrow = false)
+    actual override fun get(instance: Any?, key: String): Any? = getBase(instance, key, doThrow = false)
 
-    override fun set(instance: Any?, key: String, value: Any?) {
+    actual override fun set(instance: Any?, key: String, value: Any?) {
         if (instance == null) return
 
         val static = instance is Class<*>
@@ -66,7 +66,7 @@ internal actual object DynamicInternal : DynApi {
         return getBase(instance, key, doThrow = true)
     }
 
-    override fun invoke(instance: Any?, key: String, args: Array<out Any?>): Any? {
+    actual override fun invoke(instance: Any?, key: String, args: Array<out Any?>): Any? {
         return invokeBase(instance, key, args, doThrow = false)
     }
 
