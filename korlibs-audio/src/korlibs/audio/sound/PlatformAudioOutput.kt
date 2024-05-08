@@ -11,12 +11,13 @@ import korlibs.time.core.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
 
+@OptIn(ExperimentalStdlibApi::class)
 open class NewPlatformAudioOutput(
     val coroutineContext: CoroutineContext,
     val channels: Int,
     val frequency: Int,
     private val gen: (AudioSamplesInterleaved) -> Unit,
-) : Disposable, SoundProps {
+) : AutoCloseable, SoundProps {
     var onCancel: Cancellable? = null
     var paused: Boolean = false
 
@@ -50,7 +51,7 @@ open class NewPlatformAudioOutput(
         onCancel = null
         internalStop()
     }
-    final override fun dispose() = stop()
+    final override fun close() = stop()
 }
 
 open class PlatformAudioOutputBasedOnNew(
@@ -78,10 +79,11 @@ open class PlatformAudioOutputBasedOnNew(
     }
 }
 
+@OptIn(ExperimentalStdlibApi::class)
 open class PlatformAudioOutput(
     val coroutineContext: CoroutineContext,
     val frequency: Int
-) : Disposable, SoundProps {
+) : AutoCloseable, SoundProps {
 	open val availableSamples: Int = 0
     override var pitch: Double = 1.0
     override var volume: Double = 1.0
@@ -102,7 +104,7 @@ open class PlatformAudioOutput(
         }
     }
 
-    final override fun dispose() = stop()
+    final override fun close() = stop()
 }
 
 abstract class ThreadBasedPlatformAudioOutput(
@@ -117,7 +119,6 @@ abstract class ThreadBasedPlatformAudioOutput(
     protected open val chunkSize: Int get() = 1024
     protected abstract fun open(frequency: Int, channels: Int)
     protected abstract fun write(data: AudioSamples, offset: Int, count: Int): Int
-    protected abstract fun close()
 
     final override suspend fun wait() {
         while (totalPendingSamples > 0) {

@@ -1,4 +1,5 @@
 @file:Suppress("EXPERIMENTAL_FEATURE_WARNING")
+@file:OptIn(ExperimentalStdlibApi::class)
 
 package korlibs.io.file
 
@@ -209,8 +210,8 @@ abstract class Vfs : AsyncCloseable {
 		return true
 	}
 
-	open suspend fun watch(path: String, handler: (FileEvent) -> Unit): Closeable =
-		DummyCloseable
+	open suspend fun watch(path: String, handler: (FileEvent) -> Unit): korlibs.io.lang.Closeable =
+		DummyAutoCloseable
 
 	open suspend fun touch(path: String, time: DateTime, atime: DateTime) = Unit
 
@@ -291,7 +292,7 @@ abstract class Vfs : AsyncCloseable {
 			return srcFile.renameTo(dstFile.path)
 		}
 
-		override suspend fun watch(path: String, handler: (FileEvent) -> Unit): Closeable {
+		override suspend fun watch(path: String, handler: (FileEvent) -> Unit): AutoCloseable {
 			initOnce()
 			return access(path).watch { e ->
 				launchImmediately(coroutineContext) {

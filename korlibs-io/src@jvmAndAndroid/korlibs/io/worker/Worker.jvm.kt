@@ -12,7 +12,7 @@ actual annotation class WorkerExport()
 private class WorkerInfo(
     val requestChannel: Channel<ExecuteInfo>,
     val thread: Thread
-) : Closeable {
+) : AutoCloseable {
     override fun close() {
         thread.interrupt()
     }

@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalStdlibApi::class)
+
 package korlibs.io.net
 
 import korlibs.io.async.AsyncCloseable
@@ -122,7 +124,7 @@ interface AsyncServer : AsyncCloseable {
 
 	suspend fun accept(): AsyncClient
 
-	suspend fun listen(handler: suspend (AsyncClient) -> Unit): Closeable {
+	suspend fun listen(handler: suspend (AsyncClient) -> Unit): AutoCloseable {
 		val job = launchImmediately(coroutineContext) {
             try {
                 while (true) {

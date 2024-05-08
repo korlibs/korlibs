@@ -59,7 +59,7 @@ class AndroidWASMLib(content: ByteArray) : IWASMLib, BaseWASMLib(content) {
     */
 }
 
-private class AndroidWASMExecutor(val context: Context, val trace: Boolean) : Closeable {
+private class AndroidWASMExecutor(val context: Context, val trace: Boolean) : AutoCloseable {
     private val js: JavascriptIsolate by lazy {
         JavascriptIsolate(context, trace)
     }

@@ -18,7 +18,7 @@ open class Context2d(
     val renderer: Renderer,
     val defaultFontRegistry: FontRegistry? = null,
     val defaultFont: Font? = null
-) : VectorBuilder, Disposable {
+) : VectorBuilder {
     var debug: Boolean
         get() = renderer.debug
         set(value) {
@@ -60,7 +60,7 @@ open class Context2d(
     open val width: Int get() = rendererWidth
     open val height: Int get() = rendererHeight
 
-    override fun dispose() {
+    fun dispose() {
         rendererDispose()
     }
 

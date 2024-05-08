@@ -5,7 +5,7 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
-  - ../korlibs-math-core
-  - ../korlibs-math-vector: exported
-  - ../korlibs-ffi
-  - ../korlibs-closeable
+  - org.jetbrains.kotlinx:atomicfu:0.23.1: exported
+
+test-dependencies:
+  - ../korlibs-platform

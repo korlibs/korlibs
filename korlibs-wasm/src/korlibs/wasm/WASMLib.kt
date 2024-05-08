@@ -9,6 +9,7 @@ expect open class WASMLib(content: ByteArray) : IWASMLib {
     override fun close()
 }
 
+@OptIn(ExperimentalStdlibApi::class)
 interface IWASMLib : AutoCloseable {
     val isAvailable: Boolean get() = true
     val content: ByteArray

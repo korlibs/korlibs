@@ -5,6 +5,7 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
+  - ../korlibs-extra: exported
   - ../korlibs-concurrent: exported
   - ../korlibs-time-core: exported
   - ../korlibs-datastructure-core: exported

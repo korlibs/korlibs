@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalStdlibApi::class)
+
 package korlibs.io.worker
 
 import korlibs.concurrent.thread.*
@@ -12,7 +14,7 @@ actual annotation class WorkerExport()
 private class WorkerInfo(
     val requestChannel: Channel<ExecuteInfo<*>>,
     val thread: NativeThread
-) : Closeable {
+) : AutoCloseable {
     override fun close() {
         thread.interrupt()
     }

@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalStdlibApi::class)
+
 package korlibs.ffi
 
 import korlibs.datastructure.*
@@ -185,7 +187,7 @@ fun Buffer.setUnalignedFFIPointer(offset: Int, value: FFIPointer?) {
 
 expect fun FFILibSym(lib: FFILib): FFILibSym
 
-interface FFILibSym : Closeable {
+interface FFILibSym : AutoCloseable {
     fun <T> get(name: String, type: KType): T = TODO()
     override fun close() {}
 }

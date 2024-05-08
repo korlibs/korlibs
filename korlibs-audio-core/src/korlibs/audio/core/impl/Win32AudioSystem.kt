@@ -2,8 +2,8 @@ package korlibs.audio.core.impl
 
 import korlibs.audio.core.*
 import korlibs.concurrent.thread.*
-import korlibs.datastructure.closeable.*
 import korlibs.ffi.*
+import korlibs.io.lang.*
 import korlibs.memory.*
 import korlibs.time.*
 
@@ -45,7 +45,7 @@ internal object Win32AudioSystem : AudioSystem() {
 
         class WaveOutAudioStreamPlayer(val device: AudioDevice) : AudioStreamPlayer {
             @OptIn(ExperimentalStdlibApi::class)
-            override fun playStream(rate: Int, channels: Int, gen: (position: Long, data: Array<AudioSampleArray>) -> Int): Closeable {
+            override fun playStream(rate: Int, channels: Int, gen: (position: Long, data: Array<AudioSampleArray>) -> Int): AutoCloseable {
                 var running = true
                 val nativeThread = NativeThread {
                     ffiScoped {

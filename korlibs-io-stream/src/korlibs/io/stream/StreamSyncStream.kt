@@ -1,10 +1,10 @@
+@file:OptIn(ExperimentalStdlibApi::class)
+
 package korlibs.io.stream
 
 import korlibs.datastructure.*
-import korlibs.datastructure.closeable.*
-import korlibs.io.lang.*
 
-interface SyncInputStream : Closeable {
+interface SyncInputStream : AutoCloseable {
     fun read(buffer: ByteArray, offset: Int = 0, len: Int = buffer.size - offset): Int
     fun read(): Int = ByteArray(1).let { if (read(it, 0, 1) > 0) it[0].toInt() and 0xFF else -1 }
     fun skip(count: Int) {
@@ -18,7 +18,7 @@ interface MarkableSyncInputStream : SyncInputStream {
     fun reset()
 }
 
-interface SyncOutputStream : Closeable {
+interface SyncOutputStream : AutoCloseable {
     fun write(buffer: ByteArray, offset: Int = 0, len: Int = buffer.size - offset): Unit
     fun write(byte: Int) = ByteArray(1).let { it[0] = byte.toByte(); write(it, 0, 1) }
     fun flush() = Unit
@@ -42,14 +42,14 @@ interface SyncRAOutputStream {
     fun flush(): Unit = Unit
 }
 
-open class SyncStreamBase : Closeable, SyncRAInputStream, SyncRAOutputStream, SyncLengthStream {
+open class SyncStreamBase : AutoCloseable, SyncRAInputStream, SyncRAOutputStream, SyncLengthStream {
     open val separateReadWrite: Boolean get() = false
     val smallTemp = ByteArray(16)
     open val seekable get() = true
     fun read(position: Long): Int = if (read(position, smallTemp, 0, 1) >= 1) smallTemp[0].toInt() and 0xFF else -1
-    override fun read(position: Long, buffer: ByteArray, offset: Int, len: Int): Int = unsupported()
-    override fun write(position: Long, buffer: ByteArray, offset: Int, len: Int): Unit = unsupported()
-    override var length: Long set(_) = unsupported(); get() = unsupported()
+    override fun read(position: Long, buffer: ByteArray, offset: Int, len: Int): Int = throw UnsupportedOperationException()
+    override fun write(position: Long, buffer: ByteArray, offset: Int, len: Int): Unit = throw UnsupportedOperationException()
+    override var length: Long set(_) = throw UnsupportedOperationException(); get() = throw UnsupportedOperationException()
     override fun close() = Unit
     fun open(position: Long = 0L) = SyncStream(this, position)
 }
@@ -57,7 +57,7 @@ open class SyncStreamBase : Closeable, SyncRAInputStream, SyncRAOutputStream, Sy
 class SyncStream constructor(
     val base: SyncStreamBase,
     position: Long = 0L
-) : Extra by Extra.Mixin(), Closeable, SyncInputStream, SyncPositionStream, SyncOutputStream, SyncLengthStream, MarkableSyncInputStream {
+) : Extra by Extra.Mixin(), AutoCloseable, SyncInputStream, SyncPositionStream, SyncOutputStream, SyncLengthStream, MarkableSyncInputStream {
     private val smallTemp = base.smallTemp
     private val separateReadWrite = base.separateReadWrite
 
@@ -126,7 +126,7 @@ class SyncStream constructor(
     var markPos = 0L
 
     override fun mark(readlimit: Int) {
-        if (!base.seekable) unsupported()
+        if (!base.seekable) throw UnsupportedOperationException()
         markPos = positionRead
     }
 

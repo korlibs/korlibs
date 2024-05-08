@@ -1,4 +1,5 @@
 @file:Suppress("EXPERIMENTAL_FEATURE_WARNING")
+@file:OptIn(ExperimentalStdlibApi::class)
 
 package korlibs.io.file.std
 
@@ -112,7 +113,7 @@ open class NodeVfs(val caseSensitive: Boolean = true) : Vfs() {
 		return true
 	}
 
-	override suspend fun watch(path: String, handler: (FileEvent) -> Unit): Closeable {
+	override suspend fun watch(path: String, handler: (FileEvent) -> Unit): AutoCloseable {
 		return events { handler(it) }
 	}
 

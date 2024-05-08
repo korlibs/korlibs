@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalStdlibApi::class)
+
 package korlibs.audio.format
 
 import korlibs.audio.sound.*
@@ -233,7 +235,7 @@ abstract class BaseMinimp3AudioFormat : AudioFormat("mp3") {
         }
     }
 
-    interface BaseMp3Decoder : Closeable {
+    interface BaseMp3Decoder : AutoCloseable {
         val info: BaseMp3DecoderInfo
         fun decodeFrame(availablePeek: Int): ShortArray?
     }

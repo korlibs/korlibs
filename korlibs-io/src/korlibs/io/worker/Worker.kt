@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalStdlibApi::class)
+
 package korlibs.io.worker
 
 import korlibs.io.async.*
@@ -79,7 +81,7 @@ open class WorkerTask {
     }
 }
 
-class Worker : Closeable {
+class Worker : AutoCloseable {
     val id = workerImpl.createWorker()
 
     suspend inline fun <reified T : WorkerTask> execute(noinline create: () -> T, vararg params: Any?): Any? {

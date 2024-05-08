@@ -36,7 +36,7 @@ object DenoWasmProcessStdin {
     }
 }
 
-class DenoWASM(val io: DenoWasmIO, val streamId: Int, val wasmModuleBytes: ByteArray) : Closeable {
+class DenoWASM(val io: DenoWasmIO, val streamId: Int, val wasmModuleBytes: ByteArray) : AutoCloseable {
     init {
         io.loadWASM(streamId, wasmModuleBytes)
     }
@@ -62,7 +62,7 @@ class DenoWASM(val io: DenoWasmIO, val streamId: Int, val wasmModuleBytes: ByteA
 class DenoWasmIO(
     val output: SyncOutputStream,
     val input: SyncInputStream,
-    val _close: Closeable? = null,
+    val _close: AutoCloseable? = null,
     val debug: Boolean = true,
 ) {
     fun close() {

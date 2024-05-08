@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalStdlibApi::class)
+
 package korlibs.audio.core
 
 import korlibs.datastructure.closeable.*
@@ -14,7 +16,7 @@ fun AudioDevice.Companion.default(): AudioDevice = defaultAudioSystem.defaultDev
 fun AudioDevice.Companion.list(): List<AudioDevice> = defaultAudioSystem.devices
 
 interface AudioStreamPlayer {
-    fun playStream(rate: Int, channels: Int, gen: (position: Long, data: Array<AudioSampleArray>) -> Int): Closeable
+    fun playStream(rate: Int, channels: Int, gen: (position: Long, data: Array<AudioSampleArray>) -> Int): AutoCloseable
 }
 
 expect val defaultAudioSystem: AudioSystem
@@ -25,7 +27,7 @@ abstract class AudioSystem {
     open val devices: List<AudioDevice> by lazy { listOf(AudioDevice("default", isDefault = true)) }
 }
 
-abstract class AudioPlayer protected constructor(unit: Unit = Unit) : Closeable {
+abstract class AudioPlayer protected constructor(unit: Unit = Unit) : AutoCloseable {
     abstract val device: AudioDevice
 
     companion object { }
@@ -52,7 +54,7 @@ class AudioListener(val player: AudioPlayer) {
     var forward by player::listenerForward
 }
 
-abstract class AudioSource : Closeable {
+abstract class AudioSource : AutoCloseable {
     abstract val player: AudioPlayer
 
     open var name: String? = null

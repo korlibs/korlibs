@@ -22,7 +22,8 @@ private val Win32NativeSoundProvider_WaveOutProcess = Pool<WaveOutProcess> {
     WaveOutProcess(44100, 2).start(Win32NativeSoundProvider_workerPool.alloc())
 }
 
-object Win32NativeSoundProvider : NativeSoundProvider(), Disposable {
+@OptIn(ExperimentalStdlibApi::class)
+object Win32NativeSoundProvider : NativeSoundProvider(), AutoCloseable {
 
     //val workerPool get() = Win32NativeSoundProvider_workerPool
     val workerPool get() = Win32NativeSoundProvider_WaveOutProcess
@@ -30,7 +31,7 @@ object Win32NativeSoundProvider : NativeSoundProvider(), Disposable {
     override fun createPlatformAudioOutput(coroutineContext: CoroutineContext, freq: Int): PlatformAudioOutput =
         Win32PlatformAudioOutput(this, coroutineContext, freq)
 
-    override fun dispose() {
+    override fun close() {
         while (Win32NativeSoundProvider_workerPool.itemsInPool > 0) {
             Win32NativeSoundProvider_workerPool.alloc().cancel()
         }
