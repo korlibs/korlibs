@@ -262,7 +262,7 @@ data class VfsFile(
 		charset: Charset = UTF8
 	): Int = passthru(cmdAndArgs.toList(), env, charset)
 
-	suspend fun watch(handler: suspend (Vfs.FileEvent) -> Unit): Closeable {
+	suspend fun watch(handler: suspend (Vfs.FileEvent) -> Unit): AutoCloseable {
 		//val cc = coroutineContext
 		val cc = coroutineContext
 		return vfs.watch(this.path) { event -> launchImmediately(cc) { handler(event) } }

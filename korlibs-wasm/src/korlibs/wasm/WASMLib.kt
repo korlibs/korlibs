@@ -6,7 +6,8 @@ import kotlin.coroutines.*
 
 expect open class WASMLib(content: ByteArray) : IWASMLib
 
-interface IWASMLib : Closeable {
+@OptIn(ExperimentalStdlibApi::class)
+interface IWASMLib : AutoCloseable {
     val isAvailable: Boolean get() = true
     val content: ByteArray
 

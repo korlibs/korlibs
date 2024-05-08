@@ -105,7 +105,7 @@ open class SyncExecProcess(
     val stdin: SyncOutputStream,
     val stdout: SyncInputStream,
     val stderr: SyncInputStream,
-) : Closeable {
+) : AutoCloseable {
     open val exitCode: Int get() = TODO()
 
     open fun destroy() {
@@ -181,7 +181,7 @@ class MemorySyncIO : SyncIO {
 
 data class SyncIOStat(val path: String, val isDirectory: Boolean, val size: Long)
 
-interface SyncIOFD : Closeable {
+interface SyncIOFD : AutoCloseable {
     var length: Long
     var position: Long
     fun write(data: ByteArray, offset: Int = 0, size: Int = data.size - offset): Int

@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalStdlibApi::class)
+
 package korlibs.audio.core.impl
 
 import korlibs.audio.core.*
@@ -13,7 +15,7 @@ abstract class SoftAudioSystem(val streamPlayer: AudioStreamPlayer) : AudioPlaye
     }
 
     class SoftAudioSource(override val player: SoftAudioSystem) : AudioSource() {
-        var stream: Closeable? = null
+        var stream: AutoCloseable? = null
 
         override fun _play() {
             stream?.close()

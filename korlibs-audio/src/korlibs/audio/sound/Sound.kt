@@ -38,7 +38,7 @@ open class LazyNativeSoundProvider(val gen: () -> NativeSoundProvider) : NativeS
     override suspend fun createSound(data: AudioData, formats: AudioFormats, streaming: Boolean, name: String): Sound =
         parent.createSound(data, formats, streaming, name)
 
-    override fun dispose() = parent.dispose()
+    override fun close() = parent.close()
 }
 
 open class NativeSoundProviderNew : NativeSoundProvider() {
@@ -46,7 +46,8 @@ open class NativeSoundProviderNew : NativeSoundProvider() {
         PlatformAudioOutputBasedOnNew(this, coroutineContext, freq)
 }
 
-open class NativeSoundProvider() : Disposable, Pauseable {
+@OptIn(ExperimentalStdlibApi::class)
+open class NativeSoundProvider() : AutoCloseable, Pauseable {
 	open val target: String = "unknown"
 
     override var paused: Boolean = false
@@ -119,7 +120,7 @@ open class NativeSoundProvider() : Disposable, Pauseable {
 
     suspend fun playAndWait(stream: AudioStream, params: PlaybackParameters = PlaybackParameters.DEFAULT) = createStreamingSound(stream).playAndWait(params)
 
-    override fun dispose() {
+    override fun close() {
     }
 }
 

@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalForeignApi::class)
+@file:OptIn(ExperimentalForeignApi::class, ExperimentalStdlibApi::class)
 
 package korlibs.io.file.std
 
@@ -294,7 +294,7 @@ open class LocalVfsNativeBase(val async: Boolean = true) : LocalVfs() {
         platform.posix.rename(resolve(src), resolve(dst)) == 0
     }
 
-    override suspend fun watch(path: String, handler: (FileEvent) -> Unit): Closeable {
+    override suspend fun watch(path: String, handler: (FileEvent) -> Unit): AutoCloseable {
         // @TODO:
         println("TODO:LocalVfsNative.watch")
         return DummyCloseable

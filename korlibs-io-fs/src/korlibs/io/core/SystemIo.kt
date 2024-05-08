@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalStdlibApi::class)
+
 package korlibs.io.core
 
 import korlibs.datastructure.closeable.*
@@ -55,7 +57,7 @@ open class SyncSystemIoProcess(
     val stdin: SyncOutputStream,
     val stdout: SyncInputStream,
     val stderr: SyncInputStream,
-) : Closeable {
+) : AutoCloseable {
     open val exitCode: Int get() = Int.MIN_VALUE
     open fun destroy(): Unit = close()
     override fun close() = Unit
@@ -111,7 +113,7 @@ abstract class FileSystemIo : AsyncCloseable, AsyncInputStream, AsyncOutputStrea
     abstract override suspend fun close(): Unit
 }
 
-abstract class SyncFileSystemIo : Closeable, SyncInputStream, SyncOutputStream {
+abstract class SyncFileSystemIo : AutoCloseable, SyncInputStream, SyncOutputStream {
     abstract fun getLength(): Long
     abstract fun setLength(value: Long): Unit
     abstract fun getPosition(): Long

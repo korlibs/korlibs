@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalStdlibApi::class)
+
 package korlibs.io.file.std
 
 import korlibs.datastructure.closeable.Closeable
@@ -135,7 +137,7 @@ internal open class BaseLocalVfsJvm : LocalVfs() {
 
     protected open fun watchModifiers(path: String): Array<WatchEvent.Modifier> = emptyArray()
 
-    override suspend fun watch(path: String, handler: (FileEvent) -> Unit): Closeable {
+    override suspend fun watch(path: String, handler: (FileEvent) -> Unit): korlibs.io.lang.Closeable {
         var running = true
         val fs = FileSystems.getDefault()
         val watcher = fs.newWatchService()
@@ -205,7 +207,7 @@ internal open class BaseLocalVfsJvm : LocalVfs() {
             }
         }
 
-        return Closeable {
+        return korlibs.io.lang.Closeable {
             running = false
             registeredKey.cancel()
         }
