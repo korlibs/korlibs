@@ -792,7 +792,7 @@ class MicroAmper {
                 val isLinux = platform.startsWith("linux")
                 val isPosix = isLinux || isApple
                 val basePlatform = getKotlinBasePlatform(platform)
-                if (isPosix) ssDependsOn(platform, "posix")
+                if (isPosix) ssDependsOn(basePlatform, "posix")
                 if (isApple) ssDependsOn(basePlatform, "apple")
                 if (isNative) ssDependsOn(basePlatform, "native")
                 if (platform != basePlatform) ssDependsOn(platform, basePlatform)
