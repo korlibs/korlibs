@@ -5,10 +5,6 @@ import korlibs.io.file.std.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
 
-//suspend fun withContext(context: Context, suspend callback: () -> Unit) {
-//	coroutineContext.
-//}
-
 class AndroidCoroutineContext(val context: Context) : CoroutineContext.Element {
 	object Key : CoroutineContext.Key<AndroidCoroutineContext>
 

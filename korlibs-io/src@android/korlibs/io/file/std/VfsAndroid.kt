@@ -14,16 +14,6 @@ import java.io.*
 import java.net.URL
 import kotlin.math.*
 
-private var _vfsInitWithAndroidContextOnce: Boolean = false
-var absoluteCwd = File(".").absolutePath
-val tmpdir: String by lazy { System.getProperty("java.io.tmpdir") }
-
-fun vfsInitWithAndroidContextOnce(context: Context) {
-    if (_vfsInitWithAndroidContextOnce) return
-    _vfsInitWithAndroidContextOnce = true
-    absoluteCwd = context.applicationInfo.dataDir
-}
-
 class AndroidDeferredVfs(private val generate: (Context) -> VfsFile) : Vfs.Proxy() {
     private var _generated: VfsFile? = null
     suspend fun generated(): VfsFile {

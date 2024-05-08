@@ -4,6 +4,7 @@ import android.content.Context
 import korlibs.io.android.withAndroidContext
 import korlibs.io.file.std.*
 import kotlinx.coroutines.*
+import kotlin.coroutines.*
 
 @Suppress("ACTUAL_WITHOUT_EXPECT", "ACTUAL_TYPE_ALIAS_TO_CLASS_WITH_DECLARATION_SITE_VARIANCE")
 actual typealias AsyncEntryPointResult = Unit
@@ -32,3 +33,6 @@ actual fun asyncTestEntryPoint(callback: suspend () -> Unit) {
         }
     }
 }
+
+actual fun <T> runBlockingNoJs(context: CoroutineContext, block: suspend CoroutineScope.() -> T): T =
+    runBlocking(runBlockingNoJs_transformContext(context)) { block() }
