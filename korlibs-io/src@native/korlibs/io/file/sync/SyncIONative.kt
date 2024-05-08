@@ -69,4 +69,10 @@ actual fun platformSyncIO(caseSensitive: Boolean): SyncIO = object : SyncIO {
     }
 }
 
-internal expect fun syncExecNative(commands: List<String>, envs: Map<String, String>, cwd: String): SyncExecProcess
+internal fun syncExecNative(
+    commands: List<String>,
+    envs: Map<String, String>,
+    cwd: String
+): SyncExecProcess {
+    TODO("Not yet implemented")
+}

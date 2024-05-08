@@ -781,9 +781,6 @@ class MicroAmper {
 
     fun applyTo(project: Project) = with(project) {
         kotlin.sourceSets {
-            ssPair("common")
-            ssPair("apple")
-            ssPair("native")
             ssDependsOn("native", "common")
             //depends("posix", "native")
             ssDependsOn("apple", "native")
@@ -815,7 +812,6 @@ class MicroAmper {
                     kotlin.wasmJs {
                     }
                     kotlin.sourceSets {
-                        ssPair("wasm")
                         ssDependsOn("wasmJs", "wasm")
                     }
                 }
@@ -854,7 +850,6 @@ class MicroAmper {
 
             for ((alias, platforms) in (kotlinAliases + kotlinBasePlatforms)) {
                 //for ((alias, platforms) in kotlinAliases) {
-                ssPair(alias)
                 ssDependsOn(alias, "common")
                 for (platform in platforms) ssDependsOn(platform, alias)
             }
