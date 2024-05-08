@@ -785,13 +785,22 @@ class MicroAmper {
             ssDependsOn("native", "common")
             ssDependsOn("posix", "native")
             ssDependsOn("apple", "posix")
+            ssDependsOn("appleNonWatchos", "apple")
+            ssDependsOn("appleIosTvos", "apple")
 
             for (platform in kotlinPlatforms) {
+                val isMacos = platform.startsWith("macos")
+                val isIos = platform.startsWith("ios")
+                val isTvos = platform.startsWith("tvos")
+                val isWatchos = platform.startsWith("watchos")
                 val isNative = platform.contains("X86") || platform.contains("X64") || platform.contains("Arm")
-                val isApple = platform.startsWith("ios") || platform.startsWith("tvos") || platform.startsWith("watchos") || platform.startsWith("macos")
+                val isApple = isMacos || isIos || isTvos || isWatchos
                 val isLinux = platform.startsWith("linux")
+                val isWindows = platform.startsWith("mingw")
                 val isPosix = isLinux || isApple
                 val basePlatform = getKotlinBasePlatform(platform)
+                if (isIos || isTvos) ssDependsOn(basePlatform, "appleIosTvos")
+                if (isApple && !isWatchos) ssDependsOn(basePlatform, "appleNonWatchos")
                 if (isPosix) ssDependsOn(basePlatform, "posix")
                 if (isApple) ssDependsOn(basePlatform, "apple")
                 if (isNative) ssDependsOn(basePlatform, "native")
