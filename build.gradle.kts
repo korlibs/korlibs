@@ -748,42 +748,56 @@ class MicroAmper {
         }
     }
 
+    data class SourceSetPair(val main: KotlinSourceSet, val test: KotlinSourceSet) {
+        fun dependsOn(other: SourceSetPair) {
+            main.dependsOn(other.main)
+            test.dependsOn(other.test)
+        }
+    }
+
+    val sourceSetPairs = LinkedHashMap<String, SourceSetPair>()
+
+    fun NamedDomainObjectContainer<KotlinSourceSet>.ssPair(name: String): SourceSetPair {
+        return sourceSetPairs.getOrPut(name) {
+            val atName = if (name == "common") "" else "@$name"
+            SourceSetPair(
+                main = maybeCreate("${name}Main").also {
+                    it.kotlin.srcDir("src$atName")
+                    it.resources.srcDir("resources$atName")
+                },
+                test = maybeCreate("${name}Test").also {
+                    it.kotlin.srcDir("test$atName")
+                    it.resources.srcDir("testResources$atName")
+                }
+            )
+        }
+    }
+
+    fun NamedDomainObjectContainer<KotlinSourceSet>.ssDependsOn(base: String, other: String) {
+        if (base == other) return
+        //println("$base dependsOn $other")
+        ssPair(base).dependsOn(ssPair(other))
+    }
+
     fun applyTo(project: Project) = with(project) {
-        fun NamedDomainObjectContainer<org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet>.newCreate(name: String) {
-            val atName = if (name == "common") "" else "@name"
-            maybeCreate("${name}Main").also {
-                it.kotlin.srcDir("src$atName")
-                it.resources.srcDir("resources$atName")
-            }
-            maybeCreate("${name}Test").also {
-                it.kotlin.srcDir("test$atName")
-                it.resources.srcDir("testResources$atName")
-            }
-        }
-
-        fun NamedDomainObjectContainer<org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet>.depends(base: String, other: String) {
-            maybeCreate("${base}Main").dependsOn(maybeCreate("${other}Main"))
-            maybeCreate("${base}Test").dependsOn(maybeCreate("${other}Test"))
-        }
-
         kotlin.sourceSets {
-            newCreate("common")
-            newCreate("apple")
-            newCreate("native")
-            depends("native", "common")
+            ssPair("common")
+            ssPair("apple")
+            ssPair("native")
+            ssDependsOn("native", "common")
             //depends("posix", "native")
-            depends("apple", "native")
-
-            maybeCreate("androidTest").dependsOn(maybeCreate("commonTest"))
+            ssDependsOn("apple", "native")
 
             for (platform in kotlinPlatforms) {
                 val isNative = platform.contains("X86") || platform.contains("X64") || platform.contains("Arm")
                 val isApple = platform.startsWith("ios") || platform.startsWith("tvos") || platform.startsWith("watchos") || platform.startsWith("macos")
                 val isLinux = platform.startsWith("linux")
                 val isPosix = isLinux || isApple
+                val basePlatform = getKotlinBasePlatform(platform)
                 //if (isPosix) depends(platform, "posix")
-                if (isApple) depends(platform, "apple")
-                if (isNative) depends(platform, "native")
+                if (isApple) ssDependsOn(basePlatform, "apple")
+                if (isNative) ssDependsOn(basePlatform, "native")
+                if (platform != basePlatform) ssDependsOn(platform, basePlatform)
             }
         }
 
@@ -801,12 +815,11 @@ class MicroAmper {
                     kotlin.wasmJs {
                     }
                     kotlin.sourceSets {
-                        newCreate("wasm")
-                        depends("wasmJs", "wasm")
+                        ssPair("wasm")
+                        ssDependsOn("wasmJs", "wasm")
                     }
                 }
-                "android" -> kotlin.androidTarget {
-                }
+                "android" -> kotlin.androidTarget {}
                 "linuxX64" -> kotlin.linuxX64()
                 "linuxArm64" -> kotlin.linuxArm64()
                 "tvosArm64" -> kotlin.tvosArm64()
@@ -839,32 +852,11 @@ class MicroAmper {
         kotlin.sourceSets {
             // jvm, js, wasm, android, linuxX64, linuxArm64, tvosArm64, tvosX64, tvosSimulatorArm64, macosX64, macosArm64, iosArm64, iosSimulatorArm64, iosX64, watchosArm64, watchosArm32, watchosDeviceArm64, watchosSimulatorArm64, mingwX64
 
-            //println(kotlinAliases + kotlinBasePlatforms)
-
-            fun connectSourceSet(alias: String, platforms: List<String>) {
-                val aliasMain = maybeCreate("${alias}Main")
-                val aliasTest = maybeCreate("${alias}Test")
-                aliasMain.kotlin.srcDir("src@${alias}")
-                aliasTest.kotlin.srcDir("test@${alias}")
-
-                aliasMain.dependsOn(get("commonMain"))
-                aliasTest.dependsOn(get("commonTest"))
-
-                //for (platform in (platforms + "common")) {
-                for (platform in platforms) {
-                    if (platform == alias) continue
-                    val platformMain = maybeCreate("${platform}Main")
-                    val platformTest = maybeCreate("${platform}Test")
-                    //println("$platform.dependsOn($alias)")
-                    platformMain.dependsOn(aliasMain)
-                    platformTest.dependsOn(aliasTest)
-                }
-
-            }
-
             for ((alias, platforms) in (kotlinAliases + kotlinBasePlatforms)) {
                 //for ((alias, platforms) in kotlinAliases) {
-                connectSourceSet(alias, platforms)
+                ssPair(alias)
+                ssDependsOn(alias, "common")
+                for (platform in platforms) ssDependsOn(platform, alias)
             }
         }
         //println(" -> $platforms")
