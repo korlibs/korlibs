@@ -410,13 +410,11 @@ fun CreateStringTextRenderer(
     }
 }
 
-@SharedImmutable
 val DefaultWStringTextRenderer: TextRenderer<WString> = CreateWStringTextRenderer { text, c, g, advance ->
     put(text, c)
     advance(advance)
 }
 
-@SharedImmutable
 val DefaultStringTextRenderer: TextRenderer<String> = CreateStringTextRenderer { text, c, g, advance ->
     put(text, c)
     advance(advance)
