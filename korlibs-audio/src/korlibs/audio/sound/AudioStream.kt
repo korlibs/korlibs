@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalStdlibApi::class)
+
 package korlibs.audio.sound
 
 import korlibs.time.TimeSpan
@@ -15,7 +17,7 @@ import kotlin.math.min
 abstract class AudioStream(
     val rate: Int,
     val channels: Int
-) : AudioStreamable, Closeable {
+) : AudioStreamable, AutoCloseable {
     open val finished = false
     open val totalLengthInSamples: Long? = null
     val totalLength get() = ((totalLengthInSamples ?: 0L).toDouble() / rate.toDouble()).seconds
