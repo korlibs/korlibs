@@ -773,6 +773,7 @@ class MicroAmper {
         }
     }
 
+    // specific depends on more generic
     fun NamedDomainObjectContainer<KotlinSourceSet>.ssDependsOn(base: String, other: String) {
         if (base == other) return
         //println("$base dependsOn $other")
@@ -782,8 +783,8 @@ class MicroAmper {
     fun applyTo(project: Project) = with(project) {
         kotlin.sourceSets {
             ssDependsOn("native", "common")
-            //depends("posix", "native")
-            ssDependsOn("apple", "native")
+            ssDependsOn("posix", "native")
+            ssDependsOn("apple", "posix")
 
             for (platform in kotlinPlatforms) {
                 val isNative = platform.contains("X86") || platform.contains("X64") || platform.contains("Arm")
@@ -791,7 +792,7 @@ class MicroAmper {
                 val isLinux = platform.startsWith("linux")
                 val isPosix = isLinux || isApple
                 val basePlatform = getKotlinBasePlatform(platform)
-                //if (isPosix) depends(platform, "posix")
+                if (isPosix) ssDependsOn(platform, "posix")
                 if (isApple) ssDependsOn(basePlatform, "apple")
                 if (isNative) ssDependsOn(basePlatform, "native")
                 if (platform != basePlatform) ssDependsOn(platform, basePlatform)

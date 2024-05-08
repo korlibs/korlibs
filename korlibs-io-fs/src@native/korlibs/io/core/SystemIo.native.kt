@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalForeignApi::class, UnsafeNumber::class, UnsafeNumber::class)
+@file:OptIn(ExperimentalForeignApi::class, UnsafeNumber::class, UnsafeNumber::class, ExperimentalForeignApi::class)
 
 package korlibs.io.core
 
