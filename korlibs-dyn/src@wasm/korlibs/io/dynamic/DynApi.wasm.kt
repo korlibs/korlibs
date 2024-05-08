@@ -22,7 +22,7 @@ private fun <T : JsAny?> jsArrayOf(vararg values: T): JsArray<T> {
 }
 
 internal actual object DynamicInternal : DynApi {
-	override val global: Any get() = jsGlobal
+	actual override val global: Any = jsGlobal
 
     override fun get(instance: Any?, key: String): Any? {
         if (instance == null) return null

@@ -3,7 +3,7 @@ package korlibs.io.dynamic
 private external val globalThis: dynamic
 
 internal actual object DynamicInternal : DynApi {
-	override val global: Any get() = globalThis
+	actual override val global: Any get() = globalThis
 
     override fun get(instance: Any?, key: String): Any? = (instance.asDynamic())[key]
     override fun set(instance: Any?, key: String, value: Any?) { (instance.asDynamic())[key] = value }

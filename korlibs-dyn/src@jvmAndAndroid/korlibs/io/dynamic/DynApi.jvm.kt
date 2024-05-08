@@ -5,7 +5,7 @@ import java.lang.reflect.*
 internal actual object DynamicInternal : DynApi {
     class JavaPackage(val name: String)
 
-    override val global: Any? = JavaPackage("")
+    actual override val global: Any = JavaPackage("")
 
     private fun tryGetField(clazz: Class<*>, name: String): Field? {
         val field = runCatching { clazz.getDeclaredField(name) }.getOrNull()

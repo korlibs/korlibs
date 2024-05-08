@@ -6,6 +6,7 @@ import groovy.util.*
 import org.gradle.api.tasks.testing.logging.*
 import org.gradle.jvm.tasks.Jar
 import org.gradle.plugins.signing.signatory.internal.pgp.*
+import org.jetbrains.kotlin.gradle.dsl.*
 import org.jetbrains.kotlin.gradle.plugin.*
 import org.jetbrains.kotlin.gradle.targets.js.ir.*
 import java.net.*
@@ -13,28 +14,65 @@ import java.util.*
 import java.util.concurrent.*
 
 plugins {
-    //kotlin("multiplatform") version "1.9.23"
-    kotlin("multiplatform") //apply false
+    kotlin("multiplatform") version "2.0.0-RC2"
+    //kotlin("multiplatform") version "1.9.24"
+    id("com.android.library") version "8.2.2"
+    //kotlin("multiplatform") //apply false
     `maven-publish`
     signing
 }
+
+val JVM_TARGET = JvmTarget.JVM_1_8
+val GROUP = "com.soywiz"
 
 allprojects {
     repositories {
         mavenCentral()
         google()
         gradlePluginPortal()
-        maven("https://maven.pkg.jetbrains.space/public/p/amper/amper")
-        maven("https://www.jetbrains.com/intellij-repository/releases")
-        maven("https://packages.jetbrains.team/maven/p/ij/intellij-dependencies")
+        //maven("https://maven.pkg.jetbrains.space/public/p/amper/amper")
+        //maven("https://www.jetbrains.com/intellij-repository/releases")
+        //maven("https://packages.jetbrains.team/maven/p/ij/intellij-dependencies")
     }
-    afterEvaluate {
-        group = "com.soywiz"
+    version = REAL_VERSION
+    group = GROUP
+
+    project.apply(plugin = "kotlin-multiplatform")
+    project.apply(plugin = "android-library")
+
+    android {
+        //signingConfigs {
+        //    debug {
+        //        […]
+        //    }
+        //    release {
+        //        […]
+        //    }
+        //}
+        compileSdk = 33
+        namespace = "com.soywiz.${project.name.replace("-", ".")}"
+        //    defaultConfig {
+        //        applicationId "[…]"
+        //        minSdk 25
+        //        targetSdk 33
+        //        compileSdk 33
+        //        versionCode 33
+        //        versionName '33'
+        //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //        signingConfig signingConfigs.release
+        //    }
+        //buildTypes {
+        //    release {
+        //        […]
+        //    }
+        //}
     }
+    MicroAmper().configure(this)
 }
 
 kotlin {
     jvm()
+    androidTarget()
 }
 
 fun Project.doOnce(uniqueName: String, block: () -> Unit) {
@@ -107,15 +145,6 @@ var REAL_VERSION = System.getenv("FORCED_VERSION")
 
 //val REAL_VERSION = System.getenv("FORCED_VERSION") ?: "999.0.0.999"
 
-allprojects {
-    version = REAL_VERSION
-    afterEvaluate {
-        afterEvaluate {
-            version = REAL_VERSION
-        }
-    }
-}
-
 subprojects {
     //apply<KotlinMultiplatformPlugin>()
     apply(plugin = "kotlin-multiplatform")
@@ -142,116 +171,115 @@ subprojects {
         }
     }
 
-    afterEvaluate {
-        kotlin {
-            //if (targets.any { it.name.contains("android") }) {
-                androidTarget {
-                    publishAllLibraryVariants()
-                    //publishLibraryVariants("release", "debug")
-                }
-            //}
-        }
-
-        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask::class) {
-            compilerOptions.suppressWarnings.set(true)
-            // @TODO: We should actually, convert warnings to errors and start removing warnings
-            compilerOptions.freeCompilerArgs.add("-nowarn")
-            //println("${project.name} ${this::class.java} : ${this.name}")
-        }
-
-        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinNativeLink::class) {
-            // /Users/soywiz/projects/korge-korlibs/korlibs-io/build/bin/iosSimulatorArm64/debugTest
-            //println(this.target)
-            //val target = Regex("^link(.*?)Test.*$").find(this.name)?.groupValues?.getOrNull(1)?.replaceFirstChar { it.lowercaseChar() }
-            //println(target)
-            //val compileTaskName = this.name.replace(Regex("^link(.*?)Test.*$")) { "compileTestKotlin${it.groupValues[1]}" }
-            //val compileTask = tasks.findByName(compileTaskName) as? KotlinNativeCompile?
-
-            doLast {
-                val folder = this.outputs.files.toList().firstOrNull()
-                if (folder != null) {
-                    copy {
-                        //from(compileTask.defaultSourceSet.resources)
-                        from(File(project.projectDir, "testresources"))
-                        //from(File(project.rootDir, "build/bin/$target/debugTest"))
-                        into(folder)
-                    }
-                }
+    kotlin {
+        //if (targets.any { it.name.contains("android") }) {
+            androidTarget {
+                this.compilerOptions.jvmTarget.set(JVM_TARGET)
+                publishAllLibraryVariants()
+                //publishLibraryVariants("release", "debug")
             }
-        }
-
-        tasks.withType(org.gradle.api.tasks.testing.AbstractTestTask::class) {
-            testLogging {
-                events = mutableSetOf(
-                    TestLogEvent.SKIPPED,
-                    TestLogEvent.FAILED,
-                    TestLogEvent.STANDARD_OUT, TestLogEvent.STANDARD_ERROR
-                )
-                exceptionFormat = TestExceptionFormat.FULL
-                showStandardStreams = true
-                showStackTraces = true
-            }
-        }
-
-        kotlin.targets.withType(KotlinJsIrTarget::class) {
-            //println("TARGET: $this")
-            //nodejs()
-            browser {
-                //testTask { useKarma { useChromeHeadless() } }
-                testRuns.getByName(KotlinTargetWithTests.DEFAULT_TEST_RUN_NAME).executionTask.configure {
-                    useKarma {
-                        useChromeHeadless()
-                        File(project.rootProject.rootDir, "karma.config.d").takeIf { it.exists() }?.let {
-                            useConfigDirectory(it)
-                        }
-                    }
-                }
-            }
-        }
-
-        fun String.escape(): String = buildString(length) {
-            for (c in this@escape) when (c) { '\n' -> append("\\n"); '\r' -> append("\\r"); '\t' -> append("\\t"); '\\' -> append("\\\\"); else -> append(c)  }
-        }
-        fun String.quote(): String = "\"${escape()}\""
-
-        fun generateCatalog(folder: File): String = buildString {
-            appendLine("{")
-            for (file in folder.listFiles() ?: arrayOf()) {
-                val fileName = if (file.isDirectory) "${file.name}/" else file.name
-                appendLine(" ${fileName.quote()} : [${file.length()}, ${file.lastModified()}],")
-            }
-            appendLine("}")
-        }
-
-        for (taskName in listOf("jsTestProcessResources", "wasmTestProcessResources")) {
-            tasks.findByName(taskName)?.apply {
-                doLast {
-                    for (dir in this.outputs.files.toList().filter { it.isDirectory }) {
-                        for (file in dir.walkTopDown()) {
-                            if (file.isDirectory) {
-                                //println("file=$file")
-                                File(file, "\$catalog.json").writeText(generateCatalog(file))
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // This is required on linux because testResources / testresources mismatch (that doesn't happen on Windows or Mac)
-        // See https://github.com/korlibs/korge-korlibs/issues/6
-        tasks.withType(ProcessResources::class) {
-            if (this.name.contains("js", ignoreCase = true) || this.name.contains("wasm", ignoreCase = true)) {
-                if (this.name.contains("Test")) {
-                    from("testresources")
-                }
-                from("resources")
-                duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-            }
-        }
-
-        //println(tasks.findByName("jsProcessResources")!!::class)
+        //}
     }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask::class) {
+        compilerOptions.suppressWarnings.set(true)
+        // @TODO: We should actually, convert warnings to errors and start removing warnings
+        compilerOptions.freeCompilerArgs.add("-nowarn")
+        //println("${project.name} ${this::class.java} : ${this.name}")
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinNativeLink::class) {
+        // /Users/soywiz/projects/korge-korlibs/korlibs-io/build/bin/iosSimulatorArm64/debugTest
+        //println(this.target)
+        //val target = Regex("^link(.*?)Test.*$").find(this.name)?.groupValues?.getOrNull(1)?.replaceFirstChar { it.lowercaseChar() }
+        //println(target)
+        //val compileTaskName = this.name.replace(Regex("^link(.*?)Test.*$")) { "compileTestKotlin${it.groupValues[1]}" }
+        //val compileTask = tasks.findByName(compileTaskName) as? KotlinNativeCompile?
+
+        doLast {
+            val folder = this.outputs.files.toList().firstOrNull()
+            if (folder != null) {
+                copy {
+                    //from(compileTask.defaultSourceSet.resources)
+                    from(File(project.projectDir, "testresources"))
+                    //from(File(project.rootDir, "build/bin/$target/debugTest"))
+                    into(folder)
+                }
+            }
+        }
+    }
+
+    tasks.withType(org.gradle.api.tasks.testing.AbstractTestTask::class) {
+        testLogging {
+            events = mutableSetOf(
+                TestLogEvent.SKIPPED,
+                TestLogEvent.FAILED,
+                TestLogEvent.STANDARD_OUT, TestLogEvent.STANDARD_ERROR
+            )
+            exceptionFormat = TestExceptionFormat.FULL
+            showStandardStreams = true
+            showStackTraces = true
+        }
+    }
+
+    kotlin.targets.withType(KotlinJsIrTarget::class) {
+        //println("TARGET: $this")
+        //nodejs()
+        browser {
+            //testTask { useKarma { useChromeHeadless() } }
+            testRuns.getByName(KotlinTargetWithTests.DEFAULT_TEST_RUN_NAME).executionTask.configure {
+                useKarma {
+                    useChromeHeadless()
+                    File(project.rootProject.rootDir, "karma.config.d").takeIf { it.exists() }?.let {
+                        useConfigDirectory(it)
+                    }
+                }
+            }
+        }
+    }
+
+    fun String.escape(): String = buildString(length) {
+        for (c in this@escape) when (c) { '\n' -> append("\\n"); '\r' -> append("\\r"); '\t' -> append("\\t"); '\\' -> append("\\\\"); else -> append(c)  }
+    }
+    fun String.quote(): String = "\"${escape()}\""
+
+    fun generateCatalog(folder: File): String = buildString {
+        appendLine("{")
+        for (file in folder.listFiles() ?: arrayOf()) {
+            val fileName = if (file.isDirectory) "${file.name}/" else file.name
+            appendLine(" ${fileName.quote()} : [${file.length()}, ${file.lastModified()}],")
+        }
+        appendLine("}")
+    }
+
+    for (taskName in listOf("jsTestProcessResources", "wasmTestProcessResources")) {
+        tasks.findByName(taskName)?.apply {
+            doLast {
+                for (dir in this.outputs.files.toList().filter { it.isDirectory }) {
+                    for (file in dir.walkTopDown()) {
+                        if (file.isDirectory) {
+                            //println("file=$file")
+                            File(file, "\$catalog.json").writeText(generateCatalog(file))
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // This is required on linux because testResources / testresources mismatch (that doesn't happen on Windows or Mac)
+    // See https://github.com/korlibs/korge-korlibs/issues/6
+    tasks.withType(ProcessResources::class) {
+        if (this.name.contains("js", ignoreCase = true) || this.name.contains("wasm", ignoreCase = true)) {
+            if (this.name.contains("Test")) {
+                from("testresources")
+            }
+            from("resources")
+            duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        }
+    }
+
+    //println(tasks.findByName("jsProcessResources")!!::class)
 
     // Publishing
     if (sonatype != null) {
@@ -653,3 +681,219 @@ rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJ
     }
 }
 */
+
+
+// Tiny, coupled and limited variant of amper compatible with the current structure, so we can bump to Kotlin 2.0.0 in the meantime, while amper is discarded or evolved.
+class MicroAmper {
+    private var kotlinPlatforms = mutableListOf<String>()
+    private var kotlinAliases = LinkedHashMap<String, List<String>>()
+    private var deps = mutableListOf<Dep>()
+    //val kotlinBasePlatforms by lazy { kotlinPlatforms.groupBy { getKotlinBasePlatform(it) }.filter { it.value != listOf(it.key) } }
+    val kotlinBasePlatforms by lazy { kotlinPlatforms.groupBy { getKotlinBasePlatform(it) } }
+
+    fun getKotlinBasePlatform(platform: String): String = platform.removeSuffix("X64").removeSuffix("Arm64").removeSuffix("Simulator").removeSuffix("Device")
+
+    data class Dep(val path: String, val exported: Boolean, val test: Boolean, val platform: String) {
+        val rplatform = platform.takeIf { it.isNotEmpty() } ?: "common"
+        val configuration = "$rplatform${if (test) "Test" else "Main"}${if (exported) "Api" else "Implementation"}"
+    }
+
+    fun parseFile(file: File, lines: List<String> = file.readLines()) {
+        var mode = ""
+
+        for (line in lines) {
+            val tline = line.substringBeforeLast('#').trim().takeIf { it.isNotEmpty() } ?: continue
+
+            if (line.startsWith(" ") || line.startsWith("\t") || line.startsWith("-")) {
+                when {
+                    mode == "product" -> {
+                        //println("product=$tline")
+                        when {
+                            tline.startsWith("platforms:") -> {
+                                val platforms = tline.substringAfter('[').substringBeforeLast(']').split(',').map { it.trim() }
+                                kotlinPlatforms.addAll(platforms)
+                            }
+                        }
+                    }
+                    mode == "aliases" -> {
+                        //println("aliases=$tline")
+                        if (tline.startsWith("-")) {
+                            val (alias2, platforms2) = tline.split(":", limit = 2)
+                            val alias = alias2.trim('-', ' ')
+                            val platforms = platforms2.trim('[', ']', ' ').split(',').map { it.trim() }
+                            //println(" -> alias=$alias, platforms=$platforms")
+                            kotlinAliases[alias] = platforms
+                        }
+                    }
+                    mode.contains("dependencies") -> {
+                        val platform = mode.substringAfterLast('@', "")
+                        val test = mode.startsWith("test")
+                        val exported = line.contains(Regex(":\\s*exported"))
+                        val path = tline.removePrefix("-").removeSuffix(": exported").removeSuffix(":exported").trim()
+                        deps += Dep(path = path, exported = exported, test = test, platform = platform)
+                    }
+                }
+            } else {
+                if (tline.endsWith(":")) {
+                    mode = tline.trimEnd(':').trim()
+                }
+                if (tline.startsWith("apply:")) {
+                    val paths = tline.substringAfter(':').trim('[', ',', ' ', ']').split(",")
+                    for (path in paths) {
+                        parseFile(file.parentFile.resolve(path))
+                    }
+                    //parseFile(File(project.rootDir, "common.module-template.yaml"))
+                }
+            }
+        }
+    }
+
+    fun applyTo(project: Project) = with(project) {
+        fun NamedDomainObjectContainer<org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet>.newCreate(name: String) {
+            val atName = if (name == "common") "" else "@name"
+            maybeCreate("${name}Main").also {
+                it.kotlin.srcDir("src$atName")
+                it.resources.srcDir("resources$atName")
+            }
+            maybeCreate("${name}Test").also {
+                it.kotlin.srcDir("test$atName")
+                it.resources.srcDir("testResources$atName")
+            }
+        }
+
+        fun NamedDomainObjectContainer<org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet>.depends(base: String, other: String) {
+            maybeCreate("${base}Main").dependsOn(maybeCreate("${other}Main"))
+            maybeCreate("${base}Test").dependsOn(maybeCreate("${other}Test"))
+        }
+
+        kotlin.sourceSets {
+            newCreate("common")
+            newCreate("apple")
+            newCreate("native")
+            depends("native", "common")
+            //depends("posix", "native")
+            depends("apple", "native")
+
+            maybeCreate("androidTest").dependsOn(maybeCreate("commonTest"))
+
+            for (platform in kotlinPlatforms) {
+                val isNative = platform.contains("X86") || platform.contains("X64") || platform.contains("Arm")
+                val isApple = platform.startsWith("ios") || platform.startsWith("tvos") || platform.startsWith("watchos") || platform.startsWith("macos")
+                val isLinux = platform.startsWith("linux")
+                val isPosix = isLinux || isApple
+                //if (isPosix) depends(platform, "posix")
+                if (isApple) depends(platform, "apple")
+                if (isNative) depends(platform, "native")
+            }
+        }
+
+        for (platform in kotlinPlatforms) {
+            when (platform) {
+                "jvm" -> kotlin.jvm {
+                    compilerOptions {
+                        this.jvmTarget.set(JVM_TARGET)
+                    }
+                }
+                "js" -> kotlin.js {
+                    browser()
+                }
+                "wasm" -> {
+                    kotlin.wasmJs {
+                    }
+                    kotlin.sourceSets {
+                        newCreate("wasm")
+                        depends("wasmJs", "wasm")
+                    }
+                }
+                "android" -> kotlin.androidTarget {
+                }
+                "linuxX64" -> kotlin.linuxX64()
+                "linuxArm64" -> kotlin.linuxArm64()
+                "tvosArm64" -> kotlin.tvosArm64()
+                "tvosX64" -> kotlin.tvosX64()
+                "tvosSimulatorArm64" -> kotlin.tvosSimulatorArm64()
+                "macosX64" -> kotlin.macosX64()
+                "macosArm64" -> kotlin.macosArm64()
+                "iosArm64" -> kotlin.iosArm64()
+                "iosSimulatorArm64" -> kotlin.iosSimulatorArm64()
+                "iosX64" -> kotlin.iosX64()
+                "watchosArm64" -> kotlin.watchosArm64()
+                "watchosArm32" -> kotlin.watchosArm32()
+                "watchosDeviceArm64" -> kotlin.watchosDeviceArm64()
+                "watchosSimulatorArm64" -> kotlin.watchosSimulatorArm64()
+                "mingwX64" -> kotlin.mingwX64()
+            }
+        }
+        
+        kotlin.targets.forEach {
+            it.compilations.forEach {
+                it.compileTaskProvider.configure {
+                    compilerOptions {
+                        this.apiVersion.set(KotlinVersion.KOTLIN_2_0)
+                        this.languageVersion.set(KotlinVersion.KOTLIN_2_0)
+                    }
+                }
+            }
+        }
+
+        kotlin.sourceSets {
+            // jvm, js, wasm, android, linuxX64, linuxArm64, tvosArm64, tvosX64, tvosSimulatorArm64, macosX64, macosArm64, iosArm64, iosSimulatorArm64, iosX64, watchosArm64, watchosArm32, watchosDeviceArm64, watchosSimulatorArm64, mingwX64
+
+            //println(kotlinAliases + kotlinBasePlatforms)
+
+            fun connectSourceSet(alias: String, platforms: List<String>) {
+                val aliasMain = maybeCreate("${alias}Main")
+                val aliasTest = maybeCreate("${alias}Test")
+                aliasMain.kotlin.srcDir("src@${alias}")
+                aliasTest.kotlin.srcDir("test@${alias}")
+
+                aliasMain.dependsOn(get("commonMain"))
+                aliasTest.dependsOn(get("commonTest"))
+
+                //for (platform in (platforms + "common")) {
+                for (platform in platforms) {
+                    if (platform == alias) continue
+                    val platformMain = maybeCreate("${platform}Main")
+                    val platformTest = maybeCreate("${platform}Test")
+                    //println("$platform.dependsOn($alias)")
+                    platformMain.dependsOn(aliasMain)
+                    platformTest.dependsOn(aliasTest)
+                }
+
+            }
+
+            for ((alias, platforms) in (kotlinAliases + kotlinBasePlatforms)) {
+                //for ((alias, platforms) in kotlinAliases) {
+                connectSourceSet(alias, platforms)
+            }
+        }
+        //println(" -> $platforms")
+
+        dependencies {
+            for (dep in deps) {
+                add(dep.configuration, when {
+                    dep.path.contains('/') -> project(":${File(dep.path).name}")
+                    dep.path.startsWith("\$") -> {
+                        when (dep.path) {
+                            "\$kotlin-test" -> "org.jetbrains.kotlin:kotlin-test"
+                            else -> TODO("Unknown ${dep.path}")
+                        }
+                    }
+                    else -> dep.path
+                })
+            }
+        }
+
+        for (target in kotlin.targets) {
+            target.compilations.all {
+                this.kotlinOptions.suppressWarnings = true
+            }
+        }
+    }
+
+    fun configure(project: Project) {
+        val amperFile = File(project.projectDir, "module.yaml").takeIf { it.exists() } ?: return
+        parseFile(amperFile)
+        applyTo(project)
+    }
+}

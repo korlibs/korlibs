@@ -19,6 +19,8 @@ class JVMWasmLib(content: ByteArray) : IWASMLib, BaseWASMLib(content) {
     override fun writeBytes(pos: Int, data: ByteArray) = wasm.writeBytes(pos, data)
     override fun invokeFunc(name: String, vararg params: Any?): Any? = wasm.invoke(name, *params)
     override fun invokeFuncIndirect(address: Int, vararg params: Any?): Any? = wasm.invokeIndirect(address, *params)
+    override fun close() {
+    }
 
     /*
     val functionsNamed: Map<String, kotlin.Function<*>> by lazy {
