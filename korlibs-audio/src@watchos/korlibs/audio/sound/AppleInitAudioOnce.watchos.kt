@@ -1,5 +1,3 @@
 package korlibs.audio.sound
 
-internal expect val appleInitAudioOnce: Unit by lazy {
-    Unit
-}
+internal actual val appleInitAudioOnce: Unit get() = Unit
