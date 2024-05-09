@@ -1,4 +1,4 @@
 package korlibs.datastructure.closeable
 
-@OptIn(ExperimentalStdlibApi::class)
+@Deprecated("")
 typealias Closeable = AutoCloseable

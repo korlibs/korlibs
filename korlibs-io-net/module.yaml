@@ -10,8 +10,12 @@ aliases:
   - concurrent: [jvm, android, linuxX64, linuxArm64, tvosArm64, tvosX64, tvosSimulatorArm64, macosX64, macosArm64, iosArm64, iosSimulatorArm64, iosX64, watchosArm64, watchosArm32, watchosDeviceArm64, watchosSimulatorArm64, mingwX64]
 
 dependencies:
-  - ../korlibs-io-stream: exported
+  - ../korlibs-io-http-core: exported
   - ../korlibs-io-socket-core: exported
+  - ../korlibs-serialization-json: exported
+  - ../korlibs-encoding: exported
+  - ../korlibs-io-charset: exported
+  - ../korlibs-exception: exported
   - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0: exported
 
 test-dependencies:

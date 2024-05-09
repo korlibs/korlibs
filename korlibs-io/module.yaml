@@ -11,10 +11,13 @@ aliases:
 
 dependencies:
   - ../korlibs-closeable: exported
+  - ../korlibs-io-net: exported
   - ../korlibs-io-fs
+  - ../korlibs-io-path: exported
+  - ../korlibs-io-vfs: exported
   - ../korlibs-io-stream: exported
   - ../korlibs-io-charset: exported
-  - ../korlibs-io-socket
+  - ../korlibs-io-socket-core
   - ../korlibs-math-core: exported
   - ../korlibs-memory: exported
   - ../korlibs-ffi: exported
