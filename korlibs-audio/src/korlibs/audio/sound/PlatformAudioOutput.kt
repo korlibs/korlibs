@@ -8,6 +8,7 @@ import korlibs.math.*
 import korlibs.math.geom.*
 import korlibs.time.*
 import korlibs.time.core.*
+import kotlinx.atomicfu.locks.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
 
@@ -18,12 +19,12 @@ open class NewPlatformAudioOutput(
     val frequency: Int,
     private val gen: (AudioSamplesInterleaved) -> Unit,
 ) : AutoCloseable, SoundProps {
-    var onCancel: Cancellable? = null
+    var onCancel: AutoCloseable? = null
     var paused: Boolean = false
 
-    private val lock = Lock()
+    private val lock = reentrantLock()
     fun genSafe(buffer: AudioSamplesInterleaved) {
-        lock {
+        lock.withLock {
             try {
                 gen(buffer)
                 applyPropsTo(buffer)
@@ -47,7 +48,7 @@ open class NewPlatformAudioOutput(
         internalStart()
     }
     fun stop() {
-        onCancel?.cancel()
+        onCancel?.close()
         onCancel = null
         internalStop()
     }

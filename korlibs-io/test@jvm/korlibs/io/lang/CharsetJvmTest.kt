@@ -28,7 +28,7 @@ class CharsetJvmTest {
 
     @Test
     fun testPlatformCharset() {
-        val charset = platformCharsetProvider.invoke("GB2312", "GB-2312")!!
+        val charset = CharsetProvider.invoke("GB2312", "GB-2312")!!
         val text = "hello你好"
         assertEquals(charset, korlibs.io.lang.Charset.forName("GB-2312"))
         assertEquals("68656c6c6fe4bda0e5a5bd", text.toByteArray(UTF8).hexLower)
@@ -38,7 +38,7 @@ class CharsetJvmTest {
 
     @Test
     fun testPlatformCharsetPartialDecode() {
-        val charset = platformCharsetProvider.invoke("GB2312", "GB-2312")!!
+        val charset = CharsetProvider.invoke("GB2312", "GB-2312")!!
         val text = "hello你好"
         val bytes = text.toByteArray(charset)
         val out = StringBuilder()

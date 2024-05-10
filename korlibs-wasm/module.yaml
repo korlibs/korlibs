@@ -12,7 +12,9 @@ dependencies:
   - ../korlibs-logger: exported
   - ../korlibs-math-core: exported
   - ../korlibs-datastructure: exported
-  - ../korlibs-io: exported
+  #- ../korlibs-io-fs: exported
+  #- ../korlibs-io-stream: exported
+  - ../korlibs-io
 
 dependencies@jvm:
   - org.ow2.asm:asm:9.5

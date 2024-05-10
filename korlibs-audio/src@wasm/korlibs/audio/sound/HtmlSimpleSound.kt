@@ -4,24 +4,18 @@ import korlibs.time.DateTime
 import korlibs.time.TimeSpan
 import korlibs.time.seconds
 import korlibs.logger.Logger
-import korlibs.io.async.launchImmediately
-import korlibs.io.file.std.uniVfs
 import korlibs.io.lang.*
 import korlibs.io.util.*
+import korlibs.memory.*
 import kotlinx.browser.document
 import kotlinx.browser.window
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.job
-import org.khronos.webgl.ArrayBuffer
-import org.khronos.webgl.Float32Array
-import org.khronos.webgl.Int8Array
+import kotlinx.coroutines.*
+import org.khronos.webgl.*
 import org.w3c.dom.Audio
 import org.w3c.dom.HTMLAudioElement
 import org.w3c.dom.HTMLMediaElement
 import org.w3c.dom.events.*
+import org.w3c.fetch.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -143,7 +137,7 @@ object HtmlSimpleSound {
             startedAt = DateTime.now()
             var startTime = startTime
             ctx?.resume()
-            return launchImmediately(coroutineContext) {
+            return CoroutineScope(coroutineContext).launch {
                 try {
                     while (times.hasMore) {
                         //println("TIMES: $times, startTime=$startTime, buffer.duration.seconds=${buffer.duration.seconds}")
@@ -175,7 +169,7 @@ object HtmlSimpleSound {
                     params.onCancel?.invoke()
                 } finally {
                     running = false
-                    val realHtmlAudioElement = this.realHtmlAudioElement
+                    val realHtmlAudioElement = this@SimpleSoundChannel.realHtmlAudioElement
                     if (realHtmlAudioElement != null) {
                         realHtmlAudioElement.pause()
                         realHtmlAudioElement.currentTime = 0.0
@@ -381,7 +375,8 @@ object HtmlSimpleSound {
 
 	suspend fun loadSound(data: ByteArray): AudioBuffer? = loadSound(data.toInt8Array().buffer, "ByteArray")
 
-	suspend fun loadSound(url: String): AudioBuffer? = loadSound(url.uniVfs.readBytes())
+	suspend fun loadSound(url: String): AudioBuffer? =
+        loadSound(window.fetch(url).await<Response>().arrayBuffer().await<ArrayBuffer>().toByteArray())
 
 	init {
 		val _scratchBuffer = ctx?.createBuffer(1, 1, 22050)
@@ -526,4 +521,15 @@ external class AudioProcessingEvent : Event {
 
 external interface ScriptProcessorNode : AudioNode {
 	var onaudioprocess: (AudioProcessingEvent) -> Unit
+}
+
+private fun ByteArray.toInt8Array(): Int8Array {
+    //val tout = this.asDynamic()
+    //if (tout is Int8Array) {
+    //    return tout.unsafeCast<Int8Array>()
+    //} else {
+    val out = Int8Array(this.size)
+    for (n in 0 until out.length) out[n] = this[n]
+    return out
+    //}
 }

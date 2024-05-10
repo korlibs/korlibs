@@ -2,9 +2,7 @@
 
 package korlibs.audio.format
 
-import korlibs.audio.internal.*
 import korlibs.audio.sound.*
-import korlibs.encoding.*
 import korlibs.datastructure.*
 import korlibs.io.file.*
 import korlibs.io.lang.*
@@ -13,17 +11,17 @@ import korlibs.number.*
 import korlibs.time.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.cancellation.CancellationException
-import kotlin.native.concurrent.*
+import kotlin.time.*
 
 open class AudioFormat(vararg exts: String) {
 	open val extensions: Set<String> = exts.map { it.lowercase().trim() }.toSet()
 
 	data class Info(
-    var duration: TimeSpan? = 0.seconds,
+    var duration: Duration? = 0.seconds,
     var channels: Int = 2,
-    var decodingTime: TimeSpan? = null
+    var decodingTime: Duration? = null
 	) : Extra by Extra.Mixin() {
-    val durationNotNull: TimeSpan get() = duration ?: 0.seconds
+    val durationNotNull: Duration get() = duration ?: 0.seconds
 		override fun toString(): String = "Info(duration=${durationNotNull.milliseconds.niceStr}ms, channels=$channels)"
 	}
 
@@ -40,9 +38,10 @@ open class AudioFormat(vararg exts: String) {
 	suspend fun decode(data: ByteArray, props: AudioDecodingProps = AudioDecodingProps.DEFAULT): AudioData? = decodeStream(data.openAsync(), props)?.toData(props.maxSamples)
 	open suspend fun encode(data: AudioData, out: AsyncOutputStream, filename: String, props: AudioEncodingProps = AudioEncodingProps.DEFAULT): Unit = unsupported()
 
+    @OptIn(ExperimentalStdlibApi::class)
     open suspend fun decodeStreamOrError(data: AsyncStream, props: AudioDecodingProps): AudioStream =
         decodeStream(data, props)
-            ?: error("Can't decode audio stream [$this] ${data.duplicate().readBytesUpTo(8).hex}")
+            ?: error("Can't decode audio stream [$this] ${data.duplicate().readBytesUpTo(8).toHexString()}")
 
     suspend fun encodeToByteArray(
 		data: AudioData,

@@ -14,10 +14,9 @@ import korlibs.io.stream.AsyncOutputStream
 import korlibs.io.stream.DequeSyncStream
 import korlibs.io.stream.SyncStream
 import kotlinx.atomicfu.*
-import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.supervisorScope
 import kotlin.coroutines.coroutineContext
 
 abstract class AsyncSocketFactory {
@@ -54,7 +53,6 @@ suspend fun AsyncSocketFactory.createClient(host: String, port: Int, secure: Boo
 
 suspend fun createTcpClient(secure: Boolean = false): AsyncClient = asyncSocketFactory.createClient(secure)
 suspend fun createTcpServer(port: Int = AsyncServer.ANY_PORT, host: String = "127.0.0.1", backlog: Int = 511, secure: Boolean = false): AsyncServer = asyncSocketFactory.createServer(port, host, backlog, secure)
-
 suspend fun createTcpClient(host: String, port: Int, secure: Boolean = false): AsyncClient = asyncSocketFactory.createClient(host, port, secure)
 
 interface AsyncClient : AsyncInputStream, AsyncOutputStream, AsyncCloseable {
@@ -107,8 +105,6 @@ class FakeAsyncClient(
     }
 }
 
-data class AsyncAddress(val address: String = "0.0.0.0", val port: Int = 0)
-
 interface AsyncServer : AsyncCloseable {
 	val requestPort: Int
 	val host: String
@@ -125,21 +121,21 @@ interface AsyncServer : AsyncCloseable {
 	suspend fun accept(): AsyncClient
 
 	suspend fun listen(handler: suspend (AsyncClient) -> Unit): AutoCloseable {
-		val job = launchImmediately(coroutineContext) {
+		val job = CoroutineScope(coroutineContext).launch {
             try {
                 while (true) {
                     try {
                         //Console.error("AsyncServer.listen.accept[0]: $this")
                         val client = accept()
                         //Console.error("AsyncServer.listen.accept[1]")
-                        launchImmediately(coroutineContext) {
+                        CoroutineScope(coroutineContext).launch {
                             supervisorScope {
                                 try {
                                     handler(client)
                                 } catch (e: Throwable) {
                                     kotlin.runCatching { client.close() }
                                     if (e !is IOException && e !is CancellationException) {
-                                        e.printStackTraceWithExtraMessage("Failed in AsyncServer.listen.handler")
+                                        Exception("Failed in AsyncServer.listen.handler", e).printStackTrace()
                                     }
                                 }
                             }
@@ -147,7 +143,7 @@ interface AsyncServer : AsyncCloseable {
                     } catch (e: Throwable) {
                         //Console.error("AsyncServer.listen.inner.catch: ${e::class}")
                         if (e is CancellationException || e is IOException) throw e
-                        e.printStackTraceWithExtraMessage("Failed in AsyncServer.listen.accept")
+                        Exception("Failed in AsyncServer.listen.accept", e).printStackTrace()
                     }
                 }
             } catch (e: Throwable) {

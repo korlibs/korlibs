@@ -1,11 +1,8 @@
 package korlibs.io.concurrent
 
+import korlibs.concurrent.thread.*
 import korlibs.datastructure.algo.Historiogram
-import korlibs.time.milliseconds
-import korlibs.platform.Platform
-import korlibs.io.async.delay
 import korlibs.io.async.suspendTest
-import korlibs.io.lang.currentThreadId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
@@ -20,7 +17,7 @@ class DispatchersExtTest {
         try {
             withContext(dispatcher) {
                 for (n in 0 until 8192) {
-                    historiogram.add(currentThreadId.toInt())
+                    historiogram.add(NativeThread.currentThreadId.toInt())
                     yield()
                 }
             }

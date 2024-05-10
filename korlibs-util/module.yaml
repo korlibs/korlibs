@@ -8,7 +8,7 @@ aliases:
   - jvmAndAndroid: [jvm, android]
 
 dependencies:
-  - org.jetbrains.kotlinx:atomicfu:0.23.1: exported
+  - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
 
 test-dependencies:
 

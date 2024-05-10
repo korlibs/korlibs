@@ -7,7 +7,8 @@ apply: [ ../common.module-template.yaml ]
 dependencies:
   - ../korlibs-serialization-yaml: exported
   - ../korlibs-util: exported
-  - org.jetbrains.kotlinx:atomicfu:0.23.1: exported
+  - ../korlibs-string
+  - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
 
 test-dependencies:
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0

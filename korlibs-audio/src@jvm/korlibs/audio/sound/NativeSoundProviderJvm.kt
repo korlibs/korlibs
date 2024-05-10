@@ -2,23 +2,19 @@ package korlibs.audio.sound
 
 import korlibs.audio.sound.backend.*
 import korlibs.concurrent.thread.*
-import korlibs.io.time.*
-import korlibs.logger.*
 import korlibs.platform.*
 
-private val logger = Logger("NativeSoundProviderJvm")
+//private val logger = Logger("NativeSoundProviderJvm")
 
 private val nativeSoundProviderDeferred: NativeSoundProvider by lazy {
     try {
-        traceTime("SoundProvider") {
-            when {
-                //Platform.isLinux -> FFIALSANativeSoundProvider
-                Platform.isApple -> jvmCoreAudioNativeSoundProvider
-                Platform.isWindows -> jvmWaveOutNativeSoundProvider
-                //else -> JnaOpenALNativeSoundProvider()
-                else -> AwtNativeSoundProvider
-            } ?: AwtNativeSoundProvider
-        }
+        when {
+            //Platform.isLinux -> FFIALSANativeSoundProvider
+            Platform.isApple -> jvmCoreAudioNativeSoundProvider
+            Platform.isWindows -> jvmWaveOutNativeSoundProvider
+            //else -> JnaOpenALNativeSoundProvider()
+            else -> AwtNativeSoundProvider
+        } ?: AwtNativeSoundProvider
     } catch (e: UnsatisfiedLinkError) {
         DummyNativeSoundProvider
     //} catch (e: OpenALException) {

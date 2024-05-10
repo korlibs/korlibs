@@ -5,6 +5,7 @@ import korlibs.concurrent.thread.*
 import korlibs.ffi.*
 import korlibs.io.lang.*
 import korlibs.memory.*
+import korlibs.time.*
 import kotlin.coroutines.*
 
 val jvmWaveOutNativeSoundProvider: NativeSoundProvider? by lazy {
@@ -141,7 +142,7 @@ class JvmWaveOutNewPlatformAudioOutput(
                                 //println("Sending running=$running, availableRead=$availableRead, header=${header}")
                             }
                         }
-                        if (queued == 0) Thread_sleep(1L)
+                        if (queued == 0) NativeThread.sleep(1.milliseconds)
                     }
                 } finally {
                     for (header in headers) header.dispose()

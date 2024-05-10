@@ -1,13 +1,12 @@
 package korlibs.image.format
 
 import com.sun.jna.*
+import korlibs.annotations.*
 import korlibs.ffi.osx.*
 import korlibs.image.awt.*
 import korlibs.image.color.*
-import korlibs.io.annotations.*
 import korlibs.io.file.*
 import korlibs.io.file.std.*
-import korlibs.time.*
 import java.awt.image.*
 import java.io.*
 import kotlin.time.*

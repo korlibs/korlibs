@@ -1,5 +1,6 @@
 package korlibs.io.lang
 
+import korlibs.concurrent.thread.*
 import korlibs.io.async.suspendTest
 import kotlinx.coroutines.CompletableDeferred
 import kotlin.test.Test
@@ -9,13 +10,13 @@ import kotlin.test.assertNotEquals
 class ThreadIdJvmTest {
     @Test
     fun testDifferentThreadIdInDifferentThread() = suspendTest {
-        val initialCurrentThreadId = currentThreadId
+        val initialCurrentThreadId = NativeThread.currentThreadId
         val threadCurrentThreadIdDeferred = CompletableDeferred<Long>()
         Thread {
-            threadCurrentThreadIdDeferred.complete(currentThreadId)
+            threadCurrentThreadIdDeferred.complete(NativeThread.currentThreadId)
         }.also { it.start() }
         assertNotEquals(initialCurrentThreadId, threadCurrentThreadIdDeferred.await())
-        val laterCurrentThreadId = currentThreadId
+        val laterCurrentThreadId = NativeThread.currentThreadId
         assertEquals(initialCurrentThreadId, laterCurrentThreadId)
     }
 }

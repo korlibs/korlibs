@@ -5,6 +5,9 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
+  - ../korlibs-chartype
   - ../korlibs-util
+  - ../korlibs-textreader
+  - ../korlibs-indenter
 
 test-dependencies:

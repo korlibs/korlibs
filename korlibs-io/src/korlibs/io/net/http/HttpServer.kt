@@ -1,31 +1,16 @@
 package korlibs.io.net.http
 
-import korlibs.datastructure.Extra
-import korlibs.memory.ByteArrayBuilder
-import korlibs.io.async.AsyncCloseable
-import korlibs.io.async.launchImmediately
-import korlibs.io.file.VfsFile
-import korlibs.io.lang.Charset
-import korlibs.io.lang.IOException
-import korlibs.io.lang.UTF8
-import korlibs.io.lang.invalidOp
-import korlibs.io.lang.toByteArray
-import korlibs.io.lang.toString
+import korlibs.datastructure.*
+import korlibs.io.async.*
+import korlibs.io.lang.*
+import korlibs.io.net.*
 import korlibs.io.net.AsyncAddress
-import korlibs.io.net.QueryString
-import korlibs.io.net.ws.WsCloseInfo
-import korlibs.io.stream.AsyncGetLengthStream
-import korlibs.io.stream.AsyncInputStream
-import korlibs.io.stream.AsyncOutputStream
-import korlibs.io.stream.EMPTY_BYTE_ARRAY
-import korlibs.io.stream.copyTo
-import korlibs.io.stream.slice
-import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.channels.produce
-import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlin.coroutines.resume
+import korlibs.io.net.ws.*
+import korlibs.io.stream.*
+import korlibs.memory.*
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.*
+import kotlin.coroutines.*
 
 open class HttpServer protected constructor() : AsyncCloseable {
 	companion object {
@@ -170,7 +155,7 @@ open class HttpServer protected constructor() : AsyncCloseable {
 
 		suspend fun readRawBody(maxSize: Int = 0x1000): ByteArray = suspendCancellableCoroutine { c ->
 			val out = ByteArrayBuilder()
-			launchImmediately(c.context) {
+			CoroutineScope(c.context).launch {
 				handler {
 					if (out.size + it.size > maxSize) {
 						out.clear()
@@ -217,14 +202,6 @@ open class HttpServer protected constructor() : AsyncCloseable {
 			_end()
 			for (finalizer in finalizers) finalizer()
 		}
-
-        suspend fun end(file: VfsFile) {
-            file.openUse { end(this) }
-        }
-
-        suspend fun end(file: VfsFile, range: LongRange) {
-            file.openUse { end(this.slice(range)) }
-        }
 
         suspend fun end(stream: AsyncInputStream) {
             if (stream is AsyncGetLengthStream) {

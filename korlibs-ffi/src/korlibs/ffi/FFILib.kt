@@ -1,9 +1,6 @@
-@file:OptIn(ExperimentalStdlibApi::class)
-
 package korlibs.ffi
 
 import korlibs.datastructure.*
-import korlibs.datastructure.closeable.*
 import korlibs.memory.*
 import kotlin.jvm.*
 import kotlin.properties.*

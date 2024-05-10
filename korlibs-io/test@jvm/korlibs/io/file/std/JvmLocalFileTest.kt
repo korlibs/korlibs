@@ -1,7 +1,7 @@
 package korlibs.io.file.std
 
 import korlibs.io.async.suspendTest
-import korlibs.io.file.baseName
+import korlibs.io.file.*
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import org.junit.Test

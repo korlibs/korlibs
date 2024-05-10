@@ -4,6 +4,7 @@ import korlibs.audio.sound.*
 import korlibs.concurrent.thread.*
 import korlibs.ffi.*
 import korlibs.io.lang.*
+import korlibs.time.*
 import kotlin.coroutines.*
 
 object FFIALSANativeSoundProvider : NativeSoundProvider() {
@@ -59,7 +60,7 @@ class ALSAPlatformAudioOutput(
                     } else if (written < 0) {
                         println("ALSA: OTHER error: $written")
                         //delay(1.milliseconds)
-                        Thread_sleep(1L)
+                        NativeThread.sleep(1.milliseconds)
                         break
                     }
                 }

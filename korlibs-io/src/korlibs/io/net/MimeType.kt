@@ -1,9 +1,7 @@
 package korlibs.io.net
 
 import korlibs.datastructure.iterators.fastForEach
-import korlibs.io.file.Vfs
-import korlibs.io.file.VfsFile
-import korlibs.io.file.extensionLC
+import korlibs.io.file.*
 import kotlin.collections.set
 
 private val MimeType_byExtensions by lazy { LinkedHashMap<String, MimeType>() }
@@ -62,5 +60,3 @@ class MimeType(val mime: String, val exts: List<String>) : Vfs.Attribute {
             getByExtensionOrNull(ext) ?: default
 	}
 }
-
-fun VfsFile.mimeType() = MimeType.getByExtension(this.extensionLC)

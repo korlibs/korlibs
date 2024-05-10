@@ -12,9 +12,16 @@ aliases:
 dependencies:
   - ../korlibs-audio-core: exported
   - ../korlibs-concurrent: exported
-  - ../korlibs-io: exported
-  - ../korlibs-math: exported
+  - ../korlibs-io-vfs: exported
+  - ../korlibs-time-core: exported
+  - ../korlibs-math-core: exported
+  - ../korlibs-math-vector: exported
+  - ../korlibs-math-interpolation: exported
   - ../korlibs-ffi: exported
+  - ../korlibs-logger: exported
+  - ../korlibs-annotations: exported
+  - ../korlibs-numberformat
 
 test-dependencies:
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0
+  - ../korlibs-io

@@ -1,5 +1,6 @@
 package korlibs.io.async
 
+import korlibs.time.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
 
@@ -13,3 +14,15 @@ internal fun runBlockingNoJs_transformContext(context: CoroutineContext): Corout
     context.minusKey(CoroutineDispatcher.Key).minusKey(Job.Key)
 
 expect fun <T> runBlockingNoJs(context: CoroutineContext = EmptyCoroutineContext, block: suspend CoroutineScope.() -> T): T
+fun CoroutineContext.onCancel(block: () -> Unit): AutoCloseable {
+    var running = true
+    CoroutineScope(this).launch {
+        try {
+            while (running) kotlinx.coroutines.delay(1.seconds)
+        } catch (e: CancellationException) {
+            if (running) block()
+        }
+    }
+    return AutoCloseable { running = false }
+}
+

@@ -3,6 +3,7 @@
 package korlibs.image.style
 
 import korlibs.datastructure.*
+import korlibs.ffi.osx.*
 import korlibs.image.annotation.*
 import korlibs.image.color.*
 import korlibs.io.lang.*
@@ -10,6 +11,7 @@ import korlibs.io.util.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
+import korlibs.util.*
 import kotlin.collections.component1
 import kotlin.collections.component2
 import kotlin.collections.set
@@ -129,13 +131,13 @@ class CSS(val allRules: List<IRuleSet>, unit: Unit = Unit) {
 
     companion object {
         fun parseCSS(str: String): CSS {
-            return CSSReader(tokenize(str.reader()).reader()).parseCSS()
+            return CSSReader(tokenize(SimpleStrReader(str)).reader()).parseCSS()
         }
 
         data class Token(val str: String)
 
-        fun tokenize(str: String): List<Token> = tokenize(str.reader())
-        fun tokenize(ss: StrReader): List<Token> {
+        fun tokenize(str: String): List<Token> = tokenize(SimpleStrReader(str))
+        fun tokenize(ss: SimpleStrReader): List<Token> {
             val out = arrayListOf<Token>()
             val buffer = StringBuilder()
             fun flush() {
@@ -144,7 +146,7 @@ class CSS(val allRules: List<IRuleSet>, unit: Unit = Unit) {
                 buffer.clear()
             }
             while (ss.hasMore) {
-                val c = ss.read()
+                val c = ss.readChar()
                 when (c) {
                     ' ', '\t', '\n', '\r' -> {
                         flush()
@@ -154,8 +156,9 @@ class CSS(val allRules: List<IRuleSet>, unit: Unit = Unit) {
                         if (ss.peekChar() == '*') {
                             flush()
                             ss.skip()
-                            ss.readUntil { ss.matchLit("*/") != null }
-                            //ss.skip(2)
+                            var prev = '\u0000'
+                            ss.skipWhile { c -> !(prev == '*' && c == '/').also { prev = c } }
+                            ss.skip(1)
                         } else {
                             flush()
                             out.add(Token("$c"))

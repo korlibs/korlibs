@@ -5,8 +5,10 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
+  - ../korlibs-indenter
   - ../korlibs-util
+  - ../korlibs-textreader
+  - ../korlibs-numberformat
   - ../korlibs-datastructure-core
 
 test-dependencies:
-

@@ -14,7 +14,7 @@ class CSSTest {
         val css = CSS.parseCSS("""
             @keyframes a { 
                 0% { color: red; opacity: 0; transform: translate(65.22px, 113.274326px) } 
-                100% { /* hello */ color: green /**/; opacity: 1; transform: translate(0, 0) } 
+                100% { /* hello */ color: green /**/; /**/opacity: /**/1; transform: translate(0, 0) } 
             }            
         """.trimIndent())
         val animation = css.animationsById["a"]!!

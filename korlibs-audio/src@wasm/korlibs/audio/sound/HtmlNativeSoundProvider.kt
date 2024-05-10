@@ -5,14 +5,14 @@ import korlibs.time.seconds
 import korlibs.audio.format.AudioDecodingProps
 import korlibs.audio.internal.SampleConvert
 import korlibs.io.file.Vfs
-import korlibs.io.file.std.LocalVfs
-import korlibs.io.file.std.UrlVfs
+import korlibs.io.file.std.*
 import korlibs.io.lang.invalidOp
 import kotlinx.coroutines.CompletableDeferred
 import org.khronos.webgl.*
 import org.w3c.dom.HTMLAudioElement
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.coroutineContext
+import kotlin.time.*
 
 class HtmlNativeSoundProvider : NativeSoundProvider() {
     init {
@@ -50,7 +50,7 @@ class HtmlElementAudio(
     val audio: HTMLAudioElement,
     coroutineContext: CoroutineContext,
 ) : Sound(coroutineContext) {
-    override val length: TimeSpan get() = audio.duration.seconds
+    override val length: Duration get() = audio.duration.seconds
 
     override suspend fun decode(maxSamples: Int): AudioData =
         AudioBufferSound(AudioBufferOrHTMLMediaElement(HtmlSimpleSound.loadSound(audio.src)), audio.src, defaultCoroutineContext).decode()

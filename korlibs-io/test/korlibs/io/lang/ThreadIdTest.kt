@@ -1,11 +1,12 @@
 package korlibs.io.lang
 
+import korlibs.concurrent.thread.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ThreadIdTest {
     @Test
     fun testCurrentThreadIdReturnsAlwaysTheSameValueOnTheSameThread() {
-        assertEquals(currentThreadId, currentThreadId)
+        assertEquals(NativeThread.currentThreadId, NativeThread.currentThreadId)
     }
 }

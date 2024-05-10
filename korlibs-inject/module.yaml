@@ -8,7 +8,7 @@ aliases:
   - jvmAndAndroid: [jvm, android]
 
 dependencies:
-  - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0: exported
+  - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1: exported
 
 test-dependencies:
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0

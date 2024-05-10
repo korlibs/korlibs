@@ -1,7 +1,5 @@
 package korlibs.datastructure
 
-import korlibs.datastructure.internal.*
-
 interface IntList : Collection<Int> {
     operator fun get(index: Int): Int
     fun getAt(index: Int): Int = this[index]

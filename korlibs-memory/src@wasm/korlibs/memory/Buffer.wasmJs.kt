@@ -1,9 +1,9 @@
 package korlibs.memory
 
 import korlibs.memory.wasm.*
-import korlibs.platform.*
-import korlibs.platform.Platform.Companion.isLittleEndian
 import org.khronos.webgl.*
+
+private val isLittleEndian: Boolean = Uint8Array(Uint32Array(1).also { it[0] = 0x11223344 }.buffer)[0].toInt() == 0x44
 
 actual class Buffer(val dataView: org.khronos.webgl.DataView) {
     actual constructor(size: Int, direct: Boolean) : this(org.khronos.webgl.DataView(ArrayBuffer(checkNBufferSize(size))))

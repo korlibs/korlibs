@@ -2,9 +2,6 @@
 
 package korlibs.memory
 
-import korlibs.math.unsigned
-import korlibs.math.clampUByte
-import korlibs.math.clampUShort
 import kotlin.jvm.*
 
 typealias DataView = Buffer

@@ -11,10 +11,13 @@ aliases:
 
 dependencies:
   - ../korlibs-closeable: exported
-  - ../korlibs-io-fs
+  - ../korlibs-numberformat: exported
+  - ../korlibs-indenter: exported
+  - ../korlibs-io-path: exported
+  - ../korlibs-jseval: exported
+  - ../korlibs-io-vfs: exported
   - ../korlibs-io-stream: exported
-  - ../korlibs-io-charset: exported
-  - ../korlibs-io-socket
+  - ../korlibs-charset: exported
   - ../korlibs-math-core: exported
   - ../korlibs-memory: exported
   - ../korlibs-ffi: exported
@@ -28,6 +31,8 @@ dependencies:
   - ../korlibs-time-core: exported
   - ../korlibs-logger: exported
   - ../korlibs-dyn: exported
+  - ../korlibs-wstring: exported
+  - ../korlibs-string: exported
   - ../korlibs-serialization-csv: exported
   - ../korlibs-serialization-toml: exported
   - ../korlibs-serialization-yaml: exported
@@ -37,8 +42,12 @@ dependencies:
   - ../korlibs-compression-lzma: exported
   - ../korlibs-compression-deflate: exported
   - ../korlibs-compression-lzo: exported
-  - org.jetbrains.kotlinx:atomicfu:0.23.1: exported
+  - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
+  - ../korlibs-io-fs
+  - ../korlibs-io-socket-core
 
 test-dependencies:
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0
+  #- org.mozilla:rhino:1.7.15
+  - org.openjdk.nashorn:nashorn-core:15.4
   - ../korlibs-time

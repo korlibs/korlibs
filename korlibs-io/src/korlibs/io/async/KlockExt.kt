@@ -3,11 +3,9 @@ package korlibs.io.async
 import korlibs.time.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
+import kotlin.time.*
 
-//suspend fun delay(time: TimeSpan): Unit = kotlinx.coroutines.delay(time.millisecondsLong)
-suspend fun CoroutineContext.delay(time: TimeSpan) = kotlinx.coroutines.delay(time.millisecondsLong)
-
-suspend fun <T> withTimeoutNullable(time: TimeSpan?, block: suspend CoroutineScope.() -> T): T {
+suspend fun <T> withTimeoutNullable(time: Duration?, block: suspend CoroutineScope.() -> T): T {
 	return if (time == null || time.isNil) {
 		block(CoroutineScope(coroutineContext))
 	} else {

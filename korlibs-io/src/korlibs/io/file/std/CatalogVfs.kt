@@ -5,15 +5,7 @@ import korlibs.datastructure.getOrPut
 import korlibs.time.DateTime
 import korlibs.logger.Logger
 import korlibs.io.dynamic.dyn
-import korlibs.io.file.PathInfo
-import korlibs.io.file.Vfs
-import korlibs.io.file.VfsCachedStatContext
-import korlibs.io.file.VfsFile
-import korlibs.io.file.VfsOpenMode
-import korlibs.io.file.VfsStat
-import korlibs.io.file.baseName
-import korlibs.io.file.normalize
-import korlibs.io.file.parent
+import korlibs.io.file.*
 import korlibs.io.lang.*
 import korlibs.io.serialization.json.Json
 import korlibs.io.stream.*

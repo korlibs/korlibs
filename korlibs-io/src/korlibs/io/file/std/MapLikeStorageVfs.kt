@@ -1,31 +1,17 @@
 package korlibs.io.file.std
 
-import korlibs.datastructure.iterators.fastForEach
-import korlibs.time.DateTime
-import korlibs.time.TimeProvider
-import korlibs.memory.arraycopy
-import korlibs.io.async.AsyncThread2
-import korlibs.io.file.PathInfo
-import korlibs.io.file.SimpleStorage
-import korlibs.io.file.Vfs
-import korlibs.io.file.VfsFile
-import korlibs.io.file.VfsOpenMode
-import korlibs.io.file.VfsStat
-import korlibs.io.file.folder
-import korlibs.io.internal.divCeil
-import korlibs.io.internal.without
-import korlibs.io.lang.IOException
-import korlibs.io.lang.invalidOp
-import korlibs.io.serialization.json.Json
-import korlibs.io.stream.AsyncStream
-import korlibs.io.stream.AsyncStreamBase
-import korlibs.io.stream.toAsyncStream
-import korlibs.encoding.hex
-import korlibs.encoding.unhex
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
-import kotlin.math.max
-import kotlin.math.min
+import korlibs.datastructure.iterators.*
+import korlibs.encoding.*
+import korlibs.io.file.*
+import korlibs.io.internal.*
+import korlibs.io.lang.*
+import korlibs.io.serialization.json.*
+import korlibs.io.stream.*
+import korlibs.memory.*
+import korlibs.time.*
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.sync.*
+import kotlin.math.*
 
 fun SimpleStorage.toVfs(): VfsFile = MapLikeStorageVfs(this).root
 fun SimpleStorage.toVfs(timeProvider: TimeProvider): VfsFile = MapLikeStorageVfs(this).also { it.timeProvider = timeProvider }.root
@@ -37,8 +23,8 @@ class MapLikeStorageVfs(val storage: SimpleStorage) : Vfs() {
 
 	private val files = StorageFiles(storage) { timeProvider }
 	private var initialized = false
-    // @TODO: Create and use an AsyncRecursiveLock (so we can use the same lock inside a block of this lock)
-    private val writeLock = AsyncThread2()
+    @PublishedApi internal val writeLock = Mutex()
+	private suspend inline fun <T> writeLock(block: () -> T): T = writeLock.withLock { block() }
 
 	private suspend fun initOnce() {
 		if (!initialized) {

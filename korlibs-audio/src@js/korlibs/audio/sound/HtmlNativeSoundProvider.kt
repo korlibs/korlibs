@@ -9,6 +9,7 @@ import korlibs.memory.*
 import korlibs.platform.*
 import korlibs.time.*
 import kotlin.coroutines.*
+import kotlin.time.*
 
 actual val nativeSoundProvider: NativeSoundProvider by lazy {
     if (Platform.isJsBrowser) {
@@ -113,7 +114,7 @@ class AudioBufferSound(
     coroutineContext: CoroutineContext,
     override val name: String = "unknown"
 ) : Sound(coroutineContext) {
-	override val length: TimeSpan = ((buffer.duration) ?: 0.0).seconds
+	override val length: Duration = ((buffer.duration) ?: 0.0).seconds
 
     override val nchannels: Int get() = buffer.numberOfChannels ?: 1
 

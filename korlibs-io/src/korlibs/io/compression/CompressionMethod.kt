@@ -5,15 +5,7 @@ import korlibs.io.async.*
 import korlibs.io.compression.util.BitReader
 import korlibs.io.experimental.KorioExperimentalApi
 import korlibs.io.lang.unsupported
-import korlibs.io.stream.AsyncInputStream
-import korlibs.io.stream.AsyncOutputStream
-import korlibs.io.stream.MemorySyncStreamToByteArray
-import korlibs.io.stream.SyncInputStream
-import korlibs.io.stream.SyncOutputStream
-import korlibs.io.stream.asyncStreamWriter
-import korlibs.io.stream.openSync
-import korlibs.io.stream.toAsyncInputStream
-import korlibs.io.stream.toAsyncOutputStream
+import korlibs.io.stream.*
 
 open class CompressionContext(var level: Int = 6) {
 	var name: String? = null
@@ -63,11 +55,11 @@ suspend fun CompressionMethod.compressStream(
 ): AsyncInputStream = asyncStreamWriter(bufferSize, name = "compress:$this") { output -> compress(input, output, context) }
 
 fun CompressionMethod.uncompress(i: SyncInputStream, o: SyncOutputStream) = runBlockingNoSuspensions {
-	uncompress(i.toAsyncInputStream(), o.toAsyncOutputStream())
+	uncompress(i.toAsync(), o.toAsync())
 }
 
 fun CompressionMethod.compress(i: SyncInputStream, o: SyncOutputStream, context: CompressionContext = CompressionContext(level = this.level)) = runBlockingNoSuspensions {
-	compress(i.toAsyncInputStream(), o.toAsyncOutputStream(), context)
+	compress(i.toAsync(), o.toAsync(), context)
 }
 
 fun CompressionMethod.compress(bytes: ByteArray, context: CompressionContext = CompressionContext(level = this.level), outputSizeHint: Int = (bytes.size * 1.1).toInt()): ByteArray =
@@ -81,4 +73,4 @@ fun ByteArray.compress(method: CompressionMethod, context: CompressionContext = 
 	method.compress(this, context, outputSizeHint)
 
 suspend fun AsyncInputStream.uncompressed(method: CompressionMethod, bufferSize: Int = AsyncRingBufferChunked.DEFAULT_MAX_SIZE): AsyncInputStream = method.uncompressStream(this, bufferSize)
-suspend fun AsyncInputStream.compressed(method: CompressionMethod, context: CompressionContext = CompressionContext(level = method.level), bufferSize: Int = AsyncByteArrayDequeChunked.DEFAULT_MAX_SIZE): AsyncInputStream = method.compressStream(this, context, bufferSize)
+suspend fun AsyncInputStream.compressed(method: CompressionMethod, context: CompressionContext = CompressionContext(level = method.level), bufferSize: Int = AsyncRingBufferChunked.DEFAULT_MAX_SIZE): AsyncInputStream = method.compressStream(this, context, bufferSize)

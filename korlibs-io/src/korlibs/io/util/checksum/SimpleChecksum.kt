@@ -38,7 +38,7 @@ suspend fun AsyncInputStream.checksum(checksum: SimpleChecksum): Int {
 	return value
 }
 
-suspend fun AsyncInputOpenable.checksum(checksum: SimpleChecksum) = this.openRead().use { this.checksum(checksum) }
+suspend fun AsyncInputOpenable.checksum(checksum: SimpleChecksum) = this.openRead().use { it.checksum(checksum) }
 
 fun SimpleChecksum.updater(): SimpleChecksumUpdater = SimpleChecksumUpdater(this)
 

@@ -37,17 +37,16 @@ fun UrlVfsJailed(url: String, client: HttpClient = createHttpClient(), failFromS
 fun UrlVfsJailed(url: URL, client: HttpClient = createHttpClient(), failFromStatus: Boolean = true): VfsFile =
 	UrlVfs(url.fullUrl, Unit, client, failFromStatus)[url.path]
 
-class UrlVfs(
-    val url: String, val dummy: Unit, val client: HttpClient = createHttpClient(),
-    val failFromStatus: Boolean = true,
-) : Vfs() {
-	override val absolutePath: String = url
+fun UrlVfs(
+	url: String, dummy: Unit, client: HttpClient = createHttpClient(),
+	failFromStatus: Boolean = true,
+) = FinalUrlVfs(url, dummy, client, failFromStatus)
 
-	fun getFullUrl(path: String): String {
-		val result = url.trim('/') + '/' + path.trim('/')
-		//println("UrlVfs.getFullUrl: url=$url, path=$path, result=$result")
-		return result
-	}
+class FinalUrlVfs(
+    url: String, val dummy: Unit, val client: HttpClient = createHttpClient(),
+    failFromStatus: Boolean = true,
+) : UrlVfs(url, dummy, failFromStatus) {
+	override val absolutePath: String = url
 
 	//suspend override fun open(path: String, mode: VfsOpenMode): AsyncStream {
 	//	return if (mode.write) {

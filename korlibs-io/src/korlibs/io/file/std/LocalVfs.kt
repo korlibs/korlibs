@@ -1,25 +1,11 @@
 package korlibs.io.file.std
 
+import korlibs.io.file.*
 import korlibs.platform.Platform
-import korlibs.io.file.Vfs
-import korlibs.io.file.VfsFile
-import korlibs.io.file.withOnce
 import korlibs.io.lang.Environment
 import korlibs.io.lang.expand
 
-abstract class LocalVfs : Vfs() {
-	companion object {
-		operator fun get(base: String) = localVfs(base)
-	}
-
-    override suspend fun getAttributes(path: String): List<Attribute> {
-        val stat = stat(path)
-        if (!stat.exists) return emptyList()
-        return listOf(UnixPermissions(stat.mode))
-    }
-
-    override fun toString(): String = "LocalVfs"
-}
+operator fun LocalVfs.Companion.get(base: String) = localVfs(base)
 
 var resourcesVfsDebug = false
 
