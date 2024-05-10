@@ -5,8 +5,7 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
-  - ../korlibs-util
-  - ../korlibs-textreader
-  - ../korlibs-indenter
+  - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
 
 test-dependencies:
+

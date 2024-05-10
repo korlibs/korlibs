@@ -7,6 +7,7 @@ import korlibs.io.lang.*
 import korlibs.platform.*
 import korlibs.time.*
 import kotlinx.browser.*
+import kotlinx.coroutines.*
 import org.khronos.webgl.*
 import kotlin.coroutines.*
 
@@ -105,7 +106,7 @@ class JsPlatformAudioOutput(coroutineContext: CoroutineContext, val freq: Int) :
 			// Delay simulating consuming samples
 			val sampleCount = (size / 2)
 			val timeSeconds = sampleCount.toDouble() / 41_000.0
-			coroutineContext.delay(timeSeconds.seconds)
+			delay(timeSeconds.seconds)
 		} else {
 			ensureRunning()
 
@@ -119,7 +120,7 @@ class JsPlatformAudioOutput(coroutineContext: CoroutineContext, val freq: Int) :
 			}
 
 			while (deques[0].availableRead > samples.totalSamples * 4) {
-				coroutineContext.delay(4.milliseconds)
+				delay(4.milliseconds)
 			}
 		}
 	}

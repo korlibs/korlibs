@@ -7,5 +7,5 @@ apply: [ ../common.module-template.yaml ]
 dependencies:
   - ../korlibs-math-core
   - ../korlibs-math-interpolation
-  #- ../korlibs-number
+  - ../korlibs-numberformat
   - ../korlibs-util

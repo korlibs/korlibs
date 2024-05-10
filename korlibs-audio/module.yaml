@@ -20,6 +20,7 @@ dependencies:
   - ../korlibs-ffi: exported
   - ../korlibs-logger: exported
   - ../korlibs-annotations: exported
+  - ../korlibs-numberformat
 
 test-dependencies:
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0
