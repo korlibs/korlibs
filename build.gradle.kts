@@ -63,7 +63,7 @@ allprojects {
         //    }
         //}
         compileSdk = 33
-        namespace = "com.soywiz.${project.name.replace("-", ".").replace(".char", "._char")}"
+        namespace = "com.soywiz.${project.name.replace("-", ".")}"
         //    defaultConfig {
         //        applicationId "[…]"
         //        minSdk 25
