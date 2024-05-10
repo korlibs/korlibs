@@ -4,7 +4,6 @@ import korlibs.datastructure.internal.KdsInternalApi
 import korlibs.datastructure.internal.equaler
 import korlibs.datastructure.internal.hashCoder
 import korlibs.datastructure.internal.memory.Memory.arraycopy
-import kotlin.jvm.JvmOverloads
 import kotlin.math.min
 
 class RingBuffer(bits: Int) : ByteRingBuffer(bits)
@@ -63,7 +62,6 @@ open class ByteRingBuffer(val bits: Int) {
     }
 
     // @TODO: Optimize
-    @JvmOverloads
     fun writeHead(data: ByteArray, offset: Int = 0, size: Int = data.size - offset): Int {
         val toWrite = min(availableWrite, size)
         for (n in 0 until toWrite) {
@@ -75,7 +73,6 @@ open class ByteRingBuffer(val bits: Int) {
         return toWrite
     }
 
-    @JvmOverloads
     fun write(data: ByteArray, offset: Int = 0, size: Int = data.size - offset): Int {
         var remaining = min(availableWrite, size)
         var coffset = offset
@@ -92,7 +89,6 @@ open class ByteRingBuffer(val bits: Int) {
         return totalWrite
     }
 
-    @JvmOverloads
     fun read(data: ByteArray, offset: Int = 0, size: Int = data.size - offset): Int = skip(peek(data, offset, size))
 
     fun skip(size: Int): Int {
@@ -178,7 +174,6 @@ class ShortRingBuffer(val bits: Int) {
         }
     }
 
-    @JvmOverloads
     fun writeHead(data: ShortArray, offset: Int = 0, size: Int = data.size - offset): Int {
         val toWrite = min(availableWrite, size)
         for (n in 0 until toWrite) {
@@ -190,7 +185,6 @@ class ShortRingBuffer(val bits: Int) {
         return toWrite
     }
 
-    @JvmOverloads
     fun write(data: ShortArray, offset: Int = 0, size: Int = data.size - offset): Int {
         val toWrite = min(availableWrite, size)
         for (n in 0 until toWrite) {
@@ -202,7 +196,6 @@ class ShortRingBuffer(val bits: Int) {
         return toWrite
     }
 
-    @JvmOverloads
     fun read(data: ShortArray, offset: Int = 0, size: Int = data.size - offset): Int {
         val toRead = min(availableRead, size)
         for (n in 0 until toRead) {
@@ -246,7 +239,6 @@ class IntRingBuffer(val bits: Int) {
     var availableWrite = totalSize; private set
     var availableRead = 0; private set
 
-    @JvmOverloads
     fun writeHead(data: IntArray, offset: Int = 0, size: Int = data.size - offset): Int {
         val toWrite = min(availableWrite, size)
         for (n in 0 until toWrite) {
@@ -258,7 +250,6 @@ class IntRingBuffer(val bits: Int) {
         return toWrite
     }
 
-    @JvmOverloads
     fun write(data: IntArray, offset: Int = 0, size: Int = data.size - offset): Int {
         val toWrite = min(availableWrite, size)
         for (n in 0 until toWrite) {
@@ -270,7 +261,6 @@ class IntRingBuffer(val bits: Int) {
         return toWrite
     }
 
-    @JvmOverloads
     fun read(data: IntArray, offset: Int = 0, size: Int = data.size - offset): Int {
         val toRead = min(availableRead, size)
         for (n in 0 until toRead) {
@@ -304,7 +294,6 @@ class FloatRingBuffer(val bits: Int) {
     var availableWrite = totalSize; private set
     var availableRead = 0; private set
 
-    @JvmOverloads
     fun writeHead(data: FloatArray, offset: Int = 0, size: Int = data.size - offset): Int {
         val toWrite = min(availableWrite, size)
         for (n in 0 until toWrite) {
@@ -316,7 +305,6 @@ class FloatRingBuffer(val bits: Int) {
         return toWrite
     }
 
-    @JvmOverloads
     fun write(data: FloatArray, offset: Int = 0, size: Int = data.size - offset): Int {
         val toWrite = min(availableWrite, size)
         for (n in 0 until toWrite) {
@@ -328,7 +316,6 @@ class FloatRingBuffer(val bits: Int) {
         return toWrite
     }
 
-    @JvmOverloads
     fun read(data: FloatArray, offset: Int = 0, size: Int = data.size - offset): Int {
         val toRead = min(availableRead, size)
         for (n in 0 until toRead) {

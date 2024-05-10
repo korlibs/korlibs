@@ -2,7 +2,6 @@ package korlibs.datastructure
 
 import korlibs.datastructure.internal.KdsInternalApi
 import korlibs.datastructure.internal.math.Math.ilog2
-import kotlin.jvm.JvmOverloads
 
 class ByteArrayDeque(val initialBits: Int = 10, val allowGrow: Boolean = true) {
     private var ring = RingBuffer(initialBits)
@@ -14,7 +13,6 @@ class ByteArrayDeque(val initialBits: Int = 10, val allowGrow: Boolean = true) {
     val availableRead get() = ring.availableRead
     val bufferSize get() = ring.totalSize
 
-    @JvmOverloads
     fun writeHead(buffer: ByteArray, offset: Int = 0, size: Int = buffer.size - offset): Int {
         ensureWrite(size)
         val out = ring.writeHead(buffer, offset, size)
@@ -22,7 +20,6 @@ class ByteArrayDeque(val initialBits: Int = 10, val allowGrow: Boolean = true) {
         return out
     }
 
-    @JvmOverloads
     fun write(buffer: ByteArray, offset: Int = 0, size: Int = buffer.size - offset): Int {
         ensureWrite(size)
         val out = ring.write(buffer, offset, size)
@@ -30,7 +27,6 @@ class ByteArrayDeque(val initialBits: Int = 10, val allowGrow: Boolean = true) {
         return out
     }
 
-    @JvmOverloads
     fun read(buffer: ByteArray, offset: Int = 0, size: Int = buffer.size - offset): Int {
         val out = ring.read(buffer, offset, size)
         if (out > 0) read += out
@@ -99,21 +95,18 @@ class ShortArrayDeque(val initialBits: Int = 10) {
         }
     }
 
-    @JvmOverloads
     fun writeHead(buffer: ShortArray, offset: Int = 0, size: Int = buffer.size - offset): Int {
         val out = ensureWrite(size).ring.writeHead(buffer, offset, size)
         if (out > 0) written += out
         return out
     }
 
-    @JvmOverloads
     fun write(buffer: ShortArray, offset: Int = 0, size: Int = buffer.size - offset): Int {
         val out = ensureWrite(size).ring.write(buffer, offset, size)
         if (out > 0) written += out
         return out
     }
 
-    @JvmOverloads
     fun read(buffer: ShortArray, offset: Int = 0, size: Int = buffer.size - offset): Int {
         val out = ring.read(buffer, offset, size)
         if (out > 0) read += out
@@ -163,21 +156,18 @@ class IntArrayDeque(val initialBits: Int = 10) {
     val availableWriteWithoutAllocating get() = ring.availableWrite
     val availableRead get() = ring.availableRead
 
-    @JvmOverloads
     fun writeHead(buffer: IntArray, offset: Int = 0, size: Int = buffer.size - offset): Int {
         val out = ensureWrite(size).ring.writeHead(buffer, offset, size)
         if (out > 0) written += out
         return out
     }
 
-    @JvmOverloads
     fun write(buffer: IntArray, offset: Int = 0, size: Int = buffer.size - offset): Int {
         val out = ensureWrite(size).ring.write(buffer, offset, size)
         if (out > 0) written += out
         return out
     }
 
-    @JvmOverloads
     fun read(buffer: IntArray, offset: Int = 0, size: Int = buffer.size - offset): Int {
         val out = ring.read(buffer, offset, size)
         if (out > 0) read += out
@@ -227,21 +217,18 @@ class FloatArrayDeque(val initialBits: Int = 10) {
     val availableWriteWithoutAllocating get() = ring.availableWrite
     val availableRead get() = ring.availableRead
 
-    @JvmOverloads
     fun writeHead(buffer: FloatArray, offset: Int = 0, size: Int = buffer.size - offset): Int {
         val out = ensureWrite(size).ring.writeHead(buffer, offset, size)
         if (out > 0) written += out
         return out
     }
 
-    @JvmOverloads
     fun write(buffer: FloatArray, offset: Int = 0, size: Int = buffer.size - offset): Int {
         val out = ensureWrite(size).ring.write(buffer, offset, size)
         if (out > 0) written += out
         return out
     }
 
-    @JvmOverloads
     fun read(buffer: FloatArray, offset: Int = 0, size: Int = buffer.size - offset): Int {
         val out = ring.read(buffer, offset, size)
         if (out > 0) read += out

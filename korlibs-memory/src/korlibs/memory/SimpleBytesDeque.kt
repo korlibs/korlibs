@@ -13,7 +13,6 @@ class SimpleBytesDeque(val initialBits: Int = 10, val allowGrow: Boolean = true)
     val availableRead get() = ring.availableRead
     val bufferSize get() = ring.totalSize
 
-    @JvmOverloads
     fun writeHead(buffer: ByteArray, offset: Int = 0, size: Int = buffer.size - offset): Int {
         ensureWrite(size)
         val out = ring.writeHead(buffer, offset, size)
@@ -21,7 +20,6 @@ class SimpleBytesDeque(val initialBits: Int = 10, val allowGrow: Boolean = true)
         return out
     }
 
-    @JvmOverloads
     fun write(buffer: ByteArray, offset: Int = 0, size: Int = buffer.size - offset): Int {
         ensureWrite(size)
         val out = ring.write(buffer, offset, size)
@@ -29,7 +27,6 @@ class SimpleBytesDeque(val initialBits: Int = 10, val allowGrow: Boolean = true)
         return out
     }
 
-    @JvmOverloads
     fun read(buffer: ByteArray, offset: Int = 0, size: Int = buffer.size - offset): Int {
         val out = ring.read(buffer, offset, size)
         if (out > 0) read += out

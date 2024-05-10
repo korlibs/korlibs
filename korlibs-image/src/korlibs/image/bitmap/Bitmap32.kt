@@ -11,7 +11,6 @@ import korlibs.image.vector.Context2d
 import korlibs.math.geom.*
 import kotlin.js.JsName
 import kotlin.jvm.JvmName
-import kotlin.jvm.JvmOverloads
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -358,7 +357,6 @@ class Bitmap32(
      * scaling the original content.
      * The [smooth] parameter determines the quality of the interpolation. [smooth]=false will use a nearest neighborhood implementation.
      */
-    @JvmOverloads
     fun scaled(width: Int, height: Int, smooth: Boolean = true): Bitmap32 {
         val sx = width.toFloat() / this.width.toFloat()
         val sy = height.toFloat() / this.height.toFloat()

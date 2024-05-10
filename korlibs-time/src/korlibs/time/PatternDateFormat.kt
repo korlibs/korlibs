@@ -7,12 +7,11 @@ import korlibs.time.internal.increment
 import korlibs.time.internal.padded
 import korlibs.time.internal.readTimeZoneOffset
 import korlibs.time.internal.substr
-import kotlin.jvm.JvmOverloads
 import kotlin.math.absoluteValue
 import kotlin.math.log10
 import kotlin.math.pow
 
-data class PatternDateFormat @JvmOverloads constructor(
+data class PatternDateFormat(
     val format: String,
     val locale: KlockLocale? = null,
     val tzNames: TimezoneNames = TimezoneNames.DEFAULT,
