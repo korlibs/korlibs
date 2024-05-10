@@ -15,9 +15,7 @@ import java.util.concurrent.*
 
 plugins {
     kotlin("multiplatform") version "2.0.0-RC2"
-    //kotlin("multiplatform") version "1.9.24"
     id("com.android.library") version "8.2.2"
-    //kotlin("multiplatform") //apply false
     `maven-publish`
     signing
 }
