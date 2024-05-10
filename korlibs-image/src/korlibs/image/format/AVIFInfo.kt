@@ -2,7 +2,6 @@ package korlibs.image.format
 
 import korlibs.datastructure.IntMap
 import korlibs.logger.Logger
-import korlibs.io.experimental.KorioExperimentalApi
 import korlibs.io.lang.LATIN1
 import korlibs.io.stream.AsyncStream
 import korlibs.io.stream.ByteArrayBitReader
@@ -45,7 +44,6 @@ open class ISOBMFF(vararg exts: String) : ImageFormatSuspend(*exts) {
         override fun toString(): String = "ItemInfo($id, $type, $extents)"
     }
 
-    @OptIn(KorioExperimentalApi::class)
     class StreamParser(val props: ImageDecodingProps) {
         private val logger = Logger("StreamParser")
         val debug get() = props.debug

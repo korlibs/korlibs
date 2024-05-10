@@ -7,6 +7,7 @@ import korlibs.image.paint.*
 import korlibs.image.style.*
 import korlibs.image.text.*
 import korlibs.image.vector.*
+import korlibs.io.file.*
 import korlibs.io.lang.*
 import korlibs.io.serialization.xml.*
 import korlibs.io.util.*
@@ -18,6 +19,8 @@ import korlibs.math.interpolation.*
 import korlibs.time.*
 import korlibs.util.*
 import kotlin.collections.set
+
+suspend fun VfsFile.readSVG() = SVG(this.readString())
 
 class SVG(val root: Xml, val warningProcessor: ((message: String) -> Unit)? = null) : SizedDrawable {
 	//constructor(@Language("xml") str: String) : this(Xml(str))

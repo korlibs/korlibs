@@ -37,14 +37,14 @@ suspend fun AsyncInputStream.readImageData(props: BaseImageDecodingProps = Image
 suspend fun AsyncInputStream.readBitmapListNoNative(props: ImageDecodingProps = ImageDecodingProps.DEFAULT): List<Bitmap> =
 	readImageData(props).frames.map { it.bitmap }
 suspend fun VfsFile.readBitmapInfo(props: BaseImageDecodingProps = ImageDecodingProps.DEFAULT): ImageInfo? =
-    props.decodingProps.formatSure.decodeHeader(this.readAsSyncStream(), props.decodingProps)
+    props.decodingProps.formatSure.decodeHeader(this.read().openSync(), props.decodingProps)
 suspend fun VfsFile.readImageInfo(props: BaseImageDecodingProps = ImageDecodingProps.DEFAULT): ImageInfo? =
     openUse(VfsOpenMode.READ) { props.decodingProps.formatSure.decodeHeaderSuspend(this, props.decodingProps) }
 suspend fun VfsFile.readImageData(props: BaseImageDecodingProps = ImageDecodingProps.DEFAULT, atlas: MutableAtlas<Unit>? = null): ImageData =
     readImageDataContainer(props, atlas).default
 
 suspend fun VfsFile.readImageDataContainer(props: BaseImageDecodingProps = ImageDecodingProps.DEFAULT, atlas: MutableAtlas<Unit>? = null): ImageDataContainer {
-    val out = props.decodingProps.formatSure.readImageContainer(this.readAsSyncStream(), props.decodingProps.withFile(this))
+    val out = props.decodingProps.formatSure.readImageContainer(this.read().openSync(), props.decodingProps.withFile(this))
     return if (atlas != null) out.packInMutableAtlas(atlas) else out
 }
 

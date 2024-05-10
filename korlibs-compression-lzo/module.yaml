@@ -5,6 +5,9 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
+  - ../korlibs-compression: exported
+  - ../korlibs-compression-deflate: exported
+  - ../korlibs-encoding: exported
 
 test-dependencies:
 

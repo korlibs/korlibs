@@ -64,6 +64,9 @@ allprojects {
         //}
         compileSdk = 33
         namespace = "com.soywiz.${project.name.replace("-", ".")}"
+        defaultConfig {
+            minSdk = 20
+        }
         //    defaultConfig {
         //        applicationId "[…]"
         //        minSdk 25
@@ -80,7 +83,7 @@ allprojects {
         //    }
         //}
     }
-    MicroAmper().configure(this)
+    MicroAmper(this).configure()
 }
 
 fun Project.doOnce(uniqueName: String, block: () -> Unit) {
@@ -694,7 +697,7 @@ rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJ
 
 
 // Tiny, coupled and limited variant of amper compatible with the current structure, so we can bump to Kotlin 2.0.0 in the meantime, while amper is discarded or evolved.
-class MicroAmper {
+class MicroAmper(val project: Project) {
     private var kotlinPlatforms = mutableListOf<String>()
     private var kotlinAliases = LinkedHashMap<String, List<String>>()
     private var deps = mutableListOf<Dep>()
@@ -769,10 +772,18 @@ class MicroAmper {
 
     val sourceSetPairs = LinkedHashMap<String, SourceSetPair>()
 
+    // specific depends on more generic
+    fun NamedDomainObjectContainer<KotlinSourceSet>.ssDependsOn(base: String, other: String) {
+        if (base == other) return
+        //println("$base dependsOn $other")
+        ssPair(base).dependsOn(ssPair(other))
+    }
+
+    val projectFiles: Set<String> = (project.projectDir.list() ?: emptyArray()).toSet()
+
     fun SourceDirectorySet.srcDirIfExists(path: String) {
-        //val file = file(path)
-        //if (file.isDirectory) srcDir(file)
-        srcDir(path)
+        if (path in projectFiles) setSrcDirs(listOf(path)) //else println("file doesn't exist $path")
+        //srcDir(path)
     }
 
     fun NamedDomainObjectContainer<KotlinSourceSet>.ssPair(name: String): SourceSetPair {
@@ -791,15 +802,8 @@ class MicroAmper {
         }
     }
 
-    // specific depends on more generic
-    fun NamedDomainObjectContainer<KotlinSourceSet>.ssDependsOn(base: String, other: String) {
-        if (base == other) return
-        //println("$base dependsOn $other")
-        ssPair(base).dependsOn(ssPair(other))
-    }
-
-    fun applyTo(project: Project) = with(project) {
-        kotlin.sourceSets {
+    fun applyTo() = with(project) {
+        project.kotlin.sourceSets {
             ssDependsOn("native", "common")
             ssDependsOn("posix", "native")
             ssDependsOn("apple", "posix")
@@ -861,7 +865,9 @@ class MicroAmper {
                 "mingwX64" -> kotlin.mingwX64()
             }
         }
-        
+
+        //kotlin.applyDefaultHierarchyTemplate()
+
         kotlin.targets.forEach {
             it.compilations.forEach {
                 it.compileTaskProvider.configure {
@@ -912,9 +918,9 @@ class MicroAmper {
         }
     }
 
-    fun configure(project: Project) {
+    fun configure() {
         val amperFile = File(project.projectDir, "module.yaml").takeIf { it.exists() } ?: return
         parseFile(amperFile)
-        applyTo(project)
+        applyTo()
     }
 }
