@@ -1,4 +1,4 @@
-package korlibs.serialization.json
+package korlibs.io.serialization.json
 
 import korlibs.datastructure.*
 import korlibs.io.dynamic.*
