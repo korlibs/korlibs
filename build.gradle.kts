@@ -15,15 +15,28 @@ import java.util.concurrent.*
 
 plugins {
     kotlin("multiplatform") version "2.0.0-RC2"
-    //kotlin("multiplatform") version "1.9.24"
     id("com.android.library") version "8.2.2"
-    //kotlin("multiplatform") //apply false
     `maven-publish`
     signing
 }
 
+var REAL_VERSION = System.getenv("FORCED_VERSION")
+    ?.replaceFirst(Regex("^refs/tags/"), "")
+    ?.replaceFirst(Regex("^v"), "")
+    ?.replaceFirst(Regex("^w"), "")
+    ?.replaceFirst(Regex("^z"), "")
+//?: rootProject.findProperty("version")
+    ?: "999.0.0.999"
+
+//val REAL_VERSION = System.getenv("FORCED_VERSION") ?: "999.0.0.999"
+
 val JVM_TARGET = JvmTarget.JVM_1_8
 val GROUP = "com.soywiz"
+
+kotlin {
+    jvm()
+    androidTarget()
+}
 
 allprojects {
     repositories {
@@ -70,11 +83,6 @@ allprojects {
     MicroAmper().configure(this)
 }
 
-kotlin {
-    jvm()
-    androidTarget()
-}
-
 fun Project.doOnce(uniqueName: String, block: () -> Unit) {
     val key = "doOnce-$uniqueName"
     if (!rootProject.extra.has(key)) {
@@ -83,67 +91,69 @@ fun Project.doOnce(uniqueName: String, block: () -> Unit) {
     }
 }
 
-// Signing
-val signingKey: String? = System.getenv("ORG_GRADLE_PROJECT_signingKey") ?: project.findProperty("signing.signingKey")?.toString()
-val signingPassword: String? = System.getenv("ORG_GRADLE_PROJECT_signingPassword") ?: project.findProperty("signing.password")?.toString()
-val globalSignatories: CachedInMemoryPgpSignatoryProvider? = when {
-    signingKey != null && signingPassword != null -> CachedInMemoryPgpSignatoryProvider(signingKey, signingPassword)
-    else -> null
-}
-
-val sonatypePublishUserNull: String? = (System.getenv("SONATYPE_USERNAME") ?: rootProject.findProperty("SONATYPE_USERNAME")?.toString() ?: project.findProperty("sonatypeUsername")?.toString())
-val sonatypePublishPasswordNull: String? = (System.getenv("SONATYPE_PASSWORD") ?: rootProject.findProperty("SONATYPE_PASSWORD")?.toString() ?: project.findProperty("sonatypePassword")?.toString())
-val sonatype: Sonatype? = when {
-    sonatypePublishUserNull != null && sonatypePublishPasswordNull != null -> Sonatype(sonatypePublishUserNull, sonatypePublishPasswordNull)
-    else -> null
-}
-
-if (sonatype != null) {
-    tasks.create("startReleasingMavenCentral", Task::class) {
-        doLast {
-            val profileId = sonatype.findProfileIdByGroupId("com.soywiz")
-            val stagedRepositoryId = sonatype.startStagedRepository(profileId)
-            println("profileId=$profileId")
-            println("stagedRepositoryId=$stagedRepositoryId")
-            GithubCI.setOutput("stagedRepositoryId", stagedRepositoryId)
-            File("stagedRepositoryId").writeText(stagedRepositoryId)
-        }
+class SonatypeProps(val project: Project) {
+    // Signing
+    val signingKey: String? = System.getenv("ORG_GRADLE_PROJECT_signingKey") ?: project.findProperty("signing.signingKey")?.toString()
+    val signingPassword: String? = System.getenv("ORG_GRADLE_PROJECT_signingPassword") ?: project.findProperty("signing.password")?.toString()
+    val globalSignatories: CachedInMemoryPgpSignatoryProvider? = when {
+        signingKey != null && signingPassword != null -> CachedInMemoryPgpSignatoryProvider(signingKey, signingPassword)
+        else -> null
     }
-    rootProject.tasks.create<Task>("releaseMavenCentral") {
-        //val groupId = "com.soywiz.korge" ?: rootProject.group.toString()
-        val groupId = "com.soywiz.korge"
-        doLast {
-            //if (!sonatype.releaseGroupId(rootProject.group.toString())) {
-            try {
-                if (!sonatype.releaseGroupId(groupId)) {
-                    error("Can't promote artifacts. Check log for details")
+
+    val sonatypePublishUserNull: String? =
+        (System.getenv("SONATYPE_USERNAME") ?: rootProject.findProperty("SONATYPE_USERNAME")?.toString() ?: project.findProperty("sonatypeUsername")
+            ?.toString())
+    val sonatypePublishPasswordNull: String? =
+        (System.getenv("SONATYPE_PASSWORD") ?: rootProject.findProperty("SONATYPE_PASSWORD")?.toString() ?: project.findProperty("sonatypePassword")
+            ?.toString())
+    val sonatype: Sonatype? = when {
+        sonatypePublishUserNull != null && sonatypePublishPasswordNull != null -> Sonatype(sonatypePublishUserNull, sonatypePublishPasswordNull)
+        else -> null
+    }
+
+    val stagedRepositoryId: String? by lazy {
+        System.getenv("stagedRepositoryId")
+            ?: findProperty("stagedRepositoryId")?.toString()
+            ?: File("stagedRepositoryId").takeIf { it.exists() }?.readText()?.trim()
+    }
+
+    fun createTasks(project: Project) = with(project) {
+        if (sonatype != null) {
+            tasks.create("startReleasingMavenCentral", Task::class) {
+                doLast {
+                    val profileId = sonatype.findProfileIdByGroupId("com.soywiz")
+                    val stagedRepositoryId = sonatype.startStagedRepository(profileId)
+                    println("profileId=$profileId")
+                    println("stagedRepositoryId=$stagedRepositoryId")
+                    GithubCI.setOutput("stagedRepositoryId", stagedRepositoryId)
+                    File("stagedRepositoryId").writeText(stagedRepositoryId)
                 }
-            } finally {
-                File("stagedRepositoryId").delete()
+            }
+            rootProject.tasks.create<Task>("releaseMavenCentral") {
+                //val groupId = "com.soywiz.korge" ?: rootProject.group.toString()
+                val groupId = "com.soywiz.korge"
+                doLast {
+                    //if (!sonatype.releaseGroupId(rootProject.group.toString())) {
+                    try {
+                        if (!sonatype.releaseGroupId(groupId)) {
+                            error("Can't promote artifacts. Check log for details")
+                        }
+                    } finally {
+                        File("stagedRepositoryId").delete()
+                    }
+                }
             }
         }
+
+        if (stagedRepositoryId != null) {
+            println("stagedRepositoryId=$stagedRepositoryId")
+        }
     }
 }
 
-val stagedRepositoryId: String? by lazy {
-    System.getenv("stagedRepositoryId")
-        ?: findProperty("stagedRepositoryId")?.toString()
-        ?: File("stagedRepositoryId").takeIf { it.exists() }?.readText()?.trim()
-}
+val sonatypeProps = SonatypeProps(rootProject)
 
-if (stagedRepositoryId != null) {
-    println("stagedRepositoryId=$stagedRepositoryId")
-}
-
-var REAL_VERSION = System.getenv("FORCED_VERSION")
-    ?.replaceFirst(Regex("^refs/tags/"), "")
-    ?.replaceFirst(Regex("^v"), "")
-    ?.replaceFirst(Regex("^w"), "")
-    ?.replaceFirst(Regex("^z"), "")
-    //?: rootProject.findProperty("version")
-    ?: "999.0.0.999"
-
-//val REAL_VERSION = System.getenv("FORCED_VERSION") ?: "999.0.0.999"
+sonatypeProps.createTasks(rootProject)
 
 subprojects {
     //apply<KotlinMultiplatformPlugin>()
@@ -282,17 +292,17 @@ subprojects {
     //println(tasks.findByName("jsProcessResources")!!::class)
 
     // Publishing
-    if (sonatype != null) {
+    if (sonatypeProps.sonatype != null) {
         publishing {
             repositories {
                 maven {
                     credentials {
-                        username = sonatype.user
-                        password = sonatype.pass
+                        username = sonatypeProps.sonatype.user
+                        password = sonatypeProps.sonatype.pass
                     }
                     url = when {
                         version.toString().contains("-SNAPSHOT") -> uri("https://oss.sonatype.org/content/repositories/snapshots/")
-                        stagedRepositoryId != null -> uri("https://oss.sonatype.org/service/local/staging/deployByRepositoryId/${stagedRepositoryId}/")
+                        sonatypeProps.stagedRepositoryId != null -> uri("https://oss.sonatype.org/service/local/staging/deployByRepositoryId/${sonatypeProps.stagedRepositoryId}/")
                         else -> uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
                     }
                     doOnce("showDeployTo") { logger.info("DEPLOY mavenRepository: $url") }
@@ -361,10 +371,10 @@ subprojects {
     }
 
     // Signing
-    if (globalSignatories != null) {
+    if (sonatypeProps.globalSignatories != null) {
         signing {
             sign(publishing.publications)
-            this.signatories = globalSignatories
+            this.signatories = sonatypeProps.globalSignatories
         }
     }
 
@@ -850,8 +860,10 @@ class MicroAmper {
             it.compilations.forEach {
                 it.compileTaskProvider.configure {
                     compilerOptions {
-                        this.apiVersion.set(KotlinVersion.KOTLIN_2_0)
-                        this.languageVersion.set(KotlinVersion.KOTLIN_2_0)
+                        // apiVersion: Allow to use declarations only from the specified version of bundled libraries
+                        // languageVersion: Provide source compatibility with specified language version
+                        //this.apiVersion.set(KotlinVersion.KOTLIN_2_0)
+                        //this.languageVersion.set(KotlinVersion.KOTLIN_2_0)
                     }
                 }
             }
@@ -885,7 +897,11 @@ class MicroAmper {
 
         for (target in kotlin.targets) {
             target.compilations.all {
-                this.kotlinOptions.suppressWarnings = true
+                compileTaskProvider.configure {
+                    compilerOptions {
+                        suppressWarnings.set(true)
+                    }
+                }
             }
         }
     }
