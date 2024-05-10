@@ -12,3 +12,4 @@ test-dependencies:
   #- ../korlibs-charset
   - ../korlibs-platform
   - ../korlibs-math-core
+  - ../korlibs-string
