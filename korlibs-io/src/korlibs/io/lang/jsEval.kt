@@ -25,14 +25,14 @@ expect object JSEval {
      *
      * If [available] is false, this function will throw an exception.
      */
-    operator fun invoke(
+    suspend operator fun invoke(
         // language: javascript
         code: String,
         params: Map<String, Any?>,
     ): Any?
 }
 
-operator fun JSEval.invoke(
+suspend operator fun JSEval.invoke(
     // language: javascript
     code: String,
     vararg params: Pair<String, Any?>,
@@ -41,7 +41,7 @@ operator fun JSEval.invoke(
 /**
  * Executes a javascript [expr] expressions and return the result.
  */
-fun JSEval.expr(
+suspend fun JSEval.expr(
     // language: javascript
     expr: String,
     vararg params: Pair<String, Any?>,

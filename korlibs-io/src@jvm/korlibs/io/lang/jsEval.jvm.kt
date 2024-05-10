@@ -16,7 +16,7 @@ actual object JSEval {
         }
     }
 
-    actual operator fun invoke(
+    actual suspend operator fun invoke(
         // language: javascript
         code: String,
         params: Map<String, Any?>,

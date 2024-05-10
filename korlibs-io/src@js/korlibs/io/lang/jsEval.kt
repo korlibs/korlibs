@@ -6,7 +6,7 @@ actual object JSEval {
     actual const val available: Boolean = true
     actual val globalThis: Any? get() = jsGlobal
 
-    actual operator fun invoke(
+    actual suspend operator fun invoke(
         // language: javascript
         code: String,
         params: Map<String, Any?>,

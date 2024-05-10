@@ -2,12 +2,13 @@ package korlibs.io.lang
 
 import korlibs.memory.*
 import korlibs.io.*
+import korlibs.io.async.*
 import korlibs.platform.*
 import kotlin.test.*
 
 class JsEvalTest {
     @Test
-    fun test() {
+    fun test() = suspendTest {
         assertEquals(true, Platform.isJs)
         assertEquals(true, JSEval.available)
         assertEquals(32, JSEval("return a ** b;", "a" to 2, "b" to 5))
