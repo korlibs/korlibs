@@ -39,12 +39,12 @@ jobs:
     steps:
       - { uses: actions/checkout@v4 }
       - { name: Use Node.js 20.x, uses: actions/setup-node@v4, with: { node-version: 20.x } }
-      - { name: Configure parallel in local.properties, run: "echo org.gradle.parallel=true >> local.properties" }
+      - { if: "${{ matrix.os != 'macos-11' }}", name: Configure parallel in local.properties, run: "echo org.gradle.parallel=true >> local.properties" }
       - { name: Replace gradle wrapper, run: "sed 's/-all/-bin/g' gradle/wrapper/gradle-wrapper.properties > gradle/wrapper/gradle-wrapper.properties.bak; cp gradle/wrapper/gradle-wrapper.properties.bak gradle/wrapper/gradle-wrapper.properties" }
       - { name: Set up JDK, uses: actions/setup-java@v4, with: { distribution: "${{ env.JAVA_DISTRIBUTION }}", java-version: "${{ env.JAVA_VERSION }}" } }
       - { name: Prepare Gradle, uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 } # v3.1.0
       - { name: Start gradle, run: ./gradlew }
-      - { if: "${{ matrix.precompileTask }}", name: "Building ${{ matrix.precompileTask }} classes", run: "./gradlew --stacktrace --parallel ${{ matrix.precompileTask }}" }
+      - { if: "${{ matrix.precompileTask }}", name: "Building ${{ matrix.precompileTask }} classes", run: "./gradlew --stacktrace ${{ matrix.precompileTask }}" }
       - { if: "${{ matrix.testTask }}", name: "Run ${{ matrix.testTask }} tests", run: "./gradlew ${{ matrix.testTask }}" }
       - { if: "${{ matrix.buildTasks }}", name: "Run ${{ matrix.buildTasks }}", run: "./gradlew ${{ matrix.buildTasks }}" }
       - name: Enable KVM
@@ -55,4 +55,4 @@ jobs:
           sudo udevadm trigger --name-match=kvm
       - { name: "Run Android Tests", if: "${{ matrix.enableAndroid }}", uses: reactivecircus/android-emulator-runner@v2, with: { "api-level": 21, "script": "./gradlew connectedCheck lintDebug" } }
       - { name: Archive Test Results, if: failure(), uses: actions/upload-artifact@v4, with: { name: "test-results-${{ matrix.outputKey }}", retention-days: 21, path: "**/build/reports", if-no-files-found: ignore } }
-      - { if: "${{ matrix.e2e }}", name: Publish to maven local, run: ./gradlew --parallel publishJvmLocal publishKotlinMultiplatformPublicationToMavenLocal }
+      - { if: "${{ matrix.e2e }}", name: Publish to maven local, run: ./gradlew publishJvmLocal publishKotlinMultiplatformPublicationToMavenLocal }
