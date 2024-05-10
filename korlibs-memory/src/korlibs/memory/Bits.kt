@@ -3,8 +3,6 @@
 
 package korlibs.memory
 
-import korlibs.math.clamp01
-import korlibs.math.toInt
 import kotlin.rotateLeft as rotateLeftKotlin
 import kotlin.rotateRight as rotateRightKotlin
 
@@ -243,7 +241,7 @@ public fun Int.insert(value: Boolean, offset: Int): Int {
 public fun Int.insertScaled(value: Int, offset: Int, count: Int, scale: Int): Int = insert((value * count.mask()) / scale, offset, count)
 public fun Int.insertScaledFF(value: Int, offset: Int, count: Int): Int = if (count == 0) this else this.insertScaled(value, offset, count, 0xFF)
 /** Extracts [count] at [offset] from [this] [Int] and convert the possible values into the range 0.0..1.0 */
-public fun Int.insertScaledf01(value: Float, offset: Int, count: Int): Int = this.insert((value.clamp01() * offset.mask()).toInt(), offset, count)
+public fun Int.insertScaledf01(value: Float, offset: Int, count: Int): Int = this.insert((value.coerceIn(0f, 1f) * offset.mask()).toInt(), offset, count)
 
 
 /** Check if [this] has all the bits set in [bits] set */

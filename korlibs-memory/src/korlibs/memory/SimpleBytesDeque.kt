@@ -1,6 +1,5 @@
 package korlibs.memory
 
-import korlibs.math.*
 import kotlin.jvm.*
 import kotlin.math.*
 

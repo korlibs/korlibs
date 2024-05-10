@@ -13,7 +13,7 @@ dependencies:
   - ../korlibs-math: exported
   - ../korlibs-ffi: exported
   - ../korlibs-wasm: exported
-  - org.jetbrains.kotlinx:atomicfu:0.23.1: exported
+  - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
 
 test-dependencies:
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0

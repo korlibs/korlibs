@@ -13,9 +13,10 @@ dependencies:
   - ../korlibs-io-fs
   - ../korlibs-exception: exported
   - ../korlibs-io-path: exported
+  - ../korlibs-io-stream: exported
   - ../korlibs-time-core: exported
-  - ../korlibs-io-charset: exported
-  - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0: exported
+  - ../korlibs-charset: exported
+  - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1: exported
 
 test-dependencies:
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0

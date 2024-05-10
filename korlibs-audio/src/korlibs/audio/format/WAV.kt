@@ -2,9 +2,9 @@
 
 package korlibs.audio.format
 
+import korlibs.annotations.*
 import korlibs.audio.internal.*
 import korlibs.audio.sound.*
-import korlibs.io.annotations.*
 import korlibs.io.async.*
 import korlibs.io.lang.*
 import korlibs.io.stream.*

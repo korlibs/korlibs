@@ -15,7 +15,7 @@ class InvalidOperationException(str: String = "Invalid Operation") : Exception(s
 class OutOfBoundsException(index: Int = -1, str: String = "Out Of Bounds") : Exception(str)
 class KeyNotFoundException(str: String = "Key Not Found") : Exception(str)
 class NotImplementedException(str: String = "Not Implemented") : Exception(str)
-class InvalidArgumentException(str: String = "Invalid Argument") : Exception(str)
+typealias InvalidArgumentException = IllegalArgumentException
 class UnreachableException(str: String = "Unreachable") : Exception(str)
 class ReservedException(str: String = "Reserved") : Exception(str)
 class MustValidateCodeException(str: String = "Must Validate Code") : Exception(str)

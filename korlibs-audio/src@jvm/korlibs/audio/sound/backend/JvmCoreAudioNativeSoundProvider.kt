@@ -1,13 +1,11 @@
 package korlibs.audio.sound.backend
 
 import com.sun.jna.*
+import korlibs.annotations.*
 import korlibs.audio.sound.*
 import korlibs.ffi.*
-import korlibs.io.annotations.*
-import korlibs.io.concurrent.atomic.*
 import kotlinx.atomicfu.*
 import java.util.concurrent.*
-import java.util.concurrent.atomic.*
 import java.util.concurrent.atomic.AtomicLong
 import kotlin.coroutines.*
 

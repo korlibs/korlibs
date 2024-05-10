@@ -5,9 +5,10 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
-  - ../korlibs-math-core: exported
-  - ../korlibs-platform: exported
 
 test-dependencies:
   - ../korlibs-util
   - ../korlibs-encoding
+  #- ../korlibs-charset
+  - ../korlibs-platform
+  - ../korlibs-math-core

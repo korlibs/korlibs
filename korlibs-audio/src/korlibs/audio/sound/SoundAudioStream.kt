@@ -105,7 +105,7 @@ class SoundAudioStream(
         val channelId = ID_POOL.alloc()
         val dispatcherName = "SoundChannel-SoundAudioStream-$channelId"
         //println("dispatcher[a]=$dispatcher, thread=${currentThreadName}:${currentThreadId}")
-        val job = launchAsap(coroutineContext) {
+        val job = CoroutineScope(coroutineContext).launch {
             val dispatcher = when {
                 //Platform.runtime.isNative -> Dispatchers.createRedirectedDispatcher(dispatcherName, coroutineContext[CoroutineDispatcher.Key] ?: Dispatchers.Default)
                 Platform.runtime.isNative -> null // @TODO: In MacOS audio is not working. Check why.

@@ -2,12 +2,12 @@
 
 package korlibs.audio.format
 
+import korlibs.annotations.*
 import korlibs.datastructure.DoubleArrayList
 import korlibs.datastructure.binarySearch
 import korlibs.time.TimeSpan
 import korlibs.time.microseconds
 import korlibs.time.seconds
-import korlibs.io.annotations.Keep
 import korlibs.io.lang.*
 import korlibs.io.stream.AsyncStream
 import korlibs.io.stream.openSync

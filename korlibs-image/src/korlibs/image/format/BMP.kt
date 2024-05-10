@@ -100,8 +100,8 @@ object BMP : ImageFormat("bmp") {
         val bmp = image.mainBitmap.toBMP32()
 
         //
-        s.write8('B'.toInt())
-        s.write8('M'.toInt())
+        s.write8('B'.code)
+        s.write8('M'.code)
         s.write32LE(4 * bmp.area)
         s.write32LE(0) // Reserved
         s.write32LE(54) // Offset to data

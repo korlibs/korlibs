@@ -85,7 +85,7 @@ class JvmAsyncServerSocket(
         }
     }
 
-    override fun close() {
+    override suspend fun close() {
         CoroutineScope(Dispatchers.IO).launch { ssc.close() }
     }
 }

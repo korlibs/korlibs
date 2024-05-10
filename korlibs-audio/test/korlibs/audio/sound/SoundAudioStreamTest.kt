@@ -3,6 +3,7 @@
 package korlibs.audio.sound
 
 import doIOTest
+import korlibs.concurrent.thread.*
 import korlibs.io.async.*
 import korlibs.io.file.std.*
 import korlibs.io.lang.*
@@ -48,10 +49,10 @@ class SoundAudioStreamTest {
             val sound2 = soundProvider.createSound(resourcesVfs[fileName], streaming = true)
             val wait = CompletableDeferred<Unit>()
             soundProvider.onAfterAdd.once {
-                logger.debug { "currentThreadId:$currentThreadId" }
+                logger.debug { "currentThreadId:${NativeThread.currentThreadId}" }
                 wait.complete(Unit)
             }
-            logger.debug { "currentThreadId:$currentThreadId" }
+            logger.debug { "currentThreadId:${NativeThread.currentThreadId}" }
             val channel = sound2.play()
             assertEquals("0s/58.5ms", "${channel.current}/${channel.total}")
             wait.await()

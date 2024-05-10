@@ -10,8 +10,10 @@ aliases:
 
 dependencies:
   - ../korlibs-time-core
-  - org.jetbrains.kotlinx:atomicfu:0.23.1: exported
-  - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0: exported
+  - ../korlibs-closeable
+  - ../korlibs-datastructure-core
+  - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
+  - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1: exported
 
 test-dependencies:
 

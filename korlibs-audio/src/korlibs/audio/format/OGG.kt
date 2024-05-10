@@ -1,8 +1,8 @@
 package korlibs.audio.format
 
+import korlibs.annotations.*
 import korlibs.time.microseconds
 import korlibs.memory.extract
-import korlibs.io.annotations.Keep
 import korlibs.io.lang.invalidOp
 import korlibs.io.stream.AsyncStream
 import korlibs.io.stream.readS32LE

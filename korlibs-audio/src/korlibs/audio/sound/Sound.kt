@@ -348,7 +348,7 @@ interface SoundChannelBase : SoundProps, Extra {
         coroutineContext.onCancel {
             blockOnce?.invoke()
         }
-        coroutineContext.launchUnscoped {
+        CoroutineScope(coroutineContext).launch {
             try {
                 while (state.playing) delay(10.milliseconds)
             } finally {

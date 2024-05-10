@@ -63,7 +63,7 @@ class CharsetTest {
             listOf("UTF-8", "UTF-16", "UTF-16-LE", "UTF-16-BE", "LATIN-1", "ISO-8859-1")
                 .joinToString("\n") { Charset.forName(it).name }
         )
-        assertFailsWith<InvalidArgumentException> { Charset.forName("MY-UNKNOWN-CHARSET") }
+        assertFailsWith<IllegalArgumentException> { Charset.forName("MY-UNKNOWN-CHARSET") }
     }
 
     @Test

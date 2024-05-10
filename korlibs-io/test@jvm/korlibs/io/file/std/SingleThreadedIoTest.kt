@@ -1,5 +1,6 @@
 package korlibs.io.file.std
 
+import korlibs.concurrent.thread.*
 import korlibs.io.async.*
 import korlibs.io.lang.*
 import org.junit.*
@@ -9,9 +10,9 @@ import kotlin.test.*
 class SingleThreadedIoTest {
 	@Test
 	fun test() = suspendTest {
-		val thread1 = currentThreadId
+		val thread1 = NativeThread.currentThreadId
 		localCurrentDirVfs["temp.txt"].writeString("temp")
-		val thread2 = currentThreadId
+		val thread2 = NativeThread.currentThreadId
 		assertEquals(thread1, thread2)
 		localCurrentDirVfs["temp.txt"].delete()
 	}

@@ -45,19 +45,11 @@ fun String.replaceNonPrintableCharacters(replacement: String = "?"): String {
 	return this.replace(replaceNonPrintableCharactersRegex, replacement)
 }
 
-fun String.toBytez(len: Int, charset: Charset = UTF8): ByteArray {
-	val out = ByteArrayBuilder()
-	out.append(this.toByteArray(charset))
-	while (out.size < len) out.append(0.toByte())
-	return out.toByteArray()
-}
+fun String.toBytez(len: Int, charset: Charset = UTF8): ByteArray =
+	this.toByteArray(charset).copyOf(len)
 
-fun String.toBytez(charset: Charset = UTF8): ByteArray {
-	val out = ByteArrayBuilder()
-	out.append(this.toByteArray(charset))
-	out.append(0.toByte())
-	return out.toByteArray()
-}
+fun String.toBytez(charset: Charset = UTF8): ByteArray =
+	this.toByteArray(charset).let { it.copyOf(it.size + 1) }
 
 fun String.indexOfOrNull(char: Char, startIndex: Int = 0): Int? = this.indexOf(char, startIndex).takeIf { it >= 0 }
 

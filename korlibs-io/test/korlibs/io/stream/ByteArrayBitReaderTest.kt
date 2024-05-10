@@ -1,10 +1,7 @@
 package korlibs.io.stream
 
-import korlibs.io.experimental.KorioExperimentalApi
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import kotlin.test.*
 
-@OptIn(KorioExperimentalApi::class)
 class ByteArrayBitReaderTest {
     @Test
     fun test() {

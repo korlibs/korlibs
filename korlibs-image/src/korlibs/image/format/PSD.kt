@@ -4,15 +4,7 @@ import korlibs.math.unsigned
 import korlibs.image.bitmap.Bitmap32
 import korlibs.image.color.RGBA
 import korlibs.io.lang.invalidOp
-import korlibs.io.stream.FastByteArrayInputStream
-import korlibs.io.stream.SyncStream
-import korlibs.io.stream.openFastStream
-import korlibs.io.stream.readAvailable
-import korlibs.io.stream.readBytes
-import korlibs.io.stream.readS32BE
-import korlibs.io.stream.readStream
-import korlibs.io.stream.readStringz
-import korlibs.io.stream.readU16BE
+import korlibs.io.stream.*
 
 // https://www.adobe.com/devnet-apps/photoshop/fileformatashtml/
 object PSD : ImageFormat("psd") {

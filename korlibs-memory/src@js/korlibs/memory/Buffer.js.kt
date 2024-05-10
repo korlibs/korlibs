@@ -1,7 +1,8 @@
 package korlibs.memory
 
-import korlibs.platform.*
 import org.khronos.webgl.*
+
+private val isLittleEndian: Boolean = Uint8Array(Uint32Array(1).also { it[0] = 0x11223344 }.buffer)[0].toInt() == 0x44
 
 actual class Buffer(val dataView: org.khronos.webgl.DataView) {
     actual constructor(size: Int, direct: Boolean) : this(DataView(ArrayBuffer(checkNBufferSize(size))))
@@ -32,7 +33,7 @@ actual class Buffer(val dataView: org.khronos.webgl.DataView) {
     actual fun getS64LE(byteOffset: Int): Long {
         val v0 = getS32LE(byteOffset).toLong() and 0xFFFFFFFFL
         val v1 = getS32LE(byteOffset + 4).toLong() and 0xFFFFFFFFL
-        return if (Platform.isLittleEndian) (v1 shl 32) or v0 else (v0 shl 32) or v1
+        return if (isLittleEndian) (v1 shl 32) or v0 else (v0 shl 32) or v1
     }
     actual fun getF32LE(byteOffset: Int): Float = dataView.getFloat32(byteOffset, true)
     actual fun getF64LE(byteOffset: Int): Double = dataView.getFloat64(byteOffset, true)

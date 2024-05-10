@@ -176,7 +176,7 @@ class JvmNioAsyncServer(override val requestPort: Int, override val host: String
         }
     }
 
-    override fun close() {
+    override suspend fun close() {
         try {
             @Suppress("BlockingMethodInNonBlockingContext")
             ssc.close()

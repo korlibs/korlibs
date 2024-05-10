@@ -1,5 +1,6 @@
 package korlibs.io.stream
 
+import korlibs.memory.*
 import korlibs.util.*
 import kotlin.test.*
 

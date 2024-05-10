@@ -6,6 +6,7 @@ apply: [ ../common.module-template.yaml ]
 
 dependencies:
   - ../korlibs-math-core: exported
+  - ../korlibs-math-interpolation: exported
   - ../korlibs-math-vector: exported
   - ../korlibs-util: exported
   - ../korlibs-datastructure: exported

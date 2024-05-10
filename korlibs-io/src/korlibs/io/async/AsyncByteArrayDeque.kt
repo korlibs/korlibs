@@ -8,18 +8,6 @@ import korlibs.time.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*
 
-@Deprecated("", replaceWith = ReplaceWith("korlibs.io.async.IAsyncRingBuffer"))
-@Suppress("unused")
-typealias IAsyncByteArrayDeque = IAsyncRingBuffer
-
-@Deprecated("", replaceWith = ReplaceWith("korlibs.io.async.AsyncRingBuffer"))
-@Suppress("unused")
-typealias AsyncByteArrayDeque = AsyncRingBuffer
-
-@Deprecated("", replaceWith = ReplaceWith("korlibs.io.async.AsyncRingBufferChunked"))
-@Suppress("unused")
-typealias AsyncByteArrayDequeChunked = AsyncRingBufferChunked
-
 interface IAsyncRingBuffer : AsyncOutputStream, AsyncInputStream
 
 class AsyncRingBuffer(private val bufferSize: Int = 1024) : IAsyncRingBuffer {

@@ -12,10 +12,11 @@ aliases:
 dependencies:
   - ../korlibs-closeable: exported
   - ../korlibs-io-fs
+  - ../korlibs-encoding
   - ../korlibs-io-path: exported
   - ../korlibs-io-vfs: exported
   - ../korlibs-io-stream: exported
-  - ../korlibs-io-charset: exported
+  - ../korlibs-charset: exported
   - ../korlibs-io-socket-core
   - ../korlibs-math-core: exported
   - ../korlibs-memory: exported
@@ -39,7 +40,7 @@ dependencies:
   - ../korlibs-compression-lzma: exported
   - ../korlibs-compression-deflate: exported
   - ../korlibs-compression-lzo: exported
-  - org.jetbrains.kotlinx:atomicfu:0.23.1: exported
+  - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
 
 test-dependencies:
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0
