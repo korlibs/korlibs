@@ -3,7 +3,7 @@ package korlibs.io.lang
 import javax.script.*
 
 actual object JSEval {
-    actual val globalThis: Any? get() = invoke("globalThis")
+    actual val globalThis: Any? get() = engine?.eval("globalThis")
     actual val available: Boolean get() = engine != null
 
     val availableEngines get() = ScriptEngineManager().engineFactories.map { it.names }
