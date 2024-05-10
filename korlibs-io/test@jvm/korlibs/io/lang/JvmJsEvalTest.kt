@@ -1,11 +1,12 @@
 package korlibs.io.lang
 
+import korlibs.io.async.*
 import javax.script.*
 import kotlin.test.*
 
 class JvmJsEvalTest {
     @Test
-    fun test() {
+    fun test() = suspendTest {
         //println(ScriptEngineManager().engineFactories.map { it.names })
         //println(ScriptEngineManager().getEngineByName("rhino"))
         //println(ScriptEngineManager().getEngineByName("js"))
