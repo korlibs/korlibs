@@ -13,7 +13,7 @@ class NativeAsyncServer(val socket: Win32Socket, override val requestPort: Int, 
     override val host: String get() = socket.getLocalEndpoint().ip.str
     override val port: Int get() = socket.getLocalEndpoint().port
     override suspend fun accept(): AsyncSocket = NativeAsyncSocket(socket.accept())
-    override fun close() = socket.close()
+    override suspend fun close() = socket.close()
 }
 
 class NativeAsyncSocket(val socket: Win32Socket) : AsyncSocket {
@@ -23,5 +23,5 @@ class NativeAsyncSocket(val socket: Win32Socket) : AsyncSocket {
     override val connected: Boolean get() = socket.connected
     override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int = socket.suspendRecvUpTo(buffer, offset, len)
     override suspend fun write(buffer: ByteArray, offset: Int, len: Int) = socket.suspendSend(buffer, offset, len)
-    override fun close() = socket.close()
+    override suspend fun close() = socket.close()
 }

@@ -1,5 +1,6 @@
 package korlibs.io.socket
 
+import korlibs.io.async.*
 import korlibs.io.lang.*
 import korlibs.io.stream.*
 import kotlinx.atomicfu.*
@@ -34,7 +35,7 @@ interface AsyncSocket : AsyncInputStream, AsyncOutputStream {
 }
 
 @OptIn(ExperimentalStdlibApi::class)
-interface AsyncServerSocket : AutoCloseable {
+interface AsyncServerSocket : AsyncCloseable {
 	val requestPort: Int
 	val host: String
 	val backlog: Int
@@ -91,7 +92,7 @@ interface AsyncServerSocket : AutoCloseable {
 	suspend fun listenFlow(): Flow<AsyncSocket> = flow { while (true) emit(accept()) }
 
 	// Provide a default implementation
-	override fun close() {
+	override suspend fun close() {
 	}
 }
 

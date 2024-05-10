@@ -289,7 +289,7 @@ class NativeAsyncSocket(val socket: NativeSocket = NativeSocket()) : AsyncSocket
 		socket.suspendSend(buffer, offset, len)
 	}
 
-	override fun close() {
+	override suspend fun close() {
 		socket.close()
 	}
 }
@@ -306,5 +306,5 @@ class NativeAsyncServerSocket(val socket: NativeSocket, override val requestPort
 		return NativeAsyncSocket(socket.accept())
 	}
 
-	override fun close() = socket.close()
+	override suspend fun close() = socket.close()
 }
