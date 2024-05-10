@@ -264,7 +264,7 @@ private suspend fun readBitmapFontJson(
     mipmaps: Boolean = true,
     atlas: MutableAtlasUnit? = null
 ): BitmapFont {
-    val json = Json.parseDyn(content)
+    val json = Json.parse(content).dyn
 
     val fontSize = json["info"]["size"].toDoubleDefault(16.0)
     val lineHeight = json["common"]["lineHeight"].toDoubleDefault(16.0)

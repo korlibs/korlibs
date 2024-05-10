@@ -35,6 +35,6 @@ File(rootDir, "local.properties").also { localProperties ->
     ).firstNotNullOfOrNull { it?.takeIf { it.isDirectory } }
 
     detectAndroidHome()?.let {
-        localProperties.writeText("sdk.dir=${it.absolutePath.replace("\\", "\\\\")}")
+        localProperties.writeText("sdk.dir=${it.absolutePath.replace("\\", "\\\\").replace(":", "\\:")}")
     }
 }

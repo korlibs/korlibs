@@ -11,6 +11,7 @@ aliases:
 
 dependencies:
   - ../korlibs-closeable: exported
+  - ../korlibs-checksum: exported
   - ../korlibs-numberformat: exported
   - ../korlibs-indenter: exported
   - ../korlibs-io-path: exported
@@ -42,6 +43,7 @@ dependencies:
   - ../korlibs-compression-lzma: exported
   - ../korlibs-compression-deflate: exported
   - ../korlibs-compression-lzo: exported
+  - ../korlibs-compression-zip: exported
   - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
   - ../korlibs-io-fs
   - ../korlibs-io-socket-core

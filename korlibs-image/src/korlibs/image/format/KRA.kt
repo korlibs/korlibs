@@ -11,9 +11,7 @@ import korlibs.io.async.runBlockingNoSuspensions
 import korlibs.io.file.std.ZipVfs
 import korlibs.io.lang.UTF8
 import korlibs.io.lang.toString
-import korlibs.io.serialization.xml.descendants
-import korlibs.io.serialization.xml.firstDescendant
-import korlibs.io.serialization.xml.readXml
+import korlibs.io.serialization.xml.*
 import korlibs.io.stream.SyncStream
 import korlibs.io.stream.hasMore
 import korlibs.io.stream.openSync
@@ -198,7 +196,7 @@ object KRA : ImageFormat("kra") {
             val folderVfs = vfs.listSimple().filter { it.isDirectory() }.firstOrNull() ?: error("No root folder in zip")
             //println(folderVfs)
             val mergedBytes = vfs[mergedImagePng].readAll()
-            val xml = vfs[maindocXml].readXml()
+            val xml = Xml(vfs[maindocXml].readString())
             val frames = fastArrayListOf<ImageFrame>()
             val mainBitmap = PNG.readImage(mergedBytes.openSync()).mainBitmap
             frames.add(ImageFrame(mainBitmap, main = true, includeInAtlas = false))
