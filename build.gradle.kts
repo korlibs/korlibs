@@ -866,7 +866,7 @@ class MicroAmper(val project: Project) {
             }
         }
 
-        kotlin.applyDefaultHierarchyTemplate()
+        //kotlin.applyDefaultHierarchyTemplate()
 
         kotlin.targets.forEach {
             it.compilations.forEach {
