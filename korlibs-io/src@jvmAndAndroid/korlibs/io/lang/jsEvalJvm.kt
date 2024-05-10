@@ -6,6 +6,8 @@ actual object JSEval {
     actual val globalThis: Any? get() = invoke("globalThis")
     actual val available: Boolean get() = engine != null
 
+    val availableEngines get() = ScriptEngineManager().engineFactories.map { it.names }
+
     val engine: ScriptEngine? by lazy {
         listOf("nashorn", "rhino", "JavaScript", "js", "ECMAScript", "ecmascript").firstNotNullOfOrNull {
             ScriptEngineManager().getEngineByName(it)
@@ -19,7 +21,7 @@ actual object JSEval {
         code: String,
         params: Map<String, Any?>,
     ): Any? {
-        val engine = engine ?: error("Can't find JavaScript engine")
+        val engine = engine ?: error("Can't find JavaScript engine in $availableEngines")
         return engine.eval("(function() { $code })()", engine.createBindings().also { for ((k, v) in params) it[k] = v })
     }
 }

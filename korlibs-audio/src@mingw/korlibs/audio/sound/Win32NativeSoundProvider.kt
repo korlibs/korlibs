@@ -98,7 +98,7 @@ class Win32PlatformAudioOutput(
         val process = this.process
         this.process = null
         if (process != null) {
-            launchImmediately(coroutineContext) {
+            CoroutineScope(coroutineContext).launch {
                 try {
                     wait()
                 } catch (e: CancellationException) {
