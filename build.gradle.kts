@@ -850,8 +850,10 @@ class MicroAmper {
             it.compilations.forEach {
                 it.compileTaskProvider.configure {
                     compilerOptions {
-                        this.apiVersion.set(KotlinVersion.KOTLIN_2_0)
-                        this.languageVersion.set(KotlinVersion.KOTLIN_2_0)
+                        // apiVersion: Allow to use declarations only from the specified version of bundled libraries
+                        // languageVersion: Provide source compatibility with specified language version
+                        //this.apiVersion.set(KotlinVersion.KOTLIN_2_0)
+                        //this.languageVersion.set(KotlinVersion.KOTLIN_2_0)
                     }
                 }
             }
