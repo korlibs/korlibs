@@ -2,7 +2,6 @@
 
 package korlibs.io.util
 
-import korlibs.math.*
 import kotlin.math.*
 
 //private fun Double.normalizeZero(): Double = if (this.isAlmostZero()) 0.0 else this
@@ -71,3 +70,6 @@ private fun Double.roundDecimalPlaces(places: Int): Double {
     val placesFactor: Double = 10.0.pow(places.toDouble())
     return round(this * placesFactor) / placesFactor
 }
+
+private fun Double.isNanOrInfinite() = this.isNaN() || this.isInfinite()
+private fun Float.isNanOrInfinite() = this.isNaN() || this.isInfinite()
