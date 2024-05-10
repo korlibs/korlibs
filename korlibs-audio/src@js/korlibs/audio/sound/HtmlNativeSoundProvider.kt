@@ -9,6 +9,7 @@ import korlibs.memory.*
 import korlibs.platform.*
 import korlibs.time.*
 import kotlin.coroutines.*
+import kotlin.time.*
 
 actual val nativeSoundProvider: NativeSoundProvider by lazy {
     if (Platform.isJsBrowser) {
@@ -31,11 +32,11 @@ class HtmlNativeSoundProvider : NativeSoundProviderNew() {
         AudioBufferSound(AudioBufferOrHTMLMediaElement(HtmlSimpleSound.loadSound(data)), "#bytes", coroutineContext, name)
 
     override suspend fun createSound(vfs: Vfs, path: String, streaming: Boolean, props: AudioDecodingProps): Sound = when (vfs) {
-        is LocalVfs, is UrlVfs -> {
+        is LocalVfs, is BaseUrlVfs -> {
             //println("createSound[1]")
             val url = when (vfs) {
                 is LocalVfs -> path
-                is UrlVfs -> vfs.getFullUrl(path)
+                is BaseUrlVfs -> vfs.getFullUrl(path)
                 else -> invalidOp
             }
             if (streaming) {
@@ -113,7 +114,7 @@ class AudioBufferSound(
     coroutineContext: CoroutineContext,
     override val name: String = "unknown"
 ) : Sound(coroutineContext) {
-	override val length: TimeSpan = ((buffer.duration) ?: 0.0).seconds
+	override val length: Duration = ((buffer.duration) ?: 0.0).seconds
 
     override val nchannels: Int get() = buffer.numberOfChannels ?: 1
 

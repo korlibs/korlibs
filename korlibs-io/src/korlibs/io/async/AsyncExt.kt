@@ -34,8 +34,6 @@ fun CoroutineContext.launchUnscoped(block: suspend () -> Unit) {
 }
 
 fun CoroutineScope.launchUnscoped(block: suspend () -> Unit) = coroutineContext.launchUnscoped(block)
-
-//fun CoroutineScope.launch(callback: suspend () -> Unit): Job = _launch(CoroutineStart.UNDISPATCHED, callback)
 fun CoroutineScope.launchImmediately(callback: suspend () -> Unit): Job = _launch(CoroutineStart.UNDISPATCHED, callback)
 fun CoroutineScope.launchAsap(callback: suspend () -> Unit): Job = _launch(CoroutineStart.DEFAULT, callback)
 

@@ -18,6 +18,7 @@ dependencies:
   - ../korlibs-math-vector: exported
   - ../korlibs-math-interpolation: exported
   - ../korlibs-ffi: exported
+  - ../korlibs-logger: exported
   - ../korlibs-annotations: exported
 
 test-dependencies:

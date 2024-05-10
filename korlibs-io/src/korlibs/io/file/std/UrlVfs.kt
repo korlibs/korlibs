@@ -38,16 +38,10 @@ fun UrlVfsJailed(url: URL, client: HttpClient = createHttpClient(), failFromStat
 	UrlVfs(url.fullUrl, Unit, client, failFromStatus)[url.path]
 
 class UrlVfs(
-    val url: String, val dummy: Unit, val client: HttpClient = createHttpClient(),
-    val failFromStatus: Boolean = true,
-) : Vfs() {
+    url: String, val dummy: Unit, val client: HttpClient = createHttpClient(),
+    failFromStatus: Boolean = true,
+) : BaseUrlVfs(url, failFromStatus) {
 	override val absolutePath: String = url
-
-	fun getFullUrl(path: String): String {
-		val result = url.trim('/') + '/' + path.trim('/')
-		//println("UrlVfs.getFullUrl: url=$url, path=$path, result=$result")
-		return result
-	}
 
 	//suspend override fun open(path: String, mode: VfsOpenMode): AsyncStream {
 	//	return if (mode.write) {

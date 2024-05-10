@@ -4,16 +4,11 @@ import korlibs.time.DateTime
 import korlibs.time.TimeSpan
 import korlibs.time.seconds
 import korlibs.logger.Logger
-import korlibs.io.async.launchImmediately
-import korlibs.io.file.std.uniVfs
 import korlibs.io.lang.Cancellable
+import korlibs.memory.*
 import kotlinx.browser.document
 import kotlinx.browser.window
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.job
+import kotlinx.coroutines.*
 import org.khronos.webgl.ArrayBuffer
 import org.khronos.webgl.Float32Array
 import org.khronos.webgl.Int8Array
@@ -138,7 +133,7 @@ object HtmlSimpleSound {
             startedAt = DateTime.now()
             var startTime = startTime
             ctx?.resume()
-            return launchImmediately(coroutineContext) {
+            return CoroutineScope(coroutineContext).launch {
                 try {
                     while (times.hasMore) {
                         //println("TIMES: $times, startTime=$startTime, buffer.duration.seconds=${buffer.duration.seconds}")
@@ -167,7 +162,7 @@ object HtmlSimpleSound {
                     params.onCancel?.invoke()
                 } finally {
                     running = false
-                    val realHtmlAudioElement = this.realHtmlAudioElement
+                    val realHtmlAudioElement = this@SimpleSoundChannel.realHtmlAudioElement
                     if (realHtmlAudioElement != null) {
                         realHtmlAudioElement.pause()
                         realHtmlAudioElement.currentTime = 0.0
@@ -373,7 +368,8 @@ object HtmlSimpleSound {
 
 	suspend fun loadSound(data: ByteArray): AudioBuffer? = loadSound(data.unsafeCast<Int8Array>().buffer, "ByteArray")
 
-	suspend fun loadSound(url: String): AudioBuffer? = loadSound(url.uniVfs.readBytes())
+	suspend fun loadSound(url: String): AudioBuffer? =
+        loadSound(window.fetch(url).await().arrayBuffer().await().asByteArray())
 
     init {
         val _scratchBuffer = ctx?.createBuffer(1, 1, 22050)
