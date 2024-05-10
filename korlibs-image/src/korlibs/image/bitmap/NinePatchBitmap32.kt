@@ -305,3 +305,5 @@ private inline fun <T, R : Any> Iterable<T>.computeRle(callback: (T) -> R): List
     }
     return out
 }
+
+private val IntRange.length: Int get() = (this.last - this.first) + 1

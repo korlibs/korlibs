@@ -64,6 +64,9 @@ allprojects {
         //}
         compileSdk = 33
         namespace = "com.soywiz.${project.name.replace("-", ".")}"
+        defaultConfig {
+            minSdk = 20
+        }
         //    defaultConfig {
         //        applicationId "[…]"
         //        minSdk 25

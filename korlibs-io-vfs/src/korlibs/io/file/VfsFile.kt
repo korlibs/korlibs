@@ -7,6 +7,7 @@ import korlibs.datastructure.*
 import korlibs.time.*
 import korlibs.memory.*
 import korlibs.io.async.*
+import korlibs.io.file.std.*
 import korlibs.io.lang.*
 import korlibs.io.stream.*
 import korlibs.io.util.*
@@ -328,3 +329,7 @@ suspend fun <R> VfsFile.useVfs(callback: suspend (VfsFile) -> R): R = vfs.use { 
 
 private val LONG_ZERO_TO_MAX_RANGE = 0L..Long.MAX_VALUE
 private fun IntRange.toLongRange() = this.start.toLong()..this.endInclusive.toLong()
+
+fun VfsFile.jail(): VfsFile = JailVfs(this)
+fun VfsFile.jailParent(): VfsFile = JailVfs(parent)[this.baseName]
+suspend fun VfsFile.readAsSyncStream(): SyncStream = read().openSync()

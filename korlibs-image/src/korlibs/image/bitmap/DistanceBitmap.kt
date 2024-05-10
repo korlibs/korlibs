@@ -5,7 +5,6 @@ import korlibs.math.clamp01
 import korlibs.math.convertRange
 import korlibs.image.color.RGBA
 import korlibs.image.color.RgbaArray
-import korlibs.io.lang.assert
 import kotlin.math.max
 import kotlin.math.min
 
@@ -23,9 +22,9 @@ class DistanceBitmap(
 ) {
     val area = width * height
     init {
-        assert(d.size >= area)
-        assert(px.size >= area)
-        assert(py.size >= area)
+        check(d.size >= area)
+        check(px.size >= area)
+        check(py.size >= area)
     }
 
     fun inBoundsX(x: Int) = (x >= 0) && (x < width)
@@ -68,8 +67,8 @@ class DistanceBitmap(
     }
 
     fun setFromBitmap(bmp: Bitmap, thresold: Double = 0.5) {
-        assert(width == bmp.width)
-        assert(height == bmp.height)
+        check(width == bmp.width)
+        check(height == bmp.height)
 
         val thresoldInt = (thresold.clamp01() * 255).toInt()
 

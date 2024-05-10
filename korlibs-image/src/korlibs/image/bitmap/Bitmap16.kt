@@ -5,7 +5,6 @@ import korlibs.image.color.RGBA
 import korlibs.image.color.RGBA_4444
 import korlibs.image.color.packRGBA
 import korlibs.image.color.unpackToRGBA
-import korlibs.io.lang.assert
 import korlibs.math.*
 import korlibs.memory.*
 
@@ -17,7 +16,7 @@ class Bitmap16(
     premultiplied: Boolean = false
 ) : Bitmap(width, height, 16, premultiplied, data) {
     init {
-        assert(data.size >= width * height)
+        check(data.size >= width * height)
     }
 	override fun createWithThisFormat(width: Int, height: Int): Bitmap =
 		Bitmap16(width, height, format = format, premultiplied = premultiplied)

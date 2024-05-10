@@ -8,6 +8,9 @@ aliases:
   - jvmAndAndroid: [jvm, android]
 
 dependencies:
+  - ../korlibs-compression: exported
+  - ../korlibs-encoding
+  - ../korlibs-checksum
 
 test-dependencies:
 

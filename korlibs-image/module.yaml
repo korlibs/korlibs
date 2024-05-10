@@ -8,20 +8,24 @@ aliases:
   - appleIosTvos: [tvosArm64, tvosX64, tvosSimulatorArm64, iosArm64, iosSimulatorArm64, iosX64]
 
 dependencies:
-  - ../korlibs-io: exported # TODO: Not require this (missing compression, checksum, etc.)
+  - ../korlibs-io: exported
   - ../korlibs-io-vfs: exported
   - ../korlibs-image-core: exported
-  #- ../korlibs-math-core: exported
-  - ../korlibs-math: exported # Winding
+  - ../korlibs-math: exported
   - ../korlibs-ffi: exported
   - ../korlibs-wstring: exported
   - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
+  - ../korlibs-dyn
   - ../korlibs-numberformat
   - ../korlibs-textreader
   - ../korlibs-encoding
   - ../korlibs-serialization-xml
+  - ../korlibs-serialization-json
   - ../korlibs-wasm
   - ../korlibs-string
+  - ../korlibs-compression-deflate
+  - ../korlibs-compression-zip
+  - ../korlibs-checksum
 
 test-dependencies:
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0

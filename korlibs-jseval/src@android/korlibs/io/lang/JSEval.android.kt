@@ -17,15 +17,15 @@ actual object JSEval {
         code: String,
         params: Map<String, Any?>,
     ): Any? {
-        val webView = WebView(androidContext())
-        val keys = params.keys.toList()
-        val values = params.values.toList()
-
-        webView.addJavascriptInterface(values, "__jsparams__")
-        val deferred = CompletableDeferred<Any?>()
-        webView.evaluateJavascript("JSON.stringify((function(${keys.joinToString(", ")}) { $code })(__jsparams__))") {
-            deferred.complete(Json.parse(it))
-        }
-        return deferred.await()
+        //val webView = WebView(androidContext())
+        //val keys = params.keys.toList()
+        //val values = params.values.toList()
+        //webView.addJavascriptInterface(values, "__jsparams__")
+        //val deferred = CompletableDeferred<Any?>()
+        //webView.evaluateJavascript("JSON.stringify((function(${keys.joinToString(", ")}) { $code })(__jsparams__))") {
+        //    deferred.complete(Json.parse(it))
+        //}
+        //return deferred.await()
+        return null
     }
 }
