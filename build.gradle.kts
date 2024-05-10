@@ -93,7 +93,7 @@ fun Project.doOnce(uniqueName: String, block: () -> Unit) {
     }
 }
 
-object SonatypeProps {
+class SonatypeProps(val project: Project) {
     // Signing
     val signingKey: String? = System.getenv("ORG_GRADLE_PROJECT_signingKey") ?: project.findProperty("signing.signingKey")?.toString()
     val signingPassword: String? = System.getenv("ORG_GRADLE_PROJECT_signingPassword") ?: project.findProperty("signing.password")?.toString()
@@ -153,7 +153,9 @@ object SonatypeProps {
     }
 }
 
-SonatypeProps.createTasks(rootProject)
+val sonatypeProps = SonatypeProps(rootProject)
+
+sonatypeProps.createTasks(rootProject)
 
 subprojects {
     //apply<KotlinMultiplatformPlugin>()
@@ -292,17 +294,17 @@ subprojects {
     //println(tasks.findByName("jsProcessResources")!!::class)
 
     // Publishing
-    if (SonatypeProps.sonatype != null) {
+    if (sonatypeProps.sonatype != null) {
         publishing {
             repositories {
                 maven {
                     credentials {
-                        username = SonatypeProps.sonatype.user
-                        password = SonatypeProps.sonatype.pass
+                        username = sonatypeProps.sonatype.user
+                        password = sonatypeProps.sonatype.pass
                     }
                     url = when {
                         version.toString().contains("-SNAPSHOT") -> uri("https://oss.sonatype.org/content/repositories/snapshots/")
-                        SonatypeProps.stagedRepositoryId != null -> uri("https://oss.sonatype.org/service/local/staging/deployByRepositoryId/${SonatypeProps.stagedRepositoryId}/")
+                        sonatypeProps.stagedRepositoryId != null -> uri("https://oss.sonatype.org/service/local/staging/deployByRepositoryId/${sonatypeProps.stagedRepositoryId}/")
                         else -> uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
                     }
                     doOnce("showDeployTo") { logger.info("DEPLOY mavenRepository: $url") }
@@ -371,10 +373,10 @@ subprojects {
     }
 
     // Signing
-    if (SonatypeProps.globalSignatories != null) {
+    if (sonatypeProps.globalSignatories != null) {
         signing {
             sign(publishing.publications)
-            this.signatories = SonatypeProps.globalSignatories
+            this.signatories = sonatypeProps.globalSignatories
         }
     }
 
@@ -897,7 +899,11 @@ class MicroAmper {
 
         for (target in kotlin.targets) {
             target.compilations.all {
-                this.kotlinOptions.suppressWarnings = true
+                compileTaskProvider.configure {
+                    compilerOptions {
+                        suppressWarnings.set(true)
+                    }
+                }
             }
         }
     }
