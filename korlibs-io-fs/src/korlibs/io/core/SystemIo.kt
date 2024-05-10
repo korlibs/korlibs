@@ -1,13 +1,10 @@
-@file:OptIn(ExperimentalStdlibApi::class)
-
 package korlibs.io.core
 
-import korlibs.datastructure.closeable.*
 import korlibs.io.async.*
 import korlibs.io.stream.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlin.jvm.*
+import kotlin.coroutines.*
 
 internal expect val defaultSyncSystemIo: SyncSystemIo
 internal expect val defaultSystemIo: SystemIo
@@ -129,6 +126,7 @@ fun SyncSystemIo.toAsync(ioDispatcher: CoroutineDispatcher?): SystemIo {
         private suspend inline fun <T> doSyncIo(crossinline block: () -> T): T = doIo(ioDispatcher, block)
 
         override suspend fun open(path: String, write: Boolean): FileSystemIo? {
+            val coroutineContext = coroutineContext
             val io = doSyncIo { sync.open(path, write) } ?: return null
             return object : FileSystemIo() {
                 override suspend fun getLength(): Long = doSyncIo { io.getLength() }
@@ -138,7 +136,7 @@ fun SyncSystemIo.toAsync(ioDispatcher: CoroutineDispatcher?): SystemIo {
                 override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int = doSyncIo { io.read(buffer, offset, len) }
                 override suspend fun write(buffer: ByteArray, offset: Int, len: Int) = doSyncIo { io.write(buffer, offset, len) }
 
-                override suspend fun close() = doSyncIo { io.close() }
+                override suspend fun close(): Unit { CoroutineScope(coroutineContext).launch { io.close() } }
             }
         }
 
@@ -164,12 +162,18 @@ private suspend inline fun <T> doIo(dispatcher: CoroutineDispatcher? = null, cro
     dispatcher != null -> withContext(dispatcher) { block() }
     else -> block()
 }
+private inline fun launchIo(dispatcher: CoroutineDispatcher?, crossinline block: () -> Unit): Unit {
+    when {
+        dispatcher != null -> CoroutineScope(dispatcher).launch { block() }
+        else -> block()
+    }
+}
 
 private fun SyncInputStream.toAsync(dispatcher: CoroutineDispatcher? = null): AsyncInputStream = object : AsyncInputStreamWithLength {
     val sync = this@toAsync
     private suspend inline fun <T> doIo(crossinline block: () -> T): T = doIo(dispatcher, block)
     override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int = doIo { sync.read(buffer, offset, len) }
-    override suspend fun close(): Unit = doIo { (sync as? Closeable)?.close() }
+    override suspend fun close(): Unit = launchIo(dispatcher) { (sync as? AutoCloseable)?.close() }
     override suspend fun getPosition(): Long = doIo { (sync as? SyncPositionStream)?.position } ?: super.getPosition()
     override suspend fun getLength(): Long = doIo { (sync as? SyncLengthStream)?.length } ?: super.getLength()
 }
@@ -178,5 +182,5 @@ private fun SyncOutputStream.toAsync(dispatcher: CoroutineDispatcher? = null): A
     val sync = this@toAsync
     private suspend inline fun <T> doIo(crossinline block: () -> T): T = doIo(dispatcher, block)
     override suspend fun write(buffer: ByteArray, offset: Int, len: Int) = doIo { sync.write(buffer, offset, len) }
-    override suspend fun close(): Unit = doIo { (sync as? Closeable)?.close() }
+    override suspend fun close(): Unit = launchIo(dispatcher) { (sync as? AutoCloseable)?.close() }
 }

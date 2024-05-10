@@ -38,7 +38,7 @@ fun List<AsyncInputStreamWithLength>.combine(): AsyncInputStreamWithLength {
 			return -1
 		}
 
-		override fun close() {
+		override suspend fun close() {
 			list.fastForEach { i ->
 				i.close()
 			}
@@ -88,7 +88,7 @@ fun AsyncBaseStream.toAsyncStream(): AsyncStream {
 
 		override suspend fun setLength(value: Long) = rlenSet?.setLength(value) ?: throw UnsupportedOperationException()
 		override suspend fun getLength(): Long = rlenGet?.getLength() ?: throw UnsupportedOperationException()
-		override fun close() = closeable.close()
+		override suspend fun close() = closeable.close()
 	}.toAsyncStream()
 }
 
@@ -147,7 +147,7 @@ class SliceAsyncStreamBase(
 
 	override suspend fun getLength(): Long = baseLength
 
-	override fun close() {
+	override suspend fun close() {
 		if (closeParent) {
 			base.close()
 		}
@@ -191,7 +191,7 @@ class BufferedStreamBase(val base: AsyncStreamBase, val blockSize: Int = 2048, v
 
 	override suspend fun setLength(value: Long) = base.setLength(value)
 	override suspend fun getLength(): Long = base.getLength()
-	override fun close() = base.close()
+	override suspend fun close() = base.close()
 }
 
 suspend fun AsyncBufferedInputStream.readBufferedLine(limit: Int = 0x1000, charset: Charset = UTF8) =
@@ -243,7 +243,7 @@ class AsyncBufferedInputStream(val base: AsyncInputStream, val initialBits: Int 
 		return out.toByteArray()
 	}
 
-	override fun close() {
+	override suspend fun close() {
 		base.close()
 	}
 }
@@ -533,7 +533,7 @@ fun SyncInputStream.toAsync(dispatcher: CoroutineDispatcher? = null): AsyncInput
 	val sync = this@toAsync
 	private suspend inline fun <T> doIo(crossinline block: () -> T): T = doIo(dispatcher, block)
 	override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int = doIo { sync.read(buffer, offset, len) }
-	override fun close(): Unit = launchIo(dispatcher) { (sync as? AutoCloseable)?.close() }
+	override suspend fun close(): Unit = launchIo(dispatcher) { (sync as? AutoCloseable)?.close() }
 	override suspend fun getPosition(): Long = doIo { (sync as? SyncPositionStream)?.position } ?: super.getPosition()
 	override suspend fun getLength(): Long = doIo { (sync as? SyncLengthStream)?.length } ?: super.getLength()
 }
@@ -542,7 +542,7 @@ fun SyncOutputStream.toAsync(dispatcher: CoroutineDispatcher? = null): AsyncOutp
 	val sync = this@toAsync
 	private suspend inline fun <T> doIo(crossinline block: () -> T): T = doIo(dispatcher, block)
 	override suspend fun write(buffer: ByteArray, offset: Int, len: Int) = doIo { sync.write(buffer, offset, len) }
-	override fun close(): Unit = launchIo(dispatcher) { (sync as? AutoCloseable)?.close() }
+	override suspend fun close(): Unit = launchIo(dispatcher) { (sync as? AutoCloseable)?.close() }
 }
 
 @Deprecated("", ReplaceWith("toAsync(dispatcher) as AsyncInputStreamWithLength"))
@@ -617,7 +617,7 @@ suspend fun asyncStreamWriter(bufferSize: Int = AsyncByteArrayDequeChunked.DEFAU
                     process(object : AsyncOutputStream {
                         override suspend fun write(buffer: ByteArray, offset: Int, len: Int) = deque.write(buffer, offset, len)
                         override suspend fun write(byte: Int) = deque.write(byte)
-                        override fun close() = deque.close()
+                        override suspend fun close() = deque.close()
                     })
                 } catch (e: Throwable) {
                     lastError = e
@@ -643,7 +643,7 @@ suspend fun asyncStreamWriter(bufferSize: Int = AsyncByteArrayDequeChunked.DEFAU
                 -1
             }
         }
-		override fun close() {
+		override suspend fun close() {
             //println("asyncStreamWriter[$deque].close")
             job?.cancel()
             job = null

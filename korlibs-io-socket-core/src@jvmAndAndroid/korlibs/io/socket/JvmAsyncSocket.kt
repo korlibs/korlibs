@@ -43,7 +43,7 @@ class JvmAsyncSocket(private var socket: Socket? = null, val secure: Boolean = f
         writeQueue.withLock { withContext(Dispatchers.IO) { socketOs?.write(buffer, offset, len) } }
     }
 
-    override fun close() {
+    override suspend fun close() {
         CoroutineScope(Dispatchers.IO).launch {
             socket?.close()
             socketIs?.close()

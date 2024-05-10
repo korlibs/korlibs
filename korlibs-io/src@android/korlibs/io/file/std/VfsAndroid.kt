@@ -85,8 +85,12 @@ class AndroidResourcesVfs : Vfs() {
                 if (files.isNotEmpty()) {
                     createExistsStat(path, isDirectory = true, size = 0L)
                 } else {
-                    context.assets.openFd(rpath).use {
-                        createExistsStat(path, isDirectory = false, size = it.length)
+                    val fd = context.assets.openFd(rpath)
+                    @Suppress("ConvertTryFinallyToUseCall")
+                    try {
+                        createExistsStat(path, isDirectory = false, size = fd.length)
+                    } finally {
+                        fd.close()
                     }
                 }
             } catch (e: IOException) {

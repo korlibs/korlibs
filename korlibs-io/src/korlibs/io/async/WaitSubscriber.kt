@@ -25,5 +25,5 @@ suspend fun <T> waitSubscriber(block: ((T) -> Unit) -> Cancellable): T {
     }
 }
 
-suspend fun <T> waitSubscriberCloseable(block: ((T) -> Unit) -> Closeable): T =
+suspend fun <T> waitSubscriberCloseable(block: ((T) -> Unit) -> AutoCloseable): T =
     waitSubscriber { block(it).cancellable() }

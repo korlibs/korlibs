@@ -2,6 +2,8 @@
 
 package korlibs.io.lang
 
+import korlibs.io.async.*
+import kotlin.contracts.*
 import kotlin.coroutines.cancellation.*
 
 @OptIn(ExperimentalStdlibApi::class)
@@ -16,15 +18,12 @@ interface OptionalAutoCloseable : AutoCloseable {
     override fun close() = Unit
 }
 
-@OptIn(ExperimentalStdlibApi::class)
-typealias Closeable = AutoCloseable
-
 // Since this is not a functional interface
-fun AutoCloseable(block: () -> Unit): Closeable = object : Closeable {
+fun AutoCloseable(block: () -> Unit): AutoCloseable = object : AutoCloseable {
     override fun close() = block()
 }
 
-fun Closeable(block: () -> Unit): Closeable = AutoCloseable(block)
+fun Closeable(block: () -> Unit): AutoCloseable = AutoCloseable(block)
 
 fun interface Cancellable {
     fun cancel(e: Throwable): Unit
@@ -97,4 +96,18 @@ private inline fun <T> List<T>.fastForEach(callback: (T) -> Unit) {
 private inline fun <T> Array<T>.fastForEach(callback: (T) -> Unit) {
     var n = 0
     while (n < size) callback(this[n++])
+}
+
+
+@OptIn(ExperimentalContracts::class)
+@Deprecated("", ReplaceWith("use(block)"))
+inline fun <T : AutoCloseable?, TR> T.useIt(block: (T) -> TR): TR {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    return use(block)
+}
+
+@OptIn(ExperimentalContracts::class)
+inline fun <T : AutoCloseable?, TR> T.useThis(block: T.() -> TR): TR {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    return use(block)
 }

@@ -1,6 +1,7 @@
 package korlibs.io.stream
 
 import korlibs.datastructure.*
+import korlibs.io.async.*
 import korlibs.io.lang.*
 import korlibs.math.*
 import korlibs.memory.*
@@ -8,8 +9,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.*
 import kotlin.math.*
 
-//interface AsyncBaseStream : AsyncCloseable {
-interface AsyncBaseStream : AutoCloseable {
+interface AsyncBaseStream : AsyncCloseable {
 }
 
 interface AsyncInputOpenable {
@@ -34,7 +34,7 @@ open class DummyAsyncOutputStream : AsyncOutputStream {
     companion object : DummyAsyncOutputStream()
     override suspend fun write(buffer: ByteArray, offset: Int, len: Int) = Unit
     override suspend fun write(byte: Int) = Unit
-    override fun close() = Unit
+    override suspend fun close() = Unit
 }
 
 interface AsyncGetPositionStream : AsyncBaseStream {
@@ -71,7 +71,7 @@ interface AsyncRAOutputStream {
     suspend fun write(position: Long, buffer: ByteArray, offset: Int, len: Int)
 }
 
-open class AsyncStreamBase : AutoCloseable, AsyncRAInputStream, AsyncRAOutputStream, AsyncLengthStream {
+open class AsyncStreamBase : AsyncCloseable, AsyncRAInputStream, AsyncRAOutputStream, AsyncLengthStream {
     //var refCount = 0
 
     override suspend fun read(position: Long, buffer: ByteArray, offset: Int, len: Int): Int =
@@ -83,13 +83,12 @@ open class AsyncStreamBase : AutoCloseable, AsyncRAInputStream, AsyncRAOutputStr
     override suspend fun setLength(value: Long): Unit = throw UnsupportedOperationException()
     override suspend fun getLength(): Long = throw UnsupportedOperationException()
 
-    override fun close(): Unit = Unit
+    override suspend fun close(): Unit = Unit
 }
 
 fun AsyncStreamBase.toAsyncStream(position: Long = 0L): AsyncStream = AsyncStream(this, position)
 
-class AsyncStream(val base: AsyncStreamBase, var position: Long = 0L, val queue: Boolean = false) : Extra by Extra.Mixin(), AsyncInputStream, AsyncInputStreamWithLength, AsyncOutputStream, AsyncPositionLengthStream,
-    AutoCloseable {
+class AsyncStream(val base: AsyncStreamBase, var position: Long = 0L, val queue: Boolean = false) : Extra by Extra.Mixin(), AsyncInputStream, AsyncInputStreamWithLength, AsyncOutputStream, AsyncPositionLengthStream, AsyncCloseable {
     override fun toString(): String = "AsyncStream($base, position=$position)"
 
     private val readQueue = Mutex()
@@ -123,7 +122,7 @@ class AsyncStream(val base: AsyncStreamBase, var position: Long = 0L, val queue:
     override suspend fun getLength(): Long = base.getLength()
     suspend fun size(): Long = base.getLength()
 
-    override fun close(): Unit = base.close()
+    override suspend fun close(): Unit = base.close()
 
     fun duplicate(): AsyncStream = AsyncStream(base, position)
 }
@@ -175,7 +174,7 @@ class MemoryAsyncStreamBase(var data: ByteArrayBuilder) : AsyncStreamBase() {
         arraycopy(buffer, offset, this.data.data, position.toInt(), len)
     }
 
-    override fun close() = Unit
+    override suspend fun close() = Unit
 
     override fun toString(): String = "MemoryAsyncStreamBase(${data.size})"
 }
@@ -298,7 +297,7 @@ class BufferedAsyncInputStream(val stream: AsyncInputStream, bufferBits: Int = 1
         return stream.read(buffer, offset, len)
     }
 
-    override fun close() = stream.close()
+    override suspend fun close() = stream.close()
 
     override suspend fun hasLength(): Boolean =(stream as? AsyncGetLengthStream)?.hasLength() ?: super.hasLength()
     override suspend fun getPosition(): Long = (stream as? AsyncGetPositionStream)?.getPosition() ?: super.getPosition()

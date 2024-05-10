@@ -21,7 +21,8 @@ class JvmNioAsyncClient(private var client: AsynchronousSocketChannel? = null) :
     override val address: AsyncSocketAddress get() = client?.remoteAddress.toAsyncAddress()
 
     override suspend fun connect(host: String, port: Int) {
-        client?.close()
+        val oldClient = this.client
+        CoroutineScope(Dispatchers.IO).launch { oldClient?.close() }
         val client = withContext(Dispatchers.IO) { AsynchronousSocketChannel.open(
             //AsynchronousChannelGroup.withThreadPool(EventLoopExecutorService(coroutineContext))
         ) }
@@ -58,9 +59,11 @@ class JvmNioAsyncClient(private var client: AsynchronousSocketChannel? = null) :
         }
     }
 
-    override fun close() {
-        client?.close()
-        client = null
+    override suspend fun close() {
+        CoroutineScope(Dispatchers.IO).launch {
+            client?.close()
+            client = null
+        }
     }
 }
 

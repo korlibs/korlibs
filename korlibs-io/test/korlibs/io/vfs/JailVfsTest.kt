@@ -1,7 +1,7 @@
 package korlibs.io.vfs
 
 import korlibs.io.async.suspendTest
-import korlibs.io.file.fullName
+import korlibs.io.file.*
 import korlibs.io.file.std.MemoryVfsMix
 import korlibs.io.lang.FileNotFoundException
 import korlibs.io.util.expectException

@@ -1,7 +1,7 @@
 package korlibs.io.net.http
 
+import korlibs.io.file.*
 import korlibs.math.clamp
-import korlibs.io.file.VfsFile
 
 suspend inline fun HttpServer.router(block: HttpServerRouter.() -> Unit) {
     val server = HttpServerRouter(this)

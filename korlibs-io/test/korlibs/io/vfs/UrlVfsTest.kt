@@ -1,6 +1,7 @@
 package korlibs.io.vfs
 
 import korlibs.io.async.suspendTest
+import korlibs.io.file.*
 import korlibs.io.file.std.UrlVfs
 import korlibs.io.net.http.FakeHttpClient
 import korlibs.io.net.http.LogHttpClient

@@ -22,7 +22,7 @@ interface AsyncSocket : AsyncInputStream, AsyncOutputStream {
 	val connected: Boolean
 	override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int
 	override suspend fun write(buffer: ByteArray, offset: Int, len: Int)
-	override fun close()
+	override suspend fun close()
 
 	object Stats {
 		val writeCountStart = atomic(0L)
@@ -103,7 +103,7 @@ class PairAsyncSocket : AsyncSocket {
 	override val connected: Boolean get() = true
 	override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int = readDeque.read(buffer, offset, len)
 	override suspend fun write(buffer: ByteArray, offset: Int, len: Int) = writeDeque.write(buffer, offset, len)
-	override fun close() {
+	override suspend fun close() {
 		//readDeque.close()
 		//writeDeque.close()
 	}

@@ -128,7 +128,7 @@ fun <TI, TO> Signal<TI>.mapSignal(transform: (TI) -> TO): Signal<TO> {
 operator fun Signal<Unit>.invoke() = invoke(Unit)
 
 suspend fun Iterable<Signal<*>>.waitOne(): Any? = suspendCancellableCoroutine { c ->
-	val closes = FastArrayList<Closeable>()
+	val closes = FastArrayList<AutoCloseable>()
 	for (signal in this) {
 		closes += signal.once {
 			closes.close()

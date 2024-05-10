@@ -139,7 +139,7 @@ abstract class Vfs : AsyncCloseable {
     inline fun <reified T> Iterable<Attribute>.get(): T? = this.firstOrNull { it is T } as T?
 
 	open suspend fun put(path: String, content: AsyncInputStream, attributes: List<Attribute> = listOf()): Long {
-		return open(path, VfsOpenMode.CREATE_OR_TRUNCATE).use {
+		return open(path, VfsOpenMode.CREATE_OR_TRUNCATE).useThis {
 			content.copyTo(this)
 		}
 	}
@@ -161,7 +161,7 @@ abstract class Vfs : AsyncCloseable {
 	}
 
 	open suspend fun setSize(path: String, size: Long) {
-		open(path, mode = VfsOpenMode.CREATE).use { this.setLength(size) }
+		open(path, mode = VfsOpenMode.CREATE).useThis { this.setLength(size) }
 	}
 
 	open suspend fun setAttributes(path: String, attributes: List<Attribute>): Unit {
@@ -202,7 +202,7 @@ abstract class Vfs : AsyncCloseable {
 		return true
 	}
 
-	open suspend fun watch(path: String, handler: (FileEvent) -> Unit): korlibs.io.lang.Closeable =
+	open suspend fun watch(path: String, handler: (FileEvent) -> Unit): AutoCloseable =
 		DummyAutoCloseable
 
 	open suspend fun touch(path: String, time: DateTime, atime: DateTime) = Unit

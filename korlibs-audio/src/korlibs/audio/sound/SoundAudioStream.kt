@@ -165,7 +165,7 @@ class SoundAudioStream(
                 ID_POOL.free(channelId)
                 when (dispatcher) {
                     is CloseableCoroutineDispatcher -> dispatcher.close()
-                    is Closeable -> dispatcher.close()
+                    is AutoCloseable -> dispatcher.close()
                 }
             }
         }

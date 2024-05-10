@@ -121,7 +121,7 @@ class AsyncClientSSLProcessor(val client: AsyncSocket, val processor: SSLProcess
         sync()
     }
 
-    override fun close() {
+    override suspend fun close() {
         return client.close()
     }
 }

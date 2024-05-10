@@ -1,5 +1,7 @@
 package korlibs.io.file
 
+import korlibs.io.net.*
+
 /**
  * /path\to/file.1.jpg -> MimeType("image/jpeg", listOf("jpg", "jpeg"))
  */

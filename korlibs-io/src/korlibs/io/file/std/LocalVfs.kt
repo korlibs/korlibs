@@ -1,9 +1,7 @@
 package korlibs.io.file.std
 
+import korlibs.io.file.*
 import korlibs.platform.Platform
-import korlibs.io.file.Vfs
-import korlibs.io.file.VfsFile
-import korlibs.io.file.withOnce
 import korlibs.io.lang.Environment
 import korlibs.io.lang.expand
 

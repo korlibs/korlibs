@@ -274,7 +274,7 @@ data class VfsFile(
 	suspend fun copyTo(target: AsyncOutputStream): Long = this.openUse {
 		this.copyTo(target)
 	}
-	suspend fun copyTo(target: VfsFile, vararg attributes: Vfs.Attribute): Long = this.openInputStream().use { target.writeStream(this, *attributes) }
+	suspend fun copyTo(target: VfsFile, vararg attributes: Vfs.Attribute): Long = this.openInputStream().use { target.writeStream(it, *attributes) }
 
 	override fun toString(): String = "$vfs[${this.path}]"
 }
@@ -311,16 +311,19 @@ fun VfsFile.proxied(transform: suspend (VfsFile) -> VfsFile): VfsFile {
     }[file.path]
 }
 
-//fun VfsFile.withOnce(once: suspend (VfsFile) -> Unit): VfsFile {
-//    val file = this
-//    val executed = AsyncOnce<Unit>()
-//    return proxied {
-//        it.also { executed { once(file) } }
-//    }
-//}
+fun VfsFile.withOnce(once: suspend (VfsFile) -> Unit): VfsFile {
+    val file = this
+    var completed = false
+    return proxied {
+        it.also {
+			if (!completed) {
+				completed = true
+				once(file)
+			}
+		}
+    }
+}
 
-// @TODO: https://youtrack.jetbrains.com/issue/KT-31490
-//suspend inline fun <R> VfsFile.useVfs(callback: suspend (VfsFile) -> R): R = vfs.use { callback(this@useVfs) }
 suspend fun <R> VfsFile.useVfs(callback: suspend (VfsFile) -> R): R = vfs.use { callback(this@useVfs) }
 
 private val LONG_ZERO_TO_MAX_RANGE = 0L..Long.MAX_VALUE

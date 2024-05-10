@@ -1,5 +1,7 @@
 package korlibs.io.async
 
+import kotlin.contracts.*
+
 interface AsyncCloseable {
 	suspend fun close()
 
@@ -8,6 +10,10 @@ interface AsyncCloseable {
 			override suspend fun close() = Unit
 		}
 	}
+}
+
+interface OptionalAsyncCloseable : AsyncCloseable {
+	override suspend fun close(): Unit = Unit
 }
 
 // @TODO: Bug in Kotlin.JS related to inline
@@ -20,28 +26,30 @@ interface AsyncCloseable {
 //	}
 //}
 
-suspend inline fun <T : AsyncCloseable, TR> T.use(callback: T.() -> TR): TR {
+@OptIn(ExperimentalContracts::class)
+suspend inline fun <T : AsyncCloseable?, TR> T.use(block: (T) -> TR): TR {
+	contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
 	var error: Throwable? = null
 	val result = try {
-		callback(this)
+		block(this)
 	} catch (e: Throwable) {
 		error = e
 		null
 	}
-	close()
+	this?.close()
 	if (error != null) throw error
 	return result as TR
 }
 
-suspend inline fun <T : AsyncCloseable, TR> T.useIt(callback: (T) -> TR): TR {
-    var error: Throwable? = null
-    val result = try {
-        callback(this)
-    } catch (e: Throwable) {
-        error = e
-        null
-    }
-    close()
-    if (error != null) throw error
-    return result as TR
+@OptIn(ExperimentalContracts::class)
+@Deprecated("", ReplaceWith("use(block)"))
+suspend inline fun <T : AsyncCloseable?, TR> T.useIt(block: (T) -> TR): TR {
+	contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+	return use(block)
+}
+
+@OptIn(ExperimentalContracts::class)
+suspend inline fun <T : AsyncCloseable?, TR> T.useThis(block: T.() -> TR): TR {
+	contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+	return use(block)
 }
