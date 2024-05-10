@@ -4,6 +4,7 @@ import korlibs.datastructure.*
 import korlibs.io.util.*
 import korlibs.math.geom.*
 import korlibs.math.geom.vector.*
+import korlibs.util.*
 import kotlin.math.*
 
 object SvgPath {
@@ -275,18 +276,18 @@ object SvgPath {
 
     // @TODO: Do not allocate PathToken!
     fun tokenizePath(str: String): List<SVG.PathToken> {
-        val sr = StrReader(str)
-        fun StrReader.skipSeparators() {
+        val sr = SimpleStrReader(str)
+        fun SimpleStrReader.skipSeparators() {
             skipWhile { it == ',' || it == ' ' || it == '\t' || it == '\n' || it == '\r' }
         }
 
-        fun StrReader.readNumber(): Double {
+        fun SimpleStrReader.readNumber(): Double {
             skipSeparators()
             var first = true
             var pointCount = 0
-            val str = readWhile {
+            val str = readWhileBuilder(out = StringBuilder()) {
                 if (it == '.') {
-                    if (pointCount > 0) return@readWhile false
+                    if (pointCount > 0) return@readWhileBuilder false
                     pointCount++
                 }
                 when {
@@ -304,7 +305,7 @@ object SvgPath {
                         it.isDigit() || it == '.'
                     }
                 }
-            }
+            }.toString()
             return if (str.isEmpty()) 0.0 else try {
                 str.toDouble()
             } catch (e: Throwable) {
@@ -348,6 +349,5 @@ object SvgPath {
 fun VectorPath.toSvgPathString(separator: String = " ", decimalPlaces: Int = 1): String =
     SvgPath.toSvgPathString(this, separator, decimalPlaces)
 
-fun VectorBuilder.pathSvg(path: String, m: Matrix = Matrix.NIL) {
+fun VectorBuilder.pathSvg(path: String, m: Matrix = Matrix.NIL) =
     write(SvgPath.parse(path), m)
-}

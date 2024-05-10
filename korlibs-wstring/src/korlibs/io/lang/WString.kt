@@ -1,7 +1,5 @@
 package korlibs.io.lang
 
-import korlibs.math.clamp
-
 // @TODO: UTf-8 variant with seeking points?
 // @TODO: trying to be more space efficient for long strings?
 // @TODO: while having a decent performance
@@ -110,11 +108,10 @@ inline fun String.forEachCodePoint(block: (index: Int, codePoint: Int, error: Bo
 fun String.toWString() = WString(this)
 
 fun WString.substr(start: Int, length: Int = this.length): WString {
-    val low = (if (start >= 0) start else this.length + start).clamp(0, this.length)
-    val high = (if (length >= 0) low + length else this.length + length).clamp(0, this.length)
+    val low = (if (start >= 0) start else this.length + start).coerceIn(0, this.length)
+    val high = (if (length >= 0) low + length else this.length + length).coerceIn(0, this.length)
     return if (high < low) WString("") else this.substring(low, high)
 }
-
 
 inline class WChar(val codePoint: Int) {
     val code: Int get() = codePoint

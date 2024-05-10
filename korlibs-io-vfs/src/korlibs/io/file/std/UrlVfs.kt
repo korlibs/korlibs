@@ -2,8 +2,9 @@ package korlibs.io.file.std
 
 import korlibs.io.file.*
 
-abstract class BaseUrlVfs(
+abstract class UrlVfs(
     val url: String,
+    dummy: Unit,
     val failFromStatus: Boolean = true
 ) : Vfs() {
 

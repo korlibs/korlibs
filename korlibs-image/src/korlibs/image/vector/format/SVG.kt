@@ -16,6 +16,7 @@ import korlibs.math.geom.shape.*
 import korlibs.math.geom.vector.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
+import korlibs.util.*
 import kotlin.collections.set
 
 class SVG(val root: Xml, val warningProcessor: ((message: String) -> Unit)? = null) : SizedDrawable {
@@ -292,7 +293,7 @@ class SVG(val root: Xml, val warningProcessor: ((message: String) -> Unit)? = nu
                     val extra = str.substringAfter(')')
 
                     if (urlPattern.startsWith("#")) {
-                        val idName = urlPattern.substr(1).toLowerCase()
+                        val idName = urlPattern.substring(1).lowercase()
                         val def = defs[idName]
                         if (def == null) {
                             logger.info { defs }
@@ -359,10 +360,10 @@ class SVG(val root: Xml, val warningProcessor: ((message: String) -> Unit)? = nu
     }
 
     open inner class PolySvgElement(xml: Xml) : SvgElement(xml) {
-        val ss = StrReader(xml.str("points"))
+        val ss = SimpleStrReader(xml.str("points"))
         val pps = ListReader(mapWhile(cond = { ss.hasMore }, gen = {
             ss.skipWhile { !it.isNumeric }
-            val out = ss.readWhile { it.isNumeric }.toDouble()
+            val out = ss.readWhileBuilder(out = StringBuilder()) { it.isNumeric }.toString().toDouble()
             ss.skipWhile { !it.isNumeric }
             out
         }).toList())
@@ -447,16 +448,16 @@ class SVG(val root: Xml, val warningProcessor: ((message: String) -> Unit)? = nu
             fun parseToMap(str: String): Map<String, String> = CSSDeclarations().parse(str).props
         }
 
-        fun parse(str: String): CSSDeclarations = str.reader().parse()
+        fun parse(str: String): CSSDeclarations = SimpleStrReader(str).parse()
 
-        fun StrReader.parse(): CSSDeclarations {
+        fun SimpleStrReader.parse(): CSSDeclarations {
             while (!eof) {
                 parseCssDecl()
             }
             return this@CSSDeclarations
         }
 
-        fun StrReader.parseCssDecl() {
+        fun SimpleStrReader.parseCssDecl() {
             skipSpaces()
             val id = readCssId()
             skipSpaces()
@@ -464,14 +465,14 @@ class SVG(val root: Xml, val warningProcessor: ((message: String) -> Unit)? = nu
             skipSpaces()
             //readStringLit()
             // @TODO: Proper parsing
-            val value = readUntil { it == ';' }.trim()
+            val value = readUntilBuilder(out = StringBuilder()) { it == ';' }.toString().trim()
             props[id] = value
             if (!eof) {
                 skipExpect(';')
             }
         }
 
-        fun StrReader.readCssId() = readWhile { it.isLetterOrDigit() || it == '-' }
+        fun SimpleStrReader.readCssId(): String = readWhileBuilder(out = StringBuilder()) { it.isLetterOrDigit() || it == '-' }.toString()
     }
 
 	companion object {

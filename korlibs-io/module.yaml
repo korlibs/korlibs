@@ -31,6 +31,8 @@ dependencies:
   - ../korlibs-time-core: exported
   - ../korlibs-logger: exported
   - ../korlibs-dyn: exported
+  - ../korlibs-wstring: exported
+  - ../korlibs-string: exported
   - ../korlibs-serialization-csv: exported
   - ../korlibs-serialization-toml: exported
   - ../korlibs-serialization-yaml: exported

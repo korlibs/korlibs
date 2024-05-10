@@ -5,3 +5,4 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
+  - ../korlibs-string

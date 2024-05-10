@@ -32,11 +32,11 @@ class HtmlNativeSoundProvider : NativeSoundProviderNew() {
         AudioBufferSound(AudioBufferOrHTMLMediaElement(HtmlSimpleSound.loadSound(data)), "#bytes", coroutineContext, name)
 
     override suspend fun createSound(vfs: Vfs, path: String, streaming: Boolean, props: AudioDecodingProps): Sound = when (vfs) {
-        is LocalVfs, is BaseUrlVfs -> {
+        is LocalVfs, is UrlVfs -> {
             //println("createSound[1]")
             val url = when (vfs) {
                 is LocalVfs -> path
-                is BaseUrlVfs -> vfs.getFullUrl(path)
+                is UrlVfs -> vfs.getFullUrl(path)
                 else -> invalidOp
             }
             if (streaming) {

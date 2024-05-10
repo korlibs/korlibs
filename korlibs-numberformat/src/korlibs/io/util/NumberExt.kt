@@ -3,11 +3,7 @@
 package korlibs.io.util
 
 import korlibs.math.*
-import korlibs.math.isNanOrInfinite
 import kotlin.math.*
-
-private fun Double.isAlmostEquals(other: Double, epsilon: Double = 0.000001): Boolean = (this - other).absoluteValue < epsilon
-private fun Float.isAlmostEquals(other: Float, epsilon: Float = 0.000001f): Boolean = (this - other).absoluteValue < epsilon
 
 //private fun Double.normalizeZero(): Double = if (this.isAlmostZero()) 0.0 else this
 private val MINUS_ZERO_D = -0.0
@@ -69,3 +65,9 @@ fun Double.toStringDecimal(decimalPlaces: Int, skipTrailingZeros: Boolean = fals
 }
 
 fun Float.toStringDecimal(decimalPlaces: Int, skipTrailingZeros: Boolean = false): String = this.toDouble().toStringDecimal(decimalPlaces, skipTrailingZeros)
+
+private fun Double.roundDecimalPlaces(places: Int): Double {
+    if (places < 0) return this
+    val placesFactor: Double = 10.0.pow(places.toDouble())
+    return round(this * placesFactor) / placesFactor
+}

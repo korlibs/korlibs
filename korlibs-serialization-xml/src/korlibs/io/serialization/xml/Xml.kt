@@ -3,6 +3,7 @@
 package korlibs.io.serialization.xml
 
 import korlibs.io.stream.*
+import korlibs.io.util.*
 import korlibs.util.*
 import kotlin.collections.set
 
@@ -248,6 +249,12 @@ data class Xml(
             return null
         }
 
+        private fun String.substr(start: Int, length: Int): String {
+            val low = (if (start >= 0) start else this.length + start).coerceIn(0, this.length)
+            val high = (if (length >= 0) low + length else this.length + length).coerceIn(0, this.length)
+            return if (high >= low) this.substring(low, high) else ""
+        }
+
         override fun toString() = "Literals(${lits.joinToString(" ")})"
     }
 
@@ -269,11 +276,11 @@ data class Xml(
             val sb = StringBuilder()
             while (!r.eof) {
                 @Suppress("LiftReturnOrAssignment") // Performance?
-                append(r.readUntil('&', sb.clear()))
+                append(r.readUntilBuilder('&', sb.clear()))
                 if (r.eof) break
 
                 r.skipExpect('&')
-                val value = r.readUntil(';', sb.clear(), included = true)
+                val value = r.readUntilBuilder(';', sb.clear(), included = true)
                 val full = "&$value"
                 when {
                     value.startsWith('#') -> {
@@ -307,7 +314,7 @@ data class Xml(
             val sb = StringBuilder(128)
 
             loop@while (!r.eof) {
-                val str = r.readUntil('<', sb.clear(), included = false)
+                val str = r.readUntilBuilder('<', sb.clear(), included = false)
                 if (str.isNotEmpty()) {
                     val text = str.toString()
                     val textNs = when {
@@ -530,122 +537,4 @@ private fun <K, V> Map<K, V>.flip(): Map<V, K> = this.map { Pair(it.value, it.ke
 private inline fun String.eachBuilder(transform: StringBuilder.(Char) -> Unit): String = buildString {
     @Suppress("ReplaceManualRangeWithIndicesCalls") // Performance reasons? Check that plain for doesn't allocate
     for (n in 0 until this@eachBuilder.length) transform(this, this@eachBuilder[n])
-}
-
-private fun String.substr(start: Int): String = this.substr(start, this.length)
-
-private fun String.substr(start: Int, length: Int): String {
-    val low = (if (start >= 0) start else this.length + start).coerceIn(0, this.length)
-    val high = (if (length >= 0) low + length else this.length + length).coerceIn(0, this.length)
-    return if (high >= low) this.substring(low, high) else ""
-}
-
-private val SimpleStrReader.eof: Boolean get() = !hasMore
-
-// @TODO: Test
-private class CharReaderStrReader(val reader: CharReader, val buffer: StringBuilder = StringBuilder(), var bufferPos: Int = 0) : SimpleStrReader {
-    private fun ensureBuffer(): Int {
-        if (bufferPos >= buffer.length) {
-            buffer.clear()
-            reader.read(buffer, 1024)
-            bufferPos = 0
-        }
-        return buffer.length - bufferPos
-    }
-
-    override var pos: Int = 0
-    override val hasMore: Boolean get() = ensureBuffer() > 0
-
-    override fun readChar(): Char {
-        return peekChar().also { bufferPos++ }
-    }
-
-    override fun peekChar(): Char {
-        if (ensureBuffer() <= 0) return '\u0000'
-        return buffer[bufferPos]
-    }
-
-    override fun clone(): SimpleStrReader = CharReaderStrReader(reader.clone(), StringBuilder(buffer), bufferPos)
-}
-
-private class StrReaderCharReader(val reader: SimpleStrReader) : CharReader {
-    override fun read(out: StringBuilder, count: Int): Int {
-        for (n in 0 until count) {
-            if (!reader.hasMore) return n
-            out.append(reader.readChar())
-        }
-        return count
-    }
-    override fun clone(): CharReader = StrReaderCharReader(reader.clone())
-}
-
-private fun SimpleStrReader.readUntil(char: Char, out: StringBuilder, included: Boolean = false): StringBuilder = readUntil(included, out) { it == char }
-
-private inline fun SimpleStrReader.readWhile(included: Boolean = false, out: StringBuilder, cond: (Char) -> Boolean): StringBuilder = readUntil(included, out) { !cond(it) }
-
-private inline fun SimpleStrReader.readUntil(included: Boolean = false, out: StringBuilder, cond: (Char) -> Boolean): StringBuilder {
-    while (hasMore) {
-        val c = peekChar()
-        if (cond(c)) {
-            if (included) {
-                readChar()
-                out.append(c)
-            }
-            break
-        }
-        readChar()
-        out.append(c)
-    }
-    return out
-}
-
-private fun SimpleStrReader.skipWhile(cond: (Char) -> Boolean): SimpleStrReader {
-    while (hasMore) {
-        val c = peekChar()
-        if (!cond(c)) {
-            return this
-        }
-        readChar()
-    }
-    return this
-}
-
-
-private fun SimpleStrReader.skipExpect(expected: Char) {
-    val readed = this.readChar()
-    if (readed != expected) {
-        throw IllegalArgumentException("Expected '$expected' but found '$readed' at $pos")
-    }
-}
-
-fun SimpleStrReader.tryExpect(char: Char, consume: Boolean = true): Boolean {
-    val read = peekChar()
-    val isExpected = read == char
-    if (consume && isExpected) readChar()
-    return isExpected
-}
-
-fun SimpleStrReader.read(count: Int): String {
-    val out = StringBuilder(count)
-    for (n in 0 until count) out.append(readChar())
-    return out.toString()
-}
-
-private fun SimpleStrReader.skipSpaces(): SimpleStrReader {
-    this.skipWhile { it.isWhitespaceFast() }
-    return this
-}
-
-private fun SimpleStrReader.matchIdentifier(out: StringBuilder): StringBuilder? = readWhile(out = out) { it.isLetterDigitOrUnderscore() || it == '-' || it == '~' || it == ':' }.takeIf { it.isNotEmpty() }
-private fun Char.isWhitespaceFast(): Boolean = this == ' ' || this == '\t' || this == '\r' || this == '\n'
-private fun Char.isLetterOrDigit(): Boolean = isLetter() || isDigit()
-private fun Char.isLetterDigitOrUnderscore(): Boolean = this.isLetterOrDigit() || this == '_' || this == '$'
-
-private fun SimpleStrReader.matchSingleOrDoubleQuoteString(out: StringBuilder): StringBuilder? = when (this.peekChar()) {
-    '\'', '"' -> {
-        val quoteType = this.readChar()
-        out.append(quoteType)
-        this.readUntil(quoteType, out, included = true)
-    }
-    else -> null
 }

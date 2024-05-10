@@ -1,6 +1,5 @@
 import org.jetbrains.kotlin.gradle.plugin.*
 import org.jetbrains.kotlin.gradle.plugin.mpp.*
-import org.jetbrains.kotlin.gradle.tasks.*
 
 kotlin {
     /*

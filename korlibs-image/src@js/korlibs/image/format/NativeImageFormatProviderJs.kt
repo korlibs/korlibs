@@ -23,6 +23,7 @@ import org.w3c.dom.*
 import org.w3c.dom.url.*
 import org.w3c.files.*
 import kotlin.coroutines.*
+import kotlin.io.encoding.*
 import kotlin.math.*
 import kotlin.time.*
 
