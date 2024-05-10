@@ -63,7 +63,7 @@ allprojects {
         //    }
         //}
         compileSdk = 33
-        namespace = "com.soywiz.${project.name.replace("-", ".")}"
+        namespace = "com.soywiz.${project.name.replace("-", ".").replace(".char", "._char")}"
         //    defaultConfig {
         //        applicationId "[…]"
         //        minSdk 25
@@ -769,17 +769,23 @@ class MicroAmper {
 
     val sourceSetPairs = LinkedHashMap<String, SourceSetPair>()
 
+    fun SourceDirectorySet.srcDirIfExists(path: String) {
+        //val file = file(path)
+        //if (file.isDirectory) srcDir(file)
+        srcDir(path)
+    }
+
     fun NamedDomainObjectContainer<KotlinSourceSet>.ssPair(name: String): SourceSetPair {
         return sourceSetPairs.getOrPut(name) {
             val atName = if (name == "common") "" else "@$name"
             SourceSetPair(
                 main = maybeCreate("${name}Main").also {
-                    it.kotlin.srcDir("src$atName")
-                    it.resources.srcDir("resources$atName")
+                    it.kotlin.srcDirIfExists("src$atName")
+                    it.resources.srcDirIfExists("resources$atName")
                 },
                 test = maybeCreate("${name}Test").also {
-                    it.kotlin.srcDir("test$atName")
-                    it.resources.srcDir("testResources$atName")
+                    it.kotlin.srcDirIfExists("test$atName")
+                    it.resources.srcDirIfExists("testResources$atName")
                 }
             )
         }
