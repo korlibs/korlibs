@@ -25,6 +25,15 @@ abstract class BaseLock {
     }
 }
 
+inline operator fun <T> ReentrantLock.invoke(callback: () -> T): T {
+    lock()
+    try {
+        return callback()
+    } finally {
+        unlock()
+    }
+}
+
 /**
  * Reentrant typical lock.
  */

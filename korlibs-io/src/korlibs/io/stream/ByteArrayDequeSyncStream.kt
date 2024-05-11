@@ -2,8 +2,6 @@ package korlibs.io.stream
 
 import korlibs.concurrent.thread.*
 import korlibs.datastructure.*
-import korlibs.datastructure.lock.*
-import korlibs.io.lang.*
 import korlibs.time.*
 import kotlinx.atomicfu.locks.*
 
