@@ -57,13 +57,11 @@ class LockTest {
 
     @Test
     fun testNotifyError() {
-        val lock = Lock()
-        assertFails { lock.notify() }
+        assertFails { Lock().notify() }
     }
 
     @Test
     fun testWaitError() {
-        val lock = Lock()
-        assertFails { lock.wait(1.seconds) }
+        assertFails { Lock().wait(1.seconds) }
     }
 }
