@@ -7,8 +7,23 @@ import korlibs.time.*
 import kotlinx.atomicfu.*
 import kotlinx.atomicfu.locks.*
 import kotlin.time.*
-import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.Duration.Companion.seconds
+
+abstract class BaseLock {
+    abstract fun lock()
+    abstract fun unlock()
+    abstract fun notify(unit: Unit = Unit)
+    abstract fun wait(time: FastDuration): Boolean
+    fun wait(time: Duration): Boolean = wait(time.fast)
+
+    inline operator fun <T> invoke(callback: () -> T): T {
+        lock()
+        try {
+            return callback()
+        } finally {
+            unlock()
+        }
+    }
+}
 
 /**
  * Reentrant typical lock.
@@ -45,24 +60,24 @@ class Lock() : NonRecursiveLock() {
  * It is lightweight and just requires an atomic.
  * Does busy-waiting instead of sleeping the thread.
  */
-open class NonRecursiveLock {
+open class NonRecursiveLock : BaseLock() {
     private var notified = atomic(false)
     protected var locked = atomic(0)
 
-    open fun lock() {
+    override fun lock() {
         // Should we try to sleep this thread and awake it later? If the lock is short, might not be needed
         if (NativeThread.isSupported) NativeThread.spinWhile { !locked.compareAndSet(0, 1) }
     }
 
-    open fun unlock() {
+    override fun unlock() {
         // Should we try to sleep this thread and awake it later? If the lock is short, might not be needed
         if (NativeThread.isSupported) NativeThread.spinWhile { !locked.compareAndSet(1, 0) }
     }
 
-    open fun notify(unit: Unit = Unit) {
+    override fun notify(unit: Unit) {
         notified.value = true
     }
-    open fun wait(time: FastDuration): Boolean {
+    override fun wait(time: FastDuration): Boolean {
         //println("WAIT!")
         if (!NativeThread.isSupported) return true
         val lockCount = locked.value
@@ -77,23 +92,12 @@ open class NonRecursiveLock {
         }
         return notified.value
     }
-
-    fun wait(time: Duration): Boolean = wait(time.fast)
-
-    inline operator fun <T> invoke(callback: () -> T): T {
-        lock()
-        try {
-            return callback()
-        } finally {
-            unlock()
-        }
-    }
 }
 
 
-fun NonRecursiveLock.waitPrecise(time: Duration): Boolean = waitPrecise(time.fast)
+fun BaseLock.waitPrecise(time: Duration): Boolean = waitPrecise(time.fast)
 
-fun NonRecursiveLock.waitPrecise(time: FastDuration): Boolean {
+fun BaseLock.waitPrecise(time: FastDuration): Boolean {
     val startTime = FastDuration.now()
     val doWait = time - 10.fastMilliseconds
     val signaled = if (doWait > 0.fastSeconds) wait(doWait) else false
@@ -105,11 +109,11 @@ fun NonRecursiveLock.waitPrecise(time: FastDuration): Boolean {
     return signaled
 }
 
-fun NonRecursiveLock.wait(time: FastDuration, precise: Boolean): Boolean {
+fun BaseLock.wait(time: FastDuration, precise: Boolean): Boolean {
     return if (precise) waitPrecise(time) else wait(time)
 }
 
-fun NonRecursiveLock.wait(time: Duration, precise: Boolean): Boolean {
+fun BaseLock.wait(time: Duration, precise: Boolean): Boolean {
     return if (precise) waitPrecise(time) else wait(time)
 }
 
