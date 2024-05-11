@@ -1,7 +1,7 @@
 package korlibs.io.lang
 
+import korlibs.concurrent.lock.*
 import korlibs.concurrent.thread.*
-import korlibs.datastructure.lock.*
 import korlibs.time.*
 import kotlin.test.*
 
@@ -15,8 +15,15 @@ class ThreadLocalTest {
         val log = arrayListOf<String>()
         val tl = threadLocal { n++ }
         log += "main:${tl.value}"
-        nativeThread { log += "thread:${tl.value}"; lock { lock.notify() } }
-        lock { lock.wait(10.seconds) }
+        lock {
+            nativeThread {
+                //NativeThread.sleep(1.seconds)
+                log += "thread:${tl.value}"; lock { lock { lock { } }; lock.notify() }
+            }
+            NativeThread.sleep(0.3.seconds)
+            //NativeThread.sleep(1.seconds)
+            lock.wait(10.seconds)
+        }
         log += "main:${tl.value}"
         assertEquals(listOf("main:0", "thread:1", "main:0"), log)
     }

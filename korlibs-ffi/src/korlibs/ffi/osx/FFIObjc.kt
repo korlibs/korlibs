@@ -2,7 +2,7 @@
 package korlibs.ffi.osx
 
 import korlibs.annotations.*
-import korlibs.datastructure.lock.*
+import korlibs.concurrent.lock.*
 import korlibs.ffi.*
 import kotlin.properties.*
 import kotlin.reflect.*

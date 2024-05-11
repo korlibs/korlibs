@@ -1,6 +1,6 @@
 package korlibs.image.font
 
-import korlibs.datastructure.lock.*
+import korlibs.concurrent.lock.*
 import kotlin.coroutines.*
 
 interface FontRegistry {

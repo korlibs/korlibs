@@ -1,7 +1,7 @@
 package korlibs.audio.sound
 
+import korlibs.concurrent.lock.*
 import korlibs.concurrent.thread.*
-import korlibs.datastructure.lock.*
 import korlibs.io.async.*
 import korlibs.io.lang.*
 import korlibs.math.*

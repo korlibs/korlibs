@@ -1,9 +1,9 @@
 package korlibs.audio.sound.backend
 
 import korlibs.audio.sound.*
+import korlibs.concurrent.lock.*
 import korlibs.concurrent.thread.*
 import korlibs.ffi.*
-import korlibs.io.lang.*
 import korlibs.memory.*
 import korlibs.time.*
 import kotlin.coroutines.*
@@ -76,7 +76,7 @@ class JvmWaveOutNewPlatformAudioOutput(
     freq: Int,
     gen: (AudioSamplesInterleaved) -> Unit
 ) : NewPlatformAudioOutput(coroutineContext, nchannels, freq, gen) {
-    val samplesLock = korlibs.datastructure.lock.NonRecursiveLock()
+    val samplesLock = NonRecursiveLock()
     var nativeThread: NativeThread? = null
     var running = false
     var totalEmittedSamples = 0L
