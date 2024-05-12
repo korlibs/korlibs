@@ -9,6 +9,10 @@ import kotlinx.atomicfu.locks.*
 import kotlin.time.*
 
 abstract class BaseLock {
+    companion object {
+        val isSupported get() = NativeThread.isSupported
+    }
+
     abstract fun lock()
     abstract fun unlock()
     //abstract fun notify(unit: Unit = Unit)
@@ -58,14 +62,15 @@ class Lock() : BaseLock() {
     }
 
     fun notify(unit: Unit = Unit) {
+        if (!isSupported) throw UnsupportedOperationException()
         check(locked.value > 0) { "Must wait inside a synchronization block" }
         check(current.value == NativeThread.currentThreadId) { "Must lock the notify thread" }
         notified.value = true
     }
 
     fun wait(time: FastDuration): Boolean {
+        if (!isSupported) throw UnsupportedOperationException()
         //println("WAIT!")
-        if (!NativeThread.isSupported) return true
         val lockCount = locked.value
         check(lockCount > 0) { "Must wait inside a synchronization block" }
         val start = TimeSource.Monotonic.markNow()
