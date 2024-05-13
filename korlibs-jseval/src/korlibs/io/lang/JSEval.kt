@@ -1,6 +1,8 @@
 package korlibs.io.lang
 
-expect object JSEval {
+expect val JSEval: IJSEval
+
+interface IJSEval {
     /**
      * Determines if [JSEval] is available.
      * Available on the JS target.
@@ -25,24 +27,45 @@ expect object JSEval {
      *
      * If [available] is false, this function will throw an exception.
      */
-    suspend operator fun invoke(
+    operator fun invoke(
         // language: javascript
         code: String,
         params: Map<String, Any?>,
     ): Any?
+
+    suspend fun invokeSuspend(
+        // language: javascript
+        code: String,
+        params: Map<String, Any?>,
+    ): Any? = invoke(code, params)
 }
 
-suspend operator fun JSEval.invoke(
+operator fun IJSEval.invoke(
     // language: javascript
     code: String,
     vararg params: Pair<String, Any?>,
 ): Any? = invoke(code, params.toMap())
 
+suspend fun IJSEval.invokeSuspend(
+    // language: javascript
+    code: String,
+    vararg params: Pair<String, Any?>,
+): Any? = invokeSuspend(code, params.toMap())
+
 /**
  * Executes a javascript [expr] expressions and return the result.
  */
-suspend fun JSEval.expr(
+fun IJSEval.expr(
     // language: javascript
     expr: String,
     vararg params: Pair<String, Any?>,
 ): Any? = invoke("return $expr;", params.toMap())
+
+/**
+ * Executes a javascript [expr] expressions and return the result.
+ */
+suspend fun IJSEval.exprSuspend(
+    // language: javascript
+    expr: String,
+    vararg params: Pair<String, Any?>,
+): Any? = invokeSuspend("return $expr;", params.toMap())

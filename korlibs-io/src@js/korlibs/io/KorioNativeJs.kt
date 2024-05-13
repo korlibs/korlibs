@@ -1,8 +1,6 @@
 package korlibs.io
 
 import korlibs.io.runtime.*
-import korlibs.io.runtime.browser.JsRuntimeBrowser
-import korlibs.io.runtime.deno.JsRuntimeDeno
 import org.w3c.dom.*
 import org.w3c.dom.events.*
 import org.w3c.performance.*

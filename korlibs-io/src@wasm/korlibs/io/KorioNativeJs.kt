@@ -1,6 +1,6 @@
 package korlibs.io
 
-import korlibs.io.runtime.browser.*
+import korlibs.io.runtime.*
 import korlibs.io.wasm.*
 import korlibs.platform.*
 import org.w3c.dom.*
