@@ -15,7 +15,7 @@ actual suspend fun httpRawFetch(method: String, host: String, port: Int, path: S
     val result = window.fetch(url, RequestInit(method = method, headers = Headers().also {
         for ((key, value) in headers) it.append(key, value)
     }, body = body?.readAll()?.toInt8Array())).await<Response>()
-    val reader = result.body.getReader().unsafeCast<ReadableStreamDefaultReader>()
+    val reader = result.body?.unsafeCast<FetchBody>()?.getReader()?.unsafeCast<ReadableStreamDefaultReader>() ?: error("Cant' find body")
     return HttpRawFetchResult(result.status.toInt(), result.statusText, result.headers.toList(), object : AsyncInputStream {
         private var bytesDeque = SimpleBytesDeque()
         private var done = false
@@ -24,9 +24,9 @@ actual suspend fun httpRawFetch(method: String, host: String, port: Int, path: S
         private suspend fun ensureData() {
             if (done) return
             if (bytesDeque.availableRead >= 1024) return
-            val res = reader.read().await()
+            val res = reader.read().await<Chunk>()
             done = res.done
-            bytesDeque.write(res.value)
+            bytesDeque.write(res.value.toByteArray())
         }
 
         override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int {
@@ -42,14 +42,13 @@ actual suspend fun httpRawFetch(method: String, host: String, port: Int, path: S
 
 private fun Headers.toList(): List<Pair<String, String>> {
     val rheaders = this
-    val keys = JsArray.from(rheaders.asDynamic().keys())
-    val outHeaders = keys.map { it to rheaders.get(it)!! }.toMutableList()
+    val keys = JSArray_from(rheaders.unsafeCast<HeadersExt>().keys()).toList()
+    val outHeaders = keys.map { it.toString() to rheaders.get(it.toString())!! }.toMutableList()
     return outHeaders
 }
 
-@JsName("Array")
-private external object JsArray {
-    fun from(any: dynamic): Array<dynamic>
+private external interface FetchBody : JsAny {
+    fun getReader(): JsAny
 }
 
 private external interface Chunk : JsAny {
@@ -57,7 +56,7 @@ private external interface Chunk : JsAny {
     val value: Int8Array
 }
 
-private external interface ReadableStreamDefaultReader {
+private external interface ReadableStreamDefaultReader : JsAny {
     fun read(): Promise<Chunk>
     fun cancel()
 }

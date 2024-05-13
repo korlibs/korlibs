@@ -1,6 +1,6 @@
 package korlibs.wasm
 
-import korlibs.io.*
+import korlibs.js.*
 import org.khronos.webgl.*
 import kotlin.reflect.*
 

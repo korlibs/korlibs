@@ -65,7 +65,7 @@ interface SystemFs {
 
     abstract suspend fun open(path: String, write: Boolean = false): FileSystemIo?
     abstract suspend fun listdir(path: String): Flow<String>
-    abstract suspend fun mkdir(path: String): Boolean
+    abstract suspend fun mkdir(path: String, mode: Int = -1): Boolean
     abstract suspend fun rmdir(path: String): Boolean
     abstract suspend fun unlink(path: String): Boolean
     abstract suspend fun stat(path: String): FileSystemIoStat?
