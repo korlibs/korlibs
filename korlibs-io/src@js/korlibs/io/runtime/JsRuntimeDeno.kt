@@ -77,13 +77,6 @@ fun DenoPointer.writeBytes(data: ByteArray) {
 external private val import: dynamic
 
 object JsRuntimeDeno : JsRuntime() {
-    override fun existsSync(path: String): Boolean = try {
-        Deno.statSync(path)
-        true
-    } catch (e: dynamic) {
-        false
-    }
-
     override fun currentDir(): String {
         //val url = URL(import.meta.url)
         //console.log("Deno.mainModule", Deno.mainModule)

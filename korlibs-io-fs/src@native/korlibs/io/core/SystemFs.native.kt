@@ -6,7 +6,7 @@ import kotlinx.cinterop.*
 import platform.posix.*
 
 @OptIn(ExperimentalForeignApi::class)
-abstract class SyncSystemIoNativeBase : SyncSystemIo {
+abstract class SyncSystemFsNativeBase : SyncSystemFs {
     override fun stat(path: String): FileSystemIoStat? = memScoped {
         val st = alloc<stat>()
         if (stat(path, st.ptr) != 0) return@memScoped null
@@ -33,12 +33,12 @@ abstract class SyncSystemIoNativeBase : SyncSystemIo {
         return createSyncFileSystemIo(file)
     }
 
-    abstract fun createSyncFileSystemIo(file: CPointer<FILE>?): SyncFileSystemIoNativeBase
+    abstract fun createSyncFileSystemIo(file: CPointer<FILE>?): SyncFileSystemFsNativeBase
 
     private fun S_ISDIR(m: Int): Boolean = (((m) and S_IFMT) == S_IFDIR)
 }
 
-abstract class SyncFileSystemIoNativeBase(val file: CPointer<FILE>?) : SyncFileSystemIo() {
+abstract class SyncFileSystemFsNativeBase(val file: CPointer<FILE>?) : SyncFileSystemIo() {
     val fd = fileno(file)
 
     abstract fun ftruncate64(len: Long)

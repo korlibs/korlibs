@@ -24,7 +24,6 @@ abstract class JsRuntime {
         else -> "js"
     }
     open val isBrowser get() = false
-    abstract fun existsSync(path: String): Boolean
     open fun currentDir(): String = "."
 
     open fun openVfs(path: String): VfsFile = TODO()

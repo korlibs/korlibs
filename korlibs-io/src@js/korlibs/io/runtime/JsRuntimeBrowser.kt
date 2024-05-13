@@ -4,12 +4,15 @@ import korlibs.io.file.*
 import korlibs.io.file.std.*
 import korlibs.io.net.http.*
 import korlibs.io.stream.*
+import korlibs.memory.*
 import kotlinx.browser.*
 import kotlinx.coroutines.*
 import org.khronos.webgl.*
 import org.w3c.dom.get
 import org.w3c.dom.set
+import org.w3c.fetch.*
 import org.w3c.xhr.*
+import kotlin.js.*
 
 private external val navigator: dynamic // browser
 
@@ -21,10 +24,6 @@ object JsRuntimeBrowser : JsRuntime() {
 
     val href by lazy { document.location?.href ?: "." }
     val baseUrl by lazy { if (href.endsWith("/")) href else href.substringBeforeLast('/') }
-
-    override fun existsSync(path: String): Boolean {
-        TODO("Not yet implemented")
-    }
 
     override fun currentDir(): String = baseUrl
 
@@ -51,6 +50,46 @@ class HttpClientBrowserJs : HttpClient() {
         content: AsyncInputStreamWithLength?
     ): Response {
         val deferred = CompletableDeferred<Response>(Job())
+
+        val response = window.fetch(url, RequestInit(method.name, headers)).await()
+
+        val reader = response.body.getReader().unsafeCast<ReadableStreamDefaultReader>()
+        val contentLength = response.headers.get("content-length")?.toLongOrNull()
+        return Response(
+            status = response.status.toInt(),
+            statusText = response.statusText,
+            headers = Http.Headers(response.headers),
+            rawContent = object : AsyncInputStreamWithLength {
+                private var bytesDeque = SimpleBytesDeque()
+                private var done = false
+                private var position = 0L
+
+                override suspend fun hasLength(): Boolean = contentLength != null
+                override suspend fun getLength(): Long = contentLength ?: error("Can't find length")
+                override suspend fun getPosition(): Long = position
+
+                private suspend fun ensureData() {
+                    if (done) return
+                    if (bytesDeque.availableRead >= 1024) return
+                    val result = reader.read().await()
+                    done = result.done
+                    bytesDeque.write(result.value)
+                }
+
+
+                override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int {
+                    ensureData()
+                    return this.bytesDeque.read(buffer, offset, len).also {
+                        if (it >= 0) position += it
+                    }
+                }
+
+                override suspend fun close() {
+                    reader.cancel()
+                }
+            },
+        )
+
         val xhr = XMLHttpRequest()
         xhr.open(method.name, url, true)
         xhr.responseType = XMLHttpRequestResponseType.ARRAYBUFFER
@@ -108,4 +147,18 @@ class HttpClientBrowserJs : HttpClient() {
             Http.Headers.ContentLength.lowercase()
         )
     }
+}
+
+private external interface Chunk {
+    val done: Boolean
+    val value: ByteArray
+}
+
+private external interface ReadableStreamDefaultReader {
+    fun read(): Promise<Chunk>
+    fun cancel()
+}
+
+interface JsIterator<T> {
+
 }

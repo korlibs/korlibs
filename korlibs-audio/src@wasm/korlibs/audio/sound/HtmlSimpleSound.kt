@@ -522,14 +522,3 @@ external class AudioProcessingEvent : Event {
 external interface ScriptProcessorNode : AudioNode {
 	var onaudioprocess: (AudioProcessingEvent) -> Unit
 }
-
-private fun ByteArray.toInt8Array(): Int8Array {
-    //val tout = this.asDynamic()
-    //if (tout is Int8Array) {
-    //    return tout.unsafeCast<Int8Array>()
-    //} else {
-    val out = Int8Array(this.size)
-    for (n in 0 until out.length) out[n] = this[n]
-    return out
-    //}
-}

@@ -1,8 +1,7 @@
 package korlibs.js
 
 import org.khronos.webgl.*
-import kotlin.js.Date
-import kotlin.js.Promise
+import kotlin.js.*
 
 val Deno.isDeno: Boolean get() = js("('Deno' in window)").unsafeCast<Boolean>()
 
@@ -147,4 +146,3 @@ val DenoPointer.value: JsBigInt get() = Deno.UnsafePointer.value(this)
 fun DenoPointer.readStringz(offset: Int = 0): String {
     return Deno.UnsafePointerView.getCString(this, offset)
 }
-
