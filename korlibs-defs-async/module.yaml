@@ -7,7 +7,7 @@ apply: [ ../common.module-template.yaml ]
 aliases:
 
 dependencies:
-  - ../korlibs-defs
+  - ../korlibs-defs: exported
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0
 
 test-dependencies:
