@@ -7,12 +7,12 @@ import korlibs.io.android.*
 import korlibs.io.serialization.json.*
 import kotlinx.coroutines.*
 
-actual object JSEval {
-    actual val globalThis: Any? get() = null
-    actual val available: Boolean get() = false
+actual val JSEval = object : IJSEval {
+    override val globalThis: Any? get() = null
+    override val available: Boolean get() = false
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    actual suspend operator fun invoke(
+    override operator fun invoke(
         // language: javascript
         code: String,
         params: Map<String, Any?>,

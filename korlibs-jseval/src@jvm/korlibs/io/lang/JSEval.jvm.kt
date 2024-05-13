@@ -2,9 +2,9 @@ package korlibs.io.lang
 
 import javax.script.*
 
-actual object JSEval {
-    actual val globalThis: Any? get() = engine?.eval("globalThis")
-    actual val available: Boolean get() = engine != null
+actual val JSEval = object : IJSEval {
+    override val globalThis: Any? get() = engine?.eval("globalThis")
+    override val available: Boolean get() = engine != null
 
     val availableEngines get() = ScriptEngineManager().engineFactories.map { it.names }
 
@@ -16,7 +16,7 @@ actual object JSEval {
         }
     }
 
-    actual suspend operator fun invoke(
+    override operator fun invoke(
         // language: javascript
         code: String,
         params: Map<String, Any?>,

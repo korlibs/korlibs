@@ -1,8 +1,7 @@
-package korlibs.io.runtime.deno
+package korlibs.io.runtime
 
 import korlibs.io.*
 import korlibs.io.file.*
-import korlibs.io.runtime.*
 import korlibs.io.stream.*
 import korlibs.js.*
 import korlibs.platform.*

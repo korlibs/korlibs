@@ -11,6 +11,7 @@ import korlibs.io.net.AsyncClient
 import korlibs.io.net.AsyncServer
 import korlibs.io.net.http.HttpClient
 import korlibs.io.net.http.HttpServer
+import korlibs.platform.*
 
 abstract class JsRuntime {
     companion object {
@@ -30,14 +31,6 @@ abstract class JsRuntime {
     open val isBrowser get() = false
     abstract fun existsSync(path: String): Boolean
     open fun currentDir(): String = "."
-
-    open fun langs(): List<String> = listOf(
-        Environment["LANG"]
-            ?: Environment["LANGUAGE"]
-            ?: Environment["LC_ALL"]
-            ?: Environment["LC_MESSAGES"]
-            ?: "en-GB"
-    )
 
     abstract fun envs(): Map<String, String>
     open fun env(key: String): String? = _envsUC[key.uppercase()]
