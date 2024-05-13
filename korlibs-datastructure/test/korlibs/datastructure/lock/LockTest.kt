@@ -32,20 +32,24 @@ class LockTest {
 
     @Test
     fun testWaitNotify() {
-        if (Platform.isJsOrWasm) return
+        if (!NativeThread.isSupported) return
 
         val lock = Lock()
         var log = arrayListOf<String>()
-        nativeThread(start = true) {
-            NativeThread.sleep(10.fastMilliseconds)
-            log += "b"
-            lock { lock.notify() }
-        }
         lock {
+            nativeThread {
+                lock { // will start when lock.waitForever() is called
+                    log += "b"
+                    lock {
+                        lock.notify()
+                    }
+                }
+            }
+            NativeThread.sleep(100.fastMilliseconds)
             lock {
                 log += "a"
                 lock.waitForever()
-                log += "c"
+                log += "c" // will continue when lock.notify() is called
             }
         }
         assertEquals("abc", log.joinToString(""))
@@ -53,13 +57,11 @@ class LockTest {
 
     @Test
     fun testNotifyError() {
-        val lock = Lock()
-        assertFails { lock.notify() }
+        assertFails { Lock().notify() }
     }
 
     @Test
     fun testWaitError() {
-        val lock = Lock()
-        assertFails { lock.wait(1.seconds) }
+        assertFails { Lock().wait(1.seconds) }
     }
 }

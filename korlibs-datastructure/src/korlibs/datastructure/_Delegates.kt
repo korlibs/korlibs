@@ -1,6 +1,5 @@
 package korlibs.datastructure
 
-import korlibs.datastructure.lock.*
 import kotlin.reflect.*
 
 class Computed<K : Computed.WithParent<K>, T>(val prop: KProperty1<K, T?>, val default: () -> T) {

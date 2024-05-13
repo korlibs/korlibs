@@ -2,7 +2,7 @@
 
 package korlibs.datastructure.pauseable
 
-import korlibs.datastructure.lock.*
+import korlibs.concurrent.lock.*
 import korlibs.time.*
 
 interface Pauseable {

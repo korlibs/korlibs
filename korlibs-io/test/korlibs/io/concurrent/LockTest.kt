@@ -1,6 +1,6 @@
 package korlibs.io.concurrent
 
-import korlibs.datastructure.lock.*
+import korlibs.concurrent.lock.*
 import kotlin.test.*
 
 class LockTest {
