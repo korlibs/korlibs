@@ -249,7 +249,7 @@ abstract class BasePatternDateTimeFormat(
         }
 
         @JvmStatic
-        protected fun formatTimeChunk(name: String, realLocale: KlockLocale, hour: Int, minute: Int, second: Int, millisecond: Double, clampHours: Boolean): String? {
+        protected fun formatTimeChunk(name: String, realLocale: KlockLocale, hour: Int, minute: Int, second: Int, millisecond: Int, clampHours: Boolean): String? {
             val nlen = name.length
             return when (name) {
                 "H", "HH" -> (if (clampHours) mconvertRangeZero(hour, 24) else hour).padded(nlen)
@@ -262,7 +262,7 @@ abstract class BasePatternDateTimeFormat(
                 "s", "ss" -> second.padded(nlen)
 
                 "S", "SS", "SSS", "SSSS", "SSSSS", "SSSSSS", "SSSSSSS", "SSSSSSSS", "SSSSSSSSS" -> {
-                    ((millisecond % 1000) * 1_000_000).toInt().toString().padStart(9, '0').take(name.length)
+                    ((millisecond % 1000) * 1_000_000).toString().padStart(9, '0').take(name.length)
                 }
                 //"a" -> if (hour < 12) "am" else if (hour < 24) "pm" else ""
                 "a" -> realLocale.h12Marker[if (hour < 12) 0 else 1]

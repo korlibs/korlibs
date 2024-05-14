@@ -50,7 +50,7 @@ data class PatternDateFormat(
         val locale = realLocale
         return chunks.joinToString("") {
             formatDateChunk(it, dd, locale)
-                ?: formatTimeChunk(it, locale, utc.hours, utc.minutes, utc.seconds, utc.millisecondsDouble, clampHours = true)
+                ?: formatTimeChunk(it, locale, utc.hours, utc.minutes, utc.seconds, utc.milliseconds, clampHours = true)
                 ?: formatElseChunk(it)
         }
     }

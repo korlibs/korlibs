@@ -429,8 +429,8 @@ class DateTimeTest {
     @Test
     fun testIssue131() {
         assertEquals(
-            "2020-07-23T12:30:52.999125000Z",
-            DateTime(1595507452999.125).format("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSSZ")
+            "2020-07-23T12:30:52.999000000Z",
+            DateTime(1595507452999L).format("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSSZ")
         )
     }
 

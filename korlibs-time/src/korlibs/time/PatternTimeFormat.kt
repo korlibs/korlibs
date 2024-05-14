@@ -40,7 +40,7 @@ data class PatternTimeFormat(
     override fun format(dd: Duration): String {
         val time = Time(dd)
         return chunks.joinToString("") {
-            formatTimeChunk(it, locale, time.hour, time.minute, time.second, time.millisecondDouble, clampHours = false)
+            formatTimeChunk(it, locale, time.hour, time.minute, time.second, time.millisecond, clampHours = false)
                 ?: formatElseChunk(it)
         }
     }

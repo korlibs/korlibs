@@ -253,8 +253,6 @@ value class DateTime(
     val seconds: Int get() = (yearOneMillis / MILLIS_PER_SECOND).toIntMod(60)
     /** The [milliseconds] part */
     val milliseconds: Int get() = (yearOneMillis).toIntMod(1000)
-    /** The [milliseconds] part */
-    val millisecondsDouble: Double get() = (yearOneMillis % 1000)
 
     /** Returns the quarter 1, 2, 3 or 4 */
     val quarter get() = (month0 / 3) + 1
