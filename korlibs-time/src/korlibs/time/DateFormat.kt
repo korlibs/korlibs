@@ -4,20 +4,18 @@ import kotlin.time.*
 
 /** Allows to [format] and [parse] instances of [Date], [DateTime] and [DateTimeTz] */
 interface DateFormat {
-    fun format(dd: DateComponents): String = TODO()
-
     fun format(dd: DateTimeTz): String = format(dd.toComponents())
-
     fun format(dd: DateTimeSpan): String = format(dd.toComponents())
     fun format(dd: MonthSpan): String = format(DateTimeSpan(dd, 0.seconds))
     fun format(dd: Duration): String = format(DateTimeSpan(MonthSpan(0), dd))
 
-    fun tryParseComponents(str: String, doThrow: Boolean = false): DateComponents? = TODO()
+    fun format(dd: DateComponents): String = TODO()
+    fun tryParseComponents(str: String, doThrow: Boolean = false, dateDefaults: Boolean = false): DateComponents? = TODO()
 
     fun tryParse(str: String, doThrow: Boolean = false, doAdjust: Boolean = true): DateTimeTz? =
-        tryParseComponents(str, doThrow)?.toDateTimeTz(doAdjust = doAdjust, doThrow = doThrow)
-    fun tryParseDateTimeSpan(str: String, doThrow: Boolean = false): DateTimeSpan? =
-        tryParseComponents(str, doThrow)?.toDateTimeSpan()
+        tryParseComponents(str, doThrow, dateDefaults = true)?.toDateTimeTz(doAdjust = doAdjust, doThrow = doThrow)
+    fun tryParseDateTimeSpan(str: String, doThrow: Boolean = false, doAdjust: Boolean = true): DateTimeSpan? =
+        tryParseComponents(str, doThrow, dateDefaults = false)?.toDateTimeSpan(doAdjust = doAdjust, doThrow = doThrow)
 
     companion object {
         val DEFAULT_FORMAT = DateFormat("EEE, dd MMM yyyy HH:mm:ss z")

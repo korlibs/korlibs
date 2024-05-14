@@ -4,6 +4,7 @@ import korlibs.Serializable
 import korlibs.time.core.*
 import korlibs.time.core.internal.*
 import korlibs.time.internal.Moduler
+import kotlin.time.*
 
 /**
  * Immutable structure representing a set of a [monthSpan] and a [timeSpan].
@@ -15,8 +16,11 @@ data class DateTimeSpan(
     /** The [MonthSpan] part */
     val monthSpan: MonthSpan,
     /** The [TimeSpan] part */
-    val timeSpan: TimeSpan
+    val timeSpan: Duration
 ) : Comparable<DateTimeSpan>, Serializable {
+
+    val duration: Duration get() = timeSpan
+
     companion object {
         @Suppress("MayBeConstant", "unused")
         private const val serialVersionUID = 1L
@@ -39,11 +43,11 @@ data class DateTimeSpan(
     operator fun unaryMinus() = DateTimeSpan(-monthSpan, -timeSpan)
     operator fun unaryPlus() = DateTimeSpan(+monthSpan, +timeSpan)
 
-    operator fun plus(other: TimeSpan) = DateTimeSpan(monthSpan, timeSpan + other)
+    operator fun plus(other: Duration) = DateTimeSpan(monthSpan, timeSpan + other)
     operator fun plus(other: MonthSpan) = DateTimeSpan(monthSpan + other, timeSpan)
     operator fun plus(other: DateTimeSpan) = DateTimeSpan(monthSpan + other.monthSpan, timeSpan + other.timeSpan)
 
-    operator fun minus(other: TimeSpan) = this + -other
+    operator fun minus(other: Duration) = this + -other
     operator fun minus(other: MonthSpan) = this + -other
     operator fun minus(other: DateTimeSpan) = this + -other
 
@@ -80,6 +84,9 @@ data class DateTimeSpan(
     /** The [days] part as an integer. */
     @Deprecated("Use daysNotIncludingWeeks", ReplaceWith("daysNotIncludingWeeks"))
     val days: Int get() = daysNotIncludingWeeks
+
+    /** The [hours] part as an integer including days and weeks. */
+    val hoursIncludingDaysAndWeeks: Int get() = computed.hours + (daysIncludingWeeks * 24)
 
     /** The [hours] part as an integer. */
     val hours: Int get() = computed.hours
@@ -126,7 +133,7 @@ data class DateTimeSpan(
 
     private class ComputedTime(val weeks: Int, val days: Int, val hours: Int, val minutes: Int, val seconds: Int, val milliseconds: Double) {
         companion object {
-            operator fun invoke(time: TimeSpan): ComputedTime = Moduler(time.milliseconds).run {
+            operator fun invoke(time: Duration): ComputedTime = Moduler(time.milliseconds).run {
                 val weeks = int(CoreTimeInternal.MILLIS_PER_WEEK)
                 val days = int(CoreTimeInternal.MILLIS_PER_DAY)
                 val hours = int(CoreTimeInternal.MILLIS_PER_HOUR)

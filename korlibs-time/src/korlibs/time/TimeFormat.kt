@@ -1,32 +1,28 @@
 package korlibs.time
 
+import kotlin.time.*
+
 interface TimeFormat {
-    fun format(dd: TimeSpan): String
-    fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean = true): TimeSpan?
+    fun format(dd: Duration): String
+    fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean = true): Duration?
 
     companion object {
-        val DEFAULT_FORMAT = TimeFormat("HH:mm:ss.SSS")
-        val FORMAT_TIME = TimeFormat("HH:mm:ss")
+        val DEFAULT_FORMAT: TimeFormat = TimeFormat("HH:mm:ss[.SSS]")
+        val FORMAT_TIME: TimeFormat = TimeFormat("HH:mm:ss")
 
-        val FORMATS = listOf(DEFAULT_FORMAT, FORMAT_TIME)
+        fun parse(time: String): Duration = DEFAULT_FORMAT.parse(time)
 
-        fun parse(time: String): TimeSpan {
-            var lastError: Throwable? = null
-            for (format in FORMATS) {
-                try {
-                    return format.parse(time)
-                } catch (e: Throwable) {
-                    lastError = e
-                }
-            }
-            throw lastError!!
-        }
-
-        operator fun invoke(pattern: String) = PatternTimeFormat(pattern)
+        operator fun invoke(pattern: String): TimeFormat = PatternDateFormat(pattern).toTimeFormat()
     }
 }
 
-fun TimeFormat.parse(str: String, doAdjust: Boolean = true): TimeSpan =
+fun DateFormat.toTimeFormat(): TimeFormat = object : TimeFormat {
+    override fun format(dd: Duration): String = this@toTimeFormat.format(dd.toComponents())
+    override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): Duration? =
+        this@toTimeFormat.tryParseDateTimeSpan(str, doThrow, doAdjust = false)?.timeSpan
+}
+
+fun TimeFormat.parse(str: String, doAdjust: Boolean = true): Duration =
     tryParse(str, doThrow = true, doAdjust = doAdjust) ?: throw DateException("Not a valid format: '$str' for '$this'")
 fun TimeFormat.parseTime(str: String): Time = Time(parse(str))
 

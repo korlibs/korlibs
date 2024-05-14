@@ -3,12 +3,13 @@ package korlibs.time
 import korlibs.Serializable
 import kotlin.jvm.JvmInline
 import kotlin.math.abs
+import kotlin.time.*
 
 /**
  * Represents a union of [millisecond], [second], [minute] and [hour].
  */
 @JvmInline
-value class Time(val encoded: TimeSpan) : Comparable<Time>, Serializable {
+value class Time(val encoded: Duration) : Comparable<Time>, Serializable {
 	companion object {
         @Suppress("MayBeConstant", "unused")
         private const val serialVersionUID = 1L
