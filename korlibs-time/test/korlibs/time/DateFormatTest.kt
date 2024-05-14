@@ -48,4 +48,31 @@ class DateFormatTest {
         val actual = DateFormat("z").parse("+09:00").offset
         assertEquals(expected, actual)
     }
+
+    @Test
+    fun testMillisKorlibsNew() {
+        assertEquals(1, DateFormat.ISO_DATE_TIME_OFFSET.parseUtc("2020-01-01T13:12:30.001Z").milliseconds)
+        assertEquals(10, DateFormat.ISO_DATE_TIME_OFFSET.parseUtc("2020-01-01T13:12:30.010Z").milliseconds)
+        assertEquals(100, DateFormat.ISO_DATE_TIME_OFFSET.parseUtc("2020-01-01T13:12:30.100Z").milliseconds)
+        assertEquals(100, DateFormat.ISO_DATE_TIME_OFFSET.parseUtc("2020-01-01T13:12:30.1Z").milliseconds)
+        assertEquals(100, DateFormat.ISO_DATE_TIME_OFFSET.parseUtc("2020-01-01T13:12:30.10Z").milliseconds)
+        assertEquals(100, DateFormat.ISO_DATE_TIME_OFFSET.parseUtc("2020-01-01T13:12:30.100Z").milliseconds)
+        assertEquals(100, DateFormat.ISO_DATE_TIME_OFFSET.parseUtc("2020-01-01T13:12:30.1000Z").milliseconds)
+
+        assertEquals(1, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SZ").parseUtc("2020-01-01T13:12:30.001Z").milliseconds)
+        assertEquals(10, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SZ").parseUtc("2020-01-01T13:12:30.010Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SZ").parseUtc("2020-01-01T13:12:30.100Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SZ").parseUtc("2020-01-01T13:12:30.1Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SZ").parseUtc("2020-01-01T13:12:30.10Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SZ").parseUtc("2020-01-01T13:12:30.100Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SZ").parseUtc("2020-01-01T13:12:30.1000Z").milliseconds)
+
+        assertEquals(1, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parseUtc("2020-01-01T13:12:30.001Z").milliseconds)
+        assertEquals(10, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parseUtc("2020-01-01T13:12:30.010Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parseUtc("2020-01-01T13:12:30.100Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parseUtc("2020-01-01T13:12:30.1Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parseUtc("2020-01-01T13:12:30.10Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parseUtc("2020-01-01T13:12:30.100Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSZ").parseUtc("2020-01-01T13:12:30.1000Z").milliseconds)
+    }
 }
