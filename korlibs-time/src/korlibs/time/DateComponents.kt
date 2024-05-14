@@ -7,10 +7,11 @@ data class DateComponents(
     val years: Int = 0, val months: Int = 0, val days: Int = 0,
     val hours: Int = 0, val minutes: Int = 0, val seconds: Int = 0, val milliseconds: Int = 0,
     val offset: TimezoneOffset? = null, val dayOfWeek: DayOfWeek? = null,
+    val dayOfYear: Int = -1, val weekOfYear: Int = -1,
     val clampHours: Boolean = true,
 )
 
-fun DateTimeTz.toComponents(clampHours: Boolean = true): DateComponents = DateComponents(yearInt, month1, dayOfMonth, hours, minutes, seconds, milliseconds, offset, dayOfWeek, clampHours = clampHours)
+fun DateTimeTz.toComponents(clampHours: Boolean = true): DateComponents = DateComponents(yearInt, month1, dayOfMonth, hours, minutes, seconds, milliseconds, offset, dayOfWeek, dayOfYear, weekOfYear0, clampHours = clampHours)
 fun DateTimeSpan.toComponents(clampHours: Boolean = true): DateComponents = DateComponents(years, months, daysIncludingWeeks, hours, minutes, seconds, milliseconds.toInt(), null, null, clampHours = clampHours)
 fun Duration.toComponents(clampHours: Boolean = false): DateComponents {
     val span = DateTimeSpan(MonthSpan(0), this)
