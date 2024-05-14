@@ -220,7 +220,7 @@ data class PatternDateFormat(
             }
         }
 
-        return DateComponents(fullYear, month, day, hour, minute, second, millisecond, offset?.let { TimezoneOffset(it) })
+        return DateComponents(fullYear, month, day, hour, minute, second, millisecond, offset ?: Duration.ZERO)
     }
 
     companion object {
@@ -230,7 +230,7 @@ data class PatternDateFormat(
         @JvmStatic
         protected fun formatAnyChunk(
             name: String, c: DateComponents, locale: KlockLocale,
-        ): String = formatDateChunk(name, c.years, c.months, c.days, c.dayOfWeek, c.offset, locale)
+        ): String = formatDateChunk(name, c.years, c.months, c.days, c.dayOfWeek, c.offsetSure, locale)
             ?: formatTimeChunk(name, locale, c.hours, c.minutes, c.seconds, c.milliseconds, clampHours = c.clampHours)
             ?: formatElseChunk(name)
 
@@ -238,12 +238,12 @@ data class PatternDateFormat(
         protected fun formatElseChunk(name: String): String = if (name.startsWith('\'')) name.substring(1, name.length - 1) else name
 
         @JvmStatic
-        protected fun formatDateChunk(name: String, year: Int, month1: Int, dayOfMonth: Int, dayOfWeek: DayOfWeek?, offset: TimezoneOffset?, realLocale: KlockLocale): String? {
+        protected fun formatDateChunk(name: String, year: Int, month1: Int, dayOfMonth: Int, dayOfWeek: Int, offset: TimezoneOffset?, realLocale: KlockLocale): String? {
             val offset = offset ?: TimezoneOffset.UTC
             val nlen = name.length
             return when (name) {
-                "E", "EE", "EEE" -> DayOfWeek[dayOfWeek?.index0 ?: 0].localShortName(realLocale)
-                "EEEE", "EEEEE", "EEEEEE" -> DayOfWeek[dayOfWeek?.index0 ?: 0].localName(realLocale)
+                "E", "EE", "EEE" -> DayOfWeek.get1(dayOfWeek).localShortName(realLocale)
+                "EEEE", "EEEEE", "EEEEEE" -> DayOfWeek.get1(dayOfWeek).localName(realLocale)
                 "z", "zzz" -> offset.timeZone
                 "d", "dd" -> dayOfMonth.padded(nlen)
                 "do" -> realLocale.getOrdinalByDay(dayOfMonth)

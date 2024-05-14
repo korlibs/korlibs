@@ -1,7 +1,8 @@
 package korlibs.time
 
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import korlibs.time.internal.*
+import kotlin.test.*
+import kotlin.time.*
 
 class ISO8601Test {
     @Test
@@ -46,7 +47,7 @@ class ISO8601Test {
 
         assertEquals("15,50Z", ISO8601.TIME_UTC_FRACTION2.format(time))
 
-        assertEquals(time + 630.milliseconds, ISO8601.TIME_LOCAL_FRACTION0.parse("15:30:12,63"))
+        assertEquals(time + 630.milliseconds, ISO8601.TIME_LOCAL_FRACTION0.parseDuration("15:30:12,63"))
     }
 
     @Test
@@ -60,7 +61,7 @@ class ISO8601Test {
         // PnnYnnMnnDTnnHnnMnnS
         assertEquals("P1Y0M27DT11H9M11S", DateFormat("'P'y'Y'M'M'd'D''T'H'H'm'M's'S'").format(time))
 
-        assertEquals(time, ISO8601.INTERVAL_COMPLETE0.parse("P1Y0M27DT11H9M11S"))
+        assertEquals(time, ISO8601.INTERVAL_COMPLETE0.parseDateTimeSpan("P1Y0M27DT11H9M11S"))
         assertEquals(time, ISO8601.INTERVAL.parse("P1Y0M27DT11H9M11S"))
     }
 
@@ -134,7 +135,7 @@ class ISO8601Test {
         )
         assertEquals(
             "2020-01-04T02:42:55,50",
-            badUtc.format(ISO8601.IsoDateTimeFormat("YYYYMMDDThhmmss,ss", "YYYY-MM-DDThh:mm:ss,ss"))
+            badUtc.format(IsoPatternDateFormatEx("YYYY-MM-DDThh:mm:ss,ss"))
         )
     }
 
@@ -142,30 +143,30 @@ class ISO8601Test {
     fun testIssue102() {
         val time = 15.hours + 30.minutes + 12.seconds + 160.milliseconds
 
-        assertEquals("15:30:12", ISO8601.IsoTimeFormat("hhmmss", "hh:mm:ss").format(time))
-        assertEquals("153012", ISO8601.IsoTimeFormat("hhmmss", "hh:mm:ss").basic.format(time))
+        assertEquals("15:30:12", IsoPatternDateFormatEx("hh:mm:ss").format(time))
+        assertEquals("153012", IsoPatternDateFormatEx("hh:mm:ss").basic.format(time))
 
-        assertEquals("15:30:12.2", ISO8601.IsoTimeFormat("hhmmss.s", "hh:mm:ss.s").format(time))
-        assertEquals("15:30:12,2", ISO8601.IsoTimeFormat("hhmmss,s", "hh:mm:ss,s").format(time))
-        assertEquals("15:30:12.16", ISO8601.IsoTimeFormat("hhmmss.ss", "hh:mm:ss.ss").format(time))
-        assertEquals("15:30:12,16", ISO8601.IsoTimeFormat("hhmmss,ss", "hh:mm:ss,ss").format(time))
-        assertEquals("15:30:12.160", ISO8601.IsoTimeFormat("hhmmss.sss", "hh:mm:ss.sss").format(time))
-        assertEquals("15:30:12,160", ISO8601.IsoTimeFormat("hhmmss,sss", "hh:mm:ss,sss").format(time))
+        assertEquals("15:30:12.2", IsoPatternDateFormatEx("hh:mm:ss.s").format(time))
+        assertEquals("15:30:12,2", IsoPatternDateFormatEx("hh:mm:ss,s").format(time))
+        assertEquals("15:30:12.16", IsoPatternDateFormatEx("hh:mm:ss.ss").format(time))
+        assertEquals("15:30:12,16", IsoPatternDateFormatEx("hh:mm:ss,ss").format(time))
+        assertEquals("15:30:12.160", IsoPatternDateFormatEx("hh:mm:ss.sss").format(time))
+        assertEquals("15:30:12,160", IsoPatternDateFormatEx("hh:mm:ss,sss").format(time))
 
-        assertEquals("15:30.2", ISO8601.IsoTimeFormat("hhmm.m", "hh:mm.m").format(time))
-        assertEquals("15:30,2", ISO8601.IsoTimeFormat("hhmm,m", "hh:mm,m").format(time))
-        assertEquals("15:30.20", ISO8601.IsoTimeFormat("hhmm.mm", "hh:mm.mm").format(time))
-        assertEquals("15:30,20", ISO8601.IsoTimeFormat("hhmm,mm", "hh:mm,mm").format(time))
+        assertEquals("15:30.2", IsoPatternDateFormatEx("hh:mm.m").format(time))
+        assertEquals("15:30,2", IsoPatternDateFormatEx("hh:mm,m").format(time))
+        assertEquals("15:30.20", IsoPatternDateFormatEx("hh:mm.mm").format(time))
+        assertEquals("15:30,20", IsoPatternDateFormatEx("hh:mm,mm").format(time))
 
-        assertEquals("15.5", ISO8601.IsoTimeFormat("hh.h", "hh.h").format(time))
-        assertEquals("15,5", ISO8601.IsoTimeFormat("hh,h", "hh,h").format(time))
-        assertEquals("15.50", ISO8601.IsoTimeFormat("hh.hh", "hh.hh").format(time))
-        assertEquals("15,50", ISO8601.IsoTimeFormat("hh,hh", "hh,hh").format(time))
+        assertEquals("15.5", IsoPatternDateFormatEx("hh.h").format(time))
+        assertEquals("15,5", IsoPatternDateFormatEx("hh,h").format(time))
+        assertEquals("15.50", IsoPatternDateFormatEx("hh.hh").format(time))
+        assertEquals("15,50", IsoPatternDateFormatEx("hh,hh").format(time))
 
-        assertEquals("15,5Z", ISO8601.IsoTimeFormat("hh,hZ", null).format(time))
+        assertEquals("15,5Z", IsoPatternDateFormatEx("hh,hZ").format(time))
 
-        assertEquals(time, ISO8601.IsoTimeFormat("hhmmss,ss", "hh:mm:ss,ss").parse("15:30:12,16"))
-        assertEquals(time, ISO8601.IsoTimeFormat("hhmmss.sss", "hh:mm:ss.sss").parse("15:30:12.160"))
+        assertEquals(time, IsoPatternDateFormatEx("hh:mm:ss,ss").parseDuration("15:30:12,16"))
+        assertEquals(time, IsoPatternDateFormatEx("hh:mm:ss.sss").parseDuration("15:30:12.160"))
     }
 
     @Test
@@ -179,5 +180,42 @@ class ISO8601Test {
         assertEquals(string1, ISO8601.DATETIME_UTC_COMPLETE_FRACTION.format(parsed1))
         assertEquals(string2.removeSuffix("+00:00") + "Z", ISO8601.DATETIME_UTC_COMPLETE_FRACTION.format(parsed2))
         assertEquals(parsed1.utc, parsed2.utc)
+    }
+
+
+    internal fun isoParser(str: String): DateComponents {
+        var years = 0.0
+        var months = 0.0
+        var weeks = 0.0
+        var days = 0.0
+        var hours = 0.0
+        var minutes = 0.0
+        var seconds = 0.0
+        var offset = Duration.NIL
+        var dayOfWeek = DateComponents.UNSET
+        var dayOfYear = DateComponents.UNSET
+        var weekOfYear = DateComponents.UNSET
+        var clampHours = false
+        var time = false
+
+        val r = MicroStrReader(str)
+
+        if (r.tryRead('P')) {
+            while (r.hasMore) {
+                if (r.tryRead('T')) time = true
+                val num = r.tryReadDouble() ?: continue
+                val kind = r.readChar()
+                when (kind) {
+                    'Y' -> years = num
+                    'M' -> if (time) minutes = num else months = num
+                    'W' -> weeks = num
+                    'D' -> days = num
+                    'H' -> hours = num
+                    'S' -> seconds = num
+                }
+            }
+        }
+
+        return DateComponents(years, months, weeks, days, hours, minutes, seconds, offset, dayOfWeek, dayOfYear, weekOfYear, clampHours)
     }
 }

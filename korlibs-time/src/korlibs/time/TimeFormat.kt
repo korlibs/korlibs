@@ -17,9 +17,9 @@ interface TimeFormat {
 }
 
 fun DateFormat.toTimeFormat(): TimeFormat = object : TimeFormat {
-    override fun format(dd: Duration): String = this@toTimeFormat.format(dd.toComponents())
+    override fun format(dd: Duration): String = this@toTimeFormat.format(dd)
     override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): Duration? =
-        this@toTimeFormat.tryParseDateTimeSpan(str, doThrow, doAdjust = false)?.timeSpan
+        this@toTimeFormat.tryParseDuration(str, doThrow, doAdjust = false)
 }
 
 fun TimeFormat.parse(str: String, doAdjust: Boolean = true): Duration =

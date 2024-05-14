@@ -16,6 +16,8 @@ interface DateFormat {
         tryParseComponents(str, doThrow, dateDefaults = true)?.toDateTimeTz(doAdjust = doAdjust, doThrow = doThrow)
     fun tryParseDateTimeSpan(str: String, doThrow: Boolean = false, doAdjust: Boolean = true): DateTimeSpan? =
         tryParseComponents(str, doThrow, dateDefaults = false)?.toDateTimeSpan(doAdjust = doAdjust, doThrow = doThrow)
+    fun tryParseDuration(str: String, doThrow: Boolean = false, doAdjust: Boolean = true): Duration? =
+        tryParseDateTimeSpan(str, doThrow, doAdjust)?.timeSpan
 
     companion object {
         val DEFAULT_FORMAT = DateFormat("EEE, dd MMM yyyy HH:mm:ss z")
@@ -45,6 +47,10 @@ interface DateFormat {
 
 fun DateFormat.parse(str: String, doAdjust: Boolean = true): DateTimeTz =
     tryParse(str, doThrow = true, doAdjust = doAdjust) ?: throw DateException("Not a valid format: '$str' for '$this'")
+fun DateFormat.parseDateTimeSpan(str: String, doAdjust: Boolean = true): DateTimeSpan =
+    tryParseDateTimeSpan(str, doThrow = true, doAdjust = doAdjust) ?: throw DateException("Not a valid format: '$str' for '$this'")
+fun DateFormat.parseDuration(str: String, doAdjust: Boolean = true): Duration =
+    tryParseDuration(str, doThrow = true, doAdjust = doAdjust) ?: throw DateException("Not a valid format: '$str' for '$this'")
 fun DateFormat.parseDate(str: String): Date = parse(str).local.date
 
 fun DateFormat.parseUtc(str: String): DateTime = parse(str).utc

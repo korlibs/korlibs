@@ -79,7 +79,6 @@ fun DateTime.toString(format: DateFormat): String = format.format(this)
 /** Converts this date to String using the [DateFormat.DEFAULT_FORMAT] for representing it */
 fun DateTime.toStringDefault(): String = DateFormat.DEFAULT_FORMAT.format(this)
 
-
 /** Constructs a new [DateTime] after adding [deltaMonths] and [deltaMilliseconds] */
 fun DateTime.add(deltaMonths: Int, deltaMilliseconds: Double): DateTime = when {
     deltaMonths == 0 && deltaMilliseconds == 0.0 -> this
@@ -106,7 +105,7 @@ fun DateTime.add(deltaMonths: Int, deltaMilliseconds: Double): DateTime = when {
 }
 
 /** Constructs a new [DateTime] after adding [dateSpan] and [timeSpan] */
-fun DateTime.add(dateSpan: MonthSpan, timeSpan: TimeSpan): DateTime = add(dateSpan.totalMonths, timeSpan.milliseconds)
+fun DateTime.add(dateSpan: MonthSpan, timeSpan: Duration): DateTime = add(dateSpan.totalMonthsInt, timeSpan.milliseconds)
 
 fun DateTime.copyDayOfMonth(
     year: Year = this.year,
@@ -121,7 +120,7 @@ fun DateTime.copyDayOfMonth(
 val DateTime.date: Date get() = Date(yearInt, month1, dayOfMonth)
 val DateTime.time: Time get() = Time(hours, minutes, seconds, milliseconds)
 
-operator fun DateTime.plus(delta: MonthSpan): DateTime = this.add(delta.totalMonths, 0.0)
+operator fun DateTime.plus(delta: MonthSpan): DateTime = this.add(delta.totalMonthsInt, 0.0)
 operator fun DateTime.plus(delta: DateTimeSpan): DateTime = this.add(delta.totalMonths, delta.totalMilliseconds)
 operator fun DateTime.minus(delta: MonthSpan): DateTime = this + -delta
 operator fun DateTime.minus(delta: DateTimeSpan): DateTime = this + -delta
