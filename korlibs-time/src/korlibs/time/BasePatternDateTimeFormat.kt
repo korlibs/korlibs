@@ -116,12 +116,12 @@ abstract class BasePatternDateTimeFormat(
         var hour: Int = 0,
         var minute: Int = 0,
         var second: Int = 0,
-        var millisecond: Int = 0,
-        var offset: TimeSpan? = null,
+        var millisecond: Double = 0.0,
+        var offset: Duration? = null,
     )
 
     protected fun _tryParseBase(str: String, doThrow: Boolean, doAdjust: Boolean, realLocale: KlockLocale, tzNames: TimezoneNames): DateInfo? {
-        var millisecond = 0
+        var millisecond = 0.0
         var second = 0
         var minute = 0
         var hour = 0
@@ -154,7 +154,7 @@ abstract class BasePatternDateTimeFormat(
                 }
                 "m", "mm" -> minute = value.toInt()
                 "s", "ss" -> second = value.toInt()
-                "S", "SS", "SSS", "SSSS", "SSSSS", "SSSSSS", "SSSSSSS", "SSSSSSSS", "SSSSSSSSS" -> millisecond = ("0.${value}".toDouble() * 1000).toInt()
+                "S", "SS", "SSS", "SSSS", "SSSSS", "SSSSSS", "SSSSSSS", "SSSSSSSS", "SSSSSSSSS" -> millisecond = ("0.${value}".toDouble() * 1000)
                 "X", "XX", "XXX", "x", "xx", "xxx" -> {
                     when {
                         name.startsWith("X") && value.first() == 'Z' -> offset = 0.hours
@@ -249,7 +249,7 @@ abstract class BasePatternDateTimeFormat(
         }
 
         @JvmStatic
-        protected fun formatTimeChunk(name: String, realLocale: KlockLocale, hour: Int, minute: Int, second: Int, millisecond: Int, clampHours: Boolean): String? {
+        protected fun formatTimeChunk(name: String, realLocale: KlockLocale, hour: Int, minute: Int, second: Int, millisecond: Double, clampHours: Boolean): String? {
             val nlen = name.length
             return when (name) {
                 "H", "HH" -> (if (clampHours) mconvertRangeZero(hour, 24) else hour).padded(nlen)
@@ -262,8 +262,7 @@ abstract class BasePatternDateTimeFormat(
                 "s", "ss" -> second.padded(nlen)
 
                 "S", "SS", "SSS", "SSSS", "SSSSS", "SSSSSS", "SSSSSSS", "SSSSSSSS", "SSSSSSSSS" -> {
-                    val res = ((millisecond % 1000).toDouble() / 1000).toString().removePrefix("0.")
-                    if (res.length < name.length) "000000000$millisecond".takeLast(name.length) else res
+                    ((millisecond % 1000) * 1_000_000).toInt().toString().padStart(9, '0').take(name.length)
                 }
                 //"a" -> if (hour < 12) "am" else if (hour < 24) "pm" else ""
                 "a" -> realLocale.h12Marker[if (hour < 12) 0 else 1]

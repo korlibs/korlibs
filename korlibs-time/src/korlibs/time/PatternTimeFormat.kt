@@ -8,6 +8,7 @@ import korlibs.time.internal.padded
 import korlibs.time.internal.substr
 import kotlin.math.log10
 import kotlin.math.pow
+import kotlin.time.*
 
 data class PatternTimeFormat(
     val format: String,
@@ -36,15 +37,15 @@ data class PatternTimeFormat(
 
     override fun matchChunkToRegex(it: String): String? = matchTimeChunkToRegex(it)
 
-    override fun format(dd: TimeSpan): String {
+    override fun format(dd: Duration): String {
         val time = Time(dd)
         return chunks.joinToString("") {
-            formatTimeChunk(it, locale, time.hour, time.minute, time.second, time.millisecond, clampHours = false)
+            formatTimeChunk(it, locale, time.hour, time.minute, time.second, time.millisecondDouble, clampHours = false)
                 ?: formatElseChunk(it)
         }
     }
 
-    override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): TimeSpan? {
+    override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): Duration? {
         val (_, _, _, hour, minute, second, millisecond, _) = _tryParseBase(str, doThrow, doAdjust, locale, TimezoneNames.DEFAULT) ?: return null
         return hour.hours + minute.minutes + second.seconds + millisecond.milliseconds
     }

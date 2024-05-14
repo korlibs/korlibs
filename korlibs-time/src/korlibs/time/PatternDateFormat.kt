@@ -50,7 +50,7 @@ data class PatternDateFormat(
         val locale = realLocale
         return chunks.joinToString("") {
             formatDateChunk(it, dd, locale)
-                ?: formatTimeChunk(it, locale, utc.hours, utc.minutes, utc.seconds, utc.milliseconds, clampHours = true)
+                ?: formatTimeChunk(it, locale, utc.hours, utc.minutes, utc.seconds, utc.millisecondsDouble, clampHours = true)
                 ?: formatElseChunk(it)
         }
     }
@@ -67,9 +67,9 @@ data class PatternDateFormat(
             if (hour !in 0..24) if (doThrow) error("Invalid hour $hour") else return null
             if (minute !in 0..59) if (doThrow) error("Invalid minute $minute") else return null
             if (second !in 0..59) if (doThrow) error("Invalid second $second") else return null
-            if (millisecond !in 0..999) if (doThrow) error("Invalid millisecond $millisecond") else return null
+            if (millisecond < 0.0 || millisecond >= 1000.0) if (doThrow) error("Invalid millisecond $millisecond") else return null
         }
-        val dateTime = DateTime.createAdjusted(fullYear, month, day, hour umod 24, minute, second, millisecond)
+        val dateTime = DateTime.createAdjusted(fullYear, month, day, hour umod 24, minute, second, millisecond.toInt()) + (millisecond % 1).milliseconds
         return dateTime.toOffsetUnadjusted(offset ?: 0.hours)
     }
 

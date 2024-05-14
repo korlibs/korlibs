@@ -47,23 +47,23 @@ class DateTimeTest {
     @Test
     fun testFormattingToCustomDateTimeFormatsWithMilliseconds999() {
         val dt = DateTime(2018, 9, 8, 4, 8, 9, 999)
-        assertEquals("Sat, 08 Sep 2018 04:08:9.999 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.S z"))
-        assertEquals("Sat, 08 Sep 2018 04:08:9.999 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SS z"))
+        assertEquals("Sat, 08 Sep 2018 04:08:9.9 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.S z"))
+        assertEquals("Sat, 08 Sep 2018 04:08:9.99 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SS z"))
         assertEquals("Sat, 08 Sep 2018 04:08:9.999 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SSS z"))
-        assertEquals("Sat, 08 Sep 2018 04:08:9.0999 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SSSS z"))
-        assertEquals("Sat, 08 Sep 2018 04:08:9.00999 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SSSSS z"))
-        assertEquals("Sat, 08 Sep 2018 04:08:9.000999 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SSSSSS z"))
+        assertEquals("Sat, 08 Sep 2018 04:08:9.9990 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SSSS z"))
+        assertEquals("Sat, 08 Sep 2018 04:08:9.99900 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SSSSS z"))
+        assertEquals("Sat, 08 Sep 2018 04:08:9.999000 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SSSSSS z"))
     }
 
     @Test
     fun testFormattingToCustomDateTimeFormatsWithMilliseconds009() {
         val dt = DateTime(2018, 9, 8, 4, 8, 9, 9)
-        assertEquals("Sat, 08 Sep 2018 04:08:9.009 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.S z"))
-        assertEquals("Sat, 08 Sep 2018 04:08:9.009 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SS z"))
+        assertEquals("Sat, 08 Sep 2018 04:08:9.0 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.S z"))
+        assertEquals("Sat, 08 Sep 2018 04:08:9.00 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SS z"))
         assertEquals("Sat, 08 Sep 2018 04:08:9.009 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SSS z"))
-        assertEquals("Sat, 08 Sep 2018 04:08:9.0009 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SSSS z"))
-        assertEquals("Sat, 08 Sep 2018 04:08:9.00009 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SSSSS z"))
-        assertEquals("Sat, 08 Sep 2018 04:08:9.000009 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SSSSSS z"))
+        assertEquals("Sat, 08 Sep 2018 04:08:9.0090 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SSSS z"))
+        assertEquals("Sat, 08 Sep 2018 04:08:9.00900 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SSSSS z"))
+        assertEquals("Sat, 08 Sep 2018 04:08:9.009000 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SSSSSS z"))
     }
 
     @Test
@@ -429,8 +429,8 @@ class DateTimeTest {
     @Test
     fun testIssue131() {
         assertEquals(
-            "2020-07-23T12:30:52.000000999Z",
-            DateTime(1595507452999L).format("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSSZ")
+            "2020-07-23T12:30:52.999125000Z",
+            DateTime(1595507452999.125).format("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSSZ")
         )
     }
 
