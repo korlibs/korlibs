@@ -57,6 +57,8 @@ class ISO8601Test {
         assertEquals((27 * 24).hours, 27.days)
         val time = 1.years + 0.months + 27.days + 11.hours + 9.minutes + 11.seconds
         assertEquals("P1Y0M27DT11H9M11S", ISO8601.INTERVAL_COMPLETE0.format(time))
+        // PnnYnnMnnDTnnHnnMnnS
+        assertEquals("P1Y0M27DT11H9M11S", DateFormat("'P'y'Y'M'M'd'D''T'H'H'm'M's'S'").format(time))
 
         assertEquals(time, ISO8601.INTERVAL_COMPLETE0.parse("P1Y0M27DT11H9M11S"))
         assertEquals(time, ISO8601.INTERVAL.parse("P1Y0M27DT11H9M11S"))

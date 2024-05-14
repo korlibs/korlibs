@@ -1,9 +1,23 @@
 package korlibs.time
 
+import kotlin.time.*
+
 /** Allows to [format] and [parse] instances of [Date], [DateTime] and [DateTimeTz] */
 interface DateFormat {
-    fun format(dd: DateTimeTz): String
-    fun tryParse(str: String, doThrow: Boolean = false, doAdjust: Boolean = true): DateTimeTz?
+    fun format(dd: DateComponents): String = TODO()
+
+    fun format(dd: DateTimeTz): String = format(dd.toComponents())
+
+    fun format(dd: DateTimeSpan): String = format(dd.toComponents())
+    fun format(dd: MonthSpan): String = format(DateTimeSpan(dd, 0.seconds))
+    fun format(dd: Duration): String = format(DateTimeSpan(MonthSpan(0), dd))
+
+    fun tryParseComponents(str: String, doThrow: Boolean = false): DateComponents? = TODO()
+
+    fun tryParse(str: String, doThrow: Boolean = false, doAdjust: Boolean = true): DateTimeTz? =
+        tryParseComponents(str, doThrow)?.toDateTimeTz(doAdjust = doAdjust, doThrow = doThrow)
+    fun tryParseDateTimeSpan(str: String, doThrow: Boolean = false): DateTimeSpan? =
+        tryParseComponents(str, doThrow)?.toDateTimeSpan()
 
     companion object {
         val DEFAULT_FORMAT = DateFormat("EEE, dd MMM yyyy HH:mm:ss z")

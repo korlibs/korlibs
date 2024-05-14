@@ -1,6 +1,7 @@
 package korlibs.time
 
 import korlibs.time.internal.*
+import kotlin.time.*
 
 /**
  * Constructs a new [DateTime] from date and time information.
@@ -139,18 +140,18 @@ val DateTime.dayOfWeek: DayOfWeek get() = DayOfWeek[dayOfWeekInt]
 /** Returns a new local date that will match these components. */
 val DateTime.localUnadjusted: DateTimeTz get() = DateTimeTz.local(this, localOffset)
 /** Returns a new local date that will match these components but with a different [offset]. */
-fun DateTime.toOffsetUnadjusted(offset: TimeSpan) = toOffsetUnadjusted(offset.offset)
+fun DateTime.toOffsetUnadjusted(offset: Duration): DateTimeTz = toOffsetUnadjusted(offset.offset)
 /** Returns a new local date that will match these components but with a different [offset]. */
 fun DateTime.toOffsetUnadjusted(offset: TimezoneOffset) = DateTimeTz.local(this, offset)
 
 /** Returns this date with the local offset of this device. Components might change because of the offset. */
 val DateTime.local: DateTimeTz get() = DateTimeTz.utc(this, localOffset)
 /** Returns this date with a local offset. Components might change because of the [offset]. */
-fun DateTime.toOffset(offset: TimeSpan) = toOffset(offset.offset)
+fun DateTime.toOffset(offset: Duration): DateTimeTz = toOffset(offset.offset)
 /** Returns this date with a local offset. Components might change because of the [offset]. */
-fun DateTime.toOffset(offset: TimezoneOffset) = DateTimeTz.utc(this, offset)
+fun DateTime.toOffset(offset: TimezoneOffset): DateTimeTz = DateTimeTz.utc(this, offset)
 /** Returns this date with a local offset. Components might change because of the [timeZone]. */
-fun DateTime.toTimezone(timeZone: Timezone) = toOffset(timeZone.offset)
+fun DateTime.toTimezone(timeZone: Timezone): DateTimeTz = toOffset(timeZone.offset)
 /** Returns this date with a 0 offset. Components are equal. */
 val DateTime.utc: DateTimeTz get() = DateTimeTz.utc(this, TimezoneOffset(0.minutes))
 

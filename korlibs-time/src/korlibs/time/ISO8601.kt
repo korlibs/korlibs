@@ -5,6 +5,7 @@ import korlibs.time.internal.fastForEach
 import korlibs.time.internal.padded
 import korlibs.time.internal.readTimeZoneOffset
 import kotlin.math.absoluteValue
+import kotlin.time.*
 
 // https://en.wikipedia.org/wiki/ISO_8601
 object ISO8601 {
@@ -14,7 +15,7 @@ object ISO8601 {
         }
         private val dateTimeFormat = BaseIsoDateTimeFormat(format)
 
-        override fun format(dd: TimeSpan): String = dateTimeFormat.format(ref + dd)
+        override fun format(dd: Duration): String = dateTimeFormat.format(ref + dd)
 
         override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): TimeSpan? =
             dateTimeFormat.tryParse(str, doThrow, doAdjust)?.let { it.utc - ref }

@@ -6,6 +6,7 @@ import korlibs.Serializable
 import korlibs.time.internal.padded
 import kotlin.jvm.JvmInline
 import kotlin.math.abs
+import kotlin.time.*
 
 /**
  * Represents a time zone offset with millisecond precision. Usually minute is enough.
@@ -22,13 +23,13 @@ value class TimezoneOffset(
     val positive: Boolean get() = totalMilliseconds >= 0.0
 
     /** [TimeSpan] time for this [TimezoneOffset] */
-    val time get() = totalMilliseconds.milliseconds
+    val time: Duration get() = totalMilliseconds.milliseconds
 
     /** [TimezoneOffset] in [totalMinutes] */
     val totalMinutes: Double get() = totalMilliseconds / MILLIS_PER_MINUTE
 
     /** [TimezoneOffset] in [totalMinutes] as integer */
-    val totalMinutesInt get() = totalMinutes.toInt()
+    val totalMinutesInt: Int get() = totalMinutes.toInt()
 
     /** Returns a string representation of this [TimezoneOffset] */
     val timeZone: String get() {

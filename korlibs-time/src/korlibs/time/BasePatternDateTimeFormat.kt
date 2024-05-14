@@ -109,18 +109,7 @@ abstract class BasePatternDateTimeFormat(
         }
     }
 
-    protected data class DateInfo(
-        var fullYear: Int = 1970,
-        var month: Int = 1,
-        var day: Int = 1,
-        var hour: Int = 0,
-        var minute: Int = 0,
-        var second: Int = 0,
-        var millisecond: Int = 0,
-        var offset: TimeSpan? = null,
-    )
-
-    protected fun _tryParseBase(str: String, doThrow: Boolean, doAdjust: Boolean, realLocale: KlockLocale, tzNames: TimezoneNames): DateInfo? {
+    protected fun _tryParseBase(str: String, doThrow: Boolean, realLocale: KlockLocale, tzNames: TimezoneNames): DateComponents? {
         var millisecond = 0
         var second = 0
         var minute = 0
@@ -136,7 +125,10 @@ abstract class BasePatternDateTimeFormat(
             if (value.isEmpty()) continue
 
             when (name) {
-                "E", "EE", "EEE", "EEEE", "EEEEE", "EEEEEE" -> Unit // day of week (Sun | Sunday)
+                "E", "EE", "EEE", "EEEE", "EEEEE", "EEEEEE" -> {
+                    // day of week (Sun | Sunday)
+                    Unit
+                }
                 "z", "zzz" -> { // timezone (GMT)
                     offset = MicroStrReader(value).readTimeZoneOffset(tzNames)
                 }
@@ -200,42 +192,47 @@ abstract class BasePatternDateTimeFormat(
             }
         }
 
-        return DateInfo(fullYear, month, day, hour, minute, second, millisecond, offset)
+        return DateComponents(fullYear, month, day, hour, minute, second, millisecond, offset?.let { TimezoneOffset(it) })
     }
 
     companion object {
         @JvmStatic
-        protected fun formatElseChunk(name: String): String {
-            return if (name.startsWith('\'')) name.substring(1, name.length - 1) else name
-        }
+        protected fun formatAnyChunk(
+            name: String, c: DateComponents, locale: KlockLocale,
+        ): String = formatDateChunk(name, c.year, c.month1, c.dayOfMonth, c.dayOfWeek, c.offset, locale)
+            ?: formatTimeChunk(name, locale, c.hours, c.minutes, c.seconds, c.milliseconds, clampHours = c.clampHours)
+            ?: formatElseChunk(name)
 
         @JvmStatic
-        protected fun formatDateChunk(name: String, dd: DateTimeTz, realLocale: KlockLocale): String? {
-            val utc = dd.local
+        protected fun formatElseChunk(name: String): String = if (name.startsWith('\'')) name.substring(1, name.length - 1) else name
+
+        @JvmStatic
+        protected fun formatDateChunk(name: String, year: Int, month1: Int, dayOfMonth: Int, dayOfWeek: DayOfWeek?, offset: TimezoneOffset?, realLocale: KlockLocale): String? {
+            val offset = offset ?: TimezoneOffset.UTC
             val nlen = name.length
             return when (name) {
-                "E", "EE", "EEE" -> DayOfWeek[utc.dayOfWeek.index0].localShortName(realLocale)
-                "EEEE", "EEEEE", "EEEEEE" -> DayOfWeek[utc.dayOfWeek.index0].localName(realLocale)
-                "z", "zzz" -> dd.offset.timeZone
-                "d", "dd" -> utc.dayOfMonth.padded(nlen)
-                "do" -> realLocale.getOrdinalByDay(utc.dayOfMonth)
-                "M", "MM" -> utc.month1.padded(nlen)
-                "MMM" -> Month[utc.month1].localName(realLocale).substr(0, 3)
-                "MMMM" -> Month[utc.month1].localName(realLocale)
-                "MMMMM" -> Month[utc.month1].localName(realLocale).substr(0, 1)
-                "y" -> utc.yearInt.toString()
-                "yy" -> (utc.yearInt % 100).padded(2)
-                "yyy" -> (utc.yearInt % 1000).padded(3)
-                "yyyy" -> utc.yearInt.padded(4)
-                "YYYY" -> utc.yearInt.padded(4)
+                "E", "EE", "EEE" -> DayOfWeek[dayOfWeek?.index0 ?: 0].localShortName(realLocale)
+                "EEEE", "EEEEE", "EEEEEE" -> DayOfWeek[dayOfWeek?.index0 ?: 0].localName(realLocale)
+                "z", "zzz" -> offset.timeZone
+                "d", "dd" -> dayOfMonth.padded(nlen)
+                "do" -> realLocale.getOrdinalByDay(dayOfMonth)
+                "M", "MM" -> month1.padded(nlen)
+                "MMM" -> Month[month1].localName(realLocale).substr(0, 3)
+                "MMMM" -> Month[month1].localName(realLocale)
+                "MMMMM" -> Month[month1].localName(realLocale).substr(0, 1)
+                "y" -> year.toString()
+                "yy" -> (year % 100).padded(2)
+                "yyy" -> (year % 1000).padded(3)
+                "yyyy" -> year.padded(4)
+                "YYYY" -> year.padded(4)
 
                 "X", "XX", "XXX", "x", "xx", "xxx" -> {
                     when {
-                        name.startsWith("X") && dd.offset.totalMinutesInt == 0 -> "Z"
+                        name.startsWith("X") && offset.totalMinutesInt == 0 -> "Z"
                         else -> {
-                            val p = if (dd.offset.totalMinutesInt >= 0) "+" else "-"
-                            val hours = (dd.offset.totalMinutesInt / 60).absoluteValue
-                            val minutes = (dd.offset.totalMinutesInt % 60).absoluteValue
+                            val p = if (offset.totalMinutesInt >= 0) "+" else "-"
+                            val hours = (offset.totalMinutesInt / 60).absoluteValue
+                            val minutes = (offset.totalMinutesInt % 60).absoluteValue
                             when (name) {
                                 "X", "x" -> "$p${hours.padded(2)}"
                                 "XX", "xx" -> "$p${hours.padded(2)}${minutes.padded(2)}"
