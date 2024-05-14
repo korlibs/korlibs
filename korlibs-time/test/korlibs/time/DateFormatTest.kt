@@ -16,29 +16,28 @@ class DateFormatTest {
     fun testParseIsoFormat() {
         val iso8601JsonFormat = PatternDateFormat("yyyy-MM-ddTHH:mm:ss.SZ")
 
-        assertEquals("2020-01-01T13:12:30.001Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.1Z").toString(DateFormat.FORMAT2))
-        assertEquals("2020-01-01T13:12:30.001Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.01Z").toString(DateFormat.FORMAT2))
+        assertEquals("2020-01-01T13:12:30.100Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.1Z").toString(DateFormat.FORMAT2))
+        assertEquals("2020-01-01T13:12:30.010Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.01Z").toString(DateFormat.FORMAT2))
         assertEquals("2020-01-01T13:12:30.001Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.001Z").toString(DateFormat.FORMAT2))
-        assertEquals("2020-01-01T13:12:30.001Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.0001Z").toString(DateFormat.FORMAT2))
-        assertEquals("2020-01-01T13:12:30.001Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.00001Z").toString(DateFormat.FORMAT2))
-        assertEquals("2020-01-01T13:12:30.001Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.000001Z").toString(DateFormat.FORMAT2))
+        assertEquals("2020-01-01T13:12:30.000Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.0001Z").toString(DateFormat.FORMAT2))
+        assertEquals("2020-01-01T13:12:30.000Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.00001Z").toString(DateFormat.FORMAT2))
+        assertEquals("2020-01-01T13:12:30.000Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.000001Z").toString(DateFormat.FORMAT2))
 
         // Fails with "S" -> """(\d{1,6})""", now succeeds with (\d{1,9})
-        assertEquals("2020-01-01T13:12:30.001Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.0000001Z").toString(DateFormat.FORMAT2)) //7S
-        assertEquals("2020-01-01T13:12:30.001Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.00000001Z").toString(DateFormat.FORMAT2)) //8S
-        assertEquals("2020-01-01T13:12:30.001Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.000000001Z").toString(DateFormat.FORMAT2)) //9S
+        assertEquals("2020-01-01T13:12:30.000Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.0000001Z").toString(DateFormat.FORMAT2)) //7S
+        assertEquals("2020-01-01T13:12:30.000Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.00000001Z").toString(DateFormat.FORMAT2)) //8S
+        assertEquals("2020-01-01T13:12:30.000Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.000000001Z").toString(DateFormat.FORMAT2)) //9S
 
         //assertFailsWith<DateException> { iso8601JsonFormat.parse("2020-01-01T13:12:30.0000000001Z").toString(DateFormat.FORMAT2) } //10S
 
-        // Negative tests
-        assertNotEquals("2020-01-01T13:12:30.001Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.10Z").toString(DateFormat.FORMAT2))
-        assertNotEquals("2020-01-01T13:12:30.001Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.100Z").toString(DateFormat.FORMAT2))
-        assertNotEquals("2020-01-01T13:12:30.001Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.1000Z").toString(DateFormat.FORMAT2))
-        assertNotEquals("2020-01-01T13:12:30.001Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.10000Z").toString(DateFormat.FORMAT2))
-        assertNotEquals("2020-01-01T13:12:30.001Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.100000Z").toString(DateFormat.FORMAT2))
-        assertNotEquals("2020-01-01T13:12:30.001Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.1000000Z").toString(DateFormat.FORMAT2)) //7S
-        assertNotEquals("2020-01-01T13:12:30.001Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.10000000Z").toString(DateFormat.FORMAT2)) //8S
-        assertNotEquals("2020-01-01T13:12:30.001Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.100000000Z").toString(DateFormat.FORMAT2)) //9S
+        assertEquals("2020-01-01T13:12:30.100Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.10Z").toString(DateFormat.FORMAT2))
+        assertEquals("2020-01-01T13:12:30.100Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.100Z").toString(DateFormat.FORMAT2))
+        assertEquals("2020-01-01T13:12:30.100Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.1000Z").toString(DateFormat.FORMAT2))
+        assertEquals("2020-01-01T13:12:30.100Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.10000Z").toString(DateFormat.FORMAT2))
+        assertEquals("2020-01-01T13:12:30.100Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.100000Z").toString(DateFormat.FORMAT2))
+        assertEquals("2020-01-01T13:12:30.100Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.1000000Z").toString(DateFormat.FORMAT2)) //7S
+        assertEquals("2020-01-01T13:12:30.100Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.10000000Z").toString(DateFormat.FORMAT2)) //8S
+        assertEquals("2020-01-01T13:12:30.100Z", iso8601JsonFormat.parse("2020-01-01T13:12:30.100000000Z").toString(DateFormat.FORMAT2)) //9S
 
         //assertFailsWith<DateException> { iso8601JsonFormat.parse("2020-01-01T13:12:30.1000000000Z").toString(DateFormat.FORMAT2) } //10S
     }
@@ -48,5 +47,32 @@ class DateFormatTest {
         val expected = TimezoneOffset(9.hours)
         val actual = DateFormat("z").parse("+09:00").offset
         assertEquals(expected, actual)
+    }
+
+    @Test
+    fun testMillisKorlibsNew() {
+        assertEquals(1, DateFormat.ISO_DATE_TIME_OFFSET.parseUtc("2020-01-01T13:12:30.001Z").milliseconds)
+        assertEquals(10, DateFormat.ISO_DATE_TIME_OFFSET.parseUtc("2020-01-01T13:12:30.010Z").milliseconds)
+        assertEquals(100, DateFormat.ISO_DATE_TIME_OFFSET.parseUtc("2020-01-01T13:12:30.100Z").milliseconds)
+        assertEquals(100, DateFormat.ISO_DATE_TIME_OFFSET.parseUtc("2020-01-01T13:12:30.1Z").milliseconds)
+        assertEquals(100, DateFormat.ISO_DATE_TIME_OFFSET.parseUtc("2020-01-01T13:12:30.10Z").milliseconds)
+        assertEquals(100, DateFormat.ISO_DATE_TIME_OFFSET.parseUtc("2020-01-01T13:12:30.100Z").milliseconds)
+        assertEquals(100, DateFormat.ISO_DATE_TIME_OFFSET.parseUtc("2020-01-01T13:12:30.1000Z").milliseconds)
+
+        assertEquals(1, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SZ").parseUtc("2020-01-01T13:12:30.001Z").milliseconds)
+        assertEquals(10, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SZ").parseUtc("2020-01-01T13:12:30.010Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SZ").parseUtc("2020-01-01T13:12:30.100Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SZ").parseUtc("2020-01-01T13:12:30.1Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SZ").parseUtc("2020-01-01T13:12:30.10Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SZ").parseUtc("2020-01-01T13:12:30.100Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SZ").parseUtc("2020-01-01T13:12:30.1000Z").milliseconds)
+
+        assertEquals(1, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parseUtc("2020-01-01T13:12:30.001Z").milliseconds)
+        assertEquals(10, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parseUtc("2020-01-01T13:12:30.010Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parseUtc("2020-01-01T13:12:30.100Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parseUtc("2020-01-01T13:12:30.1Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parseUtc("2020-01-01T13:12:30.10Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parseUtc("2020-01-01T13:12:30.100Z").milliseconds)
+        assertEquals(100, DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSZ").parseUtc("2020-01-01T13:12:30.1000Z").milliseconds)
     }
 }

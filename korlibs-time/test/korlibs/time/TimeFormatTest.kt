@@ -16,6 +16,9 @@ class TimeFormatTest {
         assertEquals("00:23:12", TimeFormat("KK:mm:ss").format(time1))
 
         val time2 = Time(hour = 50, minute = 2, second = 0, millisecond = 109)
+        assertEquals("2:2:0.10900", TimeFormat("h:m:s.SSSSS").format(time2))
+        assertEquals("2:2:0.1090", TimeFormat("h:m:s.SSSS").format(time2))
+        assertEquals("2:2:0.109", TimeFormat("h:m:s.SSS").format(time2))
         assertEquals("2:2:0.10", TimeFormat("h:m:s.SS").format(time2))
         assertEquals("2:2:0.1", TimeFormat("h:m:s.S").format(time2))
         assertEquals("2:2:0", TimeFormat("K:m:s").format(time2))
@@ -63,5 +66,20 @@ class TimeFormatTest {
         val dateUnixLocal = DateTimeTz.fromUnixLocal(now).addOffset(diff)
 
         assertEquals(dateUnix.hours, dateUnixLocal.hours, "testFromUnix. now=$now, diff=$diff, dataUnix=$dateUnix, dateUnixLocal=$dateUnixLocal")
+    }
+
+    // https://github.com/korlibs/korge/issues/2197
+    @Test
+    fun testTimeFormatMillisecondPrecisionIssue2197() {
+        val format = TimeFormat("HH:mm[:ss[.S]]").withOptional()
+
+        assertEquals(0, format.parseTime("13:12").millisecond) //0
+        assertEquals(0, format.parseTime("13:12:01").millisecond) //0
+        assertEquals(100, format.parseTime("13:12:30.1").millisecond) // ❌ parsed as 1
+        assertEquals(1, format.parseTime("13:12:30.001").millisecond) //1
+        assertEquals(10, format.parseTime("13:12:30.010").millisecond) //10
+        assertEquals(100, format.parseTime("13:12:30.100").millisecond) //100
+        assertEquals(100, format.parseTime("13:12:30.10").millisecond) // ❌ parsed as 10
+        assertEquals(100, format.parseTime("13:12:30.100").millisecond) //100
     }
 }
