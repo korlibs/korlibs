@@ -7,7 +7,7 @@ import kotlin.time.*
 
 abstract class BasePatternDateTimeFormat(
     val baseFormat: String,
-    private val optionalSupport: Boolean,
+    private val optionalSupport: Boolean = true,
 ) {
     private val openOffsets = LinkedHashMap<Int, Int>()
     private val closeOffsets = LinkedHashMap<Int, Int>()

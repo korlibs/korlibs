@@ -15,8 +15,7 @@ data class PatternDateFormat(
     val format: String,
     val locale: KlockLocale? = null,
     val tzNames: TimezoneNames = TimezoneNames.DEFAULT,
-    val options: Options = Options.DEFAULT
-) : BasePatternDateTimeFormat(format, options.optionalSupport), DateFormat, Serializable {
+) : BasePatternDateTimeFormat(format), DateFormat, Serializable {
     companion object {
         @Suppress("MayBeConstant", "unused")
         private const val serialVersionUID = 1L
@@ -24,21 +23,8 @@ data class PatternDateFormat(
 
     val realLocale get() = locale ?: KlockLocale.default
 
-    data class Options(val optionalSupport: Boolean = false) : Serializable {
-        companion object {
-            @Suppress("MayBeConstant", "unused")
-            private const val serialVersionUID = 1L
-
-            val DEFAULT = Options(optionalSupport = false)
-            val WITH_OPTIONAL = Options(optionalSupport = true)
-        }
-    }
-
-    fun withLocale(locale: KlockLocale?) = this.copy(locale = locale)
-    fun withTimezoneNames(tzNames: TimezoneNames) = this.copy(tzNames = this.tzNames + tzNames)
-    fun withOptions(options: Options) = this.copy(options = options)
-    fun withOptional() = this.copy(options = options.copy(optionalSupport = true))
-    fun withNonOptional() = this.copy(options = options.copy(optionalSupport = false))
+    fun withLocale(locale: KlockLocale?): PatternDateFormat = this.copy(locale = locale)
+    fun withTimezoneNames(tzNames: TimezoneNames): PatternDateFormat = this.copy(tzNames = this.tzNames + tzNames)
 
     override fun matchChunkToRegex(it: String): String? = matchDateChunkToRegex(it) ?: matchTimeChunkToRegex(it)
 
