@@ -116,12 +116,14 @@ abstract class BasePatternDateTimeFormat(
         var hour: Int = 0,
         var minute: Int = 0,
         var second: Int = 0,
-        var millisecond: Double = 0.0,
+        var nanosecond: Int = 0,
         var offset: Duration? = null,
-    )
+    ) {
+        val millisecond get() = nanosecond / 1_000_000
+    }
 
     protected fun _tryParseBase(str: String, doThrow: Boolean, doAdjust: Boolean, realLocale: KlockLocale, tzNames: TimezoneNames): DateInfo? {
-        var millisecond = 0.0
+        var nanoseconds = 0
         var second = 0
         var minute = 0
         var hour = 0
@@ -154,7 +156,7 @@ abstract class BasePatternDateTimeFormat(
                 }
                 "m", "mm" -> minute = value.toInt()
                 "s", "ss" -> second = value.toInt()
-                "S", "SS", "SSS", "SSSS", "SSSSS", "SSSSSS", "SSSSSSS", "SSSSSSSS", "SSSSSSSSS" -> millisecond = ("0.${value}".toDouble() * 1000)
+                "S", "SS", "SSS", "SSSS", "SSSSS", "SSSSSS", "SSSSSSS", "SSSSSSSS", "SSSSSSSSS" -> nanoseconds = value.padEnd(9, '0').toInt()
                 "X", "XX", "XXX", "x", "xx", "xxx" -> {
                     when {
                         name.startsWith("X") && value.first() == 'Z' -> offset = 0.hours
@@ -199,7 +201,7 @@ abstract class BasePatternDateTimeFormat(
             }
         }
 
-        return DateInfo(fullYear, month, day, hour, minute, second, millisecond, offset)
+        return DateInfo(fullYear, month, day, hour, minute, second, nanoseconds, offset)
     }
 
     companion object {

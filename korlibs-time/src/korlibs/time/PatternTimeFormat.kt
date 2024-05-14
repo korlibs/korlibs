@@ -1,13 +1,6 @@
 package korlibs.time
 
 import korlibs.Serializable
-import korlibs.time.internal.*
-import korlibs.time.internal.MicroStrReader
-import korlibs.time.internal.increment
-import korlibs.time.internal.padded
-import korlibs.time.internal.substr
-import kotlin.math.log10
-import kotlin.math.pow
 import kotlin.time.*
 
 data class PatternTimeFormat(
@@ -46,8 +39,8 @@ data class PatternTimeFormat(
     }
 
     override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): Duration? {
-        val (_, _, _, hour, minute, second, millisecond, _) = _tryParseBase(str, doThrow, doAdjust, locale, TimezoneNames.DEFAULT) ?: return null
-        return hour.hours + minute.minutes + second.seconds + millisecond.milliseconds
+        val info = _tryParseBase(str, doThrow, doAdjust, locale, TimezoneNames.DEFAULT) ?: return null
+        return info.hour.hours + info.minute.minutes + info.second.seconds + info.millisecond.milliseconds
     }
 
     override fun toString(): String = format

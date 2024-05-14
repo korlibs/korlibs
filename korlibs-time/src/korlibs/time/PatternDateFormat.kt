@@ -56,21 +56,17 @@ data class PatternDateFormat(
     }
 
     override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): DateTimeTz? {
-        val (
-            fullYear, month, day,
-            hour, minute, second, millisecond,
-            offset,
-        ) = _tryParseBase(str, doThrow, doAdjust, realLocale, tzNames) ?: return null
+        val info = _tryParseBase(str, doThrow, doAdjust, realLocale, tzNames) ?: return null
         if (!doAdjust) {
-            if (month !in 1..12) if (doThrow) error("Invalid month $month") else return null
-            if (day !in 1..32) if (doThrow) error("Invalid day $day") else return null
-            if (hour !in 0..24) if (doThrow) error("Invalid hour $hour") else return null
-            if (minute !in 0..59) if (doThrow) error("Invalid minute $minute") else return null
-            if (second !in 0..59) if (doThrow) error("Invalid second $second") else return null
-            if (millisecond < 0.0 || millisecond >= 1000.0) if (doThrow) error("Invalid millisecond $millisecond") else return null
+            if (info.month !in 1..12) if (doThrow) error("Invalid month ${info.month}") else return null
+            if (info.day !in 1..32) if (doThrow) error("Invalid day ${info.day}") else return null
+            if (info.hour !in 0..24) if (doThrow) error("Invalid hour ${info.hour}") else return null
+            if (info.minute !in 0..59) if (doThrow) error("Invalid minute ${info.minute}") else return null
+            if (info.second !in 0..59) if (doThrow) error("Invalid second ${info.second}") else return null
+            if (info.millisecond !in 0 .. 999) if (doThrow) error("Invalid millisecond ${info.millisecond}") else return null
         }
-        val dateTime = DateTime.createAdjusted(fullYear, month, day, hour umod 24, minute, second, millisecond.toInt()) + (millisecond % 1).milliseconds
-        return dateTime.toOffsetUnadjusted(offset ?: 0.hours)
+        val dateTime = DateTime.createAdjusted(info.fullYear, info.month, info.day, info.hour umod 24, info.minute, info.second, info.millisecond)
+        return dateTime.toOffsetUnadjusted(info.offset ?: 0.hours)
     }
 
     override fun toString(): String = format
