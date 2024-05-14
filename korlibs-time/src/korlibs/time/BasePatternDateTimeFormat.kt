@@ -35,7 +35,7 @@ abstract class BasePatternDateTimeFormat(
                         continue
                     }
                 }
-                chunks.add(s.tryReadOrNull("do") ?: s.tryReadOrNull("S*") ?: s.readRepeatedChar())
+                chunks.add(s.tryReadOrNull("do") ?: s.readRepeatedChar())
             }
         }.toList()
     }
@@ -102,7 +102,7 @@ abstract class BasePatternDateTimeFormat(
             "mm" -> """(\d{2})"""
             "s" -> """(\d{1,2})"""
             "ss" -> """(\d{2})"""
-            "S*", "S", "SS", "SSS", "SSSS", "SSSSS", "SSSSSS", "SSSSSSS", "SSSSSSSS", "SSSSSSSSS" -> """(\d{1,9})"""
+            "S", "SS", "SSS", "SSSS", "SSSSS", "SSSSSS", "SSSSSSS", "SSSSSSSS", "SSSSSSSSS" -> """(\d{1,9})"""
             "a" -> """(\w+)"""
             " " -> """(\s+)"""
             else -> null
@@ -154,8 +154,7 @@ abstract class BasePatternDateTimeFormat(
                 }
                 "m", "mm" -> minute = value.toInt()
                 "s", "ss" -> second = value.toInt()
-                "S*" -> millisecond = ("0.${value}".toDouble() * 1000).toInt()
-                "S", "SS", "SSS", "SSSS", "SSSSS", "SSSSSS", "SSSSSSS", "SSSSSSSS", "SSSSSSSSS" -> millisecond = value.toInt()
+                "S", "SS", "SSS", "SSSS", "SSSSS", "SSSSSS", "SSSSSSS", "SSSSSSSS", "SSSSSSSSS" -> millisecond = ("0.${value}".toDouble() * 1000).toInt()
                 "X", "XX", "XXX", "x", "xx", "xxx" -> {
                     when {
                         name.startsWith("X") && value.first() == 'Z' -> offset = 0.hours
@@ -262,9 +261,8 @@ abstract class BasePatternDateTimeFormat(
                 "m", "mm" -> minute.padded(nlen)
                 "s", "ss" -> second.padded(nlen)
 
-                "S*" -> (millisecond.toDouble() / 1000).toString().removePrefix("0.").trimStart('0').takeIf { it.isNotEmpty() } ?: "0"
                 "S", "SS", "SSS", "SSSS", "SSSSS", "SSSSSS", "SSSSSSS", "SSSSSSSS", "SSSSSSSSS" -> {
-                    val res = millisecond.toString()
+                    val res = ((millisecond % 1000).toDouble() / 1000).toString().removePrefix("0.")
                     if (res.length < name.length) "000000000$millisecond".takeLast(name.length) else res
                 }
                 //"a" -> if (hour < 12) "am" else if (hour < 24) "pm" else ""

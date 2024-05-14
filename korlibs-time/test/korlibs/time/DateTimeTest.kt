@@ -58,8 +58,8 @@ class DateTimeTest {
     @Test
     fun testFormattingToCustomDateTimeFormatsWithMilliseconds009() {
         val dt = DateTime(2018, 9, 8, 4, 8, 9, 9)
-        assertEquals("Sat, 08 Sep 2018 04:08:9.9 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.S z"))
-        assertEquals("Sat, 08 Sep 2018 04:08:9.09 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SS z"))
+        assertEquals("Sat, 08 Sep 2018 04:08:9.009 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.S z"))
+        assertEquals("Sat, 08 Sep 2018 04:08:9.009 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SS z"))
         assertEquals("Sat, 08 Sep 2018 04:08:9.009 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SSS z"))
         assertEquals("Sat, 08 Sep 2018 04:08:9.0009 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SSSS z"))
         assertEquals("Sat, 08 Sep 2018 04:08:9.00009 UTC", dt.format("EEE, dd MMM yyyy HH:mm:s.SSSSS z"))
@@ -215,10 +215,10 @@ class DateTimeTest {
 
     @Test
     fun testParsingDateTimesWithDeciSeconds() {
-        var dtmilli = 1536379689009L
-        assertEquals(dtmilli, DateTime(2018, 9, 8, 4, 8, 9, 9).unixMillisLong)
+        var dtmilli = 1536379689900L
+        assertEquals(dtmilli, DateTime(2018, 9, 8, 4, 8, 9, 900).unixMillisLong)
         assertEquals(
-            message = "Sat, 08 Sep 2018 04:08:09.9 UTC",
+            message = "Sat, 08 Sep 2018 04:08:09.900 UTC",
             expected = dtmilli,
             actual = DateFormat("EEE, dd MMM yyyy HH:mm:ss.S z").parseLong("Sat, 08 Sep 2018 04:08:09.9 UTC")
         )
@@ -226,8 +226,8 @@ class DateTimeTest {
 
     @Test
     fun testParsingDateTimesWithCentiSeconds() {
-        var dtmilli = 1536379689099L
-        assertEquals(dtmilli, DateTime(2018, 9, 8, 4, 8, 9, 99).unixMillisLong)
+        var dtmilli = 1536379689990L
+        assertEquals(dtmilli, DateTime(2018, 9, 8, 4, 8, 9, 990).unixMillisLong)
         assertEquals(
             message = "Sat, 08 Sep 2018 04:08:09.99 UTC",
             expected = dtmilli,
