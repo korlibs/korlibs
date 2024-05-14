@@ -13,7 +13,7 @@ class ISO8601Test {
 
         assertEquals("2019-04", date.format(ISO8601.DATE_CALENDAR_REDUCED0))
         assertEquals("2019-04", date.format(ISO8601.DATE_CALENDAR_REDUCED0.extended))
-        assertEquals("2019-04", date.format(ISO8601.DATE_CALENDAR_REDUCED0.basic))
+        assertEquals("201904", date.format(ISO8601.DATE_CALENDAR_REDUCED0.basic))
 
         assertEquals("2019", date.format(ISO8601.DATE_CALENDAR_REDUCED1))
         assertEquals("2019", date.format(ISO8601.DATE_CALENDAR_REDUCED1.extended))

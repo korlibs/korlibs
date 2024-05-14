@@ -17,46 +17,43 @@ object ISO8601 {
 
         override fun format(dd: Duration): String = dateTimeFormat.format(ref + dd)
 
-        override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): TimeSpan? =
+        override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): Duration? =
             dateTimeFormat.tryParse(str, doThrow, doAdjust)?.let { it.utc - ref }
     }
 
     data class BaseIsoDateTimeFormat(val format: String, val twoDigitBaseYear: Int = 1900) : DateFormat {
-        override fun format(dd: DateTimeTz): String = buildString {
-            val d = dd.local
-            val s = d.copyDayOfMonth(hours = 0, minutes = 0, seconds = 0, milliseconds = 0)
-            val time = d - s
+        override fun format(dd: DateComponents): String = buildString {
             val fmtReader = MicroStrReader(format)
             while (fmtReader.hasMore) {
                 when {
                     fmtReader.tryRead("Z") -> {
                         //if (dd.offset != TimezoneOffset.UTC) {
-                        if (dd.offset != TimezoneOffset.UTC) {
-                            dd.offset.deltaHoursAbs
-                            append(if (dd.offset.positive) "+" else "-")
-                            append(dd.offset.deltaHoursAbs.padded(2))
+                        if (dd.offsetSure != TimezoneOffset.UTC) {
+                            dd.offsetSure.deltaHoursAbs
+                            append(if (dd.offsetSure.positive) "+" else "-")
+                            append(dd.offsetSure.deltaHoursAbs.padded(2))
                             append(":")
-                            append(dd.offset.deltaMinutesAbs.padded(2))
+                            append(dd.offsetSure.deltaMinutesAbs.padded(2))
                         } else {
                             append("Z")
                         }
                     }
-                    fmtReader.tryRead("YYYYYY") -> append(d.yearInt.absoluteValue.padded(6))
-                    fmtReader.tryRead("YYYY") -> append(d.yearInt.absoluteValue.padded(4))
-                    fmtReader.tryRead("YY") -> append((d.yearInt.absoluteValue % 100).padded(2))
-                    fmtReader.tryRead("MM") -> append(d.month1.padded(2))
-                    fmtReader.tryRead("DD") -> append(d.dayOfMonth.padded(2))
-                    fmtReader.tryRead("DDD") -> append(d.dayOfYear.padded(3))
-                    fmtReader.tryRead("ww") -> append(d.weekOfYear1.padded(2))
-                    fmtReader.tryRead("D") -> append(d.dayOfWeek.index1Monday)
+                    fmtReader.tryRead("YYYYYY") -> append(dd.years.absoluteValue.padded(6))
+                    fmtReader.tryRead("YYYY") -> append(dd.years.absoluteValue.padded(4))
+                    fmtReader.tryRead("YY") -> append((dd.years.absoluteValue % 100).padded(2))
+                    fmtReader.tryRead("MM") -> append(dd.months.padded(2))
+                    fmtReader.tryRead("DD") -> append(dd.days.padded(2))
+                    fmtReader.tryRead("DDD") -> append(dd.dayOfYear.padded(3))
+                    fmtReader.tryRead("ww") -> append(dd.weekOfYear.padded(2))
+                    fmtReader.tryRead("D") -> append((dd.dayOfWeek ?: DayOfWeek.Sunday).index1Monday)
                     fmtReader.tryRead("hh") -> {
                         val nextComma = fmtReader.tryRead(',')
                         val result = if (nextComma || fmtReader.tryRead('.')) {
                             var decCount = 0
                             while (fmtReader.tryRead('h')) decCount++
-                            time.hours.padded(2, decCount)
+                            dd.time.hours.padded(2, decCount)
                         } else {
-                            d.hours.padded(2)
+                            dd.hours.padded(2)
                         }
                         append(if (nextComma) result.replace('.', ',') else result)
                     }
@@ -65,9 +62,9 @@ object ISO8601 {
                         val result = if (nextComma || fmtReader.tryRead('.')) {
                             var decCount = 0
                             while (fmtReader.tryRead('m')) decCount++
-                            (time.minutes % 60.0).padded(2, decCount)
+                            (dd.time.minutes % 60.0).padded(2, decCount)
                         } else {
-                            d.minutes.padded(2)
+                            dd.minutes.padded(2)
                         }
                         append(if (nextComma) result.replace('.', ',') else result)
                     }
@@ -76,35 +73,35 @@ object ISO8601 {
                         val result = if (nextComma || fmtReader.tryRead('.')) {
                             var decCount = 0
                             while (fmtReader.tryRead('s')) decCount++
-                            (time.seconds % 60.0).padded(2, decCount)
+                            (dd.time.seconds % 60.0).padded(2, decCount)
                         } else {
-                            d.seconds.padded(2)
+                            dd.seconds.padded(2)
                         }
                         append(if (nextComma) result.replace('.', ',') else result)
                     }
-                    fmtReader.tryRead("±") -> append(if (d.yearInt < 0) "-" else "+")
+                    fmtReader.tryRead("±") -> append(if (dd.years < 0) "-" else "+")
                     else -> append(fmtReader.readChar())
                 }
             }
         }
 
-        override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): DateTimeTz? {
-            return _tryParse(str, doAdjust).also {
+        override fun tryParseComponents(str: String, doThrow: Boolean, dateDefaults: Boolean): DateComponents? {
+            return _tryParse(str, dateDefaults).also {
                 if (doThrow && it == null) throw DateException("Can't parse $str with $format")
             }
         }
 
-        private fun reportParse(reason: String): DateTimeTz? {
+        private fun reportParse(reason: String): DateComponents? {
             //println("reason: $reason")
             return null
         }
 
-        private fun _tryParse(str: String, doAdjust: Boolean): DateTimeTz? {
+        private fun _tryParse(str: String, dateDefaults: Boolean): DateComponents? {
             var sign = +1
-            var tzOffset: TimeSpan? = null
-            var year = twoDigitBaseYear
-            var month = 1
-            var dayOfMonth = 1
+            var tzOffset: Duration? = null
+            var year = if (dateDefaults) twoDigitBaseYear else 0
+            var month = if (dateDefaults) 1 else 0
+            var dayOfMonth = if (dateDefaults) 1 else 0
 
             var dayOfWeek = -1
             var dayOfYear = -1
@@ -185,8 +182,9 @@ object ISO8601 {
                 else -> DateTime(year, month, dayOfMonth)
             }
 
-            val baseDateTime = dateTime + hours.hours + minutes.minutes + seconds.seconds
-            return if (tzOffset != null) DateTimeTz.local(baseDateTime, TimezoneOffset(tzOffset)) else baseDateTime.local
+            val time = hours.hours + minutes.minutes + seconds.seconds
+            val baseDateTime = dateTime + time
+            return (if (tzOffset != null) DateTimeTz.local(baseDateTime, TimezoneOffset(tzOffset)) else baseDateTime.local).toComponents()
         }
 
         fun withTwoDigitBaseYear(twoDigitBaseYear: Int = 1900) = BaseIsoDateTimeFormat(format, twoDigitBaseYear)
@@ -260,45 +258,59 @@ object ISO8601 {
 
 
     data class IsoTimeFormat(val basicFormat: String?, val extendedFormat: String?) : TimeFormat {
+        companion object {
+            operator fun invoke(extendedFormat: String): IsoTimeFormat {
+                val basicFormat = extendedFormat.replace(":", "").replace("-", "")
+                return IsoTimeFormat(basicFormat, if (extendedFormat != basicFormat) extendedFormat else null)
+            }
+        }
+
         val basic = BaseIsoTimeFormat(basicFormat ?: extendedFormat ?: TODO())
         val extended = BaseIsoTimeFormat(extendedFormat ?: basicFormat ?: TODO())
 
-        override fun format(dd: TimeSpan): String = extended.format(dd)
-        override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): TimeSpan? =
+        override fun format(dd: Duration): String = extended.format(dd)
+        override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): Duration? =
             basic.tryParse(str, false, doAdjust) ?: extended.tryParse(str, false, doAdjust)
             ?: (if (doThrow) throw DateException("Invalid format $str") else null)
     }
 
     data class IsoDateTimeFormat(val basicFormat: String?, val extendedFormat: String?) : DateFormat {
+        companion object {
+            operator fun invoke(extendedFormat: String): IsoDateTimeFormat {
+                val basicFormat = extendedFormat.replace(":", "").replace("-", "")
+                return IsoDateTimeFormat(basicFormat, if (extendedFormat != basicFormat) extendedFormat else null)
+            }
+        }
+
         val basic = BaseIsoDateTimeFormat(basicFormat ?: extendedFormat ?: TODO())
         val extended = BaseIsoDateTimeFormat(extendedFormat ?: basicFormat ?: TODO())
 
         override fun format(dd: DateComponents): String = extended.format(dd)
-        override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): DateTimeTz? = null
-            ?: basic.tryParse(str, false, doAdjust)
-            ?: extended.tryParse(str, false, doAdjust)
+        override fun tryParseComponents(str: String, doThrow: Boolean, dateDefaults: Boolean): DateComponents? = null
+            ?: basic.tryParseComponents(str, false, dateDefaults)
+            ?: extended.tryParseComponents(str, false, dateDefaults)
             ?: (if (doThrow) throw DateException("Invalid format $str") else null)
     }
 
     // Date Calendar Variants
-    val DATE_CALENDAR_COMPLETE = IsoDateTimeFormat("YYYYMMDD", "YYYY-MM-DD")
-    val DATE_CALENDAR_REDUCED0 = IsoDateTimeFormat(null, "YYYY-MM")
-    val DATE_CALENDAR_REDUCED1 = IsoDateTimeFormat("YYYY", null)
-    val DATE_CALENDAR_REDUCED2 = IsoDateTimeFormat("YY", null)
-    val DATE_CALENDAR_EXPANDED0 = IsoDateTimeFormat("±YYYYYYMMDD", "±YYYYYY-MM-DD")
-    val DATE_CALENDAR_EXPANDED1 = IsoDateTimeFormat("±YYYYYYMM", "±YYYYYY-MM")
-    val DATE_CALENDAR_EXPANDED2 = IsoDateTimeFormat("±YYYYYY", null)
-    val DATE_CALENDAR_EXPANDED3 = IsoDateTimeFormat("±YYY", null)
+    val DATE_CALENDAR_COMPLETE = IsoDateTimeFormat("YYYY-MM-DD")
+    val DATE_CALENDAR_REDUCED0 = IsoDateTimeFormat("YYYY-MM")
+    val DATE_CALENDAR_REDUCED1 = IsoDateTimeFormat("YYYY")
+    val DATE_CALENDAR_REDUCED2 = IsoDateTimeFormat("YY")
+    val DATE_CALENDAR_EXPANDED0 = IsoDateTimeFormat("±YYYYYY-MM-DD")
+    val DATE_CALENDAR_EXPANDED1 = IsoDateTimeFormat("±YYYYYY-MM")
+    val DATE_CALENDAR_EXPANDED2 = IsoDateTimeFormat("±YYYYYY")
+    val DATE_CALENDAR_EXPANDED3 = IsoDateTimeFormat("±YYY")
 
     // Date Ordinal Variants
-    val DATE_ORDINAL_COMPLETE = IsoDateTimeFormat("YYYYDDD", "YYYY-DDD")
-    val DATE_ORDINAL_EXPANDED = IsoDateTimeFormat("±YYYYYYDDD", "±YYYYYY-DDD")
+    val DATE_ORDINAL_COMPLETE = IsoDateTimeFormat("YYYY-DDD")
+    val DATE_ORDINAL_EXPANDED = IsoDateTimeFormat("±YYYYYY-DDD")
 
     // Date Week Variants
-    val DATE_WEEK_COMPLETE = IsoDateTimeFormat("YYYYWwwD", "YYYY-Www-D")
-    val DATE_WEEK_REDUCED = IsoDateTimeFormat("YYYYWww", "YYYY-Www")
-    val DATE_WEEK_EXPANDED0 = IsoDateTimeFormat("±YYYYYYWwwD", "±YYYYYY-Www-D")
-    val DATE_WEEK_EXPANDED1 = IsoDateTimeFormat("±YYYYYYWww", "±YYYYYY-Www")
+    val DATE_WEEK_COMPLETE = IsoDateTimeFormat("YYYY-Www-D")
+    val DATE_WEEK_REDUCED = IsoDateTimeFormat("YYYY-Www")
+    val DATE_WEEK_EXPANDED0 = IsoDateTimeFormat("±YYYYYY-Www-D")
+    val DATE_WEEK_EXPANDED1 = IsoDateTimeFormat("±YYYYYY-Www")
 
     val DATE_ALL = listOf(
         DATE_CALENDAR_COMPLETE, DATE_CALENDAR_REDUCED0, DATE_CALENDAR_REDUCED1, DATE_CALENDAR_REDUCED2,
@@ -308,24 +320,24 @@ object ISO8601 {
     )
 
     // Time Variants
-    val TIME_LOCAL_COMPLETE = IsoTimeFormat("hhmmss", "hh:mm:ss")
-    val TIME_LOCAL_REDUCED0 = IsoTimeFormat("hhmm", "hh:mm")
-    val TIME_LOCAL_REDUCED1 = IsoTimeFormat("hh", null)
-    val TIME_LOCAL_FRACTION0 = IsoTimeFormat("hhmmss,ss", "hh:mm:ss,ss")
-    val TIME_LOCAL_FRACTION1 = IsoTimeFormat("hhmm,mm", "hh:mm,mm")
-    val TIME_LOCAL_FRACTION2 = IsoTimeFormat("hh,hh", null)
+    val TIME_LOCAL_COMPLETE = IsoTimeFormat("hh:mm:ss")
+    val TIME_LOCAL_REDUCED0 = IsoTimeFormat("hh:mm")
+    val TIME_LOCAL_REDUCED1 = IsoTimeFormat("hh")
+    val TIME_LOCAL_FRACTION0 = IsoTimeFormat("hh:mm:ss,ss")
+    val TIME_LOCAL_FRACTION1 = IsoTimeFormat("hh:mm,mm")
+    val TIME_LOCAL_FRACTION2 = IsoTimeFormat("hh,hh")
 
     // Time UTC Variants
-    val TIME_UTC_COMPLETE = IsoTimeFormat("hhmmssZ", "hh:mm:ssZ")
-    val TIME_UTC_REDUCED0 = IsoTimeFormat("hhmmZ", "hh:mmZ")
-    val TIME_UTC_REDUCED1 = IsoTimeFormat("hhZ", null)
-    val TIME_UTC_FRACTION0 = IsoTimeFormat("hhmmss,ssZ", "hh:mm:ss,ssZ")
-    val TIME_UTC_FRACTION1 = IsoTimeFormat("hhmm,mmZ", "hh:mm,mmZ")
-    val TIME_UTC_FRACTION2 = IsoTimeFormat("hh,hhZ", null)
+    val TIME_UTC_COMPLETE = IsoTimeFormat("hh:mm:ssZ")
+    val TIME_UTC_REDUCED0 = IsoTimeFormat("hh:mmZ")
+    val TIME_UTC_REDUCED1 = IsoTimeFormat("hhZ")
+    val TIME_UTC_FRACTION0 = IsoTimeFormat("hh:mm:ss,ssZ")
+    val TIME_UTC_FRACTION1 = IsoTimeFormat("hh:mm,mmZ")
+    val TIME_UTC_FRACTION2 = IsoTimeFormat("hh,hhZ")
 
     // Time Relative Variants
-    val TIME_RELATIVE0 = IsoTimeFormat("±hhmm", "±hh:mm")
-    val TIME_RELATIVE1 = IsoTimeFormat("±hh", null)
+    val TIME_RELATIVE0 = IsoTimeFormat("±hh:mm")
+    val TIME_RELATIVE1 = IsoTimeFormat("±hh")
 
     val TIME_ALL = listOf(
         TIME_LOCAL_COMPLETE,
@@ -345,9 +357,9 @@ object ISO8601 {
     )
 
     // Date + Time Variants
-    val DATETIME_COMPLETE = IsoDateTimeFormat("YYYYMMDDThhmmss", "YYYY-MM-DDThh:mm:ss")
-    val DATETIME_UTC_COMPLETE = IsoDateTimeFormat("YYYYMMDDThhmmssZ", "YYYY-MM-DDThh:mm:ssZ")
-    val DATETIME_UTC_COMPLETE_FRACTION = IsoDateTimeFormat("YYYYMMDDThhmmss.sssZ", "YYYY-MM-DDThh:mm:ss.sssZ")
+    val DATETIME_COMPLETE = IsoDateTimeFormat("YYYY-MM-DDThh:mm:ss")
+    val DATETIME_UTC_COMPLETE = IsoDateTimeFormat("YYYY-MM-DDThh:mm:ssZ")
+    val DATETIME_UTC_COMPLETE_FRACTION = IsoDateTimeFormat("YYYY-MM-DDThh:mm:ss.sssZ")
 
     // Interval Variants
     val INTERVAL_COMPLETE0 = IsoIntervalFormat("PnnYnnMnnDTnnHnnMnnS")
@@ -382,24 +394,24 @@ object ISO8601 {
 
     // Detects and parses all the variants
     val DATE = object : DateFormat {
-        override fun format(dd: DateTimeTz): String = DATE_CALENDAR_COMPLETE.format(dd)
+        override fun format(dd: DateComponents): String = DATE_CALENDAR_COMPLETE.format(dd)
 
-        override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): DateTimeTz? {
+        override fun tryParseComponents(str: String, doThrow: Boolean, dateDefaults: Boolean): DateComponents? {
             DATE_ALL.fastForEach { format ->
-                val result = format.extended.tryParse(str, false, doAdjust)
+                val result = format.extended.tryParseComponents(str, false, dateDefaults)
                 if (result != null) return result
             }
             DATE_ALL.fastForEach { format ->
-                val result = format.basic.tryParse(str, false, doAdjust)
+                val result = format.basic.tryParseComponents(str, false, dateDefaults)
                 if (result != null) return result
             }
             return if (doThrow) throw DateException("Invalid format") else null
         }
     }
     val TIME = object : TimeFormat {
-        override fun format(dd: TimeSpan): String = TIME_LOCAL_FRACTION0.format(dd)
+        override fun format(dd: Duration): String = TIME_LOCAL_FRACTION0.format(dd)
 
-        override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): TimeSpan? {
+        override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): Duration? {
             TIME_ALL.fastForEach { format ->
                 val result = format.extended.tryParse(str, false, doAdjust)
                 if (result != null) return result
