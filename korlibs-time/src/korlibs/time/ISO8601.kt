@@ -46,7 +46,7 @@ object ISO8601 {
                     fmtReader.tryRead("YY") -> append((d.yearInt.absoluteValue % 100).padded(2))
                     fmtReader.tryRead("MM") -> append(d.month1.padded(2))
                     fmtReader.tryRead("DD") -> append(d.dayOfMonth.padded(2))
-                    fmtReader.tryRead("DDD") -> append(d.dayOfWeekInt.padded(3))
+                    fmtReader.tryRead("DDD") -> append(d.dayOfYear.padded(3))
                     fmtReader.tryRead("ww") -> append(d.weekOfYear1.padded(2))
                     fmtReader.tryRead("D") -> append(d.dayOfWeek.index1Monday)
                     fmtReader.tryRead("hh") -> {
@@ -273,7 +273,7 @@ object ISO8601 {
         val basic = BaseIsoDateTimeFormat(basicFormat ?: extendedFormat ?: TODO())
         val extended = BaseIsoDateTimeFormat(extendedFormat ?: basicFormat ?: TODO())
 
-        override fun format(dd: DateTimeTz): String = extended.format(dd)
+        override fun format(dd: DateComponents): String = extended.format(dd)
         override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): DateTimeTz? = null
             ?: basic.tryParse(str, false, doAdjust)
             ?: extended.tryParse(str, false, doAdjust)
