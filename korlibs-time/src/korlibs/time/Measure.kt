@@ -71,7 +71,7 @@ typealias TimedResult<T> = TimedValue<T>
 @Deprecated("", ReplaceWith("value"))
 val <T> TimedValue<T>.result: T get() = value
 @Deprecated("", ReplaceWith("duration"))
-val <T> TimedValue<T>.time: TimeSpan get() = duration
+val <T> TimedValue<T>.time: Duration get() = duration
 
 public data class FastTimedValue<T>(val value: T, val duration: FastDuration)
 

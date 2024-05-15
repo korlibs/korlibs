@@ -1,8 +1,9 @@
 package korlibs.time
 
 import kotlin.reflect.*
+import kotlin.time.*
 
-class TimedCache<T : Any>(var ttl: TimeSpan, val timeProvider: TimeProvider = TimeProvider, val gen: () -> T) {
+class TimedCache<T : Any>(var ttl: Duration, val timeProvider: TimeProvider = TimeProvider, val gen: () -> T) {
     private var cachedTime: DateTime = DateTime.EPOCH
     private lateinit var _value: T
 
@@ -24,7 +25,7 @@ class TimedCache<T : Any>(var ttl: TimeSpan, val timeProvider: TimeProvider = Ti
     }
 }
 
-class IntTimedCache(val ttl: TimeSpan, val timeProvider: TimeProvider = TimeProvider, val gen: () -> Int) {
+class IntTimedCache(val ttl: Duration, val timeProvider: TimeProvider = TimeProvider, val gen: () -> Int) {
     @PublishedApi internal var cachedTime = DateTime.EPOCH
     @PublishedApi internal var _value: Int = 0
 

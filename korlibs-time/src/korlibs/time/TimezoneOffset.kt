@@ -6,6 +6,7 @@ import korlibs.Serializable
 import korlibs.time.internal.padded
 import kotlin.jvm.JvmInline
 import kotlin.math.abs
+import kotlin.time.*
 
 /**
  * Represents a time zone offset with millisecond precision. Usually minute is enough.
@@ -21,8 +22,8 @@ value class TimezoneOffset(
     /** Returns whether this [TimezoneOffset] has a positive component */
     val positive: Boolean get() = totalMilliseconds >= 0.0
 
-    /** [TimeSpan] time for this [TimezoneOffset] */
-    val time get() = totalMilliseconds.milliseconds
+    /** [Duration] time for this [TimezoneOffset] */
+    val time: Duration get() = totalMilliseconds.milliseconds
 
     /** [TimezoneOffset] in [totalMinutes] */
     val totalMinutes: Double get() = totalMilliseconds / MILLIS_PER_MINUTE
@@ -51,11 +52,11 @@ value class TimezoneOffset(
         @Suppress("MayBeConstant", "unused")
         private const val serialVersionUID = 1L
 
-        /** Constructs a new [TimezoneOffset] from a [TimeSpan]. */
-        operator fun invoke(time: TimeSpan) = TimezoneOffset(time.milliseconds)
+        /** Constructs a new [TimezoneOffset] from a [Duration]. */
+        operator fun invoke(time: Duration) = TimezoneOffset(time.milliseconds)
 
         /**
-         * Returns timezone offset as a [TimeSpan], for a specified [time].
+         * Returns timezone offset as a [Duration], for a specified [time].
          * For example, GMT+01 would return 60.minutes.
          * This uses the Operating System to compute daylight offsets when required.
          */
@@ -66,5 +67,5 @@ value class TimezoneOffset(
     override fun compareTo(other: TimezoneOffset): Int = totalMilliseconds.compareTo(other.totalMilliseconds)
 }
 
-/** A [TimeSpan] as a [TimezoneOffset]. */
-val TimeSpan.offset get() = TimezoneOffset(this)
+/** A [Duration] as a [TimezoneOffset]. */
+val Duration.offset get() = TimezoneOffset(this)

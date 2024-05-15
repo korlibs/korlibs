@@ -5,6 +5,7 @@ import korlibs.time.internal.fastForEach
 import korlibs.time.internal.padded
 import korlibs.time.internal.readTimeZoneOffset
 import kotlin.math.absoluteValue
+import kotlin.time.*
 
 // https://en.wikipedia.org/wiki/ISO_8601
 object ISO8601 {
@@ -14,9 +15,9 @@ object ISO8601 {
         }
         private val dateTimeFormat = BaseIsoDateTimeFormat(format)
 
-        override fun format(dd: TimeSpan): String = dateTimeFormat.format(ref + dd)
+        override fun format(dd: Duration): String = dateTimeFormat.format(ref + dd)
 
-        override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): TimeSpan? =
+        override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): Duration? =
             dateTimeFormat.tryParse(str, doThrow, doAdjust)?.let { it.utc - ref }
     }
 
@@ -100,7 +101,7 @@ object ISO8601 {
 
         private fun _tryParse(str: String, doAdjust: Boolean): DateTimeTz? {
             var sign = +1
-            var tzOffset: TimeSpan? = null
+            var tzOffset: Duration? = null
             var year = twoDigitBaseYear
             var month = 1
             var dayOfMonth = 1
@@ -262,8 +263,8 @@ object ISO8601 {
         val basic = BaseIsoTimeFormat(basicFormat ?: extendedFormat ?: TODO())
         val extended = BaseIsoTimeFormat(extendedFormat ?: basicFormat ?: TODO())
 
-        override fun format(dd: TimeSpan): String = extended.format(dd)
-        override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): TimeSpan? =
+        override fun format(dd: Duration): String = extended.format(dd)
+        override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): Duration? =
             basic.tryParse(str, false, doAdjust) ?: extended.tryParse(str, false, doAdjust)
             ?: (if (doThrow) throw DateException("Invalid format $str") else null)
     }
@@ -396,9 +397,9 @@ object ISO8601 {
         }
     }
     val TIME = object : TimeFormat {
-        override fun format(dd: TimeSpan): String = TIME_LOCAL_FRACTION0.format(dd)
+        override fun format(dd: Duration): String = TIME_LOCAL_FRACTION0.format(dd)
 
-        override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): TimeSpan? {
+        override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): Duration? {
             TIME_ALL.fastForEach { format ->
                 val result = format.extended.tryParse(str, false, doAdjust)
                 if (result != null) return result

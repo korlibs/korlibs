@@ -1,6 +1,7 @@
 package korlibs.time
 
 import korlibs.Serializable
+import kotlin.time.*
 
 /** [DateTime] with an associated [TimezoneOffset] */
 class DateTimeTz private constructor(
@@ -74,35 +75,35 @@ class DateTimeTz private constructor(
     val milliseconds: Int get() = adjusted.milliseconds
 
     /** Constructs this local date with a new [offset] without changing its components */
-    fun toOffsetUnadjusted(offset: TimeSpan) = toOffsetUnadjusted(offset.offset)
+    fun toOffsetUnadjusted(offset: Duration) = toOffsetUnadjusted(offset.offset)
     /** Constructs this local date with a new [offset] without changing its components */
     fun toOffsetUnadjusted(offset: TimezoneOffset) = DateTimeTz.local(this.local, offset)
 
     /** Constructs this local date by adding an additional [offset] without changing its components */
-    fun addOffsetUnadjusted(offset: TimeSpan) = addOffsetUnadjusted(offset.offset)
+    fun addOffsetUnadjusted(offset: Duration) = addOffsetUnadjusted(offset.offset)
     /** Constructs this local date by adding an additional [offset] without changing its components */
     fun addOffsetUnadjusted(offset: TimezoneOffset) = DateTimeTz.local(this.local, (this.offset.time + offset.time).offset)
 
     /** Constructs the UTC part of this date with a new [offset] */
-    fun toOffset(offset: TimeSpan) = toOffset(offset.offset)
+    fun toOffset(offset: Duration) = toOffset(offset.offset)
     /** Constructs the UTC part of this date with a new [offset] */
     fun toOffset(offset: TimezoneOffset) = DateTimeTz.utc(this.utc, offset)
 
     /** Constructs the UTC part of this date by adding an additional [offset] */
-    fun addOffset(offset: TimeSpan) = addOffset(offset.offset)
+    fun addOffset(offset: Duration) = addOffset(offset.offset)
     /** Constructs the UTC part of this date by adding an additional [offset] */
     fun addOffset(offset: TimezoneOffset) = DateTimeTz.utc(this.utc, (this.offset.time + offset.time).offset)
 
-    /** Constructs a new [DateTimeTz] after adding [dateSpan] and [timeSpan] */
-    fun add(dateSpan: MonthSpan, timeSpan: TimeSpan): DateTimeTz = DateTimeTz(adjusted.add(dateSpan, timeSpan), offset)
+    /** Constructs a new [DateTimeTz] after adding [dateSpan] and [duration] */
+    fun add(dateSpan: MonthSpan, duration: Duration): DateTimeTz = DateTimeTz(adjusted.add(dateSpan, duration), offset)
 
     operator fun plus(delta: MonthSpan) = add(delta, 0.milliseconds)
-    operator fun plus(delta: DateTimeSpan) = add(delta.monthSpan, delta.timeSpan)
-    operator fun plus(delta: TimeSpan) = add(0.months, delta)
+    operator fun plus(delta: DateTimeSpan) = add(delta.monthSpan, delta.duration)
+    operator fun plus(delta: Duration) = add(0.months, delta)
 
     operator fun minus(delta: MonthSpan) = this + (-delta)
     operator fun minus(delta: DateTimeSpan) = this + (-delta)
-    operator fun minus(delta: TimeSpan) = this + (-delta)
+    operator fun minus(delta: Duration) = this + (-delta)
 
     operator fun minus(other: DateTimeTz) = (this.utc.unixMillisDouble - other.utc.unixMillisDouble).milliseconds
 

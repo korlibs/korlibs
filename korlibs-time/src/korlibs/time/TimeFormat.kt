@@ -1,8 +1,10 @@
 package korlibs.time
 
+import kotlin.time.*
+
 interface TimeFormat {
-    fun format(dd: TimeSpan): String
-    fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean = true): TimeSpan?
+    fun format(dd: Duration): String
+    fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean = true): Duration?
 
     companion object {
         val DEFAULT_FORMAT = TimeFormat("HH:mm:ss.SSS")
@@ -10,7 +12,7 @@ interface TimeFormat {
 
         val FORMATS = listOf(DEFAULT_FORMAT, FORMAT_TIME)
 
-        fun parse(time: String): TimeSpan {
+        fun parse(time: String): Duration {
             var lastError: Throwable? = null
             for (format in FORMATS) {
                 try {
@@ -26,7 +28,7 @@ interface TimeFormat {
     }
 }
 
-fun TimeFormat.parse(str: String, doAdjust: Boolean = true): TimeSpan =
+fun TimeFormat.parse(str: String, doAdjust: Boolean = true): Duration =
     tryParse(str, doThrow = true, doAdjust = doAdjust) ?: throw DateException("Not a valid format: '$str' for '$this'")
 fun TimeFormat.parseTime(str: String): Time = Time(parse(str))
 

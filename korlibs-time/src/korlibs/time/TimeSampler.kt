@@ -1,9 +1,11 @@
 package korlibs.time
 
+import kotlin.time.*
+
 /**
  * Class to count the number of times a sample was added in a timeWindow
  */
-class TimeSampler(var timeWindow: TimeSpan = 1.seconds) {
+class TimeSampler(var timeWindow: Duration = 1.seconds) {
     private val events = ArrayDeque<Double>()
 
     val count: Int get() = events.size

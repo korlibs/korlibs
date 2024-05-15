@@ -3,6 +3,7 @@ package korlibs.time
 import korlibs.Serializable
 import kotlin.jvm.JvmInline
 import kotlin.math.abs
+import kotlin.time.*
 
 /**
  * Represents a triple of [year], [month] and [day].
@@ -57,12 +58,12 @@ value class Date(val encoded: Int) : Comparable<Date>, Serializable {
 	override fun compareTo(other: Date): Int = this.encoded.compareTo(other.encoded)
 }
 
-operator fun Date.plus(time: TimeSpan) = (this.dateTimeDayStart + time).date
+operator fun Date.plus(time: Duration) = (this.dateTimeDayStart + time).date
 operator fun Date.plus(time: MonthSpan) = (this.dateTimeDayStart + time).date
 operator fun Date.plus(time: DateTimeSpan) = (this.dateTimeDayStart + time).date
 operator fun Date.plus(time: Time) = DateTime.createAdjusted(year, month1, day, time.hour, time.minute, time.second, time.millisecond)
 
-operator fun Date.minus(time: TimeSpan) = (this.dateTimeDayStart - time).date
+operator fun Date.minus(time: Duration) = (this.dateTimeDayStart - time).date
 operator fun Date.minus(time: MonthSpan) = (this.dateTimeDayStart - time).date
 operator fun Date.minus(time: DateTimeSpan) = (this.dateTimeDayStart - time).date
 operator fun Date.minus(time: Time) = DateTime.createAdjusted(year, month1, day, -time.hour, -time.minute, -time.second, -time.millisecond)
