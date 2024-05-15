@@ -29,7 +29,7 @@ class DenoSystemFs : SystemFs {
 class DenoSyncSystemFs : SyncSystemFs {
     override fun open(path: String, write: Boolean): SyncFileSystemIo? = TODO("Not yet implemented")
     override fun listdir(path: String): Sequence<String> = Deno.readDirSync(path).toList().map { it.name }.asSequence()
-    override fun mkdir(path: String): Boolean = runCatching { Deno.mkdirSync(path) }.isSuccess
+    override fun mkdir(path: String, mode: Int): Boolean = runCatching { Deno.mkdirSync(path) }.isSuccess
     override fun rmdir(path: String): Boolean = runCatching { Deno.removeSync(path) }.isSuccess
     override fun unlink(path: String): Boolean = runCatching { Deno.removeSync(path) }.isSuccess
     override fun stat(path: String): FileSystemIoStat? = Deno.statSync(path).toFileSystemIoStat()

@@ -20,6 +20,7 @@ abstract class SyncSystemFsNativeBase : SyncSystemFs {
     }
     override fun unlink(path: String): Boolean = platform.posix.unlink(path) == 0
     override fun rmdir(path: String): Boolean = platform.posix.rmdir(path) == 0
+    //override fun mkdir(path: String, mode: Int): Boolean = platform.posix.mkdir(path) == 0
     override fun listdir(path: String): Sequence<String> = sequence {
         val dir = platform.posix.opendir(path)
         while (true) {

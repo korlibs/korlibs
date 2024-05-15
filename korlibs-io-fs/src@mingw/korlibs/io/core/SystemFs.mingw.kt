@@ -15,7 +15,7 @@ object MingwSyncSystemFs : SyncSystemFsNativeBase() {
 
     override fun getcwd(): String = getExecutableDirectory()
 
-    override fun mkdir(path: String): Boolean = platform.posix.mkdir(path) == 0
+    override fun mkdir(path: String, mode: Int): Boolean = platform.posix.mkdir(path) == 0
 
     fun getExecutablePath(): String = kotlinx.cinterop.memScoped {
         val maxSize = 4096

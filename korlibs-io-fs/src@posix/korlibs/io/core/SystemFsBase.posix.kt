@@ -1,5 +1,3 @@
-@file:OptIn(UnsafeNumber::class)
-
 package korlibs.io.core
 
 import kotlinx.cinterop.*
@@ -7,7 +5,7 @@ import platform.posix.*
 
 @OptIn(ExperimentalForeignApi::class)
 open class SyncSystemFsPosixBase : SyncSystemFsNativeBase() {
-    override fun mkdir(path: String): Boolean = platform.posix.mkdir(path, 511.convert()) == 0
+    override fun mkdir(path: String, mode: Int): Boolean = platform.posix.mkdir(path, mode.convert()) == 0
 
     protected fun posixReadlink(path: String): String? = memScoped {
         val addr = allocArray<ByteVar>(PATH_MAX)

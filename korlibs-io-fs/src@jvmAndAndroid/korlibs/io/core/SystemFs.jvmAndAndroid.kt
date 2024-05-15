@@ -17,7 +17,7 @@ object JvmSyncSystemFs : SyncSystemFs {
         TODO("Not yet implemented")
     }
 
-    override fun mkdir(path: String) = File(path).mkdir()
+    override fun mkdir(path: String, mode: Int) = File(path).mkdir()
     override fun rmdir(path: String) = File(path).takeIf { it.isDirectory }?.delete() == true
     override fun unlink(path: String) = File(path).takeIf { !it.isDirectory }?.delete() == true
     override fun listdir(path: String): Sequence<String> = (File(path).list() ?: emptyArray<String>()).asSequence()

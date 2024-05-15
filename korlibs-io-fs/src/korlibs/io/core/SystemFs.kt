@@ -12,7 +12,7 @@ internal expect val defaultSystemFs: SystemFs
 object NullSyncSystemFs : SyncSystemFs {
     override fun open(path: String, write: Boolean): SyncFileSystemIo? = TODO("Not yet implemented")
     override fun listdir(path: String): Sequence<String> = TODO("Not yet implemented")
-    override fun mkdir(path: String): Boolean = TODO("Not yet implemented")
+    override fun mkdir(path: String, mode: Int): Boolean = TODO("Not yet implemented")
     override fun rmdir(path: String): Boolean = TODO("Not yet implemented")
     override fun unlink(path: String): Boolean = TODO("Not yet implemented")
     override fun stat(path: String): FileSystemIoStat? = TODO("Not yet implemented")
@@ -32,7 +32,7 @@ interface SyncSystemFs {
 
     abstract fun open(path: String, write: Boolean = false): SyncFileSystemIo?
     abstract fun listdir(path: String): Sequence<String>
-    abstract fun mkdir(path: String): Boolean
+    abstract fun mkdir(path: String, mode: Int = 511): Boolean
     abstract fun rmdir(path: String): Boolean
     abstract fun unlink(path: String): Boolean
     abstract fun stat(path: String): FileSystemIoStat?
@@ -65,7 +65,7 @@ interface SystemFs {
 
     abstract suspend fun open(path: String, write: Boolean = false): FileSystemIo?
     abstract suspend fun listdir(path: String): Flow<String>
-    abstract suspend fun mkdir(path: String, mode: Int = -1): Boolean
+    abstract suspend fun mkdir(path: String, mode: Int = 511): Boolean
     abstract suspend fun rmdir(path: String): Boolean
     abstract suspend fun unlink(path: String): Boolean
     abstract suspend fun stat(path: String): FileSystemIoStat?
@@ -141,7 +141,7 @@ fun SyncSystemFs.toAsync(ioDispatcher: CoroutineDispatcher?): SystemFs {
         }
 
         override suspend fun listdir(path: String): Flow<String> = doSyncIo { sync.listdir(path).asFlow() }
-        override suspend fun mkdir(path: String) = doSyncIo { sync.mkdir(path) }
+        override suspend fun mkdir(path: String, mode: Int) = doSyncIo { sync.mkdir(path, mode) }
         override suspend fun unlink(path: String) = doSyncIo { sync.unlink(path) }
         override suspend fun rmdir(path: String) = doSyncIo { sync.rmdir(path) }
         override suspend fun stat(path: String): FileSystemIoStat? = doSyncIo { sync.stat(path) }
