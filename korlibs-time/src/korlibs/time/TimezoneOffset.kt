@@ -52,7 +52,7 @@ value class TimezoneOffset(
         @Suppress("MayBeConstant", "unused")
         private const val serialVersionUID = 1L
 
-        /** Constructs a new [TimezoneOffset] from a [TimeSpan]. */
+        /** Constructs a new [TimezoneOffset] from a [Duration]. */
         operator fun invoke(time: Duration?) = TimezoneOffset(time?.milliseconds ?: 0.0)
 
         /**
