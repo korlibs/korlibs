@@ -30,7 +30,7 @@ class SimplerDateFormatTest {
 
     @Test
     fun testDateFormatMillisecondPrecisionIssue2197() {
-        _testDateFormatMillisecondPrecisionIssue2197(DateFormat("yyyy-MM-dd'T'HH:mm[:ss[.S]]Z").withOptional())
+        _testDateFormatMillisecondPrecisionIssue2197(DateFormat("yyyy-MM-dd'T'HH:mm[:ss[.S]]Z"))
     }
 
     @Test

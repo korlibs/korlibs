@@ -29,14 +29,14 @@ class KotlinNativeImmutabilityTest {
 
     companion object {
         private val myDateFormat1b = DateFormat("YYYY-MM-dd")
-        private val myDateFormat2b = DateFormat("YYYY[-MM[-dd]]").withOptional()
+        private val myDateFormat2b = DateFormat("YYYY[-MM[-dd]]")
         private val myDateTimeRange1b = DateTimeRange(DateTime(0L), DateTime(100L))
         private val myKlockLocale1b = KlockLocale.English()
     }
 }
 
 private val myDateFormat1a = DateFormat("YYYY-MM-dd")
-private val myDateFormat2a = DateFormat("YYYY[-MM[-dd]]").withOptional()
+private val myDateFormat2a = DateFormat("YYYY[-MM[-dd]]")
 
 private val myDateTimeRange1a = DateTimeRange(DateTime(0L), DateTime(100L))
 private val myKlockLocale1a = KlockLocale.English()
