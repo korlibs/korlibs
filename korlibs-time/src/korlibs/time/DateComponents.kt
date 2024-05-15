@@ -28,9 +28,9 @@ data class DateComponents(
     val milliseconds: Int get() = nanoseconds / 1_000_000
 
     val timezoneOffset = TimezoneOffset(offset)
-    val dayOfWeek by lazy {
-        Date(years, months, days).dayOfWeek
-    }
+    val date get() = Date(years, months, days)
+    val dayOfWeek get() = date.dayOfWeek
+    val dayOfYear get() = date.dayOfYear
     //val dayOfWeekSure get() = dayOfWeek ?: DayOfWeek.Monday
 }
 
