@@ -236,7 +236,7 @@ class ISODateComponentsFormat(val format: String, val twoDigitBaseYear: Int = 19
                 fmtReader.tryRead("YYYYYY") -> append(dd.years.absoluteValue.padded(6))
                 fmtReader.tryRead("YYYY") -> append(dd.years.absoluteValue.padded(4))
                 fmtReader.tryRead("YY") -> append((dd.years.absoluteValue % 100).padded(2))
-                fmtReader.tryRead("MM") -> append(dd.years.padded(2))
+                fmtReader.tryRead("MM") -> append(dd.months.padded(2))
                 fmtReader.tryRead("DD") -> append(dd.days.padded(2))
                 fmtReader.tryRead("DDD") -> append(dd.dayOfYear.padded(3))
                 fmtReader.tryRead("ww") -> append(dd.date.weekOfYear1.padded(2))
