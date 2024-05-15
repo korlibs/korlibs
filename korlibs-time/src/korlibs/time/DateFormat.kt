@@ -27,7 +27,7 @@ interface DateFormat {
             throw lastError!!
         }
 
-        operator fun invoke(pattern: String) = PatternDateFormat(pattern)
+        operator fun invoke(pattern: String): PatternDateFormat = PatternDateFormat(pattern)
     }
 }
 
