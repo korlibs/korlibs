@@ -6,6 +6,7 @@ import korlibs.Serializable
 import korlibs.time.internal.padded
 import kotlin.jvm.JvmInline
 import kotlin.math.abs
+import kotlin.time.*
 
 /**
  * Represents a time zone offset with millisecond precision. Usually minute is enough.
@@ -52,7 +53,7 @@ value class TimezoneOffset(
         private const val serialVersionUID = 1L
 
         /** Constructs a new [TimezoneOffset] from a [TimeSpan]. */
-        operator fun invoke(time: TimeSpan) = TimezoneOffset(time.milliseconds)
+        operator fun invoke(time: Duration?) = TimezoneOffset(time?.milliseconds ?: 0.0)
 
         /**
          * Returns timezone offset as a [TimeSpan], for a specified [time].
