@@ -22,6 +22,8 @@ object ISO8601 {
     }
 
     data class BaseIsoDateTimeFormat(val format: String, val twoDigitBaseYear: Int = 1900) : DateFormat {
+        internal val internalFormat by lazy { ISODateComponentsFormat(format, twoDigitBaseYear) }
+
         override fun format(dd: DateTimeTz): String = buildString {
             val d = dd.local
             val s = d.copyDayOfMonth(hours = 0, minutes = 0, seconds = 0, milliseconds = 0)
@@ -41,6 +43,7 @@ object ISO8601 {
                             append("Z")
                         }
                     }
+
                     fmtReader.tryRead("YYYYYY") -> append(d.yearInt.absoluteValue.padded(6))
                     fmtReader.tryRead("YYYY") -> append(d.yearInt.absoluteValue.padded(4))
                     fmtReader.tryRead("YY") -> append((d.yearInt.absoluteValue % 100).padded(2))
@@ -60,6 +63,7 @@ object ISO8601 {
                         }
                         append(if (nextComma) result.replace('.', ',') else result)
                     }
+
                     fmtReader.tryRead("mm") -> {
                         val nextComma = fmtReader.tryRead(',')
                         val result = if (nextComma || fmtReader.tryRead('.')) {
@@ -71,6 +75,7 @@ object ISO8601 {
                         }
                         append(if (nextComma) result.replace('.', ',') else result)
                     }
+
                     fmtReader.tryRead("ss") -> {
                         val nextComma = fmtReader.tryRead(',')
                         val result = if (nextComma || fmtReader.tryRead('.')) {
@@ -82,6 +87,7 @@ object ISO8601 {
                         }
                         append(if (nextComma) result.replace('.', ',') else result)
                     }
+
                     fmtReader.tryRead("±") -> append(if (d.yearInt < 0) "-" else "+")
                     else -> append(fmtReader.readChar())
                 }
@@ -89,110 +95,15 @@ object ISO8601 {
         }
 
         override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): DateTimeTz? {
-            return _tryParse(str, doAdjust).also {
+            return internalFormat.tryParse(str, setDate = true, doThrow = doThrow)?.toDateTimeTz(doThrow, doAdjust).also {
                 if (doThrow && it == null) throw DateException("Can't parse $str with $format")
             }
         }
-
-        private fun reportParse(reason: String): DateTimeTz? {
-            //println("reason: $reason")
-            return null
-        }
-
-        private fun _tryParse(str: String, doAdjust: Boolean): DateTimeTz? {
-            var sign = +1
-            var tzOffset: Duration? = null
-            var year = twoDigitBaseYear
-            var month = 1
-            var dayOfMonth = 1
-
-            var dayOfWeek = -1
-            var dayOfYear = -1
-            var weekOfYear = -1
-
-            var hours = 0.0
-            var minutes = 0.0
-            var seconds = 0.0
-
-            val reader = MicroStrReader(str)
-            val fmtReader = MicroStrReader(format)
-
-            while (fmtReader.hasMore) {
-                when {
-                    fmtReader.tryRead("Z") -> tzOffset = reader.readTimeZoneOffset()
-                    fmtReader.tryRead("YYYYYY") -> year = reader.tryReadInt(6) ?: return reportParse("YYYYYY")
-                    fmtReader.tryRead("YYYY") -> year = reader.tryReadInt(4) ?: return reportParse("YYYY")
-                    //fmtReader.tryRead("YY") -> year = twoDigitBaseYear + (reader.tryReadInt(2) ?: return null) // @TODO: Kotlin compiler BUG?
-                    fmtReader.tryRead("YY") -> {
-                        val base = reader.tryReadInt(2) ?: return reportParse("YY")
-                        year = twoDigitBaseYear + base
-                    }
-                    fmtReader.tryRead("MM") -> month = reader.tryReadInt(2) ?: return reportParse("MM")
-                    fmtReader.tryRead("DD") -> dayOfMonth = reader.tryReadInt(2) ?: return reportParse("DD")
-                    fmtReader.tryRead("DDD") -> dayOfYear = reader.tryReadInt(3) ?: return reportParse("DDD")
-                    fmtReader.tryRead("ww") -> weekOfYear = reader.tryReadInt(2) ?: return reportParse("ww")
-                    fmtReader.tryRead("D") -> dayOfWeek = reader.tryReadInt(1) ?: return reportParse("D")
-
-                    fmtReader.tryRead("hh") -> {
-                        val nextComma = fmtReader.tryRead(',')
-                        hours = if (nextComma || fmtReader.tryRead('.')) {
-                            var count = 3
-                            while (fmtReader.tryRead('h')) count++
-                            reader.tryReadDouble(count) ?: return reportParse("incorrect hours")
-                        } else {
-                            reader.tryReadDouble(2) ?: return reportParse("incorrect hours")
-                        }
-                    }
-                    fmtReader.tryRead("mm") -> {
-                        val nextComma = fmtReader.tryRead(',')
-                        minutes = if (nextComma || fmtReader.tryRead('.')) {
-                            var count = 3
-                            while (fmtReader.tryRead('m')) count++
-                            reader.tryReadDouble(count) ?: return reportParse("incorrect minutes")
-                        } else {
-                            reader.tryReadDouble(2) ?: return reportParse("incorrect seconds")
-                        }
-                    }
-                    fmtReader.tryRead("ss") -> {
-                        val nextComma = fmtReader.tryRead(',')
-                        seconds = if (nextComma || fmtReader.tryRead('.')) {
-                            var count = 3
-                            while (fmtReader.tryRead('s')) count++
-                            reader.tryReadDouble() ?: return reportParse("incorrect seconds")
-                        } else {
-                            reader.tryReadDouble(2) ?: return reportParse("incorrect seconds")
-                        }
-                    }
-                    fmtReader.tryRead("±") -> {
-                        sign = when (reader.readChar()) {
-                            '+' -> +1
-                            '-' -> -1
-                            else -> return reportParse("±")
-                        }
-                    }
-                    else -> if (fmtReader.readChar() != reader.readChar()) return reportParse("separator")
-                }
-            }
-            if (reader.hasMore) return reportParse("uncomplete")
-
-            val dateTime = when {
-                dayOfYear >= 0 -> DateTime(year, 1, 1) + (dayOfYear - 1).days
-                weekOfYear >= 0 -> {
-                    val reference = Year(year).first(DayOfWeek.Thursday) - 3.days
-                    val days = ((weekOfYear - 1) * 7 + (dayOfWeek - 1))
-                    reference + days.days
-                }
-                else -> DateTime(year, month, dayOfMonth)
-            }
-
-            val baseDateTime = dateTime + hours.hours + minutes.minutes + seconds.seconds
-            return if (tzOffset != null) DateTimeTz.local(baseDateTime, TimezoneOffset(tzOffset)) else baseDateTime.local
-        }
-
-        fun withTwoDigitBaseYear(twoDigitBaseYear: Int = 1900) = BaseIsoDateTimeFormat(format, twoDigitBaseYear)
     }
 
     class IsoIntervalFormat(val format: String) : DateTimeSpanFormat {
+        internal val internalFormat by lazy { ISODateComponentsFormat(format, 0) }
+
         override fun format(dd: DateTimeSpan): String = buildString {
             val fmtReader = MicroStrReader(format)
             var time = false
@@ -437,16 +348,161 @@ object ISO8601 {
     }
 }
 
+class ISODateComponentsFormat(val format: String, val twoDigitBaseYear: Int = 1900) : DateComponentsFormat {
+    override fun format(dd: DateComponents): String {
+        TODO("Not yet implemented")
+    }
+
+    override fun tryParse(str: String, setDate: Boolean?, doThrow: Boolean): DateComponents? {
+        var sign = +1
+        var tzOffset: Duration? = null
+        var year = twoDigitBaseYear
+        var month = 1
+        var dayOfMonth = 1
+
+        var dayOfWeek = -1
+        var dayOfYear = -1
+        var weekOfYear = -1
+
+        var hours = 0.0
+        var minutes = 0.0
+        var seconds = 0.0
+
+        var time = false
+
+        val reader = MicroStrReader(str)
+        val fmtReader = MicroStrReader(format)
+
+        while (fmtReader.hasMore) {
+            when {
+                fmtReader.tryRead("Z") -> tzOffset = reader.readTimeZoneOffset()
+                fmtReader.tryRead("YYYYYY") -> year = reader.tryReadInt(6) ?: return reportParse("YYYYYY")
+                fmtReader.tryRead("YYYY") -> year = reader.tryReadInt(4) ?: return reportParse("YYYY")
+                //fmtReader.tryRead("YY") -> year = twoDigitBaseYear + (reader.tryReadInt(2) ?: return null) // @TODO: Kotlin compiler BUG?
+                fmtReader.tryRead("YY") -> {
+                    val base = reader.tryReadInt(2) ?: return reportParse("YY")
+                    year = twoDigitBaseYear + base
+                }
+                fmtReader.tryRead("MM") -> month = reader.tryReadInt(2) ?: return reportParse("MM")
+                fmtReader.tryRead("DD") -> dayOfMonth = reader.tryReadInt(2) ?: return reportParse("DD")
+                fmtReader.tryRead("DDD") -> dayOfYear = reader.tryReadInt(3) ?: return reportParse("DDD")
+                fmtReader.tryRead("ww") -> weekOfYear = reader.tryReadInt(2) ?: return reportParse("ww")
+                fmtReader.tryRead("D") -> dayOfWeek = reader.tryReadInt(1) ?: return reportParse("D")
+
+                fmtReader.tryRead("hh") -> {
+                    val nextComma = fmtReader.tryRead(',')
+                    hours = if (nextComma || fmtReader.tryRead('.')) {
+                        var count = 3
+                        while (fmtReader.tryRead('h')) count++
+                        reader.tryReadDouble(count) ?: return reportParse("incorrect hours")
+                    } else {
+                        reader.tryReadDouble(2) ?: return reportParse("incorrect hours")
+                    }
+                }
+                fmtReader.tryRead("mm") -> {
+                    val nextComma = fmtReader.tryRead(',')
+                    minutes = if (nextComma || fmtReader.tryRead('.')) {
+                        var count = 3
+                        while (fmtReader.tryRead('m')) count++
+                        reader.tryReadDouble(count) ?: return reportParse("incorrect minutes")
+                    } else {
+                        reader.tryReadDouble(2) ?: return reportParse("incorrect seconds")
+                    }
+                }
+                fmtReader.tryRead("ss") -> {
+                    val nextComma = fmtReader.tryRead(',')
+                    seconds = if (nextComma || fmtReader.tryRead('.')) {
+                        var count = 3
+                        while (fmtReader.tryRead('s')) count++
+                        reader.tryReadDouble() ?: return reportParse("incorrect seconds")
+                    } else {
+                        reader.tryReadDouble(2) ?: return reportParse("incorrect seconds")
+                    }
+                }
+                fmtReader.tryRead("±") -> {
+                    sign = when (reader.readChar()) {
+                        '+' -> +1
+                        '-' -> -1
+                        else -> return reportParse("±")
+                    }
+                }
+                fmtReader.tryRead("nn,nnY") || fmtReader.tryRead("nnY") -> {
+                    year = reader.tryReadDouble()?.toInt() ?: return null
+                    if (!reader.tryRead("Y")) return null
+                }
+                fmtReader.tryRead("nn,nnM") || fmtReader.tryRead("nnM") -> {
+                    if (time) {
+                        minutes = reader.tryReadDouble() ?: return null
+                    } else {
+                        month = reader.tryReadDouble()?.toInt() ?: return null
+                    }
+                    if (!reader.tryRead("M")) return null
+                }
+                fmtReader.tryRead("nn,nnD") || fmtReader.tryRead("nnD") -> {
+                    dayOfMonth = reader.tryReadDouble()?.toInt() ?: return null
+                    if (!reader.tryRead("D")) return null
+                }
+                fmtReader.tryRead("nn,nnH") || fmtReader.tryRead("nnH") -> {
+                    hours = reader.tryReadDouble() ?: return null
+                    if (!reader.tryRead("H")) return null
+                }
+                fmtReader.tryRead("nn,nnS") || fmtReader.tryRead("nnS") -> {
+                    seconds = reader.tryReadDouble() ?: return null
+                    if (!reader.tryRead("S")) return null
+                }
+                else -> {
+                    val char = fmtReader.readChar()
+                    if (char != reader.readChar()) return reportParse("separator")
+                    if (char == 'T') time = true
+                }
+            }
+        }
+        if (reader.hasMore) return reportParse("uncomplete")
+
+        val dateTime: Date = when {
+            dayOfYear >= 0 -> Date(year, 1, 1) + (dayOfYear - 1).days
+            weekOfYear >= 0 -> {
+                val reference = Year(year).firstDate(DayOfWeek.Thursday) - 3.days
+                val days = ((weekOfYear - 1) * 7 + (dayOfWeek - 1))
+                reference + days.days
+            }
+            else -> Date(year, month, dayOfMonth)
+        }
+        val span = ComputedTime(hours.hours + minutes.minutes + seconds.seconds)
+
+        return DateComponents(
+            isDate = setDate == true,
+            years = dateTime.year,
+            months = dateTime.month1,
+            days = dateTime.day,
+            hours = span.hoursIncludingDaysAndWeeks,
+            minutes = span.minutes,
+            seconds = span.seconds,
+            nanoseconds = span.nanoseconds,
+            offset = tzOffset,
+            sign = sign,
+        )
+    }
+
+    private fun reportParse(reason: String): DateComponents? {
+        //println("reason: $reason")
+        return null
+    }
+}
+
+
 // ISO 8601 (first week is the one after 1 containing a thursday)
-fun Year.first(dayOfWeek: DayOfWeek): DateTime {
-    val start = DateTime(this.year, 1, 1)
+fun Year.firstDate(dayOfWeek: DayOfWeek): Date {
+    val start = Date(this.year, 1, 1)
     var n = 0
     while (true) {
-        val time = (start + n.days)
-        if (time.dayOfWeek == dayOfWeek) return time
+        val date = (start + n.days)
+        if (date.dayOfWeek == dayOfWeek) return date
         n++
     }
 }
+
+fun Year.first(dayOfWeek: DayOfWeek): DateTime = DateTime(firstDate(dayOfWeek))
 
 val DateTime.weekOfYear0: Int
     get() {

@@ -19,8 +19,8 @@ data class PatternDateComponentsFormat(
         return chunks.joinToString("") { name ->
             val nlen = name.length
             when (name) {
-                "E", "EE", "EEE" -> dd.dayOfWeekSure.localShortName(locale)
-                "EEEE", "EEEEE", "EEEEEE" -> dd.dayOfWeekSure.localName(locale)
+                "E", "EE", "EEE" -> dd.dayOfWeek.localShortName(locale)
+                "EEEE", "EEEEE", "EEEEEE" -> dd.dayOfWeek.localName(locale)
                 "z", "zzz" -> dd.timezoneOffset.timeZone
                 "d", "dd" -> dd.days.padded(nlen)
                 "do" -> locale.getOrdinalByDay(dd.days)

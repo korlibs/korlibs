@@ -17,8 +17,9 @@ data class DateComponents(
     val seconds: Int = 0,
     val nanoseconds: Int = 0,
     val offset: Duration? = null,
-    /** Used only for dates */
-    val dayOfWeek: DayOfWeek? = null,
+    val sign: Int = +1,
+    ///** Used only for dates */
+    //val dayOfWeek: DayOfWeek? = null,
 ) {
     /** When parsing time without dates, hours shouldn't be clamped */
     val clampHours: Boolean get() = isDate
@@ -27,16 +28,20 @@ data class DateComponents(
     val milliseconds: Int get() = nanoseconds / 1_000_000
 
     val timezoneOffset = TimezoneOffset(offset)
-    val dayOfWeekSure get() = dayOfWeek ?: DayOfWeek.Monday
+    val dayOfWeek by lazy {
+        Date(years, months, days).dayOfWeek
+    }
+    //val dayOfWeekSure get() = dayOfWeek ?: DayOfWeek.Monday
 }
 
 fun Duration.toDateComponents(): DateComponents {
-    val time = ComputedTime(this)
-    return DateComponents(isDate = false, hours = time.hoursIncludingDaysAndWeeks, minutes = time.minutes, seconds = time.seconds, nanoseconds = time.nanoseconds)
+    val sign = if (this.isNegative()) -1 else +1
+    val time = ComputedTime(this.absoluteValue)
+    return DateComponents(isDate = false, hours = time.hoursIncludingDaysAndWeeks, minutes = time.minutes, seconds = time.seconds, nanoseconds = time.nanoseconds, sign = sign)
 }
 
 fun DateComponents.toDuration(): Duration {
-    return days.days + hours.hours + minutes.minutes + seconds.seconds + nanoseconds.nanoseconds
+    return (days.days + hours.hours + minutes.minutes + seconds.seconds + nanoseconds.nanoseconds) * sign
 }
 
 fun DateComponents.toDateTimeTz(doThrow: Boolean, doAdjust: Boolean): DateTimeTz? {
@@ -63,7 +68,7 @@ fun DateTimeTz.toDateComponents(): DateComponents = DateComponents(
     seconds = this.seconds,
     nanoseconds = this.milliseconds * 1_000_000,
     offset = this.offset.time,
-    dayOfWeek = this.dayOfWeek,
+    //dayOfWeek = this.dayOfWeek,
 )
 
 fun DateComponents.toDateTimeSpan(): DateTimeSpan = DateTimeSpan(

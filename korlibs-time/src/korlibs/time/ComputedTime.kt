@@ -13,7 +13,7 @@ class ComputedTime(val weeks: Int = 0, val days: Int = 0, val hours: Int = 0, va
     val secondsIncludingMilliseconds: Double get() = seconds + milliseconds / CoreTimeInternal.MILLIS_PER_SECOND
 
     companion object {
-        operator fun invoke(time: Duration): ComputedTime = Moduler(time.milliseconds).run {
+       operator fun invoke(time: Duration): ComputedTime = Moduler(time.milliseconds).run {
             val weeks = int(CoreTimeInternal.MILLIS_PER_WEEK)
             val days = int(CoreTimeInternal.MILLIS_PER_DAY)
             val hours = int(CoreTimeInternal.MILLIS_PER_HOUR)
