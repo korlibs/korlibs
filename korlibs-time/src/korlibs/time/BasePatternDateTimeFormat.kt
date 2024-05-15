@@ -102,20 +102,7 @@ abstract class BasePatternDateTimeFormat(
         }
     }
 
-    protected data class DateInfo(
-        var fullYear: Int = 1970,
-        var month: Int = 1,
-        var day: Int = 1,
-        var hour: Int = 0,
-        var minute: Int = 0,
-        var second: Int = 0,
-        var nanosecond: Int = 0,
-        var offset: Duration? = null,
-    ) {
-        val millisecond get() = nanosecond / 1_000_000
-    }
-
-    protected fun _tryParseBase(str: String, doThrow: Boolean, doAdjust: Boolean, realLocale: KlockLocale, tzNames: TimezoneNames): DateInfo? {
+    protected fun _tryParseBase(str: String, doThrow: Boolean, doAdjust: Boolean, realLocale: KlockLocale, tzNames: TimezoneNames): DateComponents? {
         var nanoseconds = 0
         var second = 0
         var minute = 0
@@ -194,7 +181,7 @@ abstract class BasePatternDateTimeFormat(
             }
         }
 
-        return DateInfo(fullYear, month, day, hour, minute, second, nanoseconds, offset)
+        return DateComponents(fullYear, month, day, hour, minute, second, nanoseconds, offset)
     }
 
     companion object {
