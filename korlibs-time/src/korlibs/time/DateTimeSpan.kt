@@ -102,6 +102,9 @@ data class DateTimeSpan(
     /** The [milliseconds] part as a double. */
     val milliseconds: Double get() = computed.milliseconds
 
+    /** The [nanoseconds] part as an int. */
+    val nanoseconds: Int get() = computed.nanoseconds
+
     /** The [secondsIncludingMilliseconds] part as a doble including seconds and milliseconds. */
     val secondsIncludingMilliseconds: Double get() = computed.secondsIncludingMilliseconds
 
