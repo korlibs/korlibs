@@ -65,3 +65,18 @@ fun DateTimeTz.toDateComponents(): DateComponents = DateComponents(
     offset = this.offset.time,
     dayOfWeek = this.dayOfWeek,
 )
+
+fun DateComponents.toDateTimeSpan(): DateTimeSpan = DateTimeSpan(
+    years, months, 0, days, hours, minutes, seconds, (nanoseconds / 1_000_000).toDouble()
+)
+
+fun DateTimeSpan.toDateComponents(): DateComponents = DateComponents(
+    isDate = false,
+    years = this.years,
+    months = this.months,
+    days = this.daysIncludingWeeks,
+    hours = this.hours,
+    minutes = this.minutes,
+    seconds = this.seconds,
+    nanoseconds = this.nanoseconds,
+)
