@@ -5,22 +5,11 @@ interface TimeFormat {
     fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean = true): TimeSpan?
 
     companion object {
-        val DEFAULT_FORMAT = TimeFormat("HH:mm:ss.SSS")
+        val DEFAULT_FORMAT = TimeFormat("HH:mm:ss[.SSS]")
         val FORMAT_TIME = TimeFormat("HH:mm:ss")
 
-        val FORMATS = listOf(DEFAULT_FORMAT, FORMAT_TIME)
 
-        fun parse(time: String): TimeSpan {
-            var lastError: Throwable? = null
-            for (format in FORMATS) {
-                try {
-                    return format.parse(time)
-                } catch (e: Throwable) {
-                    lastError = e
-                }
-            }
-            throw lastError!!
-        }
+        fun parse(time: String): TimeSpan = DEFAULT_FORMAT.parse(time)
 
         operator fun invoke(pattern: String) = PatternTimeFormat(pattern)
     }
