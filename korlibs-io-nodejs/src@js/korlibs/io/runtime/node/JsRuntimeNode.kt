@@ -55,16 +55,16 @@ internal object JsRuntimeNode : JsRuntime() {
     private val fs = NodeFS
     private val path = NodePath
 
-    override fun existsSync(path: String): Boolean = fs.existsSync(path)
+    fun existsSync(path: String): Boolean = fs.existsSync(path)
     override fun currentDir(): String = path.resolve(".")
     override fun openVfs(path: String): VfsFile {
         val rpath = if (path == ".") {
-            val path = jsRuntime.currentDir()
+            val path = currentDir()
 
             when {
-                jsRuntime.existsSync("$path/node_modules")
-                    && jsRuntime.existsSync("$path/kotlin")
-                    && jsRuntime.existsSync("$path/package.json")
+                existsSync("$path/node_modules")
+                    && existsSync("$path/kotlin")
+                    && existsSync("$path/package.json")
                 ->
                     // We are probably on tests `build/js/packages/korlibs-next-korge-test` and resources are in the `kotlin` directory
                     "$path/kotlin"

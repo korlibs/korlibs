@@ -3,10 +3,10 @@ package korlibs.io.core
 import kotlinx.coroutines.*
 import java.io.*
 
-actual val defaultSyncSystemIo: SyncSystemIo = JvmSyncSystemIo
-actual val defaultSystemIo: SystemIo = SyncSystemIo.toAsync(Dispatchers.IO)
+actual val defaultSyncSystemFs: SyncSystemFs = JvmSyncSystemFs
+actual val defaultSystemFs: SystemFs = SyncSystemFs.toAsync(Dispatchers.IO)
 
-object JvmSyncSystemIo : SyncSystemIo {
+object JvmSyncSystemFs : SyncSystemFs {
     override val fileSeparatorChar: Char get() = File.separatorChar
     override val pathSeparatorChar: Char get() = File.pathSeparatorChar
     override fun realpath(path: String): String {
@@ -17,7 +17,7 @@ object JvmSyncSystemIo : SyncSystemIo {
         TODO("Not yet implemented")
     }
 
-    override fun mkdir(path: String) = File(path).mkdir()
+    override fun mkdir(path: String, mode: Int) = File(path).mkdir()
     override fun rmdir(path: String) = File(path).takeIf { it.isDirectory }?.delete() == true
     override fun unlink(path: String) = File(path).takeIf { !it.isDirectory }?.delete() == true
     override fun listdir(path: String): Sequence<String> = (File(path).list() ?: emptyArray<String>()).asSequence()

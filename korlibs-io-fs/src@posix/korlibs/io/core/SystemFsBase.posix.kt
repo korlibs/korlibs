@@ -1,13 +1,11 @@
-@file:OptIn(UnsafeNumber::class)
-
 package korlibs.io.core
 
 import kotlinx.cinterop.*
 import platform.posix.*
 
 @OptIn(ExperimentalForeignApi::class)
-open class SyncSystemIoPosixBase : SyncSystemIoNativeBase() {
-    override fun mkdir(path: String): Boolean = platform.posix.mkdir(path, 511.convert()) == 0
+open class SyncSystemFsPosixBase : SyncSystemFsNativeBase() {
+    override fun mkdir(path: String, mode: Int): Boolean = platform.posix.mkdir(path, mode.convert()) == 0
 
     protected fun posixReadlink(path: String): String? = memScoped {
         val addr = allocArray<ByteVar>(PATH_MAX)
@@ -21,7 +19,7 @@ open class SyncSystemIoPosixBase : SyncSystemIoNativeBase() {
         temp.toKString()
     }
 
-    override fun createSyncFileSystemIo(file: CPointer<FILE>?): SyncFileSystemIoNativeBase = object : SyncFileSystemIoNativeBase(file) {
+    override fun createSyncFileSystemIo(file: CPointer<FILE>?): SyncFileSystemFsNativeBase = object : SyncFileSystemFsNativeBase(file) {
         override fun ftruncate64(len: Long) { ftruncate(fd, len) }
         override fun ftell64(): Long = ftell(file).toLong()
         override fun fseek64(pos: Long, origin: Int): Long {

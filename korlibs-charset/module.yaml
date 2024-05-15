@@ -10,6 +10,7 @@ aliases:
 dependencies:
   #- ../korlibs-util: exported
   #- ../korlibs-datastructure: exported
+  - ../korlibs-defs
   - ../korlibs-memory: exported
   - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
   #- ../korlibs-exception

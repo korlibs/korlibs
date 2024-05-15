@@ -37,7 +37,7 @@ abstract class HttpClient protected constructor() {
 		val statusText: String,
 		val headers: Http.Headers,
 		val rawContent: AsyncInputStream,
-        val content: AsyncInputStream
+        val content: AsyncInputStream = rawContent
 	) {
 		val success = status < 400
 

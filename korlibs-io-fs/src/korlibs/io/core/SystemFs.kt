@@ -6,13 +6,13 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlin.coroutines.*
 
-internal expect val defaultSyncSystemIo: SyncSystemIo
-internal expect val defaultSystemIo: SystemIo
+internal expect val defaultSyncSystemFs: SyncSystemFs
+internal expect val defaultSystemFs: SystemFs
 
-object NullSyncSystemIo : SyncSystemIo {
+object NullSyncSystemFs : SyncSystemFs {
     override fun open(path: String, write: Boolean): SyncFileSystemIo? = TODO("Not yet implemented")
     override fun listdir(path: String): Sequence<String> = TODO("Not yet implemented")
-    override fun mkdir(path: String): Boolean = TODO("Not yet implemented")
+    override fun mkdir(path: String, mode: Int): Boolean = TODO("Not yet implemented")
     override fun rmdir(path: String): Boolean = TODO("Not yet implemented")
     override fun unlink(path: String): Boolean = TODO("Not yet implemented")
     override fun stat(path: String): FileSystemIoStat? = TODO("Not yet implemented")
@@ -20,10 +20,10 @@ object NullSyncSystemIo : SyncSystemIo {
     override fun readlink(path: String): String? = TODO("Not yet implemented")
     override fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemIoProcess = TODO("Not yet implemented")
 }
-val NullSystemIo: SystemIo = NullSyncSystemIo.toAsync(Dispatchers.Unconfined)
+val NullSystemFs: SystemFs = NullSyncSystemFs.toAsync(Dispatchers.Unconfined)
 
-interface SyncSystemIo {
-    companion object : SyncSystemIo by defaultSyncSystemIo
+interface SyncSystemFs {
+    companion object : SyncSystemFs by defaultSyncSystemFs
 
     open val fileSeparatorChar: Char get() = '/'
     open val pathSeparatorChar: Char get() = ':'
@@ -32,7 +32,7 @@ interface SyncSystemIo {
 
     abstract fun open(path: String, write: Boolean = false): SyncFileSystemIo?
     abstract fun listdir(path: String): Sequence<String>
-    abstract fun mkdir(path: String): Boolean
+    abstract fun mkdir(path: String, mode: Int = 511): Boolean
     abstract fun rmdir(path: String): Boolean
     abstract fun unlink(path: String): Boolean
     abstract fun stat(path: String): FileSystemIoStat?
@@ -60,12 +60,12 @@ open class SyncSystemIoProcess(
     override fun close() = Unit
 }
 
-interface SystemIo {
-    companion object : SystemIo by defaultSystemIo
+interface SystemFs {
+    companion object : SystemFs by defaultSystemFs
 
     abstract suspend fun open(path: String, write: Boolean = false): FileSystemIo?
     abstract suspend fun listdir(path: String): Flow<String>
-    abstract suspend fun mkdir(path: String): Boolean
+    abstract suspend fun mkdir(path: String, mode: Int = 511): Boolean
     abstract suspend fun rmdir(path: String): Boolean
     abstract suspend fun unlink(path: String): Boolean
     abstract suspend fun stat(path: String): FileSystemIoStat?
@@ -120,9 +120,9 @@ abstract class SyncFileSystemIo : AutoCloseable, SyncInputStream, SyncOutputStre
     abstract override fun close(): Unit
 }
 
-fun SyncSystemIo.toAsync(ioDispatcher: CoroutineDispatcher?): SystemIo {
+fun SyncSystemFs.toAsync(ioDispatcher: CoroutineDispatcher?): SystemFs {
     val sync = this@toAsync
-    return object : SystemIo {
+    return object : SystemFs {
         private suspend inline fun <T> doSyncIo(crossinline block: () -> T): T = doIo(ioDispatcher, block)
 
         override suspend fun open(path: String, write: Boolean): FileSystemIo? {
@@ -141,7 +141,7 @@ fun SyncSystemIo.toAsync(ioDispatcher: CoroutineDispatcher?): SystemIo {
         }
 
         override suspend fun listdir(path: String): Flow<String> = doSyncIo { sync.listdir(path).asFlow() }
-        override suspend fun mkdir(path: String) = doSyncIo { sync.mkdir(path) }
+        override suspend fun mkdir(path: String, mode: Int) = doSyncIo { sync.mkdir(path, mode) }
         override suspend fun unlink(path: String) = doSyncIo { sync.unlink(path) }
         override suspend fun rmdir(path: String) = doSyncIo { sync.rmdir(path) }
         override suspend fun stat(path: String): FileSystemIoStat? = doSyncIo { sync.stat(path) }

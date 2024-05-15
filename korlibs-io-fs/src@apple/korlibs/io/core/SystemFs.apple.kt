@@ -6,9 +6,9 @@ import kotlinx.cinterop.*
 import kotlinx.coroutines.*
 import platform.posix.*
 
-actual val defaultSyncSystemIo: SyncSystemIo = AppleSyncSystemIo
-actual val defaultSystemIo: SystemIo = SyncSystemIo.toAsync(Dispatchers.IO)
+actual val defaultSyncSystemFs: SyncSystemFs = AppleSyncSystemIo
+actual val defaultSystemFs: SystemFs = SyncSystemFs.toAsync(Dispatchers.IO)
 
-object AppleSyncSystemIo : SyncSystemIoPosixBase() {
+object AppleSyncSystemIo : SyncSystemFsPosixBase() {
     override fun getcwd(): String = platform.Foundation.NSBundle.mainBundle.resourcePath ?: posixRealpath(".") ?: "."
 }
