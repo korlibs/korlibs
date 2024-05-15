@@ -5,6 +5,7 @@ package korlibs.time.internal
 import korlibs.time.*
 import kotlin.jvm.*
 import kotlin.math.*
+import kotlin.time.*
 
 internal inline fun Int.chainComparison(comparer: () -> Int): Int = if (this == 0) comparer() else this
 
@@ -183,7 +184,7 @@ internal class MicroStrReader(val str: String, var offset: Int = 0) {
     }
 }
 
-internal fun MicroStrReader.readTimeZoneOffset(tzNames: TimezoneNames = TimezoneNames.DEFAULT): TimeSpan? {
+internal fun MicroStrReader.readTimeZoneOffset(tzNames: TimezoneNames = TimezoneNames.DEFAULT): Duration? {
     val reader = this
     for ((name, offset) in tzNames.namesToOffsets) {
         if (name == "GMT" || name == "UTC") continue

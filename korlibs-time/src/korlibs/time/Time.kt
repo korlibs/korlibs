@@ -50,4 +50,4 @@ value class Time(val encoded: Duration) : Comparable<Time>, Serializable {
 	override fun compareTo(other: Time): Int = encoded.compareTo(other.encoded)
 }
 
-operator fun Time.plus(span: TimeSpan) = Time(this.encoded + span)
+operator fun Time.plus(span: Duration) = Time(this.encoded + span)

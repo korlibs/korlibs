@@ -1,6 +1,7 @@
 package korlibs.time
 
 import korlibs.Serializable
+import kotlin.time.*
 
 /**
  * Represents a right-opened range between two dates.
@@ -15,14 +16,14 @@ data class DateTimeRange(val from: DateTime, val to: DateTime) : Comparable<Date
 		operator fun invoke(base: Date, from: Time, to: Time): DateTimeRange = DateTimeRange(base + from, base + to)
 	}
 
-	val size: TimeSpan get() = to - from
+	val size: Duration get() = to - from
 
     val min get() = from
     val max get() = to
     /**
-     * Duration [TimeSpan] without having into account actual months/years.
+     * [Duration] without having into account actual months/years.
      */
-    val duration: TimeSpan get() = to - from
+    val duration: Duration get() = to - from
 
     /**
      * [DateTimeSpan] distance between two dates, month and year aware.

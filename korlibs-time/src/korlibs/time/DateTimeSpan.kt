@@ -4,19 +4,24 @@ import korlibs.Serializable
 import korlibs.time.core.*
 import korlibs.time.core.internal.*
 import korlibs.time.internal.Moduler
+import kotlin.time.*
 
 /**
- * Immutable structure representing a set of a [monthSpan] and a [timeSpan].
- * This structure loses information about which months are included, that makes it impossible to generate a real [TimeSpan] including months.
+ * Immutable structure representing a set of a [monthSpan] and a [duration].
+ * This structure loses information about which months are included, that makes it impossible to generate a real [Duration] including months.
  * You can use [DateTimeRange.duration] to get this information from two real [DateTime].
  */
 @OptIn(CoreTimeInternalApi::class)
 data class DateTimeSpan(
     /** The [MonthSpan] part */
     val monthSpan: MonthSpan,
-    /** The [TimeSpan] part */
-    val timeSpan: TimeSpan
+    /** The [Duration] part */
+    val duration: Duration
 ) : Comparable<DateTimeSpan>, Serializable {
+
+    @Deprecated("", ReplaceWith("duration"))
+    val timeSpan: Duration get() = duration
+
     companion object {
         @Suppress("MayBeConstant", "unused")
         private const val serialVersionUID = 1L
@@ -36,18 +41,18 @@ data class DateTimeSpan(
         weeks.weeks + days.days + hours.hours + minutes.minutes + seconds.seconds + milliseconds.milliseconds
     )
 
-    operator fun unaryMinus() = DateTimeSpan(-monthSpan, -timeSpan)
-    operator fun unaryPlus() = DateTimeSpan(+monthSpan, +timeSpan)
+    operator fun unaryMinus() = DateTimeSpan(-monthSpan, -duration)
+    operator fun unaryPlus() = DateTimeSpan(+monthSpan, +duration)
 
-    operator fun plus(other: TimeSpan) = DateTimeSpan(monthSpan, timeSpan + other)
-    operator fun plus(other: MonthSpan) = DateTimeSpan(monthSpan + other, timeSpan)
-    operator fun plus(other: DateTimeSpan) = DateTimeSpan(monthSpan + other.monthSpan, timeSpan + other.timeSpan)
+    operator fun plus(other: Duration) = DateTimeSpan(monthSpan, duration + other)
+    operator fun plus(other: MonthSpan) = DateTimeSpan(monthSpan + other, duration)
+    operator fun plus(other: DateTimeSpan) = DateTimeSpan(monthSpan + other.monthSpan, duration + other.duration)
 
-    operator fun minus(other: TimeSpan) = this + -other
+    operator fun minus(other: Duration) = this + -other
     operator fun minus(other: MonthSpan) = this + -other
     operator fun minus(other: DateTimeSpan) = this + -other
 
-    operator fun times(times: Double) = DateTimeSpan((monthSpan * times), (timeSpan * times))
+    operator fun times(times: Double) = DateTimeSpan((monthSpan * times), (duration * times))
     operator fun times(times: Int) = this * times.toDouble()
     operator fun times(times: Float) = this * times.toDouble()
 
@@ -62,7 +67,7 @@ data class DateTimeSpan(
     val totalMonths: Int get() = monthSpan.totalMonths
 
     /** From the time part, all the milliseconds including milliseconds, seconds, minutes, hours, days and weeks */
-    val totalMilliseconds: Double get() = timeSpan.milliseconds
+    val totalMilliseconds: Double get() = duration.milliseconds
 
     /** The [years] part as an integer. */
     val years: Int get() = monthSpan.years
@@ -107,7 +112,7 @@ data class DateTimeSpan(
      */
     override fun compareTo(other: DateTimeSpan): Int {
         if (this.totalMonths != other.totalMonths) return this.monthSpan.compareTo(other.monthSpan)
-        return this.timeSpan.compareTo(other.timeSpan)
+        return this.duration.compareTo(other.duration)
     }
 
     /**
@@ -123,10 +128,10 @@ data class DateTimeSpan(
         if (hours != 0) add("${hours}H")
         if (minutes != 0) add("${minutes}m")
         if (seconds != 0 || milliseconds != 0.0) add("${secondsIncludingMilliseconds}s")
-        if (monthSpan == 0.years && ((timeSpan == 0.seconds) || (timeSpan == (-0).seconds))) add("0s")
+        if (monthSpan == 0.years && ((duration == 0.seconds) || (duration == (-0).seconds))) add("0s")
     }.joinToString(" ")
 
     override fun toString(): String = toString(includeWeeks = true)
 
-    private val computed by lazy { ComputedTime(timeSpan) }
+    private val computed by lazy { ComputedTime(duration) }
 }

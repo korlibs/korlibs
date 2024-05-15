@@ -1,6 +1,7 @@
 package korlibs.time
 
 import korlibs.time.internal.*
+import kotlin.time.*
 
 /**
  * Constructs a new [DateTime] from date and time information.
@@ -104,8 +105,8 @@ fun DateTime.add(deltaMonths: Int, deltaMilliseconds: Double): DateTime = when {
     }
 }
 
-/** Constructs a new [DateTime] after adding [dateSpan] and [timeSpan] */
-fun DateTime.add(dateSpan: MonthSpan, timeSpan: TimeSpan): DateTime = add(dateSpan.totalMonths, timeSpan.milliseconds)
+/** Constructs a new [DateTime] after adding [dateSpan] and [duration] */
+fun DateTime.add(dateSpan: MonthSpan, duration: Duration): DateTime = add(dateSpan.totalMonths, duration.milliseconds)
 
 fun DateTime.copyDayOfMonth(
     year: Year = this.year,
@@ -139,14 +140,14 @@ val DateTime.dayOfWeek: DayOfWeek get() = DayOfWeek[dayOfWeekInt]
 /** Returns a new local date that will match these components. */
 val DateTime.localUnadjusted: DateTimeTz get() = DateTimeTz.local(this, localOffset)
 /** Returns a new local date that will match these components but with a different [offset]. */
-fun DateTime.toOffsetUnadjusted(offset: TimeSpan) = toOffsetUnadjusted(offset.offset)
+fun DateTime.toOffsetUnadjusted(offset: Duration) = toOffsetUnadjusted(offset.offset)
 /** Returns a new local date that will match these components but with a different [offset]. */
 fun DateTime.toOffsetUnadjusted(offset: TimezoneOffset) = DateTimeTz.local(this, offset)
 
 /** Returns this date with the local offset of this device. Components might change because of the offset. */
 val DateTime.local: DateTimeTz get() = DateTimeTz.utc(this, localOffset)
 /** Returns this date with a local offset. Components might change because of the [offset]. */
-fun DateTime.toOffset(offset: TimeSpan) = toOffset(offset.offset)
+fun DateTime.toOffset(offset: Duration) = toOffset(offset.offset)
 /** Returns this date with a local offset. Components might change because of the [offset]. */
 fun DateTime.toOffset(offset: TimezoneOffset) = DateTimeTz.utc(this, offset)
 /** Returns this date with a local offset. Components might change because of the [timeZone]. */

@@ -4,6 +4,7 @@ import korlibs.time.internal.BSearchResult
 import korlibs.Serializable
 import korlibs.time.internal.fastForEach
 import korlibs.time.internal.genericBinarySearch
+import kotlin.time.*
 
 // Properties:
 //  - ranges are sorted
@@ -18,7 +19,7 @@ data class DateTimeRangeSet private constructor(val dummy: Boolean, val ranges: 
     )
 
     /** Total time of all [ranges]. */
-	val size: TimeSpan by lazy {
+	val size: Duration by lazy {
 		var out = 0.seconds
 		ranges.fastForEach { out += it.size }
 		out

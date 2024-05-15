@@ -21,7 +21,7 @@ val Double.timesPerSecond get() = Frequency(this)
 @JvmInline
 value class Frequency(val hertz: Double) : Comparable<Frequency>, Serializable {
     companion object {
-        fun from(timeSpan: TimeSpan) = timeSpan.toFrequency()
+        fun from(duration: Duration) = duration.toFrequency()
     }
 
     override fun compareTo(other: Frequency): Int = this.hertz.compareTo(other.hertz)
@@ -45,6 +45,7 @@ value class Frequency(val hertz: Double) : Comparable<Frequency>, Serializable {
 
     @Deprecated("", ReplaceWith("duration"))
     val timeSpan: Duration get() = duration
+
     val duration: Duration get() = (1.0 / this.hertz).seconds
     val fastDuration: FastDuration get() = (1.0 / this.hertz).fastSeconds
 }

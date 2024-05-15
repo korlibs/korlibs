@@ -2,6 +2,7 @@ package korlibs.time
 
 import korlibs.Serializable
 import kotlin.jvm.JvmInline
+import kotlin.time.*
 
 /**
  * Creates a [MonthSpan] representing these years.
@@ -29,11 +30,11 @@ value class MonthSpan(
     operator fun unaryMinus() = MonthSpan(-totalMonths)
     operator fun unaryPlus() = MonthSpan(+totalMonths)
 
-    operator fun plus(other: TimeSpan) = DateTimeSpan(this, other)
+    operator fun plus(other: Duration) = DateTimeSpan(this, other)
     operator fun plus(other: MonthSpan) = MonthSpan(totalMonths + other.totalMonths)
-    operator fun plus(other: DateTimeSpan) = DateTimeSpan(other.monthSpan + this, other.timeSpan)
+    operator fun plus(other: DateTimeSpan) = DateTimeSpan(other.monthSpan + this, other.duration)
 
-    operator fun minus(other: TimeSpan) = this + -other
+    operator fun minus(other: Duration) = this + -other
     operator fun minus(other: MonthSpan) = this + -other
     operator fun minus(other: DateTimeSpan) = this + -other
 

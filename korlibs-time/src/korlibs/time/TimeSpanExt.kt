@@ -1,18 +1,17 @@
 package korlibs.time
 
-import korlibs.time.core.*
 import korlibs.time.internal.*
 import kotlin.math.*
 import kotlin.time.*
 
 operator fun Duration.plus(other: MonthSpan): DateTimeSpan = DateTimeSpan(other, this)
-operator fun Duration.plus(other: DateTimeSpan): DateTimeSpan = DateTimeSpan(other.monthSpan, other.timeSpan + this)
+operator fun Duration.plus(other: DateTimeSpan): DateTimeSpan = DateTimeSpan(other.monthSpan, other.duration + this)
 
 operator fun Duration.minus(other: MonthSpan): DateTimeSpan = this + (-other)
 operator fun Duration.minus(other: DateTimeSpan): DateTimeSpan = this + (-other)
 
 /**
- * Formats this [TimeSpan] into something like `12:30:40.100`.
+ * Formats this [Duration] into something like `12:30:40.100`.
  *
  * For 3 hour, 20 minutes and 15 seconds
  *
