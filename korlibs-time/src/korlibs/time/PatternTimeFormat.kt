@@ -14,7 +14,7 @@ data class PatternTimeFormat(
 
     fun withLocale(locale: KlockLocale) = this.copy(locale = locale)
 
-    internal val privFormat by lazy { PatternDateComponentsFormat(format, locale) }
+    private val privFormat by lazy { PatternDateComponentsFormat(format, locale) }
 
     override fun format(dd: Duration): String = privFormat.format(dd.toDateComponents())
 
