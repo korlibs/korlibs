@@ -72,13 +72,18 @@ data class DateTimeSpan(
     /** The [weeks] part as an integer. */
     val weeks: Int get() = computed.weeks
 
-    val daysNotIncludingWeeks: Int get() = days
+    /** The [days] part as an integer. */
+    val daysNotIncludingWeeks: Int get() = computed.days
 
     /** The [daysIncludingWeeks] part as an integer including days and weeks. */
     val daysIncludingWeeks: Int get() = computed.days + (computed.weeks * DayOfWeek.Count)
 
     /** The [days] part as an integer. */
-    val days: Int get() = computed.days
+    @Deprecated("", ReplaceWith("daysNotIncludingWeeks"))
+    val days: Int get() = daysNotIncludingWeeks
+
+    /** The [hours] part as an integer including days and weeks. */
+    val hoursIncludingDaysAndWeeks: Int get() = computed.hoursIncludingDaysAndWeeks
 
     /** The [hours] part as an integer. */
     val hours: Int get() = computed.hours
@@ -93,7 +98,7 @@ data class DateTimeSpan(
     val milliseconds: Double get() = computed.milliseconds
 
     /** The [secondsIncludingMilliseconds] part as a doble including seconds and milliseconds. */
-    val secondsIncludingMilliseconds: Double get() = computed.seconds + computed.milliseconds / CoreTimeInternal.MILLIS_PER_SECOND
+    val secondsIncludingMilliseconds: Double get() = computed.secondsIncludingMilliseconds
 
     /**
      * Note that if milliseconds overflow months this could not be exactly true. But probably will work in most cases.
@@ -122,20 +127,6 @@ data class DateTimeSpan(
     }.joinToString(" ")
 
     override fun toString(): String = toString(includeWeeks = true)
-
-    private class ComputedTime(val weeks: Int, val days: Int, val hours: Int, val minutes: Int, val seconds: Int, val milliseconds: Double) {
-        companion object {
-            operator fun invoke(time: TimeSpan): ComputedTime = Moduler(time.milliseconds).run {
-                val weeks = int(CoreTimeInternal.MILLIS_PER_WEEK)
-                val days = int(CoreTimeInternal.MILLIS_PER_DAY)
-                val hours = int(CoreTimeInternal.MILLIS_PER_HOUR)
-                val minutes = int(CoreTimeInternal.MILLIS_PER_MINUTE)
-                val seconds = int(CoreTimeInternal.MILLIS_PER_SECOND)
-                val milliseconds = double(1)
-                return ComputedTime(weeks, days, hours, minutes, seconds, milliseconds)
-            }
-        }
-    }
 
     private val computed by lazy { ComputedTime(timeSpan) }
 }
