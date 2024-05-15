@@ -260,6 +260,12 @@ object ISO8601 {
 
 
     data class IsoTimeFormat(val basicFormat: String?, val extendedFormat: String?) : TimeFormat {
+        companion object {
+            operator fun invoke(extendedFormat: String): IsoTimeFormat = IsoTimeFormat(
+                extendedFormat.replace("-", "").replace(":", ""),
+                extendedFormat
+            )
+        }
         val basic = BaseIsoTimeFormat(basicFormat ?: extendedFormat ?: TODO())
         val extended = BaseIsoTimeFormat(extendedFormat ?: basicFormat ?: TODO())
 
@@ -270,6 +276,13 @@ object ISO8601 {
     }
 
     data class IsoDateTimeFormat(val basicFormat: String?, val extendedFormat: String?) : DateFormat {
+        companion object {
+            operator fun invoke(extendedFormat: String): IsoDateTimeFormat = IsoDateTimeFormat(
+                extendedFormat.replace("-", "").replace(":", ""),
+                extendedFormat
+            )
+        }
+
         val basic = BaseIsoDateTimeFormat(basicFormat ?: extendedFormat ?: TODO())
         val extended = BaseIsoDateTimeFormat(extendedFormat ?: basicFormat ?: TODO())
 
@@ -281,24 +294,24 @@ object ISO8601 {
     }
 
     // Date Calendar Variants
-    val DATE_CALENDAR_COMPLETE = IsoDateTimeFormat("YYYYMMDD", "YYYY-MM-DD")
-    val DATE_CALENDAR_REDUCED0 = IsoDateTimeFormat(null, "YYYY-MM")
-    val DATE_CALENDAR_REDUCED1 = IsoDateTimeFormat("YYYY", null)
-    val DATE_CALENDAR_REDUCED2 = IsoDateTimeFormat("YY", null)
-    val DATE_CALENDAR_EXPANDED0 = IsoDateTimeFormat("±YYYYYYMMDD", "±YYYYYY-MM-DD")
-    val DATE_CALENDAR_EXPANDED1 = IsoDateTimeFormat("±YYYYYYMM", "±YYYYYY-MM")
-    val DATE_CALENDAR_EXPANDED2 = IsoDateTimeFormat("±YYYYYY", null)
-    val DATE_CALENDAR_EXPANDED3 = IsoDateTimeFormat("±YYY", null)
+    val DATE_CALENDAR_COMPLETE = IsoDateTimeFormat("YYYY-MM-DD")
+    val DATE_CALENDAR_REDUCED0 = IsoDateTimeFormat("YYYY-MM")
+    val DATE_CALENDAR_REDUCED1 = IsoDateTimeFormat("YYYY")
+    val DATE_CALENDAR_REDUCED2 = IsoDateTimeFormat("YY")
+    val DATE_CALENDAR_EXPANDED0 = IsoDateTimeFormat("±YYYYYY-MM-DD")
+    val DATE_CALENDAR_EXPANDED1 = IsoDateTimeFormat("±YYYYYY-MM")
+    val DATE_CALENDAR_EXPANDED2 = IsoDateTimeFormat("±YYYYYY")
+    val DATE_CALENDAR_EXPANDED3 = IsoDateTimeFormat("±YYY")
 
     // Date Ordinal Variants
-    val DATE_ORDINAL_COMPLETE = IsoDateTimeFormat("YYYYDDD", "YYYY-DDD")
-    val DATE_ORDINAL_EXPANDED = IsoDateTimeFormat("±YYYYYYDDD", "±YYYYYY-DDD")
+    val DATE_ORDINAL_COMPLETE = IsoDateTimeFormat("YYYY-DDD")
+    val DATE_ORDINAL_EXPANDED = IsoDateTimeFormat("±YYYYYY-DDD")
 
     // Date Week Variants
-    val DATE_WEEK_COMPLETE = IsoDateTimeFormat("YYYYWwwD", "YYYY-Www-D")
-    val DATE_WEEK_REDUCED = IsoDateTimeFormat("YYYYWww", "YYYY-Www")
-    val DATE_WEEK_EXPANDED0 = IsoDateTimeFormat("±YYYYYYWwwD", "±YYYYYY-Www-D")
-    val DATE_WEEK_EXPANDED1 = IsoDateTimeFormat("±YYYYYYWww", "±YYYYYY-Www")
+    val DATE_WEEK_COMPLETE = IsoDateTimeFormat("YYYY-Www-D")
+    val DATE_WEEK_REDUCED = IsoDateTimeFormat("YYYY-Www")
+    val DATE_WEEK_EXPANDED0 = IsoDateTimeFormat("±YYYYYY-Www-D")
+    val DATE_WEEK_EXPANDED1 = IsoDateTimeFormat("±YYYYYY-Www")
 
     val DATE_ALL = listOf(
         DATE_CALENDAR_COMPLETE, DATE_CALENDAR_REDUCED0, DATE_CALENDAR_REDUCED1, DATE_CALENDAR_REDUCED2,
@@ -308,24 +321,24 @@ object ISO8601 {
     )
 
     // Time Variants
-    val TIME_LOCAL_COMPLETE = IsoTimeFormat("hhmmss", "hh:mm:ss")
-    val TIME_LOCAL_REDUCED0 = IsoTimeFormat("hhmm", "hh:mm")
-    val TIME_LOCAL_REDUCED1 = IsoTimeFormat("hh", null)
-    val TIME_LOCAL_FRACTION0 = IsoTimeFormat("hhmmss,ss", "hh:mm:ss,ss")
-    val TIME_LOCAL_FRACTION1 = IsoTimeFormat("hhmm,mm", "hh:mm,mm")
-    val TIME_LOCAL_FRACTION2 = IsoTimeFormat("hh,hh", null)
+    val TIME_LOCAL_COMPLETE = IsoTimeFormat("hh:mm:ss")
+    val TIME_LOCAL_REDUCED0 = IsoTimeFormat("hh:mm")
+    val TIME_LOCAL_REDUCED1 = IsoTimeFormat("hh")
+    val TIME_LOCAL_FRACTION0 = IsoTimeFormat("hh:mm:ss,ss")
+    val TIME_LOCAL_FRACTION1 = IsoTimeFormat("hh:mm,mm")
+    val TIME_LOCAL_FRACTION2 = IsoTimeFormat("hh,hh")
 
     // Time UTC Variants
-    val TIME_UTC_COMPLETE = IsoTimeFormat("hhmmssZ", "hh:mm:ssZ")
-    val TIME_UTC_REDUCED0 = IsoTimeFormat("hhmmZ", "hh:mmZ")
-    val TIME_UTC_REDUCED1 = IsoTimeFormat("hhZ", null)
-    val TIME_UTC_FRACTION0 = IsoTimeFormat("hhmmss,ssZ", "hh:mm:ss,ssZ")
-    val TIME_UTC_FRACTION1 = IsoTimeFormat("hhmm,mmZ", "hh:mm,mmZ")
-    val TIME_UTC_FRACTION2 = IsoTimeFormat("hh,hhZ", null)
+    val TIME_UTC_COMPLETE = IsoTimeFormat("hh:mm:ssZ")
+    val TIME_UTC_REDUCED0 = IsoTimeFormat("hh:mmZ")
+    val TIME_UTC_REDUCED1 = IsoTimeFormat("hhZ")
+    val TIME_UTC_FRACTION0 = IsoTimeFormat("hh:mm:ss,ssZ")
+    val TIME_UTC_FRACTION1 = IsoTimeFormat("hh:mm,mmZ")
+    val TIME_UTC_FRACTION2 = IsoTimeFormat("hh,hhZ")
 
     // Time Relative Variants
-    val TIME_RELATIVE0 = IsoTimeFormat("±hhmm", "±hh:mm")
-    val TIME_RELATIVE1 = IsoTimeFormat("±hh", null)
+    val TIME_RELATIVE0 = IsoTimeFormat("±hh:mm")
+    val TIME_RELATIVE1 = IsoTimeFormat("±hh")
 
     val TIME_ALL = listOf(
         TIME_LOCAL_COMPLETE,
@@ -345,9 +358,9 @@ object ISO8601 {
     )
 
     // Date + Time Variants
-    val DATETIME_COMPLETE = IsoDateTimeFormat("YYYYMMDDThhmmss", "YYYY-MM-DDThh:mm:ss")
-    val DATETIME_UTC_COMPLETE = IsoDateTimeFormat("YYYYMMDDThhmmssZ", "YYYY-MM-DDThh:mm:ssZ")
-    val DATETIME_UTC_COMPLETE_FRACTION = IsoDateTimeFormat("YYYYMMDDThhmmss.sssZ", "YYYY-MM-DDThh:mm:ss.sssZ")
+    val DATETIME_COMPLETE = IsoDateTimeFormat("YYYY-MM-DDThh:mm:ss")
+    val DATETIME_UTC_COMPLETE = IsoDateTimeFormat("YYYY-MM-DDThh:mm:ssZ")
+    val DATETIME_UTC_COMPLETE_FRACTION = IsoDateTimeFormat("YYYY-MM-DDThh:mm:ss.sssZ")
 
     // Interval Variants
     val INTERVAL_COMPLETE0 = IsoIntervalFormat("PnnYnnMnnDTnnHnnMnnS")
