@@ -78,3 +78,17 @@ operator fun Date.minus(time: Time) = DateTime.createAdjusted(year, month1, day,
 fun Date.inThisWeek(dayOfWeek: DayOfWeekWithLocale): Date =
     this + (dayOfWeek.index0 - this.dayOfWeek.withLocale(dayOfWeek.locale).index0).days
 fun Date.inThisWeek(dayOfWeek: DayOfWeek, locale: KlockLocale = KlockLocale.default): Date = inThisWeek(dayOfWeek.withLocale(locale))
+
+val Date.weekOfYear0: Int
+    get() {
+        val firstThursday = yearYear.first(DayOfWeek.Thursday)
+        val offset = firstThursday.dayOfMonth - 3
+        return (dayOfYear - offset) / 7
+    }
+
+val Date.weekOfYear1: Int get() = weekOfYear0 + 1
+
+val DateTime.weekOfYear0: Int get() = date.weekOfYear0
+val DateTime.weekOfYear1: Int get() = date.weekOfYear1
+val DateTimeTz.weekOfYear0: Int get() = local.weekOfYear0
+val DateTimeTz.weekOfYear1: Int get() = local.weekOfYear1

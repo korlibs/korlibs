@@ -104,3 +104,16 @@ value class Year(val year: Int) : Comparable<Year>, Serializable {
     operator fun minus(delta: Int): Year = Year(year - delta)
     operator fun minus(other: Year): Int = this.year - other.year
 }
+
+// ISO 8601 (first week is the one after 1 containing a thursday)
+fun Year.firstDate(dayOfWeek: DayOfWeek): Date {
+    val start = Date(this.year, 1, 1)
+    var n = 0
+    while (true) {
+        val date = (start + n.days)
+        if (date.dayOfWeek == dayOfWeek) return date
+        n++
+    }
+}
+
+fun Year.first(dayOfWeek: DayOfWeek): DateTime = DateTime(firstDate(dayOfWeek))
