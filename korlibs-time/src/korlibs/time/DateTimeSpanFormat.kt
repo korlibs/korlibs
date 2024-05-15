@@ -1,8 +1,9 @@
 package korlibs.time
 
+import korlibs.Serializable
 import kotlin.time.*
 
-interface DateTimeSpanFormat {
+interface DateTimeSpanFormat : Serializable {
     fun format(dd: DateTimeSpan): String
     fun tryParse(str: String, doThrow: Boolean): DateTimeSpan?
 

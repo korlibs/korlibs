@@ -4,8 +4,8 @@ import korlibs.time.internal.*
 import kotlin.time.*
 
 data class DateComponents(
-    /** Dates will interpret [years], [months], [days], [offset], [dayOfWeek] differently */
-    val isDate: Boolean = false,
+    /** How properties must be interpreted */
+    val mode: Mode = Mode.DATE,
     /** For dates, years is the full year. For example 1970 or 2024 */
     val years: Int = 0,
     /** For dates, months is [1..12] */
@@ -17,29 +17,37 @@ data class DateComponents(
     val seconds: Int = 0,
     val nanoseconds: Int = 0,
     val offset: Duration? = null,
-    /** Used only for dates */
-    val dayOfWeek: DayOfWeek? = null,
+    val sign: Int = +1,
+    val isTime: Boolean = false,
+    ///** Used only for dates */
+    //val dayOfWeek: DayOfWeek? = null,
 ) {
+    enum class Mode { DATE, TIME, DATE_TIME_SPAN }
+
     /** When parsing time without dates, hours shouldn't be clamped */
-    val clampHours: Boolean get() = isDate
+    val clampHours: Boolean get() = mode == Mode.DATE
 
     val millisecondsDouble: Double get() = nanoseconds / 1_000_000.0
     val milliseconds: Int get() = nanoseconds / 1_000_000
 
     val timezoneOffset = TimezoneOffset(offset)
-    val dayOfWeekSure get() = dayOfWeek ?: DayOfWeek.Monday
+    val date get() = Date(years, months, days)
+    val dayOfWeek get() = date.dayOfWeek
+    val dayOfYear get() = date.dayOfYear
+    //val dayOfWeekSure get() = dayOfWeek ?: DayOfWeek.Monday
 }
 
 fun Duration.toDateComponents(): DateComponents {
-    val time = ComputedTime(this)
-    return DateComponents(isDate = false, hours = time.hoursIncludingDaysAndWeeks, minutes = time.minutes, seconds = time.seconds, nanoseconds = time.nanoseconds)
+    val sign = if (this.isNegative()) -1 else +1
+    val time = ComputedTime(this.absoluteValue)
+    return DateComponents(mode = DateComponents.Mode.TIME, hours = time.hoursIncludingDaysAndWeeks, minutes = time.minutes, seconds = time.seconds, nanoseconds = time.nanoseconds, sign = sign)
 }
 
 fun DateComponents.toDuration(): Duration {
-    return days.days + hours.hours + minutes.minutes + seconds.seconds + nanoseconds.nanoseconds
+    return ((years * 365 + months * 30 + days).days + hours.hours + minutes.minutes + seconds.seconds + nanoseconds.nanoseconds) * sign
 }
 
-fun DateComponents.toDateTimeTz(doThrow: Boolean, doAdjust: Boolean): DateTimeTz? {
+fun DateComponents.toDateTimeTz(doThrow: Boolean = false, doAdjust: Boolean = true): DateTimeTz? {
     val info = this
     if (!doAdjust) {
         if (info.months !in 1..12) if (doThrow) error("Invalid month ${info.months}") else return null
@@ -54,7 +62,7 @@ fun DateComponents.toDateTimeTz(doThrow: Boolean, doAdjust: Boolean): DateTimeTz
 }
 
 fun DateTimeTz.toDateComponents(): DateComponents = DateComponents(
-    isDate = true,
+    mode = DateComponents.Mode.DATE,
     years = this.yearInt,
     months = this.month1,
     days = this.dayOfMonth,
@@ -63,7 +71,7 @@ fun DateTimeTz.toDateComponents(): DateComponents = DateComponents(
     seconds = this.seconds,
     nanoseconds = this.milliseconds * 1_000_000,
     offset = this.offset.time,
-    dayOfWeek = this.dayOfWeek,
+    //dayOfWeek = this.dayOfWeek,
 )
 
 fun DateComponents.toDateTimeSpan(): DateTimeSpan = DateTimeSpan(
@@ -71,7 +79,7 @@ fun DateComponents.toDateTimeSpan(): DateTimeSpan = DateTimeSpan(
 )
 
 fun DateTimeSpan.toDateComponents(): DateComponents = DateComponents(
-    isDate = false,
+    mode = DateComponents.Mode.DATE_TIME_SPAN,
     years = this.years,
     months = this.months,
     days = this.daysIncludingWeeks,

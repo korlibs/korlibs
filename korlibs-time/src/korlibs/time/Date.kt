@@ -24,6 +24,13 @@ value class Date(val encoded: Int) : Comparable<Date>, Serializable {
 		operator fun invoke(year: Year, month: Month, day: Int) = Date(year.year, month.index1, day)
         /** Constructs a new [Date] from the [yearMonth] and [day] components. */
 		operator fun invoke(yearMonth: YearMonth, day: Int) = Date(yearMonth.yearInt, yearMonth.month1, day)
+
+        fun fromDayOfYear(year: Int, dayOfYear: Int): Date = Date(year, 1, 1) + (dayOfYear - 1).days
+        fun fromWeekAndDay(year: Int, weekOfYear: Int, dayOfWeek: Int): Date {
+            val reference = Year(year).firstDate(DayOfWeek.Thursday) - 3.days
+            val days = ((weekOfYear - 1) * 7 + (dayOfWeek - 1))
+            return reference + days.days
+        }
 	}
 
     /** The [year] part as [Int]. */
@@ -71,3 +78,17 @@ operator fun Date.minus(time: Time) = DateTime.createAdjusted(year, month1, day,
 fun Date.inThisWeek(dayOfWeek: DayOfWeekWithLocale): Date =
     this + (dayOfWeek.index0 - this.dayOfWeek.withLocale(dayOfWeek.locale).index0).days
 fun Date.inThisWeek(dayOfWeek: DayOfWeek, locale: KlockLocale = KlockLocale.default): Date = inThisWeek(dayOfWeek.withLocale(locale))
+
+val Date.weekOfYear0: Int
+    get() {
+        val firstThursday = yearYear.first(DayOfWeek.Thursday)
+        val offset = firstThursday.dayOfMonth - 3
+        return (dayOfYear - offset) / 7
+    }
+
+val Date.weekOfYear1: Int get() = weekOfYear0 + 1
+
+val DateTime.weekOfYear0: Int get() = date.weekOfYear0
+val DateTime.weekOfYear1: Int get() = date.weekOfYear1
+val DateTimeTz.weekOfYear0: Int get() = local.weekOfYear0
+val DateTimeTz.weekOfYear1: Int get() = local.weekOfYear1

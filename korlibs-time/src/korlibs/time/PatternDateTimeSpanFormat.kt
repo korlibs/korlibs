@@ -1,25 +1,17 @@
 package korlibs.time
 
-import korlibs.*
-
 data class PatternDateTimeSpanFormat(
-    val format: String,
-    val locale: KlockLocale? = null,
-) : DateTimeSpanFormat, Serializable {
+    val format: PatternDateComponentsFormat,
+) : DateTimeSpanFormat by format.toDateTimeSpanFormat() {
     companion object {
         @Suppress("MayBeConstant", "unused")
         private const val serialVersionUID = 1L
     }
 
-    val realLocale: KlockLocale get() = locale ?: KlockLocale.default
-    fun withLocale(locale: KlockLocale?): PatternDateTimeSpanFormat = this.copy(locale = locale)
+    constructor(format: String, locale: KlockLocale? = null) : this(PatternDateComponentsFormat(format, locale))
 
-    internal val privFormat by lazy { PatternDateComponentsFormat(format, locale) }
+    val realLocale: KlockLocale get() = format.realLocale
+    fun withLocale(locale: KlockLocale?): PatternDateTimeSpanFormat = this.copy(format = format.copy(locale = locale))
 
-    override fun format(dd: DateTimeSpan): String = privFormat.format(dd.toDateComponents())
-
-    override fun tryParse(str: String, doThrow: Boolean): DateTimeSpan? =
-        privFormat.tryParse(str, setDate = false, doThrow = doThrow)?.toDateTimeSpan()
-
-    override fun toString(): String = format
+    override fun toString(): String = format.toString()
 }
