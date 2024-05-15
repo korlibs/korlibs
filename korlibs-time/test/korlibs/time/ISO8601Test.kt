@@ -135,7 +135,7 @@ class ISO8601Test {
         )
         assertEquals(
             "2020-01-04T02:42:55,50",
-            badUtc.format(ISODateFormatEx("YYYY-MM-DDThh:mm:ss,ss"))
+            badUtc.format(ISODateFormat("YYYY-MM-DDThh:mm:ss,ss"))
         )
     }
 
@@ -143,34 +143,34 @@ class ISO8601Test {
     fun testIssue102() {
         val time = 15.hours + 30.minutes + 12.seconds + 160.milliseconds
 
-        assertEquals("15:30:12", ISOTimeFormatEx("hh:mm:ss").format(time))
-        assertEquals("153012", ISOTimeFormatEx("hh:mm:ss").basic.format(time))
+        assertEquals("15:30:12", ISOTimeFormat("hh:mm:ss").format(time))
+        assertEquals("153012", ISOTimeFormat("hh:mm:ss").basic.format(time))
 
-        assertEquals("15:30:12.2", ISOTimeFormatEx("hh:mm:ss.s").format(time))
-        assertEquals("15:30:12,2", ISOTimeFormatEx("hh:mm:ss,s").format(time))
-        assertEquals("15:30:12.16", ISOTimeFormatEx("hh:mm:ss.ss").format(time))
-        assertEquals("15:30:12,16", ISOTimeFormatEx("hh:mm:ss,ss").format(time))
-        assertEquals("15:30:12.160", ISOTimeFormatEx("hh:mm:ss.sss").format(time))
-        assertEquals("15:30:12,160", ISOTimeFormatEx("hh:mm:ss,sss").format(time))
+        assertEquals("15:30:12.2", ISOTimeFormat("hh:mm:ss.s").format(time))
+        assertEquals("15:30:12,2", ISOTimeFormat("hh:mm:ss,s").format(time))
+        assertEquals("15:30:12.16", ISOTimeFormat("hh:mm:ss.ss").format(time))
+        assertEquals("15:30:12,16", ISOTimeFormat("hh:mm:ss,ss").format(time))
+        assertEquals("15:30:12.160", ISOTimeFormat("hh:mm:ss.sss").format(time))
+        assertEquals("15:30:12,160", ISOTimeFormat("hh:mm:ss,sss").format(time))
 
-        assertEquals("15:30.2", ISOTimeFormatEx("hh:mm.m").format(time))
-        assertEquals("15:30,2", ISOTimeFormatEx("hh:mm,m").format(time))
-        assertEquals("15:30.20", ISOTimeFormatEx("hh:mm.mm").format(time))
-        assertEquals("15:30,20", ISOTimeFormatEx("hh:mm,mm").format(time))
+        assertEquals("15:30.2", ISOTimeFormat("hh:mm.m").format(time))
+        assertEquals("15:30,2", ISOTimeFormat("hh:mm,m").format(time))
+        assertEquals("15:30.20", ISOTimeFormat("hh:mm.mm").format(time))
+        assertEquals("15:30,20", ISOTimeFormat("hh:mm,mm").format(time))
 
-        assertEquals("15.5", ISOTimeFormatEx("hh.h").format(time))
-        assertEquals("15,5", ISOTimeFormatEx("hh,h").format(time))
-        assertEquals("15.50", ISOTimeFormatEx("hh.hh").format(time))
-        assertEquals("15,50", ISOTimeFormatEx("hh,hh").format(time))
+        assertEquals("15.5", ISOTimeFormat("hh.h").format(time))
+        assertEquals("15,5", ISOTimeFormat("hh,h").format(time))
+        assertEquals("15.50", ISOTimeFormat("hh.hh").format(time))
+        assertEquals("15,50", ISOTimeFormat("hh,hh").format(time))
 
-        assertEquals("15,5Z", ISOTimeFormatEx("hh,hZ", null).format(time))
+        assertEquals("15,5Z", ISOTimeFormat("hh,hZ").format(time))
     }
 
     @Test
     fun testIssue102_2() {
         val time = 15.hours + 30.minutes + 12.seconds + 160.milliseconds
-        assertEquals(time, ISOTimeFormatEx("hh:mm:ss,ss").parse("15:30:12,16"))
-        assertEquals(time, ISOTimeFormatEx("hh:mm:ss.sss").parse("15:30:12.160"))
+        assertEquals(time, ISOTimeFormat("hh:mm:ss,ss").parse("15:30:12,16"))
+        assertEquals(time, ISOTimeFormat("hh:mm:ss.sss").parse("15:30:12.160"))
     }
 
     @Test

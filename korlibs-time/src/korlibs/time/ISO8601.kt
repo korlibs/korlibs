@@ -1,57 +1,53 @@
 package korlibs.time
 
-import korlibs.time.internal.MicroStrReader
-import korlibs.time.internal.padded
-import korlibs.time.internal.readTimeZoneOffset
-import kotlin.math.absoluteValue
 import kotlin.time.*
 
 // https://en.wikipedia.org/wiki/ISO_8601
 object ISO8601 : DateComponentsFormat {
     // Date Calendar Variants
-    val DATE_CALENDAR_COMPLETE = ISODateFormatEx("YYYY-MM-DD")
-    val DATE_CALENDAR_REDUCED0 = ISODateFormatEx("YYYY-MM")
-    val DATE_CALENDAR_REDUCED1 = ISODateFormatEx("YYYY")
-    val DATE_CALENDAR_REDUCED2 = ISODateFormatEx("YY")
-    val DATE_CALENDAR_EXPANDED0 = ISODateFormatEx("±YYYYYY-MM-DD")
-    val DATE_CALENDAR_EXPANDED1 = ISODateFormatEx("±YYYYYY-MM")
-    val DATE_CALENDAR_EXPANDED2 = ISODateFormatEx("±YYYYYY")
-    val DATE_CALENDAR_EXPANDED3 = ISODateFormatEx("±YYY")
+    val DATE_CALENDAR_COMPLETE = ISODateFormat("YYYY-MM-DD")
+    val DATE_CALENDAR_REDUCED0 = ISODateFormat("YYYY-MM")
+    val DATE_CALENDAR_REDUCED1 = ISODateFormat("YYYY")
+    val DATE_CALENDAR_REDUCED2 = ISODateFormat("YY")
+    val DATE_CALENDAR_EXPANDED0 = ISODateFormat("±YYYYYY-MM-DD")
+    val DATE_CALENDAR_EXPANDED1 = ISODateFormat("±YYYYYY-MM")
+    val DATE_CALENDAR_EXPANDED2 = ISODateFormat("±YYYYYY")
+    val DATE_CALENDAR_EXPANDED3 = ISODateFormat("±YYY")
 
     // Date Ordinal Variants
-    val DATE_ORDINAL_COMPLETE = ISODateFormatEx("YYYY-DDD")
-    val DATE_ORDINAL_EXPANDED = ISODateFormatEx("±YYYYYY-DDD")
+    val DATE_ORDINAL_COMPLETE = ISODateFormat("YYYY-DDD")
+    val DATE_ORDINAL_EXPANDED = ISODateFormat("±YYYYYY-DDD")
 
     // Date Week Variants
-    val DATE_WEEK_COMPLETE = ISODateFormatEx("YYYY-Www-D")
-    val DATE_WEEK_REDUCED = ISODateFormatEx("YYYY-Www")
-    val DATE_WEEK_EXPANDED0 = ISODateFormatEx("±YYYYYY-Www-D")
-    val DATE_WEEK_EXPANDED1 = ISODateFormatEx("±YYYYYY-Www")
+    val DATE_WEEK_COMPLETE = ISODateFormat("YYYY-Www-D")
+    val DATE_WEEK_REDUCED = ISODateFormat("YYYY-Www")
+    val DATE_WEEK_EXPANDED0 = ISODateFormat("±YYYYYY-Www-D")
+    val DATE_WEEK_EXPANDED1 = ISODateFormat("±YYYYYY-Www")
 
     // Time Variants
-    val TIME_LOCAL_COMPLETE = ISOTimeFormatEx("hh:mm:ss")
-    val TIME_LOCAL_REDUCED0 = ISOTimeFormatEx("hh:mm")
-    val TIME_LOCAL_REDUCED1 = ISOTimeFormatEx("hh")
-    val TIME_LOCAL_FRACTION0 = ISOTimeFormatEx("hh:mm:ss,ss")
-    val TIME_LOCAL_FRACTION1 = ISOTimeFormatEx("hh:mm,mm")
-    val TIME_LOCAL_FRACTION2 = ISOTimeFormatEx("hh,hh")
+    val TIME_LOCAL_COMPLETE = ISOTimeFormat("hh:mm:ss")
+    val TIME_LOCAL_REDUCED0 = ISOTimeFormat("hh:mm")
+    val TIME_LOCAL_REDUCED1 = ISOTimeFormat("hh")
+    val TIME_LOCAL_FRACTION0 = ISOTimeFormat("hh:mm:ss,ss")
+    val TIME_LOCAL_FRACTION1 = ISOTimeFormat("hh:mm,mm")
+    val TIME_LOCAL_FRACTION2 = ISOTimeFormat("hh,hh")
 
     // Time UTC Variants
-    val TIME_UTC_COMPLETE = ISOTimeFormatEx("hh:mm:ssZ")
-    val TIME_UTC_REDUCED0 = ISOTimeFormatEx("hh:mmZ")
-    val TIME_UTC_REDUCED1 = ISOTimeFormatEx("hhZ")
-    val TIME_UTC_FRACTION0 = ISOTimeFormatEx("hh:mm:ss,ssZ")
-    val TIME_UTC_FRACTION1 = ISOTimeFormatEx("hh:mm,mmZ")
-    val TIME_UTC_FRACTION2 = ISOTimeFormatEx("hh,hhZ")
+    val TIME_UTC_COMPLETE = ISOTimeFormat("hh:mm:ssZ")
+    val TIME_UTC_REDUCED0 = ISOTimeFormat("hh:mmZ")
+    val TIME_UTC_REDUCED1 = ISOTimeFormat("hhZ")
+    val TIME_UTC_FRACTION0 = ISOTimeFormat("hh:mm:ss,ssZ")
+    val TIME_UTC_FRACTION1 = ISOTimeFormat("hh:mm,mmZ")
+    val TIME_UTC_FRACTION2 = ISOTimeFormat("hh,hhZ")
 
     // Time Relative Variants
-    val TIME_RELATIVE0 = ISOTimeFormatEx("±hh:mm")
-    val TIME_RELATIVE1 = ISOTimeFormatEx("±hh")
+    val TIME_RELATIVE0 = ISOTimeFormat("±hh:mm")
+    val TIME_RELATIVE1 = ISOTimeFormat("±hh")
 
     // Date + Time Variants
-    val DATETIME_COMPLETE = ISODateFormatEx("YYYY-MM-DDThh:mm:ss")
-    val DATETIME_UTC_COMPLETE = ISODateFormatEx("YYYY-MM-DDThh:mm:ssZ")
-    val DATETIME_UTC_COMPLETE_FRACTION = ISODateFormatEx("YYYY-MM-DDThh:mm:ss.sssZ")
+    val DATETIME_COMPLETE = ISODateFormat("YYYY-MM-DDThh:mm:ss")
+    val DATETIME_UTC_COMPLETE = ISODateFormat("YYYY-MM-DDThh:mm:ssZ")
+    val DATETIME_UTC_COMPLETE_FRACTION = ISODateFormat("YYYY-MM-DDThh:mm:ss.sssZ")
 
     // Interval Variants
     val INTERVAL_COMPLETE0 = ISODateTimeSpanFormat("PnnYnnMnnDTnnHnnMnnS")
@@ -82,8 +78,8 @@ object ISO8601 : DateComponentsFormat {
     val INTERVAL = this.toDateTimeSpanFormat()
 
     override fun format(dd: DateComponents): String = when (dd.mode) {
-        DateComponents.Mode.DATE -> DATETIME_COMPLETE.extended.format.format(dd)
-        DateComponents.Mode.TIME -> TIME_LOCAL_COMPLETE.extended.format.format(dd)
+        DateComponents.Mode.DATE -> DATETIME_COMPLETE.format.extended.format(dd)
+        DateComponents.Mode.TIME -> TIME_LOCAL_COMPLETE.format.extended.format(dd)
         DateComponents.Mode.DATE_TIME_SPAN -> INTERVAL_DECIMAL0.format.format(dd)
     }
 
@@ -94,48 +90,32 @@ object ISO8601 : DateComponentsFormat {
         ISODateComponentsFormat.tryParseGeneric(str, mode, doThrow)
 }
 
-data class ISOTimeFormatEx(val basicFormat: String?, val extendedFormat: String?) : TimeFormat {
-    companion object {
-        operator fun invoke(extendedFormat: String): ISOTimeFormatEx = ISOTimeFormatEx(
-            extendedFormat.replace("-", "").replace(":", ""),
-            extendedFormat
-        )
+open class ISODateComponentsFormatEx(val basicFormat: String?, val extendedFormat: String?) : DateComponentsFormat {
+    constructor(extendedFormat: String) : this(extendedFormat.replace("-", "").replace(":", ""), extendedFormat)
+    val basic = ISODateComponentsFormat(basicFormat ?: extendedFormat ?: TODO())
+    val extended = ISODateComponentsFormat(extendedFormat ?: basicFormat ?: TODO())
+    override fun format(dd: DateComponents): String = extended.format(dd)
+    override fun tryParse(str: String, mode: DateComponents.Mode?, doThrow: Boolean): DateComponents? {
+        return basic.tryParse(str, mode, doThrow = false)
+            ?: extended.tryParse(str, mode, doThrow = false)
+            ?: (if (doThrow) throw DateException("Invalid format $str") else null)
     }
-    val basic = ISOTimeFormat(basicFormat ?: extendedFormat ?: TODO())
-    val extended = ISOTimeFormat(extendedFormat ?: basicFormat ?: TODO())
-
-    override fun format(dd: Duration): String = extended.format(dd)
-    override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): Duration? =
-        basic.tryParse(str, false, doAdjust) ?: extended.tryParse(str, false, doAdjust)
-        ?: (if (doThrow) throw DateException("Invalid format $str") else null)
 }
 
-data class ISODateFormatEx(val basicFormat: String?, val extendedFormat: String?) : DateFormat {
-    companion object {
-        operator fun invoke(extendedFormat: String): ISODateFormatEx = ISODateFormatEx(
-            extendedFormat.replace("-", "").replace(":", ""),
-            extendedFormat
-        )
-    }
-
-    val basic = ISODateFormat(basicFormat ?: extendedFormat ?: TODO())
-    val extended = ISODateFormat(extendedFormat ?: basicFormat ?: TODO())
-
-    override fun format(dd: DateTimeTz): String = extended.format(dd)
-    override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): DateTimeTz? = null
-        ?: basic.tryParse(str, false, doAdjust)
-        ?: extended.tryParse(str, false, doAdjust)
-        ?: (if (doThrow) throw DateException("Invalid format $str") else null)
+data class ISOTimeFormat(val format: ISODateComponentsFormatEx) : TimeFormat by format.toTimeFormat() {
+    constructor(format: String) : this(ISODateComponentsFormatEx(format))
+    val basic = format.basic.toTimeFormat()
+    val extended = format.extended.toTimeFormat()
 }
 
-data class ISOTimeFormat(val format: ISODateComponentsFormat) : TimeFormat by format.toTimeFormat() {
-    constructor(format: String) : this(ISODateComponentsFormat(format))
+data class ISODateFormat(val format: ISODateComponentsFormatEx) : DateFormat by format.toDateFormat() {
+    constructor(format: String) : this(ISODateComponentsFormatEx(format))
+    val basic = format.basic.toDateFormat()
+    val extended = format.extended.toDateFormat()
 }
 
-data class ISODateTimeSpanFormat(val format: ISODateComponentsFormat) : DateTimeSpanFormat by format.toDateTimeSpanFormat() {
-    constructor(format: String) : this(ISODateComponentsFormat(format))
-}
-
-data class ISODateFormat(val format: ISODateComponentsFormat) : DateFormat by format.toDateFormat() {
-    constructor(format: String, twoDigitBaseYear: Int = 1900) : this(ISODateComponentsFormat(format, twoDigitBaseYear))
+data class ISODateTimeSpanFormat(val format: ISODateComponentsFormatEx) : DateTimeSpanFormat by format.toDateTimeSpanFormat() {
+    constructor(format: String) : this(ISODateComponentsFormatEx(format))
+    //val basic = format.basic.toDateTimeSpanFormat()
+    //val extended = format.extended.toDateTimeSpanFormat()
 }
