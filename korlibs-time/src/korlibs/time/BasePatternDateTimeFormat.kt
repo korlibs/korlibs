@@ -7,7 +7,6 @@ import kotlin.time.*
 
 abstract class BasePatternDateTimeFormat(
     val baseFormat: String,
-    private val optionalSupport: Boolean,
 ) {
     private val openOffsets = LinkedHashMap<Int, Int>()
     private val closeOffsets = LinkedHashMap<Int, Int>()
@@ -24,16 +23,14 @@ abstract class BasePatternDateTimeFormat(
                     chunks.add(escapedChunk)
                     continue
                 }
-                if (optionalSupport) {
-                    val offset = chunks.size
-                    if (s.tryRead('[')) {
-                        openOffsets.increment(offset)
-                        continue
-                    }
-                    if (s.tryRead(']')) {
-                        closeOffsets.increment(offset - 1)
-                        continue
-                    }
+                val offset = chunks.size
+                if (s.tryRead('[')) {
+                    openOffsets.increment(offset)
+                    continue
+                }
+                if (s.tryRead(']')) {
+                    closeOffsets.increment(offset - 1)
+                    continue
                 }
                 chunks.add(s.tryReadOrNull("do") ?: s.readRepeatedChar())
             }
@@ -57,16 +54,12 @@ abstract class BasePatternDateTimeFormat(
      * @return the regular expression string used for matching this format, able to be composed into another regex
      */
     fun matchingRegexString(): String = regexChunks.mapIndexed { index, it ->
-        if (optionalSupport) {
-            val opens = openOffsets.getOrElse(index) { 0 }
-            val closes = closeOffsets.getOrElse(index) { 0 }
-            buildString {
-                repeat(opens) { append("(?:") }
-                append(it)
-                repeat(closes) { append(")?") }
-            }
-        } else {
-            it
+        val opens = openOffsets.getOrElse(index) { 0 }
+        val closes = closeOffsets.getOrElse(index) { 0 }
+        buildString {
+            repeat(opens) { append("(?:") }
+            append(it)
+            repeat(closes) { append(")?") }
         }
     }.joinToString("")
 

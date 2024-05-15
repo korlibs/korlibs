@@ -50,7 +50,7 @@ class DateTimeRangeTest {
 
     @Test
     fun testOptionalPatterns() {
-        val format = PatternDateFormat("YYYY[-MM[-dd]]").withOptional()
+        val format = PatternDateFormat("YYYY[-MM[-dd]]")
         assertEquals("2019-01-01", format.parse("2019").toString(format))
         assertEquals("2019-09-01", format.parse("2019-09").toString(format))
         assertEquals("2019-09-03", format.parse("2019-09-03").toString(format))

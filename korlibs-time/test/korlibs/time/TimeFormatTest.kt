@@ -71,7 +71,7 @@ class TimeFormatTest {
     // https://github.com/korlibs/korge/issues/2197
     @Test
     fun testTimeFormatMillisecondPrecisionIssue2197() {
-        val format = TimeFormat("HH:mm[:ss[.S]]").withOptional()
+        val format = TimeFormat("HH:mm[:ss[.S]]")
 
         assertEquals(0, format.parseTime("13:12").millisecond) //0
         assertEquals(0, format.parseTime("13:12:01").millisecond) //0
