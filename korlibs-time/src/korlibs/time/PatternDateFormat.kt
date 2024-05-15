@@ -2,14 +2,6 @@ package korlibs.time
 
 import korlibs.Serializable
 import korlibs.time.internal.*
-import korlibs.time.internal.MicroStrReader
-import korlibs.time.internal.increment
-import korlibs.time.internal.padded
-import korlibs.time.internal.readTimeZoneOffset
-import korlibs.time.internal.substr
-import kotlin.math.absoluteValue
-import kotlin.math.log10
-import kotlin.math.pow
 
 data class PatternDateFormat(
     val format: String,
@@ -44,14 +36,14 @@ data class PatternDateFormat(
     override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): DateTimeTz? {
         val info = _tryParseBase(str, doThrow, doAdjust, realLocale, tzNames) ?: return null
         if (!doAdjust) {
-            if (info.month !in 1..12) if (doThrow) error("Invalid month ${info.month}") else return null
-            if (info.day !in 1..32) if (doThrow) error("Invalid day ${info.day}") else return null
-            if (info.hour !in 0..24) if (doThrow) error("Invalid hour ${info.hour}") else return null
-            if (info.minute !in 0..59) if (doThrow) error("Invalid minute ${info.minute}") else return null
-            if (info.second !in 0..59) if (doThrow) error("Invalid second ${info.second}") else return null
-            if (info.millisecond !in 0 .. 999) if (doThrow) error("Invalid millisecond ${info.millisecond}") else return null
+            if (info.months !in 1..12) if (doThrow) error("Invalid month ${info.months}") else return null
+            if (info.days !in 1..32) if (doThrow) error("Invalid day ${info.days}") else return null
+            if (info.hours !in 0..24) if (doThrow) error("Invalid hour ${info.hours}") else return null
+            if (info.minutes !in 0..59) if (doThrow) error("Invalid minute ${info.minutes}") else return null
+            if (info.seconds !in 0..59) if (doThrow) error("Invalid second ${info.seconds}") else return null
+            if (info.milliseconds !in 0 .. 999) if (doThrow) error("Invalid millisecond ${info.milliseconds}") else return null
         }
-        val dateTime = DateTime.createAdjusted(info.fullYear, info.month, info.day, info.hour umod 24, info.minute, info.second, info.millisecond)
+        val dateTime = DateTime.createAdjusted(info.years, info.months, info.days, info.hours umod 24, info.minutes, info.seconds, info.milliseconds)
         return dateTime.toOffsetUnadjusted(info.offset ?: 0.hours)
     }
 

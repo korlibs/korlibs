@@ -26,7 +26,7 @@ data class PatternTimeFormat(
 
     override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): Duration? {
         val info = _tryParseBase(str, doThrow, doAdjust, locale, TimezoneNames.DEFAULT) ?: return null
-        return info.hour.hours + info.minute.minutes + info.second.seconds + info.millisecond.milliseconds
+        return info.hours.hours + info.minutes.minutes + info.seconds.seconds + info.milliseconds.milliseconds
     }
 
     override fun toString(): String = format
