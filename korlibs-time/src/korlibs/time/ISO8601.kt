@@ -1,14 +1,13 @@
 package korlibs.time
 
 import korlibs.time.internal.MicroStrReader
-import korlibs.time.internal.fastForEach
 import korlibs.time.internal.padded
 import korlibs.time.internal.readTimeZoneOffset
 import kotlin.math.absoluteValue
 import kotlin.time.*
 
 // https://en.wikipedia.org/wiki/ISO_8601
-object ISO8601 {
+object ISO8601 : DateComponentsFormat {
     // Date Calendar Variants
     val DATE_CALENDAR_COMPLETE = ISODateFormatEx("YYYY-MM-DD")
     val DATE_CALENDAR_REDUCED0 = ISODateFormatEx("YYYY-MM")
@@ -110,48 +109,154 @@ object ISO8601 {
     )
 
     // Detects and parses all the variants
-    val DATE = object : DateFormat {
-        override fun format(dd: DateTimeTz): String = DATE_CALENDAR_COMPLETE.format(dd)
+    val DATE = this.toDateFormat()
+    val TIME = this.toTimeFormat()
+    val INTERVAL = this.toDateTimeSpanFormat()
 
-        override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): DateTimeTz? {
-            DATE_ALL.fastForEach { format ->
-                val result = format.extended.tryParse(str, false, doAdjust)
-                if (result != null) return result
-            }
-            DATE_ALL.fastForEach { format ->
-                val result = format.basic.tryParse(str, false, doAdjust)
-                if (result != null) return result
-            }
-            return if (doThrow) throw DateException("Invalid format") else null
-        }
+    override fun format(dd: DateComponents): String = when (dd.mode) {
+        DateComponents.Mode.DATE -> DATETIME_COMPLETE.extended.format.format(dd)
+        DateComponents.Mode.TIME -> TIME_LOCAL_COMPLETE.extended.format.format(dd)
+        DateComponents.Mode.DATE_TIME_SPAN -> INTERVAL_DECIMAL0.format.format(dd)
     }
-    val TIME = object : TimeFormat {
-        override fun format(dd: Duration): String = TIME_LOCAL_FRACTION0.format(dd)
 
-        override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): Duration? {
-            TIME_ALL.fastForEach { format ->
-                val result = format.extended.tryParse(str, false, doAdjust)
-                if (result != null) return result
-            }
-            TIME_ALL.fastForEach { format ->
-                val result = format.basic.tryParse(str, false, doAdjust)
-                if (result != null) return result
-            }
-            return if (doThrow) throw DateException("Invalid format") else null
-        }
-    }
-    val INTERVAL = object : DateTimeSpanFormat {
-        override fun format(dd: DateTimeSpan): String = INTERVAL_DECIMAL0.format(dd)
+    override fun tryParse(str: String, mode: DateComponents.Mode?, doThrow: Boolean): DateComponents? {
+        val r = MicroStrReader(str)
+        var time = false
+        var timeZoneSign: Int? = null
 
-        override fun tryParse(str: String, doThrow: Boolean): DateTimeSpan? {
-            INTERVAL_ALL.fastForEach { format ->
-                val result = format.tryParse(str, false)
-                if (result != null) return result
-            }
-            return if (doThrow) throw DateException("Invalid format") else null
+        val sign = when {
+            r.tryRead('+') -> +1
+            r.tryRead('-') -> -1
+            else -> +1
         }
+
+        // DateTimeSpan
+        if (r.tryRead('P')) {
+            var years = 0.0
+            var minutes = 0.0
+            var months = 0.0
+            var weeks = 0.0
+            var days = 0.0
+            var hours = 0.0
+            var seconds = 0.0
+
+            while (r.hasMore) {
+                if (r.tryRead('T')) time = true
+                val num = r.tryReadDouble() ?: continue
+                val kind = r.readChar()
+                when (kind) {
+                    'Y' -> years = num
+                    'M' -> if (time) minutes = num else months = num
+                    'W' -> weeks = num
+                    'D' -> days = num
+                    'H' -> hours = num
+                    'S' -> seconds = num
+                }
+            }
+
+            val span = DateTimeSpan(((years * 12) + months).toInt().months, weeks.weeks + days.days + hours.hours + minutes.minutes + seconds.seconds)
+            return DateComponents(mode = DateComponents.Mode.DATE_TIME_SPAN, years = span.years, months = span.months, days = span.daysIncludingWeeks, hours = span.hours, minutes = span.minutes, seconds = span.seconds, nanoseconds = span.nanoseconds, sign = sign)
+        }
+
+        data class Item(val value: Double, val ndigits: Int, val time: Boolean, val isWeek: Boolean, val timeZoneSign: Int?)
+
+        val params = arrayListOf<Item>()
+
+        while (r.hasMore) {
+            val isWeek = r.tryRead('W')
+            val c = r.peekCharOrZero()
+            when (c) {
+                in '0'..'9' -> {
+                    val start = r.offset
+                    val value = r.tryReadDouble() ?: 0.0
+                    val ndigits = r.offset - start
+                    check(ndigits > 0)
+                    if (r.peekCharOrZero() == ':') time = true
+                    if (r.peekCharOrZero() == '-') time = false
+                    params += Item(value, ndigits, time, isWeek, timeZoneSign)
+                }
+                '.', ',', '+', '-', ':', 'T' -> {
+                    if (c == 'T') time = true
+                    if (time) {
+                        if (c == '+') timeZoneSign = +1
+                        if (c == '-') timeZoneSign = -1
+                    }
+                    r.readChar()
+                }
+                else -> throw IllegalArgumentException("Unexpected character '$c'")
+            }
+        }
+
+        var years: Int? = null
+        var months: Int? = null
+        var weeks: Int? = null
+        var weekDay: Int? = null
+        var dayOfYear: Int? = null
+        var days: Int? = null
+        var hours: Double? = null
+        var minutes: Double? = null
+        var seconds: Double? = null
+        var tzHours: Double? = null
+        var tzMinutes: Double? = null
+        var tzSign: Int? = null
+        for (param in params) {
+            val (value, ndigits, time, isWeek, timeZoneSign) = param
+            when {
+                isWeek -> weeks = value.toInt()
+                !time -> {
+                    when {
+                        years == null -> years = value.toInt()
+                        weeks != null -> weekDay = value.toInt() // For YYYY-Www-D
+                        ndigits >= 3 -> dayOfYear = value.toInt() // For YYYY-DDD
+                        months == null -> months = value.toInt()
+                        days == null -> days = value.toInt()
+                    }
+                }
+                timeZoneSign != null -> {
+                    tzSign = timeZoneSign
+                    when {
+                        tzHours == null -> tzHours = value
+                        tzMinutes == null -> tzMinutes = value
+                    }
+                }
+                else -> {
+                    when {
+                        hours == null -> hours = value
+                        minutes == null -> minutes = value
+                        seconds == null -> seconds = value
+                    }
+                }
+            }
+        }
+
+        //println("$years, $months, $days, $weeks, $weekDay, $hours, $minutes, $seconds, $tzSign, $tzHours, $tzMinutes")
+        //println(params.joinToString("\n"))
+
+        val year = years ?: 0
+
+        val date = when {
+            dayOfYear != null -> Date.fromDayOfYear(year, dayOfYear)
+            weeks != null -> Date.fromWeekAndDay(year, weeks, weekDay ?: 0)
+            else -> Date(year, months ?: 1, days ?: 1)
+        }
+
+        val span = ComputedTime((hours ?: 0.0).hours + (minutes ?: 0.0).minutes + (seconds ?: 0.0).seconds)
+
+        return DateComponents(
+            mode ?: DateComponents.Mode.DATE,
+            years = date.year,
+            months = date.month1,
+            days = date.day,
+            hours = span.hoursIncludingDaysAndWeeks,
+            minutes = span.minutes,
+            seconds = span.seconds,
+            nanoseconds = span.nanoseconds,
+            offset = tzHours?.let { (tzHours.hours + (tzMinutes ?: 0.0).minutes) * (tzSign ?: 1) },
+            sign = sign,
+        )
     }
 }
+
 data class ISOTimeFormatEx(val basicFormat: String?, val extendedFormat: String?) : TimeFormat {
     companion object {
         operator fun invoke(extendedFormat: String): ISOTimeFormatEx = ISOTimeFormatEx(
@@ -186,31 +291,16 @@ data class ISODateFormatEx(val basicFormat: String?, val extendedFormat: String?
         ?: (if (doThrow) throw DateException("Invalid format $str") else null)
 }
 
-data class ISOTimeFormat(val format: String) : TimeFormat {
-    companion object {
-        private val ref = DateTime(1900, 1, 1)
-    }
-    private val dateTimeFormat = ISODateFormat(format)
-    override fun format(dd: Duration): String = dateTimeFormat.format(ref + dd)
-    override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): Duration? = dateTimeFormat.tryParse(str, doThrow, doAdjust)?.let { it.utc - ref }
+data class ISOTimeFormat(val format: ISODateComponentsFormat) : TimeFormat by format.toTimeFormat() {
+    constructor(format: String) : this(ISODateComponentsFormat(format))
 }
 
-data class ISODateTimeSpanFormat(val format: String) : DateTimeSpanFormat {
-    internal val internalFormat by lazy { ISODateComponentsFormat(format, 0) }
-    override fun format(dd: DateTimeSpan): String = internalFormat.format(dd.toDateComponents())
-    override fun tryParse(str: String, doThrow: Boolean): DateTimeSpan? = internalFormat.tryParse(str, setDate = false, doThrow)?.toDateTimeSpan()
+data class ISODateTimeSpanFormat(val format: ISODateComponentsFormat) : DateTimeSpanFormat by format.toDateTimeSpanFormat() {
+    constructor(format: String) : this(ISODateComponentsFormat(format))
 }
 
-data class ISODateFormat(val format: String, val twoDigitBaseYear: Int = 1900) : DateFormat {
-    internal val internalFormat by lazy { ISODateComponentsFormat(format, twoDigitBaseYear) }
-
-    override fun format(dd: DateTimeTz): String = internalFormat.format(dd.toDateComponents())
-
-    override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): DateTimeTz? {
-        return internalFormat.tryParse(str, setDate = true, doThrow = doThrow)?.toDateTimeTz(doThrow, doAdjust).also {
-            if (doThrow && it == null) throw DateException("Can't parse $str with $format")
-        }
-    }
+data class ISODateFormat(val format: ISODateComponentsFormat) : DateFormat by format.toDateFormat() {
+    constructor(format: String, twoDigitBaseYear: Int = 1900) : this(ISODateComponentsFormat(format, twoDigitBaseYear))
 }
 
 class ISODateComponentsFormat(val format: String, val twoDigitBaseYear: Int = 1900) : DateComponentsFormat {
@@ -292,12 +382,12 @@ class ISODateComponentsFormat(val format: String, val twoDigitBaseYear: Int = 19
     }
 
 
-    override fun tryParse(str: String, setDate: Boolean?, doThrow: Boolean): DateComponents? {
+    override fun tryParse(str: String, mode: DateComponents.Mode?, doThrow: Boolean): DateComponents? {
         var sign = +1
         var tzOffset: Duration? = null
-        var year = twoDigitBaseYear
-        var month = 1
-        var dayOfMonth = 1
+        var year: Int? = null
+        var month: Int? = null
+        var dayOfMonth: Int? = null
 
         var dayOfWeek = -1
         var dayOfYear = -1
@@ -398,22 +488,22 @@ class ISODateComponentsFormat(val format: String, val twoDigitBaseYear: Int = 19
         }
         if (reader.hasMore) return reportParse("uncomplete")
 
-        val dateTime: Date = when {
-            dayOfYear >= 0 -> Date(year, 1, 1) + (dayOfYear - 1).days
-            weekOfYear >= 0 -> {
-                val reference = Year(year).firstDate(DayOfWeek.Thursday) - 3.days
-                val days = ((weekOfYear - 1) * 7 + (dayOfWeek - 1))
-                reference + days.days
-            }
-            else -> Date(year, month, dayOfMonth)
+        val rmode = mode ?: (if (year != null) DateComponents.Mode.DATE else DateComponents.Mode.TIME)
+
+        val date: Date = when {
+            year == null -> Date(0, 0, 0)
+            rmode != DateComponents.Mode.DATE -> Date(year, month ?: 0, dayOfMonth ?: 0)
+            dayOfYear >= 0 -> Date.fromDayOfYear(year, dayOfYear)
+            weekOfYear >= 0 -> Date.fromWeekAndDay(year, weekOfYear, dayOfWeek)
+            else -> Date(year, month ?: 1, dayOfMonth ?: 1)
         }
         val span = ComputedTime(hours.hours + minutes.minutes + seconds.seconds)
 
         return DateComponents(
-            isDate = setDate == true,
-            years = dateTime.year,
-            months = dateTime.month1,
-            days = dateTime.day,
+            mode = rmode,
+            years = date.year,
+            months = date.month1,
+            days = date.day,
             hours = span.hoursIncludingDaysAndWeeks,
             minutes = span.minutes,
             seconds = span.seconds,

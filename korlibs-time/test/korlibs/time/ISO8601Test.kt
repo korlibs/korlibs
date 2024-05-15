@@ -45,8 +45,11 @@ class ISO8601Test {
         assertEquals("15,50", ISO8601.TIME_LOCAL_FRACTION2.format(time))
 
         assertEquals("15,50Z", ISO8601.TIME_UTC_FRACTION2.format(time))
+    }
 
-        assertEquals(time + 630.milliseconds, ISO8601.TIME_LOCAL_FRACTION0.parse("15:30:12,63"))
+    @Test
+    fun testTime_2() {
+        assertEquals(15.hours + 30.minutes + 12.seconds + 630.milliseconds, ISO8601.TIME_LOCAL_FRACTION0.parse("15:30:12,63"))
     }
 
     @Test
@@ -161,7 +164,11 @@ class ISO8601Test {
         assertEquals("15,50", ISOTimeFormatEx("hh,hh").format(time))
 
         assertEquals("15,5Z", ISOTimeFormatEx("hh,hZ", null).format(time))
+    }
 
+    @Test
+    fun testIssue102_2() {
+        val time = 15.hours + 30.minutes + 12.seconds + 160.milliseconds
         assertEquals(time, ISOTimeFormatEx("hh:mm:ss,ss").parse("15:30:12,16"))
         assertEquals(time, ISOTimeFormatEx("hh:mm:ss.sss").parse("15:30:12.160"))
     }
@@ -177,5 +184,28 @@ class ISO8601Test {
         assertEquals(string1, ISO8601.DATETIME_UTC_COMPLETE_FRACTION.format(parsed1))
         assertEquals(string2.removeSuffix("+00:00") + "Z", ISO8601.DATETIME_UTC_COMPLETE_FRACTION.format(parsed2))
         assertEquals(parsed1.utc, parsed2.utc)
+    }
+
+    @Test
+    fun testISO8601GenericParser_duration() {
+        val time = 1.years + 3.months + 27.days + 11.hours + 9.minutes + 11.seconds
+        assertEquals(time, ISO8601.tryParse("P1Y3M27DT11H9M11S")?.toDateTimeSpan())
+        assertEquals(time, ISO8601.tryParse("P1Y3M27DT11H9M11S", DateComponents.Mode.DATE_TIME_SPAN)?.toDateTimeSpan())
+        assertEquals(time, ISO8601.toDateTimeSpanFormat().parse("P1Y3M27DT11H9M11S"))
+    }
+
+    @Test
+    fun testISO8601GenericParser_full() {
+        val dt = DateTimeTz.local(DateTime(2022, 10, 6, 19, 57, 29, 285), TimezoneOffset(2.hours))
+        assertEquals(dt, ISO8601.parse("2022-10-06T19:57:29.285+02:00").toDateTimeTz())
+        assertEquals(dt, ISO8601.toDateFormat().parse("2022-10-06T19:57:29.285+02:00"))
+    }
+
+    @Test
+    fun testISO8601GenericParser_simple() {
+        // Plain dates
+        assertEquals(Date(2022, 11, 30), ISO8601.toDateFormat().parse("2022-11-30").local.date)
+        assertEquals(Date.fromDayOfYear(2022, 255), ISO8601.toDateFormat().parse("2022-255").local.date)
+        assertEquals(Date.fromWeekAndDay(2022, 3, 2), ISO8601.toDateFormat().parse("2022-W3-2").local.date)
     }
 }

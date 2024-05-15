@@ -1,7 +1,9 @@
 package korlibs.time
 
+import korlibs.Serializable
+
 /** Allows to [format] and [parse] instances of [Date], [DateTime] and [DateTimeTz] */
-interface DateFormat {
+interface DateFormat : Serializable {
     fun format(dd: DateTimeTz): String
     fun tryParse(str: String, doThrow: Boolean = false, doAdjust: Boolean = true): DateTimeTz?
 

@@ -1,8 +1,9 @@
 package korlibs.time
 
+import korlibs.Serializable
 import kotlin.time.*
 
-interface TimeFormat {
+interface TimeFormat : Serializable {
     fun format(dd: Duration): String
     fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean = true): Duration?
 

@@ -492,7 +492,7 @@ class DateTimeTest {
         val msg = "[Sat, 08 Sep 2018 04:08:09 UTC]  Example log message"
         val nomsg = "[Sat, 08 Sep 20G8 04:08:09 UTC]  Example log message" // 20G8
 
-        val logPattern = Regex("""^\[(""" + fmt.privFormat.matchingRegexString() + """)\]  """)
+        val logPattern = Regex("""^\[(""" + fmt.format.matchingRegexString() + """)\]  """)
 
         assertTrue(logPattern.containsMatchIn(msg), message = "correct datestamp should match")
         assertFalse(logPattern.containsMatchIn(nomsg), message = "incorrect datestamp shouldn't match")

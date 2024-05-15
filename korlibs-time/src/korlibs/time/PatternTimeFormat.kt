@@ -1,25 +1,17 @@
 package korlibs.time
 
-import korlibs.Serializable
-import kotlin.time.*
-
 data class PatternTimeFormat(
-    val format: String,
-    val locale: KlockLocale = KlockLocale.default,
-) : TimeFormat, Serializable {
+    val format: PatternDateComponentsFormat,
+) : TimeFormat by format.toTimeFormat() {
     companion object {
         @Suppress("MayBeConstant", "unused")
         private const val serialVersionUID = 1L
     }
 
-    fun withLocale(locale: KlockLocale) = this.copy(locale = locale)
+    constructor(format: String, locale: KlockLocale? = null) : this(PatternDateComponentsFormat(format, locale))
 
-    internal val privFormat by lazy { PatternDateComponentsFormat(format, locale) }
+    val realLocale: KlockLocale get() = format.realLocale
+    fun withLocale(locale: KlockLocale?): PatternTimeFormat = this.copy(format = format.copy(locale = locale))
 
-    override fun format(dd: Duration): String = privFormat.format(dd.toDateComponents())
-
-    override fun tryParse(str: String, doThrow: Boolean, doAdjust: Boolean): Duration? =
-        privFormat.tryParse(str, setDate = false, doThrow = doThrow)?.toDuration()
-
-    override fun toString(): String = format
+    override fun toString(): String = format.toString()
 }

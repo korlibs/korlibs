@@ -24,6 +24,13 @@ value class Date(val encoded: Int) : Comparable<Date>, Serializable {
 		operator fun invoke(year: Year, month: Month, day: Int) = Date(year.year, month.index1, day)
         /** Constructs a new [Date] from the [yearMonth] and [day] components. */
 		operator fun invoke(yearMonth: YearMonth, day: Int) = Date(yearMonth.yearInt, yearMonth.month1, day)
+
+        fun fromDayOfYear(year: Int, dayOfYear: Int): Date = Date(year, 1, 1) + (dayOfYear - 1).days
+        fun fromWeekAndDay(year: Int, weekOfYear: Int, dayOfWeek: Int): Date {
+            val reference = Year(year).firstDate(DayOfWeek.Thursday) - 3.days
+            val days = ((weekOfYear - 1) * 7 + (dayOfWeek - 1))
+            return reference + days.days
+        }
 	}
 
     /** The [year] part as [Int]. */

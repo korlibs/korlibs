@@ -9,7 +9,7 @@ data class PatternDateComponentsFormat(
     val locale: KlockLocale? = null,
     val tzNames: TimezoneNames = TimezoneNames.DEFAULT,
 ) : DateComponentsFormat {
-    private val realLocale get() = locale ?: KlockLocale.default
+    val realLocale: KlockLocale get() = locale ?: KlockLocale.default
 
     // EEE, dd MMM yyyy HH:mm:ss z -- > Sun, 06 Nov 1994 08:49:37 GMT
     // YYYY-MM-dd HH:mm:ss
@@ -72,7 +72,7 @@ data class PatternDateComponentsFormat(
         }
     }
 
-    override fun tryParse(str: String, setDate: Boolean?, doThrow: Boolean): DateComponents? {
+    override fun tryParse(str: String, mode: DateComponents.Mode?, doThrow: Boolean): DateComponents? {
         var nanoseconds = 0
         var second = 0
         var minute = 0
@@ -167,12 +167,12 @@ data class PatternDateComponentsFormat(
             }
         }
 
-        val isDate = setDate ?: isetDate
-        val defaultYear = if (isDate) 1970 else 0
-        val defaultMonth = if (isDate) 1 else 0
-        val defaultDay = if (isDate) 1 else 0
+        val mode = mode ?: (if (isetDate) DateComponents.Mode.DATE else DateComponents.Mode.TIME)
+        val defaultYear = if (mode == DateComponents.Mode.DATE) 1970 else 0
+        val defaultMonth = if (mode == DateComponents.Mode.DATE) 1 else 0
+        val defaultDay = if (mode == DateComponents.Mode.DATE) 1 else 0
 
-        return DateComponents(isDate = isDate, fullYear ?: defaultYear, month ?: defaultMonth, day ?: defaultDay, hour, minute, second, nanoseconds, offset)
+        return DateComponents(mode, fullYear ?: defaultYear, month ?: defaultMonth, day ?: defaultDay, hour, minute, second, nanoseconds, offset)
     }
 
 
@@ -264,6 +264,8 @@ data class PatternDateComponentsFormat(
         " " -> """(\s+)"""
         else -> null
     }
+
+    override fun toString(): String = format
 
     companion object {
         @Suppress("MayBeConstant", "unused")
