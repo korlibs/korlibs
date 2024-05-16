@@ -5,11 +5,9 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 aliases:
-  - jvmAndAndroid: [jvm, android]
 
 dependencies:
-  - ../korlibs-defs
-  - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
+  - ../korlibs-defs: exported
+  - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0
 
 test-dependencies:
-
