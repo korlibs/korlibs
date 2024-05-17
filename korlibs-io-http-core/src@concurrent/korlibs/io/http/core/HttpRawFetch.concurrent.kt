@@ -1,6 +1,3 @@
 package korlibs.io.http.core
 
-import korlibs.io.stream.*
-
-actual suspend fun httpRawFetch(method: String, host: String, port: Int, path: String, secure: Boolean, headers: List<Pair<String, String>>, body: AsyncInputStream?): HttpFetchResult =
-    httpRawFetchPortable(method, host, port, path, secure, headers, body)
+internal actual val defaultHttpFetch: HttpFetch by lazy { SocketHttpFetch() }

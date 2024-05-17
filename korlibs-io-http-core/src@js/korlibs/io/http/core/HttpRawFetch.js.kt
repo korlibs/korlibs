@@ -6,22 +6,24 @@ import korlibs.platform.*
 import kotlinx.coroutines.*
 import org.w3c.fetch.*
 
-actual suspend fun httpRawFetch(method: String, host: String, port: Int, path: String, secure: Boolean, headers: List<Pair<String, String>>, body: AsyncInputStream?): HttpFetchResult {
-    val scheme = if (secure) "https" else "http"
-    val headersJsObj = js("({})")
-    for ((key, value) in headers) {
-        if (key.equals("connection", ignoreCase = true)) continue
-        if (key.equals("content-length", ignoreCase = true)) continue
-        headersJsObj[key] = value
-    }
-    val url = "$scheme://$host:$port$path"
-    val result = jsGlobalThis.fetch(url, RequestInit(method = method, headers = headersJsObj, body = body?.readAll())).await()
-    val body = result.arrayBuffer().await().asInt8Array().unsafeCast<ByteArray>()
+internal actual val defaultHttpFetch: HttpFetch = object : HttpFetch {
+    override suspend fun fetch(method: String, host: String, port: Int, path: String, secure: Boolean, headers: List<Pair<String, String>>, body: AsyncInputStream?): HttpFetchResult {
+        val scheme = if (secure) "https" else "http"
+        val headersJsObj = js("({})")
+        for ((key, value) in headers) {
+            if (key.equals("connection", ignoreCase = true)) continue
+            if (key.equals("content-length", ignoreCase = true)) continue
+            headersJsObj[key] = value
+        }
+        val url = "$scheme://$host:$port$path"
+        val result = jsGlobalThis.fetch(url, RequestInit(method = method, headers = headersJsObj, body = body?.readAll())).await()
+        val body = result.arrayBuffer().await().asInt8Array().unsafeCast<ByteArray>()
 
-    val rheaders = result.headers
-    val keys = JsArray.from(rheaders.asDynamic().keys())
-    val outHeaders = keys.map { it to rheaders.get(it) }.toMutableList()
-    return HttpFetchResult(result.status.toInt(), result.statusText, outHeaders, body.openAsync())
+        val rheaders = result.headers
+        val keys = JsArray.from(rheaders.asDynamic().keys())
+        val outHeaders = keys.map { it to rheaders.get(it) }.toMutableList()
+        return HttpFetchResult(result.status.toInt(), result.statusText, outHeaders, body.openAsync())
+    }
 }
 
 @JsName("Array")
