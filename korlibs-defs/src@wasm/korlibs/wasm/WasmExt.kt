@@ -172,7 +172,7 @@ external fun jsObjectSet(obj: JsAny, key: JsAny?, value: JsAny?): JsAny?
 //fun jsEnsureString(v: dynamic): String = js("(String(v))")
 fun jsObjectKeysArray(obj: JsAny?): Array<String> = (jsToArray(jsObjectKeys(obj)) as JsArray<JsString>).toList().map { it.toString() }.toTypedArray()
 fun jsObjectToMap(obj: JsAny?): Map<String, JsAny?> = jsObjectKeysArray(obj).associate { it to obj!!.getAny(it.toJsString()) }
-fun jsToArray(obj: JsAny?): Array<Any?> = Array<Any?>(obj!!.unsafeCast<JsArray<*>>().length) { obj.getAny(it) }
+fun <T : JsAny?> jsToArray(obj: JsArray<T>): Array<T> = Array(obj!!.unsafeCast<JsArray<*>>().length) { obj.getAny(it) } as Array<T>
 fun jsArray(vararg elements: JsAny?): Array<JsAny?> {
     val out = jsEmptyArray<JsAny?>()
     for (e in elements) out.push(e)
@@ -197,4 +197,12 @@ fun jsToObjectMap(obj: JsAny?): Map<String, Any?>? {
         out["$key"] = obj.getAny(key)
     }
     return out
+}
+
+fun Any?.toJsAny(): JsAny {
+    return when (this) {
+        is String -> this.toJsString()
+        is Number -> this.toDouble().toJsNumber()
+        else -> TODO("Don't know how to handle JsAny for $this")
+    }
 }

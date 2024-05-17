@@ -19,7 +19,7 @@ class HttpPortableTest {
             "GET / HTTP/1.1\r\n" +
                 "Hello: World\r\n" +
             "\r\n",
-            HttpPortable.computeHeader(Http.Method.GET, URL("Http://localhost:8000/"), Http.Headers("Hello" to "World"))
+            SocketHttp.computeHeader(Http.Method.GET, URL("Http://localhost:8000/"), Http.Headers("Hello" to "World"))
         )
     }
 
@@ -43,7 +43,7 @@ class HttpPortableTest {
         // from https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
 
         val fullUrl = "https://example.com"
-        val client = HttpPortable(fakeSocketFactory).createClient()
+        val client = SocketHttp(fakeSocketFactory).createClient()
 
         val result = client.request(Http.Method.HEAD, fullUrl)
         assertTrue(result.headers.items.isNotEmpty(), "headers of a valid request should be non-empty")
@@ -55,7 +55,7 @@ class HttpPortableTest {
 
     @Test
     fun testUrlVfsRead() = suspendTest {
-        assertTrue(UrlVfs("https://example.com", client = HttpPortable(fakeSocketFactory).createClient()).readAll().isNotEmpty())
-        assertTrue(UrlVfs("https://example.com", client = HttpPortable(fakeSocketFactory).createClient()).open().readAll().isNotEmpty())
+        assertTrue(UrlVfs("https://example.com", client = SocketHttp(fakeSocketFactory).createClient()).readAll().isNotEmpty())
+        assertTrue(UrlVfs("https://example.com", client = SocketHttp(fakeSocketFactory).createClient()).open().readAll().isNotEmpty())
     }
 }

@@ -101,32 +101,6 @@ data class URL private constructor(
             defaultPort = port
         )
 
-        @Deprecated(
-            message = "Use URL.fromComponents",
-            replaceWith = ReplaceWith("URL.fromComponents(scheme, subScheme, userInfo, host, path, query, fragment, opaque)")
-        )
-        operator fun invoke(
-            scheme: String?,
-            userInfo: String?,
-            host: String?,
-            path: String,
-            query: String?,
-            fragment: String?,
-            opaque: Boolean = false,
-            port: Int = DEFAULT_PORT,
-            subScheme: String? = null,
-        ): URL = this.fromComponents(
-            opaque = opaque,
-            scheme = scheme?.lowercase(),
-            subScheme = subScheme?.lowercase(),
-            userInfo = userInfo,
-            host = host,
-            path = path,
-            query = query,
-            fragment = fragment,
-            port = port
-        )
-
 		private val schemeRegex = Regex("^([a-zA-Z0-9+.-]+)(?::([a-zA-Z]+))?:")
 
 		operator fun invoke(url: String): URL {
@@ -221,16 +195,9 @@ data class URL private constructor(
 			while (n < len) {
 				val c = s[n]
 				when (c) {
-					'%' -> {
-						bos.append(s.substr(n + 1, 2).toInt(16).toByte())
-						n += 2
-					}
-					'+' -> if (formUrlEncoded) {
-						bos.append(' '.toInt().toByte())
-					} else {
-						bos.append('+'.toInt().toByte())
-					}
-					else -> bos.append(c.toByte())
+					'%' -> bos.append(s.substr(n + 1, 2).toInt(16).toByte()).also { n += 2 }
+					'+' -> bos.append(if (formUrlEncoded) ' '.code.toByte() else '+'.code.toByte())
+					else -> bos.append(c.code.toByte())
 				}
 				n++
 			}
@@ -258,9 +225,7 @@ data class URL private constructor(
 	}
 }
 
-fun createBase64URLForData(data: ByteArray, contentType: String): String {
-	return "data:$contentType;base64,${data.toBase64()}"
-}
+fun createBase64URLForData(data: ByteArray, contentType: String): String = "data:$contentType;base64,${data.toBase64()}"
 
 fun String.normalizeUrl(): String {
     // Split with the query string or fragment, whichever comes first,

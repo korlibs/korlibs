@@ -20,6 +20,7 @@ dependencies:
   - ../korlibs-jseval: exported
   - ../korlibs-io-vfs: exported
   - ../korlibs-io-stream: exported
+  - ../korlibs-io-http-core: exported
   - ../korlibs-charset: exported
   - ../korlibs-math-core: exported
   - ../korlibs-memory: exported
