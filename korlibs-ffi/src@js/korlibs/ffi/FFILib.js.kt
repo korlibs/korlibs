@@ -272,13 +272,3 @@ actual fun <T> FFIPointer.castToFunc(type: KType, config: FFIFuncConfig): T {
 
 private fun def(result: dynamic, vararg params: dynamic, nonblocking: Boolean = false): dynamic =
     jsObject("parameters" to params, "result" to result, "nonblocking" to nonblocking)
-
-private fun jsObject(vararg pairs: Pair<String, Any?>): dynamic {
-    val out = jsEmptyObj()
-    for (pair in pairs) out[pair.first] = pair.second
-    return out
-}
-
-private fun jsEmptyObj(): dynamic = js("({})")
-
-external val Deno: dynamic

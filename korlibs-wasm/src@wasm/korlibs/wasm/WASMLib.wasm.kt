@@ -1,8 +1,5 @@
 package korlibs.wasm
 
-import korlibs.io.*
-import korlibs.io.util.*
-import korlibs.io.wasm.*
 import org.khronos.webgl.*
 
 actual open class WASMLib actual constructor(content: ByteArray) : IWASMLib by WASMWASMLib(content)

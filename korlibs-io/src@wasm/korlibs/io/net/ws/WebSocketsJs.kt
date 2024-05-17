@@ -1,9 +1,10 @@
 package korlibs.io.net.ws
 
 import korlibs.io.async.*
-import korlibs.io.net.http.Http
-import korlibs.io.util.*
-import korlibs.io.wasm.*
+import korlibs.io.net.http.*
+import korlibs.io.util.toByteArray
+import korlibs.io.util.toInt8Array
+import korlibs.wasm.*
 import org.khronos.webgl.*
 import org.w3c.dom.*
 
@@ -32,12 +33,12 @@ class JsWebSocketClient(
 		WebSocket(url)
 	}.apply {
 		this.binaryType = BinaryType.ARRAYBUFFER
-		this.addEventListener("open", { onOpen(Unit) })
-		this.addEventListener("close", { e ->
+		this.addEventListener("open") { onOpen(Unit) }
+		this.addEventListener("close") { e ->
 			val event = e as CloseEvent
 			onClose(CloseInfo(event.code.toInt(), event.reason, event.wasClean))
-		})
-		this.addEventListener("message", { e ->
+		}
+		this.addEventListener("message") { e ->
 			val event = e as MessageEvent
 			val data = event.data
 			if (DEBUG) println("[WS-RECV]: $data :: stringListeners=${onStringMessage.listenerCount}, binaryListeners=${onBinaryMessage.listenerCount}, anyListeners=${onAnyMessage.listenerCount}")
@@ -47,11 +48,11 @@ class JsWebSocketClient(
 				onAnyMessage(js)
 			} else {
 				val jb = data!!.unsafeCast<ArrayBuffer>()
-                val ba = jb.toByteArray()
+				val ba = jb.toByteArray()
 				onBinaryMessage(ba)
 				onAnyMessage(ba)
 			}
-		})
+		}
 	}
 
 	suspend fun init() {

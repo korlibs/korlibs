@@ -17,6 +17,7 @@ import korlibs.io.net.http.HttpClient
 import korlibs.io.net.http.HttpServer
 import korlibs.io.runtime.JsRuntime
 import korlibs.io.stream.*
+import korlibs.js.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*

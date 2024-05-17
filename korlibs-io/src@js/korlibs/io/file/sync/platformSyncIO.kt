@@ -1,25 +1,9 @@
 package korlibs.io.file.sync
 
-import korlibs.io.*
 import korlibs.io.lang.*
-import korlibs.memory.*
+import korlibs.js.*
 import korlibs.platform.*
 import org.khronos.webgl.*
-
-private external val Deno: dynamic
-
-@JsName("Array")
-private external class JsArray<T> {
-    companion object {
-        fun from(value: dynamic): Array<dynamic>
-    }
-}
-private fun Array_from(value: dynamic): Array<dynamic> = JsArray.from(value)
-
-external interface JSIterable<T>
-private fun <T> JSIterable<T>.toArray(): Array<T> {
-    return Array_from(this)
-}
 
 open class DenoSyncIO(val caseSensitive: Boolean) : SyncIO {
     companion object : DenoSyncIO(caseSensitive = true)

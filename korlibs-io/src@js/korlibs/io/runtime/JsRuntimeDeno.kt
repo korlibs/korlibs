@@ -9,7 +9,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.khronos.webgl.*
 import org.w3c.dom.url.*
-import kotlin.js.Promise
 
 
 fun def(result: dynamic, vararg params: dynamic, nonblocking: Boolean = false): dynamic =
@@ -182,17 +181,5 @@ class DenoAsyncStreamBase(val file: DenoFsFile) : AsyncStreamBase() {
 
     override suspend fun close() {
         file.close()
-    }
-}
-
-suspend fun <T> JSAsyncIterable<T>.toFlow(): Flow<T> = flow {
-    val iterator = (this@toFlow.asDynamic())[Symbol_asyncIterator]
-    val gen = iterator.call(this)
-    //println(gen)
-    while (true) {
-        val prom = gen.next().unsafeCast<Promise<JSIterableResult<T>>>()
-        val value = prom.await()
-        if (value.done) break
-        emit(value.value)
     }
 }

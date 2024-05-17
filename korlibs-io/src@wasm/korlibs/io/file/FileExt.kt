@@ -1,12 +1,11 @@
 package korlibs.io.file
 
-import korlibs.memory.*
 import korlibs.io.stream.*
-import korlibs.io.util.*
-import korlibs.io.wasm.*
+import korlibs.io.util.toByteArray
+import korlibs.memory.*
+import korlibs.wasm.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.*
 import org.khronos.webgl.*
 import org.w3c.files.*
 import kotlin.math.*
