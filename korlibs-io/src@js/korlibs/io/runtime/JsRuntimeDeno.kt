@@ -9,7 +9,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.khronos.webgl.*
 import org.w3c.dom.url.*
-import kotlin.js.Promise
 
 
 fun def(result: dynamic, vararg params: dynamic, nonblocking: Boolean = false): dynamic =

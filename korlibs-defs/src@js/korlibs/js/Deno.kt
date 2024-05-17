@@ -148,8 +148,8 @@ external interface DenoDirEntry {
 }
 
 //@JsName("Deno")
-//external class DenoPointer
-class DenoPointer
+external class DenoPointer
+//class DenoPointer
 
 val DenoPointer.value: JsBigInt get() = Deno.UnsafePointer.value(this)
 

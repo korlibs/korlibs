@@ -5,7 +5,7 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
-  - ../korlibs-defs
+  - ../korlibs-defs: exported
   - ../korlibs-util: exported
   - ../korlibs-io-fs: exported
   - ../korlibs-platform: exported
