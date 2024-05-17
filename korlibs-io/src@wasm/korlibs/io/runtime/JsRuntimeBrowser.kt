@@ -1,22 +1,19 @@
 package korlibs.io.runtime
 
-import korlibs.io.file.SimpleStorage
-import korlibs.io.file.VfsFile
+import korlibs.io.file.*
 import korlibs.io.file.std.*
-import korlibs.io.net.QueryString
-import korlibs.io.net.http.Http
-import korlibs.io.net.http.HttpClient
+import korlibs.io.net.*
+import korlibs.io.net.http.*
 import korlibs.io.stream.*
-import korlibs.io.util.*
-import korlibs.io.wasm.*
-import kotlinx.browser.document
+import korlibs.io.util.toByteArray
+import korlibs.io.util.toInt8Array
+import korlibs.wasm.*
+import kotlinx.browser.*
 import kotlinx.coroutines.*
-import org.khronos.webgl.ArrayBuffer
-import org.khronos.webgl.Int8Array
+import org.khronos.webgl.*
 import org.w3c.dom.*
 import org.w3c.files.*
-import org.w3c.xhr.XMLHttpRequest
-import org.w3c.xhr.XMLHttpRequestResponseType
+import org.w3c.xhr.*
 
 external class JsNavigator {
     val platform: String

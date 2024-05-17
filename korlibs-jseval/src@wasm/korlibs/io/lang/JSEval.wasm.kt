@@ -1,8 +1,9 @@
 package korlibs.io.lang
 
+import korlibs.wasm.*
 import kotlinx.coroutines.*
 import org.khronos.webgl.*
-import kotlin.js.*
+import kotlin.js.Promise
 
 class ExternalJsException(val e: Any?) : Throwable("Error evaluating JS: $e")
 

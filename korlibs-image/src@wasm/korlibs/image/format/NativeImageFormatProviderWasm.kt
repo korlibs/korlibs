@@ -10,12 +10,13 @@ import korlibs.image.vector.renderer.*
 import korlibs.io.file.*
 import korlibs.io.file.std.*
 import korlibs.io.util.*
-import korlibs.io.wasm.*
+import korlibs.io.util.toInt8Array
 import korlibs.math.geom.*
 import korlibs.math.geom.vector.*
 import korlibs.memory.*
 import korlibs.platform.*
 import korlibs.time.*
+import korlibs.wasm.*
 import kotlinx.browser.*
 import kotlinx.coroutines.*
 import org.khronos.webgl.*

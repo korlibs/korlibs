@@ -1,24 +1,8 @@
 package korlibs.io
 
 import korlibs.io.runtime.*
-import korlibs.io.wasm.*
 import korlibs.platform.*
 import org.w3c.dom.*
-import org.w3c.dom.events.*
-import org.w3c.performance.*
-import kotlin.collections.set
-
-abstract external class GlobalScope : EventTarget, WindowOrWorkerGlobalScope, GlobalPerformance, JsAny {
-	fun postMessage(message: JsAny, targetOrigin: JsAny = definedExternally, transfer: JsAny = definedExternally)
-	fun requestAnimationFrame(callback: (Double) -> Unit): Int
-	fun cancelAnimationFrame(handle: Int)
-}
-
-@JsFun("() => { return ((typeof globalThis !== 'undefined') ? globalThis : ((typeof global !== 'undefined') ? global : self)); }")
-external fun getJsGlobalDynamic(): GlobalScope
-
-//val jsGlobalDynamic: dynamic = getJsGlobalDynamic()
-val jsGlobal: GlobalScope = getJsGlobalDynamic()
 
 val isDenoJs get() = Platform.isJsDenoJs
 val isWeb get() = Platform.isJsBrowser
