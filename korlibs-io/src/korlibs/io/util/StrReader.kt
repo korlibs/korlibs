@@ -413,7 +413,7 @@ class StrReader(val str: String, val file: String = "file", override var pos: In
         if (!closed && reportErrors) {
             throw RuntimeException("String literal not closed! '${this.str}'")
         }
-        return String_fromCharArray(out, 0, outp)
+        return String.fromCharArray(out, 0, outp)
     }
 
 
