@@ -5,7 +5,7 @@ package korlibs.io
 import korlibs.io.core.*
 import kotlin.experimental.*
 
-fun nativeCwd(): String = SyncSystemIo.getcwd()
+fun nativeCwd(): String = SyncSystemFS.getcwd()
 
 val nativeOsfamilyName: String get() = when (Platform.osFamily) {
     OsFamily.MACOSX -> "macos"

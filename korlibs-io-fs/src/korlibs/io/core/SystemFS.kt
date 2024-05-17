@@ -6,36 +6,36 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlin.coroutines.*
 
-internal expect val defaultSyncSystemIo: SyncSystemIo
-internal expect val defaultSystemIo: SystemIo
+internal expect val defaultSyncSystemFS: SyncSystemFS
+internal expect val defaultSystemFS: SystemFS
 
-object NullSyncSystemIo : SyncSystemIo {
-    override fun open(path: String, write: Boolean): SyncFileSystemIo? = TODO("Not yet implemented")
+object NullSyncSystemFS : SyncSystemFS {
+    override fun open(path: String, write: Boolean): SyncFileSystemFS? = TODO("Not yet implemented")
     override fun listdir(path: String): Sequence<String> = TODO("Not yet implemented")
     override fun mkdir(path: String): Boolean = TODO("Not yet implemented")
     override fun rmdir(path: String): Boolean = TODO("Not yet implemented")
     override fun unlink(path: String): Boolean = TODO("Not yet implemented")
-    override fun stat(path: String): FileSystemIoStat? = TODO("Not yet implemented")
+    override fun stat(path: String): FileSystemFSStat? = TODO("Not yet implemented")
     override fun realpath(path: String): String = TODO("Not yet implemented")
     override fun readlink(path: String): String? = TODO("Not yet implemented")
-    override fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemIoProcess = TODO("Not yet implemented")
+    override fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemFSProcess = TODO("Not yet implemented")
 }
-val NullSystemIo: SystemIo = NullSyncSystemIo.toAsync(Dispatchers.Unconfined)
+val NullSystemFS: SystemFS = NullSyncSystemFS.toAsync(Dispatchers.Unconfined)
 
-interface SyncSystemIo {
-    companion object : SyncSystemIo by defaultSyncSystemIo
+interface SyncSystemFS {
+    companion object : SyncSystemFS by defaultSyncSystemFS
 
     open val fileSeparatorChar: Char get() = '/'
     open val pathSeparatorChar: Char get() = ':'
 
     open fun getcwd(): String = "."
 
-    abstract fun open(path: String, write: Boolean = false): SyncFileSystemIo?
+    abstract fun open(path: String, write: Boolean = false): SyncFileSystemFS?
     abstract fun listdir(path: String): Sequence<String>
     abstract fun mkdir(path: String): Boolean
     abstract fun rmdir(path: String): Boolean
     abstract fun unlink(path: String): Boolean
-    abstract fun stat(path: String): FileSystemIoStat?
+    abstract fun stat(path: String): FileSystemFSStat?
 
     fun exists(path: String): Boolean = stat(path) != null
     fun isFile(path: String): Boolean = stat(path)?.isDirectory == false
@@ -43,14 +43,14 @@ interface SyncSystemIo {
 
     //abstract fun realpath(path: String): String
     //abstract fun readlink(path: String): String?
-    //abstract fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemIoProcess
+    //abstract fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemFSProcess
 
     open fun realpath(path: String): String = TODO()
     open fun readlink(path: String): String? = TODO()
-    open fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemIoProcess = TODO()
+    open fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemFSProcess = TODO()
 }
 
-open class SyncSystemIoProcess(
+open class SyncSystemFSProcess(
     val stdin: SyncOutputStream,
     val stdout: SyncInputStream,
     val stderr: SyncInputStream,
@@ -60,15 +60,15 @@ open class SyncSystemIoProcess(
     override fun close() = Unit
 }
 
-interface SystemIo {
-    companion object : SystemIo by defaultSystemIo
+interface SystemFS {
+    companion object : SystemFS by defaultSystemFS
 
-    abstract suspend fun open(path: String, write: Boolean = false): FileSystemIo?
+    abstract suspend fun open(path: String, write: Boolean = false): FileSystemFS?
     abstract suspend fun listdir(path: String): Flow<String>
     abstract suspend fun mkdir(path: String): Boolean
     abstract suspend fun rmdir(path: String): Boolean
     abstract suspend fun unlink(path: String): Boolean
-    abstract suspend fun stat(path: String): FileSystemIoStat?
+    abstract suspend fun stat(path: String): FileSystemFSStat?
 
     suspend fun exists(path: String): Boolean = stat(path) != null
     suspend fun isFile(path: String): Boolean = stat(path)?.isDirectory == false
@@ -76,10 +76,10 @@ interface SystemIo {
 
     abstract suspend fun realpath(path: String): String
     abstract suspend fun readlink(path: String): String?
-    abstract suspend fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SystemIoProcess
+    abstract suspend fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SystemFSProcess
 }
 
-open class SystemIoProcess(
+open class SystemFSProcess(
     val stdin: AsyncOutputStream,
     val stdout: AsyncInputStream,
     val stderr: AsyncInputStream,
@@ -89,7 +89,7 @@ open class SystemIoProcess(
     override suspend fun close() = Unit
 }
 
-data class FileSystemIoStat(
+data class FileSystemFSStat(
     val name: String,
     val size: Long = 0L,
     val mode: Int = 511, // 0o777
@@ -100,7 +100,7 @@ data class FileSystemIoStat(
     val inode: Long = 0L,
 )
 
-abstract class FileSystemIo : AsyncCloseable, AsyncInputStream, AsyncOutputStream {
+abstract class FileSystemFS : AsyncCloseable, AsyncInputStream, AsyncOutputStream {
     abstract suspend fun getLength(): Long
     abstract suspend fun setLength(value: Long): Unit
     abstract suspend fun getPosition(): Long
@@ -110,7 +110,7 @@ abstract class FileSystemIo : AsyncCloseable, AsyncInputStream, AsyncOutputStrea
     abstract override suspend fun close(): Unit
 }
 
-abstract class SyncFileSystemIo : AutoCloseable, SyncInputStream, SyncOutputStream {
+abstract class SyncFileSystemFS : AutoCloseable, SyncInputStream, SyncOutputStream {
     abstract fun getLength(): Long
     abstract fun setLength(value: Long): Unit
     abstract fun getPosition(): Long
@@ -120,15 +120,15 @@ abstract class SyncFileSystemIo : AutoCloseable, SyncInputStream, SyncOutputStre
     abstract override fun close(): Unit
 }
 
-fun SyncSystemIo.toAsync(ioDispatcher: CoroutineDispatcher?): SystemIo {
+fun SyncSystemFS.toAsync(ioDispatcher: CoroutineDispatcher?): SystemFS {
     val sync = this@toAsync
-    return object : SystemIo {
+    return object : SystemFS {
         private suspend inline fun <T> doSyncIo(crossinline block: () -> T): T = doIo(ioDispatcher, block)
 
-        override suspend fun open(path: String, write: Boolean): FileSystemIo? {
+        override suspend fun open(path: String, write: Boolean): FileSystemFS? {
             val coroutineContext = coroutineContext
             val io = doSyncIo { sync.open(path, write) } ?: return null
-            return object : FileSystemIo() {
+            return object : FileSystemFS() {
                 override suspend fun getLength(): Long = doSyncIo { io.getLength() }
                 override suspend fun setLength(value: Long) = doSyncIo { io.setLength(value) }
                 override suspend fun getPosition(): Long = doSyncIo { io.getPosition() }
@@ -144,12 +144,12 @@ fun SyncSystemIo.toAsync(ioDispatcher: CoroutineDispatcher?): SystemIo {
         override suspend fun mkdir(path: String) = doSyncIo { sync.mkdir(path) }
         override suspend fun unlink(path: String) = doSyncIo { sync.unlink(path) }
         override suspend fun rmdir(path: String) = doSyncIo { sync.rmdir(path) }
-        override suspend fun stat(path: String): FileSystemIoStat? = doSyncIo { sync.stat(path) }
+        override suspend fun stat(path: String): FileSystemFSStat? = doSyncIo { sync.stat(path) }
         override suspend fun realpath(path: String): String = doSyncIo { sync.realpath(path) }
         override suspend fun readlink(path: String): String? = doSyncIo { sync.readlink(path) }
-        override suspend fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SystemIoProcess = doSyncIo {
+        override suspend fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SystemFSProcess = doSyncIo {
             val process = sync.exec(commands, envs, cwd)
-            object : SystemIoProcess(process.stdin.toAsync(ioDispatcher), process.stdout.toAsync(ioDispatcher), process.stderr.toAsync(ioDispatcher)) {
+            object : SystemFSProcess(process.stdin.toAsync(ioDispatcher), process.stdout.toAsync(ioDispatcher), process.stderr.toAsync(ioDispatcher)) {
                 override suspend fun exitCode(): Int = doSyncIo { process.exitCode }
                 override suspend fun destroy() = doIo(ioDispatcher) { process.destroy() }
                 override suspend fun close() = doIo(ioDispatcher) { process.close() }

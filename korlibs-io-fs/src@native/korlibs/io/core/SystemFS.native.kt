@@ -6,11 +6,11 @@ import kotlinx.cinterop.*
 import platform.posix.*
 
 @OptIn(ExperimentalForeignApi::class)
-abstract class SyncSystemIoNativeBase : SyncSystemIo {
-    override fun stat(path: String): FileSystemIoStat? = memScoped {
+abstract class SyncSystemFSNativeBase : SyncSystemFS {
+    override fun stat(path: String): FileSystemFSStat? = memScoped {
         val st = alloc<stat>()
         if (stat(path, st.ptr) != 0) return@memScoped null
-        FileSystemIoStat(
+        FileSystemFSStat(
             name = path.substringAfterLast('/'),
             size = st.st_size.toLong(),
             mode = st.st_mode.toInt(),
@@ -28,17 +28,17 @@ abstract class SyncSystemIoNativeBase : SyncSystemIo {
         }
         closedir(dir)
     }
-    override fun open(path: String, write: Boolean): SyncFileSystemIo? {
+    override fun open(path: String, write: Boolean): SyncFileSystemFS? {
         val file = fopen(path, if (write) "r+b" else "rb") ?: return null
-        return createSyncFileSystemIo(file)
+        return createSyncFileSystemFS(file)
     }
 
-    abstract fun createSyncFileSystemIo(file: CPointer<FILE>?): SyncFileSystemIoNativeBase
+    abstract fun createSyncFileSystemFS(file: CPointer<FILE>?): SyncFileSystemFSNativeBase
 
     private fun S_ISDIR(m: Int): Boolean = (((m) and S_IFMT) == S_IFDIR)
 }
 
-abstract class SyncFileSystemIoNativeBase(val file: CPointer<FILE>?) : SyncFileSystemIo() {
+abstract class SyncFileSystemFSNativeBase(val file: CPointer<FILE>?) : SyncFileSystemFS() {
     val fd = fileno(file)
 
     abstract fun ftruncate64(len: Long)
