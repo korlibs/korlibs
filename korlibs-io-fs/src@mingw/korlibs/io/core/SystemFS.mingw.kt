@@ -6,10 +6,10 @@ import kotlinx.cinterop.*
 import kotlinx.coroutines.*
 import platform.posix.*
 
-actual val defaultSyncSystemIo: SyncSystemIo = MingwSyncSystemIo
-actual val defaultSystemIo: SystemIo = SyncSystemIo.toAsync(Dispatchers.IO)
+actual val defaultSyncSystemFS: SyncSystemFS = MingwSyncSystemFS
+actual val defaultSystemFS: SystemFS = SyncSystemFS.toAsync(Dispatchers.IO)
 
-object MingwSyncSystemIo : SyncSystemIoNativeBase() {
+object MingwSyncSystemFS : SyncSystemFSNativeBase() {
     override val fileSeparatorChar: Char = '\\'
     override val pathSeparatorChar: Char = ';'
 
@@ -26,7 +26,7 @@ object MingwSyncSystemIo : SyncSystemIoNativeBase() {
 
     fun getExecutableDirectory(): String = getExecutablePath().substringBeforeLast('/')
 
-    override fun createSyncFileSystemIo(file: CPointer<FILE>?): SyncFileSystemIoNativeBase = object : SyncFileSystemIoNativeBase(file) {
+    override fun createSyncFileSystemFS(file: CPointer<FILE>?): SyncFileSystemFSNativeBase = object : SyncFileSystemFSNativeBase(file) {
         override fun ftruncate64(len: Long) { ftruncate64(fd, len) }
         override fun ftell64(): Long = _ftelli64(file)
         override fun fseek64(pos: Long, origin: Int): Long {

@@ -3,10 +3,10 @@ package korlibs.io.core
 import kotlinx.coroutines.*
 import java.io.*
 
-actual val defaultSyncSystemIo: SyncSystemIo = JvmSyncSystemIo
-actual val defaultSystemIo: SystemIo = SyncSystemIo.toAsync(Dispatchers.IO)
+actual val defaultSyncSystemFS: SyncSystemFS = JvmSyncSystemFS
+actual val defaultSystemFS: SystemFS = SyncSystemFS.toAsync(Dispatchers.IO)
 
-object JvmSyncSystemIo : SyncSystemIo {
+object JvmSyncSystemFS : SyncSystemFS {
     override val fileSeparatorChar: Char get() = File.separatorChar
     override val pathSeparatorChar: Char get() = File.pathSeparatorChar
     override fun realpath(path: String): String {
@@ -21,9 +21,9 @@ object JvmSyncSystemIo : SyncSystemIo {
     override fun rmdir(path: String) = File(path).takeIf { it.isDirectory }?.delete() == true
     override fun unlink(path: String) = File(path).takeIf { !it.isDirectory }?.delete() == true
     override fun listdir(path: String): Sequence<String> = (File(path).list() ?: emptyArray<String>()).asSequence()
-    override fun stat(path: String): FileSystemIoStat? {
+    override fun stat(path: String): FileSystemFSStat? {
         val file = File(path).takeIf { it.exists() } ?: return null
-        return FileSystemIoStat(
+        return FileSystemFSStat(
             name = file.name,
             size = file.length(),
             timeLastModification = file.lastModified(),
@@ -31,14 +31,14 @@ object JvmSyncSystemIo : SyncSystemIo {
         )
     }
 
-    override fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemIoProcess {
+    override fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemFSProcess {
         TODO("Not yet implemented")
     }
 
-    override fun open(path: String, write: Boolean): SyncFileSystemIo? {
+    override fun open(path: String, write: Boolean): SyncFileSystemFS? {
         val file = File(path).takeIf { it.exists() } ?: return null
         val s = RandomAccessFile(file, if (write) "rw" else "r")
-        return object : SyncFileSystemIo() {
+        return object : SyncFileSystemFS() {
             override fun getLength(): Long = s.length()
             override fun setLength(value: Long) = s.setLength(value)
             override fun getPosition(): Long = s.filePointer
