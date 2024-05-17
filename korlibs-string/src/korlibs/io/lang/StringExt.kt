@@ -1,15 +1,15 @@
 package korlibs.io.lang
 
 operator fun String.Companion.invoke(arrays: IntArray, offset: Int = 0, size: Int = arrays.size - offset): String {
-    val sb = StringBuilder()
+    val sb = StringBuilder(size)
     for (n in offset until offset + size) {
         sb.append(arrays[n].toChar()) // @TODO: May not work the same! In JS: String.fromCodePoint
     }
     return sb.toString()
 }
 
-fun String_fromIntArray(arrays: IntArray, offset: Int = 0, size: Int = arrays.size - offset): String = String(arrays, offset, size)
-fun String_fromCharArray(arrays: CharArray, offset: Int = 0, size: Int = arrays.size - offset): String = arrays.concatToString(offset, offset + size)
+fun String.Companion.fromIntArray(arrays: IntArray, offset: Int = 0, size: Int = arrays.size - offset): String = String(arrays, offset, size)
+fun String.Companion.fromCharArray(arrays: CharArray, offset: Int = 0, size: Int = arrays.size - offset): String = arrays.concatToString(offset, offset + size)
 
 ////////////////////////////////////
 ////////////////////////////////////
