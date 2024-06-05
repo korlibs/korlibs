@@ -1,6 +1,7 @@
 package korlibs.io.core
 
 import korlibs.io.async.*
+import korlibs.io.lang.FileNotFoundException
 import korlibs.io.stream.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -48,6 +49,11 @@ interface SyncSystemFS {
     open fun realpath(path: String): String = TODO()
     open fun readlink(path: String): String? = TODO()
     open fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemFSProcess = TODO()
+}
+
+fun SyncSystemFS.checkExecFolder(path: String, cmdAndArgs: List<String>) {
+    if (stat(path)?.isDirectory != true)
+        throw FileNotFoundException("'$path' is not a directory, to execute '${cmdAndArgs.first()}'")
 }
 
 open class SyncSystemFSProcess(
