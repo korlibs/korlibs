@@ -14,27 +14,27 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.*
 import kotlin.math.*
 
-open class HttpPortable(
+open class SocketHttp(
     private val factory: AsyncSocketFactory = asyncSocketFactory
 ) {
-    companion object : HttpPortable() {
+    companion object : SocketHttp() {
         internal fun computeHeader(method: Http.Method, url: URL, rheaders2: Http.Headers): String =
-            HttpPortableClient.computeHeader(method, url, rheaders2)
+            SocketHttpClient.computeHeader(method, url, rheaders2)
     }
 
-    fun createClient(): HttpClient = HttpPortableClient(factory)
+    fun createClient(): HttpClient = SocketHttpClient(factory)
 
     fun createServer(): HttpServer = HttpPortableServer(factory)
 }
 
-internal class HttpPortableClient(val factory: AsyncSocketFactory) : HttpClient() {
+internal class SocketHttpClient(val factory: AsyncSocketFactory) : HttpClient {
     //withContext(if (OS.isNative) coroutineContext else Dispatchers.Default) { // @TODO: We should try to execute pending events from the eventloop while waiting for vsync
     override suspend fun requestInternal(
         method: Http.Method,
         url: String,
         headers: Http.Headers,
         content: AsyncInputStreamWithLength?
-    ): Response = withContext(coroutineContext) {
+    ): HttpClient.Response = withContext(coroutineContext) {
         val url = URL(url)
         val secure = url.scheme == "https"
         //println("HTTP CLIENT: host=${url.host}, port=${url.port}, secure=$secure")
@@ -42,7 +42,7 @@ internal class HttpPortableClient(val factory: AsyncSocketFactory) : HttpClient(
 
         //println("[1]")
 
-        val rheaders = combineHeadersForHost(headers, url.host)
+        val rheaders = HttpClient.combineHeadersForHost(headers, url.host)
         val rheaders2 = if (content != null)
             rheaders.withReplaceHeaders(
                 Http.Headers(
@@ -84,7 +84,7 @@ internal class HttpPortableClient(val factory: AsyncSocketFactory) : HttpClient(
             parts.getOrElse(0) { "" } to parts.getOrElse(1) { "" }.trimStart()
         })
 
-        Response(responseCode, responseMessage, responseHeaders, client)
+        HttpClient.Response(responseCode, responseMessage, responseHeaders, client)
     }
 
     companion object {

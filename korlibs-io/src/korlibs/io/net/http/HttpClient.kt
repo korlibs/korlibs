@@ -5,6 +5,7 @@ import korlibs.io.async.AsyncThread
 import korlibs.io.compression.deflate.Deflate
 import korlibs.io.compression.deflate.GZIP
 import korlibs.io.compression.uncompressed
+import korlibs.io.http.core.*
 import korlibs.io.lang.Charset
 import korlibs.io.lang.UTF8
 import korlibs.io.lang.toByteArray
@@ -22,10 +23,23 @@ import korlibs.io.stream.readLine
 import kotlinx.atomicfu.*
 import kotlinx.coroutines.delay
 
-abstract class HttpClient protected constructor() {
-	var ignoreSslCertificates = false
+private fun createHttpClientFromFetch(fetch: HttpFetch = HttpFetch): HttpClient = object : HttpClient {
+	override var ignoreSslCertificates: Boolean = false
 
-	protected abstract suspend fun requestInternal(
+	override suspend fun requestInternal(method: Http.Method, url: String, headers: Http.Headers, content: AsyncInputStreamWithLength?): HttpClient.Response {
+		val url = URL(url)
+		val result = fetch.fetch(method.name, url.host ?: error("Missing host"), url.port, url.path, url.isSecureScheme, headers.toList(), content)
+		return HttpClient.Response(result.status, result.statusText, Http.Headers(result.headers), result.bodyRaw)
+	}
+}
+
+operator fun HttpClient.Companion.invoke(fetch: HttpFetch = HttpFetch): HttpClient = createHttpClientFromFetch(fetch)
+
+interface HttpClient {
+	var ignoreSslCertificates get() = false
+		set(value) = Unit
+
+	suspend fun requestInternal(
 		method: Http.Method,
 		url: String,
 		headers: Http.Headers = Http.Headers(),
@@ -187,7 +201,7 @@ abstract class HttpClient protected constructor() {
 	suspend fun readJson(url: String, config: RequestConfig = RequestConfig()): Any? =
 		Json.parse(requestAsString(Http.Method.GET, url, config = config.copy(throwErrors = true)).content)
 
-	companion object {
+	companion object : HttpClient by createHttpClientFromFetch() {
         val DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.81 Safari/537.36"
         val DEFAULT_ACCEPT = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
         val DEFAULT_LANGUAGE = "en-us"
@@ -245,7 +259,7 @@ suspend fun AsyncInputStream.withContentEncoding(contentEncoding: String): Async
     }
 }
 
-open class DelayedHttpClient(val delayMs: Long, val parent: HttpClient) : HttpClient() {
+open class DelayedHttpClient(val delayMs: Long, val parent: HttpClient) : HttpClient {
 	private val queue = AsyncThread()
 
 	override suspend fun requestInternal(
@@ -253,7 +267,7 @@ open class DelayedHttpClient(val delayMs: Long, val parent: HttpClient) : HttpCl
 		url: String,
 		headers: Http.Headers,
 		content: AsyncInputStreamWithLength?
-	): Response = queue {
+	): HttpClient.Response = queue {
 		println("Waiting $delayMs milliseconds for $url...")
 		delay(delayMs)
 		parent.request(method, url, headers, content)
@@ -265,11 +279,11 @@ fun HttpClient.delayed(ms: Long) = DelayedHttpClient(ms, this)
 inline fun FakeHttpClient(redirect: HttpClient? = null, block: FakeHttpClient.() -> Unit = {}): FakeHttpClient =
     FakeHttpClient(redirect).apply(block)
 
-open class FakeHttpClient(val redirect: HttpClient? = null) : HttpClient() {
+open class FakeHttpClient(val redirect: HttpClient? = null) : HttpClient {
 	val log = arrayListOf<String>()
     private val defaultContent = "LogHttpClient.response".toByteArray(UTF8).openAsync()
 	var defaultResponse =
-		Response(200, "OK", Http.Headers(), defaultContent, defaultContent)
+		HttpClient.Response(200, "OK", Http.Headers(), defaultContent, defaultContent)
 	private val rules = LinkedHashMap<Rule, ArrayList<ResponseBuilder>>()
 
 	override suspend fun requestInternal(
@@ -277,7 +291,7 @@ open class FakeHttpClient(val redirect: HttpClient? = null) : HttpClient() {
 		url: String,
 		headers: Http.Headers,
 		content: AsyncInputStreamWithLength?
-	): Response {
+	): HttpClient.Response {
         val readContent = content?.readAll()
 		val contentString = readContent?.toString(UTF8)
 		val requestNumber = log.size
@@ -327,7 +341,7 @@ open class FakeHttpClient(val redirect: HttpClient? = null) : HttpClient() {
             url: String,
             headers: Http.Headers,
             content: ByteArray?
-        ) -> Response)? = null
+        ) -> HttpClient.Response)? = null
 
         fun handler(
             callback: suspend (
@@ -335,7 +349,7 @@ open class FakeHttpClient(val redirect: HttpClient? = null) : HttpClient() {
                 url: String,
                 headers: Http.Headers,
                 content: ByteArray?
-            ) -> Response
+            ) -> HttpClient.Response
         ) {
             this.customHandler = callback
         }
@@ -345,11 +359,11 @@ open class FakeHttpClient(val redirect: HttpClient? = null) : HttpClient() {
             url: String,
             headers: Http.Headers,
             readContent: ByteArray?
-        ): Response {
+        ): HttpClient.Response {
             if (customHandler != null) {
                 return customHandler!!(method, url, headers, readContent)
             }
-            return Response(
+            return HttpClient.Response(
                 responseCode,
                 HttpStatusMessage(responseCode),
                 responseHeaders,

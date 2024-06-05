@@ -1,7 +1,5 @@
 package korlibs.io.net.http
 
-import korlibs.io.*
-
 internal actual val httpFactory: HttpFactory by lazy {
 	object : HttpFactory {
 		init {
@@ -9,7 +7,7 @@ internal actual val httpFactory: HttpFactory by lazy {
 		}
 
 		//override fun createClient(): HttpClient = HttpClientJvm()
-		override fun createClient(): HttpClient = HttpPortable.createClient()
-		override fun createServer(): HttpServer = HttpPortable.createServer()
+		override fun createClient(): HttpClient = HttpClient
+		override fun createServer(): HttpServer = SocketHttp.createServer()
 	}
 }
