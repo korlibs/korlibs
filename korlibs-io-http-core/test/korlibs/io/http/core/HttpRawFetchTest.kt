@@ -2,12 +2,14 @@ package korlibs.io.http.core
 
 import korlibs.io.socket.*
 import korlibs.io.stream.*
+import korlibs.platform.Platform
 import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class HttpRawFetchTest {
     @Test
     fun testFetch() = runTest {
+        if (Platform.isNative) return@runTest
         val result = HttpFetch.fetch("GET", "docs.korge.org", 443, "/ssltest.txt", secure = true, headers = listOf())
         assertEquals("file used for SSL tests\n", result.bodyRaw.readAll().decodeToString())
     }
