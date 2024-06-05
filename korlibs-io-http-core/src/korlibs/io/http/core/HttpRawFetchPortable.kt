@@ -39,20 +39,13 @@ internal fun SocketHttpFetch(socketGen: suspend (Boolean) -> AsyncSocket = { Asy
             append("$method $path HTTP/1.1$EOL")
             var hasHost = false
             var hasConnection = false
-            for (header in headers)
-            {
+            for (header in headers) {
                 if (header.first.equals("host", ignoreCase = true)) hasHost = true
                 if (header.first.equals("connection", ignoreCase = true)) hasConnection = true
                 append("${header.first}: ${header.second}$EOL")
             }
-            if (hasHost == false)
-            {
-                append("Host: $host$EOL")
-            }
-            if (hasConnection == false)
-            {
-                append("Connection: close$EOL")
-            }
+            if (!hasHost) append("Host: $host$EOL")
+            if (!hasConnection) append("Connection: close$EOL")
             append(EOL)
         }
     }
