@@ -16,13 +16,15 @@ internal actual val defaultHttpFetch: HttpFetch = object : HttpFetch {
             headersJsObj[key] = value
         }
         val url = "$scheme://$host:$port$path"
+
         val result = jsGlobalThis.fetch(url, RequestInit(method = method, headers = headersJsObj, body = body?.readAll())).await()
         val body = result.arrayBuffer().await().asInt8Array().unsafeCast<ByteArray>()
 
         val rheaders = result.headers
-        val keys = JsArray.from(rheaders.asDynamic().keys())
+        val keys = JsArray.from(rheaders.asDynamic().keys()).unsafeCast<Array<String>>()
         val outHeaders = keys.map { it to rheaders.get(it) }.toMutableList()
-        return HttpFetchResult(result.status.toInt(), result.statusText, outHeaders, body.openAsync())
+            .filter { !it.first.equals("content-encoding", ignoreCase = true) && !it.first.equals("transfer-encoding", ignoreCase = true) }
+        return HttpFetchResult(result.status.toInt(), result.statusText, outHeaders.unsafeCast<List<Pair<String, String>>>(), body.openAsync())
     }
 }
 
