@@ -168,19 +168,3 @@ private inline fun launchIo(dispatcher: CoroutineDispatcher?, crossinline block:
         else -> block()
     }
 }
-
-private fun SyncInputStream.toAsync(dispatcher: CoroutineDispatcher? = null): AsyncInputStream = object : AsyncInputStreamWithLength {
-    val sync = this@toAsync
-    private suspend inline fun <T> doIo(crossinline block: () -> T): T = doIo(dispatcher, block)
-    override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int = doIo { sync.read(buffer, offset, len) }
-    override suspend fun close(): Unit = launchIo(dispatcher) { (sync as? AutoCloseable)?.close() }
-    override suspend fun getPosition(): Long = doIo { (sync as? SyncPositionStream)?.position } ?: super.getPosition()
-    override suspend fun getLength(): Long = doIo { (sync as? SyncLengthStream)?.length } ?: super.getLength()
-}
-
-private fun SyncOutputStream.toAsync(dispatcher: CoroutineDispatcher? = null): AsyncOutputStream = object : AsyncOutputStream {
-    val sync = this@toAsync
-    private suspend inline fun <T> doIo(crossinline block: () -> T): T = doIo(dispatcher, block)
-    override suspend fun write(buffer: ByteArray, offset: Int, len: Int) = doIo { sync.write(buffer, offset, len) }
-    override suspend fun close(): Unit = launchIo(dispatcher) { (sync as? AutoCloseable)?.close() }
-}

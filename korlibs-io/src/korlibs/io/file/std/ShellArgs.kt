@@ -2,7 +2,6 @@ package korlibs.io.file.std
 
 import korlibs.platform.*
 
-
 // @TODO: DRY, try to use buildShellExecCommandLineArray
 // @TODO: NodeJS fails on windows with special characters like & echo &
 object ShellArgs {
