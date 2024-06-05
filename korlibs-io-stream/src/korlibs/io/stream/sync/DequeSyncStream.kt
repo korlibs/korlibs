@@ -7,6 +7,7 @@ import kotlinx.atomicfu.locks.reentrantLock
 import kotlinx.atomicfu.locks.withLock
 
 fun DequeSyncStream(): SyncStream = object : SyncStreamBase() {
+    var closed = false
     val deque: SimpleBytesDeque = SimpleBytesDeque()
     val lock = reentrantLock()
 
@@ -15,7 +16,9 @@ fun DequeSyncStream(): SyncStream = object : SyncStreamBase() {
 
     override fun read(position: Long, buffer: ByteArray, offset: Int, len: Int): Int = lock.withLock {
         if (position != deque.read) error("Invalid DequeSyncStreamBase.position for reading $position != ${deque.read}")
-        return deque.read(buffer, offset, len)
+        val res = deque.read(buffer, offset, len)
+        if (len > 0 && res <= 0 && closed) return@withLock -1
+        res
     }
 
     override fun write(position: Long, buffer: ByteArray, offset: Int, len: Int): Unit = lock.withLock {
@@ -28,6 +31,7 @@ fun DequeSyncStream(): SyncStream = object : SyncStreamBase() {
         set(value) {}
 
     override fun close() = lock.withLock {
+        closed = true
         deque.clear()
     }
 }.toSyncStream()
