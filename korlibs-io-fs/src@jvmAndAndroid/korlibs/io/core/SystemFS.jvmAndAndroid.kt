@@ -1,8 +1,8 @@
 package korlibs.io.core
 
+import korlibs.io.core.internal.InternalSystemFSShellArgs
 import korlibs.io.stream.DequeSyncStream
 import korlibs.io.stream.SyncOutputStream
-import korlibs.platform.Platform
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -43,7 +43,7 @@ object JvmSyncSystemFS : SyncSystemFS {
     override fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemFSProcess {
         val cmdAndArgs = commands
         checkExecFolder(cwd, cmdAndArgs)
-        val actualCmd = ShellArgs.buildShellExecCommandLineArrayForProcessBuilder(cmdAndArgs)
+        val actualCmd = InternalSystemFSShellArgs.buildShellExecCommandLineArrayForProcessBuilder(cmdAndArgs)
         val pb = ProcessBuilder(actualCmd)
         pb.environment().putAll(envs)
         pb.directory(File(cwd).absoluteFile)
@@ -109,67 +109,6 @@ object JvmSyncSystemFS : SyncSystemFS {
             override fun read(buffer: ByteArray, offset: Int, len: Int): Int = s.read(buffer, offset, len)
             override fun write(buffer: ByteArray, offset: Int, len: Int): Unit = s.write(buffer, offset, len)
             override fun close() = s.close()
-        }
-    }
-}
-
-
-// @TODO: DRY, try to use buildShellExecCommandLineArray
-// @TODO: NodeJS fails on windows with special characters like & echo &
-private object ShellArgs {
-    fun buildShellExecCommandLineForPopen(cmdAndArgs: List<String>): String = buildShellExecCommandLine(cmdAndArgs)
-    fun buildShellExecCommandLineArrayForProcessBuilder(cmdAndArgs: List<String>): List<String> = buildShellExecCommandLineArray(cmdAndArgs)
-    fun buildShellExecCommandLineArrayForExecl(cmdAndArgs: List<String>): List<String> = buildShellExecCommandLineArray(cmdAndArgs)
-    fun buildShellExecCommandLineArrayForNodeSpawn(cmdAndArgs: List<String>): List<String> = (cmdAndArgs)
-
-    fun buildShellExecCommandLineArray(cmdAndArgs: List<String>): List<String> = when {
-        Platform.isWindows -> listOf("cmd", "/c", ShellArgs.escapeshellCommandWin(cmdAndArgs))
-        Platform.isLinux -> listOf("/bin/sh", "-c", cmdAndArgs.joinToString(" ") { ShellArgs.escapeshellargUnix(it) })
-        //OS.isLinux -> listOf("/bin/sh", "-c", "\"" + cmdAndArgs.joinToString(" ") { ShellArgs.escapeshellargUnix(it) } + "\"")
-        //OS.isLinux -> listOf("/bin/sh", "-c", "'" + cmdAndArgs.joinToString(" ") { ShellArgs.escapeshellargUnix(it) }.replace("'", "'\"'\"'") + "'")
-        else -> cmdAndArgs
-    }
-
-    fun buildShellExecCommandLine(cmdAndArgs: List<String>): String = when {
-        Platform.isWindows -> cmdAndArgs.joinToString(" ") { ShellArgs.escapeshellargWin(it) }
-        else -> "/bin/sh -c '" + cmdAndArgs.joinToString(" ") { ShellArgs.escapeshellargUnix(it) }.replace("'", "'\"'\"'") + "'"
-    }
-
-    fun escapeshellCommandUnix(args: List<String>): String {
-        return escapeshellargUnix(args.joinToString(" ") { escapeshellargUnix(it) })
-    }
-
-    fun escapeshellargUnix(str: String): String {
-        return buildString {
-            append("'")
-            for (c in str) {
-                when (c) {
-                    '\n' -> append("\\n")
-                    '\r' -> append("\\r")
-                    '\t' -> append("\\t")
-                    '\\' -> append("\\\\")
-                    '\'' -> append("'\"'\"'") // https://stackoverflow.com/questions/1250079/how-to-escape-single-quotes-within-single-quoted-strings
-                    else -> append(c)
-                }
-            }
-            append("'")
-        }
-    }
-
-    fun escapeshellCommandWin(args: List<String>): String {
-        return "\"" + args.joinToString(" ") { escapeshellargWin(it) } + "\""
-    }
-
-    // https://sourcedaddy.com/windows-7/escaping-special-characters.html
-    // https://stackoverflow.com/questions/17319224/escaping-illegal-characters-in-params
-    fun escapeshellargWin(str: String): String {
-        return buildString {
-            for (c in str) {
-                when (c) {
-                    '<', '>', '(', ')', '&', '|', ',', ';', '^', '"', '\'', ' ', '\n', '\r', '\t' -> append('^')
-                }
-                append(c)
-            }
         }
     }
 }
