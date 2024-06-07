@@ -11,6 +11,8 @@ import java.io.File
 import java.io.InputStream
 import java.io.RandomAccessFile
 import java.util.concurrent.CompletableFuture
+import kotlin.io.path.pathString
+import kotlin.io.path.readSymbolicLink
 
 actual val defaultSyncSystemFS: SyncSystemFS = JvmSyncSystemFS
 actual val defaultSystemFS: SystemFS = SyncSystemFS.toAsync(Dispatchers.IO)
@@ -18,13 +20,12 @@ actual val defaultSystemFS: SystemFS = SyncSystemFS.toAsync(Dispatchers.IO)
 object JvmSyncSystemFS : SyncSystemFS {
     override val fileSeparatorChar: Char get() = File.separatorChar
     override val pathSeparatorChar: Char get() = File.pathSeparatorChar
-    override fun realpath(path: String): String {
-        TODO("Not yet implemented")
-    }
+    override fun realpath(path: String): String =
+        File(path).canonicalPath
+        //File(path).toPath().toRealPath().pathString
 
-    override fun readlink(path: String): String? {
-        TODO("Not yet implemented")
-    }
+    override fun readlink(path: String): String? =
+        kotlin.runCatching { File(path).toPath().readSymbolicLink().pathString }.getOrNull()
 
     override fun mkdir(path: String) = File(path).mkdir()
     override fun rmdir(path: String) = File(path).takeIf { it.isDirectory }?.delete() == true
