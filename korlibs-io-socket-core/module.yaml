@@ -15,4 +15,4 @@ dependencies:
   #- ../korlibs-io-stream: exported
   - ../korlibs-datastructure
   - ../korlibs-logger
-  - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0
+  - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC
