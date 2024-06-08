@@ -43,9 +43,9 @@ allprojects {
         mavenCentral()
         google()
         gradlePluginPortal()
-        //maven("https://maven.pkg.jetbrains.space/public/p/amper/amper")
-        //maven("https://www.jetbrains.com/intellij-repository/releases")
-        //maven("https://packages.jetbrains.team/maven/p/ij/intellij-dependencies")
+        maven("https://maven.pkg.jetbrains.space/public/p/amper/amper")
+        maven("https://www.jetbrains.com/intellij-repository/releases")
+        maven("https://packages.jetbrains.team/maven/p/ij/intellij-dependencies")
     }
     version = REAL_VERSION
     group = GROUP
@@ -83,7 +83,7 @@ allprojects {
         //    }
         //}
     }
-    MicroAmper(this).configure()
+    //MicroAmper(this).configure()
 }
 
 fun Project.doOnce(uniqueName: String, block: () -> Unit) {
@@ -696,6 +696,7 @@ rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJ
 */
 
 
+/*
 // Tiny, coupled and limited variant of amper compatible with the current structure, so we can bump to Kotlin 2.0.0 in the meantime, while amper is discarded or evolved.
 class MicroAmper(val project: Project) {
     private var kotlinPlatforms = mutableListOf<String>()
@@ -924,3 +925,4 @@ class MicroAmper(val project: Project) {
         applyTo()
     }
 }
+*/
