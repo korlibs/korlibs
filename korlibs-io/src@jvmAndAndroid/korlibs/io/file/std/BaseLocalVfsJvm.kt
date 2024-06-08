@@ -1,18 +1,26 @@
 package korlibs.io.file.std
 
-import korlibs.io.async.*
-import korlibs.io.file.*
-import korlibs.io.stream.*
-import korlibs.io.util.*
-import korlibs.time.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import korlibs.io.async.CIO
+import korlibs.io.file.Vfs
+import korlibs.io.file.VfsFile
+import korlibs.io.file.VfsOpenMode
+import korlibs.io.file.VfsStat
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.AsyncStreamBase
+import korlibs.io.stream.toAsyncStream
+import korlibs.io.util.caseSensitiveOrThrow
+import korlibs.io.util.existsCaseSensitive
+import korlibs.io.util.jvmExecuteIo
+import korlibs.time.DateTime
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.*
 import java.nio.file.*
-import java.nio.file.Path
-import java.nio.file.attribute.*
-import kotlin.collections.*
-import kotlin.io.NoSuchFileException
+import java.nio.file.attribute.PosixFilePermission
 
 internal open class BaseLocalVfsJvm : LocalVfs() {
     val that = this
@@ -27,57 +35,6 @@ internal open class BaseLocalVfsJvm : LocalVfs() {
     fun resolvePath(path: String): Path = resolveFile(path).toPath()
     fun resolveFile(path: String): File = File(resolve(path))
     fun resolveFileCaseSensitive(path: String): File = resolveFile(path).caseSensitiveOrThrow()
-
-    override suspend fun exec(
-        path: String,
-        cmdAndArgs: List<String>,
-        env: Map<String, String>,
-        handler: VfsProcessHandler
-    ): Int = executeIo {
-        checkExecFolder(path, cmdAndArgs)
-        val actualCmd = ShellArgs.buildShellExecCommandLineArrayForProcessBuilder(cmdAndArgs)
-        val pb = ProcessBuilder(actualCmd)
-        pb.environment().putAll(LinkedHashMap())
-        pb.directory(resolveFile(path))
-
-        val p = pb.start()
-        var closing = false
-        while (true) {
-            val o = p.inputStream.readAvailableChunk(readRest = closing)
-            val e = p.errorStream.readAvailableChunk(readRest = closing)
-            if (o.isNotEmpty()) handler.onOut(o)
-            if (e.isNotEmpty()) handler.onErr(e)
-            if (closing) break
-            if (o.isEmpty() && e.isEmpty() && !p.isAliveJre7) {
-                closing = true
-                continue
-            }
-            delay(1L)
-        }
-        p.waitFor()
-        //handler.onCompleted(p.exitValue())
-        p.exitValue()
-    }
-
-    private fun InputStream.readAvailableChunk(readRest: Boolean): ByteArray {
-        val out = ByteArrayOutputStream()
-        while (if (readRest) true else available() > 0) {
-            val c = this.read()
-            if (c < 0) break
-            out.write(c)
-        }
-        return out.toByteArray()
-    }
-
-    private fun InputStreamReader.readAvailableChunk(i: InputStream, readRest: Boolean): String {
-        val out = java.lang.StringBuilder()
-        while (if (readRest) true else i.available() > 0) {
-            val c = this.read()
-            if (c < 0) break
-            out.append(c.toChar())
-        }
-        return out.toString()
-    }
 
     //override suspend fun readRange(path: String, range: LongRange): ByteArray = executeIo {
     //    RandomAccessFile(resolveFile(path), "r").use { raf ->
@@ -167,30 +124,15 @@ internal open class BaseLocalVfsJvm : LocalVfs() {
                             }
 
                             StandardWatchEventKinds.ENTRY_CREATE -> {
-                                handler(
-                                    FileEvent(
-                                        FileEvent.Kind.CREATED,
-                                        vfsFile
-                                    )
-                                )
+                                handler(FileEvent(FileEvent.Kind.CREATED, vfsFile))
                             }
 
                             StandardWatchEventKinds.ENTRY_MODIFY -> {
-                                handler(
-                                    FileEvent(
-                                        FileEvent.Kind.MODIFIED,
-                                        vfsFile
-                                    )
-                                )
+                                handler(FileEvent(FileEvent.Kind.MODIFIED, vfsFile))
                             }
 
                             StandardWatchEventKinds.ENTRY_DELETE -> {
-                                handler(
-                                    FileEvent(
-                                        FileEvent.Kind.DELETED,
-                                        vfsFile
-                                    )
-                                )
+                                handler(FileEvent(FileEvent.Kind.DELETED, vfsFile))
                             }
                         }
                     }

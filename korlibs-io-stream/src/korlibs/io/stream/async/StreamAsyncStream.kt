@@ -273,6 +273,14 @@ suspend fun AsyncInputStream.readExact(buffer: ByteArray, offset: Int, len: Int)
 
 suspend fun AsyncInputStream.readBytesExact(len: Int): ByteArray = ByteArray(len).apply { readExact(this, 0, len) }
 
+suspend inline fun AsyncInputStream.readChunks(temp: ByteArray = ByteArray(1024), block: (bytes: ByteArray, len: Int) -> Unit) {
+    while (true) {
+        val r = this.read(temp, 0, temp.size)
+        if (r <= 0) break
+        block(temp, r)
+    }
+}
+
 suspend fun AsyncInputStream.readAll(): ByteArray {
     return try {
         when {
@@ -286,12 +294,7 @@ suspend fun AsyncInputStream.readAll(): ByteArray {
             }
             else -> {
                 val out = ByteArrayBuilder()
-                val temp = ByteArray(0x1000)
-                while (true) {
-                    val r = this.read(temp, 0, temp.size)
-                    if (r <= 0) break
-                    out.append(temp, 0, r)
-                }
+                readChunks { bytes, len -> out.append(bytes, 0, len) }
                 out.toByteArray()
             }
         }

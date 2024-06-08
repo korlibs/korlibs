@@ -1,7 +1,18 @@
 package korlibs.io.core
 
-import kotlinx.coroutines.*
-import java.io.*
+import korlibs.io.core.internal.InternalSystemFSShellArgs
+import korlibs.io.stream.DequeSyncStream
+import korlibs.io.stream.SyncOutputStream
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.io.File
+import java.io.InputStream
+import java.io.RandomAccessFile
+import java.util.concurrent.CompletableFuture
+import kotlin.io.path.pathString
+import kotlin.io.path.readSymbolicLink
 
 actual val defaultSyncSystemFS: SyncSystemFS = JvmSyncSystemFS
 actual val defaultSystemFS: SystemFS = SyncSystemFS.toAsync(Dispatchers.IO)
@@ -9,13 +20,12 @@ actual val defaultSystemFS: SystemFS = SyncSystemFS.toAsync(Dispatchers.IO)
 object JvmSyncSystemFS : SyncSystemFS {
     override val fileSeparatorChar: Char get() = File.separatorChar
     override val pathSeparatorChar: Char get() = File.pathSeparatorChar
-    override fun realpath(path: String): String {
-        TODO("Not yet implemented")
-    }
+    override fun realpath(path: String): String =
+        File(path).canonicalPath
+        //File(path).toPath().toRealPath().pathString
 
-    override fun readlink(path: String): String? {
-        TODO("Not yet implemented")
-    }
+    override fun readlink(path: String): String? =
+        kotlin.runCatching { File(path).toPath().readSymbolicLink().pathString }.getOrNull()
 
     override fun mkdir(path: String) = File(path).mkdir()
     override fun rmdir(path: String) = File(path).takeIf { it.isDirectory }?.delete() == true
@@ -32,7 +42,61 @@ object JvmSyncSystemFS : SyncSystemFS {
     }
 
     override fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemFSProcess {
-        TODO("Not yet implemented")
+        val cmdAndArgs = commands
+        checkExecFolder(cwd, cmdAndArgs)
+        val actualCmd = InternalSystemFSShellArgs.buildShellExecCommandLineArrayForProcessBuilder(cmdAndArgs)
+        val pb = ProcessBuilder(actualCmd)
+        pb.environment().putAll(envs)
+        pb.directory(File(cwd).absoluteFile)
+        val stdin = DequeSyncStream()
+        val stdout = DequeSyncStream()
+        val stderr = DequeSyncStream()
+
+        val p = pb.start()
+
+        val exitValue = CompletableFuture<Int>()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            var closing = false
+            val temp = ByteArray(1024)
+            while (true) {
+                if (!p.isAliveJre7) closing = true
+
+                // Copy stdin
+                stdin.read(temp, 0, minOf(temp.size.toLong(), stdin.availableRead).toInt()).also { readCount ->
+                    if (readCount > 0) p.outputStream.write(temp, 0, readCount)
+                }
+                p.inputStream.copyAvailableChunk(stdout, temp, readRest = closing)
+                p.errorStream.copyAvailableChunk(stderr, temp, readRest = closing)
+
+                if (closing) break
+                delay(1L)
+            }
+            p.waitFor()
+            //handler.onCompleted(p.exitValue())
+            exitValue.complete(p.exitValue())
+        }
+
+        return object : SyncSystemFSProcess(stdin, stdout, stderr) {
+            override val exitCode: Int get() = exitValue.join()
+
+            override fun close() {
+                stdin.close()
+                p.destroy()
+            }
+        }
+    }
+
+    private fun InputStream.copyAvailableChunk(out: SyncOutputStream, temp: ByteArray, readRest: Boolean): Int {
+        var readCount = 0
+        while (true) {
+            val read = this.read(temp, 0, if (readRest) temp.size else maxOf(0, this.available()))
+            if (read <= 0) break
+            //println("copyAvailableChunk: read=$read, '${temp.copyOf(read).decodeToString()}', readRest=$readRest")
+            out.write(temp, 0, read)
+            readCount++
+        }
+        return readCount
     }
 
     override fun open(path: String, write: Boolean): SyncFileSystemFS? {
@@ -49,3 +113,11 @@ object JvmSyncSystemFS : SyncSystemFS {
         }
     }
 }
+
+private val Process.isAliveJre7: Boolean
+    get() = try {
+        exitValue()
+        false
+    } catch (e: IllegalThreadStateException) {
+        true
+    }
