@@ -316,18 +316,6 @@ subprojects {
 
             val copyArtifactsToDirectory by tasks.registering(Task::class) {
                 dependsOn("publishToMavenLocal")
-                //val outputDir = layout.buildDirectory.dir("artifacts")
-                //into(outputDir)
-
-                // Copying all published artifacts
-                //println("**************")
-                //from(publishing.publications.filterIsInstance<MavenPublication>().flatMap { it.artifacts.flatMap { listOf(it.file) } })
-                //from(publishing.publications["mavenJava"].artifacts.files)
-
-                // Copy the publication descriptor files
-                //from(layout.buildDirectory.dir("publications/mavenJava"))
-
-                //println(tasks.filter { it.name.contains("generatePom") }.map { it::class })
 
                 doLast {
                     val base = rootProject.layout.buildDirectory.dir("artifacts")
@@ -344,30 +332,6 @@ subprojects {
                             from(m2Dir)
                             into(baseDir)
                         }
-
-                        /*
-                        for (artifact in pub.artifacts) {
-                            MavenPomFileGenerator.generateSpec(pub.pom as MavenPomInternal).writeTo(File(baseDir, "${pub.artifactId}-${pub.version}.pom"))
-                            //println("artifact:$artifact : artifact.file=${artifact.file}")
-                            copy {
-                                from(artifact.file)
-                                into(baseDir)
-                                rename {
-                                    val cl = when {
-                                        //artifact.classifier == "kotlin-tooling-metadata" -> ""
-                                        artifact.classifier != null -> "-${artifact.classifier}"
-                                        else -> ""
-                                    }
-                                    val ext = if (artifact.classifier == "kotlin-tooling-metadata") "module" else artifact.extension
-                                    "${pub.artifactId}-${pub.version}$cl.${ext}"
-                                }
-                            }
-                        }
-                        */
-
-                        //(pub.pom as DefaultMavenPom)
-                        //println(pub.pom.toString())
-                        //File(baseFile, "${pub.artifactId}.pom").writeText(pub.pom.toString())
                     }
                 }
             }
@@ -984,5 +948,40 @@ class MicroAmper(val project: Project) {
         val amperFile = File(project.projectDir, "module.yaml").takeIf { it.exists() } ?: return
         parseFile(amperFile)
         applyTo()
+    }
+}
+
+tasks {
+    val generateArtifactsZip by registering(Zip::class) {
+        subprojects {
+            dependsOn("${this.path}:copyArtifactsToDirectory")
+        }
+        from(rootProject.layout.buildDirectory.dir("artifacts"))
+        archiveFileName = "artifacts.zip"
+        destinationDirectory = rootProject.layout.buildDirectory
+    }
+
+    val generateArtifactsTar by registering(Tar::class) {
+        subprojects {
+            dependsOn("${this.path}:copyArtifactsToDirectory")
+        }
+        from(rootProject.layout.buildDirectory.dir("artifacts"))
+        //compression = Compression.GZIP
+        //into(rootProject.layout.buildDirectory)
+        archiveFileName = "artifacts.tar"
+        destinationDirectory = rootProject.layout.buildDirectory
+    }
+
+    // winget install zstd
+    val generateArtifactsTarZstd by registering(Exec::class) {
+        val rootFile = rootProject.layout.buildDirectory.asFile.get()
+        dependsOn(generateArtifactsTar)
+        commandLine(
+            "zstd", "-z",
+            //"--ultra", "-22",
+            "-17",
+            "-f", File(rootFile, "artifacts.tar").absolutePath,
+            "-o", File(rootFile, "artifacts.tar.zstd").absolutePath
+        )
     }
 }
