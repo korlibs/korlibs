@@ -157,7 +157,9 @@ val kotlinPlatforms = listOf(
 )
 
 project.kotlin.sourceSets {
-    ssDependsOn("native", "common")
+    ssDependsOn("concurrent", "common")
+    ssDependsOn("jvmAndAndroid", "concurrent")
+    ssDependsOn("native", "concurrent")
     ssDependsOn("posix", "native")
     ssDependsOn("apple", "posix")
     ssDependsOn("appleNonWatchos", "apple")
@@ -165,6 +167,10 @@ project.kotlin.sourceSets {
 
     for (platform in kotlinPlatforms) {
         val isMacos = platform.startsWith("macos")
+        val isJs = platform.startsWith("js")
+        val isJvm = platform.startsWith("jvm")
+        val isAndroid = platform.startsWith("android")
+        val isWasm = platform.startsWith("wasm")
         val isIos = platform.startsWith("ios")
         val isTvos = platform.startsWith("tvos")
         val isWatchos = platform.startsWith("watchos")
@@ -173,12 +179,15 @@ project.kotlin.sourceSets {
         val isLinux = platform.startsWith("linux")
         val isWindows = platform.startsWith("mingw")
         val isPosix = isLinux || isApple
+        val isConcurrent = !isJs && !isWasm
         val basePlatform = getKotlinBasePlatform(platform)
         if (isIos || isTvos) ssDependsOn(basePlatform, "appleIosTvos")
         if (isApple && !isWatchos) ssDependsOn(basePlatform, "appleNonWatchos")
+        if (isConcurrent) ssDependsOn(basePlatform, "concurrent")
         if (isPosix) ssDependsOn(basePlatform, "posix")
         if (isApple) ssDependsOn(basePlatform, "apple")
         if (isNative) ssDependsOn(basePlatform, "native")
+        if (isJvm || isAndroid) ssDependsOn(basePlatform, "jvmAndAndroid")
         if (platform != basePlatform) ssDependsOn(platform, basePlatform)
     }
 
@@ -220,9 +229,15 @@ project.kotlin.sourceSets {
 }
 
 dependencies {
-    //jvmMainApi("net.java.dev.jna:jna:5.14.0")
-    //jvmMainApi("net.java.dev.jna:jna-platform:5.14.0")
+    add("jvmMainApi", "net.java.dev.jna:jna:5.14.0")
+    add("jvmMainApi", "net.java.dev.jna:jna-platform:5.14.0")
+    add("jvmMainApi", "org.ow2.asm:asm:9.5")
+    add("jvmMainApi", "org.ow2.asm:asm-util:9.5")
     commonMainApi("org.jetbrains.kotlinx:atomicfu:0.24.0")
     commonMainApi("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC")
     commonTestApi("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC")
+}
+
+tasks.withType(ProcessResources::class) {
+    this.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

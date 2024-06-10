@@ -1,6 +1,10 @@
 package korlibs.io.lang
 
 import korlibs.io.lang.internal.*
+import korlibs.io.lang.internal.extract
+import korlibs.io.lang.internal.insert
+import korlibs.io.lang.internal.getS16
+import korlibs.io.lang.internal.set16
 import korlibs.memory.*
 import kotlinx.atomicfu.locks.*
 import kotlin.math.*
