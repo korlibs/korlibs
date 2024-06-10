@@ -8,10 +8,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.coroutines.coroutineContext
 
-@Deprecated("Replace with localVfs")
-fun nativeLocalVfs(path: String): VfsFile = LocalVfs()[path]
+//@Deprecated("Replace with localVfs")
+//fun nativeLocalVfs(path: String): VfsFile = LocalVfs()[path]
 
-open class LocalVfs(val fs: SystemFS = SystemFS) : Vfs() {
+abstract class LocalVfs(val fs: SystemFS = SystemFS) : Vfs() {
     companion object {}
 
     override suspend fun getAttributes(path: String): List<Attribute> {

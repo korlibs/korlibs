@@ -126,7 +126,7 @@ private val cacheVfs = MemoryVfs()
 
 private fun userSharedCacheFile(name: String): VfsFile = when {
     Platform.os.isMobile -> cacheVfs[".$name"]
-    else -> nativeLocalVfs(Environment.expand("~/.${name.removePrefix(".")}"))
+    else -> localVfs(Environment.expand("~/.${name.removePrefix(".")}"))
 }
 
 open class FolderBasedNativeSystemFontProvider(
@@ -156,7 +156,7 @@ open class FolderBasedNativeSystemFontProvider(
             }
             for (folder in folders) {
                 try {
-                    val file: VfsFile = nativeLocalVfs(Environment.expand(folder))
+                    val file: VfsFile = localVfs(Environment.expand(folder))
                     for (f in file.listRecursiveSimple()) {
                         try {
                             val name = fileNamesToName.getOrPut(f.baseName) {
