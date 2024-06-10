@@ -295,26 +295,87 @@ subprojects {
     //println(tasks.findByName("jsProcessResources")!!::class)
 
     // Publishing
-    if (sonatypeProps.sonatype != null) {
+    run {
         publishing {
             repositories {
-                maven {
-                    credentials {
-                        username = sonatypeProps.sonatype.user
-                        password = sonatypeProps.sonatype.pass
+                if (sonatypeProps.sonatype != null) {
+                    maven {
+                        credentials {
+                            username = sonatypeProps.sonatype.user
+                            password = sonatypeProps.sonatype.pass
+                        }
+                        url = when {
+                            version.toString().contains("-SNAPSHOT") -> uri("https://oss.sonatype.org/content/repositories/snapshots/")
+                            sonatypeProps.stagedRepositoryId != null -> uri("https://oss.sonatype.org/service/local/staging/deployByRepositoryId/${sonatypeProps.stagedRepositoryId}/")
+                            else -> uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+                        }
+                        doOnce("showDeployTo") { logger.info("DEPLOY mavenRepository: $url") }
                     }
-                    url = when {
-                        version.toString().contains("-SNAPSHOT") -> uri("https://oss.sonatype.org/content/repositories/snapshots/")
-                        sonatypeProps.stagedRepositoryId != null -> uri("https://oss.sonatype.org/service/local/staging/deployByRepositoryId/${sonatypeProps.stagedRepositoryId}/")
-                        else -> uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-                    }
-                    doOnce("showDeployTo") { logger.info("DEPLOY mavenRepository: $url") }
                 }
             }
 
-            // publications.all { println("publication: $this : ${this.name}") }
+            val copyArtifactsToDirectory by tasks.registering(Task::class) {
+                dependsOn("publishToMavenLocal")
+                //val outputDir = layout.buildDirectory.dir("artifacts")
+                //into(outputDir)
+
+                // Copying all published artifacts
+                //println("**************")
+                //from(publishing.publications.filterIsInstance<MavenPublication>().flatMap { it.artifacts.flatMap { listOf(it.file) } })
+                //from(publishing.publications["mavenJava"].artifacts.files)
+
+                // Copy the publication descriptor files
+                //from(layout.buildDirectory.dir("publications/mavenJava"))
+
+                //println(tasks.filter { it.name.contains("generatePom") }.map { it::class })
+
+                doLast {
+                    val base = rootProject.layout.buildDirectory.dir("artifacts")
+                    for (pub in publishing.publications.filterIsInstance<MavenPublication>()) {
+                        //println(pub.artifacts.toList())
+                        val basePath = pub.groupId.replace(".", "/") + "/" + pub.artifactId + "/" + pub.version
+                        val baseDir = File(base.get().asFile, basePath)
+
+                        val m2Dir = File(File(System.getProperty("user.home"), ".m2/repository"), basePath)
+
+                        //println("m2Dir=$m2Dir")
+                        // .module
+                        copy {
+                            from(m2Dir)
+                            into(baseDir)
+                        }
+
+                        /*
+                        for (artifact in pub.artifacts) {
+                            MavenPomFileGenerator.generateSpec(pub.pom as MavenPomInternal).writeTo(File(baseDir, "${pub.artifactId}-${pub.version}.pom"))
+                            //println("artifact:$artifact : artifact.file=${artifact.file}")
+                            copy {
+                                from(artifact.file)
+                                into(baseDir)
+                                rename {
+                                    val cl = when {
+                                        //artifact.classifier == "kotlin-tooling-metadata" -> ""
+                                        artifact.classifier != null -> "-${artifact.classifier}"
+                                        else -> ""
+                                    }
+                                    val ext = if (artifact.classifier == "kotlin-tooling-metadata") "module" else artifact.extension
+                                    "${pub.artifactId}-${pub.version}$cl.${ext}"
+                                }
+                            }
+                        }
+                        */
+
+                        //(pub.pom as DefaultMavenPom)
+                        //println(pub.pom.toString())
+                        //File(baseFile, "${pub.artifactId}.pom").writeText(pub.pom.toString())
+                    }
+                }
+            }
 
             publications.withType(MavenPublication::class) {
+                //println(this.artifacts.stream().map { it.file })
+                //copyArtifactsToDirectory.get().from(this.artifacts.stream().map { it.file })
+
                 val publication = this
                 val jarTaskName = "${publication.name}JavadocJar"
                 //println(jarTaskName)
@@ -370,6 +431,7 @@ subprojects {
                 }
             }
         }
+
 
     }
 
