@@ -4,13 +4,13 @@ import korlibs.encoding.*
 import korlibs.image.bitmap.*
 import korlibs.image.color.*
 import korlibs.image.font.*
+import korlibs.image.format.internal.*
 import korlibs.image.paint.*
 import korlibs.image.vector.*
 import korlibs.image.vector.renderer.*
 import korlibs.io.file.*
 import korlibs.io.file.std.*
 import korlibs.io.util.*
-import korlibs.io.util.toInt8Array
 import korlibs.math.geom.*
 import korlibs.math.geom.vector.*
 import korlibs.memory.*
