@@ -454,7 +454,7 @@ object TtfCIDFont {
                             // @TODO: CHECK
                             Op.index -> {
                                 TODO()
-                                assert(stack.size >= 2)
+                                check(stack.size >= 2)
                                 val index = stack.pop().toInt()
                                 stack.push(if (index < 0) stack[stack.size - 1] else stack[stack.size - 1 - index])
                             }
