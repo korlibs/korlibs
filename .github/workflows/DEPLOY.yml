@@ -100,5 +100,5 @@ jobs:
       - { name: Publish Publications To Maven Repository korlibs-time-core, run: "./gradlew :korlibs-time-core:publishAllPublicationsToMavenRepository" }
       - { name: Publish Publications To Maven Repository korlibs-util, run: "./gradlew :korlibs-util:publishAllPublicationsToMavenRepository" }
       - { name: Publish Publications To Maven Repository korlibs-wasm, run: "./gradlew :korlibs-wasm:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-wstring, run: "./gradlew :korlibs-wstring:publishAllPublicationsToMavenRepository }
+      - { name: Publish Publications To Maven Repository korlibs-wstring, run: "./gradlew :korlibs-wstring:publishAllPublicationsToMavenRepository" }
       - { name: Release to Maven Central, run: ./gradlew releaseMavenCentral }
