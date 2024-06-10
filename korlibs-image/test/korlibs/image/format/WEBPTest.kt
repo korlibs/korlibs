@@ -11,7 +11,7 @@ class WEBPTest {
     fun test1() = runTest {
         if (!WEBP.isAvailable) return@runTest
         if (Platform.isMac) return@runTest
-        if (Platform.isWasm) { println("Skipping WEBPTest WASM for now as it hangs: https://github.com/korlibs/korge/pull/2057#issuecomment-1837089337"); return@suspendTest }
+        if (Platform.isWasm) { println("Skipping WEBPTest WASM for now as it hangs: https://github.com/korlibs/korge/pull/2057#issuecomment-1837089337"); return@runTest }
         if (Platform.isIos || Platform.isTvos) {
             println("Skipping WEBPTest for now on iOS")
             return@runTest
@@ -24,7 +24,7 @@ class WEBPTest {
     fun test2() = runTest {
         if (!WEBP.isAvailable) return@runTest
         if (Platform.isMac) return@runTest
-        if (Platform.isWasm) { println("Skipping WEBPTest WASM for now as it hangs: https://github.com/korlibs/korge/pull/2057#issuecomment-1837089337"); return@suspendTest }
+        if (Platform.isWasm) { println("Skipping WEBPTest WASM for now as it hangs: https://github.com/korlibs/korge/pull/2057#issuecomment-1837089337"); return@runTest }
         if (Platform.isIos || Platform.isTvos) {
             println("Skipping WEBPTest for now on iOS")
             return@runTest

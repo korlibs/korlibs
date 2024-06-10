@@ -43,7 +43,7 @@ class DistanceBitmapTest {
     fun test2() = runTest {
         if (Platform.isWasm) {
             println("Skipping in wasm as Float.toString is not working as the rest of the targets")
-            return@suspendTest
+            return@runTest
         }
 
         val bmp = Bitmap1.fromString(
