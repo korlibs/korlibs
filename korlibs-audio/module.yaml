@@ -23,5 +23,5 @@ dependencies:
   - ../korlibs-numberformat
 
 test-dependencies:
-  - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0
+  - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC
   - ../korlibs-io
