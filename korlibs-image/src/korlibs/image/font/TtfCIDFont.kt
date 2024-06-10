@@ -244,7 +244,7 @@ object TtfCIDFont {
             // 0.140541E–3 :: 1e 0a 14 05 41 c3 ff
 
             // Starts with: 0x1e - 30
-            if (readHeader) assert(readU8() == 0x1e)
+            if (readHeader) check(readU8() == 0x1e)
             val str = StringBuilder()
             end@while (true) {
                 val byte = readU8()
