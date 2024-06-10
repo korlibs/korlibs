@@ -295,26 +295,51 @@ subprojects {
     //println(tasks.findByName("jsProcessResources")!!::class)
 
     // Publishing
-    if (sonatypeProps.sonatype != null) {
+    run {
         publishing {
             repositories {
-                maven {
-                    credentials {
-                        username = sonatypeProps.sonatype.user
-                        password = sonatypeProps.sonatype.pass
+                if (sonatypeProps.sonatype != null) {
+                    maven {
+                        credentials {
+                            username = sonatypeProps.sonatype.user
+                            password = sonatypeProps.sonatype.pass
+                        }
+                        url = when {
+                            version.toString().contains("-SNAPSHOT") -> uri("https://oss.sonatype.org/content/repositories/snapshots/")
+                            sonatypeProps.stagedRepositoryId != null -> uri("https://oss.sonatype.org/service/local/staging/deployByRepositoryId/${sonatypeProps.stagedRepositoryId}/")
+                            else -> uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+                        }
+                        doOnce("showDeployTo") { logger.info("DEPLOY mavenRepository: $url") }
                     }
-                    url = when {
-                        version.toString().contains("-SNAPSHOT") -> uri("https://oss.sonatype.org/content/repositories/snapshots/")
-                        sonatypeProps.stagedRepositoryId != null -> uri("https://oss.sonatype.org/service/local/staging/deployByRepositoryId/${sonatypeProps.stagedRepositoryId}/")
-                        else -> uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-                    }
-                    doOnce("showDeployTo") { logger.info("DEPLOY mavenRepository: $url") }
                 }
             }
 
-            // publications.all { println("publication: $this : ${this.name}") }
+            val copyArtifactsToDirectory by tasks.registering(Task::class) {
+                dependsOn("publishToMavenLocal")
+
+                doLast {
+                    val base = rootProject.layout.buildDirectory.dir("artifacts")
+                    for (pub in publishing.publications.filterIsInstance<MavenPublication>()) {
+                        //println(pub.artifacts.toList())
+                        val basePath = pub.groupId.replace(".", "/") + "/" + pub.artifactId + "/" + pub.version
+                        val baseDir = File(base.get().asFile, basePath)
+
+                        val m2Dir = File(File(System.getProperty("user.home"), ".m2/repository"), basePath)
+
+                        //println("m2Dir=$m2Dir")
+                        // .module
+                        copy {
+                            from(m2Dir)
+                            into(baseDir)
+                        }
+                    }
+                }
+            }
 
             publications.withType(MavenPublication::class) {
+                //println(this.artifacts.stream().map { it.file })
+                //copyArtifactsToDirectory.get().from(this.artifacts.stream().map { it.file })
+
                 val publication = this
                 val jarTaskName = "${publication.name}JavadocJar"
                 //println(jarTaskName)
@@ -370,6 +395,7 @@ subprojects {
                 }
             }
         }
+
 
     }
 
@@ -922,5 +948,40 @@ class MicroAmper(val project: Project) {
         val amperFile = File(project.projectDir, "module.yaml").takeIf { it.exists() } ?: return
         parseFile(amperFile)
         applyTo()
+    }
+}
+
+tasks {
+    val generateArtifactsZip by registering(Zip::class) {
+        subprojects {
+            dependsOn("${this.path}:copyArtifactsToDirectory")
+        }
+        from(rootProject.layout.buildDirectory.dir("artifacts"))
+        archiveFileName = "artifacts.zip"
+        destinationDirectory = rootProject.layout.buildDirectory
+    }
+
+    val generateArtifactsTar by registering(Tar::class) {
+        subprojects {
+            dependsOn("${this.path}:copyArtifactsToDirectory")
+        }
+        from(rootProject.layout.buildDirectory.dir("artifacts"))
+        //compression = Compression.GZIP
+        //into(rootProject.layout.buildDirectory)
+        archiveFileName = "artifacts.tar"
+        destinationDirectory = rootProject.layout.buildDirectory
+    }
+
+    // winget install zstd
+    val generateArtifactsTarZstd by registering(Exec::class) {
+        val rootFile = rootProject.layout.buildDirectory.asFile.get()
+        dependsOn(generateArtifactsTar)
+        commandLine(
+            "zstd", "-z",
+            //"--ultra", "-22",
+            "-17",
+            "-f", File(rootFile, "artifacts.tar").absolutePath,
+            "-o", File(rootFile, "artifacts.tar.zstd").absolutePath
+        )
     }
 }
