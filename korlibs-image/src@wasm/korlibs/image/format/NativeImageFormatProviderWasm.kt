@@ -202,7 +202,7 @@ external interface CanvasImageSourceJs : CanvasImageSource, JsAny
 object BrowserImage {
 	suspend fun decodeToCanvas(bytes: ByteArray, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): HTMLCanvasElementLike {
         if (Platform.isJsNodeJs) error("Canvas not available on NodeJS")
-        val blob = Blob(jsArrayOf(bytes.toInt8Array()), BlobPropertyBag(type = "image/png"))
+        val blob = Blob(jsArrayOf(bytes.toInt8Array2()), BlobPropertyBag(type = "image/png"))
         val blobURL = URL.createObjectURL(blob)
         try {
             return loadCanvas(blobURL)
