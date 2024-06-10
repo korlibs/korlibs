@@ -2,6 +2,7 @@
 package korlibs.io.stream
 
 import korlibs.io.lang.*
+import korlibs.io.stream.internal.*
 import korlibs.memory.*
 
 private inline fun <T> smallBytesAlloc(size: Int = 16, block: (ByteArray) -> T): T = ByteArray(size).let(block)

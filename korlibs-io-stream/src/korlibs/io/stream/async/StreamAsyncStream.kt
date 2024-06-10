@@ -4,6 +4,8 @@ package korlibs.io.stream
 import korlibs.datastructure.*
 import korlibs.io.async.*
 import korlibs.io.lang.*
+import korlibs.io.stream.internal.*
+import korlibs.math.*
 import korlibs.memory.*
 import kotlinx.coroutines.sync.*
 import kotlin.math.*

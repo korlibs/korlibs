@@ -244,7 +244,7 @@ object TtfCIDFont {
             // 0.140541E–3 :: 1e 0a 14 05 41 c3 ff
 
             // Starts with: 0x1e - 30
-            if (readHeader) assert(readU8() == 0x1e)
+            if (readHeader) check(readU8() == 0x1e)
             val str = StringBuilder()
             end@while (true) {
                 val byte = readU8()
@@ -454,7 +454,7 @@ object TtfCIDFont {
                             // @TODO: CHECK
                             Op.index -> {
                                 TODO()
-                                assert(stack.size >= 2)
+                                check(stack.size >= 2)
                                 val index = stack.pop().toInt()
                                 stack.push(if (index < 0) stack[stack.size - 1] else stack[stack.size - 1 - index])
                             }

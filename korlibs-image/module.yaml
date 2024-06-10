@@ -9,23 +9,22 @@ aliases:
 
 dependencies:
   - ../korlibs-io: exported
+  #- ../korlibs-io-fs: exported
   - ../korlibs-io-vfs: exported
   - ../korlibs-image-core: exported
   - ../korlibs-math: exported
   - ../korlibs-ffi: exported
-  - ../korlibs-wstring: exported
-  - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
+  - ../korlibs-string: exported
+  - ../korlibs-compression
   - ../korlibs-dyn
-  - ../korlibs-numberformat
-  - ../korlibs-textreader
+  - ../korlibs-math-core
   - ../korlibs-encoding
-  - ../korlibs-serialization-xml
-  - ../korlibs-serialization-json
+  - ../korlibs-serialization
   - ../korlibs-wasm
   - ../korlibs-string
-  - ../korlibs-compression-deflate
-  - ../korlibs-compression-zip
   - ../korlibs-checksum
+  - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
 
 test-dependencies:
+  - ../korlibs-io
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC

@@ -9,6 +9,7 @@ import korlibs.io.file.std.*
 import korlibs.math.geom.*
 import korlibs.memory.*
 import korlibs.platform.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class NativeRenderTest {
@@ -17,7 +18,7 @@ class NativeRenderTest {
     @Test fun testNonNativeFill() = doTest(native = false, drawBitmap = false)
     @Test fun testNonNativeBitmap() = doTest(native = false, drawBitmap = true)
 
-    fun doTest(native: Boolean, drawBitmap: Boolean) = suspendTest {
+    fun doTest(native: Boolean, drawBitmap: Boolean) = runTest {
         val bmp = createBitmap(native, drawBitmap)
         checks(bmp, "${Platform.rawPlatformName.lowercase()}.native_$native.bmp_$drawBitmap")
     }

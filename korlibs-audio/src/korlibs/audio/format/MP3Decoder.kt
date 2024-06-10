@@ -758,7 +758,7 @@ private open class MiniMp3Program() {
     // PROGRAM
     ///////////////////////////////////
 
-    fun Boolean.toInt(): Int = if (this) 1 else 0
+    private fun Boolean.toInt(): Int = if (this) 1 else 0
 
     fun bs_init(bs: Bs, data: UByteArrayIntPtr, bytes: Int) {
         bs.buf = data

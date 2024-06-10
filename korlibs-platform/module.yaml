@@ -8,7 +8,6 @@ aliases:
   - jvmAndAndroid: [jvm, android]
 
 dependencies:
-  - ../korlibs-defs
 
 test-dependencies:
 

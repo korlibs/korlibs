@@ -7,6 +7,7 @@ import korlibs.image.color.*
 import korlibs.io.async.*
 import korlibs.io.file.std.*
 import korlibs.platform.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class NativeDecodingTest {
@@ -20,7 +21,7 @@ class NativeDecodingTest {
     }
 
     @Test
-    fun testNativePNGDecoding() = suspendTest {
+    fun testNativePNGDecoding() = runTest {
         val file = resourcesVfs["pma/spineboy-pma.png"]
         val bmp1 = file.readBitmapNative(props = ImageDecodingProps(premultiplied = false, asumePremultiplied = true))
         val bmp2 = file.readBitmapNoNative(props = ImageDecodingProps(premultiplied = false, asumePremultiplied = true, format = PNG))
@@ -35,7 +36,7 @@ class NativeDecodingTest {
     }
 
     @Test
-    fun testReadAsumePremultiplied() = suspendTest {
+    fun testReadAsumePremultiplied() = runTest {
         RegisteredImageFormats.temporalRegister(PNG) {
             for (preferKotlinDecoder in listOf(false, true)) {
                 val atlas = resourcesVfs["pma/spineboy-pma.atlas"]
@@ -54,7 +55,7 @@ class NativeDecodingTest {
     }
 
     @Test
-    fun testReadPremultiplied() = suspendTest {
+    fun testReadPremultiplied() = runTest {
         val image = file.readBitmapNative(ImageDecodingProps(premultiplied = true))
         //println((image as BitmapNativeImage).bitmap.premultiplied)
         if (image.premultiplied) {
@@ -63,7 +64,7 @@ class NativeDecodingTest {
     }
 
     @Test
-    fun testReadNonPremultiplied() = suspendTest {
+    fun testReadNonPremultiplied() = runTest {
         val image = file.readBitmapNative(ImageDecodingProps(premultiplied = false))
         if (!image.premultiplied) {
             assertEquals(colorStraight to false, image.getRgbaRaw(34, 15) to image.premultiplied)
@@ -71,13 +72,13 @@ class NativeDecodingTest {
     }
 
     @Test
-    fun testReadAny() = suspendTest {
+    fun testReadAny() = runTest {
         val image = file.readBitmapNative(ImageDecodingProps(premultiplied = null))
         assertNotEquals(0, image.getRgbaRaw(34, 15).a)
     }
 
     @Test
-    fun testReadAll() = suspendTest {
+    fun testReadAll() = runTest {
         for (premultiplied in listOf(true, false, null)) {
             val image = file.readBitmapNative(ImageDecodingProps(premultiplied = premultiplied))
             val x = 34; val y = 15
@@ -102,7 +103,7 @@ class NativeDecodingTest {
     @Test
     fun testCreateUndefined() = _testCreate(premultiplied = null)
 
-    private fun _testCreate(premultiplied: Boolean?) = suspendTest {
+    private fun _testCreate(premultiplied: Boolean?) = runTest {
         val bmp = NativeImage(16, 16, premultiplied).context2d {
             fill(Colors.RED.withAd(0.5)) {
                 rect(0, 0, 16, 16)
@@ -123,7 +124,7 @@ class NativeDecodingTest {
     }
 
     @Test
-    fun testNativeImageDecodedIsMutable() = suspendTest {
+    fun testNativeImageDecodedIsMutable() = runTest {
         assertTrue { resourcesVfs["kotlin32.png"].readBitmap().flipX() is NativeImage }
     }
 }

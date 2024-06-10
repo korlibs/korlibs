@@ -1,6 +1,7 @@
 package korlibs.io.async
 
 import korlibs.io.stream.*
+import korlibs.math.*
 import korlibs.memory.*
 import kotlinx.coroutines.channels.*
 
@@ -48,5 +49,3 @@ class AsyncRingBuffer(private val bufferSize: Int = 1024) : IAsyncRingBuffer {
 
     override fun toString(): String = "AsyncByteArrayDeque($name)"
 }
-
-private fun ilog2(v: Int): Int = if (v == 0) (-1) else (31 - v.countLeadingZeroBits())

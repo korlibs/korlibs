@@ -8,6 +8,7 @@ import korlibs.io.stream.openFastStream
 import korlibs.math.geom.vector.VectorPath
 import korlibs.encoding.unhex
 import korlibs.encoding.unhexIgnoreSpaces
+import kotlinx.coroutines.test.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -52,7 +53,7 @@ class TtfCIDFontTest {
     }
 
     @Test
-    fun testReadHeader() = suspendTest {
+    fun testReadHeader() = runTest {
         val font1 = resourcesVfs["helvetica.otf"].readTtfFont()
         val cff = font1._cff
         assertNotNull(cff)

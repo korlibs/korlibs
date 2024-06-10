@@ -6,11 +6,12 @@ import korlibs.io.async.*
 import korlibs.io.stream.*
 import korlibs.math.geom.*
 import korlibs.platform.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class NativeEncodingTest {
     @Test
-    fun test() = suspendTest {
+    fun test() = runTest {
         if (Platform.isJsNodeJs) RegisteredImageFormats.register(PNG)
         val bytes = nativeImageFormatProvider.encodeSuspend(Bitmap32(10, 10, Colors.RED), ImageEncodingProps("image.png"))
         assertEquals(Size(10, 10), PNG.decodeHeader(bytes.openSync())!!.size)

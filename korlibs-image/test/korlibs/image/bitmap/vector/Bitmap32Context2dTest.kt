@@ -14,12 +14,13 @@ import korlibs.math.geom.vector.*
 import korlibs.encoding.*
 import korlibs.image.vector.*
 import korlibs.platform.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class Bitmap32Context2dTest {
     @Test
-    fun testVisualRendered() = suspendTest {
-        if (Platform.isNative) return@suspendTest
+    fun testVisualRendered() = runTest {
+        if (Platform.isNative) return@runTest
         //if (OS.isMac) return@suspendTest // Ignore on MAC since this fails on travis on K/N?
         //if (OS.isTvos) return@suspendTest // Ignore on MAC since this fails on travis on K/N?
 
@@ -127,7 +128,7 @@ class Bitmap32Context2dTest {
     }
 
     @Test
-    fun testLineDash() = suspendTest {
+    fun testLineDash() = runTest {
         val shape: Shape = buildShape {
             stroke(Colors.WHITE, 4.0, lineDash = doubleArrayListOf(20.0, 10.0)) {
                 line(Point(0, 0), Point(100, 100))

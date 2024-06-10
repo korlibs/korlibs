@@ -1,6 +1,7 @@
 package korlibs.image.format
 
 import korlibs.datastructure.*
+import korlibs.image.*
 import korlibs.image.atlas.*
 import korlibs.image.bitmap.*
 import korlibs.image.tiles.*

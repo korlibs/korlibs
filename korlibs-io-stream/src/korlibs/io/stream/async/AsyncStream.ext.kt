@@ -1,6 +1,8 @@
 @file:Suppress("PackageDirectoryMismatch")
 package korlibs.io.stream
 
+import korlibs.io.stream.internal.*
+import korlibs.math.*
 import korlibs.memory.*
 
 fun AsyncStream.skip(count: Int): AsyncStream {

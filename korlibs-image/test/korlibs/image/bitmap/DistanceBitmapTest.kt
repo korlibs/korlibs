@@ -8,13 +8,14 @@ import korlibs.math.geom.*
 import korlibs.math.geom.shape.*
 import korlibs.number.*
 import korlibs.platform.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class DistanceBitmapTest {
     val logger = Logger("DistanceBitmapTest")
 
     @Test
-    fun test1() = suspendTest {
+    fun test1() = runTest {
         //val bmp = Bitmap32(256, 256) { _, _ -> Colors.TRANSPARENT_BLACK }
         val bmp = Bitmap1(7, 7)
         //val bmp = Bitmap1(256, 256)
@@ -39,10 +40,10 @@ class DistanceBitmapTest {
     }
 
     @Test
-    fun test2() = suspendTest {
+    fun test2() = runTest {
         if (Platform.isWasm) {
             println("Skipping in wasm as Float.toString is not working as the rest of the targets")
-            return@suspendTest
+            return@runTest
         }
 
         val bmp = Bitmap1.fromString(

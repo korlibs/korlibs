@@ -8,7 +8,7 @@ class WoffTest {
     /*
     @Test
     @Ignore //     java.lang.ArrayIndexOutOfBoundsException: Index 1297 out of bounds for length 1296
-    fun test() = suspendTest {
+    fun test() = runTest {
         val font = resourcesVfs["font.woff"].readWoffFont()
         assertEquals(
             listOf("OS/2", "PCLT", "cmap", "cvt ", "fpgm", "glyf", "hdmx", "head", "hhea", "hmtx", "kern", "loca", "maxp", "name", "post", "prep"),

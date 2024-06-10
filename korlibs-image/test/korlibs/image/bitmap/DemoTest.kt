@@ -15,6 +15,7 @@ import korlibs.io.file.std.MemoryVfs
 import korlibs.io.stream.openAsync
 import korlibs.math.geom.*
 import korlibs.encoding.fromBase64
+import kotlinx.coroutines.test.*
 import kotlin.native.concurrent.ThreadLocal
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -34,7 +35,7 @@ class DemoTest {
     }
 
     @Test
-    fun test2() = suspendTest {
+    fun test2() = runTest {
         assertEquals(SizeInt(8, 8), debugBmpFont.glyphs.values.first()!!.bmp.size)
     }
 }

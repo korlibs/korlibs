@@ -6,6 +6,7 @@ import korlibs.platform.*
 import korlibs.time.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
+import kotlin.time.*
 
 private val logger = Logger("AsyncExt")
 
@@ -53,7 +54,7 @@ val DEFAULT_SUSPEND_TEST_TIMEOUT = 20.seconds
 //val DEFAULT_TEST_SYNC_IO: Boolean? = true
 val DEFAULT_TEST_SYNC_IO: Boolean? = false
 
-fun suspendTest(timeout: TimeSpan? = DEFAULT_SUSPEND_TEST_TIMEOUT, preferSyncIo: Boolean? = null, callback: suspend CoroutineScope.() -> Unit) = asyncTestEntryPoint {
+fun suspendTest(timeout: Duration? = DEFAULT_SUSPEND_TEST_TIMEOUT, preferSyncIo: Boolean? = null, callback: suspend CoroutineScope.() -> Unit) = asyncTestEntryPoint {
     withContext(PreferSyncIo(preferSyncIo)) {
         if (timeout != null) withTimeoutNullable(timeout) { callback() } else coroutineScope { callback() }
     }

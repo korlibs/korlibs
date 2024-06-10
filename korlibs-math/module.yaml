@@ -5,11 +5,9 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
-  - ../korlibs-numberformat: exported
   - ../korlibs-math-core: exported
-  - ../korlibs-math-interpolation: exported
   - ../korlibs-math-vector: exported
-  - ../korlibs-util: exported
+  - ../korlibs-platform: exported
   - ../korlibs-datastructure: exported
   - ../korlibs-number: exported
 

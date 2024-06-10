@@ -5,12 +5,10 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
+  - ../korlibs-math-core
   - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
 
 test-dependencies:
-  - ../korlibs-util
   - ../korlibs-encoding
-  #- ../korlibs-charset
-  - ../korlibs-platform
-  - ../korlibs-math-core
+  - ../korlibs-platform: exported
   - ../korlibs-string

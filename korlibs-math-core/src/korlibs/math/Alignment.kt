@@ -2,7 +2,6 @@ package korlibs.math
 
 import kotlin.math.absoluteValue
 
-
 ////////////////////
 ////////////////////
 

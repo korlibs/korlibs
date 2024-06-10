@@ -7,11 +7,12 @@ import korlibs.math.geom.*
 import korlibs.math.geom.vector.*
 import korlibs.math.interpolation.*
 import korlibs.number.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class RasterizerTest {
     @Test
-    fun test() = suspendTest {
+    fun test() = runTest {
         //Bitmap32(100, 100).context2d {
         //    fill(Colors.RED) {
         //        circle(50, 50, 40)
@@ -37,7 +38,7 @@ class RasterizerTest {
     }
 
     @Test
-    fun test2() = suspendTest {
+    fun test2() = runTest {
         val bmp1 = Bitmap32Context2d(100, 100) {
             //debug = true
             fill(
@@ -77,7 +78,7 @@ class RasterizerTest {
     }
 
     @Test
-    fun testLineJoin() = suspendTest {
+    fun testLineJoin() = runTest {
         // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin
         val bmp = NativeImageOrBitmap32(500, 500, native = false).context2d {
             //val bmp = NativeImageOrBitmap32(150, 150, native = true).context2d {
@@ -175,7 +176,7 @@ class RasterizerTest {
     }
 
     @Test
-    fun testLineJoin2() = suspendTest {
+    fun testLineJoin2() = runTest {
         val bmp = NativeImageOrBitmap32(500, 500, native = false).context2d {
             beginPath()
             lineCap = LineCap.SQUARE

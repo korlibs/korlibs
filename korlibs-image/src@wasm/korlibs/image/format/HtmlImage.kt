@@ -3,7 +3,10 @@ package korlibs.image.format
 import korlibs.image.bitmap.Bitmap
 import korlibs.image.bitmap.Bitmap32
 import korlibs.image.color.RgbaArray
+import korlibs.image.format.internal.*
 import korlibs.io.util.*
+import korlibs.io.util.arraycopy
+import korlibs.memory.*
 import org.khronos.webgl.*
 import org.w3c.dom.CanvasRenderingContext2D
 
@@ -54,8 +57,8 @@ object HtmlImage {
         if (width <= 0 || height <= 0) return
         val ctx = canvas.getContext("2d")!!.unsafeCast<CanvasRenderingContext2D>()
         val data = ctx.getImageData(0.0, 0.0, width.toDouble(), height.toDouble())
-        val idata = Int32Array(data.data.buffer).toIntArray()
-        korlibs.memory.arraycopy(idata, 0, out.ints, 0, len)
+        val idata = Int32Array(data.data.buffer).toIntArray2()
+		arraycopy(idata, 0, out.ints, 0, len)
         //console.log(out);
 	}
 

@@ -3,11 +3,12 @@ package korlibs.image.format
 import korlibs.io.async.*
 import korlibs.io.file.std.*
 import korlibs.math.geom.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class NativeImageFormatProviderTest {
     @Test
-    fun test() = suspendTest {
+    fun test() = runTest {
         val bmp1 = nativeImageFormatProvider.decode(resourcesVfs["kotlin.jpg"])
         val bmp2 = nativeImageFormatProvider.decode(resourcesVfs["kotlin.jpg.png"])
         val bmp3 = nativeImageFormatProvider.decode(resourcesVfs["kotlin.bmp"])

@@ -5,13 +5,14 @@ import korlibs.io.async.*
 import korlibs.io.file.std.*
 import korlibs.logger.*
 import korlibs.math.geom.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class RichTextDataPlacementTest {
     val logger = Logger("RichTextDataPlacementTest")
 
     @Test
-    fun test() = suspendTest {
+    fun test() = runTest {
         //val result = DefaultTtfFont.renderGlyphToBitmap(42.0, 'A'.code, paint = Colors.WHITE, fill = true, border = 1, effect = null)
         //result.bmp.showImageAndWait()
 
@@ -35,7 +36,7 @@ class RichTextDataPlacementTest {
     }
 
     @Test
-    fun testNegativeFontSize() = suspendTest {
+    fun testNegativeFontSize() = runTest {
         val font = resourcesVfs["font2/m5x7_16_outline_negative_size.fnt"].readBitmapFont()
         val placements = RichTextData("Text", font = font).place(Rectangle(0, 0, 1000, 1000))
         assertEquals(16.0, font.fontSize)

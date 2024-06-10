@@ -4,11 +4,12 @@ import korlibs.image.bitmap.*
 import korlibs.image.color.*
 import korlibs.io.async.*
 import korlibs.math.geom.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class RichTextDataRendererText {
     @Test
-    fun test() = suspendTest {
+    fun test() = runTest {
         val nativeImage = NativeImage(512, 512)
         nativeImage.context2d {
             val textBounds = Rectangle(50, 50, 150, 100)

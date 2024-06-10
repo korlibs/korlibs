@@ -1,6 +1,7 @@
 package korlibs.datastructure
 
 import kotlin.math.*
+import korlibs.datastructure.internal.*
 
 /**
  * ArrayList that prevents isObject + jsInstanceOf on getter on Kotlin/JS

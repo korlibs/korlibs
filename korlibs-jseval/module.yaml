@@ -5,9 +5,9 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
-  - ../korlibs-defs
+  - ../korlibs-platform
   - ../korlibs-concurrent
-  - ../korlibs-serialization-json
+  - ../korlibs-serialization
 
 test-dependencies:
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC

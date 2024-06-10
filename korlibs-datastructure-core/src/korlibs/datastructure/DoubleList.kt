@@ -1,6 +1,7 @@
 package korlibs.datastructure
 
 import kotlin.math.*
+import korlibs.datastructure.internal.*
 
 interface DoubleList : Collection<Double> {
     operator fun get(index: Int): Double

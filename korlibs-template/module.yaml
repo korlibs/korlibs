@@ -5,8 +5,8 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
-  - ../korlibs-serialization-yaml: exported
-  - ../korlibs-util: exported
+  - ../korlibs-serialization: exported
+  - ../korlibs-platform: exported
   - ../korlibs-string
   - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
 
