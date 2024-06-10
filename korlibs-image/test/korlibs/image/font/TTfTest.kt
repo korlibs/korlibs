@@ -4,11 +4,12 @@ import korlibs.io.async.*
 import korlibs.io.file.std.*
 import korlibs.io.lang.*
 import korlibs.math.geom.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class TTfTest {
     @Test
-    fun test() = suspendTest {
+    fun test() = runTest {
         val font = resourcesVfs["twemoji-glyf_colr_1.ttf"].readTtfFont()
         val wstr = WString("😀👩🏽‍🦳👨🏻‍🦳")
         val glyph = font[wstr.codePointAt(0)]!!
@@ -24,7 +25,7 @@ class TTfTest {
     }
 
     @Test
-    fun testLigatureAdvancementBug() = suspendTest {
+    fun testLigatureAdvancementBug() = runTest {
         val font = resourcesVfs["PlayfairDisplay-BoldItalic.ttf"].readTtfFont()
         fun res(str: String, reader: Boolean = true): Pair<Double, Int> {
             val rreader = WStringReader(str)
@@ -51,7 +52,7 @@ class TTfTest {
     }
 
     @Test
-    fun ligaturesEnabledWorks() = suspendTest {
+    fun ligaturesEnabledWorks() = runTest {
         val font =
             resourcesVfs["font_atkinson/AtkinsonHyperlegible-Bold.ttf"].readTtfFont()
 
@@ -65,7 +66,7 @@ class TTfTest {
     }
 
     @Test
-    fun ligaturesDisabledWorks() = suspendTest {
+    fun ligaturesDisabledWorks() = runTest {
         val font =
             resourcesVfs["font_atkinson/AtkinsonHyperlegible-Bold.ttf"].readTtfFont(enableLigatures = false)
 

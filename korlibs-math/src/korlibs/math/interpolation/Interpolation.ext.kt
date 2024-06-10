@@ -1,7 +1,6 @@
 package korlibs.math.interpolation
 
 import korlibs.datastructure.*
-import korlibs.math.*
 import korlibs.math.geom.*
 import korlibs.number.*
 
@@ -11,9 +10,6 @@ fun Ratio.interpolate(l: Matrix, r: Matrix): Matrix = Matrix.interpolated(l, r, 
 fun Ratio.interpolate(l: MatrixTransform, r: MatrixTransform): MatrixTransform = MatrixTransform.interpolated(l, r, this)
 fun Ratio.interpolate(l: Rectangle, r: Rectangle): Rectangle = Rectangle.interpolated(l, r, this)
 
-fun Ratio.roundDecimalPlaces(places: Int): Ratio = Ratio(value.roundDecimalPlaces(places))
-
 fun <T> Ratio.interpolate(l: Interpolable<T>, r: Interpolable<T>): T = l.interpolateWith(this, r.fastCastTo<T>())
 val Ratio.niceStr: String get() = this.toDouble().niceStr
 fun Ratio.niceStr(decimalPlaces: Int, zeroSuffix: Boolean = false): String = this.toDouble().niceStr(decimalPlaces, zeroSuffix)
-

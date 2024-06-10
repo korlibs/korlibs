@@ -4,7 +4,7 @@ import korlibs.Serializable
 import korlibs.time.Month.*
 import korlibs.time.core.*
 import korlibs.time.core.internal.*
-import korlibs.time.internal.*
+import korlibs.time.internal.umod
 import kotlin.math.*
 
 /** Represents one of the twelve months of the year. */

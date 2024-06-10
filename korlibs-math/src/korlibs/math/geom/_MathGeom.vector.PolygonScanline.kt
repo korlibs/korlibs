@@ -7,6 +7,7 @@ import korlibs.math.*
 import korlibs.math.annotations.*
 import korlibs.math.geom.*
 import korlibs.math.geom.shape.*
+import korlibs.math.internal.*
 import korlibs.math.segment.*
 import kotlin.math.*
 

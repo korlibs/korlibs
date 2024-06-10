@@ -6,11 +6,12 @@ import korlibs.image.vector.format.*
 import korlibs.image.vector.format.SVG
 import korlibs.io.async.*
 import korlibs.io.file.std.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class SvgJvmTest {
     @Test
-    fun test() = suspendTest {
+    fun test() = runTest {
         val svg = SVG(resourcesVfs["tiger.svg"].readString())
         val bmp = svg.render()
         //bmp.writeTo("/tmp/demo.png".uniVfs, PNG)
@@ -20,7 +21,7 @@ class SvgJvmTest {
     }
 
     @Test
-    fun test2() = suspendTest {
+    fun test2() = runTest {
         val svg = resourcesVfs["svglogo.svg"].readSVG()
         val bmp = svg.render()
         //bmp.writeTo("/tmp/demo.png".uniVfs, PNG)
@@ -33,7 +34,7 @@ class SvgJvmTest {
     }
 
     @Test
-    fun testSvg2() = suspendTest {
+    fun testSvg2() = runTest {
         val svgString = """
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="230" height="1024" viewBox="0 0 230 1024">
             <title></title>
@@ -49,7 +50,7 @@ class SvgJvmTest {
 
     // https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
     @Test
-    fun testSvgArcs() = suspendTest {
+    fun testSvgArcs() = runTest {
         val image1 = SVG("""
             <svg xmlns="http://www.w3.org/2000/svg" width="320" height="320">
               <path d="M 10 315

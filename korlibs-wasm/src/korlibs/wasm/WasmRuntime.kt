@@ -351,3 +351,5 @@ open class WasmRuntime(module: WasmModule, val memSize: Int, val memMax: Int) {
         }
     }
 }
+
+private inline fun Boolean.toInt(): Int = if (this) 1 else 0

@@ -3,11 +3,12 @@ package korlibs.image.text
 import korlibs.image.font.*
 import korlibs.io.async.*
 import korlibs.io.file.std.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class TextRendererTest {
     @Test
-    fun test() = suspendTest {
+    fun test() = runTest {
         val font = resourcesVfs["font/segment7.fnt"].readBitmapFont()
         val actions = Text2TextRendererActions()
         DefaultStringTextRenderer.invoke(actions, "42:10", 92.0, font)

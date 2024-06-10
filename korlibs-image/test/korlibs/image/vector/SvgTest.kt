@@ -2,12 +2,13 @@ package korlibs.image.vector
 
 import korlibs.image.vector.format.*
 import korlibs.io.async.suspendTest
+import kotlinx.coroutines.test.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class SvgTest {
     @Test
-    fun name() = suspendTest {
+    fun name() = runTest {
         val logo = SVG(SAMPLE_LOGO)
         //val img = logo.render().toBmp32()
         val img = logo.renderNoNative()

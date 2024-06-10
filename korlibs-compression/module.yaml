@@ -4,9 +4,16 @@ product:
 
 apply: [ ../common.module-template.yaml ]
 
+aliases:
+  - jvmAndAndroid: [jvm, android]
+
 dependencies:
+  - ../korlibs-io-vfs: exported
   - ../korlibs-io-stream: exported
   - ../korlibs-concurrent: exported
+  - ../korlibs-encoding
+  - ../korlibs-checksum
+  - ../korlibs-math-core
+  - ../korlibs-datastructure-core
 
 test-dependencies:
-

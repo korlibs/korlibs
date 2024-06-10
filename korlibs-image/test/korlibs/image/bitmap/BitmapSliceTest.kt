@@ -10,6 +10,7 @@ import korlibs.math.geom.*
 import korlibs.math.geom.slice.*
 import korlibs.math.geom.vector.*
 import korlibs.platform.*
+import kotlinx.coroutines.test.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -87,8 +88,8 @@ class BitmapSliceTest {
     }
 
     @Test
-    fun testTransformed() = suspendTest {
-        if (!Platform.isJvm) return@suspendTest
+    fun testTransformed() = runTest {
+        if (!Platform.isJvm) return@runTest
 
         val bmp = Bitmap32(20, 10, value = Colors.YELLOW)
         val slice = bmp.sliceWithSize(1, 1, 8, 18, orientation = ImageOrientation.ROTATE_90)
@@ -274,7 +275,7 @@ class BitmapSliceTest {
     */
 
     @Test
-    fun test2() = suspendTest {
+    fun test2() = runTest {
         val bmp1 = RectSlice(SizeableInt(100, 100), RectangleInt(25, 25, 50, 50), ImageOrientation.ROTATE_0)
         logger.debug { "bmp1=$bmp1, coords=${bmp1.coords}" }
         val bmp2 = bmp1.copy(orientation = ImageOrientation.ROTATE_90)

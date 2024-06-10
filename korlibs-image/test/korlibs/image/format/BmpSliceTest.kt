@@ -5,20 +5,21 @@ import korlibs.image.bitmap.*
 import korlibs.io.async.*
 import korlibs.io.file.std.*
 import korlibs.math.geom.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class BmpSliceTest {
     val props = ImageDecodingProps(format = ImageFormats(PNG))
 
     @Test
-    fun testName() = suspendTest {
+    fun testName() = runTest {
         val slice = resourcesVfs["rgba.png"].readBitmapSlice(name = "hello", props = props)
         assertEquals("hello", slice.name)
         assertEquals(SizeInt(4, 1), slice.bounds.size)
     }
 
     @Test
-    fun testPacking() = suspendTest {
+    fun testPacking() = runTest {
         val atlas = AtlasPacker.pack(listOf(
             resourcesVfs["rgba.png"].readBitmapSlice(name = "hello", props = props)
         ))
@@ -28,7 +29,7 @@ class BmpSliceTest {
     }
 
     @Test
-    fun testPackingMutable() = suspendTest {
+    fun testPackingMutable() = runTest {
         val atlas = MutableAtlasUnit()
         resourcesVfs["rgba.png"].readBitmapSlice(atlas = atlas, name = "hello", props = props)
         val slice = atlas["hello"]

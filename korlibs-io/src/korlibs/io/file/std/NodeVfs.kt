@@ -1,9 +1,7 @@
 @file:Suppress("EXPERIMENTAL_FEATURE_WARNING")
-@file:OptIn(ExperimentalStdlibApi::class)
 
 package korlibs.io.file.std
 
-import korlibs.datastructure.iterators.*
 import korlibs.io.async.*
 import korlibs.io.file.*
 import korlibs.io.lang.*

@@ -3,7 +3,9 @@
 package korlibs.io.stream
 
 import korlibs.io.lang.*
+import korlibs.io.stream.internal.*
 import korlibs.io.util.*
+import korlibs.math.*
 import korlibs.memory.*
 import kotlin.collections.indexOf
 

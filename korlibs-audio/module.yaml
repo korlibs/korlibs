@@ -16,11 +16,9 @@ dependencies:
   - ../korlibs-time-core: exported
   - ../korlibs-math-core: exported
   - ../korlibs-math-vector: exported
-  - ../korlibs-math-interpolation: exported
   - ../korlibs-ffi: exported
   - ../korlibs-logger: exported
   - ../korlibs-annotations: exported
-  - ../korlibs-numberformat
 
 test-dependencies:
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC

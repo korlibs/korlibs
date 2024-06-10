@@ -1,4 +1,4 @@
-package korlibs.datastructure
+package korlibs.datastructure.internal
 
 internal inline fun <T> indexOfCheck(value: T, start: Int, end: Int, get: (Int) -> T): Int {
     for (n in start until end) if (get(n) == value) return n

@@ -5,6 +5,6 @@ product:
 apply: [ ../common.module-template.yaml ]
 
 dependencies:
-  - ../korlibs-util: exported
+  - ../korlibs-platform: exported
 
 test-dependencies:

@@ -1,6 +1,7 @@
 package korlibs.datastructure
 
 import kotlin.math.*
+import korlibs.datastructure.internal.*
 
 interface FloatList : Collection<Float> {
     operator fun get(index: Int): Float

@@ -18,6 +18,7 @@ import kotlin.collections.component2
 import kotlin.collections.set
 import kotlin.coroutines.*
 import kotlin.time.*
+import kotlin.time.measureTime
 
 internal fun createNativeSystemFontProvider(coroutineContext: CoroutineContext, platform: Platform = Platform): NativeSystemFontProvider = when {
     platform.runtime.isJs -> FallbackNativeSystemFontProvider(DefaultTtfFont)
@@ -121,10 +122,17 @@ private val emojiFontNames get() = listOf(
     "Noto Color Emoji", // Google
 )
 
+private val cacheVfs = MemoryVfs()
+
+private fun userSharedCacheFile(name: String): VfsFile = when {
+    Platform.os.isMobile -> cacheVfs[".$name"]
+    else -> nativeLocalVfs(Environment.expand("~/.${name.removePrefix(".")}"))
+}
+
 open class FolderBasedNativeSystemFontProvider(
     val context: CoroutineContext,
     val folders: List<String> = (linuxFolders + windowsFolders + macosFolders + androidFolders + iosFolders).distinct(),
-    val fontCacheFile: VfsFile = standardVfs.userSharedCacheFile("korimFontCache"), // Typically ~/.korimFontCache
+    val fontCacheFile: VfsFile = userSharedCacheFile("korimFontCache"), // Typically ~/.korimFontCache
 ) : TtfNativeSystemFontProvider() {
     companion object {
         val logger = Logger("FolderBasedNativeSystemFontProvider")
@@ -148,7 +156,7 @@ open class FolderBasedNativeSystemFontProvider(
             }
             for (folder in folders) {
                 try {
-                    val file = localVfs(Environment.expand(folder))
+                    val file: VfsFile = nativeLocalVfs(Environment.expand(folder))
                     for (f in file.listRecursiveSimple()) {
                         try {
                             val name = fileNamesToName.getOrPut(f.baseName) {

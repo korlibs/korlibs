@@ -1,5 +1,7 @@
 package korlibs.memory
 
+import korlibs.math.*
+
 class SimpleBytesDeque(val initialBits: Int = 10, val allowGrow: Boolean = true) {
     private var ring = SimpleRingBuffer(initialBits)
     val tempBuffer = ByteArray(1024)

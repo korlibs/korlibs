@@ -8,7 +8,7 @@ aliases:
   - appleIosTvosMacos: [tvosArm64, tvosX64, tvosSimulatorArm64, iosArm64, iosSimulatorArm64, iosX64, macosArm64, macosX64]
 
 dependencies:
-  - ../korlibs-defs
+  - ../korlibs-platform
   - ../korlibs-memory: exported
   - ../korlibs-logger: exported
   - ../korlibs-math-core: exported

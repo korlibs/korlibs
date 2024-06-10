@@ -28,5 +28,5 @@ class EXIFInfoTest {
     @Test
     fun testPNG() = suspendTest({ !Platform.isJsBrowser }) { testBase("Exif5-2x.png") }
     //@Test
-    //fun testWebp() = suspendTest { testBase("Exif5-2x.webp") }
+    //fun testWebp() = runTest { testBase("Exif5-2x.webp") }
 }

@@ -1,7 +1,5 @@
 package korlibs.datastructure
 
-private fun Boolean.toInt() = if (this) 1 else 0
-
 class BooleanArrayList(initialCapacity: Int = 7) {
     val array = IntArrayList(initialCapacity)
 
@@ -51,3 +49,5 @@ class ShortArrayList(initialCapacity: Int = 7) {
         return out
     }
 }
+
+private fun Boolean.toInt() = if (this) 1 else 0

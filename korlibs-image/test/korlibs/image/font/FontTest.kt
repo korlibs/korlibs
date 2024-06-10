@@ -10,6 +10,7 @@ import korlibs.io.file.std.*
 import korlibs.logger.*
 import korlibs.math.geom.*
 import korlibs.platform.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class FontTest {
@@ -18,7 +19,7 @@ class FontTest {
     /*
     @Test
     @Ignore
-    fun test() = suspendTest {
+    fun test() = runTest {
         BitmapFont(SystemFont("Arial"), 100.0, chars = CharacterSet.LATIN_ALL).register(name = "Arial")
         //BitmapFont(SystemFont("Arial"), 10.0, chars = CharacterSet.LATIN_ALL).register(name = "Arial")
         //resourcesVfs["tinymce-small.ttf"].readTtfFont().register(name = "Arial")
@@ -63,7 +64,7 @@ class FontTest {
      */
 
     @Test
-    fun test2() = suspendTest {
+    fun test2() = runTest {
         //val font = DefaultTtfFont
 
 

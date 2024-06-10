@@ -1,5 +1,6 @@
 package korlibs.image.bitmap
 
+import korlibs.image.*
 import korlibs.memory.*
 import korlibs.image.color.*
 import korlibs.io.async.*
@@ -35,7 +36,7 @@ class Context2DCommonTest {
     }
 
     //@Test
-    //fun testSweepGradient() = suspendTest {
+    //fun testSweepGradient() = runTest {
     //    try {
     //        val bmp = Bitmap32Context2d(300, 300) {
     //            fill(createSweepGradient(100, 100).add(Colors.RED, Colors.GREEN, Colors.BLUE)) {

@@ -8,4 +8,4 @@ dependencies:
   - ../korlibs-math-core
   - ../korlibs-math-vector: exported
   - ../korlibs-ffi
-  - ../korlibs-closeable
+  - ../korlibs-platform

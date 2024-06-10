@@ -5,11 +5,12 @@ import korlibs.image.vector.*
 import korlibs.io.async.*
 import korlibs.math.geom.*
 import korlibs.math.geom.vector.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class NativeImageTest {
     @Test
-    fun test() = suspendTest {
+    fun test() = runTest {
         val bmp = NativeImage(4, 4)
         bmp.setRgbaRaw(0, 0, Colors.RED)
         //println("bmp.getRgbaRaw(0, 0)=${bmp.getRgbaRaw(0, 0)}")

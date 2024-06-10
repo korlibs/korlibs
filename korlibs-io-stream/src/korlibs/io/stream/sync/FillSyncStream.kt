@@ -1,6 +1,8 @@
 @file:Suppress("PackageDirectoryMismatch")
 package korlibs.io.stream
 
+import korlibs.io.stream.internal.*
+import korlibs.math.*
 import kotlin.math.*
 
 fun FillSyncStream(fillByte: Int = 0, length: Long = Long.MAX_VALUE) =

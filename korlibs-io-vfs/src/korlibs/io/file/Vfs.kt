@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.*
 import kotlin.coroutines.*
 import kotlin.math.min
 import kotlin.reflect.*
+import kotlinx.coroutines.async
 
 abstract class Vfs : AsyncCloseable {
 	open suspend fun isCaseSensitive(path: String): Boolean = true

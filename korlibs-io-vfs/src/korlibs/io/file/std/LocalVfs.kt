@@ -8,7 +8,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.coroutines.coroutineContext
 
-abstract class LocalVfs : Vfs() {
+@Deprecated("Replace with localVfs")
+fun nativeLocalVfs(path: String): VfsFile = LocalVfs()[path]
+
+open class LocalVfs(val fs: SystemFS = SystemFS) : Vfs() {
     companion object {}
 
     override suspend fun getAttributes(path: String): List<Attribute> {
@@ -23,7 +26,7 @@ abstract class LocalVfs : Vfs() {
         env: Map<String, String>,
         handler: VfsProcessHandler
     ): Int {
-        val res = SystemFS.exec(cmdAndArgs, env, path)
+        val res = fs.exec(cmdAndArgs, env, path)
         var completed = false
 
         val pipeJob = CoroutineScope(coroutineContext).launch {

@@ -7,11 +7,12 @@ import korlibs.io.async.*
 import korlibs.io.file.std.*
 import korlibs.math.geom.*
 import korlibs.math.range.*
+import kotlinx.coroutines.test.*
 import kotlin.test.*
 
 class NinePatchShapeTest {
     @Test
-    fun test() = suspendTest {
+    fun test() = runTest {
         val shape = resourcesVfs["chat-bubble.svg"].readSVG().toShape()
         val ninePatch = shape.toNinePatchFromGuides(guideColor = Colors.FUCHSIA)
         assertEquals(Size(128, 128), ninePatch.size)

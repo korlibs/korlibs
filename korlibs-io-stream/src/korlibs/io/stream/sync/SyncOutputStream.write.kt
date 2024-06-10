@@ -2,6 +2,7 @@
 package korlibs.io.stream
 
 import korlibs.io.lang.*
+import korlibs.io.stream.internal.*
 import korlibs.memory.*
 
 fun SyncOutputStream.writeBytes(data: ByteArray): Unit = write(data, 0, data.size)
