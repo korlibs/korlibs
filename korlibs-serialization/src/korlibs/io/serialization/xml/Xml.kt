@@ -400,7 +400,7 @@ data class Xml(
 
                 // Handle namespace processing based on the processNamespaces flag
                 val elementName = if (!processNamespaces && name.contains(':')) {
-                    name.split(':').last()
+                    name.substringAfter(':')
                 } else {
                     name
                 }
