@@ -138,4 +138,22 @@ class XmlTest {
         assertEquals("The cat ate the grande croissant. I didn't!", Xml("<p>  The <emph> cat </emph> ate  the <foreign>grande croissant</foreign>. I didn't!\n</p>").text)
         assertEquals("hello world", Xml("<p>hello <b>wo<i>r</i>ld</b></p>").text)
     }
+
+    @Test
+    fun testXmlNamespaceProcessing() {
+        val xmlStr = """
+            <root>
+                <ns:child xmlns:ns="http://example.com/ns">Content</ns:child>
+                <child>Content2</child>
+            </root>
+        """.trimIndent()
+
+        val xml = Xml(xmlStr, processNamespaces = false)
+        assertEquals("child", xml.allNodeChildren[0].name)
+        assertEquals("child", xml.allNodeChildren[1].name)
+
+        val xml2 = Xml(xmlStr, processNamespaces = true)
+        assertEquals("ns:child", xml2.allNodeChildren[0].name)
+        assertEquals("child", xml2.allNodeChildren[1].name)
+    }
 }

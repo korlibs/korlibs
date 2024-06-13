@@ -39,9 +39,9 @@ data class Xml(
 
         //operator fun invoke(@Language("xml") str: String): Xml = parse(str)
 
-        fun parse(str: String, collapseSpaces: Boolean = true): Xml {
+        fun parse(str: String, collapseSpaces: Boolean = true, processNamespaces: Boolean = false): Xml {
             try {
-                val stream = Xml.Stream.xmlSequence(str, collapseSpaces).iterator()
+                val stream = Xml.Stream.xmlSequence(str, collapseSpaces, processNamespaces).iterator()
 
                 data class Level(val children: List<Xml>, val close: Xml.Stream.Element.CloseTag?)
 
@@ -311,8 +311,8 @@ data class Xml(
 
         private val SPACES = Regex("\\s+")
 
-        fun xmlSequence(str: String, collapseSpaces: Boolean = true): Sequence<Element> = xmlSequence(SimpleStrReader(str), collapseSpaces)
-        fun xmlSequence(r: SimpleStrReader, collapseSpaces: Boolean = true): Sequence<Element> = sequence<Element> {
+        fun xmlSequence(str: String, collapseSpaces: Boolean = true, processNamespaces: Boolean = false): Sequence<Element> = xmlSequence(SimpleStrReader(str), collapseSpaces, processNamespaces)
+        fun xmlSequence(r: SimpleStrReader, collapseSpaces: Boolean = true, processNamespaces: Boolean = false): Sequence<Element> = sequence<Element> {
             val sb = StringBuilder(128)
 
             loop@while (!r.eof) {
@@ -397,11 +397,19 @@ data class Xml(
                 val openclose = r.tryExpect('/')
                 val processingInstructionEnd = r.tryExpect('?')
                 r.skipExpect('>')
+
+                // Handle namespace processing based on the processNamespaces flag
+                val elementName = if (!processNamespaces && name.contains(':')) {
+                    name.split(':').last()
+                } else {
+                    name
+                }
+
                 yield(when {
-                    processingInstruction || processingEntityOrDocType -> Element.ProcessingInstructionTag(name, attributes)
-                    openclose -> Element.OpenCloseTag(name, attributes)
-                    close -> Element.CloseTag(name)
-                    else -> Element.OpenTag(name, attributes)
+                    processingInstruction || processingEntityOrDocType -> Element.ProcessingInstructionTag(elementName, attributes)
+                    openclose -> Element.OpenCloseTag(elementName, attributes)
+                    close -> Element.CloseTag(elementName)
+                    else -> Element.OpenTag(elementName, attributes)
                 })
             }
         }
@@ -447,8 +455,8 @@ fun String.toXml(collapseSpaces: Boolean = true): Xml = Xml.parse(this, collapse
 // language=html
 fun Xml(
     // language=html
-    str: String, collapseSpaces: Boolean = true
-): Xml = Xml.parse(str, collapseSpaces)
+    str: String, collapseSpaces: Boolean = true, processNamespaces: Boolean = false
+): Xml = Xml.parse(str, collapseSpaces, processNamespaces)
 
 fun Xml.descendants(name: String) = descendants.filter { it.name.equals(name, ignoreCase = true) }
 fun Xml.firstDescendant(name: String) = descendants(name).firstOrNull()
