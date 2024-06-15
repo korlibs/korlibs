@@ -10,10 +10,13 @@ inline class FastDuration(private val ms: Double) : Comparable<FastDuration> {
         val POSITIVE_INFINITY get() = FastDuration(Double.POSITIVE_INFINITY)
         val NEGATIVE_INFINITY get() = FastDuration(Double.NEGATIVE_INFINITY)
         val NaN get() = FastDuration(Double.NaN)
+        val NIL get() = NaN
 
         @OptIn(CoreTimeInternalApi::class)
         fun now(): FastDuration = CoreTime.currentTimeMillisDouble().fastMilliseconds
     }
+    val isNil get() = this == NIL
+
     val seconds: Double get() = ms / 1_000
     val milliseconds: Double get() = ms
     val microseconds: Double get() = ms * 1_000
@@ -51,11 +54,11 @@ operator fun Duration.minus(other: FastDuration): FastDuration = FastDuration(th
 operator fun Duration.times(other: FastDuration): FastDuration = FastDuration(this.milliseconds - other.milliseconds)
 operator fun Duration.div(other: FastDuration): Double = this.milliseconds / other.milliseconds
 
-val Duration.fast: FastDuration get() = this.milliseconds.fastMilliseconds
-fun Duration.toFastDuration(): FastDuration = this.seconds.fastSeconds
+val Duration.fast: FastDuration get() = if (this.isNil) FastDuration.NIL else this.milliseconds.fastMilliseconds
+fun Duration.toFastDuration(): FastDuration = this.fast
 
-val FastDuration.slow: Duration get() = this.milliseconds.milliseconds
-fun FastDuration.toDuration(): Duration = this.seconds.seconds
+val FastDuration.slow: Duration get() = if (this.isNil) Duration.NIL else this.seconds.seconds
+fun FastDuration.toDuration(): Duration = this.slow
 
 val Double.fastSeconds: FastDuration get() = FastDuration(this * 1_000)
 val Int.fastSeconds: FastDuration get() = this.toDouble().fastSeconds
@@ -76,3 +79,16 @@ val Double.fastNanoseconds: FastDuration get() = FastDuration(this / 1_000_000)
 val Int.fastNanoseconds: FastDuration get() = this.toDouble().fastMilliseconds
 val Float.fastNanoseconds: FastDuration get() = this.toDouble().fastMilliseconds
 inline val Number.fastNanoseconds: FastDuration get() = this.toDouble().fastMilliseconds
+
+/** Return true if [Duration.NIL] */
+inline val FastDuration.isNil: Boolean get() = this == FastDuration.NIL
+
+fun FastDuration.roundMilliseconds(): FastDuration = kotlin.math.round(milliseconds).fastMilliseconds
+fun max(a: FastDuration, b: FastDuration): FastDuration = kotlin.math.max(a.milliseconds, b.milliseconds).fastMilliseconds
+fun min(a: FastDuration, b: FastDuration): FastDuration = kotlin.math.min(a.milliseconds, b.milliseconds).fastMilliseconds
+fun FastDuration.clamp(min: FastDuration, max: FastDuration): FastDuration = when {
+    this < min -> min
+    this > max -> max
+    else -> this
+}
+inline fun FastDuration.coalesce(block: () -> FastDuration): FastDuration = if (this.isNil) block() else this
