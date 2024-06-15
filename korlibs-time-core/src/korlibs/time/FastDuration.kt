@@ -80,4 +80,15 @@ val Int.fastNanoseconds: FastDuration get() = this.toDouble().fastMilliseconds
 val Float.fastNanoseconds: FastDuration get() = this.toDouble().fastMilliseconds
 inline val Number.fastNanoseconds: FastDuration get() = this.toDouble().fastMilliseconds
 
+/** Return true if [Duration.NIL] */
+inline val FastDuration.isNil: Boolean get() = this == FastDuration.NIL
+
+fun FastDuration.roundMilliseconds(): FastDuration = kotlin.math.round(milliseconds).fastMilliseconds
+fun max(a: FastDuration, b: FastDuration): FastDuration = kotlin.math.max(a.milliseconds, b.milliseconds).fastMilliseconds
+fun min(a: FastDuration, b: FastDuration): FastDuration = kotlin.math.min(a.milliseconds, b.milliseconds).fastMilliseconds
+fun FastDuration.clamp(min: FastDuration, max: FastDuration): FastDuration = when {
+    this < min -> min
+    this > max -> max
+    else -> this
+}
 inline fun FastDuration.coalesce(block: () -> FastDuration): FastDuration = if (this.isNil) block() else this
