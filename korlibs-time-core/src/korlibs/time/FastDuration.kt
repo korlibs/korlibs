@@ -79,3 +79,5 @@ val Double.fastNanoseconds: FastDuration get() = FastDuration(this / 1_000_000)
 val Int.fastNanoseconds: FastDuration get() = this.toDouble().fastMilliseconds
 val Float.fastNanoseconds: FastDuration get() = this.toDouble().fastMilliseconds
 inline val Number.fastNanoseconds: FastDuration get() = this.toDouble().fastMilliseconds
+
+inline fun FastDuration.coalesce(block: () -> FastDuration): FastDuration = if (this.isNil) block() else this
