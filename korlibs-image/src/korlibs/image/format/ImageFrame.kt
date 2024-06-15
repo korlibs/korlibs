@@ -2,9 +2,9 @@ package korlibs.image.format
 
 import korlibs.datastructure.Extra
 import korlibs.datastructure.fastArrayListOf
-import korlibs.time.TimeSpan
-import korlibs.time.seconds
 import korlibs.image.bitmap.*
+import korlibs.time.*
+import kotlin.time.*
 
 /**
  * This class defines one frame of a sprite object like e.g. an aseprite image file.
@@ -16,13 +16,21 @@ import korlibs.image.bitmap.*
  */
 open class ImageFrame(
     val index: Int,
-    val time: TimeSpan = 0.seconds,
+    val fastTime: FastDuration = 0.fastSeconds,
     val layerData: List<ImageFrameLayer> = emptyList(),
 ) : Extra by Extra.Mixin() {
+    val time get() = fastTime.toDuration()
+
+    constructor(
+        index: Int,
+        time: Duration,
+        layerData: List<ImageFrameLayer> = emptyList(),
+    ) : this(index, time.fast, layerData)
+
     companion object {
         operator fun invoke(
             bitmap: Bitmap,
-            time: TimeSpan = 0.seconds,
+            time: Duration = 0.seconds,
             targetX: Int = 0,
             targetY: Int = 0,
             main: Boolean = true,
@@ -53,7 +61,8 @@ open class ImageFrame(
     val main: Boolean get() = first?.main ?: false
     val includeInAtlas: Boolean get() = first?.includeInAtlas ?: true
 
-    val duration: TimeSpan get() = time
+    val duration: Duration get() = time
+    val fastDuration: FastDuration get() = fastTime
     val width: Int get() = slice.width
     val height: Int get() = slice.height
     val area: Int get() = slice.area
