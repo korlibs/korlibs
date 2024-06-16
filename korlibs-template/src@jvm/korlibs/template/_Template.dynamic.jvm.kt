@@ -28,13 +28,31 @@ open class JvmObjectMapper2 : KorteObjectMapper2 {
         val potentialPropertyNamesGetters =
             jclass.allDeclaredMethods.filter { it.name.startsWith("get") }.map { it.name.substring(3).decapitalize() }
         val potentialPropertyNames = (potentialPropertyNamesFields + potentialPropertyNamesGetters).toSet()
+
+        //Matches Strings that start with "is" followed by a capital letter
+        private val startsWithIs = Regex("^is[A-Z]")
+
         val propByName = potentialPropertyNames.map { propName ->
-            MyProperty(
-                propName,
-                methodsByName["get${propName.capitalize()}"],
-                methodsByName["set${propName.capitalize()}"],
-                fieldsByName[propName]
-            )
+
+
+            //In case propertyName matches startsWithIs, the underlying getter/setter methods are called differently
+            //e.g. if the variable is called `isX`, the getter is called `isX` (and not `getIsX`), and the setter is called `setX` (and not `setIsX`)
+            if (startsWithIs in propName) {
+                MyProperty(
+                    propName,
+                    methodsByName[propName],
+                    methodsByName["set${propName.removePrefix("is")}"],
+                    fieldsByName[propName]
+                )
+            } else {
+                MyProperty(
+                    propName,
+                    methodsByName["get${propName.capitalize()}"],
+                    methodsByName["set${propName.capitalize()}"],
+                    fieldsByName[propName]
+                )
+            }
+
         }.associateBy { it.name }
     }
 
