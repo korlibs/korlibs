@@ -171,4 +171,3 @@ inline fun Duration.coalesce(block: () -> Duration): Duration = if (this != Dura
 
 @OptIn(CoreTimeInternalApi::class)
 fun Duration.Companion.now(): Duration = Duration.fromMilliseconds(CoreTime.currentTimeMillisDouble())
-
