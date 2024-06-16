@@ -167,24 +167,7 @@ fun Duration.clamp(min: Duration, max: Duration): Duration = when {
     this > max -> max
     else -> this
 }
-inline fun Duration.coalesce(block: () -> Duration): Du/** Return true if [Duration.NIL] */
-inline val Duration.isNil: Boolean get() = this == DURATION_NIL
-
-fun Duration.roundMilliseconds(): Duration = kotlin.math.round(milliseconds).milliseconds
-fun max(a: Duration, b: Duration): Duration = max(a.milliseconds, b.milliseconds).milliseconds
-fun min(a: Duration, b: Duration): Duration = min(a.milliseconds, b.milliseconds).milliseconds
-fun Duration.clamp(min: Duration, max: Duration): Duration = when {
-    this < min -> min
-    this > max -> max
-    else -> this
-}
 inline fun Duration.coalesce(block: () -> Duration): Duration = if (this != Duration.NIL) this else block()
 
 @OptIn(CoreTimeInternalApi::class)
 fun Duration.Companion.now(): Duration = Duration.fromMilliseconds(CoreTime.currentTimeMillisDouble())
-
-ration = if (this != Duration.NIL) this else block()
-
-@OptIn(CoreTimeInternalApi::class)
-fun Duration.Companion.now(): Duration = Duration.fromMilliseconds(CoreTime.currentTimeMillisDouble())
-
