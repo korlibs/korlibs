@@ -41,29 +41,5 @@ jobs:
           files: |
             build/artifacts.tar.zstd
       - { name: Start Maven Central Staging Repository, run: ./gradlew startReleasingMavenCentral }
-      - { name: Publish Publications To Maven Repository korlibs-annotations, run: "./gradlew :korlibs-annotations:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-audio, run: "./gradlew :korlibs-audio-core:publishAllPublicationsToMavenRepository :korlibs-audio:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-bignumber, run: "./gradlew :korlibs-bignumber:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-checksum, run: "./gradlew :korlibs-checksum:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-compression, run: "./gradlew :korlibs-compression:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-concurrent, run: "./gradlew :korlibs-concurrent:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-crypto, run: "./gradlew :korlibs-crypto:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-datastructure, run: "./gradlew :korlibs-datastructure:publishAllPublicationsToMavenRepository :korlibs-datastructure-core:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-dyn, run: "./gradlew :korlibs-dyn:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-encoding, run: "./gradlew :korlibs-encoding:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-ffi, run: "./gradlew :korlibs-ffi:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-image, run: "./gradlew :korlibs-image:publishAllPublicationsToMavenRepository :korlibs-image-core:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-inject, run: "./gradlew :korlibs-inject:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-io, run: "./gradlew :korlibs-io:publishAllPublicationsToMavenRepository :korlibs-io-fs:publishAllPublicationsToMavenRepository :korlibs-io-nodejs:publishAllPublicationsToMavenRepository :korlibs-io-network-core:publishAllPublicationsToMavenRepository :korlibs-io-stream:publishAllPublicationsToMavenRepository :korlibs-io-vfs:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-jseval, run: "./gradlew :korlibs-jseval:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-logger, run: "./gradlew :korlibs-logger:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-math, run: "./gradlew :korlibs-math:publishAllPublicationsToMavenRepository :korlibs-math-core:publishAllPublicationsToMavenRepository :korlibs-math-interpolation:publishAllPublicationsToMavenRepository :korlibs-math-vector:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-memory, run: "./gradlew :korlibs-memory:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-number, run: "./gradlew :korlibs-number:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-platform, run: "./gradlew :korlibs-platform:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-serialization, run: "./gradlew :korlibs-serialization:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-string, run: "./gradlew :korlibs-string:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-template, run: "./gradlew :korlibs-template:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-time, run: "./gradlew :korlibs-time:publishAllPublicationsToMavenRepository :korlibs-time-core:publishAllPublicationsToMavenRepository" }
-      - { name: Publish Publications To Maven Repository korlibs-wasm, run: "./gradlew :korlibs-wasm:publishAllPublicationsToMavenRepository" }
+      - { name: Publish Publications To Maven Repository, run: "./gradlew publishAllPublicationsToMavenRepository" }
       - { name: Release to Maven Central, run: ./gradlew releaseMavenCentral }
