@@ -3,12 +3,8 @@ package korlibs.concurrent.thread
 
 import korlibs.io.concurrent.*
 import korlibs.time.*
-import korlibs.time.fast.*
 import kotlinx.coroutines.*
-import platform.posix.*
-import kotlin.native.concurrent.*
 import kotlin.native.runtime.*
-import kotlin.time.*
 
 actual class NativeThread actual constructor(val code: (NativeThread) -> Unit) {
     actual var isDaemon: Boolean = false

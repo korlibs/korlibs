@@ -1,8 +1,6 @@
 package korlibs.time
 
 import korlibs.time.core.*
-import korlibs.time.fast.*
-import korlibs.time.internal.*
 import kotlin.time.*
 
 /**
