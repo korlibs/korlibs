@@ -277,6 +277,9 @@ data class VfsFile(
 	}
 	suspend fun copyTo(target: VfsFile, vararg attributes: Vfs.Attribute): Long = this.openInputStream().use { target.writeStream(it, *attributes) }
 
+	fun jail(): VfsFile = JailVfs(this)
+	fun jailParent(): VfsFile = JailVfs(parent)[this.baseName]
+
 	override fun toString(): String = "$vfs[${this.path}]"
 }
 
