@@ -1,6 +1,7 @@
 package korlibs.time
 
 import korlibs.Serializable
+import korlibs.time.fast.*
 import korlibs.time.internal.*
 import kotlin.jvm.*
 import kotlin.time.*

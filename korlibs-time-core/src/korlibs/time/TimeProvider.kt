@@ -1,5 +1,6 @@
 package korlibs.time
 
+import korlibs.time.fast.*
 import kotlin.time.*
 
 /** Class to provide time that can be overridden to mock or change its behaviour. */
