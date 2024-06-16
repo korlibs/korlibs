@@ -5,6 +5,7 @@ import korlibs.concurrent.thread.*
 import korlibs.datastructure.thread.*
 import korlibs.platform.*
 import korlibs.time.*
+import korlibs.time.fast.*
 import kotlin.test.*
 
 class LockTest {
