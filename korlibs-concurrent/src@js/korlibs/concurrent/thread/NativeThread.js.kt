@@ -1,6 +1,7 @@
 package korlibs.concurrent.thread
 
 import korlibs.time.*
+import korlibs.time.fast.*
 import kotlin.time.*
 
 actual class NativeThread actual constructor(val code: (NativeThread) -> Unit) {

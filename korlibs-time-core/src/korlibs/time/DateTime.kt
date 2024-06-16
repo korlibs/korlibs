@@ -15,6 +15,7 @@ import korlibs.time.core.internal.CoreTimeInternal.Year_days
 import korlibs.time.core.internal.CoreTimeInternal.Year_daysSinceOne
 import korlibs.time.core.internal.CoreTimeInternal.Year_fromDays
 import korlibs.time.core.internal.CoreTimeInternal.Year_isLeap
+import korlibs.time.fast.*
 import kotlin.jvm.*
 import kotlin.time.*
 

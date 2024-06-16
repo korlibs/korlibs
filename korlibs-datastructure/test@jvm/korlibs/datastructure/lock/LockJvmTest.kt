@@ -2,6 +2,7 @@ package korlibs.datastructure.lock
 
 import korlibs.concurrent.thread.*
 import korlibs.time.*
+import korlibs.time.fast.*
 import kotlin.test.*
 
 class LockJvmTest {

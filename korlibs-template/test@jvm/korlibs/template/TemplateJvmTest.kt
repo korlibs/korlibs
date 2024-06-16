@@ -83,4 +83,20 @@ class TemplateJvmTest {
             })
         )
     }
+
+    @Test
+    fun testIs() = suspendTest {
+        data class Data(var isHighlight: String, var ishighlight: String)
+
+        val x = Data(
+            isHighlight = "Text1",
+            ishighlight = "Text2"
+        )
+
+        val tpl1 = KorteTemplate("{{ numbers.isHighlight }}")
+        val tpl2 = KorteTemplate("{{ numbers.ishighlight }}")
+
+        assertEquals("Text1", tpl1("numbers" to x))
+        assertEquals("Text2", tpl2("numbers" to x))
+    }
 }
