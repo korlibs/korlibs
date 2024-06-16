@@ -1,6 +1,5 @@
 package korlibs.time
 
-import korlibs.time.fast.*
 import kotlin.contracts.*
 import kotlin.time.*
 

@@ -4,7 +4,6 @@ package korlibs.concurrent.lock
 
 import korlibs.concurrent.thread.*
 import korlibs.time.*
-import korlibs.time.fast.*
 import kotlinx.atomicfu.*
 import kotlinx.atomicfu.locks.*
 import kotlin.time.*

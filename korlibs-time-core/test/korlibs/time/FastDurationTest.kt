@@ -1,6 +1,5 @@
-package korlibs.time.fast
+package korlibs.time
 
-import korlibs.time.*
 import kotlin.test.*
 import kotlin.time.*
 
