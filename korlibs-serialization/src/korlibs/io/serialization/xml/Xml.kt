@@ -2,7 +2,6 @@
 
 package korlibs.io.serialization.xml
 
-import korlibs.io.serialization.xml.internal.*
 import korlibs.io.stream.*
 import korlibs.io.util.*
 import korlibs.util.*
@@ -537,4 +536,14 @@ private fun <K, V> Map<K, V>.flip(): Map<V, K> = this.map { Pair(it.value, it.ke
 private inline fun String.eachBuilder(transform: StringBuilder.(Char) -> Unit): String = buildString {
     @Suppress("ReplaceManualRangeWithIndicesCalls") // Performance reasons? Check that plain for doesn't allocate
     for (n in 0 until this@eachBuilder.length) transform(this, this@eachBuilder[n])
+}
+
+private inline fun <T> List<T>.fastForEach(callback: (T) -> Unit) {
+    var n = 0
+    while (n < size) callback(this[n++])
+}
+
+private inline fun <T> Array<T>.fastForEach(callback: (T) -> Unit) {
+    var n = 0
+    while (n < size) callback(this[n++])
 }

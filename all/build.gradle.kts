@@ -9,6 +9,7 @@ import org.gradle.plugins.signing.signatory.internal.pgp.*
 import org.jetbrains.kotlin.gradle.dsl.*
 import org.jetbrains.kotlin.gradle.plugin.*
 import org.jetbrains.kotlin.gradle.targets.js.ir.*
+import org.jetbrains.kotlin.gradle.plugin.mpp.*
 import java.net.*
 import java.util.*
 import java.util.concurrent.*
@@ -240,4 +241,16 @@ dependencies {
 
 tasks.withType(ProcessResources::class) {
     this.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+afterEvaluate {
+    kotlin.targets.filter { it.platformType == KotlinPlatformType.native }.forEach { target ->
+        target.compilations.getByName("main") {
+            (this as KotlinNativeCompilation).cinterops {
+                val stb_image by creating {
+                    defFile(project.file("../korlibs-image/nativeInterop/cinterop/stb_image.def"))
+                }
+            }
+        }
+    }
 }
