@@ -1,9 +1,7 @@
 package korlibs.math.geom
 
-import korlibs.math.geom.bezier.*
 import korlibs.math.geom.shape.*
 import korlibs.math.geom.vector.*
-import kotlin.math.*
 
 fun RoundRectangle.toVectorPath(): VectorPath = buildVectorPath { roundRect(this@toVectorPath) }
 fun Polygon.toVectorPath(): VectorPath = buildVectorPath { polygon(points, close = true) }
