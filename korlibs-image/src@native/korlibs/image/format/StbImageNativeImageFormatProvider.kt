@@ -2,14 +2,24 @@
 
 package korlibs.image.format
 
-import korlibs.image.bitmap.*
 import korlibs.io.async.*
-import korlibs.io.lang.*
 import kotlinx.cinterop.*
 import kotlinx.coroutines.*
-import platform.posix.*
-import kotlin.native.concurrent.*
 
+open class StbImageNativeImageFormatProvider : BaseNativeImageFormatProvider() {
+    companion object : StbImageNativeImageFormatProvider()
+
+    private val _formats = ImageFormats(PNG, JPEG, GIF, BMP)
+
+    override suspend fun decodeInternal(data: ByteArray, props: ImageDecodingProps): NativeImageResult = withContext(Dispatchers.ResourceDecoder) {
+        NativeImageResult(BitmapNativeImage(_formats.read(data, props)))
+    }
+
+    override suspend fun encodeSuspend(image: ImageDataContainer, props: ImageEncodingProps): ByteArray =
+        PNG.encodeSuspend(image, props)
+}
+
+/*
 open class StbImageNativeImageFormatProvider : BaseNativeImageFormatProvider() {
     companion object : StbImageNativeImageFormatProvider()
 
@@ -42,3 +52,4 @@ open class StbImageNativeImageFormatProvider : BaseNativeImageFormatProvider() {
     override suspend fun encodeSuspend(image: ImageDataContainer, props: ImageEncodingProps): ByteArray =
         PNG.encodeSuspend(image, props)
 }
+*/

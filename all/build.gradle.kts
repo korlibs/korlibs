@@ -243,6 +243,7 @@ tasks.withType(ProcessResources::class) {
     this.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
+/*
 afterEvaluate {
     kotlin.targets.filter { it.platformType == KotlinPlatformType.native }.forEach { target ->
         target.compilations.getByName("main") {
@@ -254,3 +255,15 @@ afterEvaluate {
         }
     }
 }
+afterEvaluate {
+    kotlin.targets.filter { it.platformType == KotlinPlatformType.native }.forEach { target ->
+        target.compilations.getByName("main") {
+            (this as KotlinNativeCompilation).cinterops {
+                val miniffi by creating {
+                    defFile(project.file("../korlibs-ffi/nativeInterop/cinterop/miniffi.def"))
+                }
+            }
+        }
+    }
+}
+*/

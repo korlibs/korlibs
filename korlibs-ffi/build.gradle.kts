@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.plugin.*
 import org.jetbrains.kotlin.gradle.plugin.mpp.*
 
+/*
 afterEvaluate {
     kotlin.targets.filter { it.platformType == KotlinPlatformType.native }.forEach { target ->
         target.compilations.getByName("main") {
@@ -12,3 +13,4 @@ afterEvaluate {
         }
     }
 }
+*/
