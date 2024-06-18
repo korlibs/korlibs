@@ -103,20 +103,21 @@ interface IPointList : IDoubleVectorList, List<Point> {
             for (n in toIndex - 1 downTo  fromIndex) if (list.getX(n) == element.x && list.getY(n) == element.y) return n + offset
             return -1
         }
+
+        inline fun getPolylineLength(size: Int, crossinline get: (n: Int) -> Point): Double {
+            var out = 0.0
+            var prev = Point.ZERO
+            for (n in 0 until size) {
+                val p = get(n)
+                if (n > 0) out += Point.distance(prev, p)
+                prev = p
+            }
+            return out
+        }
+
     }
 }
 
 
-fun IPointList.getPolylineLength(): Double = getPolylineLength(size) { get(it) }
-fun List<Point>.getPolylineLength(): Double = getPolylineLength(size) { get(it) }
-
-internal inline fun getPolylineLength(size: Int, crossinline get: (n: Int) -> Point): Double {
-    var out = 0.0
-    var prev = Point.ZERO
-    for (n in 0 until size) {
-        val p = get(n)
-        if (n > 0) out += Point.distance(prev, p)
-        prev = p
-    }
-    return out
-}
+fun IPointList.getPolylineLength(): Double = IPointList.getPolylineLength(size) { get(it) }
+fun List<Point>.getPolylineLength(): Double = IPointList.getPolylineLength(size) { get(it) }
