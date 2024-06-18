@@ -9,7 +9,7 @@ import kotlinx.coroutines.*
 open class StbImageNativeImageFormatProvider : BaseNativeImageFormatProvider() {
     companion object : StbImageNativeImageFormatProvider()
 
-    private val _formats = ImageFormats(PNG, JPEG, GIF, BMP)
+    private val _formats = ImageFormats(PNG, JPEG, GIF, BMP, TGA, PSD)
 
     override suspend fun decodeInternal(data: ByteArray, props: ImageDecodingProps): NativeImageResult = withContext(Dispatchers.ResourceDecoder) {
         NativeImageResult(BitmapNativeImage(_formats.read(data, props)))
