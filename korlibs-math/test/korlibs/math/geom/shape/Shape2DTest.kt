@@ -10,12 +10,12 @@ class Shape2DTest {
     @Test
     fun test() {
         assertEquals(
-            "Rectangle(x=0, y=0, width=100, height=100)",
+            "Shape2D(Rectangle(x=0, y=0, width=100, height=100))",
             VectorPath { rect(0, 0, 100, 100) }.toShape2D(closed = true).toString()
         )
 
         assertEquals(
-            "CompoundShape2D(shapes=[Rectangle(x=0, y=0, width=100, height=100), Rectangle(x=300, y=0, width=100, height=100)])",
+            "CompoundShape2D(shapes=[Shape2D(Rectangle(x=0, y=0, width=100, height=100)), Shape2D(Rectangle(x=300, y=0, width=100, height=100))])",
             VectorPath {
                 rect(0, 0, 100, 100)
                 rect(300, 0, 100, 100)
@@ -72,8 +72,8 @@ class Shape2DTest {
 
     @Test
     fun testIntersects() {
-        assertEquals(false, Circle(Point(0, 0), 20f).intersectsWith(Circle(Point(40, 0), 20f)))
-        assertEquals(true, Circle(Point(0, 0), 20f).intersectsWith(Circle(Point(38, 0), 20f)))
+        assertEquals(false, Circle(Point(0, 0), 20f).toShape2D().intersectsWith(Circle(Point(40, 0), 20f).toShape2D()))
+        assertEquals(true, Circle(Point(0, 0), 20f).toShape2D().intersectsWith(Circle(Point(38, 0), 20f).toShape2D()))
     }
 
     @Test
@@ -155,7 +155,7 @@ class Shape2DTest {
         val circle2 = Circle(Point(40, 0), 50f)
         assertEqualsFloat(
             pointArrayListOf(Point(20f, -46f), Point(20f, 46f)),
-            circle1.intersectionsWith(circle2),//.mapPoints { it.round() },
+            circle1.toShape2D().intersectionsWith(circle2.toShape2D()),//.mapPoints { it.round() },
             absoluteTolerance = 0.5
         )
     }
@@ -165,8 +165,8 @@ class Shape2DTest {
         assertEqualsFloat(
             pointArrayListOf(Point(120f, 138f), Point(180f, 105.5f)),
             Shape2D.intersections(
-                Circle(Point(100, 100), 100f), Matrix.IDENTITY.scaled(1.1).translated(-10, -80),
-                Circle(Point(100, 100), 100f), Matrix.IDENTITY.scaled(1.5).translated(70, 100)
+                Circle(Point(100, 100), 100f).toShape2D(), Matrix.IDENTITY.scaled(1.1).translated(-10, -80),
+                Circle(Point(100, 100), 100f).toShape2D(), Matrix.IDENTITY.scaled(1.5).translated(70, 100)
             ),
             absoluteTolerance = 0.5
         )

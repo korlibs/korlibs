@@ -2,16 +2,16 @@ package korlibs.math.geom
 
 import korlibs.math.*
 import korlibs.math.annotations.*
-import korlibs.math.geom.bezier.*
 import korlibs.math.geom.shape.*
-import korlibs.math.geom.vector.*
 import kotlin.math.*
 
 typealias Line2 = Line
 typealias Line = Line2D
 
 //@KormaValueApi
-data class Line2D(val a: Vector2D, val b: Vector2D) : Shape2D {
+data class Line2D(val a: Vector2D, val b: Vector2D) : SimpleShape2D {
+    override val closed: Boolean get() = false
+
     override val area: Double get() = 0.0
     override val perimeter: Double get() = length
 
@@ -21,6 +21,7 @@ data class Line2D(val a: Vector2D, val b: Vector2D) : Shape2D {
     }
 
     override val center: Point get() = (a + b) * 0.5
+
     fun toRay(): Ray = Ray(a, (b - a).normalized)
 
     val xmin: Double get() = kotlin.math.min(x0, x1)
@@ -66,8 +67,10 @@ data class Line2D(val a: Vector2D, val b: Vector2D) : Shape2D {
         return Point((v1x + (projLenOfLine * e1x) / lenLineE1), (v1y + (projLenOfLine * e1y) / lenLineE1))
     }
 
-    override fun toVectorPath(): VectorPath = buildVectorPath { moveTo(a); lineTo(b) }
     override fun containsPoint(p: Point): Boolean = false
+    override fun getBounds(): Rectangle {
+        TODO("Not yet implemented")
+    }
 
     constructor() : this(Point(), Point())
     constructor(x0: Double, y0: Double, x1: Double, y1: Double) : this(Point(x0, y0), Point(x1, y1))
@@ -75,7 +78,6 @@ data class Line2D(val a: Vector2D, val b: Vector2D) : Shape2D {
     constructor(x0: Int, y0: Int, x1: Int, y1: Int) : this(Point(x0, y0), Point(x1, y1))
 
     inline fun flipped(): Line = Line(b, a)
-    fun toBezier(): Bezier = Bezier(a, b)
 
     val x0: Double get() = a.x
     val y0: Double get() = a.y

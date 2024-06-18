@@ -76,5 +76,14 @@ data class RectangleInt(
             return RectangleInt(topLeft.x, topLeft.y, size.x, size.y)
         }
         fun fromBounds(left: Int, top: Int, right: Int, bottom: Int): RectangleInt = fromBounds(Vector2I(left, top), Vector2I(right, bottom))
+
+        operator fun invoke(position: PointInt, size: SizeInt): RectangleInt = RectangleInt(position.x, position.y, size.width, size.height)
     }
+
+    val float: Rectangle get() = Rectangle(x, y, width, height)
+    val size: SizeInt get() = SizeInt(width, height)
+    fun toFloat(): Rectangle = Rectangle(position.toDouble(), size.toDouble())
+    fun expanded(border: MarginInt): RectangleInt =
+        RectangleInt.fromBounds(left - border.left, top - border.top, right + border.right, bottom + border.bottom)
+
 }

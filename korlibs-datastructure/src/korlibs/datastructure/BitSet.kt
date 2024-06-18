@@ -1,13 +1,7 @@
 package korlibs.datastructure
 
 import korlibs.datastructure.internal.*
-import korlibs.datastructure.internal.math.Math.divCeil
-import kotlin.collections.Collection
-import kotlin.collections.Iterator
-import kotlin.collections.any
-import kotlin.collections.contentEquals
-import kotlin.collections.contentHashCode
-import kotlin.collections.map
+import korlibs.math.*
 
 /**
  * Fixed size [BitSet]. Similar to a [BooleanArray] but tightly packed to reduce memory usage.

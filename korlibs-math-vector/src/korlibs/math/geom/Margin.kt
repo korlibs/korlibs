@@ -35,16 +35,6 @@ data class Margin(
             this.bottom.isAlmostEquals(other.bottom, epsilon)
     fun isAlmostZero(epsilon: Double = 0.000001): Boolean = isAlmostEquals(ZERO, epsilon)
 
-    val topFixed: FixedShort get() = top.toFixedShort()
-    val rightFixed: FixedShort get() = right.toFixedShort()
-    val bottomFixed: FixedShort get() = bottom.toFixedShort()
-    val leftFixed: FixedShort get() = left.toFixedShort()
-
-    val leftPlusRightFixed: FixedShort get() = leftFixed + rightFixed
-    val topPlusBottomFixed: FixedShort get() = topFixed + bottomFixed
-    val horizontalFixed: FixedShort get() = (leftFixed + rightFixed) / 2.toFixedShort()
-    val verticalFixed: FixedShort get() = (topFixed + bottomFixed) / 2.toFixedShort()
-
     val leftPlusRight: Double get() = left + right
     val topPlusBottom: Double get() = top + bottom
 

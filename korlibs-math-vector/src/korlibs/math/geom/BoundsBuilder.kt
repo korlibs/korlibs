@@ -1,7 +1,5 @@
 package korlibs.math.geom
 
-import korlibs.datastructure.iterators.*
-
 inline class BoundsBuilder(val bounds: Rectangle) {
     val isEmpty: Boolean get() = bounds.isNIL
     val isNotEmpty: Boolean get() = bounds.isNotNIL
@@ -40,11 +38,6 @@ inline class BoundsBuilder(val bounds: Rectangle) {
         if (bounds.isNIL) return BoundsBuilder(Rectangle(p, Size(0, 0)))
         return BoundsBuilder(Rectangle.fromBounds(Point.minComponents(bounds.topLeft, p), Point.maxComponents(bounds.bottomRight, p)))
     }
-    operator fun plus(p: PointList): BoundsBuilder {
-        var bb = this
-        p.fastForEach { bb += it }
-        return bb
-    }
     operator fun plus(bb: BoundsBuilder): BoundsBuilder = this + bb.bounds
     operator fun plus(rect: Rectangle?): BoundsBuilder {
         if (rect == null) return this
@@ -54,7 +47,7 @@ inline class BoundsBuilder(val bounds: Rectangle) {
     //operator fun plus(rect: Rectangle): BoundsBuilder = TODO()
     operator fun plus(rects: List<Rectangle>): BoundsBuilder {
         var bb = this
-        rects.fastForEach { bb += it }
+        for (it in rects) bb += it
         return bb
     }
     fun boundsOrNull(): Rectangle? = if (isEmpty) null else bounds

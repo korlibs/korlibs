@@ -1,19 +1,17 @@
 package korlibs.math.geom
 
 import korlibs.math.*
-import korlibs.math.annotations.*
 import korlibs.math.geom.shape.*
-import korlibs.math.geom.vector.*
 import korlibs.math.interpolation.*
 import korlibs.number.*
 import kotlin.math.*
 
-typealias Rectangle = RectangleD
+typealias RectangleD = Rectangle
 
 //@KormaValueApi
 //inline class Rectangle(val data: Float4Pack) : Shape2D, Interpolable<Rectangle> {
 //inline class Rectangle(val data: Float4) : Shape2D {
-data class RectangleD(val x: Double, val y: Double, val width: Double, val height: Double) : Shape2D, IsAlmostEquals<RectangleD> {
+data class Rectangle(val x: Double, val y: Double, val width: Double, val height: Double) : SimpleShape2D, IsAlmostEquals<Rectangle> {
     val int: RectangleInt get() = toInt()
 
     //operator fun component1(): Float = x
@@ -31,15 +29,6 @@ data class RectangleD(val x: Double, val y: Double, val width: Double, val heigh
 
     val position: Point get() = Point(x, y)
     val size: Size get() = Size(width, height)
-
-    @Deprecated("", ReplaceWith("x"))
-    val xD: Double get() = x
-    @Deprecated("", ReplaceWith("y"))
-    val yD: Double get() = y
-    @Deprecated("", ReplaceWith("width"))
-    val widthD: Double get() = width
-    @Deprecated("", ReplaceWith("height"))
-    val heightD: Double get() = height
 
     val isZero: Boolean get() = this == ZERO
     val isInfinite: Boolean get() = this == INFINITE
@@ -111,9 +100,11 @@ data class RectangleD(val x: Double, val y: Double, val width: Double, val heigh
 
     override val area: Double get() = width * height
     override val perimeter: Double get() = (width + height) * 2
+    override val closed: Boolean = true
 
     override fun containsPoint(p: Point): Boolean = (p.x >= left && p.x < right) && (p.y >= top && p.y < bottom)
-    override fun toVectorPath(): VectorPath = buildVectorPath { rect(this@RectangleD) }
+    override fun getBounds(): Rectangle = this
+
     override fun distance(p: Point): Double {
         val p = p - center
         val b = Vector2D(width * 0.5, height * 0.5)
@@ -186,15 +177,6 @@ data class RectangleD(val x: Double, val y: Double, val width: Double, val heigh
     val centerY: Double get() = (bottom + top) * 0.5
     override val center: Point get() = Point(centerX, centerY)
 
-    /**
-     * Circle that touches or contains all the corners ([topLeft], [topRight], [bottomLeft], [bottomRight]) of the rectangle.
-     */
-    fun outerCircle(): Circle {
-        val centerX = centerX
-        val centerY = centerY
-        return Circle(center, Point.distance(centerX, centerY, right, top))
-    }
-
     fun without(padding: Margin): Rectangle = fromBounds(
         left + padding.left,
         top + padding.top,
@@ -229,9 +211,6 @@ data class RectangleD(val x: Double, val y: Double, val width: Double, val heigh
     fun toIntFloor(): RectangleInt = RectangleInt(x.toIntFloor(), y.toIntFloor(), width.toIntFloor(), height.toIntFloor())
 
     fun getAnchoredPoint(anchor: Anchor): Point = Point(left + width * anchor.sx, top + height * anchor.sy)
-
-    @Deprecated("")
-    @KormaMutableApi fun toMRectangle(out: MRectangle = MRectangle()): MRectangle = out.setTo(x, y, width, height)
 
     fun expanded(border: MarginInt): Rectangle =
         fromBounds(left - border.left, top - border.top, right + border.right, bottom + border.bottom)
@@ -288,6 +267,15 @@ fun Iterable<Rectangle>.bounds(): Rectangle {
         }
     }
     return Rectangle.fromBounds(left, top, right, bottom)
+}
+
+/**
+ * Circle that touches or contains all the corners ([Rectangle.topLeft], [Rectangle.topRight], [Rectangle.bottomLeft], [Rectangle.bottomRight]) of the rectangle.
+ */
+fun Rectangle.outerCircle(): Circle {
+    val centerX = centerX
+    val centerY = centerY
+    return Circle(center, Point.distance(centerX, centerY, right, top))
 }
 
 fun Rectangle.place(item: Size, anchor: Anchor, scale: ScaleMode): Rectangle {

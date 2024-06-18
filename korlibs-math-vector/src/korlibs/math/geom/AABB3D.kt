@@ -3,7 +3,7 @@ package korlibs.math.geom
 import korlibs.math.geom.shape.*
 import kotlin.math.*
 
-data class AABB3D(val min: Vector3F = Vector3F(), val max: Vector3F = Vector3F()) : Shape3D {
+data class AABB3D(val min: Vector3F = Vector3F(), val max: Vector3F = Vector3F()) : SimpleShape3D {
     val minX: Float get() = min.x
     val minY: Float get() = min.y
     val minZ: Float get() = min.z

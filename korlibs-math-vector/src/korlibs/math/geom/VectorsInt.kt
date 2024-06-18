@@ -15,6 +15,11 @@ data class Vector2I(val x: Int, val y: Int) {
 
     companion object {
         val ZERO = Vector2I(0, 0)
+
+        fun compare(lx: Int, ly: Int, rx: Int, ry: Int): Int {
+            val ret = ly.compareTo(ry)
+            return if (ret == 0) lx.compareTo(rx) else ret
+        }
     }
 
     //val x: Int get() = raw.i0

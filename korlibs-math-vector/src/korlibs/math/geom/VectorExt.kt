@@ -18,10 +18,6 @@ inline fun Vector2D.transformedNullable(m: Matrix?): Vector2D = if (m != null &&
 fun Vector2D.transformNullableX(m: Matrix?): Double = if (m != null && m.isNotNIL) m.transform(this).x else x
 fun Vector2D.transformNullableY(m: Matrix?): Double = if (m != null && m.isNotNIL) m.transform(this).y else y
 
-
-fun PointList.getPolylineLength(): Double = getPolylineLength(size) { get(it) }
-fun List<Point>.getPolylineLength(): Double = getPolylineLength(size) { get(it) }
-
 fun List<Point>.bounds(): Rectangle = BoundsBuilder(size) { this + get(it) }.bounds
 fun Iterable<Point>.bounds(): Rectangle {
     var bb = BoundsBuilder()
@@ -29,16 +25,6 @@ fun Iterable<Point>.bounds(): Rectangle {
     return bb.bounds
 }
 
-internal inline fun getPolylineLength(size: Int, crossinline get: (n: Int) -> Point): Double {
-    var out = 0.0
-    var prev = Point.ZERO
-    for (n in 0 until size) {
-        val p = get(n)
-        if (n > 0) out += Point.distance(prev, p)
-        prev = p
-    }
-    return out
-}
 
 //inline operator fun Vector2F.plus(that: Size): Vector2F = Vector2F(x + that.width, y + that.height)
 //inline operator fun Vector2F.minus(that: Size): Vector2F = Vector2F(x - that.width, y - that.height)
