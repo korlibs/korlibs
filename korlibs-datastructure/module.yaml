@@ -7,6 +7,7 @@ apply: [ ../common.module-template.yaml ]
 dependencies:
   - ../korlibs-concurrent: exported
   - ../korlibs-time-core: exported
+  - ../korlibs-math-vector: exported
   - ../korlibs-datastructure-core: exported
 
 test-dependencies:
