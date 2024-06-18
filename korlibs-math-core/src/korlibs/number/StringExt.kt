@@ -35,6 +35,14 @@ fun StringBuilder.appendNice(value: Float, zeroSuffix: Boolean = false): Unit {
     }
     if (zeroSuffix) append(".0")
 }
+fun StringBuilder.appendGenericArray(size: Int, appendElement: StringBuilder.(Int) -> Unit) {
+    append("[")
+    for (n in 0 until size) {
+        if (n != 0) append(", ")
+        appendElement(n)
+    }
+    append("]")
+}
 
 //val Float.niceStr: String get() = buildString { appendNice(this@niceStr) }
 //fun Float.niceStr(decimalPlaces: Int): String = roundDecimalPlaces(decimalPlaces).niceStr

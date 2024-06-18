@@ -2269,7 +2269,7 @@ data class MPoint(
     }
 }
 
-fun List<MPoint>.getPolylineLength(): Double = getPolylineLength(size) { get(it).point }
+fun List<MPoint>.getPolylineLength(): Double = IPointList.getPolylineLength(size) { get(it).point }
 
 fun List<MPoint>.bounds(out: MRectangle = MRectangle(), bb: MBoundsBuilder = MBoundsBuilder()): MRectangle = bb.add(this).getBounds(out)
 fun Iterable<MPoint>.bounds(out: MRectangle = MRectangle(), bb: MBoundsBuilder = MBoundsBuilder()): MRectangle = bb.add(this).getBounds(out)

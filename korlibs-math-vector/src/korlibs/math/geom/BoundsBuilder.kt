@@ -34,6 +34,7 @@ inline class BoundsBuilder(val bounds: Rectangle) {
             return bb
         }
     }
+    fun plus(x: Double, y: Double): BoundsBuilder = this.plus(Point(x, y))
     operator fun plus(p: Point): BoundsBuilder {
         if (bounds.isNIL) return BoundsBuilder(Rectangle(p, Size(0, 0)))
         return BoundsBuilder(Rectangle.fromBounds(Point.minComponents(bounds.topLeft, p), Point.maxComponents(bounds.bottomRight, p)))
@@ -43,6 +44,11 @@ inline class BoundsBuilder(val bounds: Rectangle) {
         if (rect == null) return this
         if (rect.isNIL) return this
         return this + rect.topLeft + rect.bottomRight
+    }
+    operator fun plus(p: IPointList): BoundsBuilder {
+        var bb = this
+        for (n in 0 until p.size) bb = bb.plus(p[n])
+        return bb
     }
     //operator fun plus(rect: Rectangle): BoundsBuilder = TODO()
     operator fun plus(rects: List<Rectangle>): BoundsBuilder {

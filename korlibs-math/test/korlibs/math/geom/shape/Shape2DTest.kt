@@ -23,7 +23,7 @@ class Shape2DTest {
         )
 
         assertEquals(
-            "Polygon(points=[(0, 0), (100, 0), (100, 100)])",
+            "Shape2D(Polygon(points=[(0, 0), (100, 0), (100, 100)]))",
             VectorPath {
                 moveTo(Point(0, 0))
                 lineTo(Point(100, 0))
