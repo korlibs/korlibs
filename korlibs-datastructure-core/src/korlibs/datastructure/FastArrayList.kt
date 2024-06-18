@@ -101,3 +101,13 @@ interface MutableListEx<E> : MutableList<E> {
         //while (this.size > size) removeLast()
     }
 }
+
+private inline fun <T> List<T>.fastForEach(callback: (T) -> Unit) {
+    var n = 0
+    while (n < size) callback(this[n++])
+}
+
+private inline fun <T> Array<T>.fastForEach(callback: (T) -> Unit) {
+    var n = 0
+    while (n < size) callback(this[n++])
+}

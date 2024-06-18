@@ -1,5 +1,7 @@
 package korlibs.datastructure
 
+import korlibs.math.geom.*
+
 // Note: Due to autoboxing, the get()/set() methods are implemented in the typed implementations
 // without an override (meaning we don't require the interface to have get/set methods).
 //
@@ -8,6 +10,18 @@ interface IArray2<E> : Iterable<E> {
     companion object {
         fun checkArraySize(width: Int, height: Int, arraySize: Int) {
             check(arraySize >= width * height) { "backing array of size=$arraySize, has less elements than $width * $height" }
+        }
+
+        inline fun <E> forEachPosRect(array: IArray2<E>, rect: RectangleInt, block: (x: Int, y: Int) -> Unit) {
+            val l = rect.left.coerceIn(0, array.width)
+            val r = rect.right.coerceIn(0, array.width)
+            val u = rect.top.coerceIn(0, array.height)
+            val d = rect.bottom.coerceIn(0, array.height)
+            for (x in l until r) {
+                for (y in u until d) {
+                    block(x, y)
+                }
+            }
         }
     }
     val width: Int
@@ -19,21 +33,23 @@ interface IArray2<E> : Iterable<E> {
     fun inside(x: Int, y: Int): Boolean = x >= 0 && y >= 0 && x < width && y < height
 
     // Prints the value at the given index.
-    fun printAt(idx: Int)
+    fun printAt(idx: Int) = print(getAt(idx))
 
     fun printAt(x: Int, y: Int) = printAt(index(x, y))
 
     fun setAt(idx: Int, value: E)
-
-    // Returns true if the value at `idx` equals the `value`.
-    fun equalsAt(idx: Int, value: E): Boolean
-
+    fun equalsAt(idx: Int, value: E): Boolean = getAt(idx) == value // Returns true if the value at `idx` equals the `value`.
     fun getAt(idx: Int): E
 
-    fun getAt(x: Int, y: Int) = getAt(index(x, y))
+    fun tryGet(x: Int, y: Int): E? = if (inside(x, y)) getAt(x, y) else null
+    fun trySet(x: Int, y: Int, value: E) {
+        if (inside(x, y)) setAt(x, y, value)
+    }
+
+    fun getAt(x: Int, y: Int): E = if (inside(x, y)) getAt(index(x, y)) else getAt(0)
 
     fun setAt(x: Int, y: Int, value: E) {
-        setAt(index(x, y), value)
+        if (inside(x, y)) setAt(index(x, y), value)
     }
 
     fun set(rows: List<List<E>>) {
@@ -46,9 +62,9 @@ interface IArray2<E> : Iterable<E> {
         }
     }
 
-    operator fun contains(v: E): Boolean {
-        return this.iterator().asSequence().any { it == v }
-    }
+    fun setAt(rect: RectangleInt, value: E) = forEachPosRect(this, rect) { x, y -> this.setAt(x, y, value) }
+
+    operator fun contains(v: E): Boolean = this.iterator().asSequence().any { it == v }
 
     fun getPositionsWithValue(value: E) =
         (0 until size).filter { equalsAt(it, value) }.map { Pair(it % width, it / width) }
@@ -62,10 +78,11 @@ interface IArray2<E> : Iterable<E> {
         }
     }
 
-    fun toStringList(charMap: (E) -> Char, margin: String = ""): List<String> {
-        return (0 until height).map { y ->
-            margin + CharArray(width) { x -> charMap(getAt(x, y)) }.concatToString()
-        }
+    override fun iterator(): Iterator<E> = (0 until width * height).map { getAt(it) }.listIterator()
+    //override fun iterator(): kotlin.collections.Iterator<E> = TODO()
+
+    fun toStringList(charMap: (E) -> Char, margin: String = ""): List<String> = (0 until height).map { y ->
+        margin + CharArray(width) { x -> charMap(getAt(x, y)) }.concatToString()
     }
 
     fun asString(margin: String = "", charMap: (E) -> Char): String =
@@ -78,7 +95,11 @@ interface IArray2<E> : Iterable<E> {
         .joinToString("\n") { y ->
             (0 until width).map { x -> getAt(x, y) }.joinToString(", ")
         }
+
 }
+
+fun <E> IArray2<E>.getAt(p: PointInt): E = this.getAt(p.x, p.y)
+fun <E> IArray2<E>.setAt(p: PointInt, v: E) { this.setAt(p.x, p.y, v) }
 
 inline fun <E> IArray2<E>.fill(gen: (old: E) -> E) {
     var n = 0
@@ -102,3 +123,6 @@ fun <E> IArray2<E>.index(x: Int, y: Int): Int {
     if ((x !in 0 until width) || (y !in 0 until height)) throw IndexOutOfBoundsException()
     return y * width + x
 }
+
+fun <E> IArray2<E>.revIndexX(index: Int): Int = index % width
+fun <E> IArray2<E>.revIndexY(index: Int): Int = index / width

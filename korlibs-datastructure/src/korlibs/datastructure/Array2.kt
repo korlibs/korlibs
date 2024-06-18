@@ -2,6 +2,9 @@
 
 package korlibs.datastructure
 
+import korlibs.datastructure.IArray2.Companion.forEachPosRect
+import korlibs.math.geom.*
+
 inline fun <TGen : Any, RGen : Any> IArray2<TGen>.map2(gen: (x: Int, y: Int, v: TGen) -> RGen) =
     Array2<RGen>(width, height) {
         val x = it % width
@@ -31,14 +34,114 @@ inline fun DoubleArray2.map2(gen: (x: Int, y: Int, v: Double) -> Double): Double
     }
 
 // typealias BitIArray2 = IArray2<Bit>
-typealias BooleanIArray2 = IArray2<Boolean>
-typealias ByteIArray2 = IArray2<Byte>
-typealias ShortIArray2 = IArray2<Short>
-typealias CharIArray2 = IArray2<Char>
-typealias IntIArray2 = IArray2<Int>
-typealias LongIArray2 = IArray2<Long>
-typealias FloatIArray2 = IArray2<Float>
-typealias DoubleIArray2 = IArray2<Double>
+interface BooleanIArray2 : IArray2<Boolean> {
+    fun setFast(idx: Int, value: Boolean)
+    fun getFast(idx: Int): Boolean
+    operator fun get(x: Int, y: Int): Boolean = getFast(index(x, y))
+    operator fun set(x: Int, y: Int, value: Boolean) = setFast(index(x, y), value)
+    override fun setAt(idx: Int, value: Boolean) = setFast(idx, value)
+    override fun getAt(idx: Int): Boolean = getFast(idx)
+
+    operator fun get(p: PointInt): Boolean = get(p.x, p.y)
+    operator fun set(p: PointInt, value: Boolean) = set(p.x, p.y, value)
+    operator fun set(rect: RectangleInt, value: Boolean) = forEachPosRect(this, rect) { x, y -> this[x, y] = value }
+}
+interface ByteIArray2 : IArray2<Byte> {
+    fun setFast(idx: Int, value: Byte)
+    fun getFast(idx: Int): Byte
+    operator fun get(x: Int, y: Int): Byte = getFast(index(x, y))
+    operator fun set(x: Int, y: Int, value: Byte) = setFast(index(x, y), value)
+    override fun setAt(idx: Int, value: Byte) = setFast(idx, value)
+    override fun getAt(idx: Int): Byte = getFast(idx)
+
+    operator fun get(p: PointInt): Byte = get(p.x, p.y)
+    operator fun set(p: PointInt, value: Byte) = set(p.x, p.y, value)
+    operator fun set(rect: RectangleInt, value: Byte) = forEachPosRect(this, rect) { x, y -> this[x, y] = value }
+}
+interface ShortIArray2 : IArray2<Short> {
+    fun setFast(idx: Int, value: Short)
+    fun getFast(idx: Int): Short
+    operator fun get(x: Int, y: Int): Short = getFast(index(x, y))
+    operator fun set(x: Int, y: Int, value: Short) = setFast(index(x, y), value)
+    override fun setAt(idx: Int, value: Short) = setFast(idx, value)
+    override fun getAt(idx: Int): Short = getFast(idx)
+
+    operator fun get(p: PointInt): Short = get(p.x, p.y)
+    operator fun set(p: PointInt, value: Short) = set(p.x, p.y, value)
+    operator fun set(rect: RectangleInt, value: Short) = forEachPosRect(this, rect) { x, y -> this[x, y] = value }
+}
+interface CharIArray2 : IArray2<Char> {
+    fun setFast(idx: Int, value: Char)
+    fun getFast(idx: Int): Char
+    operator fun get(x: Int, y: Int): Char = getFast(index(x, y))
+    operator fun set(x: Int, y: Int, value: Char) = setFast(index(x, y), value)
+    override fun setAt(idx: Int, value: Char) = setFast(idx, value)
+    override fun getAt(idx: Int): Char = getFast(idx)
+
+    operator fun get(p: PointInt): Char = get(p.x, p.y)
+    operator fun set(p: PointInt, value: Char) = set(p.x, p.y, value)
+    operator fun set(rect: RectangleInt, value: Char) = forEachPosRect(this, rect) { x, y -> this[x, y] = value }
+}
+interface IntIArray2 : IArray2<Int> {
+    fun setFast(idx: Int, value: Int)
+    fun getFast(idx: Int): Int
+    operator fun get(x: Int, y: Int): Int = getFast(index(x, y))
+    operator fun set(x: Int, y: Int, value: Int) = setFast(index(x, y), value)
+    override fun setAt(idx: Int, value: Int) = setFast(idx, value)
+    override fun getAt(idx: Int): Int = getFast(idx)
+
+    operator fun get(p: PointInt): Int = get(p.x, p.y)
+    operator fun set(p: PointInt, value: Int) = set(p.x, p.y, value)
+    operator fun set(rect: RectangleInt, value: Int) = forEachPosRect(this, rect) { x, y -> this[x, y] = value }
+}
+interface LongIArray2 : IArray2<Long> {
+    fun setFast(idx: Int, value: Long)
+    fun getFast(idx: Int): Long
+    operator fun get(x: Int, y: Int): Long = getFast(index(x, y))
+    operator fun set(x: Int, y: Int, value: Long) = setFast(index(x, y), value)
+    override fun setAt(idx: Int, value: Long) = setFast(idx, value)
+    override fun getAt(idx: Int): Long = getFast(idx)
+
+    operator fun get(p: PointInt): Long = get(p.x, p.y)
+    operator fun set(p: PointInt, value: Long) = set(p.x, p.y, value)
+    operator fun set(rect: RectangleInt, value: Long) = forEachPosRect(this, rect) { x, y -> this[x, y] = value }
+}
+interface FloatIArray2 : IArray2<Float> {
+    fun setFast(idx: Int, value: Float)
+    fun getFast(idx: Int): Float
+    operator fun get(x: Int, y: Int): Float = getFast(index(x, y))
+    operator fun set(x: Int, y: Int, value: Float) = setFast(index(x, y), value)
+    override fun setAt(idx: Int, value: Float) = setFast(idx, value)
+    override fun getAt(idx: Int): Float = getFast(idx)
+
+    operator fun get(p: PointInt): Float = get(p.x, p.y)
+    operator fun set(p: PointInt, value: Float) = set(p.x, p.y, value)
+    operator fun set(rect: RectangleInt, value: Float) = forEachPosRect(this, rect) { x, y -> this[x, y] = value }
+}
+interface DoubleIArray2 : IArray2<Double> {
+    fun setFast(idx: Int, value: Double)
+    fun getFast(idx: Int): Double
+    operator fun get(x: Int, y: Int): Double = getFast(index(x, y))
+    operator fun set(x: Int, y: Int, value: Double) = setFast(index(x, y), value)
+    override fun setAt(idx: Int, value: Double) = setFast(idx, value)
+    override fun getAt(idx: Int): Double = getFast(idx)
+
+    operator fun get(p: PointInt): Double = get(p.x, p.y)
+    operator fun set(p: PointInt, value: Double) = set(p.x, p.y, value)
+    operator fun set(rect: RectangleInt, value: Double) = forEachPosRect(this, rect) { x, y -> this[x, y] = value }
+}
+interface TGenIArray2<TGen> : IArray2<TGen> {
+    fun setFast(idx: Int, value: TGen)
+    fun getFast(idx: Int): TGen
+    operator fun get(x: Int, y: Int): TGen = getFast(index(x, y))
+    operator fun set(x: Int, y: Int, value: TGen) = setFast(index(x, y), value)
+    override fun setAt(idx: Int, value: TGen) = setFast(idx, value)
+    override fun getAt(idx: Int): TGen = getFast(idx)
+
+    operator fun get(p: PointInt): TGen = get(p.x, p.y)
+    operator fun set(p: PointInt, value: TGen) = set(p.x, p.y, value)
+    operator fun set(rect: RectangleInt, value: TGen) = forEachPosRect(this, rect) { x, y -> this[x, y] = value }
+}
 
 // @NOTE: AUTOGENERATED: ONLY MODIFY FROM  GENERIC TEMPLATE to END OF GENERIC TEMPLATE
 // Then use ./gradlew generate to regenerate the rest of the file.
@@ -46,7 +149,7 @@ typealias DoubleIArray2 = IArray2<Double>
 // GENERIC TEMPLATE //////////////////////////////////////////
 
 @Suppress("NOTHING_TO_INLINE", "RemoveExplicitTypeArguments")
-data class Array2<TGen>(override val width: Int, override val height: Int, val data: Array<TGen>) : IArray2<TGen> {
+open class Array2<TGen>(override val width: Int, override val height: Int, val data: Array<TGen>) : TGenIArray2<TGen> {
     init {
         IArray2.checkArraySize(width, height, data.size)
     }
@@ -121,42 +224,13 @@ data class Array2<TGen>(override val width: Int, override val height: Int, val d
         }
     }
 
-    override fun setAt(idx: Int, value: TGen) {
-        this.data[idx] = value
-    }
-
-    override fun printAt(idx: Int) {
-        print(this.data[idx])
-    }
-
-    override fun equalsAt(idx: Int, value: TGen): Boolean {
-        return this.data[idx]?.equals(value) ?: false
-    }
-
-    override fun getAt(idx: Int): TGen = this.data[idx]
-
-    override fun equals(other: Any?): Boolean {
-        return (other is Array2<*/*TGen*/>) && this.width == other.width && this.height == other.height && this.data.contentEquals(
-            other.data
-        )
-    }
-
-    operator fun get(x: Int, y: Int): TGen = data[index(x, y)]
-    operator fun set(x: Int, y: Int, value: TGen) {
-        data[index(x, y)] = value
-    }
-
-    fun tryGet(x: Int, y: Int): TGen? = if (inside(x, y)) data[index(x, y)] else null
-    fun trySet(x: Int, y: Int, value: TGen) {
-        if (inside(x, y)) data[index(x, y)] = value
-    }
-
+    override fun getFast(idx: Int): TGen = data.getOrElse(idx) { data[0] }
+    override fun setFast(idx: Int, value: TGen) { if (idx in data.indices) data[idx] = value }
+    override fun printAt(idx: Int) = print(this.data[idx])
+    override fun equals(other: Any?): Boolean = (other is Array2<*/*TGen*/>) && this.width == other.width && this.height == other.height && this.data.contentEquals(other.data)
     override fun hashCode(): Int = width + height + data.contentHashCode()
-
     fun clone() = Array2<TGen>(width, height, data.copyOf())
-
     override fun iterator(): Iterator<TGen> = data.iterator()
-
     override fun toString(): String = asString()
 }
 
@@ -168,7 +242,7 @@ data class Array2<TGen>(override val width: Int, override val height: Int, val d
 
 
 @Suppress("NOTHING_TO_INLINE", "RemoveExplicitTypeArguments")
-data class IntArray2(override val width: Int, override val height: Int, val data: IntArray) : IntIArray2 {
+open class IntArray2(override val width: Int, override val height: Int, val data: IntArray) : IntIArray2 {
     init {
         IArray2.checkArraySize(width, height, data.size)
     }
@@ -243,35 +317,13 @@ data class IntArray2(override val width: Int, override val height: Int, val data
         }
     }
 
-    override fun setAt(idx: Int, value: Int) {
-        this.data[idx] = value
-    }
+    override fun printAt(idx: Int) = print(this.data[idx])
+    override fun equalsAt(idx: Int, value: Int): Boolean = this.data[idx]?.equals(value) ?: false
 
-    override fun printAt(idx: Int) {
-        print(this.data[idx])
-    }
+    override fun equals(other: Any?): Boolean = (other is IntArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(other.data)
 
-    override fun equalsAt(idx: Int, value: Int): Boolean {
-        return this.data[idx]?.equals(value) ?: false
-    }
-
-    override fun getAt(idx: Int): Int = this.data[idx]
-
-    override fun equals(other: Any?): Boolean {
-        return (other is IntArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(
-            other.data
-        )
-    }
-
-    operator fun get(x: Int, y: Int): Int = data[index(x, y)]
-    operator fun set(x: Int, y: Int, value: Int) {
-        data[index(x, y)] = value
-    }
-
-    fun tryGet(x: Int, y: Int): Int? = if (inside(x, y)) data[index(x, y)] else null
-    fun trySet(x: Int, y: Int, value: Int) {
-        if (inside(x, y)) data[index(x, y)] = value
-    }
+    override fun getFast(idx: Int): Int = data.getOrElse(idx) { data[0] }
+    override fun setFast(idx: Int, value: Int) { if (idx in data.indices) data[idx] = value }
 
     override fun hashCode(): Int = width + height + data.contentHashCode()
 
@@ -288,7 +340,7 @@ data class IntArray2(override val width: Int, override val height: Int, val data
 
 
 @Suppress("NOTHING_TO_INLINE", "RemoveExplicitTypeArguments")
-data class DoubleArray2(override val width: Int, override val height: Int, val data: DoubleArray) : DoubleIArray2 {
+open class DoubleArray2(override val width: Int, override val height: Int, val data: DoubleArray) : DoubleIArray2 {
     init {
         IArray2.checkArraySize(width, height, data.size)
     }
@@ -363,52 +415,25 @@ data class DoubleArray2(override val width: Int, override val height: Int, val d
         }
     }
 
-    override fun setAt(idx: Int, value: Double) {
-        this.data[idx] = value
-    }
-
-    override fun printAt(idx: Int) {
-        print(this.data[idx])
-    }
-
-    override fun equalsAt(idx: Int, value: Double): Boolean {
-        return this.data[idx]?.equals(value) ?: false
-    }
-
-    override fun getAt(idx: Int): Double = this.data[idx]
-
     override fun equals(other: Any?): Boolean {
         return (other is DoubleArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(
             other.data
         )
     }
 
-    operator fun get(x: Int, y: Int): Double = data[index(x, y)]
-    operator fun set(x: Int, y: Int, value: Double) {
-        data[index(x, y)] = value
-    }
-
-    fun tryGet(x: Int, y: Int): Double? = if (inside(x, y)) data[index(x, y)] else null
-    fun trySet(x: Int, y: Int, value: Double) {
-        if (inside(x, y)) data[index(x, y)] = value
-    }
-
+    override fun getFast(idx: Int): Double = data.getOrElse(idx) { 0.0 }
+    override fun setFast(idx: Int, value: Double) { if (idx in data.indices) data[idx] = value }
     override fun hashCode(): Int = width + height + data.contentHashCode()
-
     fun clone() = DoubleArray2(width, height, data.copyOf())
-
     override fun iterator(): Iterator<Double> = data.iterator()
-
     override fun toString(): String = asString()
 }
-
-
 
 // Float
 
 
 @Suppress("NOTHING_TO_INLINE", "RemoveExplicitTypeArguments")
-data class FloatArray2(override val width: Int, override val height: Int, val data: FloatArray) : FloatIArray2 {
+open class FloatArray2(override val width: Int, override val height: Int, val data: FloatArray) : FloatIArray2 {
     init {
         IArray2.checkArraySize(width, height, data.size)
     }
@@ -483,42 +508,13 @@ data class FloatArray2(override val width: Int, override val height: Int, val da
         }
     }
 
-    override fun setAt(idx: Int, value: Float) {
-        this.data[idx] = value
-    }
+    override fun equals(other: Any?): Boolean = (other is FloatArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(other.data)
 
-    override fun printAt(idx: Int) {
-        print(this.data[idx])
-    }
-
-    override fun equalsAt(idx: Int, value: Float): Boolean {
-        return this.data[idx]?.equals(value) ?: false
-    }
-
-    override fun getAt(idx: Int): Float = this.data[idx]
-
-    override fun equals(other: Any?): Boolean {
-        return (other is FloatArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(
-            other.data
-        )
-    }
-
-    operator fun get(x: Int, y: Int): Float = data[index(x, y)]
-    operator fun set(x: Int, y: Int, value: Float) {
-        data[index(x, y)] = value
-    }
-
-    fun tryGet(x: Int, y: Int): Float? = if (inside(x, y)) data[index(x, y)] else null
-    fun trySet(x: Int, y: Int, value: Float) {
-        if (inside(x, y)) data[index(x, y)] = value
-    }
-
+    override fun getFast(idx: Int): Float = data.getOrElse(idx) { 0f }
+    override fun setFast(idx: Int, value: Float) { if (idx in data.indices) data[idx] = value }
     override fun hashCode(): Int = width + height + data.contentHashCode()
-
     fun clone() = FloatArray2(width, height, data.copyOf())
-
     override fun iterator(): Iterator<Float> = data.iterator()
-
     override fun toString(): String = asString()
 }
 
@@ -528,7 +524,7 @@ data class FloatArray2(override val width: Int, override val height: Int, val da
 
 
 @Suppress("NOTHING_TO_INLINE", "RemoveExplicitTypeArguments")
-data class ByteArray2(override val width: Int, override val height: Int, val data: ByteArray) : ByteIArray2 {
+open class ByteArray2(override val width: Int, override val height: Int, val data: ByteArray) : ByteIArray2 {
     init {
         IArray2.checkArraySize(width, height, data.size)
     }
@@ -603,35 +599,12 @@ data class ByteArray2(override val width: Int, override val height: Int, val dat
         }
     }
 
-    override fun setAt(idx: Int, value: Byte) {
-        this.data[idx] = value
-    }
+    override fun printAt(idx: Int) = print(this.data[idx])
+    override fun equalsAt(idx: Int, value: Byte): Boolean = this.data[idx]?.equals(value) ?: false
+    override fun equals(other: Any?): Boolean = (other is ByteArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(other.data)
 
-    override fun printAt(idx: Int) {
-        print(this.data[idx])
-    }
-
-    override fun equalsAt(idx: Int, value: Byte): Boolean {
-        return this.data[idx]?.equals(value) ?: false
-    }
-
-    override fun getAt(idx: Int): Byte = this.data[idx]
-
-    override fun equals(other: Any?): Boolean {
-        return (other is ByteArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(
-            other.data
-        )
-    }
-
-    operator fun get(x: Int, y: Int): Byte = data[index(x, y)]
-    operator fun set(x: Int, y: Int, value: Byte) {
-        data[index(x, y)] = value
-    }
-
-    fun tryGet(x: Int, y: Int): Byte? = if (inside(x, y)) data[index(x, y)] else null
-    fun trySet(x: Int, y: Int, value: Byte) {
-        if (inside(x, y)) data[index(x, y)] = value
-    }
+    override fun getFast(idx: Int): Byte = data.getOrElse(idx) { 0 }
+    override fun setFast(idx: Int, value: Byte) { if (idx in data.indices) data[idx] = value }
 
     override fun hashCode(): Int = width + height + data.contentHashCode()
 
@@ -648,7 +621,7 @@ data class ByteArray2(override val width: Int, override val height: Int, val dat
 
 
 @Suppress("NOTHING_TO_INLINE", "RemoveExplicitTypeArguments")
-data class CharArray2(override val width: Int, override val height: Int, val data: CharArray) : CharIArray2 {
+open class CharArray2(override val width: Int, override val height: Int, val data: CharArray) : CharIArray2 {
     init {
         IArray2.checkArraySize(width, height, data.size)
     }
@@ -723,35 +696,14 @@ data class CharArray2(override val width: Int, override val height: Int, val dat
         }
     }
 
-    override fun setAt(idx: Int, value: Char) {
-        this.data[idx] = value
-    }
+    override fun printAt(idx: Int) = print(this.data[idx])
 
-    override fun printAt(idx: Int) {
-        print(this.data[idx])
-    }
+    override fun equalsAt(idx: Int, value: Char): Boolean = (this.data[idx] == value) ?: false
 
-    override fun equalsAt(idx: Int, value: Char): Boolean {
-        return this.data[idx]?.equals(value) ?: false
-    }
+    override fun equals(other: Any?): Boolean = (other is CharArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(other.data)
 
-    override fun getAt(idx: Int): Char = this.data[idx]
-
-    override fun equals(other: Any?): Boolean {
-        return (other is CharArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(
-            other.data
-        )
-    }
-
-    operator fun get(x: Int, y: Int): Char = data[index(x, y)]
-    operator fun set(x: Int, y: Int, value: Char) {
-        data[index(x, y)] = value
-    }
-
-    fun tryGet(x: Int, y: Int): Char? = if (inside(x, y)) data[index(x, y)] else null
-    fun trySet(x: Int, y: Int, value: Char) {
-        if (inside(x, y)) data[index(x, y)] = value
-    }
+    override fun getFast(idx: Int): Char = data.getOrElse(idx) { data[0] }
+    override fun setFast(idx: Int, value: Char) { if (idx in data.indices) data[idx] = value }
 
     override fun hashCode(): Int = width + height + data.contentHashCode()
 
@@ -768,7 +720,7 @@ data class CharArray2(override val width: Int, override val height: Int, val dat
 
 
 @Suppress("NOTHING_TO_INLINE", "RemoveExplicitTypeArguments")
-data class ShortArray2(override val width: Int, override val height: Int, val data: ShortArray) : ShortIArray2 {
+open class ShortArray2(override val width: Int, override val height: Int, val data: ShortArray) : ShortIArray2 {
     init {
         IArray2.checkArraySize(width, height, data.size)
     }
@@ -843,19 +795,8 @@ data class ShortArray2(override val width: Int, override val height: Int, val da
         }
     }
 
-    override fun setAt(idx: Int, value: Short) {
-        this.data[idx] = value
-    }
-
-    override fun printAt(idx: Int) {
-        print(this.data[idx])
-    }
-
-    override fun equalsAt(idx: Int, value: Short): Boolean {
-        return this.data[idx]?.equals(value) ?: false
-    }
-
-    override fun getAt(idx: Int): Short = this.data[idx]
+    override fun printAt(idx: Int) = print(this.data[idx])
+    override fun equalsAt(idx: Int, value: Short): Boolean = this.data[idx]?.equals(value) ?: false
 
     override fun equals(other: Any?): Boolean {
         return (other is ShortArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(
@@ -863,15 +804,8 @@ data class ShortArray2(override val width: Int, override val height: Int, val da
         )
     }
 
-    operator fun get(x: Int, y: Int): Short = data[index(x, y)]
-    operator fun set(x: Int, y: Int, value: Short) {
-        data[index(x, y)] = value
-    }
-
-    fun tryGet(x: Int, y: Int): Short? = if (inside(x, y)) data[index(x, y)] else null
-    fun trySet(x: Int, y: Int, value: Short) {
-        if (inside(x, y)) data[index(x, y)] = value
-    }
+    override fun getFast(idx: Int): Short = data.getOrElse(idx) { 0 }
+    override fun setFast(idx: Int, value: Short) { if (idx in data.indices) data[idx] = value }
 
     override fun hashCode(): Int = width + height + data.contentHashCode()
 
@@ -888,7 +822,7 @@ data class ShortArray2(override val width: Int, override val height: Int, val da
 
 
 @Suppress("NOTHING_TO_INLINE", "RemoveExplicitTypeArguments")
-data class LongArray2(override val width: Int, override val height: Int, val data: LongArray) : LongIArray2 {
+open class LongArray2(override val width: Int, override val height: Int, val data: LongArray) : LongIArray2 {
     init {
         IArray2.checkArraySize(width, height, data.size)
     }
@@ -963,35 +897,10 @@ data class LongArray2(override val width: Int, override val height: Int, val dat
         }
     }
 
-    override fun setAt(idx: Int, value: Long) {
-        this.data[idx] = value
-    }
+    override fun equals(other: Any?): Boolean = (other is LongArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(other.data)
 
-    override fun printAt(idx: Int) {
-        print(this.data[idx])
-    }
-
-    override fun equalsAt(idx: Int, value: Long): Boolean {
-        return this.data[idx]?.equals(value) ?: false
-    }
-
-    override fun getAt(idx: Int): Long = this.data[idx]
-
-    override fun equals(other: Any?): Boolean {
-        return (other is LongArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(
-            other.data
-        )
-    }
-
-    operator fun get(x: Int, y: Int): Long = data[index(x, y)]
-    operator fun set(x: Int, y: Int, value: Long) {
-        data[index(x, y)] = value
-    }
-
-    fun tryGet(x: Int, y: Int): Long? = if (inside(x, y)) data[index(x, y)] else null
-    fun trySet(x: Int, y: Int, value: Long) {
-        if (inside(x, y)) data[index(x, y)] = value
-    }
+    override fun getFast(idx: Int): Long = data.getOrElse(idx) { 0L }
+    override fun setFast(idx: Int, value: Long) { if (idx in data.indices) data[idx] = value }
 
     override fun hashCode(): Int = width + height + data.contentHashCode()
 
@@ -1008,7 +917,7 @@ data class LongArray2(override val width: Int, override val height: Int, val dat
 
 
 @Suppress("NOTHING_TO_INLINE", "RemoveExplicitTypeArguments")
-data class BooleanArray2(override val width: Int, override val height: Int, val data: BooleanArray) : BooleanIArray2 {
+open class BooleanArray2(override val width: Int, override val height: Int, val data: BooleanArray) : BooleanIArray2 {
     init {
         IArray2.checkArraySize(width, height, data.size)
     }
@@ -1083,41 +992,14 @@ data class BooleanArray2(override val width: Int, override val height: Int, val 
         }
     }
 
-    override fun setAt(idx: Int, value: Boolean) {
-        this.data[idx] = value
-    }
+    override fun printAt(idx: Int) = print(this.data[idx])
+    override fun equalsAt(idx: Int, value: Boolean): Boolean = this.data[idx]?.equals(value) ?: false
+    override fun equals(other: Any?): Boolean = (other is BooleanArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(other.data)
 
-    override fun printAt(idx: Int) {
-        print(this.data[idx])
-    }
-
-    override fun equalsAt(idx: Int, value: Boolean): Boolean {
-        return this.data[idx]?.equals(value) ?: false
-    }
-
-    override fun getAt(idx: Int): Boolean = this.data[idx]
-
-    override fun equals(other: Any?): Boolean {
-        return (other is BooleanArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(
-            other.data
-        )
-    }
-
-    operator fun get(x: Int, y: Int): Boolean = data[index(x, y)]
-    operator fun set(x: Int, y: Int, value: Boolean) {
-        data[index(x, y)] = value
-    }
-
-    fun tryGet(x: Int, y: Int): Boolean? = if (inside(x, y)) data[index(x, y)] else null
-    fun trySet(x: Int, y: Int, value: Boolean) {
-        if (inside(x, y)) data[index(x, y)] = value
-    }
-
+    override fun getFast(idx: Int): Boolean = data.getOrElse(idx) { false }
+    override fun setFast(idx: Int, value: Boolean) { if (idx in data.indices) data[idx] = value }
     override fun hashCode(): Int = width + height + data.contentHashCode()
-
     fun clone() = BooleanArray2(width, height, data.copyOf())
-
     override fun iterator(): Iterator<Boolean> = data.iterator()
-
     override fun toString(): String = asString()
 }

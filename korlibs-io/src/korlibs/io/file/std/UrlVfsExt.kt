@@ -1,7 +1,6 @@
 package korlibs.io.file.std
 
 import korlibs.datastructure.linkedHashMapOf
-import korlibs.io.file.Vfs
 import korlibs.io.file.VfsCachedStatContext
 import korlibs.io.file.VfsFile
 import korlibs.io.file.VfsOpenMode

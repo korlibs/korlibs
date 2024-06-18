@@ -375,7 +375,7 @@ open class PointIntArrayList(capacity: Int = 7) : PointIntList, Extra by Extra.M
 
     object PointSortOpts : SortOps<PointIntArrayList>() {
         override fun compare(p: PointIntArrayList, l: Int, r: Int): Int =
-            MPointInt.compare(p.getX(l), p.getY(l), p.getX(r), p.getY(r))
+            PointInt.compare(p.getX(l), p.getY(l), p.getX(r), p.getY(r))
         override fun swap(subject: PointIntArrayList, indexL: Int, indexR: Int) = subject.swap(indexL, indexR)
     }
 }

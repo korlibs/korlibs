@@ -2292,10 +2292,7 @@ inline class MPointInt(val p: MPoint) : Comparable<MPointInt>, MutableInterpolab
         operator fun invoke(x: Int, y: Int): MPointInt = MPointInt(MPoint(x, y))
         operator fun invoke(that: MPointInt): MPointInt = MPointInt(MPoint(that.x, that.y))
 
-        fun compare(lx: Int, ly: Int, rx: Int, ry: Int): Int {
-            val ret = ly.compareTo(ry)
-            return if (ret == 0) lx.compareTo(rx) else ret
-        }
+        fun compare(lx: Int, ly: Int, rx: Int, ry: Int): Int = PointInt.compare(lx, ly, rx, ry)
     }
     var x: Int ; set(value) { p.x = value.toDouble() } get() = p.x.toIntRound()
     var y: Int ; set(value) { p.y = value.toDouble() } get() = p.y.toIntRound()
@@ -3235,3 +3232,6 @@ fun MPoint.asSize(): MSize = MSize(this)
 val Rectangle.mutable: MRectangle get() = MRectangle(x, y, width, height)
 @Deprecated("")
 fun Rectangle.mutable(out: MRectangle = MRectangle()): MRectangle = out.copyFrom(this)
+
+@Deprecated("")
+@KormaMutableApi fun Rectangle.toMRectangle(out: MRectangle = MRectangle()): MRectangle = out.setTo(x, y, width, height)

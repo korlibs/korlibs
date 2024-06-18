@@ -57,30 +57,57 @@ fun Shape2D.toShape2D(): Shape2D = this
 @Deprecated("", ReplaceWith("toShape2D()")) fun List<Shape2D>.toShape2d(): Shape2D = toShape2D()
 @Deprecated("", ReplaceWith("toShape2D()")) fun Shape2D.toShape2d(): Shape2D = toShape2D()
 
+fun Line.toShape2D(): LineShape = LineShape(this)
+fun Rectangle.toShape2D(): RectangleShape = RectangleShape(this)
+fun Circle.toShape2D(): CircleShape = CircleShape(this)
+fun Ellipse.toShape2D(): EllipseShape = EllipseShape(this)
+
+fun <T : SimpleShape2D> T.toShape2D(genVector: (T) -> VectorPath): BaseShape2D<T> = BaseShape2D<T>(this, genVector)
+
+data class LineShape(val line: Line) : BaseShape2D<Line>(line, { it.toVectorPath() })
+data class RectangleShape(val rectangle: Rectangle) : BaseShape2D<Rectangle>(rectangle, { it.toVectorPath() })
+data class CircleShape(val circle: Circle) : BaseShape2D<Circle>(circle, { it.toVectorPath() })
+data class EllipseShape(val ellipse: Ellipse) : BaseShape2D<Ellipse>(ellipse, { it.toVectorPath() })
+
+open class BaseShape2D<T : SimpleShape2D>(val base: T, val genVector: (T) -> VectorPath) : Shape2D, SimpleShape2D by base {
+    val cachedPath by lazy { genVector(base) }
+    override fun toVectorPath(): VectorPath = cachedPath
+
+    override val area: Double get() = base.area
+    override val center: Point get() = base.center
+    override val perimeter: Double get() = base.perimeter
+    override val closed: Boolean get() = base.closed
+    override fun containsPoint(p: Point): Boolean = base.containsPoint(p)
+    override fun distance(p: Point): Double = base.distance(p)
+    override fun getBounds(): Rectangle = base.getBounds()
+
+    override fun toString(): String = "Shape2D($base)"
+}
+
 // RoundRectangle
-interface Shape2D {
-    val closed: Boolean get() = toVectorPath().isLastCommandClose
-    val center: Point get() = getBounds().center
-    val area: Double get() {
+interface Shape2D : SimpleShape2D {
+    override val closed: Boolean get() = toVectorPath().isLastCommandClose
+    override val center: Point get() = getBounds().center
+    override val area: Double get() {
         val lazyVectorPath = toVectorPath()
         return if (lazyVectorPath.isLastCommandClose) lazyVectorPath.area else 0.0
     }
-    val perimeter: Double get() {
+    override val perimeter: Double get() {
         var sum = 0.0
         toVectorPath().getCurvesList().fastForEach { sum += it.length }
         return sum
     }
 
     /** Compute the distance to the shortest point to the edge (SDF). Negative inside. Positive outside. */
-    fun distance(p: Point): Double = (p - projectedPoint(p)).length
+    override fun distance(p: Point): Double = (p - projectedPoint(p)).length
     /** Returns the normal vector to the shortest point to the edge */
-    fun normalVectorAt(p: Point): Vector2D
+    override fun normalVectorAt(p: Point): Vector2D
     /** Point projected to the closest edge */
-    fun projectedPoint(p: Point): Point
+    override fun projectedPoint(p: Point): Point
 
     fun toVectorPath(): VectorPath
-    fun containsPoint(p: Point): Boolean = distance(p) <= 0f
-    fun getBounds(): Rectangle = toVectorPath().getBounds()
+    override fun containsPoint(p: Point): Boolean = distance(p) <= 0f
+    override fun getBounds(): Rectangle = toVectorPath().getBounds()
     //fun containsPoint(p: Point, mat: Matrix) = containsPoint(mat.transform(p))
 
     fun intersectionsWith(that: Shape2D): PointList = intersectionsWith(Matrix.NIL, that, Matrix.NIL)
@@ -171,7 +198,7 @@ interface Shape2D {
         fun intersects(l: Shape2D, ml: Matrix, r: Shape2D, mr: Matrix): Boolean {
             //println("Shape2D.intersects:"); println(" - l=$l[$ml]"); println(" - r=$r[$mr]")
 
-            if (ml.isNIL && mr.isNIL && l is Circle && r is Circle) return optimizedIntersect(l, ml, r, mr)
+            if (ml.isNIL && mr.isNIL && l is CircleShape && r is CircleShape) return optimizedIntersect(l.circle, ml, r.circle, mr)
 
             return _intersectsStep0(l, ml, r, mr) || _intersectsStep0(r, mr, l, ml)
         }
@@ -290,7 +317,7 @@ fun PointList.toShape2D(closed: Boolean = true): Shape2D {
         val x1 = this.getX(2)
         val y1 = this.getY(2)
         if (this.getX(1) == x1 && this.getY(1) == y0 && this.getX(3) == x0 && this.getY(3) == y1) {
-            return Rectangle.fromBounds(x0, y0, x1, y1)
+            return Rectangle.fromBounds(x0, y0, x1, y1).toShape2D { it.toVectorPath() }
         }
     }
     return if (closed) Polygon(this) else Polyline(this)
@@ -526,7 +553,6 @@ fun VectorPath.getPoints2List(): List<PointArrayList> {
     return out
 }
 
-interface Shape3D {
-    val center: Vector3F
-    val volume: Float
+interface Shape3D : SimpleShape3D {
+
 }

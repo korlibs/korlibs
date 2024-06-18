@@ -15,6 +15,7 @@ kotlin {
      */
 }
 
+/*
 afterEvaluate {
     kotlin.targets.filter { it.platformType == KotlinPlatformType.native }.forEach { target ->
         target.compilations.getByName("main") {
@@ -26,3 +27,4 @@ afterEvaluate {
         }
     }
 }
+*/
