@@ -28,6 +28,7 @@ interface IDoubleVectorList : IsAlmostEquals<IDoubleVectorList> {
     }
 }
 
+// @TODO: Potential candidate for value class when multiple values are supported
 class GenericDoubleVector(override val dimensions: Int, val data: DoubleArray, val offset: Int = 0) : IGenericDoubleVector {
     constructor(vararg data: Double) : this(data.size, data)
     constructor(vararg data: Float) : this(data.size, DoubleArray(data.size) { data[it].toDouble() })

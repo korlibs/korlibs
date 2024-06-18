@@ -585,15 +585,3 @@ fun vectorDoubleArrayListOf(vararg data: Float, dimensions: Int): DoubleVectorAr
     vectorDoubleArrayListOf(*data.mapDouble { it.toDouble() }, dimensions = dimensions)
 fun vectorDoubleArrayListOf(vararg data: Int, dimensions: Int): DoubleVectorArrayList =
     vectorDoubleArrayListOf(*data.mapDouble { it.toDouble() }, dimensions = dimensions)
-
-// @TODO: Potential candidate for value class when multiple values are supported
-class GenericDoubleVector(override val dimensions: Int, val data: DoubleArray, val offset: Int = 0) : IGenericDoubleVector {
-    constructor(vararg data: Double) : this(data.size, data)
-    constructor(vararg data: Float) : this(data.size, data.mapDouble { it.toDouble() })
-    constructor(vararg data: Int) : this(data.size, data.mapDouble { it.toDouble() })
-
-    override operator fun get(dim: Int): Double = data[offset + dim]
-    override operator fun set(dim: Int, value: Double) { data[offset + dim] = value }
-
-    override fun toString(): String = buildString { toStringBuilder(this) }
-}
