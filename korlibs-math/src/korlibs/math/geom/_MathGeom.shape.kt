@@ -61,13 +61,43 @@ fun Line.toShape2D(): LineShape = LineShape(this)
 fun Rectangle.toShape2D(): RectangleShape = RectangleShape(this)
 fun Circle.toShape2D(): CircleShape = CircleShape(this)
 fun Ellipse.toShape2D(): EllipseShape = EllipseShape(this)
+fun Polygon.toShape2D(): PolygonShape = PolygonShape(this)
+fun Polyline.toShape2D(): PolylineShape = PolylineShape(this)
+fun RoundRectangle.toShape2D(): RoundRectangleShape = RoundRectangleShape(this)
 
 fun <T : SimpleShape2D> T.toShape2D(genVector: (T) -> VectorPath): BaseShape2D<T> = BaseShape2D<T>(this, genVector)
 
-data class LineShape(val line: Line) : BaseShape2D<Line>(line, { it.toVectorPath() })
-data class RectangleShape(val rectangle: Rectangle) : BaseShape2D<Rectangle>(rectangle, { it.toVectorPath() })
-data class CircleShape(val circle: Circle) : BaseShape2D<Circle>(circle, { it.toVectorPath() })
-data class EllipseShape(val ellipse: Ellipse) : BaseShape2D<Ellipse>(ellipse, { it.toVectorPath() })
+abstract class ExtraAbstractShape2D<T>(val base: T) : AbstractShape2D() {
+    override fun toString(): String = "Shape2D($base)"
+}
+
+data class PolygonShape(val polygon: Polygon) : ExtraAbstractShape2D<Polygon>(polygon) {
+    constructor(points: IPointList) : this(Polygon(points))
+    override val lazyVectorPath: VectorPath by lazy { polygon.toVectorPath() }
+    override fun toString(): String = "Shape2D($base)"
+}
+data class PolylineShape(val polyline: Polyline) : ExtraAbstractShape2D<Polyline>(polyline) {
+    constructor(points: IPointList) : this(Polyline(points))
+    override val lazyVectorPath: VectorPath by lazy { polyline.toVectorPath() }
+    override fun toString(): String = "Shape2D($base)"
+}
+data class RoundRectangleShape(val roundRectangle: RoundRectangle) : ExtraAbstractShape2D<RoundRectangle>(roundRectangle) {
+    override val area: Double get() = roundRectangle.area
+    override val lazyVectorPath: VectorPath by lazy { roundRectangle.toVectorPath() }
+    override fun toString(): String = "Shape2D($base)"
+}
+data class LineShape(val line: Line) : BaseShape2D<Line>(line, { it.toVectorPath() }) {
+    override fun toString(): String = "Shape2D($base)"
+}
+data class RectangleShape(val rectangle: Rectangle) : BaseShape2D<Rectangle>(rectangle, { it.toVectorPath() }) {
+    override fun toString(): String = "Shape2D($base)"
+}
+data class CircleShape(val circle: Circle) : BaseShape2D<Circle>(circle, { it.toVectorPath() }) {
+    override fun toString(): String = "Shape2D($base)"
+}
+data class EllipseShape(val ellipse: Ellipse) : BaseShape2D<Ellipse>(ellipse, { it.toVectorPath() }) {
+    override fun toString(): String = "Shape2D($base)"
+}
 
 open class BaseShape2D<T : SimpleShape2D>(val base: T, val genVector: (T) -> VectorPath) : Shape2D, SimpleShape2D by base {
     val cachedPath by lazy { genVector(base) }
@@ -320,7 +350,7 @@ fun PointList.toShape2D(closed: Boolean = true): Shape2D {
             return Rectangle.fromBounds(x0, y0, x1, y1).toShape2D { it.toVectorPath() }
         }
     }
-    return if (closed) Polygon(this) else Polyline(this)
+    return if (closed) PolygonShape(this) else PolylineShape(this)
 }
 
 //fun VectorPath.toShape2dNew(closed: Boolean = true): Shape2D = VectorPath(this, closed)

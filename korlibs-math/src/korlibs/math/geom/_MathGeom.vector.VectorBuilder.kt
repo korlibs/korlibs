@@ -228,7 +228,7 @@ interface VectorBuilder {
         lineTo(Point(bounds.left - dx1, bounds.bottom))
     }
 
-    fun polygon(path: PointList, close: Boolean = true) {
+    fun polygon(path: IPointList, close: Boolean = true) {
         moveTo(path[0])
         for (i in 1 until path.size) lineTo(path[i])
         if (close) close()
@@ -236,7 +236,7 @@ interface VectorBuilder {
     fun polygon(path: List<Point>, close: Boolean = true) = polygon(path.toPointArrayList(), close = close)
     fun polygon(vararg path: Point, close: Boolean = true) = polygon(path.toPointArrayList(), close = close)
 
-    fun polyline(points: PointList, close: Boolean = false): Unit = polygon(points, close = close)
+    fun polyline(points: IPointList, close: Boolean = false): Unit = polygon(points, close = close)
     fun polyline(points: List<Point>, close: Boolean = false): Unit = polyline(points.toPointArrayList(), close = close)
     fun polyline(vararg points: Point, close: Boolean = false): Unit = polyline(points.toPointArrayList(), close = close)
 
@@ -352,7 +352,7 @@ interface ArrowCap {
 }
 
 /** Creates a polyline from [points] adding arrow caps ([capEnd] and [capStart]) in each segment. Useful for displaying directed graphs */
-fun VectorBuilder.polyArrows(points: PointList, capEnd: ArrowCap = ArrowCap.Line(), capStart: ArrowCap = ArrowCap.NoCap) {
+fun VectorBuilder.polyArrows(points: IPointList, capEnd: ArrowCap = ArrowCap.Line(), capStart: ArrowCap = ArrowCap.NoCap) {
     if (points.isEmpty()) return
     moveTo(points[0])
     for (n in 1 until points.size) arrowTo(points[n], capEnd, capStart)

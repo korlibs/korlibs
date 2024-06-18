@@ -7,13 +7,17 @@ import korlibs.math.annotations.*
 import korlibs.number.*
 import kotlin.math.*
 
-sealed interface PointList : DoubleVectorList, Extra {
+sealed interface PointList : DoubleVectorList, IPointList, Extra {
     override val dimensions: Int get() = 2
-    //override fun get(index: Int, dim: Int): Double
-    fun getX(index: Int): Double = get(index, 0)
-    fun getY(index: Int): Double = get(index, 1)
 
-    operator fun get(index: Int): Point = Point(get(index, 0), get(index, 1))
+    override val size: Int
+    override fun isEmpty(): Boolean = size == 0
+
+    //override fun get(index: Int, dim: Int): Double
+    override fun getX(index: Int): Double = get(index, 0)
+    override fun getY(index: Int): Double = get(index, 1)
+
+    override operator fun get(index: Int): Point = Point(get(index, 0), get(index, 1))
 
     fun toList(): List<Point> = ArrayList<Point>(this.size).also { out -> fastForEach { out.add(it) } }
 
@@ -40,7 +44,7 @@ sealed interface PointList : DoubleVectorList, Extra {
         return Orientation.orient2d(getX(0), getY(0), getX(1), getY(1), getX(2), getY(2))
     }
 
-    operator fun contains(p: Point): Boolean = contains(p.x, p.y)
+    override operator fun contains(p: Point): Boolean = contains(p.x, p.y)
     fun contains(x: Float, y: Float): Boolean = contains(x.toDouble(), y.toDouble())
     fun contains(x: Int, y: Int): Boolean = contains(x.toDouble(), y.toDouble())
     fun contains(x: Double, y: Double): Boolean {
@@ -80,12 +84,16 @@ fun PointList.mapPoints(gen: (p: Point) -> Point): PointList {
 fun List<Point>.toPointArrayList(): PointArrayList = PointArrayList(size).also { for (p in this) it.add(p) }
 fun Array<out Point>.toPointArrayList(): PointArrayList = PointArrayList(size).also { for (p in this) it.add(p) }
 
+fun IPointList.toPointArrayList(): PointArrayList {
+    val out = PointArrayList(size)
+    out.addAll(this)
+    return out
+}
+
 open class PointArrayList(capacity: Int = 7) : PointList, Extra by Extra.Mixin() {
     override var closed: Boolean = false
     private val data = DoubleArrayList(capacity * 2)
     override val size: Int get() = data.size / 2
-
-
 
     override fun get(index: Int, dim: Int): Double = data.getAt(index(index, dim))
     override fun getX(index: Int): Double = data.getAt(index(index, 0))
@@ -152,9 +160,12 @@ open class PointArrayList(capacity: Int = 7) : PointList, Extra by Extra.Mixin()
     operator fun plusAssign(other: PointList): Unit { addAll(other) }
 
     fun add(p: Point) = add(p.x, p.y)
-    @Deprecated("", ReplaceWith("addAll(p)")) fun add(p: PointList) = addAll(p)
-    fun addAll(p: PointList) = this.apply { p.fastForEach { (x, y) -> add(x, y) } }
-    fun addReverse(p: PointList) = this.apply { p.fastForEachReverse { (x, y) -> add(x, y) } }
+
+    @Deprecated("", ReplaceWith("addAll(p)"))
+    fun add(p: IPointList) = addAll(p)
+
+    fun addAll(p: IPointList) = this.apply { p.fastForEach { (x, y) -> add(x, y) } }
+    fun addReverse(p: IPointList) = this.apply { p.fastForEachReverse { (x, y) -> add(x, y) } }
     fun add(p: PointList, index: Int) {
         add(p.getX(index), p.getY(index))
     }
@@ -402,24 +413,9 @@ inline fun PointIntList.fastForEachReverse(block: (x: Int, y: Int) -> Unit) {
 fun List<PointList>.flatten(): PointList =
     PointArrayList(this.sumOf { it.size }).also { out -> this.fastForEach { out.add(it) } }
 
-sealed interface DoubleVectorList : Extra, IsAlmostEquals<DoubleVectorList> {
-    fun isEmpty(): Boolean = size == 0
-    fun isNotEmpty(): Boolean = size != 0
-
+sealed interface DoubleVectorList : IDoubleVectorList, Extra {
     val closed: Boolean
-    val size: Int
-    val dimensions: Int
-    operator fun get(index: Int, dim: Int): Double
     fun getGeneric(index: Int): GenericDoubleVector = GenericDoubleVector(dimensions, DoubleArray(dimensions) { get(index, it) })
-
-    override fun isAlmostEquals(other: DoubleVectorList, epsilon: Double): Boolean {
-        if (this.size != other.size) return false
-        if (this.dimensions != other.dimensions) return false
-        for (dim in 0 until dimensions) for (n in 0 until size) {
-            if (!this[n, dim].isAlmostEquals(other[n, dim], epsilon)) return false
-        }
-        return true
-    }
 }
 
 inline fun DoubleVectorList.getOrElse(index: Int, dim: Int, default: Double = 0.0): Double {
@@ -589,31 +585,6 @@ fun vectorDoubleArrayListOf(vararg data: Float, dimensions: Int): DoubleVectorAr
     vectorDoubleArrayListOf(*data.mapDouble { it.toDouble() }, dimensions = dimensions)
 fun vectorDoubleArrayListOf(vararg data: Int, dimensions: Int): DoubleVectorArrayList =
     vectorDoubleArrayListOf(*data.mapDouble { it.toDouble() }, dimensions = dimensions)
-
-sealed interface IGenericDoubleVector {
-    val dimensions: Int
-    operator fun get(dim: Int): Double
-    operator fun set(dim: Int, value: Double)
-}
-
-val IGenericDoubleVector.length: Double get() {
-    var ssum = 0.0
-    for (n in 0 until dimensions) ssum += this[n]
-    return sqrt(ssum)
-}
-
-fun IGenericDoubleVector.toStringBuilder(out: StringBuilder) {
-    out.appendGenericArray(dimensions) { appendNice(this@toStringBuilder[it]) }
-}
-
-@PublishedApi internal fun StringBuilder.appendGenericArray(size: Int, appendElement: StringBuilder.(Int) -> Unit) {
-    append("[")
-    for (n in 0 until size) {
-        if (n != 0) append(", ")
-        appendElement(n)
-    }
-    append("]")
-}
 
 // @TODO: Potential candidate for value class when multiple values are supported
 class GenericDoubleVector(override val dimensions: Int, val data: DoubleArray, val offset: Int = 0) : IGenericDoubleVector {
