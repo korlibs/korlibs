@@ -15,7 +15,7 @@ import java.util.*
 import java.util.concurrent.*
 
 plugins {
-    kotlin("multiplatform") version "2.0.0"
+    kotlin("multiplatform") version "2.0.20-Beta1"
     id("com.android.library") version "8.2.2"
     `maven-publish`
     signing
