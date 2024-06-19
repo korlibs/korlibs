@@ -3,7 +3,7 @@ package korlibs.datastructure
 import korlibs.math.geom.*
 import kotlin.test.*
 
-class Array2Observable {
+class Array2ObservableTest {
     @Test
     fun testArray() {
         val log = arrayListOf<String>()
@@ -77,5 +77,18 @@ class Array2Observable {
             Rectangle(x=5, y=5, width=1, height=1):a
             Rectangle(x=8, y=8, width=2, height=2):b
         """.trimIndent(), log.joinToString("\n"))
+    }
+
+    @Test
+    fun testWidthHeight() {
+        val ints = IntArray2(20, 10, 0)
+        ints[-10, -15] = 20
+        ints[20, 20] = 20
+        val array = ints.observe {  }
+        ints[-10, -15] = 20
+        array[20, 20] = 20
+        assertEquals(20, array.width)
+        assertEquals(10, array.height)
+        assertEquals(ints, array.base)
     }
 }
