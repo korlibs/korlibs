@@ -37,8 +37,8 @@ inline fun DoubleArray2.map2(gen: (x: Int, y: Int, v: Double) -> Double): Double
 interface BooleanIArray2 : IArray2<Boolean> {
     fun setFast(idx: Int, value: Boolean)
     fun getFast(idx: Int): Boolean
-    operator fun get(x: Int, y: Int): Boolean = getFast(index(x, y))
-    operator fun set(x: Int, y: Int, value: Boolean) = setFast(index(x, y), value)
+    operator fun get(x: Int, y: Int): Boolean = getFast(indexOr(x, y))
+    operator fun set(x: Int, y: Int, value: Boolean) = setFast(indexOr(x, y), value)
     override fun setAt(idx: Int, value: Boolean) = setFast(idx, value)
     override fun getAt(idx: Int): Boolean = getFast(idx)
 
@@ -49,8 +49,8 @@ interface BooleanIArray2 : IArray2<Boolean> {
 interface ByteIArray2 : IArray2<Byte> {
     fun setFast(idx: Int, value: Byte)
     fun getFast(idx: Int): Byte
-    operator fun get(x: Int, y: Int): Byte = getFast(index(x, y))
-    operator fun set(x: Int, y: Int, value: Byte) = setFast(index(x, y), value)
+    operator fun get(x: Int, y: Int): Byte = getFast(indexOr(x, y))
+    operator fun set(x: Int, y: Int, value: Byte) = setFast(indexOr(x, y), value)
     override fun setAt(idx: Int, value: Byte) = setFast(idx, value)
     override fun getAt(idx: Int): Byte = getFast(idx)
 
@@ -61,8 +61,8 @@ interface ByteIArray2 : IArray2<Byte> {
 interface ShortIArray2 : IArray2<Short> {
     fun setFast(idx: Int, value: Short)
     fun getFast(idx: Int): Short
-    operator fun get(x: Int, y: Int): Short = getFast(index(x, y))
-    operator fun set(x: Int, y: Int, value: Short) = setFast(index(x, y), value)
+    operator fun get(x: Int, y: Int): Short = getFast(indexOr(x, y))
+    operator fun set(x: Int, y: Int, value: Short) = setFast(indexOr(x, y), value)
     override fun setAt(idx: Int, value: Short) = setFast(idx, value)
     override fun getAt(idx: Int): Short = getFast(idx)
 
@@ -73,8 +73,8 @@ interface ShortIArray2 : IArray2<Short> {
 interface CharIArray2 : IArray2<Char> {
     fun setFast(idx: Int, value: Char)
     fun getFast(idx: Int): Char
-    operator fun get(x: Int, y: Int): Char = getFast(index(x, y))
-    operator fun set(x: Int, y: Int, value: Char) = setFast(index(x, y), value)
+    operator fun get(x: Int, y: Int): Char = getFast(indexOr(x, y))
+    operator fun set(x: Int, y: Int, value: Char) = setFast(indexOr(x, y), value)
     override fun setAt(idx: Int, value: Char) = setFast(idx, value)
     override fun getAt(idx: Int): Char = getFast(idx)
 
@@ -85,8 +85,8 @@ interface CharIArray2 : IArray2<Char> {
 interface IntIArray2 : IArray2<Int> {
     fun setFast(idx: Int, value: Int)
     fun getFast(idx: Int): Int
-    operator fun get(x: Int, y: Int): Int = getFast(index(x, y))
-    operator fun set(x: Int, y: Int, value: Int) = setFast(index(x, y), value)
+    operator fun get(x: Int, y: Int): Int = getFast(indexOr(x, y))
+    operator fun set(x: Int, y: Int, value: Int) = setFast(indexOr(x, y), value)
     override fun setAt(idx: Int, value: Int) = setFast(idx, value)
     override fun getAt(idx: Int): Int = getFast(idx)
 
@@ -97,8 +97,8 @@ interface IntIArray2 : IArray2<Int> {
 interface LongIArray2 : IArray2<Long> {
     fun setFast(idx: Int, value: Long)
     fun getFast(idx: Int): Long
-    operator fun get(x: Int, y: Int): Long = getFast(index(x, y))
-    operator fun set(x: Int, y: Int, value: Long) = setFast(index(x, y), value)
+    operator fun get(x: Int, y: Int): Long = getFast(indexOr(x, y))
+    operator fun set(x: Int, y: Int, value: Long) = setFast(indexOr(x, y), value)
     override fun setAt(idx: Int, value: Long) = setFast(idx, value)
     override fun getAt(idx: Int): Long = getFast(idx)
 
@@ -109,8 +109,8 @@ interface LongIArray2 : IArray2<Long> {
 interface FloatIArray2 : IArray2<Float> {
     fun setFast(idx: Int, value: Float)
     fun getFast(idx: Int): Float
-    operator fun get(x: Int, y: Int): Float = getFast(index(x, y))
-    operator fun set(x: Int, y: Int, value: Float) = setFast(index(x, y), value)
+    operator fun get(x: Int, y: Int): Float = getFast(indexOr(x, y))
+    operator fun set(x: Int, y: Int, value: Float) = setFast(indexOr(x, y), value)
     override fun setAt(idx: Int, value: Float) = setFast(idx, value)
     override fun getAt(idx: Int): Float = getFast(idx)
 
@@ -121,8 +121,8 @@ interface FloatIArray2 : IArray2<Float> {
 interface DoubleIArray2 : IArray2<Double> {
     fun setFast(idx: Int, value: Double)
     fun getFast(idx: Int): Double
-    operator fun get(x: Int, y: Int): Double = getFast(index(x, y))
-    operator fun set(x: Int, y: Int, value: Double) = setFast(index(x, y), value)
+    operator fun get(x: Int, y: Int): Double = getFast(indexOr(x, y))
+    operator fun set(x: Int, y: Int, value: Double) = setFast(indexOr(x, y), value)
     override fun setAt(idx: Int, value: Double) = setFast(idx, value)
     override fun getAt(idx: Int): Double = getFast(idx)
 
@@ -133,8 +133,8 @@ interface DoubleIArray2 : IArray2<Double> {
 interface TGenIArray2<TGen> : IArray2<TGen> {
     fun setFast(idx: Int, value: TGen)
     fun getFast(idx: Int): TGen
-    operator fun get(x: Int, y: Int): TGen = getFast(index(x, y))
-    operator fun set(x: Int, y: Int, value: TGen) = setFast(index(x, y), value)
+    operator fun get(x: Int, y: Int): TGen = getFast(indexOr(x, y))
+    operator fun set(x: Int, y: Int, value: TGen) = setFast(indexOr(x, y), value)
     override fun setAt(idx: Int, value: TGen) = setFast(idx, value)
     override fun getAt(idx: Int): TGen = getFast(idx)
 

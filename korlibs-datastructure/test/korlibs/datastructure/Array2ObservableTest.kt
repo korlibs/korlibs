@@ -82,7 +82,11 @@ class Array2ObservableTest {
     @Test
     fun testWidthHeight() {
         val ints = IntArray2(20, 10, 0)
+        ints[-10, -15] = 20
+        ints[20, 20] = 20
         val array = ints.observe {  }
+        ints[-10, -15] = 20
+        array[20, 20] = 20
         assertEquals(20, array.width)
         assertEquals(10, array.height)
         assertEquals(ints, array.base)

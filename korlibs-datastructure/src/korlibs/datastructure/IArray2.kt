@@ -35,7 +35,7 @@ interface IArray2<E> : Iterable<E> {
     // Prints the value at the given index.
     fun printAt(idx: Int) = print(getAt(idx))
 
-    fun printAt(x: Int, y: Int) = printAt(index(x, y))
+    fun printAt(x: Int, y: Int) = printAt(indexOr(x, y))
 
     fun setAt(idx: Int, value: E)
     fun equalsAt(idx: Int, value: E): Boolean = getAt(idx) == value // Returns true if the value at `idx` equals the `value`.
@@ -46,10 +46,10 @@ interface IArray2<E> : Iterable<E> {
         if (inside(x, y)) setAt(x, y, value)
     }
 
-    fun getAt(x: Int, y: Int): E = if (inside(x, y)) getAt(index(x, y)) else getAt(0)
+    fun getAt(x: Int, y: Int): E = if (inside(x, y)) getAt(indexOr(x, y)) else getAt(0)
 
     fun setAt(x: Int, y: Int, value: E) {
-        if (inside(x, y)) setAt(index(x, y), value)
+        setAt(indexOr(x, y), value)
     }
 
     fun set(rows: List<List<E>>) {
@@ -119,8 +119,16 @@ inline fun <E> IArray2<E>.each(callback: (x: Int, y: Int, v: E) -> Unit) {
     }
 }
 
-fun <E> IArray2<E>.index(x: Int, y: Int): Int {
+fun <E> IArray2<E>.indexOrThrow(x: Int, y: Int): Int {
     if ((x !in 0 until width) || (y !in 0 until height)) throw IndexOutOfBoundsException()
+    return y * width + x
+}
+
+@Deprecated("", ReplaceWith("indexOrThrow(x, y)"))
+fun <E> IArray2<E>.index(x: Int, y: Int): Int = indexOrThrow(x, y)
+
+fun <E> IArray2<E>.indexOr(x: Int, y: Int, invalid: Int = -1): Int {
+    if ((x !in 0 until width) || (y !in 0 until height)) return invalid
     return y * width + x
 }
 
