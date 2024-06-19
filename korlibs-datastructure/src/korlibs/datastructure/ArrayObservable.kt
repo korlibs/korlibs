@@ -151,7 +151,7 @@ abstract class BaseObservableArray2<T, E>(open val base: IArray2<E>, val updated
         _mark(rect.right - 1, rect.bottom - 1)
         flush()
     }
-    override val width: Int get() = base.height
+    override val width: Int get() = base.width
     override val height: Int get() = base.height
     override fun iterator(): Iterator<E> = base.iterator()
 }
