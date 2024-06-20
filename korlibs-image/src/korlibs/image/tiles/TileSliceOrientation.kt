@@ -5,6 +5,13 @@ import korlibs.math.geom.slice.*
 fun Tile(tile: Int, orientation: SliceOrientation = SliceOrientation.NORMAL, offsetX: Int = 0, offsetY: Int = 0): Tile =
     Tile(tile, offsetX, offsetY, orientation.tileFlipX, orientation.tileFlipY, orientation.tileRot)
 
+
+fun Tile.withOrientation(orientation: SliceOrientation): Tile = Tile(tile, orientation, offsetX, offsetY)
+fun Tile.flippedX(): Tile = withOrientation(orientation.flippedX())
+fun Tile.flippedY(): Tile = withOrientation(orientation.flippedY())
+fun Tile.rotatedRight(offset: Int = 1): Tile = withOrientation(orientation.rotatedRight(offset))
+fun Tile.rotatedLeft(offset: Int = 1): Tile = withOrientation(orientation.rotatedLeft(offset))
+
 fun Tile.toOrientationString(): String = "Tile($tile, $orientation, $offsetX, $offsetY)"
 
 //val flipX = listOf(0, 1, 1, 0,   1, 1, 0, 0)
