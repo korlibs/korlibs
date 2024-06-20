@@ -19,5 +19,8 @@ class TileMapDataTest {
         assertEquals("Tile(11, MIRROR_HORIZONTAL_ROTATE_180, 0, 0)", map[1, 0].toOrientationString())
         assertEquals("Tile(12, ROTATE_180, -777, 12345)", map[0, 1].toOrientationString())
         assertEquals("Tile(13, ROTATE_0, 32133, -12345)", map[1, 1].toOrientationString())
+
+        val tile1 = map[0, 1]
+        assertEquals(tile1, tile1.flippedX().rotatedRight().rotatedLeft().flippedX())
     }
 }
