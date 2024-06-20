@@ -314,28 +314,6 @@ subprojects {
                 }
             }
 
-            val copyArtifactsToDirectory by tasks.registering(Task::class) {
-                dependsOn("publishToMavenLocal")
-
-                doLast {
-                    val base = rootProject.layout.buildDirectory.dir("artifacts")
-                    for (pub in publishing.publications.filterIsInstance<MavenPublication>()) {
-                        //println(pub.artifacts.toList())
-                        val basePath = pub.groupId.replace(".", "/") + "/" + pub.artifactId + "/" + pub.version
-                        val baseDir = File(base.get().asFile, basePath)
-
-                        val m2Dir = File(File(System.getProperty("user.home"), ".m2/repository"), basePath)
-
-                        //println("m2Dir=$m2Dir")
-                        // .module
-                        copy {
-                            from(m2Dir)
-                            into(baseDir)
-                        }
-                    }
-                }
-            }
-
             publications.withType(MavenPublication::class) {
                 //println(this.artifacts.stream().map { it.file })
                 //copyArtifactsToDirectory.get().from(this.artifacts.stream().map { it.file })
@@ -952,12 +930,37 @@ class MicroAmper(val project: Project) {
 }
 
 tasks {
+
+    subprojects {
+        val copyArtifactsToDirectory by tasks.registering(Task::class) {
+            dependsOn("publishToMavenLocal")
+
+            doLast {
+                val base = rootProject.layout.buildDirectory.dir("artifacts")
+                for (pub in publishing.publications.filterIsInstance<MavenPublication>()) {
+                    //println(pub.artifacts.toList())
+                    val basePath = pub.groupId.replace(".", "/") + "/" + pub.artifactId + "/" + pub.version
+                    val baseDir = File(base.get().asFile, basePath)
+
+                    val m2Dir = File(File(System.getProperty("user.home"), ".m2/repository"), basePath)
+
+                    //println("m2Dir=$m2Dir")
+                    // .module
+                    copy {
+                        from(m2Dir)
+                        into(baseDir)
+                    }
+                }
+            }
+        }
+    }
+
     val generateArtifactsZip by registering(Zip::class) {
         subprojects {
             dependsOn("${this.path}:copyArtifactsToDirectory")
         }
         from(rootProject.layout.buildDirectory.dir("artifacts"))
-        archiveFileName = "artifacts.zip"
+        archiveFileName = "korlibs-${REAL_VERSION}.zip"
         destinationDirectory = rootProject.layout.buildDirectory
     }
 
@@ -968,7 +971,7 @@ tasks {
         from(rootProject.layout.buildDirectory.dir("artifacts"))
         //compression = Compression.GZIP
         //into(rootProject.layout.buildDirectory)
-        archiveFileName = "artifacts.tar"
+        archiveFileName = "korlibs-${REAL_VERSION}.tar"
         destinationDirectory = rootProject.layout.buildDirectory
     }
 
@@ -980,8 +983,8 @@ tasks {
             "zstd", "-z",
             //"--ultra", "-22",
             "-17",
-            "-f", File(rootFile, "artifacts.tar").absolutePath,
-            "-o", File(rootFile, "artifacts.tar.zstd").absolutePath
+            "-f", File(rootFile, "korlibs-${REAL_VERSION}.tar").absolutePath,
+            "-o", File(rootFile, "korlibs-${REAL_VERSION}.tar.zstd").absolutePath
         )
     }
 }
