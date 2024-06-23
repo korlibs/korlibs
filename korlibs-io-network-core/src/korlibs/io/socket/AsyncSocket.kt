@@ -12,6 +12,9 @@ import kotlin.coroutines.cancellation.CancellationException
 expect suspend operator fun AsyncSocket.Companion.invoke(secure: Boolean = false): AsyncSocket
 expect suspend operator fun AsyncServerSocket.Companion.invoke(port: Int, host: String = "127.0.0.1", backlog: Int = -1, secure: Boolean = false): AsyncServerSocket
 
+expect suspend fun AsyncSocket.Companion.unix(path: String): AsyncSocket
+expect suspend fun AsyncServerSocket.Companion.unix(path: String, backlog: Int = -1): AsyncServerSocket
+
 data class AsyncSocketAddress(val address: String = "0.0.0.0", val port: Int = 0)
 
 interface AsyncSocket : AsyncInputStream, AsyncOutputStream {

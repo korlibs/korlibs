@@ -2,55 +2,90 @@ package korlibs.io.socket
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.*
-import java.io.*
 import java.net.*
+import java.nio.*
+import java.nio.channels.ByteChannel
+import java.nio.channels.ServerSocketChannel
+import java.nio.channels.SocketChannel
 import javax.net.ssl.*
 
-class JvmAsyncSocket(private var socket: Socket? = null, val secure: Boolean = false) : AsyncSocket {
+class JvmAsyncSocket private constructor(val secure: Boolean = false, unit: Unit) : AsyncSocket {
     private val connectionQueue = Mutex()
     private val readQueue = Mutex()
     private val writeQueue = Mutex()
+    override lateinit var address: AsyncSocketAddress
+        private set
+    private var channel: ByteChannel? = null
 
-    private var socketIs: InputStream? = null
-    private var socketOs: OutputStream? = null
-
-    init {
-        setStreams()
+    constructor(channel: SocketChannel, secure: Boolean = false) : this(secure, Unit) {
+        setSocketChannel(channel)
+    }
+    constructor(socket: Socket, secure: Boolean = false) : this(secure, Unit) {
+        setSocket(socket)
     }
 
-    private fun setStreams() {
-        socketIs = socket?.getInputStream()
-        socketOs = socket?.getOutputStream()
+    private fun setSocket(socket: Socket) {
+        channel = socket.toChannel()
+        address = socket.remoteSocketAddress.toAsyncAddress()
     }
-
-    override val address: AsyncSocketAddress get() = socket?.remoteSocketAddress.toAsyncAddress()
+    private fun setSocketChannel(channel: SocketChannel) {
+        this.channel = channel
+        this.address = channel.remoteAddress.toAsyncAddress()
+    }
 
     override suspend fun connect(host: String, port: Int) {
         connectionQueue.withLock {
             withContext(Dispatchers.IO) {
-                socket = if (secure) SSLSocketFactory.getDefault().createSocket(host, port) else Socket(host, port)
-                setStreams()
+                when {
+                    secure -> setSocket(SSLSocketFactory.getDefault().createSocket(host, port))
+                    else -> setSocketChannel(SocketChannel.open(InetSocketAddress(host, port)))
+                }
             }
         }
     }
 
-    override val connected: Boolean get() = socket?.isConnected ?: false
+    //override suspend fun connectUnix(path: String): JvmAsyncSocket {
+    //    connectionQueue.withLock {
+    //        withContext(Dispatchers.IO) {
+    //            setSocketChannel(SocketChannel.open(UnixDomainSocketAddress.of(path)))
+    //        }
+    //    }
+    //    return this
+    //}
+
+    override val connected: Boolean get() = channel?.isOpen ?: false
 
     override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int {
-        return readQueue.withLock { withContext(Dispatchers.IO) { socketIs?.read(buffer, offset, len) ?: -1 } }
+        return readQueue.withLock { withContext(Dispatchers.IO) { channel?.read(ByteBuffer.wrap(buffer, offset, len)) ?: -1 } }
     }
     override suspend fun write(buffer: ByteArray, offset: Int, len: Int) {
-        writeQueue.withLock { withContext(Dispatchers.IO) { socketOs?.write(buffer, offset, len) } }
+        writeQueue.withLock { withContext(Dispatchers.IO) { channel?.write(ByteBuffer.wrap(buffer, offset, len)) } }
     }
 
     override suspend fun close() {
         CoroutineScope(Dispatchers.IO).launch {
-            socket?.close()
-            socketIs?.close()
-            socketOs?.close()
-            socket = null
-            socketIs = null
-            socketOs = null
+            channel?.close()
+            channel = null
+        }
+    }
+}
+
+private fun Socket.toChannel(): ByteChannel {
+    val socket = this
+    val inputStream = socket.getInputStream()
+    val outputStream = socket.getOutputStream()
+    remoteSocketAddress
+
+    return object : ByteChannel {
+        override fun close() = socket.close()
+        override fun isOpen(): Boolean = socket.isConnected
+        override fun read(dst: ByteBuffer): Int {
+            return inputStream.read(dst.array(), dst.arrayOffset() + dst.position(), dst.remaining())
+        }
+
+        override fun write(src: ByteBuffer): Int {
+            outputStream.write(src.array(), src.arrayOffset() + src.position(), src.remaining())
+            return src.remaining()
         }
     }
 }
@@ -90,6 +125,39 @@ class JvmAsyncServerSocket(
     }
 }
 
+class UnixServerSocket(
+    val path: String,
+    override val backlog: Int = -1,
+    val secure: Boolean = false
+) : AsyncServerSocket {
+    lateinit var ssc: ServerSocketChannel
+
+    suspend fun init() {
+        withContext(Dispatchers.IO) {
+            ssc = ServerSocketChannel.open(StandardProtocolFamily.UNIX).also {
+                it.bind(UnixDomainSocketAddress.of(path))
+            }
+        }
+    }
+
+    override val requestPort: Int get() = -1
+    override val host: String get() = "unix:$path"
+    override val port: Int get() = -1
+
+    override suspend fun accept(): AsyncSocket {
+        while (true) {
+            try {
+                return withContext(Dispatchers.IO) { JvmAsyncSocket(ssc.accept()) }
+            } catch (e: SocketTimeoutException) {
+                continue
+            }
+        }
+    }
+
+    override suspend fun close() {
+        CoroutineScope(Dispatchers.IO).launch { ssc.close() }
+    }
+}
 
 fun SocketAddress?.toAsyncAddress(): AsyncSocketAddress {
     if (this is InetSocketAddress) {

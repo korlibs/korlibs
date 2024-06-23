@@ -8,6 +8,14 @@ actual suspend operator fun AsyncSocket.Companion.invoke(secure: Boolean): Async
 actual suspend operator fun AsyncServerSocket.Companion.invoke(port: Int, host: String, backlog: Int, secure: Boolean): AsyncServerSocket =
     NativeAsyncServerSocket(port, host, backlog, secure)
 
+actual suspend fun AsyncSocket.Companion.unix(path: String): AsyncSocket {
+    TODO()
+}
+
+actual suspend fun AsyncServerSocket.Companion.unix(path: String, backlog: Int): AsyncServerSocket {
+    TODO()
+}
+
 class NativeSecureAsyncSocket(val socket: LinuxSSLSocket) : AsyncSocket {
     override val address: AsyncSocketAddress get() = socket.endpoint.toAsyncAddress()
     override val connected: Boolean get() = socket.connected
