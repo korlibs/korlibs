@@ -4,5 +4,8 @@ product:
 
 apply: [ ../common.module-template.yaml ]
 
+aliases:
+  - jvmAndAndroid: [jvm, android]
+
 dependencies:
   - ../korlibs-platform
