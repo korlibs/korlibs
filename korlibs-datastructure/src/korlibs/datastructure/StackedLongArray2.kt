@@ -3,6 +3,7 @@ package korlibs.datastructure
 import korlibs.datastructure.ds.*
 import korlibs.datastructure.internal.memory.Memory.arraycopy
 import korlibs.datastructure.iterators.*
+import korlibs.math.geom.*
 import kotlin.math.*
 
 interface IStackedLongArray2 : IStackedArray2<Long> {
@@ -22,6 +23,9 @@ interface IStackedLongArray2 : IStackedArray2<Long> {
         set(x, y, getStackLevel(x, y), value)
     }
 
+    /** Removes and returns the latest value on top of [x], [y] */
+    fun pop(x: Int, y: Int): Long = getLast(x, y).also { removeLast(x, y) }
+
     /** Set the first [value] of a stack in the cell [x], [y] */
     fun setFirst(x: Int, y: Int, value: Long) {
         set(x, y, 0, value)
@@ -40,7 +44,21 @@ interface IStackedLongArray2 : IStackedArray2<Long> {
         if (level == 0) return empty
         return get(x, y, level - 1)
     }
+
+    override fun setToFrom(x0: Int, y0: Int, level0: Int, x1: Int, y1: Int, level1: Int) {
+        this[x0, y0, level0] = this[x1, y1, level1]
+    }
 }
+
+fun IStackedLongArray2.removeAt(p: PointInt, level: Int) = removeAt(p.x, p.y, level)
+fun IStackedLongArray2.removeFirst(p: PointInt) = removeFirst(p.x, p.y)
+fun IStackedLongArray2.removeLast(p: PointInt) = removeLast(p.x, p.y)
+fun IStackedLongArray2.getLast(p: PointInt): Long = getLast(p.x, p.y)
+fun IStackedLongArray2.getStackLevel(p: PointInt): Int = getStackLevel(p.x, p.y)
+fun IStackedLongArray2.get(p: PointInt, level: Int): Long = get(p.x, p.y, level)
+fun IStackedLongArray2.set(p: PointInt, level: Int, value: Long) { set(p.x, p.y, level, value) }
+fun IStackedLongArray2.push(p: PointInt, value: Long) { push(p.x, p.y, value) }
+fun IStackedLongArray2.pop(p: PointInt) = pop(p.x, p.y)
 
 /** Shortcut for [IStackedLongArray2.startX] + [IStackedLongArray2.width] */
 val IStackedLongArray2.endX: Int get() = startX + width
@@ -127,7 +145,7 @@ class StackedLongArray2(
 
 fun LongArray2.toStacked(): StackedLongArray2 = StackedLongArray2(this)
 
-class SparseChunkedStackedLongArray2(override var empty: Long = StackedLongArray2.EMPTY) : SparseChunkedStackedArray2<IStackedLongArray2>(), IStackedLongArray2 {
+open class SparseChunkedStackedLongArray2(override var empty: Long = StackedLongArray2.EMPTY) : SparseChunkedStackedArray2<IStackedLongArray2>(), IStackedLongArray2 {
     constructor(vararg layers: IStackedLongArray2, empty: Long = StackedLongArray2.EMPTY) : this(empty) {
         layers.fastForEach { putChunk(it) }
     }
@@ -154,5 +172,21 @@ class SparseChunkedStackedLongArray2(override var empty: Long = StackedLongArray
         findAllChunks().fastForEach {
             sparse.putChunk(it.clone())
         }
+    }
+}
+
+class InfiniteGridStackedLongArray2(val grid: SizeInt = SizeInt(16, 16), override var empty: Long = StackedLongArray2.EMPTY) : SparseChunkedStackedLongArray2() {
+    fun getGridXFor(x: Int) = idiv(x, grid.width)
+    fun getGridYFor(y: Int) = idiv(y, grid.height)
+
+    override fun getChunkAt(x: Int, y: Int, create: Boolean): IStackedLongArray2? {
+        val gridX = getGridXFor(x)
+        val gridY = getGridYFor(y)
+
+        var res = super.getChunkAt(x, y, false)
+        if (res == null && create) {
+            res = putChunk(StackedLongArray2(grid.width, grid.height, empty = empty, startX = gridX * grid.width, startY = gridY * grid.height))
+        }
+        return res
     }
 }

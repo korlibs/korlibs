@@ -29,27 +29,31 @@ interface IStackedDoubleArray2 : IStackedArray2<Double> {
 
     /** Gets the first value of the stack in the cell [x], [y] */
     fun getFirst(x: Int, y: Int): Double {
-        val level = getStackLevel(x, y)
-        if (!inside(x, y, level)) return empty
+        if (!inside(x, y, 0)) return empty
         return get(x, y, 0)
     }
 
     /** Gets the last value of the stack in the cell [x], [y] */
     fun getLast(x: Int, y: Int): Double {
         val level = getStackLevel(x, y)
-        if (!inside(x, y, level)) return empty
+        if (!inside(x, y, level - 1)) return empty
         return get(x, y, level - 1)
     }
 
-    override fun removeAt(x: Int, y: Int, level: Int): Boolean {
-        if (!inside(x, y)) return false
-        val levels = getStackLevel(x, y)
-        if (level < 0 || level >= levels) return false
-        for (n in level until levels - 1) this[x, y, n] = this[x, y, n + 1]
-        IStackedArray2Base.Internal.setStackLevelInternal(x, y, (levels - 1).coerceAtLeast(0))
-        return true
+    override fun setToFrom(x0: Int, y0: Int, level0: Int, x1: Int, y1: Int, level1: Int) {
+        this[x0, y0, level0] = this[x1, y1, level1]
     }
 }
+
+fun IStackedDoubleArray2.removeAt(p: PointInt, level: Int) = removeAt(p.x, p.y, level)
+fun IStackedDoubleArray2.removeFirst(p: PointInt) = removeFirst(p.x, p.y)
+fun IStackedDoubleArray2.removeLast(p: PointInt) = removeLast(p.x, p.y)
+fun IStackedDoubleArray2.getLast(p: PointInt): Double = getLast(p.x, p.y)
+fun IStackedDoubleArray2.getStackLevel(p: PointInt): Int = getStackLevel(p.x, p.y)
+fun IStackedDoubleArray2.get(p: PointInt, level: Int): Double = get(p.x, p.y, level)
+fun IStackedDoubleArray2.set(p: PointInt, level: Int, value: Double) { set(p.x, p.y, level, value) }
+fun IStackedDoubleArray2.push(p: PointInt, value: Double) { push(p.x, p.y, value) }
+fun IStackedDoubleArray2.pop(p: PointInt) = pop(p.x, p.y)
 
 /** Shortcut for [IStackedDoubleArray2.startX] + [IStackedDoubleArray2.width] */
 val IStackedDoubleArray2.endX: Int get() = startX + width
@@ -64,6 +68,8 @@ class StackedDoubleArray2(
     override val startY: Int = 0,
 ) : IStackedDoubleArray2 {
     override var contentVersion: Int = 0 ; private set
+
+    override fun toString(): String = "StackedDoubleArray2(($width, $height), empty=$empty, startXY=($startX,$startY))"
 
     override fun clone(): StackedDoubleArray2 {
         return StackedDoubleArray2(width, height, empty, startX, startY).also { out ->
@@ -143,7 +149,7 @@ open class SparseChunkedStackedDoubleArray2(override var empty: Double = Stacked
     }
 
     override fun set(x: Int, y: Int, level: Int, value: Double) {
-        val chunk = getChunkAt(x, y) ?: return
+        val chunk = getChunkAt(x, y, create = true) ?: return
         chunk[chunk.chunkX(x), chunk.chunkY(y), level] = value
         contentVersion++
     }
@@ -153,12 +159,12 @@ open class SparseChunkedStackedDoubleArray2(override var empty: Double = Stacked
         return chunk[chunk.chunkX(x), chunk.chunkY(y), level]
     }
 
-    override fun removeAt(x: Int, y: Int, level: Int): Boolean {
-        val chunk = getChunkAt(x, y) ?: return false
-        if (!chunk.removeAt(chunk.chunkX(x), chunk.chunkX(y), level)) return false
-        contentVersion++
-        return true
-    }
+    //override fun removeAt(x: Int, y: Int, level: Int): Boolean {
+    //    val chunk = getChunkAt(x, y) ?: return false
+    //    if (!chunk.removeAt(chunk.chunkX(x), chunk.chunkX(y), level)) return false
+    //    contentVersion++
+    //    return true
+    //}
 
     override fun clone(): SparseChunkedStackedDoubleArray2 = SparseChunkedStackedDoubleArray2(empty).also { sparse ->
         findAllChunks().fastForEach {
@@ -168,11 +174,15 @@ open class SparseChunkedStackedDoubleArray2(override var empty: Double = Stacked
 }
 
 class InfiniteGridStackedDoubleArray2(val grid: SizeInt = SizeInt(16, 16), override var empty: Double = StackedDoubleArray2.EMPTY) : SparseChunkedStackedDoubleArray2() {
-    override fun getChunkAt(x: Int, y: Int): IStackedDoubleArray2? {
-        val gridX = x / grid.width
-        val gridY = y / grid.height
-        var res = super.getChunkAt(x, y)
-        if (res == null) {
+    fun getGridXFor(x: Int) = idiv(x, grid.width)
+    fun getGridYFor(y: Int) = idiv(y, grid.height)
+
+    override fun getChunkAt(x: Int, y: Int, create: Boolean): IStackedDoubleArray2? {
+        val gridX = getGridXFor(x)
+        val gridY = getGridYFor(y)
+
+        var res = super.getChunkAt(x, y, false)
+        if (res == null && create) {
             res = putChunk(StackedDoubleArray2(grid.width, grid.height, empty = empty, startX = gridX * grid.width, startY = gridY * grid.height))
         }
         return res

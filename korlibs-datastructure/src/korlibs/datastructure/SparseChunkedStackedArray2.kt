@@ -4,6 +4,10 @@ import korlibs.datastructure.ds.*
 import kotlin.math.*
 
 abstract class SparseChunkedStackedArray2<TStackedArray2 : IStackedArray2Base>() : IStackedArray2Base {
+    companion object {
+        fun idiv(x: Int, y: Int): Int = if (x < 0) (x - y + 1) / y else (x / y)
+    }
+
     override var contentVersion: Int = 0 ; protected set
     var minX = 0
     var minY = 0
@@ -54,7 +58,7 @@ abstract class SparseChunkedStackedArray2<TStackedArray2 : IStackedArray2Base>()
         return x in startX until endX && y in startY until endY
     }
 
-    open fun getChunkAt(x: Int, y: Int): TStackedArray2? {
+    open fun getChunkAt(x: Int, y: Int, create: Boolean = false): TStackedArray2? {
         // Cache to be much faster while iterating rows
         lastSearchChunk?.let {
             if (it.containsChunk(x, y)) return it
@@ -71,15 +75,8 @@ abstract class SparseChunkedStackedArray2<TStackedArray2 : IStackedArray2Base>()
     }
 
     override fun IStackedArray2Base.Internal.setStackLevelInternal(x: Int, y: Int, levels: Int): Boolean {
-        val chunk = getChunkAt(x, y) ?: return false
+        val chunk = getChunkAt(x, y, create = true) ?: return false
         return chunk.run { IStackedArray2Base.Internal.setStackLevelInternal(chunk.chunkX(x), chunk.chunkY(y), levels) }
-    }
-
-    override fun removeAt(x: Int, y: Int, level: Int): Boolean {
-        val chunk = getChunkAt(x, y) ?: return false
-        if (!chunk.removeAt(chunk.chunkX(x), chunk.chunkY(y), level)) return false
-        contentVersion++
-        return true
     }
 
     override fun eachPosition(block: (x: Int, y: Int) -> Unit) {

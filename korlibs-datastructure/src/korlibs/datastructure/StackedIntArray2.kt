@@ -3,6 +3,7 @@ package korlibs.datastructure
 import korlibs.datastructure.ds.*
 import korlibs.datastructure.internal.memory.Memory.arraycopy
 import korlibs.datastructure.iterators.*
+import korlibs.math.geom.*
 import kotlin.math.*
 
 interface IStackedIntArray2 : IStackedArray2<Int> {
@@ -22,6 +23,9 @@ interface IStackedIntArray2 : IStackedArray2<Int> {
         set(x, y, getStackLevel(x, y), value)
     }
 
+    /** Removes and returns the latest value on top of [x], [y] */
+    fun pop(x: Int, y: Int): Int = getLast(x, y).also { removeLast(x, y) }
+
     /** Set the first [value] of a stack in the cell [x], [y] */
     fun setFirst(x: Int, y: Int, value: Int) {
         set(x, y, 0, value)
@@ -39,6 +43,10 @@ interface IStackedIntArray2 : IStackedArray2<Int> {
         val level = getStackLevel(x, y)
         if (level == 0) return empty
         return get(x, y, level - 1)
+    }
+
+    override fun setToFrom(x0: Int, y0: Int, level0: Int, x1: Int, y1: Int, level1: Int) {
+        this[x0, y0, level0] = this[x1, y1, level1]
     }
 }
 
@@ -112,18 +120,22 @@ class StackedIntArray2(
         this@StackedIntArray2.level[x, y] = levels
         return true
     }
-
-    override fun removeLast(x: Int, y: Int): Boolean {
-        if (!inside(x, y)) return false
-        level[x, y] = (level[x, y] - 1).coerceAtLeast(0)
-        contentVersion++
-        return true
-    }
 }
+
+fun IStackedIntArray2.removeAt(p: PointInt, level: Int) = removeAt(p.x, p.y, level)
+fun IStackedIntArray2.removeFirst(p: PointInt) = removeFirst(p.x, p.y)
+fun IStackedIntArray2.removeLast(p: PointInt) = removeLast(p.x, p.y)
+fun IStackedIntArray2.getLast(p: PointInt): Int = getLast(p.x, p.y)
+fun IStackedIntArray2.getStackLevel(p: PointInt): Int = getStackLevel(p.x, p.y)
+fun IStackedIntArray2.get(p: PointInt, level: Int): Int = get(p.x, p.y, level)
+fun IStackedIntArray2.set(p: PointInt, level: Int, value: Int) { set(p.x, p.y, level, value) }
+fun IStackedIntArray2.push(p: PointInt, value: Int) { push(p.x, p.y, value) }
+fun IStackedIntArray2.pop(p: PointInt) = pop(p.x, p.y)
+
 
 fun IntArray2.toStacked(): StackedIntArray2 = StackedIntArray2(this)
 
-class SparseChunkedStackedIntArray2(override var empty: Int = StackedIntArray2.EMPTY) : SparseChunkedStackedArray2<IStackedIntArray2>(), IStackedIntArray2 {
+open class SparseChunkedStackedIntArray2(override var empty: Int = StackedIntArray2.EMPTY) : SparseChunkedStackedArray2<IStackedIntArray2>(), IStackedIntArray2 {
     constructor(vararg layers: IStackedIntArray2, empty: Int = StackedIntArray2.EMPTY) : this(empty) {
         layers.fastForEach { putChunk(it) }
     }
@@ -150,5 +162,21 @@ class SparseChunkedStackedIntArray2(override var empty: Int = StackedIntArray2.E
         findAllChunks().fastForEach {
             sparse.putChunk(it.clone())
         }
+    }
+}
+
+class InfiniteGridStackedIntArray2(val grid: SizeInt = SizeInt(16, 16), override var empty: Int = StackedIntArray2.EMPTY) : SparseChunkedStackedIntArray2() {
+    fun getGridXFor(x: Int) = idiv(x, grid.width)
+    fun getGridYFor(y: Int) = idiv(y, grid.height)
+
+    override fun getChunkAt(x: Int, y: Int, create: Boolean): IStackedIntArray2? {
+        val gridX = getGridXFor(x)
+        val gridY = getGridYFor(y)
+
+        var res = super.getChunkAt(x, y, false)
+        if (res == null && create) {
+            res = putChunk(StackedIntArray2(grid.width, grid.height, empty = empty, startX = gridX * grid.width, startY = gridY * grid.height))
+        }
+        return res
     }
 }

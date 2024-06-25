@@ -33,10 +33,23 @@ interface IStackedArray2Base {
     fun Internal.setStackLevelInternal(x: Int, y: Int, levels: Int): Boolean
 
     /** Removes the last value at [x], [y] in the specified [level] */
-    fun removeAt(x: Int, y: Int, level: Int): Boolean = TODO()
+    fun removeAt(x: Int, y: Int, level: Int): Boolean {
+        if (!inside(x, y, level)) return false
+        val levels = getStackLevel(x, y)
+        if (level < 0 || level >= levels) return false
+        for (n in level until levels - 1) setToFrom(x, y, n, x, y, n + 1)
+        IStackedArray2Base.Internal.setStackLevelInternal(x, y, (levels - 1).coerceAtLeast(0))
+        return true
+    }
+
+    /** Copies the value at [x1][y1][level1] into [x0][y0][level0]. Equivalent to this[x0,y0,level0] = this[x1,y1,level1] */
+    fun setToFrom(x0: Int, y0: Int, level0: Int, x1: Int, y1: Int, level1: Int)
 
     /** Removes the last value at [x], [y] */
     fun removeLast(x: Int, y: Int): Boolean = removeAt(x, y, getStackLevel(x, y) - 1)
+
+    /** Removes the first value at [x], [y] */
+    fun removeFirst(x: Int, y: Int): Boolean = removeAt(x, y, 0)
 
     /** Removes all levels at [x], [y] */
     fun removeAll(x: Int, y: Int): Boolean {
