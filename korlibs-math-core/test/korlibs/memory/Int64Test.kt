@@ -5,7 +5,7 @@ import kotlin.test.*
 
 class Int64Test {
     val random = Random(0L)
-    val values = listOf<Number>(-1, +1, 2, -2, 3, 10, 15, 31, 32, -15, -31, -32, 100, 1000, 10000, 0, 7, Int.MIN_VALUE, Int.MAX_VALUE, UInt.MAX_VALUE.toLong(), Long.MIN_VALUE, Long.MAX_VALUE).map { it.toLong() } + (0 until 20).map { random.nextLong() }
+    val values = listOf<Number>(-1, +1, 2, -2, 3, 10, 15, 31, 32, -15, -31, -32, 100, 1000, 10000, 0, 7, Int.MIN_VALUE, Int.MAX_VALUE, Int.MIN_VALUE.toLong() - 1, Int.MAX_VALUE - 1, Int.MIN_VALUE + 1, Int.MAX_VALUE.toLong() + 1, UInt.MAX_VALUE.toLong(), Long.MIN_VALUE, Long.MAX_VALUE).map { it.toLong() } + (0 until 20).map { random.nextLong() }
 
     inline fun forEach(block: (Long) -> Unit) { for (a in values) block(a) }
     inline fun forEachPair(block: (Long, Long) -> Unit) { for (a in values) for (b in values) block(a, b) }
