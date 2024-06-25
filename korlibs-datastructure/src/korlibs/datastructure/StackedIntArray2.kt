@@ -107,9 +107,17 @@ class StackedIntArray2(
         return this.level[x, y]
     }
 
-    override fun removeLast(x: Int, y: Int) {
+    override fun IStackedArray2Base.Internal.setStackLevelInternal(x: Int, y: Int, levels: Int): Boolean {
+        if (!inside(x, y)) return false
+        this@StackedIntArray2.level[x, y] = levels
+        return true
+    }
+
+    override fun removeLast(x: Int, y: Int): Boolean {
+        if (!inside(x, y)) return false
         level[x, y] = (level[x, y] - 1).coerceAtLeast(0)
         contentVersion++
+        return true
     }
 }
 

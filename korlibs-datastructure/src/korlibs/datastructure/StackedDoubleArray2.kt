@@ -1,9 +1,8 @@
 package korlibs.datastructure
 
-import korlibs.datastructure.ds.*
 import korlibs.datastructure.internal.memory.Memory.arraycopy
 import korlibs.datastructure.iterators.*
-import kotlin.math.*
+import korlibs.math.geom.*
 
 interface IStackedDoubleArray2 : IStackedArray2<Double> {
     /** The [empty] value that will be returned if the specified cell it out of bounds, or empty */
@@ -22,23 +21,33 @@ interface IStackedDoubleArray2 : IStackedArray2<Double> {
         set(x, y, getStackLevel(x, y), value)
     }
 
+    /** Removes and returns the latest value on top of [x], [y] */
+    fun pop(x: Int, y: Int): Double = getLast(x, y).also { removeLast(x, y) }
+
     /** Set the first [value] of a stack in the cell [x], [y] */
-    fun setFirst(x: Int, y: Int, value: Double) {
-        set(x, y, 0, value)
-    }
+    fun setFirst(x: Int, y: Int, value: Double) = set(x, y, 0, value)
 
     /** Gets the first value of the stack in the cell [x], [y] */
     fun getFirst(x: Int, y: Int): Double {
         val level = getStackLevel(x, y)
-        if (level == 0) return empty
+        if (!inside(x, y, level)) return empty
         return get(x, y, 0)
     }
 
     /** Gets the last value of the stack in the cell [x], [y] */
     fun getLast(x: Int, y: Int): Double {
         val level = getStackLevel(x, y)
-        if (level == 0) return empty
+        if (!inside(x, y, level)) return empty
         return get(x, y, level - 1)
+    }
+
+    override fun removeAt(x: Int, y: Int, level: Int): Boolean {
+        if (!inside(x, y)) return false
+        val levels = getStackLevel(x, y)
+        if (level < 0 || level >= levels) return false
+        for (n in level until levels - 1) this[x, y, n] = this[x, y, n + 1]
+        IStackedArray2Base.Internal.setStackLevelInternal(x, y, (levels - 1).coerceAtLeast(0))
+        return true
     }
 }
 
@@ -97,6 +106,7 @@ class StackedDoubleArray2(
     }
 
     override operator fun set(x: Int, y: Int, level: Int, value: Double) {
+        if (!inside(x, y)) return
         ensureLevel(level)
         data[level][x, y] = value
         this.level[x, y] = maxOf(this.level[x, y], level + 1)
@@ -104,23 +114,26 @@ class StackedDoubleArray2(
     }
 
     override operator fun get(x: Int, y: Int, level: Int): Double {
+        if (!inside(x, y)) return empty
         if (level > this.level[x, y]) return empty
         return data[level][x, y]
     }
 
     override fun getStackLevel(x: Int, y: Int): Int {
+        if (!inside(x, y)) return 0
         return this.level[x, y]
     }
 
-    override fun removeLast(x: Int, y: Int) {
-        level[x, y] = (level[x, y] - 1).coerceAtLeast(0)
-        contentVersion++
+    override fun IStackedArray2Base.Internal.setStackLevelInternal(x: Int, y: Int, levels: Int): Boolean {
+        if (!inside(x, y)) return false
+        this@StackedDoubleArray2.level[x, y] = levels
+        return true
     }
 }
 
 fun DoubleArray2.toStacked(): StackedDoubleArray2 = StackedDoubleArray2(this)
 
-class SparseChunkedStackedDoubleArray2(override var empty: Double = StackedDoubleArray2.EMPTY) : SparseChunkedStackedArray2<IStackedDoubleArray2>(), IStackedDoubleArray2 {
+open class SparseChunkedStackedDoubleArray2(override var empty: Double = StackedDoubleArray2.EMPTY) : SparseChunkedStackedArray2<IStackedDoubleArray2>(), IStackedDoubleArray2 {
     constructor(vararg layers: IStackedDoubleArray2, empty: Double = StackedDoubleArray2.EMPTY) : this(empty) {
         layers.fastForEach { putChunk(it) }
     }
@@ -130,22 +143,38 @@ class SparseChunkedStackedDoubleArray2(override var empty: Double = StackedDoubl
     }
 
     override fun set(x: Int, y: Int, level: Int, value: Double) {
-        getChunkAt(x, y)?.let { chunk ->
-            chunk[chunk.chunkX(x), chunk.chunkY(y), level] = value
-            contentVersion++
-        }
+        val chunk = getChunkAt(x, y) ?: return
+        chunk[chunk.chunkX(x), chunk.chunkY(y), level] = value
+        contentVersion++
     }
 
     override fun get(x: Int, y: Int, level: Int): Double {
-        getChunkAt(x, y)?.let { chunk ->
-            return chunk[chunk.chunkX(x), chunk.chunkY(y), level]
-        }
-        return empty
+        val chunk = getChunkAt(x, y) ?: return empty
+        return chunk[chunk.chunkX(x), chunk.chunkY(y), level]
+    }
+
+    override fun removeAt(x: Int, y: Int, level: Int): Boolean {
+        val chunk = getChunkAt(x, y) ?: return false
+        if (!chunk.removeAt(chunk.chunkX(x), chunk.chunkX(y), level)) return false
+        contentVersion++
+        return true
     }
 
     override fun clone(): SparseChunkedStackedDoubleArray2 = SparseChunkedStackedDoubleArray2(empty).also { sparse ->
         findAllChunks().fastForEach {
             sparse.putChunk(it.clone())
         }
+    }
+}
+
+class InfiniteGridStackedDoubleArray2(val grid: SizeInt = SizeInt(16, 16), override var empty: Double = StackedDoubleArray2.EMPTY) : SparseChunkedStackedDoubleArray2() {
+    override fun getChunkAt(x: Int, y: Int): IStackedDoubleArray2? {
+        val gridX = x / grid.width
+        val gridY = y / grid.height
+        var res = super.getChunkAt(x, y)
+        if (res == null) {
+            res = putChunk(StackedDoubleArray2(grid.width, grid.height, empty = empty, startX = gridX * grid.width, startY = gridY * grid.height))
+        }
+        return res
     }
 }

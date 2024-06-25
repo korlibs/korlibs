@@ -814,7 +814,7 @@ class BVH<T>(
         ).mapNotNull { it.value }
     }
 
-    @Deprecated("USe BVHRect signature")
+    @Deprecated("Use BVHRect signature")
     fun insertOrUpdate(
         intervals: BVHIntervals,
         obj: T,
@@ -955,6 +955,24 @@ inline class BVHRay(val intervals: BVHIntervals) {
 
 inline class BVHRect(val intervals: BVHIntervals) {
     constructor(dimensions: Int) : this(BVHIntervals(dimensions))
+
+    constructor(n: Double, len: Double) : this(BVHIntervals(n, len))
+    constructor(x: Double, width: Double, y: Double, height: Double) : this(BVHIntervals(x, width, y, height))
+    constructor(x: Double, width: Double, y: Double, height: Double, z: Double, depth: Double) : this(BVHIntervals(x, width, y, height, z, depth))
+
+    companion object {
+        inline operator fun invoke(n: Number, len: Number): BVHRect = BVHRect(n.toDouble(), len.toDouble())
+        inline operator fun invoke(x: Number, width: Number, y: Number, height: Number): BVHRect = BVHRect(x.toDouble(), width.toDouble(), y.toDouble(), height.toDouble())
+        inline operator fun invoke(x: Number, width: Number, y: Number, height: Number, z: Number, depth: Number) = BVHRect(x.toDouble(), width.toDouble(), y.toDouble(), height.toDouble(), z.toDouble(), depth.toDouble())
+
+        fun fromBounds(min: Double, max: Double): BVHRect = BVHRect(min, (max - min))
+        fun fromBounds(xMin: Double, xMax: Double, yMin: Double, yMax: Double): BVHRect = BVHRect(xMin, (xMax - xMin), yMin, (yMax - yMin))
+        fun fromBounds(xMin: Double, xMax: Double, yMin: Double, yMax: Double, zMin: Double, zMax: Double): BVHRect = BVHRect(xMin, (xMax - xMin), yMin, (yMax - yMin), zMin, (zMax - zMin))
+
+        inline fun fromBounds(min: Number, max: Number): BVHRect = fromBounds(min.toDouble(), max.toDouble())
+        inline fun fromBounds(xMin: Number, xMax: Number, yMin: Number, yMax: Number): BVHRect = fromBounds(xMin.toDouble(), xMax.toDouble(), yMin.toDouble(), yMax.toDouble())
+        inline fun fromBounds(xMin: Number, xMax: Number, yMin: Number, yMax: Number, zMin: Number, zMax: Number): BVHRect = fromBounds(xMin.toDouble(), xMax.toDouble(), yMin.toDouble(), yMax.toDouble(), zMin.toDouble(), zMax.toDouble())
+    }
 
     fun checkDimensions(dimensions: Int) {
         checkDimensions(this.dimensions, dimensions)

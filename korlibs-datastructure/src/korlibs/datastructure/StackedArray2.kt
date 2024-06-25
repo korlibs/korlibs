@@ -3,6 +3,8 @@ package korlibs.datastructure
 interface IStackedArray2<T> : IStackedArray2Base
 
 interface IStackedArray2Base {
+    object Internal
+
     /** Version of the data. Each change increments this. */
     val contentVersion: Int
 
@@ -27,11 +29,26 @@ interface IStackedArray2Base {
     /** Number of values available at this [x], [y] */
     fun getStackLevel(x: Int, y: Int): Int
 
+    /** Number of values available at this [x], [y] */
+    fun Internal.setStackLevelInternal(x: Int, y: Int, levels: Int): Boolean
+
+    /** Removes the last value at [x], [y] in the specified [level] */
+    fun removeAt(x: Int, y: Int, level: Int): Boolean = TODO()
+
     /** Removes the last value at [x], [y] */
-    fun removeLast(x: Int, y: Int)
+    fun removeLast(x: Int, y: Int): Boolean = removeAt(x, y, getStackLevel(x, y) - 1)
+
+    /** Removes all levels at [x], [y] */
+    fun removeAll(x: Int, y: Int): Boolean {
+        if (!inside(x, y)) return false
+        while (getStackLevel(x, y) > 0) removeLast(x, y)
+        return true
+    }
 
     /** Checks if [x] and [y] are inside this array in the range x=0 until [width] and y=0 until [height] ignoring startX and startY */
     fun inside(x: Int, y: Int): Boolean = x >= 0 && y >= 0 && x < width && y < height
+
+    fun inside(x: Int, y: Int, level: Int): Boolean = inside(x, y) && (level in 0 until getStackLevel(x, y))
 
     ///** Duplicates the contents of this [IStackedArray2] keeping its contents data */
     //fun clone(): IStackedArray2<T>
