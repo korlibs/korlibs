@@ -8,6 +8,7 @@ import korlibs.time.milliseconds
 import korlibs.time.nanoseconds
 import kotlin.jvm.JvmName
 import kotlin.math.pow
+import kotlin.time.*
 
 data class BenchmarkResult(
     val timePerCallNanoseconds: Long,
