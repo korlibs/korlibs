@@ -174,6 +174,7 @@ open class SparseChunkedStackedDoubleArray2(override var empty: Double = Stacked
     }
 }
 
+/** A [SparseChunkedStackedDoubleArray2] that uses a [grid] size to create new chunks as required */
 class InfiniteGridStackedDoubleArray2(val grid: SizeInt = SizeInt(16, 16), override var empty: Double = StackedDoubleArray2.EMPTY) : SparseChunkedStackedDoubleArray2() {
     fun getGridXFor(x: Int) = idiv(x, grid.width)
     fun getGridYFor(y: Int) = idiv(y, grid.height)

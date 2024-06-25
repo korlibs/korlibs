@@ -58,7 +58,10 @@ abstract class SparseChunkedStackedArray2<TStackedArray2 : IStackedArray2Base>()
         return x in startX until endX && y in startY until endY
     }
 
+    /** Gets the chunk at the specified position [x][y], optionally [create]ing it if it doesn't exist (when supported by the underlying implementation) */
     open fun getChunkAt(x: Int, y: Int, create: Boolean = false): TStackedArray2? {
+        if (!create) throw UnsupportedOperationException("Not supported creating new chunks")
+
         // Cache to be much faster while iterating rows
         lastSearchChunk?.let {
             if (it.containsChunk(x, y)) return it
