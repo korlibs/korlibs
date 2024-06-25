@@ -8,6 +8,14 @@ actual suspend operator fun AsyncServerSocket.Companion.invoke(port: Int, host: 
     return NativeAsyncServer(socket, port, backlog)
 }
 
+actual suspend fun AsyncSocket.Companion.unix(path: String): AsyncSocket {
+    TODO()
+}
+
+actual suspend fun AsyncServerSocket.Companion.unix(path: String, backlog: Int): AsyncServerSocket {
+    TODO()
+}
+
 class NativeAsyncServer(val socket: Win32Socket, override val requestPort: Int, override val backlog: Int) :
     AsyncServerSocket {
     override val host: String get() = socket.getLocalEndpoint().ip.str

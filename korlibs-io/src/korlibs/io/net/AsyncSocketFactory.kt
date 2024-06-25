@@ -22,6 +22,8 @@ import kotlin.coroutines.coroutineContext
 abstract class AsyncSocketFactory {
     open suspend fun createClient(secure: Boolean = false): AsyncClient = TODO()
 	open suspend fun createServer(port: Int, host: String = "127.0.0.1", backlog: Int = 511, secure: Boolean = false): AsyncServer = TODO()
+    open suspend fun createServerUnix(path: String, backlog: Int, secure: Boolean): AsyncServer =
+        TODO("Unsupported")
 }
 
 //internal expect val asyncSocketFactory: AsyncSocketFactory

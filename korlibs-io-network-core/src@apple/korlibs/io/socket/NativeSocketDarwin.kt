@@ -9,6 +9,14 @@ actual suspend operator fun AsyncServerSocket.Companion.invoke(port: Int, host: 
     return NativeAsyncServerSocket(port, host, backlog, secure)
 }
 
+actual suspend fun AsyncSocket.Companion.unix(path: String): AsyncSocket {
+    TODO()
+}
+
+actual suspend fun AsyncServerSocket.Companion.unix(path: String, backlog: Int): AsyncServerSocket {
+    TODO()
+}
+
 class DarwinSecureAsyncClient(val socket: DarwinSSLSocket) : AsyncSocket {
     override val address: AsyncSocketAddress get() = socket.endpoint.toAsyncAddress()
     override val connected: Boolean get() = socket.connected
