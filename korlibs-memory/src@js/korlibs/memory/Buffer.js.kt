@@ -67,7 +67,7 @@ actual class Buffer(val dataView: org.khronos.webgl.DataView) : AutoCloseable {
     actual fun setF64BE(byteOffset: Int, value: Double) = dataView.setFloat64(byteOffset, value, false)
 
     override fun hashCode(): Int = hashCodeCommon(this)
-    override fun close() {
+    override actual fun close() {
     }
 
     override fun equals(other: Any?): Boolean = equalsCommon(this, other)

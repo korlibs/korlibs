@@ -44,7 +44,7 @@ actual class Buffer(val data: ByteArray, val offset: Int, val size: Int, dummy: 
 
 
     override fun hashCode(): Int = hashCodeCommon(this)
-    override fun close() {
+    actual override fun close() {
     }
 
     override fun equals(other: Any?): Boolean = equalsCommon(this, other)

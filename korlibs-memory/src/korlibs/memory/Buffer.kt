@@ -41,6 +41,8 @@ expect class Buffer : AutoCloseable {
     fun set64BE(byteOffset: Int, value: Long)
     fun setF32BE(byteOffset: Int, value: Float)
     fun setF64BE(byteOffset: Int, value: Double)
+    
+    override fun close()
 
     companion object {
         fun copy(src: Buffer, srcPosBytes: Int, dst: Buffer, dstPosBytes: Int, sizeInBytes: Int)

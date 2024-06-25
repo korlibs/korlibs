@@ -68,7 +68,7 @@ actual class Buffer(val buffer: ByteBuffer) : AutoCloseable {
 
     private var file: FileChannel? = null
 
-    override fun close() {
+    override actual fun close() {
         file?.close()
         file = null
     }
