@@ -17,15 +17,27 @@ expect suspend fun AsyncServerSocket.Companion.unix(path: String, backlog: Int =
 
 data class AsyncSocketAddress(val address: String = "0.0.0.0", val port: Int = 0)
 
+/**
+ * A socket that can be used to connect to a server.
+ * [secure] indicates if the connection should be secure (SSL).
+ */
 interface AsyncSocket : AsyncInputStream, AsyncOutputStream {
 	companion object { }
 	suspend fun connect(host: String, port: Int)
 
+	/** The address of the socket */
     val address: AsyncSocketAddress get() = AsyncSocketAddress()
 
+	/** Is the socket connected */
 	val connected: Boolean
+
+	/** Read [len] bytes into [buffer] starting at [offset] */
 	override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int
+
+	/** Write [len] bytes from [buffer] starting at [offset] */
 	override suspend fun write(buffer: ByteArray, offset: Int, len: Int)
+
+	/** Close the socket */
 	override suspend fun close()
 
 	object Stats {
