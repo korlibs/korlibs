@@ -53,6 +53,7 @@ interface IStackedLongArray2 : IStackedArray2<Long> {
 fun IStackedLongArray2.removeAt(p: PointInt, level: Int) = removeAt(p.x, p.y, level)
 fun IStackedLongArray2.removeFirst(p: PointInt) = removeFirst(p.x, p.y)
 fun IStackedLongArray2.removeLast(p: PointInt) = removeLast(p.x, p.y)
+fun IStackedLongArray2.removeAll(p: PointInt) = removeAll(p.x, p.y)
 fun IStackedLongArray2.getLast(p: PointInt): Long = getLast(p.x, p.y)
 fun IStackedLongArray2.getStackLevel(p: PointInt): Int = getStackLevel(p.x, p.y)
 fun IStackedLongArray2.get(p: PointInt, level: Int): Long = get(p.x, p.y, level)

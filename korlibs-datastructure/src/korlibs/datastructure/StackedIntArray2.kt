@@ -125,6 +125,7 @@ class StackedIntArray2(
 fun IStackedIntArray2.removeAt(p: PointInt, level: Int) = removeAt(p.x, p.y, level)
 fun IStackedIntArray2.removeFirst(p: PointInt) = removeFirst(p.x, p.y)
 fun IStackedIntArray2.removeLast(p: PointInt) = removeLast(p.x, p.y)
+fun IStackedIntArray2.removeAll(p: PointInt) = removeAll(p.x, p.y)
 fun IStackedIntArray2.getLast(p: PointInt): Int = getLast(p.x, p.y)
 fun IStackedIntArray2.getStackLevel(p: PointInt): Int = getStackLevel(p.x, p.y)
 fun IStackedIntArray2.get(p: PointInt, level: Int): Int = get(p.x, p.y, level)

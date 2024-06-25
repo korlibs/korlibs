@@ -48,6 +48,7 @@ interface IStackedDoubleArray2 : IStackedArray2<Double> {
 fun IStackedDoubleArray2.removeAt(p: PointInt, level: Int) = removeAt(p.x, p.y, level)
 fun IStackedDoubleArray2.removeFirst(p: PointInt) = removeFirst(p.x, p.y)
 fun IStackedDoubleArray2.removeLast(p: PointInt) = removeLast(p.x, p.y)
+fun IStackedDoubleArray2.removeAll(p: PointInt) = removeAll(p.x, p.y)
 fun IStackedDoubleArray2.getLast(p: PointInt): Double = getLast(p.x, p.y)
 fun IStackedDoubleArray2.getStackLevel(p: PointInt): Int = getStackLevel(p.x, p.y)
 fun IStackedDoubleArray2.get(p: PointInt, level: Int): Double = get(p.x, p.y, level)
