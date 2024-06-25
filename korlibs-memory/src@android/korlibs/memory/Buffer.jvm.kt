@@ -1,8 +1,12 @@
 package korlibs.memory
 
+import android.os.*
+import java.io.*
 import java.nio.*
+import java.nio.channels.FileChannel
+import java.nio.file.*
 
-actual class Buffer(val buffer: ByteBuffer) {
+actual class Buffer(val buffer: ByteBuffer) : AutoCloseable {
     val bufferLE = buffer.duplicate().order(ByteOrder.LITTLE_ENDIAN)
     val bufferBE = buffer.duplicate().order(ByteOrder.BIG_ENDIAN)
     actual val byteOffset: Int = buffer.position()
@@ -64,6 +68,13 @@ actual class Buffer(val buffer: ByteBuffer) {
     override fun equals(other: Any?): Boolean = equalsCommon(this, other)
     override fun toString(): String = NBuffer_toString(this)
 
+    private var file: FileChannel? = null
+
+    override actual fun close() {
+        file?.close()
+        file = null
+    }
+
     actual companion object {
         actual fun equals(src: Buffer, srcPosBytes: Int, dst: Buffer, dstPosBytes: Int, sizeInBytes: Int): Boolean =
             src.slicedBuffer(srcPosBytes, sizeInBytes) == dst.slicedBuffer(dstPosBytes, sizeInBytes)
@@ -83,8 +94,26 @@ actual class Buffer(val buffer: ByteBuffer) {
             //}
             dst.slicedBuffer(dstPosBytes, sizeInBytes).put(src.slicedBuffer(srcPosBytes, sizeInBytes))
         }
+
+        actual fun mmap(path: String, position: Long, size: Long, mode: BufferMapMode): Buffer {
+            if (Build.VERSION.SDK_INT < 26) {
+                throw UnsupportedOperationException("mmap not supported on Android < 26")
+            }
+            val fc = FileChannel.open(File(path).toPath(), StandardOpenOption.READ, StandardOpenOption.WRITE, StandardOpenOption.CREATE)
+            val bb = fc.map(
+                when (mode) {
+                    BufferMapMode.READ_ONLY -> FileChannel.MapMode.READ_ONLY
+                    BufferMapMode.READ_WRITE -> FileChannel.MapMode.READ_WRITE
+                    BufferMapMode.PRIVATE -> FileChannel.MapMode.PRIVATE
+                }, position, size
+            )
+            return Buffer(bb).also {
+                it.file = fc
+            }
+        }
     }
 }
+
 
 @PublishedApi
 internal fun java.nio.Buffer.checkSliceBounds(offset: Int, size: Int) {

@@ -7,7 +7,7 @@ import kotlin.jvm.*
 
 typealias DataView = Buffer
 
-expect class Buffer {
+expect class Buffer : AutoCloseable {
     constructor(size: Int, direct: Boolean = false)
     @Deprecated("Can't wrap without copying on WasmJS")
     constructor(array: ByteArray, offset: Int = 0, size: Int = array.size - offset)
@@ -41,11 +41,18 @@ expect class Buffer {
     fun set64BE(byteOffset: Int, value: Long)
     fun setF32BE(byteOffset: Int, value: Float)
     fun setF64BE(byteOffset: Int, value: Double)
+    
+    override fun close()
 
     companion object {
         fun copy(src: Buffer, srcPosBytes: Int, dst: Buffer, dstPosBytes: Int, sizeInBytes: Int)
         fun equals(src: Buffer, srcPosBytes: Int, dst: Buffer, dstPosBytes: Int, sizeInBytes: Int): Boolean
+        fun mmap(path: String, position: Long, size: Long, mode: BufferMapMode = BufferMapMode.READ_WRITE): Buffer
     }
+}
+
+enum class BufferMapMode {
+    READ_ONLY, READ_WRITE, PRIVATE
 }
 
 internal fun Buffer.Companion.hashCodeCommon(
