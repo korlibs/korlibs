@@ -19,7 +19,6 @@ data class AsyncSocketAddress(val address: String = "0.0.0.0", val port: Int = 0
 
 /**
  * A socket that can be used to connect to a server.
- * [secure] indicates if the connection should be secure (SSL).
  */
 interface AsyncSocket : AsyncInputStream, AsyncOutputStream {
 	companion object { }
