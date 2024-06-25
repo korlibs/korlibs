@@ -326,7 +326,7 @@ val Long._high: Int get() = (this ushr 32).toInt()
 /** Get low 32-bits of this Long */
 val Long._low: Int get() = this.toInt()
 
-fun Long.Companion.fromLowHigh(low: Int, high: Int): Long = (low.toLong() and 0xFFFFFFFFL) or (high.toLong() shl 32)
+inline fun Long.Companion.fromLowHigh(low: Int, high: Int): Long = (low.toLong() and 0xFFFFFFFFL) or (high.toLong() shl 32)
 
 inline fun Int.fastForEachOneBits(block: (Int) -> Unit) {
     var value = this
