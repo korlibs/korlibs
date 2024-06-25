@@ -134,8 +134,8 @@ class UnixServerSocket(
 
     suspend fun init() {
         withContext(Dispatchers.IO) {
-            ssc = ServerSocketChannel.open(StandardProtocolFamily.UNIX).also {
-                it.bind(UnixDomainSocketAddress.of(path))
+            ssc = ServerSocketChannel_open(StandardProtocolFamily_UNIX).also {
+                it.bind(UnixDomainSocketAddress_of(path))
             }
         }
     }
@@ -166,3 +166,27 @@ fun SocketAddress?.toAsyncAddress(): AsyncSocketAddress {
     return AsyncSocketAddress()
 }
 
+
+val StandardProtocolFamily_UNIX: ProtocolFamily get() = Class.forName("java.net.StandardProtocolFamily").getDeclaredField("UNIX").let {
+    it.isAccessible = true
+    it.get(null) as StandardProtocolFamily
+}
+
+fun SocketChannel_open(protocol: ProtocolFamily): SocketChannel {
+    val clazz = Class.forName("java.nio.channels.SocketChannel")
+    val method = clazz.getDeclaredMethod("open", ProtocolFamily::class.java) ?: error("Can't find SocketChannel.open method")
+    return method.invoke(null, protocol) as SocketChannel
+}
+fun ServerSocketChannel_open(protocol: ProtocolFamily): ServerSocketChannel {
+    val clazz = Class.forName("java.nio.channels.ServerSocketChannel")
+    val method = clazz.getDeclaredMethod("open", ProtocolFamily::class.java) ?: error("Can't find ServerSocketChannel.open method")
+    return method.invoke(null, protocol) as ServerSocketChannel
+}
+
+fun UnixDomainSocketAddress_of(path: String): SocketAddress {
+    val clazz = Class.forName("java.net.UnixDomainSocketAddress") ?: error("Can't find UnixDomainSocketAddress class")
+    val method = clazz.getDeclaredMethod("of", String::class.java)
+        ?: error("Can't find UnixDomainSocketAddress.of method")
+    return method
+        .invoke(null, path) as SocketAddress
+}

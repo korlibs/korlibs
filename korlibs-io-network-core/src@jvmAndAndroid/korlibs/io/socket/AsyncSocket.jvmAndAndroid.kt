@@ -19,7 +19,7 @@ actual suspend operator fun AsyncServerSocket.Companion.invoke(port: Int, host: 
 actual suspend fun AsyncSocket.Companion.unix(path: String): AsyncSocket = JvmAsyncSocket(withContext(Dispatchers.IO) {
     val address = UnixDomainSocketAddress.of(path)
     //println("[a]")
-    SocketChannel.open(StandardProtocolFamily.UNIX).apply {
+    SocketChannel_open(StandardProtocolFamily_UNIX).apply {
         //println("[b]")
         this.connect(address)
         //println("[c]")

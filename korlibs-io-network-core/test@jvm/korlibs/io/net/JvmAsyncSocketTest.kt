@@ -2,6 +2,7 @@ package korlibs.io.net
 
 import korlibs.io.async.*
 import korlibs.io.socket.*
+import korlibs.platform.*
 import kotlinx.coroutines.*
 import java.io.*
 import kotlin.test.*
@@ -9,6 +10,9 @@ import kotlin.test.*
 class JvmAsyncSocketTest {
     @Test
     fun test() {
+        // Skip in CI on windows --     java.net.SocketException: Network is down: bind
+        if (System.getenv("CI") != null && Platform.isWindows) return
+
         runBlocking {
             val sockPath = "/tmp/test.sock"
             File(sockPath).delete()
