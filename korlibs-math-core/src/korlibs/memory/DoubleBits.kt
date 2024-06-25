@@ -28,14 +28,14 @@ fun Double.Companion.fromParts(sign: Int, exponent: Int, mantissaLow: Int, manti
 
 expect fun Double.Companion.fromLowHigh(low: Int, high: Int): Double
 expect inline fun <T> Double.getLowHighBits(block: (low: Int, high: Int) -> T): T
-expect val Double.low: Int
-expect val Double.high: Int
+expect val Double.lowBits: Int
+expect val Double.highBits: Int
 
-val Double.bitsSign: Int get() = high.extract1(31)
-val Double.bitsExponent: Int get() = high.extract11(20)
-val Double.bitsMantissaHigh: Int get() = high.extract20(0)
-val Double.bitsMantissaLow: Int get() = low
-val Double.bitsMantissaDouble: Double get() = bitsMantissaLow.toDouble() + bitsMantissaHigh.toDouble() * 4294967296.0
+val Double.bitsSign: Int get() = highBits.extract1(31)
+val Double.bitsExponent: Int get() = highBits.extract11(20)
+val Double.bitsMantissaHigh: Int get() = highBits.extract20(0)
+val Double.bitsMantissaLow: Int get() = lowBits
+val Double.bitsMantissaDouble: Double get() = bitsMantissaLow.toDouble() + bitsMantissaHigh.toDouble() * TWO_POW_32_DOUBLE
 val Double.bitsMantissaLong: Long get() = Long.fromLowHigh(bitsMantissaLow, bitsMantissaHigh)
 
 @PublishedApi internal fun Double.Companion.fromLowHighBitsSlow(low: Int, high: Int): Double = Double.fromBits(Long.fromLowHigh(low, high))

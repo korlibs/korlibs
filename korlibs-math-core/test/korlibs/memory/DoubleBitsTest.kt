@@ -13,12 +13,12 @@ class DoubleBitsTest {
             assertEquals(0x7654321, high)
         }
         Double.fromLowHigh(0x3FFFFFF, 0x7654321).also {
-            assertEquals(0x3FFFFFF, it.low)
-            assertEquals(0x7654321, it.high)
+            assertEquals(0x3FFFFFF, it.lowBits)
+            assertEquals(0x7654321, it.highBits)
         }
         1.0.also {
-            assertEquals(0, it.low)
-            assertEquals(1072693248, it.high)
+            assertEquals(0, it.lowBits)
+            assertEquals(1072693248, it.highBits)
         }
         assertEquals(1.0, Double.fromLowHigh(0, 1072693248))
 
@@ -77,8 +77,8 @@ class DoubleBitsTest {
 
         0xfffa9138acdc4aa6uL.toLong().also { invalidLong ->
             val invalidDouble = Double.fromBits(invalidLong)
-            assertEquals(invalidLong.low, invalidDouble.low)
-            assertEquals(invalidLong.high, invalidDouble.high)
+            assertEquals(invalidLong.low, invalidDouble.lowBits)
+            assertEquals(invalidLong.high, invalidDouble.highBits)
         }
 
         repeat(100000) {
@@ -98,8 +98,8 @@ class DoubleBitsTest {
             val high = long.high
             val double = Double.fromLowHigh(low, high)
             //println("long=0x${long.toULong().toString(16).padStart(16, '0')}, double=$double")
-            assertEquals(low, double.low)
-            assertEquals(high, double.high)
+            assertEquals(low, double.lowBits)
+            assertEquals(high, double.highBits)
             /*
             val double = long.reinterpretAsDouble()
             val nlong = double.reinterpretAsLong()

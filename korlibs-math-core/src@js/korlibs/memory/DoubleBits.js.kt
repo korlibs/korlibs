@@ -21,11 +21,11 @@ actual inline fun <T> Double.getLowHighBits(block: (low: Int, high: Int) -> T): 
     f64[0] = this
     return block(i32[IDX_LOW], i32[IDX_HIGH])
 }
-actual val Double.low: Int get() {
+actual val Double.lowBits: Int get() {
     f64[0] = this
     return i32[IDX_LOW]
 }
-actual val Double.high: Int get()  {
+actual val Double.highBits: Int get()  {
     f64[0] = this
     return i32[IDX_HIGH]
 }
