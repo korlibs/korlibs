@@ -4,6 +4,10 @@ import korlibs.datastructure.ds.*
 import kotlin.math.*
 
 abstract class SparseChunkedStackedArray2<TStackedArray2 : IStackedArray2Base>() : IStackedArray2Base {
+    companion object {
+        fun idiv(x: Int, y: Int): Int = if (x < 0) (x - y + 1) / y else (x / y)
+    }
+
     override var contentVersion: Int = 0 ; protected set
     var minX = 0
     var minY = 0
@@ -17,7 +21,7 @@ abstract class SparseChunkedStackedArray2<TStackedArray2 : IStackedArray2Base>()
 
     protected abstract fun setEmptyFromChunk(chunk: TStackedArray2)
 
-    fun putChunk(chunk: TStackedArray2) {
+    fun putChunk(chunk: TStackedArray2): TStackedArray2 {
         if (first == null) {
             first = chunk
             setEmptyFromChunk(chunk)
@@ -28,7 +32,7 @@ abstract class SparseChunkedStackedArray2<TStackedArray2 : IStackedArray2Base>()
         }
         last = chunk
         bvh.insertOrUpdate(
-            BVHIntervals(chunk.startX, chunk.width, chunk.startY, chunk.height),
+            BVHRect(BVHIntervals(chunk.startX, chunk.width, chunk.startY, chunk.height)),
             chunk
         )
         minX = min(minX, chunk.startX)
@@ -37,6 +41,7 @@ abstract class SparseChunkedStackedArray2<TStackedArray2 : IStackedArray2Base>()
         maxY = max(maxY, chunk.endY)
         maxLevel = max(maxLevel, chunk.maxLevel)
         contentVersion++
+        return chunk
     }
 
     override val startX: Int get() = minX
@@ -53,29 +58,25 @@ abstract class SparseChunkedStackedArray2<TStackedArray2 : IStackedArray2Base>()
         return x in startX until endX && y in startY until endY
     }
 
-    fun getChunkAt(x: Int, y: Int): TStackedArray2? {
+    open fun getChunkAt(x: Int, y: Int, create: Boolean = false): TStackedArray2? {
         // Cache to be much faster while iterating rows
         lastSearchChunk?.let {
             if (it.containsChunk(x, y)) return it
         }
-        lastSearchChunk = bvh.searchValues(BVHIntervals(x, 1, y, 1)).firstOrNull()
+        lastSearchChunk = bvh.searchValues(BVHRect(x, 1, y, 1)).firstOrNull()
         return lastSearchChunk
     }
 
     override fun inside(x: Int, y: Int): Boolean = getChunkAt(x, y) != null
 
     override fun getStackLevel(x: Int, y: Int): Int {
-        getChunkAt(x, y)?.let { chunk ->
-            return chunk.getStackLevel(chunk.chunkX(x), chunk.chunkY(y))
-        }
-        return 0
+        val chunk = getChunkAt(x, y) ?: return 0
+        return chunk.getStackLevel(chunk.chunkX(x), chunk.chunkY(y))
     }
 
-    override fun removeLast(x: Int, y: Int) {
-        getChunkAt(x, y)?.let { chunk ->
-            chunk.removeLast(chunk.chunkX(x), chunk.chunkY(y))
-            contentVersion++
-        }
+    override fun IStackedArray2Base.Internal.setStackLevelInternal(x: Int, y: Int, levels: Int): Boolean {
+        val chunk = getChunkAt(x, y, create = true) ?: return false
+        return chunk.run { IStackedArray2Base.Internal.setStackLevelInternal(chunk.chunkX(x), chunk.chunkY(y), levels) }
     }
 
     override fun eachPosition(block: (x: Int, y: Int) -> Unit) {

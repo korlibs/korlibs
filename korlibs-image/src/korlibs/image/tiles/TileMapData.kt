@@ -2,6 +2,7 @@ package korlibs.image.tiles
 
 import korlibs.datastructure.*
 import korlibs.math.*
+import korlibs.math.geom.*
 import korlibs.memory.*
 
 data class TileMapData(
@@ -98,7 +99,20 @@ data class TileMapData(
         val level = (getStackLevel(x, y) - 1).coerceAtLeast(0)
         set(x, y, level, value)
     }
+
+    fun pop(x: Int, y: Int): Tile = Tile.fromRaw(this.data.pop(x, y))
 }
+
+fun TileMapData.removeAt(p: PointInt, level: Int) = removeAt(p.x, p.y, level)
+fun TileMapData.removeFirst(p: PointInt) = removeFirst(p.x, p.y)
+fun TileMapData.removeLast(p: PointInt) = removeLast(p.x, p.y)
+fun TileMapData.removeAll(p: PointInt) = removeAll(p.x, p.y)
+fun TileMapData.getLast(p: PointInt): Tile = getLast(p.x, p.y)
+fun TileMapData.getStackLevel(p: PointInt): Int = getStackLevel(p.x, p.y)
+fun TileMapData.get(p: PointInt, level: Int): Tile = get(p.x, p.y, level)
+fun TileMapData.set(p: PointInt, level: Int, value: Tile) { set(p.x, p.y, level, value) }
+fun TileMapData.push(p: PointInt, value: Tile) { push(p.x, p.y, value) }
+fun TileMapData.pop(p: PointInt) = pop(p.x, p.y)
 
 fun TileMapData.toStringListSimplified(func: (Tile) -> Char): List<String> {
     val lines = arrayListOf<StringBuilder>()
