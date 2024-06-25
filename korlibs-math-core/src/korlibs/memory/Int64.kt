@@ -1,37 +1,59 @@
 package korlibs.memory
 
-inline class Int64Array(val values: DoubleArray) : Iterable<Int64> {
+import kotlin.contracts.*
+
+inline class Int64Array(val raw: DoubleArray) : Iterable<Int64> {
+    inline val indices: IntRange get() = raw.indices
+
     constructor(size: Int, value: Int64 = Int64.ZERO) : this(DoubleArray(size) { value.raw })
     companion object {
-        operator fun invoke(size: Int, gen: (Int) -> Int64): Int64Array = Int64Array(DoubleArray(size) { gen(it).raw })
+        inline operator fun invoke(size: Int, gen: (Int) -> Int64): Int64Array = Int64Array(DoubleArray(size) { gen(it).raw })
     }
 
-    val length: Int get() = values.size
-    operator fun get(index: Int): Int64 = Int64.fromRaw(values[index])
-    operator fun set(index: Int, value: Int64) { values[index] = value.raw }
+    inline val size: Int get() = raw.size
+    inline operator fun get(index: Int): Int64 = Int64.fromRaw(raw[index])
+    inline operator fun set(index: Int, value: Int64) { raw[index] = value.raw }
     override fun iterator(): Iterator<Int64> = object : Iterator<Int64> {
         var index = 0
-        override fun hasNext(): Boolean = index < values.size
+        override fun hasNext(): Boolean = index < raw.size
         override fun next(): Int64 = this@Int64Array[index].also { index++ }
     }
+
+    override fun toString(): String = "IntArray64($size)"
 }
+
+fun Int64Array.copyOf(newSize: Int = this.size): Int64Array = Int64Array(raw.copyOf(newSize))
+fun Int64Array.copyOfRange(fromIndex: Int, toIndex: Int): Int64Array = Int64Array(raw.copyOfRange(fromIndex, toIndex))
+public fun Int64Array.getOrNull(index: Int): Int64? = if (index in indices) get(index) else null
+//@kotlin.internal.InlineOnly
+@OptIn(ExperimentalContracts::class)
+public inline fun Int64Array.getOrElse(index: Int, defaultValue: (Int) -> Int64): Int64 {
+    contract { callsInPlace(defaultValue, InvocationKind.AT_MOST_ONCE) }
+    return if (index in indices) get(index) else defaultValue(index)
+}
+
+infix fun Int64Array?.contentEquals(other: Int64Array?): Boolean = this?.raw.contentEquals(other?.raw)
+fun Int64Array?.contentHashCode(): Int = this?.raw.contentHashCode()
+fun Int64Array?.contentToString(): String = if (this == null) "null" else "[" + this.raw.joinToString(", ") { it.toString() } + "]"
 
 /**
  * Allocation-less Long implementation that uses a Double with reinterpreted values
  */
-inline class Int64 private constructor(val raw: Double) : Comparable<Int64> {
+inline class Int64(val raw: Double) : Comparable<Int64> {
     companion object {
         val ZERO = Int64(0, 0)
 
-        operator fun invoke(value: Int64): Int64 = Int64(value.raw)
-        operator fun invoke(value: UInt): Int64 = Int64(Double.fromLowHigh(value.toInt(), 0))
-        operator fun invoke(value: Int): Int64 = when {
+        inline operator fun invoke(value: Long): Int64 = Int64(value.reinterpretAsDouble())
+        inline operator fun invoke(low: Int, high: Int): Int64 = Int64(Double.fromLowHigh(low, high))
+        inline operator fun invoke(value: Int64): Int64 = Int64(value.raw)
+        inline operator fun invoke(value: UInt): Int64 = Int64(Double.fromLowHigh(value.toInt(), 0))
+        inline operator fun invoke(value: Int): Int64 = when {
             value < 0 -> Int64(Double.fromLowHigh(value and (1 shl 31), 1 shl 31))
             else -> Int64(Double.fromLowHigh(value, 0))
         }
 
-        fun fromRaw(value: Double) = Int64(value)
-        fun fromInt52(values: Double) = Int64(Double.fromParts(0, 0, values))
+        inline fun fromRaw(value: Double) = Int64(value)
+        inline fun fromInt52(values: Double) = Int64(Double.fromParts(0, 0, values))
 
         fun add(low1: UInt, high1: Int, low2: UInt, high2: Int): Int64 {
             val low = low1 + low2
@@ -107,12 +129,10 @@ inline class Int64 private constructor(val raw: Double) : Comparable<Int64> {
             TODO()
         }
     }
-    constructor(value: Long) : this(value.reinterpretAsDouble())
-    constructor(low: Int, high: Int) : this(Double.fromLowHigh(low, high))
 
-    val isNegative get() = high.extract1(31) != 0
-    val isPositive get() = !isNegative
-    val isZero get() = low == 0 && high == 0
+    inline val isNegative get() = high.extract1(31) != 0
+    inline val isPositive get() = !isNegative
+    inline val isZero get() = low == 0 && high == 0
 
     operator fun unaryPlus(): Int64 = this
     operator fun unaryMinus(): Int64 = Int64(low, -high)
@@ -142,13 +162,13 @@ inline class Int64 private constructor(val raw: Double) : Comparable<Int64> {
     override fun compareTo(other: Int64): Int = this.toLong().compareTo(other.toLong())
     // @TODO /END SLOW (USE INTERMEDIARY LONGS)
 
-    val int52: Double get() = raw.bitsMantissaDouble
-    val ulow: UInt get() = raw.lowBits.toUInt()
-    val low: Int get() = raw.lowBits
-    val high: Int get() = raw.highBits
+    //val int52: Double get() = raw.bitsMantissaDouble
+    inline val ulow: UInt get() = raw.lowBits.toUInt()
+    inline val low: Int get() = raw.lowBits
+    inline val high: Int get() = raw.highBits
 
     fun toInt(): Int = if (isPositive) low and 0x7FFFFFFF else -(low and 0x7FFFFFFF)
-    fun toLong(): Long = raw.reinterpretAsLong()
+    inline fun toLong(): Long = raw.reinterpretAsLong()
 
     override fun toString(): String = "${toLong()}"
 }

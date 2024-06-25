@@ -2,7 +2,7 @@ package korlibs.image.tiles
 
 import korlibs.memory.*
 
-inline class Tile(val raw: Long) {
+inline class Tile(val raw: Int64) {
     val rawLow: Int get() = raw.low
     val rawHigh: Int get() = raw.high
 
@@ -28,12 +28,14 @@ inline class Tile(val raw: Long) {
     fun toStringInfo(): String = "Tile(tile=$tile, offsetX=$offsetX, offsetY=$offsetY, flipX=$flipX, flipY=$flipY, rotate=$rotate)"
 
     companion object {
-        const val INVALID_VALUE = -1L
-        val ZERO = Tile(0L)
+        val INVALID_VALUE = Int64(-1, -1)
+        val ZERO = Tile(Int64.ZERO)
         val INVALID = Tile(INVALID_VALUE)
 
-        fun fromRaw(raw: Long): Tile = Tile(raw)
-        fun fromRaw(low: Int, high: Int): Tile = Tile(Long.fromLowHigh(low, high))
+        fun fromRaw(raw: Int64): Tile = Tile(raw)
+        fun fromRaw(raw: Double): Tile = Tile(Int64.fromRaw(raw))
+        fun fromRaw(raw: Long): Tile = Tile(raw.toInt64())
+        fun fromRaw(low: Int, high: Int): Tile = Tile(Int64(low, high))
 
         operator fun invoke(tile: Int, offsetX: Int = 0, offsetY: Int = 0, flipX: Boolean = false, flipY: Boolean = false, rotate: Boolean = false): Tile = fromRaw(
             0.insert(tile, 0, 26).insert(rotate, 29).insert(flipY, 30).insert(flipX, 31),
