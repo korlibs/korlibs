@@ -5,9 +5,9 @@ import kotlin.rotateLeft as rotateLeftKotlin
 import kotlin.rotateRight as rotateRightKotlin
 
 /** Returns the bits in memory of [this] float */
-public inline fun Float.reinterpretAsInt(): Int = this.toBits()
+public inline fun Float.reinterpretAsInt(): Int = this.toRawBits()
 /** Returns the bits in memory of [this] float */
-public inline fun Double.reinterpretAsLong(): Long = this.toBits()
+public inline fun Double.reinterpretAsLong(): Long = this.toRawBits()
 
 /** Returns the float representation of [this] memory bits */
 public inline fun Int.reinterpretAsFloat(): Float = Float.fromBits(this)
@@ -158,8 +158,39 @@ inline fun Int.extract14(offset: Int): Int = (this ushr offset) and 0b1111111111
 inline fun Int.extract15(offset: Int): Int = (this ushr offset) and 0b111111111111111
 /** Extracts 16 bits at [offset] from [this] [Int] */
 inline fun Int.extract16(offset: Int): Int = (this ushr offset) and 0b1111111111111111
+/** Extracts 17 bits at [offset] from [this] [Int] */
+inline fun Int.extract17(offset: Int): Int = (this ushr offset) and 0b11111111111111111
+/** Extracts 18 bits at [offset] from [this] [Int] */
+inline fun Int.extract18(offset: Int): Int = (this ushr offset) and 0b111111111111111111
+/** Extracts 19 bits at [offset] from [this] [Int] */
+inline fun Int.extract19(offset: Int): Int = (this ushr offset) and 0b1111111111111111111
+/** Extracts 20 bits at [offset] from [this] [Int] */
+inline fun Int.extract20(offset: Int): Int = (this ushr offset) and 0b11111111111111111111
+/** Extracts 21 bits at [offset] from [this] [Int] */
+inline fun Int.extract21(offset: Int): Int = (this ushr offset) and 0b111111111111111111111
+/** Extracts 22 bits at [offset] from [this] [Int] */
+inline fun Int.extract22(offset: Int): Int = (this ushr offset) and 0b1111111111111111111111
+/** Extracts 23 bits at [offset] from [this] [Int] */
+inline fun Int.extract23(offset: Int): Int = (this ushr offset) and 0b11111111111111111111111
 /** Extracts 24 bits at [offset] from [this] [Int] */
 inline fun Int.extract24(offset: Int): Int = (this ushr offset) and 0xFFFFFF
+/** Extracts 25 bits at [offset] from [this] [Int] */
+inline fun Int.extract25(offset: Int): Int = (this ushr offset) and 0b1111111111111111111111111
+/** Extracts 26 bits at [offset] from [this] [Int] */
+inline fun Int.extract26(offset: Int): Int = (this ushr offset) and 0b11111111111111111111111111
+/** Extracts 27 bits at [offset] from [this] [Int] */
+inline fun Int.extract27(offset: Int): Int = (this ushr offset) and 0b111111111111111111111111111
+/** Extracts 28 bits at [offset] from [this] [Int] */
+inline fun Int.extract28(offset: Int): Int = (this ushr offset) and 0b1111111111111111111111111111
+/** Extracts 29 bits at [offset] from [this] [Int] */
+inline fun Int.extract29(offset: Int): Int = (this ushr offset) and 0b11111111111111111111111111111
+/** Extracts 30 bits at [offset] from [this] [Int] */
+inline fun Int.extract30(offset: Int): Int = (this ushr offset) and 0b111111111111111111111111111111
+/** Extracts 31 bits at [offset] from [this] [Int] */
+inline fun Int.extract31(offset: Int): Int = (this ushr offset) and 0b1111111111111111111111111111111
+/** Extracts 32 bits at [offset] from [this] [Int] */
+inline fun Int.extract32(offset: Int): Int = (this ushr offset) and -1
+
 
 /** Extracts [count] bits at [offset] from [this] [Int] sign-extending its result if [signed] is set to true */
 public fun Int.extractSigned(offset: Int, count: Int, signed: Boolean): Int = if (signed) extractSigned(offset, count) else extract(offset, count)
@@ -194,23 +225,38 @@ public fun Int.insert(value: Int, offset: Int, count: Int): Int {
     return (this and mask.inv()) or ovalue
 }
 
-public fun Int.insert24(value: Int, offset: Int): Int = insertMask(value, offset, 0xFFFFFF)
-public fun Int.insert16(value: Int, offset: Int): Int = insertMask(value, offset, 0xFFFF)
-public fun Int.insert15(value: Int, offset: Int): Int = insertMask(value, offset, 0b111111111111111)
-public fun Int.insert14(value: Int, offset: Int): Int = insertMask(value, offset, 0b11111111111111)
-public fun Int.insert13(value: Int, offset: Int): Int = insertMask(value, offset, 0b1111111111111)
-public fun Int.insert12(value: Int, offset: Int): Int = insertMask(value, offset, 0b111111111111)
-public fun Int.insert11(value: Int, offset: Int): Int = insertMask(value, offset, 0b11111111111)
-public fun Int.insert10(value: Int, offset: Int): Int = insertMask(value, offset, 0b1111111111)
-public fun Int.insert9(value: Int, offset: Int): Int = insertMask(value, offset, 0b111111111)
-public fun Int.insert8(value: Int, offset: Int): Int = insertMask(value, offset, 0b11111111)
-public fun Int.insert7(value: Int, offset: Int): Int = insertMask(value, offset, 0b1111111)
-public fun Int.insert6(value: Int, offset: Int): Int = insertMask(value, offset, 0b111111)
-public fun Int.insert5(value: Int, offset: Int): Int = insertMask(value, offset, 0b11111)
-public fun Int.insert4(value: Int, offset: Int): Int = insertMask(value, offset, 0b1111)
-public fun Int.insert3(value: Int, offset: Int): Int = insertMask(value, offset, 0b111)
-public fun Int.insert2(value: Int, offset: Int): Int = insertMask(value, offset, 0b11)
 public fun Int.insert1(value: Int, offset: Int): Int = insertMask(value, offset, 0b1)
+public fun Int.insert2(value: Int, offset: Int): Int = insertMask(value, offset, 0b11)
+public fun Int.insert3(value: Int, offset: Int): Int = insertMask(value, offset, 0b111)
+public fun Int.insert4(value: Int, offset: Int): Int = insertMask(value, offset, 0b1111)
+public fun Int.insert5(value: Int, offset: Int): Int = insertMask(value, offset, 0b11111)
+public fun Int.insert6(value: Int, offset: Int): Int = insertMask(value, offset, 0b111111)
+public fun Int.insert7(value: Int, offset: Int): Int = insertMask(value, offset, 0b1111111)
+public fun Int.insert8(value: Int, offset: Int): Int = insertMask(value, offset, 0b11111111)
+public fun Int.insert9(value: Int, offset: Int): Int = insertMask(value, offset, 0b111111111)
+public fun Int.insert10(value: Int, offset: Int): Int = insertMask(value, offset, 0b1111111111)
+public fun Int.insert11(value: Int, offset: Int): Int = insertMask(value, offset, 0b11111111111)
+public fun Int.insert12(value: Int, offset: Int): Int = insertMask(value, offset, 0b111111111111)
+public fun Int.insert13(value: Int, offset: Int): Int = insertMask(value, offset, 0b1111111111111)
+public fun Int.insert14(value: Int, offset: Int): Int = insertMask(value, offset, 0b11111111111111)
+public fun Int.insert15(value: Int, offset: Int): Int = insertMask(value, offset, 0b111111111111111)
+public fun Int.insert16(value: Int, offset: Int): Int = insertMask(value, offset, 0b1111111111111111)
+public fun Int.insert17(value: Int, offset: Int): Int = insertMask(value, offset, 0b11111111111111111)
+public fun Int.insert18(value: Int, offset: Int): Int = insertMask(value, offset, 0b111111111111111111)
+public fun Int.insert19(value: Int, offset: Int): Int = insertMask(value, offset, 0b1111111111111111111)
+public fun Int.insert20(value: Int, offset: Int): Int = insertMask(value, offset, 0b11111111111111111111)
+public fun Int.insert21(value: Int, offset: Int): Int = insertMask(value, offset, 0b111111111111111111111)
+public fun Int.insert22(value: Int, offset: Int): Int = insertMask(value, offset, 0b1111111111111111111111)
+public fun Int.insert23(value: Int, offset: Int): Int = insertMask(value, offset, 0b11111111111111111111111)
+public fun Int.insert24(value: Int, offset: Int): Int = insertMask(value, offset, 0b111111111111111111111111)
+public fun Int.insert25(value: Int, offset: Int): Int = insertMask(value, offset, 0b1111111111111111111111111)
+public fun Int.insert26(value: Int, offset: Int): Int = insertMask(value, offset, 0b11111111111111111111111111)
+public fun Int.insert27(value: Int, offset: Int): Int = insertMask(value, offset, 0b111111111111111111111111111)
+public fun Int.insert28(value: Int, offset: Int): Int = insertMask(value, offset, 0b1111111111111111111111111111)
+public fun Int.insert29(value: Int, offset: Int): Int = insertMask(value, offset, 0b11111111111111111111111111111)
+public fun Int.insert30(value: Int, offset: Int): Int = insertMask(value, offset, 0b111111111111111111111111111111)
+public fun Int.insert31(value: Int, offset: Int): Int = insertMask(value, offset, 0b1111111111111111111111111111111)
+public fun Int.insert32(value: Int, offset: Int): Int = insertMask(value, offset, -1)
 
 /** Fast Insert: do not clear bits, assume affecting bits are 0 */
 public fun Int.finsert(value: Int, offset: Int): Int = this or (value shl offset)
@@ -280,7 +326,7 @@ val Long._high: Int get() = (this ushr 32).toInt()
 /** Get low 32-bits of this Long */
 val Long._low: Int get() = this.toInt()
 
-fun Long.Companion.fromLowHigh(low: Int, high: Int): Long = (low.toLong() and 0xFFFFFFFFL) or (high.toLong() shl 32)
+inline fun Long.Companion.fromLowHigh(low: Int, high: Int): Long = (low.toLong() and 0xFFFFFFFFL) or (high.toLong() shl 32)
 
 inline fun Int.fastForEachOneBits(block: (Int) -> Unit) {
     var value = this

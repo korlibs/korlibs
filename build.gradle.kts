@@ -787,7 +787,8 @@ class MicroAmper(val project: Project) {
 
     fun SourceDirectorySet.srcDirIfExists(path: String) {
         //if (path in projectFiles) setSrcDirs(listOf(path)) //else println("file doesn't exist $path")
-        srcDir(path)
+        //srcDir(path)
+        setSrcDirs(listOf(path))
     }
 
     fun NamedDomainObjectContainer<KotlinSourceSet>.ssPair(name: String): SourceSetPair {

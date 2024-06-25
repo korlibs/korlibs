@@ -1,5 +1,6 @@
 package korlibs.memory
 
+import korlibs.platform.*
 import kotlin.test.*
 
 class BufferTest {

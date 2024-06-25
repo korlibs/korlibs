@@ -7,6 +7,7 @@ class StackedLongArray2FromIStackedIntArray2(val data: IStackedIntArray2) : Base
     override fun clone(): IStackedLongArray2 = StackedLongArray2FromIStackedIntArray2(data.clone())
     override fun set(x: Int, y: Int, level: Int, value: Long) { data[x, y, level] = value.toInt() }
     override fun get(x: Int, y: Int, level: Int): Long = data[x, y, level].toUInt().toLong()
+    override fun setToFrom(x0: Int, y0: Int, level0: Int, x1: Int, y1: Int, level1: Int) { this[x0, y0, level0] = this[x1, y1, level1] }
 }
 
 class StackedIntArray2FromIStackedLongArray2(val data: IStackedLongArray2) : BaseDelegatedStackedArray2(data), IStackedIntArray2 {
@@ -14,6 +15,7 @@ class StackedIntArray2FromIStackedLongArray2(val data: IStackedLongArray2) : Bas
     override fun clone(): IStackedIntArray2 = StackedIntArray2FromIStackedLongArray2(data.clone())
     override fun set(x: Int, y: Int, level: Int, value: Int) { data[x, y, level] = value.toLong() }
     override fun get(x: Int, y: Int, level: Int): Int = data[x, y, level].toInt()
+    override fun setToFrom(x0: Int, y0: Int, level0: Int, x1: Int, y1: Int, level1: Int) { this[x0, y0, level0] = this[x1, y1, level1] }
 }
 
 fun IStackedIntArray2.asLong(): IStackedLongArray2 = StackedLongArray2FromIStackedIntArray2(this)

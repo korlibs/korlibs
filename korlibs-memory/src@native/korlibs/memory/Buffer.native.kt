@@ -7,7 +7,7 @@ import platform.posix.*
 import kotlin.experimental.*
 
 @OptIn(ExperimentalNativeApi::class)
-actual class Buffer(val data: ByteArray, val offset: Int, val size: Int, dummy: Unit) {
+actual class Buffer(val data: ByteArray, val offset: Int, val size: Int, dummy: Unit) : AutoCloseable {
     actual constructor(size: Int, direct: Boolean) : this(ByteArray(checkNBufferSize(size)), 0, size, Unit)
     actual constructor(array: ByteArray, offset: Int, size: Int): this(checkNBufferWrap(array, offset, size), offset, size, Unit)
     actual val byteOffset: Int get() = offset
@@ -44,6 +44,9 @@ actual class Buffer(val data: ByteArray, val offset: Int, val size: Int, dummy: 
 
 
     override fun hashCode(): Int = hashCodeCommon(this)
+    actual override fun close() {
+    }
+
     override fun equals(other: Any?): Boolean = equalsCommon(this, other)
     override fun toString(): String = NBuffer_toString(this)
 
@@ -72,6 +75,10 @@ actual class Buffer(val data: ByteArray, val offset: Int, val size: Int, dummy: 
                 dst.data, dst.offset + dstPosBytes,
                 sizeInBytes
             )
+        }
+
+        actual fun mmap(path: String, position: Long, size: Long, mode: BufferMapMode): Buffer {
+            throw UnsupportedOperationException("mmap")
         }
     }
 }
