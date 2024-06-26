@@ -22,6 +22,10 @@ inline class Int64Array(val raw: DoubleArray) : Iterable<Int64> {
     override fun toString(): String = "IntArray64($size)"
 }
 
+inline fun <T : Int64> int64ArrayOf(vararg values: T): Int64Array = Int64Array(values.size) { values[it] }
+inline fun int64ArrayOf(vararg values: Int): Int64Array = Int64Array(values.size) { values[it].toInt64() }
+inline fun int64ArrayOf(vararg values: Long): Int64Array = Int64Array(values.size) { values[it].toInt64() }
+
 fun Int64Array.copyOf(newSize: Int = this.size): Int64Array = Int64Array(raw.copyOf(newSize))
 fun Int64Array.copyOfRange(fromIndex: Int, toIndex: Int): Int64Array = Int64Array(raw.copyOfRange(fromIndex, toIndex))
 public fun Int64Array.getOrNull(index: Int): Int64? = if (index in indices) get(index) else null
@@ -177,3 +181,4 @@ fun Byte.toInt64(): Int64 = Int64(this.toInt())
 fun Int.toInt64(): Int64 = Int64(this)
 fun Long.toInt64(): Int64 = Int64(this)
 fun Double.toInt64(): Int64 = Int64.fromInt52(this)
+fun Number.toInt64(): Int64 = Int64(this.toLong())
