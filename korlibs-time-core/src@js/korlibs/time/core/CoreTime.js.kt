@@ -1,10 +1,10 @@
 package korlibs.time.core
 
 import korlibs.time.*
-import kotlin.js.*
 import kotlin.time.*
 
+@Suppress("RemoveRedundantQualifierName", "RedundantSuppression")
 actual var CoreTime: ICoreTime = object : ICoreTime {
-    override fun currentTimeMillisDouble(): Double = Date.now()
-    override fun localTimezoneOffset(time: Long): Duration = Date(time.toDouble()).getTimezoneOffset().minutes
+    override fun currentTimeMillisDouble(): Double = kotlin.js.Date.now()
+    override fun localTimezoneOffset(time: Long): Duration = kotlin.js.Date(time.toDouble()).getTimezoneOffset().minutes
 }

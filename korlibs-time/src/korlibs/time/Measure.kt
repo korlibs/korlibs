@@ -3,16 +3,16 @@ package korlibs.time
 import kotlin.contracts.*
 import kotlin.time.*
 
-/**
- * Executes a [callback] and measure the time it takes to complete.
- */
-@OptIn(ExperimentalContracts::class)
-public inline fun measureTime(block: () -> Unit): Duration {
-    contract {
-        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
-    }
-    return kotlin.time.measureTime(block)
-}
+///**
+// * Executes a [callback] and measure the time it takes to complete.
+// */
+//@OptIn(ExperimentalContracts::class)
+//public inline fun measureTime(block: () -> Unit): Duration {
+//    contract {
+//        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+//    }
+//    return kotlin.time.measureTime(block)
+//}
 
 /**
  * Executes a [callback] and measure the time it takes to complete.

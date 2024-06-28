@@ -21,6 +21,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 import kotlin.js.unsafeCast
+import korlibs.memory.toByteArray
 
 private external interface WindowExSetTimeout : JsAny {
     fun setTimeout(block: () -> Unit, time: Int): Int
