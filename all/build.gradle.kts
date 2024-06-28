@@ -1,4 +1,5 @@
 import com.google.gson.*
+import com.google.gson.*
 import com.google.gson.JsonParser
 import groovy.json.*
 import groovy.namespace.*
@@ -106,7 +107,26 @@ val sourceSetPairs = LinkedHashMap<String, SourceSetPair>()
 
 
 val upFiles = (File(rootDir, "../").listFiles() ?: emptyArray()).toList()
-val korlibsFolders = upFiles.filter { it.name.startsWith("korlibs-") }.map { it.canonicalFile }
+val korlibsFolders = upFiles
+    .filter { it.name.startsWith("korlibs-") }
+    .map { it.canonicalFile }
+    //.filter { 
+    //    it.name.contains("korlibs-platform") 
+    //        || it.name.contains("korlibs-number") 
+    //        || it.name.contains("korlibs-logger") 
+    //        || it.name.contains("korlibs-annotations") 
+    //        || it.name.contains("korlibs-bignumber") 
+    //        || it.name.contains("korlibs-jseval") 
+    //        || it.name.contains("korlibs-string") 
+    //        || it.name.contains("korlibs-math-core") 
+    //        || it.name.contains("korlibs-math-vector") 
+    //        || it.name.contains("korlibs-time-core") 
+    //        || it.name.contains("korlibs-datastructure-core") 
+    //        //|| it.name.contains("korlibs-serialization") 
+    //        //|| it.name.contains("korlibs-template") 
+    //        //|| it.name.contains("korlibs-memory") 
+    //}
+
 
 fun NamedDomainObjectContainer<KotlinSourceSet>.ssPair(name: String): SourceSetPair {
     return sourceSetPairs.getOrPut(name) {
@@ -115,6 +135,7 @@ fun NamedDomainObjectContainer<KotlinSourceSet>.ssPair(name: String): SourceSetP
             main = maybeCreate("${name}Main").also {
                 for (folder in korlibsFolders) {
                     it.kotlin.srcDir(File(folder, "src$atName"))
+                    //println("ADD SRC: ${File(folder, "src$atName")}")
                     //println(File(folder, "src$atName"))
                     it.resources.srcDir(File(folder, "resources$atName"))
                 }
@@ -158,7 +179,8 @@ val kotlinPlatforms = listOf(
 )
 
 project.kotlin.sourceSets {
-    ssDependsOn("concurrent", "common")
+    ssDependsOn("nonJs", "common")
+    ssDependsOn("concurrent", "nonJs")
     ssDependsOn("jvmAndAndroid", "concurrent")
     ssDependsOn("native", "concurrent")
     ssDependsOn("posix", "native")
@@ -188,6 +210,7 @@ project.kotlin.sourceSets {
         if (isPosix) ssDependsOn(basePlatform, "posix")
         if (isApple) ssDependsOn(basePlatform, "apple")
         if (isNative) ssDependsOn(basePlatform, "native")
+        if (isWasm) ssDependsOn(basePlatform, "nonJs")
         if (isJvm || isAndroid) ssDependsOn(basePlatform, "jvmAndAndroid")
         if (platform != basePlatform) ssDependsOn(platform, basePlatform)
     }
@@ -241,6 +264,10 @@ dependencies {
 
 tasks.withType(ProcessResources::class) {
     this.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.withType(Jar::class) {
+    this.entryCompression = org.gradle.api.tasks.bundling.ZipEntryCompression.STORED
 }
 
 /*
