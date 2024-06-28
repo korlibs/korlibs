@@ -100,4 +100,13 @@ class Int64Test {
         }
     }
 
+    @Test
+    fun testArray2() {
+        assertTrue { int64ArrayOf(1, 2, 3, 4).contentEquals(int64ArrayOf(1, 2, 3, 4)) }
+
+        val array = int64ArrayOf(-1, -2, -3)
+        assertEquals(Int64(-1), array[0])
+        assertEquals(Int64(-2), array[1])
+        assertEquals(Int64(-3), array[2])
+    }
 }
