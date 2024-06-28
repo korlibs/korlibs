@@ -1,4 +1,4 @@
-name: DEPLOY
+name: TEST_ALL
 
 on:
   push:
