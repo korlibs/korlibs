@@ -15,7 +15,7 @@ abstract external class GlobalScope : EventTarget, WindowOrWorkerGlobalScope, Gl
 val jsGlobalDynamic: dynamic = js("((typeof globalThis !== 'undefined') ? globalThis : ((typeof global !== 'undefined') ? global : self))")
 val jsGlobal: GlobalScope = jsGlobalDynamic
 
-val isDenoJs by lazy { js("(typeof Deno === 'object' && Deno.statSync)").unsafeCast<Boolean>() }
+val isDenoJs by lazy { js("(typeof Deno === 'object' && Deno.statSync !== undefined)").unsafeCast<Boolean>() }
 val isWeb by lazy { js("(typeof window === 'object')").unsafeCast<Boolean>() }
 val isWorker by lazy { js("(typeof importScripts === 'function')").unsafeCast<Boolean>() }
 val isNodeJs by lazy { js("((typeof process !== 'undefined') && process.release && (process.release.name.search(/node|io.js/) !== -1))").unsafeCast<Boolean>() }
