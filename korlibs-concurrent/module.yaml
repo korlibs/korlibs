@@ -10,7 +10,7 @@ aliases:
 
 dependencies:
   - ../korlibs-time-core
-  - ../korlibs-platform
+  - ../korlibs-platform: exported
   - ../korlibs-datastructure-core
   - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
   - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC: exported

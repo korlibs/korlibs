@@ -49,5 +49,3 @@ actual object DefaultLogOutput : Logger.Output {
         }, logger.name, msg.toString())
     }
 }
-
-internal actual val miniEnvironmentVariables: Map<String, String> by lazy { System.getenv() }

@@ -22,8 +22,6 @@ actual object Console : BaseConsole() {
     }
 }
 
-internal actual val miniEnvironmentVariables: Map<String, String> by lazy { System.getenv() }
-
 actual object DefaultLogOutput : Logger.Output {
     private val DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
 
