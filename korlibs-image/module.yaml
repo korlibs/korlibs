@@ -11,10 +11,10 @@ dependencies:
   - ../korlibs-io: exported
   #- ../korlibs-io-fs: exported
   - ../korlibs-io-vfs: exported
-  - ../korlibs-image-core: exported
   - ../korlibs-math: exported
   - ../korlibs-ffi: exported
   - ../korlibs-string: exported
+  - ../korlibs-platform: exported
   - ../korlibs-compression
   - ../korlibs-dyn
   - ../korlibs-math-core

@@ -5,7 +5,6 @@ import korlibs.math.clamp
 import korlibs.math.toInt
 import korlibs.image.annotation.KorimInternal
 import korlibs.image.color.*
-import korlibs.image.core.*
 import korlibs.image.vector.Bitmap32Context2d
 import korlibs.image.vector.Context2d
 import korlibs.math.geom.*
@@ -15,18 +14,16 @@ import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
-fun CoreBitmap32.toBitmap32(): Bitmap32 = Bitmap32(width, height, ints, premultiplied)
-
 // @TODO: Create separate classes for premultiplied and non-premultiplied variants
 @OptIn(KorimInternal::class)
 class Bitmap32(
     width: Int,
     height: Int,
-    override val ints: IntArray = IntArray(width * height),
+    val ints: IntArray = IntArray(width * height),
     //premultiplied: Boolean
     premultiplied: Boolean = true
     //premultiplied: Boolean = false
-) : Bitmap(width, height, 32, premultiplied, ints), CoreBitmap32, Iterable<RGBA> {
+) : Bitmap(width, height, 32, premultiplied, ints), Iterable<RGBA> {
 	init {
 		if (ints.size < width * height) throw RuntimeException("Bitmap data is too short: width=$width, height=$height, data=ByteArray(${ints.size}), area=${width * height}")
 	}
@@ -60,12 +57,6 @@ class Bitmap32(
 
     override fun getRgbaRaw(x: Int, y: Int): RGBA = RGBA(getInt(x, y))
 	override fun setRgbaRaw(x: Int, y: Int, v: RGBA) = setInt(x, y, v.value)
-
-    override fun setRgba(x: Int, y: Int, v: RGBA): Unit = setRgbaAtIndex(index(x, y), v)
-    override fun setRgba(x: Int, y: Int, v: RGBAPremultiplied): Unit = setRgbaPremultipliedAtIndex(index(x, y), v)
-
-    override fun getRgba(x: Int, y: Int): RGBA = getRgbaAtIndex(index(x, y))
-    override fun getRgbaPremultiplied(x: Int, y: Int): RGBAPremultiplied = getRgbaPremultipliedAtIndex(index(x, y))
 
     fun setRgbaAtIndex(n: Int, color: RGBA) {
         this.ints[n] = if (premultiplied) color.premultiplied.value else color.value

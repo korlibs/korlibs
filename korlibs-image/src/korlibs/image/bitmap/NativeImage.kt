@@ -1,16 +1,11 @@
 package korlibs.image.bitmap
 
-import korlibs.image.color.RGBA
-import korlibs.image.color.RGBAPremultiplied
-import korlibs.image.color.RgbaArray
-import korlibs.image.color.RgbaPremultipliedArray
+import korlibs.encoding.*
+import korlibs.image.color.*
 import korlibs.image.format.*
-import korlibs.image.vector.Drawable
-import korlibs.image.vector.SizedDrawable
-import korlibs.encoding.toBase64
-import korlibs.image.core.*
+import korlibs.image.vector.*
 
-abstract class NativeImage(width: Int, height: Int, override val data: Any?, premultiplied: Boolean) : Bitmap(width, height, 32, premultiplied, null), CoreNativeImage, NativeImageRef {
+abstract class NativeImage(width: Int, height: Int, override val data: Any?, premultiplied: Boolean) : Bitmap(width, height, 32, premultiplied, null), NativeImageRef {
 	abstract val name: String
     open fun toUri(): String = "data:image/png;base64," + PNG.encode(this, ImageEncodingProps("out.png")).toBase64()
 
