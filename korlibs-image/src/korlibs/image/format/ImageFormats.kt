@@ -136,4 +136,14 @@ suspend fun BmpSlice.writeTo(
     props: ImageEncodingProps = ImageEncodingProps()
 ) = this.extract().writeTo(file, formats, props)
 
+@Suppress("unused")
+suspend fun Bitmap.writeToNative(
+    file: VfsFile,
+    props: ImageEncodingProps = ImageEncodingProps()
+) = file.writeBytes(nativeImageFormatProvider.encodeSuspend(this, props.withFile(file)))
+
+@Suppress("unused")
+suspend fun BmpSlice.writeToNative(file: VfsFile, props: ImageEncodingProps = ImageEncodingProps()) = this.extract().writeToNative(file, props)
+
 suspend fun Bitmap.encode(formats: ImageFormat = RegisteredImageFormats, props: ImageEncodingProps = ImageEncodingProps()) = formats.encode(this, props)
+suspend fun Bitmap.encodeNative(props: ImageEncodingProps = ImageEncodingProps()) = nativeImageFormatProvider.encodeSuspend(this, props)
