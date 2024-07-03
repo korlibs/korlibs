@@ -141,30 +141,21 @@ public inline class Int53(public val value: Double) : Comparable<Int53> {
 
     public fun insert(value: Boolean, offset: Int): Int53 = insert(if (value) 1 else 0, offset, 1)
 
+    //return this and (count.mask().toInt53() shl offset).inv()
     public fun clear(offset: Int, count: Int): Int53 {
-        val countMul = pot(count)
         val offsetMul = pot(offset)
-        val vv = floor(value / offsetMul) % countMul
-        return this - (vv * offsetMul)
-
-        //return this and (count.mask().toInt53() shl offset).inv()
+        return this - ((floor(value / offsetMul) % pot(count)) * offsetMul)
     }
 
-    public fun insertNoClear(value: Int, offset: Int, count: Int): Int53 {
-        return Int53(this.value + ((value and count.mask()).toDouble() * pot(offset)))
-    }
+    public fun insertNoClear(value: Int, offset: Int, count: Int): Int53 = Int53(this.value + ((value and count.mask()).toDouble() * pot(offset)))
     public fun insertNoClear(value: Boolean, offset: Int): Int53 = insertNoClear(if (value) 1 else 0, offset, 1)
-
-    fun extract(offset: Int, bits: Int): Int {
-        //return (value.toLong() ushr offset).toInt() and bits.mask()
-        return (floor(value / pot(offset)) % pot(bits)).toInt()
-    }
+    //return (value.toLong() ushr offset).toInt() and bits.mask()
+    fun extract(offset: Int, bits: Int): Int = (floor(value / pot(offset)) % pot(bits)).toInt()
     //fun extract(offset: Int, bits: Int): Int = (value.toLong() ushr offset).toInt() and bits.mask()
     fun extract(offset: Int): Boolean = extract(offset, 1) != 0
     fun extractSigned(offset: Int, bits: Int): Int {
-        val value = extract(offset, bits)
         val shift = (32 - bits)
-        return (value shl shift) shr shift
+        return (extract(offset, bits) shl shift) shr shift
     }
 
     public val int: Int get() = value.toInt()
