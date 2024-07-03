@@ -5,6 +5,7 @@ import korlibs.image.bitmap.Bitmap
 import korlibs.image.bitmap.Bitmap32
 import korlibs.image.color.RGBA
 import korlibs.image.color.RgbaArray
+import korlibs.image.core.CoreBitmap32
 import korlibs.io.lang.LATIN1
 import korlibs.io.stream.SyncStream
 import korlibs.io.stream.readAvailable
@@ -21,6 +22,8 @@ import korlibs.memory.*
 // for the bitmap that you'll be encoding.
 var ImageEncodingProps.preAllocatedArrayForQOI: UByteArrayInt? by extraProperty { null }
 
+// QOI spec:
+// https://qoiformat.org/qoi-specification.pdf
 object QOI : ImageFormat("qoi") {
     override fun decodeHeader(s: SyncStream, props: ImageDecodingProps): ImageInfo? {
         if (s.readStringz(4, LATIN1) != "qoif") return null
@@ -47,7 +50,7 @@ object QOI : ImageFormat("qoi") {
         val index = RgbaArray(64)
         val out = props.out
         val outBmp =
-            if (out != null && out.width == header.width && out.height == header.height && out is Bitmap32) {
+            if (out != null && out.width == header.width && out.height == header.height && out is CoreBitmap32) {
                 out.premultiplied = false
                 out
             } else {
@@ -125,7 +128,7 @@ object QOI : ImageFormat("qoi") {
         val bitmap = image.mainBitmap.toBMP32IfRequired()
         val pixels = RgbaArray(bitmap.ints)
         val index = RgbaArray(64)
-        val maxSize = calculateMaxSize(bitmap)
+        val maxSize = calculateMaxSize(image.mainBitmap)
         val bytes = if (props.preAllocatedArrayForQOI == null) {
             UByteArrayInt(maxSize)
         } else {

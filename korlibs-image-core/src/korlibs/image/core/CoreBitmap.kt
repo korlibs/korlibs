@@ -19,6 +19,10 @@ interface CoreBitmapIndexed : CoreBitmap {
 }
 
 interface CoreBitmap32 : CoreBitmap {
+    // This array should be of `width * height` size where the index of each pixel can be retrieved
+    // using `x + y * width`.
+    // Each pixel is represented by an integer in RGBA packed format where each component is 1 byte:
+    // (r) or (g shl 8) or (b shl 16) or (a shl 24)
     val ints: IntArray
 }
 

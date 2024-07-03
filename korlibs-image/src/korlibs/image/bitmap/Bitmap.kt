@@ -283,6 +283,7 @@ abstract class Bitmap(
     }
 
     fun toBMP32IfRequired(): Bitmap32 = if (this is Bitmap32) this else this.toBMP32()
+    fun toCoreBMP32IfRequired(): CoreBitmap32 = if (this is CoreBitmap32) this else this.toBMP32()
 
     open fun contentEquals(other: Bitmap): Boolean {
         if (this.width != other.width) return false
