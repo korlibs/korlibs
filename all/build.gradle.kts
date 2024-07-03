@@ -1,22 +1,11 @@
-import com.google.gson.*
-import com.google.gson.*
-import com.google.gson.JsonParser
-import groovy.json.*
-import groovy.namespace.*
-import groovy.util.*
-import org.gradle.api.tasks.testing.logging.*
 import org.gradle.jvm.tasks.Jar
-import org.gradle.plugins.signing.signatory.internal.pgp.*
 import org.jetbrains.kotlin.gradle.dsl.*
 import org.jetbrains.kotlin.gradle.plugin.*
-import org.jetbrains.kotlin.gradle.targets.js.ir.*
 import org.jetbrains.kotlin.gradle.plugin.mpp.*
-import java.net.*
-import java.util.*
-import java.util.concurrent.*
 
 plugins {
-    kotlin("multiplatform") version "2.0.20-Beta1"
+    //kotlin("multiplatform") version "2.0.20-Beta1"
+    kotlin("multiplatform") version "2.0.0"
     id("com.android.library") version "8.2.2"
     `maven-publish`
     signing
@@ -190,9 +179,10 @@ project.kotlin.sourceSets {
     ssDependsOn("apple", "posix")
     ssDependsOn("appleNonWatchos", "apple")
     ssDependsOn("appleIosTvos", "apple")
+    ssDependsOn("appleIosTvosMacos", "apple")
 
     for (platform in kotlinPlatforms) {
-        println("PLATFORM: $platform")
+        //println("PLATFORM: $platform")
         val isMacos = platform.startsWith("macos")
         val isJs = platform.startsWith("js")
         val isJvm = platform.startsWith("jvm")
@@ -209,6 +199,7 @@ project.kotlin.sourceSets {
         val isConcurrent = !isJs && !isWasm
         val basePlatform = getKotlinBasePlatform(platform)
         if (isIos || isTvos) ssDependsOn(basePlatform, "appleIosTvos")
+        if (isIos || isTvos || isMacos) ssDependsOn(basePlatform, "appleIosTvosMacos")
         if (isApple && !isWatchos) ssDependsOn(basePlatform, "appleNonWatchos")
         if (isConcurrent) ssDependsOn(basePlatform, "concurrent")
         if (isPosix) ssDependsOn(basePlatform, "posix")
@@ -228,7 +219,11 @@ project.kotlin.sourceSets {
                 }
             }
             "js" -> kotlin.js {
-                browser()
+                browser {
+                }
+                compilerOptions {
+                    target.set("es2015")
+                }
             }
             "wasm" -> {
                 kotlin.wasmJs {
