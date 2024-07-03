@@ -21,6 +21,13 @@ actual inline fun <T> Double.getLowHighBits(block: (low: Int, high: Int) -> T): 
     f64[0] = this
     return block(i32[IDX_LOW], i32[IDX_HIGH])
 }
+actual fun Double.equalsRaw(other: Double): Boolean {
+    f64[0] = this
+    val low = i32[IDX_LOW]
+    val high = i32[IDX_HIGH]
+    f64[0] = other
+    return low == i32[IDX_LOW] && high == i32[IDX_HIGH]
+}
 actual val Double.lowBits: Int get() {
     f64[0] = this
     return i32[IDX_LOW]

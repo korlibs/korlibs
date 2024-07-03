@@ -2,7 +2,6 @@ package korlibs.image.bitmap
 
 import korlibs.datastructure.*
 import korlibs.image.color.*
-import korlibs.image.core.*
 
 fun BitmapIndexed.toBitmap8(): Bitmap8 = Bitmap8(width, height, data, palette)
 

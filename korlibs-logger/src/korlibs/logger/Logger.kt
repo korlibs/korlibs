@@ -1,5 +1,6 @@
 package korlibs.logger
 
+import korlibs.platform.*
 import kotlinx.atomicfu.locks.*
 import kotlin.time.*
 
@@ -158,7 +159,7 @@ fun Logger.setLevel(level: Logger.Level): Logger = this.apply { this.level = lev
 /** Sets the [Logger.output] */
 fun Logger.setOutput(output: Logger.Output): Logger = this.apply { this.output = output }
 
-internal expect val miniEnvironmentVariables: Map<String, String> //= mapOf()
+internal val miniEnvironmentVariables: Map<String, String> get() = Platform.envs
 private var _miniEnvironmentVariablesUC: Map<String, String>? = null
 
 internal val miniEnvironmentVariablesUC: Map<String, String> get() {

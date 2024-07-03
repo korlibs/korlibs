@@ -1,9 +1,10 @@
 package korlibs.platform
 
+import korlibs.wasm.*
 import kotlinx.browser.*
 import org.khronos.webgl.*
 
-@JsFun("() => { return (typeof Deno === 'object' && Deno.statSync) }")
+@JsFun("() => { return (typeof Deno === 'object' && Deno.statSync !== undefined) }")
 internal external fun isDenoJs(): Boolean
 @JsFun("() => { return (typeof window === 'object') }")
 internal external fun isWeb(): Boolean
@@ -52,9 +53,15 @@ internal actual val currentRawOsName: String = when {
     else -> process.platform
 }
 
+@JsFun("() => { return Deno.env.toObject() }")
+private external fun denoEnvToObject(): JsAny
+
 internal actual val envs: Map<String, String> by lazy {
+    //println("ENVS: deno=${isDenoJs()}")
     when {
-        isDenoJs() -> jsObjectToMap(Deno.env).mapValues { it.value.toString() }.toMap()
+        isDenoJs() -> jsObjectToMap(denoEnvToObject()).mapValues { it.value.toString() }.toMap().also {
+            //println(" ---> it: $it")
+        }
         isNodeJs() -> jsObjectToMap(process.env).mapValues { it.value.toString() }.toMap()
         else -> LinkedHashMap<String, String>().also { out ->
             val hash = (document.location?.search ?: "").trimStart('?')

@@ -23,16 +23,16 @@ import org.w3c.dom.*
 import org.w3c.dom.url.*
 import org.w3c.files.*
 import kotlin.coroutines.*
-import kotlin.io.encoding.*
 import kotlin.math.*
 import kotlin.time.*
 
 actual val nativeImageFormatProvider: NativeImageFormatProvider = when {
-    Platform.isJsNodeJs -> NodeJsNativeImageFormatProvider
+    Platform.isJsDenoJs -> NonBrowserNativeImageFormatProvider
+    Platform.isJsNodeJs -> NonBrowserNativeImageFormatProvider
     else -> HtmlNativeImageFormatProvider
 }
 
-object NodeJsNativeImageFormatProvider : BaseNativeImageFormatProvider() {
+object NonBrowserNativeImageFormatProvider : BaseNativeImageFormatProvider() {
     override val formats: ImageFormat get() = RegisteredImageFormats
     override suspend fun encodeSuspend(image: ImageDataContainer, props: ImageEncodingProps): ByteArray {
         val format = RegisteredImageFormats.formatByExtOrNull(props.filename.pathInfo.extensionLC) ?: RegisteredImageFormats.formats.last()

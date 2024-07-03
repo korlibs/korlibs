@@ -28,6 +28,8 @@ fun Double.Companion.fromParts(sign: Int, exponent: Int, mantissaLow: Int, manti
 
 expect fun Double.Companion.fromLowHigh(low: Int, high: Int): Double
 expect inline fun <T> Double.getLowHighBits(block: (low: Int, high: Int) -> T): T
+/** Bit-wise equals without considering NaNs */
+expect fun Double.equalsRaw(other: Double): Boolean
 expect val Double.lowBits: Int
 expect val Double.highBits: Int
 
@@ -40,5 +42,6 @@ val Double.bitsMantissaLong: Long get() = Long.fromLowHigh(bitsMantissaLow, bits
 
 @PublishedApi internal fun Double.Companion.fromLowHighBitsSlow(low: Int, high: Int): Double = Double.fromBits(Long.fromLowHigh(low, high))
 @PublishedApi internal inline fun <T> Double.getLowHighBitsSlow(block: (low: Int, high: Int) -> T): T = block(lowSlow, highSlow)
+@PublishedApi internal inline fun Double.equalsRawSlow(other: Double): Boolean = this.reinterpretAsLong().equals(other.reinterpretAsLong())
 @PublishedApi internal val Double.lowSlow: Int get() = this.reinterpretAsLong().low
 @PublishedApi internal val Double.highSlow: Int get() = this.reinterpretAsLong().high

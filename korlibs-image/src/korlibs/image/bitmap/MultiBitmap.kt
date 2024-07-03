@@ -1,6 +1,9 @@
 package korlibs.image.bitmap
 
-open class MultiBitmap constructor(
+import korlibs.image.color.*
+import korlibs.io.lang.*
+
+open class MultiBitmap(
     width: Int,
     height: Int,
     val bitmaps: List<Bitmap>,
@@ -12,4 +15,7 @@ open class MultiBitmap constructor(
         bitmaps,
         bitmaps.firstOrNull()?.premultiplied ?: defaultPremultiplied
     )
+
+    override fun setRgbaRaw(x: Int, y: Int, v: RGBA): Unit = unsupported()
+    override fun getRgbaRaw(x: Int, y: Int): RGBA = unsupported()
 }

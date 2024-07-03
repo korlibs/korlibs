@@ -42,10 +42,18 @@ fun Int64Array?.contentToString(): String = if (this == null) "null" else "[" + 
 
 /**
  * Allocation-less Long implementation that uses a Double with reinterpreted values
+ *
+ * IMPORTANT:
+ *
+ * Due to Kotlin not supporting [equals] in inline classes,
+ * Equality fails in some cases where Int64 represents a NaN or an Infinity.
+ * For comparing Int64, use [Int64.equalsSafe] instead.
  */
 inline class Int64(val raw: Double) : Comparable<Int64> {
     companion object {
         val ZERO = Int64(0, 0)
+
+        fun equals(a: Int64, b: Int64): Boolean = a.raw.equalsRaw(b.raw)
 
         inline operator fun invoke(value: Long): Int64 = Int64(value.reinterpretAsDouble())
         inline operator fun invoke(low: Int, high: Int): Int64 = Int64(Double.fromLowHigh(low, high))
@@ -170,6 +178,8 @@ inline class Int64(val raw: Double) : Comparable<Int64> {
     inline val ulow: UInt get() = raw.lowBits.toUInt()
     inline val low: Int get() = raw.lowBits
     inline val high: Int get() = raw.highBits
+
+    fun equalsSafe(other: Int64): Boolean = equals(this, other)
 
     fun toInt(): Int = if (isPositive) low and 0x7FFFFFFF else -(low and 0x7FFFFFFF)
     inline fun toLong(): Long = raw.reinterpretAsLong()

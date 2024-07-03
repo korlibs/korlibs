@@ -109,4 +109,20 @@ class Int64Test {
         assertEquals(Int64(-2), array[1])
         assertEquals(Int64(-3), array[2])
     }
+
+    @Test
+    fun testEquals() {
+        val a = 0xffffff80_00000001uL.toLong().toInt64()
+        val b = (-1L).toInt64()
+
+        assertTrue { !a.raw.equalsRaw(b.raw) }
+        assertTrue { !a.equalsSafe(b) }
+
+        assertTrue { a.equalsSafe(a) }
+        assertTrue { b.equalsSafe(b) }
+
+        // @TODO: Int64/Long should be implemented at JS level where equality is implemented
+        //assertTrue { a == b } // :( we cannot control this
+        //assertTrue { a.raw == b.raw } // :( we cannot control this
+    }
 }

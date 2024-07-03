@@ -5,6 +5,7 @@ package korlibs.datastructure
 import korlibs.datastructure.IArray2.Companion.forEachPosRect
 import korlibs.math.geom.*
 import korlibs.memory.*
+import korlibs.number.*
 
 inline fun <TGen : Any, RGen : Any> IArray2<TGen>.map2(gen: (x: Int, y: Int, v: TGen) -> RGen) =
     Array2<RGen>(width, height) {
@@ -142,6 +143,18 @@ interface Int64IArray2 : IArray2<Int64> {
     operator fun get(p: PointInt): Int64 = get(p.x, p.y)
     operator fun set(p: PointInt, value: Int64) = set(p.x, p.y, value)
     operator fun set(rect: RectangleInt, value: Int64) = forEachPosRect(this, rect) { x, y -> this[x, y] = value }
+}
+interface Int53IArray2 : IArray2<Int53> {
+    fun setFast(idx: Int, value: Int53)
+    fun getFast(idx: Int): Int53
+    operator fun get(x: Int, y: Int): Int53 = getFast(indexOr(x, y))
+    operator fun set(x: Int, y: Int, value: Int53) = setFast(indexOr(x, y), value)
+    override fun setAt(idx: Int, value: Int53) = setFast(idx, value)
+    override fun getAt(idx: Int): Int53 = getFast(idx)
+
+    operator fun get(p: PointInt): Int53 = get(p.x, p.y)
+    operator fun set(p: PointInt, value: Int53) = set(p.x, p.y, value)
+    operator fun set(rect: RectangleInt, value: Int53) = forEachPosRect(this, rect) { x, y -> this[x, y] = value }
 }
 
 interface TGenIArray2<TGen> : IArray2<TGen> {
@@ -533,6 +546,99 @@ open class Int64Array2(override val width: Int, override val height: Int, val da
     override fun hashCode(): Int = width + height + data.contentHashCode()
     fun clone() = Int64Array2(width, height, data.copyOf())
     override fun iterator(): Iterator<Int64> = data.iterator()
+    override fun toString(): String = asString()
+}
+
+// Int53
+
+
+@Suppress("NOTHING_TO_INLINE", "RemoveExplicitTypeArguments")
+open class Int53Array2(override val width: Int, override val height: Int, val data: Int53Array) : Int53IArray2 {
+    init {
+        IArray2.checkArraySize(width, height, data.size)
+    }
+    companion object {
+        inline operator fun  invoke(width: Int, height: Int, fill: Int53): Int53Array2 =
+            Int53Array2(width, height, Int53Array(width * height) { fill } as Int53Array)
+
+        inline operator fun  invoke(
+            width: Int,
+            height: Int,
+            gen: (n: Int) -> Int53
+        ): Int53Array2 =
+            Int53Array2(width, height, Int53Array(width * height) { gen(it) } as Int53Array)
+
+        inline fun  withGen(
+            width: Int,
+            height: Int,
+            gen: (x: Int, y: Int) -> Int53
+        ): Int53Array2 =
+            Int53Array2(
+                width,
+                height,
+                Int53Array(width * height) { gen(it % width, it / width) } as Int53Array)
+
+        inline operator fun  invoke(rows: List<List<Int53>>): Int53Array2 {
+            val width = rows[0].size
+            val height = rows.size
+            val anyCell = rows[0][0]
+            return (Int53Array2(width, height) { anyCell }).apply { set(rows) }
+        }
+
+        inline operator fun  invoke(
+            map: String,
+            marginChar: Char = '\u0000',
+            gen: (char: Char, x: Int, y: Int) -> Int53
+        ): Int53Array2 {
+            val lines = map.lines()
+                .map {
+                    val res = it.trim()
+                    if (res.startsWith(marginChar)) {
+                        res.substring(0, res.length)
+                    } else {
+                        res
+                    }
+                }
+                .filter { it.isNotEmpty() }
+            val width = lines.map { it.length }.maxOrNull() ?: 0
+            val height = lines.size
+
+            return Int53Array2(width, height) { n ->
+                val x = n % width
+                val y = n / width
+                gen(lines.getOrNull(y)?.getOrNull(x) ?: ' ', x, y)
+            }
+        }
+
+        inline operator fun  invoke(
+            map: String,
+            default: Int53,
+            transform: Map<Char, Int53>
+        ): Int53Array2 {
+            return invoke(map) { c, _, _ -> transform[c] ?: default }
+        }
+
+        inline fun  fromString(
+            maps: Map<Char, Int53>,
+            default: Int53,
+            code: String,
+            marginChar: Char = '\u0000'
+        ): Int53Array2 {
+            return invoke(code, marginChar = marginChar) { c, _, _ -> maps[c] ?: default }
+        }
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return (other is Int53Array2) && this.width == other.width && this.height == other.height && this.data.contentEquals(
+            other.data
+        )
+    }
+
+    override fun getFast(idx: Int): Int53 = data.getOrElse(idx) { Int53.ZERO }
+    override fun setFast(idx: Int, value: Int53) { if (idx in 0 until data.size) data[idx] = value }
+    override fun hashCode(): Int = width + height + data.contentHashCode()
+    fun clone() = Int53Array2(width, height, data.copyOf())
+    override fun iterator(): Iterator<Int53> = data.iterator()
     override fun toString(): String = asString()
 }
 
