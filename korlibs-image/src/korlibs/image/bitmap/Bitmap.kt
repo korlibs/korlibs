@@ -17,6 +17,11 @@ import korlibs.math.interpolation.*
 import korlibs.memory.*
 import kotlin.math.min
 
+/**
+ * Base class for all Bitmaps. A bitmap represents a set of pixels with a given [width] and [height].
+ *
+ * Implementors should implement at least [setRgbaRaw] and [getRgbaRaw].
+ */
 abstract class Bitmap(
     override val width: Int,
     override val height: Int,
@@ -91,45 +96,35 @@ abstract class Bitmap(
         for (y0 in 0 until height) for (x0 in 0 until width) setRgbaRaw(x0 + x, y0 + y, RGBA(out[n++]))
     }
 
-    //open fun readRgbaUnsafe(x: Int, y: Int, width: Int, height: Int, out: RgbaArray, offset: Int = 0) {
-    //    readPixelsUnsafe(x, y, width, height, out.ints, offset)
-    //    if (premultiplied) RgbaPremultipliedArray(out.ints).depremultiplyInplace(offset, offset + width * height)
-    //}
-    //open fun writeRgbaUnsafe(x: Int, y: Int, width: Int, height: Int, out: RgbaArray, offset: Int = 0) {
-    //    TODO()
-    //}
-
     /** UNSAFE: Sets the color [v] in the [x], [y] coordinates in the internal format of this Bitmap (either premultiplied or not) */
-    open fun setRgbaRaw(x: Int, y: Int, v: RGBA): Unit {
-        TODO()
-    }
+    abstract fun setRgbaRaw(x: Int, y: Int, v: RGBA): Unit
 
     /** UNSAFE: Gets the color [v] in the [x], [y] coordinates in the internal format of this Bitmap (either premultiplied or not) */
-    open fun getRgbaRaw(x: Int, y: Int): RGBA = Colors.TRANSPARENT
+    abstract fun getRgbaRaw(x: Int, y: Int): RGBA
 
     /** Sets the color [v] in the [x], [y] coordinates in [RGBA] non-premultiplied */
-    open fun setRgba(x: Int, y: Int, v: RGBA): Unit {
+    fun setRgba(x: Int, y: Int, v: RGBA): Unit {
         if (premultiplied) setRgbaRaw(x, y, v.premultiplied.asNonPremultiplied()) else setRgbaRaw(x, y, v)
     }
 
     /** Sets the color [v] in the [x], [y] coordinates in [RGBAPremultiplied] */
-    open fun setRgba(x: Int, y: Int, v: RGBAPremultiplied): Unit {
+    fun setRgba(x: Int, y: Int, v: RGBAPremultiplied): Unit {
         if (premultiplied) setRgbaRaw(x, y, v.asNonPremultiplied()) else setRgbaRaw(x, y, v.depremultiplied)
     }
 
     /** Gets the color [v] in the [x], [y] coordinates in [RGBA] non-premultiplied */
-    open fun getRgba(x: Int, y: Int): RGBA =
+    fun getRgba(x: Int, y: Int): RGBA =
         if (premultiplied) getRgbaRaw(x, y).asPremultiplied().depremultiplied else getRgbaRaw(x, y)
 
     /** Gets the color [v] in the [x], [y] coordinates in [RGBAPremultiplied] */
-    open fun getRgbaPremultiplied(x: Int, y: Int): RGBAPremultiplied =
+    fun getRgbaPremultiplied(x: Int, y: Int): RGBAPremultiplied =
         if (premultiplied) getRgbaRaw(x, y).asPremultiplied() else getRgbaRaw(x, y).premultiplied
 
     /** UNSAFE: Sets the color [color] in the [x], [y] coordinates in the internal format of this Bitmap */
-    open fun setInt(x: Int, y: Int, color: Int): Unit = Unit
+    open fun setInt(x: Int, y: Int, color: Int): Unit { setRgbaRaw(x, y, RGBA(color)) }
 
     /** UNSAFE: Gets the color in the [x], [y] coordinates in the internal format of this Bitmap */
-    open fun getInt(x: Int, y: Int): Int = 0
+    open fun getInt(x: Int, y: Int): Int = getRgbaRaw(x, y).value
 
     fun getRgbaClamped(x: Int, y: Int): RGBA = if (inBounds(x, y)) getRgbaRaw(x, y) else Colors.TRANSPARENT
 

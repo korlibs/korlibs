@@ -2,8 +2,6 @@ package korlibs.image.core
 
 import korlibs.image.bitmap.*
 
-// @TODO: We should probably provide Bitmap directly here
-
 interface CoreBitmap {
     val width: Int
     val height: Int

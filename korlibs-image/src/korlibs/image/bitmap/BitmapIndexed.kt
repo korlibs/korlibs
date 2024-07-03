@@ -51,6 +51,10 @@ abstract class BitmapIndexed(
     }
 
 	override fun getRgbaRaw(x: Int, y: Int): RGBA = palette[this[x, y]]
+	override fun setRgbaRaw(x: Int, y: Int, v: RGBA) {
+		TODO("Not yet implemented")
+	}
+
 	fun index_d(x: Int, y: Int) = index_d(index(x, y))
 	fun index_m(x: Int, y: Int) = index_m(index(x, y))
 

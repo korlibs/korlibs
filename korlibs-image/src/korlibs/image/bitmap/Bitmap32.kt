@@ -61,12 +61,6 @@ class Bitmap32(
     override fun getRgbaRaw(x: Int, y: Int): RGBA = RGBA(getInt(x, y))
 	override fun setRgbaRaw(x: Int, y: Int, v: RGBA) = setInt(x, y, v.value)
 
-    override fun setRgba(x: Int, y: Int, v: RGBA): Unit = setRgbaAtIndex(index(x, y), v)
-    override fun setRgba(x: Int, y: Int, v: RGBAPremultiplied): Unit = setRgbaPremultipliedAtIndex(index(x, y), v)
-
-    override fun getRgba(x: Int, y: Int): RGBA = getRgbaAtIndex(index(x, y))
-    override fun getRgbaPremultiplied(x: Int, y: Int): RGBAPremultiplied = getRgbaPremultipliedAtIndex(index(x, y))
-
     fun setRgbaAtIndex(n: Int, color: RGBA) {
         this.ints[n] = if (premultiplied) color.premultiplied.value else color.value
     }
