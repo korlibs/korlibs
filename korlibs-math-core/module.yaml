@@ -9,3 +9,4 @@ aliases:
 
 dependencies:
   - ../korlibs-platform
+  - ../korlibs-number: exported

@@ -1,18 +1,57 @@
 package korlibs.number
 
 import korlibs.number.internal.*
-import kotlin.math.ceil
-import kotlin.math.floor
+import kotlin.contracts.*
+import kotlin.math.*
+
+inline class Int53Array(val raw: DoubleArray) : Iterable<Int53> {
+    inline val indices: IntRange get() = raw.indices
+
+    constructor(size: Int, value: Int53 = Int53.ZERO) : this(DoubleArray(size) { value.value })
+    companion object {
+        inline operator fun invoke(size: Int, gen: (Int) -> Int53): Int53Array = Int53Array(DoubleArray(size) { gen(it).value })
+    }
+
+    inline val size: Int get() = raw.size
+    inline operator fun get(index: Int): Int53 = Int53(raw[index])
+    inline operator fun set(index: Int, value: Int53) { raw[index] = value.value }
+    override fun iterator(): Iterator<Int53> = object : Iterator<Int53> {
+        var index = 0
+        override fun hasNext(): Boolean = index < raw.size
+        override fun next(): Int53 = this@Int53Array[index].also { index++ }
+    }
+
+    override fun toString(): String = "IntArray64($size)"
+}
+
+inline fun <T : Int53> Int53ArrayOf(vararg values: T): Int53Array = Int53Array(values.size) { values[it] }
+inline fun Int53ArrayOf(vararg values: Int): Int53Array = Int53Array(values.size) { values[it].toInt53() }
+inline fun Int53ArrayOf(vararg values: Long): Int53Array = Int53Array(values.size) { values[it].toInt53() }
+
+fun Int53Array.copyOf(newSize: Int = this.size): Int53Array = Int53Array(raw.copyOf(newSize))
+fun Int53Array.copyOfRange(fromIndex: Int, toIndex: Int): Int53Array = Int53Array(raw.copyOfRange(fromIndex, toIndex))
+public fun Int53Array.getOrNull(index: Int): Int53? = if (index in indices) get(index) else null
+//@kotlin.internal.InlineOnly
+@OptIn(ExperimentalContracts::class)
+public inline fun Int53Array.getOrElse(index: Int, defaultValue: (Int) -> Int53): Int53 {
+    contract { callsInPlace(defaultValue, InvocationKind.AT_MOST_ONCE) }
+    return if (index in indices) get(index) else defaultValue(index)
+}
+
+infix fun Int53Array?.contentEquals(other: Int53Array?): Boolean = this?.raw.contentEquals(other?.raw)
+fun Int53Array?.contentHashCode(): Int = this?.raw.contentHashCode()
+fun Int53Array?.contentToString(): String = if (this == null) "null" else "[" + this.raw.joinToString(", ") { it.toString() } + "]"
 
 /**
  * Represents and integral value of 52-bits + sign using a Double as internal representation.
  * Trying to avoid allocations on the JS target by not using [Long] when 53 bits is enough.
  */
-@Deprecated("")
+//@Deprecated("")
 public inline class Int53(public val value: Double) : Comparable<Int53> {
     public companion object {
         // Double.fromBits(0x000FFFFFFFFFFFFFL)
         //val MAX_VALUE = Int53(Double.fromBits(0x000FFFFFFFFFFFFFL)) // 2**52 - 1
+        public val ZERO: Int53 = Int53(0.0)
         public val MAX_VALUE: Int53 = Int53(4503599627370495.0) // 2**52 - 1
         public val MIN_VALUE: Int53 = Int53(-4503599627370495.0) // -(2**52 - 1)
         private val MAX_UINT32 = 4294967295.0
@@ -23,8 +62,9 @@ public inline class Int53(public val value: Double) : Comparable<Int53> {
         }
         // @TODO: Do not use Long to do this
         public fun fromLowHigh(low: Int, high: Int): Int53 {
+            return Int53(low.toUInt().toDouble() + (high.toUInt().toDouble() * pot(32)))
 
-            return (low.toLong() or ((high and 0x1FFFFF).signExtend(21).toLong() shl 32)).toInt53()
+            //return (low.toLong() or ((high and 0x1FFFFF).signExtend(21).toLong() shl 32)).toInt53()
 
             //if ((high and 0x80000) != 0) {
             //    // Negative
@@ -36,6 +76,11 @@ public inline class Int53(public val value: Double) : Comparable<Int53> {
             //    return fromDoubleClamped(low.toUInt().toDouble() + ((high and 0xFFFFF) * 4294967296))
             //}
         }
+
+        @PublishedApi internal val POWS = DoubleArray(64) { 2.0.pow(it) }
+
+        inline fun pot(index: Int): Double = POWS[index and 0x3F]
+        //inline fun pot(index: Int): Double = 2.0.pow(index)
     }
 
     // @TODO: Do not use Long to do this
@@ -43,6 +88,7 @@ public inline class Int53(public val value: Double) : Comparable<Int53> {
     public val high: Int get() = ((long ushr 32) and 21.mask().toLong()).toInt()
     public val low: Int get() {
         return long.toInt()
+        //return floor(value.absoluteValue % pot(32)).toInt()
         //var v = this
         //val llow = (v % 0x10000).toInt()
         //v /= 0x10000
@@ -83,6 +129,43 @@ public inline class Int53(public val value: Double) : Comparable<Int53> {
     public infix fun or(other: Int53): Int53 = Int53.fromLowHigh(this.low or other.low, this.high or other.high)
     public infix fun xor(other: Int53): Int53 = Int53.fromLowHigh(this.low xor other.low, this.high xor other.high)
     public fun inv(): Int53 = Int53.fromLowHigh(this.low.inv(), this.high.inv())
+    public infix fun shl(shift: Int): Int53 = floor(value * pot(shift)).toInt53()
+    public infix fun ushr(shift: Int): Int53 = floor(value / pot(shift)).toInt53()
+
+    public fun insert(value: Int, offset: Int, count: Int): Int53 {
+        //val mask = count.mask().toInt53() shl offset
+        //val ovalue = (value.toInt53() shl offset) and mask
+        //return (this and mask.inv()) or ovalue
+        return clear(offset, count).insertNoClear(value, offset, count)
+    }
+
+    public fun insert(value: Boolean, offset: Int): Int53 = insert(if (value) 1 else 0, offset, 1)
+
+    public fun clear(offset: Int, count: Int): Int53 {
+        val countMul = pot(count)
+        val offsetMul = pot(offset)
+        val vv = floor(value / offsetMul) % countMul
+        return this - (vv * offsetMul)
+
+        //return this and (count.mask().toInt53() shl offset).inv()
+    }
+
+    public fun insertNoClear(value: Int, offset: Int, count: Int): Int53 {
+        return Int53(this.value + ((value and count.mask()).toDouble() * pot(offset)))
+    }
+    public fun insertNoClear(value: Boolean, offset: Int): Int53 = insertNoClear(if (value) 1 else 0, offset, 1)
+
+    fun extract(offset: Int, bits: Int): Int {
+        //return (value.toLong() ushr offset).toInt() and bits.mask()
+        return (floor(value / pot(offset)) % pot(bits)).toInt()
+    }
+    //fun extract(offset: Int, bits: Int): Int = (value.toLong() ushr offset).toInt() and bits.mask()
+    fun extract(offset: Int): Boolean = extract(offset, 1) != 0
+    fun extractSigned(offset: Int, bits: Int): Int {
+        val value = extract(offset, bits)
+        val shift = (32 - bits)
+        return (value shl shift) shr shift
+    }
 
     public val int: Int get() = value.toInt()
     public val long: Long get() = value.toLong()
