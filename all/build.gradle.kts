@@ -1,4 +1,5 @@
 import com.google.gson.*
+import com.google.gson.*
 import com.google.gson.JsonParser
 import groovy.json.*
 import groovy.namespace.*
@@ -90,10 +91,10 @@ fun getKotlinBasePlatform(platform: String): String = platform.removeSuffix("X64
     check(it.all { it.isLowerCase() && !it.isDigit() })
 }
 
-data class SourceSetPair(val main: KotlinSourceSet, val test: KotlinSourceSet) {
+data class SourceSetPair(val main: KotlinSourceSet, val test: KotlinSourceSet? = null) {
     fun dependsOn(other: SourceSetPair) {
         main.dependsOn(other.main)
-        test.dependsOn(other.test)
+        if (test != null && other.test != null) test.dependsOn(other.test)
     }
 }
 
@@ -106,7 +107,27 @@ val sourceSetPairs = LinkedHashMap<String, SourceSetPair>()
 
 
 val upFiles = (File(rootDir, "../").listFiles() ?: emptyArray()).toList()
-val korlibsFolders = upFiles.filter { it.name.startsWith("korlibs-") }.map { it.canonicalFile }
+val korlibsFolders = upFiles
+    .filter { it.name.startsWith("korlibs-") }
+    .map { it.canonicalFile }
+    //.filter { 
+    //    false
+    //        || it.name.contains("korlibs-annotations") 
+    //        //|| it.name.contains("korlibs-platform") 
+    //        //|| it.name.contains("korlibs-number") 
+    //        //|| it.name.contains("korlibs-logger") 
+    //        //|| it.name.contains("korlibs-bignumber") 
+    //        //|| it.name.contains("korlibs-jseval") 
+    //        //|| it.name.contains("korlibs-string") 
+    //        //|| it.name.contains("korlibs-math-core") 
+    //        //|| it.name.contains("korlibs-math-vector") 
+    //        //|| it.name.contains("korlibs-time-core") 
+    //        //|| it.name.contains("korlibs-datastructure-core") 
+    //        //|| it.name.contains("korlibs-serialization") 
+    //        //|| it.name.contains("korlibs-template") 
+    //        //|| it.name.contains("korlibs-memory") 
+    //}
+
 
 fun NamedDomainObjectContainer<KotlinSourceSet>.ssPair(name: String): SourceSetPair {
     return sourceSetPairs.getOrPut(name) {
@@ -115,16 +136,19 @@ fun NamedDomainObjectContainer<KotlinSourceSet>.ssPair(name: String): SourceSetP
             main = maybeCreate("${name}Main").also {
                 for (folder in korlibsFolders) {
                     it.kotlin.srcDir(File(folder, "src$atName"))
+                    //println("ADD SRC[${name}]: ${File(folder, "src$atName")}")
                     //println(File(folder, "src$atName"))
                     it.resources.srcDir(File(folder, "resources$atName"))
                 }
             },
+            /*
             test = maybeCreate("${name}Test").also {
                 for (folder in korlibsFolders) {
                     it.kotlin.srcDir(File(folder, "test$atName"))
                     it.resources.srcDir(File(folder, "testResources$atName"))
                 }
             }
+            */
         )
     }
 }
@@ -158,7 +182,8 @@ val kotlinPlatforms = listOf(
 )
 
 project.kotlin.sourceSets {
-    ssDependsOn("concurrent", "common")
+    ssDependsOn("nonJs", "common")
+    ssDependsOn("concurrent", "nonJs")
     ssDependsOn("jvmAndAndroid", "concurrent")
     ssDependsOn("native", "concurrent")
     ssDependsOn("posix", "native")
@@ -167,6 +192,7 @@ project.kotlin.sourceSets {
     ssDependsOn("appleIosTvos", "apple")
 
     for (platform in kotlinPlatforms) {
+        println("PLATFORM: $platform")
         val isMacos = platform.startsWith("macos")
         val isJs = platform.startsWith("js")
         val isJvm = platform.startsWith("jvm")
@@ -188,6 +214,8 @@ project.kotlin.sourceSets {
         if (isPosix) ssDependsOn(basePlatform, "posix")
         if (isApple) ssDependsOn(basePlatform, "apple")
         if (isNative) ssDependsOn(basePlatform, "native")
+        if (isWasm) ssDependsOn(basePlatform, "nonJs")
+        if (isJs) ssPair("js")
         if (isJvm || isAndroid) ssDependsOn(basePlatform, "jvmAndAndroid")
         if (platform != basePlatform) ssDependsOn(platform, basePlatform)
     }
@@ -243,6 +271,10 @@ tasks.withType(ProcessResources::class) {
     this.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
+tasks.withType(Jar::class) {
+    this.entryCompression = org.gradle.api.tasks.bundling.ZipEntryCompression.STORED
+}
+
 /*
 afterEvaluate {
     kotlin.targets.filter { it.platformType == KotlinPlatformType.native }.forEach { target ->
@@ -267,3 +299,15 @@ afterEvaluate {
     }
 }
 */
+
+afterEvaluate {
+    kotlin.targets.filter { it.platformType == KotlinPlatformType.native && it.name == "mingwX64" }.forEach { target ->
+        target.compilations.getByName("main") {
+            (this as KotlinNativeCompilation).cinterops {
+                val win32ssl by creating {
+                    defFile(project.file("../korlibs-io-network-core/nativeInterop/cinterop/win32ssl.def"))
+                }
+            }
+        }
+    }
+}

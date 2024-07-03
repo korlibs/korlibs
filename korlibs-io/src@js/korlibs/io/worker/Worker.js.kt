@@ -1,6 +1,5 @@
 package korlibs.io.worker
 
-import korlibs.io.*
 import korlibs.io.async.*
 import korlibs.io.lang.*
 import korlibs.js.*
@@ -11,6 +10,7 @@ import org.w3c.workers.*
 import kotlin.coroutines.*
 import kotlin.js.Promise
 import kotlin.reflect.*
+import korlibs.io.isDenoJs
 
 actual typealias WorkerExport = JsExport
 
