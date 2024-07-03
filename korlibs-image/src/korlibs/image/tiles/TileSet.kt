@@ -161,7 +161,8 @@ class TileSet private constructor(
             border: Int = 1,
             mipmaps: Boolean = false,
         ): TileSet {
-			check(bmpSlices.all { it.width == tilewidth && it.height == tileheight })
+			//check(bmpSlices.all { it.width == tilewidth && it.height == tileheight })
+
 			if (bmpSlices.isEmpty()) return TileSet(IntMap(), tilewidth, tileheight, unit = Unit)
 
             // NO-Border
@@ -205,10 +206,11 @@ class TileSet private constructor(
                 val px = x * btilewidth + border
                 val py = y * btileheight + border
                 //out.putSliceWithBorder(px, py, bmpSlices[n], border)
-                out.put(bmpSlices[n].slice.ensureBMP32(), px, py)
+                val origSlice = bmpSlices[n]
+                out.put(origSlice.slice.ensureBMP32(), px, py)
                 //println("putSliceWithBorder=${bmpSlices[n]}")
 
-                val tileInfo = bmpSlices[n].copy(slice = out.sliceWithSize(px, py, tilewidth, tileheight, name = bmpSlices[n].name),)
+                val tileInfo = origSlice.copy(slice = out.sliceWithSize(px, py, origSlice.width, origSlice.height, name = origSlice.name),)
                 //println("tileInfo=$tileInfo")
                 texs[tileInfo.id] = tileInfo
             }

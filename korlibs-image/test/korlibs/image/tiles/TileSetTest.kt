@@ -44,7 +44,7 @@ class TileSetTest {
         val collision = TileShapeInfoImpl(HitTestDirectionFlags.NONE, Rectangle(0, 0, 16, 16).toShape2D(), Matrix())
         for (border in listOf(0, 1)) {
             val tileSet = TileSet(intMapOf(
-                1 to TileSetTileInfo(1, Bitmap32(16, 16, Colors.RED.premultiplied).slice(), frames = frames, collision = collision),
+                1 to TileSetTileInfo(1, Bitmap32(64, 24, Colors.RED.premultiplied).slice(), frames = frames, collision = collision),
                 2 to TileSetTileInfo(2, Bitmap32(16, 16, Colors.BLUE.premultiplied).slice()),
             ), border = border)
 
@@ -52,10 +52,21 @@ class TileSetTest {
             //println(tileSet.getInfo(1))
             //println(tileSet.getInfo(2))
 
-            assertEquals(1, tileSet.getInfo(1)?.id)
-            assertEquals("16x16", tileSet.getInfo(1)?.slice?.sizeString)
-            assertEquals(frames, tileSet.getInfo(1)?.frames)
-            assertEquals(collision, tileSet.getInfo(1)?.collision)
+            assertEquals(null, tileSet.getInfo(0))
+
+            tileSet.getInfo(1).also {
+                assertEquals(1, it?.id)
+                assertEquals("64x24", it?.slice?.sizeString)
+                assertEquals(frames, it?.frames)
+                assertEquals(collision, it?.collision)
+            }
+
+            tileSet.getInfo(2).also {
+                assertEquals(2, it?.id)
+                assertEquals("16x16", it?.slice?.sizeString)
+                assertEquals(emptyList(), it?.frames)
+                assertEquals(null, it?.collision)
+            }
         }
     }
 }
