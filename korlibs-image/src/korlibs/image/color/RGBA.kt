@@ -83,7 +83,7 @@ inline class RGBA(val value: Int) : Comparable<RGBA>, Interpolable<RGBA>, Paint 
         else -> r
     }
 
-    val hexString: String get() = buildString {
+    val hexString: String get() = buildString(9) {
         // "#%02x%02x%02x%02x".format(r, g, b, a)
         append('#')
         appendHexByte(r)
@@ -91,7 +91,7 @@ inline class RGBA(val value: Int) : Comparable<RGBA>, Interpolable<RGBA>, Paint 
         appendHexByte(b)
         appendHexByte(a)
     }
-    val hexStringNoAlpha: String get() = buildString {
+    val hexStringNoAlpha: String get() = buildString(7) {
         //"#%02x%02x%02x".format(r, g, b)
         append('#')
         appendHexByte(r)
@@ -297,7 +297,8 @@ inline class RGBAPremultiplied(val value: Int) {
 
     companion object {
         private const val RB_MASK: Int = 0x00FF00FF
-        private const val GA_MASK: Int = -16711936 // 0xFF00FF00
+        //private const val GA_MASK: Int = -16711936 // 0xFF00FF00
+        private const val GA_MASK: Int = 0xFF00FF00.toInt()
 
         operator fun invoke(rgba: RGBA): RGBAPremultiplied = rgba.premultiplied
 
