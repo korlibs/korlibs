@@ -166,7 +166,16 @@ class ASETest {
 
     @Test
     fun testTilemap() = suspendTest({ !Platform.isJs }) {
-        val ase = resourcesVfs["asepritetilemap.aseprite"].readImageData(ASEDecoder)
+        //resourcesVfs["asepritetilemap.aseprite"].readImageData(ASEDecoder.copy()).frames[0].layerData[1].tilemap?.tileSet?.base?.writeToNative(localVfs("/tmp/demo.png"))
+        //resourcesVfs["asepritetilemap.aseprite"].readImageData(ASEDecoder.copy().also { it.tilesetBorder = 0 }).frames[0].layerData[1].tilemap?.tileSet?.base?.writeToNative(localVfs("/tmp/demo.0.png"))
+
+        assertEquals(
+            SizeInt(64, 64),
+            resourcesVfs["asepritetilemap.aseprite"].readImageData(ASEDecoder).frames[0].layerData[1].tilemap?.tileSet?.base?.size
+        )
+        val ase = resourcesVfs["asepritetilemap.aseprite"].readImageData(ASEDecoder.copy().also {
+            it.tilesetBorder = 0
+        })
         val tilemap = ase.frames[0].layerData[1].tilemap
         assertNotNull(tilemap)
         val tilemapStr = tilemap.toStringListSimplified { it.tile.digitToChar() }.joinToString("\n")

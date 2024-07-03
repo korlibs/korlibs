@@ -181,6 +181,8 @@ data class ImageDecodingProps constructor(
     }
 }
 
+var ImageDecodingProps.tilesetBorder by extraProperty { 1 }
+
 fun ImageFormat.toProps(props: ImageDecodingProps = ImageDecodingProps.DEFAULT): ImageDecodingProps =
     props.copy(format = this)
 
