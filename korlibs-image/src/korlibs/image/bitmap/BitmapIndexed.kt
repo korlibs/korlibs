@@ -2,7 +2,6 @@ package korlibs.image.bitmap
 
 import korlibs.image.color.RGBA
 import korlibs.image.color.RgbaArray
-import korlibs.image.core.*
 import korlibs.math.*
 import korlibs.memory.*
 import kotlin.math.max
@@ -10,11 +9,11 @@ import kotlin.math.max
 abstract class BitmapIndexed(
 	bpp: Int,
 	width: Int, height: Int,
-	override var bytes: ByteArray = ByteArray(width * height / (8 / bpp)),
+	var bytes: ByteArray = ByteArray(width * height / (8 / bpp)),
 	var palette: RgbaArray = RgbaArray(1 shl bpp)
-) : Bitmap(width, height, bpp, false, bytes), CoreBitmapIndexed {
+) : Bitmap(width, height, bpp, false, bytes) {
 
-	override val paletteInts get() = palette.ints
+	val paletteInts get() = palette.ints
 
     val data: ByteArray get() = bytes
 

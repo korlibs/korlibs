@@ -7,7 +7,6 @@ import korlibs.image.color.RGBAPremultiplied
 import korlibs.image.color.RgbaArray
 import korlibs.image.color.asNonPremultiplied
 import korlibs.image.color.asPremultiplied
-import korlibs.image.core.*
 import korlibs.image.format.*
 import korlibs.image.vector.Context2d
 import korlibs.io.lang.invalidOp
@@ -23,17 +22,17 @@ import kotlin.math.min
  * Implementors should implement at least [setRgbaRaw] and [getRgbaRaw].
  */
 abstract class Bitmap(
-    override val width: Int,
-    override val height: Int,
-    override val bpp: Int,
+    val width: Int,
+    val height: Int,
+    val bpp: Int,
     premultiplied: Boolean,
-    override val backingArray: Any?
-) : CoreBitmap, SizeableInt, Extra by Extra.Mixin() {
+    val backingArray: Any?
+) : SizeableInt, Extra by Extra.Mixin() {
     val rect: RectangleInt = RectangleInt(0, 0, width, height)
     override val size: SizeInt get() = SizeInt(width, height)
     var bitmapName: String? = null
 
-    override var premultiplied: Boolean = premultiplied
+    var premultiplied: Boolean = premultiplied
         set(value) {
             field = value
             //printStackTrace("Changed premultiplied! $value")
@@ -273,7 +272,7 @@ abstract class Bitmap(
     open fun createWithThisFormat(width: Int, height: Int): Bitmap =
         invalidOp("Unsupported createWithThisFormat ($this)")
 
-    override fun toBMP32(): Bitmap32 = Bitmap32(width, height, premultiplied = premultiplied).also { out ->
+    open fun toBMP32(): Bitmap32 = Bitmap32(width, height, premultiplied = premultiplied).also { out ->
         this.readPixelsUnsafe(0, 0, width, height, out.ints, 0)
     }
 
