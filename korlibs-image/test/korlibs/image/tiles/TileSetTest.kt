@@ -1,7 +1,12 @@
 package korlibs.image.tiles
 
+import korlibs.datastructure.*
 import korlibs.image.bitmap.*
 import korlibs.image.color.*
+import korlibs.math.geom.*
+import korlibs.math.geom.collider.*
+import korlibs.math.geom.shape.*
+import korlibs.time.*
 import kotlin.test.*
 
 class TileSetTest {
@@ -30,6 +35,27 @@ class TileSetTest {
             assertEquals("64x64", it.tilesMap[0]?.slice?.base?.size?.toString())
             assertEquals("RectSlice(null:Rectangle(x=1, y=1, width=16, height=16))", it.tilesMap[0]?.slice?.toString())
             assertEquals("RectSlice(null:Rectangle(x=19, y=1, width=16, height=16))", it.tilesMap[1]?.slice?.toString())
+        }
+    }
+
+    @Test
+    fun testPreserveFramesAndCollision() {
+        val frames = listOf(TileSetAnimationFrame(0, 0.1.fastSeconds))
+        val collision = TileShapeInfoImpl(HitTestDirectionFlags.NONE, Rectangle(0, 0, 16, 16).toShape2D(), Matrix())
+        for (border in listOf(0, 1)) {
+            val tileSet = TileSet(intMapOf(
+                1 to TileSetTileInfo(1, Bitmap32(16, 16, Colors.RED.premultiplied).slice(), frames = frames, collision = collision),
+                2 to TileSetTileInfo(2, Bitmap32(16, 16, Colors.BLUE.premultiplied).slice()),
+            ), border = border)
+
+            //println(tileSet.getInfo(0))
+            //println(tileSet.getInfo(1))
+            //println(tileSet.getInfo(2))
+
+            assertEquals(1, tileSet.getInfo(1)?.id)
+            assertEquals("16x16", tileSet.getInfo(1)?.slice?.sizeString)
+            assertEquals(frames, tileSet.getInfo(1)?.frames)
+            assertEquals(collision, tileSet.getInfo(1)?.collision)
         }
     }
 }

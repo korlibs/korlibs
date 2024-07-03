@@ -207,12 +207,10 @@ class TileSet private constructor(
                 //out.putSliceWithBorder(px, py, bmpSlices[n], border)
                 out.put(bmpSlices[n].slice.ensureBMP32(), px, py)
                 //println("putSliceWithBorder=${bmpSlices[n]}")
-                val tileInfo = TileSetTileInfo(
-                    n,
-                    out.sliceWithSize(px, py, tilewidth, tileheight, name = bmpSlices[n].name)
-                )
+
+                val tileInfo = bmpSlices[n].copy(slice = out.sliceWithSize(px, py, tilewidth, tileheight, name = bmpSlices[n].name),)
                 //println("tileInfo=$tileInfo")
-                texs[n] = tileInfo
+                texs[tileInfo.id] = tileInfo
             }
 
             // Create borders Columns
