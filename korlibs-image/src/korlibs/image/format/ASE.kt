@@ -161,6 +161,7 @@ object ASE : ImageFormatWithContainer("ase") {
         val baseIndex: Int,
         val tilesetName: String,
         val tiles: List<BmpSlice>,
+        val border: Int = 0,
     ) {
         val tileSet = TileSet(IntMap<TileSetTileInfo>().also { map ->
             for (n in tiles.indices) {
@@ -168,7 +169,7 @@ object ASE : ImageFormatWithContainer("ase") {
                 val id = n
                 map[id] = TileSetTileInfo(id, tiles[n])
             }
-        })
+        }, border = border)
     }
 
     open class AseSliceKey(
@@ -592,7 +593,8 @@ object ASE : ImageFormatWithContainer("ase") {
                             tileHeight,
                             baseIndex,
                             tilesetName,
-                            tiles
+                            tiles,
+                            border = props.tilesetBorder
                         )
                     }
 
