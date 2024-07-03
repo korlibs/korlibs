@@ -371,20 +371,14 @@ class CanvasContext2dRenderer(private val canvas: HTMLCanvasElementLike) : Rende
 		} else {
             ctx.lineWidth = state.lineWidth.toDouble()
 			ctx.lineJoin = when (state.lineJoin) {
-				//LineJoin.BEVEL -> CanvasLineJoin.BEVEL // @TODO: WASM BUG
-				//LineJoin.MITER -> CanvasLineJoin.MITER // @TODO: WASM BUG
-				//LineJoin.ROUND -> CanvasLineJoin.ROUND // @TODO: WASM BUG
-                LineJoin.BEVEL -> "bevel".cast<CanvasLineJoin>()
-                LineJoin.MITER -> "miter".cast<CanvasLineJoin>()
-                LineJoin.ROUND -> "round".cast<CanvasLineJoin>()
+				LineJoin.BEVEL -> CanvasLineJoin.BEVEL
+				LineJoin.MITER -> CanvasLineJoin.MITER
+				LineJoin.ROUND -> CanvasLineJoin.ROUND
 			}
 			ctx.lineCap = when (state.lineCap) {
-				//LineCap.BUTT -> CanvasLineCap.BUTT // @TODO: WASM BUG
-				//LineCap.ROUND -> CanvasLineCap.ROUND // @TODO: WASM BUG
-				//LineCap.SQUARE -> CanvasLineCap.SQUARE // @TODO: WASM BUG
-                LineCap.BUTT -> "butt".cast<CanvasLineCap>()
-                LineCap.ROUND -> "round".cast<CanvasLineCap>()
-                LineCap.SQUARE -> "square".cast<CanvasLineCap>()
+				LineCap.BUTT -> CanvasLineCap.BUTT
+				LineCap.ROUND -> CanvasLineCap.ROUND
+				LineCap.SQUARE -> CanvasLineCap.SQUARE
 			}
             ctx.strokeStyle = state.strokeStyle.toJsStr()
 		}
@@ -466,10 +460,8 @@ class CanvasContext2dRenderer(private val canvas: HTMLCanvasElementLike) : Rende
 	}
 
     fun Winding.toCanvasFillRule() = when (this) {
-        //Winding.NON_ZERO -> CanvasFillRule.NONZERO // @TODO: Circumvents WASM issue
-        //Winding.EVEN_ODD -> CanvasFillRule.EVENODD // @TODO: Circumvents WASM issue
-        Winding.NON_ZERO -> NONZERO() // @TODO: Circumvents WASM issue
-        Winding.EVEN_ODD -> EVENODD() // @TODO: Circumvents WASM issue
+        Winding.NON_ZERO -> CanvasFillRule.NONZERO
+        Winding.EVEN_ODD -> CanvasFillRule.EVENODD
     }
 
     // @TODO: Do this
@@ -518,10 +510,4 @@ class CanvasContext2dRenderer(private val canvas: HTMLCanvasElementLike) : Rende
 		}
 	}
     */
-}
-
-@JsFun("() => { return 'nonzero'; }") external private fun NONZERO(): CanvasFillRule
-@JsFun("() => { return 'evenodd'; }") external private fun EVENODD(): CanvasFillRule
-fun <T : JsAny> String.cast(): T {
-    return this.toJsString().unsafeCast()
 }
