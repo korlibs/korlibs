@@ -24,9 +24,9 @@ inline class Int53Array(val raw: DoubleArray) : Iterable<Int53> {
     override fun toString(): String = "IntArray64($size)"
 }
 
-inline fun <T : Int53> Int53ArrayOf(vararg values: T): Int53Array = Int53Array(values.size) { values[it] }
-inline fun Int53ArrayOf(vararg values: Int): Int53Array = Int53Array(values.size) { values[it].toInt53() }
-inline fun Int53ArrayOf(vararg values: Long): Int53Array = Int53Array(values.size) { values[it].toInt53() }
+inline fun <T : Int53> int53ArrayOf(vararg values: T): Int53Array = Int53Array(values.size) { values[it] }
+inline fun int53ArrayOf(vararg values: Int): Int53Array = Int53Array(values.size) { values[it].toInt53() }
+inline fun int53ArrayOf(vararg values: Long): Int53Array = Int53Array(values.size) { values[it].toInt53() }
 
 fun Int53Array.copyOf(newSize: Int = this.size): Int53Array = Int53Array(raw.copyOf(newSize))
 fun Int53Array.copyOfRange(fromIndex: Int, toIndex: Int): Int53Array = Int53Array(raw.copyOfRange(fromIndex, toIndex))
