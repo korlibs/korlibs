@@ -225,6 +225,14 @@ public fun Int.insert(value: Int, offset: Int, count: Int): Int {
     return (this and mask.inv()) or ovalue
 }
 
+public fun Int.insertNoClear(value: Int, offset: Int, count: Int): Int {
+    return this or ((value and count.mask()) shl offset)
+}
+
+public fun Int.clear(offset: Int, count: Int): Int {
+    return (this and (count.mask() shl offset).inv())
+}
+
 public fun Int.insert1(value: Int, offset: Int): Int = insertMask(value, offset, 0b1)
 public fun Int.insert2(value: Int, offset: Int): Int = insertMask(value, offset, 0b11)
 public fun Int.insert3(value: Int, offset: Int): Int = insertMask(value, offset, 0b111)

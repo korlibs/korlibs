@@ -6,7 +6,7 @@ import korlibs.math.geom.*
 import korlibs.memory.*
 
 data class TileMapData(
-    val data: IStackedInt64Array2,
+    val data: IStackedInt53Array2,
     val tileSet: TileSet = TileSet.EMPTY,
     val repeatX: TileMapRepeat = TileMapRepeat.NONE,
     val repeatY: TileMapRepeat = TileMapRepeat.NONE,
@@ -50,7 +50,7 @@ data class TileMapData(
         repeatX: TileMapRepeat = TileMapRepeat.NONE,
         repeatY: TileMapRepeat = TileMapRepeat.NONE,
         offsetScale: Float = 1f,
-    ) : this(StackedInt64Array2(width, height, empty.raw), tileSet, repeatX, repeatY, offsetScale)
+    ) : this(StackedInt53Array2(width, height, empty.raw), tileSet, repeatX, repeatY, offsetScale)
 
     /** The [empty] value that will be returned if the specified cell it out of bounds, or empty */
     val empty: Tile get() = Tile(data.empty)
