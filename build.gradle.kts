@@ -180,7 +180,11 @@ subprojects {
     kotlin {
         js {
             //nodejs()
-            browser()
+            browser {
+                compilerOptions {
+                    target.set("es2015")
+                }
+            }
         }
     }
 
@@ -192,6 +196,47 @@ subprojects {
                 //publishLibraryVariants("release", "debug")
             }
         //}
+    }
+
+    tasks {
+        //println(this.findByName("compileTestKotlinJs")!!::class)
+        //println(this.findByName("compileTestKotlinJs")!!.dependsOn?.toList())
+        //println(this.findByName("compileTestKotlinJs")?.outputs?.files?.toList())
+
+        val jsDenoTest by creating(Exec::class) {
+            fun fullPathName(project: Project): String {
+                if (project.parent == null) return project.name
+                return fullPathName(project.parent!!) + ":" + project.name
+            }
+            val baseTestFileName = fullPathName(project).trim(':').replace(':', '-') + "-test.mjs"
+
+            val runFile = file("build/compileSync/js/test/testDevelopmentExecutable/kotlin/$baseTestFileName.deno.mjs")
+
+            // compileTestDevelopmentExecutableKotlinJs
+            dependsOn("compileTestDevelopmentExecutableKotlinJs")
+            //commandLine("deno", "test", "--unstable-ffi", "-A", "src/test/kotlin")
+
+            //rootProject.
+            commandLine("deno", "test", "--unstable-ffi", "-A", runFile)
+            workingDir(runFile.parentFile)
+
+            doFirst {
+                runFile.parentFile.mkdirs()
+                runFile.writeText(
+                    //language=js
+                    """
+                    var describeStack = []
+                    globalThis.describe = (name, callback) => { describeStack.push(name); try { callback() } finally { describeStack.pop() } }
+                    globalThis.it = (name, callback) => { return Deno.test({ name: describeStack.join(".") + "." + name, fn: callback}) }
+                    globalThis.xit = (name, callback) => { return Deno.test({ name: describeStack.join(".") + "." + name, ignore: true, fn: callback}) }
+                    function exists(path) { try { Deno.statSync(path); return true } catch (e) { return false } }
+                    // Polyfill required for kotlinx-coroutines that detects window 
+                    window.postMessage = (message, targetOrigin) => { const ev = new Event('message'); ev.source = window; ev.data = message; window.dispatchEvent(ev); }
+                    const file = './$baseTestFileName';
+                    if (exists(file)) import(file)
+                """.trimIndent())
+            }
+        }
     }
 
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask::class) {
