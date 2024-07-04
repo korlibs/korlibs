@@ -27,6 +27,10 @@ actual inline fun <T> Buffer.usePointer(block: (pointer: FFIPointer) -> T): T = 
 actual val FFIMemory.pointer: FFIPointer get() = TODO()
 actual val Buffer.pointer: FFIPointer get() = TODO()
 
+actual fun arraycopy(src: FFIPointer, srcPos: Int, dst: FFIPointer, dstPos: Int, length: Int) {
+    arraycopySlow(src, srcPos, dst, dstPos, length)
+}
+
 actual fun CreateFFIPointer(ptr: Long): FFIPointer? = TODO()
 
 actual val FFI_POINTER_SIZE: Int get() = TODO()

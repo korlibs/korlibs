@@ -207,7 +207,11 @@ actual inline fun <T> Buffer.usePointer(block: (pointer: FFIPointer) -> T): T =
     block(this.pointer)
 
 actual val FFIMemory.pointer: FFIPointer get() = Deno.UnsafePointer.of(this).pointer
-actual val Buffer.pointer: FFIPointer get() = Deno.UnsafePointer.of(Int8Array(this.dataView.buffer)).pointer
+actual val Buffer.pointer: FFIPointer get() = Deno.UnsafePointer.of(Int8Array(this.dataView.buffer, this.dataView.byteOffset, this.dataView.byteLength)).pointer
+
+actual fun arraycopy(src: FFIPointer, srcPos: Int, dst: FFIPointer, dstPos: Int, length: Int) {
+    arraycopySlow(src, srcPos, dst, dstPos, length)
+}
 
 actual fun FFIPointer.getStringz(): String {
     return getCString(this) ?: "<null>"

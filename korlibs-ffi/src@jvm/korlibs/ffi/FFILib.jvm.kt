@@ -74,6 +74,10 @@ actual inline fun <T> Buffer.usePointer(block: (pointer: FFIPointer) -> T): T =
 actual val FFIMemory.pointer: FFIPointer get() = this
 actual val Buffer.pointer: FFIPointer get() = FFIPointer(this.buffer.pointerAddress())
 
+actual fun arraycopy(src: FFIPointer, srcPos: Int, dst: FFIPointer, dstPos: Int, length: Int) {
+    arraycopySlow(src, srcPos, dst, dstPos, length)
+}
+
 @JvmName("FFIPointerCreation")
 actual fun CreateFFIPointer(ptr: Long): FFIPointer? = if (ptr == 0L) null else Pointer(ptr)
 actual val FFI_POINTER_SIZE: Int = 8

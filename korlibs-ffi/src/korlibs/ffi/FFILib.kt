@@ -27,6 +27,16 @@ expect val FFIMemory.pointer: FFIPointer
 @Deprecated("Use temporal")
 expect val Buffer.pointer: FFIPointer
 
+expect fun arraycopy(src: FFIPointer, srcPos: Int, dst: FFIPointer, dstPos: Int, length: Int)
+
+fun arraycopy(src: Buffer, srcPos: Int, dst: FFIPointer, dstPos: Int, length: Int) {
+    src.usePointer { srcPtr -> arraycopy(srcPtr, srcPos, dst, dstPos, length) }
+}
+
+fun arraycopy(src: FFIPointer, srcPos: Int, dst: Buffer, dstPos: Int, length: Int) {
+    dst.usePointer { dstPtr -> arraycopy(src, srcPos, dstPtr, dstPos, length) }
+}
+
 internal fun FFIPointer._getStringz(): String {
     val out = ByteArrayBuilder()
     for (n in 0 until 0x10000) {
@@ -146,6 +156,7 @@ data class FFIPointerArray(val data: IntArray) : List<FFIPointer?> {
     operator fun set(index: Int, value: FFIPointer?) {
         val address = value.address
         data[index * 2 + 0] = address.low
+        data[index * 2 + 1] = address.high
         data[index * 2 + 1] = address.high
     }
     override val size: Int get () = data.size / 2
@@ -310,16 +321,16 @@ operator fun FFITypedPointer<Double>.set(index: Int, value: Double) = pointer.se
 operator fun FFITypedPointer<FFIPointer?>.set(index: Int, value: FFIPointer?) = pointer.setFFIPointer(value, index * FFI_POINTER_SIZE)
 
 // @TODO: Optimize this
-fun arraycopySlow(src: Buffer, srcPos: Int, dst: FFIPointer, dstPos: Int, length: Int) {
+internal fun arraycopySlow(src: Buffer, srcPos: Int, dst: FFIPointer, dstPos: Int, length: Int) {
     for (n in 0 until length) dst.set8(src.getS8(srcPos + n), dstPos + n)
 }
 
 // @TODO: Optimize this
-fun arraycopySlow(src: FFIPointer, srcPos: Int, dst: Buffer, dstPos: Int, length: Int) {
+internal fun arraycopySlow(src: FFIPointer, srcPos: Int, dst: Buffer, dstPos: Int, length: Int) {
     for (n in 0 until length) dst.set8(dstPos + n, src.getS8(srcPos + n))
 }
 
 // @TODO: Optimize this
-fun arraycopySlow(src: FFIPointer, srcPos: Int, dst: FFIPointer, dstPos: Int, length: Int) {
+internal fun arraycopySlow(src: FFIPointer, srcPos: Int, dst: FFIPointer, dstPos: Int, length: Int) {
     for (n in 0 until length) dst.set8(src.getS8(srcPos + n), dstPos + n)
 }
