@@ -205,7 +205,7 @@ data class FFIFuncConfig(
     }
 }
 
-open class FFILib(val paths: List<String>, val lazyCreate: Boolean = true) {
+open class FFILib(val paths: List<String>, val lazyCreate: Boolean = true) : AutoCloseable {
     @OptIn(FFISyncIOAPI::class)
     val resolvedPath by lazy { LibraryResolver.resolve(*paths.toTypedArray()) }
 
@@ -259,6 +259,10 @@ open class FFILib(val paths: List<String>, val lazyCreate: Boolean = true) {
     //inline fun <reified T : Function<*>> castToFunc(ptr: FFIPointer): T = sym.castToFunc(ptr, FuncInfo(typeOf<T>(), null))
     protected fun finalize() {
         sym
+    }
+
+    override fun close() {
+        sym.close()
     }
 }
 

@@ -47,16 +47,16 @@ external object Deno {
     val env: dynamic
 
     object UnsafePointer {
-        fun create(value: JsBigInt): DenoPointer
+        fun create(value: JsBigInt): Deno_PointerObject
         fun equals(a: JsBigInt, b: JsBigInt): Boolean
-        fun of(a: ArrayBufferView): DenoPointer
-        fun offset(a: ArrayBufferView, offset: Int): DenoPointer?
-        fun value(value: DenoPointer?): dynamic
+        fun of(a: ArrayBufferView): Deno_PointerObject
+        fun offset(a: ArrayBufferView, offset: Int): Deno_PointerObject?
+        fun value(value: Deno_PointerObject?): dynamic
     }
 
     class UnsafePointerView {
-        constructor(pointer: DenoPointer)
-        val pointer: DenoPointer
+        constructor(pointer: Deno_PointerObject)
+        val pointer: Deno_PointerObject
 
         fun getInt8(offset: Int = definedExternally): Byte
         fun getInt16(offset: Int = definedExternally): Short
@@ -68,7 +68,7 @@ external object Deno {
         fun getArrayBuffer(byteLength: Int, offset: Int = definedExternally): ArrayBuffer
 
         companion object {
-            fun getCString(pointer: DenoPointer, offset: Int = definedExternally): String
+            fun getCString(pointer: Deno_PointerObject, offset: Int = definedExternally): String
         }
     }
 
@@ -147,12 +147,31 @@ external interface DenoDirEntry {
     val isSymlink: Boolean
 }
 
+external val Object: dynamic
+
+//external interface Deno_PointerValue<T>
+external interface Deno_PointerObject
+external interface Deno_PointerValue<T> : Deno_PointerObject
+
+val Deno_PointerObject.pointer get() = DenoPointer(this)
+
 //@JsName("Deno")
-external class DenoPointer
+data class DenoPointer(val rawPointer: Deno_PointerObject) {
+    companion object {
+        fun wrap(any: Deno_PointerObject): DenoPointer {
+            return DenoPointer(any)
+        }
+
+        fun isRawPointer(any: dynamic): Boolean {
+            if (any === null || any === undefined) return false
+            return Object.getPrototypeOf(any) == null
+        }
+    }
+}
 //class DenoPointer
 
-val DenoPointer.value: JsBigInt get() = Deno.UnsafePointer.value(this)
+val Deno_PointerObject.value: JsBigInt get() = Deno.UnsafePointer.value(this)
 
-fun DenoPointer.readStringz(offset: Int = 0): String {
+fun Deno_PointerObject.readStringz(offset: Int = 0): String {
     return Deno.UnsafePointerView.getCString(this, offset)
 }

@@ -5,7 +5,6 @@ import korlibs.image.bitmap.*
 import korlibs.js.*
 import korlibs.memory.*
 import korlibs.memory.Buffer
-import korlibs.platform.*
 import kotlinx.coroutines.*
 import org.khronos.webgl.*
 import kotlin.js.Promise
@@ -70,7 +69,7 @@ actual fun FFILibSym(lib: FFILib): FFILibSym {
 class FFILibSymJS(val lib: FFILib) : FFILibSym {
     val symbolsByName: Map<String, FFILib.FuncDelegate<*>> by lazy { lib.functions.associateBy { it.bname } }
 
-    val syms: dynamic by lazy {
+    val dylib: dynamic by lazy {
         lib as FFILib
         (listOfNotNull(lib.resolvedPath) + lib.paths).firstNotNullOfOrNull { path ->
             try {
@@ -80,7 +79,7 @@ class FFILibSymJS(val lib: FFILib) : FFILibSym {
                             it.bname to it.type.funcToDenoDef()
                         }.toTypedArray()
                     )
-                ).symbols
+                )
             } catch (e: Throwable) {
                 e.printStackTrace()
                 null
@@ -91,6 +90,9 @@ class FFILibSymJS(val lib: FFILib) : FFILibSym {
             }
         }
     }
+    val syms: dynamic by lazy {
+        dylib.symbols
+    }
 
     override fun <T> get(name: String, type: KType): T {
         if (syms == null) error("Can't get symbol '$name' for ${lib::class} : '${(lib as FFILib).paths}'")
@@ -99,8 +101,11 @@ class FFILibSymJS(val lib: FFILib) : FFILibSym {
         return preprocessFunc(sym.type, syms[name], name, sym.config)
     }
 
+    private var closed = false
     override fun close() {
-        super.close()
+        if (closed) return
+        dylib.close()
+        closed = true
     }
 }
 
@@ -109,6 +114,7 @@ class FFILibSymJS(val lib: FFILib) : FFILibSym {
 private fun preprocessFunc(type: KType, func: dynamic, name: String?, config: FFIFuncConfig): dynamic {
     val ftype = FFILib.extractTypeFunc(type)
     val convertToString = ftype.retClass == String::class
+    val retPointer = ftype.retClass == FFIPointer::class
     return {
         val arguments = js("(arguments)")
         val params = ftype.paramsClass
@@ -119,6 +125,7 @@ private fun preprocessFunc(type: KType, func: dynamic, name: String?, config: FF
                 v = (v.toString() + "\u0000").encodeToByteArray()
             }
             if (v is FFIPointerArray) v = v.data
+            if (v is FFIPointer) v = v.rawPointer
             if (v is Buffer) v = v.dataView
             if (v is Boolean) v = if (v) 1 else 0
             if (v is Long) v = (v as Long).toJsBigInt()
@@ -132,9 +139,10 @@ private fun preprocessFunc(type: KType, func: dynamic, name: String?, config: FF
             val res2 = when {
                 result == null -> null
                 convertToString -> {
-                    val ptr = (result.unsafeCast<DenoPointer>())
-                    getCString(ptr)
+                    val ptr = (result.unsafeCast<Deno_PointerObject>())
+                    getCString(ptr.pointer)
                 }
+                retPointer -> (result.unsafeCast<Deno_PointerObject>()).pointer
                 else -> result
             }
             if (res2 is Promise<*>) {
@@ -166,7 +174,7 @@ private fun preprocessFunc(type: KType, func: dynamic, name: String?, config: FF
 //}
 fun getCString(ptr: FFIPointer?): String? {
     if (ptr == null) return null
-    return Deno.UnsafePointerView.getCString(ptr)
+    return Deno.UnsafePointerView.getCString(ptr.rawPointer)
 }
 
 actual class FFIArena actual constructor() {
@@ -193,18 +201,18 @@ actual val FFI_SUPPORTED: Boolean = Deno.isDeno
 actual fun CreateFFIMemory(size: Int): FFIMemory = Uint8Array(size)
 actual fun CreateFFIMemory(bytes: ByteArray): FFIMemory = bytes.asDynamic()
 
-actual inline fun <T> FFIMemory.usePointer(block: (pointer: FFIPointer) -> T): T = block(Deno.UnsafePointer.of(this))
+actual inline fun <T> FFIMemory.usePointer(block: (pointer: FFIPointer) -> T): T = block(Deno.UnsafePointer.of(this).pointer)
 
-actual val FFIMemory.pointer: FFIPointer get() = Deno.UnsafePointer.of(this)
+actual val FFIMemory.pointer: FFIPointer get() = Deno.UnsafePointer.of(this).pointer
 
 actual fun FFIPointer.getStringz(): String {
     return getCString(this) ?: "<null>"
     //return this.readStringz()
 }
 actual fun FFIPointer.getWideStringz(): String {
-    if (this.value == JsBigInt(0)) return "<null>"
+    if (this.rawPointer == JsBigInt(0)) return "<null>"
 
-    val ptr = Deno.UnsafePointerView(this)
+    val ptr = Deno.UnsafePointerView(this.rawPointer)
     var strlen = 0
     while (true) {
         if (ptr.getInt16(strlen * 2).toInt() == 0) break
@@ -217,26 +225,26 @@ actual fun FFIPointer.getWideStringz(): String {
     return chars.concatToString()
 }
 actual val FFIPointer?.address: Long get() {
-    val res = Deno.UnsafePointer.value(this)
+    val res = Deno.UnsafePointer.value(this?.rawPointer)
     return if (res is Number) res.toLong() else res.unsafeCast<JsBigInt>().toLong()
 }
-actual fun CreateFFIPointer(ptr: Long): FFIPointer? = if (ptr == 0L) null else Deno.UnsafePointer.create(ptr.toJsBigInt())
-actual val FFIPointer?.str: String get() = if (this == null) "Pointer(null)" else "Pointer($value)"
+actual fun CreateFFIPointer(ptr: Long): FFIPointer? = if (ptr == 0L) null else Deno.UnsafePointer.create(ptr.toJsBigInt()).pointer
+actual val FFIPointer?.str: String get() = if (this == null) "Pointer(null)" else "Pointer($rawPointer)"
 
 fun FFIPointer.getDataView(offset: Int, size: Int): org.khronos.webgl.DataView {
-    return org.khronos.webgl.DataView(Deno.UnsafePointerView(this).getArrayBuffer(size, offset))
+    return org.khronos.webgl.DataView(Deno.UnsafePointerView(this.rawPointer).getArrayBuffer(size, offset))
 }
 
-actual fun FFIPointer.getS8(byteOffset: Int): Byte = Deno.UnsafePointerView(this).getInt8(byteOffset)
-actual fun FFIPointer.getS16(byteOffset: Int): Short = Deno.UnsafePointerView(this).getInt16(byteOffset)
-actual fun FFIPointer.getS32(byteOffset: Int): Int = Deno.UnsafePointerView(this).getInt32(byteOffset)
+actual fun FFIPointer.getS8(byteOffset: Int): Byte = Deno.UnsafePointerView(this.rawPointer).getInt8(byteOffset)
+actual fun FFIPointer.getS16(byteOffset: Int): Short = Deno.UnsafePointerView(this.rawPointer).getInt16(byteOffset)
+actual fun FFIPointer.getS32(byteOffset: Int): Int = Deno.UnsafePointerView(this.rawPointer).getInt32(byteOffset)
 actual fun FFIPointer.getS64(byteOffset: Int): Long {
     val low = getS32(byteOffset)
     val high = getS32(byteOffset + 4)
     return Long.fromLowHigh(low, high)
 }
-actual fun FFIPointer.getF32(byteOffset: Int): Float = Deno.UnsafePointerView(this).getFloat32(byteOffset)
-actual fun FFIPointer.getF64(byteOffset: Int): Double = Deno.UnsafePointerView(this).getFloat64(byteOffset)
+actual fun FFIPointer.getF32(byteOffset: Int): Float = Deno.UnsafePointerView(this.rawPointer).getFloat32(byteOffset)
+actual fun FFIPointer.getF64(byteOffset: Int): Double = Deno.UnsafePointerView(this.rawPointer).getFloat64(byteOffset)
 actual fun FFIPointer.set8(value: Byte, byteOffset: Int): Unit = getDataView(byteOffset, 1).setInt8(0, value)
 actual fun FFIPointer.set16(value: Short, byteOffset: Int): Unit = getDataView(byteOffset, 2).setInt16(0, value, true)
 actual fun FFIPointer.set32(value: Int, byteOffset: Int): Unit = getDataView(byteOffset, 4).setInt32(0, value, true)
@@ -248,7 +256,7 @@ actual fun FFIPointer.setF32(value: Float, byteOffset: Int): Unit = getDataView(
 actual fun FFIPointer.setF64(value: Double, byteOffset: Int): Unit = getDataView(byteOffset, 8).setFloat64(0, value, true)
 
 actual fun FFIPointer.getIntArray(size: Int, byteOffset: Int): IntArray {
-    val view = Deno.UnsafePointerView(this)
+    val view = Deno.UnsafePointerView(this.rawPointer)
     val out = IntArray(size)
     for (n in 0 until size) {
         out[n] = view.asDynamic().getInt32(byteOffset + n * 4)
