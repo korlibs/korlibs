@@ -1,7 +1,8 @@
 package korlibs.io.runtime
 
-import korlibs.io.*
 import korlibs.io.file.*
+import korlibs.io.file.std.*
+import korlibs.io.lang.*
 import korlibs.io.stream.*
 import korlibs.js.*
 import korlibs.platform.*
@@ -9,7 +10,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.khronos.webgl.*
 import org.w3c.dom.url.*
-import kotlin.js.*
+import kotlin.js.Promise
 
 fun def(result: dynamic, vararg params: dynamic, nonblocking: Boolean = false): dynamic =
     jsObject("parameters" to params, "result" to result, "nonblocking" to nonblocking)
@@ -75,7 +76,11 @@ fun DenoPointer.writeBytes(data: ByteArray) {
 
 external private val import: dynamic
 
-object JsRuntimeDeno : JsRuntime() {
+open class JsRuntimeDeno : JsRuntimeBrowser() {
+    companion object : JsRuntimeDeno()
+
+    override fun tempVfs(): VfsFile = localVfs(Environment.tempPath)
+
     override fun existsSync(path: String): Boolean = try {
         Deno.statSync(path)
         true
@@ -101,7 +106,7 @@ object JsRuntimeDeno : JsRuntime() {
     }
 }
 
-class DenoLocalVfs : Vfs() {
+class DenoLocalVfs : LocalVfs() {
     private fun getFullPath(path: String): String {
         return path.pathInfo.normalize()
     }
@@ -114,11 +119,17 @@ class DenoLocalVfs : Vfs() {
             "truncate" to mode.truncate,
             //"create" to !mode.createIfNotExists,
             "create" to mode.write,
-            "createNew" to mode.createIfNotExists,
+            //"createNew" to mode.createIfNotExists,
             "mode" to "666".toInt(8)
         )
-        val file = Deno.open(getFullPath(path), options).await()
-        return DenoAsyncStreamBase(file).toAsyncStream()
+        val fullPath = getFullPath(path)
+        try {
+            val file = Deno.open(fullPath, options).await()
+            return DenoAsyncStreamBase(file).toAsyncStream()
+        } catch (e: dynamic) {
+            if (e && e.code == "ENOENT") throw FileNotFoundException("Can't open file $fullPath")
+            throw e
+        }
     }
 
     override suspend fun listFlow(path: String): Flow<VfsFile> =
@@ -157,6 +168,10 @@ class DenoLocalVfs : Vfs() {
             createNonExistsStat(path)
         }
     }
+
+    override suspend fun exec(path: String, cmdAndArgs: List<String>, env: Map<String, String>, handler: VfsProcessHandler): Int {
+        TODO("Not implemented Vfs.exec on Deno just yet")
+    }
 }
 
 class DenoAsyncStreamBase(val file: DenoFsFile) : AsyncStreamBase() {
@@ -179,8 +194,11 @@ class DenoAsyncStreamBase(val file: DenoFsFile) : AsyncStreamBase() {
         return file.stat().await().size.toLong()
     }
 
+    private var closed = false
     override suspend fun close() {
+        if (closed) return
         file.close()
+        closed = true
     }
 }
 

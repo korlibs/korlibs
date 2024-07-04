@@ -24,10 +24,11 @@ class UniversalVfsTest {
 	@Test
 	fun testProperVfsIsResolved() {
 		if (fileIsLocalVfs) {
-			assertTrue("file:///path/to/my/file".uniVfs.vfs is LocalVfs)
+			val vfs = "file:///path/to/my/file".uniVfs.vfs
+			assertTrue(vfs is LocalVfs, "file:// $vfs instead of LocalVfs")
 		}
-		assertTrue("http://google.es/".uniVfs.vfs is UrlVfs)
-		assertTrue("https://google.es/".uniVfs.vfs is UrlVfs)
+		assertTrue("http://google.es/".uniVfs.vfs is UrlVfs, "http")
+		assertTrue("https://google.es/".uniVfs.vfs is UrlVfs, "https")
 	}
 
 	@Test

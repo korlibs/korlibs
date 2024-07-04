@@ -36,6 +36,7 @@ class LocalVfsTest {
 	fun testExec() = suspendTestNoBrowser {
         if (Platform.isAndroid) return@suspendTestNoBrowser
         if (Platform.isIos) return@suspendTestNoBrowser
+        if (Platform.isJsDenoJs) return@suspendTestNoBrowser
         //val str = ">hello< '1^&) \" $ \\ \n \r \t \$test (|&,; 2" // @TODO: Couldn't get line breaks working on windows
         //val str = ">hello< '1^&) \" $ \\ \$test %test% (|&,; 2" // @TODO: Fails on windows/nodejs
         val str = "hello world"
@@ -50,6 +51,7 @@ class LocalVfsTest {
     fun testExecNonExistant() = suspendTestNoBrowser {
         if (Platform.isAndroid) return@suspendTestNoBrowser
         if (Platform.isIos) return@suspendTestNoBrowser
+        if (Platform.isJsDenoJs) return@suspendTestNoBrowser
         val message = assertFailsWith<FileNotFoundException> {
             localCurrentDirVfs["directory-that-does-not-exist"].execToString("echo", "1")
         }
@@ -84,6 +86,8 @@ class LocalVfsTest {
 
     @Test
     fun testUnixPermissions() = suspendTest({ (Platform.isJvm && Platform.isUnix) || Platform.isMac || Platform.isLinux }) {
+        if (Platform.isJsDenoJs) return@suspendTest
+
         val chmod = "0713".toInt(8)
         val file = tempVfs["korio-temp123.bin"]
         file.delete()

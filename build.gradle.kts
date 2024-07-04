@@ -3,6 +3,7 @@ import com.google.gson.JsonParser
 import groovy.json.*
 import groovy.namespace.*
 import groovy.util.*
+import org.gradle.api.internal.tasks.testing.*
 import org.gradle.api.tasks.testing.logging.*
 import org.gradle.jvm.tasks.Jar
 import org.gradle.plugins.signing.signatory.internal.pgp.*
@@ -93,6 +94,160 @@ fun Project.doOnce(uniqueName: String, block: () -> Unit) {
         block()
     }
 }
+
+//open class DenoTestTask : DefaultTask() {
+open class DenoTestTask : AbstractTestTask() {
+//open class DenoTestTask : KotlinTest() {
+
+    //var isDryRun by org.jetbrains.kotlin.gradle.utils.property { false }
+
+    init {
+        this.group = "verification"
+        this.dependsOn("compileTestDevelopmentExecutableKotlinJs")
+    }
+
+    //@Option(option = "tests", description = "Specify tests to execute as a filter")
+    //@Input
+    //var tests: String = ""
+
+    init {
+        this.reports {
+            this.junitXml.outputLocation = project.file("build/test-results/jsDenoTest/")
+            this.html.outputLocation = project.file("build/reports/tests/jsDenoTest/")
+        }
+        binaryResultsDirectory.set(project.file("build/test-results/jsDenoTest/binary"))
+        //reports.enabledReports["junitXml"]!!.optional
+        //reports.junitXml.outputLocation.opt
+        //reports.enabledReports.clear()
+        //reports.junitXml.outputLocation.set(project.file("build/deno-test-results"))
+    }
+
+    override fun createTestExecuter(): TestExecuter<out TestExecutionSpec> {
+        return DenoTestExecuter(this.project, this.filter)
+    }
+    //override fun createTestExecuter(): TestExecuter<out TestExecutionSpec> = TODO()
+    override fun createTestExecutionSpec(): TestExecutionSpec = DenoTestExecutionSpec()
+
+    init {
+        outputs.upToDateWhen { false }
+    }
+
+    class DenoTestExecuter(val project: Project, val filter: TestFilter) : TestExecuter<DenoTestExecutionSpec> {
+        private fun Project.fullPathName(): String {
+            //KotlinTest
+            if (this.parent == null) return this.name
+            return this.parent!!.fullPathName() + ":" + this.name
+        }
+
+        override fun execute(testExecutionSpec: DenoTestExecutionSpec, testResultProcessor: TestResultProcessor) {
+            val baseTestFileNameBase = this.project.fullPathName().trim(':').replace(':', '-') + "-test"
+            val baseTestFileName = "$baseTestFileNameBase.mjs"
+            val runFile = File(this.project.rootProject.rootDir, "build/js/packages/$baseTestFileNameBase/kotlin/$baseTestFileName.deno.mjs")
+
+            runFile.parentFile.mkdirs()
+            runFile.writeText(
+                //language=js
+                """
+                    var describeStack = []
+                    globalThis.describe = (name, callback) => { describeStack.push(name); try { callback() } finally { describeStack.pop() } }
+                    globalThis.it = (name, callback) => { return Deno.test({ name: describeStack.join(".") + "." + name, fn: callback}) }
+                    globalThis.xit = (name, callback) => { return Deno.test({ name: describeStack.join(".") + "." + name, ignore: true, fn: callback}) }
+                    function exists(path) { try { Deno.statSync(path); return true } catch (e) { return false } }
+                    // Polyfill required for kotlinx-coroutines that detects window 
+                    window.postMessage = (message, targetOrigin) => { const ev = new Event('message'); ev.source = window; ev.data = message; window.dispatchEvent(ev); }
+                    const file = './${baseTestFileName}';
+                    if (exists(file)) await import(file)
+                """.trimIndent())
+
+            //testResultProcessor.started()
+            val process = ProcessBuilder(buildList<String> {
+                add("deno")
+                add("test")
+                add("--unstable-ffi")
+                add("--unstable-webgpu")
+                add("-A")
+                if (filter.includePatterns.isEmpty()) {
+                    add("--filter=${filter.includePatterns.joinToString(",")}")
+                }
+                add("--junit-path=${project.file("build/test-results/jsDenoTest/junit.xml").absolutePath}")
+                add(runFile.absolutePath)
+            }).directory(runFile.parentFile)
+                .start()
+            var id = 0
+            val buffered = process.inputStream.bufferedReader()
+            var capturingOutput = false
+            var currentTestId: String? = null
+            var currentTestExtra: String = "ok"
+
+            fun flush() {
+                if (currentTestId != null) {
+                    try {
+                        val type = when {
+                            currentTestExtra.contains("skip", ignoreCase = true) || currentTestExtra.contains("ignored", ignoreCase = true) -> TestResult.ResultType.SKIPPED
+                            currentTestExtra.contains("error", ignoreCase = true) || currentTestExtra.contains("failed", ignoreCase = true) -> TestResult.ResultType.FAILURE
+                            currentTestExtra.contains("ok", ignoreCase = true) -> TestResult.ResultType.SUCCESS
+                            else -> TestResult.ResultType.SUCCESS
+                        }
+                        testResultProcessor.completed(currentTestId, TestCompleteEvent(System.currentTimeMillis(), type))
+                        if (type == TestResult.ResultType.FAILURE) {
+                            testResultProcessor.output(currentTestId, DefaultTestOutputEvent(TestOutputEvent.Destination.StdErr, "FAILED\n"))
+                            testResultProcessor.failure(currentTestId, DefaultTestFailure.fromTestFrameworkFailure(Exception("FAILED"), null))
+                        }
+                    } catch (e: Throwable) {
+                        //System.err.println("COMPLETED_ERROR: ${e}")
+                        e.printStackTrace()
+                    }
+                    currentTestId = null
+                }
+            }
+
+            testResultProcessor.started(DefaultTestSuiteDescriptor("deno", "deno"), TestStartEvent(System.currentTimeMillis()))
+
+            for (line in buffered.lines()) {
+                println("::: $line")
+                when {
+                    line == "------- output -------" -> {
+                        capturingOutput = true
+                    }
+                    line == "----- output end -----" -> {
+                        capturingOutput = false
+                    }
+                    capturingOutput -> {
+                        testResultProcessor.output(currentTestId, DefaultTestOutputEvent(TestOutputEvent.Destination.StdOut, "$line\n"))
+                    }
+                    line.contains("...") -> {
+                        //DefaultNestedTestSuiteDescriptor()
+                        flush()
+                        val (name, extra) = line.split("...").map { it.trim() }
+                        //currentTestId = "$name${id++}"
+                        currentTestId = "deno.myid${id++}"
+                        //val demo = CompositeId("Unit", "Name${id++}")
+                        //val descriptor = DefaultTestMethodDescriptor(currentTestId, name.substringBeforeLast('.'), name.substringAfterLast('.'))
+
+                        val descriptor = DefaultTestMethodDescriptor(currentTestId, name.substringBeforeLast('.'), name)
+                        currentTestExtra = extra
+                        testResultProcessor.started(
+                            descriptor,
+                            TestStartEvent(System.currentTimeMillis())
+                        )
+                    }
+                }
+            }
+            flush()
+
+            testResultProcessor.completed("deno", TestCompleteEvent(System.currentTimeMillis(), TestResult.ResultType.SUCCESS))
+
+            process.waitFor()
+            System.err.print(process.errorStream.readBytes().decodeToString())
+        }
+
+        override fun stopNow() {
+        }
+    }
+
+    class DenoTestExecutionSpec : TestExecutionSpec
+}
+
 
 class SonatypeProps(val project: Project) {
     // Signing
@@ -203,39 +358,7 @@ subprojects {
         //println(this.findByName("compileTestKotlinJs")!!.dependsOn?.toList())
         //println(this.findByName("compileTestKotlinJs")?.outputs?.files?.toList())
 
-        val jsDenoTest by creating(Exec::class) {
-            fun fullPathName(project: Project): String {
-                if (project.parent == null) return project.name
-                return fullPathName(project.parent!!) + ":" + project.name
-            }
-            val baseTestFileName = fullPathName(project).trim(':').replace(':', '-') + "-test.mjs"
-
-            val runFile = file("build/compileSync/js/test/testDevelopmentExecutable/kotlin/$baseTestFileName.deno.mjs")
-
-            // compileTestDevelopmentExecutableKotlinJs
-            dependsOn("compileTestDevelopmentExecutableKotlinJs")
-            //commandLine("deno", "test", "--unstable-ffi", "-A", "src/test/kotlin")
-
-            //rootProject.
-            commandLine("deno", "test", "--unstable-ffi", "-A", runFile)
-            workingDir(runFile.parentFile)
-
-            doFirst {
-                runFile.parentFile.mkdirs()
-                runFile.writeText(
-                    //language=js
-                    """
-                    var describeStack = []
-                    globalThis.describe = (name, callback) => { describeStack.push(name); try { callback() } finally { describeStack.pop() } }
-                    globalThis.it = (name, callback) => { return Deno.test({ name: describeStack.join(".") + "." + name, fn: callback}) }
-                    globalThis.xit = (name, callback) => { return Deno.test({ name: describeStack.join(".") + "." + name, ignore: true, fn: callback}) }
-                    function exists(path) { try { Deno.statSync(path); return true } catch (e) { return false } }
-                    // Polyfill required for kotlinx-coroutines that detects window 
-                    window.postMessage = (message, targetOrigin) => { const ev = new Event('message'); ev.source = window; ev.data = message; window.dispatchEvent(ev); }
-                    const file = './$baseTestFileName';
-                    if (exists(file)) await import(file)
-                """.trimIndent())
-            }
+        val jsDenoTest by creating(DenoTestTask::class) {
         }
     }
 

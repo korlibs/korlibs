@@ -15,7 +15,6 @@ class Xml2Test {
 		assertEquals("hello", xml.text)
 	}
 
-
 	@Test
 	fun testNamedDescendantStream() {
 		val xml = Xml.Stream.parse("<xml><a><b/><b/></a><c><b/><b/></c></xml>".toByteArray(UTF8).toCharReader(UTF8))
