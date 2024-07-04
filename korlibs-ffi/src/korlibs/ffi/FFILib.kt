@@ -20,9 +20,12 @@ expect fun CreateFFIMemory(size: Int): FFIMemory
 expect fun CreateFFIMemory(bytes: ByteArray): FFIMemory
 
 expect inline fun <T> FFIMemory.usePointer(block: (pointer: FFIPointer) -> T): T
+expect inline fun <T> Buffer.usePointer(block: (pointer: FFIPointer) -> T): T
 
 @Deprecated("Use temporal")
 expect val FFIMemory.pointer: FFIPointer
+@Deprecated("Use temporal")
+expect val Buffer.pointer: FFIPointer
 
 internal fun FFIPointer._getStringz(): String {
     val out = ByteArrayBuilder()

@@ -203,7 +203,11 @@ actual fun CreateFFIMemory(bytes: ByteArray): FFIMemory = bytes.asDynamic()
 
 actual inline fun <T> FFIMemory.usePointer(block: (pointer: FFIPointer) -> T): T = block(Deno.UnsafePointer.of(this).pointer)
 
+actual inline fun <T> Buffer.usePointer(block: (pointer: FFIPointer) -> T): T =
+    block(this.pointer)
+
 actual val FFIMemory.pointer: FFIPointer get() = Deno.UnsafePointer.of(this).pointer
+actual val Buffer.pointer: FFIPointer get() = Deno.UnsafePointer.of(Int8Array(this.dataView.buffer)).pointer
 
 actual fun FFIPointer.getStringz(): String {
     return getCString(this) ?: "<null>"

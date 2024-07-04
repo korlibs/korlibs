@@ -28,8 +28,10 @@ actual fun CreateFFIMemory(size: Int): FFIMemory = ByteArray(size)
 actual fun CreateFFIMemory(bytes: ByteArray): FFIMemory = bytes
 
 actual inline fun <T> FFIMemory.usePointer(block: (pointer: FFIPointer) -> T): T = this@usePointer.usePinned { block(FFIPointer(it.startAddressOf.rawValue)) }
+actual inline fun <T> Buffer.usePointer(block: (pointer: FFIPointer) -> T): T = this@usePointer.data.usePinned { block(FFIPointer(it.addressOf(this@usePointer.size).rawValue)) }
 
 actual val FFIMemory.pointer: FFIPointer get() = TODO()
+actual val Buffer.pointer: FFIPointer get() = TODO()
 
 actual fun CreateFFIPointer(ptr: Long): FFIPointer? = ptr.toCPointer<ByteVar>().rawValue.let { FFIPointer(it) }
 

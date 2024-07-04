@@ -1,5 +1,6 @@
 package korlibs.ffi
 
+import korlibs.memory.*
 import kotlin.reflect.*
 
 actual fun FFILibSym(lib: FFILib): FFILibSym {
@@ -21,8 +22,10 @@ actual fun CreateFFIMemory(size: Int): FFIMemory = TODO()
 actual fun CreateFFIMemory(bytes: ByteArray): FFIMemory = TODO()
 
 actual inline fun <T> FFIMemory.usePointer(block: (pointer: FFIPointer) -> T): T = TODO()
+actual inline fun <T> Buffer.usePointer(block: (pointer: FFIPointer) -> T): T = block(this.pointer)
 
 actual val FFIMemory.pointer: FFIPointer get() = TODO()
+actual val Buffer.pointer: FFIPointer get() = TODO()
 
 actual fun CreateFFIPointer(ptr: Long): FFIPointer? = TODO()
 
