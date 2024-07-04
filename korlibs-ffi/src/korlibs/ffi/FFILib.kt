@@ -305,3 +305,18 @@ operator fun FFITypedPointer<Long>.set(index: Int, value: Long) = pointer.set64(
 operator fun FFITypedPointer<Float>.set(index: Int, value: Float) = pointer.setF32(value, index * 4)
 operator fun FFITypedPointer<Double>.set(index: Int, value: Double) = pointer.setF64(value, index * 8)
 operator fun FFITypedPointer<FFIPointer?>.set(index: Int, value: FFIPointer?) = pointer.setFFIPointer(value, index * FFI_POINTER_SIZE)
+
+// @TODO: Optimize this
+fun arraycopySlow(src: Buffer, srcPos: Int, dst: FFIPointer, dstPos: Int, length: Int) {
+    for (n in 0 until length) dst.set8(src.getS8(srcPos + n), dstPos + n)
+}
+
+// @TODO: Optimize this
+fun arraycopySlow(src: FFIPointer, srcPos: Int, dst: Buffer, dstPos: Int, length: Int) {
+    for (n in 0 until length) dst.set8(dstPos + n, src.getS8(srcPos + n))
+}
+
+// @TODO: Optimize this
+fun arraycopySlow(src: FFIPointer, srcPos: Int, dst: FFIPointer, dstPos: Int, length: Int) {
+    for (n in 0 until length) dst.set8(src.getS8(srcPos + n), dstPos + n)
+}
