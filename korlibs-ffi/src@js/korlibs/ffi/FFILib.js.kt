@@ -196,7 +196,7 @@ actual val FFI_POINTER_SIZE: Int = 8
 
 actual typealias FFIMemory = Uint8Array
 
-actual val FFI_SUPPORTED: Boolean = Deno.isDeno
+actual val FFI_SUPPORTED: Boolean = Deno_isDeno
 
 actual fun CreateFFIMemory(size: Int): FFIMemory = Uint8Array(size)
 actual fun CreateFFIMemory(bytes: ByteArray): FFIMemory = bytes.asDynamic()

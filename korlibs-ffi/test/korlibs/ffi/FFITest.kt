@@ -21,7 +21,7 @@ class LIBC : FFILib(
     when {
         Platform.isWindows -> "msvcrt.dll"
         Platform.isMac -> "libSystem.dylib"
-        else -> "libc.so.6"
+        else -> "libc"
     }
 ) {
     val cosf by func<(Float) -> Float>()

@@ -3,7 +3,7 @@ package korlibs.js
 import org.khronos.webgl.*
 import kotlin.js.*
 
-val Deno.isDeno: Boolean get() = js("('Deno' in window)").unsafeCast<Boolean>()
+val Deno_isDeno: Boolean get() = js("('Deno' in window)").unsafeCast<Boolean>()
 
 external object Deno {
     // Sync
