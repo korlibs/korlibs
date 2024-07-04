@@ -91,7 +91,7 @@ class FFILibSymJS(val lib: FFILib) : FFILibSym {
         }
     }
     val syms: dynamic by lazy {
-        dylib.symbols
+        dylib?.symbols
     }
 
     override fun <T> get(name: String, type: KType): T {
