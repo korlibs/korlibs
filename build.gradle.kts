@@ -201,6 +201,8 @@ open class DenoTestTask : AbstractTestTask() {
                 }
             }
 
+            testResultProcessor.started(DefaultTestSuiteDescriptor("deno", "deno"), TestStartEvent(System.currentTimeMillis()))
+
             for (line in buffered.lines()) {
                 println("::: $line")
                 when {
@@ -214,12 +216,14 @@ open class DenoTestTask : AbstractTestTask() {
                         testResultProcessor.output(currentTestId, DefaultTestOutputEvent(TestOutputEvent.Destination.StdOut, "$line\n"))
                     }
                     line.contains("...") -> {
+                        //DefaultNestedTestSuiteDescriptor()
                         flush()
                         val (name, extra) = line.split("...").map { it.trim() }
                         //currentTestId = "$name${id++}"
-                        currentTestId = "myid${id++}"
+                        currentTestId = "deno.myid${id++}"
                         //val demo = CompositeId("Unit", "Name${id++}")
                         //val descriptor = DefaultTestMethodDescriptor(currentTestId, name.substringBeforeLast('.'), name.substringAfterLast('.'))
+
                         val descriptor = DefaultTestMethodDescriptor(currentTestId, name.substringBeforeLast('.'), name)
                         currentTestExtra = extra
                         testResultProcessor.started(
@@ -230,6 +234,9 @@ open class DenoTestTask : AbstractTestTask() {
                 }
             }
             flush()
+
+            testResultProcessor.completed("deno", TestCompleteEvent(System.currentTimeMillis(), TestResult.ResultType.SUCCESS))
+
             process.waitFor()
             System.err.print(process.errorStream.readBytes().decodeToString())
         }
