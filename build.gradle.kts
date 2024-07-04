@@ -233,7 +233,7 @@ subprojects {
                     // Polyfill required for kotlinx-coroutines that detects window 
                     window.postMessage = (message, targetOrigin) => { const ev = new Event('message'); ev.source = window; ev.data = message; window.dispatchEvent(ev); }
                     const file = './$baseTestFileName';
-                    if (exists(file)) import(file)
+                    if (exists(file)) await import(file)
                 """.trimIndent())
             }
         }
