@@ -112,10 +112,10 @@ open class DenoTestTask : AbstractTestTask() {
 
     init {
         this.reports {
-            this.junitXml.outputLocation = project.file("build/deno-test-results/junit")
-            this.html.outputLocation = project.file("build/deno-test-results/html")
+            this.junitXml.outputLocation = project.file("build/test-results/jsDenoTest/")
+            this.html.outputLocation = project.file("build/reports/tests/jsDenoTest/")
         }
-        binaryResultsDirectory.set(project.file("build/deno-test-results/binary"))
+        binaryResultsDirectory.set(project.file("build/test-results/jsDenoTest/binary"))
         //reports.enabledReports["junitXml"]!!.optional
         //reports.junitXml.outputLocation.opt
         //reports.enabledReports.clear()
@@ -127,6 +127,10 @@ open class DenoTestTask : AbstractTestTask() {
     }
     //override fun createTestExecuter(): TestExecuter<out TestExecutionSpec> = TODO()
     override fun createTestExecutionSpec(): TestExecutionSpec = DenoTestExecutionSpec()
+
+    init {
+        outputs.upToDateWhen { false }
+    }
 
     class DenoTestExecuter(val project: Project, val filter: TestFilter) : TestExecuter<DenoTestExecutionSpec> {
         private fun Project.fullPathName(): String {
@@ -156,20 +160,78 @@ open class DenoTestTask : AbstractTestTask() {
                 """.trimIndent())
 
             //testResultProcessor.started()
-            project.exec {
-                commandLine(*buildList<String> {
-                    add("deno")
-                    add("test")
-                    add("--unstable-ffi")
-                    add("--unstable-webgpu")
-                    add("-A")
-                    if (filter.includePatterns.isEmpty()) {
-                        add("--filter=${filter.includePatterns.joinToString(",")}")
+            val process = ProcessBuilder(buildList<String> {
+                add("deno")
+                add("test")
+                add("--unstable-ffi")
+                add("--unstable-webgpu")
+                add("-A")
+                if (filter.includePatterns.isEmpty()) {
+                    add("--filter=${filter.includePatterns.joinToString(",")}")
+                }
+                add("--junit-path=${project.file("build/test-results/jsDenoTest/junit.xml").absolutePath}")
+                add(runFile.absolutePath)
+            }).directory(runFile.parentFile)
+                .start()
+            var id = 0
+            val buffered = process.inputStream.bufferedReader()
+            var capturingOutput = false
+            var currentTestId: String? = null
+            var currentTestExtra: String = "ok"
+
+            fun flush() {
+                if (currentTestId != null) {
+                    try {
+                        val type = when {
+                            currentTestExtra.contains("skip", ignoreCase = true) || currentTestExtra.contains("ignored", ignoreCase = true) -> TestResult.ResultType.SKIPPED
+                            currentTestExtra.contains("error", ignoreCase = true) || currentTestExtra.contains("failed", ignoreCase = true) -> TestResult.ResultType.FAILURE
+                            currentTestExtra.contains("ok", ignoreCase = true) -> TestResult.ResultType.SUCCESS
+                            else -> TestResult.ResultType.SUCCESS
+                        }
+                        testResultProcessor.completed(currentTestId, TestCompleteEvent(System.currentTimeMillis(), type))
+                        if (type == TestResult.ResultType.FAILURE) {
+                            testResultProcessor.output(currentTestId, DefaultTestOutputEvent(TestOutputEvent.Destination.StdErr, "FAILED\n"))
+                            testResultProcessor.failure(currentTestId, DefaultTestFailure.fromTestFrameworkFailure(Exception("FAILED"), null))
+                        }
+                    } catch (e: Throwable) {
+                        //System.err.println("COMPLETED_ERROR: ${e}")
+                        e.printStackTrace()
                     }
-                    add(runFile.absolutePath)
-                }.toTypedArray())
-                workingDir(runFile.parentFile.absolutePath)
+                    currentTestId = null
+                }
             }
+
+            for (line in buffered.lines()) {
+                println("::: $line")
+                when {
+                    line == "------- output -------" -> {
+                        capturingOutput = true
+                    }
+                    line == "----- output end -----" -> {
+                        capturingOutput = false
+                    }
+                    capturingOutput -> {
+                        testResultProcessor.output(currentTestId, DefaultTestOutputEvent(TestOutputEvent.Destination.StdOut, "$line\n"))
+                    }
+                    line.contains("...") -> {
+                        flush()
+                        val (name, extra) = line.split("...").map { it.trim() }
+                        //currentTestId = "$name${id++}"
+                        currentTestId = "myid${id++}"
+                        //val demo = CompositeId("Unit", "Name${id++}")
+                        //val descriptor = DefaultTestMethodDescriptor(currentTestId, name.substringBeforeLast('.'), name.substringAfterLast('.'))
+                        val descriptor = DefaultTestMethodDescriptor(currentTestId, name.substringBeforeLast('.'), name)
+                        currentTestExtra = extra
+                        testResultProcessor.started(
+                            descriptor,
+                            TestStartEvent(System.currentTimeMillis())
+                        )
+                    }
+                }
+            }
+            flush()
+            process.waitFor()
+            System.err.print(process.errorStream.readBytes().decodeToString())
         }
 
         override fun stopNow() {
