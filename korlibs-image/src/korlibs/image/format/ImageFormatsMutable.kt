@@ -9,16 +9,19 @@ class ImageFormatsMutable() : ImageFormats() {
         register(*formats)
     }
 
-    fun register(vararg formats: ImageFormat) {
+    fun register(vararg formats: ImageFormat): ImageFormatsMutable {
         lock { this._formats = this._formats + formats - this }
+        return this
     }
 
-    fun registerFirst(vararg formats: ImageFormat) {
+    fun registerFirst(vararg formats: ImageFormat): ImageFormatsMutable {
         lock { this._formats = (formats.toSet() + this._formats) - this }
+        return this
     }
 
-    fun unregister(vararg formats: ImageFormat) {
+    fun unregister(vararg formats: ImageFormat): ImageFormatsMutable {
         lock { this._formats = this._formats - formats.toSet() }
+        return this
     }
 
     // @TODO: This is not thread-safe, if we call this from two different threads at once strange things might happen

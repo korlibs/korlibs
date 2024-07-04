@@ -13,7 +13,9 @@ import org.w3c.xhr.*
 
 private external val navigator: dynamic // browser
 
-object JsRuntimeBrowser : JsRuntime() {
+open class JsRuntimeBrowser : JsRuntime() {
+    companion object : JsRuntimeBrowser()
+
     val jsNavigator get() = navigator
 
     override val rawOsName: String = navigator.platform.unsafeCast<String>()
