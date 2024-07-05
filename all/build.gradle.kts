@@ -3,19 +3,16 @@ import com.google.gson.JsonParser
 import groovy.json.*
 import groovy.namespace.*
 import groovy.util.*
-import org.gradle.api.internal.file.archive.*
 import org.gradle.jvm.tasks.Jar
 import org.gradle.plugins.signing.signatory.internal.pgp.*
 import org.jetbrains.kotlin.gradle.dsl.*
 import org.jetbrains.kotlin.gradle.plugin.*
 import org.jetbrains.kotlin.gradle.plugin.mpp.*
-import org.jetbrains.kotlin.gradle.tasks.*
-import java.io.*
+import java.io.FileOutputStream
 import java.net.*
 import java.util.*
 import java.util.concurrent.*
 import java.util.jar.*
-import kotlin.collections.LinkedHashMap
 
 plugins {
     //kotlin("multiplatform") version "2.0.20-Beta1"
@@ -25,8 +22,8 @@ plugins {
     signing
 }
 
-val ONLY_KORGE = true
-//val ONLY_KORGE = false
+//val ONLY_KORGE = true
+val ONLY_KORGE = false
 
 var REAL_VERSION = System.getenv("FORCED_VERSION")
     ?.replaceFirst(Regex("^refs/tags/"), "")
@@ -71,7 +68,7 @@ allprojects {
         //    }
         //}
         compileSdk = 33
-        namespace = "com.soywiz.${project.name.replace("-", ".")}"
+        namespace = "com.soywiz.korlibs.all"
         defaultConfig {
             minSdk = 20
         }
@@ -86,10 +83,13 @@ allprojects {
         //        signingConfig signingConfigs.release
         //    }
         //buildTypes {
-        //    release {
-        //        […]
-        //    }
+        //    release { }
+        //    debug { }
         //}
+        buildFeatures {
+            namespace = "korlibs.korlibs_platform"
+            buildConfig = true
+        }
     }
 }
 
@@ -166,16 +166,30 @@ fun NamedDomainObjectContainer<KotlinSourceSet>.ssDependsOn(base: String, other:
 }
 
 val kotlinPlatforms = buildList {
-    add("jvm")
-    add("js")
+    // LEVEL 1: only wasm
     add("wasm")
-    add("android")
-    add("iosArm64")
-    add("iosSimulatorArm64")
-    add("iosX64")
-    add("tvosArm64")
-    add("tvosX64")
-    add("tvosSimulatorArm64")
+    // LEVEL 2: only wasm+jvm
+    if (!ONLY_KORGE) {
+        add("jvm")
+    }
+    // LEVEL 3: only wasm+jvm+js
+    if (!ONLY_KORGE) {
+        add("js")
+    }
+    // LEVEL 4: only wasm+jvm+js+android+ios
+    if (!ONLY_KORGE) {
+        add("android")
+        add("iosArm64")
+        add("iosSimulatorArm64")
+        add("iosX64")
+    }
+    // LEVEL 5: only wasm+jvm+js+android+ios+tvos
+    if (!ONLY_KORGE) {
+        add("tvosArm64")
+        add("tvosX64")
+        add("tvosSimulatorArm64")
+    }
+    // LEVEL 6: ALL: wasm+jvm+js+android+ios+tvos+watchos+desktopK/N
     if (!ONLY_KORGE) {
         add("watchosArm64")
         add("watchosArm32")
@@ -252,7 +266,10 @@ project.kotlin.sourceSets {
                     ssDependsOn("wasmJs", "wasm")
                 }
             }
-            "android" -> kotlin.androidTarget {}
+            "android" -> kotlin.androidTarget {
+                this.compilerOptions.jvmTarget.set(JVM_TARGET)
+                publishAllLibraryVariants()
+            }
             "linuxX64" -> kotlin.linuxX64()
             "linuxArm64" -> kotlin.linuxArm64()
             "tvosArm64" -> kotlin.tvosArm64()
@@ -388,10 +405,11 @@ tasks {
                 if (file.isDirectory) {
                     uncomp.mkdirs()
                 } else {
-                    if (file.name.endsWith(".klib") || file.name.endsWith(".jar")) {
-                        recompressJarWithoutCompression(file, uncomp)
-                    } else {
-                        file.copyTo(uncomp, overwrite = true)
+                    when {
+                        file.name.endsWith(".asc") -> Unit
+                        file.name.endsWith(".klib") || file.name.endsWith(".jar") -> recompressJarWithoutCompression(file, uncomp)
+                        //file.name.endsWith(".aar") -> recompressJarWithoutCompression(file, uncomp)
+                        else -> file.copyTo(uncomp, overwrite = true)
                     }
                 }
                 println("file=$relative")

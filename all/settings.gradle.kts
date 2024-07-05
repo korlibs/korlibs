@@ -10,3 +10,18 @@ pluginManagement {
         //maven("https://packages.jetbrains.team/maven/p/ij/intellij-dependencies")
     }
 }
+
+File(rootDir, "local.properties").also { localProperties ->
+    if (localProperties.exists()) return@also
+
+    fun detectAndroidHome(): File? = listOf(
+        System.getenv("ANDROID_HOME")?.let { File(it) },
+        File(System.getProperty("user.home"), "/Library/Android/sdk"),
+        File(System.getProperty("user.home"), "/Android/Sdk"),
+        File(System.getProperty("user.home"), "/AppData/Local/Android/Sdk"),
+    ).firstNotNullOfOrNull { it?.takeIf { it.isDirectory } }
+
+    detectAndroidHome()?.let {
+        localProperties.writeText("sdk.dir=${it.absolutePath.replace("\\", "\\\\").replace(":", "\\:")}")
+    }
+}
