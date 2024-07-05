@@ -1,6 +1,6 @@
 package korlibs.image.core
 
-sealed interface CoreImage {
+interface CoreImage {
     /** [width] of the image */
     val width: Int
     /** [height] of the image */
@@ -9,6 +9,8 @@ sealed interface CoreImage {
     val native: Any
     /** Bits per pixel */
     val bpp: Int
+    /** Determine if the pixels are premultiplied by its alpha */
+    val premultiplied: Boolean
     /** Returns a [CoreImage32] image */
     fun to32(): CoreImage32
 
@@ -20,6 +22,7 @@ class CoreImage32(
     override val width: Int,
     override val height: Int,
     val data: IntArray,
+    override val premultiplied: Boolean = true
 ) : CoreImage {
     override val native get() = data
     override val bpp: Int = 32

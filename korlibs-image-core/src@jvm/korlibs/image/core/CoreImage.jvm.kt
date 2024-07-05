@@ -43,6 +43,7 @@ class AwtCoreImage(
     override val width: Int get() = native.width
     override val height: Int get() = native.height
     override val bpp: Int get() = 32
+    override val premultiplied: Boolean get() = native.type == BufferedImage.TYPE_INT_ARGB_PRE || native.type == BufferedImage.TYPE_4BYTE_ABGR_PRE
 
     override fun to32(): CoreImage32 {
         check((native.type == BufferedImage.TYPE_INT_ARGB_PRE) || (native.type == BufferedImage.TYPE_INT_ARGB))
