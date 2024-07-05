@@ -33,7 +33,8 @@ data class CoreImageInfo(
     val width: Int,
     val height: Int,
     val bpp: Int,
-    val format: CoreImageFormat?
+    val format: CoreImageFormat?,
+    val premultiplied: Boolean = true,
 )
 
 inline class CoreImageFormat(val name: String) {
@@ -70,10 +71,8 @@ var CoreImageFormatProvider_current: CoreImageFormatProvider
     get() = _CoreImageFormatProvider_current ?: CoreImageFormatProvider_default
     set(value) { _CoreImageFormatProvider_current = value }
 
-suspend fun CoreImage.Companion.decodeBytes(data: ByteArray): CoreImage {
-    return CoreImageFormatProvider_current.decode(data)
-}
+suspend fun CoreImage.Companion.decodeBytes(data: ByteArray): CoreImage =
+    CoreImageFormatProvider_current.decode(data)
 
-suspend fun CoreImage.encodeBytes(format: CoreImageFormat, level: Float = 1f): ByteArray {
-    return CoreImageFormatProvider_current.encode(this, format, level)
-}
+suspend fun CoreImage.encodeBytes(format: CoreImageFormat, level: Float = 1f): ByteArray =
+    CoreImageFormatProvider_current.encode(this, format, level)
