@@ -740,63 +740,6 @@ open class Sonatype(
             "data" to mapOf("description" to "Explicitly created by easy-kotlin-mpp-gradle-plugin")
         ))["data"]["stagedRepositoryId"].asString
     }
-
-    // Example:
-    // https://oss.sonatype.org/service/local/repositories/comsoywiz-1229/content/korlibs/easy-kotlin-mpp-gradle-plugin/
-    /*
-    <content>
-      <data>
-        <content-item>
-          <resourceURI>https://oss.sonatype.org/service/local/repositories/comsoywiz-1229/content/korlibs/easy-kotlin-mpp-gradle-plugin/maven-metadata.xml.sha512</resourceURI>
-          <relativePath>/korlibs/easy-kotlin-mpp-gradle-plugin/maven-metadata.xml.sha512</relativePath>
-          <text>maven-metadata.xml.sha512</text>
-          <leaf>true</leaf>
-          <lastModified>2021-03-11 00:17:49.0 UTC</lastModified>
-          <sizeOnDisk>128</sizeOnDisk>
-        </content-item>
-        <content-item>
-          <resourceURI>https://oss.sonatype.org/service/local/repositories/comsoywiz-1229/content/korlibs/easy-kotlin-mpp-gradle-plugin/0.13.999/</resourceURI>
-          <relativePath>/korlibs/easy-kotlin-mpp-gradle-plugin/0.13.999/</relativePath>
-          <text>0.13.999</text>
-          <leaf>false</leaf>
-          <lastModified>2021-03-11 00:17:48.0 UTC</lastModified>
-          <sizeOnDisk>-1</sizeOnDisk>
-        </content-item>
-        <content-item>
-          <resourceURI>https://oss.sonatype.org/service/local/repositories/comsoywiz-1229/content/korlibs/easy-kotlin-mpp-gradle-plugin/maven-metadata.xml</resourceURI>
-          <relativePath>/korlibs/easy-kotlin-mpp-gradle-plugin/maven-metadata.xml</relativePath>
-          <text>maven-metadata.xml</text>
-          <leaf>true</leaf>
-          <lastModified>2021-03-11 00:17:48.0 UTC</lastModified>
-          <sizeOnDisk>376</sizeOnDisk>
-        </content-item>
-        <content-item>
-          <resourceURI>https://oss.sonatype.org/service/local/repositories/comsoywiz-1229/content/korlibs/easy-kotlin-mpp-gradle-plugin/maven-metadata.xml.sha256</resourceURI>
-          <relativePath>/korlibs/easy-kotlin-mpp-gradle-plugin/maven-metadata.xml.sha256</relativePath>
-          <text>maven-metadata.xml.sha256</text>
-          <leaf>true</leaf>
-          <lastModified>2021-03-11 00:17:49.0 UTC</lastModified>
-          <sizeOnDisk>64</sizeOnDisk>
-        </content-item>
-        <content-item>
-          <resourceURI>https://oss.sonatype.org/service/local/repositories/comsoywiz-1229/content/korlibs/easy-kotlin-mpp-gradle-plugin/maven-metadata.xml.sha1</resourceURI>
-          <relativePath>/korlibs/easy-kotlin-mpp-gradle-plugin/maven-metadata.xml.sha1</relativePath>
-          <text>maven-metadata.xml.sha1</text>
-          <leaf>true</leaf>
-          <lastModified>2021-03-11 00:17:49.0 UTC</lastModified>
-          <sizeOnDisk>40</sizeOnDisk>
-        </content-item>
-        <content-item>
-          <resourceURI>https://oss.sonatype.org/service/local/repositories/comsoywiz-1229/content/korlibs/easy-kotlin-mpp-gradle-plugin/maven-metadata.xml.md5</resourceURI>
-          <relativePath>/korlibs/easy-kotlin-mpp-gradle-plugin/maven-metadata.xml.md5</relativePath>
-          <text>maven-metadata.xml.md5</text>
-          <leaf>true</leaf>
-          <lastModified>2021-03-11 00:17:49.0 UTC</lastModified>
-          <sizeOnDisk>32</sizeOnDisk>
-        </content-item>
-      </data>
-    </content>
-     */
 }
 
 open class SimpleHttpClient(

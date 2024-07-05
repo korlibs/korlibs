@@ -12,11 +12,6 @@ concurrency:
 
 env:
   CI: true
-  FORCED_VERSION: ${{ inputs.forced_version || github.ref }}
-  ORG_GRADLE_PROJECT_signingKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
-  ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
-  SONATYPE_USERNAME: ${{ secrets.SONATYPEUSERNAME }}
-  SONATYPE_PASSWORD: ${{ secrets.SONATYPEPASSWORD }}
   JAVA_VERSION: 17
   JAVA_DISTRIBUTION: zulu
 
