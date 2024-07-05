@@ -33,7 +33,7 @@ jobs:
       - { name: Initialize Gradle, working-directory: all, run: ./gradlew }
       # To ensure we are fine before staging repository
       - { name: Publish Publications To Maven Local, working-directory: all, run: ./gradlew publishToMavenLocal }
-      - { name: Generate artifacts .tar.zstd, working-directory: all, run: ./gradlew generateArtifactsTarZstd generateArtifactsKorgeTarZstd" }
+      - { name: Generate artifacts .tar.zstd, working-directory: all, run: ./gradlew generateArtifactsTarZstd generateArtifactsKorgeTarZstd }
       - name: Github Release
         uses: softprops/action-gh-release@69320dbe05506a9a39fc8ae11030b214ec2d1f87
         if: startsWith(github.ref, 'refs/tags/')
@@ -41,5 +41,5 @@ jobs:
           files: |
             all/build/korlibs-*.tar.xz
       - { name: Start Maven Central Staging Repository, working-directory: all, run: ./gradlew startReleasingMavenCentral }
-      - { name: Publish Publications To Maven Repository, working-directory: all, run: "./gradlew publishAllPublicationsToMavenRepository" }
+      - { name: Publish Publications To Maven Repository, working-directory: all, run: ./gradlew publishAllPublicationsToMavenRepository }
       - { name: Release to Maven Central, working-directory: all, run: ./gradlew releaseMavenCentral }
