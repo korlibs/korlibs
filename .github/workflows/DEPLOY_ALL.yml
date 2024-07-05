@@ -1,4 +1,4 @@
-name: DEPLOY
+name: DEPLOY_ALL
 
 on:
   push:
@@ -32,7 +32,7 @@ jobs:
       - { name: Prepare Gradle, uses: gradle/gradle-build-action@ef76a971e2fa3f867b617efd72f2fbd72cf6f8bc } # v2.8.0
       - { name: Initialize Gradle, working-directory: all, run: ./gradlew }
       # To ensure we are fine before staging repository
-      - { name: Publish Publications To Maven Local, working-directory: all, run: ./gradlew publishToMavenLocal" }
+      - { name: Publish Publications To Maven Local, working-directory: all, run: ./gradlew publishToMavenLocal }
       - { name: Generate artifacts .tar.zstd, working-directory: all, run: ./gradlew generateArtifactsTarZstd generateArtifactsKorgeTarZstd" }
       - name: Github Release
         uses: softprops/action-gh-release@69320dbe05506a9a39fc8ae11030b214ec2d1f87
