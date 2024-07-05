@@ -68,6 +68,7 @@ external object Deno {
         fun getArrayBuffer(byteLength: Int, offset: Int = definedExternally): ArrayBuffer
 
         companion object {
+            fun getArrayBuffer(pointer: Deno_PointerObject, byteLength: Int, offset: Int = definedExternally): ArrayBuffer
             fun getCString(pointer: Deno_PointerObject, offset: Int = definedExternally): String
         }
     }

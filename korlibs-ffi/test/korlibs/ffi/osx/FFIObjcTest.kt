@@ -10,6 +10,7 @@ class FFIObjcTest {
     fun test() = runTest {
         if (!Platform.isMac) return@runTest
         if (!FFILib.isFFISupported) return@runTest
+        if (Platform.isJsDenoJs) return@runTest // Unsupported for now because FFIVarargs not implemented
         //println(NSDictionary().objcClass)
         val dict = NSMutableDictionary()
         dict[10] = 10

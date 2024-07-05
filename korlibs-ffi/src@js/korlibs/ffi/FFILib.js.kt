@@ -210,6 +210,9 @@ actual val FFIMemory.pointer: FFIPointer get() = Deno.UnsafePointer.of(this).poi
 actual val Buffer.pointer: FFIPointer get() = Deno.UnsafePointer.of(Int8Array(this.dataView.buffer, this.dataView.byteOffset, this.dataView.byteLength)).pointer
 
 actual fun arraycopy(src: FFIPointer, srcPos: Int, dst: FFIPointer, dstPos: Int, length: Int) {
+    //val srcBuffer = Deno.UnsafePointerView.getArrayBuffer(src.rawPointer, srcPos, length)
+    //val dstBuffer = Deno.UnsafePointerView.getArrayBuffer(dst.rawPointer, dstPos, length)
+    //Uint8Array(dstBuffer).set(Uint8Array(srcBuffer), 0)
     arraycopySlow(src, srcPos, dst, dstPos, length)
 }
 

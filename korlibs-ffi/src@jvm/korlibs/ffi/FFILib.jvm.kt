@@ -4,6 +4,7 @@ import com.sun.jna.*
 import com.sun.jna.Function
 import korlibs.memory.Buffer
 import kotlinx.coroutines.*
+import java.lang.invoke.*
 import java.lang.reflect.*
 import java.nio.*
 import java.util.concurrent.*
@@ -24,6 +25,7 @@ import kotlin.String
 import kotlin.Unit
 import kotlin.also
 import kotlin.arrayOf
+import kotlin.check
 import kotlin.emptyArray
 import kotlin.error
 import kotlin.getValue
@@ -33,6 +35,7 @@ import kotlin.reflect.*
 import kotlin.runCatching
 import kotlin.to
 import kotlin.toString
+
 
 actual fun FFILibSym(lib: FFILib): FFILibSym {
     return FFILibSymJVM(lib)
@@ -53,18 +56,24 @@ actual val FFI_SUPPORTED: Boolean = true
 actual fun CreateFFIMemory(size: Int): FFIMemory = Memory(size.toLong())
 actual fun CreateFFIMemory(bytes: ByteArray): FFIMemory = Memory(bytes.size.toLong()).also { it.write(0L, bytes, 0, bytes.size) }
 
+val DirectBuffer_addressHandle: MethodHandle by lazy {
+    MethodHandles.lookup().unreflect(Class.forName("sun.nio.ch.DirectBuffer").getDeclaredMethod("address"))
+}
+
 // https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/MemorySegment.html
 // https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/foreign/MemorySegment.html
 @PublishedApi internal fun ByteBuffer.pointerAddress(): Long {
-    val addressField: Field = this.javaClass.getDeclaredField("address")
-    addressField.isAccessible = true
-    return addressField.getLong(this)
+    check(this.isDirect) { "Buffer needs to be direct" }
 
+    //MemorySegment.ofByteBuffer(this).address().toRawLongValue()
     //val MemorySegmentClass = Class.forName("jdk.incubator.foreign.MemorySegment")
     //val MemoryAddressClass = Class.forName("jdk.incubator.foreign.MemoryAddress")
-    //val toRawLongValueMethod = MemoryAddressClass.getMethod("toRawLongValue")
-    //val segment = MemorySegmentClass.getMethod("ofByteBuffer", ByteBuffer::class.java).invoke(null, this)
-    //return toRawLongValueMethod.invoke(MemorySegmentClass.getMethod("address").invoke(segment)) as Long
+    //val memorySegment = MemorySegmentClass.getDeclaredMethod("ofByteBuffer").invoke(this)
+    //val memoryAddress = MemorySegmentClass.getDeclaredMethod("address").invoke(memorySegment)
+    //val address = MemoryAddressClass.getMethod("toRawLongValue").invoke(memoryAddress) as Long
+    //return address
+
+    return DirectBuffer_addressHandle.invoke(this) as Long
 }
 
 actual inline fun <T> FFIMemory.usePointer(block: (pointer: FFIPointer) -> T): T = block(this)
@@ -72,10 +81,15 @@ actual inline fun <T> Buffer.usePointer(block: (pointer: FFIPointer) -> T): T =
     block(this.pointer)
 
 actual val FFIMemory.pointer: FFIPointer get() = this
-actual val Buffer.pointer: FFIPointer get() = FFIPointer(this.buffer.pointerAddress())
+actual val Buffer.pointer: FFIPointer get() {
+    check(this.buffer.isDirect) { "Buffer needs to be direct" }
+    return FFIPointer(this.buffer.pointerAddress())
+}
 
 actual fun arraycopy(src: FFIPointer, srcPos: Int, dst: FFIPointer, dstPos: Int, length: Int) {
-    arraycopySlow(src, srcPos, dst, dstPos, length)
+    val dstBuffer = dst.getByteBuffer(dstPos.toLong(), length.toLong())
+    val srcBuffer = src.getByteBuffer(srcPos.toLong(), length.toLong())
+    dstBuffer.put(srcBuffer)
 }
 
 @JvmName("FFIPointerCreation")
