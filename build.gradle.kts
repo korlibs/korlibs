@@ -188,11 +188,11 @@ open class DenoTestTask : AbstractTestTask() {
                             currentTestExtra.contains("ok", ignoreCase = true) -> TestResult.ResultType.SUCCESS
                             else -> TestResult.ResultType.SUCCESS
                         }
-                        testResultProcessor.completed(currentTestId, TestCompleteEvent(System.currentTimeMillis(), type))
                         if (type == TestResult.ResultType.FAILURE) {
                             testResultProcessor.output(currentTestId, DefaultTestOutputEvent(TestOutputEvent.Destination.StdErr, "FAILED\n"))
-                            testResultProcessor.failure(currentTestId, DefaultTestFailure.fromTestFrameworkFailure(Exception("FAILED"), null))
+                            testResultProcessor.failure(currentTestId, DefaultTestFailure.fromTestFrameworkFailure(Exception("FAILED").also { it.stackTrace = arrayOf() }, null))
                         }
+                        testResultProcessor.completed(currentTestId, TestCompleteEvent(System.currentTimeMillis(), type))
                     } catch (e: Throwable) {
                         //System.err.println("COMPLETED_ERROR: ${e}")
                         e.printStackTrace()
@@ -1155,5 +1155,22 @@ tasks {
             "-f", File(rootFile, "korlibs-${REAL_VERSION}.tar").absolutePath,
             "-o", File(rootFile, "korlibs-${REAL_VERSION}.tar.zstd").absolutePath
         )
+    }
+}
+
+allprojects {
+    afterEvaluate {
+        afterEvaluate {
+            afterEvaluate {
+                tasks.withType(org.gradle.api.tasks.testing.Test::class) {
+                    //println("TEST-TASK: $this")
+                    jvmArgs(
+                        "--add-opens", "java.base/java.nio=ALL-UNNAMED",
+                        "--add-opens", "java.base/jdk.incubator.foreign=ALL-UNNAMED",
+                        "--add-opens", "java.base/sun.nio.ch=ALL-UNNAMED",
+                    )
+                }
+            }
+        }
     }
 }
