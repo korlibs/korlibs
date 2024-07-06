@@ -32,10 +32,12 @@ class CoreImage32(
 data class CoreImageInfo(
     val width: Int,
     val height: Int,
-    val bpp: Int,
-    val format: CoreImageFormat?,
+    val bpp: Int = 32,
+    val format: CoreImageFormat? = null,
     val premultiplied: Boolean = true,
 )
+
+fun CoreImage.info(): CoreImageInfo = CoreImageInfo(width, height, bpp, format = null, premultiplied = premultiplied)
 
 inline class CoreImageFormat(val name: String) {
     companion object {
@@ -70,6 +72,9 @@ private var _CoreImageFormatProvider_current: CoreImageFormatProvider? = null
 var CoreImageFormatProvider_current: CoreImageFormatProvider
     get() = _CoreImageFormatProvider_current ?: CoreImageFormatProvider_default
     set(value) { _CoreImageFormatProvider_current = value }
+
+suspend fun CoreImage.Companion.info(data: ByteArray): CoreImageInfo =
+    CoreImageFormatProvider_current.info(data)
 
 suspend fun CoreImage.Companion.decodeBytes(data: ByteArray): CoreImage =
     CoreImageFormatProvider_current.decode(data)
