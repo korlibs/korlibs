@@ -24,10 +24,10 @@ actual val nativeSoundProvider: NativeSoundProvider get() = CORE_AUDIO_NATIVE_SO
 
 val CORE_AUDIO_NATIVE_SOUND_PROVIDER: CoreAudioNativeSoundProvider by lazy { CoreAudioNativeSoundProvider() }
 
-class CoreAudioNativeSoundProvider : NativeSoundProviderNew() {
+class CoreAudioNativeSoundProvider : NativeSoundProvider() {
     //override suspend fun createSound(data: ByteArray, streaming: Boolean, props: AudioDecodingProps): NativeSound = AVFoundationNativeSoundNoStream(CoroutineScope(coroutineContext), audioFormats.decode(data))
 
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: (AudioSamplesInterleaved) -> Unit): CoreAudioNewPlatformAudioOutput {
+    override fun createPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int): CoreAudioNewPlatformAudioOutput {
         appleInitAudioOnce
         return CoreAudioNewPlatformAudioOutput(coroutineContext, frequency, channels, gen)
     }
@@ -37,11 +37,11 @@ class CoreAudioNewPlatformAudioOutput(
     coroutineContext: CoroutineContext,
     freq: Int,
     nchannels: Int,
-    gen: (AudioSamplesInterleaved) -> Unit,
+    gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int,
 ) : NewPlatformAudioOutput(coroutineContext, nchannels, freq, gen) {
     //private var samples: AudioSamplesInterleaved? = null
 
-    val generator = CoreAudioGenerator(freq, nchannels, coroutineContext = coroutineContext) { data, dataSize ->
+    val generator = CoreAudioGenerator(freq, nchannels) { data, dataSize ->
         val totalSamples = dataSize / nchannels
         //if (samples == null || samples!!.totalSamples != totalSamples || samples!!.channels != channels) {
         //}
@@ -112,7 +112,6 @@ class CoreAudioGenerator(
     val nchannels: Int,
     val numBuffers: Int = 3,
     val bufferSize: Int = 4096,
-    val coroutineContext: CoroutineContext,
     val generatorCore: CoreAudioGenerator.(data: CPointer<ShortVar>, dataSize: Int) -> Unit
 ) : MyCoreAudioOutputCallback {
     val arena = Arena()

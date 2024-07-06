@@ -18,8 +18,8 @@ val jvmCoreAudioNativeSoundProvider: JvmCoreAudioNativeSoundProvider? by lazy {
     }
 }
 
-class JvmCoreAudioNativeSoundProvider : NativeSoundProviderNew() {
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, nchannels: Int, freq: Int, gen: (AudioSamplesInterleaved) -> Unit): NewPlatformAudioOutput {
+class JvmCoreAudioNativeSoundProvider : NativeSoundProvider() {
+    override fun createPlatformAudioOutput(coroutineContext: CoroutineContext, nchannels: Int, freq: Int, gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int): NewPlatformAudioOutput {
         return JvmCoreAudioNewPlatformAudioOutput(coroutineContext, nchannels, freq, gen)
     }
 }
@@ -70,7 +70,7 @@ private class JvmCoreAudioNewPlatformAudioOutput(
     coroutineContext: CoroutineContext,
     nchannels: Int,
     freq: Int,
-    gen: (AudioSamplesInterleaved) -> Unit,
+    gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int,
 ) : NewPlatformAudioOutput(coroutineContext, nchannels, freq, gen) {
     val id = lastId.incrementAndGet()
     companion object {

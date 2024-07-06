@@ -9,7 +9,7 @@ import kotlin.coroutines.*
 
 actual val nativeSoundProvider: NativeSoundProvider by lazy { AndroidNativeSoundProvider() }
 
-class AndroidNativeSoundProvider : NativeSoundProviderNew() {
+class AndroidNativeSoundProvider : NativeSoundProvider() {
     override val target: String = "android"
 
     private var audioManager: AudioManager? = null
@@ -18,7 +18,7 @@ class AndroidNativeSoundProvider : NativeSoundProviderNew() {
             audioManager!!.generateAudioSessionId() else -1
     }
 
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: (AudioSamplesInterleaved) -> Unit): NewPlatformAudioOutput {
+    override fun createPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int): NewPlatformAudioOutput {
         ensureAudioManager(coroutineContext)
         return AndroidNewPlatformAudioOutput(this, coroutineContext, channels, frequency, gen)
     }
@@ -38,7 +38,7 @@ class AndroidNativeSoundProvider : NativeSoundProviderNew() {
         coroutineContext: CoroutineContext,
         channels: Int,
         frequency: Int,
-        gen: (AudioSamplesInterleaved) -> Unit
+        gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int
     ) : NewPlatformAudioOutput(coroutineContext, channels, frequency, gen) {
         var thread: korlibs.concurrent.thread.NativeThread? = null
 

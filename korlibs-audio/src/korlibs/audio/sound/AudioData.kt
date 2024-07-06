@@ -8,10 +8,11 @@ import korlibs.time.*
 import kotlin.math.*
 
 class AudioData(
-    val rate: Int,
+    val frequency: Int,
     val samples: AudioSamples
 ) {
-    inline val frequency: Int get() = rate
+    @Deprecated("", ReplaceWith("frequency"))
+    inline val rate: Int get() = frequency
 
     val samplesInterleaved by lazy { samples.interleaved() }
 
@@ -23,15 +24,15 @@ class AudioData(
     val channels: Int get() = samples.channels
     val totalSamples: Int get() = samples.totalSamples
     val totalTime: TimeSpan get() = timeAtSample(totalSamples)
-    fun timeAtSample(sample: Int): TimeSpan = ((sample).toDouble() / rate.toDouble()).seconds
-    fun sampleAtTime(time: TimeSpan): Int = (time.seconds * rate.toDouble()).toInt()
+    fun timeAtSample(sample: Int): TimeSpan = ((sample).toDouble() / frequency.toDouble()).seconds
+    fun sampleAtTime(time: TimeSpan): Int = (time.seconds * frequency.toDouble()).toInt()
 
     operator fun get(channel: Int): ShortArray = samples.data[channel]
     operator fun get(channel: Int, sample: Int): Short = samples.data[channel][sample]
 
     operator fun set(channel: Int, sample: Int, value: Short) { samples.data[channel][sample] = value }
 
-    override fun toString(): String = "AudioData(rate=$rate, channels=$channels, samples=$totalSamples)"
+    override fun toString(): String = "AudioData(rate=$frequency, channels=$channels, samples=$totalSamples)"
 }
 
 enum class AudioConversionQuality { FAST }
@@ -73,7 +74,7 @@ suspend fun AudioData.encodeToFile(file: VfsFile, format: AudioFormats = default
 
 fun AudioData.toStream(): AudioStream = AudioDataStream(this)
 
-class AudioDataStream(val data: AudioData) : AudioStream(data.rate, data.channels) {
+class AudioDataStream(val data: AudioData) : AudioStream(data.frequency, data.channels) {
     var cursor = 0
     override var finished: Boolean = false
 

@@ -8,7 +8,6 @@ import korlibs.io.async.*
 import korlibs.io.file.std.*
 import korlibs.logger.*
 import korlibs.math.*
-import korlibs.time.*
 import kotlin.test.*
 import kotlin.time.*
 
@@ -67,7 +66,7 @@ class SoftMp3DecoderTest {
     fun AudioData.toFingerprintString(): String {
         val sdata = samplesInterleaved.data
         val data = ByteArray(sdata.size) { sdata[it].toInt().divRound(256 * 8).toByte() }
-        return "$channels,$rate,$totalSamples,${data.sha1().hex}"
+        return "$channels,$frequency,$totalSamples,${data.sha1().hex}"
     }
 
 }

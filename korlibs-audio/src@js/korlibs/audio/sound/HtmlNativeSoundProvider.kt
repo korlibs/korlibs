@@ -8,6 +8,7 @@ import korlibs.io.lang.*
 import korlibs.memory.*
 import korlibs.platform.*
 import korlibs.time.*
+import org.khronos.webgl.*
 import kotlin.coroutines.*
 import kotlin.time.*
 
@@ -19,12 +20,12 @@ actual val nativeSoundProvider: NativeSoundProvider by lazy {
     }
 }
 
-class HtmlNativeSoundProvider : NativeSoundProviderNew() {
+class HtmlNativeSoundProvider : NativeSoundProvider() {
     init {
         HtmlSimpleSound.ensureUnlockStart()
     }
 
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: (AudioSamplesInterleaved) -> Unit): NewPlatformAudioOutput {
+    override fun createPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int): NewPlatformAudioOutput {
         return JsNewPlatformAudioOutput(coroutineContext, channels, frequency, gen)
     }
 
@@ -57,7 +58,7 @@ class JsNewPlatformAudioOutput(
     coroutineContext: CoroutineContext,
     nchannels: Int,
     frequency: Int,
-    gen: (AudioSamplesInterleaved) -> Unit
+    gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int
 ) : NewPlatformAudioOutput(
     coroutineContext, nchannels, frequency, gen
 ) {

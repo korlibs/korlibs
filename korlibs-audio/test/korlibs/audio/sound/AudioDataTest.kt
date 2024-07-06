@@ -20,7 +20,7 @@ class AudioDataTest {
 
         assertEquals(66150, stream.totalLengthInSamples)
         assertEquals(1.5.seconds, stream.totalLength)
-        assertEquals(44100, stream.rate)
+        assertEquals(44100, stream.frequency)
         assertEquals(2, stream.channels)
 
         assertEquals(0L, stream.currentPositionInSamples)

@@ -28,8 +28,9 @@ object Win32NativeSoundProvider : NativeSoundProvider(), AutoCloseable {
     //val workerPool get() = Win32NativeSoundProvider_workerPool
     val workerPool get() = Win32NativeSoundProvider_WaveOutProcess
 
-    override fun createPlatformAudioOutput(coroutineContext: CoroutineContext, freq: Int): PlatformAudioOutput =
-        Win32PlatformAudioOutput(this, coroutineContext, freq)
+    override fun createPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int): NewPlatformAudioOutput {
+        return Win32BasedPlatformAudioOutput(this, coroutineContext, channels, frequency, gen)
+    }
 
     override fun close() {
         while (Win32NativeSoundProvider_workerPool.itemsInPool > 0) {
@@ -38,16 +39,14 @@ object Win32NativeSoundProvider : NativeSoundProvider(), AutoCloseable {
     }
 }
 
-class Win32PlatformAudioOutput(
+class Win32BasedPlatformAudioOutput(
     val provider: Win32NativeSoundProvider,
     coroutineContext: CoroutineContext,
-    val freq: Int
-) : PlatformAudioOutput(coroutineContext, freq) {
+    channels: Int,
+    frequency: Int,
+    gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int,
+) : JobBasedPlatformAudioOutput(coroutineContext, channels, frequency, gen = gen) {
     private var process: WaveOutProcess? = null
-    private val logger = Logger("Win32PlatformAudioInput")
-
-    override val availableSamples: Int get() = if (process != null) (process!!.length - process!!.position).toInt() else 0
-        //.also { println("Win32PlatformAudioOutput.availableSamples. length=${process.length}, position=${process.position}, value=$it") }
 
     override var pitch: Double = 1.0
         set(value) {
@@ -65,51 +64,22 @@ class Win32PlatformAudioOutput(
             process?.panning?.value = value
         }
 
-    override suspend fun add(samples: AudioSamples, offset: Int, size: Int) {
-        // More than 1 second queued, let's wait a bit
-        if (process == null || availableSamples > freq) {
-            delay(200.milliseconds)
-        }
-
-        process!!.addData(samples, offset, size, freq)
+    override suspend fun process(buffer: AudioSamplesInterleaved, generated: Int) {
+        process?.addDataSuspend(buffer.separated(), 0, generated, frequency)
     }
 
-    override fun start() {
+    override fun started(buffer: AudioSamplesInterleaved) {
         process = provider.workerPool.alloc()
-            .also { it.reopen(freq) }
+            .also { it.reopen(frequency) }
         process!!.volume.value = volume
         process!!.pitch.value = pitch
         process!!.panning.value = panning
-        //println("Win32PlatformAudioOutput.START WORKER: $worker")
     }
 
-    override suspend fun wait() {
-        //while (!process.isCompleted) {
-        while (availableSamples > 0) {
-        //while (process?.pendingAudio == true) {
-            delay(10.milliseconds)
-            //println("WAITING...: process.isCompleted=${process.isCompleted}")
-        }
-    }
-
-    override fun stop() {
-        //println("Win32PlatformAudioOutput.STOP WORKER: $worker")
-        //process.stop()
-        val process = this.process
-        this.process = null
+    override fun stopped() {
         if (process != null) {
-            CoroutineScope(coroutineContext).launch {
-                try {
-                    wait()
-                } catch (e: CancellationException) {
-                    // Do nothing
-                } catch (e: Throwable) {
-                    logger.error { "Error in Win32PlatformAudioOutput.stop:" }
-                    e.printStackTrace()
-                } finally {
-                    provider.workerPool.free(process)
-                }
-            }
+            provider.workerPool.free(process!!)
+            process = null
         }
     }
 }

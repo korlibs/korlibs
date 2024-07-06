@@ -8,12 +8,12 @@ import kotlin.coroutines.*
 
 private val mixer by lazy { AudioSystem.getMixer(null) }
 
-object AwtNativeSoundProvider : NativeSoundProviderNew() {
-    override fun createNewPlatformAudioOutput(
+object AwtNativeSoundProvider : NativeSoundProvider() {
+    override fun createPlatformAudioOutput(
         coroutineContext: CoroutineContext,
         nchannels: Int,
         freq: Int,
-        gen: (AudioSamplesInterleaved) -> Unit
+        gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int
     ): NewPlatformAudioOutput {
         return JvmNewPlatformAudioOutput(this, coroutineContext, nchannels, freq, gen)
     }
@@ -24,7 +24,7 @@ class JvmNewPlatformAudioOutput(
     coroutineContext: CoroutineContext,
     nchannels: Int,
     freq: Int,
-    gen: (AudioSamplesInterleaved) -> Unit
+    gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int
 ) : NewPlatformAudioOutput(coroutineContext, nchannels, freq, gen) {
     var nativeThread: NativeThread? = null
 

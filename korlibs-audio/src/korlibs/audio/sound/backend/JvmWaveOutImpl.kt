@@ -12,12 +12,12 @@ val jvmWaveOutNativeSoundProvider: NativeSoundProvider? by lazy {
     JvmWaveOutNativeSoundProvider()
 }
 
-class JvmWaveOutNativeSoundProvider : NativeSoundProviderNew() {
-    override fun createNewPlatformAudioOutput(
+class JvmWaveOutNativeSoundProvider : NativeSoundProvider() {
+    override fun createPlatformAudioOutput(
         coroutineContext: CoroutineContext,
         channels: Int,
         frequency: Int,
-        gen: (AudioSamplesInterleaved) -> Unit
+        gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int
     ): NewPlatformAudioOutput = JvmWaveOutNewPlatformAudioOutput(coroutineContext, channels, frequency, gen)
 }
 
@@ -74,7 +74,7 @@ class JvmWaveOutNewPlatformAudioOutput(
     coroutineContext: CoroutineContext,
     nchannels: Int,
     freq: Int,
-    gen: (AudioSamplesInterleaved) -> Unit
+    gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int
 ) : NewPlatformAudioOutput(coroutineContext, nchannels, freq, gen) {
     val samplesLock = NonRecursiveLock()
     var nativeThread: NativeThread? = null

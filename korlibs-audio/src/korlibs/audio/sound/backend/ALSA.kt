@@ -8,7 +8,7 @@ import korlibs.time.*
 import kotlin.coroutines.*
 
 object FFIALSANativeSoundProvider : NativeSoundProvider() {
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: (AudioSamplesInterleaved) -> Unit): NewPlatformAudioOutput {
+    override fun createPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int): NewPlatformAudioOutput {
         //println("ALSANativeSoundProvider.createPlatformAudioOutput(freq=$freq)")
         return ALSAPlatformAudioOutput(this, coroutineContext, channels, frequency, gen)
     }
@@ -19,7 +19,7 @@ class ALSAPlatformAudioOutput(
     coroutineContext: CoroutineContext,
     channels: Int,
     frequency: Int,
-    gen: (AudioSamplesInterleaved) -> Unit,
+    gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int,
 ) : NewPlatformAudioOutput(coroutineContext, channels, frequency, gen) {
     //var nativeThread: Job? = null
     var nativeThread: NativeThread? = null

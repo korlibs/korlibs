@@ -22,9 +22,9 @@ open class LazyNativeSoundProvider(val gen: () -> NativeSoundProvider) : NativeS
 
     override val target: String get() = parent.target
 
-    override fun createPlatformAudioOutput(coroutineContext: CoroutineContext, freq: Int): PlatformAudioOutput = parent.createPlatformAudioOutput(coroutineContext, freq)
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: (AudioSamplesInterleaved) -> Unit): NewPlatformAudioOutput =
-        parent.createNewPlatformAudioOutput(coroutineContext, channels, frequency, gen)
+    //override fun createPlatformAudioOutput(coroutineContext: CoroutineContext, freq: Int): PlatformAudioOutput = parent.createPlatformAudioOutput(coroutineContext, freq)
+    override fun createPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int): NewPlatformAudioOutput =
+        parent.createPlatformAudioOutput(coroutineContext, channels, frequency, gen)
 
     override suspend fun createSound(data: ByteArray, streaming: Boolean, props: AudioDecodingProps, name: String): Sound =
         parent.createSound(data, streaming, props, name)
@@ -42,11 +42,6 @@ open class LazyNativeSoundProvider(val gen: () -> NativeSoundProvider) : NativeS
     override fun close() = parent.close()
 }
 
-open class NativeSoundProviderNew : NativeSoundProvider() {
-    final override fun createPlatformAudioOutput(coroutineContext: CoroutineContext, freq: Int): PlatformAudioOutput =
-        PlatformAudioOutputBasedOnNew(this, coroutineContext, freq)
-}
-
 @OptIn(ExperimentalStdlibApi::class)
 open class NativeSoundProvider() : AutoCloseable, Pauseable {
 	open val target: String = "unknown"
@@ -59,17 +54,13 @@ open class NativeSoundProvider() : AutoCloseable, Pauseable {
     // @TODO: Should this be estimated automatically from position samples?
     open var listenerSpeed: Vector3 = Vector3.ZERO
 
-    @Deprecated("")
-    open fun createPlatformAudioOutput(coroutineContext: CoroutineContext, freq: Int = 44100): PlatformAudioOutput = PlatformAudioOutput(coroutineContext, freq)
-    @Deprecated("")
-    suspend fun createPlatformAudioOutput(freq: Int = 44100): PlatformAudioOutput = createPlatformAudioOutput(coroutineContextKt, freq)
-
-    open fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int = 44100, gen: (AudioSamplesInterleaved) -> Unit): NewPlatformAudioOutput {
+    open fun createPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int = 44100, gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int): NewPlatformAudioOutput {
         //println("createNewPlatformAudioOutput: ${this::class}")
-        return NewPlatformAudioOutput(coroutineContext, channels, frequency, gen)
+        return JobBasedPlatformAudioOutput(coroutineContext, channels, frequency, gen = gen)
     }
 
-    suspend fun createNewPlatformAudioOutput(nchannels: Int, freq: Int = 44100, gen: (AudioSamplesInterleaved) -> Unit): NewPlatformAudioOutput = createNewPlatformAudioOutput(coroutineContextKt, nchannels, freq, gen)
+    suspend fun createPlatformAudioOutput(nchannels: Int, freq: Int = 44100, gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int): NewPlatformAudioOutput =
+        createPlatformAudioOutput(coroutineContextKt, nchannels, freq, gen)
 
     open suspend fun createSound(data: ByteArray, streaming: Boolean = false, props: AudioDecodingProps = AudioDecodingProps.DEFAULT, name: String = "Unknown"): Sound {
         val format = props.formats ?: audioFormats
@@ -107,7 +98,7 @@ open class NativeSoundProvider() : AutoCloseable, Pauseable {
         data: AudioData,
         name: String = "Unknown"
     //): Sound = createStreamingSound(data.toStream(), true, name)
-    ): Sound = SoundAudioData(coroutineContextKt, data, this, true, name)
+    ): Sound = SoundAudioData(coroutineContextKt, data, this, name)
 
     open suspend fun createSound(
 		data: AudioData,
@@ -125,31 +116,31 @@ open class NativeSoundProvider() : AutoCloseable, Pauseable {
     }
 }
 
-open class LogNativeSoundProvider : NativeSoundProvider() {
-    data class AddInfo(val samples: AudioSamples, val offset: Int, val size: Int)
-    val onBeforeAdd = Signal<AddInfo>()
-    val onAfterAdd = Signal<AddInfo>()
+open class LogNativeSoundProvider(
+    val chunkSize: Int = 4 * 1024,
+    val onGet: LogNativeSoundProvider.(AudioData) -> Unit = { this.chunks += it },
+) : NativeSoundProvider() {
+    val chunks = arrayListOf<AudioData>()
 
-    inner class PlatformLogAudioOutput(
-        coroutineContext: CoroutineContext, frequency: Int
-    ) : PlatformAudioOutput(coroutineContext, frequency) {
-        val data = AudioSamplesDeque(2)
-        override suspend fun add(samples: AudioSamples, offset: Int, size: Int) {
-            val out = samples.clone()
-            out.scaleVolume(volume)
-            val addInfo = AddInfo(out, offset, size)
-            onBeforeAdd(addInfo)
-            data.write(out, offset, size)
-            onAfterAdd(addInfo)
+    inner class LogNewPlatformAudioOutput(
+        coroutineContext: CoroutineContext,
+        channels: Int,
+        frequency: Int,
+        gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int
+    ) : JobBasedPlatformAudioOutput(coroutineContext, channels, frequency, chunkSize, gen) {
+        override suspend fun process(buffer: AudioSamplesInterleaved, generated: Int) {
+            onGet(AudioData(frequency, buffer.separated().copyOfRange(0, generated)))
+            super.process(buffer, generated)
         }
-        fun consumeToData(): AudioData = data.consumeToData(frequency)
-        fun toData(): AudioData = data.toData(frequency)
     }
 
-    val streams = arrayListOf<PlatformLogAudioOutput>()
-
-    override fun createPlatformAudioOutput(coroutineContext: CoroutineContext, freq: Int): PlatformAudioOutput {
-        return PlatformLogAudioOutput(coroutineContext, freq).also { streams.add(it) }
+    override fun createPlatformAudioOutput(
+        coroutineContext: CoroutineContext,
+        channels: Int,
+        frequency: Int,
+        gen: NewPlatformAudioOutput.(AudioSamplesInterleaved) -> Int
+    ): NewPlatformAudioOutput {
+        return LogNewPlatformAudioOutput(coroutineContext, channels, frequency, gen)
     }
 }
 
@@ -159,10 +150,10 @@ open class DummyNativeSoundProvider : NativeSoundProvider() {
 
 class DummySoundChannel(sound: Sound, val data: AudioData? = null) : SoundChannel(sound) {
 	private var timeStart = DateTime.now()
-	override var current: TimeSpan
+	override var current: Duration
         get() = DateTime.now() - timeStart
         set(value) = Unit
-	override val total: TimeSpan get() = data?.totalTime ?: 0.seconds
+	override val total: Duration get() = data?.totalTime ?: 0.seconds
 
 	override fun stop() {
 		timeStart = DateTime.now() + total
@@ -377,10 +368,10 @@ abstract class SoundChannel(val sound: Sound) : SoundChannelBase, Extra by Extra
 	override var panning = 0.0 // -1.0 left, +1.0 right
     override var position: Vector3 = Vector3.ZERO
     // @TODO: Rename to position
-	open var current: TimeSpan
+	open var current: Duration
         get() = DateTime.now() - startTime
         set(value) { startTime = DateTime.now() - value }
-	open val total: TimeSpan get() = sound.length
+	open val total: Duration get() = sound.length
     override val state: SoundChannelState get() = when {
         current < total -> SoundChannelState.PLAYING
         else -> SoundChannelState.STOPPED
@@ -394,13 +385,13 @@ abstract class SoundChannel(val sound: Sound) : SoundChannelBase, Extra by Extra
 }
 
 @OptIn(ExperimentalStdlibApi::class)
-suspend fun SoundChannel.await(progress: SoundChannel.(current: TimeSpan, total: TimeSpan) -> Unit = { current, total -> }) {
+suspend fun SoundChannel.await(progress: (SoundChannel.(current: Duration, total: Duration) -> Unit)? = null) {
 	try {
 		while (playingOrPaused) {
-			if (!paused) progress(current, total)
+			if (!paused) progress?.invoke(this, current, total)
 			delay(4.milliseconds)
 		}
-		progress(total, total)
+		progress?.invoke(this, total, total)
 	} catch (e: CancellationException) {
 		stop()
 	}

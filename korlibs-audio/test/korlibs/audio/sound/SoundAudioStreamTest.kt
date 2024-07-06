@@ -28,27 +28,29 @@ class SoundAudioStreamTest {
         val sound = soundProvider.createSound(resourcesVfs["click.mp3"], streaming = true)
         val data = sound.toAudioData()
         sound.playAndWait(2.playbackTimes)
-        assertEquals(1, soundProvider.streams.size)
-        val stream = soundProvider.streams[0]
-        val dataOut = stream.toData()
+        assertEquals(1, soundProvider.chunks.size)
+        val dataOut = soundProvider.chunks[0]
         val dataOut2 = dataOut.toSound().toAudioData()
 
         //WAV.encodeToByteArray(dataOut).writeToFile("/tmp/demo.wav")
         //dataOut.toSound().toData().toSound().toData().toSound().toData().toSound().playAndWait()
 
         assertEquals("468/1", "${data.totalSamples}/${data.channels}")
-        assertEquals("936/2", "${stream.data.availableRead}/${stream.data.channels}")
+        //assertEquals("936/2", "${stream.data.availableRead}/${stream.data.channels}")
         assertEquals("936/2", "${dataOut.totalSamples}/${dataOut.channels}")
         assertEquals("936/2", "${dataOut2.totalSamples}/${dataOut2.channels}")
     }
 
     @Test
     fun testChannelCurrentLength() = suspendTest({ doIOTest }) {
-        val soundProvider = LogNativeSoundProvider()
+        val onGet = Signal<AudioData>()
+        val soundProvider = LogNativeSoundProvider() {
+            onGet(it)
+        }
         for (fileName in listOf("click.wav", "click.mp3")) {
             val sound2 = soundProvider.createSound(resourcesVfs[fileName], streaming = true)
             val wait = CompletableDeferred<Unit>()
-            soundProvider.onAfterAdd.once {
+            onGet.once {
                 logger.debug { "currentThreadId:${NativeThread.currentThreadId}" }
                 wait.complete(Unit)
             }

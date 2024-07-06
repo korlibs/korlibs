@@ -102,6 +102,11 @@ class WaveOutProcess(val freq: Int, val nchannels: Int) {
         deque.add(WaveOutDataEx(Array(samples.channels) { samples.data[it].copyOfRange(offset, offset + size) }, freq))
     }
 
+    suspend fun addDataSuspend(samples: AudioSamples, offset: Int, size: Int, freq: Int) {
+        addData(samples, offset, size, freq)
+        while (deque.size >= 4) delay(1L)
+    }
+
     fun stop() {
         deque.add(WaveOutEnd)
     }

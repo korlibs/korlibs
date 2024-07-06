@@ -2,7 +2,7 @@ package korlibs.audio.sound
 
 fun AudioStream.withProcessor(block: suspend (inp: AudioStream, outp: AudioSamplesDeque) -> Unit): AudioStream {
     val inp = this
-    return object : AudioStream(inp.rate, inp.channels) {
+    return object : AudioStream(inp.frequency, inp.channels) {
         override val finished: Boolean get() = inp.finished
         override val totalLengthInSamples: Long? get() = inp.totalLengthInSamples
         override var currentPositionInSamples: Long

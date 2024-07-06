@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalStdlibApi::class)
-
 package korlibs.audio.sound
 
 import korlibs.time.TimeSpan
@@ -11,23 +9,23 @@ import korlibs.audio.format.defaultAudioFormats
 import korlibs.io.file.VfsFile
 import korlibs.io.file.VfsOpenMode
 import korlibs.io.file.baseName
-import korlibs.io.lang.Closeable
 import kotlin.math.min
+import kotlin.time.*
 
 abstract class AudioStream(
-    val rate: Int,
+    val frequency: Int,
     val channels: Int
 ) : AudioStreamable, AutoCloseable {
     open val finished = false
     open val totalLengthInSamples: Long? = null
-    val totalLength get() = ((totalLengthInSamples ?: 0L).toDouble() / rate.toDouble()).seconds
+    val totalLength get() = ((totalLengthInSamples ?: 0L).toDouble() / frequency.toDouble()).seconds
     open var currentPositionInSamples: Long = 0L
-    var currentTime: TimeSpan
+    var currentTime: Duration
         set(value) { currentPositionInSamples = estimateSamplesFromTime(value) }
         get() = estimateTimeFromSamples(currentPositionInSamples)
 
-    fun estimateSamplesFromTime(time: TimeSpan): Long = (time.seconds * rate.toDouble()).toLong()
-    fun estimateTimeFromSamples(samples: Long): TimeSpan = (samples.toDouble() / rate.toDouble()).seconds
+    fun estimateSamplesFromTime(time: Duration): Long = (time.seconds * frequency.toDouble()).toLong()
+    fun estimateTimeFromSamples(samples: Long): Duration = (samples.toDouble() / frequency.toDouble()).seconds
 
     open suspend fun read(out: AudioSamples, offset: Int = 0, length: Int = out.totalSamples): Int = 0
     override fun close() = Unit
@@ -59,7 +57,7 @@ abstract class AudioStream(
             return read
         }
 
-        override suspend fun clone(): AudioStream = GeneratorAudioStream(rate, channels, generateChunk)
+        override suspend fun clone(): AudioStream = GeneratorAudioStream(frequency, channels, generateChunk)
     }
 }
 
@@ -83,7 +81,7 @@ suspend fun AudioStream.toData(maxSamples: Int = DEFAULT_MAX_SAMPLES): AudioData
 
     val maxOutSamples = out.availableReadMax
 
-    return AudioData(rate, AudioSamples(channels, maxOutSamples).apply { out.read(this) })
+    return AudioData(frequency, AudioSamples(channels, maxOutSamples).apply { out.read(this) })
 }
 
 suspend fun AudioStream.playAndWait(params: PlaybackParameters = PlaybackParameters.DEFAULT) = nativeSoundProvider.playAndWait(this, params)
