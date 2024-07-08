@@ -21,7 +21,7 @@ object CoreGraphicsCoreImageFormatProvider : CoreImageFormatProvider {
 
     override suspend fun info(data: ByteArray): CoreImageInfo = AwtCoreImageFormatProvider.info(data)
     override suspend fun decode(data: ByteArray): CoreImage = AwtCoreImage(_decodeInternal(data))
-    override suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Float): ByteArray = AwtCoreImageFormatProvider.encode(image, format, level)
+    override suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Double): ByteArray = AwtCoreImageFormatProvider.encode(image, format, level)
 
     @Keep
     object CoreFoundation {

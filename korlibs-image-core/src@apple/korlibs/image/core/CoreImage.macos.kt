@@ -10,6 +10,6 @@ object AppleCoreImageFormatProvider : CoreImageFormatProvider {
     override suspend fun decode(data: ByteArray): CoreImage =
         StbiCoreImageFormatProvider.decode(data)
 
-    override suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Float): ByteArray =
+    override suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Double): ByteArray =
         StbiCoreImageFormatProvider.encode(image, format, level)
 }

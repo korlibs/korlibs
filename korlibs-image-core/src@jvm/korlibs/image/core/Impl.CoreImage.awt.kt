@@ -18,7 +18,7 @@ object AwtCoreImageFormatProvider : CoreImageFormatProvider {
         AwtCoreImage(ImageIOReadFormat(data.inputStream()))
     }
 
-    override suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Float): ByteArray {
+    override suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Double): ByteArray {
         val imageWriter = ImageIO.getImageWritersByFormatName(format.name).next()
         return ByteArrayOutputStream().use { bao ->
             ImageIO.createImageOutputStream(bao).use { ios ->

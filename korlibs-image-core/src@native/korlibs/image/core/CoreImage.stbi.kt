@@ -33,7 +33,7 @@ object StbiCoreImageFormatProvider : CoreImageFormatProvider {
         }
     }
 
-    override suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Float): ByteArray = withContext(Dispatchers.IO) {
+    override suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Double): ByteArray = withContext(Dispatchers.IO) {
         class ByteArrayBuilder {
             private val chunks = ArrayList<ByteArray>()
             fun append(data: ByteArray) { chunks += data }

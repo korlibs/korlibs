@@ -68,7 +68,7 @@ object Win32CoreImageFormatProvider : CoreImageFormatProvider {
         }
     }
 
-    override suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Float): ByteArray =
+    override suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Double): ByteArray =
         StbiCoreImageFormatProvider.encode(image, format, level)
 
     private var initializedGdiPlus = atomic(false)

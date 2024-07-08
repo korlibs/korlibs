@@ -62,7 +62,7 @@ interface CoreImageFormatProvider {
     /**
      * Encodes a [CoreImage] into a [ByteArray] in the specified [format] (PNG, JPEG, etc.)
      */
-    suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Float = 1f): ByteArray
+    suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Double = 1.0): ByteArray
 }
 
 expect val CoreImageFormatProvider_default: CoreImageFormatProvider
@@ -79,5 +79,5 @@ suspend fun CoreImage.Companion.info(data: ByteArray): CoreImageInfo =
 suspend fun CoreImage.Companion.decodeBytes(data: ByteArray): CoreImage =
     CoreImageFormatProvider_current.decode(data)
 
-suspend fun CoreImage.encodeBytes(format: CoreImageFormat, level: Float = 1f): ByteArray =
+suspend fun CoreImage.encodeBytes(format: CoreImageFormat, level: Double = 1.0): ByteArray =
     CoreImageFormatProvider_current.encode(this, format, level)
