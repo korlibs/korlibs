@@ -29,7 +29,7 @@ class CoreImage32(
     override fun to32(): CoreImage32 = this
 }
 
-inline class CoreImageRGBA(val value: Int) {
+inline class CoreImage32Color(val value: Int) {
     constructor(red: UByte, green: UByte, blue: UByte, alpha: UByte = 255u) : this((red.toInt() shl RED_OFFSET) or (green.toInt() shl GREEN_OFFSET) or (blue.toInt() shl BLUE_OFFSET) or (alpha.toInt() shl ALPHA_OFFSET))
     constructor(red: Int, green: Int, blue: Int, alpha: Int = 255) : this(red.coerceIn(0, 255).toUByte(), green.coerceIn(0, 255).toUByte(), blue.coerceIn(0, 255).toUByte(), alpha.coerceIn(0, 255).toUByte())
 
@@ -39,10 +39,10 @@ inline class CoreImageRGBA(val value: Int) {
     val alpha: Int get() = (value ushr ALPHA_OFFSET) and 0xFF
 
     companion object {
-        internal const val RED_OFFSET = 0
-        internal const val GREEN_OFFSET = 8
-        internal const val BLUE_OFFSET = 16
-        internal const val ALPHA_OFFSET = 24
+        const val RED_OFFSET = 0
+        const val GREEN_OFFSET = 8
+        const val BLUE_OFFSET = 16
+        const val ALPHA_OFFSET = 24
     }
 }
 
