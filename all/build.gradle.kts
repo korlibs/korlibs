@@ -308,18 +308,20 @@ tasks.withType(ProcessResources::class) {
 //    this.entryCompression = org.gradle.api.tasks.bundling.ZipEntryCompression.DEFLATED
 //}
 
-/*
 afterEvaluate {
     kotlin.targets.filter { it.platformType == KotlinPlatformType.native }.forEach { target ->
         target.compilations.getByName("main") {
             (this as KotlinNativeCompilation).cinterops {
                 val stb_image by creating {
-                    defFile(project.file("../korlibs-image/nativeInterop/cinterop/stb_image.def"))
+                    defFile(project.file("../korlibs-image-core/nativeInterop/cinterop/stb_image.def"))
                 }
             }
         }
     }
 }
+
+/*
+
 afterEvaluate {
     kotlin.targets.filter { it.platformType == KotlinPlatformType.native }.forEach { target ->
         target.compilations.getByName("main") {

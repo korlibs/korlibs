@@ -2,7 +2,7 @@ package korlibs.image.core
 
 actual val CoreImageFormatProvider_default: CoreImageFormatProvider = AppleCoreImageFormatProvider
 
-// @TODO: Use MacOS decoder
+// @TODO: Use Apple decoder
 object AppleCoreImageFormatProvider : CoreImageFormatProvider {
     override suspend fun info(data: ByteArray): CoreImageInfo =
         StbiCoreImageFormatProvider.info(data)
