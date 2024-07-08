@@ -64,6 +64,11 @@ object HtmlCoreImageFormatProvider : CoreImageFormatProvider {
         document.createElement("canvas").unsafeCast<HTMLCanvasElement>().also { it.width = width; it.height = height }
 }
 
+private val isLittleEndian: Boolean = Uint8Array(Int32Array(JsArray<JsNumber>().also { it[0] = 1.toJsNumber() }).buffer)[0].toInt() == 1
+private fun bswap32(v: Int): Int = (v ushr 24) or (v shl 24) or ((v and 0xFF00) shl 8) or (v ushr 8) and 0xFF00
+private fun bswap32(v: IntArray, start: Int = 0, end: Int = v.size) { for (n in start until end) v[n] = bswap32(v[n]) }
+private fun bswap32(v: Int32Array, start: Int = 0, end: Int = v.length) { for (n in start until end) v[n] = bswap32(v[n]) }
+
 fun CoreImage.toCanvas(): HtmlCanvasCoreImage {
     val bmp = this.to32()
     val canvas = HtmlCoreImageFormatProvider.createCanvas(bmp.width, bmp.height)
@@ -73,6 +78,7 @@ fun CoreImage.toCanvas(): HtmlCanvasCoreImage {
     val inp = bmp.data
     val out = Int32Array(imageData.data.buffer)
     for (n in inp.indices) out[n] = inp[n]
+    if (!isLittleEndian) bswap32(out)
 
     ctx.putImageData(imageData, 0.0, 0.0)
     return HtmlCanvasCoreImage(canvas)
@@ -98,6 +104,7 @@ class HtmlCanvasCoreImage(val canvas: HTMLCanvasElement) : CoreImage {
         val data = ctx.getImageData(0.0, 0.0, width.toDouble(), height.toDouble())
         val inp = Int32Array(data.data.buffer)
         val out = IntArray(width * height) { inp[it] }
+        if (!isLittleEndian) bswap32(out)
         // @TODO: Conversions? RGBA, BGRA, etc.?
         return CoreImage32(width, height, out)
     }

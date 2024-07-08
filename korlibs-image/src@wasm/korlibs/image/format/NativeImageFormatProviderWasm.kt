@@ -41,19 +41,10 @@ object NodeJsNativeImageFormatProvider : BaseNativeImageFormatProvider() {
     }
 }
 
-private val tempB = ArrayBuffer(4)
-private val tempI = Int32Array(tempB)
-private val temp8 = Uint8Array(tempB)
-
-private val isLittleEndian: Boolean by lazy {
-    tempI[0] = 1
-    temp8[0].toInt() == 1
-}
+private val isLittleEndian: Boolean = Uint8Array(Int32Array(jsArrayOf(1.toJsNumber())).buffer)[0].toInt() == 1
 private val isBigEndian get() = !isLittleEndian
 
-private fun bswap32(v: Int): Int {
-    return (v ushr 24) or (v shl 24) or ((v and 0xFF00) shl 8) or (v ushr 8) and 0xFF00
-}
+private fun bswap32(v: Int): Int = (v ushr 24) or (v shl 24) or ((v and 0xFF00) shl 8) or (v ushr 8) and 0xFF00
 
 private fun bswap32(v: IntArray, offset: Int, size: Int) {
     // @TODO: Use Create Uint8Array from the buffer?

@@ -2,7 +2,7 @@ package korlibs.image.core
 
 import kotlinx.browser.*
 import kotlinx.coroutines.*
-import org.khronos.webgl.Int32Array
+import org.khronos.webgl.*
 import org.w3c.dom.*
 import org.w3c.dom.url.*
 import org.w3c.files.*
@@ -62,6 +62,10 @@ object HtmlCoreImageFormatProvider : CoreImageFormatProvider {
         document.createElement("canvas").unsafeCast<HTMLCanvasElement>().also { it.width = width; it.height = height }
 }
 
+private val isLittleEndian: Boolean = Uint8Array(Int32Array(arrayOf(1)).buffer)[0].toInt() == 1
+private fun bswap32(v: Int): Int = (v ushr 24) or (v shl 24) or ((v and 0xFF00) shl 8) or (v ushr 8) and 0xFF00
+private fun bswap32(v: IntArray, start: Int = 0, end: Int = v.size) { for (n in start until end) v[n] = bswap32(v[n]) }
+
 fun CoreImage.toCanvas(): HtmlCanvasCoreImage {
     val bmp = this.to32()
     val canvas = HtmlCoreImageFormatProvider.createCanvas(bmp.width, bmp.height)
@@ -69,7 +73,9 @@ fun CoreImage.toCanvas(): HtmlCanvasCoreImage {
     val imageData = ctx.createImageData(bmp.width.toDouble(), bmp.height.toDouble())
 
     // @TODO: Conversions? RGBA, BGRA, etc.?
-    bmp.data.copyInto(Int32Array(imageData.data.buffer).unsafeCast<IntArray>())
+    val out = Int32Array(imageData.data.buffer).unsafeCast<IntArray>()
+    bmp.data.copyInto(out)
+    if (!isLittleEndian) bswap32(out)
 
     ctx.putImageData(imageData, 0.0, 0.0)
     return HtmlCanvasCoreImage(canvas)
@@ -87,6 +93,8 @@ class HtmlCanvasCoreImage(val canvas: HTMLCanvasElement) : CoreImage {
         val ctx = canvas.getContext2d()
         val data = ctx.getImageData(0.0, 0.0, width.toDouble(), height.toDouble())
         // @TODO: Conversions? RGBA, BGRA, etc.?
-        return CoreImage32(width, height, Int32Array(data.data.buffer).unsafeCast<IntArray>())
+        val out = Int32Array(data.data.buffer).unsafeCast<IntArray>()
+        if (!isLittleEndian) bswap32(out)
+        return CoreImage32(width, height, out)
     }
 }
