@@ -122,8 +122,7 @@ object QOI : ImageFormat("qoi") {
     }
 
     override fun writeImage(image: ImageData, s: SyncStream, props: ImageEncodingProps) {
-        val bitmap = image.mainBitmap.toBMP32IfRequired()
-        val pixels = RgbaArray(bitmap.ints)
+        val bitmap = image.mainBitmap
         val index = RgbaArray(64)
         val maxSize = calculateMaxSize(bitmap)
         val bytes = if (props.preAllocatedArrayForQOI == null) {
@@ -157,8 +156,11 @@ object QOI : ImageFormat("qoi") {
         var previousA = 0xFF
 
         var run = 0
-        while (currentIndex < pixels.size) {
-            val currentPixel = pixels[currentIndex++]
+        while (currentIndex < bitmap.area) {
+            val x = currentIndex % bitmap.width
+            val y = currentIndex / bitmap.width
+            currentIndex++
+            val currentPixel = bitmap.getRgba(x, y)
             val currentR = currentPixel.r
             val currentG = currentPixel.g
             val currentB = currentPixel.b
@@ -166,7 +168,7 @@ object QOI : ImageFormat("qoi") {
 
             if (currentPixel == previousPixel) {
                 run++
-                if (run == 62 || currentIndex >= pixels.size) {
+                if (run == 62 || currentIndex >= bitmap.area) {
                     bytes[bytesUsed++] = QUI_SOP(QOI_SOP_RUN) or (run - 1)
                     run = 0
                 }
