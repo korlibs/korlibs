@@ -8,6 +8,9 @@ import kotlin.test.*
 class CoreImageTest {
     val pngData = Base64.decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=")
 
+    // 2x1 image: #FF8000FF, #8040FFFF
+    val png2x1Data = Base64.decode("iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAIAAAB7QOjdAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAD0lEQVQImWP+38DAyPAfAAmYAoMPmI8gAAAAAElFTkSuQmCC")
+
     @Test
     fun testInfo() = runTest {
         assertEquals(CoreImageInfo(1, 1), CoreImage.info(pngData).copy(format = null))
@@ -43,5 +46,27 @@ class CoreImageTest {
         val image = CoreImage.decodeBytes(bytes).to32()
         assertEquals(c1, CoreImage32Color(image.data[0]))
         assertEquals(c2, CoreImage32Color(image.data[1]))
+    }
+
+    @Test
+    fun testDecodeCheckColors() = runTest {
+        val colors = CoreImage.decodeBytes(png2x1Data).to32()
+        assertEquals("2x1", "${colors.width}x${colors.height}")
+        val c1 = CoreImage32Color(colors.data[0])
+        val c2 = CoreImage32Color(colors.data[1])
+        assertEquals("#FF8000FF,#8040FFFF", "${c1.toHexString()},${c2.toHexString()}")
+    }
+
+    fun CoreImage32Color.toHexString(): String = buildString(9) {
+        val HEX = "0123456789ABCDEF"
+        append("#")
+        append(HEX[(red ushr 4) and 0xF])
+        append(HEX[(red ushr 0) and 0xF])
+        append(HEX[(green ushr 4) and 0xF])
+        append(HEX[(green ushr 0) and 0xF])
+        append(HEX[(blue ushr 4) and 0xF])
+        append(HEX[(blue ushr 0) and 0xF])
+        append(HEX[(alpha ushr 4) and 0xF])
+        append(HEX[(alpha ushr 0) and 0xF])
     }
 }
