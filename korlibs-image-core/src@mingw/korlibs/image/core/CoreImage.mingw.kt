@@ -8,7 +8,6 @@ import kotlinx.coroutines.*
 import platform.gdiplus.*
 import platform.posix.*
 import platform.windows.*
-import stb_image.*
 
 actual val CoreImageFormatProvider_default: CoreImageFormatProvider = Win32CoreImageFormatProvider
 
@@ -69,45 +68,8 @@ object Win32CoreImageFormatProvider : CoreImageFormatProvider {
         }
     }
 
-    override suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Float): ByteArray = withContext(Dispatchers.IO) {
-        class ByteArrayBuilder {
-            private val chunks = ArrayList<ByteArray>()
-            fun append(data: ByteArray) { chunks += data }
-            fun toByteArray(): ByteArray = ByteArray(chunks.sumOf { it.size }).also {
-                var offset = 0
-                for (chunk in chunks) {
-                    chunk.copyInto(it, destinationOffset = offset)
-                    offset += chunk.size
-                }
-            }
-        }
-
-        val bmp = image.to32()
-        val out = ByteArrayBuilder()
-
-        bmp.data.usePinned {
-            val outRef = StableRef.create(out)
-            try {
-                val outPtr = outRef.asCPointer()
-                val stride = bmp.width * 4
-                val callback = staticCFunction { context: COpaquePointer?, data: COpaquePointer?, size: Int ->
-                    val out = context?.let { context.asStableRef<ByteArrayBuilder>().get() } ?: return@staticCFunction
-                    out.append(data?.readBytes(size) ?: byteArrayOf())
-                }
-                when (format.name.lowercase()) {
-                    "png" -> stbi_write_png_to_func(callback, outPtr, bmp.width, bmp.height, 4, it.addressOf(0), stride)
-                    "bmp" -> stbi_write_bmp_to_func(callback, outPtr, bmp.width, bmp.height, 4, it.addressOf(0))
-                    "jpg", "jpeg" -> stbi_write_jpg_to_func(callback, outPtr, bmp.width, bmp.height, 4, it.addressOf(0), (level * 100).toInt().coerceIn(0, 100))
-                    "tga" -> stbi_write_tga_to_func(callback, outPtr, bmp.width, bmp.height, 4, it.addressOf(0))
-                }
-                Unit
-            } finally {
-                outRef.dispose()
-            }
-        }
-
-        out.toByteArray()
-    }
+    override suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Float): ByteArray =
+        StbiCoreImageFormatProvider.encode(image, format, level)
 
     private var initializedGdiPlus = atomic(false)
     @OptIn(ExperimentalForeignApi::class)
