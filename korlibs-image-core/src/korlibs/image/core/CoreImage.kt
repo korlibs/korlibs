@@ -36,6 +36,16 @@ class CoreImage32(
     override fun to32(): CoreImage32 = this
 }
 
+fun CoreImage32.premultiplied(): CoreImage32 {
+    if (premultiplied) return this
+    return CoreImage32(width, height, IntArray(data.size) { CoreImage32Color(data[it]).premultiplied().value }, premultiplied = true)
+}
+
+fun CoreImage32.depremultiplied(): CoreImage32 {
+    if (!premultiplied) return this
+    return CoreImage32(width, height, IntArray(data.size) { CoreImage32Color(data[it]).depremultiplied().value }, premultiplied = false)
+}
+
 /**
  * 32-bit RGBA color format. Used in [CoreImage32]
  */
@@ -47,6 +57,26 @@ inline class CoreImage32Color(val value: Int) {
     val green: Int get() = (value ushr GREEN_OFFSET) and 0xFF
     val blue: Int get() = (value ushr BLUE_OFFSET) and 0xFF
     val alpha: Int get() = (value ushr ALPHA_OFFSET) and 0xFF
+
+    fun premultiplied(): CoreImage32Color {
+        val Af = alpha / 255f
+        val R = (red * Af).toInt()
+        val G = (green * Af).toInt()
+        val B = (blue * Af).toInt()
+        return CoreImage32Color(R, G, B, alpha)
+    }
+
+    fun depremultiplied(): CoreImage32Color {
+        val alpha = alpha
+        return when (alpha) {
+            0 -> CoreImage32Color(0)
+            else -> {
+                val iAf = 255f / alpha
+                CoreImage32Color((red * iAf).toInt(), (green * iAf).toInt(), (blue * iAf).toInt(), alpha)
+            }
+        }
+
+    }
 
     companion object {
         const val RED_OFFSET = 0

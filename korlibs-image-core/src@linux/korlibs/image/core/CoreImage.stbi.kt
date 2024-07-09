@@ -14,7 +14,7 @@ object StbiCoreImageFormatProvider : CoreImageFormatProvider {
             data.usePinned {
                 stbi_info_from_memory(it.addressOf(0).reinterpret(), data.size, width.ptr, height.ptr, comp.ptr)
             }
-            CoreImageInfo(width.value, height.value, comp.value * 8, premultiplied = false)
+            CoreImageInfo(width.value, height.value, comp.value * 8)
         }
     }
 
@@ -29,7 +29,7 @@ object StbiCoreImageFormatProvider : CoreImageFormatProvider {
             val dataInts = dataPtr.reinterpret<IntVar>()
             val data = IntArray(width.value * height.value) { dataInts[it] }
             stbi_image_free(dataPtr)
-            CoreImage32(width.value, height.value, data, premultiplied = false)
+            CoreImage32(width.value, height.value, data, premultiplied = false).premultiplied()
         }
     }
 
@@ -46,7 +46,7 @@ object StbiCoreImageFormatProvider : CoreImageFormatProvider {
             }
         }
 
-        val bmp = image.to32()
+        val bmp = image.to32().depremultiplied()
         val out = ByteArrayBuilder()
 
         bmp.data.usePinned {
