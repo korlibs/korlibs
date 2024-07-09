@@ -68,8 +68,50 @@ object Win32CoreImageFormatProvider : CoreImageFormatProvider {
         }
     }
 
-    override suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Double): ByteArray =
-        StbiCoreImageFormatProvider.encode(image, format, level)
+    override suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Double): ByteArray = withContext(Dispatchers.IO) {
+        return@withContext StbiCoreImageFormatProvider.encode(image, format, level)
+
+        // https://learn.microsoft.com/es-es/windows/win32/api/gdiplusheaders/nf-gdiplusheaders-image-save(istream_constclsid_constencoderparameters)
+        // https://learn.microsoft.com/en-us/windows/win32/api/gdiplusimagecodec/nf-gdiplusimagecodec-getimageencoders
+        // https://learn.microsoft.com/en-us/windows/win32/api/gdiplusimagecodec/nf-gdiplusimagecodec-getimageencoderssize
+        // https://learn.microsoft.com/en-us/previous-versions/ms534466(v=vs.85)
+        memScoped {
+            initGdiPlusOnce()
+
+            val numEncoders = alloc<UINTVar>()
+            val codecInfoSize = alloc<UINTVar>()
+
+            if (GdipGetImageEncodersSize(numEncoders.ptr, codecInfoSize.ptr) != Ok) {
+                error("Can't find image encoders")
+            }
+
+            val codecs = allocArray<ImageCodecInfo>(numEncoders.value.convert())
+
+            GdipGetImageEncoders(numEncoders.value, sizeOf<ImageCodecInfo>().convert(), codecs)
+
+            var selectedCodec: ImageCodecInfo? = null
+
+            for (n in 0 until numEncoders.value.toInt()) {
+                val codec = codecs[n]
+                val mimeType = codec.MimeType?.toKStringFromUtf16() ?: continue
+                if (CoreImageFormat.fromMimeType(mimeType) == format) {
+                    selectedCodec = codec
+                    break
+                }
+            }
+
+            if (selectedCodec == null) {
+                error("Can't find selected codec in image encoders (${numEncoders.value})")
+            }
+
+            // @TODO: Create Image
+            // @TODO: Create Stream
+            //GdipSaveImageToStream(null, stream, selectedCodec?.Clsid, null)
+
+            TODO()
+        }
+    }
+        //StbiCoreImageFormatProvider.encode(image, format, level)
 
     private var initializedGdiPlus = atomic(false)
     @OptIn(ExperimentalForeignApi::class)

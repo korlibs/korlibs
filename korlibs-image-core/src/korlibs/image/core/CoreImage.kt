@@ -80,10 +80,14 @@ fun CoreImage.info(): CoreImageInfo = CoreImageInfo(width, height, bpp, format =
  */
 inline class CoreImageFormat(val name: String) {
     companion object {
-        val PNG = CoreImageFormat("PNG")
-        val JPEG = CoreImageFormat("JPEG")
-        val WEBP = CoreImageFormat("WEBP")
-        val AVIF = CoreImageFormat("AVIF")
+        val PNG = CoreImageFormat("png")
+        val JPEG = CoreImageFormat("jpeg")
+        val GIF = CoreImageFormat("gif")
+        val TGA = CoreImageFormat("tga")
+        val WEBP = CoreImageFormat("webp")
+        val AVIF = CoreImageFormat("avif")
+
+        fun fromMimeType(mimeType: String): CoreImageFormat = CoreImageFormat(mimeType.substringAfterLast('/').lowercase())
     }
 }
 
