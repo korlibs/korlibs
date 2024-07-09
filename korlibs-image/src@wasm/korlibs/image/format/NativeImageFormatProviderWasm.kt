@@ -20,7 +20,6 @@ import korlibs.wasm.*
 import kotlinx.browser.*
 import kotlinx.coroutines.*
 import org.khronos.webgl.*
-import org.khronos.webgl.set
 import org.w3c.dom.*
 import org.w3c.dom.url.*
 import org.w3c.files.*
@@ -29,11 +28,11 @@ import kotlin.math.*
 import kotlin.time.*
 
 actual val nativeImageFormatProvider: NativeImageFormatProvider = when {
-    Platform.isJsNodeJs -> NodeJsNativeImageFormatProvider
+    Platform.isJsNodeJs -> NonBrowserNativeImageFormatProvider
     else -> HtmlNativeImageFormatProvider
 }
 
-object NodeJsNativeImageFormatProvider : BaseNativeImageFormatProvider() {
+object NonBrowserNativeImageFormatProvider : BaseNativeImageFormatProvider() {
     override val formats: ImageFormat get() = RegisteredImageFormats
     override suspend fun encodeSuspend(image: ImageDataContainer, props: ImageEncodingProps): ByteArray {
         return RegisteredImageFormats.formats.first().encode(image.default)

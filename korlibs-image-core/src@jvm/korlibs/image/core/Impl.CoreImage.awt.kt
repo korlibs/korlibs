@@ -8,6 +8,13 @@ import javax.imageio.*
 object AwtCoreImageFormatProvider : CoreImageFormatProvider {
     var dispatcher: CoroutineDispatcher = Dispatchers.IO
 
+    init {
+        // Try to detect junit and run then in headless mode
+        if (Thread.currentThread().stackTrace.contentDeepToString().contains("org.junit") && System.getenv("HEADLESS_TESTS") == "true") {
+            System.setProperty("java.awt.headless", "true")
+        }
+    }
+
     override suspend fun info(data: ByteArray): CoreImageInfo = withContext(dispatcher) {
         ImageIOReader(data.inputStream()) {
             CoreImageInfo(width = it.getWidth(0), height = it.getHeight(0), bpp = 32, format = CoreImageFormat(it.formatName))

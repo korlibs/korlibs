@@ -12,14 +12,13 @@ import korlibs.datastructure.*
 import korlibs.image.bitmap.*
 import korlibs.image.bitmap.Bitmap
 import korlibs.image.color.*
+import korlibs.image.core.*
 import korlibs.image.paint.*
 import korlibs.image.vector.*
 import korlibs.io.android.*
 import korlibs.math.*
-import korlibs.math.geom.*
 import korlibs.math.geom.vector.*
 import kotlinx.coroutines.*
-import java.io.*
 
 actual val nativeImageFormatProvider: NativeImageFormatProvider by lazy {
     try {
@@ -32,23 +31,6 @@ actual val nativeImageFormatProvider: NativeImageFormatProvider by lazy {
 }
 
 object AndroidNativeImageFormatProvider : NativeImageFormatProvider() {
-    override suspend fun encodeSuspend(image: ImageDataContainer, props: ImageEncodingProps): ByteArray {
-        val compressFormat = when (props.mimeType) {
-            "image/png" -> android.graphics.Bitmap.CompressFormat.PNG
-            "image/jpeg", "image/jpg" -> android.graphics.Bitmap.CompressFormat.JPEG
-            "image/webp" -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                android.graphics.Bitmap.CompressFormat.WEBP_LOSSY
-            } else {
-                android.graphics.Bitmap.CompressFormat.PNG
-            }
-            else -> android.graphics.Bitmap.CompressFormat.PNG
-        }
-        return ByteArrayOutputStream().use { bao ->
-            image.mainBitmap.toAndroidBitmap().compress(compressFormat, (props.quality * 100).toInt(), bao)
-            bao.toByteArray()
-        }
-    }
-
     override suspend fun display(bitmap: Bitmap, kind: Int) {
         val ctx = androidContext()
         val androidBitmap = bitmap.toAndroidBitmap()
@@ -84,51 +66,9 @@ object AndroidNativeImageFormatProvider : NativeImageFormatProvider() {
         deferred.await()
     }
 
-    override suspend fun decodeHeaderInternal(data: ByteArray): ImageInfo {
-        val options = BitmapFactory.Options().also { it.inJustDecodeBounds = true }
-        Dispatchers.Default { BitmapFactory.decodeByteArray(data, 0, data.size, options) }
-        return ImageInfo().also {
-            it.width = options.outWidth
-            it.height = options.outHeight
-        }
-    }
-
-    override suspend fun decodeInternal(data: ByteArray, props: ImageDecodingProps): NativeImageResult {
-        val info = decodeHeaderInternal(data)
-        val originalSize = MSizeInt(info.width, info.height)
-
-        return NativeImageResult(
-            image = AndroidNativeImage(
-                Dispatchers.Default {
-                    for (setPremult in listOf(true, false)) {
-                        val bmp = BitmapFactory.decodeByteArray(
-                            data, 0, data.size,
-                            BitmapFactory.Options().also {
-                                if (setPremult) {
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                                        it.inPremultiplied = when {
-                                            props.asumePremultiplied -> false
-                                            props.premultipliedSure -> true
-                                            else -> false
-                                        }
-                                    }
-                                }
-                                it.inSampleSize = props.getSampleSize(originalSize.width, originalSize.height)
-                                it.inMutable = true
-                            }
-                        )
-                        if (bmp != null) {
-                            return@Default bmp
-                        }
-                    }
-                    error("Couldn't decode image")
-                }
-            ).also {
-               if (props.asumePremultiplied) it.asumePremultiplied()
-            },
-            originalWidth = info.width,
-            originalHeight = info.height
-        )
+    override fun convertCoreImageToNativeImage(image: CoreImage, props: ImageDecodingProps): NativeImage {
+        if (image is AndroidCoreImage) return AndroidNativeImage(image.bitmap)
+        return super.convertCoreImageToNativeImage(image, props)
     }
 
     override fun create(width: Int, height: Int, premultiplied: Boolean?): NativeImage {
