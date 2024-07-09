@@ -57,6 +57,15 @@ class CoreImageTest {
         assertEquals("#FF8000FF,#8040FFFF", "${c1.toHexString()},${c2.toHexString()}")
     }
 
+    @Test
+    fun testEncodeDecodeCheckColors() = runTest {
+        val colors = CoreImage.decodeBytes(CoreImage.decodeBytes(png2x1Data).encodeBytes(CoreImageFormat.PNG)).to32()
+        assertEquals("2x1", "${colors.width}x${colors.height}")
+        val c1 = CoreImage32Color(colors.data[0])
+        val c2 = CoreImage32Color(colors.data[1])
+        assertEquals("#FF8000FF,#8040FFFF", "${c1.toHexString()},${c2.toHexString()}")
+    }
+
     fun CoreImage32Color.toHexString(): String = buildString(9) {
         val HEX = "0123456789ABCDEF"
         append("#")
