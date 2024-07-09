@@ -28,7 +28,7 @@ interface CoreImage {
 class CoreImage32(
     override val width: Int,
     override val height: Int,
-    val data: IntArray,
+    val data: IntArray = IntArray(width * height),
     override val premultiplied: Boolean = true
 ) : CoreImage {
     override val native get() = data
