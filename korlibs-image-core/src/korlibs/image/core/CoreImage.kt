@@ -1,5 +1,7 @@
 package korlibs.image.core
 
+import kotlin.math.*
+
 /**
  * An image representation that can be used to encode/decode images in different formats.
  */
@@ -60,9 +62,9 @@ inline class CoreImage32Color(val value: Int) {
 
     fun premultiplied(): CoreImage32Color {
         val Af = alpha / 255f
-        val R = (red * Af).toInt()
-        val G = (green * Af).toInt()
-        val B = (blue * Af).toInt()
+        val R = (red * Af).roundToInt()
+        val G = (green * Af).roundToInt()
+        val B = (blue * Af).roundToInt()
         return CoreImage32Color(R, G, B, alpha)
     }
 
@@ -72,7 +74,7 @@ inline class CoreImage32Color(val value: Int) {
             0 -> CoreImage32Color(0)
             else -> {
                 val iAf = 255f / alpha
-                CoreImage32Color((red * iAf).toInt(), (green * iAf).toInt(), (blue * iAf).toInt(), alpha)
+                CoreImage32Color((red * iAf).roundToInt(), (green * iAf).roundToInt(), (blue * iAf).roundToInt(), alpha)
             }
         }
 
@@ -84,6 +86,20 @@ inline class CoreImage32Color(val value: Int) {
         const val BLUE_OFFSET = 16
         const val ALPHA_OFFSET = 24
     }
+}
+
+
+internal fun CoreImage32Color.toHexString(): String = buildString(9) {
+    val HEX = "0123456789ABCDEF"
+    append("#")
+    append(HEX[(red ushr 4) and 0xF])
+    append(HEX[(red ushr 0) and 0xF])
+    append(HEX[(green ushr 4) and 0xF])
+    append(HEX[(green ushr 0) and 0xF])
+    append(HEX[(blue ushr 4) and 0xF])
+    append(HEX[(blue ushr 0) and 0xF])
+    append(HEX[(alpha ushr 4) and 0xF])
+    append(HEX[(alpha ushr 0) and 0xF])
 }
 
 /**

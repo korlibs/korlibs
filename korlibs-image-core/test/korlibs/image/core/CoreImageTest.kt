@@ -73,7 +73,7 @@ class CoreImageTest {
         val image = CoreImage32(1, 1, intArrayOf(CoreImage32Color(0xFF, 0x77, 0x33, 0x44).value), premultiplied = false).premultiplied()
         val image2 = CoreImage.decodeBytes(CoreImage.encode(image, CoreImageFormat.PNG, 1.0)).to32()
         assertEquals(true, image2.premultiplied)
-        assertEquals("#441F0D44", CoreImage32Color(image2.data[0]).toHexString())
+        assertEquals("#44200E44", CoreImage32Color(image2.data[0]).toHexString())
     }
 
     @Test
@@ -81,18 +81,5 @@ class CoreImageTest {
         val img = CoreImage.decodeBytes(png2Data).to32()
         assertEquals(true, img.premultiplied)
         assertEquals("#441F0D44", CoreImage32Color(img.data[0]).toHexString())
-    }
-
-    fun CoreImage32Color.toHexString(): String = buildString(9) {
-        val HEX = "0123456789ABCDEF"
-        append("#")
-        append(HEX[(red ushr 4) and 0xF])
-        append(HEX[(red ushr 0) and 0xF])
-        append(HEX[(green ushr 4) and 0xF])
-        append(HEX[(green ushr 0) and 0xF])
-        append(HEX[(blue ushr 4) and 0xF])
-        append(HEX[(blue ushr 0) and 0xF])
-        append(HEX[(alpha ushr 4) and 0xF])
-        append(HEX[(alpha ushr 0) and 0xF])
     }
 }

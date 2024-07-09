@@ -67,7 +67,7 @@ private fun bswap32(v: Int): Int = (v ushr 24) or (v shl 24) or ((v and 0xFF00) 
 private fun bswap32(v: IntArray, start: Int = 0, end: Int = v.size) { for (n in start until end) v[n] = bswap32(v[n]) }
 
 fun CoreImage.toCanvas(): HtmlCanvasCoreImage {
-    val bmp = this.to32()
+    val bmp = this.to32().depremultiplied()
     val canvas = HtmlCoreImageFormatProvider.createCanvas(bmp.width, bmp.height)
     val ctx: CanvasRenderingContext2D = canvas.getContext2d()
     val imageData = ctx.createImageData(bmp.width.toDouble(), bmp.height.toDouble())
@@ -95,6 +95,6 @@ class HtmlCanvasCoreImage(val canvas: HTMLCanvasElement) : CoreImage {
         // @TODO: Conversions? RGBA, BGRA, etc.?
         val out = Int32Array(data.data.buffer).unsafeCast<IntArray>()
         if (!isLittleEndian) bswap32(out)
-        return CoreImage32(width, height, out)
+        return CoreImage32(width, height, out, false).premultiplied()
     }
 }
