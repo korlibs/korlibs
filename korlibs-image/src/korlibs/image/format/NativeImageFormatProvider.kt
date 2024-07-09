@@ -27,8 +27,11 @@ internal fun Bitmap.toCoreImage(): CoreImage = this.toBMP32().toCoreImage()
 
 abstract class CoreImageNativeImageFormatProvider : NativeImageFormatProvider() {
     override suspend fun decodeInternal(data: ByteArray, props: ImageDecodingProps): NativeImageResult {
+        if (props.asumePremultiplied || props.premultiplied == false) {
+            return RegisteredImageFormats.decode(data, props).toNativeImageResult(props)
+        }
         val image = CoreImage.decodeBytes(data)
-        return NativeImageResult(BitmapNativeImage(image.to32().toBitmap()), image.width, image.height)
+        return image.to32().toBitmap().toNativeImageResult(props)
     }
 
     override suspend fun display(bitmap: Bitmap, kind: Int) {
@@ -38,6 +41,21 @@ abstract class CoreImageNativeImageFormatProvider : NativeImageFormatProvider() 
     override fun create(width: Int, height: Int, premultiplied: Boolean?): NativeImage {
         return BitmapNativeImage(Bitmap32(width, height, premultiplied = premultiplied ?: true))
     }
+
+    fun Bitmap.toNativeImage(props: ImageDecodingProps): NativeImage {
+        if (this is NativeImage && !props.asumePremultiplied && (props.premultiplied == null || props.premultiplied == this.premultiplied)) {
+            return this
+        }
+        val out = this.toBMP32IfRequired()
+        when {
+            props.asumePremultiplied -> out.asumePremultiplied()
+            !this.premultiplied && props.premultiplied == false -> out.depremultiplyInplaceIfRequired()
+            this.premultiplied && props.premultiplied == true -> out.premultiplyInplaceIfRequired()
+        }
+        return BitmapNativeImage(out)
+    }
+
+    fun Bitmap.toNativeImageResult(props: ImageDecodingProps): NativeImageResult = NativeImageResult(this.toNativeImage(props))
 }
 
 abstract class NativeImageFormatProvider : ImageFormatEncoderDecoder {

@@ -13,9 +13,8 @@ import platform.windows.*
 
 actual val nativeImageFormatProvider: NativeImageFormatProvider get() = Win32BaseNativeImageFormatProvider
 
-open class Win32BaseNativeImageFormatProvider : StbImageNativeImageFormatProvider() {
+open class Win32BaseNativeImageFormatProvider : CoreImageNativeImageFormatProvider() {
     companion object : Win32BaseNativeImageFormatProvider()
-    override fun createBitmapNativeImage(bmp: Bitmap): GdiNativeImage = GdiNativeImage(bmp.toBMP32())
 }
 
 @OptIn(ExperimentalForeignApi::class)
