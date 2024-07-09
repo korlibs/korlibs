@@ -201,6 +201,31 @@ object AppleCoreImageFormatProvider : CoreImageFormatProvider {
         }
     }
 
+
+    @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
+    fun CGRectMakeExt(x: Int, y: Int, width: Int, height: Int): CValue<CGRect> = CGRectMakeExt(x.toDouble(), y.toDouble(), width.toDouble(), height.toDouble())
+
+    @OptIn(ExperimentalForeignApi::class)
+    fun CGRectMakeExt(x: Double, y: Double, width: Double, height: Double): CValue<CGRect> {
+        return memScoped {
+            val rect = alloc<CGRect>()
+            if (sizeOf<CGRect>().toInt() == 16) {
+                val values = rect.ptr.reinterpret<FloatVar>()
+                values[0] = x.toFloat()
+                values[1] = y.toFloat()
+                values[2] = width.toFloat()
+                values[3] = height.toFloat()
+            } else {
+                val values = rect.ptr.reinterpret<DoubleVar>()
+                values[0] = x
+                values[1] = y
+                values[2] = width
+                values[3] = height
+            }
+            rect.readValue()
+        }
+    }
+
 }
 
 @OptIn(ExperimentalForeignApi::class)
@@ -219,11 +244,8 @@ fun CGImageRef.toBitmap32(): CoreImage32 {
         8.convert(), 0.convert(), colorSpace,
         CGImageAlphaInfo.kCGImageAlphaPremultipliedLast.value
     )
-    CGContextDrawImage(ctx, CGRectMakeExt(0, 0, width, height), image)
+    CGContextDrawImage(ctx, AppleCoreImageFormatProvider.CGRectMakeExt(0, 0, width, height), image)
     val out = CoreImage32(width, height, premultiplied = true)
     AppleCoreImageFormatProvider.transferBitmap32CGContext(out, ctx, toBitmap = true)
     return out
 }
-
-@OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
-private fun CGRectMakeExt(x: Int, y: Int, width: Int, height: Int): CValue<CGRect> = CGRectMake(x.convert(), y.convert(), width.convert(), height.convert())
