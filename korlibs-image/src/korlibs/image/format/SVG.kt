@@ -29,9 +29,9 @@ object SVG : ImageFormat("svg") {
         }
     }.getOrNull()
 
-	override fun readImage(s: SyncStream, props: ImageDecodingProps): ImageData {
+	override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
 		val content = s.sliceStart().readAll().toString(UTF8).trim()
 		val svg = korlibs.image.vector.format.SVG(content)
-		return ImageData(svg.render().toBMP32())
+		return ImageDataContainer(svg.render().toBMP32())
 	}
 }

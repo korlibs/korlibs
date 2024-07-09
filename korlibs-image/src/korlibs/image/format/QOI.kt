@@ -40,7 +40,7 @@ object QOI : ImageFormat("qoi") {
      * 1. The width and height of the output Bitmap must match the header width and height.
      * 2. The out Bitmap must be a Bitmap32.
      */
-    override fun readImage(s: SyncStream, props: ImageDecodingProps): ImageData {
+    override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
         val header = decodeHeader(s, props)
             ?: error("Not a QOI image")
         val bytes = UByteArrayInt(s.readAvailable())
@@ -118,10 +118,10 @@ object QOI : ImageFormat("qoi") {
             index[QOI_COLOR_HASH(r, g, b, a) % 64] = lastCol
             outp[o++] = lastCol
         }
-        return ImageData(outBmp)
+        return ImageDataContainer(outBmp)
     }
 
-    override fun writeImage(image: ImageData, s: SyncStream, props: ImageEncodingProps) {
+    override fun writeImageContainer(image: ImageDataContainer, s: SyncStream, props: ImageEncodingProps) {
         val bitmap = image.mainBitmap
         val index = RgbaArray(64)
         val maxSize = calculateMaxSize(bitmap)

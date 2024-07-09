@@ -8,18 +8,6 @@ import korlibs.io.lang.*
 import korlibs.io.stream.*
 import kotlin.math.*
 
-abstract class ImageFormatWithContainer(vararg exts: String) : ImageFormat(*exts) {
-    override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer = TODO()
-    final override fun readImage(s: SyncStream, props: ImageDecodingProps): ImageData = readImageContainer(s, props).imageDatas.first()
-}
-
-abstract class ImageFormatSuspend(vararg exts: String) : ImageFormat(*exts) {
-    override suspend fun decodeHeaderSuspend(s: AsyncStream, props: ImageDecodingProps): ImageInfo? = TODO()
-
-    final override fun decodeHeader(s: SyncStream, props: ImageDecodingProps): ImageInfo? =
-        runBlockingNoSuspensionsNullable { decodeHeaderSuspend(s.sliceHere().toAsync(), props) }
-}
-
 interface ImageFormatDecoder {
     suspend fun decode(file: VfsFile, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): Bitmap
     suspend fun decodeSuspend(data: ByteArray, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): Bitmap
@@ -40,19 +28,18 @@ suspend fun ImageFormatEncoder.encodeSuspend(
 
 interface ImageFormatEncoderDecoder : ImageFormatEncoder, ImageFormatDecoder
 
-abstract class ImageFormat(vararg exts: String) : BaseImageDecodingProps, ImageFormatEncoderDecoder {
-    override val decodingProps: ImageDecodingProps by lazy { this.toProps() }
-	val extensions = exts.map { it.toLowerCase().trim() }.toSet()
-    open fun readImageContainer(s: SyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): ImageDataContainer = ImageDataContainer(listOf(readImage(s, props)))
-	open fun readImage(s: SyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): ImageData = TODO()
-	open fun writeImage(image: ImageData, s: SyncStream, props: ImageEncodingProps): Unit = throw UnsupportedOperationException()
+abstract class ImageFormat(vararg exts: String, val mimeType: String = "image/${exts.first()}") : BaseImageDecodingProps, ImageFormatEncoderDecoder {
+    final override val decodingProps: ImageDecodingProps by lazy { this.toProps() }
+	val extensions = exts.map { it.lowercase().trim() }.toSet()
 
-    override suspend fun encodeSuspend(image: ImageDataContainer, props: ImageEncodingProps): ByteArray {
-        val out = MemorySyncStream()
-        writeImage(image.default, out, props)
-        return out.toByteArray()
-    }
+    // Basic interface to implement
+    abstract fun readImageContainer(s: SyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): ImageDataContainer
+    open fun writeImageContainer(image: ImageDataContainer, s: SyncStream, props: ImageEncodingProps): Unit = throw UnsupportedOperationException()
 
+	fun readImage(s: SyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): ImageData = readImageContainer(s, props).default
+	fun writeImage(image: ImageData, s: SyncStream, props: ImageEncodingProps): Unit = writeImageContainer(ImageDataContainer(image), s, props)
+
+    final override suspend fun encodeSuspend(image: ImageDataContainer, props: ImageEncodingProps): ByteArray = MemorySyncStreamToByteArray { writeImage(image.default, this, props) }
     suspend fun decodeHeaderSuspend(file: VfsFile, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): ImageInfo? {
         return file.openUse { decodeHeaderSuspend(this@openUse, props.withFile(file)) }
     }
@@ -91,15 +78,14 @@ abstract class ImageFormat(vararg exts: String) : BaseImageDecodingProps, ImageF
     /** Decodes a given [data] byte array to a bitmap based on the image format with optional extra [prop] properties. */
     fun decode(data: ByteArray, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): Bitmap = read(data.openSync(), props)
 
-	override suspend fun decodeSuspend(data: ByteArray, props: ImageDecodingProps): Bitmap = decode(data, props)
+	final override suspend fun decodeSuspend(data: ByteArray, props: ImageDecodingProps): Bitmap = decode(data, props)
+    final override suspend fun decode(file: VfsFile, props: ImageDecodingProps): Bitmap =
+        this.read(file.readAsSyncStream(), props.withFile(file))
 
-	//fun decode(s: SyncStream, filename: String = "unknown") = this.read(s, filename)
+    //fun decode(s: SyncStream, filename: String = "unknown") = this.read(s, filename)
 	suspend fun decode(file: VfsFile) = this.read(file.readAsSyncStream(), file.baseName)
 	//fun decode(file: File) = this.read(file.openSync("r"), file.name)
 	//fun decode(s: ByteArray, filename: String = "unknown"): Bitmap = read(s.openSync(), filename)
-
-    override suspend fun decode(file: VfsFile, props: ImageDecodingProps): Bitmap =
-        this.read(file.readAsSyncStream(), props.withFile(file))
 
     suspend fun decode(s: AsyncStream, filename: String) = this.read(s.readAll(), ImageDecodingProps(filename))
     suspend fun decode(s: AsyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT) =
@@ -119,6 +105,15 @@ abstract class ImageFormat(vararg exts: String) : BaseImageDecodingProps, ImageF
 		this.readImage(file.readAll().openSync(), props.withFile(file))
 
 	override fun toString(): String = "ImageFormat($extensions)"
+}
+
+open class ImageFormatSuspend(vararg exts: String, mimeType: String = "image/${exts.first()}") : ImageFormat(*exts, mimeType = mimeType) {
+    override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer = TODO()
+
+    override suspend fun decodeHeaderSuspend(s: AsyncStream, props: ImageDecodingProps): ImageInfo? = TODO()
+
+    final override fun decodeHeader(s: SyncStream, props: ImageDecodingProps): ImageInfo? =
+        runBlockingNoSuspensionsNullable { decodeHeaderSuspend(s.sliceHere().toAsync(), props) }
 }
 
 class ImageDecoderNotFoundException : Exception("Can't read image using AWT. No available decoder for input")

@@ -190,7 +190,7 @@ object KRA : ImageFormat("kra") {
         return oidx.toInt()
     }
 
-    override fun readImage(s: SyncStream, props: ImageDecodingProps): ImageData {
+    override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
         return runBlockingNoSuspensions {
             val vfs = ZipVfs(s.clone().toAsync())
             val folderVfs = vfs.listSimple().filter { it.isDirectory() }.firstOrNull() ?: error("No root folder in zip")
@@ -249,7 +249,7 @@ object KRA : ImageFormat("kra") {
             }
             //println(xml.descendants("layer").toList())
             //println(xml)
-            ImageData(frames, width = mainBitmap.width, height = mainBitmap.height)
+            ImageDataContainer(ImageData(frames, width = mainBitmap.width, height = mainBitmap.height))
         }
     }
 

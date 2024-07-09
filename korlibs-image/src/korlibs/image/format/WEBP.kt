@@ -22,8 +22,8 @@ object WEBP : ImageFormat("webp") {
         return this
     }
 
-    override fun readImage(s: SyncStream, props: ImageDecodingProps): ImageData {
-        return ImageData(WebpWASM.decodeWebpBytes(s.readAll()) ?: error("Not a WEBP"))
+    override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
+        return ImageDataContainer(WebpWASM.decodeWebpBytes(s.readAll()) ?: error("Not a WEBP"))
     }
 
     override fun decodeHeader(s: SyncStream, props: ImageDecodingProps): ImageInfo? {

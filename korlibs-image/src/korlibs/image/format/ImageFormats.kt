@@ -68,36 +68,16 @@ open class ImageFormats(formats: Iterable<ImageFormat>) : ImageFormat("") {
         )
     }
 
-	override fun readImage(s: SyncStream, props: ImageDecodingProps): ImageData {
-        return readImageTyped(s, props) { format, s, props ->
-            format.readImage(s.sliceStart(), props)
-        }
-	}
-
-	override fun writeImage(image: ImageData, s: SyncStream, props: ImageEncodingProps) {
-		//println("filename: $filename")
-        formatByExt(PathInfo(props.filename).extensionLC).writeImage(image, s, props)
-	}
-
-    override suspend fun encodeSuspend(image: ImageDataContainer, props: ImageEncodingProps): ByteArray {
-        return formatByExt(props.filename.pathInfo.extensionLC).encodeSuspend(image, props)
-    }
-
-    override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
+	override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
         return readImageTyped(s, props) { format, s, props ->
             format.readImageContainer(s.sliceStart(), props)
         }
-    }
+	}
 
-    override suspend fun decodeSuspend(data: ByteArray, props: ImageDecodingProps): Bitmap {
-        return readImageTyped(data.openSync(), props) { format, s, props ->
-            format.decodeSuspend(data, props)
-        }
-    }
-
-    override suspend fun decode(file: VfsFile, props: ImageDecodingProps): Bitmap {
-        return formatByExt(file.extensionLC).decode(file, props)
-    }
+	override fun writeImageContainer(image: ImageDataContainer, s: SyncStream, props: ImageEncodingProps) {
+		//println("filename: $filename")
+        formatByExt(PathInfo(props.filename).extensionLC).writeImageContainer(image, s, props)
+	}
 }
 
 
