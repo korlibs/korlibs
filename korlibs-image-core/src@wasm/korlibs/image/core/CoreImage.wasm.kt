@@ -11,7 +11,6 @@ import kotlin.io.encoding.*
 
 actual val CoreImageFormatProvider_default: CoreImageFormatProvider = HtmlCoreImageFormatProvider
 
-
 @OptIn(ExperimentalEncodingApi::class)
 object HtmlCoreImageFormatProvider : CoreImageFormatProvider {
     override suspend fun info(data: ByteArray): CoreImageInfo = generateTemporalURLForBytes(data) {
