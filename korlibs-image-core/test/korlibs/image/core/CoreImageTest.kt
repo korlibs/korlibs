@@ -11,7 +11,7 @@ class CoreImageTest {
     // 2x1 image: #FF8000FF, #8040FFFF
     val png2x1Data = Base64.decode("iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAIAAAB7QOjdAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAD0lEQVQImWP+38DAyPAfAAmYAoMPmI8gAAAAAElFTkSuQmCC")
 
-    //val png2Data = Base64.decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAACXBIWXMAAC4jAAAuIwF4pT92AAAADElEQVQImWP4//YIAAWfArF7Y+TeAAAAAElFTkSuQmCC")
+    val png2Data = Base64.decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4XmP4X2LoAgAGAwHpGKW+VwAAAABJRU5ErkJggg==")
 
     @Test
     fun testInfo() = runTest {
@@ -69,11 +69,18 @@ class CoreImageTest {
     }
 
     @Test
-    fun testPremultiplied() = runTest {
+    fun testPremultipliedEncodedecode() = runTest {
         val image = CoreImage32(1, 1, intArrayOf(CoreImage32Color(0xFF, 0x77, 0x33, 0x44).value), premultiplied = false).premultiplied()
         val image2 = CoreImage.decodeBytes(CoreImage.encode(image, CoreImageFormat.PNG, 1.0)).to32()
         assertEquals(true, image2.premultiplied)
         assertEquals("#441F0D44", CoreImage32Color(image2.data[0]).toHexString())
+    }
+
+    @Test
+    fun testPremultipliedDecode() = runTest {
+        val img = CoreImage.decodeBytes(png2Data).to32()
+        assertEquals(true, img.premultiplied)
+        assertEquals("#441F0D44", CoreImage32Color(img.data[0]).toHexString())
     }
 
     fun CoreImage32Color.toHexString(): String = buildString(9) {
