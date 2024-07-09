@@ -34,6 +34,10 @@ abstract class CoreImageNativeImageFormatProvider : NativeImageFormatProvider() 
         return image.to32().toBitmap().toNativeImageResult(props)
     }
 
+    override suspend fun encodeSuspend(image: ImageDataContainer, props: ImageEncodingProps): ByteArray {
+        return CoreImage.encode(image.mainBitmap.toCoreImage(), CoreImageFormat.fromMimeType(props.mimeType), props.quality)
+    }
+
     override suspend fun display(bitmap: Bitmap, kind: Int) {
         TODO()
     }

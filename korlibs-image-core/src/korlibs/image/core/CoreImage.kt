@@ -137,6 +137,12 @@ suspend fun CoreImage.Companion.decodeBytes(data: ByteArray): CoreImage =
     CoreImageFormatProvider.CURRENT.decode(data)
 
 /**
+ * Decodes a [data] ByteArray into a CoreImage
+ */
+suspend fun CoreImage.Companion.encode(image: CoreImage, format: CoreImageFormat, level: Double): ByteArray =
+    CoreImageFormatProvider.CURRENT.encode(image, format, level)
+
+/**
  * Encodes a [CoreImage] into a [ByteArray] in the specified [format] (PNG, JPEG, etc.)
  */
 suspend fun CoreImage.encodeBytes(format: CoreImageFormat, level: Double = 1.0): ByteArray =
