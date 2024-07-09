@@ -3,7 +3,6 @@ import com.google.gson.JsonParser
 import groovy.json.*
 import groovy.namespace.*
 import groovy.util.*
-import org.gradle.jvm.tasks.Jar
 import org.gradle.plugins.signing.signatory.internal.pgp.*
 import org.jetbrains.kotlin.gradle.dsl.*
 import org.jetbrains.kotlin.gradle.plugin.*
@@ -513,14 +512,6 @@ tasks {
 // PUBLISHING
 /////////////////////////////////////////////////////////////////
 
-fun Project.doOnce(uniqueName: String, block: () -> Unit) {
-    val key = "doOnce-$uniqueName"
-    if (!rootProject.extra.has(key)) {
-        rootProject.extra.set(key, true)
-        block()
-    }
-}
-
 class SonatypeProps(val project: Project) {
     // Signing
     val signingKey: String? = System.getenv("ORG_GRADLE_PROJECT_signingKey") ?: project.findProperty("signing.signingKey")?.toString()
@@ -531,10 +522,10 @@ class SonatypeProps(val project: Project) {
     }
 
     val sonatypePublishUserNull: String? =
-        (System.getenv("SONATYPE_USERNAME") ?: rootProject.findProperty("SONATYPE_USERNAME")?.toString() ?: project.findProperty("sonatypeUsername")
+        (System.getenv("SONATYPE_USERNAME") ?: project.rootProject.findProperty("SONATYPE_USERNAME")?.toString() ?: project.findProperty("sonatypeUsername")
             ?.toString())
     val sonatypePublishPasswordNull: String? =
-        (System.getenv("SONATYPE_PASSWORD") ?: rootProject.findProperty("SONATYPE_PASSWORD")?.toString() ?: project.findProperty("sonatypePassword")
+        (System.getenv("SONATYPE_PASSWORD") ?: project.rootProject.findProperty("SONATYPE_PASSWORD")?.toString() ?: project.findProperty("sonatypePassword")
             ?.toString())
     val sonatype: Sonatype? = when {
         sonatypePublishUserNull != null && sonatypePublishPasswordNull != null -> Sonatype(sonatypePublishUserNull, sonatypePublishPasswordNull)
@@ -543,16 +534,21 @@ class SonatypeProps(val project: Project) {
 
     val stagedRepositoryId: String? by lazy {
         System.getenv("stagedRepositoryId")
-            ?: findProperty("stagedRepositoryId")?.toString()
+            ?: project.findProperty("stagedRepositoryId")?.toString()
             ?: File("stagedRepositoryId").takeIf { it.exists() }?.readText()?.trim()
     }
 
-    fun createTasks(project: Project) = with(project) {
+    fun configureRootTasksOnce() {
+        val rootProject = project.rootProject
+        if (rootProject.tasks.findByName("startReleasingMavenCentral") != null) {
+            return
+        }
+
         if (sonatype != null) {
-            tasks.create("startReleasingMavenCentral", Task::class) {
+            rootProject.tasks.create("startReleasingMavenCentral", Task::class) {
                 doLast {
-                    val profileId = sonatype.findProfileIdByGroupId("com.soywiz")
-                    val stagedRepositoryId = sonatype.startStagedRepository(profileId)
+                    val profileId = sonatype!!.findProfileIdByGroupId("com.soywiz")
+                    val stagedRepositoryId = sonatype!!.startStagedRepository(profileId)
                     println("profileId=$profileId")
                     println("stagedRepositoryId=$stagedRepositoryId")
                     GithubCI.setOutput("stagedRepositoryId", stagedRepositoryId)
@@ -565,7 +561,7 @@ class SonatypeProps(val project: Project) {
                 doLast {
                     //if (!sonatype.releaseGroupId(rootProject.group.toString())) {
                     try {
-                        if (!sonatype.releaseGroupId(groupId)) {
+                        if (!sonatype!!.releaseGroupId(groupId)) {
                             error("Can't promote artifacts. Check log for details")
                         }
                     } finally {
@@ -579,340 +575,295 @@ class SonatypeProps(val project: Project) {
             println("stagedRepositoryId=$stagedRepositoryId")
         }
     }
-}
 
-val sonatypeProps = SonatypeProps(rootProject)
+    open class CachedInMemoryPgpSignatoryProvider(signingKey: String?, signingPassword: String?) : InMemoryPgpSignatoryProvider(signingKey, signingPassword) {
+        var cachedPhpSignatory: PgpSignatory? = null
+        override fun getDefaultSignatory(project: Project): PgpSignatory? {
+            if (cachedPhpSignatory == null) cachedPhpSignatory = super.getDefaultSignatory(project)
+            return cachedPhpSignatory
+        }
+    }
 
-sonatypeProps.createTasks(rootProject)
-
-
-publishing {
-    repositories {
-        if (sonatypeProps.sonatype != null) {
-            maven {
-                credentials {
-                    username = sonatypeProps.sonatype.user
-                    password = sonatypeProps.sonatype.pass
+    open class SimpleHttpClient(
+        val user: String? = null,
+        val pass: String? = null
+    ) {
+        open fun request(url: String, body: Any? = null): JsonElement {
+            val post = (URL(url).openConnection()) as HttpURLConnection
+            post.connectTimeout = 300 * 1000 // 300 seconds // 5 minutes
+            post.readTimeout = 300 * 1000 // 300 seconds // 5 minutes
+            post.requestMethod = (if (body != null) "POST" else "GET")
+            if (user != null && pass != null) {
+                val authBasic = Base64.getEncoder().encodeToString("${user}:${pass}".toByteArray(Charsets.UTF_8))
+                post.setRequestProperty("Authorization", "Basic $authBasic")
+            }
+            post.setRequestProperty("Accept", "application/json")
+            if (body != null) {
+                post.doOutput = true
+                post.setRequestProperty("Content-Type", "application/json")
+                val bodyText = if (body is String) body.toString() else JsonOutput.toJson(body)
+                //println(bodyText)
+                post.outputStream.write(bodyText.toByteArray(Charsets.UTF_8))
+            }
+            val postRC = post.responseCode
+            val postMessage = post.responseMessage
+            //println(postRC)
+            if (postRC < 400) {
+                return JsonParser.parseString(post.inputStream.reader(Charsets.UTF_8).readText())
+            } else {
+                val errorString = try {
+                    post.errorStream?.reader(Charsets.UTF_8)?.readText()
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Throwable) {
+                    null
                 }
-                url = when {
-                    version.toString().contains("-SNAPSHOT") -> uri("https://oss.sonatype.org/content/repositories/snapshots/")
-                    sonatypeProps.stagedRepositoryId != null -> uri("https://oss.sonatype.org/service/local/staging/deployByRepositoryId/${sonatypeProps.stagedRepositoryId}/")
-                    else -> uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-                }
-                doOnce("showDeployTo") { logger.info("DEPLOY mavenRepository: $url") }
+                throw SimpleHttpException(postRC, postMessage, url, errorString)
+            }
+        }
+        class SimpleHttpException(val responseCode: Int, val responseMessage: String, val url: String, val errorString: String?) :
+            RuntimeException("HTTP Error $responseCode $responseMessage - $url - $errorString")
+    }
+
+    object GithubCI {
+        fun setOutput(name: String, value: String) {
+            val GITHUB_OUTPUT = System.getenv("GITHUB_OUTPUT")
+            if (GITHUB_OUTPUT != null) {
+                File(GITHUB_OUTPUT).appendText("$name=$value\n")
+            } else {
+                println("::set-output name=$name::$value")
             }
         }
     }
 
-    publications.withType(MavenPublication::class) {
-        //println(this.artifacts.stream().map { it.file })
-        //copyArtifactsToDirectory.get().from(this.artifacts.stream().map { it.file })
+    open class Sonatype(val user: String, val pass: String, val BASE: String = DEFAULT_BASE) {
+        companion object {
+            const val DEFAULT_BASE = "https://oss.sonatype.org/service/local/staging"
+            const private val BASE = DEFAULT_BASE
+            operator fun JsonElement.get(key: String): JsonElement = asJsonObject.get(key)
+            val JsonElement.list: JsonArray get() = asJsonArray
 
-        val publication = this
-        val jarTaskName = "${publication.name}JavadocJar"
-        //println(jarTaskName)
-        val javadocJar = tasks.create<Jar>(jarTaskName) {
-            archiveClassifier.set("javadoc")
-            archiveBaseName.set(jarTaskName)
-        }
-        publication.artifact(javadocJar)
-
-        //println("PUBLICATION: ${publication.name}")
-
-        fun getCustomProp(key: String, defaultValue: String): String {
-            // @TODO: Actually be able to override it
-            return defaultValue
+            private val prettyGson by lazy { GsonBuilder().setPrettyPrinting().create() }
+            fun JsonElement.toStringPretty() = prettyGson.toJson(this)
+            //fun configureRoot(project: Project) {
+            //}
         }
 
-        //if (multiplatform) {
-        //if (!isGradlePluginMarker) {
-        run {
-            val defaultGitUrl = "https://github.com/korlibs/korge-korlibs"
-            publication.pom.also { pom ->
-                pom.name.set(project.name)
-                pom.description.set(project.description ?: getCustomProp("project.description", project.description ?: project.name))
-                pom.url.set(getCustomProp("project.scm.url", defaultGitUrl))
-                pom.licenses {
-                    license {
-                        name.set(getCustomProp("project.license.name", "MIT"))
-                        url.set(getCustomProp("project.license.url", "https://raw.githubusercontent.com/korlibs/korge-korlibs/main/LICENSE"))
-                    }
-                }
-                pom.developers {
-                    developer {
-                        id.set(getCustomProp("project.author.id", "soywiz"))
-                        name.set(getCustomProp("project.author.name", "Carlos Ballesteros Velasco"))
-                        email.set(getCustomProp("project.author.email", "soywiz@gmail.com"))
-                    }
-                }
-                pom.scm {
-                    url.set(getCustomProp("project.scm.url", defaultGitUrl))
-                }
+        fun releaseGroupId(groupId: String = "korlibs"): Boolean {
+            println("Trying to release groupId=$groupId")
+            val profileId = findProfileIdByGroupId(groupId)
+            println("Determined profileId=$profileId")
+            val repositoryIds = findProfileRepositories(profileId).toMutableList()
+            if (repositoryIds.isEmpty()) {
+                println("Can't find any repositories for profileId=$profileId for groupId=$groupId. Artifacts weren't upload?")
+                return false
             }
-            publication.pom.withXml {
-                if (publication.pom.packaging == "aar") {
-                    //println("baseProjectName=$baseProjectName")
-                    asNode().apply {
-                        val nodes: NodeList = this.getAt(QName("dependencies")).getAt("dependency").getAt("scope")
-                        for (node in nodes as List<Node>) {
-                            node.setValue("compile")
+            val totalRepositories = repositoryIds.size
+            var promoted = 0
+            var stepCount = 0
+            var retryCount = 0
+            process@while (true) {
+                stepCount++
+                if (stepCount > 200) {
+                    error("Too much steps. stepCount=$stepCount")
+                }
+                repo@for (repositoryId in repositoryIds.toList()) {
+                    val state = try {
+                        getRepositoryState(repositoryId)
+                    } catch (e: SimpleHttpClient.SimpleHttpException) {
+                        when (e.responseCode) {
+                            404 -> {
+                                println("Can't find $repositoryId anymore. Probably released. Stopping")
+                                repositoryIds.remove(repositoryId)
+                                continue@repo
+                            }
+                            // Server error
+                            // @TODO: We should handle retrying on other operations too
+                            in 500..599 -> { // Sometimes  HTTP Error 502 Bad Gateway
+                                e.printStackTrace()
+                                println("Retrying...")
+                                Thread.sleep(15_000L)
+                                retryCount++
+                                continue@repo
+                            }
+                            else -> {
+                                throw e
+                            }
                         }
                     }
-                }
-            }
-        }
-    }
-}
-
-// Signing
-if (sonatypeProps.globalSignatories != null) {
-    signing {
-        sign(publishing.publications)
-        this.signatories = sonatypeProps.globalSignatories
-    }
-}
-
-open class CachedInMemoryPgpSignatoryProvider(signingKey: String?, signingPassword: String?) : InMemoryPgpSignatoryProvider(signingKey, signingPassword) {
-    var cachedPhpSignatory: PgpSignatory? = null
-    override fun getDefaultSignatory(project: Project): PgpSignatory? {
-        //project.rootProject
-        //println("getDefaultSignatory:$project")
-        if (cachedPhpSignatory == null) {
-            cachedPhpSignatory = super.getDefaultSignatory(project)
-        }
-        return cachedPhpSignatory
-    }
-}
-
-
-open class Sonatype(
-    val user: String,
-    val pass: String,
-    val BASE: String = DEFAULT_BASE
-) {
-    companion object {
-        val DEFAULT_BASE = "https://oss.sonatype.org/service/local/staging"
-        private val BASE = DEFAULT_BASE
-
-        //fun fromGlobalConfig(): Sonatype {
-        //    val props = Properties().also { it.load(File(System.getProperty("user.home") + "/.gradle/gradle.properties").readText().reader()) }
-        //    return Sonatype(props["sonatypeUsername"].toString(), props["sonatypePassword"].toString(), DEFAULT_BASE)
-        //}
-
-        //fun fromProject(project: Project): Sonatype {
-        //    return Sonatype(project.sonatypePublishUser, project.sonatypePublishPassword)
-        //}
-
-        //@JvmStatic
-        //fun main(args: Array<String>) {
-        //    val sonatype = fromGlobalConfig()
-        //    sonatype.releaseGroupId("korlibs")
-        //}
-    }
-
-    fun releaseGroupId(groupId: String = "korlibs"): Boolean {
-        println("Trying to release groupId=$groupId")
-        val profileId = findProfileIdByGroupId(groupId)
-        println("Determined profileId=$profileId")
-        val repositoryIds = findProfileRepositories(profileId).toMutableList()
-        if (repositoryIds.isEmpty()) {
-            println("Can't find any repositories for profileId=$profileId for groupId=$groupId. Artifacts weren't upload?")
-            return false
-        }
-        val totalRepositories = repositoryIds.size
-        var promoted = 0
-        var stepCount = 0
-        var retryCount = 0
-        process@while (true) {
-            stepCount++
-            if (stepCount > 200) {
-                error("Too much steps. stepCount=$stepCount")
-            }
-            repo@for (repositoryId in repositoryIds.toList()) {
-                val state = try {
-                    getRepositoryState(repositoryId)
-                } catch (e: SimpleHttpException) {
-                    when (e.responseCode) {
-                        404 -> {
-                            println("Can't find $repositoryId anymore. Probably released. Stopping")
+                    when {
+                        state.transitioning -> {
+                            println("Waiting transition $state")
+                        }
+                        // Even if open, if there are notifications we should drop it
+                        state.notifications > 0 -> {
+                            println("Dropping release because of error state.notifications=$state")
+                            println(" - activity: " + getRepositoryActivity(repositoryId))
+                            repositoryDrop(repositoryId)
                             repositoryIds.remove(repositoryId)
-                            continue@repo
                         }
-                        // Server error
-                        // @TODO: We should handle retrying on other operations too
-                        in 500..599 -> { // Sometimes  HTTP Error 502 Bad Gateway
-                            e.printStackTrace()
-                            println("Retrying...")
-                            Thread.sleep(15_000L)
-                            retryCount++
-                            continue@repo
+                        state.isOpen -> {
+                            println("Closing open repository $state")
+                            println(" - activity: " + getRepositoryActivity(repositoryId))
+                            repositoryClose(repositoryId)
                         }
                         else -> {
-                            throw e
+                            println("Promoting repository $state")
+                            println(" - activity: " + getRepositoryActivity(repositoryId))
+                            repositoryPromote(repositoryId)
+                            promoted++
                         }
                     }
                 }
-                when {
-                    state.transitioning -> {
-                        println("Waiting transition $state")
-                    }
-                    // Even if open, if there are notifications we should drop it
-                    state.notifications > 0 -> {
-                        println("Dropping release because of error state.notifications=$state")
-                        println(" - activity: " + getRepositoryActivity(repositoryId))
-                        repositoryDrop(repositoryId)
-                        repositoryIds.remove(repositoryId)
-                    }
-                    state.isOpen -> {
-                        println("Closing open repository $state")
-                        println(" - activity: " + getRepositoryActivity(repositoryId))
-                        repositoryClose(repositoryId)
-                    }
-                    else -> {
-                        println("Promoting repository $state")
-                        println(" - activity: " + getRepositoryActivity(repositoryId))
-                        repositoryPromote(repositoryId)
-                        promoted++
-                    }
+                if (repositoryIds.isEmpty()) {
+                    println("Completed promoted=$promoted, totalRepositories=$totalRepositories, retryCount=$retryCount")
+                    break@process
                 }
+                Thread.sleep(30_000L)
             }
-            if (repositoryIds.isEmpty()) {
-                println("Completed promoted=$promoted, totalRepositories=$totalRepositories, retryCount=$retryCount")
-                break@process
-            }
-            Thread.sleep(30_000L)
+
+            return promoted == totalRepositories
         }
 
-        return promoted == totalRepositories
-    }
+        open val client = SimpleHttpClient(user, pass)
 
-    open val client = SimpleHttpClient(user, pass)
-
-    fun getRepositoryState(repositoryId: String): RepoState {
-        val info = client.request("${BASE}/repository/$repositoryId")
-        //println("info: ${info.toStringPretty()}")
-        return RepoState(
-            repositoryId = repositoryId,
-            type = info["type"].asString,
-            notifications = info["notifications"].asInt,
-            transitioning = info["transitioning"].asBoolean,
-        )
-    }
-
-    fun getRepositoryActivity(repositoryId: String): String {
-        val info = client.request("${BASE}/repository/$repositoryId/activity")
-        //println("info: ${info.toStringPretty()}")
-        return info.toStringPretty()
-    }
-
-    data class RepoState(
-        val repositoryId: String,
-        // "open" or "closed"
-        val type: String,
-        val notifications: Int,
-        val transitioning: Boolean
-    ) {
-        val isOpen get() = type == "open"
-    }
-
-    private fun getDataMapForRepository(repositoryId: String): Map<String, Map<*, *>> {
-        return mapOf(
-            "data" to mapOf(
-                "stagedRepositoryIds" to listOf(repositoryId),
-                "description" to "",
-                "autoDropAfterRelease" to true,
+        fun getRepositoryState(repositoryId: String): RepoState {
+            val info = client.request("${BASE}/repository/$repositoryId")
+            //println("info: ${info.toStringPretty()}")
+            return RepoState(
+                repositoryId = repositoryId,
+                type = info["type"].asString,
+                notifications = info["notifications"].asInt,
+                transitioning = info["transitioning"].asBoolean,
             )
+        }
+
+        fun getRepositoryActivity(repositoryId: String): String = client.request("${BASE}/repository/$repositoryId/activity").toStringPretty()
+
+        data class RepoState(val repositoryId: String, val type: String, val notifications: Int, val transitioning: Boolean) {
+            val isOpen get() = type == "open"
+        }
+
+        private fun getDataMapForRepository(repositoryId: String): Map<String, Map<*, *>> = mapOf(
+            "data" to mapOf("stagedRepositoryIds" to listOf(repositoryId), "description" to "", "autoDropAfterRelease" to true)
         )
-    }
 
-    fun repositoryClose(repositoryId: String) {
-        client.request("${BASE}/bulk/close", getDataMapForRepository(repositoryId))
-    }
+        fun repositoryClose(repositoryId: String) { client.request("${BASE}/bulk/close", getDataMapForRepository(repositoryId)) }
+        fun repositoryPromote(repositoryId: String) { client.request("${BASE}/bulk/promote", getDataMapForRepository(repositoryId)) }
+        fun repositoryDrop(repositoryId: String) { client.request("${BASE}/bulk/drop", getDataMapForRepository(repositoryId))  }
 
-    fun repositoryPromote(repositoryId: String) {
-        client.request("${BASE}/bulk/promote", getDataMapForRepository(repositoryId))
-    }
-
-    fun repositoryDrop(repositoryId: String) {
-        client.request("${BASE}/bulk/drop", getDataMapForRepository(repositoryId))
-    }
-
-    fun findProfileRepositories(profileId: String): List<String> {
-        return client.request("${BASE}/profile_repositories")["data"].list
+        fun findProfileRepositories(profileId: String): List<String> = client.request("${BASE}/profile_repositories")["data"].list
             .filter { it["profileId"].asString == profileId }
             .map { it["repositoryId"].asString }
-    }
 
-    fun findProfileIdByGroupId(groupId: String): String {
-        val profiles = client.request("$BASE/profiles")["data"].list
-        return profiles
-            .filter { groupId.startsWith(it["name"].asString) }
-            .map { it["id"].asString }
-            .firstOrNull() ?: error("Can't find profile with group id '$groupId'")
-    }
+        fun findProfileIdByGroupId(groupId: String): String = client.request("$BASE/profiles")["data"].list.filter { groupId.startsWith(it["name"].asString) }.map { it["id"].asString }.firstOrNull()
+            ?: error("Can't find profile with group id '$groupId'")
 
-    fun startStagedRepository(profileId: String): String {
-        return client.request("${BASE}/profiles/$profileId/start", mapOf(
+        fun startStagedRepository(profileId: String): String = client.request("${BASE}/profiles/$profileId/start", mapOf(
             "data" to mapOf("description" to "Explicitly created by easy-kotlin-mpp-gradle-plugin")
         ))["data"]["stagedRepositoryId"].asString
     }
 }
+fun SonatypeProps_configure(project: Project) {
+    fun Project.doOnce(uniqueName: String, block: () -> Unit) {
+        val key = "doOnce-$uniqueName"
+        if (!rootProject.extra.has(key)) {
+            rootProject.extra.set(key, true)
+            block()
+        }
+    }
 
-open class SimpleHttpClient(
-    val user: String? = null,
-    val pass: String? = null
-) {
-    open fun request(url: String, body: Any? = null): JsonElement {
-        val post = (URL(url).openConnection()) as HttpURLConnection
-        post.connectTimeout = 300 * 1000 // 300 seconds // 5 minutes
-        post.readTimeout = 300 * 1000 // 300 seconds // 5 minutes
-        post.requestMethod = (if (body != null) "POST" else "GET")
-        if (user != null && pass != null) {
-            val authBasic = Base64.getEncoder().encodeToString("${user}:${pass}".toByteArray(Charsets.UTF_8))
-            post.setRequestProperty("Authorization", "Basic $authBasic")
-        }
-        post.setRequestProperty("Accept", "application/json")
-        if (body != null) {
-            post.doOutput = true
-            post.setRequestProperty("Content-Type", "application/json")
-            val bodyText = if (body is String) body.toString() else JsonOutput.toJson(body)
-            //println(bodyText)
-            post.outputStream.write(bodyText.toByteArray(Charsets.UTF_8))
-        }
-        val postRC = post.responseCode
-        val postMessage = post.responseMessage
-        //println(postRC)
-        if (postRC < 400) {
-            return JsonParser.parseString(post.inputStream.reader(Charsets.UTF_8).readText())
-        } else {
-            val errorString = try {
-                post.errorStream?.reader(Charsets.UTF_8)?.readText()
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Throwable) {
-                null
+    val rootProject = project.rootProject
+    if (!rootProject.extraProperties.has("korlibs.sonatype.props")) {
+        rootProject.extraProperties.set("korlibs.sonatype.props", SonatypeProps(rootProject))
+    }
+    val sonatypeProps = rootProject.extraProperties.get("korlibs.sonatype.props") as SonatypeProps
+
+    project.publishing {
+        repositories {
+            if (sonatypeProps.sonatype != null) {
+                maven {
+                    credentials {
+                        username = sonatypeProps.sonatype.user
+                        password = sonatypeProps.sonatype.pass
+                    }
+                    url = when {
+                        version.toString().contains("-SNAPSHOT") -> uri("https://oss.sonatype.org/content/repositories/snapshots/")
+                        sonatypeProps.stagedRepositoryId != null -> uri("https://oss.sonatype.org/service/local/staging/deployByRepositoryId/${sonatypeProps.stagedRepositoryId}/")
+                        else -> uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+                    }
+                    doOnce("showDeployTo") { logger.info("DEPLOY mavenRepository: $url") }
+                }
             }
-            throw SimpleHttpException(postRC, postMessage, url, errorString)
+        }
+
+        publications.withType(MavenPublication::class) {
+            //println(this.artifacts.stream().map { it.file })
+            //copyArtifactsToDirectory.get().from(this.artifacts.stream().map { it.file })
+
+            val publication = this
+            val jarTaskName = "${publication.name}JavadocJar"
+            //println(jarTaskName)
+            val javadocJar = tasks.create<Jar>(jarTaskName) {
+                archiveClassifier.set("javadoc")
+                archiveBaseName.set(jarTaskName)
+            }
+            publication.artifact(javadocJar)
+
+            //println("PUBLICATION: ${publication.name}")
+
+            fun getCustomProp(key: String, defaultValue: String): String {
+                // @TODO: Actually be able to override it
+                return defaultValue
+            }
+
+            //if (multiplatform) {
+            //if (!isGradlePluginMarker) {
+            run {
+                val defaultGitUrl = "https://github.com/korlibs/korge-korlibs"
+                publication.pom.also { pom ->
+                    pom.name.set(project.name)
+                    pom.description.set(project.description ?: getCustomProp("project.description", project.description ?: project.name))
+                    pom.url.set(getCustomProp("project.scm.url", defaultGitUrl))
+                    pom.licenses {
+                        license {
+                            name.set(getCustomProp("project.license.name", "MIT"))
+                            url.set(getCustomProp("project.license.url", "https://raw.githubusercontent.com/korlibs/korge-korlibs/main/LICENSE"))
+                        }
+                    }
+                    pom.developers {
+                        developer {
+                            id.set(getCustomProp("project.author.id", "soywiz"))
+                            name.set(getCustomProp("project.author.name", "Carlos Ballesteros Velasco"))
+                            email.set(getCustomProp("project.author.email", "soywiz@gmail.com"))
+                        }
+                    }
+                    pom.scm {
+                        url.set(getCustomProp("project.scm.url", defaultGitUrl))
+                    }
+                }
+                publication.pom.withXml {
+                    if (publication.pom.packaging == "aar") {
+                        //println("baseProjectName=$baseProjectName")
+                        asNode().apply {
+                            val nodes: NodeList = this.getAt(QName("dependencies")).getAt("dependency").getAt("scope")
+                            for (node in nodes as List<Node>) {
+                                node.setValue("compile")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Signing
+    if (sonatypeProps.globalSignatories != null) {
+        rootProject.signing {
+            sign(rootProject.publishing.publications)
+            this.signatories = sonatypeProps.globalSignatories
         }
     }
 }
 
-class SimpleHttpException(val responseCode: Int, val responseMessage: String, val url: String, val errorString: String?) :
-    RuntimeException("HTTP Error $responseCode $responseMessage - $url - $errorString")
-
-operator fun JsonElement.get(key: String): JsonElement = asJsonObject.get(key)
-val JsonElement.list: JsonArray get() = asJsonArray
-
-private val prettyGson by lazy { GsonBuilder().setPrettyPrinting().create() }
-fun JsonElement.toStringPretty() = prettyGson.toJson(this)
-
-object GithubCI {
-    fun setOutput(name: String, value: String) {
-        val GITHUB_OUTPUT = System.getenv("GITHUB_OUTPUT")
-        if (GITHUB_OUTPUT != null) {
-            File(GITHUB_OUTPUT).appendText("$name=$value\n")
-        } else {
-            println("::set-output name=$name::$value")
-        }
-    }
-}
+allprojects { SonatypeProps_configure(project) }
