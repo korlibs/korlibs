@@ -65,7 +65,7 @@ inline class RGBA(val value: Int) : Comparable<RGBA>, Interpolable<RGBA>, Paint 
     fun withBf(v: Float): RGBA = withB(f2i(v))
     fun withAf(v: Float): RGBA = withA(f2i(v))
 
-    fun concatAd(v: Double): RGBA = withA((this.a * v).toInt())
+    fun concatAd(v: Double): RGBA = withA((this.a * v).roundToInt())
 
     fun getComponent(c: Int): Int = when (c) {
         0 -> r
@@ -124,9 +124,9 @@ inline class RGBA(val value: Int) : Comparable<RGBA>, Interpolable<RGBA>, Paint 
 
     val premultipliedAccurate: RGBAPremultiplied get() {
         val A = af
-        val R = (r * A).toInt()
-        val G = (g * A).toInt()
-        val B = (b * A).toInt()
+        val R = (r * A).roundToInt()
+        val G = (g * A).roundToInt()
+        val B = (b * A).roundToInt()
         return RGBAPremultiplied(R, G, B, a)
     }
 
@@ -181,7 +181,7 @@ inline class RGBA(val value: Int) : Comparable<RGBA>, Interpolable<RGBA>, Paint 
                     ((((c1 and 0x00FF00) * ifactor256) + ((c2 and 0x00FF00) * factor256)) and 0x00FF0000))) ushr 8
 
         }
-		fun mixRgb(c1: RGBA, c2: RGBA, factor: Ratio): RGBA = mixRgbFactor256(c1, c2, (factor.toFloat() * 256).toInt())
+		fun mixRgb(c1: RGBA, c2: RGBA, factor: Ratio): RGBA = mixRgbFactor256(c1, c2, (factor.toFloat() * 256).roundToInt())
         fun mixRgba(c1: RGBA, c2: RGBA, factor: Ratio): RGBA = RGBA(mixRgb(c1, c2, factor).rgb, blendComponent(c1.a, c2.a, factor))
 
         fun mixRgba4(c00: RGBA, c10: RGBA, c01: RGBA, c11: RGBA, factorX: Ratio, factorY: Ratio): RGBA {
@@ -190,7 +190,7 @@ inline class RGBA(val value: Int) : Comparable<RGBA>, Interpolable<RGBA>, Paint 
             return mixRgba(c1, c2, factorY)
         }
 
-        private fun blendComponent(c1: Int, c2: Int, factor: Ratio): Int = (c1 * (1f - factor.toFloat()) + c2 * factor.toFloat()).toInt() and 0xFF
+        private fun blendComponent(c1: Int, c2: Int, factor: Ratio): Int = (c1 * (1f - factor.toFloat()) + c2 * factor.toFloat()).roundToInt() and 0xFF
 
         fun mix(dst: RGBA, src: RGBA): RGBA {
             val srcA = src.a
@@ -260,7 +260,7 @@ inline class RGBAPremultiplied(val value: Int) {
             0 -> Colors.TRANSPARENT
             else -> {
                 val ialpha = 255f / alpha
-                RGBA((r * ialpha).toInt(), (g * ialpha).toInt(), (b * ialpha).toInt(), alpha)
+                RGBA((r * ialpha).roundToInt(), (g * ialpha).roundToInt(), (b * ialpha).roundToInt(), alpha)
             }
         }
     }
@@ -292,8 +292,8 @@ inline class RGBAPremultiplied(val value: Int) {
         return RGBAPremultiplied(rb or g or a)
     }
 
-    fun scaled(alpha: Double): RGBAPremultiplied = scaled256((alpha.clamp01() * 256).toInt())
-    fun scaled(alpha: Float): RGBAPremultiplied = scaled256((alpha.clamp01() * 256).toInt())
+    fun scaled(alpha: Double): RGBAPremultiplied = scaled256((alpha.clamp01() * 256).roundToInt())
+    fun scaled(alpha: Float): RGBAPremultiplied = scaled256((alpha.clamp01() * 256).roundToInt())
 
     companion object {
         private const val RB_MASK: Int = 0x00FF00FF
@@ -306,10 +306,10 @@ inline class RGBAPremultiplied(val value: Int) {
             val factor = factor.clamp01()
             val ifactor = 1.0 - factor
             return RGBAPremultiplied(
-                (c1.r * factor + c2.r * ifactor).toIntRound(),
-                (c1.g * factor + c2.g * ifactor).toIntRound(),
-                (c1.b * factor + c2.b * ifactor).toIntRound(),
-                (c1.a * factor + c2.a * ifactor).toIntRound(),
+                (c1.r * factor + c2.r * ifactor).roundToInt(),
+                (c1.g * factor + c2.g * ifactor).roundToInt(),
+                (c1.b * factor + c2.b * ifactor).roundToInt(),
+                (c1.a * factor + c2.a * ifactor).roundToInt(),
             )
         }
 
@@ -403,14 +403,16 @@ infix fun RGBAPremultiplied.mix(src: RGBAPremultiplied): RGBAPremultiplied {
     val dst = this
     val srcAf = src.af
     val oneMSrcAf = (1f - srcAf)
-    val outA = (src.a + (dst.a * oneMSrcAf)).toInt()
-    val outR = (src.r + (dst.r * oneMSrcAf)).toInt()
-    val outG = (src.g + (dst.g * oneMSrcAf)).toInt()
-    val outB = (src.b + (dst.b * oneMSrcAf)).toInt()
+
+    val outA = (src.a + (dst.a * oneMSrcAf)).roundToInt()
+    val outR = (src.r + (dst.r * oneMSrcAf)).roundToInt()
+    val outG = (src.g + (dst.g * oneMSrcAf)).roundToInt()
+    val outB = (src.b + (dst.b * oneMSrcAf)).roundToInt()
     return RGBAPremultiplied(outR, outG, outB, outA)
-    //val A = (src.a + (dst.a * oneMSrcAf).toInt()).clamp0_255()
-    //val RB = ((src.value and 0xFF00FF) + ((dst.value and 0xFF00FF) * oneMSrcAf).toInt()) and 0xFF00FF
-    //val G = ((src.value and 0x00FF00) + ((dst.value and 0x00FF00) * oneMSrcAf).toInt()) and 0x00FF00
+
+    //val A = (src.a + (dst.a * oneMSrcAf).roundToInt()).clampUByte()
+    //val RB = ((src.value and 0xFF00FF) + ((dst.value and 0xFF00FF) * oneMSrcAf).roundToInt()) and 0xFF00FF
+    //val G = ((src.value and 0x00FF00) + ((dst.value and 0x00FF00) * oneMSrcAf).roundToInt()) and 0x00FF00
     //return RGBAPremultiplied(RB or G, A)
 }
 
