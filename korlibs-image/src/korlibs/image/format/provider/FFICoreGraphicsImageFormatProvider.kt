@@ -79,6 +79,11 @@ object FFICoreGraphicsImageFormatProvider : BaseNativeImageFormatProvider() {
         val CGImageSourceCreateImageAtIndex: (FFIPointer?, Int, FFIPointer?) -> FFIPointer? by func()
     }
 
+    private object ObjC : FFILib("/usr/lib/libobjc.A.dylib") {
+        val objc_autoreleasePoolPush: () -> FFIPointer? by func()
+        val objc_autoreleasePoolPop: (ptr: FFIPointer?) -> Unit by func()
+    }
+
     private fun getIntFromDict(props: FFIPointer?, key: String): Int {
         val kCFNumberIntType = 9
         val buffer = IntArray(2)
@@ -94,7 +99,7 @@ object FFICoreGraphicsImageFormatProvider : BaseNativeImageFormatProvider() {
         return CoreFoundation.CFStringCreateWithBytes(null, bytes, bytes.size, NSUTF8StringEncoding, false)
     }
 
-    private fun getImageSize(bytes: ByteArray): SizeInt {
+    private fun getImageSize(bytes: ByteArray): SizeInt = autoreleasePool {
         val data = CoreFoundation.CFDataCreate(null, bytes, bytes.size)
         val imgSource = ImageIO.CGImageSourceCreateWithData(data, null)
         val props = ImageIO.CGImageSourceCopyPropertiesAtIndex(imgSource, 0, null)
@@ -106,11 +111,7 @@ object FFICoreGraphicsImageFormatProvider : BaseNativeImageFormatProvider() {
         return SizeInt(width, height)
     }
 
-    private fun CGRectMake(x: Double, y: Double, width: Double, height: Double): DoubleArray {
-        return doubleArrayOf(x, y, width, height)
-    }
-
-    private fun getImageData(bytes: ByteArray): Pair<IntArray, SizeInt> {
+    private fun getImageData(bytes: ByteArray): Pair<IntArray, SizeInt> = autoreleasePool {
         //console.log(readPointer(dataPtr, dataLen));
         val premultiplied = true
         val data = CoreFoundation.CFDataCreate(null, bytes, bytes.size)
@@ -123,9 +124,8 @@ object FFICoreGraphicsImageFormatProvider : BaseNativeImageFormatProvider() {
         val alphaInfo = if (premultiplied) 1 else 3
 
         val context = CoreGraphics.CGBitmapContextCreate(null, width, height, 8, width * 4, colorSpace, alphaInfo)
-        val rect = CGRectMake(0.0, 0.0, width.toDouble(), height.toDouble())
         //CoreGraphics.CGContextDrawImage(context, rect, cgImage)
-        CoreGraphics.CGContextDrawImage(context, rect[0], rect[1], rect[2], rect[3], cgImage)
+        CoreGraphics.CGContextDrawImage(context, 0.0, 0.0, width.toDouble(), height.toDouble(), cgImage)
         CoreGraphics.CGContextFlush(context)
 
         val pixels = CoreGraphics.CGBitmapContextGetData(context)!!.getIntArray(width * height)
@@ -139,5 +139,14 @@ object FFICoreGraphicsImageFormatProvider : BaseNativeImageFormatProvider() {
 
 //    const data = CGDataProviderCopyData(CGImageGetDataProvider(cgImage))
         return pixels to SizeInt(width, height)
+    }
+
+    private inline fun <T> autoreleasePool(body: () -> T): T {
+        val ptr = ObjC.objc_autoreleasePoolPush()
+        try {
+            return body()
+        } finally {
+            ObjC.objc_autoreleasePoolPop(ptr)
+        }
     }
 }

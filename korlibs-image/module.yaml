@@ -9,6 +9,7 @@ aliases:
 
 dependencies:
   - ../korlibs-io: exported
+  - ../korlibs-image-core
   #- ../korlibs-io-fs: exported
   - ../korlibs-io-vfs: exported
   - ../korlibs-math: exported

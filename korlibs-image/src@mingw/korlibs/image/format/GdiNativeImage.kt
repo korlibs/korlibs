@@ -5,6 +5,7 @@ package korlibs.image.format
 import korlibs.datastructure.iterators.*
 import korlibs.image.bitmap.*
 import korlibs.image.color.*
+import korlibs.image.core.*
 import korlibs.image.paint.*
 import korlibs.image.vector.*
 import korlibs.image.vector.renderer.*
@@ -130,7 +131,7 @@ class GdiRenderer(val bitmap: Bitmap32, val antialiasing: Boolean) : BufferedRen
             bitmap.ints.usePinned { dataPin ->
                 val dataPtr = dataPin.addressOf(0)
                 val bmpInfo = alloc<BITMAPINFO>()
-                initGdiPlusOnce()
+                Win32CoreImageFormatProvider.initGdiPlusOnce()
                 val pgraphics = allocArray<COpaquePointerVar>(1)
                 val winhdc = GetDC(null) ?: error("winhdc = null")
                 val hdc = CreateCompatibleDC(winhdc) ?: error("hdc = null")

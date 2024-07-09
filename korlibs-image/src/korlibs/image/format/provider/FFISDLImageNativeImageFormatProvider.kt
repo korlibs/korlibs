@@ -35,25 +35,28 @@ object FFISDLImageNativeImageFormatProvider : BaseNativeImageFormatProvider() {
 
     override suspend fun decodeInternal(data: ByteArray, props: ImageDecodingProps): NativeImageResult {
         val surface = SDL_Image.IMG_Load_RW(SDL.SDL_RWFromMem(data, data.size), true) ?: error("Can't load image")
-        val nsurface =
-            SDL.SDL_ConvertSurfaceFormat(surface, SDL.SDL_PIXELFORMAT_ABGR8888, 0) ?: error("Can't convert image")
-        SDL.SDL_FreeSurface(surface)
-
-        //val ptr = surface.getUnalignedFFIPointer(0) ?: error("Can't load PTR")
-        //println(nsurface.getIntArray(16).toList())
-        val width = nsurface.getS32(4)
-        val height = nsurface.getS32(5)
-        //println(nsurface.getI32(8))
-        //println(nsurface.getI64(4))
-        val pixels = nsurface.getAlignedFFIPointer(4) ?: error("Pixels is null in size=${width}x$height")
-        val out = Bitmap32(
-            width,
-            height,
-            pixels.getIntArray(width * height)
-        )
-        //println("SURFACE: ${nsurface.address}")
-        SDL.SDL_FreeSurface(nsurface)
-        return NativeImageResult(BitmapNativeImage(out))
+        try {
+            val nsurface =
+                SDL.SDL_ConvertSurfaceFormat(surface, SDL.SDL_PIXELFORMAT_ABGR8888, 0) ?: error("Can't convert image")
+            try {
+                //val ptr = surface.getUnalignedFFIPointer(0) ?: error("Can't load PTR")
+                //println(nsurface.getIntArray(16).toList())
+                val width = nsurface.getS32(4)
+                val height = nsurface.getS32(5)
+                //println(nsurface.getI32(8))
+                //println(nsurface.getI64(4))
+                val pixels = nsurface.getAlignedFFIPointer(4) ?: error("Pixels is null in size=${width}x$height")
+                return NativeImageResult(BitmapNativeImage(Bitmap32(
+                    width,
+                    height,
+                    pixels.getIntArray(width * height)
+                )))
+                //println("SURFACE: ${nsurface.address}")
+            } finally {
+                SDL.SDL_FreeSurface(nsurface)
+            }
+        } finally {
+            SDL.SDL_FreeSurface(surface)
+        }
     }
-
 }
