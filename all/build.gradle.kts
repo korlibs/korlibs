@@ -310,10 +310,12 @@ tasks.withType(ProcessResources::class) {
 
 afterEvaluate {
     kotlin.targets.filter { it.platformType == KotlinPlatformType.native }.forEach { target ->
-        target.compilations.getByName("main") {
-            (this as KotlinNativeCompilation).cinterops {
-                val stb_image by creating {
-                    defFile(project.file("../korlibs-image-core/nativeInterop/cinterop/stb_image.def"))
+        if (target.name.contains("linux") || target.name.contains("mingw")) {
+            target.compilations.getByName("main") {
+                (this as KotlinNativeCompilation).cinterops {
+                    val stb_image by creating {
+                        defFile(project.file("../korlibs-image-core/nativeInterop/cinterop/stb_image.def"))
+                    }
                 }
             }
         }

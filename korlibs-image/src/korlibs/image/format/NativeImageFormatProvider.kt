@@ -2,6 +2,7 @@ package korlibs.image.format
 
 import korlibs.image.bitmap.*
 import korlibs.image.color.*
+import korlibs.image.core.*
 import korlibs.image.vector.*
 import korlibs.io.async.*
 import korlibs.io.file.*
@@ -17,6 +18,27 @@ data class NativeImageResult(
     val originalWidth: Int = image.width,
     val originalHeight: Int = image.height,
 )
+
+internal fun CoreImage32.toBitmap(): Bitmap32 = Bitmap32(width, height, data, premultiplied)
+internal fun CoreImage.toBitmap(): Bitmap = to32().toBitmap()
+
+internal fun Bitmap32.toCoreImage(): CoreImage32 = CoreImage32(width, height, ints, premultiplied)
+internal fun Bitmap.toCoreImage(): CoreImage = this.toBMP32().toCoreImage()
+
+abstract class CoreImageNativeImageFormatProvider : NativeImageFormatProvider() {
+    override suspend fun decodeInternal(data: ByteArray, props: ImageDecodingProps): NativeImageResult {
+        val image = CoreImage.decodeBytes(data)
+        return NativeImageResult(BitmapNativeImage(image.to32().toBitmap()), image.width, image.height)
+    }
+
+    override suspend fun display(bitmap: Bitmap, kind: Int) {
+        TODO()
+    }
+
+    override fun create(width: Int, height: Int, premultiplied: Boolean?): NativeImage {
+        return BitmapNativeImage(Bitmap32(width, height, premultiplied = premultiplied ?: true))
+    }
+}
 
 abstract class NativeImageFormatProvider : ImageFormatEncoderDecoder {
     protected suspend fun <T> executeIo(callback: suspend () -> T): T = when {
