@@ -6,7 +6,6 @@ import korlibs.datastructure.iterators.fastForEach
 import korlibs.image.atlas.AtlasPacker
 import korlibs.image.atlas.MutableAtlas
 import korlibs.image.bitmap.Bitmap
-import kotlin.native.concurrent.ThreadLocal
 
 open class ImageData constructor(
     val frames: List<ImageFrame>,
@@ -21,7 +20,7 @@ open class ImageData constructor(
         // Creates an ImageData with a single Bitmap frame.
         // When `returnBitmapInPlace` is set to true, `mainBitmap` will return the same Bitmap that
         // was provided here. Otherwise, it MAY return a new copy of the bitmap instead.
-        operator fun invoke(simple: Bitmap): ImageData = ImageData(listOf(ImageFrame(simple)))
+        operator fun invoke(vararg bitmaps: Bitmap): ImageData = ImageData(bitmaps.map { ImageFrame(it) })
 
         operator fun invoke(
             loopCount: Int = 0,

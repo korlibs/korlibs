@@ -73,7 +73,7 @@ object TGA : ImageFormat("tga") {
 		return Info(width = width, height = height, flipY = flipY, bitsPerPixel = pixelDepth)
 	}
 
-	override fun readImage(s: SyncStream, props: ImageDecodingProps): ImageData {
+	override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
 		val info = readHeader(s)
 		val format = when (info.bitsPerPixel) {
 			24 -> BGR
@@ -82,10 +82,10 @@ object TGA : ImageFormat("tga") {
 		}
 		val out = Bitmap32(info.width, info.height, premultiplied = false).writeDecoded(format, s.readBytes(info.area * info.bytes))
 		if (info.flipY) out.flipY()
-		return ImageData(out)
+		return ImageDataContainer(out)
 	}
 
-	override fun writeImage(image: ImageData, s: SyncStream, props: ImageEncodingProps) {
+	override fun writeImageContainer(image: ImageDataContainer, s: SyncStream, props: ImageEncodingProps) {
 		val bitmap = image.mainBitmap
 		when (bitmap) {
 			is Bitmap8 -> {

@@ -42,9 +42,9 @@ object DDS : ImageFormat("dds") {
 		}
 	}
 
-	override fun readImage(s: SyncStream, props: ImageDecodingProps): ImageData {
+	override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
 		val h = decodeHeader(s, props) ?: invalidOp("Not a DDS file")
-		val fourcc = h.fourcc.toUpperCase()
+		val fourcc = h.fourcc.uppercase()
 		val subimageFormat: DXT = when (fourcc) {
 			"DXT1" -> DXT1
 			"DXT3" -> DXT3
@@ -53,7 +53,7 @@ object DDS : ImageFormat("dds") {
 			else -> invalidOp("Unsupported DDS FourCC '$fourcc'")
 		}
 		val bytes = s.readAll()
-		return subimageFormat.readImage(
+		return subimageFormat.readImageContainer(
 			bytes.openSync(),
 			ImageDecodingProps(filename = "image.$fourcc", width = h.width, height = h.height)
 		)

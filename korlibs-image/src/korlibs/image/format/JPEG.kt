@@ -19,11 +19,11 @@ object JPEG : ImageFormat("jpg", "jpeg") {
         null
     }
 
-    override fun readImage(s: SyncStream, props: ImageDecodingProps): ImageData {
-        return ImageData(listOf(ImageFrame(JPEGDecoder.decode(s.readAll()))))
+    override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
+        return ImageDataContainer(JPEGDecoder.decode(s.readAll()))
     }
 
-    override fun writeImage(image: ImageData, s: SyncStream, props: ImageEncodingProps) {
+    override fun writeImageContainer(image: ImageDataContainer, s: SyncStream, props: ImageEncodingProps) {
         s.writeBytes(JPEGEncoder.encode(image.mainBitmap.toBMP32(), quality = (props.quality * 100).toInt()))
     }
 }

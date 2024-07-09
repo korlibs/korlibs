@@ -126,13 +126,13 @@ abstract class DXT(val format: String, val premultiplied: Boolean, val blockSize
 		return out
 	}
 
-	final override fun readImage(s: SyncStream, props: ImageDecodingProps): ImageData {
+	final override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
 		val bytes = s.readAll()
 		val totalPixels = (bytes.size / blockSize) * 4 * 4
 		val potentialSide = sqrt(totalPixels.toDouble()).toInt()
 		val width = props.width ?: potentialSide
 		val height = props.height ?: potentialSide
-		return ImageData(decodeBitmap(bytes, width, height))
+		return ImageDataContainer(decodeBitmap(bytes, width, height))
 	}
 
 	companion object {

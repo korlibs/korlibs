@@ -13,11 +13,8 @@ object FAKE : ImageFormat("fake") {
         val fakeString = _getFakeString(fileName) { s.readBytes(1024) }
         return generateImageInfoFromString(fakeString)
     }
-    override fun readImage(s: SyncStream, props: ImageDecodingProps): ImageData {
-        return ImageData(_decode(props.filename) { s.readBytes(1024) })
-    }
-    override suspend fun decode(file: VfsFile, props: ImageDecodingProps): Bitmap {
-        return _decode(file.baseName) { file.openUse { readBytesUpTo(1024) } }
+    override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
+        return ImageDataContainer(_decode(props.filename) { s.readBytes(1024) })
     }
 
     private inline fun _getFakeString(baseName: String, readBytes: () -> ByteArray): String {

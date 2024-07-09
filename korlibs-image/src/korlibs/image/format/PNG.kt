@@ -95,7 +95,7 @@ object PNG : ImageFormat("png") {
 		null
 	}
 
-	override fun writeImage(image: ImageData, s: SyncStream, props: ImageEncodingProps) {
+	override fun writeImageContainer(image: ImageDataContainer, s: SyncStream, props: ImageEncodingProps) {
 		val bitmap = image.mainBitmap
 		val width = bitmap.width
 		val height = bitmap.height
@@ -432,8 +432,8 @@ object PNG : ImageFormat("png") {
 		}
 	}
 
-	override fun readImage(s: SyncStream, props: ImageDecodingProps): ImageData =
-        ImageData(readCommon(s, readHeader = false) as Bitmap)
+	override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer =
+		ImageDataContainer(readCommon(s, readHeader = false) as Bitmap)
 
 	fun paethPredictor(a: Int, b: Int, c: Int): Int {
 		val p = a + b - c

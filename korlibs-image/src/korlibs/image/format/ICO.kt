@@ -14,7 +14,7 @@ object ICO : ImageFormat("ico") {
 		return ImageInfo()
 	}
 
-	override fun readImage(s: SyncStream, props: ImageDecodingProps): ImageData {
+	override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
 		data class DirEntry(
 			val width: Int, val height: Int,
 			val colorCount: Int,
@@ -87,11 +87,12 @@ object ICO : ImageFormat("ico") {
 			bmp.flipY()
 			bitmaps += bmp
 		}
-		return ImageData(bitmaps.map { ImageFrame(it, main = false) })
+		return ImageDataContainer(ImageData(bitmaps.map { ImageFrame(it, main = false) }))
 	}
 
     // https://en.wikipedia.org/wiki/ICO_(file_format)
-    override fun writeImage(image: ImageData, s: SyncStream, props: ImageEncodingProps) {
+    override fun writeImageContainer(image: ImageDataContainer, s: SyncStream, props: ImageEncodingProps) {
+		val image = image.default
         // 6
         s.write16LE(0)
         s.write16LE(1) // ICO

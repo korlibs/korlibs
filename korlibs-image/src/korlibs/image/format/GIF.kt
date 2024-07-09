@@ -31,7 +31,7 @@ object GIF : ImageFormat("gif") {
         }
     }
 
-    override fun readImage(s: SyncStream, props: ImageDecodingProps): ImageData {
+    override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
         val gif = GifDec.gd_open_gif(s.clone())
         val frames = arrayListOf<ImageFrame>()
         while (GifDec.gd_get_frame(gif) >= 1) {
@@ -45,15 +45,7 @@ object GIF : ImageFormat("gif") {
                 e.printStackTrace()
             }
         }
-        return ImageData(frames, gif.loop_count)
-    }
-
-    override fun writeImage(image: ImageData, s: SyncStream, props: ImageEncodingProps) {
-        super.writeImage(image, s, props)
-    }
-
-    override fun toString(): String {
-        return super.toString()
+        return ImageDataContainer(ImageData(frames, gif.loop_count))
     }
 }
 

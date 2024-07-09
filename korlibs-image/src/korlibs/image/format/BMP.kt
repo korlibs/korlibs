@@ -60,7 +60,7 @@ object BMP : ImageFormat("bmp") {
 		}
 	}
 
-	override fun readImage(s: SyncStream, props: ImageDecodingProps): ImageData {
+	override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
 		val h = decodeHeader(s, props) ?: throw IllegalArgumentException("Not a BMP file")
 
         when (h.compression) {
@@ -73,7 +73,7 @@ object BMP : ImageFormat("bmp") {
 				val out = Bitmap8(h.width, h.height)
 				for (n in 0 until 256) out.palette[n] = RGBA(s.readS32LE(), 0xFF)
 				for (n in 0 until h.height) out.setRow(h.height - n - 1, s.readBytes(h.width))
-				ImageData(out)
+                ImageDataContainer(out)
 			}
 			24, 32 -> {
 				val bytesPerRow = h.width * h.bitsPerPixel / 8
@@ -90,13 +90,13 @@ object BMP : ImageFormat("bmp") {
 						s.skip(padding)
 					}
 				}
-				ImageData(out)
+                ImageDataContainer(out)
 			}
 			else -> TODO("Unsupported bitsPerPixel=${h.bitsPerPixel}")
 		}
 	}
 
-    override fun writeImage(image: ImageData, s: SyncStream, props: ImageEncodingProps) {
+    override fun writeImageContainer(image: ImageDataContainer, s: SyncStream, props: ImageEncodingProps) {
         val bmp = image.mainBitmap.toBMP32()
 
         //
