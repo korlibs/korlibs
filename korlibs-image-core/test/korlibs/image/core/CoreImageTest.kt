@@ -11,6 +11,8 @@ class CoreImageTest {
     // 2x1 image: #FF8000FF, #8040FFFF
     val png2x1Data = Base64.decode("iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAIAAAB7QOjdAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAD0lEQVQImWP+38DAyPAfAAmYAoMPmI8gAAAAAElFTkSuQmCC")
 
+    //val png2Data = Base64.decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAACXBIWXMAAC4jAAAuIwF4pT92AAAADElEQVQImWP4//YIAAWfArF7Y+TeAAAAAElFTkSuQmCC")
+
     @Test
     fun testInfo() = runTest {
         assertEquals(CoreImageInfo(1, 1), CoreImage.info(pngData).copy(format = null))
@@ -64,6 +66,14 @@ class CoreImageTest {
         val c1 = CoreImage32Color(colors.data[0])
         val c2 = CoreImage32Color(colors.data[1])
         assertEquals("#FF8000FF,#8040FFFF", "${c1.toHexString()},${c2.toHexString()}")
+    }
+
+    @Test
+    fun testPremultiplied() = runTest {
+        val image = CoreImage32(1, 1, intArrayOf(CoreImage32Color(0xFF, 0x77, 0x33, 0x44).value), premultiplied = false).premultiplied()
+        val image2 = CoreImage.decodeBytes(CoreImage.encode(image, CoreImageFormat.PNG, 1.0)).to32()
+        assertEquals(true, image2.premultiplied)
+        assertEquals("#441F0D44", CoreImage32Color(image2.data[0]).toHexString())
     }
 
     fun CoreImage32Color.toHexString(): String = buildString(9) {
