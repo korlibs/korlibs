@@ -44,15 +44,15 @@ jobs:
       - { name: Set up JDK, uses: actions/setup-java@v4, with: { distribution: "${{ env.JAVA_DISTRIBUTION }}", java-version: "${{ env.JAVA_VERSION }}" } }
       - { name: Prepare Gradle, uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 } # v3.1.0
       - { name: Start gradle, run: ./gradlew }
-      - { if: "${{ matrix.precompileTask }}", name: "Building ${{ matrix.precompileTask }} classes", run: "./gradlew --stacktrace ${{ matrix.precompileTask }}" }
-      - { if: "${{ matrix.testTask }}", name: "Run ${{ matrix.testTask }} tests", run: "./gradlew ${{ matrix.testTask }}" }
-      - { if: "${{ matrix.buildTasks }}", name: "Run ${{ matrix.buildTasks }}", run: "./gradlew ${{ matrix.buildTasks }}" }
+      - { if: "${{ matrix.precompileTask }}", name: "Building ${{ matrix.precompileTask }} classes", run: "./gradlew --no-configuration-cache --stacktrace ${{ matrix.precompileTask }}" }
+      - { if: "${{ matrix.testTask }}", name: "Run ${{ matrix.testTask }} tests", run: "./gradlew --no-configuration-cache ${{ matrix.testTask }}" }
+      - { if: "${{ matrix.buildTasks }}", name: "Run ${{ matrix.buildTasks }}", run: "./gradlew --no-configuration-cache ${{ matrix.buildTasks }}" }
       - name: Enable KVM
         if: "${{ matrix.enableAndroid }}"
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
-      - { name: "Run Android Tests", if: "${{ matrix.enableAndroid }}", uses: reactivecircus/android-emulator-runner@v2, with: { "api-level": 21, "script": "./gradlew connectedCheck lintDebug" } }
+      - { name: "Run Android Tests", if: "${{ matrix.enableAndroid }}", uses: reactivecircus/android-emulator-runner@v2, with: { "api-level": 21, "script": "./gradlew --no-configuration-cache connectedCheck lintDebug" } }
       - { name: Archive Test Results, if: failure(), uses: actions/upload-artifact@v4, with: { name: "test-results-${{ matrix.outputKey }}", retention-days: 21, path: "**/build/reports", if-no-files-found: ignore } }
-      - { if: "${{ matrix.e2e }}", name: Publish to maven local, run: ./gradlew publishJvmLocal publishKotlinMultiplatformPublicationToMavenLocal }
+      - { if: "${{ matrix.e2e }}", name: Publish to maven local, run: ./gradlew --no-configuration-cache publishJvmLocal publishKotlinMultiplatformPublicationToMavenLocal }
