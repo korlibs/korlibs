@@ -7,7 +7,7 @@ import kotlinx.coroutines.*
 import platform.posix.*
 
 actual val defaultSyncSystemFS: SyncSystemFS = MingwSyncSystemFS
-actual val defaultSystemFS: SystemFS = SyncSystemFS.toAsync(Dispatchers.IO)
+actual val defaultSystemFS: SystemFS by lazy { SyncSystemFS.toAsync(Dispatchers.IO) }
 
 object MingwSyncSystemFS : SyncSystemFSNativeBase() {
     override val fileSeparatorChar: Char = '\\'

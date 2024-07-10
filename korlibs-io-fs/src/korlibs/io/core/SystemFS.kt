@@ -3,9 +3,11 @@ package korlibs.io.core
 import korlibs.io.async.*
 import korlibs.io.lang.FileNotFoundException
 import korlibs.io.stream.*
+import korlibs.math.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlin.coroutines.*
+import kotlin.reflect.*
 
 internal expect val defaultSyncSystemFS: SyncSystemFS
 internal expect val defaultSystemFS: SystemFS
@@ -46,9 +48,24 @@ interface SyncSystemFS {
     //abstract fun readlink(path: String): String?
     //abstract fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemFSProcess
 
-    open fun realpath(path: String): String = TODO()
-    open fun readlink(path: String): String? = TODO()
-    open fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemFSProcess = TODO()
+    fun realpath(path: String): String = TODO()
+    fun readlink(path: String): String? = TODO()
+    fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemFSProcess = TODO()
+
+    fun getResourceLength(path: String, clazz: KClass<*>? = null): Long = TODO()
+    fun getResourceBytes(path: String, clazz: KClass<*>? = null): ByteArray = TODO()
+}
+
+fun SyncSystemFS.size(path: String): Long? = stat(path)?.size
+fun SyncSystemFS.writeBytes(path: String, bytes: ByteArray) {
+    val file = open(path, write = true) ?: error("Can't open '$path' for writing")
+    file.use { it.write(bytes, 0, bytes.size) }
+}
+fun SyncSystemFS.readBytes(path: String): ByteArray {
+    val file = open(path, write = false) ?: error("Can't open '$path' for reading")
+    return file.use { fd ->
+        ByteArray(fd.getLength().toIntSafe()).also { it.copyOf(fd.read(it)) }
+    }
 }
 
 fun SyncSystemFS.checkExecFolder(path: String, cmdAndArgs: List<String>) {
@@ -83,6 +100,9 @@ interface SystemFS {
     abstract suspend fun realpath(path: String): String
     abstract suspend fun readlink(path: String): String?
     abstract suspend fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SystemFSProcess
+
+    suspend fun getResourceLength(path: String, clazz: KClass<*>? = null): Long = TODO()
+    suspend fun getResourceBytes(path: String, clazz: KClass<*>? = null): ByteArray = TODO()
 }
 
 open class SystemFSProcess(
@@ -141,7 +161,6 @@ fun SyncSystemFS.toAsync(ioDispatcher: CoroutineDispatcher?): SystemFS {
                 override suspend fun setPosition(value: Long) = doSyncIo { io.setPosition(value) }
                 override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int = doSyncIo { io.read(buffer, offset, len) }
                 override suspend fun write(buffer: ByteArray, offset: Int, len: Int) = doSyncIo { io.write(buffer, offset, len) }
-
                 override suspend fun close(): Unit { CoroutineScope(coroutineContext).launch { io.close() } }
             }
         }
@@ -161,6 +180,9 @@ fun SyncSystemFS.toAsync(ioDispatcher: CoroutineDispatcher?): SystemFS {
                 override suspend fun close() = doIo(ioDispatcher) { process.close() }
             }
         }
+
+        override suspend fun getResourceLength(path: String, clazz: KClass<*>?): Long = doSyncIo { sync.getResourceLength(path, clazz) }
+        override suspend fun getResourceBytes(path: String, clazz: KClass<*>?): ByteArray = doSyncIo { sync.getResourceBytes(path, clazz) }
     }
 }
 
