@@ -7,3 +7,4 @@
 $catalog.json
 /stagedRepositoryId
 /*/build
+.DS_Store
