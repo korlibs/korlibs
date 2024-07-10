@@ -1,4 +1,4 @@
 package korlibs.io.core
 
 actual val defaultSyncSystemFS: SyncSystemFS = NullSyncSystemFS
-actual val defaultSystemFS: SystemFS = NullSystemFS
+actual val defaultSystemFS: SystemFS by lazy { NullSystemFS }

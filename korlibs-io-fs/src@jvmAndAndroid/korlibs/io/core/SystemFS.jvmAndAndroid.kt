@@ -10,12 +10,14 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.io.InputStream
 import java.io.RandomAccessFile
+import java.net.*
 import java.util.concurrent.CompletableFuture
 import kotlin.io.path.pathString
 import kotlin.io.path.readSymbolicLink
+import kotlin.reflect.*
 
 actual val defaultSyncSystemFS: SyncSystemFS = JvmSyncSystemFS
-actual val defaultSystemFS: SystemFS = SyncSystemFS.toAsync(Dispatchers.IO)
+actual val defaultSystemFS: SystemFS by lazy { JvmSyncSystemFS.toAsync(Dispatchers.IO) }
 
 object JvmSyncSystemFS : SyncSystemFS {
     override val fileSeparatorChar: Char get() = File.separatorChar
@@ -100,7 +102,7 @@ object JvmSyncSystemFS : SyncSystemFS {
     }
 
     override fun open(path: String, write: Boolean): SyncFileSystemFS? {
-        val file = File(path).takeIf { it.exists() } ?: return null
+        val file = File(path).takeIf { write || it.exists() } ?: return null
         val s = RandomAccessFile(file, if (write) "rw" else "r")
         return object : SyncFileSystemFS() {
             override fun getLength(): Long = s.length()
@@ -111,6 +113,18 @@ object JvmSyncSystemFS : SyncSystemFS {
             override fun write(buffer: ByteArray, offset: Int, len: Int): Unit = s.write(buffer, offset, len)
             override fun close() = s.close()
         }
+    }
+
+    private fun getResourceURL(clazz: KClass<*>?, path: String): URL {
+        return (clazz?.java?.classLoader ?: ClassLoader.getSystemClassLoader()).getResource(path) ?: error("Can't find resource '$path'")
+    }
+
+    override fun getResourceLength(path: String, clazz: KClass<*>?): Long {
+        return getResourceURL(clazz, path).openStream().use { it.available().toLong() }
+    }
+
+    override fun getResourceBytes(path: String, clazz: KClass<*>?): ByteArray {
+        return getResourceURL(clazz, path).readBytes()
     }
 }
 

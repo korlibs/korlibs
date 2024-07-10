@@ -3,7 +3,7 @@ package korlibs.io.core
 import kotlinx.coroutines.*
 
 actual val defaultSyncSystemFS: SyncSystemFS = LinuxSyncSystemFS
-actual val defaultSystemFS: SystemFS = SyncSystemFS.toAsync(Dispatchers.IO)
+actual val defaultSystemFS: SystemFS by lazy { SyncSystemFS.toAsync(Dispatchers.IO) }
 
 object LinuxSyncSystemFS : SyncSystemFSPosixBase() {
     override fun getcwd(): String = getCurrentExeFolder() ?: posixRealpath(".") ?: "."
