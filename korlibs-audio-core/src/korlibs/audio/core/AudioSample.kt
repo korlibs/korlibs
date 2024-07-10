@@ -1,14 +1,18 @@
 package korlibs.audio.core
 
-import korlibs.math.*
-
 inline class AudioSample(private val raw: Short) {
     constructor(value: Int) : this(value.coerceIn(Short.MIN_VALUE.toInt(), Short.MAX_VALUE.toInt()).toShort())
     constructor(value: Float) : this((value * Short.MAX_VALUE.toFloat()).toInt().coerceIn(Short.MIN_VALUE.toInt(), Short.MAX_VALUE.toInt()).toShort())
     /** Sample as short in the range [Short.MIN_VALUE, Short.MAX_VALUE] .. [] */
     val short: Short get() = raw
+    val shortInt: Int get() = short.toInt()
     val float: Float get() = (raw.toFloat() / Short.MAX_VALUE)
-    fun toAudioSampleF(): AudioSampleF = AudioSampleF(float)
+    //fun toAudioSampleF(): AudioSampleF = AudioSampleF(float)
+
+    operator fun times(scale: Float): AudioSample = AudioSample(shortInt * scale)
+    operator fun div(scale: Float): AudioSample = AudioSample(shortInt / scale)
+    // combine
+    //operator fun plus(other: AudioSample): AudioSample = AudioSample((this.shortInt + other.shortInt) / 2)
 }
 
 typealias PerChannelAudioSamples = Array<AudioSampleArray>
@@ -25,6 +29,10 @@ inline class AudioSampleArray(private val data: ShortArray) {
     operator fun get(index: Int): AudioSample = AudioSample(data[index])
     operator fun set(index: Int, value: AudioSample) { data[index] = value.short }
     fun asShortArray(): ShortArray = data
+    fun toFloatArray(out: FloatArray = FloatArray(size)): FloatArray {
+        for (n in 0 until size) out[n] = this[n].float
+        return out
+    }
 }
 
 fun PerChannelAudioSamples.interleaved(out: AudioSampleArray = AudioSampleArray(nchannels * nsamples)): AudioSampleArray {
@@ -45,7 +53,7 @@ public fun arraycopy(src: AudioSampleArray, srcPos: Int, dst: AudioSampleArray, 
 }
 
 
-
+/*
 inline class AudioSampleF(private val raw: Float) {
     val float: Float get() = raw
     fun clamped(): AudioSampleF = AudioSampleF(float.clamp01())
@@ -64,3 +72,4 @@ inline class AudioSampleFArray(private val data: FloatArray) {
 public fun arraycopy(src: AudioSampleFArray, srcPos: Int, dst: AudioSampleFArray, dstPos: Int, size: Int) {
     src.asFloatArray().copyInto(dst.asFloatArray(), dstPos, srcPos, srcPos + size)
 }
+*/
