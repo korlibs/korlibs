@@ -275,31 +275,52 @@ class SonatypeProps(val project: Project) {
             ?: File("stagedRepositoryId").takeIf { it.exists() }?.readText()?.trim()
     }
 
+    open class StartReleasingMavenCentral : DefaultTask() {
+        @Input
+        @Optional
+        var sonatype: Sonatype? = null
+
+        @TaskAction
+        fun action() {
+            val profileId = sonatype!!.findProfileIdByGroupId("com.soywiz")
+            val stagedRepositoryId = sonatype!!.startStagedRepository(profileId)
+            println("profileId=$profileId")
+            println("stagedRepositoryId=$stagedRepositoryId")
+            GithubCI.setOutput("stagedRepositoryId", stagedRepositoryId)
+            File("stagedRepositoryId").writeText(stagedRepositoryId)
+        }
+    }
+
+    open class ReleaseMavenCentralTask : DefaultTask() {
+        //val groupId = "com.soywiz.korge" ?: rootProject.group.toString()
+        @Input
+        var groupId = "com.soywiz.korge"
+
+        @Input
+        @Optional
+        var sonatype: Sonatype? = null
+
+        @TaskAction
+        fun action() {
+            //if (!sonatype.releaseGroupId(rootProject.group.toString())) {
+            try {
+                if (!sonatype!!.releaseGroupId(groupId)) {
+                    error("Can't promote artifacts. Check log for details")
+                }
+            } finally {
+                File("stagedRepositoryId").delete()
+            }
+
+        }
+    }
+
     fun createTasks(project: Project) = with(project) {
         if (sonatype != null) {
-            tasks.create("startReleasingMavenCentral", Task::class) {
-                doLast {
-                    val profileId = sonatype.findProfileIdByGroupId("com.soywiz")
-                    val stagedRepositoryId = sonatype.startStagedRepository(profileId)
-                    println("profileId=$profileId")
-                    println("stagedRepositoryId=$stagedRepositoryId")
-                    GithubCI.setOutput("stagedRepositoryId", stagedRepositoryId)
-                    File("stagedRepositoryId").writeText(stagedRepositoryId)
-                }
+            tasks.create("startReleasingMavenCentral", StartReleasingMavenCentral::class) {
+                this.sonatype = this@SonatypeProps.sonatype
             }
-            rootProject.tasks.create<Task>("releaseMavenCentral") {
-                //val groupId = "com.soywiz.korge" ?: rootProject.group.toString()
-                val groupId = "com.soywiz.korge"
-                doLast {
-                    //if (!sonatype.releaseGroupId(rootProject.group.toString())) {
-                    try {
-                        if (!sonatype.releaseGroupId(groupId)) {
-                            error("Can't promote artifacts. Check log for details")
-                        }
-                    } finally {
-                        File("stagedRepositoryId").delete()
-                    }
-                }
+            rootProject.tasks.create<ReleaseMavenCentralTask>("releaseMavenCentral") {
+                this.sonatype = this@SonatypeProps.sonatype
             }
         }
 
@@ -345,11 +366,11 @@ subprojects {
 
     kotlin {
         //if (targets.any { it.name.contains("android") }) {
-            androidTarget {
-                this.compilerOptions.jvmTarget.set(JVM_TARGET)
-                publishAllLibraryVariants()
-                //publishLibraryVariants("release", "debug")
-            }
+        androidTarget {
+            this.compilerOptions.jvmTarget.set(JVM_TARGET)
+            publishAllLibraryVariants()
+            //publishLibraryVariants("release", "debug")
+        }
         //}
     }
 
@@ -369,6 +390,9 @@ subprojects {
         //println("${project.name} ${this::class.java} : ${this.name}")
     }
 
+    //class KotlinNativeLinkDoLast : Copy() {
+    //}
+
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinNativeLink::class) {
         // /Users/soywiz/projects/korge-korlibs/korlibs-io/build/bin/iosSimulatorArm64/debugTest
         //println(this.target)
@@ -377,16 +401,14 @@ subprojects {
         //val compileTaskName = this.name.replace(Regex("^link(.*?)Test.*$")) { "compileTestKotlin${it.groupValues[1]}" }
         //val compileTask = tasks.findByName(compileTaskName) as? KotlinNativeCompile?
 
-        doLast {
-            val folder = this.outputs.files.toList().firstOrNull()
-            if (folder != null) {
-                copy {
-                    //from(compileTask.defaultSourceSet.resources)
-                    from(File(project.projectDir, "testresources"))
-                    //from(File(project.rootDir, "build/bin/$target/debugTest"))
-                    into(folder)
-                }
-            }
+        val folder = this.outputs.files.toList().firstOrNull()
+        val fromFolder = File(project.projectDir, "testresources")
+
+        if (folder != null) {
+            val copyAfterLink = tasks.create("${this.name}CopyResources", Copy::class)
+            copyAfterLink.from(fromFolder)
+            copyAfterLink.into(folder)
+            this.dependsOn(copyAfterLink)
         }
     }
 
@@ -424,27 +446,37 @@ subprojects {
     }
     fun String.quote(): String = "\"${escape()}\""
 
-    fun generateCatalog(folder: File): String = buildString {
-        appendLine("{")
-        for (file in folder.listFiles() ?: arrayOf()) {
-            val fileName = if (file.isDirectory) "${file.name}/" else file.name
-            appendLine(" ${fileName.quote()} : [${file.length()}, ${file.lastModified()}],")
+    open class TestProcessResourcesLast : DefaultTask() {
+        @Input
+        lateinit var dirs: List<File>
+
+        @TaskAction
+        fun action() {
+            for (dir in dirs) {
+                for (file in dir.walkTopDown()) {
+                    if (file.isDirectory) {
+                        //println("file=$file")
+                        File(file, "\$catalog.json").writeText(generateCatalog(file))
+                    }
+                }
+            }
         }
-        appendLine("}")
+
+        fun generateCatalog(folder: File): String = buildString {
+            appendLine("{")
+            for (file in folder.listFiles() ?: arrayOf()) {
+                val fileName = if (file.isDirectory) "${file.name}/" else file.name
+                appendLine(" ${fileName.quote()} : [${file.length()}, ${file.lastModified()}],")
+            }
+            appendLine("}")
+        }
     }
 
     for (taskName in listOf("jsTestProcessResources", "wasmTestProcessResources")) {
         tasks.findByName(taskName)?.apply {
-            doLast {
-                for (dir in this.outputs.files.toList().filter { it.isDirectory }) {
-                    for (file in dir.walkTopDown()) {
-                        if (file.isDirectory) {
-                            //println("file=$file")
-                            File(file, "\$catalog.json").writeText(generateCatalog(file))
-                        }
-                    }
-                }
-            }
+            this.dependsOn(tasks.create("${taskName}CopyResources", TestProcessResourcesLast::class).also {
+                it.dirs = this.outputs.files.toList().filter { it.isDirectory }
+            })
         }
     }
 
@@ -676,7 +708,7 @@ open class Sonatype(
         return promoted == totalRepositories
     }
 
-    open val client = SimpleHttpClient(user, pass)
+    private val client get() = SimpleHttpClient(user, pass)
 
     fun getRepositoryState(repositoryId: String): RepoState {
         val info = client.request("${BASE}/repository/$repositoryId")
@@ -746,6 +778,10 @@ open class Sonatype(
             "data" to mapOf("description" to "Explicitly created by easy-kotlin-mpp-gradle-plugin")
         ))["data"]["stagedRepositoryId"].asString
     }
+
+    operator fun JsonElement.get(key: String): JsonElement = asJsonObject.get(key)
+    val JsonElement.list: JsonArray get() = asJsonArray
+    fun JsonElement.toStringPretty() = GsonBuilder().setPrettyPrinting().create().toJson(this)
 }
 
 open class SimpleHttpClient(
@@ -789,12 +825,6 @@ open class SimpleHttpClient(
 
 class SimpleHttpException(val responseCode: Int, val responseMessage: String, val url: String, val errorString: String?) :
     RuntimeException("HTTP Error $responseCode $responseMessage - $url - $errorString")
-
-operator fun JsonElement.get(key: String): JsonElement = asJsonObject.get(key)
-val JsonElement.list: JsonArray get() = asJsonArray
-
-private val prettyGson by lazy { GsonBuilder().setPrettyPrinting().create() }
-fun JsonElement.toStringPretty() = prettyGson.toJson(this)
 
 object GithubCI {
     fun setOutput(name: String, value: String) {
@@ -1048,27 +1078,26 @@ class MicroAmper(val project: Project) {
 }
 
 tasks {
-
     subprojects {
-        val copyArtifactsToDirectory by tasks.registering(Task::class) {
-            dependsOn("publishToMavenLocal")
+        afterEvaluate {
+            val copyArtifactsToDirectory = tasks.create("copyArtifactsToDirectory", Task::class) {
+                //dependsOn("publishToMavenLocal")
+            }
 
-            doLast {
-                val base = rootProject.layout.buildDirectory.dir("artifacts")
-                for (pub in publishing.publications.filterIsInstance<MavenPublication>()) {
-                    //println(pub.artifacts.toList())
-                    val basePath = pub.groupId.replace(".", "/") + "/" + pub.artifactId + "/" + pub.version
-                    val baseDir = File(base.get().asFile, basePath)
+            val base = rootProject.layout.buildDirectory.dir("artifacts")
+            for ((index, pub) in publishing.publications.filterIsInstance<MavenPublication>().withIndex()) {
+                //println(pub.artifacts.toList())
+                val basePath = pub.groupId.replace(".", "/") + "/" + pub.artifactId + "/" + pub.version
+                val baseDir = File(base.get().asFile, basePath)
+                val m2Dir = File(File(System.getProperty("user.home"), ".m2/repository"), basePath)
 
-                    val m2Dir = File(File(System.getProperty("user.home"), ".m2/repository"), basePath)
-
-                    //println("m2Dir=$m2Dir")
-                    // .module
-                    copy {
-                        from(m2Dir)
-                        into(baseDir)
-                    }
+                val afterTask = tasks.create("copyArtifactsToDirectory$index", Copy::class).also {
+                    it.from(m2Dir)
+                    it.into(baseDir)
                 }
+                afterTask.dependsOn("publishToMavenLocal")
+                copyArtifactsToDirectory.dependsOn(afterTask)
+                //println("TASK: afterTask=$afterTask")
             }
         }
     }
