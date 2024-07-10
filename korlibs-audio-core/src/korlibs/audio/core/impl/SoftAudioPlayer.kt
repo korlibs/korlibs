@@ -37,6 +37,10 @@ open class SoftAudioPlayer(override val device: AudioDevice, val streamPlayer: A
                         0
                     }
                 }.also {
+                    val gain = this.gain
+                    if (gain != 1f) {
+                        for (chData in data) for (n in 0 until chData.size) chData[n] = chData[n] * gain
+                    }
                     // @TODO: Emulate audio DSP: pitch shifting, doppler, panning, etc.
                 }
             }
