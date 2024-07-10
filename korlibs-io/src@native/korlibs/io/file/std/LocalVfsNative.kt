@@ -18,7 +18,7 @@ import kotlin.native.concurrent.*
 import kotlin.time.*
 
 @ThreadLocal
-val tmpdir: String by lazy { Environment["TMPDIR"] ?: Environment["TEMP"] ?: Environment["TMP"] ?: "/tmp" }
+val tmpdir: String by lazy { Environment.tempPath }
 
 @ThreadLocal
 var customCwd: String? = null

@@ -12,7 +12,7 @@ import java.net.*
 import java.nio.file.*
 
 private val absoluteCwd by lazy { File(".").absolutePath }
-val tmpdir: String by lazy { System.getProperty("java.io.tmpdir") }
+val tmpdir: String by lazy { Environment.tempPath }
 
 actual val standardVfs: StandardVfs = object : StandardVfs() {
     override val resourcesVfs: VfsFile by lazy { ResourcesVfsProviderJvm()().root.jail() }
@@ -23,7 +23,7 @@ actual val applicationVfs: VfsFile by lazy { localVfs(absoluteCwd) }
 actual val applicationDataVfs: VfsFile by lazy { localVfs(absoluteCwd) }
 actual val cacheVfs: VfsFile by lazy { MemoryVfs() }
 actual val externalStorageVfs: VfsFile by lazy { localVfs(absoluteCwd) }
-actual val userHomeVfs: VfsFile by lazy { localVfs(System.getProperty("user.home")) }
+actual val userHomeVfs: VfsFile by lazy { localVfs(Environment.userHome) }
 actual val tempVfs: VfsFile by lazy { localVfs(tmpdir) }
 
 actual fun localVfs(path: String, async: Boolean): VfsFile = LocalVfsJvm()[path]
