@@ -528,13 +528,19 @@ subprojects {
                         }
                     }
                     publication.pom.withXml {
-                        if (publication.pom.packaging == "aar") {
-                            //println("baseProjectName=$baseProjectName")
-                            asNode().apply {
-                                val nodes: NodeList = this.getAt(QName("dependencies")).getAt("dependency").getAt("scope")
-                                for (node in nodes as List<Node>) {
-                                    node.setValue("compile")
-                                }
+                        val root = NodeList(listOf(this@withXml.asNode()))
+                        //println("baseProjectName=$baseProjectName")
+                        val packaging = root.getAt("packaging").text()
+                        //println("---------------")
+                        //println("root=$root")
+                        //println("packaging=" + (root.getAt("packaging")))
+                        //println("packaging=" + root.getAt("packaging"))
+                        //println("packaging.text=" + root.getAt("packaging").text())
+                        if (packaging == "aar") {
+                            val nodes: NodeList = root.getAt("dependencies").getAt("dependency").getAt("scope")
+                            for (node in nodes as List<Node>) {
+                                node.setValue("compile")
+                                //println("node=$node setValue=compile")
                             }
                         }
                     }
