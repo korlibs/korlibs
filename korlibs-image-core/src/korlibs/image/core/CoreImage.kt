@@ -159,6 +159,16 @@ interface CoreImageFormatProvider {
     companion object
 }
 
+object DummyCoreImageFormatProvider : CoreImageFormatProvider {
+    override suspend fun decode(data: ByteArray): CoreImage {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Double): ByteArray {
+        TODO("Not yet implemented")
+    }
+}
+
 expect val CoreImageFormatProvider_default: CoreImageFormatProvider
 
 private var _CoreImageFormatProvider_current: CoreImageFormatProvider? = null
