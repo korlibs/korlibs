@@ -20,6 +20,14 @@ inline class AudioSampleArray(private val data: ShortArray) {
     fun asShortArray(): ShortArray = data
 }
 
+fun Array<AudioSampleArray>.combined(): AudioSampleArray = AudioSampleArray(this.sumOf { it.size }).also { out ->
+    var outPos = 0
+    for (src in this) {
+        arraycopy(src, 0, out, outPos, src.size)
+        outPos += src.size
+    }
+}
+
 public fun arraycopy(src: AudioSampleArray, srcPos: Int, dst: AudioSampleArray, dstPos: Int, size: Int) {
     src.asShortArray().copyInto(dst.asShortArray(), dstPos, srcPos, srcPos + size)
 }

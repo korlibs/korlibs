@@ -30,10 +30,9 @@ abstract class AudioPlayer protected constructor(unit: Unit = Unit) : AutoClosea
     companion object { }
 
     open var listenerGain: Float = 1f
-    open var listenerSpeed = Vector3F(0f, 0f, 0f)
-    open var listenerPosition = Vector3F(0f, 0f, 0f)
-    open var listenerUp = Vector3F(0f, 0f, -1f)
-    open var listenerForward = Vector3F(0f, 1f, 0f)
+    open var listenerSpeed: Vector3F = Vector3F(0f, 0f, 0f)
+    open var listenerPosition: Vector3F = Vector3F(0f, 0f, 0f)
+    open var listenerOrientation: AudioOrientation = AudioOrientation()
 
     val listener by lazy { AudioListener(this) }
 
@@ -43,12 +42,19 @@ abstract class AudioPlayer protected constructor(unit: Unit = Unit) : AutoClosea
     }
 }
 
+data class AudioOrientation(val at: Vector3F = Vector3F(0f, 1f, 0f), val up: Vector3F = Vector3F(0f, 0f, -1f)) {
+    val forward get() = at
+}
+
 class AudioListener(val player: AudioPlayer) {
     var gain: Float by player::listenerGain
     var speed: Vector3F by player::listenerSpeed
     var position by player::listenerPosition
-    var up by player::listenerUp
-    var forward by player::listenerForward
+    var orientation by player::listenerOrientation
+}
+
+enum class AudioSourceState {
+    INITIAL, PLAYING, PAUSED, STOPPED
 }
 
 abstract class AudioSource : AutoCloseable {
@@ -73,6 +79,9 @@ abstract class AudioSource : AutoCloseable {
     open var samplesTotal: Long = -1L
     open var data: Array<AudioSampleArray>? = null
     open var dataProvider: (AudioSource.(position: Long, chunk: Array<AudioSampleArray>) -> Int)? = null
+    open val state: AudioSourceState = AudioSourceState.INITIAL
+    val isPlaying: Boolean get() = state == AudioSourceState.PLAYING
+    val isPlayingOrPaused: Boolean get() = state.let { it == AudioSourceState.PLAYING || it == AudioSourceState.PAUSED }
 
     open fun setData(rate: Int, nchannels: Int, data: Array<AudioSampleArray>) {
         this.dataRate = rate

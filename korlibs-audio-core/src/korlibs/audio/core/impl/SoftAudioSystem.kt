@@ -47,5 +47,5 @@ abstract class SoftAudioSystem(val streamPlayer: AudioStreamPlayer) : AudioPlaye
         }
     }
 
-    override fun createSource(): AudioSource = SoftAudioSource(this)
+    final override fun createSource(): AudioSource = SoftAudioSource(this)
 }

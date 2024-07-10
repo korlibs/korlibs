@@ -9,3 +9,4 @@ dependencies:
   - ../korlibs-math-vector: exported
   - ../korlibs-ffi
   - ../korlibs-platform
+  - ../korlibs-io-fs
