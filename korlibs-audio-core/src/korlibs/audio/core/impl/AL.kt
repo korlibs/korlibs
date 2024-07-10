@@ -1,12 +1,12 @@
 package korlibs.audio.core.impl
 
 import korlibs.ffi.*
+import korlibs.io.core.*
+import korlibs.io.lang.*
+import korlibs.memory.*
 import korlibs.platform.*
-import java.io.File
-import java.net.URL
-import java.nio.Buffer
 
-object AL : FFILib(nativeOpenALLibraryPath) {
+internal object AL : FFILib(nativeOpenALLibraryPath) {
     val alDopplerFactor: (value: Float) -> Unit by func()
     val alDopplerVelocity: (value: Float) -> Unit by func()
     val alSpeedOfSound: (value: Float) -> Unit by func()
@@ -67,7 +67,9 @@ object AL : FFILib(nativeOpenALLibraryPath) {
     val alGenBuffers: (n: Int, buffers: IntArray) -> Unit by func()
     val alDeleteBuffers: (n: Int, buffers: IntArray) -> Unit by func()
     val alIsBuffer: (buffer: Int) -> Boolean by func()
-    val alBufferData: (buffer: Int, format: Int, data: Buffer?, size: Int, freq: Int) -> Unit by func()
+    //val alBufferData: (buffer: Int, format: Int, data: FFIPointer?, size: Int, freq: Int) -> Unit by func()
+    val alBufferData: (buffer: Int, format: Int, data: ShortArray?, size: Int, freq: Int) -> Unit by func()
+    //val alBufferData: (buffer: Int, format: Int, data: Buffer?, size: Int, freq: Int) -> Unit by func()
     val alBufferf: (buffer: Int, param: Int, value: Float) -> Unit by func()
     val alBuffer3f: (buffer: Int, param: Int, value1: Float, value2: Float, value3: Float) -> Unit by func()
     val alBufferfv: (buffer: Int, param: Int, values: FloatArray) -> Unit by func()
@@ -91,6 +93,9 @@ object AL : FFILib(nativeOpenALLibraryPath) {
     fun alGetSourcef(source: Int, param: Int): Float = tempF.also { alGetSourcef(source, param, it) }[0]
     fun alGetSourcei(source: Int, param: Int): Int = tempI.also { alGetSourcei(source, param, it) }[0]
     fun alGetSourceState(source: Int): Int = alGetSourcei(source, AL.AL_SOURCE_STATE)
+
+    fun alGetListenerf(param: Int): Float = tempF.also { alGetListenerf(param, it) }[0]
+    fun alGetListeneri(param: Int): Int = tempI.also { alGetListeneri(param, it) }[0]
 
     const val AL_NONE = 0
     const val AL_FALSE = 0
@@ -168,18 +173,48 @@ object AL : FFILib(nativeOpenALLibraryPath) {
     val alcGetCurrentContext: () -> FFIPointer by func()
     val alcGetContextsDevice: (context: FFIPointer) -> FFIPointer by func()
     val alcOpenDevice: (devicename: String?) -> FFIPointer? by func()
-    val alcCloseDevice: (device: FFIPointer) -> Boolean by func()
-    val alcGetError: (device: FFIPointer) -> Int by func()
-    val alcIsExtensionPresent: (device: FFIPointer, extname: String) -> Boolean by func()
-    val alcGetProcAddress: (device: FFIPointer, funcname: String) -> FFIPointer by func()
-    val alcGetEnumValue: (device: FFIPointer, enumname: String) -> Int by func()
-    val alcGetString: (device: FFIPointer, param: Int) -> String by func()
-    val alcGetIntegerv: (device: FFIPointer, param: Int, size: Int, values: IntArray) -> Unit by func()
+    val alcCloseDevice: (device: FFIPointer?) -> Boolean by func()
+    val alcGetError: (device: FFIPointer?) -> Int by func()
+    val alcIsExtensionPresent: (device: FFIPointer?, extname: String) -> Boolean by func()
+    val alcGetProcAddress: (device: FFIPointer?, funcname: String) -> FFIPointer by func()
+    val alcGetEnumValue: (device: FFIPointer?, enumname: String) -> Int by func()
+    val alcGetString: (device: FFIPointer?, param: Int) -> String? by func()
+    val alcGetIntegerv: (device: FFIPointer?, param: Int, size: Int, values: IntArray) -> Unit by func()
     val alcCaptureOpenDevice: (devicename: String, frequency: Int, format: Int, buffersize: Int) -> FFIPointer by func()
     val alcCaptureCloseDevice: (device: FFIPointer) -> Boolean by func()
     val alcCaptureStart: (device: FFIPointer) -> Unit by func()
     val alcCaptureStop: (device: FFIPointer) -> Unit by func()
     val alcCaptureSamples: (device: FFIPointer, buffer: Buffer, samples: Int) -> Unit by func()
+
+    val alcGetStringAsPointer: (device: FFIPointer?, param: Int) -> FFIPointer? by func("alcGetString")
+
+    fun alcGetInteger(device: FFIPointer?, param: Int): Int {
+        val ints = IntArray(1)
+        alcGetIntegerv(device, param, 1, ints)
+        return ints[0]
+    }
+
+    fun alGetErrorName(error: Int = alGetError()): String = when (error) {
+        AL_NO_ERROR -> "AL_NO_ERROR"
+        AL_INVALID_NAME -> "AL_INVALID_NAME"
+        AL_INVALID_ENUM -> "AL_INVALID_ENUM"
+        AL_INVALID_VALUE -> "AL_INVALID_VALUE"
+        AL_INVALID_OPERATION -> "AL_INVALID_OPERATION"
+        AL_OUT_OF_MEMORY -> "AL_OUT_OF_MEMORY"
+        else -> "UNKNOWN: $error"
+    }
+
+    fun alcGetErrorName(device: FFIPointer?): String = alcGetErrorName(alcGetError(device))
+
+    fun alcGetErrorName(error: Int): String = when (error) {
+        AL.ALC_NO_ERROR -> "ALC_NO_ERROR"
+        AL.ALC_INVALID_DEVICE -> "ALC_INVALID_DEVICE"
+        AL.ALC_INVALID_CONTEXT -> "ALC_INVALID_CONTEXT"
+        AL.ALC_INVALID_ENUM -> "ALC_INVALID_ENUM"
+        AL.ALC_INVALID_VALUE -> "ALC_INVALID_VALUE"
+        AL.ALC_OUT_OF_MEMORY -> "ALC_OUT_OF_MEMORY"
+        else -> "UNKNOWN: $error"
+    }
 
     const val ALC_FALSE = 0
     const val ALC_TRUE = 1
@@ -225,7 +260,7 @@ object AL : FFILib(nativeOpenALLibraryPath) {
     //}
 }
 
-val nativeOpenALLibraryPath: String? by lazy {
+internal val nativeOpenALLibraryPath: String? by lazy {
     Envs["OPENAL_LIB_PATH"]?.let { path ->
         return@lazy path
     }
@@ -233,20 +268,17 @@ val nativeOpenALLibraryPath: String? by lazy {
         return@lazy null
     }
     when {
-        Platform.isMac -> {
-            //getNativeFileLocalPath("natives/macosx64/libopenal.dylib")
-            "OpenAL" // Mac already includes the OpenAL library
-        }
+        Platform.isMac -> "OpenAL" // Mac already includes the OpenAL library
         Platform.isLinux -> {
             when {
-                arch.contains("arm") -> getNativeFileLocalPath("natives/linuxarm/libopenal.so")
-                arch.contains("64") -> getNativeFileLocalPath("natives/linuxx64/libopenal.so")
+                Platform.arch.isArm -> getNativeFileLocalPath("natives/linuxarm/libopenal.so")
+                Platform.arch.is64Bits -> getNativeFileLocalPath("natives/linuxx64/libopenal.so")
                 else -> getNativeFileLocalPath("natives/linuxx86/libopenal.so")
             }
         }
         Platform.isWindows -> {
             when {
-                arch.contains("64") -> getNativeFileLocalPath("natives/winx64/soft_oal.dll")
+                Platform.arch.is64Bits -> getNativeFileLocalPath("natives/winx64/soft_oal.dll")
                 else -> getNativeFileLocalPath("natives/winx86/soft_oal.dll")
             }
         }
@@ -257,25 +289,20 @@ val nativeOpenALLibraryPath: String? by lazy {
     }
 }
 
-private val arch by lazy { System.getProperty("os.arch").toLowerCase() }
-private val alClassLoader by lazy { AL::class.java.classLoader }
-private fun getNativeFileURL(path: String): URL? = alClassLoader.getResource(path)
-private fun getNativeFile(path: String): ByteArray = getNativeFileURL(path)?.readBytes() ?: error("Can't find '$path'")
 private fun getNativeFileLocalPath(path: String): String {
-    val tempDir = File(System.getProperty("java.io.tmpdir"))
     //val tempFile = File.createTempFile("libopenal_", ".${File(path).extension}")
-    val tempFile = File(tempDir, "korau_openal.${File(path).extension}")
+    val tempFile = "${Environment.tempPath}${Environment.DIR_SEPARATOR}korau_openal.${path.substringAfterLast('.')}"
 
-    val expectedSize = getNativeFileURL(path)?.openStream()?.use { it.available().toLong() }
+    val expectedSize = SyncSystemFS.getResourceLength(path, AL::class)
 
-    if (!tempFile.exists() || tempFile.length() != expectedSize) {
+    if (!SyncSystemFS.exists(tempFile) || SyncSystemFS.size(tempFile) != expectedSize) {
         try {
-            tempFile.writeBytes(getNativeFile(path))
+            SyncSystemFS.writeBytes(tempFile, SyncSystemFS.getResourceBytes(path, AL::class))
         } catch (e: Throwable) {
             e.printStackTrace()
         }
     }
-    return tempFile.absolutePath
+    return tempFile
 }
 
 internal inline fun <T> runCatchingAl(block: () -> T): T? {
