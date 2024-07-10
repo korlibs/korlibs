@@ -111,17 +111,8 @@ internal object OpenALAudioSystem : AudioSystem() {
                 //val bufferData = Buffer(data.size * 2, direct = true)
                 //bufferData.setArrayLE(0, data.asShortArray())
                 //al { AL.alBufferData(buffer, format, bufferData, data.size * 2, dataRate) }
-                ffiScoped {
-                    val mem = CreateFFIMemory(dataSizeBytes)
-                    val pointer = mem.pointer
-
-                    for (n in 0 until data.size) {
-                        pointer.set16(data[n].short, n * 2)
-                    }
-
-                    al { AL.alBufferData(buffer, format, pointer, dataSizeBytes, dataRate) }
-                    al { AL.alSourcei(source, AL.AL_BUFFER, buffer) }
-                }
+                al { AL.alBufferData(buffer, format, data.asShortArray(), dataSizeBytes, dataRate) }
+                al { AL.alSourcei(source, AL.AL_BUFFER, buffer) }
             }
 
         override val state: AudioSourceState
