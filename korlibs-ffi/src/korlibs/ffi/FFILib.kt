@@ -60,6 +60,9 @@ internal fun FFIPointer._getWideStringz(): String {
 internal fun FFIPointer._getIntArray(size: Int, byteOffset: Int): IntArray = IntArray(size) { getS32(byteOffset + it * 4) }
 
 expect fun CreateFFIPointer(ptr: Long): FFIPointer?
+
+operator fun FFIPointer.plus(offset: Int): FFIPointer = CreateFFIPointer(address + offset)!!
+
 expect val FFIPointer?.address: Long
 expect val FFIPointer?.str: String
 expect fun FFIPointer.getStringz(): String
@@ -84,6 +87,11 @@ expect fun FFIPointer.setF64(value: Double, byteOffset: Int = 0)
 
 fun FFIPointer.getByteArray(size: Int, byteOffset: Int = 0): ByteArray = ByteArray(size) { getS8(byteOffset + (it * Byte.SIZE_BYTES)) }
 fun FFIPointer.getShortArray(size: Int, byteOffset: Int = 0): ShortArray = ShortArray(size) { getS16(byteOffset + (it * Short.SIZE_BYTES)) }
+
+fun FFIPointer.strlen(max: Int = Int.MAX_VALUE): Int {
+    for (n in 0 until max) if (getS8(n) == 0.toByte()) return n
+    return -1
+}
 
 expect class FFIArena() {
     fun allocBytes(size: Int): FFIPointer
