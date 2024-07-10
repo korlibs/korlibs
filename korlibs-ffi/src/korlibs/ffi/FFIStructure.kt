@@ -123,7 +123,7 @@ inline class FFIDelegateNativeDoubleProperty(val offset: Int) {
 
 inline class FFIDelegateNativeLongProperty(val offset: Int) {
     operator fun getValue(obj: FFIStructure, property: KProperty<*>): Long = obj.ptrSure.getFFIPointer(offset).address
-    operator fun setValue(obj: FFIStructure, property: KProperty<*>, i: Long): Unit = obj.ptrSure.setFFIPointer(CreateFFIPointer(i), offset)
+    operator fun setValue(obj: FFIStructure, property: KProperty<*>, i: Long): Unit = obj.ptrSure.setFFIPointer(FFIPointer(i), offset)
 }
 
 inline class FFIDelegateFFIPointerProperty(val offset: Int) {

@@ -16,8 +16,13 @@ expect class FFIMemory
 
 expect val FFI_SUPPORTED: Boolean
 
+@Deprecated("Use FFIMemory instead")
 expect fun CreateFFIMemory(size: Int): FFIMemory
+@Deprecated("Use FFIMemory instead")
 expect fun CreateFFIMemory(bytes: ByteArray): FFIMemory
+
+inline fun FFIMemory(size: Int, unit: Unit = Unit): FFIMemory = CreateFFIMemory(size)
+inline fun FFIMemory(bytes: ByteArray, unit: Unit = Unit): FFIMemory = CreateFFIMemory(bytes)
 
 expect inline fun <T> FFIMemory.usePointer(block: (pointer: FFIPointer) -> T): T
 expect inline fun <T> Buffer.usePointer(block: (pointer: FFIPointer) -> T): T
@@ -59,9 +64,12 @@ internal fun FFIPointer._getWideStringz(): String {
 
 internal fun FFIPointer._getIntArray(size: Int, byteOffset: Int): IntArray = IntArray(size) { getS32(byteOffset + it * 4) }
 
+@Deprecated("Use FFIPointer instead")
 expect fun CreateFFIPointer(ptr: Long): FFIPointer?
 
-operator fun FFIPointer.plus(offset: Int): FFIPointer = CreateFFIPointer(address + offset)!!
+inline fun FFIPointer(ptr: Long, unit: Unit = Unit): FFIPointer? = CreateFFIPointer(ptr)
+
+operator fun FFIPointer.plus(offset: Int): FFIPointer = FFIPointer(address + offset)!!
 
 expect val FFIPointer?.address: Long
 expect val FFIPointer?.str: String
@@ -116,7 +124,7 @@ fun FFIPointer.setFFIPointer(value: FFIPointer?, byteOffset: Int = 0) {
 }
 
 fun FFIPointer.getFFIPointer(byteOffset: Int = 0): FFIPointer? =
-    if (FFI_POINTER_SIZE == 8) CreateFFIPointer(getS64(byteOffset)) else CreateFFIPointer(getS32(byteOffset).toLong())
+    if (FFI_POINTER_SIZE == 8) FFIPointer(getS64(byteOffset)) else FFIPointer(getS32(byteOffset).toLong())
 
 @JvmInline
 value class FFIVarargs(val args: List<Any?>) {
@@ -127,9 +135,7 @@ value class FFIVarargs(val args: List<Any?>) {
 interface FFICallback
 
 /** Might be 32-bit or 64-bit depending on the OS */
-class FFINativeLong(val value: Long) {
-
-}
+class FFINativeLong(val value: Long)
 
 fun FFIPointer.getAlignedS16(offset: Int = 0): Short = getS16(offset * 2)
 fun FFIPointer.getAlignedS32(offset: Int = 0): Int = getS32(offset * 4)
@@ -144,7 +150,7 @@ fun FFIPointer.setAlignedF32(value: Float, offset: Int = 0) = setF32(value, offs
 fun FFIPointer.setAlignedF64(value: Double, offset: Int = 0) = setF64(value, offset * 8)
 
 fun FFIPointer.getAlignedFFIPointer(offset: Int = 0): FFIPointer? =
-    if (FFI_POINTER_SIZE == 8) CreateFFIPointer(getAlignedS64(offset)) else CreateFFIPointer(getAlignedS32(offset).toLong())
+    if (FFI_POINTER_SIZE == 8) FFIPointer(getAlignedS64(offset)) else FFIPointer(getAlignedS32(offset).toLong())
 
 fun FFIPointer.setAlignedFFIPointer(value: FFIPointer?, offset: Int = 0) =
     setFFIPointer(value, offset * FFI_POINTER_SIZE)
@@ -159,7 +165,7 @@ data class FFIPointerArray(val data: IntArray) : List<FFIPointer?> {
     override operator fun get(index: Int): FFIPointer? {
         val address = Long.fromLowHigh(data[index * 2 + 0], data[index * 2 + 1])
         if (address == 0L) return null
-        return CreateFFIPointer(address)
+        return FFIPointer(address)
     }
     operator fun set(index: Int, value: FFIPointer?) {
         val address = value.address
@@ -188,17 +194,17 @@ data class FFIPointerArray(val data: IntArray) : List<FFIPointer?> {
     override fun contains(element: FFIPointer?): Boolean = indexOf(element) >= 0
 }
 
-fun FFIPointer.withOffset(offset: Int): FFIPointer? = CreateFFIPointer(address + offset)
+fun FFIPointer.withOffset(offset: Int): FFIPointer? = FFIPointer(address + offset)
 
 fun Buffer.getFFIPointer(offset: Int): FFIPointer? {
-    return CreateFFIPointer(if (FFI_POINTER_SIZE == 8) getInt64(offset) else getInt32(offset).toLong())
+    return FFIPointer(if (FFI_POINTER_SIZE == 8) getInt64(offset) else getInt32(offset).toLong())
 }
 fun Buffer.setFFIPointer(offset: Int, value: FFIPointer?) {
     if (FFI_POINTER_SIZE == 8) setInt64(offset, value.address) else setInt32(offset, value.address.toInt())
 }
 
 fun Buffer.getUnalignedFFIPointer(offset: Int): FFIPointer? {
-    return CreateFFIPointer(if (FFI_POINTER_SIZE == 8) getS64(offset) else getS32(offset).toLong())
+    return FFIPointer(if (FFI_POINTER_SIZE == 8) getS64(offset) else getS32(offset).toLong())
 }
 fun Buffer.setUnalignedFFIPointer(offset: Int, value: FFIPointer?) {
     if (FFI_POINTER_SIZE == 8) set64(offset, value.address) else set32(offset, value.address.toInt())
@@ -319,6 +325,8 @@ operator fun FFITypedPointer<Long>.get(index: Int): Long = pointer.getS64(index 
 operator fun FFITypedPointer<Float>.get(index: Int): Float = pointer.getF32(index * 4)
 operator fun FFITypedPointer<Double>.get(index: Int): Double = pointer.getF64(index * 8)
 operator fun FFITypedPointer<FFIPointer?>.get(index: Int): FFIPointer? = pointer.getFFIPointer(index * FFI_POINTER_SIZE)
+@JvmName("set_typedPointer")
+operator fun <T> FFITypedPointer<FFITypedPointer<T>>.get(index: Int): FFITypedPointer<T>? = pointer.getFFIPointer(index * FFI_POINTER_SIZE)?.typed<T>()
 
 operator fun FFITypedPointer<Byte>.set(index: Int, value: Byte) = pointer.set8(value, index * 1)
 operator fun FFITypedPointer<Short>.set(index: Int, value: Short) = pointer.set16(value, index * 2)
@@ -327,6 +335,8 @@ operator fun FFITypedPointer<Long>.set(index: Int, value: Long) = pointer.set64(
 operator fun FFITypedPointer<Float>.set(index: Int, value: Float) = pointer.setF32(value, index * 4)
 operator fun FFITypedPointer<Double>.set(index: Int, value: Double) = pointer.setF64(value, index * 8)
 operator fun FFITypedPointer<FFIPointer?>.set(index: Int, value: FFIPointer?) = pointer.setFFIPointer(value, index * FFI_POINTER_SIZE)
+@JvmName("set_typedPointer")
+operator fun <T> FFITypedPointer<FFITypedPointer<T>>.set(index: Int, value: FFITypedPointer<T>?) = pointer.setFFIPointer(value?.pointer, index * FFI_POINTER_SIZE)
 
 // @TODO: Optimize this
 internal fun arraycopySlow(src: Buffer, srcPos: Int, dst: FFIPointer, dstPos: Int, length: Int) {

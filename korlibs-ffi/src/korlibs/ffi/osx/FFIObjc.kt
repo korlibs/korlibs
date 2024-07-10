@@ -198,7 +198,7 @@ class ObjcProtocol(val ref: Long) : ObjcProtocolClassBaseRef {
         return (0 until nitems).map { n ->
             val namePtr = items2.getS64(Long.SIZE_BYTES * (n * 2 + 0))
             val typesPtr = items2.getS64(Long.SIZE_BYTES * (n * 2 + 1))
-            val typesStr = CreateFFIPointer(typesPtr)!!.getStringz()
+            val typesStr = FFIPointer(typesPtr)!!.getStringz()
             ObjcMethodDescription(this, namePtr, typesStr)
             //println("$selName: $typesStr")
             //val selName = ObjectiveC.sel_getName(mname)
