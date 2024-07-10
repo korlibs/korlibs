@@ -112,8 +112,8 @@ open class DenoTestTask : AbstractTestTask() {
 
     init {
         this.reports {
-            it.junitXml.outputLocation.set(project.file("build/test-results/jsDenoTest/"))
-            it.html.outputLocation.set(project.file("build/reports/tests/jsDenoTest/"))
+            junitXml.outputLocation.set(project.file("build/test-results/jsDenoTest/"))
+            html.outputLocation.set(project.file("build/reports/tests/jsDenoTest/"))
         }
         binaryResultsDirectory.set(project.file("build/test-results/jsDenoTest/binary"))
         //reports.enabledReports["junitXml"]!!.optional
