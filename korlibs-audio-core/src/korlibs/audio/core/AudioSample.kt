@@ -11,6 +11,13 @@ inline class AudioSample(private val raw: Short) {
     fun toAudioSampleF(): AudioSampleF = AudioSampleF(float)
 }
 
+typealias PerChannelAudioSamples = Array<AudioSampleArray>
+
+fun PerChannelAudioSamples(nchannels: Int, nsamples: Int): PerChannelAudioSamples = Array(nchannels) { AudioSampleArray(nsamples) }
+
+val PerChannelAudioSamples.nchannels get() = this.size
+val PerChannelAudioSamples.nsamples get() = this[0].size
+
 inline class AudioSampleArray(private val data: ShortArray) {
     constructor(size: Int) : this(ShortArray(size))
     constructor(size: Int, gen: (Int) -> AudioSample) : this(ShortArray(size) { gen(it).short })
@@ -20,12 +27,17 @@ inline class AudioSampleArray(private val data: ShortArray) {
     fun asShortArray(): ShortArray = data
 }
 
-fun Array<AudioSampleArray>.combined(): AudioSampleArray = AudioSampleArray(this.sumOf { it.size }).also { out ->
-    var outPos = 0
-    for (src in this) {
-        arraycopy(src, 0, out, outPos, src.size)
-        outPos += src.size
+fun PerChannelAudioSamples.interleaved(out: AudioSampleArray = AudioSampleArray(nchannels * nsamples)): AudioSampleArray {
+    val nchannels = this.nchannels
+    val nsamples = this.nsamples
+    check(this.all { it.size == nsamples })
+    for (c in 0 until nchannels) {
+        val data = this[c]
+        for (n in 0 until nsamples)  {
+            out[n * nchannels + c] = data[n]
+        }
     }
+    return out
 }
 
 public fun arraycopy(src: AudioSampleArray, srcPos: Int, dst: AudioSampleArray, dstPos: Int, size: Int) {

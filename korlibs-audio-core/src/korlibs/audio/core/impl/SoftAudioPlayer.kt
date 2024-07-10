@@ -5,18 +5,18 @@ import korlibs.audio.core.*
 /**
  * Implements spatial audio with the simplest audio output possible ([AudioStreamPlayer]).
  */
-abstract class SoftAudioSystem(val streamPlayer: AudioStreamPlayer) : AudioPlayer() {
+open class SoftAudioPlayer(override val device: AudioDevice, val streamPlayer: AudioStreamPlayer) : AudioPlayer() {
     companion object {
         val DEVICE_DEFAULT: AudioDevice = AudioDevice("default", isDefault = true)
         val DEVICE_ALL: List<AudioDevice> = listOf(DEVICE_DEFAULT)
     }
 
-    class SoftAudioSource(override val player: SoftAudioSystem) : AudioSource() {
+    class SoftAudioSource(override val player: SoftAudioPlayer) : AudioSource() {
         var stream: AutoCloseable? = null
 
         override fun _play() {
             stream?.close()
-            stream = player.streamPlayer.playStream(dataRate, nchannels) { _, data ->
+            stream = player.streamPlayer.playStream(player.device, dataRate, nchannels) { _, data ->
                 when {
                     this.dataProvider != null -> this.dataProvider!!.invoke(this, samplesPosition, data).also {
                         samplesPosition += it

@@ -8,7 +8,7 @@ import korlibs.memory.*
 import korlibs.time.*
 
 internal object Win32AudioSystem : AudioSystem() {
-    override fun createPlayer(device: AudioDevice): AudioPlayer = Win32WaveOutSoftAudioPlayer(device)
+    override fun createPlayer(device: AudioDevice): AudioPlayer = SoftAudioPlayer(device, WaveOutAudioStreamPlayer)
 
     override val devices: List<AudioDevice> by lazy {
         ffiScoped {
@@ -37,69 +37,62 @@ internal object Win32AudioSystem : AudioSystem() {
         }
     }
 
-    class Win32WaveOutSoftAudioPlayer(override val device: AudioDevice) : SoftAudioSystem(WaveOutAudioStreamPlayer(device)) {
-        companion object {
-            val DEVICE_DEFAULT: AudioDevice = AudioDevice("default", isDefault = true)
-            val DEVICE_ALL: List<AudioDevice> = listOf(DEVICE_DEFAULT)
-        }
+    object WaveOutAudioStreamPlayer : AudioStreamPlayer {
+        @OptIn(ExperimentalStdlibApi::class)
+        override fun playStream(device: AudioDevice, rate: Int, channels: Int, gen: (position: Long, data: Array<AudioSampleArray>) -> Int): AutoCloseable {
+            var running = true
+            val nativeThread = nativeThread(start = true, isDaemon = true) {
+                ffiScoped {
+                    val arena = this
+                    val handlePtr = allocBytes(8).typed<FFIPointer?>()
+                    val freq = rate
+                    val blockAlign = (channels * Short.SIZE_BYTES)
+                    val format = WAVEFORMATEX(allocBytes(WAVEFORMATEX().size)).also { format ->
+                        format.wFormatTag = WINMM.WAVE_FORMAT_PCM.toShort()
+                        format.nChannels = channels.toShort() // 2?
+                        format.nSamplesPerSec = freq.toInt()
+                        format.wBitsPerSample = Short.SIZE_BITS.toShort() // 16
+                        format.nBlockAlign = ((channels * Short.SIZE_BYTES).toShort())
+                        format.nAvgBytesPerSec = freq * blockAlign
+                        format.cbSize = format.size.toShort()
+                    }
+                    //WINMM.waveOutOpen(handlePtr.pointer, WINMM.WAVE_MAPPER, format.ptr, null, null, 0).also {
+                    WINMM.waveOutOpen(handlePtr.pointer, device.id.toInt(), format.ptr, null, null, 0).also {
+                        if (it != 0) println("WINMM.waveOutOpen: $it")
+                    }
+                    var handle = handlePtr[0]
+                    //println("handle=$handle")
 
-        class WaveOutAudioStreamPlayer(val device: AudioDevice) : AudioStreamPlayer {
-            @OptIn(ExperimentalStdlibApi::class)
-            override fun playStream(rate: Int, channels: Int, gen: (position: Long, data: Array<AudioSampleArray>) -> Int): AutoCloseable {
-                var running = true
-                val nativeThread = nativeThread(start = true, isDaemon = true) {
-                    ffiScoped {
-                        val arena = this
-                        val handlePtr = allocBytes(8).typed<FFIPointer?>()
-                        val freq = rate
-                        val blockAlign = (channels * Short.SIZE_BYTES)
-                        val format = WAVEFORMATEX(allocBytes(WAVEFORMATEX().size)).also { format ->
-                            format.wFormatTag = WINMM.WAVE_FORMAT_PCM.toShort()
-                            format.nChannels = channels.toShort() // 2?
-                            format.nSamplesPerSec = freq.toInt()
-                            format.wBitsPerSample = Short.SIZE_BITS.toShort() // 16
-                            format.nBlockAlign = ((channels * Short.SIZE_BYTES).toShort())
-                            format.nAvgBytesPerSec = freq * blockAlign
-                            format.cbSize = format.size.toShort()
-                        }
-                        //WINMM.waveOutOpen(handlePtr.pointer, WINMM.WAVE_MAPPER, format.ptr, null, null, 0).also {
-                        WINMM.waveOutOpen(handlePtr.pointer, device.id.toInt(), format.ptr, null, null, 0).also {
-                            if (it != 0) println("WINMM.waveOutOpen: $it")
-                        }
-                        var handle = handlePtr[0]
-                        //println("handle=$handle")
+                    var headers = Array(4) { WaveHeader(it, handle, 1024, channels, arena) }
+                    var position = 0L
 
-                        var headers = Array(4) { WaveHeader(it, handle, 1024, channels, arena) }
-                        var position = 0L
-
-                        try {
-                            while (running) {
-                                var queued = 0
-                                for (header in headers) {
-                                    if (!header.hdr.isInQueue) {
-                                        position += gen(position, header.samples)
-                                        header.prepareAndWrite()
-                                        queued++
-                                        //println("Sending running=$running, availableRead=$availableRead, header=${header}")
-                                    }
+                    try {
+                        while (running) {
+                            var queued = 0
+                            for (header in headers) {
+                                if (!header.hdr.isInQueue) {
+                                    position += gen(position, header.samples)
+                                    header.prepareAndWrite()
+                                    queued++
+                                    //println("Sending running=$running, availableRead=$availableRead, header=${header}")
                                 }
-                                if (queued == 0) blockingSleep(1.milliseconds)
                             }
-                        } finally {
-                            for (header in headers) header.dispose()
-                            //runBlockingNoJs {
-                            //    wait()
-                            //}
-                            WINMM.waveOutReset(handle)
-                            WINMM.waveOutClose(handle)
-                            handle = null
-                            //println("CLOSED")
+                            if (queued == 0) blockingSleep(1.milliseconds)
                         }
+                    } finally {
+                        for (header in headers) header.dispose()
+                        //runBlockingNoJs {
+                        //    wait()
+                        //}
+                        WINMM.waveOutReset(handle)
+                        WINMM.waveOutClose(handle)
+                        handle = null
+                        //println("CLOSED")
                     }
                 }
-                return Closeable {
-                    running = false
-                }
+            }
+            return Closeable {
+                running = false
             }
         }
     }
