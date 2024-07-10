@@ -1,10 +1,11 @@
+import korlibs.io.lang.*
 import korlibs.memory.*
 import kotlin.test.*
 
 class JvmBufferTest {
     @Test
     fun testMmap() {
-        val dir = java.lang.System.getProperty("java.io.tmpdir")
+        val dir = Environment.tempPath
         val mem1 = Buffer.mmap("$dir/JvmBufferTest.testMmap.bin", 0L, 16L, BufferMapMode.READ_WRITE)
         val mem2 = Buffer.mmap("$dir/JvmBufferTest.testMmap.bin", 0L, 16L, BufferMapMode.READ_WRITE)
 

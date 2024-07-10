@@ -9,7 +9,7 @@ class LocalVfsNativeTest {
     fun testUserHomeVfsValue() {
         val expectedResult = when {
             Environment["HOMEDRIVE"] != null && Environment["HOMEPATH"] != null -> "${Environment["HOMEDRIVE"]}${Environment["HOMEPATH"]}"
-            else -> Environment["HOMEPATH"] ?: Environment["HOME"] ?: Environment["TEMP"] ?: Environment["TMP"] ?: "/tmp"
+            else -> Environment["HOMEPATH"] ?: Environment["HOME"] ?: Environment.tempPath
         }
         assertEquals(
             expectedResult.replace("\\", "/").trimEnd('/'),

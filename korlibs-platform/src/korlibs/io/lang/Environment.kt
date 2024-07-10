@@ -10,6 +10,7 @@ interface Environment {
     operator fun set(key: String, value: String)
     fun getAll(): Map<String, String>
     companion object : Environment {
+        val DIR_SEPARATOR: Char get() = if (Platform.isWindows) '\\' else '/'
         val PATH_SEPARATOR: Char get() = if (Platform.isWindows) ';' else ':'
 
         // Uses querystring on JS/Browser, and proper env vars in the rest
@@ -25,7 +26,14 @@ interface Environment {
     }
 }
 
-val Environment.TEMP get() = this["TEMP"] ?: this["TMP"] ?: "/tmp"
+@Deprecated("", ReplaceWith("tempPath"))
+val Environment.TEMP get() = tempPath
+val Environment.tempPath get() = this["TMPDIR"] ?: this["TEMP"] ?: this["TMP"] ?: "/tmp"
+// @TODO: System.getProperty("user.home")
+val Environment.userHome get() = when {
+    this["HOMEDRIVE"] != null && this["HOMEPATH"] != null -> "${this["HOMEDRIVE"]}${this["HOMEPATH"]}"
+    else -> this["HOMEPATH"] ?: this["HOME"] ?: this.tempPath
+}
 
 open class EnvironmentCustom(customEnvironments: Map<String, String> = LinkedHashMap()) : Environment {
     var customEnvironments = when (customEnvironments) {
@@ -49,18 +57,10 @@ fun Environment.expand(str: String): String {
     return str.replace(Regex("(~|%(\\w+)%)")) {
         val key = it.value.trim('%')
         when (key) {
-            "~" -> {
-                if (this["HOMEDRIVE"] != null && this["HOMEPATH"] != null) {
-                    "${this["HOMEDRIVE"]}${this["HOMEPATH"]}"
-                } else {
-                    this["HOMEPATH"] ?: this["HOME"] ?: this["TEMP"] ?: this["TMP"] ?: "/tmp"
-                }
-            }
+            "~" -> this.userHome
             else -> this[key]
         } ?: ""
     }
 }
-
-val Environment.tempPath get() = this["TMPDIR"] ?: this["TEMP"] ?: "/tmp"
 
 private fun <K, V> Iterable<Pair<K, V>>.toLinkedMap(): LinkedHashMap<K, V> = LinkedHashMap<K, V>().also { for ((key, value) in this) it[key] = value }
