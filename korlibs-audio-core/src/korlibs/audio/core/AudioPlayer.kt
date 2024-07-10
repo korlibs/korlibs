@@ -13,7 +13,7 @@ fun AudioDevice.Companion.default(): AudioDevice = defaultAudioSystem.defaultDev
 fun AudioDevice.Companion.list(): List<AudioDevice> = defaultAudioSystem.devices
 
 interface AudioStreamPlayer {
-    fun playStream(rate: Int, channels: Int, gen: (position: Long, data: Array<AudioSampleArray>) -> Int): AutoCloseable
+    fun playStream(device: AudioDevice, rate: Int, channels: Int, gen: (position: Long, data: Array<AudioSampleArray>) -> Int): AutoCloseable
 }
 
 expect val defaultAudioSystem: AudioSystem
