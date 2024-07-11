@@ -15,16 +15,19 @@ class CoreImageTest {
 
     @Test
     fun testInfo() = runTest {
+        if (!CoreImage.isSupported) return@runTest
         assertEquals(CoreImageInfo(1, 1), CoreImage.info(pngData).copy(format = null))
     }
 
     @Test
     fun testDecode() = runTest {
+        if (!CoreImage.isSupported) return@runTest
         assertEquals(CoreImageInfo(1, 1), CoreImage.decodeBytes(pngData).info())
     }
 
     @Test
     fun testEncode() = runTest {
+        if (!CoreImage.isSupported) return@runTest
         assertEquals(
             CoreImageInfo(2, 1),
             CoreImage.decodeBytes(CoreImage32(2, 1, intArrayOf(-1, -1)).encodeBytes(CoreImageFormat.PNG)).info()
@@ -42,6 +45,7 @@ class CoreImageTest {
 
     @Test
     fun testEncodeDecode() = runTest {
+        if (!CoreImage.isSupported) return@runTest
         val c1 = CoreImage32Color(red = 255, green = 128, blue = 64, alpha = 255)
         val c2 = CoreImage32Color(red = 64, green = 255, blue = 90, alpha = 255)
         val bytes = CoreImage32(2, 1, intArrayOf(c1.value, c2.value)).encodeBytes(CoreImageFormat.PNG)
@@ -52,6 +56,7 @@ class CoreImageTest {
 
     @Test
     fun testDecodeCheckColors() = runTest {
+        if (!CoreImage.isSupported) return@runTest
         val colors = CoreImage.decodeBytes(png2x1Data).to32()
         assertEquals("2x1", "${colors.width}x${colors.height}")
         val c1 = CoreImage32Color(colors.data[0])
@@ -61,6 +66,7 @@ class CoreImageTest {
 
     @Test
     fun testEncodeDecodeCheckColors() = runTest {
+        if (!CoreImage.isSupported) return@runTest
         val colors = CoreImage.decodeBytes(CoreImage.decodeBytes(png2x1Data).encodeBytes(CoreImageFormat.PNG)).to32()
         assertEquals("2x1", "${colors.width}x${colors.height}")
         val c1 = CoreImage32Color(colors.data[0])
@@ -70,6 +76,7 @@ class CoreImageTest {
 
     @Test
     fun testPremultipliedEncodedecode() = runTest {
+        if (!CoreImage.isSupported) return@runTest
         val image = CoreImage32(1, 1, intArrayOf(CoreImage32Color(0xFF, 0x77, 0x33, 0x44).value), premultiplied = false).premultiplied()
         val image2 = CoreImage.decodeBytes(CoreImage.encode(image, CoreImageFormat.PNG, 1.0)).to32()
         assertEquals(true, image2.premultiplied)
@@ -78,6 +85,7 @@ class CoreImageTest {
 
     @Test
     fun testPremultipliedDecode() = runTest {
+        if (!CoreImage.isSupported) return@runTest
         val img = CoreImage.decodeBytes(png2Data).to32()
         assertEquals(true, img.premultiplied)
         assertEquals("#441F0D44", CoreImage32Color(img.data[0]).toHexString())
