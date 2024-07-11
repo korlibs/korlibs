@@ -15,6 +15,9 @@ dependencies:
   - ../korlibs-datastructure: exported
   - ../korlibs-compression
 
+dependencies@android:
+  - ../korlibs-serialization
+
 dependencies@jvm:
   - org.ow2.asm:asm:9.5
   - org.ow2.asm:asm-util:9.5
