@@ -95,7 +95,7 @@ fun Project.doOnce(uniqueName: String, block: () -> Unit) {
     }
 }
 
-//open class DenoTestTask : DefaultTask() {
+
 open class DenoTestTask : AbstractTestTask() {
 //open class DenoTestTask : KotlinTest() {
 
@@ -112,8 +112,8 @@ open class DenoTestTask : AbstractTestTask() {
 
     init {
         this.reports {
-            this.junitXml.outputLocation = project.file("build/test-results/jsDenoTest/")
-            this.html.outputLocation = project.file("build/reports/tests/jsDenoTest/")
+            junitXml.outputLocation.set(project.file("build/test-results/jsDenoTest/"))
+            html.outputLocation.set(project.file("build/reports/tests/jsDenoTest/"))
         }
         binaryResultsDirectory.set(project.file("build/test-results/jsDenoTest/binary"))
         //reports.enabledReports["junitXml"]!!.optional
@@ -178,6 +178,7 @@ open class DenoTestTask : AbstractTestTask() {
             var capturingOutput = false
             var currentTestId: String? = null
             var currentTestExtra: String = "ok"
+            var failedCount = 0
 
             fun flush() {
                 if (currentTestId != null) {
@@ -191,6 +192,7 @@ open class DenoTestTask : AbstractTestTask() {
                         if (type == TestResult.ResultType.FAILURE) {
                             testResultProcessor.output(currentTestId, DefaultTestOutputEvent(TestOutputEvent.Destination.StdErr, "FAILED\n"))
                             testResultProcessor.failure(currentTestId, DefaultTestFailure.fromTestFrameworkFailure(Exception("FAILED").also { it.stackTrace = arrayOf() }, null))
+                            failedCount++
                         }
                         testResultProcessor.completed(currentTestId, TestCompleteEvent(System.currentTimeMillis(), type))
                     } catch (e: Throwable) {
@@ -235,7 +237,7 @@ open class DenoTestTask : AbstractTestTask() {
             }
             flush()
 
-            testResultProcessor.completed("deno", TestCompleteEvent(System.currentTimeMillis(), TestResult.ResultType.SUCCESS))
+            testResultProcessor.completed("deno", TestCompleteEvent(System.currentTimeMillis(), if (failedCount == 0) TestResult.ResultType.SUCCESS else TestResult.ResultType.FAILURE))
 
             process.waitFor()
             System.err.print(process.errorStream.readBytes().decodeToString())
@@ -247,7 +249,6 @@ open class DenoTestTask : AbstractTestTask() {
 
     class DenoTestExecutionSpec : TestExecutionSpec
 }
-
 
 class SonatypeProps(val project: Project) {
     // Signing

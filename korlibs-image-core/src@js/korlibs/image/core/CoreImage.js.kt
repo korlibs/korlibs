@@ -9,7 +9,14 @@ import org.w3c.files.*
 import kotlin.coroutines.*
 import kotlin.io.encoding.*
 
-actual val CoreImageFormatProvider_default: CoreImageFormatProvider = HtmlCoreImageFormatProvider
+private fun hasDocument(): Boolean = js("(typeof document !== 'undefined')").unsafeCast<Boolean>()
+
+actual val CoreImageFormatProvider_default: CoreImageFormatProvider by lazy {
+    when {
+        hasDocument() -> HtmlCoreImageFormatProvider
+        else -> DummyCoreImageFormatProvider
+    }
+}
 
 @OptIn(ExperimentalEncodingApi::class)
 object HtmlCoreImageFormatProvider : CoreImageFormatProvider {

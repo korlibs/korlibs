@@ -142,6 +142,11 @@ inline class CoreImageFormat(val name: String) {
  */
 interface CoreImageFormatProvider {
     /**
+     * Whether this provider is valid or not.
+     */
+    val isSupported: Boolean get() = true
+
+    /**
      * Gets the [CoreImageInfo] of a [data] ByteArray. Potentially without decoding the pixels.
      */
     suspend fun info(data: ByteArray): CoreImageInfo = decode(data).let {
@@ -157,6 +162,18 @@ interface CoreImageFormatProvider {
     suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Double = 1.0): ByteArray
 
     companion object
+}
+
+object DummyCoreImageFormatProvider : CoreImageFormatProvider {
+    override val isSupported: Boolean get() = false
+
+    override suspend fun decode(data: ByteArray): CoreImage {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun encode(image: CoreImage, format: CoreImageFormat, level: Double): ByteArray {
+        TODO("Not yet implemented")
+    }
 }
 
 expect val CoreImageFormatProvider_default: CoreImageFormatProvider
@@ -193,3 +210,8 @@ suspend fun CoreImage.Companion.encode(image: CoreImage, format: CoreImageFormat
  */
 suspend fun CoreImage.encodeBytes(format: CoreImageFormat, level: Double = 1.0): ByteArray =
     CoreImageFormatProvider.CURRENT.encode(this, format, level)
+
+/**
+ * Whether the current platform supports CoreImage operations.
+ */
+val CoreImage.Companion.isSupported: Boolean get() = CoreImageFormatProvider.CURRENT.isSupported

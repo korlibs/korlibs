@@ -6,6 +6,7 @@ import korlibs.image.core.*
 import korlibs.image.vector.*
 import korlibs.io.async.*
 import korlibs.io.file.*
+import korlibs.io.stream.*
 import korlibs.math.geom.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
@@ -140,6 +141,25 @@ suspend fun Bitmap.showImageAndWait(kind: Int = 0) = nativeImageFormatProvider.d
 suspend fun ImageData.showImagesAndWait(kind: Int = 0) { for (frame in frames) frame.bitmap.showImageAndWait(kind) }
 suspend fun List<Bitmap>.showImagesAndWait(kind: Int = 0) { for (bitmap in this) bitmap.showImageAndWait(kind) }
 suspend fun SizedDrawable.showImageAndWait(kind: Int = 0) = this.render().toBMP32().showImageAndWait(kind)
+
+open class RegisteredImageFormatsImageFormatProvider : BaseNativeImageFormatProvider() {
+    override val formats: ImageFormatsMutable get() = RegisteredImageFormats
+
+    override suspend fun decodeHeaderInternal(data: ByteArray): ImageInfo {
+        return formats.decodeHeaderSuspend(data.openAsync()) ?: error("Unsupported format")
+    }
+
+    override suspend fun decodeInternal(data: ByteArray, props: ImageDecodingProps): NativeImageResult {
+        return formats.decodeSuspend(data, props).toNativeImageResult(props)
+    }
+
+    override suspend fun encodeSuspend(image: ImageDataContainer, props: ImageEncodingProps): ByteArray {
+        val format = formats.formatByExtOrNull(props.filename.pathInfo.extensionLC) ?: formats.formats.last()
+        return format.encode(image.default)
+        //return PNG.encode(image.default.mainBitmap)
+    }
+
+}
 
 open class BaseNativeImageFormatProvider : NativeImageFormatProvider() {
     open val formats: ImageFormat get() = RegisteredImageFormats
