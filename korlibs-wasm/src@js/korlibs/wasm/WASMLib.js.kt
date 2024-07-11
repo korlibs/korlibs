@@ -20,6 +20,7 @@ class JSWASMLib(content: ByteArray) : IWASMLib, BaseWASMLib(content) {
                     val imports = jsObject(
                         "env" to jsObject(
                             "abort" to dummyFunc,
+                            "emscripten_notify_memory_growth" to dummyFunc,
                         ),
                         "wasi_snapshot_preview1" to jsObject(
                             "proc_exit" to dummyFunc,
@@ -61,7 +62,8 @@ class JSWASMLib(content: ByteArray) : IWASMLib, BaseWASMLib(content) {
     }
 
     override fun invokeFunc(name: String, vararg params: Any?): Any? {
-        return wasmExports[name].apply(wasmExports, params)
+        val export = wasmExports[name] ?: error("Can't find export '$name'")
+        return export.apply(wasmExports, params)
     }
 
     override fun invokeFuncIndirect(address: Int, vararg params: Any?): Any? {

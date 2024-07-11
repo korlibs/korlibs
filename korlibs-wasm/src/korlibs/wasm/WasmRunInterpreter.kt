@@ -1,7 +1,6 @@
 package korlibs.wasm
 
 import korlibs.datastructure.*
-import korlibs.encoding.*
 import korlibs.memory.*
 
 // @TODO: Change stack-based to register based operations:
@@ -239,7 +238,7 @@ class WasmRunInterpreter(val module: WasmModule, memPages: Int = 10, maxMemPages
             val op = i and 0xFFF
             val param = i shr 12
             //instructionsHistoriogram[op]++
-            if (trace) println("OP[${code.debug.name}][$index]: ${op.hex}, param=$param : ${WasmFastInstructions.NAME_FROM_OP[op]}, localsPos=$localsPos, stack=${stackPos}")
+            if (trace) println("OP[${code.debug.name}][$index]: ${op}, param=$param : ${WasmFastInstructions.NAME_FROM_OP[op]}, localsPos=$localsPos, stack=${stackPos}")
             instructionsExecuted++
             when (op) {
                 WasmFastInstructions.Op_try -> TODO()

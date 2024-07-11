@@ -3,6 +3,7 @@ package korlibs.wasm
 import korlibs.datastructure.*
 import korlibs.io.lang.*
 import korlibs.io.util.*
+import kotlin.math.*
 
 /**
  * <https://webassembly.github.io/wabt/demo/wat2wasm/>
@@ -661,7 +662,7 @@ class WasmReaderText {
         }
 
 
-        fun StrReader.wastTokenize(): List<Token> {
+        internal fun StrReader.wastTokenize(): List<Token> {
             val out = arrayListOf<Token>()
             loop@ while (!eof) {
                 val peek = peekChar()
@@ -799,7 +800,7 @@ class WasmReaderText {
         }
 
 
-        fun StrReader.readUntil(str: String): String {
+        internal fun StrReader.readUntil(str: String): String {
             var out = ""
             while (hasMore) {
                 if (peek(str.length) == str) {
@@ -826,5 +827,59 @@ class WasmReaderText {
         fun string(index: Int) = params[index] as? String? ?: error("$this at index=$index is not a String")
         fun block(index: Int) = params[index] as? WastBlock? ?: error("$this at index=$index is not a Block")
         override fun toString(): String = "($name ${params.joinToString(" ")})"
+    }
+
+    internal class StrReader(val str: String, val file: String = "file", var pos: Int = 0) {
+        val length: Int = this.str.length
+        val available: Int get() = length - this.pos
+        val eof: Boolean get() = (this.pos >= this.str.length)
+        val hasMore: Boolean get() = !eof
+        private fun substr(pos: Int, length: Int): String {
+            return this.str.substring(min(pos, this.length), min(pos + length, this.length))
+        }
+        fun peek(count: Int): String = substr(this.pos, count)
+        fun peekChar(): Char = if (hasMore) this.str[this.pos] else '\u0000'
+        private fun posSkip(count: Int): Int {
+            val out = this.pos
+            this.pos += count
+            return out
+        }
+        fun readChar(): Char = if (hasMore) this.str[posSkip(1)] else '\u0000'
+        fun read(): Char = if (hasMore) this.str[posSkip(1)] else '\u0000'
+
+        fun tryLit(lit: String, consume: Boolean): String? {
+            if (!String.substringEquals(this.str, this.pos, lit, 0, lit.length)) return null
+            if (consume) this.pos += lit.length
+            return lit
+        }
+        inline fun readWhile(filter: (Char) -> Boolean) = this.slice { skipWhile(filter) } ?: ""
+        inline fun skipWhile(filter: (Char) -> Boolean) {
+            while (hasMore && filter(this.peekChar())) {
+                this.readChar()
+            }
+        }
+        fun slice(start: Int, end: Int): String = if (start == end) "" else this.str.substring(start, end)
+        inline fun slice(action: () -> Unit): String {
+            val start = pos
+            try {
+                action()
+            } finally {
+                return slice(start, pos)
+            }
+        }
+        fun readUntil(char: Char): String? {
+            val out = StringBuilder()
+            while (hasMore) {
+                val result = peekChar()
+                if (result == char) break
+                out.append(result)
+                skip(1)
+            }
+            return out.toString()
+        }
+        fun read(count: Int): String = this.peek(count).apply { skip(count) }
+        fun skip(count: Int) {
+            pos += count
+        }
     }
 }
