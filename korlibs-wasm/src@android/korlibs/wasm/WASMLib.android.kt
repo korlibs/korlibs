@@ -3,7 +3,6 @@ package korlibs.wasm
 import android.content.*
 import android.os.*
 import android.webkit.*
-import korlibs.encoding.*
 import korlibs.io.android.*
 import korlibs.io.lang.*
 import korlibs.io.serialization.json.*
@@ -103,11 +102,12 @@ private class AndroidWASMExecutor(val context: Context, val trace: Boolean) : Au
     fun stackRestore(ptr: Int): Unit { executeFunction("stackRestore", ptr) }
     fun stackAlloc(size: Int): Int = executeFunction("stackAlloc", size) as Int
 
+    @OptIn(ExperimentalStdlibApi::class)
     fun readBytes(address: Int, size: Int): ByteArray {
         js.setBytes("bytes", byteArrayOf())
         js.runJs("JavaProxy.setJavaBytes('bytes', globalThis.u8.subarray($address, ${address + size}))")
         return (js.getBytes("bytes") ?: byteArrayOf()).also {
-            if (trace) println("readBytes[address=$address, size=$size]: ${it.hex}")
+            if (trace) println("readBytes[address=$address, size=$size]: ${it.toHexString()}")
         }
     }
 

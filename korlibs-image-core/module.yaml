@@ -12,6 +12,9 @@ dependencies:
   - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC
   - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
 
+dependencies@android:
+  - ../korlibs-serialization
+
 dependencies@jvm:
   - net.java.dev.jna:jna:5.14.0: exported
   - net.java.dev.jna:jna-platform:5.14.0: exported
