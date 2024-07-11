@@ -34,7 +34,9 @@ docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) emscripten/emsdk:3.1.61-arm6
 
 # docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) emscripten/emsdk:3.1.61-arm64 /emsdk/upstream/bin/wasm-opt stb_image.wasm -Oz -o stb_image.wasm
 
-base64 -i stb_image.wasm -o stb_image.wasm.b64
+#base64 -i stb_image.wasm -o stb_image.wasm.b64
+
+cat stb_image.wasm | ~/go/bin/zlib | base64 > stb_image.wasm.b64
 
 # Define the paths
 WASM_B64_FILE="stb_image.wasm.b64"

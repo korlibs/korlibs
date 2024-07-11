@@ -150,6 +150,9 @@ open class RegisteredImageFormatsImageFormatProvider : BaseNativeImageFormatProv
     }
 
     override suspend fun decodeInternal(data: ByteArray, props: ImageDecodingProps): NativeImageResult {
+        if (props.asumePremultiplied || props.premultiplied == false) {
+            return RegisteredImageFormats.decode(data, props).toNativeImageResult(props)
+        }
         return formats.decodeSuspend(data, props).toNativeImageResult(props)
     }
 
@@ -169,6 +172,9 @@ open class BaseNativeImageFormatProvider : NativeImageFormatProvider() {
     }
 
     override suspend fun decodeInternal(data: ByteArray, props: ImageDecodingProps): NativeImageResult {
+        if (props.asumePremultiplied || props.premultiplied == false) {
+            return RegisteredImageFormats.decode(data, props).toNativeImageResult(props)
+        }
         return wrapNative(CoreImage.decodeBytes(data).toBitmap(), props)
     }
 
