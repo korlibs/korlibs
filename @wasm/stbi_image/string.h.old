@@ -1,0 +1,49 @@
+#ifndef STRING_H
+#define STRING_H
+
+#include <stddef.h>
+
+//typedef unsigned long size_t;
+
+void *memcpy(void * destination, const void * source, int num) {
+    char *dst = (char *)destination;
+    const char *src = (const char *)source;
+    while (num--) *dst++ = *src++;
+    return destination;
+}
+
+void *memmove(void * destination, const void * source, int num) {
+    char *dst = (char *)destination;
+    const char *src = (const char *)source;
+    if (dst < src) {
+        while (num--) *dst++ = *src++;
+    } else {
+        dst += num;
+        src += num;
+        while (num--) *--dst = *--src;
+    }
+    return destination;
+}
+
+int memcmp(
+   const void *buffer1,
+   const void *buffer2,
+   size_t count
+) {
+    const unsigned char *b1 = (const unsigned char *)buffer1;
+    const unsigned char *b2 = (const unsigned char *)buffer2;
+    while (count--) {
+        if (*b1 != *b2) return *b1 - *b2;
+        b1++;
+        b2++;
+    }
+    return 0;
+}
+
+void * memset ( void * ptr, int value, size_t num ) {
+    unsigned char *p = (unsigned char *)ptr;
+    while (num--) *p++ = (unsigned char)value;
+    return ptr;
+}
+
+#endif

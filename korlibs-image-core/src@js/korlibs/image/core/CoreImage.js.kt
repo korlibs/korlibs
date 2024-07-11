@@ -14,7 +14,7 @@ private fun hasDocument(): Boolean = js("(typeof document !== 'undefined')").uns
 actual val CoreImageFormatProvider_default: CoreImageFormatProvider by lazy {
     when {
         hasDocument() -> HtmlCoreImageFormatProvider
-        else -> DummyCoreImageFormatProvider
+        else -> StbiCoreImageFormatProvider
     }
 }
 
@@ -105,3 +105,4 @@ class HtmlCanvasCoreImage(val canvas: HTMLCanvasElement) : CoreImage {
         return CoreImage32(width, height, out, false).premultiplied()
     }
 }
+

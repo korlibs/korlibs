@@ -42,11 +42,13 @@ interface IWASMLib : AutoCloseable {
         for (n in indices) out.set16LE(n * 2, this[n].toInt())
     }
     fun IntArray.toByteArray(): ByteArray = ByteArray(this.size * 4).also { out ->
-        for (n in indices) out.set16LE(n * 4, this[n].toInt())
+        for (n in indices) out.set32LE(n * 4, this[n])
     }
 
     fun allocBytes(size: Int): Int = invokeFuncInt("malloc", size)
     fun allocBytes(bytes: ByteArray): Int = allocBytes(bytes.size).also { writeBytes(it, bytes) }
+    fun allocInts(size: Int): Int = allocBytes(size * 4)
+    fun allocInts(ints: IntArray): Int = allocInts(ints.size).also { writeInts(it, ints) }
     fun freeBytes(vararg ptrs: Int) {
         for (ptr in ptrs) invokeFunc("free", ptr)
     }

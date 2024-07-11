@@ -17,5 +17,9 @@ dependencies@jvm:
   - net.java.dev.jna:jna-platform:5.14.0: exported
   #- ../korlibs-ffi
 
+dependencies@js:
+  - ../korlibs-wasm
+  - ../korlibs-compression
+
 test-dependencies:
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC

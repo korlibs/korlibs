@@ -31,7 +31,8 @@ actual val nativeImageFormatProvider: NativeImageFormatProvider = when {
     else -> HtmlNativeImageFormatProvider
 }
 
-object NonBrowserNativeImageFormatProvider : RegisteredImageFormatsImageFormatProvider() {
+//object NonBrowserNativeImageFormatProvider : RegisteredImageFormatsImageFormatProvider() {
+object NonBrowserNativeImageFormatProvider : BaseNativeImageFormatProvider() {
 }
 
 private val isLittleEndian: Boolean = Uint8Array(Int32Array(arrayOf(1)).buffer)[0].toInt() == 1
