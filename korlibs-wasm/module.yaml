@@ -18,3 +18,7 @@ dependencies:
 dependencies@jvm:
   - org.ow2.asm:asm:9.5
   - org.ow2.asm:asm-util:9.5
+
+test-dependencies:
+  - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC
+  - ../korlibs-io
