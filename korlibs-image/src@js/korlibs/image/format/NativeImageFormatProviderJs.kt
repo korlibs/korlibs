@@ -18,7 +18,6 @@ import korlibs.time.*
 import kotlinx.browser.*
 import kotlinx.coroutines.*
 import org.khronos.webgl.*
-import org.khronos.webgl.set
 import org.w3c.dom.*
 import org.w3c.dom.url.*
 import org.w3c.files.*
@@ -32,13 +31,7 @@ actual val nativeImageFormatProvider: NativeImageFormatProvider = when {
     else -> HtmlNativeImageFormatProvider
 }
 
-object NonBrowserNativeImageFormatProvider : BaseNativeImageFormatProvider() {
-    override val formats: ImageFormat get() = RegisteredImageFormats
-    override suspend fun encodeSuspend(image: ImageDataContainer, props: ImageEncodingProps): ByteArray {
-        val format = RegisteredImageFormats.formatByExtOrNull(props.filename.pathInfo.extensionLC) ?: RegisteredImageFormats.formats.last()
-        return format.encode(image.default)
-        //return PNG.encode(image.default.mainBitmap)
-    }
+object NonBrowserNativeImageFormatProvider : RegisteredImageFormatsImageFormatProvider() {
 }
 
 private val isLittleEndian: Boolean = Uint8Array(Int32Array(arrayOf(1)).buffer)[0].toInt() == 1
