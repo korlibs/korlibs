@@ -26,9 +26,9 @@ open class SoftAudioPlayer(override val device: AudioDevice, val streamPlayer: A
                         val inPos = samplesPosition.toInt()
                         val inTotal = samplesTotal.toInt()
                         val inAvailable = inTotal - inPos
-                        val readCount = minOf(inAvailable, data.size)
-                        for (ch in data.indices) {
-                            arraycopy(inDataAll[ch % inDataAll.size], inPos, data[ch], 0, readCount)
+                        val readCount = minOf(inAvailable, data.nsamples)
+                        for (ch in 0 until data.nchannels) {
+                            arraycopy(inDataAll[ch % inDataAll.nchannels], inPos, data[ch], 0, readCount)
                         }
                         samplesPosition += readCount
                         readCount
@@ -39,7 +39,7 @@ open class SoftAudioPlayer(override val device: AudioDevice, val streamPlayer: A
                 }.also {
                     val gain = this.gain
                     if (gain != 1f) {
-                        for (chData in data) for (n in 0 until chData.size) chData[n] = chData[n] * gain
+                        data.forEachChannel { chData -> for (n in 0 until chData.size) chData[n] = chData[n] * gain }
                     }
                     // @TODO: Emulate audio DSP: pitch shifting, doppler, panning, etc.
                 }

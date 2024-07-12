@@ -15,14 +15,26 @@ inline class AudioSample(private val raw: Short) {
     //operator fun plus(other: AudioSample): AudioSample = AudioSample((this.shortInt + other.shortInt) / 2)
 }
 
-typealias PerChannelAudioSamples = Array<AudioSampleArray>
+inline class SeparatedAudioSamples private constructor(val data: Array<AudioSamples>) {
+    constructor(data: Array<AudioSamples>, unit: Unit = Unit) : this(data.also { check(it.all { it.size == data[0].size}) })
+    constructor(samples: AudioSamples) : this(arrayOf(samples))
+    constructor(samplesL: AudioSamples, samplesR: AudioSamples) : this(arrayOf(samplesL, samplesR), Unit)
+    constructor(nchannels: Int, nsamples: Int) : this(Array(nchannels) { AudioSamples(nsamples) })
+    val nchannels: Int get() = data.size
+    val nsamples: Int get() = data[0].size
+    operator fun get(channel: Int): AudioSamples = data[channel]
+    operator fun get(channel: Int, sample: Int): AudioSample = data[channel][sample]
+    fun copyInto(destination: SeparatedAudioSamples, destinationOffset: Int = 0, startIndex: Int = 0, endIndex: Int = nsamples): SeparatedAudioSamples {
+        for (c in 0 until nchannels) data[c].copyInto(destination.data[c], destinationOffset, startIndex, endIndex)
+        return destination
+    }
 
-fun PerChannelAudioSamples(nchannels: Int, nsamples: Int): PerChannelAudioSamples = Array(nchannels) { AudioSampleArray(nsamples) }
+    inline fun forEachChannel(block: (AudioSamples) -> Unit) {
+        for (n in 0 until nchannels) block(this[n])
+    }
+}
 
-val PerChannelAudioSamples.nchannels get() = this.size
-val PerChannelAudioSamples.nsamples get() = this[0].size
-
-inline class AudioSampleArray(private val data: ShortArray) {
+inline class AudioSamples(private val data: ShortArray) {
     constructor(size: Int) : this(ShortArray(size))
     constructor(size: Int, gen: (Int) -> AudioSample) : this(ShortArray(size) { gen(it).short })
     val size: Int get() = data.size
@@ -33,12 +45,14 @@ inline class AudioSampleArray(private val data: ShortArray) {
         for (n in 0 until size) out[n] = this[n].float
         return out
     }
+    fun copyInto(destination: AudioSamples, destinationOffset: Int = 0, startIndex: Int = 0, endIndex: Int = size): AudioSamples {
+        return AudioSamples(data.copyInto(destination.data, destinationOffset, startIndex, endIndex))
+    }
 }
 
-fun PerChannelAudioSamples.interleaved(out: AudioSampleArray = AudioSampleArray(nchannels * nsamples)): AudioSampleArray {
+fun SeparatedAudioSamples.interleaved(out: AudioSamples = AudioSamples(nchannels * nsamples)): AudioSamples {
     val nchannels = this.nchannels
     val nsamples = this.nsamples
-    check(this.all { it.size == nsamples })
     for (c in 0 until nchannels) {
         val data = this[c]
         for (n in 0 until nsamples)  {
@@ -48,7 +62,7 @@ fun PerChannelAudioSamples.interleaved(out: AudioSampleArray = AudioSampleArray(
     return out
 }
 
-public fun arraycopy(src: AudioSampleArray, srcPos: Int, dst: AudioSampleArray, dstPos: Int, size: Int) {
+public fun arraycopy(src: AudioSamples, srcPos: Int, dst: AudioSamples, dstPos: Int, size: Int) {
     src.asShortArray().copyInto(dst.asShortArray(), dstPos, srcPos, srcPos + size)
 }
 

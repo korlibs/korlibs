@@ -16,7 +16,7 @@ class OpenALAudioSystemTest {
         val player = OpenALAudioSystem.createPlayer()
         val source = player.createSource()
         println(player.device)
-        source.setData(44100, 1, arrayOf(AudioSampleArray(44100 * 2) {
+        source.setData(44100, 1, SeparatedAudioSamples(AudioSamples(44100 * 2) {
             AudioSample(kotlin.math.cos(it.toFloat() / 40f))
         }))
         source.position = Vector3.RIGHT

@@ -14,9 +14,10 @@ internal object ALSAAudioSystem : AudioSystem() {
     }
 
     object ALSAAudioStreamPlayer : AudioStreamPlayer {
-        override fun playStream(device: AudioDevice, rate: Int, channels: Int, gen: (position: Long, data: PerChannelAudioSamples) -> Int): AutoCloseable {
+        override fun playStream(device: AudioDevice, rate: Int, channels: Int, gen: (position: Long, data: SeparatedAudioSamples) -> Int): AudioSimpleStream {
+            var paused = false
             val nativeThread = nativeThread(start = true, isDaemon = true) { thread ->
-                val buffer = PerChannelAudioSamples(channels, 1024)
+                val buffer = SeparatedAudioSamples(channels, 1024)
                 val interleaved = buffer.interleaved()
                 val pcm = A2.snd_pcm_open("default", A2.SND_PCM_STREAM_PLAYBACK, 0)
                 if (pcm.address == 0L) {
@@ -31,6 +32,11 @@ internal object ALSAAudioSystem : AudioSystem() {
                 var position = 0L
                 try {
                     while (thread.threadSuggestRunning) {
+                        if (paused) {
+                            NativeThread.sleep(1.milliseconds)
+                            continue
+                        }
+
                         gen(position, buffer)
                         buffer.interleaved(interleaved)
                         val written = A2.snd_pcm_writei(pcm, interleaved.asShortArray(), 0, buffer.nsamples * buffer.nchannels, buffer.nsamples)
@@ -57,9 +63,10 @@ internal object ALSAAudioSystem : AudioSystem() {
                 }
             }
 
-            return AutoCloseable {
-                nativeThread.threadSuggestRunning = false
-            }
+            return AudioSimpleStream(
+                onPausedChange = { paused = it },
+                onClosed = { nativeThread.threadSuggestRunning = false }
+            )
         }
     }
 }

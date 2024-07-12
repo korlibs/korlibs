@@ -1,6 +1,7 @@
 package korlibs.audio.core
 
 import korlibs.math.geom.*
+import kotlin.coroutines.*
 
 data class AudioDevice(val name: String, val isDefault: Boolean = true, val id: Long = -1L, val extra: Any? = null) {
     companion object { }
@@ -13,12 +14,26 @@ fun AudioDevice.Companion.default(): AudioDevice = defaultAudioSystem.defaultDev
 fun AudioDevice.Companion.list(): List<AudioDevice> = defaultAudioSystem.devices
 
 interface AudioStreamPlayer {
-    fun playStream(device: AudioDevice, rate: Int, channels: Int, gen: (position: Long, data: Array<AudioSampleArray>) -> Int): AutoCloseable
+    fun playStream(device: AudioDevice, rate: Int, channels: Int, gen: (position: Long, data: SeparatedAudioSamples) -> Int): AudioSimpleStream
+}
+
+class AudioSimpleStream(val onPausedChange: (paused: Boolean) -> Unit, val onClosed: () -> Unit) : AutoCloseable {
+    fun pause() = onPausedChange(true)
+    fun resume() = onPausedChange(false)
+    override fun close() = onClosed()
 }
 
 expect val defaultAudioSystem: AudioSystem
 
 abstract class AudioSystem {
+    private var initialized = false
+    fun initializeOnce(context: CoroutineContext) {
+        if (initialized) return
+        initialized = true
+        initialize(context)
+    }
+    protected open fun initialize(context: CoroutineContext) {
+    }
     abstract fun createPlayer(device: AudioDevice = defaultDevice): AudioPlayer
     val defaultDevice: AudioDevice by lazy { devices.firstOrNull { it.isDefault } ?: devices.firstOrNull() ?: error("Can't find audio devices") }
     open val devices: List<AudioDevice> by lazy { listOf(AudioDevice("default", isDefault = true)) }
@@ -77,20 +92,20 @@ abstract class AudioSource : AutoCloseable {
     open var nchannels: Int = 1
     open var samplesPosition: Long = 0L
     open var samplesTotal: Long = -1L
-    open var data: Array<AudioSampleArray>? = null
-    open var dataProvider: (AudioSource.(position: Long, chunk: Array<AudioSampleArray>) -> Int)? = null
+    open var data: SeparatedAudioSamples? = null
+    open var dataProvider: (AudioSource.(position: Long, chunk: SeparatedAudioSamples) -> Int)? = null
     open val state: AudioSourceState = AudioSourceState.INITIAL
     val isPlaying: Boolean get() = state == AudioSourceState.PLAYING
     val isPlayingOrPaused: Boolean get() = state.let { it == AudioSourceState.PLAYING || it == AudioSourceState.PAUSED }
 
-    open fun setData(rate: Int, nchannels: Int, data: Array<AudioSampleArray>) {
+    open fun setData(rate: Int, nchannels: Int, data: SeparatedAudioSamples) {
         this.dataRate = rate
         this.nchannels = nchannels
-        this.samplesTotal = data.maxOfOrNull { it.size.toLong() } ?: 0L
+        this.samplesTotal = data.nsamples.toLong()
         this.data = data
     }
 
-    open fun setProvider(samplesTotal: Long, rate: Int, nchannels: Int, dataProvider: AudioSource.(position: Long, data: Array<AudioSampleArray>) -> Int) {
+    open fun setProvider(samplesTotal: Long, rate: Int, nchannels: Int, dataProvider: AudioSource.(position: Long, data: SeparatedAudioSamples) -> Int) {
         this.dataRate = rate
         this.nchannels = nchannels
         this.samplesTotal = samplesTotal

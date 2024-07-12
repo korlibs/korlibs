@@ -99,7 +99,7 @@ internal object OpenALAudioSystem : AudioSystem() {
             set(value) {
                 al { AL.alSourcei(source, AL.AL_SAMPLE_OFFSET, value.toInt()) }
             }
-        override var data: Array<AudioSampleArray>? = null
+        override var data: SeparatedAudioSamples? = null
             set(value) {
                 field = value
                 val data = value?.interleaved() ?: return

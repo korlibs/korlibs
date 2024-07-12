@@ -3,7 +3,6 @@ package korlibs.audio.core.impl
 import korlibs.audio.core.*
 import korlibs.concurrent.thread.*
 import korlibs.ffi.*
-import korlibs.io.lang.*
 import korlibs.memory.*
 import korlibs.time.*
 
@@ -39,8 +38,9 @@ internal object Win32AudioSystem : AudioSystem() {
 
     object WaveOutAudioStreamPlayer : AudioStreamPlayer {
         @OptIn(ExperimentalStdlibApi::class)
-        override fun playStream(device: AudioDevice, rate: Int, channels: Int, gen: (position: Long, data: Array<AudioSampleArray>) -> Int): AutoCloseable {
+        override fun playStream(device: AudioDevice, rate: Int, channels: Int, gen: (position: Long, data: SeparatedAudioSamples) -> Int): AudioSimpleStream {
             var running = true
+            var paused = false
             val nativeThread = nativeThread(start = true, isDaemon = true) {
                 ffiScoped {
                     val arena = this
@@ -68,6 +68,11 @@ internal object Win32AudioSystem : AudioSystem() {
 
                     try {
                         while (running) {
+                            if (paused) {
+                                blockingSleep(1.milliseconds)
+                                continue
+                            }
+
                             var queued = 0
                             for (header in headers) {
                                 if (!header.hdr.isInQueue) {
@@ -91,9 +96,10 @@ internal object Win32AudioSystem : AudioSystem() {
                     }
                 }
             }
-            return Closeable {
-                running = false
-            }
+            return AudioSimpleStream(
+                onPausedChange = { paused = it },
+                onClosed = { running = false}
+            )
         }
     }
 }
@@ -106,7 +112,7 @@ private class WaveHeader(
     val channels: Int,
     val arena: FFIArena,
 ) {
-    val samples = Array(channels) { AudioSampleArray(totalSamples) }
+    val samples = SeparatedAudioSamples(channels, totalSamples)
 
     val totalBytes = (totalSamples * channels * Short.SIZE_BYTES)
     val dataMem = arena.allocBytes(totalBytes).typed<Short>()
