@@ -7,6 +7,7 @@ import korlibs.math.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
 import kotlinx.coroutines.*
+import kotlin.time.*
 
 val DEFAULT_FADE_TIME get() = 0.5.seconds
 val DEFAULT_FADE_EASING get() = Easing.LINEAR
@@ -23,7 +24,7 @@ private inline fun <T> SoundChannelBase.changing(block: () -> T): T {
 }
 
 @OptIn(ExperimentalStdlibApi::class)
-suspend fun SoundChannelBase.fadeTo(volume: Double, time: TimeSpan = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) = fadeThread.cancelAndQueue {
+suspend fun SoundChannelBase.fadeTo(volume: Double, time: Duration = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) = fadeThread.cancelAndQueue {
     changing {
         val start = DateTime.now()
         val startVolume = this.volume
@@ -39,22 +40,22 @@ suspend fun SoundChannelBase.fadeTo(volume: Double, time: TimeSpan = DEFAULT_FAD
     }
 }
 
-suspend fun SoundChannelBase.fadeOut(time: TimeSpan = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) = fadeTo(0.0, time, easing)
-suspend fun SoundChannelBase.fadeIn(time: TimeSpan = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) = fadeTo(1.0, time, easing)
+suspend fun SoundChannelBase.fadeOut(time: Duration = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) = fadeTo(0.0, time, easing)
+suspend fun SoundChannelBase.fadeIn(time: Duration = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) = fadeTo(1.0, time, easing)
 
-suspend fun SoundChannelBase.fadeOutPause(time: TimeSpan = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) {
+suspend fun SoundChannelBase.fadeOutPause(time: Duration = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) {
     fadeOut(time, easing)
     pause()
 }
 
-suspend fun SoundChannelBase.fadeInResume(time: TimeSpan = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) {
+suspend fun SoundChannelBase.fadeInResume(time: Duration = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) {
     resume()
     fadeIn(time, easing)
 }
 
 val SoundChannelBase.pausedOrPausing get() = paused || (!paused && changing)
 
-suspend fun SoundChannelBase.togglePausedFaded(enable: Boolean? = null, time: TimeSpan = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) {
+suspend fun SoundChannelBase.togglePausedFaded(enable: Boolean? = null, time: Duration = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) {
     if (enable ?: pausedOrPausing) {
         //println("RESUME")
         fadeInResume(time, easing)

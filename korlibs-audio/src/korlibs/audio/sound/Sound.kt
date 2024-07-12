@@ -158,15 +158,15 @@ open class DummyNativeSoundProvider : NativeSoundProvider() {
 }
 
 class DummySoundChannel(sound: Sound, val data: AudioData? = null) : SoundChannel(sound) {
-	private var timeStart = DateTime.now()
-	override var current: TimeSpan
+    private var timeStart = DateTime.now()
+    override var current: Duration
         get() = DateTime.now() - timeStart
         set(value) = Unit
-	override val total: TimeSpan get() = data?.totalTime ?: 0.seconds
+    override val total: Duration get() = data?.totalTime ?: 0.seconds
 
-	override fun stop() {
-		timeStart = DateTime.now() + total
-	}
+    override fun stop() {
+        timeStart = DateTime.now() + total
+    }
 }
 
 interface ReadonlySoundProps {
@@ -371,22 +371,30 @@ val SoundChannelBase.playingOrPaused: Boolean get() = state.playingOrPaused
 fun <T : SoundChannelBase> T.attachTo(group: SoundChannelGroup): T = this.apply { group.add(this) }
 
 abstract class SoundChannel(val sound: Sound) : SoundChannelBase, Extra by Extra.Mixin() {
-	private var startTime = DateTime.now()
-	override var volume = 1.0
-	override var pitch = 1.0
-	override var panning = 0.0 // -1.0 left, +1.0 right
+    private var startTime = DateTime.now()
+    override var volume = 1.0
+    override var pitch = 1.0
+    override var panning = 0.0 // -1.0 left, +1.0 right
     override var position: Vector3 = Vector3.ZERO
+
     // @TODO: Rename to position
-	open var current: TimeSpan
+    open var current: Duration
         get() = DateTime.now() - startTime
-        set(value) { startTime = DateTime.now() - value }
-	open val total: TimeSpan get() = sound.length
-    override val state: SoundChannelState get() = when {
-        current < total -> SoundChannelState.PLAYING
-        else -> SoundChannelState.STOPPED
+        set(value) {
+            startTime = DateTime.now() - value
+        }
+    open val total: Duration get() = sound.length
+    override val state: SoundChannelState
+        get() = when {
+            current < total -> SoundChannelState.PLAYING
+            else -> SoundChannelState.STOPPED
+        }
+
+    final override fun reset() {
+        current = 0.seconds
     }
-    final override fun reset() { current = 0.seconds }
-	abstract override fun stop(): Unit
+
+    abstract override fun stop(): Unit
 
     override fun pause(): Unit = unsupported()
     override fun resume(): Unit = unsupported()
@@ -394,7 +402,7 @@ abstract class SoundChannel(val sound: Sound) : SoundChannelBase, Extra by Extra
 }
 
 @OptIn(ExperimentalStdlibApi::class)
-suspend fun SoundChannel.await(progress: SoundChannel.(current: TimeSpan, total: TimeSpan) -> Unit = { current, total -> }) {
+suspend fun SoundChannel.await(progress: SoundChannel.(current: Duration, total: Duration) -> Unit = { current, total -> }) {
 	try {
 		while (playingOrPaused) {
 			if (!paused) progress(current, total)
@@ -408,24 +416,29 @@ suspend fun SoundChannel.await(progress: SoundChannel.(current: TimeSpan, total:
 
 interface SoundChannelPlay {
     fun play(coroutineContext: CoroutineContext, sound: Sound, params: PlaybackParameters = PlaybackParameters.DEFAULT): SoundChannel
-    fun play(coroutineContext: CoroutineContext, sound: Sound, times: PlaybackTimes, startTime: TimeSpan = 0.seconds): SoundChannel = play(coroutineContext, sound, PlaybackParameters(times, startTime))
-    fun playForever(coroutineContext: CoroutineContext, sound: Sound, startTime: TimeSpan = 0.seconds): SoundChannel = play(coroutineContext, sound, infinitePlaybackTimes, startTime)
+    fun play(coroutineContext: CoroutineContext, sound: Sound, times: PlaybackTimes, startTime: Duration = 0.seconds): SoundChannel = play(coroutineContext, sound, PlaybackParameters(times, startTime))
+    fun playForever(coroutineContext: CoroutineContext, sound: Sound, startTime: Duration = 0.seconds): SoundChannel = play(coroutineContext, sound, infinitePlaybackTimes, startTime)
     suspend fun play(sound: Sound, params: PlaybackParameters = PlaybackParameters.DEFAULT): SoundChannel = play(coroutineContextKt, sound, params)
-    suspend fun play(sound: Sound, times: PlaybackTimes, startTime: TimeSpan = 0.seconds): SoundChannel = play(coroutineContextKt, sound, times, startTime)
-    suspend fun playForever(sound: Sound, startTime: TimeSpan = 0.seconds): SoundChannel = playForever(coroutineContextKt, sound, startTime)
-    suspend fun playAndWait(sound: Sound, params: PlaybackParameters, progress: SoundChannel.(current: TimeSpan, total: TimeSpan) -> Unit = { current, total -> }): Unit = play(sound, params).await(progress)
-    suspend fun playAndWait(sound: Sound, times: PlaybackTimes = 1.playbackTimes, startTime: TimeSpan = 0.seconds, progress: SoundChannel.(current: TimeSpan, total: TimeSpan) -> Unit = { current, total -> }): Unit = play(sound, times, startTime).await(progress)
+    suspend fun play(sound: Sound, times: PlaybackTimes, startTime: Duration = 0.seconds): SoundChannel = play(coroutineContextKt, sound, times, startTime)
+    suspend fun playForever(sound: Sound, startTime: Duration = 0.seconds): SoundChannel = playForever(coroutineContextKt, sound, startTime)
+    suspend fun playAndWait(sound: Sound, params: PlaybackParameters, progress: SoundChannel.(current: Duration, total: Duration) -> Unit = { current, total -> }): Unit = play(sound, params).await(progress)
+    suspend fun playAndWait(
+        sound: Sound,
+        times: PlaybackTimes = 1.playbackTimes,
+        startTime: Duration = 0.seconds,
+        progress: SoundChannel.(current: Duration, total: Duration) -> Unit = { current, total -> }
+    ): Unit = play(sound, times, startTime).await(progress)
 }
 
 interface SoundPlay {
     fun play(coroutineContext: CoroutineContext, params: PlaybackParameters = PlaybackParameters.DEFAULT): SoundChannel
-    fun play(coroutineContext: CoroutineContext, times: PlaybackTimes, startTime: TimeSpan = 0.seconds): SoundChannel = play(coroutineContext, PlaybackParameters(times, startTime))
-    fun playForever(coroutineContext: CoroutineContext, startTime: TimeSpan = 0.seconds): SoundChannel = play(coroutineContext, infinitePlaybackTimes, startTime)
+    fun play(coroutineContext: CoroutineContext, times: PlaybackTimes, startTime: Duration = 0.seconds): SoundChannel = play(coroutineContext, PlaybackParameters(times, startTime))
+    fun playForever(coroutineContext: CoroutineContext, startTime: Duration = 0.seconds): SoundChannel = play(coroutineContext, infinitePlaybackTimes, startTime)
     suspend fun play(params: PlaybackParameters = PlaybackParameters.DEFAULT): SoundChannel = play(coroutineContextKt, params)
-    suspend fun play(times: PlaybackTimes, startTime: TimeSpan = 0.seconds): SoundChannel = play(coroutineContextKt, times, startTime)
-    suspend fun playForever(startTime: TimeSpan = 0.seconds): SoundChannel = playForever(coroutineContextKt, startTime)
-    suspend fun playAndWait(params: PlaybackParameters, progress: SoundChannel.(current: TimeSpan, total: TimeSpan) -> Unit = { current, total -> }): Unit = play(params).await(progress)
-    suspend fun playAndWait(times: PlaybackTimes = 1.playbackTimes, startTime: TimeSpan = 0.seconds, progress: SoundChannel.(current: TimeSpan, total: TimeSpan) -> Unit = { current, total -> }): Unit = play(times, startTime).await(progress)
+    suspend fun play(times: PlaybackTimes, startTime: Duration = 0.seconds): SoundChannel = play(coroutineContextKt, times, startTime)
+    suspend fun playForever(startTime: Duration = 0.seconds): SoundChannel = playForever(coroutineContextKt, startTime)
+    suspend fun playAndWait(params: PlaybackParameters, progress: SoundChannel.(current: Duration, total: Duration) -> Unit = { current, total -> }): Unit = play(params).await(progress)
+    suspend fun playAndWait(times: PlaybackTimes = 1.playbackTimes, startTime: Duration = 0.seconds, progress: SoundChannel.(current: Duration, total: Duration) -> Unit = { current, total -> }): Unit = play(times, startTime).await(progress)
 }
 
 abstract class Sound(val creationCoroutineContext: CoroutineContext) : SoundProps, SoundPlay, AudioStreamable {
@@ -452,8 +465,8 @@ abstract class Sound(val creationCoroutineContext: CoroutineContext) : SoundProp
 
 data class PlaybackParameters(
     val times: PlaybackTimes = 1.playbackTimes,
-    val startTime: TimeSpan = 0.seconds,
-    val bufferTime: TimeSpan = 0.16.seconds,
+    val startTime: Duration = 0.seconds,
+    val bufferTime: Duration = 0.16.seconds,
     override val volume: Double = 1.0,
     override val pitch: Double = 1.0,
     override val panning: Double = 0.0,

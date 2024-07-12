@@ -6,6 +6,7 @@ import korlibs.io.lang.*
 import korlibs.memory.*
 import korlibs.time.*
 import kotlin.math.*
+import kotlin.time.*
 
 class AudioData(
     val rate: Int,
@@ -22,14 +23,16 @@ class AudioData(
     val stereo: Boolean get() = channels > 1
     val channels: Int get() = samples.channels
     val totalSamples: Int get() = samples.totalSamples
-    val totalTime: TimeSpan get() = timeAtSample(totalSamples)
-    fun timeAtSample(sample: Int): TimeSpan = ((sample).toDouble() / rate.toDouble()).seconds
-    fun sampleAtTime(time: TimeSpan): Int = (time.seconds * rate.toDouble()).toInt()
+    val totalTime: Duration get() = timeAtSample(totalSamples)
+    fun timeAtSample(sample: Int): Duration = ((sample).toDouble() / rate.toDouble()).seconds
+    fun sampleAtTime(time: Duration): Int = (time.seconds * rate.toDouble()).toInt()
 
     operator fun get(channel: Int): ShortArray = samples.data[channel]
     operator fun get(channel: Int, sample: Int): Short = samples.data[channel][sample]
 
-    operator fun set(channel: Int, sample: Int, value: Short) { samples.data[channel][sample] = value }
+    operator fun set(channel: Int, sample: Int, value: Short) {
+        samples.data[channel][sample] = value
+    }
 
     override fun toString(): String = "AudioData(rate=$rate, channels=$channels, samples=$totalSamples)"
 }

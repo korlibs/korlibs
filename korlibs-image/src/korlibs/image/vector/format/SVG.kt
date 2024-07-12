@@ -19,6 +19,7 @@ import korlibs.math.interpolation.*
 import korlibs.time.*
 import korlibs.util.*
 import kotlin.collections.set
+import kotlin.time.*
 
 suspend fun VfsFile.readSVG() = SVG(this.readString())
 
@@ -85,7 +86,7 @@ class SVG(val root: Xml, val warningProcessor: ((message: String) -> Unit)? = nu
     }
 
     @KorimExperimental
-    fun updateStyles(dt: TimeSpan) {
+    fun updateStyles(dt: Duration) {
         animator.update(dt)
     }
 

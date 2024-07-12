@@ -102,16 +102,19 @@ class HtmlElementAudio(
                 get() = 0.0
                 set(value) {}
 
-            override val total: TimeSpan get() = audioCopy.duration.seconds
-            override var current: TimeSpan
+            override val total: Duration get() = audioCopy.duration.seconds
+            override var current: Duration
                 get() = audioCopy.currentTime.seconds
-                set(value) { audioCopy.currentTime = value.seconds }
+                set(value) {
+                    audioCopy.currentTime = value.seconds
+                }
 
-            override val state: SoundChannelState get() = when {
-                audioCopy.paused -> SoundChannelState.PAUSED
-                audioCopy.ended -> SoundChannelState.STOPPED
-                else -> SoundChannelState.PLAYING
-            }
+            override val state: SoundChannelState
+                get() = when {
+                    audioCopy.paused -> SoundChannelState.PAUSED
+                    audioCopy.ended -> SoundChannelState.STOPPED
+                    else -> SoundChannelState.PLAYING
+                }
 
             override fun pause() {
                 audioCopy.pause()
@@ -135,7 +138,7 @@ class AudioBufferSound(
     coroutineContext: CoroutineContext,
     override val name: String = "unknown"
 ) : Sound(coroutineContext) {
-	override val length: TimeSpan = ((buffer.duration) ?: 0.0).seconds
+    override val length: Duration = ((buffer.duration) ?: 0.0).seconds
 
     override val nchannels: Int get() = buffer.numberOfChannels ?: 1
 
@@ -158,32 +161,41 @@ class AudioBufferSound(
         return AudioData(buffer.sampleRate, data)
     }
 
-	override fun play(coroutineContext: CoroutineContext, params: PlaybackParameters): SoundChannel {
+    override fun play(coroutineContext: CoroutineContext, params: PlaybackParameters): SoundChannel {
         val channel = if (buffer.isNotNull) HtmlSimpleSound.playSound(buffer, params, coroutineContext) else null
         HtmlSimpleSound.callOnUnlocked {
             channel?.play()
         }
 
-		return object : SoundChannel(this) {
+        return object : SoundChannel(this) {
 
-			override var volume: Double
-				get() = channel?.volume ?: 1.0
-				set(value) { channel?.volume = value}
-			override var pitch: Double
-				get() = channel?.pitch ?: 1.0
-				set(value) { channel?.pitch = value }
-			override var panning: Double
-				get() = channel?.panning ?: 0.0
-				set(value) { channel?.panning = value }
-			override var current: TimeSpan
+            override var volume: Double
+                get() = channel?.volume ?: 1.0
+                set(value) {
+                    channel?.volume = value
+                }
+            override var pitch: Double
+                get() = channel?.pitch ?: 1.0
+                set(value) {
+                    channel?.pitch = value
+                }
+            override var panning: Double
+                get() = channel?.panning ?: 0.0
+                set(value) {
+                    channel?.panning = value
+                }
+            override var current: Duration
                 get() = channel?.currentTime ?: 0.seconds
-                set(value) { channel?.currentTime = value }
-			override val total: TimeSpan = buffer?.duration?.seconds ?: 0.seconds
-            override val state: SoundChannelState get() = when {
-                channel?.pausedAt != null -> SoundChannelState.PAUSED
-                channel?.playing ?: (current < total) -> SoundChannelState.PLAYING
-                else -> SoundChannelState.STOPPED
-            }
+                set(value) {
+                    channel?.currentTime = value
+                }
+            override val total: Duration = buffer?.duration?.seconds ?: 0.seconds
+            override val state: SoundChannelState
+                get() = when {
+                    channel?.pausedAt != null -> SoundChannelState.PAUSED
+                    channel?.playing ?: (current < total) -> SoundChannelState.PLAYING
+                    else -> SoundChannelState.STOPPED
+                }
 
             override fun pause() {
                 channel?.pause()
@@ -196,9 +208,9 @@ class AudioBufferSound(
             override fun stop() {
                 channel?.stop()
             }
-		}.also {
+        }.also {
             //it.current = params.startTime
             it.copySoundPropsFrom(params)
         }
-	}
+    }
 }

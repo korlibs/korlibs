@@ -20,6 +20,7 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
+import kotlin.time.*
 
 val AudioBuffer.durationOrNull: Double? get() = duration.takeIf { !it.isNaN() }
 val HTMLMediaElement.durationOrNull: Double? get() = duration.takeIf { !it.isNaN() }
@@ -91,7 +92,7 @@ object HtmlSimpleSound {
         var sourceNode: AudioScheduledSourceNode? = null
         var realHtmlAudioElement: HTMLAudioElement? = null
 
-        fun createNode(startTime: TimeSpan) {
+        fun createNode(startTime: Duration) {
             realHtmlAudioElement?.pause()
             sourceNode?.disconnect()
 
@@ -106,6 +107,7 @@ object HtmlSimpleSound {
                                 realHtmlAudioElement = htmlAudioElement.clone()
                                 sourceNode = source(realHtmlAudioElement!!)
                             }
+
                             audioBuffer != null -> {
                                 sourceNode = source(audioBuffer)
                             }
@@ -126,7 +128,7 @@ object HtmlSimpleSound {
         var startedAt = DateTime.now()
         var times = params.times
 
-        fun createJobAt(startTime: TimeSpan): Job {
+        fun createJobAt(startTime: Duration): Job {
             if (coroutineContext.job.isCompleted) {
                 logger.warn { "Sound won't play because coroutineContext.job is completed" }
             }
@@ -178,7 +180,7 @@ object HtmlSimpleSound {
             }
         }
 
-		var currentTime: TimeSpan
+        var currentTime: Duration
             get() = DateTime.now() - startedAt
             set(value) {
                 job?.cancel()
@@ -201,9 +203,8 @@ object HtmlSimpleSound {
             }
 
 
-
         private var running = true
-        var pausedAt: TimeSpan? = null
+        var pausedAt: Duration? = null
 
         fun updateNodes() {
             updateVolume()
@@ -223,11 +224,11 @@ object HtmlSimpleSound {
             pannerNode?.setOrientation(0.0, 1.0, 0.0)
         }
 
-		//val playing get() = running && currentTime < buffer.duration
+        //val playing get() = running && currentTime < buffer.duration
         val playing: Boolean
             get() = running.also {
-            //println("playing: $running")
-        }
+                //println("playing: $running")
+            }
 
         fun pause() {
             this.pausedAt = currentTime
@@ -249,7 +250,7 @@ object HtmlSimpleSound {
 
         fun stop() {
             job?.cancel()
-		}
+        }
 
         fun play() {
             if (job != null && realHtmlAudioElement != null) {

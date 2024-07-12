@@ -13,6 +13,7 @@ import korlibs.io.file.VfsOpenMode
 import korlibs.io.file.baseName
 import korlibs.io.lang.Closeable
 import kotlin.math.min
+import kotlin.time.*
 
 abstract class AudioStream(
     val rate: Int,
@@ -22,12 +23,14 @@ abstract class AudioStream(
     open val totalLengthInSamples: Long? = null
     val totalLength get() = ((totalLengthInSamples ?: 0L).toDouble() / rate.toDouble()).seconds
     open var currentPositionInSamples: Long = 0L
-    var currentTime: TimeSpan
-        set(value) { currentPositionInSamples = estimateSamplesFromTime(value) }
+    var currentTime: Duration
+        set(value) {
+            currentPositionInSamples = estimateSamplesFromTime(value)
+        }
         get() = estimateTimeFromSamples(currentPositionInSamples)
 
-    fun estimateSamplesFromTime(time: TimeSpan): Long = (time.seconds * rate.toDouble()).toLong()
-    fun estimateTimeFromSamples(samples: Long): TimeSpan = (samples.toDouble() / rate.toDouble()).seconds
+    fun estimateSamplesFromTime(time: Duration): Long = (time.seconds * rate.toDouble()).toLong()
+    fun estimateTimeFromSamples(samples: Long): Duration = (samples.toDouble() / rate.toDouble()).seconds
 
     open suspend fun read(out: AudioSamples, offset: Int = 0, length: Int = out.totalSamples): Int = 0
     override fun close() = Unit
@@ -87,7 +90,7 @@ suspend fun AudioStream.toData(maxSamples: Int = DEFAULT_MAX_SAMPLES): AudioData
 }
 
 suspend fun AudioStream.playAndWait(params: PlaybackParameters = PlaybackParameters.DEFAULT) = nativeSoundProvider.playAndWait(this, params)
-suspend fun AudioStream.playAndWait(times: PlaybackTimes = 1.playbackTimes, startTime: TimeSpan = 0.seconds, bufferTime: TimeSpan = 0.1.seconds) = nativeSoundProvider.createStreamingSound(this).playAndWait(PlaybackParameters(times, startTime, bufferTime))
+suspend fun AudioStream.playAndWait(times: PlaybackTimes = 1.playbackTimes, startTime: Duration = 0.seconds, bufferTime: Duration = 0.1.seconds) = nativeSoundProvider.createStreamingSound(this).playAndWait(PlaybackParameters(times, startTime, bufferTime))
 
 suspend fun AudioStream.toSound(closeStream: Boolean = false, name: String = "Unknown"): Sound =
     nativeSoundProvider.createStreamingSound(this, closeStream, name)

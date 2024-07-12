@@ -16,6 +16,7 @@ import kotlin.collections.component1
 import kotlin.collections.component2
 import kotlin.collections.set
 import kotlin.native.concurrent.*
+import kotlin.time.*
 
 @KorimExperimental
 class CSS(val allRules: List<IRuleSet>, unit: Unit = Unit) {
@@ -70,7 +71,7 @@ class CSS(val allRules: List<IRuleSet>, unit: Unit = Unit) {
         val properties get() = k0.declarations.declarations.map { it.property }
     }
 
-    data class Animation(val name: String, val duration: TimeSpan, val delay: TimeSpan = 0.seconds, val iterationCount: Int = -1, val direction: Boolean = true, val easing: Easing = Easing.LINEAR)
+    data class Animation(val name: String, val duration: Duration, val delay: Duration = 0.seconds, val iterationCount: Int = -1, val direction: Boolean = true, val easing: Easing = Easing.LINEAR)
 
     data class KeyFrames(val id: Token, val partialKeyFrames: List<KeyFrame>) : IRuleSet {
         val propertyNames = partialKeyFrames.flatMap { it.declarations.declarations.map { it.property } }.distinct()
@@ -193,7 +194,7 @@ class CSS(val allRules: List<IRuleSet>, unit: Unit = Unit) {
             return str.trimEnd { it != '.' && it !in '0'..'9'  }.toDoubleOrNull()
         }
 
-        fun parseTime(str: String): TimeSpan? {
+        fun parseTime(str: String): Duration? {
             if (str.endsWith("ms")) return str.removeSuffix("ms").toDoubleOrNull()?.milliseconds
             if (str.endsWith("s")) return str.removeSuffix("s").toDoubleOrNull()?.seconds
             return parseNumberDropSuffix(str)?.milliseconds

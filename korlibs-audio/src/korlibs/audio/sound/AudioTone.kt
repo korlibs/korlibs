@@ -3,9 +3,10 @@ package korlibs.audio.sound
 import korlibs.audio.internal.*
 import korlibs.time.*
 import kotlin.math.*
+import kotlin.time.*
 
 object AudioTone {
-    fun generate(length: TimeSpan, freq: Double, rate: Int = 44100): AudioData {
+    fun generate(length: Duration, freq: Double, rate: Int = 44100): AudioData {
         val nsamples = (rate * length.seconds).toInt()
         val samples = AudioSamples(1, nsamples)
         val samples0 = samples[0]
