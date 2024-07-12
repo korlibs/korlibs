@@ -15,6 +15,12 @@ inline class AudioSample(private val raw: Short) {
     //operator fun plus(other: AudioSample): AudioSample = AudioSample((this.shortInt + other.shortInt) / 2)
 }
 
+class AudioBuffer(val samples: SeparatedAudioSamples, val rate: Int) {
+    constructor(nchannels: Int, nsamples: Int, rate: Int) : this(SeparatedAudioSamples(nchannels, nsamples), rate)
+    val nsamples get() = samples.nsamples
+    val nchannels get() = samples.nchannels
+}
+
 inline class SeparatedAudioSamples private constructor(val data: Array<AudioSamples>) {
     constructor(data: Array<AudioSamples>, unit: Unit = Unit) : this(data.also { check(it.all { it.size == data[0].size}) })
     constructor(samples: AudioSamples) : this(arrayOf(samples))

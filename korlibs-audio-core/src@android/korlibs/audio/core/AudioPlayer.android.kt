@@ -4,6 +4,7 @@ import android.content.*
 import android.media.*
 import android.os.*
 import korlibs.audio.core.impl.*
+import korlibs.audio.core.node.*
 import korlibs.io.android.*
 import kotlin.coroutines.*
 
@@ -24,7 +25,7 @@ object AndroidAudioSystem : AudioSystem() {
 }
 
 class AndroidAudioStreamPlayer(val system: AndroidAudioSystem) : AudioStreamPlayer {
-    override fun playStream(device: AudioDevice, rate: Int, channels: Int, gen: (position: Long, data: SeparatedAudioSamples) -> Int): AudioSimpleStream {
+    override fun playNode(source: AudioSource, rate: Int, channels: Int, node: AudioNode): AudioSimpleStream {
         var paused = false
         val thread = korlibs.concurrent.thread.nativeThread(isDaemon = true) { thread ->
             //val bufferSamples = 4096
@@ -50,12 +51,11 @@ class AndroidAudioStreamPlayer(val system: AndroidAudioSystem) : AudioStreamPlay
                 System.err.println("Audio track was not initialized correctly frequency=$rate, bufferSamples=$bufferSamples")
             }
 
-            val buffer = SeparatedAudioSamples(channels, bufferSamples)
-            val interleaved = buffer.interleaved()
+            val buffer = AudioBuffer(channels, bufferSamples, rate)
+            val interleaved = buffer.samples.interleaved()
             at.play()
 
             try {
-                var position = 0L
                 while (thread.threadSuggestRunning) {
                     if (paused) {
                         at.pause()
@@ -69,8 +69,8 @@ class AndroidAudioStreamPlayer(val system: AndroidAudioSystem) : AudioStreamPlay
                         AudioTrack.STATE_UNINITIALIZED -> Thread.sleep(20L)
                         AudioTrack.STATE_INITIALIZED -> {
                             at.playbackRate = rate
-                            position += gen(position, buffer)
-                            buffer.interleaved(interleaved)
+                            node.process(buffer)
+                            buffer.samples.interleaved(interleaved)
                             at.write(interleaved.asShortArray(), 0, interleaved.size)
                         }
                     }

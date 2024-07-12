@@ -1,14 +1,18 @@
 package korlibs.audio.core.impl
 
 import korlibs.audio.core.*
+import korlibs.datastructure.*
 import korlibs.ffi.*
 import korlibs.io.core.*
 import korlibs.io.lang.*
 import korlibs.math.geom.*
 import korlibs.memory.*
 import korlibs.platform.*
+import kotlinx.coroutines.*
 
 // https://openal.org/documentation/OpenAL_Programmers_Guide.pdf
+// https://github.com/korlibs/korlibs4/blob/4e429a04fe2491e3d4ad454ab7d209ba231b912d/korau/src/nativeMain/kotlin/korlibs/audio/sound/backends/OpenAL.kt
+// https://github.com/korlibs/korlibs4/blob/backup/korau/src/nativeMain/kotlin/korlibs/audio/sound/backends/OpenAL.kt
 internal object OpenALAudioSystem : AudioSystem() {
     val available: Boolean by lazy {
         runCatching { AL.alcGetInteger(null, AL.ALC_MAJOR_VERSION) }.getOrNull() != null
@@ -33,9 +37,9 @@ internal object OpenALAudioSystem : AudioSystem() {
         }
     }
 
-    override fun createPlayer(device: AudioDevice): AudioPlayer = OpenALAudioPlayer(device)
+    override fun createPlayer(device: AudioDevice): AudioPlayer = OpenALAudioStreamPlayer(device)
 
-    class OpenALAudioPlayer(override val device: AudioDevice) : AudioPlayer() {
+    class OpenALAudioStreamPlayer(override val device: AudioDevice) : AudioPlayer() {
         val dev = AL.alcOpenDevice(device.name.takeIf { it.isNotBlank() }).also {
             println("openal.dev=$it")
         }
@@ -59,7 +63,83 @@ internal object OpenALAudioSystem : AudioSystem() {
         override var listenerOrientation: AudioOrientation = AudioOrientation()
             set(value) {  field = value; AL.alListenerfv(AL.AL_ORIENTATION, floatArrayOf(value.at.x, value.at.y, value.at.z, value.up.x, value.up.y, value.up.z))  }
 
-        override fun createSource(): AudioSource = OpenALAudioSource(this)
+
+        @OptIn(ExperimentalStdlibApi::class)
+        override fun createSource(): AudioSource {
+            AL.alcMakeContextCurrent(context)
+            val alSource = AL.alGenSource()
+            //val alBuffer = AL.alGenBuffer()
+
+            return object : SimpleAudioSource(this@OpenALAudioStreamPlayer) {
+                override var volume: Float = 1f
+                    set(value) {
+                        val value = maxOf(value, 0f)
+                        field = value; al { AL.alSourcef(alSource, AL.AL_GAIN, value) }
+                    }
+
+                private val buffersProcessed get() = AL.alGetSourcei(alSource, AL.AL_BUFFERS_PROCESSED)
+                private val buffersQueued get() = AL.alGetSourcei(alSource, AL.AL_BUFFERS_QUEUED)
+
+                override suspend fun process(buffer: AudioBuffer): SimpleAudioGen {
+                    AL.alcMakeContextCurrent(context)
+                    val alBuffers = IntDeque()
+                    val format = if (nchannels == 1) AL.AL_FORMAT_MONO16 else AL.AL_FORMAT_STEREO16
+
+                    val interleaved = buffer.samples.interleaved()
+
+                    return SimpleAudioGen(
+                        implementedVolume = true,
+                        implemented3D = true,
+                        implementedPitch = true,
+                        queue = {
+                            al { AL.alSourcei(alSource, AL.AL_LOOPING, if (looping) AL.AL_TRUE else AL.AL_FALSE) }
+                            al { AL.alSource3f(alSource, AL.AL_POSITION, position.x, position.y, position.z) }
+                            al { AL.alSource3f(alSource, AL.AL_VELOCITY, velocity.x, velocity.y, velocity.z) }
+                            al { AL.alSource3f(alSource, AL.AL_DIRECTION, direction.x, direction.y, direction.z) }
+                            al { AL.alSourcef(alSource, AL.AL_PITCH, pitch) }
+                            al { AL.alSourcef(alSource, AL.AL_ROLLOFF_FACTOR, 1.0f) }
+                            al { AL.alSourcei(alSource, AL.AL_SOURCE_RELATIVE, 0) }
+                            al { AL.alSourcef(alSource, AL.AL_GAIN, volume) }
+
+                            it.samples.interleaved(interleaved)
+                            val processed = buffersProcessed
+                            val queued = buffersQueued
+                            val total = processed + queued
+                            val alBuffer = if (total < 6) {
+                                AL.alGenBuffer().also { alBuffers.add(it) }
+                            } else {
+                                while (buffersProcessed == 0) {
+                                    delay(1L)
+                                    //println("processed=$buffersProcessed, queued=$buffersQueued")
+                                }
+                                AL.alSourceUnqueueBuffer(alSource)
+                            }
+                            al { AL.alBufferData(alBuffer, format, interleaved.asShortArray(), interleaved.size * 2, rate) }
+                            //println("alSourceQueueBuffer=$alBuffer")
+                            al { AL.alSourceQueueBuffer(alSource, alBuffer) }
+                            if (AL.alGetSourceState(alSource) != AL.AL_PLAYING) {
+                                AL.alSourcePlay(alSource)
+                            }
+                        },
+                        close = {
+                            AL.alSourceStop(alSource)
+                            while (buffersQueued != 0 && buffersProcessed != 0) {
+                                //println("processed=$buffersProcessed, queued=$buffersQueued")
+                                if (buffersProcessed == 0) {
+                                    delay(1L)
+                                    continue
+                                }
+                                AL.alSourceUnqueueBuffer(alSource)
+                                //println("BUFFER=$alBuffer")
+                            }
+                            //println("::: processed=$buffersProcessed, queued=$buffersQueued")
+                            al { AL.alDeleteSource(alSource) }
+                            while (alBuffers.isNotEmpty()) al { AL.alDeleteBuffer(alBuffers.removeFirst()) }
+                        },
+                    )
+                }
+            }
+        }
 
         override fun close() {
             AL.alcCloseDevice(dev)
@@ -68,107 +148,11 @@ internal object OpenALAudioSystem : AudioSystem() {
         fun makeCurrent() {
             AL.alcMakeContextCurrent(context)
         }
-    }
-
-    // https://github.com/korlibs/korlibs4/blob/backup/korau/src/nativeMain/kotlin/korlibs/audio/sound/backends/OpenAL.kt
-    class OpenALAudioSource(override val player: OpenALAudioPlayer) : AudioSource() {
-        val buffer = AL.alGenBuffer()
-        val source = AL.alGenSource()
-
-        override var pitch: Float = 1f
-            set(value) { field = value; al { AL.alSourcef(source, AL.AL_PITCH, value) } }
-        override var gain: Float = 1f
-            set(value) {
-                val value = maxOf(value, 0f)
-                field = value; al { AL.alSourcef(source, AL.AL_GAIN, value) } }
-        override var dataRate: Int = 44100
-            //set(value) { field = value; al { AL.alSourcei(source, AL.AL_FREQUENCY, value) } }
-        override var nchannels: Int = 1
-            //set(value) { field = value; al { AL.alSourcei(source, AL.AL_CHANNELS, value) } }
-        override var position: Vector3 = Vector3.ZERO
-            set(value) { field = value; al { AL.alSource3f(source, AL.AL_POSITION, value.x, value.y, value.z) } }
-        override var velocity: Vector3 = Vector3.ZERO
-            set(value) { field = value; al { AL.alSource3f(source, AL.AL_VELOCITY, value.x, value.y, value.z) } }
-        override var direction: Vector3 = Vector3.ZERO
-            set(value) { field = value; al { AL.alSource3f(source, AL.AL_DIRECTION, value.x, value.y, value.z) } }
-        override var looping: Boolean = false
-            set(value) { field = value; al { AL.alSourcei(source, AL.AL_LOOPING, if (value) AL.AL_TRUE else AL.AL_FALSE) } }
-
-        override var samplesPosition: Long
-            get() = AL.alGetSourcei(source, AL.AL_SAMPLE_OFFSET).toLong()
-            set(value) {
-                al { AL.alSourcei(source, AL.AL_SAMPLE_OFFSET, value.toInt()) }
-            }
-        override var data: SeparatedAudioSamples? = null
-            set(value) {
-                field = value
-                val data = value?.interleaved() ?: return
-                val format = if (nchannels == 1) AL.AL_FORMAT_MONO16 else AL.AL_FORMAT_STEREO16
-                val dataSizeBytes = data.size * 2
-                //println(data.asShortArray().toList())
-                //val dataRate = 48000
-                //println("buffer=$buffer")
-                //println("source=$source")
-                //println("dataRate=$dataRate")
-                //println("bytesSize=${data.size * 2}")
-                //val bufferData = Buffer(data.size * 2, direct = true)
-                //bufferData.setArrayLE(0, data.asShortArray())
-                //al { AL.alBufferData(buffer, format, bufferData, data.size * 2, dataRate) }
-                al { AL.alBufferData(buffer, format, data.asShortArray(), dataSizeBytes, dataRate) }
-                al { AL.alSourcei(source, AL.AL_BUFFER, buffer) }
-            }
-
-        override val state: AudioSourceState
-            get() {
-                val result = AL.alGetSourceState(source)
-                return when (result) {
-                    AL.AL_INITIAL -> AudioSourceState.INITIAL
-                    AL.AL_PLAYING -> AudioSourceState.PLAYING
-                    AL.AL_PAUSED -> AudioSourceState.PAUSED
-                    AL.AL_STOPPED -> AudioSourceState.STOPPED
-                    else -> error("Invalid state: $result")
-                }
-            }
-
-        private fun updateProps() {
-            pitch = pitch
-            gain = gain
-            dataRate = dataRate
-            nchannels = nchannels
-            position = position
-            velocity = velocity
-            direction = direction
-            looping = looping
-
-            al { AL.alSourcef(source, AL.AL_ROLLOFF_FACTOR, 0.0f) }
-            al { AL.alSourcei(source, AL.AL_SOURCE_RELATIVE, 1) }
-        }
-
-        override fun _play() {
-            //AL.alSourcef(source, AL.AL_SEC_OFFSET, 0f)
-            al { AL.alSourcePlay(source) }
-            //println("PLAY")
-        }
-
-        private fun _pause() {
-            al { AL.alSourcePause(source) }
-            //println("PAUSE")
-        }
-
-        override fun _stop() {
-            al { AL.alSourceStop(source) }
-            //println("STOP")
-        }
-
-        override fun close() {
-            al { AL.alDeleteBuffer(buffer) }
-            al { AL.alDeleteSource(source) }
-            //println("CLOSE")
-        }
 
         inline fun <T> al(block: () -> T): T? {
             return runCatchingAl {
-                player.makeCurrent()
+
+                makeCurrent()
                 AL.alGetError()
                 val result = block()
                 val error = AL.alGetError()
@@ -177,10 +161,6 @@ internal object OpenALAudioSystem : AudioSystem() {
                 }
                 result
             }
-        }
-
-        init {
-            updateProps()
         }
     }
 }
@@ -273,6 +253,8 @@ internal object AL : FFILib(nativeOpenALLibraryPath) {
     fun alGetSourcef(source: Int, param: Int): Float = tempF.also { alGetSourcef(source, param, it) }[0]
     fun alGetSourcei(source: Int, param: Int): Int = tempI.also { alGetSourcei(source, param, it) }[0]
     fun alGetSourceState(source: Int): Int = alGetSourcei(source, AL.AL_SOURCE_STATE)
+    fun alSourceQueueBuffer(source: Int, buffer: Int) = alSourceQueueBuffers(source, 1, tempI.also { it[0] = buffer })
+    fun alSourceUnqueueBuffer(source: Int): Int = tempI.also { alSourceUnqueueBuffers(source, 1, it) }[0]
 
     fun alGetListenerf(param: Int): Float = tempF.also { alGetListenerf(param, it) }[0]
     fun alGetListeneri(param: Int): Int = tempI.also { alGetListeneri(param, it) }[0]
