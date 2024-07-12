@@ -15,7 +15,7 @@ class AsyncInmemoryCache(val timeProvider: TimeProvider = TimeProvider) {
 
 	fun <T : Any> get(clazz: KClass<T>, key: String, ttl: Duration) = AsyncInmemoryEntry<T>(clazz, this, key, ttl)
 
-	//fun <T : Any?> getTyped(clazz: Class<T>, key: String = clazz, ttl: TimeSpan) = AsyncInmemoryEntry(clazz, this, key, ttl)
+	//fun <T : Any?> getTyped(clazz: Class<T>, key: String = clazz, ttl: Duration) = AsyncInmemoryEntry(clazz, this, key, ttl)
 
 	@Suppress("UNCHECKED_CAST")
 	suspend fun <T : Any?> get(key: String, ttl: Duration, gen: suspend () -> T): T {
@@ -26,7 +26,7 @@ class AsyncInmemoryCache(val timeProvider: TimeProvider = TimeProvider) {
 		return (cache[key]!!.data as Deferred<T>).await()
 	}
 
-	//suspend fun <T : Any?> get(key: String, ttl: TimeSpan, gen: () -> Promise<T>) = await(getAsync(key, ttl, gen))
+	//suspend fun <T : Any?> get(key: String, ttl: Duration, gen: () -> Promise<T>) = await(getAsync(key, ttl, gen))
 }
 
 class AsyncInmemoryEntry<T : Any>(
