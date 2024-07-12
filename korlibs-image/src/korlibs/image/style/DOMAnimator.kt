@@ -4,6 +4,7 @@ import korlibs.image.annotation.*
 import korlibs.image.vector.format.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
+import kotlin.time.*
 
 @KorimExperimental
 class DOMAnimator(val dom: DOM) {
@@ -18,7 +19,7 @@ class DOMAnimator(val dom: DOM) {
         })
     }
 
-    fun update(dt: TimeSpan) {
+    fun update(dt: Duration) {
         time += dt
         // @TODO: Do this properly
         for (rule in css.rulesForIds.values) {

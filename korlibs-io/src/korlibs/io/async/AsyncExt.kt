@@ -59,7 +59,7 @@ fun suspendTest(timeout: Duration? = DEFAULT_SUSPEND_TEST_TIMEOUT, preferSyncIo:
         if (timeout != null) withTimeoutNullable(timeout) { callback() } else coroutineScope { callback() }
     }
 }
-fun suspendTest(cond: () -> Boolean, timeout: TimeSpan? = DEFAULT_SUSPEND_TEST_TIMEOUT, preferSyncIo: Boolean? = DEFAULT_TEST_SYNC_IO, callback: suspend CoroutineScope.() -> Unit) = suspendTest(timeout, preferSyncIo = preferSyncIo) { if (cond()) callback() }
+fun suspendTest(cond: () -> Boolean, timeout: Duration? = DEFAULT_SUSPEND_TEST_TIMEOUT, preferSyncIo: Boolean? = DEFAULT_TEST_SYNC_IO, callback: suspend CoroutineScope.() -> Unit) = suspendTest(timeout, preferSyncIo = preferSyncIo) { if (cond()) callback() }
 fun suspendTestNoBrowser(preferSyncIo: Boolean? = DEFAULT_TEST_SYNC_IO, callback: suspend CoroutineScope.() -> Unit) = suspendTest({ !Platform.isJsBrowser }, callback = callback, preferSyncIo = preferSyncIo)
 fun suspendTestNoJs(preferSyncIo: Boolean? = DEFAULT_TEST_SYNC_IO, callback: suspend CoroutineScope.() -> Unit) = suspendTest({ !Platform.isJs && !Platform.isWasm }, callback = callback, preferSyncIo = preferSyncIo)
 

@@ -197,7 +197,7 @@ suspend fun <T> Signal<T>.waitOne(timeout: Duration): T? = kotlinx.coroutines.su
     }
 }
 
-suspend fun <T> Signal<T>.waitOneOpt(timeout: TimeSpan?): T? = when {
+suspend fun <T> Signal<T>.waitOneOpt(timeout: Duration?): T? = when {
     timeout != null -> waitOne(timeout)
     else -> waitOneBase()
 }

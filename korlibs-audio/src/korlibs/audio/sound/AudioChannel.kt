@@ -1,9 +1,9 @@
 package korlibs.audio.sound
 
-import korlibs.time.TimeSpan
 import korlibs.time.seconds
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.coroutineContext
+import kotlin.time.*
 
 class AudioChannel(
     val nativeSoundProvider: NativeSoundProvider = korlibs.audio.sound.nativeSoundProvider
@@ -41,7 +41,7 @@ class AudioChannel(
     fun play(
         sound: Sound,
         times: PlaybackTimes = 1.playbackTimes,
-        startTime: TimeSpan = 0.seconds,
+        startTime: Duration = 0.seconds,
         coroutineContext: CoroutineContext = sound.defaultCoroutineContext,
     ): AudioChannel {
         stop()
@@ -52,7 +52,7 @@ class AudioChannel(
     suspend fun play(
         sound: AudioStream,
         times: PlaybackTimes = 1.playbackTimes,
-        startTime: TimeSpan = 0.seconds,
+        startTime: Duration = 0.seconds,
     ): AudioChannel {
         return play(nativeSoundProvider.createStreamingSound(sound, true), times, startTime, coroutineContext)
     }

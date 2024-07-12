@@ -9,6 +9,7 @@ import korlibs.time.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
 import kotlin.coroutines.cancellation.CancellationException
+import kotlin.time.*
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SoundAudioData(
@@ -58,19 +59,29 @@ class SoundAudioData(
             override var volume: Double by nas::volume
             override var pitch: Double by nas::pitch
             override var panning: Double by nas::panning
-            override var current: TimeSpan
+            override var current: Duration
                 get() = audioData.timeAtSample(pos)
                 set(value) {
                     pos = audioData.sampleAtTime(value)
                 }
-            override val total: TimeSpan get() = audioData.totalTime
-            override val state: SoundChannelState get() = when {
-                paused -> SoundChannelState.PAUSED
-                else -> super.state
+            override val total: Duration get() = audioData.totalTime
+            override val state: SoundChannelState
+                get() = when {
+                  paused -> SoundChannelState.PAUSED
+                  else -> super.state
+                }
+
+            override fun pause() {
+                nas.paused = true
             }
-            override fun pause() { nas.paused = true }
-            override fun resume() { nas.paused = false }
-            override fun stop() { nas.stop() }
+
+            override fun resume() {
+                nas.paused = false
+            }
+
+            override fun stop() {
+                nas.stop()
+            }
         }
     }
 }
@@ -85,7 +96,7 @@ class SoundAudioStream(
     val onComplete: (suspend () -> Unit)? = null
 ) : Sound(coroutineContext) {
     val nativeSound = this
-    override val length: TimeSpan get() = stream.totalLength
+    override val length: Duration get() = stream.totalLength
     override suspend fun decode(maxSamples: Int): AudioData = stream.toData(maxSamples)
     override suspend fun toStream(): AudioStream = stream.clone()
     override val nchannels: Int get() = stream.channels
@@ -168,6 +179,7 @@ class SoundAudioStream(
                 }
             }
         }
+
         fun close() {
             job.cancel()
         }
@@ -175,17 +187,27 @@ class SoundAudioStream(
             override var volume: Double by nas::volume
             override var pitch: Double by nas::pitch
             override var panning: Double by nas::panning
-            override var current: TimeSpan
+            override var current: Duration
                 get() = newStream?.currentTime ?: 0.milliseconds
-                set(value) { newStream?.currentTime = value }
-            override val total: TimeSpan get() = newStream?.totalLength ?: stream.totalLength
-            override val state: SoundChannelState get() = when {
-                paused -> SoundChannelState.PAUSED
-                playing -> SoundChannelState.PLAYING
-                else -> SoundChannelState.STOPPED
+                set(value) {
+                    newStream?.currentTime = value
+                }
+            override val total: Duration get() = newStream?.totalLength ?: stream.totalLength
+            override val state: SoundChannelState
+                get() = when {
+                    paused -> SoundChannelState.PAUSED
+                    playing -> SoundChannelState.PLAYING
+                    else -> SoundChannelState.STOPPED
+                }
+
+            override fun pause() {
+                paused = true
             }
-            override fun pause() { paused = true }
-            override fun resume() { paused = false }
+
+            override fun resume() {
+                paused = false
+            }
+
             override fun stop() = close()
         }
     }

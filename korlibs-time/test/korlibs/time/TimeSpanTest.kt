@@ -1,6 +1,7 @@
 package korlibs.time
 
 import kotlin.test.*
+import kotlin.time.*
 
 class TimeSpanTest {
     @Test
@@ -58,9 +59,9 @@ class TimeSpanTest {
 
     @Test
     fun testNull() {
-        assertTrue { TimeSpan.ZERO != TimeSpan.NIL }
-        assertTrue { TimeSpan.NIL == TimeSpan.NIL }
-        assertTrue { TimeSpan.NIL.isNil }
+        assertTrue { Duration.ZERO != Duration.NIL }
+        assertTrue { Duration.NIL == Duration.NIL }
+        assertTrue { Duration.NIL.isNil }
     }
 
     @Test
