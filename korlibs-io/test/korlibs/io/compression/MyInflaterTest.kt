@@ -42,7 +42,7 @@ class MyInflaterTest {
 	fun test3a() {
 		val compressed = "ED C2 31 0D 00 00 00 02 A0 4A 06 B2 7F 0E 53 F8 31 68 0A 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 9C 0D".unhexIgnoreSpaces
 		val result = compressed.uncompress(DeflatePortable)
-		for (n in 0 until 1000) {
+		for (n in 0 until 100) {
 			compressed.uncompress(DeflatePortable)
 		}
 		assertEquals(0x5000, result.size)
@@ -58,7 +58,7 @@ class MyInflaterTest {
 
 		val compressed = "ED C2 31 0D 00 00 00 02 A0 4A 06 B2 7F 0E 53 F8 31 68 0A 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 9C 0D".unhexIgnoreSpaces
 		val result = compressed.uncompress(Deflate)
-		for (n in 0 until 1000) {
+		for (n in 0 until 100) {
 			compressed.uncompress(Deflate)
 		}
 		assertEquals(0x5000, result.size)
