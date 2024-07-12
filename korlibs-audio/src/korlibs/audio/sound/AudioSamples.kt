@@ -90,7 +90,11 @@ class AudioSamplesProcessor(val channels: Int, val totalSamples: Int, val data: 
     }
 }
 
-class AudioSamples(override val channels: Int, override val totalSamples: Int, val data: Array<ShortArray> = Array(channels) { ShortArray(totalSamples) }) : IAudioSamples {
+class AudioSamples(
+    override val channels: Int,
+    override val totalSamples: Int,
+    val data: Array<ShortArray> = Array(channels) { ShortArray(totalSamples) }
+) : IAudioSamples {
     operator fun get(channel: Int): ShortArray = data[channel]
 
     override operator fun get(channel: Int, sample: Int): Short = data[channel][sample]
@@ -100,7 +104,6 @@ class AudioSamples(override val channels: Int, override val totalSamples: Int, v
         this[0, sample] = valueLeft
         this[1, sample] = valueRight
     }
-
 
     override fun scaleVolume(scale: Float): AudioSamples {
         for (channel in data) {
