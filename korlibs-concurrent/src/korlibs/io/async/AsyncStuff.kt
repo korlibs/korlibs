@@ -17,10 +17,12 @@ expect fun <T> runBlockingNoJs(context: CoroutineContext = EmptyCoroutineContext
 fun CoroutineContext.onCancel(block: () -> Unit): AutoCloseable {
     var running = true
     CoroutineScope(this).launch {
-        try {
-            while (running) kotlinx.coroutines.delay(1.seconds)
-        } catch (e: CancellationException) {
-            if (running) block()
+        withContext(CoroutineName("onCancel"))  {
+            try {
+                while (running) kotlinx.coroutines.delay(0.1.seconds)
+            } catch (e: CancellationException) {
+                if (running) block()
+            }
         }
     }
     return AutoCloseable { running = false }
