@@ -5,7 +5,7 @@ import kotlin.math.*
 // @TODO: Use sync API, suspend but do not use asynchronous stuff. Simplify interface for input and output
 // @TODO: Act like a sequence of status (waiting for filling input, waiting for filling output, etc.)
 // @TODO: Use = sequence<Int> { yield(NEED_MORE_INPUT) }
-open class DeflaterPortable(val windowBits: Int) : IDeflater {
+internal open class DeflaterPortable(val windowBits: Int) : IDeflaterInternal {
     override suspend fun compress(
         i: DeflaterBitReader,
         o: DeflaterAsyncOutputStream,

@@ -1,10 +1,8 @@
-@file:OptIn(ExperimentalStdlibApi::class)
-
 package korlibs.compression.deflate
 
 import java.util.zip.*
 
-actual fun DeflaterNative(windowBits: Int): IDeflater = object : IDeflater {
+actual fun DeflaterNative(windowBits: Int): IDeflater = object : IDeflaterInternal {
     override suspend fun uncompress(i: DeflaterBitReader, o: DeflaterAsyncOutputStream) {
         val tempInput = ByteArray(64 * 1024)
         var tempInputSize = 0

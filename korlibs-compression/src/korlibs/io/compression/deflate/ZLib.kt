@@ -1,18 +1,14 @@
 package korlibs.io.compression.deflate
 
+import korlibs.compression.deflate.*
 import korlibs.memory.extract
 import korlibs.io.compression.CompressionContext
 import korlibs.io.compression.CompressionMethod
-import korlibs.io.compression.compress
-import korlibs.io.compression.util.BitReader
 import korlibs.io.lang.invalidOp
-import korlibs.io.stream.AsyncInputStreamWithLength
-import korlibs.io.stream.AsyncOutputStream
-import korlibs.io.stream.write32BE
-import korlibs.io.stream.write8
+import korlibs.io.stream.*
 import korlibs.io.util.checksum.Adler32
 
-open class ZLib(val deflater: (windowBits: Int) -> CompressionMethod) : CompressionMethod {
+open class ZLib(val deflater: (windowBits: Int) -> IDeflater) : CompressionMethod {
     override val name: String get() = "ZLIB"
 
 	companion object : ZLib({ Deflate(it) })
@@ -20,9 +16,8 @@ open class ZLib(val deflater: (windowBits: Int) -> CompressionMethod) : Compress
     object Portable : ZLib({ DeflatePortable(it) })
 
 	@OptIn(ExperimentalStdlibApi::class)
-	override suspend fun uncompress(reader: BitReader, out: AsyncOutputStream) {
-		val r =reader
-		val o = out
+	override suspend fun uncompress(i: AsyncInputStream, o: AsyncOutputStream) {
+		val r = BitReader(i)
 		//println("Zlib.uncompress.available[0]:" + s.available())
 		r.prepareBigChunkIfRequired()
 		val cmf = r.su8()
@@ -46,14 +41,14 @@ open class ZLib(val deflater: (windowBits: Int) -> CompressionMethod) : Compress
 
 		//s.alignbyte()
 		var chash = Adler32.initialValue
-		deflater(windowBits).uncompress(r, object : AsyncOutputStream {
+		(deflater(windowBits) as IDeflaterInternal).uncompress(r.toDeflater(), object : AsyncOutputStream {
 			override suspend fun close() = o.close()
 			override suspend fun write(buffer: ByteArray, offset: Int, len: Int) {
 				o.write(buffer, offset, len)
 				chash = Adler32.update(chash, buffer, offset, len)
 				//println("UNCOMPRESS:'" + buffer.sliceArray(offset until (offset + len)).toString(UTF8) + "':${chash.hex32}")
 			}
-		})
+		}.toDeflater())
 		//println("ZLib.uncompress[3]")
 
 		r.prepareBigChunkIfRequired()
@@ -64,10 +59,12 @@ open class ZLib(val deflater: (windowBits: Int) -> CompressionMethod) : Compress
 	}
 
 	override suspend fun compress(
-		i: BitReader,
+		i: AsyncInputStream,
 		o: AsyncOutputStream,
 		context: CompressionContext
 	) {
+		val i = BitReader(i)
+
 		val slidingBits = 15
 		val clevel = when {
 			context.level <= 0 -> 0
@@ -92,7 +89,7 @@ open class ZLib(val deflater: (windowBits: Int) -> CompressionMethod) : Compress
 		o.write8(flg or fcheck)
 
 		var adler = Adler32.initialValue
-		deflater(slidingBits).compress(object : AsyncInputStreamWithLength by i {
+		(deflater(slidingBits) as IDeflaterInternal).compress(BitReader(object : AsyncInputStreamWithLength by i {
 			override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int {
 				val read = i.read(buffer, offset, len)
 				if (read > 0) {
@@ -101,7 +98,7 @@ open class ZLib(val deflater: (windowBits: Int) -> CompressionMethod) : Compress
 				}
 				return read
 			}
-		}, o, context)
+		}).toDeflater(), o.toDeflater(), context.level.toFloat() / 10f)
 		o.write32BE(adler)
 	}
 }

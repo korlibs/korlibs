@@ -1,7 +1,6 @@
 import com.google.gson.*
 import com.google.gson.JsonParser
 import groovy.json.*
-import groovy.namespace.*
 import groovy.util.*
 import org.gradle.api.internal.tasks.testing.*
 import org.gradle.api.tasks.testing.logging.*

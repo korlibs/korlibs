@@ -20,7 +20,7 @@ suspend fun asyncStreamWriter(bufferSize: Int = AsyncRingBufferChunked.DEFAULT_M
         var job: Job? = null
 
         private fun checkException() {
-            if (lastError != null) throw RuntimeException("Error in asyncStreamWriter", lastError!!)
+            if (lastError != null) throw RuntimeException("Error in asyncStreamWriter : $lastError", lastError!!)
         }
 
         private val temp = ByteArray(1)

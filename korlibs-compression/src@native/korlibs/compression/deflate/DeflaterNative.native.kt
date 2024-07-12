@@ -10,7 +10,7 @@ import kotlin.time.Duration.Companion.milliseconds
 
 private const val CHUNK = 8 * 1024 * 1024
 
-actual fun DeflaterNative(windowBits: Int): IDeflater = object : IDeflater {
+actual fun DeflaterNative(windowBits: Int): IDeflater = object : IDeflaterInternal {
     val DEBUG_DEFLATE = getenv("DEBUG_DEFLATE")?.toKStringFromUtf8() == "true"
     //val DEBUG_DEFLATE = true
 
