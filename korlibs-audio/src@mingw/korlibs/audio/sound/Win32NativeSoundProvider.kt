@@ -1,115 +1,147 @@
+@file:OptIn(ExperimentalForeignApi::class)
+
 package korlibs.audio.sound
 
-import korlibs.datastructure.*
-import korlibs.io.async.*
-import korlibs.io.concurrent.*
-import korlibs.io.lang.*
-import korlibs.logger.*
+import korlibs.concurrent.thread.*
+import korlibs.memory.*
 import korlibs.time.*
-import kotlinx.coroutines.*
+import kotlinx.cinterop.*
+import platform.windows.*
 import kotlin.coroutines.*
-import kotlin.native.concurrent.*
 
-actual val nativeSoundProvider: NativeSoundProvider = Win32NativeSoundProvider
+actual val nativeSoundProvider: NativeSoundProvider = Win32WaveOutNativeSoundProvider
 
-@ThreadLocal
-private val Win32NativeSoundProvider_workerPool = Pool<CoroutineDispatcher> {
-    Dispatchers.createSingleThreadedDispatcher("Win32NativeSoundProvider$it")
+object Win32WaveOutNativeSoundProvider : NativeSoundProviderNew() {
+    override fun createNewPlatformAudioOutput(
+        coroutineContext: CoroutineContext,
+        channels: Int,
+        frequency: Int,
+        gen: (AudioSamplesInterleaved) -> Unit
+    ): NewPlatformAudioOutput = Win32WaveOutNewPlatformAudioOutput(coroutineContext, channels, frequency, gen)
 }
 
-@ThreadLocal
-private val Win32NativeSoundProvider_WaveOutProcess = Pool<WaveOutProcess> {
-    WaveOutProcess(44100, 2).start(Win32NativeSoundProvider_workerPool.alloc())
-}
-
-@OptIn(ExperimentalStdlibApi::class)
-object Win32NativeSoundProvider : NativeSoundProvider(), AutoCloseable {
-
-    //val workerPool get() = Win32NativeSoundProvider_workerPool
-    val workerPool get() = Win32NativeSoundProvider_WaveOutProcess
-
-    override fun createPlatformAudioOutput(coroutineContext: CoroutineContext, freq: Int): PlatformAudioOutput =
-        Win32PlatformAudioOutput(this, coroutineContext, freq)
-
-    override fun close() {
-        while (Win32NativeSoundProvider_workerPool.itemsInPool > 0) {
-            Win32NativeSoundProvider_workerPool.alloc().cancel()
-        }
-    }
-}
-
-class Win32PlatformAudioOutput(
-    val provider: Win32NativeSoundProvider,
+class Win32WaveOutNewPlatformAudioOutput(
     coroutineContext: CoroutineContext,
-    val freq: Int
-) : PlatformAudioOutput(coroutineContext, freq) {
-    private var process: WaveOutProcess? = null
-    private val logger = Logger("Win32PlatformAudioInput")
+    nchannels: Int,
+    freq: Int,
+    gen: (AudioSamplesInterleaved) -> Unit
+) : NewPlatformAudioOutput(coroutineContext, nchannels, freq, gen) {
+    var nativeThread: NativeThread? = null
+    var running = false
 
-    override val availableSamples: Int get() = if (process != null) (process!!.length - process!!.position).toInt() else 0
-        //.also { println("Win32PlatformAudioOutput.availableSamples. length=${process.length}, position=${process.position}, value=$it") }
+    private var handle: HWAVEOUT? = null
+    private var headers = emptyArray<WaveHeader>()
 
-    override var pitch: Double = 1.0
-        set(value) {
-            field = value
-            process?.pitch?.value = value
-        }
-    override var volume: Double = 1.0
-        set(value) {
-            field = value
-            process?.volume?.value = value
-        }
-    override var panning: Double = 0.0
-        set(value) {
-            field = value
-            process?.panning?.value = value
-        }
+    override fun internalStart() {
+        //println("TRYING TO START")
+        if (running) return
+        //println("STARTED")
+        running = true
+        nativeThread = NativeThread {
+            memScoped {
+                val arena = this
+                val handlePtr = alloc<HWAVEOUTVar>()
+                val freq = frequency
+                val blockAlign = (channels * Short.SIZE_BYTES)
 
-    override suspend fun add(samples: AudioSamples, offset: Int, size: Int) {
-        // More than 1 second queued, let's wait a bit
-        if (process == null || availableSamples > freq) {
-            delay(200.milliseconds)
-        }
+                val format = alloc<tWAVEFORMATEX>().also { format ->
+                    format.wFormatTag = WAVE_FORMAT_PCM.convert()
+                    format.nChannels = channels.convert() // 2?
+                    format.nSamplesPerSec = freq.convert()
+                    format.wBitsPerSample = Short.SIZE_BITS.convert() // 16
+                    format.nBlockAlign = ((channels * Short.SIZE_BYTES).convert())
+                    format.nAvgBytesPerSec = (freq * blockAlign).convert()
+                    format.cbSize = sizeOf<tWAVEFORMATEX>().convert()
+                }
+                waveOutOpen(handlePtr.ptr, WAVE_MAPPER, format.ptr, 0.convert(), 0.convert(), 0.convert()).also {
+                    if (it != 0.convert()) println("waveOutOpen: $it")
+                }
+                handle = handlePtr.value
+                //println("handle=$handle")
 
-        process!!.addData(samples, offset, size, freq)
-    }
+                headers = Array(4) { WaveHeader(it, handle, 1024, channels, arena) }
 
-    override fun start() {
-        process = provider.workerPool.alloc()
-            .also { it.reopen(freq) }
-        process!!.volume.value = volume
-        process!!.pitch.value = pitch
-        process!!.panning.value = panning
-        //println("Win32PlatformAudioOutput.START WORKER: $worker")
-    }
-
-    override suspend fun wait() {
-        //while (!process.isCompleted) {
-        while (availableSamples > 0) {
-        //while (process?.pendingAudio == true) {
-            delay(10.milliseconds)
-            //println("WAITING...: process.isCompleted=${process.isCompleted}")
-        }
-    }
-
-    override fun stop() {
-        //println("Win32PlatformAudioOutput.STOP WORKER: $worker")
-        //process.stop()
-        val process = this.process
-        this.process = null
-        if (process != null) {
-            CoroutineScope(coroutineContext).launch {
                 try {
-                    wait()
-                } catch (e: CancellationException) {
-                    // Do nothing
-                } catch (e: Throwable) {
-                    logger.error { "Error in Win32PlatformAudioOutput.stop:" }
-                    e.printStackTrace()
+                    while (running) {
+                        var queued = 0
+                        for (header in headers) {
+                            if (!header.hdr.isInQueue) {
+                                genSafe(header.samples)
+                                header.prepareAndWrite()
+                                queued++
+                                //println("Sending running=$running, availableRead=$availableRead, header=${header}")
+                            }
+                        }
+                        if (queued == 0) NativeThread.sleep(1.milliseconds)
+                    }
                 } finally {
-                    provider.workerPool.free(process)
+                    for (header in headers) header.dispose()
+                    //runBlockingNoJs {
+                    //    wait()
+                    //}
+                    waveOutReset(handle)
+                    waveOutClose(handle)
+                    handle = null
+                    //println("CLOSED")
                 }
             }
+        }.also {
+            it.isDaemon = true
+            it.start()
         }
     }
+
+    override fun internalStop() {
+        running = false
+        //println("STOPPING")
+    }
 }
+
+private class WaveHeader(
+    val id: Int,
+    val handle: HWAVEOUT?,
+    val totalSamples: Int,
+    val channels: Int,
+    val arena: MemScope,
+) {
+    val samples = AudioSamplesInterleaved(channels, totalSamples)
+
+    val totalShorts = (totalSamples * channels)
+    val totalBytes = (totalShorts * Short.SIZE_BYTES)
+    val dataMem = arena.allocArray<ShortVar>(totalShorts)
+    val hdr = arena.alloc<wavehdr_tag>().also { hdr ->
+        hdr.lpData = dataMem.reinterpret()
+        hdr.dwBufferLength = totalBytes.convert()
+        hdr.dwFlags = 0.convert()
+    }
+
+    fun prepareAndWrite(totalSamples: Int = this.totalSamples) {
+        //println(data[0].toList())
+
+        val channels = this.channels
+        hdr.dwBufferLength = (totalSamples * channels * Short.SIZE_BYTES).convert()
+
+        val samplesData = samples.data
+        for (n in 0 until channels * totalSamples) {
+            dataMem[n] = samplesData[n]
+        }
+        //if (hdr.isPrepared) dispose()
+        if (!hdr.isPrepared) {
+            //println("-> prepare")
+            waveOutPrepareHeader(handle, hdr.ptr, sizeOf<wavehdr_tag>().convert())
+        }
+        waveOutWrite(handle, hdr.ptr, sizeOf<wavehdr_tag>().convert())
+    }
+
+    fun dispose() {
+        waveOutUnprepareHeader(handle, hdr.ptr, sizeOf<wavehdr_tag>().convert())
+    }
+
+    override fun toString(): String = "WaveHeader(id=$id, totalSamples=$totalSamples, nchannels=$channels, hdr=$hdr)"
+}
+
+val wavehdr_tag.isDone: Boolean get() = dwFlags.toInt().hasFlags(WHDR_DONE)
+val wavehdr_tag.isPrepared: Boolean get() = dwFlags.toInt().hasFlags(WHDR_PREPARED)
+val wavehdr_tag.isBeginLoop: Boolean get() = dwFlags.toInt().hasFlags(WHDR_BEGINLOOP)
+val wavehdr_tag.isEndLoop: Boolean get() = dwFlags.toInt().hasFlags(WHDR_ENDLOOP)
+val wavehdr_tag.isInQueue: Boolean get() = dwFlags.toInt().hasFlags(WHDR_INQUEUE)
