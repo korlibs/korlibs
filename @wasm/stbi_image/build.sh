@@ -36,7 +36,9 @@ docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) emscripten/emsdk:3.1.61-arm6
 
 #base64 -i stb_image.wasm -o stb_image.wasm.b64
 
-cat stb_image.wasm | ~/go/bin/zlib | base64 > stb_image.wasm.b64
+wine64 ../gzip.exe -f -k -12 stb_image.wasm
+dd if="stb_image.wasm.gz" of="stb_image.wasm.gz.zlib" bs=1 skip=10 count=$(($(wc -c < "stb_image.wasm.gz") - 17))
+cat stb_image.wasm.gz.zlib | base64 > stb_image.wasm.b64
 
 # Define the paths
 WASM_B64_FILE="stb_image.wasm.b64"
