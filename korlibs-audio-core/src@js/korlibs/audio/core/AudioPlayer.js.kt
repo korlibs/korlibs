@@ -109,18 +109,19 @@ class WebAudioAudioSource(override val player: AudioPlayer) : AudioSource() {
         scriptNode = null
     }
 
-    override fun setContent(buffer: AudioBuffer) {
-        super.setContent(buffer)
-        cleanNodes()
-        val data = buffer.samples
-        val jsbuffer = ctx.createBuffer(buffer.nchannels, buffer.nsamples, buffer.rate)
-        for (ch in 0 until buffer.nchannels) data[ch].toFloatArray(jsbuffer.getChannelData(ch).unsafeCast<FloatArray>())
-        channelNode = ctx.createBufferSource().also { it.connect(gainNode) }
-        channelNode?.buffer = jsbuffer
-        channelNode?.loop = looping
-    }
+    //override fun setContent(buffer: AudioBuffer): AudioSource {
+    //    cleanNodes()
+    //    val data = buffer.samples
+    //    val jsbuffer = ctx.createBuffer(buffer.nchannels, buffer.nsamples, buffer.rate)
+    //    for (ch in 0 until buffer.nchannels) data[ch].toFloatArray(jsbuffer.getChannelData(ch).unsafeCast<FloatArray>())
+    //    channelNode = ctx.createBufferSource().also { it.connect(gainNode) }
+    //    channelNode?.buffer = jsbuffer
+    //    channelNode?.loop = looping
+    //    return this
+    //}
 
-    override fun setNode(samplesTotal: Long, rate: Int, nchannels: Int, node: AudioNode) {
+    override fun setContent(node: AudioNode, nchannels: Int, rate: Int, durationSamples: Long): AudioSource {
+        super.setContent(node, nchannels, rate, durationSamples)
         cleanNodes()
         val bufferSamples = 1024
         val samples = AudioBuffer(nchannels, bufferSamples, rate)
@@ -133,6 +134,7 @@ class WebAudioAudioSource(override val player: AudioPlayer) : AudioSource() {
                 }
             }
         }
+        return this
     }
 
     override var state = AudioSourceState.INITIAL
