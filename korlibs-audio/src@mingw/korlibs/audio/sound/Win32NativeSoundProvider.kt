@@ -54,7 +54,7 @@ class Win32WaveOutNewPlatformAudioOutput(
                     format.cbSize = sizeOf<tWAVEFORMATEX>().convert()
                 }
                 waveOutOpen(handlePtr.ptr, WAVE_MAPPER, format.ptr, 0.convert(), 0.convert(), 0.convert()).also {
-                    if (it != 0.convert()) println("waveOutOpen: $it")
+                    if (it.toInt() != 0) println("waveOutOpen: $it")
                 }
                 handle = handlePtr.value
                 //println("handle=$handle")
