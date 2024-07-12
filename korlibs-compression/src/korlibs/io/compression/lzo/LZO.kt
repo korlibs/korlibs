@@ -2,26 +2,10 @@ package korlibs.io.compression.lzo
 
 import korlibs.io.compression.CompressionContext
 import korlibs.io.compression.CompressionMethod
-import korlibs.io.compression.util.BitReader
 import korlibs.io.lang.UTF8
 import korlibs.io.lang.toByteArray
-import korlibs.io.stream.AsyncInputStream
-import korlibs.io.stream.AsyncOutputStream
-import korlibs.io.stream.readAll
-import korlibs.io.stream.readBytesExact
-import korlibs.io.stream.readS32BE
-import korlibs.io.stream.readS32LE
-import korlibs.io.stream.readString
-import korlibs.io.stream.readU16BE
-import korlibs.io.stream.readU8
-import korlibs.io.stream.skip
-import korlibs.io.stream.write16BE
-import korlibs.io.stream.write32BE
-import korlibs.io.stream.write32LE
-import korlibs.io.stream.write8
-import korlibs.io.stream.writeBytes
-import korlibs.io.stream.writeString
 import korlibs.compression.lzo.*
+import korlibs.io.stream.*
 import korlibs.memory.*
 
 // @TODO: We might want to support a raw version without headers?
@@ -52,10 +36,11 @@ open class LZO(val headerType: HeaderType = HeaderType.SHORT) : CompressionMetho
         var checksumCompressed: Int = 0,
     ) {
         companion object {
-            val MAGIC = byteArrayOf(0x89.toByte(), 0x4c, 0x5a, 0x4f, 0x00, 0x0d, 0x0a, 0x1a, 0x0a)
+            val MAGIC = byteArrayOf(0x4c, 0x5a, 0x4f, 0x00, 0x0d, 0x0a, 0x1a, 0x0a)
         }
 
-        suspend fun read(s: AsyncInputStream) {
+        suspend fun read(s: AsyncInputStream, checkFirstByte: Boolean) {
+            if (checkFirstByte && s.read() != 0x89) error("INVALID LZO!")
             if (s.readBytesExact(MAGIC.size).toList() != MAGIC.toList()) error("INVALID LZO!")
             version = s.readU16BE()
             libVersion = s.readU16BE()
@@ -99,38 +84,39 @@ open class LZO(val headerType: HeaderType = HeaderType.SHORT) : CompressionMetho
         }
     }
 
-    override suspend fun uncompress(reader: BitReader, out: AsyncOutputStream) {
-        reader.prepareBigChunkIfRequired()
-
+    override suspend fun uncompress(i: AsyncInputStream, o: AsyncOutputStream) {
         if (headerType == HeaderType.NONE) error("Unsupported raw (without header) uncompression for now")
 
         // Small header  version
-        val bytes = reader.internalPeekBytes(ByteArray(2))
-        when (bytes.getS16BE(0)) {
-            // https://github.com/korlibs/korio/issues/151
-            0x4c5a -> {
-                reader.skip(2)
-                val uncompressedSize = reader.readS32LE()
-                val uncompressed = ByteArray(uncompressedSize)
-                val compressedData = reader.readAll()
-                val uncompressedWritten = LzoRawDecompressor.decompress(compressedData, 0, compressedData.size, uncompressed, 0, uncompressed.size)
-                out.writeBytes(uncompressed, 0, uncompressedWritten)
-            }
-            else -> {
-                val header = HeaderLong().apply { read(reader) }
 
-                val compressedData = reader.readBytesExact(header.compressedSize)
+        val firstByte = i.read()
+        when (firstByte) {
+            0x89 -> {
+                val header = HeaderLong().apply { read(i, checkFirstByte = false) }
+
+                val compressedData = i.readBytesExact(header.compressedSize)
                 //println("$header")
 
                 val uncompressed = ByteArray(header.uncompressedSize)
                 val uncompressedWritten = LzoRawDecompressor.decompress(compressedData, 0, compressedData.size, uncompressed, 0, uncompressed.size)
 
-                out.writeBytes(uncompressed, 0, uncompressedWritten)
+                o.writeBytes(uncompressed, 0, uncompressedWritten)
+            }
+            0x4c -> {
+                check(i.read() == 0x5a)
+                val uncompressedSize = i.readS32LE()
+                val uncompressed = ByteArray(uncompressedSize)
+                val compressedData = i.readAll()
+                val uncompressedWritten = LzoRawDecompressor.decompress(compressedData, 0, compressedData.size, uncompressed, 0, uncompressed.size)
+                o.writeBytes(uncompressed, 0, uncompressedWritten)
+            }
+            else -> {
+                error("NOT A LZO FILE")
             }
         }
     }
 
-    override suspend fun compress(i: BitReader, o: AsyncOutputStream, context: CompressionContext) {
+    override suspend fun compress(i: AsyncInputStream, o: AsyncOutputStream, context: CompressionContext) {
         val uncompressedData = i.readAll()
         val compressedData = ByteArray(uncompressedData.size * 2)
         val compressedSize = LzoRawCompressor.compress(uncompressedData, 0, uncompressedData.size, compressedData, 0, compressedData.size)

@@ -1,34 +1,32 @@
 package korlibs.io.compression.deflate
 
+import korlibs.compression.deflate.*
 import korlibs.io.compression.CompressionContext
 import korlibs.io.compression.CompressionMethod
 import korlibs.io.compression.util.BitReader
 import korlibs.io.lang.invalidOp
-import korlibs.io.stream.AsyncInputStreamWithLength
-import korlibs.io.stream.AsyncOutputStream
-import korlibs.io.stream.write32LE
-import korlibs.io.stream.write8
+import korlibs.io.stream.*
 import korlibs.io.util.checksum.CRC32
 
-open class GZIP(deflater: () -> CompressionMethod) : GZIPBase(true, deflater) {
+open class GZIP(deflater: () -> IDeflater) : GZIPBase(true, deflater) {
 	companion object : GZIP({ Deflate }) {
         override fun toString(): String = "GZIP"
     }
 }
-open class GZIPNoCrc(deflater: () -> CompressionMethod) : GZIPBase(false, deflater) {
+open class GZIPNoCrc(deflater: () -> IDeflater) : GZIPBase(false, deflater) {
 	companion object : GZIPNoCrc({ Deflate }) {
         override fun toString(): String = "GZIPNoCrc"
     }
 }
 
-open class GZIPBase(val checkCrc: Boolean, val deflater: () -> CompressionMethod) : CompressionMethod {
+open class GZIPBase(val checkCrc: Boolean, val deflater: () -> IDeflater) : CompressionMethod {
     override val name: String get() = "GZIP"
 
     override fun toString(): String = "GZIPBase($checkCrc, ${deflater})"
 
 	@OptIn(ExperimentalStdlibApi::class)
-	override suspend fun uncompress(reader: BitReader, out: AsyncOutputStream) {
-		val r = reader
+	override suspend fun uncompress(i: AsyncInputStream, out: AsyncOutputStream) {
+		val r = BitReader(i)
 		r.prepareBigChunkIfRequired()
         val h0 = r.su8()
         val h1 = r.su8()
@@ -50,7 +48,7 @@ open class GZIPBase(val checkCrc: Boolean, val deflater: () -> CompressionMethod
 		val crc16 = if (fhcrc) r.su16LE() else 0
 		var ccrc32 = CRC32.initialValue
 		var csize = 0
-		deflater().uncompress(r, object : AsyncOutputStream by out {
+		deflater().uncompress(r.toDeflater(), object : AsyncOutputStream by out {
 			override suspend fun write(buffer: ByteArray, offset: Int, len: Int) {
 				if (len > 0) {
 					//val oldCrc32 = ccrc32
@@ -62,7 +60,7 @@ open class GZIPBase(val checkCrc: Boolean, val deflater: () -> CompressionMethod
 					out.write(buffer, offset, len)
 				}
 			}
-		})
+		}.toDeflater())
 		r.prepareBigChunkIfRequired()
 		val crc32 = r.su32LE()
 		val size = r.su32LE()
@@ -73,10 +71,11 @@ open class GZIPBase(val checkCrc: Boolean, val deflater: () -> CompressionMethod
 	}
 
 	override suspend fun compress(
-		i: BitReader,
+		i: AsyncInputStream,
 		o: AsyncOutputStream,
 		context: CompressionContext
 	) {
+		val i = BitReader(i)
 		o.write8(31) // MAGIC[0]
 		o.write8(139) // MAGIC[1]
 		o.write8(8) // METHOD=8 (deflate)
