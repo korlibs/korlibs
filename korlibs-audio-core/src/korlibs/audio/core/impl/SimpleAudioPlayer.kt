@@ -34,6 +34,7 @@ class SimpleAudioGen(
     val implementedVolume: Boolean = false,
     val implementedPitch: Boolean = false,
     val implemented3D: Boolean = false,
+    val pauseResume: suspend (Boolean) -> Unit = {},
     val queue: suspend SimpleAudioSource.(AudioBuffer) -> Unit,
     val close: suspend SimpleAudioSource.(AudioBuffer) -> Unit,
 )
@@ -67,9 +68,15 @@ abstract class SimpleAudioSource(override val player: AudioPlayer, val dispatche
         return CoroutineScope(dispatchers).launch {
             val buffer = AudioBuffer(nchannels, 2048, this@SimpleAudioSource.rate)
             val gen = process(buffer)
+            var reportedPaused = false
             try {
                 while (state != AudioSourceState.STOPPED) {
-                    if (state == AudioSourceState.PAUSED) {
+                    val isPaused = state == AudioSourceState.PAUSED
+                    if (isPaused) {
+                        if (isPaused != reportedPaused) {
+                            reportedPaused = isPaused
+                            gen.pauseResume(isPaused)
+                        }
                         delay(10L)
                         continue
                     }

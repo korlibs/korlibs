@@ -37,9 +37,9 @@ internal object OpenALAudioSystem : AudioSystem() {
         }
     }
 
-    override fun createPlayer(device: AudioDevice): AudioPlayer = OpenALAudioStreamPlayer(device)
+    override fun createPlayer(device: AudioDevice): AudioPlayer = OpenALAudioPlayer(device)
 
-    class OpenALAudioStreamPlayer(override val device: AudioDevice) : AudioPlayer() {
+    class OpenALAudioPlayer(override val device: AudioDevice) : AudioPlayer() {
         val dev = AL.alcOpenDevice(device.name.takeIf { it.isNotBlank() }).also {
             println("openal.dev=$it")
         }
@@ -70,7 +70,7 @@ internal object OpenALAudioSystem : AudioSystem() {
             val alSource = AL.alGenSource()
             //val alBuffer = AL.alGenBuffer()
 
-            return object : SimpleAudioSource(this@OpenALAudioStreamPlayer) {
+            return object : SimpleAudioSource(this@OpenALAudioPlayer) {
                 override var volume: Float = 1f
                     set(value) {
                         val value = maxOf(value, 0f)
