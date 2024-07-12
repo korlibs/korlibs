@@ -4,8 +4,6 @@ import korlibs.compression.deflate.*
 import korlibs.memory.extract
 import korlibs.io.compression.CompressionContext
 import korlibs.io.compression.CompressionMethod
-import korlibs.io.compression.compress
-import korlibs.io.compression.util.BitReader
 import korlibs.io.lang.invalidOp
 import korlibs.io.stream.*
 import korlibs.io.util.checksum.Adler32
@@ -18,9 +16,8 @@ open class ZLib(val deflater: (windowBits: Int) -> IDeflater) : CompressionMetho
     object Portable : ZLib({ DeflatePortable(it) })
 
 	@OptIn(ExperimentalStdlibApi::class)
-	override suspend fun uncompress(i: AsyncInputStream, out: AsyncOutputStream) {
+	override suspend fun uncompress(i: AsyncInputStream, o: AsyncOutputStream) {
 		val r = BitReader(i)
-		val o = out
 		//println("Zlib.uncompress.available[0]:" + s.available())
 		r.prepareBigChunkIfRequired()
 		val cmf = r.su8()
@@ -44,7 +41,7 @@ open class ZLib(val deflater: (windowBits: Int) -> IDeflater) : CompressionMetho
 
 		//s.alignbyte()
 		var chash = Adler32.initialValue
-		deflater(windowBits).uncompress(r.toDeflater(), object : AsyncOutputStream {
+		(deflater(windowBits) as IDeflaterInternal).uncompress(r.toDeflater(), object : AsyncOutputStream {
 			override suspend fun close() = o.close()
 			override suspend fun write(buffer: ByteArray, offset: Int, len: Int) {
 				o.write(buffer, offset, len)
@@ -92,7 +89,7 @@ open class ZLib(val deflater: (windowBits: Int) -> IDeflater) : CompressionMetho
 		o.write8(flg or fcheck)
 
 		var adler = Adler32.initialValue
-		deflater(slidingBits).compress(BitReader(object : AsyncInputStreamWithLength by i {
+		(deflater(slidingBits) as IDeflaterInternal).compress(BitReader(object : AsyncInputStreamWithLength by i {
 			override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int {
 				val read = i.read(buffer, offset, len)
 				if (read > 0) {

@@ -2,7 +2,6 @@ package korlibs.io.compression
 
 import korlibs.datastructure.*
 import korlibs.io.async.*
-import korlibs.io.compression.util.BitReader
 import korlibs.io.lang.unsupported
 import korlibs.io.stream.*
 
@@ -30,9 +29,6 @@ interface CompressionMethod {
 data class CompressionMethodWithConfig(val method: CompressionMethod, override val level: Int) : CompressionMethod by method, Extra by Extra.Mixin()
 
 fun CompressionMethod.withLevel(level: Int): CompressionMethodWithConfig = CompressionMethodWithConfig(this, level)
-
-suspend fun CompressionMethod.uncompress(i: AsyncInputStream, o: AsyncOutputStream): Unit = uncompress(BitReader.forInput(i), o)
-suspend fun CompressionMethod.compress(i: AsyncInputStream, o: AsyncOutputStream, context: CompressionContext = CompressionContext(level = this.level)): Unit = compress(BitReader.forInput(i), o, context)
 
 fun CompressionMethod.uncompress(i: SyncInputStream, o: SyncOutputStream) = runBlockingNoSuspensions {
 	uncompress(i.toAsync(), o.toAsync())

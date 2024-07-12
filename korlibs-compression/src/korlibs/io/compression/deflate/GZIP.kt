@@ -3,7 +3,6 @@ package korlibs.io.compression.deflate
 import korlibs.compression.deflate.*
 import korlibs.io.compression.CompressionContext
 import korlibs.io.compression.CompressionMethod
-import korlibs.io.compression.util.BitReader
 import korlibs.io.lang.invalidOp
 import korlibs.io.stream.*
 import korlibs.io.util.checksum.CRC32
@@ -48,7 +47,7 @@ open class GZIPBase(val checkCrc: Boolean, val deflater: () -> IDeflater) : Comp
 		val crc16 = if (fhcrc) r.su16LE() else 0
 		var ccrc32 = CRC32.initialValue
 		var csize = 0
-		deflater().uncompress(r.toDeflater(), object : AsyncOutputStream by out {
+		(deflater() as IDeflaterInternal).uncompress(r.toDeflater(), object : AsyncOutputStream by out {
 			override suspend fun write(buffer: ByteArray, offset: Int, len: Int) {
 				if (len > 0) {
 					//val oldCrc32 = ccrc32
