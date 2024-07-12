@@ -25,18 +25,17 @@ open class DeflaterPortable(val windowBits: Int) : IDeflater {
     override suspend fun uncompress(reader: DeflaterBitReader, out: DeflaterAsyncOutputStream) {
         //println("reader.bigChunkSize=${reader.bigChunkSize}, reader.readWithSize=${reader.readWithSize}")
         val sout = SlidingWindowWithOutput(SlidingWindow(windowBits), out, reader.bigChunkSize, reader.readWithSize)
-        var lastBlock = false
         val tempTree = HuffmanTree()
         val tempDist = HuffmanTree()
         val codeLenCodeLen = IntArray(32)
         val lengths = IntArray(512)
         //println("uncompress[0]")
-        while (!lastBlock) {
+        do {
             sout.flushIfRequired()
             reader.prepareBigChunkIfRequired()
             //println("uncompress[1]")
 
-            lastBlock = reader.sreadBit()
+            val lastBlock = reader.sreadBit()
             val blockType = reader.readBits(2)
             if (blockType !in 0..2) error("invalid bit")
 
@@ -115,7 +114,7 @@ open class DeflaterPortable(val windowBits: Int) : IDeflater {
                     sout.flushIfRequired()
                 }
             }
-        }
+        } while (!lastBlock)
         //println("uncompress[4]")
         sout.flushIfRequired(finish = true)
         //println("uncompress[5]")
@@ -216,16 +215,7 @@ open class DeflaterPortable(val windowBits: Int) : IDeflater {
             private const val MAX_LEN = 16
             private const val MAX_CODES = 288
 
-            //private const val ENABLE_EXPERIMENTAL_FAST_READ = false
-            private const val ENABLE_EXPERIMENTAL_FAST_READ = true
-            private const val ENABLE_EXPERIMENTAL_FAST_READ_V2 = true
-            //private const val ENABLE_EXPERIMENTAL_FAST_READ = false
-
-            //private const val FAST_BITS = 9
             private const val FAST_BITS = 10
-            //private const val FAST_BITS = 11
-            //private const val FAST_BITS = 12
-            //private const val FAST_BITS = 14
         }
 
         //private val data = IntArray(3 * 1024)
@@ -246,9 +236,9 @@ open class DeflaterPortable(val windowBits: Int) : IDeflater {
         //var slowReadCount = 0
 
         fun read(reader: DeflaterBitReader): Int {
-            if (ENABLE_EXPERIMENTAL_FAST_READ) reader.ensureBits(FAST_BITS)
+            reader.ensureBits(FAST_BITS)
             var node = this.root
-            if (ENABLE_EXPERIMENTAL_FAST_READ && reader.bitsavailable >= FAST_BITS) {
+            if (reader.bitsavailable >= FAST_BITS) {
                 //println("${reader.bitsavailable} >= $FAST_BITS")
                 val bits = reader.peekBits(FAST_BITS)
                 val raw = FAST_INFO[bits]
@@ -360,30 +350,14 @@ open class DeflaterPortable(val windowBits: Int) : IDeflater {
             this.root = allocNode(nodeOffset - 2, nodeOffset - 1)
             this.ncodes = ncodes
 
-            if (ENABLE_EXPERIMENTAL_FAST_READ) {
-                computeFastLookup()
-            }
+            computeFastLookup()
 
             return this
         }
 
-        // @TODO: Optimize this
         private fun computeFastLookup() {
-            if (ENABLE_EXPERIMENTAL_FAST_READ_V2) {
-                FAST_INFO.fill(INVALID_VALUE)
-                computeEncodedValues(root, 0, 0)
-            } else {
-                //println("computeEncodedValues: " + computeEncodedValues(root, 0, 0))
-                //println("FAST_INFO.size=${FAST_INFO.size}")
-                for (value in FAST_INFO.indices) {
-                    var node = this.root
-                    var bitcount = 0
-                    do {
-                        node = if (value.extractBool(bitcount++)) node.right else node.left
-                    } while (node != NIL && node.value == INVALID_VALUE)
-                    FAST_INFO[value] = if (bitcount > FAST_BITS) -1 else node.value or (bitcount shl 16)
-                }
-            }
+            FAST_INFO.fill(INVALID_VALUE)
+            computeEncodedValues(root, 0, 0)
         }
 
         private fun computeEncodedValues(node: Int, encoded: Int, encodedBits: Int) {

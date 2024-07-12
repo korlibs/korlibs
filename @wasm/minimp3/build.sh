@@ -22,4 +22,4 @@ docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) emscripten/emsdk:3.1.61-arm6
 
 #base64 -i minimp3.wasm -o minimp3.wasm.b64
 
-cat minimp3.wasm | ~/go/bin/zlib | base64 > minimp3.wasm.b64
+cat minimp3.wasm | ~/go/bin/zlib -9 | base64 > minimp3.wasm.b64
