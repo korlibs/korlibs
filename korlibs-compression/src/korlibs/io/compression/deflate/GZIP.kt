@@ -9,7 +9,6 @@ import korlibs.io.stream.AsyncOutputStream
 import korlibs.io.stream.write32LE
 import korlibs.io.stream.write8
 import korlibs.io.util.checksum.CRC32
-import korlibs.encoding.hex
 
 open class GZIP(deflater: () -> CompressionMethod) : GZIPBase(true, deflater) {
 	companion object : GZIP({ Deflate }) {
@@ -27,12 +26,13 @@ open class GZIPBase(val checkCrc: Boolean, val deflater: () -> CompressionMethod
 
     override fun toString(): String = "GZIPBase($checkCrc, ${deflater})"
 
+	@OptIn(ExperimentalStdlibApi::class)
 	override suspend fun uncompress(reader: BitReader, out: AsyncOutputStream) {
 		val r = reader
 		r.prepareBigChunkIfRequired()
         val h0 = r.su8()
         val h1 = r.su8()
-        if (h0 != 31 || h1 != 139) error("Not a GZIP file (h0=${h0.toByte().hex}, h1=${h1.toByte().hex})")
+        if (h0 != 31 || h1 != 139) error("Not a GZIP file (h0=${h0.toByte().toHexString()}, h1=${h1.toByte().toHexString()})")
 		val method = r.su8()
 		if (method != 8) error("Just supported deflate in GZIP (method=$method)")
 		val ftext = r.sreadBit()
@@ -68,7 +68,7 @@ open class GZIPBase(val checkCrc: Boolean, val deflater: () -> CompressionMethod
 		val size = r.su32LE()
 		//println("COMPRESS: crc32=$crc32, size=$size, ccrc32=$ccrc32, csize=$csize")
 		if (checkCrc && (csize != size || ccrc32 != crc32)) {
-			invalidOp("Size doesn't match SIZE(${csize.hex} != ${size.hex}) || CRC32(${ccrc32.hex} != ${crc32.hex})")
+			invalidOp("Size doesn't match SIZE(${csize.toHexString()} != ${size.toHexString()}) || CRC32(${ccrc32.toHexString()} != ${crc32.toHexString()})")
 		}
 	}
 

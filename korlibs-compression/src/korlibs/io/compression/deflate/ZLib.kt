@@ -11,7 +11,6 @@ import korlibs.io.stream.AsyncOutputStream
 import korlibs.io.stream.write32BE
 import korlibs.io.stream.write8
 import korlibs.io.util.checksum.Adler32
-import korlibs.encoding.hex
 
 open class ZLib(val deflater: (windowBits: Int) -> CompressionMethod) : CompressionMethod {
     override val name: String get() = "ZLIB"
@@ -20,6 +19,7 @@ open class ZLib(val deflater: (windowBits: Int) -> CompressionMethod) : Compress
 
     object Portable : ZLib({ DeflatePortable(it) })
 
+	@OptIn(ExperimentalStdlibApi::class)
 	override suspend fun uncompress(reader: BitReader, out: AsyncOutputStream) {
 		val r =reader
 		val o = out
@@ -59,7 +59,7 @@ open class ZLib(val deflater: (windowBits: Int) -> CompressionMethod) : Compress
 		r.prepareBigChunkIfRequired()
 		val adler32 = r.su32BE()
 		//println("Zlib.uncompress.available[1]:" + s.available())
-		if (chash != adler32) invalidOp("Adler32 doesn't match ${chash.hex} != ${adler32.hex}")
+		if (chash != adler32) invalidOp("Adler32 doesn't match ${chash.toHexString()} != ${adler32.toHexString()}")
 		//println("ZLib.uncompress[4]")
 	}
 

@@ -1,6 +1,5 @@
 package korlibs.io.compression.lzo
 
-import korlibs.memory.hasFlags
 import korlibs.io.compression.CompressionContext
 import korlibs.io.compression.CompressionMethod
 import korlibs.io.compression.util.BitReader
@@ -22,8 +21,8 @@ import korlibs.io.stream.write32LE
 import korlibs.io.stream.write8
 import korlibs.io.stream.writeBytes
 import korlibs.io.stream.writeString
-import korlibs.encoding.hex
 import korlibs.compression.lzo.*
+import korlibs.memory.*
 
 // @TODO: We might want to support a raw version without headers?
 @OptIn(ExperimentalStdlibApi::class)
@@ -57,7 +56,7 @@ open class LZO(val headerType: HeaderType = HeaderType.SHORT) : CompressionMetho
         }
 
         suspend fun read(s: AsyncInputStream) {
-            if (s.readBytesExact(MAGIC.size).hex != MAGIC.hex) error("INVALID LZO!")
+            if (s.readBytesExact(MAGIC.size).toList() != MAGIC.toList()) error("INVALID LZO!")
             version = s.readU16BE()
             libVersion = s.readU16BE()
             versionNeeded = s.readU16BE()
@@ -106,9 +105,10 @@ open class LZO(val headerType: HeaderType = HeaderType.SHORT) : CompressionMetho
         if (headerType == HeaderType.NONE) error("Unsupported raw (without header) uncompression for now")
 
         // Small header  version
-        when (reader.internalPeekBytes(ByteArray(2)).hex) {
+        val bytes = reader.internalPeekBytes(ByteArray(2))
+        when (bytes.getS16BE(0)) {
             // https://github.com/korlibs/korio/issues/151
-            "4c5a" -> {
+            0x4c5a -> {
                 reader.skip(2)
                 val uncompressedSize = reader.readS32LE()
                 val uncompressed = ByteArray(uncompressedSize)

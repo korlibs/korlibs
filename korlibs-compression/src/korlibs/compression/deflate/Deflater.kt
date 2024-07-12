@@ -181,13 +181,13 @@ open class DeflaterPortable(val windowBits: Int) : IDeflater {
     }
 
     companion object : DeflaterPortable(15) {
-        private val FIXED_TREE: HuffmanTree = HuffmanTree().fromLengths(IntArray(288).apply {
+        private val FIXED_TREE: HuffmanTree = HuffmanTree().setFromLengths(IntArray(288).apply {
             for (n in 0..143) this[n] = 8
             for (n in 144..255) this[n] = 9
             for (n in 256..279) this[n] = 7
             for (n in 280..287) this[n] = 8
         })
-        private val FIXED_DIST: HuffmanTree = HuffmanTree().fromLengths(IntArray(32) { 5 })
+        private val FIXED_DIST: HuffmanTree = HuffmanTree().setFromLengths(IntArray(32) { 5 })
 
         private val LEN_EXTRA = intArrayOf(
             0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 0, 0, 0
@@ -307,12 +307,7 @@ open class DeflaterPortable(val windowBits: Int) : IDeflater {
         private val COFFSET = IntArray(MAX_LEN + 1)
         private val CODES = IntArray(MAX_CODES)
 
-        fun fromLengths(codeLengths: IntArray, start: Int = 0, end: Int = codeLengths.size): HuffmanTree {
-            setFromLengths(codeLengths, start, end)
-            return this
-        }
-
-        fun setFromLengths(codeLengths: IntArray, start: Int = 0, end: Int = codeLengths.size) {
+        fun setFromLengths(codeLengths: IntArray, start: Int = 0, end: Int = codeLengths.size): HuffmanTree {
             var oldOffset = 0
             var oldCount = 0
             val ncodes = end - start
@@ -371,6 +366,8 @@ open class DeflaterPortable(val windowBits: Int) : IDeflater {
             if (ENABLE_EXPERIMENTAL_FAST_READ) {
                 computeFastLookup()
             }
+
+            return this
         }
 
         // @TODO: Optimize this
