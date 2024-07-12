@@ -67,9 +67,8 @@ class SoundAudioData(
             override val total: Duration get() = audioData.totalTime
             override val state: SoundChannelState
                 get() = when {
-                    paused -> SoundChannelState.PAUSED
-                    playing -> SoundChannelState.PLAYING
-                    else -> SoundChannelState.STOPPED
+                  paused -> SoundChannelState.PAUSED
+                  else -> super.state
                 }
 
             override fun pause() {
