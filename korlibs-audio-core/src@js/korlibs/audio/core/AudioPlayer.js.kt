@@ -96,7 +96,7 @@ class WebAudioAudioSource(override val player: AudioPlayer) : AudioSource() {
     override var looping: Boolean = false
         set(value) { field = value; channelNode?.loop = field }
 
-    override var samplesPosition: Long = 0L
+    override var currentSamples: Long = 0L
         set(value) {
             field = value
             channelNode?.start(samplesToTime(value).seconds)
@@ -145,7 +145,7 @@ class WebAudioAudioSource(override val player: AudioPlayer) : AudioSource() {
                     if (oldState == AudioSourceState.PAUSED) {
                         channelNode?.start()
                     } else {
-                        channelNode?.start(0.0, samplesToTime(samplesPosition).seconds)
+                        channelNode?.start(0.0, samplesToTime(currentSamples).seconds)
                         scriptNode?.connect(gainNode)
                     }
                 }

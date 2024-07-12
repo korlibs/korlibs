@@ -9,8 +9,8 @@ inline class AudioSample(private val raw: Short) {
     val float: Float get() = (raw.toFloat() / Short.MAX_VALUE)
     //fun toAudioSampleF(): AudioSampleF = AudioSampleF(float)
 
-    operator fun times(scale: Float): AudioSample = AudioSample(shortInt * scale)
-    operator fun div(scale: Float): AudioSample = AudioSample(shortInt / scale)
+    operator fun times(scale: Float): AudioSample = AudioSample((shortInt * scale).toInt())
+    operator fun div(scale: Float): AudioSample = AudioSample((shortInt / scale).toInt())
     // combine
     //operator fun plus(other: AudioSample): AudioSample = AudioSample((this.shortInt + other.shortInt) / 2)
 }

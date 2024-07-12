@@ -80,7 +80,7 @@ abstract class SimpleAudioSource(override val player: AudioPlayer, val dispatche
                         delay(10L)
                         continue
                     }
-                    node.seek(samplesPosition)
+                    node.currentSamples = currentSamples
                     val samples = node.processSize(buffer.nsamples)
                     if (samples == 0) {
                         state = AudioSourceState.STOPPED
@@ -88,7 +88,7 @@ abstract class SimpleAudioSource(override val player: AudioPlayer, val dispatche
                     }
 
                     node.process(buffer)
-                    samplesPosition += samples
+                    currentSamples += samples
 
                     if (!gen.implementedVolume) {
                         GainAudioNode(this@SimpleAudioSource.volume).process(buffer)

@@ -5,16 +5,10 @@ import korlibs.math.*
 
 class BufferAudioNode(
     val buffer: AudioBuffer,
-) : AudioNodeWithCurrentAndDuration {
+) : AudioNode {
     override var currentSamples = 0L
     override val rate: Int get() = buffer.rate
     override val durationSamples: Long get() = buffer.nsamples.toLong()
-
-    override fun seek(position: Long) {
-        currentSamples = position
-    }
-
-    override fun processSize(nsamples: Int): Int = minOf(remainingSamples.toIntClamp(), nsamples)
 
     override fun process(data: AudioBuffer) {
         val startPos = currentSamples.toIntSafe()

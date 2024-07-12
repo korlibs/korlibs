@@ -88,8 +88,8 @@ abstract class AudioSource : AutoCloseable {
 
     open var rate: Int = 44100
     open var nchannels: Int = 1
-    open var samplesPosition: Long = 0L
-    open var samplesTotal: Long = -1L
+    open var currentSamples: Long = 0L
+    open var durationSamples: Long = -1L
     var buffer: AudioBuffer? = null
         private set
     var node: AudioNode? = null
@@ -103,20 +103,21 @@ abstract class AudioSource : AutoCloseable {
     val isPlaying: Boolean get() = state == AudioSourceState.PLAYING
     val isPlayingOrPaused: Boolean get() = state.let { it == AudioSourceState.PLAYING || it == AudioSourceState.PAUSED }
 
-    open fun setBuffer(buffer: AudioBuffer) {
-        this.setNode(buffer.nsamples.toLong(), buffer.rate, buffer.nchannels, BufferAudioNode(buffer))
+    open fun setBuffer(buffer: AudioBuffer): AudioSource {
         this.buffer = buffer
+        return this.setNode(BufferAudioNode(buffer), buffer.nchannels, buffer.rate, buffer.nsamples.toLong())
     }
 
-    open fun setNode(samplesTotal: Long, rate: Int, nchannels: Int, node: AudioNode) {
+    open fun setNode(node: AudioNode, nchannels: Int = 2, rate: Int = 44100, durationSamples: Long = node.durationSamples): AudioSource {
         this.rate = rate
         this.nchannels = nchannels
-        this.samplesTotal = samplesTotal
+        this.durationSamples = durationSamples
         this.node = node
+        return this
     }
 
     fun play(position: Long = 0L): Unit {
-        samplesPosition = position
+        currentSamples = position
         state = AudioSourceState.PLAYING
     }
     fun resume() {
@@ -128,11 +129,6 @@ abstract class AudioSource : AutoCloseable {
     fun stop() {
         state = AudioSourceState.STOPPED
     }
-
-    protected open fun _play(): Unit { }
-    protected open fun _resume(): Unit { }
-    protected open fun _pause(): Unit { }
-    protected open fun _stop(): Unit { }
 
     override fun close() {
     }
