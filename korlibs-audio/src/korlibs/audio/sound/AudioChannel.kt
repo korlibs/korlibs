@@ -1,6 +1,5 @@
 package korlibs.audio.sound
 
-import korlibs.time.TimeSpan
 import korlibs.time.seconds
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.coroutineContext

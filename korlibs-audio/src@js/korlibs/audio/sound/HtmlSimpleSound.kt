@@ -1,7 +1,6 @@
 package korlibs.audio.sound
 
 import korlibs.time.DateTime
-import korlibs.time.TimeSpan
 import korlibs.time.seconds
 import korlibs.logger.Logger
 import korlibs.io.lang.Cancellable

@@ -1,6 +1,5 @@
 package korlibs.audio.sound
 
-import korlibs.time.TimeSpan
 import korlibs.time.seconds
 import korlibs.audio.format.AudioDecodingProps
 import korlibs.audio.internal.SampleConvert

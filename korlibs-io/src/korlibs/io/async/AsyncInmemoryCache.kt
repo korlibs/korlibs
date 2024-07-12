@@ -2,7 +2,6 @@ package korlibs.io.async
 
 import korlibs.time.DateTime
 import korlibs.time.TimeProvider
-import korlibs.time.TimeSpan
 import kotlinx.coroutines.Deferred
 import kotlin.coroutines.coroutineContext
 import kotlin.reflect.KClass
