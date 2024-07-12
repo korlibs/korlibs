@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalStdlibApi::class)
-
 package korlibs.compression.deflate
 
 import java.util.zip.*
