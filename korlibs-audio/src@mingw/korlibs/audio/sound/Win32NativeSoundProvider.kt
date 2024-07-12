@@ -8,6 +8,7 @@ import korlibs.time.*
 import kotlinx.cinterop.*
 import platform.windows.*
 import kotlin.coroutines.*
+import kotlin.reflect.*
 
 actual val nativeSoundProvider: NativeSoundProvider = Win32WaveOutNativeSoundProvider
 
@@ -53,7 +54,7 @@ class Win32WaveOutNewPlatformAudioOutput(
                     format.nAvgBytesPerSec = (freq * blockAlign).convert()
                     format.cbSize = sizeOf<tWAVEFORMATEX>().convert()
                 }
-                waveOutOpen(handlePtr.ptr, WAVE_MAPPER, format.ptr, 0.convert(), 0.convert(), 0.convert()).also {
+                WINMM.waveOutOpen(handlePtr.ptr, WAVE_MAPPER, format.ptr, 0.convert(), 0.convert(), 0.convert()).also {
                     if (it.toInt() != 0) println("waveOutOpen: $it")
                 }
                 handle = handlePtr.value
@@ -79,8 +80,8 @@ class Win32WaveOutNewPlatformAudioOutput(
                     //runBlockingNoJs {
                     //    wait()
                     //}
-                    waveOutReset(handle)
-                    waveOutClose(handle)
+                    WINMM.waveOutReset(handle)
+                    WINMM.waveOutClose(handle)
                     handle = null
                     //println("CLOSED")
                 }
@@ -128,13 +129,13 @@ private class WaveHeader(
         //if (hdr.isPrepared) dispose()
         if (!hdr.isPrepared) {
             //println("-> prepare")
-            waveOutPrepareHeader(handle, hdr.ptr, sizeOf<wavehdr_tag>().convert())
+            WINMM.waveOutPrepareHeader(handle, hdr.ptr, sizeOf<wavehdr_tag>().convert())
         }
-        waveOutWrite(handle, hdr.ptr, sizeOf<wavehdr_tag>().convert())
+        WINMM.waveOutWrite(handle, hdr.ptr, sizeOf<wavehdr_tag>().convert())
     }
 
     fun dispose() {
-        waveOutUnprepareHeader(handle, hdr.ptr, sizeOf<wavehdr_tag>().convert())
+        WINMM.waveOutUnprepareHeader(handle, hdr.ptr, sizeOf<wavehdr_tag>().convert())
     }
 
     override fun toString(): String = "WaveHeader(id=$id, totalSamples=$totalSamples, nchannels=$channels, hdr=$hdr)"
@@ -145,3 +146,20 @@ val wavehdr_tag.isPrepared: Boolean get() = dwFlags.toInt().hasFlags(WHDR_PREPAR
 val wavehdr_tag.isBeginLoop: Boolean get() = dwFlags.toInt().hasFlags(WHDR_BEGINLOOP)
 val wavehdr_tag.isEndLoop: Boolean get() = dwFlags.toInt().hasFlags(WHDR_ENDLOOP)
 val wavehdr_tag.isInQueue: Boolean get() = dwFlags.toInt().hasFlags(WHDR_INQUEUE)
+
+internal object WINMM {
+    private val LIB = LoadLibraryA("winmm.dll")
+
+    private class func<T : Function<*>> {
+        inline operator fun getValue(obj: Any?, property: KProperty<*>): CPointer<CFunction<T>> {
+            return GetProcAddress(LIB, property.name)!!.reinterpret()
+        }
+    }
+
+    val waveOutOpen by func<(phwo: LPHWAVEOUT?, uDeviceID: UINT, pwfx: LPCWAVEFORMATEX?, dwCallback: DWORD_PTR, dwInstance: DWORD_PTR, fdwOpen: DWORD) -> MMRESULT>()
+    val waveOutClose by func<(hwo: HWAVEOUT?) -> MMRESULT>()
+    val waveOutReset by func<(hwo: HWAVEOUT?) -> MMRESULT>()
+    val waveOutPrepareHeader by func<(hwo: HWAVEOUT?, pwh: LPWAVEHDR?, cbwh: UINT) -> MMRESULT>()
+    val waveOutWrite by func<(hwo: HWAVEOUT?, pwh: LPWAVEHDR?, cbwh: UINT) -> MMRESULT>()
+    val waveOutUnprepareHeader by func<(hwo: HWAVEOUT?, pwh: LPWAVEHDR?, cbwh: UINT) -> MMRESULT>()
+}
