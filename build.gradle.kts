@@ -1145,7 +1145,7 @@ allprojects {
                     //println("TEST-TASK: $this")
                     jvmArgs(
                         "--add-opens", "java.base/java.nio=ALL-UNNAMED",
-                        "--add-opens", "java.base/jdk.incubator.foreign=ALL-UNNAMED",
+                        //"--add-opens", "java.base/jdk.incubator.foreign=ALL-UNNAMED",
                         "--add-opens", "java.base/sun.nio.ch=ALL-UNNAMED",
                     )
                 }
