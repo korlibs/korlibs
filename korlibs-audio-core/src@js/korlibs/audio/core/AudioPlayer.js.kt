@@ -109,8 +109,8 @@ class WebAudioAudioSource(override val player: AudioPlayer) : AudioSource() {
         scriptNode = null
     }
 
-    override fun setBuffer(buffer: AudioBuffer) {
-        super.setBuffer(buffer)
+    override fun setContent(buffer: AudioBuffer) {
+        super.setContent(buffer)
         cleanNodes()
         val data = buffer.samples
         val jsbuffer = ctx.createBuffer(buffer.nchannels, buffer.nsamples, buffer.rate)

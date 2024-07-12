@@ -103,12 +103,12 @@ abstract class AudioSource : AutoCloseable {
     val isPlaying: Boolean get() = state == AudioSourceState.PLAYING
     val isPlayingOrPaused: Boolean get() = state.let { it == AudioSourceState.PLAYING || it == AudioSourceState.PAUSED }
 
-    open fun setBuffer(buffer: AudioBuffer): AudioSource {
+    open fun setContent(buffer: AudioBuffer): AudioSource {
         this.buffer = buffer
-        return this.setNode(BufferAudioNode(buffer), buffer.nchannels, buffer.rate, buffer.nsamples.toLong())
+        return this.setContent(BufferAudioNode(buffer), buffer.nchannels, buffer.rate, buffer.nsamples.toLong())
     }
 
-    open fun setNode(node: AudioNode, nchannels: Int = 2, rate: Int = 44100, durationSamples: Long = node.durationSamples): AudioSource {
+    open fun setContent(node: AudioNode, nchannels: Int = 2, rate: Int = 44100, durationSamples: Long = node.durationSamples): AudioSource {
         this.rate = rate
         this.nchannels = nchannels
         this.durationSamples = durationSamples

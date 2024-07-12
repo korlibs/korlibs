@@ -2,7 +2,6 @@ package korlibs.audio.core
 
 import korlibs.concurrent.thread.*
 import korlibs.time.*
-import kotlin.math.*
 import kotlin.test.*
 
 class ExperimentTest {
@@ -12,7 +11,7 @@ class ExperimentTest {
         println(defaultAudioSystem.devices)
         val source = defaultAudioPlayer.createSource()
         println(defaultAudioPlayer.device)
-        source.setBuffer(AudioBuffer(SeparatedAudioSamples(AudioSamples(44100 * 2) {
+        source.setContent(AudioBuffer(SeparatedAudioSamples(AudioSamples(44100 * 2) {
             AudioSample(kotlin.math.cos(it.toFloat() / 40f))
         }), rate = 44100))
         source.play()

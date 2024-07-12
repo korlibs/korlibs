@@ -6,6 +6,7 @@ import korlibs.time.*
 
 fun interface AudioNode {
     val rate: Int get() = 44100
+    val nchannels: Int get() = 2
     val durationSamples: Long get() = Long.MAX_VALUE
     var currentSamples: Long
         get() = 0L
@@ -28,6 +29,7 @@ class AudioNodes(val nodes: List<AudioNode>) : AudioNode {
     constructor(vararg nodes: AudioNode) : this(nodes.toList())
 
     override val rate: Int get() = nodes.maxOf { it.rate }
+    override val nchannels: Int get() = nodes.maxOf { it.nchannels }
 
     override var currentSamples: Long
         get() = nodes.minOf { it.currentSamples }

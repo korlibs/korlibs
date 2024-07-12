@@ -9,7 +9,7 @@ import kotlin.test.*
 
 class OpenALAudioSystemTest {
     @Test
-    @Ignore
+    //@Ignore
     fun test() {
         //println(nativeOpenALLibraryPath)
         //println(AL.alGetInteger(AL.AL_VERSION))
@@ -19,7 +19,7 @@ class OpenALAudioSystemTest {
         println(player.device)
         //var panning = PannerAudioNode(-1f)
 
-        source.setNode(GenerateAudioNode(durationSamples = 44100) { position, data ->
+        source.setContent(GenerateAudioNode(durationSamples = 44100) { position, data ->
             for (ch in 0 until data.samples.nchannels) {
                 for (n in 0 until data.samples.nsamples) {
                     data.samples[ch][n] = AudioSample(kotlin.math.cos((position + n).toFloat() / 40f))
@@ -27,6 +27,7 @@ class OpenALAudioSystemTest {
             }
             data.nsamples
         })
+
         //source.setBuffer(AudioBuffer(SeparatedAudioSamples(AudioSamples(44100 * 2) {
         //    AudioSample(kotlin.math.cos(it.toFloat() / 40f))
         //}), rate = 44100))
