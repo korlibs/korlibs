@@ -18,7 +18,7 @@ val jvmCoreAudioNativeSoundProvider: JvmCoreAudioNativeSoundProvider? by lazy {
     }
 }
 
-class JvmCoreAudioNativeSoundProvider : NativeSoundProviderNew() {
+class JvmCoreAudioNativeSoundProvider : NativeSoundProvider() {
     override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, nchannels: Int, freq: Int, gen: (AudioSamplesInterleaved) -> Unit): NewPlatformAudioOutput {
         return JvmCoreAudioNewPlatformAudioOutput(coroutineContext, nchannels, freq, gen)
     }

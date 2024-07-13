@@ -24,7 +24,7 @@ actual val nativeSoundProvider: NativeSoundProvider get() = CORE_AUDIO_NATIVE_SO
 
 val CORE_AUDIO_NATIVE_SOUND_PROVIDER: CoreAudioNativeSoundProvider by lazy { CoreAudioNativeSoundProvider() }
 
-class CoreAudioNativeSoundProvider : NativeSoundProviderNew() {
+class CoreAudioNativeSoundProvider : NativeSoundProvider() {
     //override suspend fun createSound(data: ByteArray, streaming: Boolean, props: AudioDecodingProps): NativeSound = AVFoundationNativeSoundNoStream(CoroutineScope(coroutineContext), audioFormats.decode(data))
 
     override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: (AudioSamplesInterleaved) -> Unit): CoreAudioNewPlatformAudioOutput {
