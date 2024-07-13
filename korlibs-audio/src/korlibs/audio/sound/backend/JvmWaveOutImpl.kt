@@ -12,7 +12,7 @@ val jvmWaveOutNativeSoundProvider: NativeSoundProvider? by lazy {
     JvmWaveOutNativeSoundProvider()
 }
 
-class JvmWaveOutNativeSoundProvider : NativeSoundProviderNew() {
+class JvmWaveOutNativeSoundProvider : NativeSoundProvider() {
     override fun createNewPlatformAudioOutput(
         coroutineContext: CoroutineContext,
         channels: Int,

@@ -8,7 +8,7 @@ import kotlin.coroutines.*
 
 private val mixer by lazy { AudioSystem.getMixer(null) }
 
-object AwtNativeSoundProvider : NativeSoundProviderNew() {
+object AwtNativeSoundProvider : NativeSoundProvider() {
     override fun createNewPlatformAudioOutput(
         coroutineContext: CoroutineContext,
         nchannels: Int,

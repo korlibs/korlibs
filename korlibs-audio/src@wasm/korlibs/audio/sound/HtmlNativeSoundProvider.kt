@@ -23,7 +23,7 @@ actual val nativeSoundProvider: NativeSoundProvider by lazy {
     }
 }
 
-class HtmlNativeSoundProvider : NativeSoundProviderNew() {
+class HtmlNativeSoundProvider : NativeSoundProvider() {
     init {
         HtmlSimpleSound.ensureUnlockStart()
     }

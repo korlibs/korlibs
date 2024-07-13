@@ -9,7 +9,7 @@ import kotlin.coroutines.*
 
 actual val nativeSoundProvider: NativeSoundProvider by lazy { AndroidNativeSoundProvider() }
 
-class AndroidNativeSoundProvider : NativeSoundProviderNew() {
+class AndroidNativeSoundProvider : NativeSoundProvider() {
     override val target: String = "android"
 
     private var audioManager: AudioManager? = null
