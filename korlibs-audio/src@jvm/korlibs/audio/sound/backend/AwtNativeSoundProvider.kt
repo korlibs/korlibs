@@ -13,7 +13,7 @@ object AwtNativeSoundProvider : NativeSoundProvider() {
         coroutineContext: CoroutineContext,
         nchannels: Int,
         freq: Int,
-        gen: (AudioSamplesInterleaved) -> Unit
+        gen: NewPlatformAudioOutputGen
     ): NewPlatformAudioOutput {
         return JvmNewPlatformAudioOutput(this, coroutineContext, nchannels, freq, gen)
     }
@@ -24,7 +24,7 @@ class JvmNewPlatformAudioOutput(
     coroutineContext: CoroutineContext,
     nchannels: Int,
     freq: Int,
-    gen: (AudioSamplesInterleaved) -> Unit
+    gen: NewPlatformAudioOutputGen
 ) : NewPlatformAudioOutput(coroutineContext, nchannels, freq, gen) {
     var nativeThread: NativeThread? = null
 

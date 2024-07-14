@@ -17,7 +17,7 @@ object Win32WaveOutNativeSoundProvider : NativeSoundProvider() {
         coroutineContext: CoroutineContext,
         channels: Int,
         frequency: Int,
-        gen: (AudioSamplesInterleaved) -> Unit
+        gen: NewPlatformAudioOutputGen
     ): NewPlatformAudioOutput = Win32WaveOutNewPlatformAudioOutput(coroutineContext, channels, frequency, gen)
 }
 
@@ -25,7 +25,7 @@ class Win32WaveOutNewPlatformAudioOutput(
     coroutineContext: CoroutineContext,
     nchannels: Int,
     freq: Int,
-    gen: (AudioSamplesInterleaved) -> Unit
+    gen: NewPlatformAudioOutputGen
 ) : NewPlatformAudioOutput(coroutineContext, nchannels, freq, gen) {
     var nativeThread: NativeThread? = null
     var running = false
