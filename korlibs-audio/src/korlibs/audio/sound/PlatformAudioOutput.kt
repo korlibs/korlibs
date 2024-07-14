@@ -3,8 +3,6 @@ package korlibs.audio.sound
 import korlibs.audio.sound.backend.*
 import korlibs.concurrent.lock.*
 import korlibs.concurrent.thread.*
-import korlibs.io.async.*
-import korlibs.io.lang.*
 import korlibs.math.*
 import korlibs.math.geom.*
 import korlibs.time.*
@@ -15,7 +13,6 @@ import kotlin.coroutines.*
 
 typealias NewPlatformAudioOutputGen = (AudioSamplesInterleaved) -> Unit
 
-@OptIn(ExperimentalStdlibApi::class)
 open class NewPlatformAudioOutput(
     val coroutineContext: CoroutineContext,
     val channels: Int,
@@ -45,6 +42,10 @@ open class NewPlatformAudioOutput(
 
     protected open fun internalStart() = Unit
     protected open fun internalStop() = Unit
+
+    suspend fun suspendWhileRunning() {
+        while (running) delay(10L)
+    }
 
     fun start() {
         if (running) return
