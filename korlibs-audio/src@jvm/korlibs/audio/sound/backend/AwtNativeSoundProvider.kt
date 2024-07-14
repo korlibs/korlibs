@@ -15,7 +15,7 @@ object AwtNativeSoundProvider : NativeSoundProvider() {
         nchannels: Int,
         freq: Int,
         gen: NewPlatformAudioOutputGen
-    ): NewPlatformAudioOutput = NewPlatformAudioOutput.create(coroutineContext, nchannels, freq, gen) {
+    ): NewPlatformAudioOutput = NewPlatformAudioOutput(coroutineContext, nchannels, freq, gen) {
         var nativeThread: NativeThread? = null
 
         val BYTES_PER_SAMPLE = nchannels * Short.SIZE_BYTES

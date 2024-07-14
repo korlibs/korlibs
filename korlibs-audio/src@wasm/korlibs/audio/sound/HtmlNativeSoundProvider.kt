@@ -3,6 +3,7 @@ package korlibs.audio.sound
 import korlibs.time.seconds
 import korlibs.audio.format.AudioDecodingProps
 import korlibs.audio.internal.SampleConvert
+import korlibs.audio.sound.HtmlSimpleSound.getUnlockedContextOrThrow
 import korlibs.io.file.Vfs
 import korlibs.io.file.std.*
 import korlibs.io.lang.*
@@ -29,7 +30,35 @@ class HtmlNativeSoundProvider : NativeSoundProvider() {
     }
 
     override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput {
-        return JsNewPlatformAudioOutput(coroutineContext, channels, frequency, gen)
+        return NewPlatformAudioOutput(coroutineContext, channels, frequency, gen) {
+            nativeSoundProvider // Ensure it is created
+
+            val ctx = getUnlockedContextOrThrow()
+            val bufferSize = 1024
+            val scale = (frequency / ctx.sampleRate).toFloat()
+            val samples = AudioSamplesInterleaved(channels, (bufferSize * scale).toInt())
+            val node = ctx.createScriptProcessor(bufferSize, channels, channels)
+            //Console.log("sampleRate", ctx.sampleRate, "bufferSize", bufferSize, "totalSamples", samples.totalSamples, "scale", scale)
+            node.onaudioprocess = { e ->
+                genSafe(samples)
+                val separated = samples.separated()
+                for (ch in 0 until channels) {
+                    val outCh = e.outputBuffer.getChannelData(ch)
+                    val data = separated[ch]
+                    for (n in 0 until bufferSize) {
+                        outCh[n] = SampleConvert.shortToFloat(data.getSampled(n * scale))
+                    }
+                }
+
+            }
+            node.connect(ctx.destination)
+
+            try {
+                suspendWhileRunning()
+            } finally {
+                node.disconnect()
+            }
+        }
     }
 
     override suspend fun createSound(data: ByteArray, streaming: Boolean, props: AudioDecodingProps, name: String): Sound =
@@ -54,61 +83,6 @@ class HtmlNativeSoundProvider : NativeSoundProvider() {
             //println("createSound[2]")
             super.createSound(vfs, path)
         }
-    }
-}
-
-class JsNewPlatformAudioOutput(
-    coroutineContext: CoroutineContext,
-    nchannels: Int,
-    frequency: Int,
-    gen: NewPlatformAudioOutputGen
-) : NewPlatformAudioOutput(
-    coroutineContext, nchannels, frequency, gen
-) {
-    init {
-        nativeSoundProvider // Ensure it is created
-    }
-
-    var missingDataCount = 0
-    var nodeRunning = false
-    var node: ScriptProcessorNode? = null
-
-    private var startPromise: Cancellable? = null
-
-    override fun internalStart() {
-        if (nodeRunning) return
-        startPromise = HtmlSimpleSound.callOnUnlocked {
-            val ctx = HtmlSimpleSound.ctx
-            if (ctx != null) {
-                val bufferSize = 1024
-                val scale = (frequency / ctx.sampleRate).toFloat()
-                val samples = AudioSamplesInterleaved(channels, (bufferSize * scale).toInt())
-                node = ctx.createScriptProcessor(bufferSize, channels, channels)
-                //Console.log("sampleRate", ctx.sampleRate, "bufferSize", bufferSize, "totalSamples", samples.totalSamples, "scale", scale)
-                node?.onaudioprocess = { e ->
-                    genSafe(samples)
-                    val separated = samples.separated()
-                    for (ch in 0 until channels) {
-                        val outCh = e.outputBuffer.getChannelData(ch)
-                        val data = separated[ch]
-                        for (n in 0 until bufferSize) {
-                            outCh[n] = SampleConvert.shortToFloat(data.getSampled(n * scale))
-                        }
-                    }
-
-                }
-                this.node?.connect(ctx.destination)
-            }
-        }
-        nodeRunning = true
-        missingDataCount = 0
-    }
-
-    override fun internalStop() {
-        if (!nodeRunning) return
-        startPromise?.cancel()
-        this.node?.disconnect()
-        nodeRunning = false
     }
 }
 

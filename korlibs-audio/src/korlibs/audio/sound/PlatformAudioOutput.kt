@@ -3,10 +3,9 @@ package korlibs.audio.sound
 import korlibs.audio.sound.backend.*
 import korlibs.concurrent.lock.*
 import korlibs.concurrent.thread.*
-import korlibs.io.async.*
-import korlibs.io.lang.*
 import korlibs.math.*
 import korlibs.math.geom.*
+import korlibs.platform.*
 import korlibs.time.*
 import korlibs.time.core.*
 import kotlinx.atomicfu.locks.*
@@ -15,14 +14,21 @@ import kotlin.coroutines.*
 
 typealias NewPlatformAudioOutputGen = (AudioSamplesInterleaved) -> Unit
 
-@OptIn(ExperimentalStdlibApi::class)
-open class NewPlatformAudioOutput(
+class NewPlatformAudioOutput(
     val coroutineContext: CoroutineContext,
     val channels: Int,
     val frequency: Int,
     private val gen: NewPlatformAudioOutputGen,
+    val dispatcher: CoroutineDispatcher = Dispatchers.AUDIO,
+    val block: suspend NewPlatformAudioOutput.() -> Unit = {
+        val buffer = AudioSamplesInterleaved(channels, 1024)
+        while (running) {
+            genSafe(buffer)
+            delay(1L)
+        }
+    }
 ) : AutoCloseable, SoundProps {
-    var onCancel: AutoCloseable? = null
+    //var onCancel: AutoCloseable? = null
     var paused: Boolean = false
 
     private val lock = reentrantLock()
@@ -43,52 +49,33 @@ open class NewPlatformAudioOutput(
     override var position: Vector3 = Vector3.ZERO
     var running = false
 
-    protected open fun internalStart() = Unit
-    protected open fun internalStop() = Unit
+    suspend fun suspendWhileRunning() {
+        while (running) delay(10L)
+    }
+
+    private var job: Job? = null
 
     fun start() {
         if (running) return
         running = true
         stop()
-        onCancel = coroutineContext.onCancel { stop() }
-        internalStart()
+        //onCancel = coroutineContext.onCancel { stop() }
+        job?.cancel()
+        job = CoroutineScope(dispatcher).launch {
+            withContext(coroutineContext) {
+                block()
+            }
+        }
+
     }
     fun stop() {
         if (!running) return
         running = false
-        onCancel?.close()
-        onCancel = null
-        internalStop()
+        //onCancel?.close()
+        //onCancel = null
+        job?.cancel()
     }
     final override fun close() = stop()
-
-    companion object {
-        fun create(
-            coroutineContext: CoroutineContext,
-            channels: Int,
-            frequency: Int,
-            gen: NewPlatformAudioOutputGen,
-            dispatcher: CoroutineDispatcher = Dispatchers.AUDIO,
-            block: suspend NewPlatformAudioOutput.() -> Unit
-        ): NewPlatformAudioOutput {
-            return object : NewPlatformAudioOutput(coroutineContext, channels, frequency, gen)  {
-                private var job: Job? = null
-
-                override fun internalStart() {
-                    job?.cancel()
-                    job = CoroutineScope(dispatcher).launch {
-                        withContext(coroutineContext) {
-                            block()
-                        }
-                    }
-                }
-
-                override fun internalStop() {
-                    job?.cancel()
-                }
-            }
-        }
-    }
 }
 
 open class PlatformAudioOutputBasedOnNew(
