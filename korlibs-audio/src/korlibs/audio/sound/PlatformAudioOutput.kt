@@ -12,12 +12,14 @@ import kotlinx.atomicfu.locks.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
 
+typealias NewPlatformAudioOutputGen = (AudioSamplesInterleaved) -> Unit
+
 @OptIn(ExperimentalStdlibApi::class)
 open class NewPlatformAudioOutput(
     val coroutineContext: CoroutineContext,
     val channels: Int,
     val frequency: Int,
-    private val gen: (AudioSamplesInterleaved) -> Unit,
+    private val gen: NewPlatformAudioOutputGen,
 ) : AutoCloseable, SoundProps {
     var onCancel: AutoCloseable? = null
     var paused: Boolean = false

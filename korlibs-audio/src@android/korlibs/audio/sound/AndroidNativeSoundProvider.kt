@@ -18,7 +18,7 @@ class AndroidNativeSoundProvider : NativeSoundProvider() {
             audioManager!!.generateAudioSessionId() else -1
     }
 
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: (AudioSamplesInterleaved) -> Unit): NewPlatformAudioOutput {
+    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput {
         ensureAudioManager(coroutineContext)
         return AndroidNewPlatformAudioOutput(this, coroutineContext, channels, frequency, gen)
     }
@@ -38,7 +38,7 @@ class AndroidNativeSoundProvider : NativeSoundProvider() {
         coroutineContext: CoroutineContext,
         channels: Int,
         frequency: Int,
-        gen: (AudioSamplesInterleaved) -> Unit
+        gen: NewPlatformAudioOutputGen
     ) : NewPlatformAudioOutput(coroutineContext, channels, frequency, gen) {
         var thread: korlibs.concurrent.thread.NativeThread? = null
 
