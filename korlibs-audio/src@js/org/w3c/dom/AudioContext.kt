@@ -1,6 +1,5 @@
 package org.w3c.dom
 
-import korlibs.js.JsAny
 import org.khronos.webgl.ArrayBuffer
 import org.khronos.webgl.Float32Array
 import org.w3c.dom.events.*
@@ -25,7 +24,7 @@ external interface PannerNode : AudioNode {
     fun setOrientation(x: Double, y: Double, z: Double)
 }
 
-open external class BaseAudioContext : JsAny {
+open external class BaseAudioContext {
     fun createScriptProcessor(
         bufferSize: Int,
         numberOfInputChannels: Int,
