@@ -3,8 +3,10 @@ package korlibs.audio.sound
 import android.content.*
 import android.media.*
 import android.os.*
+import android.util.*
 import korlibs.datastructure.pauseable.*
 import korlibs.io.android.*
+import kotlinx.coroutines.*
 import kotlin.coroutines.*
 
 actual val nativeSoundProvider: NativeSoundProvider by lazy { AndroidNativeSoundProvider() }
@@ -12,132 +14,104 @@ actual val nativeSoundProvider: NativeSoundProvider by lazy { AndroidNativeSound
 class AndroidNativeSoundProvider : NativeSoundProvider() {
     override val target: String = "android"
 
-    private var audioManager: AudioManager? = null
-    val audioSessionId: Int by lazy {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
-            audioManager!!.generateAudioSessionId() else -1
-    }
-
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput {
-        ensureAudioManager(coroutineContext)
-        return AndroidNewPlatformAudioOutput(this, coroutineContext, channels, frequency, gen)
-    }
-
     private val pauseable = SyncPauseable()
     override var paused: Boolean by pauseable::paused
+    val UNSET_AUDIO_SESSION_ID = -2
+    val INVALID_AUDIO_SESSION_ID = -1
+
+    var audioSessionId: Int = UNSET_AUDIO_SESSION_ID
+        private set
 
     fun ensureAudioManager(coroutineContext: CoroutineContext) {
-        if (audioManager == null) {
-            val ctx = coroutineContext[AndroidCoroutineContext.Key]?.context ?: error("Can't find the Android Context on the CoroutineContext. Must call withAndroidContext first")
-            audioManager = ctx.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        if (audioSessionId != UNSET_AUDIO_SESSION_ID) return
+
+        val ctx = coroutineContext[AndroidCoroutineContext.Key]?.context
+            ?: return run {
+                if (audioSessionId == UNSET_AUDIO_SESSION_ID) {
+                    Log.e("AndroidNSoundProvider", "Can't find the Android Context on the CoroutineContext. Must call withAndroidContext first")
+                }
+            }
+        val audioManager = ctx.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        audioSessionId = when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> audioManager.generateAudioSessionId()
+            else -> INVALID_AUDIO_SESSION_ID
         }
     }
+    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput {
+        ensureAudioManager(coroutineContext)
+        return NewPlatformAudioOutput.create(coroutineContext, channels, frequency, gen) {
+            //val bufferSamples = 4096
+            val bufferSamples = 1024
 
-    class AndroidNewPlatformAudioOutput(
-        val provider: AndroidNativeSoundProvider,
-        coroutineContext: CoroutineContext,
-        channels: Int,
-        frequency: Int,
-        gen: NewPlatformAudioOutputGen
-    ) : NewPlatformAudioOutput(coroutineContext, channels, frequency, gen) {
-        var thread: korlibs.concurrent.thread.NativeThread? = null
+            val atChannelSize = Short.SIZE_BYTES * channels * bufferSamples
+            val atChannel = if (channels >= 2) AudioFormat.CHANNEL_OUT_STEREO else AudioFormat.CHANNEL_OUT_MONO
+            val atMode = AudioTrack.MODE_STREAM
+            val at = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && audioSessionId >= 0) {
+                AudioTrack(
+                    AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME).setContentType(AudioAttributes.CONTENT_TYPE_UNKNOWN).build(),
+                    AudioFormat.Builder().setChannelMask(atChannel).setSampleRate(frequency).setEncoding(AudioFormat.ENCODING_PCM_16BIT).build(),
+                    atChannelSize, atMode, audioSessionId
+                )
+            } else {
+                @Suppress("DEPRECATION")
+                AudioTrack(AudioManager.STREAM_MUSIC, frequency, atChannel, AudioFormat.ENCODING_PCM_16BIT, atChannelSize, atMode)
+            }
+            if (at.state == AudioTrack.STATE_UNINITIALIZED) {
+                System.err.println("Audio track was not initialized correctly frequency=$frequency, bufferSamples=$bufferSamples")
+            }
 
-        override fun internalStart() {
-            thread = korlibs.concurrent.thread.nativeThread(isDaemon = true) { thread ->
-                //val bufferSamples = 4096
-                val bufferSamples = 1024
+            val buffer = AudioSamplesInterleaved(channels, bufferSamples)
+            at.play()
 
-                val atChannelSize = Short.SIZE_BYTES * channels * bufferSamples
-                val atChannel = if (channels >= 2) AudioFormat.CHANNEL_OUT_STEREO else AudioFormat.CHANNEL_OUT_MONO
-                val atMode = AudioTrack.MODE_STREAM
-                val at = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    AudioTrack(
-                        AudioAttributes.Builder()
-                            .setUsage(AudioAttributes.USAGE_GAME)
-                            //.setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                            .setContentType(AudioAttributes.CONTENT_TYPE_UNKNOWN)
-                            .build(),
-                        AudioFormat.Builder()
-                            .setChannelMask(atChannel)
-                            .setSampleRate(frequency)
-                            .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
-                            .build(),
-                        atChannelSize,
-                        atMode,
-                        provider.audioSessionId
-                    )
-                } else {
-                    @Suppress("DEPRECATION")
-                    AudioTrack(
-                        AudioManager.STREAM_MUSIC,
-                        frequency,
-                        atChannel,
-                        AudioFormat.ENCODING_PCM_16BIT,
-                        atChannelSize,
-                        atMode
-                    )
-                }
-                if (at.state == AudioTrack.STATE_UNINITIALIZED) {
-                    System.err.println("Audio track was not initialized correctly frequency=$frequency, bufferSamples=$bufferSamples")
-                }
+            var lastVolL = Float.NaN
+            var lastVolR = Float.NaN
 
-                val buffer = AudioSamplesInterleaved(channels, bufferSamples)
-                at.play()
+            try {
+                while (running) {
+                    pauseable.checkPaused()
 
-                var lastVolL = Float.NaN
-                var lastVolR = Float.NaN
+                    if (this.paused) {
+                        at.pause()
+                        delay(20L)
+                        continue
+                    } else {
+                        at.play()
+                    }
 
-                try {
-                    while (thread.threadSuggestRunning) {
-                        provider.pauseable.checkPaused()
-
-                        if (this.paused) {
-                            at.pause()
-                            Thread.sleep(20L)
-                            continue
-                        } else {
-                            at.play()
+                    when (at.state) {
+                        AudioTrack.STATE_UNINITIALIZED -> {
+                            delay(20L)
                         }
-
-                        when (at.state) {
-                            AudioTrack.STATE_UNINITIALIZED -> {
-                                Thread.sleep(20L)
+                        AudioTrack.STATE_INITIALIZED -> {
+                            at.playbackRate = frequency
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                at.playbackParams.speed = this.pitch.toFloat()
                             }
-                            AudioTrack.STATE_INITIALIZED -> {
-                                at.playbackRate = frequency
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    at.playbackParams.speed = this.pitch.toFloat()
+                            val volL = this.volumeForChannel(0).toFloat()
+                            val volR = this.volumeForChannel(1).toFloat()
+                            if (lastVolL != volL || lastVolR != volR) {
+                                lastVolL = volL
+                                lastVolR = volR
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                    at.setVolume(volL)
+                                } else {
+                                    at.setStereoVolume(volL, volR)
                                 }
-                                val volL = this.volumeForChannel(0).toFloat()
-                                val volR = this.volumeForChannel(1).toFloat()
-                                if (lastVolL != volL || lastVolR != volR) {
-                                    lastVolL = volL
-                                    lastVolR = volR
-                                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                                        at.setVolume(volL)
-                                    } else {
-                                        at.setStereoVolume(volL, volR)
-                                    }
-                                }
-
-                                genSafe(buffer)
-                                at.write(buffer.data, 0, buffer.data.size)
                             }
+
+                            genSafe(buffer)
+                            at.write(buffer.data, 0, buffer.data.size)
+                            delay(1L)
                         }
                     }
-                } finally {
-                    at.flush()
-                    at.stop()
-                    at.release()
                 }
-
-                //val temp = AudioSamplesInterleaved(2, bufferSamples)
+            } finally {
+                at.flush()
+                at.stop()
+                at.release()
             }
-        }
 
-        override fun internalStop() {
-            thread?.threadSuggestRunning = false
-            thread = null
+            //val temp = AudioSamplesInterleaved(2, bufferSamples)
         }
     }
 }

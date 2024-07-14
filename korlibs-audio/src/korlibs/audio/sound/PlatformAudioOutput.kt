@@ -1,5 +1,6 @@
 package korlibs.audio.sound
 
+import korlibs.audio.sound.backend.*
 import korlibs.concurrent.lock.*
 import korlibs.concurrent.thread.*
 import korlibs.io.async.*
@@ -40,21 +41,54 @@ open class NewPlatformAudioOutput(
     override var volume: Double = 1.0
     override var panning: Double = 0.0
     override var position: Vector3 = Vector3.ZERO
+    var running = false
 
     protected open fun internalStart() = Unit
     protected open fun internalStop() = Unit
 
     fun start() {
+        if (running) return
+        running = true
         stop()
         onCancel = coroutineContext.onCancel { stop() }
         internalStart()
     }
     fun stop() {
+        if (!running) return
+        running = false
         onCancel?.close()
         onCancel = null
         internalStop()
     }
     final override fun close() = stop()
+
+    companion object {
+        fun create(
+            coroutineContext: CoroutineContext,
+            channels: Int,
+            frequency: Int,
+            gen: NewPlatformAudioOutputGen,
+            dispatcher: CoroutineDispatcher = Dispatchers.AUDIO,
+            block: suspend NewPlatformAudioOutput.() -> Unit
+        ): NewPlatformAudioOutput {
+            return object : NewPlatformAudioOutput(coroutineContext, channels, frequency, gen)  {
+                private var job: Job? = null
+
+                override fun internalStart() {
+                    job?.cancel()
+                    job = CoroutineScope(dispatcher).launch {
+                        withContext(coroutineContext) {
+                            block()
+                        }
+                    }
+                }
+
+                override fun internalStop() {
+                    job?.cancel()
+                }
+            }
+        }
+    }
 }
 
 open class PlatformAudioOutputBasedOnNew(

@@ -1,32 +1,14 @@
 package korlibs.audio.sound.backend
 
 import korlibs.audio.sound.*
-import korlibs.concurrent.thread.*
 import korlibs.ffi.*
-import korlibs.io.lang.*
-import korlibs.time.*
+import kotlinx.coroutines.*
 import kotlin.coroutines.*
 
 object FFIALSANativeSoundProvider : NativeSoundProvider() {
     override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput {
         //println("ALSANativeSoundProvider.createPlatformAudioOutput(freq=$freq)")
-        return ALSAPlatformAudioOutput(this, coroutineContext, channels, frequency, gen)
-    }
-}
-
-class ALSAPlatformAudioOutput(
-    val soundProvider: FFIALSANativeSoundProvider,
-    coroutineContext: CoroutineContext,
-    channels: Int,
-    frequency: Int,
-    gen: NewPlatformAudioOutputGen,
-) : NewPlatformAudioOutput(coroutineContext, channels, frequency, gen) {
-    //var nativeThread: Job? = null
-    var nativeThread: NativeThread? = null
-
-    override fun internalStart() {
-        //nativeThread = launchImmediately(coroutineContext) {
-        nativeThread = nativeThread(isDaemon = true) { thread ->
+        return NewPlatformAudioOutput.create(coroutineContext, channels, frequency, gen) {
             val buffer = AudioSamplesInterleaved(channels, 1024)
             val pcm = A2.snd_pcm_open("default", A2.SND_PCM_STREAM_PLAYBACK, 0)
             if (pcm.address == 0L) {
@@ -47,7 +29,7 @@ class ALSAPlatformAudioOutput(
                 latency
             )
             try {
-                while (thread.threadSuggestRunning) {
+                while (running) {
                     genSafe(buffer)
                     val written = A2.snd_pcm_writei(pcm, buffer.data, 0, buffer.totalSamples * channels, buffer.totalSamples)
                     //println("offset=$offset, pending=$pending, written=$written")
@@ -59,9 +41,10 @@ class ALSAPlatformAudioOutput(
                         //blockingSleep(1.milliseconds)
                     } else if (written < 0) {
                         println("ALSA: OTHER error: $written")
-                        //delay(1.milliseconds)
-                        NativeThread.sleep(1.milliseconds)
+                        delay(1L)
                         break
+                    } else {
+                        delay(1L)
                     }
                 }
             } finally {
@@ -72,11 +55,6 @@ class ALSAPlatformAudioOutput(
                 //println("!!CLOSED = $pcm")
             }
         }
-    }
-
-    override fun internalStop() {
-        nativeThread?.threadSuggestRunning = false
-        nativeThread = null
     }
 }
 

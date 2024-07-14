@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalStdlibApi::class)
-
 package korlibs.audio.sound
 
 import doIOTest
