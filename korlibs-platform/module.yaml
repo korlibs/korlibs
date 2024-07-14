@@ -6,6 +6,7 @@ apply: [ ../common.module-template.yaml ]
 
 aliases:
   - jvmAndAndroid: [jvm, android]
+  - jsAndWasmJs: [js, wasm]
 
 dependencies:
 
