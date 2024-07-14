@@ -57,8 +57,8 @@ class NewPlatformAudioOutput(
 
     fun start() {
         if (running) return
-        running = true
         stop()
+        running = true
         //onCancel = coroutineContext.onCancel { stop() }
         job?.cancel()
         job = CoroutineScope(dispatcher).launch {
