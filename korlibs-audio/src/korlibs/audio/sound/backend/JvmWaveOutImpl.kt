@@ -19,10 +19,6 @@ class JvmWaveOutNativeSoundProvider : NativeSoundProvider() {
         frequency: Int,
         gen: NewPlatformAudioOutputGen
     ): NewPlatformAudioOutput = NewPlatformAudioOutput(coroutineContext, channels, frequency, gen) {
-        val samplesLock = NonRecursiveLock()
-        var nativeThread: NativeThread? = null
-        var totalEmittedSamples = 0L
-
         var handle: FFIPointer? = null
         var headers = emptyArray<WaveHeader>()
 

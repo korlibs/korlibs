@@ -6,10 +6,12 @@ import korlibs.audio.sound.AudioStreamable
 import korlibs.audio.sound.Sound
 import korlibs.audio.sound.withProcessor
 
+@Deprecated("")
 data class AudioStreamEchoConfig(
     var volume: Double = 1.0
 )
 
+@Deprecated("")
 suspend fun AudioStreamable.withEcho(bufferLen: Int = 2048, config: AudioStreamEchoConfig = AudioStreamEchoConfig()): Sound {
     val buffer2 = AudioSamples(2, bufferLen)
     val buffer = AudioSamples(2, bufferLen)
