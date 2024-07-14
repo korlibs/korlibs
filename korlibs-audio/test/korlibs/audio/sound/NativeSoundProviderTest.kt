@@ -5,18 +5,15 @@ import korlibs.io.file.std.*
 import kotlin.test.*
 
 class NativeSoundProviderTest {
-    class DequeNativeSoundProvider : LogNativeSoundProvider() {
-    }
-
     @Test
     fun test() = suspendTest {
         val values = listOf(null, 1.0, 0.1).map { volume ->
-            val nativeSoundProvider = DequeNativeSoundProvider()
+            val nativeSoundProvider = LogNativeSoundProvider()
             val sound = nativeSoundProvider
                 .createSound(resourcesVfs["wav8bit.wav"], streaming = true)
                 .also { if (volume != null) it.volume = volume }
             sound.playAndWait()
-            val data = nativeSoundProvider.streams.first().data
+            val data = AudioSamplesDeque(nativeSoundProvider.log.first().samples)
             (0 until 10).map { data.read(0).toInt() }
         }
         assertEquals(

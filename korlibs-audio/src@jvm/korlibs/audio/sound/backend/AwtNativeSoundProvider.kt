@@ -13,7 +13,7 @@ object AwtNativeSoundProvider : NativeSoundProvider() {
         coroutineContext: CoroutineContext,
         nchannels: Int,
         freq: Int,
-        gen: (AudioSamplesInterleaved) -> Unit
+        gen: NewPlatformAudioOutputGen
     ): NewPlatformAudioOutput {
         return JvmNewPlatformAudioOutput(this, coroutineContext, nchannels, freq, gen)
     }
@@ -24,7 +24,7 @@ class JvmNewPlatformAudioOutput(
     coroutineContext: CoroutineContext,
     nchannels: Int,
     freq: Int,
-    gen: (AudioSamplesInterleaved) -> Unit
+    gen: NewPlatformAudioOutputGen
 ) : NewPlatformAudioOutput(coroutineContext, nchannels, freq, gen) {
     var nativeThread: NativeThread? = null
 
@@ -32,6 +32,8 @@ class JvmNewPlatformAudioOutput(
 
     private fun bytesToSamples(bytes: Int): Int = bytes / BYTES_PER_SAMPLE
     private fun samplesToBytes(samples: Int): Int = samples * BYTES_PER_SAMPLE
+
+    var positionSamples: Long = 0L
 
     override fun internalStart() {
         //println("TRYING TO START")
@@ -52,11 +54,15 @@ class JvmNewPlatformAudioOutput(
             try {
                 val info = AudioSamplesInterleaved(nchannels, 1024)
                 val bytes = ByteArray(samplesToBytes(1024))
-                while (it.threadSuggestRunning) {
+                loop@while (it.threadSuggestRunning) {
                     if (paused) {
                         Thread.sleep(10L)
                     } else {
-                        genSafe(info)
+                        val read = genSafe(info)
+                        if (read <= 0) {
+                            break@loop
+                        }
+                        positionSamples += read
                         bytes.setArrayLE(0, info.data)
                         //println(bytes.count { it == 0.toByte() })
                         line.write(bytes, 0, bytes.size)

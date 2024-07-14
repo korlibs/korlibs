@@ -17,7 +17,7 @@ object Win32WaveOutNativeSoundProvider : NativeSoundProvider() {
         coroutineContext: CoroutineContext,
         channels: Int,
         frequency: Int,
-        gen: (AudioSamplesInterleaved) -> Unit
+        gen: NewPlatformAudioOutputGen
     ): NewPlatformAudioOutput = Win32WaveOutNewPlatformAudioOutput(coroutineContext, channels, frequency, gen)
 }
 
@@ -25,13 +25,15 @@ class Win32WaveOutNewPlatformAudioOutput(
     coroutineContext: CoroutineContext,
     nchannels: Int,
     freq: Int,
-    gen: (AudioSamplesInterleaved) -> Unit
+    gen: NewPlatformAudioOutputGen
 ) : NewPlatformAudioOutput(coroutineContext, nchannels, freq, gen) {
     var nativeThread: NativeThread? = null
     var running = false
 
     private var handle: HWAVEOUT? = null
     private var headers = emptyArray<WaveHeader>()
+
+    var positionSamples = 0L
 
     override fun internalStart() {
         //println("TRYING TO START")
@@ -63,11 +65,15 @@ class Win32WaveOutNewPlatformAudioOutput(
                 headers = Array(4) { WaveHeader(it, handle, 1024, channels, arena) }
 
                 try {
-                    while (running) {
+                    loop@while (running) {
                         var queued = 0
                         for (header in headers) {
                             if (!header.hdr.isInQueue) {
-                                genSafe(header.samples)
+                                val read = genSafe(header.samples)
+                                if (read <= 0) {
+                                    break@loop
+                                }
+                                positionSamples += read
                                 header.prepareAndWrite()
                                 queued++
                                 //println("Sending running=$running, availableRead=$availableRead, header=${header}")

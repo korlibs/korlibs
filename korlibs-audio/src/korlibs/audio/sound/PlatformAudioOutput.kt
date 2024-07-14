@@ -12,24 +12,26 @@ import kotlinx.atomicfu.locks.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
 
+typealias NewPlatformAudioOutputGen = (AudioSamplesInterleaved) -> Int
+
 @OptIn(ExperimentalStdlibApi::class)
 open class NewPlatformAudioOutput(
     val coroutineContext: CoroutineContext,
     val channels: Int,
     val frequency: Int,
-    private val gen: (AudioSamplesInterleaved) -> Unit,
+    private val gen: NewPlatformAudioOutputGen,
 ) : AutoCloseable, SoundProps {
     var onCancel: AutoCloseable? = null
     var paused: Boolean = false
 
     private val lock = reentrantLock()
-    fun genSafe(buffer: AudioSamplesInterleaved) {
-        lock.withLock {
+    fun genSafe(buffer: AudioSamplesInterleaved): Int {
+        return lock.withLock {
             try {
-                gen(buffer)
-                applyPropsTo(buffer)
+                gen(buffer).also { applyPropsTo(buffer) }
             } catch (e: Throwable) {
                 e.printStackTrace()
+                0
             }
         }
     }
@@ -53,6 +55,34 @@ open class NewPlatformAudioOutput(
         internalStop()
     }
     final override fun close() = stop()
+
+    companion object {
+        fun create(
+            dispatcher: CoroutineDispatcher,
+            coroutineContext: CoroutineContext,
+            channels: Int,
+            frequency: Int,
+            gen: NewPlatformAudioOutputGen,
+            block: suspend NewPlatformAudioOutput.() -> Unit
+        ): NewPlatformAudioOutput {
+            return object : NewPlatformAudioOutput(coroutineContext, channels, frequency, gen)  {
+                private var job: Job? = null
+
+                override fun internalStart() {
+                    job?.cancel()
+                    job = CoroutineScope(coroutineContext).launch {
+                        withContext(dispatcher) {
+                            block()
+                        }
+                    }
+                }
+
+                override fun internalStop() {
+                    job?.cancel()
+                }
+            }
+        }
+    }
 }
 
 open class PlatformAudioOutputBasedOnNew(

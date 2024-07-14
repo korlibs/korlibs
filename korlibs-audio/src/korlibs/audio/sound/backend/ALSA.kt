@@ -8,7 +8,7 @@ import korlibs.time.*
 import kotlin.coroutines.*
 
 object FFIALSANativeSoundProvider : NativeSoundProvider() {
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: (AudioSamplesInterleaved) -> Unit): NewPlatformAudioOutput {
+    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput {
         //println("ALSANativeSoundProvider.createPlatformAudioOutput(freq=$freq)")
         return ALSAPlatformAudioOutput(this, coroutineContext, channels, frequency, gen)
     }
@@ -19,7 +19,7 @@ class ALSAPlatformAudioOutput(
     coroutineContext: CoroutineContext,
     channels: Int,
     frequency: Int,
-    gen: (AudioSamplesInterleaved) -> Unit,
+    gen: NewPlatformAudioOutputGen,
 ) : NewPlatformAudioOutput(coroutineContext, channels, frequency, gen) {
     //var nativeThread: Job? = null
     var nativeThread: NativeThread? = null
@@ -47,8 +47,11 @@ class ALSAPlatformAudioOutput(
                 latency
             )
             try {
+                var position = 0L
                 while (thread.threadSuggestRunning) {
-                    genSafe(buffer)
+                    val read = genSafe(buffer)
+                    if (read <= 0) break
+                    position += read
                     val written = A2.snd_pcm_writei(pcm, buffer.data, 0, buffer.totalSamples * channels, buffer.totalSamples)
                     //println("offset=$offset, pending=$pending, written=$written")
                     if (written == -A2.EPIPE) {

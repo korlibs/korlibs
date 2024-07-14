@@ -27,7 +27,7 @@ val CORE_AUDIO_NATIVE_SOUND_PROVIDER: CoreAudioNativeSoundProvider by lazy { Cor
 class CoreAudioNativeSoundProvider : NativeSoundProvider() {
     //override suspend fun createSound(data: ByteArray, streaming: Boolean, props: AudioDecodingProps): NativeSound = AVFoundationNativeSoundNoStream(CoroutineScope(coroutineContext), audioFormats.decode(data))
 
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: (AudioSamplesInterleaved) -> Unit): CoreAudioNewPlatformAudioOutput {
+    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutputGen): CoreAudioNewPlatformAudioOutput {
         appleInitAudioOnce
         return CoreAudioNewPlatformAudioOutput(coroutineContext, frequency, channels, gen)
     }
@@ -37,16 +37,22 @@ class CoreAudioNewPlatformAudioOutput(
     coroutineContext: CoroutineContext,
     freq: Int,
     nchannels: Int,
-    gen: (AudioSamplesInterleaved) -> Unit,
+    gen: NewPlatformAudioOutputGen,
 ) : NewPlatformAudioOutput(coroutineContext, nchannels, freq, gen) {
     //private var samples: AudioSamplesInterleaved? = null
 
+    var samplePosition: Long = 0L
     val generator = CoreAudioGenerator(freq, nchannels, coroutineContext = coroutineContext) { data, dataSize ->
         val totalSamples = dataSize / nchannels
         //if (samples == null || samples!!.totalSamples != totalSamples || samples!!.channels != channels) {
         //}
         val samples = AudioSamplesInterleaved(nchannels, totalSamples)
-        genSafe(samples)
+        val read = genSafe(samples)
+        if (read <= 0) {
+            internalStop()
+            return@CoreAudioGenerator
+        }
+        samplePosition += read
         samples.data.usePinned {
             memcpy(data, it.startAddressOf, (dataSize * Short.SIZE_BYTES).convert())
         }

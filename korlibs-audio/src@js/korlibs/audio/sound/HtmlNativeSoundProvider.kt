@@ -24,7 +24,7 @@ class HtmlNativeSoundProvider : NativeSoundProvider() {
         HtmlSimpleSound.ensureUnlockStart()
     }
 
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: (AudioSamplesInterleaved) -> Unit): NewPlatformAudioOutput {
+    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput {
         return JsNewPlatformAudioOutput(coroutineContext, channels, frequency, gen)
     }
 
@@ -57,7 +57,7 @@ class JsNewPlatformAudioOutput(
     coroutineContext: CoroutineContext,
     nchannels: Int,
     frequency: Int,
-    gen: (AudioSamplesInterleaved) -> Unit
+    gen: NewPlatformAudioOutputGen
 ) : NewPlatformAudioOutput(
     coroutineContext, nchannels, frequency, gen
 ) {
@@ -70,6 +70,7 @@ class JsNewPlatformAudioOutput(
     var node: ScriptProcessorNode? = null
 
     private var startPromise: Cancellable? = null
+    var positionSample: Long = 0L
 
     override fun internalStart() {
         if (nodeRunning) return
@@ -82,16 +83,20 @@ class JsNewPlatformAudioOutput(
                 node = ctx.createScriptProcessor(bufferSize, channels, channels)
                 //Console.log("sampleRate", ctx.sampleRate, "bufferSize", bufferSize, "totalSamples", samples.totalSamples, "scale", scale)
                 node?.onaudioprocess = { e ->
-                    genSafe(samples)
-                    val separated = samples.separated()
-                    for (ch in 0 until channels) {
-                        val outCh = e.outputBuffer.getChannelData(ch)
-                        val data = separated[ch]
-                        for (n in 0 until bufferSize) {
-                            outCh[n] = SampleConvert.shortToFloat(data.getSampled(n * scale))
+                    val read = genSafe(samples)
+                    if (read <= 0) {
+                        stop()
+                    } else {
+                        positionSample += read
+                        val separated = samples.separated()
+                        for (ch in 0 until channels) {
+                            val outCh = e.outputBuffer.getChannelData(ch)
+                            val data = separated[ch]
+                            for (n in 0 until bufferSize) {
+                                outCh[n] = SampleConvert.shortToFloat(data.getSampled(n * scale))
+                            }
                         }
                     }
-
                 }
                 this.node?.connect(ctx.destination)
             }

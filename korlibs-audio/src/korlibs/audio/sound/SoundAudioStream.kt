@@ -33,7 +33,7 @@ class SoundAudioData(
                 for (ch in 0 until it.channels) {
                     audioData[ch].fill(0)
                 }
-                return@createNewPlatformAudioOutput
+                return@createNewPlatformAudioOutput it.totalSamples
             }
             loop@for (ch in 0 until it.channels) {
                 val audioDataCh = audioData[ch]
@@ -52,6 +52,7 @@ class SoundAudioData(
                     nas?.stop()
                 }
             }
+            it.totalSamples
         }
         nas.copySoundPropsFromCombined(params, this)
         nas.start()

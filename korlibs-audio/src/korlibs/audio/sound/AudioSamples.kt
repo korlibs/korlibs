@@ -151,6 +151,9 @@ class AudioSamplesInterleaved(override val channels: Int, override val totalSamp
     override operator fun get(channel: Int, sample: Int): Short = data[index(channel, sample)]
     override operator fun set(channel: Int, sample: Int, value: Short) { data[index(channel, sample)] = value }
 
+    fun copyOf(size: Int = totalSamples): AudioSamplesInterleaved = copyOfRange(0, size)
+    fun copyOfRange(fromIndex: Int, toIndex: Int): AudioSamplesInterleaved = AudioSamplesInterleaved(channels, toIndex - fromIndex, data.copyOfRange(fromIndex * channels, toIndex * channels))
+
     override fun scaleVolume(scale: Float): AudioSamplesInterleaved {
         for (n in data.indices) data[n] = (data[n] * scale).toInt().coerceToShort()
         return this

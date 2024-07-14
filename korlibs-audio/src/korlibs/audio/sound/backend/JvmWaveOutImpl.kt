@@ -17,7 +17,7 @@ class JvmWaveOutNativeSoundProvider : NativeSoundProvider() {
         coroutineContext: CoroutineContext,
         channels: Int,
         frequency: Int,
-        gen: (AudioSamplesInterleaved) -> Unit
+        gen: NewPlatformAudioOutputGen
     ): NewPlatformAudioOutput = JvmWaveOutNewPlatformAudioOutput(coroutineContext, channels, frequency, gen)
 }
 
@@ -74,7 +74,7 @@ class JvmWaveOutNewPlatformAudioOutput(
     coroutineContext: CoroutineContext,
     nchannels: Int,
     freq: Int,
-    gen: (AudioSamplesInterleaved) -> Unit
+    gen: NewPlatformAudioOutputGen
 ) : NewPlatformAudioOutput(coroutineContext, nchannels, freq, gen) {
     val samplesLock = NonRecursiveLock()
     var nativeThread: NativeThread? = null
@@ -132,11 +132,14 @@ class JvmWaveOutNewPlatformAudioOutput(
                 headers = Array(4) { WaveHeader(it, handle, 1024, channels, arena) }
 
                 try {
-                    while (running) {
+                    loop@while (running) {
                         var queued = 0
+                        var position = 0L
                         for (header in headers) {
                             if (!header.hdr.isInQueue) {
-                                genSafe(header.samples)
+                                val read = genSafe(header.samples)
+                                if (read <= 0) break@loop
+                                position += read
                                 header.prepareAndWrite()
                                 queued++
                                 //println("Sending running=$running, availableRead=$availableRead, header=${header}")

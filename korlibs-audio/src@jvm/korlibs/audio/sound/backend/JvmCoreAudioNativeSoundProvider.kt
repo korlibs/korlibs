@@ -19,7 +19,7 @@ val jvmCoreAudioNativeSoundProvider: JvmCoreAudioNativeSoundProvider? by lazy {
 }
 
 class JvmCoreAudioNativeSoundProvider : NativeSoundProvider() {
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, nchannels: Int, freq: Int, gen: (AudioSamplesInterleaved) -> Unit): NewPlatformAudioOutput {
+    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, nchannels: Int, freq: Int, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput {
         return JvmCoreAudioNewPlatformAudioOutput(coroutineContext, nchannels, freq, gen)
     }
 }
@@ -28,7 +28,7 @@ private val newAudioOutputsById = ConcurrentHashMap<Long, JvmCoreAudioNewPlatfor
 private val jnaNewCoreAudioCallback by lazy {
     AudioQueueNewOutputCallback { inUserData, inAQ, inBuffer ->
         try {
-            val output = newAudioOutputsById[(inUserData?.address ?: 0L).toLong()] ?: return@AudioQueueNewOutputCallback 0
+            val output: JvmCoreAudioNewPlatformAudioOutput = newAudioOutputsById[(inUserData?.address ?: 0L).toLong()] ?: return@AudioQueueNewOutputCallback 0
             val nchannels = output.channels
 
             //val tone = AudioTone.generate(1.seconds, 41000.0)
@@ -41,7 +41,12 @@ private val jnaNewCoreAudioCallback by lazy {
                 // Reuse instances as much as possible
                 if (output.buffer.totalSamples != samplesCount) output.buffer = AudioSamplesInterleaved(nchannels, samplesCount)
                 val samples = output.buffer
-                output.genSafe(samples)
+                val read = output.genSafe(samples)
+                if (read <= 0) {
+                    output.stop()
+                    return@AudioQueueNewOutputCallback  0
+                }
+                output.positionSamples += read
 
                 val samplesData = samples.data
                 for (n in 0 until samplesCount * nchannels) {
@@ -70,7 +75,7 @@ private class JvmCoreAudioNewPlatformAudioOutput(
     coroutineContext: CoroutineContext,
     nchannels: Int,
     freq: Int,
-    gen: (AudioSamplesInterleaved) -> Unit,
+    gen: NewPlatformAudioOutputGen,
 ) : NewPlatformAudioOutput(coroutineContext, nchannels, freq, gen) {
     val id = lastId.incrementAndGet()
     companion object {
@@ -84,6 +89,7 @@ private class JvmCoreAudioNewPlatformAudioOutput(
     internal var buffer by atomic(AudioSamplesInterleaved(nchannels, 0))
 
     var queue: Pointer? = null
+    var positionSamples = 0L
 
     override fun internalStart() {
         newAudioOutputsById[id] = this
