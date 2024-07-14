@@ -100,8 +100,8 @@ class AudioSamples(
     override operator fun get(channel: Int, sample: Int): Short = data[channel][sample]
     override operator fun set(channel: Int, sample: Int, value: Short) { data[channel][sample] = value }
 
-    fun copyOf(size: Int = totalSamples): AudioSamplesInterleaved = copyOfRange(0, size)
-    fun copyOfRange(fromIndex: Int, toIndex: Int): AudioSamplesInterleaved = AudioSamplesInterleaved(channels, toIndex - fromIndex, data.copyOfRange(fromIndex * channels, toIndex * channels))
+    fun copyOf(size: Int = totalSamples): AudioSamples = copyOfRange(0, size)
+    fun copyOfRange(fromIndex: Int, toIndex: Int): AudioSamples = AudioSamples(channels, toIndex - fromIndex, Array(data.size) { data[it].copyOfRange(fromIndex * channels, toIndex * channels) })
 
     fun setStereo(sample: Int, valueLeft: Short, valueRight: Short) {
         this[0, sample] = valueLeft
@@ -148,11 +148,18 @@ class AudioSamples(
     override fun toString(): String = "AudioSamples(channels=$channels, totalSamples=$totalSamples)"
 }
 
-class AudioSamplesInterleaved(override val channels: Int, override val totalSamples: Int, val data: ShortArray = ShortArray(totalSamples * channels)) : IAudioSamples {
+class AudioSamplesInterleaved(
+    override val channels: Int,
+    override val totalSamples: Int,
+    val data: ShortArray = ShortArray(totalSamples * channels),
+) : IAudioSamples {
     //val separared by lazy { separated() }
     private fun index(channel: Int, sample: Int): Int = (sample * channels) + channel
     override operator fun get(channel: Int, sample: Int): Short = data[index(channel, sample)]
     override operator fun set(channel: Int, sample: Int, value: Short) { data[index(channel, sample)] = value }
+
+    fun copyOf(size: Int = totalSamples): AudioSamplesInterleaved = copyOfRange(0, size)
+    fun copyOfRange(fromIndex: Int, toIndex: Int): AudioSamplesInterleaved = AudioSamplesInterleaved(channels, toIndex - fromIndex, data.copyOfRange(fromIndex * channels, toIndex * channels))
 
     override fun scaleVolume(scale: Float): AudioSamplesInterleaved {
         for (n in data.indices) data[n] = (data[n] * scale).toInt().coerceToShort()
