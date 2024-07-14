@@ -28,7 +28,7 @@ private val newAudioOutputsById = ConcurrentHashMap<Long, JvmCoreAudioNewPlatfor
 private val jnaNewCoreAudioCallback by lazy {
     AudioQueueNewOutputCallback { inUserData, inAQ, inBuffer ->
         try {
-            val output = newAudioOutputsById[(inUserData?.address ?: 0L).toLong()] ?: return@AudioQueueNewOutputCallback 0
+            val output: JvmCoreAudioNewPlatformAudioOutput = newAudioOutputsById[(inUserData?.address ?: 0L).toLong()] ?: return@AudioQueueNewOutputCallback 0
             val nchannels = output.channels
 
             //val tone = AudioTone.generate(1.seconds, 41000.0)
