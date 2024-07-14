@@ -5,6 +5,7 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.coroutineContext
 import kotlin.time.*
 
+@Deprecated("")
 class AudioChannel(
     val nativeSoundProvider: NativeSoundProvider = korlibs.audio.sound.nativeSoundProvider
 ) {

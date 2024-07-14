@@ -5,6 +5,7 @@ import korlibs.time.*
 import kotlin.math.*
 import kotlin.time.*
 
+@Deprecated("")
 object AudioTone {
     /**
      * Generates a tone with the specified [frequency] and [length].

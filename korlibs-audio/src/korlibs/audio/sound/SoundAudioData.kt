@@ -1,10 +1,8 @@
 package korlibs.audio.sound
 
-import kotlinx.coroutines.*
 import kotlin.coroutines.*
 import kotlin.time.*
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class SoundAudioData(
     coroutineContext: CoroutineContext,
     val audioData: AudioData,

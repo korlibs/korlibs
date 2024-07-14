@@ -1,5 +1,6 @@
 package korlibs.audio.sound
 
+@Deprecated("Use nodes")
 fun AudioStream.withProcessor(block: suspend (inp: AudioStream, outp: AudioSamplesDeque) -> Unit): AudioStream {
     val inp = this
     return object : AudioStream(inp.rate, inp.channels) {
@@ -26,5 +27,6 @@ fun AudioStream.withProcessor(block: suspend (inp: AudioStream, outp: AudioSampl
     }
 }
 
+@Deprecated("Use nodes")
 suspend fun AudioStreamable.withProcessor(block: suspend (inp: AudioStream, outp: AudioSamplesDeque) -> Unit): Sound =
     this.toStream().withProcessor(block).toSound()

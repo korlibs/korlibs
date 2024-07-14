@@ -1,5 +1,6 @@
 package korlibs.audio.sound
 
+@Deprecated("Use AudioSample / AudioSampleArray class instead")
 object SoundUtils {
 	fun convertS16ToF32(channels: Int, input: ShortArray, leftVolume: Float, rightVolume: Float): FloatArray {
 		val output = FloatArray(input.size * 2 / channels)

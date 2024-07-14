@@ -1,17 +1,9 @@
-@file:OptIn(ExperimentalStdlibApi::class)
-
 package korlibs.audio.sound
 
-import korlibs.time.seconds
-import korlibs.audio.format.AudioDecodingProps
-import korlibs.audio.format.AudioEncodingProps
-import korlibs.audio.format.AudioFormat
-import korlibs.audio.format.defaultAudioFormats
-import korlibs.io.file.VfsFile
-import korlibs.io.file.VfsOpenMode
-import korlibs.io.file.baseName
-import korlibs.io.lang.Closeable
-import kotlin.math.min
+import korlibs.audio.format.*
+import korlibs.io.file.*
+import korlibs.time.*
+import kotlin.math.*
 import kotlin.time.*
 
 abstract class AudioStream(
