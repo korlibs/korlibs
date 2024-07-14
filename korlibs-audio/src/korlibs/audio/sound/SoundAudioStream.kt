@@ -28,9 +28,12 @@ class SoundAudioStream(
         private val ID_POOL = ConcurrentPool<Int> { it }
     }
 
-    @OptIn(ExperimentalStdlibApi::class)
     override fun play(coroutineContext: CoroutineContext, params: PlaybackParameters): SoundChannel {
-        val nas: PlatformAudioOutput = soundProvider.createPlatformAudioOutput(coroutineContext, stream.rate)
+        val deque = AudioSamplesDeque(nchannels)
+        val nas = soundProvider.createNewPlatformAudioOutput(coroutineContext, nchannels, stream.rate) {
+            it.data.fill(0)
+            deque.read(it)
+        }
         nas.copySoundPropsFromCombined(params, this)
         var playing = true
         var paused = false
@@ -55,9 +58,8 @@ class SoundAudioStream(
                     var times = params.times
                     try {
                         val temp = AudioSamples(stream.channels, 1024)
-                        val nchannels = 2
-                        val minBuf = (stream.rate * nchannels * params.bufferTime.seconds).toInt()
-                        nas.start()
+                        val minBuf = (stream.rate * params.bufferTime.seconds).toInt()
+                        var started = false
                         while (times.hasMore) {
                             stream.currentPositionInSamples = 0L
                             while (!stream.finished) {
@@ -67,14 +69,11 @@ class SoundAudioStream(
                                     //println("PAUSED")
                                 }
                                 val read = stream.read(temp, 0, temp.totalSamples)
-                                nas.add(temp, 0, read)
-                                while (nas.availableSamples in minBuf..minBuf * 2) {
-                                    delay(2.milliseconds) // 100ms of buffering, and 1s as much
-                                    //println("STREAM.WAIT: ${nas.availableSamples}")
-                                }
-                                if (nas.availableSamples !in minBuf..minBuf * 2 && !stream.finished) {
-                                    //println("BUSY LOOP!")
-                                    delay(2.milliseconds)
+                                deque.write(temp, 0, read)
+                                if (deque.availableRead > minBuf) delay(2.milliseconds)
+                                if (!started) {
+                                    started = true
+                                    nas.start()
                                 }
                             }
                             times = times.oneLess
@@ -84,7 +83,7 @@ class SoundAudioStream(
                         nas.stop()
                         params.onCancel?.invoke()
                     } finally {
-                        nas.wait()
+                        while (deque.availableRead > 0) delay(1L)
                         nas.stop()
                         if (closeStream) {
                             stream.close()
