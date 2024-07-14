@@ -206,7 +206,7 @@ project.kotlin.sourceSets {
     ssDependsOn("nonJs", "common")
     ssDependsOn("concurrent", "nonJs")
     ssDependsOn("jvmAndAndroid", "concurrent")
-    ssDependsOn("jsAndWasmJs", "common")
+    //ssDependsOn("jsAndWasmJs", "common")
     ssDependsOn("native", "concurrent")
     ssDependsOn("posix", "native")
     ssDependsOn("apple", "posix")
@@ -241,7 +241,7 @@ project.kotlin.sourceSets {
         if (isWasm) ssDependsOn(basePlatform, "nonJs")
         if (isJs) ssPair("js")
         if (isJvm || isAndroid) ssDependsOn(basePlatform, "jvmAndAndroid")
-        if (isJs || isWasm) ssDependsOn(basePlatform, "jsAndWasmJs")
+        //if (isJs || isWasm) ssDependsOn(basePlatform, "jsAndWasmJs")
         if (isAndroid) ssDependsOn(basePlatform, "android")
         if (platform != basePlatform) ssDependsOn(platform, basePlatform)
     }
