@@ -6,61 +6,47 @@ import korlibs.ffi.*
 import korlibs.time.*
 
 internal object ALSAAudioSystem : AudioSystem() {
-    override fun createPlayer(device: AudioDevice): AudioPlayer = SoftAudioPlayer(device, ALSAAudioStreamPlayer)
+    override fun createPlayer(device: AudioDevice): AudioPlayer = SimpleAudioPlayer.gen(device) { buffer ->
+        val interleaved = buffer.samples.interleaved()
+        val pcm = A2.snd_pcm_open("default", A2.SND_PCM_STREAM_PLAYBACK, 0)
+        if (pcm.address == 0L) {
+            error("Can't initialize ALSA")
+            //running = false
+            //return@nativeThread
+        }
+        //val latency = 8 * 4096
+        val latency = 32 * 4096
+        A2.snd_pcm_set_params(pcm, A2.SND_PCM_FORMAT_S16_LE, A2.SND_PCM_ACCESS_RW_INTERLEAVED, buffer.nchannels, rate, 1, latency)
+
+        SimpleAudioGen(
+            queue = {
+                buffer.samples.interleaved(interleaved)
+                val written = A2.snd_pcm_writei(pcm, interleaved.asShortArray(), 0, buffer.nsamples * buffer.nchannels, buffer.nsamples)
+                //println("offset=$offset, pending=$pending, written=$written")
+                if (written == -A2.EPIPE) {
+                    //println("ALSA: EPIPE error")
+                    //A2.snd_pcm_prepare(pcm)
+                    A2.snd_pcm_recover(pcm, written, 0)
+                    //blockingSleep(1.milliseconds)
+                } else if (written < 0) {
+                    println("ALSA: OTHER error: $written")
+                    //delay(1.milliseconds)
+                    NativeThread.sleep(1.milliseconds)
+                }
+            },
+            close = {
+                //println("!!COMPLETED : pcm=$pcm")
+                A2.snd_pcm_wait(pcm, 1000)
+                A2.snd_pcm_drain(pcm)
+                A2.snd_pcm_close(pcm)
+                //println("!!CLOSED = $pcm")
+            }
+        )
+    }
 
     override val devices: List<AudioDevice> by lazy {
         // @TODO: Implement this
         super.devices
-    }
-
-    object ALSAAudioStreamPlayer : AudioStreamPlayer {
-        override fun playStream(device: AudioDevice, rate: Int, channels: Int, gen: (position: Long, data: PerChannelAudioSamples) -> Int): AutoCloseable {
-            val nativeThread = nativeThread(start = true, isDaemon = true) { thread ->
-                val buffer = PerChannelAudioSamples(channels, 1024)
-                val interleaved = buffer.interleaved()
-                val pcm = A2.snd_pcm_open("default", A2.SND_PCM_STREAM_PLAYBACK, 0)
-                if (pcm.address == 0L) {
-                    error("Can't initialize ALSA")
-                    //running = false
-                    //return@nativeThread
-                }
-
-                //val latency = 8 * 4096
-                val latency = 32 * 4096
-                A2.snd_pcm_set_params(pcm, A2.SND_PCM_FORMAT_S16_LE, A2.SND_PCM_ACCESS_RW_INTERLEAVED, channels, rate, 1, latency)
-                var position = 0L
-                try {
-                    while (thread.threadSuggestRunning) {
-                        gen(position, buffer)
-                        buffer.interleaved(interleaved)
-                        val written = A2.snd_pcm_writei(pcm, interleaved.asShortArray(), 0, buffer.nsamples * buffer.nchannels, buffer.nsamples)
-                        //println("offset=$offset, pending=$pending, written=$written")
-                        if (written == -A2.EPIPE) {
-                            //println("ALSA: EPIPE error")
-                            //A2.snd_pcm_prepare(pcm)
-                            A2.snd_pcm_recover(pcm, written, 0)
-                            continue
-                            //blockingSleep(1.milliseconds)
-                        } else if (written < 0) {
-                            println("ALSA: OTHER error: $written")
-                            //delay(1.milliseconds)
-                            NativeThread.sleep(1.milliseconds)
-                            break
-                        }
-                    }
-                } finally {
-                    //println("!!COMPLETED : pcm=$pcm")
-                    A2.snd_pcm_wait(pcm, 1000)
-                    A2.snd_pcm_drain(pcm)
-                    A2.snd_pcm_close(pcm)
-                    //println("!!CLOSED = $pcm")
-                }
-            }
-
-            return AutoCloseable {
-                nativeThread.threadSuggestRunning = false
-            }
-        }
     }
 }
 

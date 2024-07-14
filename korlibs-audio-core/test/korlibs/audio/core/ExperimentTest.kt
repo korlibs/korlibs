@@ -11,9 +11,9 @@ class ExperimentTest {
         println(defaultAudioSystem.devices)
         val source = defaultAudioPlayer.createSource()
         println(defaultAudioPlayer.device)
-        source.setData(44100, 1, arrayOf(AudioSampleArray(44100) {
+        source.setContent(AudioBuffer(SeparatedAudioSamples(AudioSamples(44100 * 2) {
             AudioSample(kotlin.math.cos(it.toFloat() / 40f))
-        }))
+        }), rate = 44100))
         source.play()
         NativeThread.sleep(10.seconds)
     }

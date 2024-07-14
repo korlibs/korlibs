@@ -1,15 +1,13 @@
 package korlibs.audio.core.impl
 
 import korlibs.audio.core.*
+import korlibs.audio.core.node.*
 import korlibs.concurrent.thread.*
 import korlibs.ffi.*
-import korlibs.io.lang.*
 import korlibs.memory.*
 import korlibs.time.*
 
 internal object Win32AudioSystem : AudioSystem() {
-    override fun createPlayer(device: AudioDevice): AudioPlayer = SoftAudioPlayer(device, WaveOutAudioStreamPlayer)
-
     override val devices: List<AudioDevice> by lazy {
         ffiScoped {
             val ndevs = WINMM.waveOutGetNumDevs()
@@ -37,64 +35,57 @@ internal object Win32AudioSystem : AudioSystem() {
         }
     }
 
-    object WaveOutAudioStreamPlayer : AudioStreamPlayer {
-        @OptIn(ExperimentalStdlibApi::class)
-        override fun playStream(device: AudioDevice, rate: Int, channels: Int, gen: (position: Long, data: Array<AudioSampleArray>) -> Int): AutoCloseable {
-            var running = true
-            val nativeThread = nativeThread(start = true, isDaemon = true) {
-                ffiScoped {
-                    val arena = this
-                    val handlePtr = allocBytes(8).typed<FFIPointer?>()
-                    val freq = rate
-                    val blockAlign = (channels * Short.SIZE_BYTES)
-                    val format = WAVEFORMATEX(allocBytes(WAVEFORMATEX().size)).also { format ->
-                        format.wFormatTag = WINMM.WAVE_FORMAT_PCM.toShort()
-                        format.nChannels = channels.toShort() // 2?
-                        format.nSamplesPerSec = freq.toInt()
-                        format.wBitsPerSample = Short.SIZE_BITS.toShort() // 16
-                        format.nBlockAlign = ((channels * Short.SIZE_BYTES).toShort())
-                        format.nAvgBytesPerSec = freq * blockAlign
-                        format.cbSize = format.size.toShort()
-                    }
-                    //WINMM.waveOutOpen(handlePtr.pointer, WINMM.WAVE_MAPPER, format.ptr, null, null, 0).also {
-                    WINMM.waveOutOpen(handlePtr.pointer, device.id.toInt(), format.ptr, null, null, 0).also {
-                        if (it != 0) println("WINMM.waveOutOpen: $it")
-                    }
-                    var handle = handlePtr[0]
-                    //println("handle=$handle")
+    @OptIn(ExperimentalStdlibApi::class)
+    override fun createPlayer(device: AudioDevice): AudioPlayer = SimpleAudioPlayer.gen(device) { buffer ->
+        val arena = FFIArena()
+        val handlePtr = arena.allocBytes(8).typed<FFIPointer?>()
+        val freq = rate
+        val channels = buffer.nchannels
+        val blockAlign = (channels * Short.SIZE_BYTES)
+        val format = WAVEFORMATEX(arena.allocBytes(WAVEFORMATEX().size)).also { format ->
+            format.wFormatTag = WINMM.WAVE_FORMAT_PCM.toShort()
+            format.nChannels = channels.toShort() // 2?
+            format.nSamplesPerSec = freq.toInt()
+            format.wBitsPerSample = Short.SIZE_BITS.toShort() // 16
+            format.nBlockAlign = ((channels * Short.SIZE_BYTES).toShort())
+            format.nAvgBytesPerSec = freq * blockAlign
+            format.cbSize = format.size.toShort()
+        }
+        //WINMM.waveOutOpen(handlePtr.pointer, WINMM.WAVE_MAPPER, format.ptr, null, null, 0).also {
+        WINMM.waveOutOpen(handlePtr.pointer, device.id.toInt(), format.ptr, null, null, 0).also {
+            if (it != 0) println("WINMM.waveOutOpen: $it")
+        }
+        var handle = handlePtr[0]
+        //println("handle=$handle")
 
-                    var headers = Array(4) { WaveHeader(it, handle, 1024, channels, arena) }
-                    var position = 0L
+        var headers = Array(4) { WaveHeader(it, handle, 1024, channels, rate, arena) }
 
-                    try {
-                        while (running) {
-                            var queued = 0
-                            for (header in headers) {
-                                if (!header.hdr.isInQueue) {
-                                    position += gen(position, header.samples)
-                                    header.prepareAndWrite()
-                                    queued++
-                                    //println("Sending running=$running, availableRead=$availableRead, header=${header}")
-                                }
-                            }
-                            if (queued == 0) blockingSleep(1.milliseconds)
-                        }
-                    } finally {
-                        for (header in headers) header.dispose()
-                        //runBlockingNoJs {
-                        //    wait()
-                        //}
-                        WINMM.waveOutReset(handle)
-                        WINMM.waveOutClose(handle)
-                        handle = null
-                        //println("CLOSED")
+        SimpleAudioGen(
+            queue = {
+                var queued = 0
+                for (header in headers) {
+                    if (!header.hdr.isInQueue) {
+                        header.prepareAndWrite(buffer)
+                        queued++
+                        //println("Sending running=$running, availableRead=$availableRead, header=${header}")
                     }
                 }
-            }
-            return Closeable {
-                running = false
-            }
-        }
+                if (queued == 0) blockingSleep(1.milliseconds)
+
+            },
+            close = {
+                for (header in headers) header.dispose()
+                //runBlockingNoJs {
+                //    wait()
+                //}
+                WINMM.waveOutReset(handle)
+                WINMM.waveOutClose(handle)
+                handle = null
+                //println("CLOSED")
+
+                arena.clear()
+            },
+        )
     }
 }
 
@@ -104,9 +95,10 @@ private class WaveHeader(
     val handle: FFIPointer?,
     val totalSamples: Int,
     val channels: Int,
+    val rate: Int,
     val arena: FFIArena,
 ) {
-    val samples = Array(channels) { AudioSampleArray(totalSamples) }
+    //val buffer = AudioBuffer(channels, totalSamples, rate)
 
     val totalBytes = (totalSamples * channels * Short.SIZE_BYTES)
     val dataMem = arena.allocBytes(totalBytes).typed<Short>()
@@ -116,16 +108,15 @@ private class WaveHeader(
         hdr.dwFlags = 0
     }
 
-    fun prepareAndWrite(totalSamples: Int = this.totalSamples) {
+    fun prepareAndWrite(buffer: AudioBuffer, totalSamples: Int = this.totalSamples) {
         //println(data[0].toList())
 
         val channels = this.channels
         hdr.dwBufferLength = (totalSamples * channels * Short.SIZE_BYTES)
 
-        var n = 0
         val stride = channels
         for (ch in 0 until channels) {
-            val a = samples[ch]
+            val a = buffer.samples[ch]
             for (s in 0 until totalSamples) {
                 dataMem[ch + stride * s] = a[s].short
             }
