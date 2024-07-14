@@ -8,6 +8,7 @@ aliases:
   - appleIosTvos: [ tvosArm64, tvosX64, tvosSimulatorArm64, iosArm64, iosSimulatorArm64, iosX64 ]
   - appleIosTvosWatchos: [ tvosArm64, tvosX64, tvosSimulatorArm64, iosArm64, iosSimulatorArm64, iosX64, watchosArm64, watchosArm32, watchosDeviceArm64, watchosSimulatorArm64 ]
   - appleNonWatchos: [ tvosArm64, tvosX64, tvosSimulatorArm64, iosArm64, iosSimulatorArm64, iosX64, macosX64, macosArm64 ]
+  - jsAndWasmJs: [ js, wasm ]
 
 dependencies:
   - ../korlibs-audio-core: exported
