@@ -4,6 +4,8 @@ package korlibs.audio.sound
 
 //import mystdio.*
 import cnames.structs.OpaqueAudioQueue
+import korlibs.audio.sound.CoreAudioNativeSoundProvider.*
+import korlibs.audio.sound.CoreAudioNativeSoundProvider.Companion.checkError
 import korlibs.memory.*
 import kotlinx.cinterop.*
 import kotlinx.cinterop.COpaquePointer
@@ -134,18 +136,9 @@ class CoreAudioNativeSoundProvider : NativeSoundProvider() {
     }
 
     companion object {
-        private fun OSStatus.checkError(name: String): OSStatus {
+        internal fun OSStatus.checkError(name: String): OSStatus {
             if (this != 0) println("ERROR: $name ($this)(${osStatusToString(this)})")
             return this
-        }
-        private fun coreAudioOutputCallback(custom_data: COpaquePointer?, queue: AudioQueueRef?, buffer: AudioQueueBufferRef?) {
-            initRuntimeIfNeeded()
-            val output = custom_data?.asStableRef<MyCoreAudioOutputCallback>() ?: return println("outputCallback null[0]")
-            val buf = buffer?.pointed ?: return println("outputCallback null[1]")
-            val dat = buf.mAudioDataByteSize.toInt() / Short.SIZE_BYTES
-            val shortBuf = buf.mAudioData?.reinterpret<ShortVar>() ?: return println("outputCallback null[2]")
-            output.get().generateOutput(shortBuf, dat)
-            AudioQueueEnqueueBuffer(queue, buffer, 0.convert(), null).checkError("AudioQueueEnqueueBuffer")
         }
         fun osStatusToString(status: OSStatus): String = when (status) {
             kAudioQueueErr_InvalidBuffer -> "InvalidBuffer"
@@ -172,4 +165,13 @@ class CoreAudioNativeSoundProvider : NativeSoundProvider() {
             else -> "Unknown$status"
         }
     }
+}
+
+private fun coreAudioOutputCallback(customData: COpaquePointer?, queue: AudioQueueRef?, buffer: AudioQueueBufferRef?) {
+    val output = customData?.asStableRef<MyCoreAudioOutputCallback>() ?: return println("outputCallback null[0]")
+    val buf = buffer?.pointed ?: return println("outputCallback null[1]")
+    val dat = buf.mAudioDataByteSize.toInt() / Short.SIZE_BYTES
+    val shortBuf = buf.mAudioData?.reinterpret<ShortVar>() ?: return println("outputCallback null[2]")
+    output.get().generateOutput(shortBuf, dat)
+    AudioQueueEnqueueBuffer(queue, buffer, 0.convert(), null).checkError("AudioQueueEnqueueBuffer")
 }
