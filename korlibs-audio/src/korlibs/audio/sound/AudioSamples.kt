@@ -153,6 +153,10 @@ class AudioSamplesInterleaved(
     override val totalSamples: Int,
     val data: ShortArray = ShortArray(totalSamples * channels),
 ) : IAudioSamples {
+    init {
+        check(channels in 1..8)
+    }
+
     //val separared by lazy { separated() }
     private fun index(channel: Int, sample: Int): Int = (sample * channels) + channel
     override operator fun get(channel: Int, sample: Int): Short = data[index(channel, sample)]

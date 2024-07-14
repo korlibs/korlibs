@@ -16,7 +16,7 @@ class SoundAudioData(
     override fun play(coroutineContext: CoroutineContext, params: PlaybackParameters): SoundChannel {
         var pos = 0
         var times = params.times
-        lateinit var nas: NewPlatformAudioOutput
+        lateinit var nas: AudioPlatformOutput
         nas = soundProvider.createNewPlatformAudioOutput(coroutineContext, audioData.channels, audioData.rate) { it ->
             if (nas.paused) {
                 // @TODO: paused should not even call this right?

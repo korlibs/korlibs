@@ -1,7 +1,6 @@
 package korlibs.audio.sound.backend
 
 import korlibs.audio.sound.*
-import korlibs.concurrent.lock.*
 import korlibs.concurrent.thread.*
 import korlibs.ffi.*
 import korlibs.memory.*
@@ -17,8 +16,8 @@ class JvmWaveOutNativeSoundProvider : NativeSoundProvider() {
         coroutineContext: CoroutineContext,
         channels: Int,
         frequency: Int,
-        gen: NewPlatformAudioOutputGen
-    ): NewPlatformAudioOutput = NewPlatformAudioOutput(coroutineContext, channels, frequency, gen) {
+        gen: AudioPlatformOutputGen
+    ): AudioPlatformOutput = AudioPlatformOutput(coroutineContext, channels, frequency, gen) {
         var handle: FFIPointer? = null
         var headers = emptyArray<WaveHeader>()
 

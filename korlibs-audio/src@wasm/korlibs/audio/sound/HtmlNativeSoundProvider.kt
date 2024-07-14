@@ -9,9 +9,7 @@ import korlibs.io.file.std.*
 import korlibs.io.lang.*
 import korlibs.memory.*
 import korlibs.platform.*
-import kotlinx.coroutines.CompletableDeferred
 import org.khronos.webgl.*
-import org.w3c.dom.HTMLAudioElement
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.coroutineContext
 import kotlin.time.*
@@ -29,8 +27,8 @@ class HtmlNativeSoundProvider : NativeSoundProvider() {
         HtmlSimpleSound.ensureUnlockStart()
     }
 
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput {
-        return NewPlatformAudioOutput(coroutineContext, channels, frequency, gen) {
+    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
+        return AudioPlatformOutput(coroutineContext, channels, frequency, gen) {
             nativeSoundProvider // Ensure it is created
 
             val ctx = getUnlockedContextOrThrow()

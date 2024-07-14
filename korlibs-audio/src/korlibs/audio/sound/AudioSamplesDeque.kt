@@ -80,7 +80,11 @@ class AudioSamplesDeque(val channels: Int) {
 
     fun read(out: AudioSamplesInterleaved, offset: Int = 0, len: Int = out.totalSamples - offset): Int {
         val rlen = min(len, availableRead)
-        for (channel in 0 until out.channels) for (n in 0 until rlen) out[channel, offset + n] = this.read(channel)
+        val channels = this.channels
+        for (channel in 0 until out.channels) {
+            val inChannel = channel % channels
+            for (n in 0 until rlen) out[channel, offset + n] = this.read(inChannel)
+        }
         return rlen
     }
 
