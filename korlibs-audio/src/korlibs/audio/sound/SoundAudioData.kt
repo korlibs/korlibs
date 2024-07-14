@@ -17,11 +17,10 @@ class SoundAudioData(
 
     override fun play(coroutineContext: CoroutineContext, params: PlaybackParameters): SoundChannel {
         var pos = 0
-        var paused = false
         var times = params.times
-        var nas: NewPlatformAudioOutput? = null
+        lateinit var nas: NewPlatformAudioOutput
         nas = soundProvider.createNewPlatformAudioOutput(coroutineContext, audioData.channels, audioData.rate) { it ->
-            if (paused) {
+            if (nas.paused) {
                 // @TODO: paused should not even call this right?
                 for (ch in 0 until it.channels) {
                     audioData[ch].fill(0)
@@ -60,21 +59,14 @@ class SoundAudioData(
             override val total: Duration get() = audioData.totalTime
             override val state: SoundChannelState
                 get() = when {
-                  paused -> SoundChannelState.PAUSED
-                  else -> super.state
+                    !nas.running -> SoundChannelState.STOPPED
+                    nas.paused -> SoundChannelState.PAUSED
+                    else -> SoundChannelState.PLAYING
                 }
 
-            override fun pause() {
-                nas.paused = true
-            }
-
-            override fun resume() {
-                nas.paused = false
-            }
-
-            override fun stop() {
-                nas.stop()
-            }
+            override fun pause() = run { nas.paused = true }
+            override fun resume() = run { nas.paused = false }
+            override fun stop() = run { nas.stop() }
         }
     }
 }
