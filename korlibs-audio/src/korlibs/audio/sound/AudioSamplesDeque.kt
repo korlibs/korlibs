@@ -5,6 +5,11 @@ import korlibs.audio.internal.SampleConvert
 import kotlin.math.min
 
 class AudioSamplesDeque(val channels: Int) {
+    companion object {
+        operator fun invoke(samples: AudioSamples): AudioSamplesDeque = AudioSamplesDeque(samples.channels).also { it.write(samples) }
+        operator fun invoke(samples: AudioSamplesInterleaved): AudioSamplesDeque = AudioSamplesDeque(samples.channels).also { it.write(samples) }
+    }
+
     val buffer = Array(channels) { ShortArrayDeque() }
     val availableRead get() = buffer.getOrNull(0)?.availableRead ?: 0
     val availableReadMax: Int get() = buffer.maxOfOrNull { it.availableRead } ?: 0

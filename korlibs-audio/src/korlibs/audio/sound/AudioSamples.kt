@@ -100,6 +100,9 @@ class AudioSamples(
     override operator fun get(channel: Int, sample: Int): Short = data[channel][sample]
     override operator fun set(channel: Int, sample: Int, value: Short) { data[channel][sample] = value }
 
+    fun copyOf(size: Int = totalSamples): AudioSamplesInterleaved = copyOfRange(0, size)
+    fun copyOfRange(fromIndex: Int, toIndex: Int): AudioSamplesInterleaved = AudioSamplesInterleaved(channels, toIndex - fromIndex, data.copyOfRange(fromIndex * channels, toIndex * channels))
+
     fun setStereo(sample: Int, valueLeft: Short, valueRight: Short) {
         this[0, sample] = valueLeft
         this[1, sample] = valueRight
