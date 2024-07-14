@@ -3,6 +3,7 @@ package korlibs.audio.sound
 import android.content.*
 import android.media.*
 import android.os.*
+import android.util.*
 import korlibs.datastructure.pauseable.*
 import korlibs.io.android.*
 import kotlinx.coroutines.*
@@ -15,17 +16,25 @@ class AndroidNativeSoundProvider : NativeSoundProvider() {
 
     private val pauseable = SyncPauseable()
     override var paused: Boolean by pauseable::paused
-    private var audioManager: AudioManager? = null
-    var audioSessionId: Int = -1
+    val UNSET_AUDIO_SESSION_ID = -2
+    val INVALID_AUDIO_SESSION_ID = -1
+
+    var audioSessionId: Int = UNSET_AUDIO_SESSION_ID
         private set
 
     fun ensureAudioManager(coroutineContext: CoroutineContext) {
-        if (audioManager == null) {
-            val ctx = coroutineContext[AndroidCoroutineContext.Key]?.context ?: error("Can't find the Android Context on the CoroutineContext. Must call withAndroidContext first")
-            audioManager = ctx.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                audioSessionId = audioManager!!.generateAudioSessionId()
+        if (audioSessionId != UNSET_AUDIO_SESSION_ID) return
+
+        val ctx = coroutineContext[AndroidCoroutineContext.Key]?.context
+            ?: return run {
+                if (audioSessionId == UNSET_AUDIO_SESSION_ID) {
+                    Log.e("AndroidNSoundProvider", "Can't find the Android Context on the CoroutineContext. Must call withAndroidContext first")
+                }
             }
+        val audioManager = ctx.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        audioSessionId = when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> audioManager.generateAudioSessionId()
+            else -> INVALID_AUDIO_SESSION_ID
         }
     }
     override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput {
