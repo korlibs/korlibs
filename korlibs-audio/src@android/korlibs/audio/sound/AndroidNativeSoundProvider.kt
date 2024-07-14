@@ -39,7 +39,7 @@ class AndroidNativeSoundProvider : NativeSoundProvider() {
     }
     override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput {
         ensureAudioManager(coroutineContext)
-        return NewPlatformAudioOutput.create(coroutineContext, channels, frequency, gen) {
+        return NewPlatformAudioOutput(coroutineContext, channels, frequency, gen) {
             //val bufferSamples = 4096
             val bufferSamples = 1024
 

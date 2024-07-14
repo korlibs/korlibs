@@ -27,7 +27,7 @@ class HtmlNativeSoundProvider : NativeSoundProvider() {
     }
 
     override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput {
-        return NewPlatformAudioOutput.create(coroutineContext, channels, frequency, gen) {
+        return NewPlatformAudioOutput(coroutineContext, channels, frequency, gen) {
             nativeSoundProvider // Ensure it is created
             var node: ScriptProcessorNode? = null
 
