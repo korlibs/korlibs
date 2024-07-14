@@ -29,10 +29,10 @@ val CORE_AUDIO_NATIVE_SOUND_PROVIDER: CoreAudioNativeSoundProvider by lazy { Cor
 class CoreAudioNativeSoundProvider : NativeSoundProvider() {
     //override suspend fun createSound(data: ByteArray, streaming: Boolean, props: AudioDecodingProps): NativeSound = AVFoundationNativeSoundNoStream(CoroutineScope(coroutineContext), audioFormats.decode(data))
 
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput {
+    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         appleInitAudioOnce
 
-        return NewPlatformAudioOutput(coroutineContext, channels, frequency, gen) {
+        return AudioPlatformOutput(coroutineContext, channels, frequency, gen) {
             val generator = CoreAudioGenerator(frequency, channels, coroutineContext = coroutineContext) { data, dataSize ->
                 val totalSamples = dataSize / nchannels
                 //if (samples == null || samples!!.totalSamples != totalSamples || samples!!.channels != channels) {

@@ -17,8 +17,8 @@ object Win32WaveOutNativeSoundProvider : NativeSoundProvider() {
         coroutineContext: CoroutineContext,
         channels: Int,
         frequency: Int,
-        gen: NewPlatformAudioOutputGen
-    ): NewPlatformAudioOutput = NewPlatformAudioOutput(coroutineContext, channels, frequency, gen) {
+        gen: AudioPlatformOutputGen
+    ): AudioPlatformOutput = AudioPlatformOutput(coroutineContext, channels, frequency, gen) {
         memScoped {
             var handle: HWAVEOUT? = null
             var headers = emptyArray<WaveHeader>()

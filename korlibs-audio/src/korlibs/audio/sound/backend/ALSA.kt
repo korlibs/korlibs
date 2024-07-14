@@ -6,9 +6,9 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.*
 
 object FFIALSANativeSoundProvider : NativeSoundProvider() {
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput {
+    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         //println("ALSANativeSoundProvider.createPlatformAudioOutput(freq=$freq)")
-        return NewPlatformAudioOutput(coroutineContext, channels, frequency, gen) {
+        return AudioPlatformOutput(coroutineContext, channels, frequency, gen) {
             val buffer = AudioSamplesInterleaved(channels, 1024)
             val pcm = A2.snd_pcm_open("default", A2.SND_PCM_STREAM_PLAYBACK, 0)
             if (pcm.address == 0L) {

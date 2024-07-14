@@ -70,7 +70,7 @@ class SoundAudioStream(
                                 }
                                 val read = stream.read(temp, 0, temp.totalSamples)
                                 deque.write(temp, 0, read)
-                                if (deque.availableRead > minBuf) delay(2.milliseconds)
+                                if (deque.availableRead > minBuf) delay(1.milliseconds)
                                 if (!started) {
                                     started = true
                                     nas.start()

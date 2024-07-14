@@ -19,8 +19,8 @@ val jvmCoreAudioNativeSoundProvider: JvmCoreAudioNativeSoundProvider? by lazy {
 }
 
 class JvmCoreAudioNativeSoundProvider : NativeSoundProvider() {
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, nchannels: Int, freq: Int, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput {
-        return NewPlatformAudioOutput(coroutineContext, nchannels, freq, gen) {
+    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, nchannels: Int, freq: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
+        return AudioPlatformOutput(coroutineContext, nchannels, freq, gen) {
             val id = lastId.incrementAndGet()
 
             var queue: Pointer? = null

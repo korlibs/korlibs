@@ -6,15 +6,15 @@ import kotlinx.atomicfu.locks.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
 
-typealias NewPlatformAudioOutputGen = (AudioSamplesInterleaved) -> Unit
+typealias AudioPlatformOutputGen = (AudioSamplesInterleaved) -> Unit
 
-class NewPlatformAudioOutput(
+class AudioPlatformOutput(
     val coroutineContext: CoroutineContext,
     val channels: Int,
     val frequency: Int,
-    private val gen: NewPlatformAudioOutputGen,
+    private val gen: AudioPlatformOutputGen,
     val dispatcher: CoroutineDispatcher = Dispatchers.AUDIO,
-    val block: suspend NewPlatformAudioOutput.() -> Unit = {
+    val block: suspend AudioPlatformOutput.() -> Unit = {
         val buffer = AudioSamplesInterleaved(channels, 1024)
         while (running) {
             genSafe(buffer)

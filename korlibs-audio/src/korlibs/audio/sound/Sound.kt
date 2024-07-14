@@ -22,7 +22,7 @@ open class LazyNativeSoundProvider(val gen: () -> NativeSoundProvider) : NativeS
 
     override val target: String get() = parent.target
 
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput =
+    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput =
         parent.createNewPlatformAudioOutput(coroutineContext, channels, frequency, gen)
 
     override suspend fun createSound(data: ByteArray, streaming: Boolean, props: AudioDecodingProps, name: String): Sound =
@@ -52,12 +52,12 @@ open class NativeSoundProvider() : AutoCloseable, Pauseable {
     // @TODO: Should this be estimated automatically from position samples?
     open var listenerSpeed: Vector3 = Vector3.ZERO
 
-    open fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int = 44100, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput {
+    open fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int = 44100, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         //println("createNewPlatformAudioOutput: ${this::class}")
-        return NewPlatformAudioOutput(coroutineContext, channels, frequency, gen)
+        return AudioPlatformOutput(coroutineContext, channels, frequency, gen)
     }
 
-    suspend fun createNewPlatformAudioOutput(nchannels: Int, freq: Int = 44100, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput = createNewPlatformAudioOutput(coroutineContextKt, nchannels, freq, gen)
+    suspend fun createNewPlatformAudioOutput(nchannels: Int, freq: Int = 44100, gen: AudioPlatformOutputGen): AudioPlatformOutput = createNewPlatformAudioOutput(coroutineContextKt, nchannels, freq, gen)
 
     open suspend fun createSound(data: ByteArray, streaming: Boolean = false, props: AudioDecodingProps = AudioDecodingProps.DEFAULT, name: String = "Unknown"): Sound {
         val format = props.formats ?: audioFormats
@@ -118,14 +118,14 @@ open class LogNativeSoundProvider(
 ) : NativeSoundProvider() {
     val log = arrayListOf<AudioData>()
 
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: NewPlatformAudioOutputGen): NewPlatformAudioOutput {
+    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         check(channels in 1..8)
-        return NewPlatformAudioOutput(coroutineContext, channels, frequency, gen) {
+        return AudioPlatformOutput(coroutineContext, channels, frequency, gen) {
             val buffer = AudioSamplesInterleaved(channels, 1024)
             while (running) {
                 genSafe(buffer)
                 log += AudioData(frequency, buffer.copyOf().separated()).also(onGen)
-                delay(1L)
+                delay(2L)
             }
         }
     }
