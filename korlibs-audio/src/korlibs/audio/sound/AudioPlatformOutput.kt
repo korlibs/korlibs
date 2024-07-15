@@ -22,7 +22,6 @@ class AudioPlatformOutput(
         }
     }
 ) : AutoCloseable, SoundProps {
-    //var onCancel: AutoCloseable? = null
     var paused: Boolean = false
 
     private val lock = reentrantLock()
@@ -53,21 +52,65 @@ class AudioPlatformOutput(
         if (running) return
         stop()
         running = true
-        //onCancel = coroutineContext.onCancel { stop() }
         job?.cancel()
         job = CoroutineScope(dispatcher).launch {
-            withContext(coroutineContext) {
-                block()
+            try {
+                withContext(coroutineContext) {
+                    block()
+                }
+            } catch (e: CancellationException) {
+                Unit
+            } finally {
+                running = false
             }
         }
 
     }
     fun stop() {
         if (!running) return
-        running = false
-        //onCancel?.close()
-        //onCancel = null
         job?.cancel()
+        job = null
     }
+
     final override fun close() = stop()
+
+    companion object {
+        fun simple(
+            coroutineContext: CoroutineContext,
+            nchannels: Int,
+            freq: Int,
+            gen: AudioPlatformOutputGen,
+            dispatcher: CoroutineDispatcher = Dispatchers.AUDIO,
+            build: (AudioSamplesInterleaved) -> AudioPlatformOutputSimple,
+        ) = AudioPlatformOutput(coroutineContext, nchannels, freq, gen, dispatcher) {
+            val samples = AudioSamplesInterleaved(nchannels, 2048)
+            val gen = build(samples)
+            var init = false
+            try {
+                while (running) {
+                    if (paused) {
+                        delay(10L)
+                    } else {
+                        genSafe(samples)
+                        println(samples.data.toList())
+                        if (!init) {
+                            init = true
+                            gen.init(samples)
+                        }
+                        gen.output(samples)
+                        yield()
+                    }
+                }
+            } finally {
+                gen.close(samples)
+            }
+        }
+    }
 }
+
+class AudioPlatformOutputSimple(
+    val init: suspend (AudioSamplesInterleaved) -> Unit = { },
+    val output: suspend (AudioSamplesInterleaved) -> Unit = { },
+    val close: suspend (AudioSamplesInterleaved) -> Unit = { },
+    unit: Unit = Unit
+)
