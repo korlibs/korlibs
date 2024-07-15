@@ -47,8 +47,18 @@ internal fun __threadStart(code: COpaquePointer?): COpaquePointer? {
 internal actual fun NativeThreadThread_gc(full: Boolean): Unit {
     GC.collect()
 }
+@OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 internal actual fun NativeThreadThread_sleep(time: FastDuration): Unit {
-    usleep(time.fastNanoseconds.toLong().toUInt())
+    memScoped {
+        val timespec = alloc<timespec>()
+        val nanoseconds = time.fastNanoseconds.toLong()
+        //val seconds = time.seconds
+        //val nseconds = (seconds % 1.0) * 1_000_000_000L
+        timespec.tv_sec = (nanoseconds / 1_000_000_000L).convert()
+        timespec.tv_nsec = (nanoseconds % 1_000_000_000L).convert()
+        nanosleep(timespec.ptr, null)
+    }
+    //usleep(time.fastMicroseconds.toLong().convert())
 }
 @PublishedApi internal actual inline fun NativeThreadThread_spinWhile(cond: () -> Boolean): Unit {
     while (cond()) {
