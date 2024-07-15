@@ -2,7 +2,6 @@
 
 package korlibs.io.async
 
-import korlibs.io.concurrent.*
 import kotlinx.coroutines.*
 import kotlin.experimental.*
 
