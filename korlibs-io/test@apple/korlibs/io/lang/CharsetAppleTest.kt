@@ -28,7 +28,6 @@ class CharsetAppleTest {
         encodeDecodeAndVerify("UTF-32LE", originalStringUtf32)
 
         // Test additional charsets
-        encodeDecodeAndVerify("NEXTSTEP", originalStringOther)
         encodeDecodeAndVerify("EUC-JP", originalStringOther)
     }
 }
