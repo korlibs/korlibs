@@ -11,7 +11,8 @@ val NativeNativeThread.pthread: ULong get() = this.toULong()
 internal actual fun NativeNativeThread_getPriority(thread: NativeNativeThread): NativeThreadPriority {
     val value = memScoped {
         val param = alloc<sched_param>()
-        pthread_getschedparam(thread.pthread, null, param.ptr)
+        val kind = alloc<IntVar>()
+        pthread_getschedparam(thread.pthread, kind.ptr, param.ptr)
         param.reinterpret<IntVar>().value
     }
     return NativeThreadPriority.from(value, sched_get_priority_min(SCHED_POLICY), sched_get_priority_max(SCHED_POLICY))

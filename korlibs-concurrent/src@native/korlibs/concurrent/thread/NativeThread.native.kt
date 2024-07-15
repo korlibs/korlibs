@@ -27,6 +27,7 @@ private val threadInfos = LinkedHashMap<Long, ThreadInfo>()
 @OptIn(ExperimentalForeignApi::class)
 @PublishedApi
 internal fun __threadStart(code: COpaquePointer?): COpaquePointer? {
+    initRuntimeIfNeeded()
     val threadId: Long = NativeThreadThread_current()
     val ref = code!!.asStableRef<ThreadInfo>()
     val ptr = ref.get()
@@ -34,6 +35,8 @@ internal fun __threadStart(code: COpaquePointer?): COpaquePointer? {
     threadInfosLock { threadInfos[threadId] = ptr }
     try {
         ptr.code()
+    } catch (e: Throwable) {
+        e.printStackTrace()
     } finally {
         threadInfosLock { threadInfos.remove(threadId) }
     }

@@ -11,8 +11,9 @@ val NativeNativeThread.pthread: ULong get() = this.toULong()
 internal actual fun NativeNativeThread_getPriority(thread: NativeNativeThread): NativeThreadPriority {
     val value = memScoped {
         val param = alloc<sched_param>()
-        pthread_getschedparam(thread.pthread, null, param.ptr)
-        param.reinterpret<IntVar>().value
+        val kind = alloc<IntVar>()
+        pthread_getschedparam(thread.pthread, kind.ptr, param.ptr)
+        param.__sched_priority
     }
     return NativeThreadPriority.from(value, sched_get_priority_min(SCHED_POLICY), sched_get_priority_max(SCHED_POLICY))
 }
@@ -30,10 +31,11 @@ internal actual fun NativeThreadThread_current(): NativeNativeThread = pthread_s
 @OptIn(ExperimentalForeignApi::class)
 internal actual fun NativeThreadThread_start(name: String?, isDaemon: Boolean, priority: NativeThreadPriority, code: () -> Unit): NativeNativeThread {
     return memScoped {
+        val priorityInt = priority.convert(sched_get_priority_min(SCHED_POLICY), sched_get_priority_max(SCHED_POLICY))
         val threadPtr = alloc<pthread_tVar>()
         val attr = alloc<pthread_attr_t>()
         val schedParam = alloc<sched_param>().also {
-            it.__sched_priority = priority.convert(sched_get_priority_min(SCHED_POLICY), sched_get_priority_max(SCHED_POLICY)).convert()
+            it.__sched_priority = priorityInt.convert()
         }
 
         pthread_attr_init(attr.ptr)
