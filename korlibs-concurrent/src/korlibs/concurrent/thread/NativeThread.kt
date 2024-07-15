@@ -76,12 +76,15 @@ fun NativeThread.Companion.sleepUntil(date: DateTime, exact: Boolean = true) {
     NativeThread.sleep(date - DateTime.now(), exact)
 }
 
+//@Deprecated("Use NativeThread.start instead")
 public fun nativeThread(
     isDaemon: Boolean = false,
     name: String? = null,
     priority: NativeThreadPriority = NativeThreadPriority.NORMAL,
+    start: Boolean = true,
     block: (NativeThread) -> Unit
 ): NativeThread {
+    check(start) { "Only nativeThread(start=true) is supported" }
     return NativeThread.start(name, isDaemon, priority) { block(NativeThread.current) }
 }
 
