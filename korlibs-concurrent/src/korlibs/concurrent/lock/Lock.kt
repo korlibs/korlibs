@@ -8,24 +8,28 @@ import kotlinx.atomicfu.*
 import kotlinx.atomicfu.locks.*
 import kotlin.time.*
 
-abstract class BaseLock {
+interface BaseLock {
     companion object {
         val isSupported get() = NativeThread.isSupported
     }
 
-    abstract fun lock()
-    abstract fun unlock()
-    //abstract fun notify(unit: Unit = Unit)
-    //abstract fun wait(time: FastDuration): Boolean
+    fun lock()
+    fun unlock()
+}
 
-    inline operator fun <T> invoke(callback: () -> T): T {
-        lock()
-        try {
-            return callback()
-        } finally {
-            unlock()
-        }
+inline operator fun <T> BaseLock.invoke(callback: () -> T): T {
+    lock()
+    try {
+        return callback()
+    } finally {
+        unlock()
     }
+}
+
+interface BaseLockWithNotifyAndWait : BaseLock {
+    abstract fun notify(unit: Unit = Unit)
+    abstract fun wait(time: FastDuration): Boolean
+    fun wait(time: Duration): Boolean = wait(time.fast)
 }
 
 inline operator fun <T> ReentrantLock.invoke(callback: () -> T): T {
@@ -37,10 +41,21 @@ inline operator fun <T> ReentrantLock.invoke(callback: () -> T): T {
     }
 }
 
+expect class Lock() : BaseLockWithNotifyAndWait {
+    companion object { }
+
+    override fun lock()
+    override fun unlock()
+    override fun notify(unit: Unit)
+    override fun wait(time: FastDuration): Boolean
+}
+
+val Lock.Companion.isSupported get() = NativeThread.isSupported
+
 /**
  * Reentrant typical lock.
  */
-class Lock() : BaseLock() {
+abstract class LockImpl() : BaseLockWithNotifyAndWait {
     private var notified = atomic(false)
     private val reentrantLock = reentrantLock()
     private var current = atomic(0L)
@@ -62,15 +77,15 @@ class Lock() : BaseLock() {
         //println("UNLOCK1: ${NativeThread.currentThreadId} - ${locked.value}")
     }
 
-    fun notify(unit: Unit = Unit) {
-        if (!isSupported) throw UnsupportedOperationException()
+    override fun notify(unit: Unit) {
+        if (!Lock.isSupported) throw UnsupportedOperationException()
         check(locked.value > 0) { "Must notify inside a synchronization block" }
         check(current.value == NativeThread.current.id) { "Must lock the notify thread" }
         notified.value = true
     }
 
-    fun wait(time: FastDuration): Boolean {
-        if (!isSupported) throw UnsupportedOperationException()
+    override fun wait(time: FastDuration): Boolean {
+        if (!Lock.isSupported) throw UnsupportedOperationException()
         //println("WAIT!")
         val lockCount = locked.value
         check(lockCount > 0) { "Must wait inside a synchronization block" }
@@ -85,7 +100,6 @@ class Lock() : BaseLock() {
         }
         return notified.value
     }
-    fun wait(time: Duration): Boolean = wait(time.fast)
 }
 
 /**
@@ -94,7 +108,7 @@ class Lock() : BaseLock() {
  * It is lightweight and just requires an atomic.
  * Does busy-waiting instead of sleeping the thread.
  */
-class NonRecursiveLock : BaseLock() {
+class NonRecursiveLock : BaseLock {
     private var locked = atomic(0)
 
     override fun lock() {
