@@ -16,7 +16,7 @@ internal object ALSAAudioSystem : AudioSystem() {
     object ALSAAudioStreamPlayer : AudioStreamPlayer {
         override fun playStream(device: AudioDevice, rate: Int, channels: Int, gen: (position: Long, data: PerChannelAudioSamples) -> Int): AutoCloseable {
             var running = true
-            val nativeThread = nativeThread(start = true, isDaemon = true) { thread ->
+            nativeThread(isDaemon = true) {
                 val buffer = PerChannelAudioSamples(channels, 1024)
                 val interleaved = buffer.interleaved()
                 val pcm = A2.snd_pcm_open("default", A2.SND_PCM_STREAM_PLAYBACK, 0)

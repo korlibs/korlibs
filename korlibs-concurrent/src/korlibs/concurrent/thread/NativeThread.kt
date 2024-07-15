@@ -80,9 +80,9 @@ public fun nativeThread(
     isDaemon: Boolean = false,
     name: String? = null,
     priority: NativeThreadPriority = NativeThreadPriority.NORMAL,
-    block: () -> Unit
+    block: (NativeThread) -> Unit
 ): NativeThread {
-    return NativeThread.start(name, isDaemon, priority, block)
+    return NativeThread.start(name, isDaemon, priority) { block(NativeThread.current) }
 }
 
 fun NativeThread.Companion.sleep(time: Duration, exact: Boolean) = NativeThread.sleep(time.fast, exact)
