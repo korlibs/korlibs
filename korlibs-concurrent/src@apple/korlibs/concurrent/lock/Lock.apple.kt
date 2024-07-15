@@ -6,7 +6,7 @@ import kotlinx.cinterop.*
 import platform.posix.*
 import kotlin.time.*
 
-@OptIn(ExperimentalForeignApi::class)
+@OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
     actual companion object {}
 
@@ -63,12 +63,12 @@ actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
         //pthread_cond_broadcast() // notifyall
     }
 
-    fun timespec.toDuration(): Duration = (tv_sec.seconds + tv_nsec.nanoseconds)
+    fun timespec.toDuration(): Duration = (tv_sec.toLong().seconds + tv_nsec.toLong().nanoseconds)
     fun Duration.toTimespec(out: timespec): timespec {
         val nanos = inWholeNanoseconds
         val s: Long = (nanos / 1_000_000_000)
         val n: Long = (nanos % 1_000_000_000)
-        out.tv_sec = s
+        out.tv_sec = s.convert()
         out.tv_nsec = n.convert()
         return out
     }
@@ -78,7 +78,7 @@ actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
 
         return memScoped {
             var tspec: timespec = alloc<timespec>()
-            clock_gettime(CLOCK_REALTIME, tspec.ptr)
+            clock_gettime(CLOCK_REALTIME.convert(), tspec.ptr)
             val clockTime = tspec.toDuration()
             //val waitTime = (clockTime + time - 10.milliseconds)
             val waitTime = (clockTime + time)
