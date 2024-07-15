@@ -17,12 +17,7 @@ actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
     }
 
     actual override fun notify(unit: Unit) {
-        try {
-            (lock as java.lang.Object).notify()
-        } catch (e: Throwable) {
-            e.printStackTrace()
-        } finally {
-        }
+        (lock as java.lang.Object).notify()
     }
 
     actual override fun wait(time: FastDuration): Boolean {
