@@ -50,12 +50,13 @@ class Lock() : BaseLock() {
         //println("LOCK0: ${NativeThread.currentThreadId} - ${locked.value}")
         reentrantLock.lock()
         locked.incrementAndGet()
-        current.value = NativeThread.currentThreadId
+        current.value = NativeThread.current.id
         //println("LOCK1: ${NativeThread.currentThreadId} - ${locked.value}")
     }
 
     override fun unlock() {
         //println("UNLOCK0: ${NativeThread.currentThreadId} - ${locked.value}")
+        check(locked.value > 0) { "Must unlock inside a synchronization block" }
         reentrantLock.unlock()
         locked.decrementAndGet()
         //println("UNLOCK1: ${NativeThread.currentThreadId} - ${locked.value}")
@@ -63,8 +64,8 @@ class Lock() : BaseLock() {
 
     fun notify(unit: Unit = Unit) {
         if (!isSupported) throw UnsupportedOperationException()
-        check(locked.value > 0) { "Must wait inside a synchronization block" }
-        check(current.value == NativeThread.currentThreadId) { "Must lock the notify thread" }
+        check(locked.value > 0) { "Must notify inside a synchronization block" }
+        check(current.value == NativeThread.current.id) { "Must lock the notify thread" }
         notified.value = true
     }
 
@@ -76,6 +77,7 @@ class Lock() : BaseLock() {
         val start = TimeSource.Monotonic.markNow()
         notified.value = false
         repeat(lockCount) { unlock() }
+        check(locked.value == 0) { "Must unlock all locks" }
         try {
             NativeThread.sleepWhile { !notified.value && start.elapsedNow() < time }
         } finally {

@@ -1,64 +1,67 @@
-@file:Suppress("PackageDirectoryMismatch")
 package korlibs.concurrent.thread
 
-import korlibs.io.concurrent.*
+import korlibs.concurrent.lock.*
 import korlibs.time.*
-import kotlinx.coroutines.*
+import kotlinx.cinterop.*
+import platform.posix.*
 import kotlin.native.runtime.*
 
-actual class NativeThread actual constructor(val code: (NativeThread) -> Unit) {
-    actual var isDaemon: Boolean = false
-    actual var userData: Any? = null
+actual typealias NativeNativeThread = Long
 
-    actual var threadSuggestRunning: Boolean = true
+//private val SCHED_POLICY = SCHED_RR
+internal val SCHED_POLICY = SCHED_OTHER
 
-    actual var priority: Int = 0
-    actual var name: String? = null
+internal actual fun NativeNativeThread_getId(thread: NativeNativeThread): Long = thread
+internal actual fun NativeNativeThread_getName(thread: NativeNativeThread): String? = threadInfosLock { threadInfos[thread]?.name }
+internal actual fun NativeNativeThread_getIsDaemon(thread: NativeNativeThread): Boolean = true
+internal actual val NativeThreadThread_isSupported: Boolean = true
 
-    private var dispatcher: CoroutineDispatcher? = null
+class ThreadInfo(
+    val name: String?,
+    val code: () -> Unit
+)
 
-    actual fun start() {
-        threadSuggestRunning = true
-        dispatcher = Dispatchers.createSingleThreadedDispatcher("NativeThread")
-        CoroutineScope(dispatcher!!).launch {
-            try {
-                code(this@NativeThread)
-            } finally {
-                dispatcher?.cancel()
-                dispatcher = null
-            }
-        }
+private val threadInfosLock = Lock()
+private val threadInfos = LinkedHashMap<Long, ThreadInfo>()
+
+@OptIn(ExperimentalForeignApi::class)
+@PublishedApi
+internal fun __threadStart(code: COpaquePointer?): COpaquePointer? {
+    initRuntimeIfNeeded()
+    val threadId: Long = NativeThreadThread_current()
+    val ref = code!!.asStableRef<ThreadInfo>()
+    val ptr = ref.get()
+    ref.dispose()
+    threadInfosLock { threadInfos[threadId] = ptr }
+    try {
+        ptr.code()
+    } catch (e: Throwable) {
+        e.printStackTrace()
+    } finally {
+        threadInfosLock { threadInfos.remove(threadId) }
     }
-
-    actual fun interrupt() {
-        // No operation
-        threadSuggestRunning = false
-        dispatcher?.cancel()
-        dispatcher = null
-    }
-
-    actual companion object {
-        actual val isSupported: Boolean get() = true
-        actual val currentThreadId: Long get() = korlibs.concurrent.thread.__currentThreadId
-        actual val currentThreadName: String? get() = "Thread-$currentThreadId"
-
-        @OptIn(NativeRuntimeApi::class)
-        actual fun gc(full: Boolean) {
-            GC.schedule()
-        }
-
-        actual fun sleep(time: FastDuration): Unit {
-            //platform.posix.nanosleep()
-            platform.posix.usleep(time.microseconds.toUInt())
-
-        }
-        actual inline fun spinWhile(cond: () -> Boolean): Unit {
-            while (cond()) {
-                // @TODO: try to improve performance like: Thread.onSpinWait() or SpinWait.SpinUntil
-                Unit
-            }
-        }
-    }
+    return null
 }
 
-internal expect val __currentThreadId: Long
+@OptIn(NativeRuntimeApi::class)
+internal actual fun NativeThreadThread_gc(full: Boolean): Unit {
+    GC.collect()
+}
+@OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
+internal actual fun NativeThreadThread_sleep(time: FastDuration): Unit {
+    memScoped {
+        val timespec = alloc<timespec>()
+        val nanoseconds = time.fastNanoseconds.toLong()
+        //val seconds = time.seconds
+        //val nseconds = (seconds % 1.0) * 1_000_000_000L
+        timespec.tv_sec = (nanoseconds / 1_000_000_000L).convert()
+        timespec.tv_nsec = (nanoseconds % 1_000_000_000L).convert()
+        nanosleep(timespec.ptr, null)
+    }
+    //usleep(time.fastMicroseconds.toLong().convert())
+}
+@PublishedApi internal actual inline fun NativeThreadThread_spinWhile(cond: () -> Boolean): Unit {
+    while (cond()) {
+        sched_yield()
+    }
+}

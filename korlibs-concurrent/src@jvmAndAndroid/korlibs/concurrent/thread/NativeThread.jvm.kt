@@ -10,58 +10,33 @@ private fun FastDuration.toMillisNanos(): Pair<Long, Int> {
     return millis to nanos
 }
 
-actual class NativeThread actual constructor(val code: (NativeThread) -> Unit) {
-    val thread = Thread { code(this) }
-    actual var userData: Any? = null
+actual typealias NativeNativeThread = Thread
 
-    actual var threadSuggestRunning = true
+internal actual fun NativeNativeThread_getId(thread: NativeNativeThread): Long = thread.id
+internal actual fun NativeNativeThread_getPriority(thread: NativeNativeThread): NativeThreadPriority = NativeThreadPriority.from(thread.priority, Thread.MIN_PRIORITY, Thread.MAX_PRIORITY, Thread.NORM_PRIORITY)
+internal actual fun NativeNativeThread_getName(thread: NativeNativeThread): String? = thread.name
+internal actual fun NativeNativeThread_getIsDaemon(thread: NativeNativeThread): Boolean = thread.isDaemon
+internal actual fun NativeNativeThread_interrupt(thread: NativeNativeThread) = thread.interrupt()
+internal actual fun NativeNativeThread_join(thread: NativeNativeThread) = thread.join()
 
-    actual var priority: Int by thread::priority
-    actual var name: String? by thread::name
-
-    actual var isDaemon: Boolean
-        get() = thread.isDaemon
-        set(value) { thread.isDaemon = value }
-
-    actual fun start() {
-        threadSuggestRunning = true
-        thread.start()
+internal actual val NativeThreadThread_isSupported: Boolean = true
+internal actual fun NativeThreadThread_current(): NativeNativeThread = Thread.currentThread()
+internal actual fun NativeThreadThread_start(name: String?, isDaemon: Boolean, priority: NativeThreadPriority, code: () -> Unit): NativeNativeThread {
+    return Thread(code).also { it.name = name ?: "unknown"; it.isDaemon = it.isDaemon; it.priority = priority.convert(Thread.MIN_PRIORITY, Thread.MAX_PRIORITY, Thread.NORM_PRIORITY); it.start() }
+}
+internal actual fun NativeThreadThread_gc(full: Boolean) {
+    System.gc()
+}
+internal actual fun NativeThreadThread_sleep(time: FastDuration) {
+    val compensatedTime = time
+    if (compensatedTime > 0.seconds) {
+        val (millis, nanos) = compensatedTime.toMillisNanos()
+        Thread.sleep(millis, nanos)
     }
+}
+private val java_lang_Thread = Class.forName("java.lang.Thread")
+@PublishedApi internal val onSpinWait = runCatching { java_lang_Thread.getMethod("onSpinWait") }.getOrNull()
 
-    actual fun interrupt() {
-        threadSuggestRunning = false
-        // No operation
-        thread.interrupt()
-    }
-
-    actual companion object {
-        actual val isSupported: Boolean get() = true
-
-        actual val currentThreadId: Long get() = Thread.currentThread().id
-        actual val currentThreadName: String? get() = Thread.currentThread().name
-
-        private val java_lang_Thread = Class.forName("java.lang.Thread")
-        @PublishedApi internal val onSpinWait = runCatching { java_lang_Thread.getMethod("onSpinWait") }.getOrNull()
-
-        actual fun gc(full: Boolean) {
-            System.gc()
-        }
-
-        actual fun sleep(time: FastDuration) {
-            //val gcTime = measureTime { System.gc() }
-            //val compensatedTime = time - gcTime
-            val compensatedTime = time
-            if (compensatedTime > 0.seconds) {
-                val (millis, nanos) = compensatedTime.toMillisNanos()
-                Thread.sleep(millis, nanos)
-            }
-        }
-        actual inline fun spinWhile(cond: () -> Boolean): Unit {
-            //println("onSpinWait=$onSpinWait")
-            while (cond()) {
-                onSpinWait?.invoke(null)
-            }
-
-        }
-    }
+@PublishedApi internal actual inline fun NativeThreadThread_spinWhile(cond: () -> Boolean): Unit {
+    while (cond()) { onSpinWait?.invoke(null) }
 }

@@ -27,7 +27,7 @@ private val nativeSoundProviderDeferred: NativeSoundProvider by lazy {
 }
 
 actual val nativeSoundProvider: NativeSoundProvider by lazy {
-    nativeThread(isDaemon = true, start = true) { nativeSoundProviderDeferred }
+    nativeThread(isDaemon = true) { nativeSoundProviderDeferred }
     LazyNativeSoundProvider { nativeSoundProviderDeferred }
 }
 //actual val nativeSoundProvider: NativeSoundProvider by lazy { JogampNativeSoundProvider() }

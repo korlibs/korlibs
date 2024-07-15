@@ -41,7 +41,7 @@ internal object Win32AudioSystem : AudioSystem() {
         @OptIn(ExperimentalStdlibApi::class)
         override fun playStream(device: AudioDevice, rate: Int, channels: Int, gen: (position: Long, data: Array<AudioSampleArray>) -> Int): AutoCloseable {
             var running = true
-            val nativeThread = nativeThread(start = true, isDaemon = true) {
+            nativeThread(isDaemon = true) {
                 ffiScoped {
                     val arena = this
                     val handlePtr = allocBytes(8).typed<FFIPointer?>()
