@@ -118,7 +118,7 @@ class NativeThreadDispatcher(
             running = false
             notifyLock.notify()
         }
-        thread.interrupt()
+        //thread.interrupt()
     }
 
     override fun dispatch(context: CoroutineContext, block: Runnable) {
