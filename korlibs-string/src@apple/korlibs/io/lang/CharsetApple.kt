@@ -1,33 +1,28 @@
 package korlibs.io.lang
 
 import korlibs.memory.ByteArrayBuilder
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.UnsafeNumber
-import platform.Foundation.*
+import platform.CoreFoundation.CFStringConvertEncodingToNSStringEncoding
+import platform.CoreFoundation.CFStringConvertIANACharSetNameToEncoding
+import platform.CoreFoundation.kCFStringEncodingInvalidId
+import platform.Foundation.NSString
+import platform.Foundation.NSStringEncoding
+import platform.Foundation.create
+import platform.Foundation.dataUsingEncoding
 
-@OptIn(UnsafeNumber::class)
+@OptIn(UnsafeNumber::class, ExperimentalForeignApi::class)
 class CharsetApple(name: String) : Charset(name) {
-    companion object {
-        val encodingMap = mapOf(
-            "UTF-8" to NSUTF8StringEncoding,
-            "ISO-8859-1" to NSISOLatin1StringEncoding,
-            "UTF-16" to NSUTF16StringEncoding,
-            "UTF-16BE" to NSUTF16BigEndianStringEncoding,
-            "UTF-16LE" to NSUTF16LittleEndianStringEncoding,
-            "UTF-32" to NSUTF32StringEncoding,
-            "UTF-32BE" to NSUTF32BigEndianStringEncoding,
-            "UTF-32LE" to NSUTF32LittleEndianStringEncoding,
-            "ASCII" to NSASCIIStringEncoding,
-            "NEXTSTEP" to NSNEXTSTEPStringEncoding,
-            "JAPANESE_EUC" to NSJapaneseEUCStringEncoding,
-            "EUC-JP" to NSJapaneseEUCStringEncoding,
-            "LATIN1" to NSISOLatin1StringEncoding,
-        )
+    private val encoding: NSStringEncoding = getEncoding(name)
 
-        fun isSupported(name: String) = encodingMap.containsKey(name.uppercase())
+    private fun getEncoding(name: String): NSStringEncoding {
+        val encoding = name.uppercase().useCFStringRef { CFStringConvertEncodingToNSStringEncoding(CFStringConvertIANACharSetNameToEncoding(it)) }
+        if (encoding.toUInt() != kCFStringEncodingInvalidId) {
+            return encoding
+        } else {
+            throw IllegalArgumentException("Charset $name is not supported by apple.")
+        }
     }
-
-    private val encoding: NSStringEncoding =
-        encodingMap[name.uppercase()] ?: throw IllegalArgumentException("Charset $name is not supported by apple.")
 
 
     override fun decode(out: StringBuilder, src: ByteArray, start: Int, end: Int): Int {
