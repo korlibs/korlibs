@@ -113,8 +113,8 @@ fun NativeThread.Companion.sleepExact(time: FastDuration) {
 //    sleep(date - DateTime.now(), exact)
 //}
 
-inline fun NativeThread.Companion.sleepWhile(cond: () -> Boolean) {
+inline fun NativeThread.Companion.sleepWhile(stepTime: FastDuration = 1.0.fastMilliseconds, exact: Boolean = false, cond: () -> Boolean) {
     while (cond()) {
-        NativeThread.sleep(1.milliseconds)
+        NativeThread.sleep(stepTime, exact)
     }
 }

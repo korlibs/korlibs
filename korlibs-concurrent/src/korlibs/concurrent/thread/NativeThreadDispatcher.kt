@@ -32,6 +32,10 @@ class FixedPoolNativeThreadDispatcher(
     override fun scheduleResumeAfterDelay(timeMillis: Long, continuation: CancellableContinuation<Unit>) {
         dispatchers.minBy { it.numTimedTasks }.scheduleResumeAfterDelay(timeMillis, continuation)
     }
+
+    override fun invokeOnTimeout(timeMillis: Long, block: Runnable, context: CoroutineContext): DisposableHandle {
+        return dispatchers.minBy { it.numTimedTasks }.invokeOnTimeout(timeMillis, block, context)
+    }
 }
 
 @OptIn(InternalCoroutinesApi::class, ExperimentalCoroutinesApi::class)
@@ -43,8 +47,18 @@ class NativeThreadDispatcher(
 ) : CoroutineDispatcher(), AutoCloseable, Delay {
     var running = true
     private val notifyLock = Lock()
-    class TimedTask(val time: FastDuration, val task: CancellableContinuation<Unit>) : Comparable<TimedTask> {
+    class TimedTask(
+        val dispatcher: NativeThreadDispatcher,
+        val time: FastDuration,
+        val task: Continuation<Unit>?,
+        val block: Runnable?,
+    ) : Comparable<TimedTask>, DisposableHandle {
         override fun compareTo(other: TimedTask): Int = this.time.compareTo(time)
+        override fun dispose() {
+            dispatcher.timedTasksLock {
+                dispatcher.timedTasks.remove(this)
+            }
+        }
     }
 
     val timedTasksLock = Lock()
@@ -60,7 +74,12 @@ class NativeThreadDispatcher(
                         val time = if (firstTask != null) (firstTask.time - now()) else 10_000.fastMilliseconds
                         //if (firstTask == null) println("WAITING 10s")
                         //if (time > 10.fastMilliseconds) println("!!!!!!!!!!!! TIME=$time")
-                        notifyLock.wait(time, precise = preciseTimings)
+                        var lockResult: Boolean? = null
+                        //println("BEFORE LOCK: time=$time, lockResult=$lockResult, numTasks=$numTasks, numTimedTasks=$numTimedTasks")
+                        //val lockTime = measureTime {
+                            lockResult = notifyLock.wait(time, precise = preciseTimings)
+                        //}
+                        //println("AFTER LOCK: lockTime=$lockTime, time=$time, lockResult=$lockResult, numTasks=$numTasks, numTimedTasks=$numTimedTasks")
                     }
                 }
             } catch (e: Throwable) {
@@ -77,7 +96,8 @@ class NativeThreadDispatcher(
                             val tryTask = timedTasks.firstOrNull()
                             if (tryTask != null && now() >= tryTask.time) timedTasks.removeFirst() else null
                         } ?: break
-                        task.task.resume(Unit)
+                        task.task?.resume(Unit)
+                        task.block?.run()
                     }
                 }
             } catch (e: Throwable) {
@@ -98,7 +118,7 @@ class NativeThreadDispatcher(
             running = false
             notifyLock.notify()
         }
-        //thread.interrupt()
+        thread.interrupt()
     }
 
     override fun dispatch(context: CoroutineContext, block: Runnable) {
@@ -109,11 +129,19 @@ class NativeThreadDispatcher(
     }
 
     override fun scheduleResumeAfterDelay(timeMillis: Long, continuation: CancellableContinuation<Unit>) {
-        val task = TimedTask(now() + timeMillis.fastMilliseconds, continuation)
+        _sched(timeMillis, continuation, null)
+    }
+
+    override fun invokeOnTimeout(timeMillis: Long, block: Runnable, context: CoroutineContext): DisposableHandle {
+        return _sched(timeMillis, null, block)
+    }
+
+    private fun _sched(timeMillis: Long, continuation: CancellableContinuation<Unit>?, block: Runnable?): DisposableHandle {
+        val task = TimedTask(this, now() + timeMillis.fastMilliseconds, continuation, block)
 
         notifyLock {
             timedTasksLock {
-                val firstTask = timedTasksLock { timedTasks.firstOrNull() }
+                val firstTask = timedTasks.firstOrNull()
                 if (firstTask == null || task.time < firstTask.time) {
                     timedTasks.addFirst(task)
                 } else {
@@ -121,12 +149,16 @@ class NativeThreadDispatcher(
                     timedTasks.sort()
                 }
             }
+            //println("ADD TIMED TASK and NOTIFY")
             notifyLock.notify()
         }
+
+        return task
     }
 
     private val start = TimeSource.Monotonic.markNow()
 
     @OptIn(CoreTimeInternalApi::class)
     private fun now(): FastDuration = start.elapsedNow().fast
+    //private fun now(): FastDuration = CoreTime.currentTimeMillisDouble().fastMilliseconds
 }

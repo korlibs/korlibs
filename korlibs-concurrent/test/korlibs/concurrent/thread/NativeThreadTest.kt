@@ -30,39 +30,81 @@ class NativeThreadTest {
     fun testThreadPool() = runTest {
         if (!NativeThread.isSupported) return@runTest
 
-        //for (n in 0 until 10000) {
         val test = FixedPoolNativeThreadDispatcher(2, "TEST", priority = NativeThreadPriority.HIGHER, preciseTimings = true)
+        //val test = NativeThreadDispatcher("TEST", priority = NativeThreadPriority.HIGHER, preciseTimings = true)
+        //withContext(test) {
         repeat(1) {
-        //repeat(10000000) {
+        //repeat(1000) {
             val time = measureTime {
                 val done2 = CompletableDeferred<Unit>()
                 val done1 = CompletableDeferred<Unit>()
-                var a = atomic(0)
-                var b = atomic(0)
+                val a = atomic(0)
+                val b = atomic(0)
                 CoroutineScope(test).launch {
                     a.addAndGet(1)
-                    delay(1.milliseconds)
-                    a.addAndGet(2)
+                    val time = measureTime {
+                        delay(1.milliseconds)
+                        a.addAndGet(2)
+                    }
+                    //println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! time1=$time")
                     done2.complete(Unit)
                 }
                 CoroutineScope(test).launch {
                     b.addAndGet(1)
                     val time = measureTime {
                         delay(1.milliseconds)
+                        b.addAndGet(2)
+                        done1.complete(Unit)
                     }
-                    //println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! time=$time")
-                    b.addAndGet(2)
-                    done1.complete(Unit)
+                    //println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! time2=$time")
                 }
                 //println("Sleep: ${NativeThread.current}")
                 //NativeThread.sleep(10.seconds)
-                done1.await()
-                done2.await()
+                val awaitTime = measureTime {
+                    done1.await()
+                    done2.await()
+                }
+                //println("############### awaitTime=$awaitTime")
                 assertEquals(3, a.value)
                 assertEquals(3, b.value)
             }
             println("TEST: $it, time=$time")
         }
+
         test.close()
     }
+
+    /*
+    class FastDeferred<T> {
+        private val completeLock = Lock()
+        private var completed = false
+        private var value: T? = null
+        private val notifiers = arrayListOf<() -> Unit>()
+
+        fun complete(value: T) {
+            if (completed) return
+
+            val notifiers = completeLock {
+                completed = true
+                this.value = value
+                this.notifiers.toList().also { this.notifiers.clear() }
+            }
+            notifiers.forEach { it() }
+        }
+
+        suspend fun await() = suspendCancellableCoroutine<T> { c ->
+            val completed = completeLock {
+                if (!completed) {
+                    notifiers += {
+                        c.resume(value as T)
+                    }
+                }
+                completed
+            }
+            if (completed) {
+                c.resume(value as T)
+            }
+        }
+    }
+    */
 }
