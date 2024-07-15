@@ -15,7 +15,16 @@ actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
     private var mutex: CRITICAL_SECTION? = null
     private var cond: CONDITION_VARIABLE? = null
 
-    actual override fun lock() {
+    actual inline operator fun <T> invoke(callback: () -> T): T {
+        lock()
+        try {
+            return callback()
+        } finally {
+            unlock()
+        }
+    }
+
+    @PublishedApi internal fun lock() {
         val mut = nrlock {
         //val mut = run {
             if (arena == null) {
@@ -39,7 +48,7 @@ actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
         EnterCriticalSection(mut.ptr)
     }
 
-    actual override fun unlock() {
+    @PublishedApi internal fun unlock() {
         nrlock {
         //run {
             LeaveCriticalSection(mutex!!.ptr)

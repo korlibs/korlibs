@@ -8,13 +8,20 @@ actual class Lock actual constructor() : LockImpl(), BaseLockWithNotifyAndWait {
 }
 */
 actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
-    private val lock = java.util.concurrent.locks.ReentrantLock()
+    @PublishedApi internal val lock = java.util.concurrent.locks.ReentrantLock()
 
     actual companion object {}
 
+    actual inline operator fun <T> invoke(callback: () -> T): T = synchronized(lock) {
+        callback()
+    }
+
     actual override fun notify(unit: Unit) {
-        synchronized(lock) {
+        try {
             (lock as java.lang.Object).notify()
+        } catch (e: Throwable) {
+            e.printStackTrace()
+        } finally {
         }
     }
 
@@ -24,13 +31,5 @@ actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
         val nanos = nanoSeconds % 1_000_000
         (lock as java.lang.Object).wait(millis, nanos.toInt())
         return true
-    }
-
-    actual override fun lock() {
-        lock.lock()
-    }
-
-    actual override fun unlock() {
-        lock.unlock()
     }
 }

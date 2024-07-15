@@ -16,7 +16,16 @@ actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
     private var mutex: pthread_mutex_t? = null
     private var cond: pthread_cond_t? = null
 
-    actual override fun lock() {
+    actual inline operator fun <T> invoke(callback: () -> T): T {
+        lock()
+        try {
+            return callback()
+        } finally {
+            unlock()
+        }
+    }
+
+    @PublishedApi internal fun lock() {
         val mut = nrlock {
             //val mut = run {
             if (arena == null) {
@@ -40,7 +49,7 @@ actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
         pthread_mutex_lock(mut.ptr)
     }
 
-    actual override fun unlock() {
+    @PublishedApi internal fun unlock() {
         nrlock {
             //run {
             pthread_mutex_unlock(mutex!!.ptr)

@@ -13,17 +13,8 @@ interface BaseLock {
         val isSupported get() = NativeThread.isSupported
     }
 
-    fun lock()
-    fun unlock()
-}
-
-inline operator fun <T> BaseLock.invoke(callback: () -> T): T {
-    lock()
-    try {
-        return callback()
-    } finally {
-        unlock()
-    }
+    //fun lock()
+    //fun unlock()
 }
 
 interface BaseLockWithNotifyAndWait : BaseLock {
@@ -44,10 +35,9 @@ inline operator fun <T> ReentrantLock.invoke(callback: () -> T): T {
 expect class Lock() : BaseLockWithNotifyAndWait {
     companion object { }
 
-    override fun lock()
-    override fun unlock()
     override fun notify(unit: Unit)
     override fun wait(time: FastDuration): Boolean
+    inline operator fun <T> invoke(callback: () -> T): T
 }
 
 inline fun <T> Lock.notify(block: () -> T): T {
@@ -73,7 +63,16 @@ abstract class LockImpl() : BaseLockWithNotifyAndWait {
     private var current = atomic(0L)
     private var locked = atomic(0)
 
-    override fun lock() {
+    inline fun <T> lockUnlock(callback: () -> T): T {
+        lock()
+        try {
+            return callback()
+        } finally {
+            unlock()
+        }
+    }
+
+    @PublishedApi internal fun lock() {
         //println("LOCK0: ${NativeThread.currentThreadId} - ${locked.value}")
         reentrantLock.lock()
         locked.incrementAndGet()
@@ -81,7 +80,7 @@ abstract class LockImpl() : BaseLockWithNotifyAndWait {
         //println("LOCK1: ${NativeThread.currentThreadId} - ${locked.value}")
     }
 
-    override fun unlock() {
+    @PublishedApi internal fun unlock() {
         //println("UNLOCK0: ${NativeThread.currentThreadId} - ${locked.value}")
         check(locked.value > 0) { "Must unlock inside a synchronization block" }
         reentrantLock.unlock()
@@ -123,12 +122,21 @@ abstract class LockImpl() : BaseLockWithNotifyAndWait {
 class NonRecursiveLock : BaseLock {
     private var locked = atomic(0)
 
-    override fun lock() {
+    inline operator fun <T> invoke(callback: () -> T): T {
+        lock()
+        try {
+            return callback()
+        } finally {
+            unlock()
+        }
+    }
+
+    @PublishedApi internal fun lock() {
         // Should we try to sleep this thread and awake it later? If the lock is short, might not be needed
         if (NativeThread.isSupported) NativeThread.spinWhile { !locked.compareAndSet(0, 1) }
     }
 
-    override fun unlock() {
+    @PublishedApi internal fun unlock() {
         // Should we try to sleep this thread and awake it later? If the lock is short, might not be needed
         if (NativeThread.isSupported) NativeThread.spinWhile { !locked.compareAndSet(1, 0) }
     }
@@ -157,5 +165,9 @@ fun Lock.wait(time: Duration, precise: Boolean): Boolean {
 }
 
 fun Lock.waitForever() {
-    this { while (!wait(100.fastSeconds)) Unit }
+    this { waitForeverNoLock() }
+}
+
+fun Lock.waitForeverNoLock() {
+    while (!wait(100.fastSeconds)) Unit
 }
