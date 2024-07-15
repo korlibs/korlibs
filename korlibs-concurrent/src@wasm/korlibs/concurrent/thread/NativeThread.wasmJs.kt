@@ -3,50 +3,31 @@ package korlibs.concurrent.thread
 import korlibs.time.*
 import kotlin.time.*
 
-actual class NativeThread actual constructor(val code: (NativeThread) -> Unit) {
-    actual var isDaemon: Boolean = false
-    actual var threadSuggestRunning = true
-    actual var userData: Any? = null
+actual typealias NativeNativeThread = Unit
 
-    actual fun start() {
-        threadSuggestRunning = true
-        TODO()
+internal actual fun NativeNativeThread_getId(thread: NativeNativeThread): Long = 0L
+internal actual fun NativeNativeThread_getPriority(thread: NativeNativeThread): NativeThreadPriority = NativeThreadPriority.NORMAL
+internal actual fun NativeNativeThread_getName(thread: NativeNativeThread): String? = "main"
+internal actual fun NativeNativeThread_getIsDaemon(thread: NativeNativeThread): Boolean = true
+internal actual fun NativeNativeThread_interrupt(thread: NativeNativeThread): Unit = TODO()
+internal actual fun NativeNativeThread_join(thread: NativeNativeThread): Unit = TODO()
+
+internal actual val NativeThreadThread_isSupported: Boolean = false
+internal actual fun NativeThreadThread_current(): NativeNativeThread = Unit
+internal actual fun NativeThreadThread_start(name: String?, isDaemon: Boolean, priority: NativeThreadPriority, code: () -> Unit): NativeNativeThread = TODO()
+internal actual fun NativeThreadThread_gc(full: Boolean): Unit = Unit
+internal actual fun NativeThreadThread_sleep(time: FastDuration): Unit {
+    warnSleep
+    val start = TimeSource.Monotonic.markNow()
+    NativeThreadThread_spinWhile { start.elapsedNow() < time }
+}
+@PublishedApi internal actual inline fun NativeThreadThread_spinWhile(cond: () -> Boolean): Unit {
+    while (cond()) {
+        // @TODO: try to improve performance like: Thread.onSpinWait() or SpinWait.SpinUntil
+        Unit
     }
+}
 
-    actual fun interrupt() {
-        threadSuggestRunning = false
-        TODO()
-    }
-
-    actual companion object {
-        actual val isSupported: Boolean get() = false
-
-        val warnSleep by lazy {
-            println("!!! Sync sleeping on JS")
-        }
-
-        actual fun gc(full: Boolean) {
-        }
-
-        actual fun sleep(time: FastDuration) {
-            warnSleep
-            val start = TimeSource.Monotonic.markNow()
-            spinWhile { start.elapsedNow() < time }
-        }
-
-        actual inline fun spinWhile(cond: () -> Boolean): Unit {
-            while (cond()) {
-                // @TODO: try to improve performance like: Thread.onSpinWait() or SpinWait.SpinUntil
-                Unit
-            }
-        }
-
-        actual val currentThreadId: Long get() = 1L
-        actual val currentThreadName: String? get() = "Thread-$currentThreadId"
-    }
-
-    actual var priority: Int
-        get() = 0
-        set(value) {}
-    actual var name: String? = "Thread-WASMJS"
+private val warnSleep by lazy {
+    println("!!! Sync sleeping on JS")
 }
