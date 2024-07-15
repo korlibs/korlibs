@@ -1,9 +1,9 @@
 package korlibs.io.lang
 
 import kotlinx.cinterop.*
-import platform.Foundation.NSData
-import platform.Foundation.NSMutableData
-import platform.Foundation.appendBytes
+import platform.CoreFoundation.CFRelease
+import platform.CoreFoundation.CFStringRef
+import platform.Foundation.*
 import platform.posix.memcpy
 
 @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
@@ -24,4 +24,11 @@ internal fun ByteArray.toNSData(): NSData = NSMutableData().apply {
     this@toNSData.usePinned {
         appendBytes(it.addressOf(0), size.convert())
     }
+}
+
+
+@OptIn(ExperimentalForeignApi::class)
+inline fun <T> String.useCFStringRef(block: (CFStringRef) -> T): T {
+    val ref = CFBridgingRetain(this as NSString) as CFStringRef
+    return block(ref).also { CFRelease(ref) }
 }
