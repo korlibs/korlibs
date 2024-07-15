@@ -74,10 +74,10 @@ class NativeThreadDispatcher(
                         val time = if (firstTask != null) (firstTask.time - now()) else 10_000.fastMilliseconds
                         //if (firstTask == null) println("WAITING 10s")
                         //if (time > 10.fastMilliseconds) println("!!!!!!!!!!!! TIME=$time")
-                        var lockResult: Boolean? = null
                         //println("BEFORE LOCK: time=$time, lockResult=$lockResult, numTasks=$numTasks, numTimedTasks=$numTimedTasks")
                         //val lockTime = measureTime {
-                            lockResult = notifyLock.wait(time, precise = preciseTimings)
+                            //lockResult = notifyLock.wait(time, precise = preciseTimings)
+                        notifyLock.wait(time)
                         //}
                         //println("AFTER LOCK: lockTime=$lockTime, time=$time, lockResult=$lockResult, numTasks=$numTasks, numTimedTasks=$numTimedTasks")
                     }
@@ -114,17 +114,15 @@ class NativeThreadDispatcher(
     }
 
     override fun close() {
-        notifyLock {
+        notifyLock.notify {
             running = false
-            notifyLock.notify()
         }
         //thread.interrupt()
     }
 
     override fun dispatch(context: CoroutineContext, block: Runnable) {
-        notifyLock {
+        notifyLock.notify {
             tasksLock { tasks.add(block) }
-            notifyLock.notify()
         }
     }
 
@@ -139,7 +137,7 @@ class NativeThreadDispatcher(
     private fun _sched(timeMillis: Long, continuation: CancellableContinuation<Unit>?, block: Runnable?): DisposableHandle {
         val task = TimedTask(this, now() + timeMillis.fastMilliseconds, continuation, block)
 
-        notifyLock {
+        notifyLock.notify {
             timedTasksLock {
                 val firstTask = timedTasks.firstOrNull()
                 if (firstTask == null || task.time < firstTask.time) {
@@ -150,7 +148,6 @@ class NativeThreadDispatcher(
                 }
             }
             //println("ADD TIMED TASK and NOTIFY")
-            notifyLock.notify()
         }
 
         return task

@@ -50,6 +50,18 @@ expect class Lock() : BaseLockWithNotifyAndWait {
     override fun wait(time: FastDuration): Boolean
 }
 
+inline fun <T> Lock.notify(block: () -> T): T {
+    //println("NOTIFYING[0] ...")
+    return this {
+        //println("NOTIFYING[1] ...")
+        block().also {
+            //println("NOTIFYING[2] ...")
+            notify()
+            //println("NOTIFYING[3] ...")
+        }
+    }
+}
+
 val Lock.Companion.isSupported get() = NativeThread.isSupported
 
 /**

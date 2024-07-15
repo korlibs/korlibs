@@ -2,11 +2,11 @@ package korlibs.concurrent.lock
 
 import korlibs.time.*
 
+/*
 actual class Lock actual constructor() : LockImpl(), BaseLockWithNotifyAndWait {
     actual companion object {}
 }
 
-/*
 actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
     actual companion object {}
 
