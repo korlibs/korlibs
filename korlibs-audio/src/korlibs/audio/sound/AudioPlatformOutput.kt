@@ -71,5 +71,46 @@ class AudioPlatformOutput(
         job?.cancel()
         job = null
     }
+
     final override fun close() = stop()
+
+    companion object {
+        fun simple(
+            coroutineContext: CoroutineContext,
+            nchannels: Int,
+            freq: Int,
+            gen: AudioPlatformOutputGen,
+            dispatcher: CoroutineDispatcher = Dispatchers.AUDIO,
+            build: (AudioSamplesInterleaved) -> AudioPlatformOutputSimple,
+        ) = AudioPlatformOutput(coroutineContext, nchannels, freq, gen, dispatcher) {
+            val samples = AudioSamplesInterleaved(nchannels, 2048)
+            val gen = build(samples)
+            var init = false
+            try {
+                while (running) {
+                    if (paused) {
+                        delay(10L)
+                    } else {
+                        genSafe(samples)
+                        println(samples.data.toList())
+                        if (!init) {
+                            init = true
+                            gen.init(samples)
+                        }
+                        gen.output(samples)
+                        yield()
+                    }
+                }
+            } finally {
+                gen.close(samples)
+            }
+        }
+    }
 }
+
+class AudioPlatformOutputSimple(
+    val init: suspend (AudioSamplesInterleaved) -> Unit = { },
+    val output: suspend (AudioSamplesInterleaved) -> Unit = { },
+    val close: suspend (AudioSamplesInterleaved) -> Unit = { },
+    unit: Unit = Unit
+)
