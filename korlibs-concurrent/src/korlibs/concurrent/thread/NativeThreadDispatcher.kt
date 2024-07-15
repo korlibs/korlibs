@@ -5,6 +5,7 @@ import korlibs.time.*
 import korlibs.time.core.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
+import kotlin.time.*
 
 @OptIn(InternalCoroutinesApi::class)
 class FixedPoolNativeThreadDispatcher(
@@ -50,22 +51,23 @@ class NativeThreadDispatcher(
     val tasks = ArrayDeque<Runnable>()
     val thread = NativeThread.start(name = name, priority = priority, isDaemon = isDaemon) {
         while (running) {
-            if (tasksLock { tasks.isEmpty() }) {
-                try {
-                    notifyLock {
+            try {
+                notifyLock {
+                    if (tasks.isEmpty()) {
                         val firstTask = timedTasksLock { timedTasks.firstOrNull() }
-                        val time = if (firstTask != null) (firstTask.time - now()).fastMilliseconds else 10000.fastMilliseconds
+                        val time = if (firstTask != null) (firstTask.time - now()).fastMilliseconds else 10_000.fastMilliseconds
                         //if (firstTask == null) println("WAITING 10s")
+                        //if (time > 10.fastMilliseconds) println("!!!!!!!!!!!! TIME=$time")
                         notifyLock.wait(time)
                     }
-                } catch (e: Throwable) {
-
                 }
+            } catch (e: Throwable) {
+
             }
             if (!running) break
             try {
                 val task = tasksLock { tasks.removeFirstOrNull() }
-                println("${NativeThread.current}: $task")
+                //println("${NativeThread.current}: $task")
                 task?.run()
                 run {
                     while (true) {
@@ -90,36 +92,39 @@ class NativeThreadDispatcher(
     }
 
     override fun close() {
-        running = false
-        notifyLock { notifyLock.notify() }
+        notifyLock {
+            running = false
+            notifyLock.notify()
+        }
         thread.interrupt()
     }
 
     override fun dispatch(context: CoroutineContext, block: Runnable) {
-        tasksLock { tasks.add(block) }
-        notifyLock { notifyLock.notify() }
+        notifyLock {
+            tasksLock { tasks.add(block) }
+            notifyLock.notify()
+        }
     }
 
     override fun scheduleResumeAfterDelay(timeMillis: Long, continuation: CancellableContinuation<Unit>) {
         val task = TimedTask(now() + timeMillis, continuation)
-        timedTasksLock {
-            val firstTask = timedTasks.firstOrNull()
-            if (firstTask == null || task.time < firstTask.time) {
-                notifyLock {
+
+        notifyLock {
+            timedTasksLock {
+                val firstTask = timedTasksLock { timedTasks.firstOrNull() }
+                if (firstTask == null || task.time < firstTask.time) {
                     timedTasks.addFirst(task)
-                    //println("ADDED TIMED TASK AND NOTIFY")
-                    notifyLock.notify()
-                }
-            } else {
-                notifyLock {
+                } else {
                     timedTasks.addLast(task)
                     timedTasks.sort()
-                    notifyLock.notify()
                 }
             }
+            notifyLock.notify()
         }
     }
 
+    private val start = TimeSource.Monotonic.markNow()
+
     @OptIn(CoreTimeInternalApi::class)
-    private fun now(): Long = CoreTime.currentTimeMillis()
+    private fun now(): Long = start.elapsedNow().inWholeMilliseconds
 }

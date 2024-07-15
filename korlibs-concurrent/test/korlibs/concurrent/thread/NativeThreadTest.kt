@@ -2,6 +2,7 @@ package korlibs.concurrent.thread
 
 import korlibs.io.async.*
 import korlibs.time.*
+import kotlinx.atomicfu.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import kotlin.test.*
@@ -26,20 +27,24 @@ class NativeThreadTest {
 
     @Test
     fun testThreadPool() = runTest {
-        for (n in 0 until 1000) {
+        //for (n in 0 until 10000) {
+        repeat(1) {
+        //repeat(100000) {
             val test = FixedPoolNativeThreadDispatcher(2, "TEST")
             val done2 = CompletableDeferred<Unit>()
             val done1 = CompletableDeferred<Unit>()
+            var a = atomic(0)
+            var b = atomic(0)
             CoroutineScope(test).launch {
-                println("1")
+                a.addAndGet(1)
                 delay(10.milliseconds)
-                println("2")
+                a.addAndGet(2)
                 done2.complete(Unit)
             }
             CoroutineScope(test).launch {
-                println("a")
+                b.addAndGet(1)
                 delay(10.milliseconds)
-                println("b")
+                b.addAndGet(2)
                 done1.complete(Unit)
             }
             //println("Sleep: ${NativeThread.current}")
@@ -47,6 +52,8 @@ class NativeThreadTest {
             done1.await()
             done2.await()
             test.close()
+            assertEquals(3, a.value)
+            assertEquals(3, b.value)
         }
     }
 }

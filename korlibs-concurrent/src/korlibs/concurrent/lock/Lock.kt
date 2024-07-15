@@ -56,6 +56,7 @@ class Lock() : BaseLock() {
 
     override fun unlock() {
         //println("UNLOCK0: ${NativeThread.currentThreadId} - ${locked.value}")
+        check(locked.value > 0) { "Must unlock inside a synchronization block" }
         reentrantLock.unlock()
         locked.decrementAndGet()
         //println("UNLOCK1: ${NativeThread.currentThreadId} - ${locked.value}")
@@ -76,6 +77,7 @@ class Lock() : BaseLock() {
         val start = TimeSource.Monotonic.markNow()
         notified.value = false
         repeat(lockCount) { unlock() }
+        check(locked.value == 0) { "Must unlock all locks" }
         try {
             NativeThread.sleepWhile { !notified.value && start.elapsedNow() < time }
         } finally {
