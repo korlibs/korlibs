@@ -62,7 +62,7 @@ class SoundAudioStream(
                         var started = false
                         while (times.hasMore) {
                             stream.currentPositionInSamples = 0L
-                            while (!stream.finished) {
+                            while (true) {
                                 //println("STREAM")
                                 while (paused) {
                                     delay(2.milliseconds)
@@ -70,11 +70,15 @@ class SoundAudioStream(
                                 }
                                 val read = stream.read(temp, 0, temp.totalSamples)
                                 deque.write(temp, 0, read)
-                                if (deque.availableRead > minBuf) delay(1.milliseconds)
-                                if (!started) {
-                                    started = true
-                                    nas.start()
+                                if (stream.finished || deque.availableRead >= minBuf) {
+                                    if (!started) {
+                                        started = true
+                                        nas.start()
+                                    } else if (deque.availableRead >= minBuf * 2) {
+                                        delay(1.milliseconds)
+                                    }
                                 }
+                                if (stream.finished) break
                             }
                             times = times.oneLess
                         }

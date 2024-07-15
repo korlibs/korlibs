@@ -445,7 +445,7 @@ abstract class Sound(val creationCoroutineContext: CoroutineContext) : SoundProp
 data class PlaybackParameters(
     val times: PlaybackTimes = 1.playbackTimes,
     val startTime: Duration = 0.seconds,
-    val bufferTime: Duration = 0.16.seconds,
+    val bufferTime: Duration = 0.25.seconds,
     override val volume: Double = 1.0,
     override val pitch: Double = 1.0,
     override val panning: Double = 0.0,
