@@ -3,7 +3,7 @@ package korlibs.concurrent.thread
 import korlibs.time.*
 import kotlin.time.*
 
-actual typealias NativeNativeThread = Unit
+actual typealias NativeNativeThread = Long
 
 internal actual fun NativeNativeThread_getId(thread: NativeNativeThread): Long = 0L
 internal actual fun NativeNativeThread_getPriority(thread: NativeNativeThread): NativeThreadPriority = NativeThreadPriority.NORMAL
@@ -13,7 +13,7 @@ internal actual fun NativeNativeThread_interrupt(thread: NativeNativeThread): Un
 internal actual fun NativeNativeThread_join(thread: NativeNativeThread): Unit = TODO()
 
 internal actual val NativeThreadThread_isSupported: Boolean = false
-internal actual fun NativeThreadThread_current(): NativeNativeThread = Unit
+internal actual fun NativeThreadThread_current(): NativeNativeThread = 0L
 internal actual fun NativeThreadThread_start(name: String?, isDaemon: Boolean, priority: NativeThreadPriority, code: () -> Unit): NativeNativeThread = TODO()
 internal actual fun NativeThreadThread_gc(full: Boolean): Unit = Unit
 internal actual fun NativeThreadThread_sleep(time: FastDuration): Unit {
