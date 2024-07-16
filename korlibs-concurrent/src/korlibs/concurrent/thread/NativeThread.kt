@@ -54,6 +54,8 @@ value class NativeThread(val native: NativeNativeThread) {
     fun interrupt() = NativeNativeThread_interrupt(native)
     fun join() = NativeNativeThread_join(native)
 
+    override fun toString(): String = "NativeThread(id=$id, name=$name, priority=$priority, isDaemon=$isDaemon)"
+
     companion object {
         val isSupported: Boolean get() = NativeThreadThread_isSupported
         @Deprecated("", ReplaceWith("current.id", "korlibs.concurrent.thread.NativeNative.Companion.current"))
