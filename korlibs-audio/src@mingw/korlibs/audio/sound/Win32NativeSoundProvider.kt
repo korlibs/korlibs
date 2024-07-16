@@ -116,51 +116,6 @@ object Win32WaveOutNativeSoundProvider : NativeSoundProvider() {
         override fun toString(): String = "WaveHeader(id=$id, totalSamples=$totalSamples, nchannels=$channels, hdr=$hdr)"
     }
 
-    /*
-    private class WaveHeader(
-        val id: Int,
-        val handle: HWAVEOUT?,
-        val totalSamples: Int,
-        val channels: Int,
-        val arena: MemScope,
-    ) {
-        val samples = AudioSamplesInterleaved(channels, totalSamples)
-
-        val totalShorts = (totalSamples * channels)
-        val totalBytes = (totalShorts * Short.SIZE_BYTES)
-        val dataMem = arena.allocArray<ShortVar>(totalShorts)
-        val hdr = arena.alloc<wavehdr_tag>().also { hdr ->
-            hdr.lpData = dataMem.reinterpret()
-            hdr.dwBufferLength = totalBytes.convert()
-            hdr.dwFlags = 0.convert()
-        }
-
-        fun prepareAndWrite(totalSamples: Int = this.totalSamples) {
-            //println(data[0].toList())
-
-            val channels = this.channels
-            hdr.dwBufferLength = (totalSamples * channels * Short.SIZE_BYTES).convert()
-
-            val samplesData = samples.data
-            for (n in 0 until channels * totalSamples) {
-                dataMem[n] = samplesData[n]
-            }
-            //if (hdr.isPrepared) dispose()
-            if (!hdr.isPrepared) {
-                //println("-> prepare")
-                WINMM.waveOutPrepareHeader(handle, hdr.ptr, sizeOf<wavehdr_tag>().convert())
-            }
-            WINMM.waveOutWrite(handle, hdr.ptr, sizeOf<wavehdr_tag>().convert())
-        }
-
-        fun dispose() {
-            WINMM.waveOutUnprepareHeader(handle, hdr.ptr, sizeOf<wavehdr_tag>().convert())
-        }
-
-        override fun toString(): String = "WaveHeader(id=$id, totalSamples=$totalSamples, nchannels=$channels, hdr=$hdr)"
-    }
-    */
-
     val wavehdr_tag.isDone: Boolean get() = dwFlags.toInt().hasFlags(WHDR_DONE)
     val wavehdr_tag.isPrepared: Boolean get() = dwFlags.toInt().hasFlags(WHDR_PREPARED)
     val wavehdr_tag.isBeginLoop: Boolean get() = dwFlags.toInt().hasFlags(WHDR_BEGINLOOP)
