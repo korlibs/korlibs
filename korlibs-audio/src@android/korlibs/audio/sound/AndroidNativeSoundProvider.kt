@@ -100,7 +100,7 @@ class AndroidNativeSoundProvider : NativeSoundProvider() {
                             }
 
                             genSafe(buffer)
-                            at.write(buffer.data, 0, buffer.data.size)
+                            at.write(buffer.data.asShortArray(), 0, buffer.data.size)
                             delay(1L)
                         }
                     }
