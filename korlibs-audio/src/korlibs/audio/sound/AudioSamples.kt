@@ -200,10 +200,6 @@ fun AudioSamplesInterleaved.separated(out: AudioSamples = AudioSamples(channels,
     return out
 }
 
-private fun arraycopy(src: AudioSampleArray, srcPos: Int, dst: AudioSampleArray, dstPos: Int, size: Int) {
-    src.copyInto(dst, dstPos, srcPos, srcPos + size)
-}
-
 private fun arrayinterleave(
     out: AudioSampleArray, outPos: Int,
     array1: AudioSampleArray, array1Pos: Int,
