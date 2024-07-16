@@ -30,7 +30,7 @@ object CoreAudioNativeSoundProvider : NativeSoundProvider() {
     override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         appleInitAudioOnce
 
-        return AudioPlatformOutput(coroutineContext, channels, frequency, gen) {
+        return AudioPlatformOutput(this, coroutineContext, channels, frequency, gen) {
             val generator = CoreAudioGenerator(frequency, channels, coroutineContext = coroutineContext) { data, dataSize ->
                 val totalSamples = dataSize / nchannels
                 //if (samples == null || samples!!.totalSamples != totalSamples || samples!!.channels != channels) {

@@ -1,6 +1,5 @@
 package korlibs.audio.sound
 
-import korlibs.audio.sound.backend.*
 import korlibs.math.geom.*
 import kotlinx.atomicfu.locks.*
 import kotlinx.coroutines.*
@@ -9,13 +8,14 @@ import kotlin.coroutines.*
 typealias AudioPlatformOutputGen = (AudioSamplesInterleaved) -> Unit
 
 class AudioPlatformOutput(
+    val listener: ListenerProps,
     val coroutineContext: CoroutineContext,
     val channels: Int,
     val frequency: Int,
     private val gen: AudioPlatformOutputGen,
     val dispatcher: CoroutineDispatcher = Dispatchers.AUDIO,
     val block: suspend AudioPlatformOutput.() -> Unit = {
-        val buffer = AudioSamplesInterleaved(channels, 1024)
+        val buffer = AudioSamplesInterleaved(channels, DEFAULT_BLOCK_SIZE)
         while (running) {
             genSafe(buffer)
             delay(1L)
@@ -29,14 +29,14 @@ class AudioPlatformOutput(
         lock.withLock {
             try {
                 gen(buffer)
-                applyPropsTo(buffer)
+                applyPropsTo(listener, buffer)
             } catch (e: Throwable) {
                 e.printStackTrace()
             }
         }
     }
 
-    override var pitch: Double = 1.0
+    //var pitch: Double = 1.0
     override var volume: Double = 1.0
     override var panning: Double = 0.0
     override var position: Vector3 = Vector3.ZERO
@@ -75,15 +75,18 @@ class AudioPlatformOutput(
     final override fun close() = stop()
 
     companion object {
+        val DEFAULT_BLOCK_SIZE = 2048
+
         fun simple(
+            listener: ListenerProps,
             coroutineContext: CoroutineContext,
             nchannels: Int,
             freq: Int,
             gen: AudioPlatformOutputGen,
             dispatcher: CoroutineDispatcher = Dispatchers.AUDIO,
             build: (AudioSamplesInterleaved) -> AudioPlatformOutputSimple,
-        ) = AudioPlatformOutput(coroutineContext, nchannels, freq, gen, dispatcher) {
-            val samples = AudioSamplesInterleaved(nchannels, 2048)
+        ) = AudioPlatformOutput(listener, coroutineContext, nchannels, freq, gen, dispatcher) {
+            val samples = AudioSamplesInterleaved(nchannels, DEFAULT_BLOCK_SIZE)
             val gen = build(samples)
             var init = false
             try {

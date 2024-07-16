@@ -323,6 +323,13 @@ data class Vector3F(val x: Float, val y: Float, val z: Float) : IsAlmostEqualsF<
     constructor(x: Int, y: Int, z: Int) : this(x.toFloat(), y.toFloat(), z.toFloat())
     constructor(x: Double, y: Double, z: Double) : this(x.toFloat(), y.toFloat(), z.toFloat())
 
+    fun distanceTo(other: Vector3F): Float {
+        val dx = this.x - other.x
+        val dy = this.y - other.y
+        val dz = this.z - other.z
+        return sqrt(dx * dx + dy * dy + dz * dz)
+    }
+
     val lengthSquared: Float get() = (x * x) + (y * y) + (z * z)
     val length: Float get() = sqrt(lengthSquared)
     fun normalized(): Vector3F {

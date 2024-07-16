@@ -13,7 +13,7 @@ object AWTNativeSoundProvider : NativeSoundProvider() {
         nchannels: Int,
         freq: Int,
         gen: AudioPlatformOutputGen
-    ): AudioPlatformOutput = AudioPlatformOutput.simple(coroutineContext, nchannels, freq, gen) { buffer ->
+    ): AudioPlatformOutput = AudioPlatformOutput.simple(this, coroutineContext, nchannels, freq, gen) { buffer ->
         val format = AudioFormat(freq.toFloat(), Short.SIZE_BITS, buffer.channels, true, false)
         val line = (mixer.getLine(DataLine.Info(SourceDataLine::class.java, format)) as SourceDataLine)
         val bytes = ByteArray(buffer.totalSamples * buffer.channels * Short.SIZE_BYTES)
