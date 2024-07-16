@@ -8,5 +8,6 @@ class ThreadIdTest {
     @Test
     fun testCurrentThreadIdReturnsAlwaysTheSameValueOnTheSameThread() {
         assertEquals(NativeThread.currentThreadId, NativeThread.currentThreadId)
+        assertEquals(NativeThread.current, NativeThread.current)
     }
 }

@@ -1,6 +1,8 @@
 package korlibs.io.concurrent
 
 import korlibs.concurrent.lock.*
+import korlibs.concurrent.thread.*
+import korlibs.time.*
 import kotlin.test.*
 
 class LockTest {
@@ -9,7 +11,9 @@ class LockTest {
         val lock = Lock()
         var a = 0
         lock {
-            a++
+            lock {
+                a++
+            }
         }
         assertEquals(1, a)
     }
@@ -22,5 +26,40 @@ class LockTest {
             a++
         }
         assertEquals(1, a)
+    }
+
+    @Test
+    fun testWaitNotify() {
+        if (!NativeThread.isSupported) return
+
+        val lock = Lock()
+        var log = arrayListOf<String>()
+        lock {
+            nativeThread {
+                lock { // will start when lock.waitForever() is called
+                    log += "b"
+                    lock {
+                        lock.notify()
+                    }
+                }
+            }
+            NativeThread.sleep(100.fastMilliseconds)
+            lock {
+                log += "a"
+                lock.waitForever()
+                log += "c" // will continue when lock.notify() is called
+            }
+        }
+        assertEquals("abc", log.joinToString(""))
+    }
+
+    @Test
+    fun testNotifyError() {
+        assertFails { Lock().notify() }
+    }
+
+    @Test
+    fun testWaitError() {
+        assertFails { Lock().wait(1.seconds) }
     }
 }
