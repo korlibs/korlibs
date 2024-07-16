@@ -19,7 +19,6 @@ interface BaseLock {
 
 interface BaseLockWithNotifyAndWait : BaseLock {
     abstract fun notify(unit: Unit = Unit)
-    abstract fun notifyAll(unit: Unit = Unit)
     abstract fun wait(time: FastDuration): Boolean
     fun wait(time: Duration): Boolean = wait(time.fast)
 }
