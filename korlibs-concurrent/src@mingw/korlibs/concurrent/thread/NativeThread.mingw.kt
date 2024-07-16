@@ -3,57 +3,57 @@
 package korlibs.concurrent.thread
 
 import kotlinx.cinterop.*
-import platform.posix.*
+import platform.windows.*
 
-val NativeNativeThread.pthread: ULong get() = this.toULong()
+fun <T> NativeNativeThread.useHandle(block: (HANDLE?) -> T): T {
+    val thread = OpenThread(((READ_CONTROL or SYNCHRONIZE or DELETE).convert()) , 0, this.convert())
+    try {
+        //println("OPEN THREAD: thread=$thread, id=$this")
+        return block(thread)
+    } finally {
+        CloseHandle(thread)
+    }
+}
 
 @OptIn(ExperimentalForeignApi::class)
-internal actual fun NativeNativeThread_getPriority(thread: NativeNativeThread): NativeThreadPriority {
-    val value = memScoped {
-        val param = alloc<sched_param>()
-        val kind = alloc<IntVar>()
-        pthread_getschedparam(thread.pthread, kind.ptr, param.ptr)
-        param.reinterpret<IntVar>().value
+internal actual fun NativeNativeThread_getPriority(thread: NativeNativeThread): NativeThreadPriority =
+    thread.useHandle {
+        NativeThreadPriority.from(GetThreadPriority(it), THREAD_PRIORITY_LOWEST, THREAD_PRIORITY_HIGHEST)
     }
-    return NativeThreadPriority.from(value, sched_get_priority_min(SCHED_POLICY), sched_get_priority_max(SCHED_POLICY))
-}
+
 internal actual fun NativeNativeThread_interrupt(thread: NativeNativeThread): Unit {
-    pthread_cancel(thread.pthread)
-}
-@OptIn(ExperimentalForeignApi::class)
-internal actual fun NativeNativeThread_join(thread: NativeNativeThread): Unit {
-    memScoped {
-        val result = alloc<COpaquePointerVar>()
-        pthread_join(thread.pthread, result.ptr)
+    thread.useHandle {
+        TerminateThread(it, 0.convert())
     }
 }
-internal actual fun NativeThreadThread_current(): NativeNativeThread = pthread_self().toLong()
-@OptIn(ExperimentalForeignApi::class)
+internal actual fun NativeNativeThread_join(thread: NativeNativeThread): Unit {
+    thread.useHandle {
+        WaitForSingleObject(it, INFINITE)
+    }
+}
+internal actual fun NativeThreadThread_current(): NativeNativeThread =
+    GetCurrentThreadId().toLong()
+
 internal actual fun NativeThreadThread_start(name: String?, isDaemon: Boolean, priority: NativeThreadPriority, code: () -> Unit): NativeNativeThread {
     return memScoped {
-        val threadPtr = alloc<pthread_tVar>()
-        val attr = alloc<pthread_attr_t>()
-        val schedParam = alloc<sched_param>().also {
-            //println("min=${sched_get_priority_min(SCHED_POLICY)}")
-            //println("max=${sched_get_priority_max(SCHED_POLICY)}")
+        val attributes = alloc<SECURITY_ATTRIBUTES>()
+        val threadId = alloc<DWORDVar>()
 
-            // @TODO: Thread priority is not implemented in mingw
-            it.reinterpret<IntVar>().value = priority.convert(sched_get_priority_min(SCHED_POLICY), sched_get_priority_max(SCHED_POLICY)).convert()
-        }
+        attributes.lpSecurityDescriptor
 
-        pthread_attr_init(attr.ptr)
-        try {
-            pthread_attr_setinheritsched(attr.ptr, PTHREAD_EXPLICIT_SCHED)
-            pthread_attr_setschedpolicy(attr.ptr, SCHED_POLICY)
-            pthread_attr_setschedparam(attr.ptr, schedParam.ptr)
-            val err = pthread_create(threadPtr.ptr, attr.ptr, staticCFunction(::__threadStart), StableRef.create(ThreadInfo(name, code)).asCPointer())
-            pthread_setschedparam(threadPtr.value, SCHED_POLICY, schedParam.ptr);
-            if (err != 0) {
-                error("error creating thread $name")
-            }
-        } finally {
-            pthread_attr_destroy(attr.ptr)
-        }
-        threadPtr.value.toLong()
+        val thread = CreateThread(
+            attributes.ptr,
+            0.convert(),
+            staticCFunction(::__win32_threadStart),
+            StableRef.create(ThreadInfo(name, code)).asCPointer(),
+            0.convert(),
+            threadId.ptr
+        )
+        SetThreadPriority(thread, priority.convert(THREAD_PRIORITY_LOWEST, THREAD_PRIORITY_HIGHEST))
+        threadId.value.toLong()
     }
+}
+
+fun __win32_threadStart(value: COpaquePointer?): DWORD {
+    return __threadStart(value).toLong().convert()
 }
