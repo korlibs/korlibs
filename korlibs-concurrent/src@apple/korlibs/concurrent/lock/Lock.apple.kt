@@ -11,7 +11,7 @@ import kotlin.time.*
 actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
     actual companion object {}
 
-    private val nrlock = NonRecursiveLock()
+    private val nrlock = SynchronizedObject()
     private val nplocks = atomic(0)
     private val nlocks = atomic(0)
     private var arena: Arena? = null
@@ -31,15 +31,25 @@ actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
         val mut = synchronized(nrlock) {
             if (arena == null) arena = Arena()
             if (cond == null) cond = arena!!.alloc<pthread_cond_t>().also { pthread_cond_init(it.ptr, null) }
-            if (mutex == null) mutex = arena!!.alloc<pthread_mutex_t>().also { pthread_mutex_init(it.ptr, null) }
+            if (mutex == null) mutex = arena!!.alloc<pthread_mutex_t>().also {
+                memScoped {
+                    val attr = alloc<pthread_mutexattr_t>()
+                    pthread_mutexattr_init(attr.ptr)
+                    pthread_mutexattr_settype(attr.ptr, PTHREAD_MUTEX_RECURSIVE.convert())
+                    pthread_mutex_init(it.ptr, attr.ptr)
+                }
+            }
             nplocks.incrementAndGet()
             mutex!!
         }
+        //println("LOCKING... ${mut.ptr}")
         pthread_mutex_lock(mut.ptr)
         nlocks.incrementAndGet()
+        //println("LOCKED... ${mut.ptr}")
     }
 
     @PublishedApi internal fun unlock() {
+        //println("UNLOCKING...")
         synchronized(nrlock) {
             pthread_mutex_unlock(mutex!!.ptr)
             nlocks.decrementAndGet()
@@ -53,6 +63,7 @@ actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
                 arena = null
             }
         }
+        //println("UNLOCKED...")
     }
 
     actual override fun notify(unit: Unit) {

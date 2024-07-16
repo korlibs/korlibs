@@ -31,7 +31,14 @@ actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
         val mut = synchronized(nrlock) {
             if (arena == null) arena = Arena()
             if (cond == null) cond = arena!!.alloc<pthread_cond_t>().also { pthread_cond_init(it.ptr, null) }
-            if (mutex == null) mutex = arena!!.alloc<pthread_mutex_t>().also { pthread_mutex_init(it.ptr, null) }
+            if (mutex == null) mutex = arena!!.alloc<pthread_mutex_t>().also {
+                memScoped {
+                    val attr = alloc<pthread_mutexattr_t>()
+                    pthread_mutexattr_init(attr.ptr)
+                    pthread_mutexattr_settype(attr.ptr, PTHREAD_MUTEX_RECURSIVE.convert())
+                    pthread_mutex_init(it.ptr, attr.ptr)
+                }
+            }
             nplocks.incrementAndGet()
             mutex!!
         }
