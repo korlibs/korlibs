@@ -39,7 +39,7 @@ object AndroidNativeSoundProvider : NativeSoundProvider() {
     }
     override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         ensureAudioManager(coroutineContext)
-        return AudioPlatformOutput(coroutineContext, channels, frequency, gen) {
+        return AudioPlatformOutput(this, coroutineContext, channels, frequency, gen) {
             //val bufferSamples = 4096
             val bufferSamples = 1024
 
@@ -84,21 +84,7 @@ object AndroidNativeSoundProvider : NativeSoundProvider() {
                         }
                         AudioTrack.STATE_INITIALIZED -> {
                             at.playbackRate = frequency
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                at.playbackParams.speed = this.pitch.toFloat()
-                            }
-                            val volL = this.volumeForChannel(0).toFloat()
-                            val volR = this.volumeForChannel(1).toFloat()
-                            if (lastVolL != volL || lastVolR != volR) {
-                                lastVolL = volL
-                                lastVolR = volR
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                    at.setVolume(volL)
-                                } else {
-                                    at.setStereoVolume(volL, volR)
-                                }
-                            }
-
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) at.playbackParams.speed = this.pitch.toFloat()
                             genSafe(buffer)
                             at.write(buffer.data.asShortArray(), 0, buffer.data.size)
                             delay(1L)

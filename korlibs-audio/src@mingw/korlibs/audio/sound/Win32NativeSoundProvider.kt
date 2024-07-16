@@ -17,7 +17,7 @@ object Win32WaveOutNativeSoundProvider : NativeSoundProvider() {
         channels: Int,
         frequency: Int,
         gen: AudioPlatformOutputGen
-    ): AudioPlatformOutput = AudioPlatformOutput.simple(coroutineContext, channels, frequency, gen) { buffer ->
+    ): AudioPlatformOutput = AudioPlatformOutput.simple(this, coroutineContext, channels, frequency, gen) { buffer ->
         val arena = Arena()
 
         val handlePtr = arena.alloc<HWAVEOUTVar>()

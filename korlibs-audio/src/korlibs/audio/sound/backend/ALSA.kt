@@ -14,7 +14,7 @@ object FFIALSANativeSoundProvider : NativeSoundProvider() {
             //return@nativeThread
         }
         //println("ALSANativeSoundProvider.createPlatformAudioOutput(freq=$freq)")
-        return AudioPlatformOutput.simple(coroutineContext, channels, frequency, gen) {
+        return AudioPlatformOutput.simple(this, coroutineContext, channels, frequency, gen) {
             AudioPlatformOutputSimple(
                 init = {
                     //val latency = 8 * 4096

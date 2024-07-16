@@ -11,7 +11,7 @@ import kotlin.coroutines.*
 
 object JVMCoreAudioNativeSoundProvider : NativeSoundProvider() {
     override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, nchannels: Int, freq: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
-        return AudioPlatformOutput(coroutineContext, nchannels, freq, gen) {
+        return AudioPlatformOutput(this, coroutineContext, nchannels, freq, gen) {
             val id = lastId.incrementAndGet()
 
             var queue: Pointer? = null

@@ -12,7 +12,7 @@ object FFIJVMWaveOutNativeSoundProvider : NativeSoundProvider() {
         channels: Int,
         frequency: Int,
         gen: AudioPlatformOutputGen
-    ): AudioPlatformOutput = AudioPlatformOutput.simple(coroutineContext, channels, frequency, gen) { buffer ->
+    ): AudioPlatformOutput = AudioPlatformOutput.simple(this, coroutineContext, channels, frequency, gen) { buffer ->
         val arena = FFIArena()
 
         val handlePtr = arena.allocBytes(8).typed<FFIPointer?>()

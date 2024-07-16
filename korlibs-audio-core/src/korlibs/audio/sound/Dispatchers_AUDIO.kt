@@ -1,4 +1,4 @@
-package korlibs.audio.sound.backend
+package korlibs.audio.sound
 
 import korlibs.concurrent.thread.*
 import korlibs.platform.*

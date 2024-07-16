@@ -41,20 +41,20 @@ open class LazyNativeSoundProvider(val gen: () -> NativeSoundProvider) : NativeS
     override fun close() = parent.close()
 }
 
-open class NativeSoundProvider() : AutoCloseable, Pauseable {
+open class NativeSoundProvider() : AutoCloseable, Pauseable, ListenerProps {
 	open val target: String = "unknown"
 
     override var paused: Boolean = false
 
-    open var listenerPosition: Vector3 = Vector3.ZERO
-    open var listenerOrientationAt: Vector3 = Vector3.FORWARD // Look vector
-    open var listenerOrientationUp: Vector3 = Vector3.UP
+    override var listenerPosition: Vector3 = Vector3.ZERO
+    override var listenerOrientationAt: Vector3 = Vector3.FORWARD // Look vector
+    override var listenerOrientationUp: Vector3 = Vector3.UP
     // @TODO: Should this be estimated automatically from position samples?
-    open var listenerSpeed: Vector3 = Vector3.ZERO
+    override var listenerSpeed: Vector3 = Vector3.ZERO
 
     open fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int = 44100, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         //println("createNewPlatformAudioOutput: ${this::class}")
-        return AudioPlatformOutput(coroutineContext, channels, frequency, gen)
+        return AudioPlatformOutput(this, coroutineContext, channels, frequency, gen)
     }
 
     suspend fun createNewPlatformAudioOutput(nchannels: Int, freq: Int = 44100, gen: AudioPlatformOutputGen): AudioPlatformOutput = createNewPlatformAudioOutput(coroutineContextKt, nchannels, freq, gen)
@@ -120,7 +120,7 @@ open class LogNativeSoundProvider(
 
     override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         check(channels in 1..8)
-        return AudioPlatformOutput(coroutineContext, channels, frequency, gen) {
+        return AudioPlatformOutput(this, coroutineContext, channels, frequency, gen) {
             val buffer = AudioSamplesInterleaved(channels, 1024)
             while (running) {
                 genSafe(buffer)
@@ -145,33 +145,6 @@ class DummySoundChannel(sound: Sound, val data: AudioData? = null) : SoundChanne
     override fun stop() {
         timeStart = DateTime.now() + total
     }
-}
-
-interface ReadonlySoundProps {
-    val volume: Double
-    val pitch: Double
-    val panning: Double
-    val position: Vector3
-}
-
-interface SoundProps : ReadonlySoundProps {
-    override var volume: Double
-    override var pitch: Double
-    override var panning: Double
-    override var position: Vector3
-}
-
-object DummySoundProps : SoundProps {
-    override var volume: Double
-        get() = 1.0
-        set(v) = Unit
-    override var pitch: Double
-        get() = 1.0
-        set(v) = Unit
-    override var panning: Double
-        get() = 0.0
-        set(v) = Unit
-    override var position: Vector3 = Vector3.ZERO
 }
 
 fun SoundProps.copySoundPropsFrom(other: ReadonlySoundProps) {

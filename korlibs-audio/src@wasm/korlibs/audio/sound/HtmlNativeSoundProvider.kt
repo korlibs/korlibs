@@ -26,7 +26,7 @@ class HtmlNativeSoundProvider : NativeSoundProvider() {
     }
 
     override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
-        return AudioPlatformOutput(coroutineContext, channels, frequency, gen) {
+        return AudioPlatformOutput(this, coroutineContext, channels, frequency, gen) {
             nativeSoundProvider // Ensure it is created
 
             val ctx = getUnlockedContextOrThrow()
