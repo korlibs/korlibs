@@ -39,3 +39,12 @@ fun Duration.toTimespec(out: timespec): timespec {
     out.tv_nsec = n.convert()
     return out
 }
+
+@OptIn(ExperimentalForeignApi::class)
+fun NativePlacement.allocTimespecNowPlusAdd(add: Duration): timespec {
+    val tspec = alloc<timespec>()
+    clock_gettime(CLOCK_REALTIME.convert(), tspec.ptr)
+    val clockTime = tspec.toDuration()
+    val waitTime = (clockTime + add)
+    return waitTime.toTimespec(tspec)
+}

@@ -19,8 +19,8 @@ interface BaseLock {
 
 interface BaseLockWithNotifyAndWait : BaseLock {
     abstract fun notify(unit: Unit = Unit)
-    abstract fun wait(time: FastDuration): Boolean
-    fun wait(time: Duration): Boolean = wait(time.fast)
+    abstract fun wait(time: FastDuration): Unit
+    fun wait(time: Duration): Unit = wait(time.fast)
 }
 
 inline operator fun <T> ReentrantLock.invoke(callback: () -> T): T {
@@ -36,7 +36,7 @@ expect class Lock() : BaseLockWithNotifyAndWait {
     companion object { }
 
     override fun notify(unit: Unit)
-    override fun wait(time: FastDuration): Boolean
+    override fun wait(time: FastDuration): Unit
     inline operator fun <T> invoke(callback: () -> T): T
 }
 
@@ -95,7 +95,7 @@ abstract class LockImpl() : BaseLockWithNotifyAndWait {
         notified.value = true
     }
 
-    override fun wait(time: FastDuration): Boolean {
+    override fun wait(time: FastDuration): Unit {
         if (!Lock.isSupported) throw UnsupportedOperationException()
         //println("WAIT!")
         val lockCount = locked.value
@@ -109,7 +109,6 @@ abstract class LockImpl() : BaseLockWithNotifyAndWait {
         } finally {
             repeat(lockCount) { lock() }
         }
-        return notified.value
     }
 }
 
@@ -143,32 +142,32 @@ class NonRecursiveLock : BaseLock {
     //}
 }
 
-fun Lock.waitPrecise(time: Duration): Boolean = waitPrecise(time.fast)
+//fun Lock.waitPrecise(time: Duration): Boolean = waitPrecise(time.fast)
 
-fun Lock.waitPrecise(time: FastDuration): Boolean {
-    val startTime = FastDuration.now()
-    val doWait = time - 10.fastMilliseconds
-    val signaled = if (doWait > 0.fastSeconds) wait(doWait) else false
-    if (!signaled && doWait > 0.fastSeconds) {
-        val elapsed = (FastDuration.now() - startTime)
-        //println(" !!!!! SLEEP EXACT: ${elapsed - time}")
-        NativeThread.sleepExact(time - elapsed)
-    }
-    return signaled
-}
+//fun Lock.waitPrecise(time: FastDuration): Boolean {
+//    val startTime = FastDuration.now()
+//    val doWait = time - 10.fastMilliseconds
+//    val signaled = if (doWait > 0.fastSeconds) wait(doWait) else false
+//    if (!signaled && doWait > 0.fastSeconds) {
+//        val elapsed = (FastDuration.now() - startTime)
+//        //println(" !!!!! SLEEP EXACT: ${elapsed - time}")
+//        NativeThread.sleepExact(time - elapsed)
+//    }
+//    return signaled
+//}
 
-fun Lock.wait(time: FastDuration, precise: Boolean): Boolean {
-    return if (precise) waitPrecise(time) else wait(time)
-}
-
-fun Lock.wait(time: Duration, precise: Boolean): Boolean {
-    return if (precise) waitPrecise(time) else wait(time)
-}
+//fun Lock.wait(time: FastDuration, precise: Boolean): Boolean {
+//    return if (precise) waitPrecise(time) else wait(time)
+//}
+//
+//fun Lock.wait(time: Duration, precise: Boolean): Boolean {
+//    return if (precise) waitPrecise(time) else wait(time)
+//}
 
 fun Lock.waitForever() {
     this { waitForeverNoLock() }
 }
 
 fun Lock.waitForeverNoLock() {
-    while (!wait(100.fastSeconds)) Unit
+    wait(FastDuration.POSITIVE_INFINITY)
 }

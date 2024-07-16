@@ -73,23 +73,14 @@ actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
         //pthread_cond_broadcast() // notifyall
     }
 
-    actual override fun wait(time: FastDuration): Boolean = memScoped {
-        var tspec: timespec = alloc<timespec>()
-        clock_gettime(CLOCK_REALTIME.convert(), tspec.ptr)
-        val clockTime = tspec.toDuration()
-        //val waitTime = (clockTime + time - 10.milliseconds)
-        val waitTime = (clockTime + time.slow)
-        tspec = waitTime.toTimespec(tspec)
-        //println("WAITING... $time")
-        //val startTime = CoreTime.currentTimeMillisDouble()
+    actual override fun wait(time: FastDuration): Unit = memScoped {
         val nlocks = nlocks.value - 1
-        //if (nlocks != 0) println("!!!!!! nlocks=$nlocks")
         repeat(nlocks) { unlock() }
-        (pthread_cond_timedwait(cond!!.ptr, mutex!!.ptr, tspec.ptr)).also {
-            //println("WAITED ${NativeThread.current}")
-            repeat(nlocks) { lock() }
-            //val elapsedTime = (CoreTime.currentTimeMillisDouble() - startTime).milliseconds
-            //println(" --> WAITED it=$it : timedout=${it == ETIMEDOUT}, elapsedTime=$elapsedTime, clockTime=$clockTime, waitTime=$waitTime -- ${waitTime - clockTime}, requested=${time}")
-        } != ETIMEDOUT
+        if (time.isPositiveInfinity) {
+            while (pthread_cond_timedwait(cond!!.ptr, mutex!!.ptr, allocTimespecNowPlusAdd(10.milliseconds).ptr) == ETIMEDOUT) Unit
+        } else {
+            pthread_cond_timedwait(cond!!.ptr, mutex!!.ptr, allocTimespecNowPlusAdd(time.slow).ptr)
+        }
+        repeat(nlocks) { lock() }
     }
 }

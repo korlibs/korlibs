@@ -1,10 +1,14 @@
 package korlibs.concurrent.lock
 
+import korlibs.concurrent.thread.*
 import korlibs.time.*
+import korlibs.time.core.*
 import kotlinx.atomicfu.*
 import kotlinx.atomicfu.locks.*
 import kotlinx.cinterop.*
+import platform.posix.*
 import platform.windows.*
+import kotlin.time.*
 
 @OptIn(ExperimentalForeignApi::class)
 actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
@@ -65,19 +69,36 @@ actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
         //pthread_cond_broadcast() // notifyall
     }
 
-    actual override fun wait(time: FastDuration): Boolean {
-        return memScoped {
-            val millis = time.slow.millisecondsInt.coerceAtLeast(0)
-            //println("WAITING... ${NativeThread.current} :: $millis, time=$time")
+    actual override fun wait(time: FastDuration): Unit = memScoped {
+        //println("WAITING... ${NativeThread.current} :: $millis, time=$time")
+        //println("nlocks.value=${nlocks.value}")
 
-            //println("nlocks.value=${nlocks.value}")
-            val nlocks = nlocks.value - 1
-            //if (nlocks != 0) println("!!!!!! nlocks=$nlocks")
-            repeat(nlocks) { unlock() }
-            SleepConditionVariableCS(cond!!.ptr, mutex!!.ptr, millis.convert()).also {
-                //println("WAITED ${NativeThread.current}")
-                repeat(nlocks) { lock() }
+        val nlocks = nlocks.value - 1
+        repeat(nlocks) { unlock() }
+        if (time.isPositiveInfinity || time.milliseconds >= Int.MAX_VALUE) {
+            //SleepConditionVariableCS(cond!!.ptr, mutex!!.ptr, INFINITE)
+            //while (SleepConditionVariableCS(cond!!.ptr, mutex!!.ptr, 0.convert()) == 0) Unit
+            NativeThread.sleepWhile { SleepConditionVariableCS(cond!!.ptr, mutex!!.ptr, 10.convert()) == 0 }
+        } else {
+            val millis = time.slow.millisecondsInt.coerceAtLeast(1)
+            if (millis < 10) {
+                val ttime = time.slow
+                val time = TimeSource.Monotonic.markNow()
+                //NativeThread.sleepWhile(exact = true) {
+                //println(SleepConditionVariableCS(cond!!.ptr, mutex!!.ptr, 0.convert()))
+                //println("ttime=$ttime")
+                NativeThread.sleepWhile(exact = true) {
+                    SleepConditionVariableCS(cond!!.ptr, mutex!!.ptr, 0.convert()) == 0 && time.elapsedNow() < ttime
+                }
+            } else {
+                SleepConditionVariableCS(cond!!.ptr, mutex!!.ptr, millis.convert())
             }
-        } != ERROR_TIMEOUT
+            //val time = measureTime {
+
+            //}
+            //println("wait=time=$time, millis.convert()=${millis}")
+            //println("WAITED ${NativeThread.current}")
+        }
+        repeat(nlocks) { lock() }
     }
 }

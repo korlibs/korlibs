@@ -33,8 +33,8 @@ class LockTest {
     fun testWaitNotify() {
         if (!NativeThread.isSupported) return
 
-        repeat(1) {
-        //repeat(10000) {
+        //repeat(1) {
+        repeat(1000) {
             val time = measureTime {
                 val lock = Lock()
                 var log = arrayListOf<String>()
@@ -47,7 +47,7 @@ class LockTest {
                             }
                         }
                     }
-                    NativeThread.sleep(1.fastMilliseconds)
+                    NativeThread.sleepExact(1.fastMilliseconds)
                     lock {
                         log += "a"
                         lock.waitForever()

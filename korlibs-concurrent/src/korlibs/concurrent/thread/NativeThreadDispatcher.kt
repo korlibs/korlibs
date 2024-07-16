@@ -3,6 +3,7 @@ package korlibs.concurrent.thread
 import korlibs.concurrent.lock.*
 import korlibs.time.*
 import korlibs.time.core.*
+import kotlinx.atomicfu.locks.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
 import kotlin.time.*
@@ -60,13 +61,13 @@ class NativeThreadDispatcher(
     ) : Comparable<TimedTask>, DisposableHandle {
         override fun compareTo(other: TimedTask): Int = this.time.compareTo(time)
         override fun dispose() {
-            dispatcher.timedTasksLock {
+            synchronized(dispatcher.timedTasksLock) {
                 dispatcher.timedTasks.remove(this)
             }
         }
     }
 
-    val timedTasksLock = Lock()
+    val timedTasksLock = SynchronizedObject()
     val timedTasks = ArrayDeque<TimedTask>()
     val tasksLock = Lock()
     val tasks = ArrayDeque<Runnable>()
@@ -75,14 +76,14 @@ class NativeThreadDispatcher(
             try {
                 notifyLock {
                     if (tasks.isEmpty()) {
-                        val firstTask = timedTasksLock { timedTasks.firstOrNull() }
+                        val firstTask = synchronized(timedTasksLock) { timedTasks.firstOrNull() }
                         val time = if (firstTask != null) (firstTask.time - now()) else 10_000.fastMilliseconds
                         //if (firstTask == null) println("WAITING 10s")
                         //if (time > 10.fastMilliseconds) println("!!!!!!!!!!!! TIME=$time")
                         //println("BEFORE LOCK: time=$time, lockResult=$lockResult, numTasks=$numTasks, numTimedTasks=$numTimedTasks")
                         //val lockTime = measureTime {
                             //lockResult = notifyLock.wait(time, precise = preciseTimings)
-                        notifyLock.wait(time)
+                        notifyLock.wait(time.coerceAtLeast(0.1.fastMilliseconds))
                         //}
                         //println("AFTER LOCK: lockTime=$lockTime, time=$time, lockResult=$lockResult, numTasks=$numTasks, numTimedTasks=$numTimedTasks")
                     }
@@ -97,7 +98,7 @@ class NativeThreadDispatcher(
                 task?.run()
                 run {
                     while (true) {
-                        val task = timedTasksLock {
+                        val task = synchronized(timedTasksLock) {
                             val tryTask = timedTasks.firstOrNull()
                             if (tryTask != null && now() >= tryTask.time) timedTasks.removeFirst() else null
                         } ?: break
@@ -112,7 +113,7 @@ class NativeThreadDispatcher(
     }
 
     val numTasks: Int get() = tasksLock { tasks.size }
-    val numTimedTasks: Int get() = timedTasksLock { timedTasks.size }
+    val numTimedTasks: Int get() = synchronized(timedTasksLock) { timedTasks.size }
 
     override fun isDispatchNeeded(context: CoroutineContext): Boolean {
         return NativeThread.current.id == thread.id
@@ -148,7 +149,7 @@ class NativeThreadDispatcher(
         val task = TimedTask(this, now() + timeMillis.fastMilliseconds, continuation, block)
 
         notifyLock.notify {
-            timedTasksLock {
+            synchronized(timedTasksLock) {
                 val firstTask = timedTasks.firstOrNull()
                 if (firstTask == null || task.time < firstTask.time) {
                     timedTasks.addFirst(task)
