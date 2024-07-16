@@ -12,12 +12,19 @@ class NativeThreadTest {
     @Test
     fun test() = runTest {
         if (!NativeThread.isSupported) return@runTest
+
         // @TODO: Thread priority is not implemented in mingw
+        var reportedThreadId = -1L
         val thread = NativeThread.start(priority = NativeThreadPriority.HIGHER) {
+            reportedThreadId = NativeThread.current.id
             println("NEW: " + NativeThread.current + " :: priority=" + NativeThread.current.priority)
         }
+        val obtainedThreadId = thread.id
         println("PREV: " + NativeThread.current)
         thread.join()
+        println("obtainedThreadId=$obtainedThreadId, reportedThreadId=$reportedThreadId")
+        assertEquals(obtainedThreadId, reportedThreadId)
+        assertNotEquals(NativeThread.current.id, obtainedThreadId)
 
         val savedCurrentThreadId = NativeThread.currentThreadId
         val workerThreadId = runBlockingNoJs { withContext(Dispatchers.CIO) { NativeThread.currentThreadId } }
@@ -33,8 +40,8 @@ class NativeThreadTest {
         val test = FixedPoolNativeThreadDispatcher(2, "TEST", priority = NativeThreadPriority.HIGHER, preciseTimings = true)
         //val test = NativeThreadDispatcher("TEST", priority = NativeThreadPriority.HIGHER, preciseTimings = true)
         //withContext(test) {
-        repeat(1) {
-        //repeat(1000) {
+        //repeat(1) {
+        repeat(1000) {
             val time = measureTime {
                 val done2 = CompletableDeferred<Unit>()
                 val done1 = CompletableDeferred<Unit>()
