@@ -46,7 +46,7 @@ class CoreAudioNativeSoundProvider : NativeSoundProvider() {
                 //}
                 val samples = AudioSamplesInterleaved(nchannels, totalSamples)
                 genSafe(samples)
-                samples.data.usePinned {
+                samples.data.asShortArray().usePinned {
                     memcpy(data, it.startAddressOf, (dataSize * Short.SIZE_BYTES).convert())
                 }
             }
