@@ -1,6 +1,12 @@
-package korlibs.audio.core
+package korlibs.audio.sound
 
 inline class AudioSample(private val raw: Short) {
+    companion object {
+        /** In [Short.MIN_VALUE], [Short.MAX_VALUE] range */
+        fun fromShort(value: Int): AudioSample = AudioSample(value)
+        /** In [-1, 1] range range */
+        fun fromFloat(value: Float): AudioSample = AudioSample(value)
+    }
     constructor(value: Int) : this(value.coerceIn(Short.MIN_VALUE.toInt(), Short.MAX_VALUE.toInt()).toShort())
     constructor(value: Float) : this((value * Short.MAX_VALUE.toFloat()).toInt().coerceIn(Short.MIN_VALUE.toInt(), Short.MAX_VALUE.toInt()).toShort())
     /** Sample as short in the range [Short.MIN_VALUE, Short.MAX_VALUE] .. [] */
@@ -9,8 +15,8 @@ inline class AudioSample(private val raw: Short) {
     val float: Float get() = (raw.toFloat() / Short.MAX_VALUE)
     //fun toAudioSampleF(): AudioSampleF = AudioSampleF(float)
 
-    operator fun times(scale: Float): AudioSample = AudioSample(shortInt * scale)
-    operator fun div(scale: Float): AudioSample = AudioSample(shortInt / scale)
+    operator fun times(scale: Float): AudioSample = AudioSample((shortInt * scale).toInt())
+    operator fun div(scale: Float): AudioSample = AudioSample((shortInt / scale).toInt())
     // combine
     //operator fun plus(other: AudioSample): AudioSample = AudioSample((this.shortInt + other.shortInt) / 2)
 }
@@ -51,9 +57,16 @@ inline class AudioSampleArray(private val data: ShortArray) {
     operator fun get(index: Int): AudioSample = AudioSample(data[index])
     operator fun set(index: Int, value: AudioSample) { data[index] = value.short }
     fun asShortArray(): ShortArray = data
+    fun toShortArray(out: ShortArray = ShortArray(size)): ShortArray {
+        for (n in 0 until size) out[n] = this[n].short
+        return out
+    }
     fun toFloatArray(out: FloatArray = FloatArray(size)): FloatArray {
         for (n in 0 until size) out[n] = this[n].float
         return out
+    }
+    fun copyInto(destination: AudioSampleArray, destinationOffset: Int = 0, startIndex: Int = 0, endIndex: Int = size): AudioSampleArray {
+        return AudioSampleArray(data.copyInto(destination.data, destinationOffset, startIndex, endIndex))
     }
 }
 

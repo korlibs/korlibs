@@ -1,5 +1,6 @@
 package korlibs.audio.core
 
+import korlibs.audio.sound.*
 import korlibs.math.geom.*
 
 data class AudioDevice(val name: String, val isDefault: Boolean = true, val id: Long = -1L, val extra: Any? = null) {

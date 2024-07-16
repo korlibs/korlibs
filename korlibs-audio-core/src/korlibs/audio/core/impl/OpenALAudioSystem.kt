@@ -1,6 +1,7 @@
 package korlibs.audio.core.impl
 
 import korlibs.audio.core.*
+import korlibs.audio.sound.*
 import korlibs.ffi.*
 import korlibs.io.core.*
 import korlibs.io.lang.*
