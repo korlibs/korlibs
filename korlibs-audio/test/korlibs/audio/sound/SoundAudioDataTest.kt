@@ -18,14 +18,14 @@ class SoundAudioDataTest {
         //val data = resourcesVfs["line_ok.mp3"].readAudioData(MP3Decoder)
         println("DECODING...")
         //val data = resourcesVfs["monkey_drama.mp3"].readAudioData(MP3Decoder)
-        val data = AudioTone.generate(0.5.seconds, 440.0, volume = 0.0)
+        val data = AudioTone.generate(1.0.seconds, 440.0, volume = 1.0)
         println("DECODED...")
 
         val audioData = SoundAudioData(coroutineContext, data, log)
         audioData.play(coroutineContext).await()
 
         repeat(10) {
-            delay(0.1.seconds)
+            delay(0.5.seconds)
             audioData.play(coroutineContext).await()
         }
     }
