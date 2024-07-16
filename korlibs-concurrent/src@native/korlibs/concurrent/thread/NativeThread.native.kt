@@ -2,6 +2,7 @@ package korlibs.concurrent.thread
 
 import korlibs.concurrent.lock.*
 import korlibs.time.*
+import kotlinx.atomicfu.locks.*
 import kotlinx.cinterop.*
 import platform.posix.*
 import kotlin.native.runtime.*
@@ -12,7 +13,7 @@ actual typealias NativeNativeThread = Long
 internal val SCHED_POLICY = SCHED_OTHER
 
 internal actual fun NativeNativeThread_getId(thread: NativeNativeThread): Long = thread
-internal actual fun NativeNativeThread_getName(thread: NativeNativeThread): String? = threadInfosLock { threadInfos[thread]?.name }
+internal actual fun NativeNativeThread_getName(thread: NativeNativeThread): String? = threadInfosLock.withLock { threadInfos[thread]?.name }
 internal actual fun NativeNativeThread_getIsDaemon(thread: NativeNativeThread): Boolean = true
 internal actual val NativeThreadThread_isSupported: Boolean = true
 
@@ -21,7 +22,7 @@ class ThreadInfo(
     val code: () -> Unit
 )
 
-private val threadInfosLock = Lock()
+private val threadInfosLock = SynchronizedObject()
 private val threadInfos = LinkedHashMap<Long, ThreadInfo>()
 
 @OptIn(ExperimentalForeignApi::class)
@@ -32,13 +33,13 @@ internal fun __threadStart(code: COpaquePointer?): COpaquePointer? {
     val ref = code!!.asStableRef<ThreadInfo>()
     val ptr = ref.get()
     ref.dispose()
-    threadInfosLock { threadInfos[threadId] = ptr }
+    threadInfosLock.withLock { threadInfos[threadId] = ptr }
     try {
         ptr.code()
     } catch (e: Throwable) {
         e.printStackTrace()
     } finally {
-        threadInfosLock { threadInfos.remove(threadId) }
+        threadInfosLock.withLock { threadInfos.remove(threadId) }
     }
     return null
 }

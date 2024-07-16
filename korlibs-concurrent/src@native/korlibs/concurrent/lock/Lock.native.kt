@@ -1,6 +1,9 @@
 package korlibs.concurrent.lock
 
 import korlibs.time.*
+import kotlinx.cinterop.*
+import platform.posix.*
+import kotlin.time.*
 
 /*
 actual class Lock actual constructor() : LockImpl(), BaseLockWithNotifyAndWait {
@@ -24,3 +27,15 @@ actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
     }
 }
 */
+
+@OptIn(UnsafeNumber::class)
+fun timespec.toDuration(): Duration = (tv_sec.toLong().seconds + tv_nsec.toLong().nanoseconds)
+@OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
+fun Duration.toTimespec(out: timespec): timespec {
+    val nanos = inWholeNanoseconds
+    val s: Long = (nanos / 1_000_000_000)
+    val n: Long = (nanos % 1_000_000_000)
+    out.tv_sec = s.convert()
+    out.tv_nsec = n.convert()
+    return out
+}

@@ -19,6 +19,7 @@ interface BaseLock {
 
 interface BaseLockWithNotifyAndWait : BaseLock {
     abstract fun notify(unit: Unit = Unit)
+    abstract fun notifyAll(unit: Unit = Unit)
     abstract fun wait(time: FastDuration): Boolean
     fun wait(time: Duration): Boolean = wait(time.fast)
 }
@@ -120,26 +121,27 @@ abstract class LockImpl() : BaseLockWithNotifyAndWait {
  * Does busy-waiting instead of sleeping the thread.
  */
 class NonRecursiveLock : BaseLock {
-    private var locked = atomic(0)
+    //private var locked = atomic(0)
+    @PublishedApi internal val obj = SynchronizedObject()
 
     inline operator fun <T> invoke(callback: () -> T): T {
-        lock()
-        try {
-            return callback()
-        } finally {
-            unlock()
-        }
+        return synchronized(obj) { callback() }
+        //lock()
+        //try {
+        //    return callback()
+        //} finally {
+        //    unlock()
+        //}
     }
 
-    @PublishedApi internal fun lock() {
-        // Should we try to sleep this thread and awake it later? If the lock is short, might not be needed
-        if (NativeThread.isSupported) NativeThread.spinWhile { !locked.compareAndSet(0, 1) }
-    }
-
-    @PublishedApi internal fun unlock() {
-        // Should we try to sleep this thread and awake it later? If the lock is short, might not be needed
-        if (NativeThread.isSupported) NativeThread.spinWhile { !locked.compareAndSet(1, 0) }
-    }
+    //@PublishedApi internal fun lock() {
+    //    // Should we try to sleep this thread and awake it later? If the lock is short, might not be needed
+    //    if (NativeThread.isSupported) NativeThread.spinWhile { !locked.compareAndSet(0, 1) }
+    //}
+    //@PublishedApi internal fun unlock() {
+    //    // Should we try to sleep this thread and awake it later? If the lock is short, might not be needed
+    //    if (NativeThread.isSupported) NativeThread.spinWhile { !locked.compareAndSet(1, 0) }
+    //}
 }
 
 fun Lock.waitPrecise(time: Duration): Boolean = waitPrecise(time.fast)

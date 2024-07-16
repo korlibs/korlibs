@@ -2,6 +2,7 @@ package korlibs.concurrent.lock
 
 import korlibs.time.*
 import kotlinx.atomicfu.*
+import kotlinx.atomicfu.locks.*
 import kotlinx.cinterop.*
 import platform.windows.*
 
@@ -9,7 +10,8 @@ import platform.windows.*
 actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
     actual companion object {}
 
-    private val nrlock = NonRecursiveLock()
+    private val nrlock = SynchronizedObject()
+    private val nplocks = atomic(0)
     private val nlocks = atomic(0)
     private var arena: Arena? = null
     private var mutex: CRITICAL_SECTION? = null
@@ -25,36 +27,26 @@ actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
     }
 
     @PublishedApi internal fun lock() {
-        val mut = nrlock {
-        //val mut = run {
-            if (arena == null) {
-                arena = Arena()
-            }
-            if (cond == null) {
-                cond = arena!!.alloc<CONDITION_VARIABLE>().also {
-                    InitializeConditionVariable(it.ptr)
-                    //pthread_cond_destroy(cond.ptr)
-                }
-            }
-            if (mutex == null) {
-                mutex = arena!!.alloc<CRITICAL_SECTION>().also {
-                    InitializeCriticalSection(it.ptr)
-                    //pthread_mutex_destroy(mutex.ptr)
-                }
-            }
-            nlocks.incrementAndGet()
+        //println("LOCKING... ${NativeThread.current}")
+        val mut = synchronized(nrlock) {
+            if (arena == null) arena = Arena()
+            if (cond == null) cond = arena!!.alloc<CONDITION_VARIABLE>().also { InitializeConditionVariable(it.ptr) }
+            if (mutex == null) mutex = arena!!.alloc<CRITICAL_SECTION>().also { InitializeCriticalSection(it.ptr) }
+            nplocks.incrementAndGet()
             mutex!!
         }
         EnterCriticalSection(mut.ptr)
+        nlocks.incrementAndGet()
+        //println("LOCKED... ${NativeThread.current}")
     }
 
     @PublishedApi internal fun unlock() {
-        nrlock {
-        //run {
+        //println("UNLOCKING... ${NativeThread.current}")
+        synchronized(nrlock) {
             LeaveCriticalSection(mutex!!.ptr)
-
-            if (nlocks.decrementAndGet() == 0) {
-                //if (cond != null) DeleteConditionVariable(cond?.ptr)
+            nlocks.decrementAndGet()
+            val nlocksValue = nplocks.decrementAndGet()
+            if (nlocksValue == 0) {
                 if (mutex != null) DeleteCriticalSection(mutex?.ptr)
                 arena?.clear()
                 cond = null
@@ -62,20 +54,30 @@ actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
                 arena = null
             }
         }
+        //println("UNLOCKED... ${NativeThread.current}")
     }
 
     actual override fun notify(unit: Unit) {
-        //println("SIGNALING...")
+        //println("SIGNALING... ${NativeThread.current}")
+        //WakeAllConditionVariable(cond!!.ptr)
         WakeConditionVariable(cond!!.ptr)
-        //println(" --> SIGNALED")
+        //println(" --> SIGNALED ${NativeThread.current}")
         //pthread_cond_broadcast() // notifyall
     }
 
     actual override fun wait(time: FastDuration): Boolean {
-        val time = time.slow
-
         return memScoped {
-            SleepConditionVariableCS(cond!!.ptr, mutex!!.ptr, time.millisecondsInt.convert()) == ERROR_TIMEOUT
-        }
+            val millis = time.slow.millisecondsInt.coerceAtLeast(0)
+            //println("WAITING... ${NativeThread.current} :: $millis, time=$time")
+
+            //println("nlocks.value=${nlocks.value}")
+            val nlocks = nlocks.value - 1
+            //if (nlocks != 0) println("!!!!!! nlocks=$nlocks")
+            repeat(nlocks) { unlock() }
+            SleepConditionVariableCS(cond!!.ptr, mutex!!.ptr, millis.convert()).also {
+                //println("WAITED ${NativeThread.current}")
+                repeat(nlocks) { lock() }
+            }
+        } != ERROR_TIMEOUT
     }
 }

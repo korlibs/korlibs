@@ -42,6 +42,7 @@ class NativeThreadTest {
         //withContext(test) {
         //repeat(1) {
         repeat(1000) {
+        //repeat(10000) {
             val time = measureTime {
                 val done2 = CompletableDeferred<Unit>()
                 val done1 = CompletableDeferred<Unit>()
