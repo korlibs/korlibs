@@ -70,6 +70,7 @@ class JvmCoreAudioNativeSoundProvider : NativeSoundProvider() {
                 info.completed = true
 
                 if (queue != null) {
+                    CoreAudioKit.AudioQueueStop(queue, true)
                     CoreAudioKit.AudioQueueDispose(queue, false)
                     queue = null
                 }
@@ -190,6 +191,7 @@ class JvmCoreAudioNativeSoundProvider : NativeSoundProvider() {
         ): Int
         @JvmStatic external fun AudioQueueAllocateBuffer(inAQ: Pointer?, inBufferByteSize: Int, buffer: Pointer?): Int
         @JvmStatic external fun AudioQueueStart(inAQ: Pointer?, inStartTime: Pointer?): Int
+        @JvmStatic external fun AudioQueueStop(inAQ: Pointer?, immediate: Boolean): Int
         @JvmStatic external fun AudioQueueDispose(inAQ: Pointer?, immediate: Boolean): Int
         @JvmStatic external fun AudioQueueEnqueueBuffer(inAQ: Pointer?, inBuffer: Pointer?, inNumPacketDescs: Int, inPacketDescs: Pointer?): Int
 
