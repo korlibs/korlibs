@@ -2,10 +2,9 @@
 
 package korlibs.audio.sound
 
-import korlibs.concurrent.thread.*
 import korlibs.memory.*
-import korlibs.time.*
 import kotlinx.cinterop.*
+import kotlinx.coroutines.*
 import platform.windows.*
 import kotlin.coroutines.*
 import kotlin.reflect.*
@@ -18,97 +17,100 @@ object Win32WaveOutNativeSoundProvider : NativeSoundProvider() {
         channels: Int,
         frequency: Int,
         gen: AudioPlatformOutputGen
-    ): AudioPlatformOutput = AudioPlatformOutput(coroutineContext, channels, frequency, gen) {
-        memScoped {
-            var handle: HWAVEOUT? = null
-            var headers = emptyArray<WaveHeader>()
+    ): AudioPlatformOutput = AudioPlatformOutput.simple(coroutineContext, channels, frequency, gen) { buffer ->
+        val arena = Arena()
 
-            val arena = this
-            val handlePtr = alloc<HWAVEOUTVar>()
-            val freq = frequency
-            val blockAlign = (channels * Short.SIZE_BYTES)
+        val handlePtr = arena.alloc<HWAVEOUTVar>()
+        val freq = frequency
+        val blockAlign = (channels * Short.SIZE_BYTES)
+        val format = arena.alloc<WAVEFORMATEX>().also { format ->
+            format.wFormatTag = WAVE_FORMAT_PCM.convert()
+            format.nChannels = channels.convert() // 2?
+            format.nSamplesPerSec = freq.convert()
+            format.wBitsPerSample = Short.SIZE_BITS.convert() // 16
+            format.nBlockAlign = (channels * Short.SIZE_BYTES).convert()
+            format.nAvgBytesPerSec = (freq * blockAlign).convert()
+            format.cbSize = sizeOf<WAVEFORMATEX>().convert()
+        }
 
-            val format = alloc<tWAVEFORMATEX>().also { format ->
-                format.wFormatTag = WAVE_FORMAT_PCM.convert()
-                format.nChannels = channels.convert() // 2?
-                format.nSamplesPerSec = freq.convert()
-                format.wBitsPerSample = Short.SIZE_BITS.convert() // 16
-                format.nBlockAlign = ((channels * Short.SIZE_BYTES).convert())
-                format.nAvgBytesPerSec = (freq * blockAlign).convert()
-                format.cbSize = sizeOf<tWAVEFORMATEX>().convert()
-            }
-            WINMM.waveOutOpen(handlePtr.ptr, WAVE_MAPPER, format.ptr, 0.convert(), 0.convert(), 0.convert()).also {
-                if (it.toInt() != 0) println("waveOutOpen: $it")
-            }
-            handle = handlePtr.value
-            //println("handle=$handle")
+        val SPLIT = 4
+        val headerSamples = buffer.totalSamples / SPLIT
+        val headers = Array(8) { WaveHeader(it, headerSamples, buffer.channels, arena) }
 
-            headers = Array(4) { WaveHeader(it, handle, 1024, channels, arena) }
+        //println("handle=$handle")
 
-            try {
-                while (running) {
-                    var queued = 0
-                    for (header in headers) {
-                        if (!header.hdr.isInQueue) {
-                            genSafe(header.samples)
-                            header.prepareAndWrite()
-                            queued++
-                            //println("Sending running=$running, availableRead=$availableRead, header=${header}")
-                        }
-                    }
-                    if (queued == 0) NativeThread.sleep(1.milliseconds)
+        AudioPlatformOutputSimple(
+            init = {
+                WINMM.waveOutOpen(handlePtr.ptr, WAVE_MAPPER, format.ptr, 0u, 0u, 0u).also {
+                    if (it != 0u) println("WINMM.waveOutOpen: $it")
                 }
-            } finally {
-                for (header in headers) header.dispose()
+                for (header in headers) header.prepare(handlePtr.value)
+            },
+            output = {
+                var position = 0
+                while (true) {
+                    val header = headers.firstOrNull { !it.hdr.isInQueue }
+                    if (header != null) {
+                        //println("READY")
+                        header.write(handlePtr.value, it, position)
+                        position += headerSamples
+                        //println("position=$position")
+                        if (position >= it.totalSamples) break
+                    } else {
+                        //println("ALL QUEUED")
+                        delay(1L)
+                    }
+                }
+            },
+            close = {
+                while (headers.any { it.hdr.isInQueue }) delay(1L)
+                //println("CLOSE")
+                for (header in headers) header.dispose(handlePtr.value)
                 //runBlockingNoJs {
                 //    wait()
                 //}
-                WINMM.waveOutReset(handle)
-                WINMM.waveOutClose(handle)
-                handle = null
-                //println("CLOSED")
-            }
-        }
+                WINMM.waveOutClose(handlePtr.value)
+                arena.clear()
+            },
+        )
     }
 
     private class WaveHeader(
         val id: Int,
-        val handle: HWAVEOUT?,
         val totalSamples: Int,
         val channels: Int,
-        val arena: MemScope,
+        val arena: ArenaBase,
     ) {
-        val samples = AudioSamplesInterleaved(channels, totalSamples)
-
-        val totalShorts = (totalSamples * channels)
-        val totalBytes = (totalShorts * Short.SIZE_BYTES)
-        val dataMem = arena.allocArray<ShortVar>(totalShorts)
-        val hdr = arena.alloc<wavehdr_tag>().also { hdr ->
+        val totalBytes = (totalSamples * channels * Short.SIZE_BYTES)
+        val dataMem = arena.allocArray<ShortVar>(totalBytes / 2)
+        val hdr = arena.alloc<WAVEHDR>().also { hdr ->
             hdr.lpData = dataMem.reinterpret()
             hdr.dwBufferLength = totalBytes.convert()
             hdr.dwFlags = 0.convert()
         }
 
-        fun prepareAndWrite(totalSamples: Int = this.totalSamples) {
+        fun prepare(handle: HWAVEOUT?) {
             //println(data[0].toList())
 
             val channels = this.channels
             hdr.dwBufferLength = (totalSamples * channels * Short.SIZE_BYTES).convert()
 
-            val samplesData = samples.data
-            for (n in 0 until channels * totalSamples) {
-                dataMem[n] = samplesData[n]
-            }
             //if (hdr.isPrepared) dispose()
             if (!hdr.isPrepared) {
                 //println("-> prepare")
-                WINMM.waveOutPrepareHeader(handle, hdr.ptr, sizeOf<wavehdr_tag>().convert())
+                WINMM.waveOutPrepareHeader(handle, hdr.ptr, sizeOf<WAVEHDR>().convert())
             }
-            WINMM.waveOutWrite(handle, hdr.ptr, sizeOf<wavehdr_tag>().convert())
         }
 
-        fun dispose() {
-            WINMM.waveOutUnprepareHeader(handle, hdr.ptr, sizeOf<wavehdr_tag>().convert())
+        fun write(handle: HWAVEOUT?, samples: AudioSamplesInterleaved, position: Int) {
+            val samplesData = samples.data
+            for (n in 0 until channels * totalSamples) dataMem[n] = samplesData[n + position * channels]
+            WINMM.waveOutWrite(handle, hdr.ptr, sizeOf<WAVEHDR>().convert())
+        }
+
+        fun dispose(handle: HWAVEOUT?) {
+            for (n in 0 until channels * totalSamples) dataMem[n] = 0
+            WINMM.waveOutUnprepareHeader(handle, hdr.ptr, sizeOf<WAVEHDR>().convert())
         }
 
         override fun toString(): String = "WaveHeader(id=$id, totalSamples=$totalSamples, nchannels=$channels, hdr=$hdr)"

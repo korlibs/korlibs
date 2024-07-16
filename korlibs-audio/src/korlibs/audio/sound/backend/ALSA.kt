@@ -7,53 +7,55 @@ import kotlin.coroutines.*
 
 object FFIALSANativeSoundProvider : NativeSoundProvider() {
     override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
+        val pcm = A2.snd_pcm_open("default", A2.SND_PCM_STREAM_PLAYBACK, 0)
+        if (pcm.address == 0L) {
+            error("Can't initialize ALSA")
+            //running = false
+            //return@nativeThread
+        }
         //println("ALSANativeSoundProvider.createPlatformAudioOutput(freq=$freq)")
-        return AudioPlatformOutput(coroutineContext, channels, frequency, gen) {
-            val buffer = AudioSamplesInterleaved(channels, 1024)
-            val pcm = A2.snd_pcm_open("default", A2.SND_PCM_STREAM_PLAYBACK, 0)
-            if (pcm.address == 0L) {
-                error("Can't initialize ALSA")
-                //running = false
-                //return@nativeThread
-            }
-
-            //val latency = 8 * 4096
-            val latency = 32 * 4096
-            A2.snd_pcm_set_params(
-                pcm,
-                A2.SND_PCM_FORMAT_S16_LE,
-                A2.SND_PCM_ACCESS_RW_INTERLEAVED,
-                channels,
-                frequency,
-                1,
-                latency
-            )
-            try {
-                while (running) {
-                    genSafe(buffer)
-                    val written = A2.snd_pcm_writei(pcm, buffer.data, 0, buffer.totalSamples * channels, buffer.totalSamples)
-                    //println("offset=$offset, pending=$pending, written=$written")
-                    if (written == -A2.EPIPE) {
-                        //println("ALSA: EPIPE error")
-                        //A2.snd_pcm_prepare(pcm)
-                        A2.snd_pcm_recover(pcm, written, 0)
-                        continue
-                        //blockingSleep(1.milliseconds)
-                    } else if (written < 0) {
-                        println("ALSA: OTHER error: $written")
-                        delay(1L)
-                        break
-                    } else {
-                        delay(1L)
+        return AudioPlatformOutput.simple(coroutineContext, channels, frequency, gen) {
+            AudioPlatformOutputSimple(
+                init = {
+                    //val latency = 8 * 4096
+                    val latency = 32 * 4096
+                    A2.snd_pcm_set_params(
+                        pcm,
+                        A2.SND_PCM_FORMAT_S16_LE,
+                        A2.SND_PCM_ACCESS_RW_INTERLEAVED,
+                        channels,
+                        frequency,
+                        1,
+                        latency
+                    )
+                },
+                output = { buffer ->
+                    while (true) {
+                        val written =
+                            A2.snd_pcm_writei(pcm, buffer.data, 0, buffer.totalSamples * channels, buffer.totalSamples)
+                        //println("offset=$offset, pending=$pending, written=$written")
+                        if (written == -A2.EPIPE) {
+                            //println("ALSA: EPIPE error")
+                            //A2.snd_pcm_prepare(pcm)
+                            A2.snd_pcm_recover(pcm, written, 0)
+                            continue
+                            //blockingSleep(1.milliseconds)
+                        } else if (written < 0) {
+                            println("ALSA: OTHER error: $written")
+                            delay(1L)
+                        } else {
+                            break
+                        }
                     }
-                }
-            } finally {
-                //println("!!COMPLETED : pcm=$pcm")
-                A2.snd_pcm_wait(pcm, 1000)
-                A2.snd_pcm_drain(pcm)
-                A2.snd_pcm_close(pcm)
-                //println("!!CLOSED = $pcm")
-            }
+                },
+                close = {
+                    //println("!!COMPLETED : pcm=$pcm")
+                    A2.snd_pcm_wait(pcm, 1000)
+                    A2.snd_pcm_drain(pcm)
+                    A2.snd_pcm_close(pcm)
+                    //println("!!CLOSED = $pcm")
+                },
+            )
         }
     }
 

@@ -62,7 +62,10 @@ abstract class AudioSource : AutoCloseable {
 
     open var name: String? = null
     open var looping: Boolean = false
+
+    @Deprecated("Only implemented in OpenAL")
     open var pitch: Float = 1f
+
     open var gain: Float = 1f
     open var maxDistance: Float = 1f
     open var rollOffFactor: Float = 1f

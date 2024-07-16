@@ -15,8 +15,30 @@ inline class AudioSample(private val raw: Short) {
     //operator fun plus(other: AudioSample): AudioSample = AudioSample((this.shortInt + other.shortInt) / 2)
 }
 
+/*
+class AudioSamples(
+    val channels: Int,
+    val totalSamples: Int,
+    val data: Array<AudioSampleArray> = Array(channels) { AudioSampleArray(totalSamples) }
+) {
+    init { check(data.all { it.size == totalSamples }) }
+
+    constructor(data: Array<AudioSampleArray>) : this(data.size, data[0].size, data)
+
+    @Deprecated("", ReplaceWith("channels"))
+    val nchannels get() = channels
+    @Deprecated("", ReplaceWith("totalSamples"))
+    val nsamples get() = totalSamples
+
+    operator fun get(channel: Int): AudioSampleArray = data[channel]
+    operator fun get(channel: Int, index: Int): AudioSample = data[channel][index]
+}
+*/
+
+@Deprecated("")
 typealias PerChannelAudioSamples = Array<AudioSampleArray>
 
+@Deprecated("")
 fun PerChannelAudioSamples(nchannels: Int, nsamples: Int): PerChannelAudioSamples = Array(nchannels) { AudioSampleArray(nsamples) }
 
 val PerChannelAudioSamples.nchannels get() = this.size

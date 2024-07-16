@@ -92,7 +92,7 @@ class AudioPlatformOutput(
                         delay(10L)
                     } else {
                         genSafe(samples)
-                        println(samples.data.toList())
+                        //println(samples.data.toList())
                         if (!init) {
                             init = true
                             gen.init(samples)

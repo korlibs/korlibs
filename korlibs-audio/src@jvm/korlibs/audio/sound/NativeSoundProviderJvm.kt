@@ -9,7 +9,7 @@ import korlibs.platform.*
 private val nativeSoundProviderDeferred: NativeSoundProvider by lazy {
     try {
         when {
-            //Platform.isLinux -> FFIALSANativeSoundProvider
+            Platform.isLinux -> FFIALSANativeSoundProvider
             Platform.isApple -> jvmCoreAudioNativeSoundProvider
             Platform.isWindows -> jvmWaveOutNativeSoundProvider
             //else -> JnaOpenALNativeSoundProvider()

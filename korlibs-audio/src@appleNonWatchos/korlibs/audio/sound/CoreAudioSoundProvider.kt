@@ -15,12 +15,19 @@ import platform.AudioToolbox.*
 import platform.AudioToolbox.AudioQueueBufferRef
 import platform.AudioToolbox.AudioQueueRef
 import platform.CoreAudioTypes.*
+import platform.Security.*
 import platform.darwin.OSStatus
 import platform.posix.*
 import kotlin.Int
+import kotlin.OptIn
+import kotlin.Short
 import kotlin.String
 import kotlin.Unit
+import kotlin.also
 import kotlin.coroutines.*
+import kotlin.error
+import kotlin.getValue
+import kotlin.lazy
 
 actual val nativeSoundProvider: NativeSoundProvider get() = CORE_AUDIO_NATIVE_SOUND_PROVIDER
 
@@ -120,9 +127,9 @@ class CoreAudioNativeSoundProvider : NativeSoundProvider() {
                 if (queue != null) {
                     //println("AudioQueueFlush/AudioQueueStop/AudioQueueDispose")
                     //AudioQueueFlush(queue!!.value).checkError("AudioQueueFlush")
-                    //AudioQueueStop(queue!!.value, false).checkError("AudioQueueStop")
-                    //for (n in 0 until NUM_BUFFERS) AudioQueueFreeBuffer(queue.value, buffers[n]).also { println("AudioQueueFreeBuffer: $it") }
-                    AudioQueueDispose(queue!!.value, false).checkError("AudioQueueDispose")
+                    AudioQueueStop(queue!!.value, true).checkError("AudioQueueStop")
+                    for (n in 0 until numBuffers) AudioQueueFreeBuffer(queue!!.value, buffers!![n]).checkError("AudioQueueFreeBuffer")
+                    AudioQueueDispose(queue!!.value, true).checkError("AudioQueueDispose")
                 }
                 queue = null
                 thisStableRef?.dispose()
@@ -162,7 +169,13 @@ class CoreAudioNativeSoundProvider : NativeSoundProvider() {
             kAudioQueueErr_EnqueueDuringReset -> "EnqueueDuringReset"
             kAudioQueueErr_InvalidOfflineMode -> "InvalidOfflineMode"
             kAudioFormatUnsupportedDataFormatError -> "UnsupportedDataFormatError"
-            else -> "Unknown$status"
+            else -> {
+                val ref = SecCopyErrorMessageString(status, null)
+                "$ref:$status"
+                //(SecCopyErrorMessageString(status, null) as? NSString?)?.toString() ?: "Unknown$status"
+                //SecCopyErrorMessageString
+                //"Unknown$status"
+            }
         }
     }
 }
@@ -173,5 +186,7 @@ private fun coreAudioOutputCallback(customData: COpaquePointer?, queue: AudioQue
     val dat = buf.mAudioDataByteSize.toInt() / Short.SIZE_BYTES
     val shortBuf = buf.mAudioData?.reinterpret<ShortVar>() ?: return println("outputCallback null[2]")
     output.get().generateOutput(shortBuf, dat)
-    AudioQueueEnqueueBuffer(queue, buffer, 0.convert(), null).checkError("AudioQueueEnqueueBuffer")
+    val result = AudioQueueEnqueueBuffer(queue, buffer, 0.convert(), null)
+    if (result == kAudioQueueErr_EnqueueDuringReset) return
+    result.checkError("AudioQueueEnqueueBuffer")
 }

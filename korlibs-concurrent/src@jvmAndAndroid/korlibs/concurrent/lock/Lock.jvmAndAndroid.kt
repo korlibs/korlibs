@@ -20,11 +20,14 @@ actual class Lock actual constructor() : BaseLockWithNotifyAndWait {
         (lock as java.lang.Object).notify()
     }
 
-    actual override fun wait(time: FastDuration): Boolean {
-        val nanoSeconds = time.nanoseconds.toLong()
-        val millis = nanoSeconds / 1_000_000
-        val nanos = nanoSeconds % 1_000_000
-        (lock as java.lang.Object).wait(millis, nanos.toInt())
-        return true
+    actual override fun wait(time: FastDuration) {
+        if (time.isPositiveInfinity) {
+            (lock as java.lang.Object).wait()
+        } else {
+            val nanoSeconds = time.nanoseconds.toLong().coerceAtLeast(1L)
+            val millis = nanoSeconds / 1_000_000
+            val nanos = nanoSeconds % 1_000_000
+            (lock as java.lang.Object).wait(millis, nanos.toInt())
+        }
     }
 }
