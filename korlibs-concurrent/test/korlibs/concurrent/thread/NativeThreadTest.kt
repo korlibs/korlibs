@@ -40,8 +40,8 @@ class NativeThreadTest {
         val test = FixedPoolNativeThreadDispatcher(2, "TEST", priority = NativeThreadPriority.HIGHER, preciseTimings = true)
         //val test = NativeThreadDispatcher("TEST", priority = NativeThreadPriority.HIGHER, preciseTimings = true)
         //withContext(test) {
-        //repeat(1) {
-        repeat(1000) {
+        repeat(1) {
+        //repeat(1000) {
         //repeat(10000) {
             val time = measureTime {
                 val done2 = CompletableDeferred<Unit>()
