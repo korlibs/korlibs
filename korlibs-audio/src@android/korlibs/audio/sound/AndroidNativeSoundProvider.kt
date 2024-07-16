@@ -9,9 +9,9 @@ import korlibs.io.android.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
 
-actual val nativeSoundProvider: NativeSoundProvider by lazy { AndroidNativeSoundProvider() }
+actual val nativeSoundProvider: NativeSoundProvider = AndroidNativeSoundProvider
 
-class AndroidNativeSoundProvider : NativeSoundProvider() {
+object AndroidNativeSoundProvider : NativeSoundProvider() {
     override val target: String = "android"
 
     private val pauseable = SyncPauseable()

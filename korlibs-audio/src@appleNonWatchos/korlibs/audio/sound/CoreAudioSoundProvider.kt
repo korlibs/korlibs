@@ -2,10 +2,8 @@
 
 package korlibs.audio.sound
 
-//import mystdio.*
 import cnames.structs.OpaqueAudioQueue
-import korlibs.audio.sound.CoreAudioNativeSoundProvider.*
-import korlibs.audio.sound.CoreAudioNativeSoundProvider.Companion.checkError
+import korlibs.audio.sound.CoreAudioNativeSoundProvider.osStatusToString
 import korlibs.memory.*
 import kotlinx.cinterop.*
 import kotlinx.cinterop.COpaquePointer
@@ -20,20 +18,13 @@ import platform.darwin.OSStatus
 import platform.posix.*
 import kotlin.Int
 import kotlin.OptIn
-import kotlin.Short
 import kotlin.String
 import kotlin.Unit
-import kotlin.also
 import kotlin.coroutines.*
-import kotlin.error
-import kotlin.getValue
-import kotlin.lazy
 
-actual val nativeSoundProvider: NativeSoundProvider get() = CORE_AUDIO_NATIVE_SOUND_PROVIDER
+actual val nativeSoundProvider: NativeSoundProvider = CoreAudioNativeSoundProvider
 
-val CORE_AUDIO_NATIVE_SOUND_PROVIDER: CoreAudioNativeSoundProvider by lazy { CoreAudioNativeSoundProvider() }
-
-class CoreAudioNativeSoundProvider : NativeSoundProvider() {
+object CoreAudioNativeSoundProvider : NativeSoundProvider() {
     //override suspend fun createSound(data: ByteArray, streaming: Boolean, props: AudioDecodingProps): NativeSound = AVFoundationNativeSoundNoStream(CoroutineScope(coroutineContext), audioFormats.decode(data))
 
     override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
@@ -142,46 +133,40 @@ class CoreAudioNativeSoundProvider : NativeSoundProvider() {
         override fun generateOutput(data: CPointer<ShortVar>, dataSize: Int) = generatorCore(this, data, dataSize)
     }
 
-    companion object {
-        internal fun OSStatus.checkError(name: String): OSStatus {
-            if (this != 0) println("ERROR: $name ($this)(${osStatusToString(this)})")
-            return this
-        }
-        fun osStatusToString(status: OSStatus): String = when (status) {
-            kAudioQueueErr_InvalidBuffer -> "InvalidBuffer"
-            kAudioQueueErr_BufferEmpty -> "BufferEmpty"
-            kAudioQueueErr_DisposalPending -> "DisposalPending"
-            kAudioQueueErr_InvalidProperty -> "InvalidProperty"
-            kAudioQueueErr_InvalidPropertySize -> "InvalidPropertySize"
-            kAudioQueueErr_InvalidParameter -> "InvalidParameter"
-            kAudioQueueErr_CannotStart -> "CannotStart"
-            kAudioQueueErr_InvalidDevice -> "InvalidDevice"
-            kAudioQueueErr_BufferInQueue -> "BufferInQueue"
-            kAudioQueueErr_InvalidRunState -> "InvalidRunState"
-            kAudioQueueErr_InvalidQueueType -> "InvalidQueueType"
-            kAudioQueueErr_Permissions -> "Permissions"
-            kAudioQueueErr_InvalidPropertyValue -> "InvalidPropertyValue"
-            kAudioQueueErr_PrimeTimedOut -> "PrimeTimedOut"
-            kAudioQueueErr_CodecNotFound -> "CodecNotFound"
-            kAudioQueueErr_InvalidCodecAccess -> "InvalidCodecAccess"
-            kAudioQueueErr_QueueInvalidated -> "QueueInvalidated"
-            kAudioQueueErr_RecordUnderrun -> "RecordUnderrun"
-            kAudioQueueErr_EnqueueDuringReset -> "EnqueueDuringReset"
-            kAudioQueueErr_InvalidOfflineMode -> "InvalidOfflineMode"
-            kAudioFormatUnsupportedDataFormatError -> "UnsupportedDataFormatError"
-            else -> {
-                val ref = SecCopyErrorMessageString(status, null)
-                "$ref:$status"
-                //(SecCopyErrorMessageString(status, null) as? NSString?)?.toString() ?: "Unknown$status"
-                //SecCopyErrorMessageString
-                //"Unknown$status"
-            }
+    fun osStatusToString(status: OSStatus): String = when (status) {
+        kAudioQueueErr_InvalidBuffer -> "InvalidBuffer"
+        kAudioQueueErr_BufferEmpty -> "BufferEmpty"
+        kAudioQueueErr_DisposalPending -> "DisposalPending"
+        kAudioQueueErr_InvalidProperty -> "InvalidProperty"
+        kAudioQueueErr_InvalidPropertySize -> "InvalidPropertySize"
+        kAudioQueueErr_InvalidParameter -> "InvalidParameter"
+        kAudioQueueErr_CannotStart -> "CannotStart"
+        kAudioQueueErr_InvalidDevice -> "InvalidDevice"
+        kAudioQueueErr_BufferInQueue -> "BufferInQueue"
+        kAudioQueueErr_InvalidRunState -> "InvalidRunState"
+        kAudioQueueErr_InvalidQueueType -> "InvalidQueueType"
+        kAudioQueueErr_Permissions -> "Permissions"
+        kAudioQueueErr_InvalidPropertyValue -> "InvalidPropertyValue"
+        kAudioQueueErr_PrimeTimedOut -> "PrimeTimedOut"
+        kAudioQueueErr_CodecNotFound -> "CodecNotFound"
+        kAudioQueueErr_InvalidCodecAccess -> "InvalidCodecAccess"
+        kAudioQueueErr_QueueInvalidated -> "QueueInvalidated"
+        kAudioQueueErr_RecordUnderrun -> "RecordUnderrun"
+        kAudioQueueErr_EnqueueDuringReset -> "EnqueueDuringReset"
+        kAudioQueueErr_InvalidOfflineMode -> "InvalidOfflineMode"
+        kAudioFormatUnsupportedDataFormatError -> "UnsupportedDataFormatError"
+        else -> {
+            val ref = SecCopyErrorMessageString(status, null)
+            "$ref:$status"
+            //(SecCopyErrorMessageString(status, null) as? NSString?)?.toString() ?: "Unknown$status"
+            //SecCopyErrorMessageString
+            //"Unknown$status"
         }
     }
 }
 
 private fun coreAudioOutputCallback(customData: COpaquePointer?, queue: AudioQueueRef?, buffer: AudioQueueBufferRef?) {
-    val output = customData?.asStableRef<MyCoreAudioOutputCallback>() ?: return println("outputCallback null[0]")
+    val output = customData?.asStableRef<CoreAudioNativeSoundProvider.MyCoreAudioOutputCallback>() ?: return println("outputCallback null[0]")
     val buf = buffer?.pointed ?: return println("outputCallback null[1]")
     val dat = buf.mAudioDataByteSize.toInt() / Short.SIZE_BYTES
     val shortBuf = buf.mAudioData?.reinterpret<ShortVar>() ?: return println("outputCallback null[2]")
@@ -189,4 +174,9 @@ private fun coreAudioOutputCallback(customData: COpaquePointer?, queue: AudioQue
     val result = AudioQueueEnqueueBuffer(queue, buffer, 0.convert(), null)
     if (result == kAudioQueueErr_EnqueueDuringReset) return
     result.checkError("AudioQueueEnqueueBuffer")
+}
+
+internal fun OSStatus.checkError(name: String): OSStatus {
+    if (this != 0) println("ERROR: $name ($this)(${osStatusToString(this)})")
+    return this
 }

@@ -6,11 +6,7 @@ import korlibs.memory.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
 
-val jvmWaveOutNativeSoundProvider: NativeSoundProvider? by lazy {
-    JvmWaveOutNativeSoundProvider()
-}
-
-class JvmWaveOutNativeSoundProvider : NativeSoundProvider() {
+object FFIJVMWaveOutNativeSoundProvider : NativeSoundProvider() {
     override fun createNewPlatformAudioOutput(
         coroutineContext: CoroutineContext,
         channels: Int,
