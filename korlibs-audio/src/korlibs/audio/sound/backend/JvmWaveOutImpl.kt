@@ -6,11 +6,7 @@ import korlibs.memory.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
 
-val jvmWaveOutNativeSoundProvider: NativeSoundProvider? by lazy {
-    JvmWaveOutNativeSoundProvider()
-}
-
-class JvmWaveOutNativeSoundProvider : NativeSoundProvider() {
+object FFIJVMWaveOutNativeSoundProvider : NativeSoundProvider() {
     override fun createNewPlatformAudioOutput(
         coroutineContext: CoroutineContext,
         channels: Int,
@@ -104,7 +100,7 @@ class JvmWaveOutNativeSoundProvider : NativeSoundProvider() {
 
         fun write(handle: FFIPointer?, samples: AudioSamplesInterleaved, position: Int) {
             val samplesData = samples.data
-            for (n in 0 until channels * totalSamples) dataMem[n] = samplesData[n + position * channels]
+            for (n in 0 until channels * totalSamples) dataMem[n] = samplesData[n + position * channels].short
             WINMM.waveOutWrite(handle, hdr.ptr, hdr.size)
         }
 

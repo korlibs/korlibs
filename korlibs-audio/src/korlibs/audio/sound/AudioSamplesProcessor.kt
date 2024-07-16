@@ -1,6 +1,5 @@
 package korlibs.audio.sound
 
-import korlibs.audio.internal.*
 import kotlin.math.*
 
 @Deprecated("")
@@ -14,7 +13,7 @@ class AudioSamplesProcessor(val channels: Int, val totalSamples: Int, val data: 
             val odata = this.data[ch]
             val idata = samples.data[ch]
             for (n in 0 until samples.totalSamples) {
-                odata[n] += SampleConvert.shortToFloat(idata[n]) * scale
+                odata[n] += idata[n].float * scale
             }
         }
         return this
@@ -40,7 +39,7 @@ class AudioSamplesProcessor(val channels: Int, val totalSamples: Int, val data: 
             val idata = this.data[ch]
             val odata = samples.data[ch]
             for (n in 0 until samples.totalSamples) {
-                odata[n] = SampleConvert.floatToShort(idata[n])
+                odata[n] = AudioSample(idata[n])
             }
         }
     }

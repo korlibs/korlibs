@@ -1,6 +1,7 @@
 package korlibs.audio.core.impl
 
 import korlibs.audio.core.*
+import korlibs.audio.sound.*
 import korlibs.concurrent.thread.*
 import korlibs.ffi.*
 import korlibs.time.*

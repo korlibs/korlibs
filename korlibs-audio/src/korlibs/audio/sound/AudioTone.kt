@@ -1,6 +1,5 @@
 package korlibs.audio.sound
 
-import korlibs.audio.internal.*
 import korlibs.time.*
 import kotlin.math.*
 import kotlin.time.*
@@ -22,7 +21,7 @@ object AudioTone {
         for (n in 0 until nsamples) {
             val ratio = (n.toDouble() * frequency) / rate
             val sample = sin(ratio * PI * 2)
-            samples0[n] = SampleConvert.floatToShort(sample.toFloat() * volumef)
+            samples0[n] = AudioSample(sample.toFloat() * volumef)
         }
         return AudioData(rate, samples)
     }

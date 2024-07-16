@@ -213,7 +213,7 @@ abstract class BaseMinimp3AudioFormat : AudioFormat("mp3") {
                 }
 
                 //println("writeInterleaved. offset=$offset, toRead=$toRead")
-                pcmDeque!!.writeInterleaved(buf!!, offset, toRead)
+                pcmDeque!!.writeInterleaved(AudioSampleArray(buf!!), offset, toRead)
             }
 
             //println("mp3decFrameInfo: samples=$samples, channels=${struct.channels}, frame_bytes=${struct.frame_bytes}, frame_offset=${struct.frame_offset}, bitrate_kbps=${struct.bitrate_kbps}, hz=${struct.hz}, layer=${struct.layer}")

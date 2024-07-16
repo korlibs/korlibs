@@ -7,7 +7,7 @@ import kotlin.coroutines.*
 
 private val mixer by lazy { AudioSystem.getMixer(null) }
 
-object AwtNativeSoundProvider : NativeSoundProvider() {
+object AWTNativeSoundProvider : NativeSoundProvider() {
     override fun createNewPlatformAudioOutput(
         coroutineContext: CoroutineContext,
         nchannels: Int,
@@ -24,7 +24,7 @@ object AwtNativeSoundProvider : NativeSoundProvider() {
                 line.start()
             },
             output = {
-                bytes.setArrayLE(0, it.data)
+                bytes.setArrayLE(0, it.data.asShortArray())
                 line.write(bytes, 0, bytes.size)
             },
             close = {

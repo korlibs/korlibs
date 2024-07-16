@@ -14,7 +14,7 @@ class AudioToneTest {
         assertEquals(44100, channel.size)
         assertEquals(
             "0,2052,4097,6126,8130,10103,12036,13921,15752,17521,19222,20846,22389,23844,25205,26467",
-            (0 until 16).map { channel[it] }.joinToString(",")
+            (0 until 16).map { channel[it].toInt() }.joinToString(",")
         )
     }
 }

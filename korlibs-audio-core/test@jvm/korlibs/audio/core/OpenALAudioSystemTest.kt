@@ -1,6 +1,7 @@
 package korlibs.audio.core
 
 import korlibs.audio.core.impl.*
+import korlibs.audio.sound.*
 import korlibs.concurrent.thread.*
 import korlibs.math.geom.*
 import korlibs.time.*

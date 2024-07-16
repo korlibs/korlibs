@@ -9,16 +9,7 @@ import java.util.concurrent.*
 import java.util.concurrent.atomic.AtomicLong
 import kotlin.coroutines.*
 
-val jvmCoreAudioNativeSoundProvider: JvmCoreAudioNativeSoundProvider? by lazy {
-    try {
-        JvmCoreAudioNativeSoundProvider()
-    } catch (e: Throwable) {
-        e.printStackTrace()
-        null
-    }
-}
-
-class JvmCoreAudioNativeSoundProvider : NativeSoundProvider() {
+object JVMCoreAudioNativeSoundProvider : NativeSoundProvider() {
     override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, nchannels: Int, freq: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         return AudioPlatformOutput(coroutineContext, nchannels, freq, gen) {
             val id = lastId.incrementAndGet()
@@ -87,54 +78,51 @@ class JvmCoreAudioNativeSoundProvider : NativeSoundProvider() {
         var completed: Boolean
     )
 
-    companion object {
-        private var lastId = AtomicLong(0L)
-        const val bufferSizeInBytes = 2048
-        const val numBuffers = 3
+    private var lastId = AtomicLong(0L)
+    const val bufferSizeInBytes = 2048
+    const val numBuffers = 3
 
-        private val newAudioOutputsById = ConcurrentHashMap<Long, AudioInfo>()
-        private val jnaNewCoreAudioCallback by lazy {
-            AudioQueueNewOutputCallback { inUserData, inAQ, inBuffer ->
-                try {
-                    val output = newAudioOutputsById[(inUserData?.address ?: 0L).toLong()] ?: return@AudioQueueNewOutputCallback 0
-                    val nchannels = output.channels
+    private val newAudioOutputsById = ConcurrentHashMap<Long, AudioInfo>()
+    private val jnaNewCoreAudioCallback by lazy {
+        AudioQueueNewOutputCallback { inUserData, inAQ, inBuffer ->
+            try {
+                val output = newAudioOutputsById[(inUserData?.address ?: 0L).toLong()] ?: return@AudioQueueNewOutputCallback 0
+                val nchannels = output.channels
 
-                    //val tone = AudioTone.generate(1.seconds, 41000.0)
-                    val queue = AudioQueueBuffer(inBuffer)
-                    val ptr = queue.mAudioData
-                    val samplesCount = (queue.mAudioDataByteSize / Short.SIZE_BYTES) / nchannels
-                    //println("samplesCount=$samplesCount")
+                //val tone = AudioTone.generate(1.seconds, 41000.0)
+                val queue = AudioQueueBuffer(inBuffer)
+                val ptr = queue.mAudioData
+                val samplesCount = (queue.mAudioDataByteSize / Short.SIZE_BYTES) / nchannels
+                //println("samplesCount=$samplesCount")
 
-                    if (ptr != null) {
-                        // Reuse instances as much as possible
-                        if (output.buffer.value.totalSamples != samplesCount) output.buffer.value = AudioSamplesInterleaved(nchannels, samplesCount)
-                        val samples = output.buffer.value
-                        output.genSafe(samples)
+                if (ptr != null) {
+                    // Reuse instances as much as possible
+                    if (output.buffer.value.totalSamples != samplesCount) output.buffer.value = AudioSamplesInterleaved(nchannels, samplesCount)
+                    val samples = output.buffer.value
+                    output.genSafe(samples)
 
-                        val samplesData = samples.data
-                        for (n in 0 until samplesCount * nchannels) {
-                            ptr[n] = samplesData[n]
-                        }
+                    val samplesData = samples.data
+                    for (n in 0 until samplesCount * nchannels) {
+                        ptr[n] = samplesData[n].short
                     }
-                    //println("queue.mAudioData=${queue.mAudioData}")
-
-                    if (!output.completed) {
-                        CoreAudioKit.AudioQueueEnqueueBuffer(inAQ, queue.ptr, 0, null).also {
-                            if (it != 0) println("CoreAudioKit.AudioQueueEnqueueBuffer -> $it")
-                        }
-                    } else {
-                        Unit
-                    }
-                } catch (e: Throwable) {
-                    e.printStackTrace()
                 }
-                0
-            }.also {
-                Native.setCallbackThreadInitializer(it, CallbackThreadInitializer(false, false))
+                //println("queue.mAudioData=${queue.mAudioData}")
+
+                if (!output.completed) {
+                    CoreAudioKit.AudioQueueEnqueueBuffer(inAQ, queue.ptr, 0, null).also {
+                        if (it != 0) println("CoreAudioKit.AudioQueueEnqueueBuffer -> $it")
+                    }
+                } else {
+                    Unit
+                }
+            } catch (e: Throwable) {
+                e.printStackTrace()
             }
+            0
+        }.also {
+            Native.setCallbackThreadInitializer(it, CallbackThreadInitializer(false, false))
         }
     }
-
     private class AudioQueueBuffer(p: FFIPointer? = null) : FFIStructure(p) {
         var mAudioDataBytesCapacity by int()
         var mAudioData by pointer<Short>()

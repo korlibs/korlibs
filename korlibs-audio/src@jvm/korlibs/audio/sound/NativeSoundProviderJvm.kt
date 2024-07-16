@@ -10,11 +10,11 @@ private val nativeSoundProviderDeferred: NativeSoundProvider by lazy {
     try {
         when {
             Platform.isLinux -> FFIALSANativeSoundProvider
-            Platform.isApple -> jvmCoreAudioNativeSoundProvider
-            Platform.isWindows -> jvmWaveOutNativeSoundProvider
+            Platform.isApple -> JVMCoreAudioNativeSoundProvider
+            Platform.isWindows -> FFIJVMWaveOutNativeSoundProvider
             //else -> JnaOpenALNativeSoundProvider()
-            else -> AwtNativeSoundProvider
-        } ?: AwtNativeSoundProvider
+            else -> AWTNativeSoundProvider
+        }
     } catch (e: UnsatisfiedLinkError) {
         DummyNativeSoundProvider
     //} catch (e: OpenALException) {

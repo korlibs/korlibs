@@ -12,7 +12,7 @@ class CoreAudioImplTest {
             println("[1]")
             val sound = resourcesVfs["Snowland.mp3"].readSound().toAudioData()
             println("[2]")
-            jvmCoreAudioNativeSoundProvider!!.playAndWait(sound.toStream())
+            JVMCoreAudioNativeSoundProvider!!.playAndWait(sound.toStream())
             println("[3]")
             //CoreFoundation.CFRunLoopRun()
             //CoreAudioImpl2.AudioComponentInstanceNew()

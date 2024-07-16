@@ -1,6 +1,7 @@
 package korlibs.audio.core.impl
 
 import korlibs.audio.core.*
+import korlibs.audio.sound.*
 
 /**
  * Implements spatial audio with the simplest audio output possible ([AudioStreamPlayer]).

@@ -1,9 +1,9 @@
 package korlibs.audio.core.impl
 
 import korlibs.audio.core.*
+import korlibs.audio.sound.*
 import korlibs.concurrent.thread.*
 import korlibs.ffi.*
-import korlibs.io.lang.*
 import korlibs.memory.*
 import korlibs.time.*
 
@@ -91,7 +91,7 @@ internal object Win32AudioSystem : AudioSystem() {
                     }
                 }
             }
-            return Closeable {
+            return AutoCloseable {
                 running = false
             }
         }
