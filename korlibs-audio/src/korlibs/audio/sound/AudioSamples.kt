@@ -6,29 +6,6 @@ import kotlin.math.*
 
 //inline class AudioAmplitude(val value: Short)
 
-interface IAudioSamples {
-    val channels: Int
-    val totalSamples: Int
-    fun isEmpty() = totalSamples == 0
-    fun isNotEmpty() = totalSamples != 0
-    operator fun get(channel: Int, sample: Int): Short
-    operator fun set(channel: Int, sample: Int, value: Short): Unit
-    fun getFloat(channel: Int, sample: Int): Float = SampleConvert.shortToFloat(this[channel, sample])
-    fun setFloat(channel: Int, sample: Int, value: Float) {
-        this[channel, sample] = SampleConvert.floatToShort(value)
-    }
-
-    fun setFloatStereo(sample: Int, l: Float, r: Float) {
-        setFloat(0, sample, l)
-        setFloat(1, sample, r)
-    }
-
-    fun scaleVolume(scale: Double): IAudioSamples = scaleVolume(scale.toFloat())
-    fun scaleVolume(channelScales: DoubleArray): IAudioSamples = scaleVolume(FloatArray(channelScales.size) { channelScales[it].toFloat() })
-    fun scaleVolume(scale: Float): IAudioSamples
-    fun scaleVolume(channelScales: FloatArray): IAudioSamples
-}
-
 internal fun AudioSamples.resample(scale: Double, totalSamples: Int = (this.totalSamples * scale).toInt(), out: AudioSamples = AudioSamples(channels, totalSamples)): AudioSamples {
     val iscale = 1.0 / scale
     for (c in 0 until channels) {
@@ -49,14 +26,14 @@ fun AudioSamples.resampleIfRequired(srcFreq: Int, dstFreq: Int): AudioSamples =
     if (srcFreq == dstFreq) this else resample(srcFreq, dstFreq)
 
 class AudioSamples(
-    override val channels: Int,
-    override val totalSamples: Int,
+    val channels: Int,
+    val totalSamples: Int,
     val data: Array<ShortArray> = Array(channels) { ShortArray(totalSamples) }
-) : IAudioSamples {
+) {
     operator fun get(channel: Int): ShortArray = data[channel]
 
-    override operator fun get(channel: Int, sample: Int): Short = data[channel][sample]
-    override operator fun set(channel: Int, sample: Int, value: Short) { data[channel][sample] = value }
+    operator fun get(channel: Int, sample: Int): Short = data[channel][sample]
+    operator fun set(channel: Int, sample: Int, value: Short) { data[channel][sample] = value }
 
     fun copyOf(size: Int = totalSamples): AudioSamples = copyOfRange(0, size)
     fun copyOfRange(fromIndex: Int, toIndex: Int): AudioSamples = AudioSamples(channels, toIndex - fromIndex, Array(data.size) { data[it].copyOfRange(fromIndex * channels, toIndex * channels) })
@@ -66,7 +43,7 @@ class AudioSamples(
         this[1, sample] = valueRight
     }
 
-    override fun scaleVolume(scale: Float): AudioSamples {
+    fun scaleVolume(scale: Float): AudioSamples {
         for (channel in data) {
             for (n in channel.indices) {
                 channel[n] = (channel[n] * scale).toInt().coerceToShort()
@@ -74,7 +51,7 @@ class AudioSamples(
         }
         return this
     }
-    override fun scaleVolume(channelScales: FloatArray): AudioSamples {
+    fun scaleVolume(channelScales: FloatArray): AudioSamples {
         for (ch in data.indices) {
             val channel = data[ch]
             for (n in channel.indices) {
@@ -107,27 +84,27 @@ class AudioSamples(
 }
 
 class AudioSamplesInterleaved(
-    override val channels: Int,
-    override val totalSamples: Int,
+    val channels: Int,
+    val totalSamples: Int,
     val data: ShortArray = ShortArray(totalSamples * channels),
-) : IAudioSamples {
+) {
     init {
         check(channels in 1..8)
     }
 
     //val separared by lazy { separated() }
     private fun index(channel: Int, sample: Int): Int = (sample * channels) + channel
-    override operator fun get(channel: Int, sample: Int): Short = data[index(channel, sample)]
-    override operator fun set(channel: Int, sample: Int, value: Short) { data[index(channel, sample)] = value }
+    operator fun get(channel: Int, sample: Int): Short = data[index(channel, sample)]
+    operator fun set(channel: Int, sample: Int, value: Short) { data[index(channel, sample)] = value }
 
     fun copyOf(size: Int = totalSamples): AudioSamplesInterleaved = copyOfRange(0, size)
     fun copyOfRange(fromIndex: Int, toIndex: Int): AudioSamplesInterleaved = AudioSamplesInterleaved(channels, toIndex - fromIndex, data.copyOfRange(fromIndex * channels, toIndex * channels))
 
-    override fun scaleVolume(scale: Float): AudioSamplesInterleaved {
+    fun scaleVolume(scale: Float): AudioSamplesInterleaved {
         for (n in data.indices) data[n] = (data[n] * scale).toInt().coerceToShort()
         return this
     }
-    override fun scaleVolume(channelScales: FloatArray): AudioSamplesInterleaved {
+    fun scaleVolume(channelScales: FloatArray): AudioSamplesInterleaved {
         for (ch in 0 until channels) {
             val chVolume = channelScales[ch]
             for (n in 0 until totalSamples) {
@@ -159,26 +136,6 @@ fun AudioSamples.interleaved(out: AudioSamplesInterleaved = AudioSamplesInterlea
             this.data[1], 0,
             totalSamples,
         )
-        else -> {
-            val outData = out.data
-            val channels = channels
-            for (c in 0 until channels) {
-                var m = c
-                for (n in 0 until totalSamples) {
-                    outData[m] = this[c, n]
-                    m += channels
-                }
-            }
-        }
-    }
-    return out
-}
-
-fun IAudioSamples.interleaved(out: AudioSamplesInterleaved = AudioSamplesInterleaved(channels, totalSamples)): AudioSamplesInterleaved {
-    check(out.data.size >= totalSamples * channels)
-    when (this) {
-        is AudioSamples -> this.interleaved(out)
-        is AudioSamplesInterleaved -> arraycopy(this.data, 0, out.data, 0, totalSamples * channels)
         else -> {
             val outData = out.data
             val channels = channels
@@ -239,7 +196,7 @@ fun AudioSamplesInterleaved.ensureTwoChannels(): AudioSamplesInterleaved {
     }
 }
 
-fun IAudioSamples.separated(out: AudioSamples = AudioSamples(channels, totalSamples)): AudioSamples {
+fun AudioSamplesInterleaved.separated(out: AudioSamples = AudioSamples(channels, totalSamples)): AudioSamples {
     for (n in 0 until totalSamples) for (c in 0 until channels) out[c, n] = this[c, n]
     return out
 }

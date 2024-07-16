@@ -40,14 +40,6 @@ class AudioSamplesDeque(val channels: Int) {
         writeInterleaved(samples.data, offset, len, samples.channels)
     }
 
-    fun write(samples: IAudioSamples, offset: Int = 0, len: Int = samples.totalSamples - offset) {
-        when (samples) {
-            is AudioSamples -> write(samples, offset, len)
-            is AudioSamplesInterleaved -> write(samples, offset, len)
-            else -> for (c in 0 until samples.channels) for (n in 0 until len) write(c, samples[c, offset + n])
-        }
-    }
-
     // Write raw
     fun write(channel: Int, data: ShortArray, offset: Int = 0, len: Int = data.size - offset) {
         buffer[channel].write(data, offset, len)
@@ -86,16 +78,6 @@ class AudioSamplesDeque(val channels: Int) {
             for (n in 0 until rlen) out[channel, offset + n] = this.read(inChannel)
         }
         return rlen
-    }
-
-    fun read(out: IAudioSamples, offset: Int = 0, len: Int = out.totalSamples - offset): Int {
-        val result = min(len, availableRead)
-        when (out) {
-            is AudioSamples -> read(out, offset, len)
-            is AudioSamplesInterleaved -> read(out, offset, len)
-            else -> for (c in 0 until out.channels) for (n in 0 until len) out[c, offset + n] = this.read(c)
-        }
-        return result
     }
 
     fun clear() {
