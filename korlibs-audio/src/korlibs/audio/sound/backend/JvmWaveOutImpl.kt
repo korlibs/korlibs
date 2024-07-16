@@ -17,7 +17,6 @@ class JvmWaveOutNativeSoundProvider : NativeSoundProvider() {
         frequency: Int,
         gen: AudioPlatformOutputGen
     ): AudioPlatformOutput = AudioPlatformOutput.simple(coroutineContext, channels, frequency, gen) { buffer ->
-        var handle: FFIPointer? = null
         val arena = FFIArena()
 
         val handlePtr = arena.allocBytes(8).typed<FFIPointer?>()
@@ -69,8 +68,7 @@ class JvmWaveOutNativeSoundProvider : NativeSoundProvider() {
                 //runBlockingNoJs {
                 //    wait()
                 //}
-                WINMM.waveOutClose(handle)
-                handle = null
+                WINMM.waveOutClose(handlePtr[0])
                 arena.clear()
             },
         )
