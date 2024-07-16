@@ -17,6 +17,8 @@ inline class FastDuration(private val ms: Double) : Comparable<FastDuration> {
         fun now(): FastDuration = CoreTime.currentTimeMillisDouble().fastMilliseconds
     }
     val isNil get() = this == NIL
+    val isPositiveInfinity get() = this == POSITIVE_INFINITY
+    val isNegativeInfinity get() = this == NEGATIVE_INFINITY
 
     val seconds: Double get() = ms / 1_000
     val milliseconds: Double get() = ms
