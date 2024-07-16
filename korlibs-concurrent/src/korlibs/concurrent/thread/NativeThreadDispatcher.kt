@@ -29,6 +29,11 @@ class FixedPoolNativeThreadDispatcher(
         dispatchers.minBy { it.numTasks }.dispatch(context, block)
     }
 
+    @InternalCoroutinesApi
+    override fun dispatchYield(context: CoroutineContext, block: Runnable) {
+        dispatchers.minBy { it.numTasks }.dispatchYield(context, block)
+    }
+
     override fun scheduleResumeAfterDelay(timeMillis: Long, continuation: CancellableContinuation<Unit>) {
         dispatchers.minBy { it.numTimedTasks }.scheduleResumeAfterDelay(timeMillis, continuation)
     }
@@ -124,6 +129,11 @@ class NativeThreadDispatcher(
         notifyLock.notify {
             tasksLock { tasks.add(block) }
         }
+    }
+
+    @InternalCoroutinesApi
+    override fun dispatchYield(context: CoroutineContext, block: Runnable) {
+        super.dispatchYield(context, block)
     }
 
     override fun scheduleResumeAfterDelay(timeMillis: Long, continuation: CancellableContinuation<Unit>) {
