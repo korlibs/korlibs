@@ -1,6 +1,5 @@
 package korlibs.audio.sound
 
-import korlibs.audio.internal.*
 import korlibs.math.*
 import kotlin.math.*
 
@@ -28,25 +27,25 @@ fun AudioSamples.resampleIfRequired(srcFreq: Int, dstFreq: Int): AudioSamples =
 class AudioSamples(
     val channels: Int,
     val totalSamples: Int,
-    val data: Array<ShortArray> = Array(channels) { ShortArray(totalSamples) }
+    val data: Array<AudioSampleArray> = Array(channels) { AudioSampleArray(totalSamples) }
 ) {
-    operator fun get(channel: Int): ShortArray = data[channel]
+    operator fun get(channel: Int): AudioSampleArray = data[channel]
 
-    operator fun get(channel: Int, sample: Int): Short = data[channel][sample]
-    operator fun set(channel: Int, sample: Int, value: Short) { data[channel][sample] = value }
+    operator fun get(channel: Int, sample: Int): AudioSample = data[channel][sample]
+    operator fun set(channel: Int, sample: Int, value: AudioSample) { data[channel][sample] = value }
 
     fun copyOf(size: Int = totalSamples): AudioSamples = copyOfRange(0, size)
     fun copyOfRange(fromIndex: Int, toIndex: Int): AudioSamples = AudioSamples(channels, toIndex - fromIndex, Array(data.size) { data[it].copyOfRange(fromIndex * channels, toIndex * channels) })
 
-    fun setStereo(sample: Int, valueLeft: Short, valueRight: Short) {
+    fun setStereo(sample: Int, valueLeft: AudioSample, valueRight: AudioSample) {
         this[0, sample] = valueLeft
         this[1, sample] = valueRight
     }
 
     fun scaleVolume(scale: Float): AudioSamples {
         for (channel in data) {
-            for (n in channel.indices) {
-                channel[n] = (channel[n] * scale).toInt().coerceToShort()
+            for (n in 0 until channel.size) {
+                channel[n] = channel[n] * scale
             }
         }
         return this
@@ -54,8 +53,8 @@ class AudioSamples(
     fun scaleVolume(channelScales: FloatArray): AudioSamples {
         for (ch in data.indices) {
             val channel = data[ch]
-            for (n in channel.indices) {
-                channel[n] = (channel[n] * channelScales[ch]).toInt().coerceToShort()
+            for (n in 0 until channel.size) {
+                channel[n] = channel[n] * channelScales[ch]
             }
         }
         return this
@@ -72,7 +71,7 @@ class AudioSamples(
         }
     }
 
-    fun clone(out: AudioSamples = AudioSamples(channels, totalSamples, Array(data.size) { ShortArray(data[0].size) })) : AudioSamples {
+    fun clone(out: AudioSamples = AudioSamples(channels, totalSamples, Array(data.size) { AudioSampleArray(data[0].size) })) : AudioSamples {
         this.copyTo(out)
         return out
     }
@@ -86,7 +85,7 @@ class AudioSamples(
 class AudioSamplesInterleaved(
     val channels: Int,
     val totalSamples: Int,
-    val data: ShortArray = ShortArray(totalSamples * channels),
+    val data: AudioSampleArray = AudioSampleArray(totalSamples * channels),
 ) {
     init {
         check(channels in 1..8)
@@ -94,14 +93,14 @@ class AudioSamplesInterleaved(
 
     //val separared by lazy { separated() }
     private fun index(channel: Int, sample: Int): Int = (sample * channels) + channel
-    operator fun get(channel: Int, sample: Int): Short = data[index(channel, sample)]
-    operator fun set(channel: Int, sample: Int, value: Short) { data[index(channel, sample)] = value }
+    operator fun get(channel: Int, sample: Int): AudioSample = data[index(channel, sample)]
+    operator fun set(channel: Int, sample: Int, value: AudioSample) { data[index(channel, sample)] = value }
 
     fun copyOf(size: Int = totalSamples): AudioSamplesInterleaved = copyOfRange(0, size)
     fun copyOfRange(fromIndex: Int, toIndex: Int): AudioSamplesInterleaved = AudioSamplesInterleaved(channels, toIndex - fromIndex, data.copyOfRange(fromIndex * channels, toIndex * channels))
 
     fun scaleVolume(scale: Float): AudioSamplesInterleaved {
-        for (n in data.indices) data[n] = (data[n] * scale).toInt().coerceToShort()
+        for (n in 0 until data.size) data[n] = data[n] * scale
         return this
     }
     fun scaleVolume(channelScales: FloatArray): AudioSamplesInterleaved {
@@ -109,7 +108,7 @@ class AudioSamplesInterleaved(
             val chVolume = channelScales[ch]
             for (n in 0 until totalSamples) {
                 val i = n * channels + ch
-                data[i] = (data[i] * chVolume).toInt().coerceToShort()
+                data[i] = data[i] * chVolume
             }
         }
         return this
@@ -164,12 +163,12 @@ fun AudioSamplesInterleaved.applyProps(speed: Double, panning: Double, volume: D
     var m = 0
     if (channels == 2) {
         for (n in 0 until out.totalSamples) {
-            outData[m++] = (outData[(n * speedf).toInt() * 2 + 0] * lratio).toInt().toShort()
-            outData[m++] = (outData[(n * speedf).toInt() * 2 + 1] * rratio).toInt().toShort()
+            outData[m++] = outData[(n * speedf).toInt() * 2 + 0] * lratio
+            outData[m++] = outData[(n * speedf).toInt() * 2 + 1] * rratio
         }
     } else {
-        for (n in out.data.indices) {
-            outData[m++] = (outData[(n * speedf).toInt()] * lratio).toInt().toShort()
+        for (n in 0 until out.data.size) {
+            outData[m++] = outData[(n * speedf).toInt()] * lratio
         }
     }
 
@@ -201,14 +200,14 @@ fun AudioSamplesInterleaved.separated(out: AudioSamples = AudioSamples(channels,
     return out
 }
 
-private fun arraycopy(src: ShortArray, srcPos: Int, dst: ShortArray, dstPos: Int, size: Int) {
+private fun arraycopy(src: AudioSampleArray, srcPos: Int, dst: AudioSampleArray, dstPos: Int, size: Int) {
     src.copyInto(dst, dstPos, srcPos, srcPos + size)
 }
 
 private fun arrayinterleave(
-    out: ShortArray, outPos: Int,
-    array1: ShortArray, array1Pos: Int,
-    array2: ShortArray, array2Pos: Int,
+    out: AudioSampleArray, outPos: Int,
+    array1: AudioSampleArray, array1Pos: Int,
+    array2: AudioSampleArray, array2Pos: Int,
     size: Int,
 ) {
     var m = outPos

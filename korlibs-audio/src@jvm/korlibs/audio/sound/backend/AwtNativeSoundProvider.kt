@@ -24,7 +24,7 @@ object AwtNativeSoundProvider : NativeSoundProvider() {
                 line.start()
             },
             output = {
-                bytes.setArrayLE(0, it.data)
+                bytes.setArrayLE(0, it.data.asShortArray())
                 line.write(bytes, 0, bytes.size)
             },
             close = {

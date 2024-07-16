@@ -104,7 +104,7 @@ object Win32WaveOutNativeSoundProvider : NativeSoundProvider() {
 
         fun write(handle: HWAVEOUT?, samples: AudioSamplesInterleaved, position: Int) {
             val samplesData = samples.data
-            for (n in 0 until channels * totalSamples) dataMem[n] = samplesData[n + position * channels]
+            for (n in 0 until channels * totalSamples) dataMem[n] = samplesData[n + position * channels].short
             WINMM.waveOutWrite(handle, hdr.ptr, sizeOf<WAVEHDR>().convert())
         }
 

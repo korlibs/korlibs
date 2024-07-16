@@ -2,12 +2,10 @@ package korlibs.audio.sound
 
 import korlibs.time.seconds
 import korlibs.audio.format.AudioDecodingProps
-import korlibs.audio.internal.SampleConvert
 import korlibs.audio.sound.HtmlSimpleSound.getUnlockedContextOrThrow
 import korlibs.io.file.Vfs
 import korlibs.io.file.std.*
 import korlibs.io.lang.*
-import korlibs.memory.*
 import korlibs.platform.*
 import org.khronos.webgl.*
 import kotlin.coroutines.CoroutineContext
@@ -44,7 +42,7 @@ class HtmlNativeSoundProvider : NativeSoundProvider() {
                     val outCh = e.outputBuffer.getChannelData(ch)
                     val data = separated[ch]
                     for (n in 0 until bufferSize) {
-                        outCh[n] = SampleConvert.shortToFloat(data.getSampled(n * scale))
+                        outCh[n] = data.getSampled(n * scale).float
                     }
                 }
 
@@ -105,7 +103,7 @@ class AudioBufferSound(
             var m = 0
             val channelF = buffer.getChannelData(c)
             for (n in 0 until nsamples) {
-                data[c][m++] = SampleConvert.floatToShort(channelF[n])
+                data[c][m++] = AudioSample(channelF[n])
             }
         }
         return AudioData(buffer.sampleRate, data)

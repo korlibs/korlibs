@@ -7,9 +7,7 @@ class SoundAudioData(
     coroutineContext: CoroutineContext,
     val audioData: AudioData,
     var soundProvider: NativeSoundProvider,
-    val closeStream: Boolean = false,
-    override val name: String = "Unknown",
-    val onComplete: (suspend () -> Unit)? = null
+    override val name: String = audioData.name ?: "Unknown",
 ) : Sound(coroutineContext) {
     override suspend fun decode(maxSamples: Int): AudioData = audioData
 
@@ -21,7 +19,7 @@ class SoundAudioData(
             if (nas.paused) {
                 // @TODO: paused should not even call this right?
                 for (ch in 0 until it.channels) {
-                    audioData[ch].fill(0)
+                    audioData[ch].fill(AudioSample.ZERO)
                 }
                 return@createNewPlatformAudioOutput
             }
@@ -29,7 +27,7 @@ class SoundAudioData(
                 val audioDataCh = audioData[ch]
                 for (n in 0 until it.totalSamples) {
                     val audioDataPos = pos + n
-                    val sample = if (audioDataPos < audioDataCh.size) audioDataCh[audioDataPos] else 0
+                    val sample = if (audioDataPos < audioDataCh.size) audioDataCh[audioDataPos] else AudioSample.ZERO
                     it[ch, n] = sample
                 }
             }
@@ -39,7 +37,7 @@ class SoundAudioData(
                 times = times.oneLess
 
                 if (times == PlaybackTimes.ZERO) {
-                    nas?.stop()
+                    nas.stop()
                 }
             }
         }

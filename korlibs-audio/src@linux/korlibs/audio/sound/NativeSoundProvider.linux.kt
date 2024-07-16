@@ -36,7 +36,7 @@ object ALSANativeSoundProvider : NativeSoundProvider() {
                 output = { buffer ->
                     while (true) {
                         val written =
-                            A2.snd_pcm_writei(pcm, buffer.data, 0, buffer.totalSamples * channels, buffer.totalSamples)
+                            A2.snd_pcm_writei(pcm, buffer.data.asShortArray(), 0, buffer.totalSamples * channels, buffer.totalSamples)
                         //println("offset=$offset, pending=$pending, written=$written")
                         if (written == -A2.EPIPE) {
                             //println("ALSA: EPIPE error")

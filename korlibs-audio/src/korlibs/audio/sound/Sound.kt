@@ -95,7 +95,7 @@ open class NativeSoundProvider() : AutoCloseable, Pauseable {
         data: AudioData,
         name: String = "Unknown"
     //): Sound = createStreamingSound(data.toStream(), true, name)
-    ): Sound = SoundAudioData(coroutineContextKt, data, this, true, name)
+    ): Sound = SoundAudioData(coroutineContextKt, data, this, data.name ?: name)
 
     open suspend fun createSound(
 		data: AudioData,
@@ -180,20 +180,20 @@ fun SoundProps.copySoundPropsFrom(other: ReadonlySoundProps) {
     this.panning = other.panning
 }
 
-fun SoundProps.volumeForChannel(channel: Int): Double {
+fun SoundProps.volumeForChannel(channel: Int): Float {
     return when (channel) {
-        0 -> panning.convertRangeClamped(-1.0, 0.0, 0.0, 1.0)
-        else -> 1.0 - panning.convertRangeClamped(0.0, 1.0, 0.0, 1.0)
+        0 -> panning.toFloat().convertRangeClamped(-1f, 0f, 0f, 1f)
+        else -> 1f - panning.toFloat().convertRangeClamped(0f, 1f, 0f, 1f)
     }
 }
 
 fun SoundProps.applyPropsTo(samples: AudioSamplesInterleaved) {
     for (ch in 0 until samples.channels) {
-        val volume01 = volumeForChannel(ch) * this.volume
+        val volume01 = volumeForChannel(ch) * this.volume.toFloat()
         //println("PROPS: volume=${this.volume}, volumeForChannel(ch=$ch)=$volume01")
         for (n in 0 until samples.totalSamples) {
             var sample = samples[ch, n]
-            sample = (sample * volume01).toInt().toShort()
+            sample *= volume01
             samples[ch, n] = sample
         }
     }
@@ -204,7 +204,7 @@ fun SoundProps.applyPropsTo(samples: AudioSamples) {
         val volume01 = volumeForChannel(ch)
         for (n in 0 until samples.totalSamples) {
             var sample = samples[ch, n]
-            sample = (sample * volume01).toInt().toShort()
+            sample = (sample * volume01)
             samples[ch, n] = sample
         }
     }

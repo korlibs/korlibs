@@ -3,11 +3,11 @@
 package korlibs.audio.format
 
 import korlibs.annotations.*
-import korlibs.audio.internal.*
 import korlibs.audio.sound.*
 import korlibs.io.async.*
 import korlibs.io.lang.*
 import korlibs.io.stream.*
+import korlibs.math.*
 import korlibs.memory.*
 import korlibs.time.*
 import kotlin.coroutines.cancellation.*
@@ -62,15 +62,9 @@ open class WAV : AudioFormat("wav") {
             val availableSamples = bytes.size / bytesPerSample / channels
             for (channel in 0 until channels) {
                 when (bytesPerSample) {
-                    1 -> readBlock(channel, channels, availableSamples, bytesPerSample, out, offset) { ((bytes.getU8(it) - 128) * 255).coerceToShort() }
-                    2 -> readBlock(channel, channels, availableSamples, bytesPerSample, out, offset) {
-                        (bytes.getS16LE(
-                            it
-                        ).toShort()) }
-                    3 -> readBlock(channel, channels, availableSamples, bytesPerSample, out, offset) {
-                        (bytes.getS24LE(
-                            it
-                        ) ushr 8).toShort() }
+                    1 -> readBlock(channel, channels, availableSamples, bytesPerSample, out, offset) { AudioSample(((bytes.getU8(it) - 128) * 255).toShortClamped()) }
+                    2 -> readBlock(channel, channels, availableSamples, bytesPerSample, out, offset) { AudioSample((bytes.getS16LE(it).toShort())) }
+                    3 -> readBlock(channel, channels, availableSamples, bytesPerSample, out, offset) { AudioSample((bytes.getS24LE(it) ushr 8).toShort()) }
                     else -> invalidOp("Unsupported bytesPerSample=$bytesPerSample")
                 }
             }
@@ -80,7 +74,7 @@ open class WAV : AudioFormat("wav") {
         override suspend fun clone(): AudioStream = WAV().decodeStreamInternal(data.duplicate(), props)!!
     }
 
-	internal inline fun readBlock(channel: Int, channels: Int, availableSamples: Int, bytesPerSample: Int, out: AudioSamples, offset: Int, read: (index: Int) -> Short) {
+	internal inline fun readBlock(channel: Int, channels: Int, availableSamples: Int, bytesPerSample: Int, out: AudioSamples, offset: Int, read: (index: Int) -> AudioSample) {
 		val increment = channels * bytesPerSample
 		var index = channel * bytesPerSample
 		val outc = out[channel]
@@ -112,7 +106,7 @@ open class WAV : AudioFormat("wav") {
 		out.writeString("data")
 		out.write32LE(data.samples.totalSamples * bytesPerSample * data.channels)
         val array = data.samples.interleaved().data
-        out.writeShortArrayLE(array)
+        out.writeShortArrayLE(array.asShortArray())
 	}
 
 	data class Fmt(

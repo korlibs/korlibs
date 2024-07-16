@@ -10,7 +10,8 @@ import kotlin.time.*
 
 class AudioData(
     val rate: Int,
-    val samples: AudioSamples
+    val samples: AudioSamples,
+    val name: String? = null,
 ) {
     inline val frequency: Int get() = rate
 
@@ -27,10 +28,10 @@ class AudioData(
     fun timeAtSample(sample: Int): Duration = ((sample).toDouble() / rate.toDouble()).seconds
     fun sampleAtTime(time: Duration): Int = (time.seconds * rate.toDouble()).toInt()
 
-    operator fun get(channel: Int): ShortArray = samples.data[channel]
-    operator fun get(channel: Int, sample: Int): Short = samples.data[channel][sample]
+    operator fun get(channel: Int): AudioSampleArray = samples.data[channel]
+    operator fun get(channel: Int, sample: Int): AudioSample = samples.data[channel][sample]
 
-    operator fun set(channel: Int, sample: Int, value: Short) {
+    operator fun set(channel: Int, sample: Int, value: AudioSample) {
         samples.data[channel][sample] = value
     }
 

@@ -113,7 +113,7 @@ class JvmCoreAudioNativeSoundProvider : NativeSoundProvider() {
 
                         val samplesData = samples.data
                         for (n in 0 until samplesCount * nchannels) {
-                            ptr[n] = samplesData[n]
+                            ptr[n] = samplesData[n].short
                         }
                     }
                     //println("queue.mAudioData=${queue.mAudioData}")

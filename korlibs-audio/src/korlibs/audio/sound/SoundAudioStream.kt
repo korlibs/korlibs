@@ -31,7 +31,7 @@ class SoundAudioStream(
     override fun play(coroutineContext: CoroutineContext, params: PlaybackParameters): SoundChannel {
         val deque = AudioSamplesDeque(nchannels)
         val nas = soundProvider.createNewPlatformAudioOutput(coroutineContext, nchannels, stream.rate) {
-            it.data.fill(0)
+            it.data.fill(AudioSample.ZERO)
             deque.read(it)
         }
         nas.copySoundPropsFromCombined(params, this)

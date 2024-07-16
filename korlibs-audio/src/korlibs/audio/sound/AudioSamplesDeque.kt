@@ -1,7 +1,6 @@
 package korlibs.audio.sound
 
 import korlibs.datastructure.ShortArrayDeque
-import korlibs.audio.internal.SampleConvert
 import kotlin.math.min
 
 class AudioSamplesDeque(val channels: Int) {
@@ -25,11 +24,11 @@ class AudioSamplesDeque(val channels: Int) {
     }
 
     // Individual samples
-    fun read(channel: Int): Short = buffer[channel].readOne()
-    fun write(channel: Int, sample: Short) { buffer[channel].writeOne(sample) }
+    fun read(channel: Int): AudioSample = AudioSample(buffer[channel].readOne())
+    fun write(channel: Int, sample: AudioSample) { buffer[channel].writeOne(sample.short) }
 
-    fun readFloat(channel: Int): Float = read(channel).toFloat() / Short.MAX_VALUE.toFloat()
-    fun writeFloat(channel: Int, sample: Float) = write(channel, (sample * Short.MAX_VALUE.toFloat()).toInt().toShort())
+    fun readFloat(channel: Int): Float = read(channel).float
+    fun writeFloat(channel: Int, sample: Float) = write(channel, AudioSample(sample))
 
     // Write samples
     fun write(samples: AudioSamples, offset: Int = 0, len: Int = samples.totalSamples - offset) {
@@ -41,18 +40,18 @@ class AudioSamplesDeque(val channels: Int) {
     }
 
     // Write raw
-    fun write(channel: Int, data: ShortArray, offset: Int = 0, len: Int = data.size - offset) {
-        buffer[channel].write(data, offset, len)
+    fun write(channel: Int, data: AudioSampleArray, offset: Int = 0, len: Int = data.size - offset) {
+        buffer[channel].write(data.asShortArray(), offset, len)
     }
 
     fun write(channel: Int, data: FloatArray, offset: Int = 0, len: Int = data.size - offset) {
-        for (n in 0 until len) write(channel, SampleConvert.floatToShort(data[offset + n]))
+        for (n in 0 until len) write(channel, AudioSample(data[offset + n]))
     }
 
-    fun writeInterleaved(data: ShortArray, offset: Int, len: Int = data.size - offset, channels: Int = this.channels) {
+    fun writeInterleaved(data: AudioSampleArray, offset: Int, len: Int = data.size - offset, channels: Int = this.channels) {
         when (channels) {
             1 -> {
-                for (n in 0 until this.channels) buffer[n].write(data, offset, len)
+                for (n in 0 until this.channels) buffer[n].write(data.asShortArray(), offset, len)
             }
             2 -> {
                 for (n in 0 until len / 2) write(0, data[n * 2 + 0])
@@ -66,7 +65,7 @@ class AudioSamplesDeque(val channels: Int) {
 
     fun read(out: AudioSamples, offset: Int = 0, len: Int = out.totalSamples - offset): Int {
         val rlen = min(len, availableRead)
-        for (channel in 0 until out.channels) this.buffer[channel % this.channels].read(out[channel], offset, rlen)
+        for (channel in 0 until out.channels) this.buffer[channel % this.channels].read(out[channel].asShortArray(), offset, rlen)
         return rlen
     }
 

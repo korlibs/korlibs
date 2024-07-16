@@ -7,7 +7,7 @@ import kotlin.test.*
 class AudioDataTest {
     @Test
     fun testToStreamToData() = suspendTest {
-        val data1 = AudioData(44100, AudioSamples(2, 44100, Array(2) { ShortArray(44100) { it.toShort() } }))
+        val data1 = AudioData(44100, AudioSamples(2, 44100, Array(2) { AudioSampleArray(44100) { AudioSample(it.toShort()) } }))
         val data2 = data1.toStream().toData()
         assertTrue { data1[0].contentEquals(data2[0]) }
         assertTrue { data1[1].contentEquals(data2[1]) }
@@ -15,7 +15,7 @@ class AudioDataTest {
 
     @Test
     fun testAudioDataToStream() = suspendTest {
-        val data1 = AudioData(44100, AudioSamples(2, 66150, Array(2) { ShortArray(66150) { it.toShort() } }))
+        val data1 = AudioData(44100, AudioSamples(2, 66150, Array(2) { AudioSampleArray(66150) { AudioSample(it.toShort()) } }))
         val stream = data1.toStream()
 
         assertEquals(66150, stream.totalLengthInSamples)
