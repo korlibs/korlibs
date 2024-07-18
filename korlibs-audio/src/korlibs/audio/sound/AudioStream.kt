@@ -8,7 +8,8 @@ import kotlin.time.*
 
 abstract class AudioStream(
     val rate: Int,
-    val channels: Int
+    val channels: Int,
+    val name: String? = null,
 ) : AudioStreamable, AutoCloseable {
     open val finished = false
     open val totalLengthInSamples: Long? = null

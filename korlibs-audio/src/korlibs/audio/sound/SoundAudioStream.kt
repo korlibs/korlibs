@@ -15,7 +15,7 @@ class SoundAudioStream(
     val stream: AudioStream,
     var soundProvider: NativeSoundProvider,
     val closeStream: Boolean = false,
-    override val name: String = "Unknown",
+    override val name: String = stream.name ?: "Unknown",
     val onComplete: (suspend () -> Unit)? = null
 ) : Sound(coroutineContext) {
     val nativeSound = this
@@ -30,16 +30,24 @@ class SoundAudioStream(
 
     override fun play(coroutineContext: CoroutineContext, params: PlaybackParameters): SoundChannel {
         val deque = AudioSamplesDeque(nchannels)
-        val nas = soundProvider.createNewPlatformAudioOutput(coroutineContext, nchannels, stream.rate) {
-            it.data.fill(AudioSample.ZERO)
-            deque.read(it)
-        }
-        nas.copySoundPropsFromCombined(params, this)
         var playing = true
-        var paused = false
+        var flushing = false
         var newStream: AudioStream? = null
         val channelId = ID_POOL.alloc()
         val dispatcherName = "SoundChannel-SoundAudioStream-$channelId"
+        var times = params.times
+
+        val nas = soundProvider.createNewPlatformAudioOutput(coroutineContext, nchannels, stream.rate) {
+            it.data.fill(AudioSample.ZERO)
+            // In the scenario of 44100 hz and 2048 samples is the chunk size
+            // that's typically ~46 milliseconds
+            // buffering for 6 chunks is ~276 milliseconds
+            if (flushing || deque.availableRead >= it.totalSamples * 6) {
+                deque.read(it)
+            }
+        }
+        nas.copySoundPropsFromCombined(params, this)
+
         //println("dispatcher[a]=$dispatcher, thread=${currentThreadName}:${currentThreadId}")
         val job = CoroutineScope(coroutineContext).launch {
             val dispatcher = when {
@@ -55,16 +63,15 @@ class SoundAudioStream(
                     stream.currentTime = params.startTime
                     playing = true
                     //println("STREAM.START")
-                    var times = params.times
                     try {
-                        val temp = AudioSamples(stream.channels, 1024)
+                        val temp = AudioSamples(stream.channels, 2048)
                         val minBuf = (stream.rate * params.bufferTime.seconds).toInt()
                         var started = false
                         while (times.hasMore) {
                             stream.currentPositionInSamples = 0L
                             while (true) {
                                 //println("STREAM")
-                                while (paused) {
+                                while (nas.paused) {
                                     delay(2.milliseconds)
                                     //println("PAUSED")
                                 }
@@ -87,6 +94,7 @@ class SoundAudioStream(
                         nas.stop()
                         params.onCancel?.invoke()
                     } finally {
+                        flushing = true
                         while (deque.availableRead > 0) delay(1L)
                         nas.stop()
                         if (closeStream) {
@@ -121,17 +129,17 @@ class SoundAudioStream(
             override val total: Duration get() = newStream?.totalLength ?: stream.totalLength
             override val state: SoundChannelState
                 get() = when {
-                    paused -> SoundChannelState.PAUSED
+                    nas.paused -> SoundChannelState.PAUSED
                     playing -> SoundChannelState.PLAYING
                     else -> SoundChannelState.STOPPED
                 }
 
             override fun pause() {
-                paused = true
+                nas.paused = true
             }
 
             override fun resume() {
-                paused = false
+                nas.paused = false
             }
 
             override fun stop() = close()
