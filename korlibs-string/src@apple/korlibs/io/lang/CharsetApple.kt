@@ -1,6 +1,9 @@
 package korlibs.io.lang
 
 import korlibs.memory.ByteArrayBuilder
+import korlibs.platform.toByteArray
+import korlibs.platform.toNSData
+import korlibs.platform.useCFStringRef
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.UnsafeNumber
 import platform.CoreFoundation.CFStringConvertEncodingToNSStringEncoding

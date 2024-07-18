@@ -3,9 +3,8 @@ package korlibs.image.format.ui
 import korlibs.image.bitmap.*
 import korlibs.image.color.*
 import korlibs.image.format.*
-import korlibs.image.format.cg.*
 import korlibs.encoding.*
-import platform.Foundation.*
+import korlibs.platform.toByteArray
 import platform.UIKit.*
 import kotlin.test.*
 
