@@ -1,4 +1,4 @@
-package korlibs.io.lang
+package korlibs.platform
 
 import kotlinx.cinterop.*
 import platform.CoreFoundation.CFRelease
@@ -7,7 +7,7 @@ import platform.Foundation.*
 import platform.posix.memcpy
 
 @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
-internal fun NSData.toByteArray(): ByteArray {
+fun NSData.toByteArray(): ByteArray {
     val result = ByteArray(length.toInt())
     if (result.isEmpty()) return result
 
@@ -19,7 +19,7 @@ internal fun NSData.toByteArray(): ByteArray {
 }
 
 @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
-internal fun ByteArray.toNSData(): NSData = NSMutableData().apply {
+fun ByteArray.toNSData(): NSData = NSMutableData().apply {
     if (isEmpty()) return@apply
     this@toNSData.usePinned {
         appendBytes(it.addressOf(0), size.convert())
