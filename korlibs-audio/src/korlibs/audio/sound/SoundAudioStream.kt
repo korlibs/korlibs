@@ -2,6 +2,7 @@ package korlibs.audio.sound
 
 import korlibs.datastructure.*
 import korlibs.io.concurrent.*
+import korlibs.math.*
 import korlibs.platform.*
 import korlibs.time.*
 import kotlinx.coroutines.*
@@ -37,12 +38,13 @@ class SoundAudioStream(
         val dispatcherName = "SoundChannel-SoundAudioStream-$channelId"
         var times = params.times
 
+        // In the scenario of 44100 hz and 2048 samples is the chunk size
+        // that's typically ~46 milliseconds, so buffering will be multiple of that
+        val BUFFER_SAMPLES = (stream.rate * params.bufferTime.seconds).toInt().nextMultipleOf(AudioPlatformOutput.DEFAULT_BLOCK_SIZE)
+
         val nas = soundProvider.createNewPlatformAudioOutput(coroutineContext, nchannels, stream.rate) {
             it.data.fill(AudioSample.ZERO)
-            // In the scenario of 44100 hz and 2048 samples is the chunk size
-            // that's typically ~46 milliseconds
-            // buffering for 6 chunks is ~276 milliseconds
-            if (flushing || deque.availableRead >= it.totalSamples * 6) {
+            if (flushing || deque.availableRead >= BUFFER_SAMPLES) {
                 deque.read(it)
             }
         }
@@ -65,7 +67,6 @@ class SoundAudioStream(
                     //println("STREAM.START")
                     try {
                         val temp = AudioSamples(stream.channels, 2048)
-                        val minBuf = (stream.rate * params.bufferTime.seconds).toInt()
                         var started = false
                         while (times.hasMore) {
                             stream.currentPositionInSamples = 0L
@@ -77,11 +78,11 @@ class SoundAudioStream(
                                 }
                                 val read = stream.read(temp, 0, temp.totalSamples)
                                 deque.write(temp, 0, read)
-                                if (stream.finished || deque.availableRead >= minBuf) {
+                                if (stream.finished || deque.availableRead >= BUFFER_SAMPLES) {
                                     if (!started) {
                                         started = true
                                         nas.start()
-                                    } else if (deque.availableRead >= minBuf * 2) {
+                                    } else if (deque.availableRead >= BUFFER_SAMPLES * 2) {
                                         delay(1.milliseconds)
                                     }
                                 }
