@@ -298,7 +298,7 @@ interface SoundChannelBase : SoundProps, Extra {
             block()
         }
 
-        coroutineContext.onCancel {
+        coroutineContext.onCancel({ playingOrPaused }) {
             blockOnce?.invoke()
         }
         CoroutineScope(coroutineContext).launch {

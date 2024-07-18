@@ -51,14 +51,13 @@ class AudioPlatformOutput(
     fun start() {
         if (running) return
         stop()
+        stopping = false
         running = true
         job?.cancel()
-        //job = CoroutineScope(dispatcher + coroutineContext).launch(coroutineContext) {
         job = CoroutineScope(dispatcher).launch {
             try {
                 block()
             } catch (e: CancellationException) {
-                e.printStackTrace()
                 Unit
             } finally {
                 running = false
@@ -66,10 +65,15 @@ class AudioPlatformOutput(
         }
     }
 
+    private var stopping = false
+
     fun stop() {
-        if (!running) return
-        job?.cancel()
-        job = null
+        if (!running && !stopping) return
+        stopping = true
+        job?.let {
+            job = null
+            it.cancel()
+        }
     }
 
     final override fun close() = stop()

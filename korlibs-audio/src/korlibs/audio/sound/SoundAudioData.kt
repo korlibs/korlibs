@@ -1,6 +1,6 @@
 package korlibs.audio.sound
 
-import kotlinx.coroutines.*
+import korlibs.io.async.*
 import kotlin.coroutines.*
 import kotlin.time.*
 
@@ -44,13 +44,7 @@ class SoundAudioData(
         }
         nas.copySoundPropsFromCombined(params, this)
         nas.start()
-        val job = CoroutineScope(coroutineContext).launch(coroutineContext) {
-            try {
-                while (true) delay(1L)
-            } finally {
-                nas.close()
-            }
-        }
+        coroutineContext.onCancel({ nas.running }) { nas.stop() }
         return object : SoundChannel(this) {
             override var volume: Double by nas::volume
             override var pitch: Double by nas::pitch
@@ -70,10 +64,7 @@ class SoundAudioData(
 
             override fun pause() = run { nas.paused = true }
             override fun resume() = run { nas.paused = false }
-            override fun stop() = run {
-                job.cancel()
-                //nas.stop()
-            }
+            override fun stop() = run { nas.stop() }
         }
     }
 }
