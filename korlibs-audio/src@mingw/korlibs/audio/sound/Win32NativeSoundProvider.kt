@@ -13,11 +13,10 @@ actual val nativeSoundProvider: NativeSoundProvider = Win32WaveOutNativeSoundPro
 
 object Win32WaveOutNativeSoundProvider : NativeSoundProvider() {
     override fun createNewPlatformAudioOutput(
-        coroutineContext: CoroutineContext,
         channels: Int,
         frequency: Int,
         gen: AudioPlatformOutputGen
-    ): AudioPlatformOutput = AudioPlatformOutput.simple(this, coroutineContext, channels, frequency, gen) { buffer ->
+    ): AudioPlatformOutput = AudioPlatformOutput.simple(this, channels, frequency, gen) { buffer ->
         val arena = Arena()
 
         val handlePtr = arena.alloc<HWAVEOUTVar>()

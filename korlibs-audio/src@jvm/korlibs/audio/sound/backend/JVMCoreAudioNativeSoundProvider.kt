@@ -10,8 +10,8 @@ import java.util.concurrent.atomic.AtomicLong
 import kotlin.coroutines.*
 
 object JVMCoreAudioNativeSoundProvider : NativeSoundProvider() {
-    override fun createNewPlatformAudioOutput(coroutineContext: CoroutineContext, nchannels: Int, freq: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
-        return AudioPlatformOutput(this, coroutineContext, nchannels, freq, gen) {
+    override fun createNewPlatformAudioOutput(nchannels: Int, freq: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
+        return AudioPlatformOutput(this, nchannels, freq, gen) {
             val id = lastId.incrementAndGet()
 
             var queue: Pointer? = null

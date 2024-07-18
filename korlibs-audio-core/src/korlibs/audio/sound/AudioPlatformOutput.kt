@@ -9,7 +9,7 @@ typealias AudioPlatformOutputGen = (AudioSamplesInterleaved) -> Unit
 
 class AudioPlatformOutput(
     val listener: ListenerProps,
-    val coroutineContext: CoroutineContext,
+    //val coroutineContext: CoroutineContext,
     val channels: Int,
     val frequency: Int,
     private val gen: AudioPlatformOutputGen,
@@ -53,19 +53,19 @@ class AudioPlatformOutput(
         stop()
         running = true
         job?.cancel()
+        //job = CoroutineScope(dispatcher + coroutineContext).launch(coroutineContext) {
         job = CoroutineScope(dispatcher).launch {
             try {
-                withContext(coroutineContext) {
-                    block()
-                }
+                block()
             } catch (e: CancellationException) {
+                e.printStackTrace()
                 Unit
             } finally {
                 running = false
             }
         }
-
     }
+
     fun stop() {
         if (!running) return
         job?.cancel()
@@ -79,18 +79,26 @@ class AudioPlatformOutput(
 
         fun simple(
             listener: ListenerProps,
-            coroutineContext: CoroutineContext,
+            //coroutineContext: CoroutineContext,
             nchannels: Int,
             freq: Int,
             gen: AudioPlatformOutputGen,
             dispatcher: CoroutineDispatcher = Dispatchers.AUDIO,
             build: (AudioSamplesInterleaved) -> AudioPlatformOutputSimple,
-        ) = AudioPlatformOutput(listener, coroutineContext, nchannels, freq, gen, dispatcher) {
+        ) = AudioPlatformOutput(listener, nchannels, freq, gen, dispatcher) {
             val samples = AudioSamplesInterleaved(nchannels, DEFAULT_BLOCK_SIZE)
             val gen = build(samples)
             var init = false
+            var lastPaused: Boolean? = null
             try {
                 while (running) {
+                    // AudioPlatformOutput.simple.coroutineContext=[PreferSyncIo(preferSyncIo=false), kotlinx.coroutines.UndispatchedMarker@7b82edfa, korlibs.inject.InjectorContext@58
+                    // 44a3c8, JobImpl{Cancelled}@1a65eecd, GameWindowCoroutineDispatcher(setNow=setNow, fast=false)]
+                    //println("AudioPlatformOutput.simple.coroutineContext=$coroutineContext")
+                    if (lastPaused != paused) {
+                        lastPaused = paused
+                        gen.paused(paused)
+                    }
                     if (paused) {
                         delay(10L)
                     } else {
@@ -101,7 +109,7 @@ class AudioPlatformOutput(
                             gen.init(samples)
                         }
                         gen.output(samples)
-                        yield()
+                        delay(1L)
                     }
                 }
             } finally {
@@ -115,5 +123,6 @@ class AudioPlatformOutputSimple(
     val init: suspend (AudioSamplesInterleaved) -> Unit = { },
     val output: suspend (AudioSamplesInterleaved) -> Unit = { },
     val close: suspend (AudioSamplesInterleaved) -> Unit = { },
+    val paused: (paused: Boolean) -> Unit = { },
     unit: Unit = Unit
 )
