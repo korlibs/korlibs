@@ -5,6 +5,7 @@ import kotlinx.atomicfu.locks.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
 
+/** Function might be called from different threads, so code must be thread-safe. */
 typealias AudioPlatformOutputGen = (AudioSamplesInterleaved) -> Unit
 
 class AudioPlatformOutput(
