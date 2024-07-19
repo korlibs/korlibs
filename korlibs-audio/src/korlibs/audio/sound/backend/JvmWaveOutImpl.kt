@@ -8,11 +8,10 @@ import kotlin.coroutines.*
 
 object FFIJVMWaveOutNativeSoundProvider : NativeSoundProvider() {
     override fun createNewPlatformAudioOutput(
-        coroutineContext: CoroutineContext,
         channels: Int,
         frequency: Int,
         gen: AudioPlatformOutputGen
-    ): AudioPlatformOutput = AudioPlatformOutput.simple(this, coroutineContext, channels, frequency, gen) { buffer ->
+    ): AudioPlatformOutput = AudioPlatformOutput.simple(this, channels, frequency, gen) { buffer ->
         val arena = FFIArena()
 
         val handlePtr = arena.allocBytes(8).typed<FFIPointer?>()
