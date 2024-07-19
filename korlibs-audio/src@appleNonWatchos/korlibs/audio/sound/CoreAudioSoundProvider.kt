@@ -60,8 +60,8 @@ object CoreAudioNativeSoundProvider : NativeSoundProvider() {
     class CoreAudioGenerator(
         val sampleRate: Int,
         val nchannels: Int,
-        val numBuffers: Int = 3,
-        val bufferSize: Int = 4096,
+        val numBuffers: Int = 4,
+        val bufferSize: Int = 2048,
         val coroutineContext: CoroutineContext,
         val generatorCore: CoreAudioGenerator.(data: CPointer<ShortVar>, dataSize: Int) -> Unit
     ) : MyCoreAudioOutputCallback {
@@ -117,7 +117,7 @@ object CoreAudioNativeSoundProvider : NativeSoundProvider() {
             if (running) {
                 if (queue != null) {
                     //println("AudioQueueFlush/AudioQueueStop/AudioQueueDispose")
-                    //AudioQueueFlush(queue!!.value).checkError("AudioQueueFlush")
+                    AudioQueueFlush(queue!!.value).checkError("AudioQueueFlush")
                     AudioQueueStop(queue!!.value, true).checkError("AudioQueueStop")
                     for (n in 0 until numBuffers) AudioQueueFreeBuffer(queue!!.value, buffers!![n]).checkError("AudioQueueFreeBuffer")
                     AudioQueueDispose(queue!!.value, true).checkError("AudioQueueDispose")
