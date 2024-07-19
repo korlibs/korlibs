@@ -16,23 +16,16 @@ class SoundAudioData(
         var pos = 0
         var times = params.times
         lateinit var nas: AudioPlatformOutput
-        nas = soundProvider.createNewPlatformAudioOutput(audioData.channels, audioData.rate) { it ->
-            if (nas.paused) {
-                // @TODO: paused should not even call this right?
-                for (ch in 0 until it.channels) {
-                    audioData[ch].fill(AudioSample.ZERO)
-                }
-                return@createNewPlatformAudioOutput
-            }
-            loop@for (ch in 0 until it.channels) {
+        nas = soundProvider.createNewPlatformAudioOutput(audioData.channels, audioData.rate) { buffer ->
+            loop@for (ch in 0 until buffer.channels) {
                 val audioDataCh = audioData[ch]
-                for (n in 0 until it.totalSamples) {
+                for (n in 0 until buffer.totalSamples) {
                     val audioDataPos = pos + n
                     val sample = if (audioDataPos < audioDataCh.size) audioDataCh[audioDataPos] else AudioSample.ZERO
-                    it[ch, n] = sample
+                    buffer[ch, n] = sample
                 }
             }
-            pos += it.totalSamples
+            pos += buffer.totalSamples
             if (pos >= audioData.totalSamples) {
                 pos = 0
                 times = times.oneLess
