@@ -227,7 +227,7 @@ abstract class Vfs : AsyncCloseable {
         private var initialized: Deferred<Unit>? = null
 		protected suspend fun initOnce(): Proxy {
 			if (initialized == null) {
-                initialized = CoroutineScope(coroutineContext).async {
+                initialized = CoroutineScope(coroutineContext + SupervisorJob()).async {
                     try {
                         init()
                     } catch (e: Throwable) {
