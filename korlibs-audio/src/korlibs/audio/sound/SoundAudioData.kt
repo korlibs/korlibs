@@ -17,9 +17,11 @@ class SoundAudioData(
         var times = params.times
         lateinit var nas: AudioPlatformOutput
         nas = soundProvider.createNewPlatformAudioOutput(audioData.channels, audioData.rate) { buffer ->
+            if (times == PlaybackTimes.ZERO) return@createNewPlatformAudioOutput
+
             for (n in 0 until buffer.totalSamples) {
                 var audioDataPos = pos++
-                if (audioDataPos >= audioData.totalSamples) {
+                if (audioDataPos >= audioData.totalSamples || times == PlaybackTimes.ZERO) {
                     pos = 0
                     audioDataPos = 0
                     times = times.oneLess
@@ -29,7 +31,11 @@ class SoundAudioData(
                     }
                 }
                 for (ch in 0 until buffer.channels) {
-                    val sample = if (audioDataPos < audioData.totalSamples) audioData[ch, audioDataPos] else AudioSample.ZERO
+                    val sample = when {
+                        //completed -> AudioSample.ZERO
+                        audioDataPos < audioData.totalSamples -> audioData[ch, audioDataPos]
+                        else -> AudioSample.ZERO
+                    }
                     buffer[ch, n] = sample
                 }
             }
