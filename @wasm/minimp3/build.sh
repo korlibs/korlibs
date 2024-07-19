@@ -12,6 +12,10 @@ docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) emscripten/emsdk:3.1.61-arm6
     -s FILESYSTEM=0 \
     -o minimp3.wasm \
     -fno-builtin \
+    -msimd128 \
+    -msse2 \
+    -D MINIMP3_ONLY_SIMD \
+    -D __x86_64__ \
     --no-standard-libraries \
     --no-entry \
     -I . \
