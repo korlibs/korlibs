@@ -29,6 +29,7 @@ class AudioPlatformOutput(
     fun genSafe(buffer: AudioSamplesInterleaved) {
         lock.withLock {
             try {
+                buffer.data.fill(AudioSample.ZERO)
                 gen(buffer)
                 applyPropsTo(listener, buffer)
             } catch (e: Throwable) {
