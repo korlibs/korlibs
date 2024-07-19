@@ -118,7 +118,7 @@ object CoreAudioNativeSoundProvider : NativeSoundProvider() {
                 if (queue != null) {
                     //println("AudioQueueFlush/AudioQueueStop/AudioQueueDispose")
                     AudioQueueFlush(queue!!.value).checkError("AudioQueueFlush")
-                    AudioQueueStop(queue!!.value, true).checkError("AudioQueueStop")
+                    AudioQueueStop(queue!!.value, false).checkError("AudioQueueStop")
                     for (n in 0 until numBuffers) AudioQueueFreeBuffer(queue!!.value, buffers!![n]).checkError("AudioQueueFreeBuffer")
                     AudioQueueDispose(queue!!.value, true).checkError("AudioQueueDispose")
                 }

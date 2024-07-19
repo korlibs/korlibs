@@ -3,11 +3,11 @@ package korlibs.audio.sound.backend
 import com.sun.jna.*
 import korlibs.annotations.*
 import korlibs.audio.sound.*
+import korlibs.audio.sound.backend.JVMCoreAudioNativeSoundProvider.AudioQueueNewOutputCallback
 import korlibs.ffi.*
 import kotlinx.atomicfu.*
 import java.util.concurrent.*
 import java.util.concurrent.atomic.AtomicLong
-import kotlin.coroutines.*
 
 object JVMCoreAudioNativeSoundProvider : NativeSoundProvider() {
     override fun createNewPlatformAudioOutput(nchannels: Int, freq: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
@@ -61,7 +61,8 @@ object JVMCoreAudioNativeSoundProvider : NativeSoundProvider() {
                 info.completed = true
 
                 if (queue != null) {
-                    CoreAudioKit.AudioQueueStop(queue, true)
+                    CoreAudioKit.AudioQueueFlush(queue)
+                    CoreAudioKit.AudioQueueStop(queue, false)
                     CoreAudioKit.AudioQueueDispose(queue, false)
                     queue = null
                 }
@@ -179,6 +180,7 @@ object JVMCoreAudioNativeSoundProvider : NativeSoundProvider() {
         ): Int
         @JvmStatic external fun AudioQueueAllocateBuffer(inAQ: Pointer?, inBufferByteSize: Int, buffer: Pointer?): Int
         @JvmStatic external fun AudioQueueStart(inAQ: Pointer?, inStartTime: Pointer?): Int
+        @JvmStatic external fun AudioQueueFlush(inAQ: Pointer?): Int
         @JvmStatic external fun AudioQueueStop(inAQ: Pointer?, immediate: Boolean): Int
         @JvmStatic external fun AudioQueueDispose(inAQ: Pointer?, immediate: Boolean): Int
         @JvmStatic external fun AudioQueueEnqueueBuffer(inAQ: Pointer?, inBuffer: Pointer?, inNumPacketDescs: Int, inPacketDescs: Pointer?): Int

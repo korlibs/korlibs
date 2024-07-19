@@ -3,7 +3,7 @@ package korlibs.audio.sound
 import korlibs.audio.format.*
 import korlibs.io.file.*
 import korlibs.io.lang.*
-import korlibs.memory.*
+import korlibs.io.stream.*
 import korlibs.time.*
 import kotlin.math.*
 import kotlin.time.*
@@ -47,6 +47,14 @@ suspend fun AudioData.encodeToFile(file: VfsFile, format: AudioFormats = default
     file.openUse(mode = VfsOpenMode.CREATE) {
         format.encode(this@encodeToFile, this, file.baseName, props)
     }
+}
+
+suspend fun AudioData.encodeToStream(out: AsyncOutputStream, format: AudioFormat = WAV, props: AudioEncodingProps = AudioEncodingProps.DEFAULT) {
+    format.encode(this, out, "out.${format.extensions.first()}", props)
+}
+
+suspend fun AudioData.encodeToByteArray(format: AudioFormat = WAV, props: AudioEncodingProps = AudioEncodingProps.DEFAULT): ByteArray {
+    return format.encodeToByteArray(this, "out.${format.extensions.first()}", format, props)
 }
 
 // @TODO: Use FFT
