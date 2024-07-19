@@ -1,5 +1,6 @@
 package korlibs.audio.sound
 
+import korlibs.concurrent.lock.*
 import korlibs.datastructure.*
 import korlibs.io.concurrent.*
 import korlibs.math.*
@@ -29,6 +30,7 @@ class SoundAudioStream(
     }
 
     override fun play(coroutineContext: CoroutineContext, params: PlaybackParameters): SoundChannel {
+        val dequeLock = Lock()
         val deque = AudioSamplesDeque(nchannels)
         var playing = true
         var flushing = false
@@ -43,8 +45,10 @@ class SoundAudioStream(
 
         val nas = soundProvider.createNewPlatformAudioOutput(nchannels, stream.rate) {
             it.data.fill(AudioSample.ZERO)
-            if (flushing || deque.availableRead >= BUFFER_SAMPLES) {
-                deque.read(it)
+            dequeLock {
+                if (flushing || deque.availableRead >= BUFFER_SAMPLES) {
+                    deque.read(it)
+                }
             }
         }
         nas.copySoundPropsFromCombined(params, this)
@@ -69,7 +73,7 @@ class SoundAudioStream(
                             //println("PAUSED")
                         }
                         val read = stream.read(temp, 0, temp.totalSamples)
-                        deque.write(temp, 0, read)
+                        dequeLock { deque.write(temp, 0, read) }
                         if (stream.finished || deque.availableRead >= BUFFER_SAMPLES) {
                             if (!started) {
                                 started = true
