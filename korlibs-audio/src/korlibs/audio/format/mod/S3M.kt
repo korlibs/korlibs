@@ -654,25 +654,30 @@ class Screamtracker : BaseModuleTracker() {
         flags = flags and 0x70
     }
 
+    override fun skip(samples: Int) {
+        var rem = samples.toDouble()
+        while (rem > 0 && !endofsong && playing) {
+            rem -= stt
+            process_tick()
+        }
+    }
+
     // mix an audio buffer with data
-    override fun mix(bufs: Array<FloatArray>, buflen: Int) {
+    override fun mix(bufs: Array<FloatArray>?, buflen: Int) {
         val outp = FloatArray(2)
 
         // return a buffer of silence if not playing
         if (paused || endofsong || !playing) {
-            for (s in 0 until buflen) {
-                bufs[0][s] = 0f
-                bufs[1][s] = 0f
-                chvu.fill(0f)
+            if (bufs != null) {
+                bufs[0].fill(0f)
+                bufs[1].fill(0f)
             }
+            chvu.fill(0f)
             return
         }
 
         // fill audiobuffer
         for (s in 0 until buflen) {
-            outp[0] = 0f
-            outp[1] = 0f
-
             // if STT has run out, step player forward by tick
             if (stt <= 0) process_tick()
 
@@ -681,77 +686,83 @@ class Screamtracker : BaseModuleTracker() {
             //var line = ""
             //sampleCount++
             //val doLog = sampleCount >= 5294;
-            for (ch in 0 until channels) {
-                var fl = 0.0
-                var fr = 0.0
-                var fs = 0.0
-                val channel = channel[ch]
-                val si = channel.sample
+            if (bufs != null) {
+                outp[0] = 0f
+                outp[1] = 0f
 
-                // add channel output to left/right master outputs
-                channel.currentsample = 0.0 // assume note is off
-                if (channel.noteon != 0 || (channel.noteon == 0 && channel.volramp < 1.0)) {
-                    if (sample[si].length > channel.samplepos) {
-                        fl = channel.lastsample
+                for (ch in 0 until channels) {
+                    var fl = 0.0
+                    var fr = 0.0
+                    var fs = 0.0
+                    val channel = channel[ch]
+                    val si = channel.sample
 
-                        // interpolate towards current sample
-                        var f = channel.samplepos - kotlin.math.floor(channel.samplepos)
-                        fs = sample[si].data[kotlin.math.floor(channel.samplepos).toInt()].toDouble()
-                        fl = f * fs + (1.0 - f) * fl
-                        //if (doLog) {
-                        //    count++
-                        //    line += "${fl.niceStr},"
-                        //}
-                        //println(fl)
+                    // add channel output to left/right master outputs
+                    channel.currentsample = 0.0 // assume note is off
+                    if (channel.noteon != 0 || (channel.noteon == 0 && channel.volramp < 1.0)) {
+                        if (sample[si].length > channel.samplepos) {
+                            fl = channel.lastsample
 
-                        // smooth out discontinuities from retrig and sample offset
-                        f = channel.trigramp
-                        fl = f * fl + (1.0 - f) * channel.trigrampfrom
-                        f += 1.0 / 128.0
-                        channel.trigramp = kotlin.math.min(1.0, f)
-                        channel.currentsample = fl
+                            // interpolate towards current sample
+                            var f = channel.samplepos - kotlin.math.floor(channel.samplepos)
+                            fs = sample[si].data[kotlin.math.floor(channel.samplepos).toInt()].toDouble()
+                            fl = f * fs + (1.0 - f) * fl
+                            //if (doLog) {
+                            //    count++
+                            //    line += "${fl.niceStr},"
+                            //}
+                            //println(fl)
 
-                        // ramp volume changes over 64 samples to avoid clicks
-                        fr = fl * (channel.voicevolume.toDouble() / 64.0)
-                        f = channel.volramp
-                        fl = f * fr + (1.0 - f) * (fl * (channel.volrampfrom / 64.0))
-                        f += (1.0 / 64.0)
-                        channel.volramp = kotlin.math.min(1.0, f)
+                            // smooth out discontinuities from retrig and sample offset
+                            f = channel.trigramp
+                            fl = f * fl + (1.0 - f) * channel.trigrampfrom
+                            f += 1.0 / 128.0
+                            channel.trigramp = kotlin.math.min(1.0, f)
+                            channel.currentsample = fl
 
-                        // pan samples
-                        fr = fl * pan_r[ch]
-                        fl *= pan_l[ch]
-                    }
-                    outp[0] = (outp[0] + fl).toFloat()
-                    outp[1] = (outp[1] + fr).toFloat()
+                            // ramp volume changes over 64 samples to avoid clicks
+                            fr = fl * (channel.voicevolume.toDouble() / 64.0)
+                            f = channel.volramp
+                            fl = f * fr + (1.0 - f) * (fl * (channel.volrampfrom / 64.0))
+                            f += (1.0 / 64.0)
+                            channel.volramp = kotlin.math.min(1.0, f)
 
-                    val oldpos = channel.samplepos
-                    channel.samplepos += channel.samplespeed
-                    if (kotlin.math.floor(channel.samplepos) > kotlin.math.floor(oldpos)) {
-                        channel.lastsample = fs
-                    }
-
-                    // loop or stop sample?
-                    val sample = sample[channel.sample]
-                    when {
-                        sample.loop != 0 -> {
-                            if (channel.samplepos >= sample.loopend) {
-                                channel.samplepos -= sample.looplength
-                                channel.lastsample = channel.currentsample
-                            }
+                            // pan samples
+                            fr = fl * pan_r[ch]
+                            fl *= pan_l[ch]
                         }
-                        channel.samplepos >= sample.length -> channel.noteon = 0
-                    }
-                }
-                chvu[ch] = kotlin.math.max(chvu[ch].toDouble(), kotlin.math.abs(fl + fr)).toFloat()
-                //print("${chvu[ch].niceStr},")
-            }
-            //if (doLog) println("$sampleCount:$count:${line}channels=$channels")
+                        outp[0] = (outp[0] + fl).toFloat()
+                        outp[1] = (outp[1] + fr).toFloat()
 
-            // done - store to output buffer
-            val t = volume / 64.0
-            bufs[0][s] = (outp[0] * t).toFloat()
-            bufs[1][s] = (outp[1] * t).toFloat()
+                        val oldpos = channel.samplepos
+                        channel.samplepos += channel.samplespeed
+                        if (kotlin.math.floor(channel.samplepos) > kotlin.math.floor(oldpos)) {
+                            channel.lastsample = fs
+                        }
+
+                        // loop or stop sample?
+                        val sample = sample[channel.sample]
+                        when {
+                            sample.loop != 0 -> {
+                                if (channel.samplepos >= sample.loopend) {
+                                    channel.samplepos -= sample.looplength
+                                    channel.lastsample = channel.currentsample
+                                }
+                            }
+
+                            channel.samplepos >= sample.length -> channel.noteon = 0
+                        }
+                    }
+                    chvu[ch] = kotlin.math.max(chvu[ch].toDouble(), kotlin.math.abs(fl + fr)).toFloat()
+                    //print("${chvu[ch].niceStr},")
+                }
+                //if (doLog) println("$sampleCount:$count:${line}channels=$channels")
+
+                // done - store to output buffer
+                val t = volume / 64.0
+                bufs[0][s] = (outp[0] * t).toFloat()
+                bufs[1][s] = (outp[1] * t).toFloat()
+            }
             stt--
         }
     }

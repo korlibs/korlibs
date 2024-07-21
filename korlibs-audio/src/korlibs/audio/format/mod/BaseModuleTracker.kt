@@ -9,10 +9,15 @@ import korlibs.audio.sound.*
 import korlibs.io.file.VfsFile
 import korlibs.io.stream.AsyncStream
 import korlibs.io.stream.readAll
+import korlibs.logger.*
 import kotlin.math.min
 import kotlin.time.*
 
 abstract class BaseModuleTracker {
+    companion object {
+        val LOGGER = Logger("BaseModuleTracker")
+    }
+
     abstract class Format(vararg exts: String) : AudioFormat(*exts) {
         abstract fun createTracker(): BaseModuleTracker
         open suspend fun fastValidate(data: AsyncStream): Boolean = true
@@ -48,7 +53,10 @@ abstract class BaseModuleTracker {
 
     abstract fun initialize()
     abstract fun parse(buffer: Uint8Buffer): Boolean
-    abstract fun mix(bufs: Array<FloatArray>, buflen: Int = bufs[0].size)
+    open fun skip(samples: Int) {
+        mix(null, samples)
+    }
+    abstract fun mix(bufs: Array<FloatArray>?, buflen: Int = bufs?.get(0)?.size ?: 1024)
 
     fun parseAndInit(buffer: Uint8Buffer) {
         parse(buffer)
@@ -80,12 +88,16 @@ abstract class BaseModuleTracker {
             var _currentPositionInSamples: Long = 0L
 
             private fun skipUntil(newPosition: Long) {
-                while (_currentPositionInSamples < newPosition) {
-                    val available = newPosition - _currentPositionInSamples
-                    val skip = min(available.toInt(), fch[0].size)
-                    mix(fch, skip)
-                    _currentPositionInSamples += skip
+                val startPosition = _currentPositionInSamples
+                val seekingTime = measureTime {
+                    while (_currentPositionInSamples < newPosition) {
+                        val available = newPosition - _currentPositionInSamples
+                        val skip = min(available.toInt(), fch[0].size)
+                        skip(skip)
+                        _currentPositionInSamples += skip
+                    }
                 }
+                LOGGER.warn { "SEEKING from startPosition=$startPosition to newPosition=$newPosition (totalSamples=${newPosition - startPosition}) in $seekingTime" }
             }
 
             override val currentPositionInSamples: Long get() = _currentPositionInSamples
@@ -100,7 +112,6 @@ abstract class BaseModuleTracker {
                     _currentPositionInSamples = 0L
                     initialize()
                     if (value != 0L) {
-                        println("SLOW SEEK")
                         skipUntil(value)
                     }
                 }
