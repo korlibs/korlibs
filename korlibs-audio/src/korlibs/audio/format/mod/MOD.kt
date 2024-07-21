@@ -457,7 +457,7 @@ class Protracker : BaseModuleTracker() {
     }
 
     // mix an audio buffer with data
-    override fun mix(bufs: Array<FloatArray>, buflen: Int) {
+    override fun mix(bufs: Array<FloatArray>?, buflen: Int) {
         var f: Double
         var p: Int
         var pp: Int
@@ -466,125 +466,130 @@ class Protracker : BaseModuleTracker() {
 
         val outp = FloatArray(2)
         for (s in 0 until buflen) {
-            outp[0] = 0f
-            outp[1] = 0f
 
             if (!paused && !endofsong && playing) {
                 advance()
 
                 var och = 0
-                for (ch in 0 until channels) {
+                if (bufs != null) {
+                    outp[0] = 0f
+                    outp[1] = 0f
 
-                    // calculate playback position
-                    p = patterntable[position]
-                    pp = row * 4 * channels + ch * 4
-                    val channel = channel[ch]
-                    if ((flags and 2) != 0) { // row
-                        channel.command = pattern[p][pp + 2] and 0x0f
-                        channel.data = pattern[p][pp + 3]
+                    for (ch in 0 until channels) {
 
-                        if (!(channel.command == 0x0e && (channel.data and 0xf0) == 0xd0)) {
-                            n = ((pattern[p][pp] and 0x0f) shl 8) or pattern[p][pp + 1]
-                            if (n != 0) {
-                                // noteon, except if command=3 (porta to note)
-                                if ((channel.command != 0x03) && (channel.command != 0x05)) {
-                                    channel.period = n
-                                    channel.samplepos = 0.0
-                                    if (channel.vibratowave > 3) {
-                                        channel.vibratopos = 0
+                        // calculate playback position
+                        p = patterntable[position]
+                        pp = row * 4 * channels + ch * 4
+                        val channel = channel[ch]
+                        if ((flags and 2) != 0) { // row
+                            channel.command = pattern[p][pp + 2] and 0x0f
+                            channel.data = pattern[p][pp + 3]
+
+                            if (!(channel.command == 0x0e && (channel.data and 0xf0) == 0xd0)) {
+                                n = ((pattern[p][pp] and 0x0f) shl 8) or pattern[p][pp + 1]
+                                if (n != 0) {
+                                    // noteon, except if command=3 (porta to note)
+                                    if ((channel.command != 0x03) && (channel.command != 0x05)) {
+                                        channel.period = n
+                                        channel.samplepos = 0.0
+                                        if (channel.vibratowave > 3) {
+                                            channel.vibratopos = 0
+                                        }
+                                        channel.flags = channel.flags or 3 // recalc speed
+                                        channel.noteon = 1
                                     }
-                                    channel.flags = channel.flags or 3 // recalc speed
-                                    channel.noteon = 1
+                                    // in either case, set the slide to note target
+                                    channel.slideto = n
                                 }
-                                // in either case, set the slide to note target
-                                channel.slideto = n
-                            }
-                            nn = (pattern[p][pp + 0] and 0xf0) or (pattern[p][pp + 2] ushr 4)
-                            if (nn != 0) {
-                                channel.sample = nn - 1
-                                channel.volume = sample[nn - 1].volume
-                                if (n == 0 && (channel.samplepos > sample[nn - 1].length)) {
-                                    channel.samplepos = 0.0
+                                nn = (pattern[p][pp + 0] and 0xf0) or (pattern[p][pp + 2] ushr 4)
+                                if (nn != 0) {
+                                    channel.sample = nn - 1
+                                    channel.volume = sample[nn - 1].volume
+                                    if (n == 0 && (channel.samplepos > sample[nn - 1].length)) {
+                                        channel.samplepos = 0.0
+                                    }
                                 }
                             }
                         }
-                    }
-                    channel.voiceperiod = channel.period.toDouble()
+                        channel.voiceperiod = channel.period.toDouble()
 
-                    // kill empty samples
-                    if (sample[channel.sample].length == 0) channel.noteon = 0
+                        // kill empty samples
+                        if (sample[channel.sample].length == 0) channel.noteon = 0
 
-                    // effects
-                    if ((flags and 1) != 0) {
-                        if (tick == 0) {
-                            // process only on tick 0
-                            effects_t0[channel.command](this, ch)
-                        } else {
-                            effects_t1[channel.command](this, ch)
-                        }
-                    }
-
-                    // recalc note number from period
-                    if ((channel.flags and 2) != 0) {
-                        val baseperiodtable1 = baseperiodtable
-                        for (np in baseperiodtable1.indices) {
-                            if (baseperiodtable1[np] >= channel.period) {
-                                channel.note = np
+                        // effects
+                        if ((flags and 1) != 0) {
+                            if (tick == 0) {
+                                // process only on tick 0
+                                effects_t0[channel.command](this, ch)
+                            } else {
+                                effects_t1[channel.command](this, ch)
                             }
                         }
-                        channel.semitone = 7.0
-                        if (channel.period >= 120) {
-                            channel.semitone =
-                                ((baseperiodtable1[channel.note] - baseperiodtable1[channel.note + 1]).toDouble())
-                        }
-                    }
 
-                    // recalc sample speed and apply finetune
-                    if (((channel.flags and 1) != 0 || (flags and 2) != 0) && channel.voiceperiod != 0.0) {
-                        channel.samplespeed = 7093789.2 / (channel.voiceperiod * 2) * finetunetable[sample[channel.sample].finetune + 8] / samplerate
-                    }
-
-                    // advance vibrato on each tick
-                    if ((flags and 1) != 0) {
-                        channel.vibratopos += channel.vibratospeed
-                        channel.vibratopos = channel.vibratopos and 0x3f
-                    }
-
-                    // mix channel to output
-                    och = och xor (ch and 1)
-                    f = 0.0
-                    if (channel.noteon != 0) {
-                        if (sample[channel.sample].length > channel.samplepos) {
-                            f = (sample[channel.sample].data[kotlin.math.floor(channel.samplepos).toInt()] * channel.volume) / 64.0
-                        }
-                        outp[och] += f.toFloat()
-                        channel.samplepos += channel.samplespeed
-                    }
-                    chvu[ch] = kotlin.math.max(chvu[ch].toDouble(), kotlin.math.abs(f)).toFloat()
-
-                    // loop or end samples
-                    if (channel.noteon != 0) {
-                        if (sample[channel.sample].loopstart != 0 || sample[channel.sample].looplength != 0) {
-                            if (channel.samplepos >= (sample[channel.sample].loopstart + sample[channel.sample].looplength)) {
-                                channel.samplepos -= sample[channel.sample].looplength
+                        // recalc note number from period
+                        if ((channel.flags and 2) != 0) {
+                            val baseperiodtable1 = baseperiodtable
+                            for (np in baseperiodtable1.indices) {
+                                if (baseperiodtable1[np] >= channel.period) {
+                                    channel.note = np
+                                }
                             }
-                        } else {
-                            if (channel.samplepos >= sample[channel.sample].length) {
-                                channel.noteon = 0
+                            channel.semitone = 7.0
+                            if (channel.period >= 120) {
+                                channel.semitone =
+                                    ((baseperiodtable1[channel.note] - baseperiodtable1[channel.note + 1]).toDouble())
                             }
                         }
-                    }
 
-                    // clear channel flags
-                    channel.flags = 0
+                        // recalc sample speed and apply finetune
+                        if (((channel.flags and 1) != 0 || (flags and 2) != 0) && channel.voiceperiod != 0.0) {
+                            channel.samplespeed = 7093789.2 / (channel.voiceperiod * 2) * finetunetable[sample[channel.sample].finetune + 8] / samplerate
+                        }
+
+                        // advance vibrato on each tick
+                        if ((flags and 1) != 0) {
+                            channel.vibratopos += channel.vibratospeed
+                            channel.vibratopos = channel.vibratopos and 0x3f
+                        }
+
+                        // mix channel to output
+                        och = och xor (ch and 1)
+                        f = 0.0
+                        if (channel.noteon != 0) {
+                            if (sample[channel.sample].length > channel.samplepos) {
+                                f = (sample[channel.sample].data[kotlin.math.floor(channel.samplepos).toInt()] * channel.volume) / 64.0
+                            }
+                            outp[och] += f.toFloat()
+                            channel.samplepos += channel.samplespeed
+                        }
+                        chvu[ch] = kotlin.math.max(chvu[ch].toDouble(), kotlin.math.abs(f)).toFloat()
+
+                        // loop or end samples
+                        if (channel.noteon != 0) {
+                            if (sample[channel.sample].loopstart != 0 || sample[channel.sample].looplength != 0) {
+                                if (channel.samplepos >= (sample[channel.sample].loopstart + sample[channel.sample].looplength)) {
+                                    channel.samplepos -= sample[channel.sample].looplength
+                                }
+                            } else {
+                                if (channel.samplepos >= sample[channel.sample].length) {
+                                    channel.noteon = 0
+                                }
+                            }
+                        }
+
+                        // clear channel flags
+                        channel.flags = 0
+                    }
                 }
                 offset++
                 flags = flags and 0x70
             }
 
-            // done - store to output buffer
-            bufs[0][s] = outp[0]
-            bufs[1][s] = outp[1]
+            if (bufs != null) {
+                // done - store to output buffer
+                bufs[0][s] = outp[0]
+                bufs[1][s] = outp[1]
+            }
         }
     }
 

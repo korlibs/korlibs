@@ -951,126 +951,136 @@ class Fasttracker : BaseModuleTracker() {
         flags = flags and 0x70
     }
 
+    override fun skip(samples: Int) {
+        var rem = samples
+        while (rem > 0 && !endofsong && playing) {
+            rem -= stt
+            process_tick()
+        }
+    }
 
     // mix a buffer of audio for an audio processing event
-    override fun mix(bufs: Array<FloatArray>, buflen: Int) {
+    override fun mix(bufs: Array<FloatArray>?, buflen: Int) {
         val outp = FloatArray(2)
 
         // return a buffer of silence if not playing
         if (paused || endofsong || !playing) {
-            for (s in 0 until buflen) {
-                bufs[0][s] = 0f
-                bufs[1][s] = 0f
-                for (ch in 0 until chvu.size) chvu[ch] = 0f
+            if (bufs != null) {
+                bufs[0].fill(0f, 0, buflen)
+                bufs[1].fill(0f, 0, buflen)
             }
+            chvu.fill(0f)
             return
         }
 
         // fill audiobuffer
         for (s in 0 until buflen) {
-            outp[0] = 0f
-            outp[1] = 0f
-
             // if STT has run out, step player forward by tick
             if (stt <= 0) process_tick()
 
             // mix channels
-            for (ch in 0 until channels) {
-                var fl = 0.0
-                var fr = 0.0
-                var fs = 0.0
-                val channel = channel[ch]
-                val i = channel.instrument
-                val si = channel.sampleindex
+            if (bufs != null) {
+                outp[0] = 0f
+                outp[1] = 0f
 
-                // add channel output to left/right master outputs
-                val instrument = instrument[i]
-                if (channel.noteon ||
-                    (((instrument.voltype and 1) != 0) && !channel.noteon && channel.fadeoutpos != 0) ||
-                    (!channel.noteon && channel.volramp < 1.0)
-                ) {
-                    val sample = instrument.sample[si]
-                    if (sample.length > channel.samplepos) {
-                        fl = channel.lastsample
+                for (ch in 0 until channels) {
+                    var fl = 0.0
+                    var fr = 0.0
+                    var fs = 0.0
+                    val channel = channel[ch]
+                    val i = channel.instrument
+                    val si = channel.sampleindex
 
-                        // interpolate towards current sample
-                        var f = channel.samplepos
-                        fs = sample.data[f.toInt()].toDouble()
-                        f = channel.samplepos - f
-                        f = if (channel.playdir < 0) (1.0 - f) else f
-                        fl = f * fs + (1.0 - f) * fl
+                    // add channel output to left/right master outputs
+                    val instrument = instrument[i]
+                    if (channel.noteon ||
+                        (((instrument.voltype and 1) != 0) && !channel.noteon && channel.fadeoutpos != 0) ||
+                        (!channel.noteon && channel.volramp < 1.0)
+                    ) {
+                        val sample = instrument.sample[si]
+                        if (sample.length > channel.samplepos) {
+                            fl = channel.lastsample
 
-                        // smooth out discontinuities from retrig and sample offset
-                        f = channel.trigramp
-                        fl = f * fl + (1.0 - f) * channel.trigrampfrom
-                        f += 1.0 / 128.0
-                        channel.trigramp = kotlin.math.min(1.0, f)
-                        channel.currentsample = fl
+                            // interpolate towards current sample
+                            var f = channel.samplepos
+                            fs = sample.data[f.toInt()].toDouble()
+                            f = channel.samplepos - f
+                            f = if (channel.playdir < 0) (1.0 - f) else f
+                            fl = f * fs + (1.0 - f) * fl
 
-                        // ramp volume changes over 64 samples to avoid clicks
-                        fr = fl * (channel.finalvolume / 64.0)
-                        f = channel.volramp
-                        fl = f * fr + (1.0 - f) * (fl * (channel.volrampfrom / 64.0))
-                        f += (1.0 / 64.0)
-                        channel.volramp = kotlin.math.min(1.0, f)
+                            // smooth out discontinuities from retrig and sample offset
+                            f = channel.trigramp
+                            fl = f * fl + (1.0 - f) * channel.trigrampfrom
+                            f += 1.0 / 128.0
+                            channel.trigramp = kotlin.math.min(1.0, f)
+                            channel.currentsample = fl
 
-                        // pan samples, if envelope is disabled panvenv is always 0.5
-                        f = finalpan[ch].toDouble()
-                        fr = fl * f
-                        fl *= 1.0 - f
-                    }
-                    outp[0] += fl.toFloat()
-                    outp[1] += fr.toFloat()
+                            // ramp volume changes over 64 samples to avoid clicks
+                            fr = fl * (channel.finalvolume / 64.0)
+                            f = channel.volramp
+                            fl = f * fr + (1.0 - f) * (fl * (channel.volrampfrom / 64.0))
+                            f += (1.0 / 64.0)
+                            channel.volramp = kotlin.math.min(1.0, f)
 
-                    // advance sample position and check for loop or end
-                    val oldpos = channel.samplepos
-                    channel.samplepos += channel.playdir * channel.samplespeed
-                    if (channel.playdir == 1) {
-                        if (kotlin.math.floor(channel.samplepos) > kotlin.math.floor(oldpos)) channel.lastsample = fs
-                    } else {
-                        if (kotlin.math.floor(channel.samplepos) < kotlin.math.floor(oldpos)) channel.lastsample = fs
-                    }
+                            // pan samples, if envelope is disabled panvenv is always 0.5
+                            f = finalpan[ch].toDouble()
+                            fr = fl * f
+                            fl *= 1.0 - f
+                        }
+                        outp[0] += fl.toFloat()
+                        outp[1] += fr.toFloat()
 
-                    if (sample.looptype != 0) {
-                        if (sample.looptype == 2) {
-                            // pingpong loop
-                            if (channel.playdir == -1) {
-                                // bounce off from start?
-                                if (channel.samplepos <= sample.loopstart) {
-                                    channel.samplepos += (sample.loopstart - channel.samplepos)
-                                    channel.playdir = 1
-                                    channel.lastsample = channel.currentsample
+                        // advance sample position and check for loop or end
+                        val oldpos = channel.samplepos
+                        channel.samplepos += channel.playdir * channel.samplespeed
+                        if (channel.playdir == 1) {
+                            if (kotlin.math.floor(channel.samplepos) > kotlin.math.floor(oldpos)) channel.lastsample = fs
+                        } else {
+                            if (kotlin.math.floor(channel.samplepos) < kotlin.math.floor(oldpos)) channel.lastsample = fs
+                        }
+
+                        if (sample.looptype != 0) {
+                            if (sample.looptype == 2) {
+                                // pingpong loop
+                                if (channel.playdir == -1) {
+                                    // bounce off from start?
+                                    if (channel.samplepos <= sample.loopstart) {
+                                        channel.samplepos += (sample.loopstart - channel.samplepos)
+                                        channel.playdir = 1
+                                        channel.lastsample = channel.currentsample
+                                    }
+                                } else {
+                                    // bounce off from end?
+                                    if (channel.samplepos >= sample.loopend) {
+                                        channel.samplepos -= (channel.samplepos - sample.loopend)
+                                        channel.playdir = -1
+                                        channel.lastsample = channel.currentsample
+                                    }
                                 }
                             } else {
-                                // bounce off from end?
+                                // normal loop
                                 if (channel.samplepos >= sample.loopend) {
-                                    channel.samplepos -= (channel.samplepos - sample.loopend)
-                                    channel.playdir = -1
+                                    channel.samplepos -= sample.looplength
                                     channel.lastsample = channel.currentsample
                                 }
                             }
                         } else {
-                            // normal loop
-                            if (channel.samplepos >= sample.loopend) {
-                                channel.samplepos -= sample.looplength
-                                channel.lastsample = channel.currentsample
+                            if (channel.samplepos >= sample.length) {
+                                channel.noteon = false
                             }
                         }
                     } else {
-                        if (channel.samplepos >= sample.length) {
-                            channel.noteon = false
-                        }
+                        channel.currentsample = 0.0 // note is completely off
                     }
-                } else {
-                    channel.currentsample = 0.0 // note is completely off
+                    chvu[ch] = kotlin.math.max(chvu[ch], kotlin.math.abs(fl + fr).toFloat())
                 }
-                chvu[ch] = kotlin.math.max(chvu[ch], kotlin.math.abs(fl + fr).toFloat())
+
+                // done - store to output buffer
+                val t = volume / 64.0
+                bufs[0][s] = (outp[0] * t).toFloat()
+                bufs[1][s] = (outp[1] * t).toFloat()
             }
 
-            // done - store to output buffer
-            val t = volume / 64.0
-            bufs[0][s] = (outp[0] * t).toFloat()
-            bufs[1][s] = (outp[1] * t).toFloat()
             stt--
         }
     }
