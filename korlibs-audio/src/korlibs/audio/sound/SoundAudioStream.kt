@@ -79,7 +79,7 @@ class SoundAudioStream(
                                 started = true
                                 nas.start()
                             } else if (deque.availableRead >= BUFFER_SAMPLES * 2) {
-                                delay(1.milliseconds)
+                                while (deque.availableRead >= BUFFER_SAMPLES) delay(1.milliseconds)
                             }
                         }
                         if (stream.finished) break
