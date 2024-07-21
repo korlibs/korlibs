@@ -37,7 +37,7 @@ class AudioDataTest {
         assertEquals(0, stream.read(AudioSamples(2, 10)))
         assertEquals(true, stream.finished)
         assertEquals(66150L, stream.currentPositionInSamples)
-        stream.currentPositionInSamples = 1000
+        stream.seek(stream.estimateTimeFromSamples(1000L))
         assertEquals(false, stream.finished)
         assertEquals(1000L, stream.currentPositionInSamples)
     }

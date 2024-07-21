@@ -14,15 +14,14 @@ abstract class AudioStream(
     open val finished = false
     open val totalLengthInSamples: Long? = null
     val totalLength get() = ((totalLengthInSamples ?: 0L).toDouble() / rate.toDouble()).seconds
-    open var currentPositionInSamples: Long = 0L
-    var currentTime: Duration
-        set(value) {
-            currentPositionInSamples = estimateSamplesFromTime(value)
-        }
+    open val currentPositionInSamples: Long = 0L
+    val currentTime: Duration
         get() = estimateTimeFromSamples(currentPositionInSamples)
 
     fun estimateSamplesFromTime(time: Duration): Long = (time.seconds * rate.toDouble()).toLong()
     fun estimateTimeFromSamples(samples: Long): Duration = (samples.toDouble() / rate.toDouble()).seconds
+
+    abstract suspend fun seek(position: Duration)
 
     open suspend fun read(out: AudioSamples, offset: Int = 0, length: Int = out.totalSamples): Int = 0
     override fun close() = Unit
@@ -31,15 +30,20 @@ abstract class AudioStream(
     override suspend fun toStream(): AudioStream = clone()
 
     companion object {
-        fun generator(rate: Int, channels: Int, generateChunk: suspend AudioSamplesDeque.(step: Int) -> Boolean): AudioStream =
-            GeneratorAudioStream(rate, channels, generateChunk)
+        fun generator(rate: Int, channels: Int, seek: suspend (Duration) -> Unit = { }, generateChunk: suspend AudioSamplesDeque.(step: Int) -> Boolean): AudioStream =
+            GeneratorAudioStream(rate, channels, seek, generateChunk)
     }
 
-    internal class GeneratorAudioStream(rate: Int, channels: Int, val generateChunk: suspend AudioSamplesDeque.(step: Int) -> Boolean) : AudioStream(rate, channels) {
+    internal class GeneratorAudioStream(rate: Int, channels: Int, val seek: suspend (Duration) -> Unit = { }, val generateChunk: suspend AudioSamplesDeque.(step: Int) -> Boolean) : AudioStream(rate, channels) {
         val deque = AudioSamplesDeque(channels)
         val availableRead get() = deque.availableRead
         override var finished: Boolean = false
         private var step: Int = 0
+
+        override suspend fun seek(position: Duration) {
+            val seek = this.seek
+            seek(position)
+        }
 
         override suspend fun read(out: AudioSamples, offset: Int, length: Int): Int {
             if (finished && availableRead <= 0) return -1
@@ -54,7 +58,7 @@ abstract class AudioStream(
             return read
         }
 
-        override suspend fun clone(): AudioStream = GeneratorAudioStream(rate, channels, generateChunk)
+        override suspend fun clone(): AudioStream = GeneratorAudioStream(rate, channels, seek, generateChunk)
     }
 }
 

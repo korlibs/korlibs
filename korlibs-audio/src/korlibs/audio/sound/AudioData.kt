@@ -91,12 +91,12 @@ class AudioDataStream(val data: AudioData) : AudioStream(data.rate, data.channel
 
     override val totalLengthInSamples: Long get() = data.totalSamples.toLong()
 
-    override var currentPositionInSamples: Long
-        get() = cursor.toLong()
-        set(value) {
-            cursor = value.toInt()
-            finished = false
-        }
+    override val currentPositionInSamples: Long get() = cursor.toLong()
+
+    override suspend fun seek(position: Duration) {
+        cursor = estimateSamplesFromTime(position).toInt()
+        finished = false
+    }
 
     override suspend fun read(out: AudioSamples, offset: Int, length: Int): Int {
         val available = data.samples.totalSamples - cursor

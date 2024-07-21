@@ -11,6 +11,7 @@ import korlibs.math.*
 import korlibs.memory.*
 import korlibs.time.*
 import kotlin.coroutines.cancellation.*
+import kotlin.time.*
 
 @Keep
 open class WAV : AudioFormat("wav") {
@@ -48,14 +49,14 @@ open class WAV : AudioFormat("wav") {
         override var finished: Boolean = false
 
         override val totalLengthInSamples: Long? get() = bufferLength / bytesPerSample
-        override var currentPositionInSamples: Long
-            get() = buffer.position / bytesPerSample
-            set(value) {
-                finished = false
-                buffer.position = value * bytesPerSample
-            }
+        override val currentPositionInSamples: Long get() = buffer.position / bytesPerSample
 
-        override suspend fun read(out: AudioSamples, offset: Int, length: Int): Int {
+		override suspend fun seek(position: Duration) {
+			finished = false
+			buffer.position = estimateSamplesFromTime(position) * bytesPerSample
+		}
+
+		override suspend fun read(out: AudioSamples, offset: Int, length: Int): Int {
             //println("fmt: $fmt")
             val bytes = buffer.readBytesUpTo(length * bytesPerSample * channels)
             finished = buffer.eof()

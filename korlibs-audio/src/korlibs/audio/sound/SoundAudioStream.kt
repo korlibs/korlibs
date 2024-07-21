@@ -2,9 +2,7 @@ package korlibs.audio.sound
 
 import korlibs.concurrent.lock.*
 import korlibs.datastructure.*
-import korlibs.io.concurrent.*
 import korlibs.math.*
-import korlibs.platform.*
 import korlibs.time.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
@@ -53,24 +51,30 @@ class SoundAudioStream(
         }
         nas.copySoundPropsFromCombined(params, this)
 
+        var currentPositionRequest: Duration? = null
         //println("dispatcher[a]=$dispatcher, thread=${currentThreadName}:${currentThreadId}")
         val job = CoroutineScope(coroutineContext).launch(coroutineContext) {
             //println("dispatcher[b]=$dispatcher, thread=${currentThreadName}:${currentThreadId}")
             val stream = stream.clone()
             newStream = stream
-            stream.currentTime = params.startTime
+            stream.seek(params.startTime)
             playing = true
-            //println("STREAM.START")
+            //println("!!! STARTED: $this")
             try {
                 val temp = AudioSamples(stream.channels, 2048)
                 var started = false
                 while (times.hasMore) {
-                    stream.currentPositionInSamples = 0L
+                    stream.seek(0.seconds)
                     while (true) {
                         //println("STREAM")
                         while (nas.paused) {
                             delay(2.milliseconds)
                             //println("PAUSED")
+                        }
+                        if (currentPositionRequest != null) {
+                            dequeLock { deque.clear() }
+                            stream.seek(currentPositionRequest!!)
+                            currentPositionRequest = null
                         }
                         val read = stream.read(temp, 0, temp.totalSamples)
                         dequeLock { deque.write(temp, 0, read) }
@@ -82,6 +86,7 @@ class SoundAudioStream(
                                 while (deque.availableRead >= BUFFER_SAMPLES) delay(1.milliseconds)
                             }
                         }
+                        yield()
                         if (stream.finished) break
                     }
                     yield()
@@ -89,11 +94,9 @@ class SoundAudioStream(
                 }
             } catch (e: CancellationException) {
                 // Do nothing
-                nas.stop()
                 params.onCancel?.invoke()
             } finally {
                 flushing = true
-                while (deque.availableRead > 0) delay(1L)
                 nas.stop()
                 if (closeStream) stream.close()
                 playing = false
@@ -111,9 +114,9 @@ class SoundAudioStream(
             override var pitch: Double by nas::pitch
             override var panning: Double by nas::panning
             override var current: Duration
-                get() = newStream?.currentTime ?: 0.milliseconds
+                get() = currentPositionRequest ?: newStream?.currentTime ?: 0.milliseconds
                 set(value) {
-                    newStream?.currentTime = value
+                    currentPositionRequest = value
                 }
             override val total: Duration get() = newStream?.totalLength ?: stream.totalLength
             override val state: SoundChannelState
