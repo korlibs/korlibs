@@ -1,8 +1,19 @@
 package korlibs.wasm
 
-import korlibs.io.lang.*
+import korlibs.io.compression.*
+import korlibs.io.compression.deflate.*
 import korlibs.memory.*
 import kotlin.coroutines.*
+import kotlin.io.encoding.*
+
+@OptIn(ExperimentalEncodingApi::class)
+open class Base64ZlibWASMLib(content: String) : WASMLib(Base64.decode(content).uncompress(ZLib))
+
+@OptIn(ExperimentalEncodingApi::class)
+open class Base64DeflateWASMLib(content: String) : WASMLib(Base64.decode(content).uncompress(Deflate))
+
+@OptIn(ExperimentalEncodingApi::class)
+open class Base64GZipWASMLib(content: String) : WASMLib(Base64.decode(content).uncompress(GZIP))
 
 expect open class WASMLib(content: ByteArray) : IWASMLib {
     override val content: ByteArray

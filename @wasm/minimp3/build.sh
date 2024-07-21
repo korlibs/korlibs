@@ -1,5 +1,6 @@
 docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) emscripten/emsdk:3.1.61-arm64 \
   emcc \
+    -flto \
     -Oz \
     -s WASM=1 \
     -s EXPORTED_RUNTIME_METHODS='["cwrap", "getValue"]' \
