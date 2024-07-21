@@ -58,10 +58,9 @@ open class MP3Base : AudioFormat("mp3") {
     class SeekingTable(
         val microseconds: DoubleArrayList,
         val filePositions: DoubleArrayList,
-        val rate: Int = 44100
     ) {
         val lengthTime: Duration get() = microseconds[microseconds.size - 1].microseconds
-        val lengthSamples: Long get() = (lengthTime.seconds * rate).toLong()
+        fun lengthSamples(rate: Int): Long = (lengthTime.seconds * rate).toLong()
 
         fun locate(time: Duration): Long {
             val searchMicro = time.microseconds
@@ -69,7 +68,7 @@ open class MP3Base : AudioFormat("mp3") {
             return filePositions[result.nearIndex].toLong()
         }
 
-        fun locateSample(sample: Long): Long {
+        fun locateSample(sample: Long, rate: Int): Long {
             return locate((sample.toDouble() / rate).seconds)
         }
     }
@@ -82,14 +81,14 @@ open class MP3Base : AudioFormat("mp3") {
 
         suspend fun getDurationExact() = _getDuration(use_cbr_estimate = false)
 
-        suspend fun getSeekingTable(rate: Int = 44100): SeekingTable {
+        suspend fun getSeekingTable(): SeekingTable {
             val times = DoubleArrayList()
             val filePositions = DoubleArrayList()
             _getDuration(use_cbr_estimate = false, emit = { filePos, totalMicro, info ->
                 times.add(totalMicro)
                 filePositions.add(filePos.toDouble())
             })
-            return SeekingTable(times, filePositions, rate)
+            return SeekingTable(times, filePositions)
         }
 
         //Read entire file, frame by frame... ie: Variable Bit Rate (VBR)
@@ -132,9 +131,8 @@ open class MP3Base : AudioFormat("mp3") {
 
                     when {
                         block2[0] == 0xFF && ((block2[1] and 0xe0) != 0) -> {
-                            val framePos = fd.position
                             info = parseFrameHeader(block2)
-                            emit?.invoke(framePos, durationMicroseconds, info)
+                            emit?.invoke(pos, durationMicroseconds, info)
                             nframes++
                             //println("FRAME: $nframes")
                             this.info = info

@@ -4,7 +4,9 @@ import korlibs.audio.sound.*
 import korlibs.datastructure.*
 import korlibs.io.stream.*
 import korlibs.memory.*
+import korlibs.time.*
 import kotlin.math.*
+import kotlin.time.*
 
 open class MP3Decoder() : AudioFormat("mp3") {
     companion object : MP3Decoder()
@@ -28,8 +30,8 @@ abstract class BaseMinimp3AudioFormat : AudioFormat("mp3") {
         val dataStartPosition = data.position
         val decoder = createMp3Decoder()
         decoder.info.reset()
-        val mp3SeekingTable: MP3Base.SeekingTable? = when (props.exactTimings) {
-            true -> table ?: (if (data.hasLength()) MP3Base.Parser(data, data.getLength()).getSeekingTable(44100) else null)
+        var mp3SeekingTable: MP3Base.SeekingTable? = when (props.exactTimings) {
+            true -> table ?: (if (data.hasLength()) MP3Base.Parser(data, data.getLength()).getSeekingTable() else null)
             else -> null
         }
 
@@ -53,25 +55,38 @@ abstract class BaseMinimp3AudioFormat : AudioFormat("mp3") {
             override var finished: Boolean = false
 
             override var totalLengthInSamples: Long? = decoder.info.totalSamples.toLong().takeIf { it != 0L }
-                ?: mp3SeekingTable?.lengthSamples
+                ?: mp3SeekingTable?.lengthSamples(decoder.info.hz)
 
             var _currentPositionInSamples: Long = 0L
 
-            override var currentPositionInSamples: Long
-                get() = _currentPositionInSamples
-                set(value) {
-                    finished = false
-                    if (mp3SeekingTable != null) {
-                        data.position = mp3SeekingTable.locateSample(value)
-                        _currentPositionInSamples = value
-                    } else {
-                        // @TODO: We should try to estimate by using decoder.bitrate_kbps
+            override val currentPositionInSamples: Long get() = _currentPositionInSamples
 
-                        data.position = 0L
-                        _currentPositionInSamples = 0L
+            override suspend fun seek(position: Duration) {
+                finished = false
+                if (position == 0.0.seconds) {
+                    data.position = 0L
+                    _currentPositionInSamples = 0L
+                } else {
+                    //if (decoder.info.bitrate_kbps != 0 && mp3SeekingTable == null) {
+                    //    data.position = 0L
+                    //    _currentPositionInSamples = estimateSamplesFromTime(position)
+                    //}
+
+                    if (mp3SeekingTable == null) {
+                        mp3SeekingTable = table ?: (if (data.hasLength()) MP3Base.Parser(data, data.getLength()).getSeekingTable() else null)
                     }
-                    decoder.info.reset()
+
+                    if (mp3SeekingTable != null) {
+                        val offset = mp3SeekingTable!!.locate(position)
+                        data.position = offset
+                        _currentPositionInSamples = estimateSamplesFromTime(position)
+                        println("Seeked to offset=$offset, data.position=${data.position} for $position :: ${mp3SeekingTable?.filePositions} :: ${mp3SeekingTable?.microseconds}")
+                    } else {
+                        println("Couldn't create mp3SeekingTable")
+                    }
                 }
+                decoder.info.reset()
+            }
 
             override suspend fun read(out: AudioSamples, offset: Int, length: Int): Int {
                 var noMoreSamples = false
