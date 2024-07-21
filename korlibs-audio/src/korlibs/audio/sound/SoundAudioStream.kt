@@ -92,11 +92,13 @@ class SoundAudioStream(
                     yield()
                     times = times.oneLess
                 }
+                flushing = true
+                var n = 0
+                while (nas.running && deque.availableRead > 0 && n++ < 8) delay(10L)
             } catch (e: CancellationException) {
                 // Do nothing
                 params.onCancel?.invoke()
             } finally {
-                flushing = true
                 nas.stop()
                 if (closeStream) stream.close()
                 playing = false
