@@ -80,7 +80,7 @@ abstract class BaseMinimp3AudioFormat : AudioFormat("mp3") {
                         val offset = mp3SeekingTable!!.locate(position)
                         data.position = offset
                         _currentPositionInSamples = estimateSamplesFromTime(position)
-                        println("Seeked to offset=$offset, data.position=${data.position} for $position :: ${mp3SeekingTable?.filePositions} :: ${mp3SeekingTable?.microseconds}")
+                        //println("Seeked to offset=$offset, data.position=${data.position} for $position :: ${mp3SeekingTable?.filePositions} :: ${mp3SeekingTable?.microseconds}")
                     } else {
                         println("Couldn't create mp3SeekingTable")
                     }
