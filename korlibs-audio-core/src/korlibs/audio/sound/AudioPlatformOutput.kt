@@ -56,7 +56,7 @@ class AudioPlatformOutput(
         stopping = false
         running = true
         job?.cancel()
-        job = CoroutineScope(dispatcher).launch {
+        job = CoroutineScope(dispatcher + SupervisorJob()).launch {
             try {
                 block()
             } catch (e: CancellationException) {
