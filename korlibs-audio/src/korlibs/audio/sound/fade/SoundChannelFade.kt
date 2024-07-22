@@ -12,9 +12,9 @@ import kotlin.time.*
 val DEFAULT_FADE_TIME get() = 0.5.seconds
 val DEFAULT_FADE_EASING get() = Easing.LINEAR
 
-private val SoundChannelBase.fadeThread by extraProperty { AsyncThread() }
-private var SoundChannelBase.changing by extraProperty { false }
-private inline fun <T> SoundChannelBase.changing(block: () -> T): T {
+private val SoundProps.fadeThread by extraProperty { AsyncThread() }
+private var SoundProps.changing by extraProperty { false }
+private inline fun <T> SoundProps.changing(block: () -> T): T {
     changing = true
     try {
         return block()
@@ -24,7 +24,7 @@ private inline fun <T> SoundChannelBase.changing(block: () -> T): T {
 }
 
 @OptIn(ExperimentalStdlibApi::class)
-suspend fun SoundChannelBase.fadeTo(volume: Double, time: Duration = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) = fadeThread.cancelAndQueue {
+suspend fun SoundProps.fadeTo(volume: Double, time: Duration = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) = fadeThread.cancelAndQueue {
     changing {
         val start = DateTime.now()
         val startVolume = this.volume
@@ -40,8 +40,8 @@ suspend fun SoundChannelBase.fadeTo(volume: Double, time: Duration = DEFAULT_FAD
     }
 }
 
-suspend fun SoundChannelBase.fadeOut(time: Duration = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) = fadeTo(0.0, time, easing)
-suspend fun SoundChannelBase.fadeIn(time: Duration = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) = fadeTo(1.0, time, easing)
+suspend fun SoundProps.fadeOut(time: Duration = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) = fadeTo(0.0, time, easing)
+suspend fun SoundProps.fadeIn(time: Duration = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) = fadeTo(1.0, time, easing)
 
 suspend fun SoundChannelBase.fadeOutPause(time: Duration = DEFAULT_FADE_TIME, easing: Easing = DEFAULT_FADE_EASING) {
     fadeOut(time, easing)

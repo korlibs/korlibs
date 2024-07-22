@@ -1,17 +1,15 @@
 package korlibs.audio.sound
 
-import korlibs.datastructure.*
 import korlibs.math.geom.*
 import kotlinx.atomicfu.locks.*
 import kotlinx.coroutines.*
+import kotlin.coroutines.*
 
 /** Function might be called from different threads, so code must be thread-safe. */
-@ExperimentalStdlibApi
 typealias AudioPlatformOutputGen = (AudioSamplesInterleaved) -> Unit
 
-@ExperimentalStdlibApi
 class AudioPlatformOutput(
-    val listener: SoundListenerProps,
+    val listener: ListenerProps,
     //val coroutineContext: CoroutineContext,
     val channels: Int,
     val frequency: Int,
@@ -24,7 +22,7 @@ class AudioPlatformOutput(
             delay(1L)
         }
     }
-) : AutoCloseable, SoundProps, Extra by Extra.Mixin() {
+) : AutoCloseable, SoundProps {
     var paused: Boolean = false
 
     private val lock = reentrantLock()
@@ -86,7 +84,7 @@ class AudioPlatformOutput(
         val DEFAULT_BLOCK_SIZE = 2048
 
         fun simple(
-            listener: SoundListenerProps,
+            listener: ListenerProps,
             //coroutineContext: CoroutineContext,
             nchannels: Int,
             freq: Int,

@@ -369,7 +369,7 @@ public fun IntArray.asFloatArray(): FloatArrayFromIntArray = FloatArrayFromIntAr
 /** Gets the underlying array of [this] */
 public fun FloatArrayFromIntArray.asIntArray(): IntArray = base
 
-internal inline fun <T> getSampledGeneric(index: Float, get: (Int) -> T, scale: (T, Float) -> Float, convert: (Float) -> T, unit: Unit = Unit): T {
+inline fun <T> getSampledGeneric(index: Float, get: (Int) -> T, scale: (T, Float) -> Float, convert: (Float) -> T, unit: Unit = Unit): T {
     val index0 = index.toInt()
     val v0 = get(index0)
     if (index0.toFloat() == index) return v0

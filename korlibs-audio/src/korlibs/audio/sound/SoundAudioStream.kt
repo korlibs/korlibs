@@ -27,6 +27,7 @@ class SoundAudioStream(
         private val ID_POOL = ConcurrentPool<Int> { it }
     }
 
+    @OptIn(ExperimentalStdlibApi::class)
     override fun play(coroutineContext: CoroutineContext, params: PlaybackParameters): SoundChannel {
         val dequeLock = Lock()
         val deque = AudioSamplesDeque(nchannels)

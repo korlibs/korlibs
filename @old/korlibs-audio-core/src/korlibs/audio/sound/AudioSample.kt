@@ -50,14 +50,14 @@ class AudioSamples(
 }
 */
 
-//@Deprecated("")
-//typealias PerChannelAudioSamples = Array<AudioSampleArray>
-//
-//@Deprecated("")
-//fun PerChannelAudioSamples(nchannels: Int, nsamples: Int): PerChannelAudioSamples = Array(nchannels) { AudioSampleArray(nsamples) }
-//
-//val PerChannelAudioSamples.nchannels get() = this.size
-//val PerChannelAudioSamples.nsamples get() = this[0].size
+@Deprecated("")
+typealias PerChannelAudioSamples = Array<AudioSampleArray>
+
+@Deprecated("")
+fun PerChannelAudioSamples(nchannels: Int, nsamples: Int): PerChannelAudioSamples = Array(nchannels) { AudioSampleArray(nsamples) }
+
+val PerChannelAudioSamples.nchannels get() = this.size
+val PerChannelAudioSamples.nsamples get() = this[0].size
 
 inline class AudioSampleArray(private val data: ShortArray) : Collection<AudioSample> {
     constructor(size: Int) : this(ShortArray(size))
@@ -104,18 +104,18 @@ inline class AudioSampleArray(private val data: ShortArray) : Collection<AudioSa
 
 fun <T : AudioSample> audioSampleArrayOf(vararg values: T): AudioSampleArray = AudioSampleArray(values.size) { values[it] }
 
-//fun PerChannelAudioSamples.interleaved(out: AudioSampleArray = AudioSampleArray(nchannels * nsamples)): AudioSampleArray {
-//    val nchannels = this.nchannels
-//    val nsamples = this.nsamples
-//    check(this.all { it.size == nsamples })
-//    for (c in 0 until nchannels) {
-//        val data = this[c]
-//        for (n in 0 until nsamples)  {
-//            out[n * nchannels + c] = data[n]
-//        }
-//    }
-//    return out
-//}
+fun PerChannelAudioSamples.interleaved(out: AudioSampleArray = AudioSampleArray(nchannels * nsamples)): AudioSampleArray {
+    val nchannels = this.nchannels
+    val nsamples = this.nsamples
+    check(this.all { it.size == nsamples })
+    for (c in 0 until nchannels) {
+        val data = this[c]
+        for (n in 0 until nsamples)  {
+            out[n * nchannels + c] = data[n]
+        }
+    }
+    return out
+}
 
 public fun arraycopy(src: AudioSampleArray, srcPos: Int, dst: AudioSampleArray, dstPos: Int, size: Int) {
     src.asShortArray().copyInto(dst.asShortArray(), dstPos, srcPos, srcPos + size)
@@ -144,5 +144,3 @@ public fun arraycopy(src: AudioSampleFArray, srcPos: Int, dst: AudioSampleFArray
 */
 
 fun AudioSampleArray.getSampled(index: Float): AudioSample = AudioSample(asShortArray().getSampled(index))
-fun AudioSamples.getSampled(channel: Int, index: Float): AudioSample = getSampledGeneric(index, { this[channel, it] }, { sample, scale -> sample.float * scale }, { AudioSample(it) })
-fun AudioSamplesInterleaved.getSampled(channel: Int, index: Float): AudioSample = getSampledGeneric(index, { this[channel, it] }, { sample, scale -> sample.float * scale }, { AudioSample(it) })
