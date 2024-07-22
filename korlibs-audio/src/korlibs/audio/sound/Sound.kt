@@ -391,7 +391,7 @@ interface SoundPlay {
     suspend fun playAndWait(times: PlaybackTimes = 1.playbackTimes, startTime: Duration = 0.seconds, progress: SoundChannel.(current: Duration, total: Duration) -> Unit = { current, total -> }): Unit = play(times, startTime).await(progress)
 }
 
-abstract class Sound(val creationCoroutineContext: CoroutineContext) : SoundProps, SoundPlay, AudioStreamable {
+abstract class Sound(val creationCoroutineContext: CoroutineContext) : SoundProps, SoundPlay, AudioStreamable, Extra by Extra.Mixin() {
     var defaultCoroutineContext = creationCoroutineContext
 
     open val name: String = "UnknownNativeSound"

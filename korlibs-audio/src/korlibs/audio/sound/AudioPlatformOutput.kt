@@ -1,5 +1,6 @@
 package korlibs.audio.sound
 
+import korlibs.datastructure.*
 import korlibs.math.geom.*
 import kotlinx.atomicfu.locks.*
 import kotlinx.coroutines.*
@@ -22,7 +23,7 @@ class AudioPlatformOutput(
             delay(1L)
         }
     }
-) : AutoCloseable, SoundProps {
+) : AutoCloseable, SoundProps, Extra by Extra.Mixin() {
     var paused: Boolean = false
 
     private val lock = reentrantLock()
