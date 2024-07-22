@@ -33,8 +33,6 @@ open class LazyNativeSoundProvider(val gen: () -> NativeSoundProvider) : NativeS
     override suspend fun createSound(vfs: Vfs, path: String, streaming: Boolean, props: AudioDecodingProps): Sound =
         parent.createSound(vfs, path, streaming, props)
 
-    override suspend fun createNonStreamingSound(data: AudioData, name: String): Sound = parent.createNonStreamingSound(data, name)
-
     override suspend fun createSound(data: AudioData, formats: AudioFormats, streaming: Boolean, name: String): Sound =
         parent.createSound(data, formats, streaming, name)
 
@@ -91,7 +89,7 @@ open class NativeSoundProvider() : AutoCloseable, Pauseable, ListenerProps {
 	suspend fun createSound(file: FinalVfsFile, streaming: Boolean = false, props: AudioDecodingProps = AudioDecodingProps.DEFAULT): Sound = createSound(file.vfs, file.path, streaming, props)
 	suspend fun createSound(file: VfsFile, streaming: Boolean = false, props: AudioDecodingProps = AudioDecodingProps.DEFAULT): Sound = createSound(file.getUnderlyingUnscapedFile(), streaming, props)
 
-    open suspend fun createNonStreamingSound(
+    suspend fun createNonStreamingSound(
         data: AudioData,
         name: String = "Unknown"
     //): Sound = createStreamingSound(data.toStream(), true, name)
