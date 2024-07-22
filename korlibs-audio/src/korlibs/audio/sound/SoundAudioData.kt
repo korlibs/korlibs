@@ -12,6 +12,7 @@ class SoundAudioData(
 ) : Sound(coroutineContext) {
     override suspend fun decode(maxSamples: Int): AudioData = audioData
 
+    @OptIn(ExperimentalStdlibApi::class)
     override fun play(coroutineContext: CoroutineContext, params: PlaybackParameters): SoundChannel {
         var pos = 0
         var times = params.times

@@ -42,6 +42,7 @@ object AndroidNativeSoundProvider : NativeSoundProvider() {
         }
     }
 
+    @ExperimentalStdlibApi
     override fun createNewPlatformAudioOutput(channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         //ensureAudioManager(coroutineContext)
 

@@ -7,6 +7,7 @@ import javax.sound.sampled.*
 private val mixer by lazy { AudioSystem.getMixer(null) }
 
 object AWTNativeSoundProvider : NativeSoundProvider() {
+    @ExperimentalStdlibApi
     override fun createNewPlatformAudioOutput(
         channels: Int,
         frequency: Int,

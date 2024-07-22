@@ -20,6 +20,7 @@ open class LogNativeSoundProvider(
 ) : NativeSoundProvider() {
     val log = arrayListOf<AudioData>()
 
+    @ExperimentalStdlibApi
     override fun createNewPlatformAudioOutput(channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         check(channels in 1..8)
         return AudioPlatformOutput(this, channels, frequency, gen) {

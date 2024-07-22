@@ -10,6 +10,7 @@ import java.util.concurrent.*
 import java.util.concurrent.atomic.AtomicLong
 
 object JVMCoreAudioNativeSoundProvider : NativeSoundProvider() {
+    @ExperimentalStdlibApi
     override fun createNewPlatformAudioOutput(nchannels: Int, freq: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         return AudioPlatformOutput(this, nchannels, freq, gen) {
             val id = lastId.incrementAndGet()

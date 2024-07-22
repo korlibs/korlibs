@@ -12,6 +12,7 @@ import kotlin.reflect.*
 actual val nativeSoundProvider: NativeSoundProvider = Win32WaveOutNativeSoundProvider
 
 object Win32WaveOutNativeSoundProvider : NativeSoundProvider() {
+    @ExperimentalStdlibApi
     override fun createNewPlatformAudioOutput(
         channels: Int,
         frequency: Int,

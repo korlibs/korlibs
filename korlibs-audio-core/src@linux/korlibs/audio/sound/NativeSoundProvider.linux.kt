@@ -19,6 +19,7 @@ actual val nativeSoundProvider: NativeSoundProvider by lazy {
 
 @OptIn(ExperimentalForeignApi::class)
 object ALSANativeSoundProvider : NativeSoundProvider() {
+    @ExperimentalStdlibApi
     override fun createNewPlatformAudioOutput(channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         val pcm = A2.snd_pcm_open("default", A2.SND_PCM_STREAM_PLAYBACK, 0)
             ?: error("Can't initialize ALSA")

@@ -20,6 +20,7 @@ open class NativeSoundProvider() : AutoCloseable, Pauseable, SoundListenerProps 
     // @TODO: Should this be estimated automatically from position samples?
     override var listenerSpeed: Vector3 = Vector3.ZERO
 
+    @ExperimentalStdlibApi
     open fun createNewPlatformAudioOutput(channels: Int, frequency: Int = 44100, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         //println("createNewPlatformAudioOutput: ${this::class}")
         return AudioPlatformOutput(this, channels, frequency, gen)

@@ -5,6 +5,7 @@ import korlibs.ffi.*
 import kotlinx.coroutines.*
 
 object FFIALSANativeSoundProvider : NativeSoundProvider() {
+    @ExperimentalStdlibApi
     override fun createNewPlatformAudioOutput(channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         val pcm = A2.snd_pcm_open("default", A2.SND_PCM_STREAM_PLAYBACK, 0)
         if (pcm.address == 0L) {

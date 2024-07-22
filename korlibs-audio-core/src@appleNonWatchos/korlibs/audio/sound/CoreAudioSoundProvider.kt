@@ -27,6 +27,7 @@ actual val nativeSoundProvider: NativeSoundProvider = CoreAudioNativeSoundProvid
 object CoreAudioNativeSoundProvider : NativeSoundProvider() {
     //override suspend fun createSound(data: ByteArray, streaming: Boolean, props: AudioDecodingProps): NativeSound = AVFoundationNativeSoundNoStream(CoroutineScope(coroutineContext), audioFormats.decode(data))
 
+    @ExperimentalStdlibApi
     override fun createNewPlatformAudioOutput(channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         appleInitAudioOnce
 

@@ -6,8 +6,10 @@ import kotlinx.atomicfu.locks.*
 import kotlinx.coroutines.*
 
 /** Function might be called from different threads, so code must be thread-safe. */
+@ExperimentalStdlibApi
 typealias AudioPlatformOutputGen = (AudioSamplesInterleaved) -> Unit
 
+@ExperimentalStdlibApi
 class AudioPlatformOutput(
     val listener: SoundListenerProps,
     //val coroutineContext: CoroutineContext,

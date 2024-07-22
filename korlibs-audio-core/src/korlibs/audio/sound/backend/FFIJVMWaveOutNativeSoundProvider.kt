@@ -6,6 +6,7 @@ import korlibs.memory.*
 import kotlinx.coroutines.*
 
 object FFIJVMWaveOutNativeSoundProvider : NativeSoundProvider() {
+    @ExperimentalStdlibApi
     override fun createNewPlatformAudioOutput(
         channels: Int,
         frequency: Int,

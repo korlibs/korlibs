@@ -18,6 +18,7 @@ class HtmlNativeSoundProvider : NativeSoundProvider() {
         HtmlSimpleSound.ensureUnlockStart()
     }
 
+    @ExperimentalStdlibApi
     override fun createNewPlatformAudioOutput(channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         return AudioPlatformOutput(this, channels, frequency, gen) {
             nativeSoundProvider // Ensure it is created
