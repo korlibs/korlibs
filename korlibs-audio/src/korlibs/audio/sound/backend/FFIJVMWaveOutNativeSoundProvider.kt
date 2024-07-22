@@ -4,7 +4,6 @@ import korlibs.audio.sound.*
 import korlibs.ffi.*
 import korlibs.memory.*
 import kotlinx.coroutines.*
-import kotlin.coroutines.*
 
 object FFIJVMWaveOutNativeSoundProvider : NativeSoundProvider() {
     override fun createNewPlatformAudioOutput(
@@ -140,13 +139,7 @@ object FFIJVMWaveOutNativeSoundProvider : NativeSoundProvider() {
         var cbSize by short()
     }
 
-    internal class MMTIME(pointer: FFIPointer? = null) : FFIStructure(pointer) {
-        var wType by int()
-        var values by int()
-    }
-
     internal object WINMM : FFILib("winmm.dll") {
-        //val waveOutOpen by func<(phwo: LPHWAVEOUT?, uDeviceID: Int, pwfx: LPCWAVEFORMATEX?, dwCallback: Callback?, dwInstance: Pointer?, fdwOpen: Int) -> Int>()
         val waveOutOpen by func<(phwo: LPHWAVEOUT?, uDeviceID: Int, pwfx: LPCWAVEFORMATEX?, dwCallback: FFIPointer?, dwInstance: FFIPointer?, fdwOpen: Int) -> Int>()
         val waveOutClose by func<(hwo: HWAVEOUT?) -> Int>()
         val waveOutReset by func<(hwo: HWAVEOUT?) -> Int>()
@@ -154,34 +147,14 @@ object FFIJVMWaveOutNativeSoundProvider : NativeSoundProvider() {
         val waveOutWrite by func<(hwo: HWAVEOUT?, pwh: LPWAVEHDR?, cbwh: Int) -> Int>()
         val waveOutUnprepareHeader by func<(hwo: HWAVEOUT?, pwh: LPWAVEHDR?, cbwh: Int) -> Int>()
         val waveOutGetPosition by func<(hwo: HWAVEOUT?, pmmt: LPMMTIME?, cbmmt: Int) -> Int>()
-
-        fun waveOutGetPositionInSamples(hwo: HWAVEOUT?): Long {
-            ffiScoped {
-                val mem = allocBytes(16).typed<Int>()
-                mem[0] = TIME_SAMPLES
-                val res = waveOutGetPosition(hwo, mem.pointer, 16)
-                val wType = mem[0]
-                val value = mem[1]
-                //println("waveOutGetPosition: res=$res, wType=$wType, value=$value")
-                return value.toLong()
-            }
-        }
-
         const val WAVE_MAPPER = -1
         const val WAVE_FORMAT_PCM = 1
-
         const val WHDR_DONE = 0x00000001
         const val WHDR_PREPARED = 0x00000002
         const val WHDR_BEGINLOOP = 0x00000004
         const val WHDR_ENDLOOP = 0x00000008
         const val WHDR_INQUEUE = 0x00000010
-
-        const val TIME_MS = 1
         const val TIME_SAMPLES = 2
-        const val TIME_BYTES = 4
-        const val TIME_SMPTE = 8
-        const val TIME_MIDI =16
-        const val TIME_TICKS =32
     }
 }
 
