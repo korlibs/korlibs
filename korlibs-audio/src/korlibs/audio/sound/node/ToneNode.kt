@@ -4,7 +4,7 @@ import korlibs.audio.sound.*
 import kotlin.math.*
 
 // @TODO: Enable this later
-class ToneNode(
+internal class ToneNode(
     var frequency: Int,
     var volume: Float = 1f,
 ) : AudioNode {
