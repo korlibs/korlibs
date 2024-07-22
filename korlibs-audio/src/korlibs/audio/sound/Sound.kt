@@ -22,13 +22,13 @@ open class LazyNativeSoundProvider(val gen: () -> NativeSoundProvider) : NativeS
 
     override val target: String get() = parent.target
 
+    override val audioFormats: AudioFormats get() = parent.audioFormats
+
     override fun createNewPlatformAudioOutput(channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput =
         parent.createNewPlatformAudioOutput(channels, frequency, gen)
 
     override suspend fun createSound(data: ByteArray, streaming: Boolean, props: AudioDecodingProps, name: String): Sound =
         parent.createSound(data, streaming, props, name)
-
-    override val audioFormats: AudioFormats get() = parent.audioFormats
 
     override suspend fun createSound(vfs: Vfs, path: String, streaming: Boolean, props: AudioDecodingProps): Sound =
         parent.createSound(vfs, path, streaming, props)
