@@ -24,14 +24,6 @@ fun AudioSamples.resampleIfRequired(srcFreq: Int, dstFreq: Int): AudioSamples =
     if (srcFreq == dstFreq) this else resample(srcFreq, dstFreq)
 
 
-fun AudioSamples.copyOfRange(start: Int, end: Int): AudioSamples {
-    val out = AudioSamples(channels, end - start)
-    for (n in 0 until channels) {
-        arraycopy(this[n], start, out[n], 0, end - start)
-    }
-    return out
-}
-
 fun AudioSamples.interleaved(out: AudioSamplesInterleaved = AudioSamplesInterleaved(channels, totalSamples)): AudioSamplesInterleaved {
     check(out.data.size >= totalSamples * channels)
     when (channels) {

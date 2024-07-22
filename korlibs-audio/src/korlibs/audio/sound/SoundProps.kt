@@ -1,5 +1,6 @@
 package korlibs.audio.sound
 
+import korlibs.datastructure.*
 import korlibs.math.*
 import korlibs.math.geom.*
 
@@ -18,7 +19,7 @@ interface ReadonlySoundProps {
     val position: Vector3
 }
 
-interface SoundProps : ReadonlySoundProps {
+interface SoundProps : Extra, ReadonlySoundProps {
     override var volume: Double
     @Deprecated("")
     override var pitch: Double
@@ -27,7 +28,7 @@ interface SoundProps : ReadonlySoundProps {
     override var panning: Double
     override var position: Vector3
 
-    object Dummy : SoundProps {
+    object Dummy : SoundProps, Extra by Extra.Mixin() {
         override var volume: Double
             get() = 1.0
             set(v) = Unit
