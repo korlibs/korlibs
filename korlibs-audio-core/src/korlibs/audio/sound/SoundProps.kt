@@ -3,6 +3,8 @@ package korlibs.audio.sound
 import korlibs.datastructure.*
 import korlibs.math.*
 import korlibs.math.geom.*
+import korlibs.time.*
+import kotlin.time.*
 
 interface SoundListenerProps {
     val listenerPosition: Vector3 get() = Vector3.ZERO

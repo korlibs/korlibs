@@ -15,80 +15,6 @@ import kotlin.coroutines.*
 import kotlin.time.*
 import kotlin.coroutines.coroutineContext as coroutineContextKt
 
-expect val nativeSoundProvider: NativeSoundProvider
-
-open class NativeSoundProvider() : AutoCloseable, Pauseable, SoundListenerProps {
-	open val target: String = "unknown"
-
-    override var paused: Boolean = false
-
-    override var listenerPosition: Vector3 = Vector3.ZERO
-    override var listenerOrientationAt: Vector3 = Vector3.FORWARD // Look vector
-    override var listenerOrientationUp: Vector3 = Vector3.UP
-    // @TODO: Should this be estimated automatically from position samples?
-    override var listenerSpeed: Vector3 = Vector3.ZERO
-
-    open fun createNewPlatformAudioOutput(channels: Int, frequency: Int = 44100, gen: AudioPlatformOutputGen): AudioPlatformOutput {
-        //println("createNewPlatformAudioOutput: ${this::class}")
-        return AudioPlatformOutput(this, channels, frequency, gen)
-    }
-
-    //suspend fun createNewPlatformAudioOutput(nchannels: Int, freq: Int = 44100, gen: AudioPlatformOutputGen): AudioPlatformOutput = createNewPlatformAudioOutput(coroutineContextKt, nchannels, freq, gen)
-
-    open suspend fun createSound(data: ByteArray, streaming: Boolean = false, props: AudioDecodingProps = AudioDecodingProps.DEFAULT, name: String = "Unknown"): Sound {
-        val format = props.formats ?: audioFormats
-        val stream = format.decodeStreamOrError(data.openAsync(), props)
-        return if (streaming) {
-            createStreamingSound(stream, closeStream = true, name = name)
-        } else {
-            createNonStreamingSound(stream.toData(), name = name)
-        }
-	}
-
-    open val audioFormats: AudioFormats by lazy { defaultAudioFormats }
-    //open val audioFormats: AudioFormats = AudioFormats(WAV, MP3Decoder, OGG)
-
-    open suspend fun createSound(vfs: Vfs, path: String, streaming: Boolean = false, props: AudioDecodingProps = AudioDecodingProps.DEFAULT): Sound {
-        //println("createSound.coroutineContext: $coroutineContextKt")
-        return if (streaming) {
-            //val stream = vfs.file(path).open()
-            //createStreamingSound(audioFormats.decodeStreamOrError(stream, props)) {
-            val vfsFile = vfs.file(path)
-            val stream: AsyncStream = if (props.readInMemory) vfsFile.readAll().openAsync() else vfsFile.open()
-
-            createStreamingSound((props.formats ?: audioFormats).decodeStreamOrError(stream, props), name = vfsFile.baseName) {
-                stream.close()
-            }
-        } else {
-            createSound(vfs.file(path).read(), streaming, props, name = vfs[path].baseName)
-        }
-    }
-
-	suspend fun createSound(file: FinalVfsFile, streaming: Boolean = false, props: AudioDecodingProps = AudioDecodingProps.DEFAULT): Sound = createSound(file.vfs, file.path, streaming, props)
-	suspend fun createSound(file: VfsFile, streaming: Boolean = false, props: AudioDecodingProps = AudioDecodingProps.DEFAULT): Sound = createSound(file.getUnderlyingUnscapedFile(), streaming, props)
-
-    suspend fun createNonStreamingSound(
-        data: AudioData,
-        name: String = "Unknown"
-    //): Sound = createStreamingSound(data.toStream(), true, name)
-    ): Sound = SoundAudioData(coroutineContextKt, data, this, data.name ?: name)
-
-    suspend fun createSound(
-		data: AudioData,
-		formats: AudioFormats = defaultAudioFormats,
-		streaming: Boolean = false,
-        name: String = "Unknown"
-	): Sound = createSound(WAV.encodeToByteArray(data), streaming, name = name)
-
-    suspend fun createStreamingSound(stream: AudioStream, closeStream: Boolean = false, name: String = "Unknown", onComplete: (suspend () -> Unit)? = null): Sound =
-        SoundAudioStream(kotlin.coroutines.coroutineContext, stream, this, closeStream, name, onComplete)
-
-    suspend fun playAndWait(stream: AudioStream, params: PlaybackParameters = PlaybackParameters.DEFAULT) = createStreamingSound(stream).playAndWait(params)
-
-    override fun close() {
-    }
-}
-
 open class LogNativeSoundProvider(
     val onGen: (AudioData) -> Unit = { }
 ) : NativeSoundProvider() {
@@ -105,10 +31,6 @@ open class LogNativeSoundProvider(
             }
         }
     }
-}
-
-open class DummyNativeSoundProvider : NativeSoundProvider() {
-    companion object : DummyNativeSoundProvider()
 }
 
 class DummySoundChannel(sound: Sound, val data: AudioData? = null) : SoundChannel(sound) {
@@ -389,36 +311,6 @@ abstract class Sound(val creationCoroutineContext: CoroutineContext) : SoundProp
     suspend fun toAudioData(maxSamples: Int = DEFAULT_MAX_SAMPLES): AudioData = decode(maxSamples)
     override suspend fun toStream(): AudioStream = decode().toStream()
     override fun toString(): String = "NativeSound('$name')"
-}
-
-data class PlaybackParameters(
-    val times: PlaybackTimes = 1.playbackTimes,
-    val startTime: Duration = 0.seconds,
-    val bufferTime: Duration = 0.25.seconds,
-    override val volume: Double = 1.0,
-    override val pitch: Double = 1.0,
-    override val panning: Double = 0.0,
-    override val position: Vector3 = Vector3.ZERO,
-    val onCancel: (() -> Unit)? = null,
-    val onFinish: (() -> Unit)? = null,
-) : ReadonlySoundProps {
-    companion object {
-        val DEFAULT = PlaybackParameters(1.playbackTimes, 0.seconds)
-    }
-}
-
-val infinitePlaybackTimes get() = PlaybackTimes.INFINITE
-inline val Int.playbackTimes get() = PlaybackTimes(this)
-
-inline class PlaybackTimes(val count: Int) {
-    companion object {
-        val ZERO = PlaybackTimes(0)
-        val ONE = PlaybackTimes(1)
-        val INFINITE = PlaybackTimes(-1)
-    }
-    val hasMore get() = this != ZERO
-    val oneLess get() = if (this == INFINITE) INFINITE else PlaybackTimes(count - 1)
-    override fun toString(): String = if (count >= 0) "$count times" else "Infinite times"
 }
 
 suspend fun VfsFile.readSound(props: AudioDecodingProps = AudioDecodingProps.DEFAULT, streaming: Boolean = false): Sound = nativeSoundProvider.createSound(this, streaming, props)

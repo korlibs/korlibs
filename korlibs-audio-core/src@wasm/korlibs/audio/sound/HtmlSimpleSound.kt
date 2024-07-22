@@ -1,19 +1,20 @@
 package korlibs.audio.sound
 
 import korlibs.io.lang.*
-import korlibs.logger.*
 import korlibs.memory.*
-import korlibs.time.*
 import kotlinx.browser.*
 import kotlinx.coroutines.*
 import org.khronos.webgl.*
 import org.w3c.dom.*
 import org.w3c.dom.events.*
+import org.w3c.fetch.*
 import kotlin.coroutines.*
-import kotlin.time.*
 
-val AudioBuffer.durationOrNull: Double? get() = duration.takeIf { !it.isNaN() }
-val HTMLMediaElement.durationOrNull: Double? get() = duration.takeIf { !it.isNaN() }
+private external interface WindowExSetTimeout : JsAny {
+    fun setTimeout(block: () -> Unit, time: Int): Int
+}
+
+private val windowExSetTimeout get() = window.unsafeCast<WindowExSetTimeout>()
 
 class AudioBufferOrHTMLMediaElement(
     val audioBuffer: AudioBuffer?,
@@ -26,8 +27,8 @@ class AudioBufferOrHTMLMediaElement(
     val isNotNull get() = !isNull
 
     val duration: Double? get() = when {
-        audioBuffer != null -> audioBuffer.durationOrNull
-        htmlAudioElement != null -> htmlAudioElement.durationOrNull
+        audioBuffer != null -> audioBuffer.duration
+        htmlAudioElement != null -> htmlAudioElement.duration
         else -> null
     }
     val numberOfChannels: Int get() = audioBuffer?.numberOfChannels ?: 1
@@ -50,50 +51,45 @@ fun createAudioElement(
 fun HTMLAudioElement.clone(): Audio =
     createAudioElement(this.src, this.currentTime, this.autoplay, this.crossOrigin)
 
-object HtmlSimpleSound {
-    private val logger = Logger("HtmlSimpleSound")
+external private class WindowWithGlobalAudioContext : JsAny {
+    var globalAudioContext: AudioContext?
+}
 
+@JsName("Console")
+internal open external class JsConsole {
+    fun error(vararg msg: String)
+    fun warn(vararg msg: String)
+    fun info(vararg msg: String)
+    fun log(vararg msg: String)
+}
+
+internal external val console: JsConsole /* compiled code */
+
+object HtmlSimpleSound {
 	val ctx: BaseAudioContext? = try {
-		when {
-			jsTypeOf(window.asDynamic().AudioContext) != "undefined" -> AudioContext()
-			jsTypeOf(window.asDynamic().webkitAudioContext) != "undefined" -> webkitAudioContext()
-			else -> null
-		}.also {
-            (window.asDynamic()).globalAudioContext = it
+        AudioContext().also {
+            (window.unsafeCast<WindowWithGlobalAudioContext>()).globalAudioContext = it
         }
 	} catch (e: Throwable) {
-        logger.error { e }
-		null
-	}
+        console.error("$e")
+        null
+    }
 
 	val available get() = ctx != null
 	var unlocked = false
-	private val unlockDeferred = CompletableDeferred<Unit>().also { unlockDeferred ->
-        val buf = ctx!!.createBuffer(1, 1, 22050)
-        lateinit var unlock: (e: Event) -> Unit
-        val events = arrayOf("keydown", "touchstart", "touchend", "mousedown")
-        unlock = {
-            for (e in events) document.removeEventListener(e, unlock, true)
-            ctx.resume()
-            val source = ctx.createBufferSource()
-            source.onended = {
-                source.disconnect(0)
-                unlocked = true
-                console.info("Web Audio was successfully unlocked")
-                unlockDeferred.complete(Unit)
-            }
-            source.buffer = buf
-            source.connect(ctx.destination)
-            source.start(0.0)
-            ctx.resume()
-        }
-        for (e in events) document.addEventListener(e, unlock, true)
-    }
+	private val unlockDeferred = CompletableDeferred<Unit>(Job())
 	val unlock = unlockDeferred as Deferred<Unit>
 
+    suspend fun getUnlockedContextOrThrow(): BaseAudioContext {
+        if (ctx == null) error("Couldn't get AudioContext")
+        unlock.await()
+        return ctx
+    }
+
+    /*
 	class SimpleSoundChannel(
 		val buffer: AudioBufferOrHTMLMediaElement,
-		val ctx: BaseAudioContext?,
+		val ctx: BaseAudioContext,
         val params: PlaybackParameters,
         val coroutineContext: CoroutineContext
 	) {
@@ -109,7 +105,7 @@ object HtmlSimpleSound {
             val htmlAudioElement = buffer.htmlAudioElement
             val audioBuffer = buffer.audioBuffer
 
-            ctx?.destination?.apply {
+            ctx.destination.apply {
                 pannerNode = panner {
                     gainNode = gain {
                         when {
@@ -155,9 +151,12 @@ object HtmlSimpleSound {
                         val deferred = CompletableDeferred<Unit>()
                         //println("sourceNode: $sourceNode, ctx?.state=${ctx?.state}, buffer.duration=${buffer.duration}")
                         if (sourceNode == null || ctx?.state != "running") {
-                            window.setTimeout(
-                                { deferred.complete(Unit) },
-                                ((buffer.unsafeCast<HTMLMediaElement>().durationOrNull ?: 0.0) * 1000).toInt()
+                            windowExSetTimeout.setTimeout(
+                                {
+                                    deferred.complete(Unit)
+                                    null
+                                },
+                                ((buffer.duration ?: 0.0) * 1000).toInt()
                             )
                         } else {
                             sourceNode?.onended = {
@@ -325,6 +324,7 @@ object HtmlSimpleSound {
 		channel?.disconnect(0)
 		channel?.stop(0.0)
 	}
+     */
 
     fun ensureUnlockStart() {
         unlock
@@ -332,7 +332,7 @@ object HtmlSimpleSound {
 
 	suspend fun waitUnlocked(): BaseAudioContext? {
         if (!unlock.isCompleted) {
-            logger.warn { "Waiting for key or mouse down to start sound..." }
+            console.warn("Waiting for key or mouse down to start sound...")
         }
 		unlock.await()
 		return ctx
@@ -360,9 +360,72 @@ object HtmlSimpleSound {
 		return createAudioElement(url)
 	}
 
-	suspend fun loadSound(data: ByteArray): AudioBuffer? = loadSound(data.unsafeCast<Int8Array>().buffer, "ByteArray")
+    /*
+	suspend fun playSoundBuffer(buffer: HTMLAudioElement?) {
+		if (ctx != null) {
+			buffer?.audio?.play()
+			buffer?.node?.connect(ctx.destination)
+		}
+	}
+
+	suspend fun stopSoundBuffer(buffer: HTMLAudioElement?) {
+		if (ctx != null) {
+			buffer?.audio?.pause()
+			buffer?.audio?.currentTime = 0.0
+			buffer?.node?.disconnect(ctx.destination)
+		}
+	}
+    */
+
+	suspend fun loadSound(data: ByteArray): AudioBuffer? = loadSound(data.toInt8Array().buffer, "ByteArray")
 
 	suspend fun loadSound(url: String): AudioBuffer? =
-        loadSound(window.fetch(url).await().arrayBuffer().await().asByteArray())
+        loadSound(window.fetch(url).await<Response>().arrayBuffer().await<ArrayBuffer>().toByteArray())
 
+	init {
+		val _scratchBuffer = ctx?.createBuffer(1, 1, 22050)
+		lateinit var unlock: (e: Event) -> Unit
+        unlock = {
+            // Remove the touch start listener.
+            document.removeEventListener("keydown", unlock, true)
+            document.removeEventListener("touchstart", unlock, true)
+            document.removeEventListener("touchend", unlock, true)
+            document.removeEventListener("mousedown", unlock, true)
+
+            if (ctx != null) {
+                // If already created the audio context, we try to resume it
+                (window.unsafeCast<WindowWithGlobalAudioContext>()).globalAudioContext?.unsafeCast<BaseAudioContext>()?.resume()
+
+                val source = ctx.createBufferSource()
+
+                source.buffer = _scratchBuffer
+                source.connect(ctx.destination)
+                source.start(0.0)
+                ctx.resume()
+                source.onended = {
+                    source.disconnect(0)
+
+                    unlocked = true
+                    console.info("Web Audio was successfully unlocked")
+                    unlockDeferred.complete(Unit)
+                }
+            }
+        }
+
+		document.addEventListener("keydown", unlock, true)
+		document.addEventListener("touchstart", unlock, true)
+		document.addEventListener("touchend", unlock, true)
+		document.addEventListener("mousedown", unlock, true)
+	}
+}
+
+private fun ByteArray.toInt8Array(): Int8Array {
+    //val tout = this.asDynamic()
+    //if (tout is Int8Array) {
+    //    return tout.unsafeCast<Int8Array>()
+    //} else {
+    val out = Int8Array(this.size)
+    for (n in 0 until out.length) out[n] = this[n]
+    return out
+    //}
 }

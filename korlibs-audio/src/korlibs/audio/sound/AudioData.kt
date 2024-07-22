@@ -1,6 +1,7 @@
 package korlibs.audio.sound
 
 import korlibs.audio.format.*
+import korlibs.datastructure.*
 import korlibs.io.file.*
 import korlibs.io.lang.*
 import korlibs.io.stream.*
@@ -8,37 +9,9 @@ import korlibs.time.*
 import kotlin.math.*
 import kotlin.time.*
 
-class AudioData(
-    val rate: Int,
-    val samples: AudioSamples,
-    val name: String? = null,
-) {
-    inline val frequency: Int get() = rate
-
-    val samplesInterleaved by lazy { samples.interleaved() }
-
-    companion object {
-        val DUMMY by lazy { AudioData(44100, AudioSamples(2, 0)) }
-    }
-
-    val stereo: Boolean get() = channels > 1
-    val channels: Int get() = samples.channels
-    val totalSamples: Int get() = samples.totalSamples
-    val totalTime: Duration get() = timeAtSample(totalSamples)
-    fun timeAtSample(sample: Int): Duration = ((sample).toDouble() / rate.toDouble()).seconds
-    fun sampleAtTime(time: Duration): Int = (time.seconds * rate.toDouble()).toInt()
-
-    operator fun get(channel: Int): AudioSampleArray = samples.data[channel]
-    operator fun get(channel: Int, sample: Int): AudioSample = samples.data[channel][sample]
-
-    operator fun set(channel: Int, sample: Int, value: AudioSample) {
-        samples.data[channel][sample] = value
-    }
-
-    override fun toString(): String = "AudioData(rate=$rate, channels=$channels, samples=$totalSamples)"
-}
-
 enum class AudioConversionQuality { FAST }
+
+val AudioData.samplesInterleaved by Extra.PropertyThis { samples.interleaved() }
 
 /** Change the rate, changing the pitch and the duration of the sound. */
 fun AudioData.withRate(rate: Int) = AudioData(rate, samples)

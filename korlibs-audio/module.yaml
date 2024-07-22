@@ -11,7 +11,7 @@ aliases:
   - jsAndWasmJs: [ js, wasm ]
 
 dependencies:
-  #- ../korlibs-audio-core: exported
+  - ../korlibs-audio-core: exported
   - ../korlibs-concurrent: exported
   - ../korlibs-io-vfs: exported
   - ../korlibs-time-core: exported

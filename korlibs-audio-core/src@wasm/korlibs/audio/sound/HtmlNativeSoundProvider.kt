@@ -1,15 +1,8 @@
 package korlibs.audio.sound
 
-import korlibs.audio.format.*
-import korlibs.io.file.*
-import korlibs.io.file.std.*
-import korlibs.io.lang.*
+import korlibs.audio.sound.HtmlSimpleSound.getUnlockedContextOrThrow
 import korlibs.platform.*
-import korlibs.time.*
 import org.khronos.webgl.*
-import org.w3c.dom.*
-import kotlin.coroutines.*
-import kotlin.time.*
 
 actual val nativeSoundProvider: NativeSoundProvider by lazy {
     if (Platform.isJsBrowser) {
@@ -27,41 +20,34 @@ class HtmlNativeSoundProvider : NativeSoundProvider() {
     override fun createNewPlatformAudioOutput(channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput {
         return AudioPlatformOutput(this, channels, frequency, gen) {
             nativeSoundProvider // Ensure it is created
-            var node: ScriptProcessorNode? = null
 
-            val startPromise = HtmlSimpleSound.callOnUnlocked {
-                val ctx = HtmlSimpleSound.ctx
-                if (ctx != null) {
-                    val bufferSize = 1024
-                    val scale = (frequency / ctx.sampleRate).toFloat()
-                    val samples = AudioSamplesInterleaved(channels, (bufferSize * scale).toInt())
-                    node = ctx.createScriptProcessor(bufferSize, channels, channels)
-                    //Console.log("sampleRate", ctx.sampleRate, "bufferSize", bufferSize, "totalSamples", samples.totalSamples, "scale", scale)
-                    node?.onaudioprocess = { e ->
-                        genSafe(samples)
-                        val separated = samples.separated()
-                        for (ch in 0 until channels) {
-                            val outCh = e.outputBuffer.getChannelData(ch)
-                            val data = separated[ch]
-                            for (n in 0 until bufferSize) {
-                                outCh[n] = data.getSampled(n * scale).float
-                            }
-                        }
-
+            val ctx = getUnlockedContextOrThrow()
+            val bufferSize = 1024
+            val scale = (frequency / ctx.sampleRate).toFloat()
+            val samples = AudioSamplesInterleaved(channels, (bufferSize * scale).toInt())
+            val node = ctx.createScriptProcessor(bufferSize, channels, channels)
+            //Console.log("sampleRate", ctx.sampleRate, "bufferSize", bufferSize, "totalSamples", samples.totalSamples, "scale", scale)
+            node.onaudioprocess = { e ->
+                genSafe(samples)
+                for (ch in 0 until channels) {
+                    val outCh = e.outputBuffer.getChannelData(ch)
+                    for (n in 0 until bufferSize) {
+                        outCh[n] = samples.getSampled(ch, n * scale).float
                     }
-                    node?.connect(ctx.destination)
                 }
+
             }
+            node.connect(ctx.destination)
 
             try {
                 suspendWhileRunning()
             } finally {
-                startPromise?.cancel()
-                node?.disconnect()
+                node.disconnect()
             }
         }
     }
 
+    /*
     override suspend fun createSound(data: ByteArray, streaming: Boolean, props: AudioDecodingProps, name: String): Sound =
         AudioBufferSound(AudioBufferOrHTMLMediaElement(HtmlSimpleSound.loadSound(data)), "#bytes", coroutineContext, name)
 
@@ -85,15 +71,18 @@ class HtmlNativeSoundProvider : NativeSoundProvider() {
             super.createSound(vfs, path)
         }
     }
+
+     */
 }
 
+/*
 class AudioBufferSound(
     val buffer: AudioBufferOrHTMLMediaElement,
     val url: String,
     coroutineContext: CoroutineContext,
     override val name: String = "unknown"
 ) : Sound(coroutineContext) {
-	override val length: Duration = ((buffer.duration) ?: 0.0).seconds
+    override val length: Duration = ((buffer.duration) ?: 0.0).seconds
 
     override val nchannels: Int get() = buffer.numberOfChannels ?: 1
 
@@ -114,13 +103,13 @@ class AudioBufferSound(
         return AudioData(buffer.sampleRate, data)
     }
 
-	override fun play(coroutineContext: CoroutineContext, params: PlaybackParameters): SoundChannel {
+    override fun play(coroutineContext: CoroutineContext, params: PlaybackParameters): SoundChannel {
         val channel = if (buffer.isNotNull) HtmlSimpleSound.playSound(buffer, params, coroutineContext) else null
         HtmlSimpleSound.callOnUnlocked {
             channel?.play()
         }
 
-		return object : SoundChannel(this) {
+        return object : SoundChannel(this) {
 
             override var volume: Double
                 get() = channel?.volume ?: 1.0
@@ -165,5 +154,6 @@ class AudioBufferSound(
             //it.current = params.startTime
             it.copySoundPropsFrom(params)
         }
-	}
+    }
 }
+*/

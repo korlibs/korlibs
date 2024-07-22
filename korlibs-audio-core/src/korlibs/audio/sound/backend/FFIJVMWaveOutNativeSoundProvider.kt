@@ -158,8 +158,8 @@ object FFIJVMWaveOutNativeSoundProvider : NativeSoundProvider() {
     }
 }
 
-private typealias LPHWAVEOUT = FFIPointer
-private typealias HWAVEOUT = FFIPointer
-private typealias LPCWAVEFORMATEX = FFIPointer
-private typealias LPWAVEHDR = FFIPointer
-private typealias LPMMTIME = FFIPointer?
+internal typealias LPHWAVEOUT = FFIPointer
+internal typealias HWAVEOUT = FFIPointer
+internal typealias LPCWAVEFORMATEX = FFIPointer
+internal typealias LPWAVEHDR = FFIPointer
+internal typealias LPMMTIME = FFIPointer?
