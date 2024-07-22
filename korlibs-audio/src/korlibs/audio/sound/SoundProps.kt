@@ -4,7 +4,7 @@ import korlibs.datastructure.*
 import korlibs.math.*
 import korlibs.math.geom.*
 
-interface ListenerProps {
+interface SoundListenerProps {
     val listenerPosition: Vector3 get() = Vector3.ZERO
     val listenerOrientationAt: Vector3 get() = Vector3.ZERO
     val listenerOrientationUp: Vector3 get() = Vector3.ZERO
@@ -42,7 +42,7 @@ interface SoundProps : Extra, ReadonlySoundProps {
     }
 }
 
-fun ReadonlySoundProps.volumeForChannel(listener: ListenerProps, channel: Int): Float {
+fun ReadonlySoundProps.volumeForChannel(listener: SoundListenerProps, channel: Int): Float {
     // @TODO: Calculate volume based on distance and panning
     val distance = listener.listenerPosition.distanceTo(position)
     return when (channel) {
@@ -51,7 +51,7 @@ fun ReadonlySoundProps.volumeForChannel(listener: ListenerProps, channel: Int): 
     }
 }
 
-fun ReadonlySoundProps.applyPropsTo(listener: ListenerProps, samples: AudioSamplesInterleaved) {
+fun ReadonlySoundProps.applyPropsTo(listener: SoundListenerProps, samples: AudioSamplesInterleaved) {
     for (ch in 0 until samples.channels) {
         val volume01 = volumeForChannel(listener, ch) * this.volume.toFloat()
         //println("PROPS: volume=${this.volume}, volumeForChannel(ch=$ch)=$volume01")

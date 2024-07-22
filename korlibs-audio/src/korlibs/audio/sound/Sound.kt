@@ -39,7 +39,7 @@ open class LazyNativeSoundProvider(val gen: () -> NativeSoundProvider) : NativeS
     override fun close() = parent.close()
 }
 
-open class NativeSoundProvider() : AutoCloseable, Pauseable, ListenerProps {
+open class NativeSoundProvider() : AutoCloseable, Pauseable, SoundListenerProps {
 	open val target: String = "unknown"
 
     override var paused: Boolean = false

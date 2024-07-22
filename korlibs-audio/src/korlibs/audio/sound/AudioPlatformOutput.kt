@@ -4,13 +4,12 @@ import korlibs.datastructure.*
 import korlibs.math.geom.*
 import kotlinx.atomicfu.locks.*
 import kotlinx.coroutines.*
-import kotlin.coroutines.*
 
 /** Function might be called from different threads, so code must be thread-safe. */
 typealias AudioPlatformOutputGen = (AudioSamplesInterleaved) -> Unit
 
 class AudioPlatformOutput(
-    val listener: ListenerProps,
+    val listener: SoundListenerProps,
     //val coroutineContext: CoroutineContext,
     val channels: Int,
     val frequency: Int,
@@ -85,7 +84,7 @@ class AudioPlatformOutput(
         val DEFAULT_BLOCK_SIZE = 2048
 
         fun simple(
-            listener: ListenerProps,
+            listener: SoundListenerProps,
             //coroutineContext: CoroutineContext,
             nchannels: Int,
             freq: Int,
