@@ -354,6 +354,8 @@ class Fasttracker : BaseModuleTracker() {
         initSpeed = le_word(buffer, offset + 16)
         initBPM = le_word(buffer, offset + 18)
 
+        //println("initBPM=$initBPM")
+
         var maxpatt = 0
         for (i in 0 until 256) {
             patterntable[i] = buffer[offset + 20 + i]
@@ -619,6 +621,8 @@ class Fasttracker : BaseModuleTracker() {
 
     // 5:27
     fun computeTime(): Int {
+        initialize()
+
         var samples = 0
         //playing = false
         var position = 0
@@ -628,7 +632,6 @@ class Fasttracker : BaseModuleTracker() {
         var bpm = this.bpm
         var speed = this.speed
         val samplerate = samplerate
-        initialize()
         while (position < songlen) {
             // calculate playback position
             val p = patterntable[position]
@@ -648,7 +651,7 @@ class Fasttracker : BaseModuleTracker() {
             }
             val stt = kotlin.math.floor((125.0 / bpm.toDouble()) * (1 / 50.0) * samplerate).toInt() // 50Hz
             samples += stt * speed
-            //println("tick=$tick, speed=$speed, bpm=$bpm, stt=$stt, row=$row, position=$position, songlen=$songlen, samples=$samples")
+            //println("tick=$tick, speed=$speed, bpm=$bpm, stt=$stt, row=$row, position=$position, songlen=$songlen, samples=$samples, samplerate=$samplerate")
 
             row++
             if (row >= patternlen[p]) {
@@ -657,6 +660,7 @@ class Fasttracker : BaseModuleTracker() {
             }
         }
         initialize()
+        //println("samples=$samples")
         return samples
     }
 
