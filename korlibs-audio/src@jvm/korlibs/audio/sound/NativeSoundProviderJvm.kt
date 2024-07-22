@@ -4,9 +4,7 @@ import korlibs.audio.sound.backend.*
 import korlibs.concurrent.thread.*
 import korlibs.platform.*
 
-//private val logger = Logger("NativeSoundProviderJvm")
-
-private val nativeSoundProviderDeferred: NativeSoundProvider by lazy {
+actual val nativeSoundProvider: NativeSoundProvider by lazy {
     try {
         when {
             Platform.isLinux -> FFIALSANativeSoundProvider
@@ -17,18 +15,11 @@ private val nativeSoundProviderDeferred: NativeSoundProvider by lazy {
         }
     } catch (e: UnsatisfiedLinkError) {
         DummyNativeSoundProvider
-    //} catch (e: OpenALException) {
-    //    logger.error { "OpenALException: ${e.message}" }
-    //    DummyNativeSoundProvider
+        //} catch (e: OpenALException) {
+        //    logger.error { "OpenALException: ${e.message}" }
+        //    DummyNativeSoundProvider
     } catch (e: Throwable) {
         e.printStackTrace()
         DummyNativeSoundProvider
     }
 }
-
-actual val nativeSoundProvider: NativeSoundProvider by lazy {
-    nativeThread(isDaemon = true) { nativeSoundProviderDeferred }
-    LazyNativeSoundProvider { nativeSoundProviderDeferred }
-}
-//actual val nativeSoundProvider: NativeSoundProvider by lazy { JogampNativeSoundProvider() }
-//actual val nativeSoundProvider: NativeSoundProvider by lazy { AwtNativeSoundProvider() }

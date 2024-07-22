@@ -17,28 +17,6 @@ import kotlin.coroutines.coroutineContext as coroutineContextKt
 
 expect val nativeSoundProvider: NativeSoundProvider
 
-open class LazyNativeSoundProvider(val gen: () -> NativeSoundProvider) : NativeSoundProvider() {
-    val parent by lazy { gen() }
-
-    override val target: String get() = parent.target
-
-    override val audioFormats: AudioFormats get() = parent.audioFormats
-
-    override fun createNewPlatformAudioOutput(channels: Int, frequency: Int, gen: AudioPlatformOutputGen): AudioPlatformOutput =
-        parent.createNewPlatformAudioOutput(channels, frequency, gen)
-
-    override suspend fun createSound(data: ByteArray, streaming: Boolean, props: AudioDecodingProps, name: String): Sound =
-        parent.createSound(data, streaming, props, name)
-
-    override suspend fun createSound(vfs: Vfs, path: String, streaming: Boolean, props: AudioDecodingProps): Sound =
-        parent.createSound(vfs, path, streaming, props)
-
-    override suspend fun createSound(data: AudioData, formats: AudioFormats, streaming: Boolean, name: String): Sound =
-        parent.createSound(data, formats, streaming, name)
-
-    override fun close() = parent.close()
-}
-
 open class NativeSoundProvider() : AutoCloseable, Pauseable, SoundListenerProps {
 	open val target: String = "unknown"
 
@@ -95,7 +73,7 @@ open class NativeSoundProvider() : AutoCloseable, Pauseable, SoundListenerProps 
     //): Sound = createStreamingSound(data.toStream(), true, name)
     ): Sound = SoundAudioData(coroutineContextKt, data, this, data.name ?: name)
 
-    open suspend fun createSound(
+    suspend fun createSound(
 		data: AudioData,
 		formats: AudioFormats = defaultAudioFormats,
 		streaming: Boolean = false,
