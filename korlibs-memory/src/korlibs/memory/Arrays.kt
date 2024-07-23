@@ -321,6 +321,7 @@ public inline class UByteArrayInt(public val data: ByteArray) {
     public operator fun get(index: Int): Int = data[index].toInt() and 0xFF
     public operator fun set(index: Int, value: Int) { data[index] = value.toByte() }
     public operator fun set(index: Int, value: UByte) { data[index] = value.toByte() }
+    public fun getOrElse(index: Int, default: Int): Int = data.getOrElse(index) { default.toByte() }.toInt() and 0xFF
 
     fun fill(value: Int, fromIndex: Int = 0, toIndex: Int = size) = data.fill(value.toByte(), fromIndex, toIndex)
 }

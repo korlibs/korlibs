@@ -66,9 +66,9 @@ object AndroidNativeImageFormatProvider : NativeImageFormatProvider() {
         deferred.await()
     }
 
-    override fun convertCoreImageToNativeImage(image: CoreImage, props: ImageDecodingProps): NativeImage {
-        if (image is AndroidCoreImage) return AndroidNativeImage(image.bitmap)
-        return super.convertCoreImageToNativeImage(image, props)
+    override fun convertCoreImageToNativeImage(image: CoreImage, props: ImageDecodingProps): NativeImage = when (image) {
+        is AndroidCoreImage -> AndroidNativeImage(image.bitmap)
+        else -> super.convertCoreImageToNativeImage(image, props)
     }
 
     override fun create(width: Int, height: Int, premultiplied: Boolean?): NativeImage {

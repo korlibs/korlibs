@@ -17,8 +17,12 @@ object JvmNativeImageFormatProvider : NativeImageFormatProvider() {
         awtShowImageAndWait(bitmap)
     }
 
-    override fun convertCoreImageToNativeImage(image: CoreImage, props: ImageDecodingProps): NativeImage {
-        if (image is AwtCoreImage) return AwtNativeImage(image.native)
-        return super.convertCoreImageToNativeImage(image, props)
+    override fun convertCoreImageToNativeImage(image: CoreImage, props: ImageDecodingProps): NativeImage = when (image) {
+        is AwtCoreImage -> AwtNativeImage(image.native)
+        else -> toNativeImageSure(image.to32().toBitmap())
+    }
+
+    override fun toNativeImageSure(bmp: Bitmap): NativeImage {
+        return AwtNativeImage(bmp.toBMP32IfRequired().toAwt())
     }
 }

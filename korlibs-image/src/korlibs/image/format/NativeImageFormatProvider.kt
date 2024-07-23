@@ -119,6 +119,9 @@ open class NativeImageFormatProvider : ImageFormatEncoderDecoder {
         return out
     }
 
+    protected open fun toNativeImageSure(bmp: Bitmap): NativeImage {
+        return BitmapNativeImage(bmp)
+    }
 
     fun Bitmap.toNativeImage(props: ImageDecodingProps): NativeImage {
         if (this is NativeImage && !props.asumePremultiplied && (props.premultiplied == null || props.premultiplied == this.premultiplied)) {
@@ -130,7 +133,7 @@ open class NativeImageFormatProvider : ImageFormatEncoderDecoder {
             !this.premultiplied && props.premultiplied == false -> out.depremultiplyInplaceIfRequired()
             this.premultiplied && props.premultiplied == true -> out.premultiplyInplaceIfRequired()
         }
-        return BitmapNativeImage(out)
+        return toNativeImageSure(out)
     }
 
     fun Bitmap.toNativeImageResult(props: ImageDecodingProps): NativeImageResult = NativeImageResult(this.toNativeImage(props))
