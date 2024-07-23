@@ -781,6 +781,8 @@ fun SonatypeProps_configure(project: Project) {
     }
     val sonatypeProps = rootProject.extraProperties.get("korlibs.sonatype.props") as SonatypeProps
 
+    sonatypeProps.configureRootTasksOnce()
+
     project.publishing {
         repositories {
             if (sonatypeProps.sonatype != null) {
