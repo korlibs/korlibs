@@ -10,7 +10,7 @@ aliases:
 dependencies:
   - ../korlibs-io-stream: exported
   - ../korlibs-concurrent: exported
-  - ../korlibs-checksum
+  - com.soywiz:korlibs-checksum:6.0.0
   - ../korlibs-math-core
   - ../korlibs-datastructure-core
 

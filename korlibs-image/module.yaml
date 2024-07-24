@@ -23,7 +23,7 @@ dependencies:
   - ../korlibs-serialization
   - ../korlibs-wasm
   - ../korlibs-string
-  - ../korlibs-checksum
+  - com.soywiz:korlibs-checksum:6.0.0
   - org.jetbrains.kotlinx:atomicfu:0.24.0: exported
 
 test-dependencies:
