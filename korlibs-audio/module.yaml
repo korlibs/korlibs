@@ -19,7 +19,7 @@ dependencies:
   - ../korlibs-math-vector: exported
   - ../korlibs-ffi: exported
   - ../korlibs-logger: exported
-  - ../korlibs-annotations: exported
+  - "com.soywiz:korlibs-annotations:6.0.0": exported
 
 test-dependencies:
   - org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC
