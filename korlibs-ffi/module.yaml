@@ -9,7 +9,7 @@ dependencies:
   - ../korlibs-platform: exported
   - ../korlibs-datastructure: exported
   - ../korlibs-memory: exported
-  - "com.soywiz:korlibs-annotations:6.0.0": exported
+  - com.soywiz:korlibs-annotations:6.0.0: exported
   - ../korlibs-concurrent: exported
   - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC: exported
 
