@@ -1,0 +1,105 @@
+[submodule "korlibs-annotations"]
+	path = korlibs-annotations
+	url = git@github.com:korlibs/korlibs-annotations.git
+[submodule "korlibs-bignumber"]
+	path = korlibs-bignumber
+	url = git@github.com:korlibs/korlibs-bignumber.git
+[submodule "korlibs-ffi"]
+	path = korlibs-ffi
+	url = git@github.com:korlibs/korlibs-ffi.git
+[submodule "korlibs-audio-core"]
+	path = korlibs-audio-core
+	url = git@github.com:korlibs/korlibs-audio-core.git
+[submodule "korlibs-audio"]
+	path = korlibs-audio
+	url = git@github.com:korlibs/korlibs-audio.git
+[submodule "korlibs-image"]
+	path = korlibs-image
+	url = git@github.com:korlibs/korlibs-image.git
+[submodule "korlibs-io-network-core"]
+	path = korlibs-io-network-core
+	url = git@github.com:korlibs/korlibs-io-network-core.git
+[submodule "korlibs-io"]
+	path = korlibs-io
+	url = git@github.com:korlibs/korlibs-io.git
+[submodule "korlibs-wasm"]
+	path = korlibs-wasm
+	url = git@github.com:korlibs/korlibs-wasm.git
+[submodule "korlibs-io-vfs"]
+	path = korlibs-io-vfs
+	url = git@github.com:korlibs/korlibs-io-vfs.git
+[submodule "korlibs-compression"]
+	path = korlibs-compression
+	url = git@github.com:korlibs/korlibs-compression.git
+[submodule "korlibs-image-core"]
+	path = korlibs-image-core
+	url = git@github.com:korlibs/korlibs-image-core.git
+[submodule "korlibs-io-stream"]
+	path = korlibs-io-stream
+	url = git@github.com:korlibs/korlibs-io-stream.git
+[submodule "korlibs-math"]
+	path = korlibs-math
+	url = git@github.com:korlibs/korlibs-math.git
+[submodule "korlibs-jseval"]
+	path = korlibs-jseval
+	url = git@github.com:korlibs/korlibs-jseval.git
+[submodule "korlibs-dyn"]
+	path = korlibs-dyn
+	url = git@github.com:korlibs/korlibs-dyn.git
+[submodule "korlibs-math-vector"]
+	path = korlibs-math-vector
+	url = git@github.com:korlibs/korlibs-math-vector.git
+[submodule "korlibs-datastructure"]
+	path = korlibs-datastructure
+	url = git@github.com:korlibs/korlibs-datastructure.git
+[submodule "korlibs-concurrent"]
+	path = korlibs-concurrent
+	url = git@github.com:korlibs/korlibs-concurrent.git
+[submodule "korlibs-serialization"]
+	path = korlibs-serialization
+	url = git@github.com:korlibs/korlibs-serialization.git
+[submodule "korlibs-template"]
+	path = korlibs-template
+	url = git@github.com:korlibs/korlibs-template.git
+[submodule "korlibs-crypto"]
+	path = korlibs-crypto
+	url = git@github.com:korlibs/korlibs-crypto.git
+[submodule "korlibs-datastructure-core"]
+	path = korlibs-datastructure-core
+	url = git@github.com:korlibs/korlibs-datastructure-core.git
+[submodule "korlibs-memory"]
+	path = korlibs-memory
+	url = git@github.com:korlibs/korlibs-memory.git
+[submodule "korlibs-math-core"]
+	path = korlibs-math-core
+	url = git@github.com:korlibs/korlibs-math-core.git
+[submodule "korlibs-logger"]
+	path = korlibs-logger
+	url = git@github.com:korlibs/korlibs-logger.git
+[submodule "korlibs-encoding"]
+	path = korlibs-encoding
+	url = git@github.com:korlibs/korlibs-encoding.git
+[submodule "korlibs-number"]
+	path = korlibs-number
+	url = git@github.com:korlibs/korlibs-number.git
+[submodule "korlibs-string"]
+	path = korlibs-string
+	url = git@github.com:korlibs/korlibs-string.git
+[submodule "korlibs-time"]
+	path = korlibs-time
+	url = git@github.com:korlibs/korlibs-time.git
+[submodule "korlibs-inject"]
+	path = korlibs-inject
+	url = git@github.com:korlibs/korlibs-inject.git
+[submodule "korlibs-checksum"]
+	path = korlibs-checksum
+	url = git@github.com:korlibs/korlibs-checksum.git
+[submodule "korlibs-library-template"]
+	path = korlibs-library-template
+	url = git@github.com:korlibs/korlibs-library-template.git
+[submodule "korlibs-platform"]
+	path = korlibs-platform
+	url = git@github.com:korlibs/korlibs-platform.git
+[submodule "korlibs-io-fs"]
+	path = korlibs-io-fs
+	url = git@github.com:korlibs/korlibs-io-fs.git
