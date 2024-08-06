@@ -1,105 +1,140 @@
 [submodule "korlibs-annotations"]
 	path = korlibs-annotations
 	url = git@github.com:korlibs/korlibs-annotations.git
+	branch = main
 [submodule "korlibs-bignumber"]
 	path = korlibs-bignumber
 	url = git@github.com:korlibs/korlibs-bignumber.git
+	branch = main
 [submodule "korlibs-ffi"]
 	path = korlibs-ffi
 	url = git@github.com:korlibs/korlibs-ffi.git
+	branch = main
 [submodule "korlibs-audio-core"]
 	path = korlibs-audio-core
 	url = git@github.com:korlibs/korlibs-audio-core.git
+	branch = main
 [submodule "korlibs-audio"]
 	path = korlibs-audio
 	url = git@github.com:korlibs/korlibs-audio.git
+	branch = main
 [submodule "korlibs-image"]
 	path = korlibs-image
 	url = git@github.com:korlibs/korlibs-image.git
+	branch = main
 [submodule "korlibs-io-network-core"]
 	path = korlibs-io-network-core
 	url = git@github.com:korlibs/korlibs-io-network-core.git
+	branch = main
 [submodule "korlibs-io"]
 	path = korlibs-io
 	url = git@github.com:korlibs/korlibs-io.git
+	branch = main
 [submodule "korlibs-wasm"]
 	path = korlibs-wasm
 	url = git@github.com:korlibs/korlibs-wasm.git
+	branch = main
 [submodule "korlibs-io-vfs"]
 	path = korlibs-io-vfs
 	url = git@github.com:korlibs/korlibs-io-vfs.git
+	branch = main
 [submodule "korlibs-compression"]
 	path = korlibs-compression
 	url = git@github.com:korlibs/korlibs-compression.git
+	branch = main
 [submodule "korlibs-image-core"]
 	path = korlibs-image-core
 	url = git@github.com:korlibs/korlibs-image-core.git
+	branch = main
 [submodule "korlibs-io-stream"]
 	path = korlibs-io-stream
 	url = git@github.com:korlibs/korlibs-io-stream.git
+	branch = main
 [submodule "korlibs-math"]
 	path = korlibs-math
 	url = git@github.com:korlibs/korlibs-math.git
+	branch = main
 [submodule "korlibs-jseval"]
 	path = korlibs-jseval
 	url = git@github.com:korlibs/korlibs-jseval.git
+	branch = main
 [submodule "korlibs-dyn"]
 	path = korlibs-dyn
 	url = git@github.com:korlibs/korlibs-dyn.git
+	branch = main
 [submodule "korlibs-math-vector"]
 	path = korlibs-math-vector
 	url = git@github.com:korlibs/korlibs-math-vector.git
+	branch = main
 [submodule "korlibs-datastructure"]
 	path = korlibs-datastructure
 	url = git@github.com:korlibs/korlibs-datastructure.git
+	branch = main
 [submodule "korlibs-concurrent"]
 	path = korlibs-concurrent
 	url = git@github.com:korlibs/korlibs-concurrent.git
+	branch = main
 [submodule "korlibs-serialization"]
 	path = korlibs-serialization
 	url = git@github.com:korlibs/korlibs-serialization.git
+	branch = main
 [submodule "korlibs-template"]
 	path = korlibs-template
 	url = git@github.com:korlibs/korlibs-template.git
+	branch = main
 [submodule "korlibs-crypto"]
 	path = korlibs-crypto
 	url = git@github.com:korlibs/korlibs-crypto.git
+	branch = main
 [submodule "korlibs-datastructure-core"]
 	path = korlibs-datastructure-core
 	url = git@github.com:korlibs/korlibs-datastructure-core.git
+	branch = main
 [submodule "korlibs-memory"]
 	path = korlibs-memory
 	url = git@github.com:korlibs/korlibs-memory.git
+	branch = main
 [submodule "korlibs-math-core"]
 	path = korlibs-math-core
 	url = git@github.com:korlibs/korlibs-math-core.git
+	branch = main
 [submodule "korlibs-logger"]
 	path = korlibs-logger
 	url = git@github.com:korlibs/korlibs-logger.git
+	branch = main
 [submodule "korlibs-encoding"]
 	path = korlibs-encoding
 	url = git@github.com:korlibs/korlibs-encoding.git
+	branch = main
 [submodule "korlibs-number"]
 	path = korlibs-number
 	url = git@github.com:korlibs/korlibs-number.git
+	branch = main
 [submodule "korlibs-string"]
 	path = korlibs-string
 	url = git@github.com:korlibs/korlibs-string.git
+	branch = main
 [submodule "korlibs-time"]
 	path = korlibs-time
 	url = git@github.com:korlibs/korlibs-time.git
+	branch = main
 [submodule "korlibs-inject"]
 	path = korlibs-inject
 	url = git@github.com:korlibs/korlibs-inject.git
+	branch = main
 [submodule "korlibs-checksum"]
 	path = korlibs-checksum
 	url = git@github.com:korlibs/korlibs-checksum.git
+	branch = main
 [submodule "korlibs-library-template"]
 	path = korlibs-library-template
 	url = git@github.com:korlibs/korlibs-library-template.git
+	branch = main
 [submodule "korlibs-platform"]
 	path = korlibs-platform
 	url = git@github.com:korlibs/korlibs-platform.git
+	branch = main
 [submodule "korlibs-io-fs"]
 	path = korlibs-io-fs
 	url = git@github.com:korlibs/korlibs-io-fs.git
+	branch = main
