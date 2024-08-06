@@ -4,6 +4,8 @@ fun syncFiles(srcDir: File, dstDir: File, names: List<String>) {
     }
 }
 
+val templateFolder = file("korlibs-library-template")
+
 tasks {
     val sync by creating {
         doLast {
@@ -25,10 +27,10 @@ tasks {
     }
     val update by creating {
         doLast {
-            //for (folder in rootDir.listFiles() ?: arrayOf()) {
-            for (folder in listOf(file("korlibs-inject"))) {
+            for (folder in rootDir.listFiles() ?: arrayOf()) {
+            //for (folder in listOf(file("korlibs-logger"))) {
                 if (!File(folder, ".git").isFile) continue
-                if (folder.name == "korlibs-template") continue
+                if (folder.name == templateFolder.name) continue
 
                 fun execSimple(vararg args: String) {
                     exec {
@@ -41,14 +43,11 @@ tasks {
                 execSimple("git", "reset", "--hard")
                 execSimple("git", "checkout", "main")
 
-                try {
-                    execSimple("git", "checkout", "-b", "soywiz/codecov.kover.binary.compatibility")
-                } catch (e: Throwable) {
-
-                }
+                kotlin.runCatching { execSimple("git", "branch", "--delete", "soywiz/codecov.kover.binary.compatibility") }
+                kotlin.runCatching { execSimple("git", "checkout", "-b", "soywiz/codecov.kover.binary.compatibility") }
                 execSimple("git", "checkout", "soywiz/codecov.kover.binary.compatibility")
                 syncFiles(
-                    file("korlibs-template"), folder, listOf(
+                    templateFolder, folder, listOf(
                         "build.gradle.kts",
                         "settings.gradle.kts",
                         ".github",
@@ -58,7 +57,7 @@ tasks {
                 try {
                     execSimple("git", "add", "-A")
                     execSimple("git", "commit", "-m", "Update template: codecov + kover + binary compatibility")
-                    execSimple("git", "push", "--set-upstream", "origin", "soywiz/codecov.kover.binary.compatibility")
+                    execSimple("git", "push", "--force", "--set-upstream", "origin", "soywiz/codecov.kover.binary.compatibility")
                 } catch (e: Throwable) {
                     System.err.println("FAILED to push changes: ${e.message}")
                 }
