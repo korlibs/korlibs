@@ -28,7 +28,7 @@ tasks {
     val update by creating {
         doLast {
             for (folder in rootDir.listFiles() ?: arrayOf()) {
-            //for (folder in listOf(file("korlibs-logger"))) {
+            //for (folder in listOf(file("korlibs-memory"))) {
                 if (!File(folder, ".git").isFile) continue
                 if (folder.name == templateFolder.name) continue
 
@@ -43,7 +43,7 @@ tasks {
                 execSimple("git", "reset", "--hard")
                 execSimple("git", "checkout", "main")
 
-                kotlin.runCatching { execSimple("git", "branch", "--delete", "soywiz/codecov.kover.binary.compatibility") }
+                //kotlin.runCatching { execSimple("git", "branch", "--delete", "soywiz/codecov.kover.binary.compatibility") }
                 kotlin.runCatching { execSimple("git", "checkout", "-b", "soywiz/codecov.kover.binary.compatibility") }
                 execSimple("git", "checkout", "soywiz/codecov.kover.binary.compatibility")
                 syncFiles(
