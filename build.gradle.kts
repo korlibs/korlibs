@@ -2,7 +2,10 @@ val templateFolder = file("korlibs-library-template")
 
 fun syncFiles(srcDir: File, dstDir: File, names: List<String>) {
     for (name in names) {
-        File(srcDir, name).copyRecursively(File(dstDir, name), overwrite = true)
+        val src = File(srcDir, name)
+        val dst = File(dstDir, name)
+        dst.deleteRecursively()
+        src.copyRecursively(dst, overwrite = true)
     }
 }
 
@@ -95,10 +98,13 @@ tasks {
                 println("!!!!!!!!! $folder")
                 folder.execSimple("git", "reset", "--hard")
                 folder.execSimple("git", "checkout", "main")
+                folder.execSimple("git", "pull")
 
-                //kotlin.runCatching { execSimple("git", "branch", "--delete", "soywiz/codecov.kover.binary.compatibility") }
-                kotlin.runCatching { folder.execSimple("git", "checkout", "-b", "soywiz/codecov.kover.binary.compatibility") }
-                folder.execSimple("git", "checkout", "soywiz/codecov.kover.binary.compatibility")
+                val branchName = "soywiz/update.template"
+
+                kotlin.runCatching { folder.execSimple("git", "branch", "--delete", branchName) }
+                kotlin.runCatching { folder.execSimple("git", "checkout", "-b", branchName) }
+                folder.execSimple("git", "checkout", branchName)
                 syncFiles(
                     templateFolder, folder, listOf(
                         "build.gradle.kts",
@@ -109,13 +115,15 @@ tasks {
                 folder.execSimple("./gradlew", "apiDump")
                 try {
                     folder.execSimple("git", "add", "-A")
-                    folder.execSimple("git", "commit", "-m", "Update template: codecov + kover + binary compatibility")
-                    folder.execSimple("git", "push", "--force", "--set-upstream", "origin", "soywiz/codecov.kover.binary.compatibility")
+                    folder.execSimple("git", "commit", "-m", "Update template")
+                    folder.execSimple("git", "push", "--force", "--set-upstream", "origin", branchName)
+                    folder.execSimple("gh", "pr", "create", "--fill")
                 } catch (e: Throwable) {
                     System.err.println("FAILED to push changes: ${e.message}")
                 }
                 folder.execSimple("git", "reset", "--hard")
                 folder.execSimple("git", "checkout", "main")
+                kotlin.runCatching { folder.execSimple("git", "branch", "--delete", branchName) }
             }
         }
     }
