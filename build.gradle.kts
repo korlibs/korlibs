@@ -1,3 +1,7 @@
+import org.apache.tools.ant.taskdefs.condition.*
+import java.text.*
+import java.util.*
+
 val templateFolder = file("korlibs-library-template")
 
 fun syncFiles(srcDir: File, dstDir: File, names: List<String>) {
@@ -33,6 +37,32 @@ fun File.execSimple(vararg args: String) {
         workingDir = this@execSimple
         commandLine(*args)
     }
+}
+
+class ProcessResult(val stdout: ByteArray, val stderr: ByteArray, val exitCode: Int) {
+    val stdoutString by lazy { stdout.decodeToString() }
+    val stderrString by lazy { stderr.decodeToString() }
+
+    override fun toString(): String = "ProcessResult(exitCode=$exitCode, stdout=$stdoutString, stderr=$stderrString)"
+}
+fun File.execCapture(vararg args: String): ProcessResult {
+    val p = ProcessBuilder(*args).directory(this.absoluteFile).start()
+    return ProcessResult(
+        p.inputStream.readBytes(),
+        p.errorStream.readBytes(),
+        p.exitValue()
+    )
+}
+
+fun expectFail(message: String, block: () -> Unit) {
+    var failed: Boolean
+    try {
+        block()
+        failed = false
+    } catch (e: Throwable) {
+        failed = true
+    }
+    if (!failed) error("Expected to fail but didn't : $message")
 }
 
 tasks {
@@ -94,36 +124,56 @@ tasks {
     }
     val update by creating {
         doLast {
+            val branchName = "soywiz/update.template.${SimpleDateFormat("YYYY-MM-dd").format(Date())}"
+
             for (folder in libs) {
                 println("!!!!!!!!! $folder")
-                folder.execSimple("git", "reset", "--hard")
-                folder.execSimple("git", "checkout", "main")
-                folder.execSimple("git", "pull")
+                val remoteBranch = folder.execCapture("git", "ls-remote", "--heads", "origin", "refs/heads/$branchName").stdoutString.trim()
 
-                val branchName = "soywiz/update.template"
-
-                kotlin.runCatching { folder.execSimple("git", "branch", "--delete", branchName) }
-                kotlin.runCatching { folder.execSimple("git", "checkout", "-b", branchName) }
-                folder.execSimple("git", "checkout", branchName)
-                syncFiles(
-                    templateFolder, folder, listOf(
-                        "build.gradle.kts",
-                        "settings.gradle.kts",
-                        ".github",
-                    )
-                )
-                folder.execSimple("./gradlew", "apiDump")
-                try {
-                    folder.execSimple("git", "add", "-A")
-                    folder.execSimple("git", "commit", "-m", "Update template")
-                    folder.execSimple("git", "push", "--force", "--set-upstream", "origin", branchName)
-                    folder.execSimple("gh", "pr", "create", "--fill")
-                } catch (e: Throwable) {
-                    System.err.println("FAILED to push changes: ${e.message}")
+                if (remoteBranch.isNotEmpty()) {
+                    println(" --> remote branch already created. Skipping: $remoteBranch")
+                    continue
                 }
-                folder.execSimple("git", "reset", "--hard")
-                folder.execSimple("git", "checkout", "main")
-                kotlin.runCatching { folder.execSimple("git", "branch", "--delete", branchName) }
+
+                try {
+                    folder.execSimple("git", "reset", "--hard")
+                    folder.execSimple("git", "checkout", "main")
+                    folder.execSimple("git", "pull")
+
+                    //expectFail("Branch should not exist") { folder.execSimple("git", "checkout", branchName) }
+
+                    kotlin.runCatching { folder.execSimple("git", "branch", "--delete", branchName) }
+                    kotlin.runCatching { folder.execSimple("git", "checkout", "-b", branchName) }
+                    kotlin.runCatching { folder.execSimple("git", "checkout", branchName) }
+                    syncFiles(
+                        templateFolder, folder, listOf(
+                            "build.gradle.kts",
+                            "settings.gradle.kts",
+                            "gradle.properties",
+                            "gradlew",
+                            "gradlew.bat",
+                            "gradle",
+                            "karma.config.d",
+                            ".gitignore",
+                            ".github",
+                        )
+                    )
+
+                    folder.execSimple(if (Os.isFamily(Os.FAMILY_WINDOWS)) "gradlew.bat" else "./gradlew", "apiDump")
+                    try {
+                        folder.execSimple("git", "add", "-A")
+                        folder.execSimple("git", "commit", "-m", "Update template")
+                        folder.execSimple("git", "push", "--force", "--set-upstream", "origin", branchName)
+                        folder.execSimple("gh", "pr", "create", "--fill")
+                    } catch (e: Throwable) {
+                        System.err.println("FAILED to push changes: ${e.message}")
+                    }
+                    folder.execSimple("git", "reset", "--hard")
+                    folder.execSimple("git", "checkout", "main")
+                    kotlin.runCatching { folder.execSimple("git", "branch", "--delete", branchName) }
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
             }
         }
     }
