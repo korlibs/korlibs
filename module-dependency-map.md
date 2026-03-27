@@ -46,43 +46,48 @@ Legend: module -> internal korlibs dependencies (with dependency type and source
 
 ## Reverse Dependencies
 
-This section lists the reverse dependencies of each module, grouped by "levels". Level 1 modules have no internal korlibs dependencies,
-while higher level modules depend on lower level modules. The levels are determined by the longest path from a module to a leaf module
-(a module with no dependencies).
+This section lists the reverse dependencies of each module, grouped by "levels". Level 1 modules have no internal korlibs
+dependencies, while higher level modules depend on lower level modules. The levels are determined by the longest path from
+a module to a leaf module (a module with no dependencies). Only non-test (main) dependencies determine the level.
 
-Legend: dependency <- used by modules
+Legend: `dependency` <- used by modules (*(test only)* = only a test-scope dependency)
 
 ### Level 1
 
 - `korlibs-annotations` <- `korlibs-audio`, `korlibs-ffi-legacy`, `korlibs-image-core`, `korlibs-io-network-core`, `korlibs-time-core`
+- `korlibs-bignumber`
 - `korlibs-checksum` <- `korlibs-compression`, `korlibs-image`, `korlibs-io`
 - `korlibs-datastructure-core` <- `korlibs-compression`, `korlibs-concurrent`, `korlibs-datastructure`, `korlibs-dyn`, `korlibs-io-stream`, `korlibs-serialization`
 - `korlibs-encoding` <- `korlibs-crypto`, `korlibs-image`, `korlibs-io`
-- `korlibs-io` <- `korlibs-audio`, `korlibs-image`, `korlibs-io-nodejs`, `korlibs-wasm`
-- `korlibs-math` <- `korlibs-image`
+- `korlibs-ffi`
+- `korlibs-ffi-ksp`
+- `korlibs-inject`
+- `korlibs-memory` <- `korlibs-ffi-legacy`, `korlibs-io`, `korlibs-io-stream`, `korlibs-wasm`
 - `korlibs-number` <- `korlibs-io`, `korlibs-math`, `korlibs-math-core`
-- `korlibs-platform` <- `korlibs-audio-core`, `korlibs-concurrent`, `korlibs-datastructure`, `korlibs-ffi-legacy`, `korlibs-image`, `korlibs-io`, `korlibs-io-fs`,
-                        `korlibs-io-network-core`, `korlibs-io-nodejs`, `korlibs-io-stream`, `korlibs-io-vfs`, `korlibs-jseval`, `korlibs-logger`, `korlibs-math`,
-                        `korlibs-math-core`, `korlibs-math-vector`, `korlibs-memory`, `korlibs-serialization`, `korlibs-string`, `korlibs-template`, `korlibs-wasm`
-- `korlibs-time-core` <- `korlibs-audio`, `korlibs-concurrent`, `korlibs-datastructure`, `korlibs-io`, `korlibs-io-vfs`, `korlibs-time`
+- `korlibs-platform` <- `korlibs-audio-core`, `korlibs-concurrent`, `korlibs-ffi-legacy`, `korlibs-image`, `korlibs-io`, `korlibs-io-fs`, `korlibs-io-network-core`,
+                        `korlibs-io-nodejs`, `korlibs-io-stream`, `korlibs-io-vfs`, `korlibs-jseval`, `korlibs-logger`, `korlibs-math`, `korlibs-math-core`,
+                        `korlibs-math-vector`, `korlibs-serialization`, `korlibs-string`, `korlibs-template`, `korlibs-wasm`, `korlibs-datastructure` *(test only)*,
+                        `korlibs-memory` *(test only)*
+- `korlibs-simple`
 
 ### Level 2
 
-- `korlibs-concurrent` <- `korlibs-audio`, `korlibs-compression`, `korlibs-datastructure`, `korlibs-ffi-legacy`, `korlibs-io-vfs`, `korlibs-jseval`
 - `korlibs-crypto` <- `korlibs-io`
 - `korlibs-dyn` <- `korlibs-image`, `korlibs-io`
 - `korlibs-logger` <- `korlibs-audio`, `korlibs-io`, `korlibs-io-network-core`, `korlibs-wasm`
 - `korlibs-math-core` <- `korlibs-audio`, `korlibs-audio-core`, `korlibs-compression`, `korlibs-image`, `korlibs-io`, `korlibs-io-stream`, `korlibs-math`,
                          `korlibs-math-vector`, `korlibs-serialization`, `korlibs-wasm`
-- `korlibs-memory` <- `korlibs-ffi-legacy`, `korlibs-io`, `korlibs-io-stream`, `korlibs-wasm`
 - `korlibs-string` <- `korlibs-image`, `korlibs-io`, `korlibs-io-stream`, `korlibs-io-vfs`, `korlibs-serialization`, `korlibs-template`
-- `korlibs-time` <- `korlibs-io`, `korlibs-io-fs`, `korlibs-io-nodejs`, `korlibs-io-stream`, `korlibs-io-vfs`, `korlibs-jseval`
+- `korlibs-time-core` <- `korlibs-audio`, `korlibs-concurrent`, `korlibs-datastructure`, `korlibs-io`, `korlibs-io-vfs`, `korlibs-time`
 
 ### Level 3
 
+- `korlibs-concurrent` <- `korlibs-audio`, `korlibs-compression`, `korlibs-datastructure`, `korlibs-ffi-legacy`, `korlibs-io-vfs`, `korlibs-jseval`
 - `korlibs-io-stream` <- `korlibs-compression`, `korlibs-io`, `korlibs-io-fs`, `korlibs-io-network-core`, `korlibs-io-vfs`
 - `korlibs-math-vector` <- `korlibs-audio`, `korlibs-audio-core`, `korlibs-datastructure`, `korlibs-math`
 - `korlibs-serialization` <- `korlibs-image`, `korlibs-io`, `korlibs-jseval`, `korlibs-template`, `korlibs-wasm`
+- `korlibs-time` <- `korlibs-io` *(test only)*, `korlibs-io-fs` *(test only)*, `korlibs-io-nodejs` *(test only)*, `korlibs-io-stream` *(test only)*,
+                    `korlibs-io-vfs` *(test only)*, `korlibs-jseval` *(test only)*
 
 ### Level 4
 
@@ -90,15 +95,24 @@ Legend: dependency <- used by modules
 - `korlibs-datastructure` <- `korlibs-ffi-legacy`, `korlibs-io`, `korlibs-io-network-core`, `korlibs-math`, `korlibs-wasm`
 - `korlibs-io-fs` <- `korlibs-audio-core`, `korlibs-ffi-legacy`, `korlibs-io`, `korlibs-io-vfs`
 - `korlibs-jseval` <- `korlibs-io`
+- `korlibs-template`
 
 ### Level 5
 
 - `korlibs-ffi-legacy` <- `korlibs-audio`, `korlibs-audio-core`, `korlibs-image`, `korlibs-io`
 - `korlibs-io-network-core` <- `korlibs-io`
 - `korlibs-io-vfs` <- `korlibs-audio`, `korlibs-image`, `korlibs-io`
+- `korlibs-math` <- `korlibs-image`
 - `korlibs-wasm` <- `korlibs-image`, `korlibs-image-core`
 
 ### Level 6
 
 - `korlibs-audio-core` <- `korlibs-audio`
 - `korlibs-image-core` <- `korlibs-image`
+- `korlibs-io` <- `korlibs-image`, `korlibs-io-nodejs`, `korlibs-audio` *(test only)*, `korlibs-wasm` *(test only)*
+
+### Level 7
+
+- `korlibs-audio` ← **end of chain** (nothing depends on it)
+- `korlibs-image` ← **end of chain** (nothing depends on it)
+- `korlibs-io-nodejs` ← **end of chain** (nothing depends on it)
