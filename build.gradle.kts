@@ -109,7 +109,7 @@ tasks {
                     // Add badges after the first heading line or at the end of the file
                     if (readmeText.startsWith("#")) {
                         val lines = readmeText.lines()
-                        "" + lines.first + "\n\n" + badgesForLibrary(folder.name) + "\n\n" + lines.drop(1).joinToString("\n")
+                        "" + lines.first() + "\n\n" + badgesForLibrary(folder.name) + "\n\n" + lines.drop(1).joinToString("\n")
                     } else {
                         readmeText + "\n\n" + badgesForLibrary(folder.name)
                     }.trimEnd() + "\n"
