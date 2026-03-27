@@ -7,10 +7,10 @@ For the old korlibs repo: <https://github.com/korlibs/korlibs-all>
 
 ## Usage
 
-Modules are published to Maven Central under the `com.soywiz` group.
+Modules are published to Maven Central under the `org.korge` group.
 
 For example, you can use `korlibs-crypto` as follows (replacing `X.X.X` with the latest release):
 
 ```kotlin
-implementation("com.soywiz:korlibs-crypto:X.X.X")
+implementation("org.korge:korlibs-crypto:X.X.X")
 ```
