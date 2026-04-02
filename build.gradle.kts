@@ -18,7 +18,7 @@ fun badgesForLibrary(lib: String): String {
         <!-- BADGES -->
         [![test](https://github.com/korlibs/$lib/actions/workflows/TEST.yml/badge.svg)](https://github.com/korlibs/$lib/actions/workflows/TEST.yml)
         [![codecov](https://codecov.io/gh/korlibs/$lib/graph/badge.svg)](https://codecov.io/gh/korlibs/$lib)
-        [![Maven Central Version](https://img.shields.io/maven-central/v/com.soywiz/$lib)](https://central.sonatype.com/artifact/com.soywiz/$lib)
+        [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/$lib)](https://central.sonatype.com/artifact/org.korge/$lib)
         [![Discord](https://img.shields.io/discord/728582275884908604?logo=discord&label=Discord)](https://discord.korge.org/)
         [![KDoc](https://img.shields.io/badge/docs-kdoc-blue)](https://korlibs.github.io/$lib/)
         [![Documentation](https://img.shields.io/badge/docs-documentation-purple)](https://docs.korge.org/${lib.removePrefix("korlibs-")}/)
@@ -31,6 +31,17 @@ val libsIncludingTemplate = (rootDir.listFiles() ?: arrayOf())
 
 val libs = libsIncludingTemplate
     .filter { it.name != templateFolder.name }
+
+val specificLibs = (rootDir.listFiles() ?: arrayOf())
+    .filter {
+//            it.name == "korlibs-datastructure-core"
+//            it.name == "korlibs-encoding"
+            it.name == "korlibs-ffi" ||
+            it.name == "korlibs-ffi-ksp"
+//            it.name == "korlibs-inject" ||
+//            it.name == "korlibs-memory" ||
+//            it.name == "korlibs-number"
+    }
 
 fun File.execSimple(vararg args: String) {
     exec {
@@ -66,7 +77,7 @@ fun expectFail(message: String, block: () -> Unit) {
 }
 
 tasks {
-    val sync by creating {
+    val sync by registering { ->
         doLast {
             for (folder in libsIncludingTemplate) {
                 println("!!!!!!!!! $folder")
@@ -76,7 +87,7 @@ tasks {
             }
         }
     }
-    val copyKarmaFolder by creating {
+    val copyKarmaFolder by registering { ->
         doLast {
             for (folder in libsIncludingTemplate) {
                 println("!!!!!!!!! $folder")
@@ -91,7 +102,7 @@ tasks {
             }
         }
     }
-    val updateBadges by creating {
+    val updateBadges by registering {
         doLast {
             for (folder in libsIncludingTemplate) {
                 println("!!!!!!!!! $folder")
@@ -122,9 +133,102 @@ tasks {
             }
         }
     }
-    val update by creating {
+    val updateSpecificLibs by registering {
         doLast {
-            val branchName = "soywiz/update.template.${SimpleDateFormat("YYYY-MM-dd").format(Date())}"
+            val branchName = "jobe/update-kotlin-version-and-move-publishing-to-org.korge"
+//            val branchName = "jobe/update-badge-for-lib"
+
+            for (folder in specificLibs) {
+                println("!!!!!!!!! $folder")
+
+                try {
+                    val remoteBranch = folder.execCapture("git", "ls-remote", "--heads", "origin", "refs/heads/$branchName").stdoutString.trim()
+
+                    if (remoteBranch.isNotEmpty()) {
+                        println(" --> remote branch already created. Skipping: $remoteBranch")
+                        continue
+                    }
+
+                    folder.execSimple("git", "reset", "--hard")
+                    folder.execSimple("git", "checkout", "main")
+                    folder.execSimple("git", "pull")
+
+                    kotlin.runCatching { folder.execSimple("git", "branch", "--delete", branchName) }
+                    kotlin.runCatching { folder.execSimple("git", "checkout", "-b", branchName) }
+                    kotlin.runCatching { folder.execSimple("git", "checkout", branchName) }
+
+                    syncFiles(
+                        templateFolder, folder, listOf(
+                            "build.gradle.kts",
+                            "settings.gradle.kts",
+                            "gradle.properties",
+                            "gradlew",
+                            "gradlew.bat",
+                            "gradle",
+                            "karma.config.d",
+                            ".gitignore",
+                            ".github",
+                        )
+                    )
+
+                    // Sync specific files in lib module folder
+                    val templateLibModuleFolder = templateFolder.resolve("korlibs-simple")
+                    val libModuleFolder = folder.resolve(folder.name)
+                    syncFiles(
+                        templateLibModuleFolder, libModuleFolder, listOf(
+                            "build.gradle",
+                        )
+                    )
+
+                    // Patch DOCS workflow with the correct module name
+                    val docsFile = File(folder, ".github/workflows/DOCS.yml")
+                    val docsText = docsFile.readText()
+                    val newDocsText = docsText.replace("<KORLIBS-MODULENAME>", folder.name)
+                    docsFile.writeText(newDocsText)
+
+                    // Update badges in README.md
+                    val readmeMdFile = File(folder, "README.md")
+                    val readmeText = readmeMdFile.readText()
+                    val newReadmeText = readmeText.replace(
+                        Regex("<!-- BADGES -->(.*)<!-- /BADGES -->", RegexOption.DOT_MATCHES_ALL),
+                        badgesForLibrary(folder.name)
+                    )
+                    readmeMdFile.writeText(newReadmeText)
+
+                    folder.execSimple(if (Os.isFamily(Os.FAMILY_WINDOWS)) "gradlew.bat" else "./gradlew", "apiDump")
+
+                    try {
+                        folder.execSimple("git", "add", "-A")
+                        folder.execSimple("git", "commit", "-m",
+                            """
+                            Move publishing to org.korge and update Kotlin dependencies to 2.3.20
+                            
+                            - Toolchain was updated: Kotlin 2.3.20, AGP 8.13.1, Dokka 2.1.0, Gradle 8.14.4
+                            - Custom Sonatype staging/release logic was replaced with
+                              com.vanniktech.maven.publish for signing + Central Portal publishing
+                            - Namespace on maven central was changed to "org.korge" and Maven Central
+                              badge in README.md was updated
+                            - GitHub Actions workflows were refreshed (Java 21, updated actions versions,
+                              new publish and dokka tasks, optional yarn lock upgrade)
+                            - API check was updated
+                            """.trimIndent()
+                        )
+                        folder.execSimple("git", "push", "--force", "--set-upstream", "origin", branchName)
+                        folder.execSimple("gh", "pr", "create", "--fill")
+                    } catch (e: Throwable) {
+                        System.err.println("FAILED to push changes: ${e.message}")
+                    }
+
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
+
+    val updateFromTemplateFolder by registering {
+        doLast {
+            val branchName = "jobe/update-from-template.${SimpleDateFormat("YYYY-MM-dd").format(Date())}"
 
             for (folder in libs) {
                 println("!!!!!!!!! $folder")
