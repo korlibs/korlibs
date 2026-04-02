@@ -34,13 +34,24 @@ val libs = libsIncludingTemplate
 
 val specificLibs = (rootDir.listFiles() ?: arrayOf())
     .filter {
-//            it.name == "korlibs-datastructure-core"
-//            it.name == "korlibs-encoding"
-            it.name == "korlibs-ffi" ||
-            it.name == "korlibs-ffi-ksp"
+        // Level 1
+//            it.name == "korlibs-annotations" ||
+//            it.name == "korlibs-bignumber" ||
+//            it.name == "korlibs-checksum" ||
+//            it.name == "korlibs-datastructure-core" ||
+//            it.name == "korlibs-encoding" ||
 //            it.name == "korlibs-inject" ||
-//            it.name == "korlibs-memory" ||
 //            it.name == "korlibs-number"
+//            it.name == "korlibs-platform"
+
+        // Level 2
+//            it.name == "korlibs-crypto"
+            it.name == "korlibs-dyn"
+//            it.name == "korlibs-logger"
+//            it.name == "korlibs-math-core"
+//            it.name == "korlibs-memory"
+//            it.name == "korlibs-string"
+//            it.name == "korlibs-time-core"
     }
 
 fun File.execSimple(vararg args: String) {
@@ -136,14 +147,13 @@ tasks {
     val updateSpecificLibs by registering {
         doLast {
             val branchName = "jobe/update-kotlin-version-and-move-publishing-to-org.korge"
-//            val branchName = "jobe/update-badge-for-lib"
 
             for (folder in specificLibs) {
                 println("!!!!!!!!! $folder")
 
                 try {
                     val remoteBranch = folder.execCapture("git", "ls-remote", "--heads", "origin", "refs/heads/$branchName").stdoutString.trim()
-
+//*
                     if (remoteBranch.isNotEmpty()) {
                         println(" --> remote branch already created. Skipping: $remoteBranch")
                         continue
@@ -196,7 +206,7 @@ tasks {
                     readmeMdFile.writeText(newReadmeText)
 
                     folder.execSimple(if (Os.isFamily(Os.FAMILY_WINDOWS)) "gradlew.bat" else "./gradlew", "apiDump")
-
+// */
                     try {
                         folder.execSimple("git", "add", "-A")
                         folder.execSimple("git", "commit", "-m",
@@ -212,6 +222,8 @@ tasks {
                               new publish and dokka tasks, optional yarn lock upgrade)
                             - API check was updated
                             """.trimIndent()
+//                            - Update korlibs dependencies: org.korge:korlibs-encoding:6.1.0
+//                            - Update dependencies: atomicfu 0.32.1, korlibs-platform 6.1.0
                         )
                         folder.execSimple("git", "push", "--force", "--set-upstream", "origin", branchName)
                         folder.execSimple("gh", "pr", "create", "--fill")
