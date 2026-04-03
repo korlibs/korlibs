@@ -205,8 +205,16 @@ tasks {
                     )
                     readmeMdFile.writeText(newReadmeText)
 
+                    // Update com.soywiz to org.korge in dependency files
+                    val moduleFile = File(folder, "${folder.name}/module.yaml")
+                    val moduleText = moduleFile.readText()
+                    var newModuleText = moduleText.replace("com.soywiz", "org.korge")  // Update namespace for all dependencies
+                    newModuleText = newModuleText.replace("6.0.0", "6.1.0")  // Update version for all dependencies
+                    moduleFile.writeText(newModuleText)
+
                     folder.execSimple(if (Os.isFamily(Os.FAMILY_WINDOWS)) "gradlew.bat" else "./gradlew", "apiDump")
 // */
+
                     try {
                         folder.execSimple("git", "add", "-A")
                         folder.execSimple("git", "commit", "-m",
@@ -221,12 +229,12 @@ tasks {
                             - GitHub Actions workflows were refreshed (Java 21, updated actions versions,
                               new publish and dokka tasks, optional yarn lock upgrade)
                             - API check was updated
+                            - Update korlibs dependencies: org.korge:korlibs-datastrcture-core:6.1.0
                             """.trimIndent()
-//                            - Update korlibs dependencies: org.korge:korlibs-encoding:6.1.0
 //                            - Update dependencies: atomicfu 0.32.1, korlibs-platform 6.1.0
                         )
-                        folder.execSimple("git", "push", "--force", "--set-upstream", "origin", branchName)
-                        folder.execSimple("gh", "pr", "create", "--fill")
+//                        folder.execSimple("git", "push", "--force", "--set-upstream", "origin", branchName)
+//                        folder.execSimple("gh", "pr", "create", "--fill")
                     } catch (e: Throwable) {
                         System.err.println("FAILED to push changes: ${e.message}")
                     }
