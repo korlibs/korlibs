@@ -1,7 +1,22 @@
 package korlibs.memory
 
-import korlibs.memory.wasm.*
-import org.khronos.webgl.*
+import korlibs.memory.wasm.toByteArray
+import org.khronos.webgl.ArrayBuffer
+import org.khronos.webgl.Float32Array
+import org.khronos.webgl.Float64Array
+import org.khronos.webgl.Int16Array
+import org.khronos.webgl.Int32Array
+import org.khronos.webgl.Int8Array
+import org.khronos.webgl.Uint32Array
+import org.khronos.webgl.Uint8Array
+import org.khronos.webgl.Uint8ClampedArray
+import org.khronos.webgl.get
+import org.khronos.webgl.set
+import org.khronos.webgl.toDoubleArray
+import org.khronos.webgl.toFloatArray
+import org.khronos.webgl.toInt8Array
+import org.khronos.webgl.toIntArray
+import org.khronos.webgl.toShortArray
 
 private val isLittleEndian: Boolean = Uint8Array(Uint32Array(1).also { it[0] = 0x11223344 }.buffer)[0].toInt() == 0x44
 

@@ -6,7 +6,7 @@ actual val JSEval = object : IJSEval {
     override val globalThis: Any? get() = engine?.eval("globalThis")
     override val available: Boolean by lazy {
         (engine != null).also {
-            //if (!it) println("JSEval: availableEngines=$availableEngines")
+            if (!it) println("JSEval: availableEngines=$availableEngines")
         }
     }
 

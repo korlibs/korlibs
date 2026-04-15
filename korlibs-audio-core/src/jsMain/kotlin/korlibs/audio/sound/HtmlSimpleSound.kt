@@ -1,15 +1,28 @@
 package korlibs.audio.sound
 
-import korlibs.io.lang.*
-import korlibs.memory.*
-import korlibs.time.*
-import kotlinx.browser.*
-import kotlinx.coroutines.*
-import org.khronos.webgl.*
-import org.w3c.dom.*
-import org.w3c.dom.events.*
-import kotlin.coroutines.*
-import kotlin.time.*
+import korlibs.io.lang.Cancellable
+import korlibs.memory.asByteArray
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
+import kotlinx.browser.document
+import kotlinx.browser.window
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.await
+import org.khronos.webgl.ArrayBuffer
+import org.khronos.webgl.Int8Array
+import org.w3c.dom.Audio
+import org.w3c.dom.AudioBuffer
+import org.w3c.dom.AudioContext
+import org.w3c.dom.BaseAudioContext
+import org.w3c.dom.HTMLAudioElement
+import org.w3c.dom.HTMLMediaElement
+import org.w3c.dom.events.Event
+import org.w3c.dom.webkitAudioContext
+import org.w3c.fetch.DEFAULT
+import org.w3c.fetch.RequestCache
+import org.w3c.fetch.RequestInit
 
 val AudioBuffer.durationOrNull: Double? get() = duration.takeIf { !it.isNaN() }
 val HTMLMediaElement.durationOrNull: Double? get() = duration.takeIf { !it.isNaN() }

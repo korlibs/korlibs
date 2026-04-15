@@ -1,9 +1,14 @@
 package korlibs.io.lang
 
-import korlibs.wasm.*
-import kotlinx.coroutines.*
-import org.khronos.webgl.*
+import korlibs.wasm.eval
+import korlibs.wasm.jsArrayOf
+import korlibs.wasm.jsGlobal
+import korlibs.wasm.jsObjectGet
 import kotlin.js.Promise
+import kotlinx.coroutines.await
+import org.khronos.webgl.Int8Array
+import org.khronos.webgl.get
+import org.khronos.webgl.set
 
 class ExternalJsException(val e: Any?) : Throwable("Error evaluating JS: $e")
 

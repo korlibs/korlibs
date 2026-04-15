@@ -13,6 +13,6 @@ internal interface TestMathFFI : AutoCloseable {
     fun remove(file: String)
 
     companion object : TestMathFFI by TestMathFFI() {
-        operator fun invoke(): TestMathFFI = TODO()
+        operator fun invoke(): TestMathFFI = TestMathFFI_FFIImpl()
     }
 }

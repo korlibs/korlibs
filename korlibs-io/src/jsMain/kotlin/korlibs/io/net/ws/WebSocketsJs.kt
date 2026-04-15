@@ -1,10 +1,15 @@
 package korlibs.io.net.ws
 
-import korlibs.io.async.*
+import korlibs.io.async.waitOne
 import korlibs.io.net.http.Http
-import korlibs.io.util.*
+import korlibs.io.util.toByteArray
 import org.khronos.webgl.ArrayBuffer
-import org.w3c.dom.*
+import org.khronos.webgl.toInt8Array
+import org.w3c.dom.ARRAYBUFFER
+import org.w3c.dom.BinaryType
+import org.w3c.dom.CloseEvent
+import org.w3c.dom.MessageEvent
+import org.w3c.dom.WebSocket
 
 actual suspend fun WebSocketClient(
 	url: String,

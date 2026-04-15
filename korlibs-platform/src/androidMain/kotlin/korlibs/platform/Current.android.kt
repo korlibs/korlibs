@@ -1,7 +1,7 @@
 package korlibs.platform
 
 import android.os.*
-import korlibs.korlibs_platform.*
+import korlibs.platform.*
 import java.nio.*
 
 internal actual val currentOs: Os = Os.ANDROID
@@ -29,7 +29,7 @@ internal actual val currentArch: Arch by lazy {
     return@lazy Arch.UNKNOWN
 }
 
-internal actual val currentIsDebug: Boolean get() = BuildConfig.DEBUG
+internal actual val currentIsDebug: Boolean get() = false // TODO Find replacement for BuildConfig.DEBUG
 internal actual val currentIsLittleEndian: Boolean get() = ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN
 
 internal actual val currentRawPlatformName: String = "android-$currentOs-$currentArch-$currentBuildVariant"

@@ -56,24 +56,11 @@ actual val FFI_SUPPORTED: Boolean = true
 actual fun CreateFFIMemory(size: Int): FFIMemory = Memory(size.toLong())
 actual fun CreateFFIMemory(bytes: ByteArray): FFIMemory = Memory(bytes.size.toLong()).also { it.write(0L, bytes, 0, bytes.size) }
 
-val DirectBuffer_addressHandle: MethodHandle by lazy {
-    MethodHandles.lookup().unreflect(Class.forName("sun.nio.ch.DirectBuffer").getDeclaredMethod("address"))
-}
-
 // https://docs.oracle.com/en/java/javase/17/docs/api/jdk.incubator.foreign/jdk/incubator/foreign/MemorySegment.html
 // https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/foreign/MemorySegment.html
 @PublishedApi internal fun ByteBuffer.pointerAddress(): Long {
     check(this.isDirect) { "Buffer needs to be direct" }
-
-    //MemorySegment.ofByteBuffer(this).address().toRawLongValue()
-    //val MemorySegmentClass = Class.forName("jdk.incubator.foreign.MemorySegment")
-    //val MemoryAddressClass = Class.forName("jdk.incubator.foreign.MemoryAddress")
-    //val memorySegment = MemorySegmentClass.getDeclaredMethod("ofByteBuffer").invoke(this)
-    //val memoryAddress = MemorySegmentClass.getDeclaredMethod("address").invoke(memorySegment)
-    //val address = MemoryAddressClass.getMethod("toRawLongValue").invoke(memoryAddress) as Long
-    //return address
-
-    return DirectBuffer_addressHandle.invoke(this) as Long
+    return Pointer.nativeValue(Native.getDirectBufferPointer(this))
 }
 
 actual inline fun <T> FFIMemory.usePointer(block: (pointer: FFIPointer) -> T): T = block(this)

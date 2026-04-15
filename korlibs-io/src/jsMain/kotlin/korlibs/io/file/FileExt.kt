@@ -1,15 +1,20 @@
 package korlibs.io.file
 
-import korlibs.memory.*
-import korlibs.io.stream.*
-import korlibs.io.util.*
-import kotlinx.coroutines.*
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.AsyncStreamBase
+import korlibs.io.stream.buffered
+import korlibs.io.stream.toAsyncStream
+import korlibs.memory.arraycopy
+import kotlin.math.min
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
-import org.khronos.webgl.Int8Array
 import org.khronos.webgl.ArrayBuffer
-import org.w3c.files.*
-import kotlin.math.*
+import org.khronos.webgl.Int8Array
+import org.khronos.webgl.toByteArray
+import org.w3c.files.Blob
+import org.w3c.files.File
+import org.w3c.files.FileReader
 
 fun Blob.openAsync(): AsyncStream = BlobAsyncBaseStream(this).toAsyncStream().buffered(0x10_000, 0x10)
 

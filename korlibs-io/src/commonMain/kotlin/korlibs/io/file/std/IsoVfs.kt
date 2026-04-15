@@ -197,7 +197,7 @@ object ISO {
 					"." -> Unit
 					".." -> current = current.parent!!
 					// @TODO: kotlin-js bug? It doesn't seems to like this somehow.
-					//else -> current = current.children.firstOrNull { it.name.toUpperCase() == part.toUpperCase() } ?: throw kotlin.IllegalStateException("Can't find part $part for accessing path $name children: ${current.children}")
+					//else -> current = current.children.firstOrNull { it.name.uppercase() == part.uppercase() } ?: throw kotlin.IllegalStateException("Can't find part $part for accessing path $name children: ${current.children}")
 					else -> current = current.childrenByName[part.normalizeName()] ?: throw kotlin.IllegalStateException("Can't find part $part for accessing path $name children: ${current.children}")
 				}
 			}

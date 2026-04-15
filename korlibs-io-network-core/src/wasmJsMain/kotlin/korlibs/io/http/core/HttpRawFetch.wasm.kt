@@ -1,14 +1,22 @@
 package korlibs.io.http.core
 
-import korlibs.io.stream.*
-import korlibs.memory.*
-import korlibs.wasm.*
-import kotlinx.coroutines.*
-import org.khronos.webgl.ArrayBuffer
-import org.w3c.fetch.*
+import korlibs.io.stream.AsyncInputStream
+import korlibs.io.stream.openAsync
+import korlibs.io.stream.readAll
+import korlibs.memory.asInt8Array
+import korlibs.wasm.jsEmptyObj
+import korlibs.wasm.jsObject
+import korlibs.wasm.jsToArray
+import korlibs.wasm.setAny
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.js.Promise
+import kotlinx.coroutines.CancellableContinuation
+import kotlinx.coroutines.suspendCancellableCoroutine
+import org.khronos.webgl.ArrayBuffer
+import org.khronos.webgl.toByteArray
+import org.khronos.webgl.toInt8Array
+import org.w3c.fetch.Response
 
 @JsFun("(url, params) => globalThis.fetch(url, params)")
 private external fun globalThisFetch(url: JsString, params: JsAny): Promise<JsAny>
