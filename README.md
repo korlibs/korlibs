@@ -52,7 +52,6 @@ you to easily pick and choose the libraries you need for your project without ha
 - [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/korlibs-io-network-core)](https://central.sonatype.com/artifact/org.korge/korlibs-io-network-core) [korlibs-io-network-core](https://github.com/korlibs/korlibs-io-network-core) — Core network abstractions (async sockets, HTTP fetch, SSL)
 - [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/korlibs-io-vfs)](https://central.sonatype.com/artifact/org.korge/korlibs-io-vfs) [korlibs-io-vfs](https://github.com/korlibs/korlibs-io-vfs) — Virtual File System (VFS) abstraction (local, memory, jail VFS)
 - [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/korlibs-math)](https://central.sonatype.com/artifact/org.korge/korlibs-math) [korlibs-math](https://github.com/korlibs/korlibs-math) — Extended math (Bézier curves, geometry shapes, vector operations)
-- [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/korlibs-wasm)](https://central.sonatype.com/artifact/org.korge/korlibs-wasm) [korlibs-wasm](https://github.com/korlibs/korlibs-wasm) — WebAssembly interpreter and WASM library integration
 
 ### Level 6
 
@@ -64,6 +63,7 @@ you to easily pick and choose the libraries you need for your project without ha
 
 - [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/korlibs-audio)](https://central.sonatype.com/artifact/org.korge/korlibs-audio) [korlibs-audio](https://github.com/korlibs/korlibs-audio) — Audio playback and decoding (MOD, S3M tracker formats and more)
 - [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/korlibs-image)](https://central.sonatype.com/artifact/org.korge/korlibs-image) [korlibs-image](https://github.com/korlibs/korlibs-image) — Image loading, decoding, atlas packing and manipulation
+- [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/korlibs-wasm)](https://central.sonatype.com/artifact/org.korge/korlibs-wasm) [korlibs-wasm](https://github.com/korlibs/korlibs-wasm) — WebAssembly interpreter and WASM library integration
 
 ### Level 8
 
