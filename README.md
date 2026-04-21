@@ -56,16 +56,22 @@ you to easily pick and choose the libraries you need for your project without ha
 ### Level 6
 
 - [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/korlibs-audio-core)](https://central.sonatype.com/artifact/org.korge/korlibs-audio-core) [korlibs-audio-core](https://github.com/korlibs/korlibs-audio-core) — Core audio data types and platform audio output abstraction
-- [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/korlibs-image-core)](https://central.sonatype.com/artifact/org.korge/korlibs-image-core) [korlibs-image-core](https://github.com/korlibs/korlibs-image-core) — Core image data type (`CoreImage`) and basic image abstractions
 - [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/korlibs-io)](https://central.sonatype.com/artifact/org.korge/korlibs-io) [korlibs-io](https://github.com/korlibs/korlibs-io) — Full I/O library combining streams, VFS, networking and filesystem
 
 ### Level 7
 
 - [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/korlibs-audio)](https://central.sonatype.com/artifact/org.korge/korlibs-audio) [korlibs-audio](https://github.com/korlibs/korlibs-audio) — Audio playback and decoding (MOD, S3M tracker formats and more)
-- [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/korlibs-image)](https://central.sonatype.com/artifact/org.korge/korlibs-image) [korlibs-image](https://github.com/korlibs/korlibs-image) — Image loading, decoding, atlas packing and manipulation
 - [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/korlibs-wasm)](https://central.sonatype.com/artifact/org.korge/korlibs-wasm) [korlibs-wasm](https://github.com/korlibs/korlibs-wasm) — WebAssembly interpreter and WASM library integration
 
 ### Level 8
+
+- [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/korlibs-image-core)](https://central.sonatype.com/artifact/org.korge/korlibs-image-core) [korlibs-image-core](https://github.com/korlibs/korlibs-image-core) — Core image data type (`CoreImage`) and basic image abstractions
+
+### Level 9
+
+- [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/korlibs-image)](https://central.sonatype.com/artifact/org.korge/korlibs-image) [korlibs-image](https://github.com/korlibs/korlibs-image) — Image loading, decoding, atlas packing and manipulation
+
+### Level 10
 
 - KorGE (The game engine itself. It is not included in this repository. It can be found at <https://github.com/korlibs/korge>)
 
