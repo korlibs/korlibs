@@ -159,23 +159,27 @@ tasks {
                     //it.name == "korlibs-datastructure"
                     //it.name == "korlibs-io-fs"
                     //it.name == "korlibs-jseval"
-                    it.name == "korlibs-template"
+                    //it.name == "korlibs-template"
 
                     // Level 5
                     //it.name == "korlibs-ffi"
                     //it.name == "korlibs-io-network-core"
                     //it.name == "korlibs-io-vfs"
                     //it.name == "korlibs-math"
-                    //it.name == "korlibs-wasm"
 
                     // Level 6
                     //it.name == "korlibs-audio-core"
-                    //it.name == "korlibs-image-core"
                     //it.name == "korlibs-io"
 
                     // Level 7
                     //it.name == "korlibs-audio"
-                    //it.name == "korlibs-image"
+                    //it.name == "korlibs-wasm"
+
+                    // Level 8
+                    //it.name == "korlibs-image-core"
+
+                    // Level 9
+                    it.name == "korlibs-image"
 
                 }
 
@@ -242,9 +246,9 @@ tasks {
                     var newModuleText = moduleText.replace("com.soywiz", "org.korge")  // Update namespace for all dependencies
                     newModuleText = newModuleText.replace("6.0.0", "6.1.0")  // Update version for all dependencies
                     moduleFile.writeText(newModuleText)
-// */
 
                     folder.execSimple(if (Os.isFamily(Os.FAMILY_WINDOWS)) "gradlew.bat" else "./gradlew", "apiDump")
+// */
 
                     try {
                         folder.execSimple("git", "add", "-A")
@@ -261,26 +265,45 @@ tasks {
                               new publish and dokka tasks, optional yarn lock upgrade)
                             - API check was updated
                             - Update korlibs dependencies:
+                            """.trimIndent()
+/*
+                                org.korge:korlibs-annotations:6.1.0
+                                org.korge:korlibs-audio-core:6.1.0
+                                org.korge:korlibs-checksum:6.1.0
+                                org.korge:korlibs-compression:6.1.0
+                                org.korge:korlibs-concurrent:6.1.0
+                                org.korge:korlibs-crypto:6.1.0
+                                org.korge:korlibs-datastructure-core:6.1.0
+                                org.korge:korlibs-datastructure:6.1.0
+                                org.korge:korlibs-dyn:6.1.0
+                                org.korge:korlibs-encoding:6.1.0
+                                org.korge:korlibs-ffi-legacy:6.1.1
+                                org.korge:korlibs-io-fs:6.1.0
+                                org.korge:korlibs-io-network-core:6.1.0
+                                org.korge:korlibs-io-stream:6.1.0
+                                org.korge:korlibs-io-vfs:6.1.0
+                                org.korge:korlibs-io:6.1.0
+                                org.korge:korlibs-jseval:6.1.0
+                                org.korge:korlibs-logger:6.1.0
+                                org.korge:korlibs-math-core:6.1.0
+                                org.korge:korlibs-math-vector:6.1.0
+                                org.korge:korlibs-memory:6.1.0
+                                org.korge:korlibs-number:6.1.0
                                 org.korge:korlibs-platform:6.1.0
                                 org.korge:korlibs-serialization:6.1.0
                                 org.korge:korlibs-string:6.1.0
-                                org.jetbrains.kotlinx:atomicfu:0.32.1
-                                org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2
-                            """.trimIndent()
-/*
-
-
-                                org.korge:korlibs-checksum:6.1.0
-                                org.korge:korlibs-concurrent:6.1.0
-                                org.korge:korlibs-datastrcture-core:6.1.0
-                                org.korge:korlibs-io-stream:6.1.0
-                                org.korge:korlibs-math-core:6.1.0
-                                org.korge:korlibs-math-vector:6.1.0
                                 org.korge:korlibs-time-core:6.1.0
                                 org.korge:korlibs-time:6.1.0
-                                org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2
+                                org.korge:korlibs-wasm:6.1.0
+                                org.jetbrains.kotlinx:atomicfu:0.32.1
                                 org.jetbrains.kotlinx:kotlinx-browser-wasm-js:0.5.0
+                                org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2
+                                org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2
                                 org.mozilla:rhino-engine:1.9.1
+                                org.ow2.asm:asm-util:9.9.1
+                                org.ow2.asm:asm:9.9.1
+                                net.java.dev.jna:jna:5.18.1
+                                net.java.dev.jna:jna-platform:5.18.1
 // */
                         )
                         folder.execSimple("git", "push", "--force", "--set-upstream", "origin", branchName)
