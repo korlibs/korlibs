@@ -1,0 +1,39 @@
+[versions]
+android-gradle-plugin = "9.1.1"
+asm = "9.9.1"
+binaryCompatibilityValidator = "0.18.1"
+compileSdk = "36"
+minSdk = "20"
+dokka = "2.2.0"
+jna = "5.18.1"
+korlibs = "6.1.0-SNAPSHOT"
+kotlin = "2.3.20"
+kotlinx-atomicfu = "0.32.1"
+kotlinx-browser = "0.5.0"
+kotlinx-coroutines = "1.10.2"
+kover = "0.9.8"
+ksp = "2.3.6"
+mozilla-rhino = "1.9.1"
+vanniktechMavenPublish = "0.36.0"
+
+[plugins]
+android-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "android-gradle-plugin" }
+google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlinx-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatibilityValidator" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "vanniktechMavenPublish" }
+
+[libraries]
+asm-asm = { module = "org.ow2.asm:asm", version.ref = "asm" }
+asm-utils = { module = "org.ow2.asm:asm-util", version.ref = "asm" }
+jna-platform = { module = "net.java.dev.jna:jna-platform", version.ref = "jna" }
+jna-jna = { module = "net.java.dev.jna:jna", version.ref = "jna" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlinx-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "kotlinx-atomicfu" }
+kotlinx-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser", version.ref = "kotlinx-browser" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+ksp-symbolProcessingApi = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
+mozilla-rhino-engine = { module = "org.mozilla:rhino-engine", version.ref = "mozilla-rhino" }
