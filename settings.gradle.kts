@@ -39,7 +39,6 @@ include(
     ":korlibs-io-stream",
     ":korlibs-io-vfs",
     ":korlibs-jseval",
-    ":korlibs-library-template",
     ":korlibs-logger",
     ":korlibs-math",
     ":korlibs-math-core",
