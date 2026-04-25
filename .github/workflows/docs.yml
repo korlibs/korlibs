@@ -48,7 +48,7 @@ jobs:
       - name: "Initialize Gradle"
         run: "./gradlew --no-configuration-cache"
       - name: "Build Documentation"
-        run: "./gradlew --no-configuration-cache dokkaGenerateHtml"
+        run: "./gradlew --no-configuration-cache dokkaGenerate"
       - name: "Upload artifact"
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b
         with:

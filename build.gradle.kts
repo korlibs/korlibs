@@ -19,7 +19,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.android.multiplatform.library) apply false
     alias(libs.plugins.kotlinx.kover) apply false
-    alias(libs.plugins.dokka) apply false
+    alias(libs.plugins.dokka)
     alias(libs.plugins.kotlinx.binaryCompatibilityValidator)
     alias(libs.plugins.vanniktech.mavenPublish)
 }
@@ -63,6 +63,15 @@ subprojects {
                     // developerConnection.set("scm:git:ssh://git@github.com/username/mylibrary.git")
                 }
             }
+        }
+    }
+}
+
+dependencies {
+    // Aggregate all korlibs-* prefixed subprojects to root dokka documentation
+    subprojects.forEach { project ->
+        if (project.name.startsWith("korlibs-")) {
+            dokka(project)
         }
     }
 }
