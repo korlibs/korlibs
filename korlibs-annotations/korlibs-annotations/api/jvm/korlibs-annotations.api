@@ -1,0 +1,10 @@
+public abstract interface annotation class korlibs/annotations/DeprecatedParameter : java/lang/annotation/Annotation {
+	public abstract fun reason ()Ljava/lang/String;
+}
+
+public abstract interface annotation class korlibs/annotations/Keep : java/lang/annotation/Annotation {
+}
+
+public abstract interface annotation class korlibs/annotations/KeepNames : java/lang/annotation/Annotation {
+}
+

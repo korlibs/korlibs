@@ -1,0 +1,260 @@
+public final class korlibs/image/core/AwtCoreImage : korlibs/image/core/CoreImage {
+	public fun <init> (Ljava/awt/image/BufferedImage;)V
+	public fun getBpp ()I
+	public fun getHeight ()I
+	public fun getNative ()Ljava/awt/image/BufferedImage;
+	public synthetic fun getNative ()Ljava/lang/Object;
+	public fun getPremultiplied ()Z
+	public fun getWidth ()I
+	public fun to32 ()Lkorlibs/image/core/CoreImage32;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/image/core/AwtCoreImageFormatProvider : korlibs/image/core/CoreImageFormatProvider {
+	public static final field INSTANCE Lkorlibs/image/core/AwtCoreImageFormatProvider;
+	public fun decode ([BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun encode-jUZaLX8 (Lkorlibs/image/core/CoreImage;Ljava/lang/String;DLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public fun info ([BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun isSupported ()Z
+	public final fun setDispatcher (Lkotlinx/coroutines/CoroutineDispatcher;)V
+}
+
+public final class korlibs/image/core/CoreGraphicsCoreImageFormatProvider : korlibs/image/core/CoreImageFormatProvider {
+	public static final field INSTANCE Lkorlibs/image/core/CoreGraphicsCoreImageFormatProvider;
+	public fun decode ([BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun encode-jUZaLX8 (Lkorlibs/image/core/CoreImage;Ljava/lang/String;DLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun info ([BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun isSupported ()Z
+}
+
+public class korlibs/image/core/CoreGraphicsCoreImageFormatProvider$CGRect : com/sun/jna/Structure {
+	public static final field Companion Lkorlibs/image/core/CoreGraphicsCoreImageFormatProvider$CGRect$Companion;
+	public field height D
+	public field width D
+	public field x D
+	public field y D
+	public fun <init> ()V
+	public fun <init> (Lcom/sun/jna/Pointer;)V
+	protected fun getFieldOrder ()Ljava/util/List;
+}
+
+public final class korlibs/image/core/CoreGraphicsCoreImageFormatProvider$CGRect$ByReference : korlibs/image/core/CoreGraphicsCoreImageFormatProvider$CGRect, com/sun/jna/Structure$ByReference {
+	public fun <init> ()V
+}
+
+public final class korlibs/image/core/CoreGraphicsCoreImageFormatProvider$CGRect$ByValue : korlibs/image/core/CoreGraphicsCoreImageFormatProvider$CGRect, com/sun/jna/Structure$ByValue {
+	public fun <init> ()V
+}
+
+public final class korlibs/image/core/CoreGraphicsCoreImageFormatProvider$CGRect$Companion {
+	public final fun make (DDDD)Lkorlibs/image/core/CoreGraphicsCoreImageFormatProvider$CGRect$ByValue;
+}
+
+public final class korlibs/image/core/CoreGraphicsCoreImageFormatProvider$CoreFoundation {
+	public static final field INSTANCE Lkorlibs/image/core/CoreGraphicsCoreImageFormatProvider$CoreFoundation;
+	public static final fun CFDataCreate (Lcom/sun/jna/Pointer;Lcom/sun/jna/Pointer;I)Lcom/sun/jna/Pointer;
+	public static final fun CFDataCreate (Lcom/sun/jna/Pointer;[BI)Lcom/sun/jna/Pointer;
+	public static final fun CFDataGetBytePtr (Lcom/sun/jna/Pointer;)Lcom/sun/jna/Pointer;
+	public static final fun CFDictionaryAddValue (Lcom/sun/jna/Pointer;Lcom/sun/jna/Pointer;Lcom/sun/jna/Pointer;)V
+	public static final fun CFDictionaryCreateMutable (Lcom/sun/jna/Pointer;ILcom/sun/jna/Pointer;Lcom/sun/jna/Pointer;)Lcom/sun/jna/Pointer;
+	public static final fun CFDictionaryGetValue (Lcom/sun/jna/Pointer;Lcom/sun/jna/Pointer;)Lcom/sun/jna/Pointer;
+	public static final fun CFNumberGetValue (Lcom/sun/jna/Pointer;ILcom/sun/jna/Pointer;)V
+	public final fun getKCFBooleanFalse ()Lcom/sun/jna/Pointer;
+	public final fun getKCFBooleanTrue ()Lcom/sun/jna/Pointer;
+	public final fun getKCFNumberIntType ()I
+	public final fun getLIB ()Ljava/lang/String;
+	public final fun getLib ()Lcom/sun/jna/NativeLibrary;
+}
+
+public final class korlibs/image/core/CoreGraphicsCoreImageFormatProvider$CoreGraphics {
+	public static final field INSTANCE Lkorlibs/image/core/CoreGraphicsCoreImageFormatProvider$CoreGraphics;
+	public static final fun CGBitmapContextCreate (Lcom/sun/jna/Pointer;IIIILcom/sun/jna/Pointer;I)Lcom/sun/jna/Pointer;
+	public static final fun CGColorSpaceCreateDeviceRGB ()Lcom/sun/jna/Pointer;
+	public static final fun CGContextDrawImage (Lcom/sun/jna/Pointer;Lkorlibs/image/core/CoreGraphicsCoreImageFormatProvider$CGRect$ByValue;Lcom/sun/jna/Pointer;)V
+	public static final fun CGContextFlush (Lcom/sun/jna/Pointer;)V
+	public static final fun CGDataProviderCopyData (Lcom/sun/jna/Pointer;)Lcom/sun/jna/Pointer;
+	public static final fun CGImageGetDataProvider (Lcom/sun/jna/Pointer;)Lcom/sun/jna/Pointer;
+	public static final fun CGImageGetHeight (Lcom/sun/jna/Pointer;)I
+	public static final fun CGImageGetWidth (Lcom/sun/jna/Pointer;)I
+	public static final fun CGMainDisplayID ()I
+	public final fun getKCGImageAlphaFirst ()I
+	public final fun getKCGImageAlphaLast ()I
+	public final fun getKCGImageAlphaNone ()I
+	public final fun getKCGImageAlphaPremultipliedFirst ()I
+	public final fun getKCGImageAlphaPremultipliedLast ()I
+	public final fun getLIB ()Ljava/lang/String;
+}
+
+public final class korlibs/image/core/CoreGraphicsCoreImageFormatProvider$ImageIO {
+	public static final field INSTANCE Lkorlibs/image/core/CoreGraphicsCoreImageFormatProvider$ImageIO;
+	public static final fun CGImageSourceCopyPropertiesAtIndex (Lcom/sun/jna/Pointer;ILcom/sun/jna/Pointer;)Lcom/sun/jna/Pointer;
+	public static final fun CGImageSourceCreateImageAtIndex (Lcom/sun/jna/Pointer;ILcom/sun/jna/Pointer;)Lcom/sun/jna/Pointer;
+	public static final fun CGImageSourceCreateWithData (Lcom/sun/jna/Pointer;Lcom/sun/jna/Pointer;)Lcom/sun/jna/Pointer;
+	public final fun getKCGImagePropertyPixelHeight ()Lcom/sun/jna/Pointer;
+	public final fun getKCGImagePropertyPixelWidth ()Lcom/sun/jna/Pointer;
+	public final fun getKCGImageSourceCreateThumbnailFromImageAlways ()Lcom/sun/jna/Pointer;
+	public final fun getKCGImageSourceCreateThumbnailWithTransform ()Lcom/sun/jna/Pointer;
+	public final fun getKCGImageSourceShouldCache ()Lcom/sun/jna/Pointer;
+	public final fun getLIB ()Ljava/lang/String;
+	public final fun getLib ()Lcom/sun/jna/NativeLibrary;
+}
+
+public final class korlibs/image/core/CoreGraphicsCoreImageFormatProvider$ObjC {
+	public static final field INSTANCE Lkorlibs/image/core/CoreGraphicsCoreImageFormatProvider$ObjC;
+	public static final fun objc_autoreleasePoolPop (Lcom/sun/jna/Pointer;)V
+	public static final fun objc_autoreleasePoolPush ()Lcom/sun/jna/Pointer;
+}
+
+public abstract interface class korlibs/image/core/CoreImage {
+	public static final field Companion Lkorlibs/image/core/CoreImage$Companion;
+	public abstract fun getBpp ()I
+	public abstract fun getHeight ()I
+	public abstract fun getNative ()Ljava/lang/Object;
+	public abstract fun getPremultiplied ()Z
+	public abstract fun getWidth ()I
+	public abstract fun to32 ()Lkorlibs/image/core/CoreImage32;
+}
+
+public final class korlibs/image/core/CoreImage$Companion {
+}
+
+public final class korlibs/image/core/CoreImage32 : korlibs/image/core/CoreImage {
+	public fun <init> (II[IZ)V
+	public synthetic fun <init> (II[IZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getBpp ()I
+	public final fun getData ()[I
+	public fun getHeight ()I
+	public synthetic fun getNative ()Ljava/lang/Object;
+	public fun getNative ()[I
+	public fun getPremultiplied ()Z
+	public fun getWidth ()I
+	public fun to32 ()Lkorlibs/image/core/CoreImage32;
+}
+
+public final class korlibs/image/core/CoreImage32Color {
+	public static final field ALPHA_OFFSET I
+	public static final field BLUE_OFFSET I
+	public static final field Companion Lkorlibs/image/core/CoreImage32Color$Companion;
+	public static final field GREEN_OFFSET I
+	public static final field RED_OFFSET I
+	public static final synthetic fun box-impl (I)Lkorlibs/image/core/CoreImage32Color;
+	public static fun constructor-impl (BBBB)I
+	public static fun constructor-impl (I)I
+	public static fun constructor-impl (IIII)I
+	public static synthetic fun constructor-impl$default (BBBBILkotlin/jvm/internal/DefaultConstructorMarker;)I
+	public static synthetic fun constructor-impl$default (IIIIILkotlin/jvm/internal/DefaultConstructorMarker;)I
+	public static final fun depremultiplied-7zPw8qg (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public static final fun getAlpha-impl (I)I
+	public static final fun getBlue-impl (I)I
+	public static final fun getGreen-impl (I)I
+	public static final fun getRed-impl (I)I
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun premultiplied-7zPw8qg (I)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/image/core/CoreImage32Color$Companion {
+}
+
+public final class korlibs/image/core/CoreImageFormat {
+	public static final field Companion Lkorlibs/image/core/CoreImageFormat$Companion;
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lkorlibs/image/core/CoreImageFormat;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public final class korlibs/image/core/CoreImageFormat$Companion {
+	public final fun fromMimeType-P8817J8 (Ljava/lang/String;)Ljava/lang/String;
+	public final fun getAVIF-MseR9Nc ()Ljava/lang/String;
+	public final fun getGIF-MseR9Nc ()Ljava/lang/String;
+	public final fun getJPEG-MseR9Nc ()Ljava/lang/String;
+	public final fun getPNG-MseR9Nc ()Ljava/lang/String;
+	public final fun getTGA-MseR9Nc ()Ljava/lang/String;
+	public final fun getWEBP-MseR9Nc ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/image/core/CoreImageFormatProvider {
+	public static final field Companion Lkorlibs/image/core/CoreImageFormatProvider$Companion;
+	public abstract fun decode ([BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun encode-jUZaLX8 (Lkorlibs/image/core/CoreImage;Ljava/lang/String;DLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun encode-jUZaLX8$default (Lkorlibs/image/core/CoreImageFormatProvider;Lkorlibs/image/core/CoreImage;Ljava/lang/String;DLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun info ([BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun isSupported ()Z
+}
+
+public final class korlibs/image/core/CoreImageFormatProvider$Companion {
+}
+
+public final class korlibs/image/core/CoreImageFormatProvider$DefaultImpls {
+	public static synthetic fun encode-jUZaLX8$default (Lkorlibs/image/core/CoreImageFormatProvider;Lkorlibs/image/core/CoreImage;Ljava/lang/String;DLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static fun info (Lkorlibs/image/core/CoreImageFormatProvider;[BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun isSupported (Lkorlibs/image/core/CoreImageFormatProvider;)Z
+}
+
+public final class korlibs/image/core/CoreImageInfo {
+	public synthetic fun <init> (IIILjava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (IIILjava/lang/String;ZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun component4-i5Cc2jg ()Ljava/lang/String;
+	public final fun component5 ()Z
+	public final fun copy-WbYXdBc (IIILjava/lang/String;Z)Lkorlibs/image/core/CoreImageInfo;
+	public static synthetic fun copy-WbYXdBc$default (Lkorlibs/image/core/CoreImageInfo;IIILjava/lang/String;ZILjava/lang/Object;)Lkorlibs/image/core/CoreImageInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBpp ()I
+	public final fun getFormat-i5Cc2jg ()Ljava/lang/String;
+	public final fun getHeight ()I
+	public final fun getPremultiplied ()Z
+	public final fun getWidth ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/image/core/CoreImageKt {
+	public static final fun decodeBytes (Lkorlibs/image/core/CoreImage$Companion;[BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun depremultiplied (Lkorlibs/image/core/CoreImage32;)Lkorlibs/image/core/CoreImage32;
+	public static final fun encode-NikfHZc (Lkorlibs/image/core/CoreImage$Companion;Lkorlibs/image/core/CoreImage;Ljava/lang/String;DLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun encodeBytes-jUZaLX8 (Lkorlibs/image/core/CoreImage;Ljava/lang/String;DLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun encodeBytes-jUZaLX8$default (Lkorlibs/image/core/CoreImage;Ljava/lang/String;DLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun getCURRENT (Lkorlibs/image/core/CoreImageFormatProvider$Companion;)Lkorlibs/image/core/CoreImageFormatProvider;
+	public static final fun info (Lkorlibs/image/core/CoreImage$Companion;[BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun info (Lkorlibs/image/core/CoreImage;)Lkorlibs/image/core/CoreImageInfo;
+	public static final fun isSupported (Lkorlibs/image/core/CoreImage$Companion;)Z
+	public static final fun premultiplied (Lkorlibs/image/core/CoreImage32;)Lkorlibs/image/core/CoreImage32;
+	public static final fun setCURRENT (Lkorlibs/image/core/CoreImageFormatProvider$Companion;Lkorlibs/image/core/CoreImageFormatProvider;)V
+}
+
+public final class korlibs/image/core/CoreImage_jvmKt {
+	public static final fun getCoreImageFormatProvider_default ()Lkorlibs/image/core/CoreImageFormatProvider;
+}
+
+public final class korlibs/image/core/DummyCoreImageFormatProvider : korlibs/image/core/CoreImageFormatProvider {
+	public static final field INSTANCE Lkorlibs/image/core/DummyCoreImageFormatProvider;
+	public fun decode ([BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun encode-jUZaLX8 (Lkorlibs/image/core/CoreImage;Ljava/lang/String;DLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun info ([BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun isSupported ()Z
+}
+
+public final class korlibs/image/core/Impl_CoreImage_awtKt {
+	public static final fun toAwt (Lkorlibs/image/core/CoreImage;)Ljava/awt/image/BufferedImage;
+	public static final fun toAwtCoreImage (Lkorlibs/image/core/CoreImage;)Lkorlibs/image/core/AwtCoreImage;
+}
+

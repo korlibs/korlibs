@@ -1,0 +1,152 @@
+public final class korlibs/inject/AsyncInjectorJvmExtKt {
+	public static final fun jvmAutomapping (Lkorlibs/inject/Injector;)Lkorlibs/inject/Injector;
+	public static final fun jvmFallback (Lkorlibs/inject/Injector$Companion;Lkorlibs/inject/Injector;Lkotlin/reflect/KClass;Lkorlibs/inject/Injector$RequestContext;)Lkorlibs/inject/ObjectProvider;
+	public static final fun jvmRemoveMappingsByClassName (Lkorlibs/inject/Injector;Ljava/util/Set;)V
+}
+
+public abstract interface annotation class korlibs/inject/FactoryClass : java/lang/annotation/Annotation {
+	public abstract fun clazz ()Ljava/lang/Class;
+}
+
+public final class korlibs/inject/FactoryObjectProvider : korlibs/inject/ObjectProvider {
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	public fun deinit ()V
+	public fun get (Lkorlibs/inject/Injector;)Ljava/lang/Object;
+	public final fun getGenerator ()Lkotlin/jvm/functions/Function1;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/inject/InjectedHandler {
+	public abstract fun injectedInto (Ljava/lang/Object;)V
+}
+
+public final class korlibs/inject/Injector {
+	public static final field Companion Lkorlibs/inject/Injector$Companion;
+	public fun <init> ()V
+	public fun <init> (Lkorlibs/inject/Injector;I)V
+	public synthetic fun <init> (Lkorlibs/inject/Injector;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun addDeinit (Lkorlibs/inject/InjectorDestructor;)V
+	public final fun child ()Lkorlibs/inject/Injector;
+	public final fun deinit ()V
+	public final fun dump ()V
+	public final fun get (Lkotlin/reflect/KClass;Lkorlibs/inject/Injector$RequestContext;)Ljava/lang/Object;
+	public static synthetic fun get$default (Lkorlibs/inject/Injector;Lkotlin/reflect/KClass;Lkorlibs/inject/Injector$RequestContext;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun getClassDefiner (Lkotlin/reflect/KClass;)Lkorlibs/inject/Injector;
+	public final fun getFallbackProvider ()Lkotlin/jvm/functions/Function2;
+	public final fun getLevel ()I
+	public final fun getNearestFallbackProvider ()Lkotlin/jvm/functions/Function2;
+	public final fun getOrNull (Lkotlin/reflect/KClass;Lkorlibs/inject/Injector$RequestContext;)Ljava/lang/Object;
+	public static synthetic fun getOrNull$default (Lkorlibs/inject/Injector;Lkotlin/reflect/KClass;Lkorlibs/inject/Injector$RequestContext;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun getParent ()Lkorlibs/inject/Injector;
+	public final fun getProvider (Lkotlin/reflect/KClass;Lkorlibs/inject/Injector$RequestContext;)Lkorlibs/inject/ObjectProvider;
+	public static synthetic fun getProvider$default (Lkorlibs/inject/Injector;Lkotlin/reflect/KClass;Lkorlibs/inject/Injector$RequestContext;ILjava/lang/Object;)Lkorlibs/inject/ObjectProvider;
+	public final fun getProviderOrNull (Lkotlin/reflect/KClass;Lkorlibs/inject/Injector$RequestContext;)Lkorlibs/inject/ObjectProvider;
+	public static synthetic fun getProviderOrNull$default (Lkorlibs/inject/Injector;Lkotlin/reflect/KClass;Lkorlibs/inject/Injector$RequestContext;ILjava/lang/Object;)Lkorlibs/inject/ObjectProvider;
+	public final fun getProvidersByClass ()Ljava/util/LinkedHashMap;
+	public final fun getRoot ()Lkorlibs/inject/Injector;
+	public final fun getWith (Lkotlin/reflect/KClass;[Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun has (Lkotlin/reflect/KClass;)Z
+	public final fun mapFactory (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;)Lkorlibs/inject/Injector;
+	public final fun mapInstance (Lkotlin/reflect/KClass;Ljava/lang/Object;)Lkorlibs/inject/Injector;
+	public final fun mapPrototype (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;)Lkorlibs/inject/Injector;
+	public final fun mapSingleton (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;)Lkorlibs/inject/Injector;
+	public final fun removeMapping (Lkotlin/reflect/KClass;)V
+	public final fun setFallbackProvider (Lkotlin/jvm/functions/Function2;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/inject/Injector$Companion {
+}
+
+public final class korlibs/inject/Injector$NotMappedException : java/lang/RuntimeException {
+	public fun <init> (Lkotlin/reflect/KClass;Lkotlin/reflect/KClass;Lkorlibs/inject/Injector$RequestContext;Ljava/lang/String;)V
+	public synthetic fun <init> (Lkotlin/reflect/KClass;Lkotlin/reflect/KClass;Lkorlibs/inject/Injector$RequestContext;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getClazz ()Lkotlin/reflect/KClass;
+	public final fun getCtx ()Lkorlibs/inject/Injector$RequestContext;
+	public final fun getMsg ()Ljava/lang/String;
+	public final fun getRequestedByClass ()Lkotlin/reflect/KClass;
+}
+
+public final class korlibs/inject/Injector$RequestContext {
+	public fun <init> (Lkotlin/reflect/KClass;)V
+	public final fun component1 ()Lkotlin/reflect/KClass;
+	public final fun copy (Lkotlin/reflect/KClass;)Lkorlibs/inject/Injector$RequestContext;
+	public static synthetic fun copy$default (Lkorlibs/inject/Injector$RequestContext;Lkotlin/reflect/KClass;ILjava/lang/Object;)Lkorlibs/inject/Injector$RequestContext;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getInitialClazz ()Lkotlin/reflect/KClass;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/inject/InjectorContext : kotlin/coroutines/CoroutineContext$Element {
+	public static final field Companion Lkorlibs/inject/InjectorContext$Companion;
+	public fun <init> (Lkorlibs/inject/Injector;)V
+	public fun fold (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public fun get (Lkotlin/coroutines/CoroutineContext$Key;)Lkotlin/coroutines/CoroutineContext$Element;
+	public final fun getInjector ()Lkorlibs/inject/Injector;
+	public fun getKey ()Lkorlibs/inject/InjectorContext$Companion;
+	public synthetic fun getKey ()Lkotlin/coroutines/CoroutineContext$Key;
+	public fun minusKey (Lkotlin/coroutines/CoroutineContext$Key;)Lkotlin/coroutines/CoroutineContext;
+	public fun plus (Lkotlin/coroutines/CoroutineContext;)Lkotlin/coroutines/CoroutineContext;
+}
+
+public final class korlibs/inject/InjectorContext$Companion : kotlin/coroutines/CoroutineContext$Key {
+}
+
+public final class korlibs/inject/InjectorCoroutineContextKt {
+	public static final fun injector (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun withInjector (Lkorlibs/inject/Injector;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/inject/InjectorDependency {
+	public abstract fun init (Lkorlibs/inject/Injector;)V
+}
+
+public abstract interface class korlibs/inject/InjectorDestructor {
+	public abstract fun deinit ()V
+}
+
+public abstract interface class korlibs/inject/InjectorFactory {
+	public abstract fun create ()Ljava/lang/Object;
+}
+
+public final class korlibs/inject/InstanceObjectProvider : korlibs/inject/ObjectProvider {
+	public fun <init> (Ljava/lang/Object;)V
+	public fun deinit ()V
+	public fun get (Lkorlibs/inject/Injector;)Ljava/lang/Object;
+	public final fun getInstance ()Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/inject/ObjectProvider {
+	public abstract fun deinit ()V
+	public abstract fun get (Lkorlibs/inject/Injector;)Ljava/lang/Object;
+}
+
+public abstract interface annotation class korlibs/inject/Optional : java/lang/annotation/Annotation {
+}
+
+public abstract interface annotation class korlibs/inject/Prototype : java/lang/annotation/Annotation {
+}
+
+public final class korlibs/inject/PrototypeObjectProvider : korlibs/inject/ObjectProvider {
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	public fun deinit ()V
+	public fun get (Lkorlibs/inject/Injector;)Ljava/lang/Object;
+	public final fun getGenerator ()Lkotlin/jvm/functions/Function1;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface annotation class korlibs/inject/Singleton : java/lang/annotation/Annotation {
+}
+
+public final class korlibs/inject/SingletonObjectProvider : korlibs/inject/ObjectProvider {
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	public fun deinit ()V
+	public fun get (Lkorlibs/inject/Injector;)Ljava/lang/Object;
+	public final fun getGenerator ()Lkotlin/jvm/functions/Function1;
+	public final fun getValue ()Ljava/lang/Object;
+	public final fun setValue (Ljava/lang/Object;)V
+	public fun toString ()Ljava/lang/String;
+}
+

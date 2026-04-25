@@ -1,0 +1,73 @@
+public abstract interface annotation class korlibs/ffi/api/FFI : java/lang/annotation/Annotation {
+	public abstract fun commonLib ()Ljava/lang/String;
+	public abstract fun linuxLib ()Ljava/lang/String;
+	public abstract fun macosLib ()Ljava/lang/String;
+	public abstract fun windowsLib ()Ljava/lang/String;
+}
+
+public final class korlibs/ffi/api/FFIFunctionRef : java/lang/AutoCloseable {
+	public fun <init> (Lkotlin/Function;)V
+	public final fun allocIn ([Lkorlibs/ffi/api/FFIFunctionRef;)I
+	public fun close ()V
+	public final fun getCloser ()Lkotlin/jvm/functions/Function0;
+	public final fun getFunc ()Lkotlin/Function;
+	public final fun getSlot ()I
+	public final fun getSlots ()[Lkorlibs/ffi/api/FFIFunctionRef;
+	public final fun setCloser (Lkotlin/jvm/functions/Function0;)V
+	public final fun setSlot (I)V
+	public final fun setSlots ([Lkorlibs/ffi/api/FFIFunctionRef;)V
+}
+
+public abstract interface annotation class korlibs/ffi/api/FFINativeInt : java/lang/annotation/Annotation {
+}
+
+public final class korlibs/ffi/api/FFIPointer {
+	public static final field Companion Lkorlibs/ffi/api/FFIPointer$Companion;
+	public static final synthetic fun box-impl (J)Lkorlibs/ffi/api/FFIPointer;
+	public static fun constructor-impl (J)J
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (JLjava/lang/Object;)Z
+	public static final fun equals-impl0 (JJ)Z
+	public final fun getAddress ()J
+	public fun hashCode ()I
+	public static fun hashCode-impl (J)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (J)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()J
+}
+
+public final class korlibs/ffi/api/FFIPointer$Companion {
+	public final fun getNULL-_sC9wO4 ()J
+}
+
+public abstract interface annotation class korlibs/ffi/api/FFIWideString : java/lang/annotation/Annotation {
+}
+
+public final class korlibs/ffi/api/FFI_androidKt {
+	public static final fun getF32-KpZsvG8 (JI)F
+	public static synthetic fun getF32-KpZsvG8$default (JIILjava/lang/Object;)F
+	public static final fun getF64-KpZsvG8 (JI)D
+	public static synthetic fun getF64-KpZsvG8$default (JIILjava/lang/Object;)D
+	public static final fun getI16-KpZsvG8 (JI)S
+	public static synthetic fun getI16-KpZsvG8$default (JIILjava/lang/Object;)S
+	public static final fun getI32-KpZsvG8 (JI)I
+	public static synthetic fun getI32-KpZsvG8$default (JIILjava/lang/Object;)I
+	public static final fun getI64-KpZsvG8 (JI)J
+	public static synthetic fun getI64-KpZsvG8$default (JIILjava/lang/Object;)J
+	public static final fun getI8-KpZsvG8 (JI)B
+	public static synthetic fun getI8-KpZsvG8$default (JIILjava/lang/Object;)B
+	public static final fun isSupportedFFI ()Z
+	public static final fun setF32-63pZHUA (JIF)V
+	public static synthetic fun setF32-63pZHUA$default (JIFILjava/lang/Object;)V
+	public static final fun setF64-63pZHUA (JID)V
+	public static synthetic fun setF64-63pZHUA$default (JIDILjava/lang/Object;)V
+	public static final fun setI16-63pZHUA (JIS)V
+	public static synthetic fun setI16-63pZHUA$default (JISILjava/lang/Object;)V
+	public static final fun setI32-63pZHUA (JII)V
+	public static synthetic fun setI32-63pZHUA$default (JIIILjava/lang/Object;)V
+	public static final fun setI64-63pZHUA (JIJ)V
+	public static synthetic fun setI64-63pZHUA$default (JIJILjava/lang/Object;)V
+	public static final fun setI8-63pZHUA (JIB)V
+	public static synthetic fun setI8-63pZHUA$default (JIBILjava/lang/Object;)V
+}
+

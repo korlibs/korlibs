@@ -1,0 +1,318 @@
+public abstract interface class korlibs/datastructure/DoubleList : java/util/Collection, kotlin/jvm/internal/markers/KMappedMarker {
+	public abstract fun clone ()Lkorlibs/datastructure/DoubleList;
+	public fun contains (D)Z
+	public fun contains (Ljava/lang/Object;)Z
+	public fun containsAll (Ljava/util/Collection;)Z
+	public abstract fun get (I)D
+	public fun getAt (I)D
+	public fun indexOf (D)I
+	public fun indexOf (DII)I
+	public static synthetic fun indexOf$default (Lkorlibs/datastructure/DoubleList;DIIILjava/lang/Object;)I
+	public fun isAlmostEquals (Lkorlibs/datastructure/DoubleList;D)Z
+	public fun isEmpty ()Z
+	public fun iterator ()Ljava/util/Iterator;
+	public fun lastIndexOf (D)I
+	public fun lastIndexOf (DII)I
+	public static synthetic fun lastIndexOf$default (Lkorlibs/datastructure/DoubleList;DIIILjava/lang/Object;)I
+	public fun listIterator ()Ljava/util/ListIterator;
+	public fun listIterator (I)Ljava/util/ListIterator;
+	public fun subList (II)Ljava/util/List;
+	public fun toDoubleArray ()[D
+}
+
+public final class korlibs/datastructure/DoubleList$DefaultImpls {
+	public static fun contains (Lkorlibs/datastructure/DoubleList;D)Z
+	public static fun containsAll (Lkorlibs/datastructure/DoubleList;Ljava/util/Collection;)Z
+	public static fun getAt (Lkorlibs/datastructure/DoubleList;I)D
+	public static fun indexOf (Lkorlibs/datastructure/DoubleList;D)I
+	public static fun indexOf (Lkorlibs/datastructure/DoubleList;DII)I
+	public static synthetic fun indexOf$default (Lkorlibs/datastructure/DoubleList;DIIILjava/lang/Object;)I
+	public static fun isAlmostEquals (Lkorlibs/datastructure/DoubleList;Lkorlibs/datastructure/DoubleList;D)Z
+	public static fun isEmpty (Lkorlibs/datastructure/DoubleList;)Z
+	public static fun iterator (Lkorlibs/datastructure/DoubleList;)Ljava/util/Iterator;
+	public static fun lastIndexOf (Lkorlibs/datastructure/DoubleList;D)I
+	public static fun lastIndexOf (Lkorlibs/datastructure/DoubleList;DII)I
+	public static synthetic fun lastIndexOf$default (Lkorlibs/datastructure/DoubleList;DIIILjava/lang/Object;)I
+	public static fun listIterator (Lkorlibs/datastructure/DoubleList;)Ljava/util/ListIterator;
+	public static fun listIterator (Lkorlibs/datastructure/DoubleList;I)Ljava/util/ListIterator;
+	public static fun subList (Lkorlibs/datastructure/DoubleList;II)Ljava/util/List;
+	public static fun toDoubleArray (Lkorlibs/datastructure/DoubleList;)[D
+}
+
+public final class korlibs/datastructure/DoubleListKt {
+	public static final fun toImmutableDoubleList ([D)Lkorlibs/datastructure/DoubleList;
+}
+
+public abstract interface class korlibs/datastructure/Extra {
+	public static final field Companion Lkorlibs/datastructure/Extra$Companion;
+	public abstract fun getExtra ()Lkorlibs/datastructure/ExtraObject;
+	public abstract fun setExtra (Lkorlibs/datastructure/ExtraObject;)V
+}
+
+public final class korlibs/datastructure/Extra$Companion {
+	public final fun invoke ()Lkorlibs/datastructure/Extra$Mixin;
+}
+
+public class korlibs/datastructure/Extra$Mixin : korlibs/datastructure/Extra {
+	public fun <init> ()V
+	public fun <init> (Lkorlibs/datastructure/ExtraObject;)V
+	public synthetic fun <init> (Lkorlibs/datastructure/ExtraObject;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getExtra ()Lkorlibs/datastructure/ExtraObject;
+	public fun setExtra (Lkorlibs/datastructure/ExtraObject;)V
+}
+
+public final class korlibs/datastructure/Extra$Property {
+	public fun <init> (Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getDefaultGen ()Lkotlin/jvm/functions/Function0;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getValue (Lkorlibs/datastructure/Extra;Lkotlin/reflect/KProperty;)Ljava/lang/Object;
+	public final fun setValue (Lkorlibs/datastructure/Extra;Lkotlin/reflect/KProperty;Ljava/lang/Object;)V
+}
+
+public final class korlibs/datastructure/Extra$PropertyThis {
+	public fun <init> (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getDefaultGen ()Lkotlin/jvm/functions/Function1;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getTransform ()Lkotlin/jvm/functions/Function2;
+	public final fun getValue (Lkorlibs/datastructure/Extra;Lkotlin/reflect/KProperty;)Ljava/lang/Object;
+	public final fun setTransform (Lkotlin/jvm/functions/Function2;)V
+	public final fun setValue (Lkorlibs/datastructure/Extra;Lkotlin/reflect/KProperty;Ljava/lang/Object;)V
+	public final fun setValueUntransformed (Lkorlibs/datastructure/Extra;Lkotlin/reflect/KProperty;Ljava/lang/Object;)V
+	public final fun withTransform (Lkotlin/jvm/functions/Function2;)Lkorlibs/datastructure/Extra$PropertyThis;
+}
+
+public final class korlibs/datastructure/ExtraKt {
+	public static final fun ExtraTypeCreate ()Lkorlibs/datastructure/ExtraObject;
+	public static final fun extraCache (Lkorlibs/datastructure/Extra;Ljava/lang/String;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun extraProperty (Ljava/lang/String;Lkotlin/jvm/functions/Function0;)Lkorlibs/datastructure/Extra$Property;
+	public static synthetic fun extraProperty$default (Ljava/lang/String;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Lkorlibs/datastructure/Extra$Property;
+	public static final fun extraPropertyThis (Ljava/lang/String;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;)Lkorlibs/datastructure/Extra$PropertyThis;
+	public static synthetic fun extraPropertyThis$default (Ljava/lang/String;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkorlibs/datastructure/Extra$PropertyThis;
+	public static final fun getExtra (Lkorlibs/datastructure/Extra;Ljava/lang/String;)Ljava/lang/Object;
+	public static final fun getExtraTyped (Lkorlibs/datastructure/Extra;Ljava/lang/String;)Ljava/lang/Object;
+	public static final fun hasExtra (Lkorlibs/datastructure/Extra;Ljava/lang/String;)Z
+	public static final fun setExtra (Lkorlibs/datastructure/Extra;Ljava/lang/String;Ljava/lang/Object;)V
+}
+
+public final class korlibs/datastructure/ExtraObject : java/util/Map, kotlin/jvm/internal/markers/KMutableMap {
+	public fun <init> ()V
+	public fun clear ()V
+	public final fun contains (Ljava/lang/String;)Z
+	public final fun containsKey (Ljava/lang/Object;)Z
+	public fun containsKey (Ljava/lang/String;)Z
+	public fun containsValue (Ljava/lang/Object;)Z
+	public final fun entrySet ()Ljava/util/Set;
+	public final fun get (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun get (Ljava/lang/String;)Ljava/lang/Object;
+	public fun getEntries ()Ljava/util/Set;
+	public fun getKeys ()Ljava/util/Set;
+	public fun getSize ()I
+	public fun getValues ()Ljava/util/Collection;
+	public fun isEmpty ()Z
+	public final fun keySet ()Ljava/util/Set;
+	public synthetic fun put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun put (Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun putAll (Ljava/util/Map;)V
+	public final fun remove (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun remove (Ljava/lang/String;)Ljava/lang/Object;
+	public final fun set (Ljava/lang/String;Ljava/lang/Object;)V
+	public final fun size ()I
+	public final fun values ()Ljava/util/Collection;
+}
+
+public class korlibs/datastructure/FastArrayList : kotlin/collections/AbstractMutableList, java/util/RandomAccess, korlibs/datastructure/MutableListEx {
+	public fun <init> ()V
+	public fun <init> (I)V
+	public fun <init> (Ljava/util/Collection;)V
+	public fun add (ILjava/lang/Object;)V
+	public fun add (Ljava/lang/Object;)Z
+	public fun addAll (ILjava/util/Collection;)Z
+	public fun addAll (Ljava/util/Collection;)Z
+	public fun addAll (Lkorlibs/datastructure/FastArrayList;)Z
+	public fun addAll (Lkorlibs/datastructure/FastArrayList;II)V
+	public fun clear ()V
+	public fun contains (Ljava/lang/Object;)Z
+	public final fun ensureCapacity (I)V
+	public final fun fastForEach (Lkotlin/jvm/functions/Function1;)V
+	public final fun fastForEachReverse (Lkotlin/jvm/functions/Function1;)V
+	public final fun fastForEachReverseWithIndex (Lkotlin/jvm/functions/Function2;)V
+	public final fun fastForEachWithIndex (Lkotlin/jvm/functions/Function2;)V
+	public fun get (I)Ljava/lang/Object;
+	public final fun getArray ()[Ljava/lang/Object;
+	public final fun getArrayCapacity ()I
+	public fun getSize ()I
+	public final fun get_size ()I
+	public fun indexOf (Ljava/lang/Object;)I
+	public fun lastIndexOf (Ljava/lang/Object;)I
+	public fun remove (Ljava/lang/Object;)Z
+	public fun removeAt (I)Ljava/lang/Object;
+	public fun removeRange (II)V
+	public fun removeToSize (I)V
+	public fun set (ILjava/lang/Object;)Ljava/lang/Object;
+	public fun setAddAll (ILkorlibs/datastructure/FastArrayList;II)V
+	public fun setAll (ILkorlibs/datastructure/FastArrayList;II)V
+	public final fun setArray ([Ljava/lang/Object;)V
+	public final fun setArrayCapacity (I)V
+	public final fun set_size (I)V
+	public fun toString ()Ljava/lang/String;
+	public final fun trimToSize ()V
+}
+
+public final class korlibs/datastructure/FastArrayListKt {
+	public static final fun buildFastList (Lkotlin/jvm/functions/Function1;)Lkorlibs/datastructure/FastArrayList;
+	public static final fun ensureFastList (Ljava/util/List;)Lkorlibs/datastructure/FastArrayList;
+	public static final fun fastArrayListOf ([Ljava/lang/Object;)Lkorlibs/datastructure/FastArrayList;
+	public static final fun toFastList (Ljava/util/List;)Ljava/util/List;
+	public static final fun toFastList (Ljava/util/List;Lkorlibs/datastructure/FastArrayList;)Lkorlibs/datastructure/FastArrayList;
+	public static final fun toFastList (Lkorlibs/datastructure/FastArrayList;Lkorlibs/datastructure/FastArrayList;)Lkorlibs/datastructure/FastArrayList;
+	public static final fun toFastList ([Ljava/lang/Object;)Ljava/util/List;
+	public static synthetic fun toFastList$default (Ljava/util/List;Lkorlibs/datastructure/FastArrayList;ILjava/lang/Object;)Lkorlibs/datastructure/FastArrayList;
+	public static synthetic fun toFastList$default (Lkorlibs/datastructure/FastArrayList;Lkorlibs/datastructure/FastArrayList;ILjava/lang/Object;)Lkorlibs/datastructure/FastArrayList;
+}
+
+public abstract interface class korlibs/datastructure/FloatList : java/util/Collection, kotlin/jvm/internal/markers/KMappedMarker {
+	public abstract fun clone ()Lkorlibs/datastructure/FloatList;
+	public fun contains (F)Z
+	public fun contains (Ljava/lang/Object;)Z
+	public fun containsAll (Ljava/util/Collection;)Z
+	public abstract fun get (I)F
+	public fun getAt (I)F
+	public fun indexOf (F)I
+	public fun indexOf (FII)I
+	public static synthetic fun indexOf$default (Lkorlibs/datastructure/FloatList;FIIILjava/lang/Object;)I
+	public fun isAlmostEquals (Lkorlibs/datastructure/FloatList;F)Z
+	public fun isEmpty ()Z
+	public fun iterator ()Ljava/util/Iterator;
+	public fun lastIndexOf (F)I
+	public fun lastIndexOf (FII)I
+	public static synthetic fun lastIndexOf$default (Lkorlibs/datastructure/FloatList;FIIILjava/lang/Object;)I
+	public fun listIterator ()Ljava/util/ListIterator;
+	public fun listIterator (I)Ljava/util/ListIterator;
+	public fun subList (II)Ljava/util/List;
+	public fun toFloatArray ()[F
+}
+
+public final class korlibs/datastructure/FloatList$DefaultImpls {
+	public static fun contains (Lkorlibs/datastructure/FloatList;F)Z
+	public static fun containsAll (Lkorlibs/datastructure/FloatList;Ljava/util/Collection;)Z
+	public static fun getAt (Lkorlibs/datastructure/FloatList;I)F
+	public static fun indexOf (Lkorlibs/datastructure/FloatList;F)I
+	public static fun indexOf (Lkorlibs/datastructure/FloatList;FII)I
+	public static synthetic fun indexOf$default (Lkorlibs/datastructure/FloatList;FIIILjava/lang/Object;)I
+	public static fun isAlmostEquals (Lkorlibs/datastructure/FloatList;Lkorlibs/datastructure/FloatList;F)Z
+	public static fun isEmpty (Lkorlibs/datastructure/FloatList;)Z
+	public static fun iterator (Lkorlibs/datastructure/FloatList;)Ljava/util/Iterator;
+	public static fun lastIndexOf (Lkorlibs/datastructure/FloatList;F)I
+	public static fun lastIndexOf (Lkorlibs/datastructure/FloatList;FII)I
+	public static synthetic fun lastIndexOf$default (Lkorlibs/datastructure/FloatList;FIIILjava/lang/Object;)I
+	public static fun listIterator (Lkorlibs/datastructure/FloatList;)Ljava/util/ListIterator;
+	public static fun listIterator (Lkorlibs/datastructure/FloatList;I)Ljava/util/ListIterator;
+	public static fun subList (Lkorlibs/datastructure/FloatList;II)Ljava/util/List;
+	public static fun toFloatArray (Lkorlibs/datastructure/FloatList;)[F
+}
+
+public final class korlibs/datastructure/FloatListKt {
+	public static final fun toImmutableFloatList ([F)Lkorlibs/datastructure/FloatList;
+}
+
+public abstract interface class korlibs/datastructure/IntList : java/util/Collection, kotlin/jvm/internal/markers/KMappedMarker {
+	public abstract fun clone ()Lkorlibs/datastructure/IntList;
+	public fun contains (I)Z
+	public fun contains (Ljava/lang/Object;)Z
+	public fun containsAll (Ljava/util/Collection;)Z
+	public abstract fun get (I)I
+	public fun getAt (I)I
+	public fun indexOf (I)I
+	public fun indexOf (III)I
+	public static synthetic fun indexOf$default (Lkorlibs/datastructure/IntList;IIIILjava/lang/Object;)I
+	public fun isEmpty ()Z
+	public fun iterator ()Ljava/util/Iterator;
+	public fun lastIndexOf (I)I
+	public fun lastIndexOf (III)I
+	public static synthetic fun lastIndexOf$default (Lkorlibs/datastructure/IntList;IIIILjava/lang/Object;)I
+	public fun listIterator ()Ljava/util/ListIterator;
+	public fun listIterator (I)Ljava/util/ListIterator;
+	public fun subList (II)Ljava/util/List;
+	public fun toIntArray ()[I
+}
+
+public final class korlibs/datastructure/IntList$DefaultImpls {
+	public static fun contains (Lkorlibs/datastructure/IntList;I)Z
+	public static fun containsAll (Lkorlibs/datastructure/IntList;Ljava/util/Collection;)Z
+	public static fun getAt (Lkorlibs/datastructure/IntList;I)I
+	public static fun indexOf (Lkorlibs/datastructure/IntList;I)I
+	public static fun indexOf (Lkorlibs/datastructure/IntList;III)I
+	public static synthetic fun indexOf$default (Lkorlibs/datastructure/IntList;IIIILjava/lang/Object;)I
+	public static fun isEmpty (Lkorlibs/datastructure/IntList;)Z
+	public static fun iterator (Lkorlibs/datastructure/IntList;)Ljava/util/Iterator;
+	public static fun lastIndexOf (Lkorlibs/datastructure/IntList;I)I
+	public static fun lastIndexOf (Lkorlibs/datastructure/IntList;III)I
+	public static synthetic fun lastIndexOf$default (Lkorlibs/datastructure/IntList;IIIILjava/lang/Object;)I
+	public static fun listIterator (Lkorlibs/datastructure/IntList;)Ljava/util/ListIterator;
+	public static fun listIterator (Lkorlibs/datastructure/IntList;I)Ljava/util/ListIterator;
+	public static fun subList (Lkorlibs/datastructure/IntList;II)Ljava/util/List;
+	public static fun toIntArray (Lkorlibs/datastructure/IntList;)[I
+}
+
+public final class korlibs/datastructure/IntListKt {
+	public static final fun toImmutableIntList ([I)Lkorlibs/datastructure/IntList;
+}
+
+public abstract interface class korlibs/datastructure/MutableListEx : java/util/List, kotlin/jvm/internal/markers/KMutableList {
+	public fun addAll (Lkorlibs/datastructure/FastArrayList;)Z
+	public fun addAll (Lkorlibs/datastructure/FastArrayList;II)V
+	public static synthetic fun addAll$default (Lkorlibs/datastructure/MutableListEx;Lkorlibs/datastructure/FastArrayList;IIILjava/lang/Object;)V
+	public abstract fun removeRange (II)V
+	public fun removeToSize (I)V
+	public fun setAddAll (ILkorlibs/datastructure/FastArrayList;II)V
+	public static synthetic fun setAddAll$default (Lkorlibs/datastructure/MutableListEx;ILkorlibs/datastructure/FastArrayList;IIILjava/lang/Object;)V
+	public fun setAll (ILkorlibs/datastructure/FastArrayList;II)V
+	public static synthetic fun setAll$default (Lkorlibs/datastructure/MutableListEx;ILkorlibs/datastructure/FastArrayList;IIILjava/lang/Object;)V
+}
+
+public final class korlibs/datastructure/MutableListEx$DefaultImpls {
+	public static fun addAll (Lkorlibs/datastructure/MutableListEx;Lkorlibs/datastructure/FastArrayList;)Z
+	public static fun addAll (Lkorlibs/datastructure/MutableListEx;Lkorlibs/datastructure/FastArrayList;II)V
+	public static synthetic fun addAll$default (Lkorlibs/datastructure/MutableListEx;Lkorlibs/datastructure/FastArrayList;IIILjava/lang/Object;)V
+	public static fun removeToSize (Lkorlibs/datastructure/MutableListEx;I)V
+	public static fun setAddAll (Lkorlibs/datastructure/MutableListEx;ILkorlibs/datastructure/FastArrayList;II)V
+	public static synthetic fun setAddAll$default (Lkorlibs/datastructure/MutableListEx;ILkorlibs/datastructure/FastArrayList;IIILjava/lang/Object;)V
+	public static fun setAll (Lkorlibs/datastructure/MutableListEx;ILkorlibs/datastructure/FastArrayList;II)V
+	public static synthetic fun setAll$default (Lkorlibs/datastructure/MutableListEx;ILkorlibs/datastructure/FastArrayList;IIILjava/lang/Object;)V
+}
+
+public final class korlibs/datastructure/SimpleListIteratorKt {
+	public static final fun SimpleListIterator (IILkotlin/jvm/functions/Function1;)Ljava/util/ListIterator;
+}
+
+public final class korlibs/datastructure/SimpleSubListKt {
+	public static final fun SimpleSubList (IILkotlin/jvm/functions/Function1;)Ljava/util/List;
+}
+
+public abstract interface annotation class korlibs/io/resources/ResourcePath : java/lang/annotation/Annotation {
+}
+
+public abstract interface class korlibs/io/resources/Resourceable {
+	public abstract fun get (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getOrNull ()Ljava/lang/Object;
+}
+
+public final class korlibs/io/resources/Resourceable$Fixed : korlibs/io/resources/Resourceable {
+	public fun <init> (Ljava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/Object;)Lkorlibs/io/resources/Resourceable$Fixed;
+	public static synthetic fun copy$default (Lkorlibs/io/resources/Resourceable$Fixed;Ljava/lang/Object;ILjava/lang/Object;)Lkorlibs/io/resources/Resourceable$Fixed;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun get (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getOrNull ()Ljava/lang/Object;
+	public final fun getValue ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/resources/ResourceableKt {
+	public static final fun Resourceable (Ljava/lang/Object;)Lkorlibs/io/resources/Resourceable$Fixed;
+}
+

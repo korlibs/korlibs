@@ -1,0 +1,673 @@
+public abstract interface class korlibs/image/bitmap/NativeImageRef {
+	public abstract fun getData ()Ljava/lang/Object;
+	public abstract fun getHeight ()I
+	public abstract fun getWidth ()I
+}
+
+public abstract interface class korlibs/io/async/AsyncCloseable {
+	public static final field Companion Lkorlibs/io/async/AsyncCloseable$Companion;
+	public abstract fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/async/AsyncCloseable$Companion {
+	public final fun getDUMMY ()Lkorlibs/io/async/AsyncCloseable;
+}
+
+public final class korlibs/io/async/AsyncCloseableKt {
+	public static final fun use (Lkorlibs/io/async/AsyncCloseable;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun useIt (Lkorlibs/io/async/AsyncCloseable;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun useThis (Lkorlibs/io/async/AsyncCloseable;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/async/OptionalAsyncCloseable : korlibs/io/async/AsyncCloseable {
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/async/OptionalAsyncCloseable$DefaultImpls {
+	public static fun close (Lkorlibs/io/async/OptionalAsyncCloseable;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/lang/CancelException : java/lang/Exception {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public abstract interface class korlibs/io/lang/Cancellable {
+	public static final field Companion Lkorlibs/io/lang/Cancellable$Companion;
+	public abstract fun cancel (Ljava/lang/Throwable;)V
+}
+
+public final class korlibs/io/lang/Cancellable$Companion {
+	public final fun invoke (Ljava/util/List;)Lkorlibs/io/lang/Cancellable;
+	public final fun invoke (Lkotlin/jvm/functions/Function1;)Lkorlibs/io/lang/Cancellable;
+}
+
+public final class korlibs/io/lang/CancellableGroup : korlibs/io/lang/CloseableCancellable {
+	public static final field Companion Lkorlibs/io/lang/CancellableGroup$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/Iterable;)V
+	public fun <init> ([Lkorlibs/io/lang/Cancellable;)V
+	public final fun addCancellable (Lkorlibs/io/lang/Cancellable;)V
+	public final fun addCloseable (Ljava/lang/AutoCloseable;)V
+	public fun cancel (Ljava/lang/Throwable;)V
+	public fun close ()V
+	public final fun plusAssign (Ljava/lang/AutoCloseable;)V
+	public final fun plusAssign (Lkorlibs/io/lang/Cancellable;)V
+	public final fun plusAssign (Lkorlibs/io/lang/CloseableCancellable;)V
+}
+
+public final class korlibs/io/lang/CancellableGroup$Companion {
+	public final fun invoke (Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/lang/ClassExt_jvmAndAndroidKt {
+	public static final fun getPortableSimpleName (Lkotlin/reflect/KClass;)Ljava/lang/String;
+}
+
+public abstract interface class korlibs/io/lang/CloseableCancellable : java/lang/AutoCloseable, korlibs/io/lang/Cancellable {
+	public static final field Companion Lkorlibs/io/lang/CloseableCancellable$Companion;
+	public fun cancel (Ljava/lang/Throwable;)V
+}
+
+public final class korlibs/io/lang/CloseableCancellable$Companion {
+	public final fun invoke (Lkotlin/jvm/functions/Function1;)Lkorlibs/io/lang/CloseableCancellable;
+}
+
+public final class korlibs/io/lang/CloseableCancellable$DefaultImpls {
+	public static fun cancel (Lkorlibs/io/lang/CloseableCancellable;Ljava/lang/Throwable;)V
+}
+
+public final class korlibs/io/lang/CloseableKt {
+	public static final fun AutoCloseable (Lkotlin/jvm/functions/Function0;)Ljava/lang/AutoCloseable;
+	public static final fun Closeable (Lkotlin/jvm/functions/Function0;)Ljava/lang/AutoCloseable;
+	public static final fun cancel (Ljava/lang/Iterable;Ljava/lang/Throwable;)V
+	public static final fun cancel (Lkorlibs/io/lang/Cancellable;)V
+	public static synthetic fun cancel$default (Ljava/lang/Iterable;Ljava/lang/Throwable;ILjava/lang/Object;)V
+	public static final fun cancellable (Ljava/lang/AutoCloseable;)Lkorlibs/io/lang/Cancellable;
+	public static final fun cancellable (Ljava/lang/Iterable;)Lkorlibs/io/lang/Cancellable;
+	public static final fun close (Ljava/lang/Iterable;)V
+	public static final fun closeable (Ljava/lang/Iterable;)Ljava/lang/AutoCloseable;
+	public static final fun closeable (Lkorlibs/io/lang/Cancellable;Lkotlin/jvm/functions/Function0;)Ljava/lang/AutoCloseable;
+	public static synthetic fun closeable$default (Lkorlibs/io/lang/Cancellable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Ljava/lang/AutoCloseable;
+	public static final fun getDummyCloseable ()Lkorlibs/io/lang/DummyAutoCloseable;
+	public static final fun useIt (Ljava/lang/AutoCloseable;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static final fun useThis (Ljava/lang/AutoCloseable;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/lang/DeprecatedException : java/lang/Exception {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class korlibs/io/lang/DummyAutoCloseable : java/lang/AutoCloseable {
+	public static final field INSTANCE Lkorlibs/io/lang/DummyAutoCloseable;
+	public fun close ()V
+}
+
+public abstract interface class korlibs/io/lang/EnumLike {
+	public static final field Companion Lkorlibs/io/lang/EnumLike$Companion;
+	public abstract fun getValues (Lkorlibs/io/lang/EnumLike$Scope;)Ljava/util/List;
+}
+
+public final class korlibs/io/lang/EnumLike$Companion {
+}
+
+public final class korlibs/io/lang/EnumLike$Scope {
+	public static final field INSTANCE Lkorlibs/io/lang/EnumLike$Scope;
+}
+
+public abstract interface class korlibs/io/lang/Environment {
+	public static final field Companion Lkorlibs/io/lang/Environment$Companion;
+	public abstract fun get (Ljava/lang/String;)Ljava/lang/String;
+	public abstract fun getAll ()Ljava/util/Map;
+	public abstract fun set (Ljava/lang/String;Ljava/lang/String;)V
+}
+
+public final class korlibs/io/lang/Environment$Companion : korlibs/io/lang/Environment {
+	public fun get (Ljava/lang/String;)Ljava/lang/String;
+	public fun getAll ()Ljava/util/Map;
+	public final fun getDIR_SEPARATOR ()C
+	public final fun getPATH_SEPARATOR ()C
+	public fun set (Ljava/lang/String;Ljava/lang/String;)V
+}
+
+public class korlibs/io/lang/EnvironmentCustom : korlibs/io/lang/Environment {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/Map;)V
+	public synthetic fun <init> (Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun get (Ljava/lang/String;)Ljava/lang/String;
+	public fun getAll ()Ljava/util/Map;
+	public final fun getCustomEnvironments ()Ljava/util/Map;
+	public final fun normalized (Ljava/lang/String;)Ljava/lang/String;
+	public fun set (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun setCustomEnvironments (Ljava/util/Map;)V
+}
+
+public final class korlibs/io/lang/EnvironmentKt {
+	public static final fun Environment (Ljava/util/Map;)Lkorlibs/io/lang/Environment;
+	public static final fun Environment ([Lkotlin/Pair;)Lkorlibs/io/lang/Environment;
+	public static synthetic fun Environment$default (Ljava/util/Map;ILjava/lang/Object;)Lkorlibs/io/lang/Environment;
+	public static final fun expand (Lkorlibs/io/lang/Environment;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getTEMP (Lkorlibs/io/lang/Environment;)Ljava/lang/String;
+	public static final fun getTempPath (Lkorlibs/io/lang/Environment;)Ljava/lang/String;
+	public static final fun getUserHome (Lkorlibs/io/lang/Environment;)Ljava/lang/String;
+}
+
+public final class korlibs/io/lang/ExceptionsKt {
+	public static final fun deprecated (Ljava/lang/String;)Ljava/lang/Void;
+	public static final fun getDeprecated ()Ljava/lang/Void;
+	public static final fun getInvalidArg ()Ljava/lang/Void;
+	public static final fun getInvalidOp ()Ljava/lang/Void;
+	public static final fun getMustValidate ()Ljava/lang/Void;
+	public static final fun getNoImpl ()Ljava/lang/Void;
+	public static final fun getReserved ()Ljava/lang/Void;
+	public static final fun getUnreachable ()Ljava/lang/Void;
+	public static final fun internalException (I)Ljava/lang/Void;
+	public static final fun invalidArg (Ljava/lang/String;)Ljava/lang/Void;
+	public static final fun invalidArgument (Ljava/lang/String;)Ljava/lang/Void;
+	public static final fun invalidOp (Ljava/lang/String;)Ljava/lang/Void;
+	public static final fun malformedInput (Ljava/lang/String;)Ljava/lang/Void;
+	public static final fun mustValidate (Ljava/lang/String;)Ljava/lang/Void;
+	public static final fun noImpl (Ljava/lang/String;)Ljava/lang/Void;
+	public static final fun reserved (Ljava/lang/String;)Ljava/lang/Void;
+	public static final fun runIgnoringExceptions (ZLkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static synthetic fun runIgnoringExceptions$default (ZLkotlin/jvm/functions/Function0;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun unexpected (Ljava/lang/String;)Ljava/lang/Void;
+	public static final fun unreachable (Ljava/lang/String;)Ljava/lang/Void;
+	public static final fun unsupported (Ljava/lang/String;)Ljava/lang/Void;
+	public static synthetic fun unsupported$default (Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/Void;
+}
+
+public final class korlibs/io/lang/Exceptions_jvmKt {
+	public static final fun enterDebugger ()V
+}
+
+public final class korlibs/io/lang/FileAlreadyExistsException : java/io/IOException {
+	public fun <init> (Ljava/lang/String;)V
+}
+
+public final class korlibs/io/lang/InternalException : java/lang/Exception {
+	public fun <init> (I)V
+	public final fun getCode ()I
+}
+
+public final class korlibs/io/lang/InvalidOperationException : java/lang/Exception {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class korlibs/io/lang/KeyNotFoundException : java/lang/Exception {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public class korlibs/io/lang/MalformedInputException : java/lang/Exception {
+	public fun <init> (ILjava/lang/String;)V
+	public synthetic fun <init> (ILjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
+}
+
+public final class korlibs/io/lang/MustOverrideException : java/lang/Exception {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class korlibs/io/lang/MustValidateCodeException : java/lang/Exception {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class korlibs/io/lang/NotImplementedException : java/lang/Exception {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public abstract interface class korlibs/io/lang/OptionalAutoCloseable : java/lang/AutoCloseable {
+	public fun close ()V
+}
+
+public final class korlibs/io/lang/OptionalAutoCloseable$DefaultImpls {
+	public static fun close (Lkorlibs/io/lang/OptionalAutoCloseable;)V
+}
+
+public final class korlibs/io/lang/OutOfBoundsException : java/lang/Exception {
+	public fun <init> ()V
+	public fun <init> (ILjava/lang/String;)V
+	public synthetic fun <init> (ILjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class korlibs/io/lang/ReservedException : java/lang/Exception {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class korlibs/io/lang/UnexpectedException : java/lang/Exception {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class korlibs/io/lang/UnreachableException : java/lang/Exception {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class korlibs/korlibs_platform/BuildConfig {
+	public static final field BUILD_TYPE Ljava/lang/String;
+	public static final field DEBUG Z
+	public static final field LIBRARY_PACKAGE_NAME Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class korlibs/memory/ByteArrayBuilder {
+	public fun <init> (I)V
+	public synthetic fun <init> (IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> ([BIZ)V
+	public synthetic fun <init> ([BIZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun append (B)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun append ([B)V
+	public final fun append ([BII)V
+	public final fun append ([I)Lkorlibs/memory/ByteArrayBuilder;
+	public static synthetic fun append$default (Lkorlibs/memory/ByteArrayBuilder;[BIIILjava/lang/Object;)V
+	public final fun appendByte (I)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun appendFast (B)V
+	public final fun clear ()V
+	public final fun f32 (FZ)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun f32BE (F)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun f32LE (F)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun f64 (DZ)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun f64BE (D)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun f64LE (D)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun getAllowGrow ()Z
+	public final fun getData ()[B
+	public final fun getSize ()I
+	public final fun s16 (IZ)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun s16BE (I)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun s16LE (I)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun s24 (IZ)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun s24BE (I)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun s24LE (I)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun s32 (IZ)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun s32BE (I)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun s32LE (I)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun s8 (I)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun setData ([B)V
+	public final fun setSize (I)V
+	public final fun toByteArray ()[B
+}
+
+public final class korlibs/memory/ByteArrayBuilderBE {
+	public static final fun append-impl (Lkorlibs/memory/ByteArrayBuilder;B)Lkorlibs/memory/ByteArrayBuilder;
+	public static final fun append-impl (Lkorlibs/memory/ByteArrayBuilder;[B)V
+	public static final fun append-impl (Lkorlibs/memory/ByteArrayBuilder;[BII)V
+	public static final fun append-impl (Lkorlibs/memory/ByteArrayBuilder;[I)Lkorlibs/memory/ByteArrayBuilder;
+	public static synthetic fun append-impl$default (Lkorlibs/memory/ByteArrayBuilder;[BIIILjava/lang/Object;)V
+	public static final fun appendByte-impl (Lkorlibs/memory/ByteArrayBuilder;I)Lkorlibs/memory/ByteArrayBuilder;
+	public static final synthetic fun box-impl (Lkorlibs/memory/ByteArrayBuilder;)Lkorlibs/memory/ByteArrayBuilderBE;
+	public static final fun clear-impl (Lkorlibs/memory/ByteArrayBuilder;)V
+	public static fun constructor-impl (Lkorlibs/memory/ByteArrayBuilder;)Lkorlibs/memory/ByteArrayBuilder;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Lkorlibs/memory/ByteArrayBuilder;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Lkorlibs/memory/ByteArrayBuilder;Lkorlibs/memory/ByteArrayBuilder;)Z
+	public static final fun f32-impl (Lkorlibs/memory/ByteArrayBuilder;F)Lkorlibs/memory/ByteArrayBuilder;
+	public static final fun f64-impl (Lkorlibs/memory/ByteArrayBuilder;D)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun getBab ()Lkorlibs/memory/ByteArrayBuilder;
+	public static final fun getSize-impl (Lkorlibs/memory/ByteArrayBuilder;)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (Lkorlibs/memory/ByteArrayBuilder;)I
+	public static final fun s16-impl (Lkorlibs/memory/ByteArrayBuilder;I)Lkorlibs/memory/ByteArrayBuilder;
+	public static final fun s24-impl (Lkorlibs/memory/ByteArrayBuilder;I)Lkorlibs/memory/ByteArrayBuilder;
+	public static final fun s32-impl (Lkorlibs/memory/ByteArrayBuilder;I)Lkorlibs/memory/ByteArrayBuilder;
+	public static final fun s8-impl (Lkorlibs/memory/ByteArrayBuilder;I)Lkorlibs/memory/ByteArrayBuilder;
+	public static final fun toByteArray-impl (Lkorlibs/memory/ByteArrayBuilder;)[B
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Lkorlibs/memory/ByteArrayBuilder;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Lkorlibs/memory/ByteArrayBuilder;
+}
+
+public final class korlibs/memory/ByteArrayBuilderKt {
+	public static final fun buildByteArray (ILkotlin/jvm/functions/Function1;)[B
+	public static synthetic fun buildByteArray$default (ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)[B
+	public static final fun buildByteArrayBE (ILkotlin/jvm/functions/Function1;)[B
+	public static synthetic fun buildByteArrayBE$default (ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)[B
+	public static final fun buildByteArrayLE (ILkotlin/jvm/functions/Function1;)[B
+	public static synthetic fun buildByteArrayLE$default (ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)[B
+}
+
+public final class korlibs/memory/ByteArrayBuilderLE {
+	public static final fun append-impl (Lkorlibs/memory/ByteArrayBuilder;B)Lkorlibs/memory/ByteArrayBuilder;
+	public static final fun append-impl (Lkorlibs/memory/ByteArrayBuilder;[B)V
+	public static final fun append-impl (Lkorlibs/memory/ByteArrayBuilder;[BII)V
+	public static final fun append-impl (Lkorlibs/memory/ByteArrayBuilder;[I)Lkorlibs/memory/ByteArrayBuilder;
+	public static synthetic fun append-impl$default (Lkorlibs/memory/ByteArrayBuilder;[BIIILjava/lang/Object;)V
+	public static final fun appendByte-impl (Lkorlibs/memory/ByteArrayBuilder;I)Lkorlibs/memory/ByteArrayBuilder;
+	public static final synthetic fun box-impl (Lkorlibs/memory/ByteArrayBuilder;)Lkorlibs/memory/ByteArrayBuilderLE;
+	public static final fun clear-impl (Lkorlibs/memory/ByteArrayBuilder;)V
+	public static fun constructor-impl (Lkorlibs/memory/ByteArrayBuilder;)Lkorlibs/memory/ByteArrayBuilder;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Lkorlibs/memory/ByteArrayBuilder;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Lkorlibs/memory/ByteArrayBuilder;Lkorlibs/memory/ByteArrayBuilder;)Z
+	public static final fun f32-impl (Lkorlibs/memory/ByteArrayBuilder;F)Lkorlibs/memory/ByteArrayBuilder;
+	public static final fun f64-impl (Lkorlibs/memory/ByteArrayBuilder;D)Lkorlibs/memory/ByteArrayBuilder;
+	public final fun getBab ()Lkorlibs/memory/ByteArrayBuilder;
+	public static final fun getSize-impl (Lkorlibs/memory/ByteArrayBuilder;)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (Lkorlibs/memory/ByteArrayBuilder;)I
+	public static final fun s16-impl (Lkorlibs/memory/ByteArrayBuilder;I)Lkorlibs/memory/ByteArrayBuilder;
+	public static final fun s24-impl (Lkorlibs/memory/ByteArrayBuilder;I)Lkorlibs/memory/ByteArrayBuilder;
+	public static final fun s32-impl (Lkorlibs/memory/ByteArrayBuilder;I)Lkorlibs/memory/ByteArrayBuilder;
+	public static final fun s8-impl (Lkorlibs/memory/ByteArrayBuilder;I)Lkorlibs/memory/ByteArrayBuilder;
+	public static final fun toByteArray-impl (Lkorlibs/memory/ByteArrayBuilder;)[B
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Lkorlibs/memory/ByteArrayBuilder;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Lkorlibs/memory/ByteArrayBuilder;
+}
+
+public final class korlibs/platform/Arch : java/lang/Enum {
+	public static final field ARM32 Lkorlibs/platform/Arch;
+	public static final field ARM64 Lkorlibs/platform/Arch;
+	public static final field Companion Lkorlibs/platform/Arch$Companion;
+	public static final field MIPS32 Lkorlibs/platform/Arch;
+	public static final field MIPS64 Lkorlibs/platform/Arch;
+	public static final field MIPSEL32 Lkorlibs/platform/Arch;
+	public static final field MIPSEL64 Lkorlibs/platform/Arch;
+	public static final field POWERPC64 Lkorlibs/platform/Arch;
+	public static final field UNKNOWN Lkorlibs/platform/Arch;
+	public static final field WASM32 Lkorlibs/platform/Arch;
+	public static final field X64 Lkorlibs/platform/Arch;
+	public static final field X86 Lkorlibs/platform/Arch;
+	public final fun getBits ()I
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun is32Bits ()Z
+	public final fun is64Bits ()Z
+	public final fun isArm ()Z
+	public final fun isArm32 ()Z
+	public final fun isArm64 ()Z
+	public final fun isMIPS32 ()Z
+	public final fun isMIPS64 ()Z
+	public final fun isMIPSEL32 ()Z
+	public final fun isMIPSEL64 ()Z
+	public final fun isMips ()Z
+	public final fun isPOWERPC64 ()Z
+	public final fun isPowerPC ()Z
+	public final fun isWASM32 ()Z
+	public final fun isWasm ()Z
+	public final fun isX64 ()Z
+	public final fun isX86 ()Z
+	public final fun isX86OrX64 ()Z
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/platform/Arch;
+	public static fun values ()[Lkorlibs/platform/Arch;
+}
+
+public final class korlibs/platform/Arch$Companion {
+	public final fun getCURRENT ()Lkorlibs/platform/Arch;
+}
+
+public final class korlibs/platform/BuildVariant : java/lang/Enum {
+	public static final field Companion Lkorlibs/platform/BuildVariant$Companion;
+	public static final field DEBUG Lkorlibs/platform/BuildVariant;
+	public static final field RELEASE Lkorlibs/platform/BuildVariant;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun isDebug ()Z
+	public final fun isRelease ()Z
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/platform/BuildVariant;
+	public static fun values ()[Lkorlibs/platform/BuildVariant;
+}
+
+public final class korlibs/platform/BuildVariant$Companion {
+	public final fun getCURRENT ()Lkorlibs/platform/BuildVariant;
+}
+
+public final class korlibs/platform/Current_commonKt {
+	public static final fun getCurrentBuildVariant ()Lkorlibs/platform/BuildVariant;
+}
+
+public final class korlibs/platform/Endian : java/lang/Enum {
+	public static final field BIG_ENDIAN Lkorlibs/platform/Endian;
+	public static final field Companion Lkorlibs/platform/Endian$Companion;
+	public static final field LITTLE_ENDIAN Lkorlibs/platform/Endian;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun isBig ()Z
+	public final fun isLittle ()Z
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/platform/Endian;
+	public static fun values ()[Lkorlibs/platform/Endian;
+}
+
+public final class korlibs/platform/Endian$Companion {
+	public final fun getNATIVE ()Lkorlibs/platform/Endian;
+	public final fun isBigEndian ()Z
+	public final fun isLittleEndian ()Z
+}
+
+public final class korlibs/platform/Os : java/lang/Enum {
+	public static final field ANDROID Lkorlibs/platform/Os;
+	public static final field Companion Lkorlibs/platform/Os$Companion;
+	public static final field IOS Lkorlibs/platform/Os;
+	public static final field LINUX Lkorlibs/platform/Os;
+	public static final field MACOSX Lkorlibs/platform/Os;
+	public static final field TVOS Lkorlibs/platform/Os;
+	public static final field UNKNOWN Lkorlibs/platform/Os;
+	public static final field WASM Lkorlibs/platform/Os;
+	public static final field WATCHOS Lkorlibs/platform/Os;
+	public static final field WINDOWS Lkorlibs/platform/Os;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun isAndroid ()Z
+	public final fun isApple ()Z
+	public final fun isAppleMobile ()Z
+	public final fun isDesktop ()Z
+	public final fun isIos ()Z
+	public final fun isLinux ()Z
+	public final fun isMac ()Z
+	public final fun isMobile ()Z
+	public final fun isPosix ()Z
+	public final fun isTvos ()Z
+	public final fun isWatchos ()Z
+	public final fun isWindows ()Z
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/platform/Os;
+	public static fun values ()[Lkorlibs/platform/Os;
+}
+
+public final class korlibs/platform/Os$Companion {
+	public final fun getCURRENT ()Lkorlibs/platform/Os;
+	public final fun getVALUES ()Lkotlin/enums/EnumEntries;
+}
+
+public abstract interface class korlibs/platform/Platform {
+	public static final field Companion Lkorlibs/platform/Platform$Companion;
+	public abstract fun getArch ()Lkorlibs/platform/Arch;
+	public abstract fun getBuildVariant ()Lkorlibs/platform/BuildVariant;
+	public abstract fun getEndian ()Lkorlibs/platform/Endian;
+	public abstract fun getHasMultithreadedSharedHeap ()Z
+	public abstract fun getOs ()Lkorlibs/platform/Os;
+	public abstract fun getRawOsName ()Ljava/lang/String;
+	public abstract fun getRawPlatformName ()Ljava/lang/String;
+	public abstract fun getRuntime ()Lkorlibs/platform/Runtime;
+	public fun isAndroid ()Z
+	public fun isApple ()Z
+	public fun isAppleMobile ()Z
+	public fun isBigEndian ()Z
+	public fun isDebug ()Z
+	public fun isInsideBrowser ()Z
+	public fun isIos ()Z
+	public fun isJs ()Z
+	public fun isJsBrowser ()Z
+	public fun isJsBrowserOrWorker ()Z
+	public fun isJsDenoJs ()Z
+	public fun isJsNodeJs ()Z
+	public fun isJsOrWasm ()Z
+	public fun isJsShell ()Z
+	public fun isJsWorker ()Z
+	public fun isJvm ()Z
+	public fun isLinux ()Z
+	public fun isLittleEndian ()Z
+	public fun isMac ()Z
+	public fun isNative ()Z
+	public fun isNativeDesktop ()Z
+	public fun isPosix ()Z
+	public fun isRelease ()Z
+	public fun isTvos ()Z
+	public fun isUnix ()Z
+	public fun isWasm ()Z
+	public fun isWatchos ()Z
+	public fun isWindows ()Z
+}
+
+public final class korlibs/platform/Platform$Companion : korlibs/platform/Platform {
+	public fun getArch ()Lkorlibs/platform/Arch;
+	public fun getBuildVariant ()Lkorlibs/platform/BuildVariant;
+	public fun getEndian ()Lkorlibs/platform/Endian;
+	public final fun getEnvs ()Ljava/util/Map;
+	public final fun getEnvsUC ()Ljava/util/Map;
+	public fun getHasMultithreadedSharedHeap ()Z
+	public final fun getLanguagesRaw ()Ljava/util/List;
+	public fun getOs ()Lkorlibs/platform/Os;
+	public fun getRawOsName ()Ljava/lang/String;
+	public fun getRawPlatformName ()Ljava/lang/String;
+	public fun getRuntime ()Lkorlibs/platform/Runtime;
+	public final fun invoke (Lkorlibs/platform/Endian;Lkorlibs/platform/Arch;Lkorlibs/platform/Os;Lkorlibs/platform/Runtime;Lkorlibs/platform/BuildVariant;Ljava/lang/String;Ljava/lang/String;Z)Lkorlibs/platform/Platform;
+	public static synthetic fun invoke$default (Lkorlibs/platform/Platform$Companion;Lkorlibs/platform/Endian;Lkorlibs/platform/Arch;Lkorlibs/platform/Os;Lkorlibs/platform/Runtime;Lkorlibs/platform/BuildVariant;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lkorlibs/platform/Platform;
+	public fun isAndroid ()Z
+	public fun isApple ()Z
+	public fun isAppleMobile ()Z
+	public fun isBigEndian ()Z
+	public fun isDebug ()Z
+	public fun isInsideBrowser ()Z
+	public fun isIos ()Z
+	public fun isJs ()Z
+	public fun isJsBrowser ()Z
+	public fun isJsBrowserOrWorker ()Z
+	public fun isJsDenoJs ()Z
+	public fun isJsNodeJs ()Z
+	public fun isJsOrWasm ()Z
+	public fun isJsShell ()Z
+	public fun isJsWorker ()Z
+	public fun isJvm ()Z
+	public fun isLinux ()Z
+	public fun isLittleEndian ()Z
+	public fun isMac ()Z
+	public fun isNative ()Z
+	public fun isNativeDesktop ()Z
+	public fun isPosix ()Z
+	public fun isRelease ()Z
+	public fun isTvos ()Z
+	public fun isUnix ()Z
+	public fun isWasm ()Z
+	public fun isWatchos ()Z
+	public fun isWindows ()Z
+}
+
+public final class korlibs/platform/Platform$DefaultImpls {
+	public static fun isAndroid (Lkorlibs/platform/Platform;)Z
+	public static fun isApple (Lkorlibs/platform/Platform;)Z
+	public static fun isAppleMobile (Lkorlibs/platform/Platform;)Z
+	public static fun isBigEndian (Lkorlibs/platform/Platform;)Z
+	public static fun isDebug (Lkorlibs/platform/Platform;)Z
+	public static fun isInsideBrowser (Lkorlibs/platform/Platform;)Z
+	public static fun isIos (Lkorlibs/platform/Platform;)Z
+	public static fun isJs (Lkorlibs/platform/Platform;)Z
+	public static fun isJsBrowser (Lkorlibs/platform/Platform;)Z
+	public static fun isJsBrowserOrWorker (Lkorlibs/platform/Platform;)Z
+	public static fun isJsDenoJs (Lkorlibs/platform/Platform;)Z
+	public static fun isJsNodeJs (Lkorlibs/platform/Platform;)Z
+	public static fun isJsOrWasm (Lkorlibs/platform/Platform;)Z
+	public static fun isJsShell (Lkorlibs/platform/Platform;)Z
+	public static fun isJsWorker (Lkorlibs/platform/Platform;)Z
+	public static fun isJvm (Lkorlibs/platform/Platform;)Z
+	public static fun isLinux (Lkorlibs/platform/Platform;)Z
+	public static fun isLittleEndian (Lkorlibs/platform/Platform;)Z
+	public static fun isMac (Lkorlibs/platform/Platform;)Z
+	public static fun isNative (Lkorlibs/platform/Platform;)Z
+	public static fun isNativeDesktop (Lkorlibs/platform/Platform;)Z
+	public static fun isPosix (Lkorlibs/platform/Platform;)Z
+	public static fun isRelease (Lkorlibs/platform/Platform;)Z
+	public static fun isTvos (Lkorlibs/platform/Platform;)Z
+	public static fun isUnix (Lkorlibs/platform/Platform;)Z
+	public static fun isWasm (Lkorlibs/platform/Platform;)Z
+	public static fun isWatchos (Lkorlibs/platform/Platform;)Z
+	public static fun isWindows (Lkorlibs/platform/Platform;)Z
+}
+
+public final class korlibs/platform/Platform$Impl : korlibs/platform/Platform {
+	public fun <init> (Lkorlibs/platform/Endian;Lkorlibs/platform/Arch;Lkorlibs/platform/Os;Lkorlibs/platform/Runtime;Lkorlibs/platform/BuildVariant;Ljava/lang/String;Ljava/lang/String;Z)V
+	public final fun component1 ()Lkorlibs/platform/Endian;
+	public final fun component2 ()Lkorlibs/platform/Arch;
+	public final fun component3 ()Lkorlibs/platform/Os;
+	public final fun component4 ()Lkorlibs/platform/Runtime;
+	public final fun component5 ()Lkorlibs/platform/BuildVariant;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Z
+	public final fun copy (Lkorlibs/platform/Endian;Lkorlibs/platform/Arch;Lkorlibs/platform/Os;Lkorlibs/platform/Runtime;Lkorlibs/platform/BuildVariant;Ljava/lang/String;Ljava/lang/String;Z)Lkorlibs/platform/Platform$Impl;
+	public static synthetic fun copy$default (Lkorlibs/platform/Platform$Impl;Lkorlibs/platform/Endian;Lkorlibs/platform/Arch;Lkorlibs/platform/Os;Lkorlibs/platform/Runtime;Lkorlibs/platform/BuildVariant;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lkorlibs/platform/Platform$Impl;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getArch ()Lkorlibs/platform/Arch;
+	public fun getBuildVariant ()Lkorlibs/platform/BuildVariant;
+	public fun getEndian ()Lkorlibs/platform/Endian;
+	public fun getHasMultithreadedSharedHeap ()Z
+	public fun getOs ()Lkorlibs/platform/Os;
+	public fun getRawOsName ()Ljava/lang/String;
+	public fun getRawPlatformName ()Ljava/lang/String;
+	public fun getRuntime ()Lkorlibs/platform/Runtime;
+	public fun hashCode ()I
+	public fun isAndroid ()Z
+	public fun isApple ()Z
+	public fun isAppleMobile ()Z
+	public fun isBigEndian ()Z
+	public fun isDebug ()Z
+	public fun isInsideBrowser ()Z
+	public fun isIos ()Z
+	public fun isJs ()Z
+	public fun isJsBrowser ()Z
+	public fun isJsBrowserOrWorker ()Z
+	public fun isJsDenoJs ()Z
+	public fun isJsNodeJs ()Z
+	public fun isJsOrWasm ()Z
+	public fun isJsShell ()Z
+	public fun isJsWorker ()Z
+	public fun isJvm ()Z
+	public fun isLinux ()Z
+	public fun isLittleEndian ()Z
+	public fun isMac ()Z
+	public fun isNative ()Z
+	public fun isNativeDesktop ()Z
+	public fun isPosix ()Z
+	public fun isRelease ()Z
+	public fun isTvos ()Z
+	public fun isUnix ()Z
+	public fun isWasm ()Z
+	public fun isWatchos ()Z
+	public fun isWindows ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/platform/Runtime : java/lang/Enum {
+	public static final field ANDROID Lkorlibs/platform/Runtime;
+	public static final field Companion Lkorlibs/platform/Runtime$Companion;
+	public static final field JS Lkorlibs/platform/Runtime;
+	public static final field JVM Lkorlibs/platform/Runtime;
+	public static final field NATIVE Lkorlibs/platform/Runtime;
+	public static final field WASM Lkorlibs/platform/Runtime;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun isAndroid ()Z
+	public final fun isJs ()Z
+	public final fun isJvm ()Z
+	public final fun isJvmOrAndroid ()Z
+	public final fun isNative ()Z
+	public final fun isWasm ()Z
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/platform/Runtime;
+	public static fun values ()[Lkorlibs/platform/Runtime;
+}
+
+public final class korlibs/platform/Runtime$Companion {
+	public final fun getCURRENT ()Lkorlibs/platform/Runtime;
+}
+

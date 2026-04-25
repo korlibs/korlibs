@@ -1,0 +1,482 @@
+public final class korlibs/compression/deflate/DeflaterNative_jvmKt {
+	public static final fun DeflaterNative (I)Lkorlibs/compression/deflate/IDeflater;
+}
+
+public abstract interface class korlibs/compression/deflate/IDeflater : korlibs/io/compression/CompressionMethod {
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class korlibs/compression/deflate/IDeflater$DefaultImpls {
+	public static fun compress (Lkorlibs/compression/deflate/IDeflater;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getLevel (Lkorlibs/compression/deflate/IDeflater;)I
+	public static fun getName (Lkorlibs/compression/deflate/IDeflater;)Ljava/lang/String;
+	public static fun uncompress (Lkorlibs/compression/deflate/IDeflater;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/compression/lzma/SevenZip {
+	public static final field INSTANCE Lkorlibs/compression/lzma/SevenZip;
+}
+
+public final class korlibs/compression/lzma/SevenZip$BitTreeDecoder {
+	public static final field Companion Lkorlibs/compression/lzma/SevenZip$BitTreeDecoder$Companion;
+	public fun <init> (I)V
+	public final fun decode (Lkorlibs/compression/lzma/SevenZip$RangeDecoder;)I
+	public final fun init ()V
+	public final fun reverseDecode (Lkorlibs/compression/lzma/SevenZip$RangeDecoder;)I
+}
+
+public final class korlibs/compression/lzma/SevenZip$BitTreeDecoder$Companion {
+	public final fun reverseDecode ([SILkorlibs/compression/lzma/SevenZip$RangeDecoder;I)I
+}
+
+public final class korlibs/compression/lzma/SevenZip$BitTreeEncoder {
+	public static final field Companion Lkorlibs/compression/lzma/SevenZip$BitTreeEncoder$Companion;
+	public fun <init> (I)V
+	public final fun encode (Lkorlibs/compression/lzma/SevenZip$RangeEncoder;I)V
+	public final fun getPrice (I)I
+	public final fun init ()V
+	public final fun reverseEncode (Lkorlibs/compression/lzma/SevenZip$RangeEncoder;I)V
+	public final fun reverseGetPrice (I)I
+}
+
+public final class korlibs/compression/lzma/SevenZip$BitTreeEncoder$Companion {
+	public final fun reverseEncode ([SILkorlibs/compression/lzma/SevenZip$RangeEncoder;II)V
+	public final fun reverseGetPrice ([SIII)I
+}
+
+public abstract interface class korlibs/compression/lzma/SevenZip$ICodeProgress {
+	public abstract fun setProgress (JJ)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$LzBinTree : korlibs/compression/lzma/SevenZip$LzInWindow {
+	public static final field Companion Lkorlibs/compression/lzma/SevenZip$LzBinTree$Companion;
+	public fun <init> ()V
+	public final fun create (IIII)Z
+	public final fun getMatches ([I)I
+	public fun init ()V
+	public fun movePos ()V
+	public final fun setType (I)V
+	public final fun skip (I)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$LzBinTree$Companion {
+}
+
+public class korlibs/compression/lzma/SevenZip$LzInWindow {
+	public fun <init> ()V
+	public final fun create (III)V
+	public final fun getIndexByte (I)B
+	public final fun getMatchLen (III)I
+	public final fun getNumAvailableBytes ()I
+	public final fun get_bufferBase ()[B
+	public final fun get_bufferOffset ()I
+	public final fun get_pos ()I
+	public final fun get_streamPos ()I
+	public fun init ()V
+	public fun movePos ()V
+	public final fun reduceOffsets (I)V
+	public final fun releaseStream ()V
+	public final fun setStream (Lkorlibs/compression/lzma/SevenZip$LzmaInputStream;)V
+	public final fun set_bufferBase ([B)V
+	public final fun set_bufferOffset (I)V
+	public final fun set_pos (I)V
+	public final fun set_streamPos (I)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$LzOutWindow {
+	public fun <init> ()V
+	public final fun copyBlock (II)V
+	public final fun create (I)V
+	public final fun flush ()V
+	public final fun getByte (I)B
+	public final fun init (Z)V
+	public final fun putByte (B)V
+	public final fun releaseStream ()V
+	public final fun setStream (Lkorlibs/compression/lzma/SevenZip$LzmaOutputStream;)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$LzmaBase {
+	public static final field INSTANCE Lkorlibs/compression/lzma/SevenZip$LzmaBase;
+	public static final field kAlignMask I
+	public static final field kAlignTableSize I
+	public static final field kDicLogSizeMin I
+	public static final field kEndPosModelIndex I
+	public static final field kMatchMaxLen I
+	public static final field kMatchMinLen I
+	public static final field kNumAlignBits I
+	public static final field kNumFullDistances I
+	public static final field kNumHighLenBits I
+	public static final field kNumLenSymbols I
+	public static final field kNumLenToPosStates I
+	public static final field kNumLenToPosStatesBits I
+	public static final field kNumLitContextBitsMax I
+	public static final field kNumLitPosStatesBitsEncodingMax I
+	public static final field kNumLowLenBits I
+	public static final field kNumLowLenSymbols I
+	public static final field kNumMidLenBits I
+	public static final field kNumMidLenSymbols I
+	public static final field kNumPosSlotBits I
+	public static final field kNumPosStatesBitsEncodingMax I
+	public static final field kNumPosStatesBitsMax I
+	public static final field kNumPosStatesEncodingMax I
+	public static final field kNumPosStatesMax I
+	public static final field kNumRepDistances I
+	public static final field kNumStates I
+	public static final field kStartPosModelIndex I
+	public final fun getLenToPosState (I)I
+	public final fun stateInit ()I
+	public final fun stateIsCharState (I)Z
+	public final fun stateUpdateChar (I)I
+	public final fun stateUpdateMatch (I)I
+	public final fun stateUpdateRep (I)I
+	public final fun stateUpdateShortRep (I)I
+}
+
+public final class korlibs/compression/lzma/SevenZip$LzmaDecoder {
+	public fun <init> ()V
+	public final fun code (Lkorlibs/compression/lzma/SevenZip$LzmaInputStream;Lkorlibs/compression/lzma/SevenZip$LzmaOutputStream;J)Z
+	public final fun setDecoderProperties ([B)Z
+}
+
+public final class korlibs/compression/lzma/SevenZip$LzmaEncoder {
+	public static final field Companion Lkorlibs/compression/lzma/SevenZip$LzmaEncoder$Companion;
+	public static final field EMatchFinderTypeBT2 I
+	public static final field EMatchFinderTypeBT4 I
+	public static final field kPropSize I
+	public fun <init> ()V
+	public final fun code (Lkorlibs/compression/lzma/SevenZip$LzmaInputStream;Lkorlibs/compression/lzma/SevenZip$LzmaOutputStream;JJLkorlibs/compression/lzma/SevenZip$ICodeProgress;)V
+	public final fun setAlgorithm (I)Z
+	public final fun setDictionarySize (I)Z
+	public final fun setEndMarkerMode (Z)V
+	public final fun setLcLpPb (III)Z
+	public final fun setMatchFinder (I)Z
+	public final fun setNumFastBytes (I)Z
+	public final fun writeCoderProperties (Lkorlibs/compression/lzma/SevenZip$LzmaOutputStream;)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$LzmaEncoder$Companion {
+}
+
+public abstract interface class korlibs/compression/lzma/SevenZip$LzmaInputStream {
+	public abstract fun read ()I
+	public abstract fun read ([BII)I
+}
+
+public abstract interface class korlibs/compression/lzma/SevenZip$LzmaOutputStream {
+	public abstract fun flush ()V
+	public abstract fun write ([BII)V
+	public abstract fun write8 (I)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$RangeDecoder {
+	public static final field Companion Lkorlibs/compression/lzma/SevenZip$RangeDecoder$Companion;
+	public fun <init> ()V
+	public final fun decodeBit ([SI)I
+	public final fun decodeDirectBits (I)I
+	public final fun init ()V
+	public final fun releaseStream ()V
+	public final fun setStream (Lkorlibs/compression/lzma/SevenZip$LzmaInputStream;)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$RangeDecoder$Companion {
+	public final fun initBitModels ([S)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$RangeEncoder {
+	public static final field Companion Lkorlibs/compression/lzma/SevenZip$RangeEncoder$Companion;
+	public static final field kNumBitPriceShiftBits I
+	public fun <init> ()V
+	public final fun encode ([SII)V
+	public final fun encodeDirectBits (II)V
+	public final fun flushData ()V
+	public final fun flushStream ()V
+	public final fun getProcessedSizeAdd ()J
+	public final fun init ()V
+	public final fun releaseStream ()V
+	public final fun setStream (Lkorlibs/compression/lzma/SevenZip$LzmaOutputStream;)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$RangeEncoder$Companion {
+	public final fun getPrice (II)I
+	public final fun getPrice0 (I)I
+	public final fun getPrice1 (I)I
+	public final fun initBitModels ([S)V
+}
+
+public final class korlibs/compression/lzo/LzoConstants {
+	public static final field F_ADLER32_C I
+	public static final field F_ADLER32_D I
+	public static final field F_CRC32_C I
+	public static final field F_CRC32_D I
+	public static final field F_DOSISH I
+	public static final field F_H_CRC32 I
+	public static final field F_H_EXTRA_FIELD I
+	public static final field F_H_FILTER I
+	public static final field F_H_GMTDIFF I
+	public static final field F_H_PATH I
+	public static final field F_MASK I
+	public static final field F_MULTIPART I
+	public static final field F_NAME_DEFAULT I
+	public static final field F_STDIN I
+	public static final field F_STDOUT I
+	public static final field INSTANCE Lkorlibs/compression/lzo/LzoConstants;
+	public static final field SIZE_OF_INT I
+	public static final field SIZE_OF_LONG I
+	public static final field SIZE_OF_SHORT I
+}
+
+public final class korlibs/compression/lzo/LzoRawCompressor {
+	public static final field INSTANCE Lkorlibs/compression/lzo/LzoRawCompressor;
+	public static final field LAST_LITERAL_SIZE I
+	public static final field MAX_TABLE_SIZE I
+	public static final field MIN_MATCH I
+	public final fun compress ([BII[BII[I)I
+	public static synthetic fun compress$default (Lkorlibs/compression/lzo/LzoRawCompressor;[BII[BII[IILjava/lang/Object;)I
+	public final fun maxCompressedLength (I)I
+}
+
+public final class korlibs/compression/lzo/LzoRawDecompressor {
+	public static final field INSTANCE Lkorlibs/compression/lzo/LzoRawDecompressor;
+	public final fun decompress ([BII[BII)I
+}
+
+public final class korlibs/compression/lzo/LzoRawDecompressor$MalformedInputException : java/lang/Exception {
+	public fun <init> (ILjava/lang/String;)V
+	public synthetic fun <init> (ILjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getIndex ()I
+}
+
+public final class korlibs/compression/lzo/internal/LzoInternalKt {
+	public static final fun set32LE ([BIJ)V
+}
+
+public class korlibs/io/compression/CompressionContext {
+	public fun <init> ()V
+	public fun <init> (I)V
+	public synthetic fun <init> (IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getCustom ()Ljava/lang/Object;
+	public final fun getLevel ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun setCustom (Ljava/lang/Object;)V
+	public final fun setLevel (I)V
+	public final fun setName (Ljava/lang/String;)V
+}
+
+public abstract interface class korlibs/io/compression/CompressionMethod {
+	public fun compress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun compress$default (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun getLevel ()I
+	public fun getName ()Ljava/lang/String;
+	public fun uncompress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/compression/CompressionMethod$DefaultImpls {
+	public static fun compress (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun compress$default (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static fun getLevel (Lkorlibs/io/compression/CompressionMethod;)I
+	public static fun getName (Lkorlibs/io/compression/CompressionMethod;)Ljava/lang/String;
+	public static fun uncompress (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/compression/CompressionMethod$Uncompressed : korlibs/io/compression/CompressionMethod {
+	public static final field INSTANCE Lkorlibs/io/compression/CompressionMethod$Uncompressed;
+	public fun compress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getLevel ()I
+	public fun getName ()Ljava/lang/String;
+	public fun uncompress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/compression/CompressionMethodKt {
+	public static final fun compress (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/SyncInputStream;Lkorlibs/io/stream/SyncOutputStream;Lkorlibs/io/compression/CompressionContext;)V
+	public static final fun compress (Lkorlibs/io/compression/CompressionMethod;[BLkorlibs/io/compression/CompressionContext;I)[B
+	public static final fun compress ([BLkorlibs/io/compression/CompressionMethod;Lkorlibs/io/compression/CompressionContext;I)[B
+	public static synthetic fun compress$default (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/SyncInputStream;Lkorlibs/io/stream/SyncOutputStream;Lkorlibs/io/compression/CompressionContext;ILjava/lang/Object;)V
+	public static synthetic fun compress$default (Lkorlibs/io/compression/CompressionMethod;[BLkorlibs/io/compression/CompressionContext;IILjava/lang/Object;)[B
+	public static synthetic fun compress$default ([BLkorlibs/io/compression/CompressionMethod;Lkorlibs/io/compression/CompressionContext;IILjava/lang/Object;)[B
+	public static final fun compressStream (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/compression/CompressionContext;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun compressStream$default (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/compression/CompressionContext;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun compressed (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/compression/CompressionContext;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun compressed$default (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/compression/CompressionContext;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun uncompress (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/SyncInputStream;Lkorlibs/io/stream/SyncOutputStream;)V
+	public static final fun uncompress (Lkorlibs/io/compression/CompressionMethod;[BI)[B
+	public static final fun uncompress ([BLkorlibs/io/compression/CompressionMethod;I)[B
+	public static synthetic fun uncompress$default (Lkorlibs/io/compression/CompressionMethod;[BIILjava/lang/Object;)[B
+	public static synthetic fun uncompress$default ([BLkorlibs/io/compression/CompressionMethod;IILjava/lang/Object;)[B
+	public static final fun uncompressStream (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun uncompressStream$default (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun uncompressed (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/compression/CompressionMethod;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun uncompressed$default (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/compression/CompressionMethod;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun withLevel (Lkorlibs/io/compression/CompressionMethod;I)Lkorlibs/io/compression/CompressionMethodWithConfig;
+}
+
+public final class korlibs/io/compression/CompressionMethodWithConfig : korlibs/datastructure/Extra, korlibs/io/compression/CompressionMethod {
+	public fun <init> (Lkorlibs/io/compression/CompressionMethod;I)V
+	public final fun component1 ()Lkorlibs/io/compression/CompressionMethod;
+	public final fun component2 ()I
+	public fun compress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun copy (Lkorlibs/io/compression/CompressionMethod;I)Lkorlibs/io/compression/CompressionMethodWithConfig;
+	public static synthetic fun copy$default (Lkorlibs/io/compression/CompressionMethodWithConfig;Lkorlibs/io/compression/CompressionMethod;IILjava/lang/Object;)Lkorlibs/io/compression/CompressionMethodWithConfig;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getExtra ()Lkorlibs/datastructure/ExtraObject;
+	public fun getLevel ()I
+	public final fun getMethod ()Lkorlibs/io/compression/CompressionMethod;
+	public fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setExtra (Lkorlibs/datastructure/ExtraObject;)V
+	public fun toString ()Ljava/lang/String;
+	public fun uncompress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/compression/deflate/DeflateKt {
+	public static final fun Deflate (I)Lkorlibs/compression/deflate/IDeflater;
+	public static final fun DeflatePortable (I)Lkorlibs/compression/deflate/IDeflater;
+	public static final fun getDeflate ()Lkorlibs/compression/deflate/IDeflater;
+	public static final fun getDeflatePortable ()Lkorlibs/compression/deflate/IDeflater;
+}
+
+public class korlibs/io/compression/deflate/GZIP : korlibs/io/compression/deflate/GZIPBase {
+	public static final field Companion Lkorlibs/io/compression/deflate/GZIP$Companion;
+	public fun <init> (Lkotlin/jvm/functions/Function0;)V
+}
+
+public final class korlibs/io/compression/deflate/GZIP$Companion : korlibs/io/compression/deflate/GZIP {
+	public fun toString ()Ljava/lang/String;
+}
+
+public class korlibs/io/compression/deflate/GZIPBase : korlibs/io/compression/CompressionMethod {
+	public fun <init> (ZLkotlin/jvm/functions/Function0;)V
+	public fun compress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getCheckCrc ()Z
+	public final fun getDeflater ()Lkotlin/jvm/functions/Function0;
+	public fun getLevel ()I
+	public fun getName ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+	public fun uncompress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public class korlibs/io/compression/deflate/GZIPNoCrc : korlibs/io/compression/deflate/GZIPBase {
+	public static final field Companion Lkorlibs/io/compression/deflate/GZIPNoCrc$Companion;
+	public fun <init> (Lkotlin/jvm/functions/Function0;)V
+}
+
+public final class korlibs/io/compression/deflate/GZIPNoCrc$Companion : korlibs/io/compression/deflate/GZIPNoCrc {
+	public fun toString ()Ljava/lang/String;
+}
+
+public class korlibs/io/compression/deflate/ZLib : korlibs/io/compression/CompressionMethod {
+	public static final field Companion Lkorlibs/io/compression/deflate/ZLib$Companion;
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	public fun compress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getDeflater ()Lkotlin/jvm/functions/Function1;
+	public fun getLevel ()I
+	public fun getName ()Ljava/lang/String;
+	public fun uncompress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/compression/deflate/ZLib$Companion : korlibs/io/compression/deflate/ZLib {
+}
+
+public final class korlibs/io/compression/deflate/ZLib$Portable : korlibs/io/compression/deflate/ZLib {
+	public static final field INSTANCE Lkorlibs/io/compression/deflate/ZLib$Portable;
+}
+
+public final class korlibs/io/compression/lzma/Lzma : korlibs/io/compression/CompressionMethod {
+	public static final field INSTANCE Lkorlibs/io/compression/lzma/Lzma;
+	public fun compress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getLevel ()I
+	public fun getName ()Ljava/lang/String;
+	public final fun toLzmaInput (Lkorlibs/io/stream/SyncInputStream;)Lkorlibs/compression/lzma/SevenZip$LzmaInputStream;
+	public final fun toLzmaOutput (Lkorlibs/io/stream/SyncOutputStream;)Lkorlibs/compression/lzma/SevenZip$LzmaOutputStream;
+	public fun uncompress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public class korlibs/io/compression/lzo/LZO : korlibs/io/compression/CompressionMethod {
+	public static final field Companion Lkorlibs/io/compression/lzo/LZO$Companion;
+	public fun <init> ()V
+	public fun <init> (Lkorlibs/io/compression/lzo/LZO$HeaderType;)V
+	public synthetic fun <init> (Lkorlibs/io/compression/lzo/LZO$HeaderType;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun compress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getHeaderType ()Lkorlibs/io/compression/lzo/LZO$HeaderType;
+	public fun getLevel ()I
+	public fun getName ()Ljava/lang/String;
+	public fun uncompress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/compression/lzo/LZO$Companion : korlibs/io/compression/lzo/LZO {
+}
+
+public final class korlibs/io/compression/lzo/LZO$HeaderLong {
+	public static final field Companion Lkorlibs/io/compression/lzo/LZO$HeaderLong$Companion;
+	public fun <init> ()V
+	public fun <init> (IIIIIIIIIILjava/lang/String;IIIII)V
+	public synthetic fun <init> (IIIIIIIIIILjava/lang/String;IIIIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component10 ()I
+	public final fun component11 ()Ljava/lang/String;
+	public final fun component12 ()I
+	public final fun component13 ()I
+	public final fun component14 ()I
+	public final fun component15 ()I
+	public final fun component16 ()I
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun component4 ()I
+	public final fun component5 ()I
+	public final fun component6 ()I
+	public final fun component7 ()I
+	public final fun component8 ()I
+	public final fun component9 ()I
+	public final fun copy (IIIIIIIIIILjava/lang/String;IIIII)Lkorlibs/io/compression/lzo/LZO$HeaderLong;
+	public static synthetic fun copy$default (Lkorlibs/io/compression/lzo/LZO$HeaderLong;IIIIIIIIIILjava/lang/String;IIIIIILjava/lang/Object;)Lkorlibs/io/compression/lzo/LZO$HeaderLong;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChecksum ()I
+	public final fun getChecksumCompressed ()I
+	public final fun getChecksumUncompressed ()I
+	public final fun getCompressedSize ()I
+	public final fun getFilter ()I
+	public final fun getFlags ()I
+	public final fun getGMTdiff ()I
+	public final fun getLevel ()I
+	public final fun getLibVersion ()I
+	public final fun getMethod ()I
+	public final fun getMode ()I
+	public final fun getMtime ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun getUncompressedSize ()I
+	public final fun getVersion ()I
+	public final fun getVersionNeeded ()I
+	public fun hashCode ()I
+	public final fun read (Lkorlibs/io/stream/AsyncInputStream;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setChecksum (I)V
+	public final fun setChecksumCompressed (I)V
+	public final fun setChecksumUncompressed (I)V
+	public final fun setCompressedSize (I)V
+	public final fun setFilter (I)V
+	public final fun setFlags (I)V
+	public final fun setGMTdiff (I)V
+	public final fun setLevel (I)V
+	public final fun setLibVersion (I)V
+	public final fun setMethod (I)V
+	public final fun setMode (I)V
+	public final fun setMtime (I)V
+	public final fun setName (Ljava/lang/String;)V
+	public final fun setUncompressedSize (I)V
+	public final fun setVersion (I)V
+	public final fun setVersionNeeded (I)V
+	public fun toString ()Ljava/lang/String;
+	public final fun write (Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/compression/lzo/LZO$HeaderLong$Companion {
+	public final fun getMAGIC ()[B
+}
+
+public final class korlibs/io/compression/lzo/LZO$HeaderType : java/lang/Enum {
+	public static final field LONG Lkorlibs/io/compression/lzo/LZO$HeaderType;
+	public static final field NONE Lkorlibs/io/compression/lzo/LZO$HeaderType;
+	public static final field SHORT Lkorlibs/io/compression/lzo/LZO$HeaderType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/io/compression/lzo/LZO$HeaderType;
+	public static fun values ()[Lkorlibs/io/compression/lzo/LZO$HeaderType;
+}
+

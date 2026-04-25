@@ -1,0 +1,280 @@
+public abstract class korlibs/io/core/FileSystemFS : korlibs/io/async/AsyncCloseable, korlibs/io/stream/AsyncInputStream, korlibs/io/stream/AsyncOutputStream {
+	public fun <init> ()V
+	public abstract fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getLength (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getPosition (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun read (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun read ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun setLength (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun setPosition (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun write ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/core/FileSystemFSStat {
+	public fun <init> (Ljava/lang/String;JIZJJJJ)V
+	public synthetic fun <init> (Ljava/lang/String;JIZJJJJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()J
+	public final fun component3 ()I
+	public final fun component4 ()Z
+	public final fun component5 ()J
+	public final fun component6 ()J
+	public final fun component7 ()J
+	public final fun component8 ()J
+	public final fun copy (Ljava/lang/String;JIZJJJJ)Lkorlibs/io/core/FileSystemFSStat;
+	public static synthetic fun copy$default (Lkorlibs/io/core/FileSystemFSStat;Ljava/lang/String;JIZJJJJILjava/lang/Object;)Lkorlibs/io/core/FileSystemFSStat;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getInode ()J
+	public final fun getMode ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun getSize ()J
+	public final fun getTimeCreation ()J
+	public final fun getTimeLastAccess ()J
+	public final fun getTimeLastModification ()J
+	public fun hashCode ()I
+	public final fun isDirectory ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/core/JvmSyncSystemFS : korlibs/io/core/SyncSystemFS {
+	public static final field INSTANCE Lkorlibs/io/core/JvmSyncSystemFS;
+	public fun exec (Ljava/util/List;Ljava/util/Map;Ljava/lang/String;)Lkorlibs/io/core/SyncSystemFSProcess;
+	public fun exists (Ljava/lang/String;)Z
+	public fun getFileSeparatorChar ()C
+	public fun getPathSeparatorChar ()C
+	public fun getResourceBytes (Ljava/lang/String;Lkotlin/reflect/KClass;)[B
+	public fun getResourceLength (Ljava/lang/String;Lkotlin/reflect/KClass;)J
+	public fun getcwd ()Ljava/lang/String;
+	public fun isDirectory (Ljava/lang/String;)Z
+	public fun isFile (Ljava/lang/String;)Z
+	public fun listdir (Ljava/lang/String;)Lkotlin/sequences/Sequence;
+	public fun mkdir (Ljava/lang/String;)Z
+	public fun open (Ljava/lang/String;Z)Lkorlibs/io/core/SyncFileSystemFS;
+	public fun readlink (Ljava/lang/String;)Ljava/lang/String;
+	public fun realpath (Ljava/lang/String;)Ljava/lang/String;
+	public fun rmdir (Ljava/lang/String;)Z
+	public fun stat (Ljava/lang/String;)Lkorlibs/io/core/FileSystemFSStat;
+	public fun unlink (Ljava/lang/String;)Z
+}
+
+public final class korlibs/io/core/NullSyncSystemFS : korlibs/io/core/SyncSystemFS {
+	public static final field INSTANCE Lkorlibs/io/core/NullSyncSystemFS;
+	public fun exec (Ljava/util/List;Ljava/util/Map;Ljava/lang/String;)Lkorlibs/io/core/SyncSystemFSProcess;
+	public fun exists (Ljava/lang/String;)Z
+	public fun getFileSeparatorChar ()C
+	public fun getPathSeparatorChar ()C
+	public fun getResourceBytes (Ljava/lang/String;Lkotlin/reflect/KClass;)[B
+	public fun getResourceLength (Ljava/lang/String;Lkotlin/reflect/KClass;)J
+	public fun getcwd ()Ljava/lang/String;
+	public fun isDirectory (Ljava/lang/String;)Z
+	public fun isFile (Ljava/lang/String;)Z
+	public fun listdir (Ljava/lang/String;)Lkotlin/sequences/Sequence;
+	public fun mkdir (Ljava/lang/String;)Z
+	public fun open (Ljava/lang/String;Z)Lkorlibs/io/core/SyncFileSystemFS;
+	public fun readlink (Ljava/lang/String;)Ljava/lang/String;
+	public fun realpath (Ljava/lang/String;)Ljava/lang/String;
+	public fun rmdir (Ljava/lang/String;)Z
+	public fun stat (Ljava/lang/String;)Lkorlibs/io/core/FileSystemFSStat;
+	public fun unlink (Ljava/lang/String;)Z
+}
+
+public abstract class korlibs/io/core/SyncFileSystemFS : java/lang/AutoCloseable, korlibs/io/stream/SyncInputStream, korlibs/io/stream/SyncOutputStream {
+	public fun <init> ()V
+	public abstract fun close ()V
+	public fun flush ()V
+	public abstract fun getLength ()J
+	public abstract fun getPosition ()J
+	public fun read ()I
+	public abstract fun read ([BII)I
+	public abstract fun setLength (J)V
+	public abstract fun setPosition (J)V
+	public fun skip (I)V
+	public fun write (I)V
+	public abstract fun write ([BII)V
+}
+
+public abstract interface class korlibs/io/core/SyncSystemFS {
+	public static final field Companion Lkorlibs/io/core/SyncSystemFS$Companion;
+	public fun exec (Ljava/util/List;Ljava/util/Map;Ljava/lang/String;)Lkorlibs/io/core/SyncSystemFSProcess;
+	public fun exists (Ljava/lang/String;)Z
+	public fun getFileSeparatorChar ()C
+	public fun getPathSeparatorChar ()C
+	public fun getResourceBytes (Ljava/lang/String;Lkotlin/reflect/KClass;)[B
+	public static synthetic fun getResourceBytes$default (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;ILjava/lang/Object;)[B
+	public fun getResourceLength (Ljava/lang/String;Lkotlin/reflect/KClass;)J
+	public static synthetic fun getResourceLength$default (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;ILjava/lang/Object;)J
+	public fun getcwd ()Ljava/lang/String;
+	public fun isDirectory (Ljava/lang/String;)Z
+	public fun isFile (Ljava/lang/String;)Z
+	public abstract fun listdir (Ljava/lang/String;)Lkotlin/sequences/Sequence;
+	public abstract fun mkdir (Ljava/lang/String;)Z
+	public abstract fun open (Ljava/lang/String;Z)Lkorlibs/io/core/SyncFileSystemFS;
+	public static synthetic fun open$default (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;ZILjava/lang/Object;)Lkorlibs/io/core/SyncFileSystemFS;
+	public fun readlink (Ljava/lang/String;)Ljava/lang/String;
+	public fun realpath (Ljava/lang/String;)Ljava/lang/String;
+	public abstract fun rmdir (Ljava/lang/String;)Z
+	public abstract fun stat (Ljava/lang/String;)Lkorlibs/io/core/FileSystemFSStat;
+	public abstract fun unlink (Ljava/lang/String;)Z
+}
+
+public final class korlibs/io/core/SyncSystemFS$Companion : korlibs/io/core/SyncSystemFS {
+	public fun exec (Ljava/util/List;Ljava/util/Map;Ljava/lang/String;)Lkorlibs/io/core/SyncSystemFSProcess;
+	public fun exists (Ljava/lang/String;)Z
+	public fun getFileSeparatorChar ()C
+	public fun getPathSeparatorChar ()C
+	public fun getResourceBytes (Ljava/lang/String;Lkotlin/reflect/KClass;)[B
+	public fun getResourceLength (Ljava/lang/String;Lkotlin/reflect/KClass;)J
+	public fun getcwd ()Ljava/lang/String;
+	public fun isDirectory (Ljava/lang/String;)Z
+	public fun isFile (Ljava/lang/String;)Z
+	public fun listdir (Ljava/lang/String;)Lkotlin/sequences/Sequence;
+	public fun mkdir (Ljava/lang/String;)Z
+	public fun open (Ljava/lang/String;Z)Lkorlibs/io/core/SyncFileSystemFS;
+	public fun readlink (Ljava/lang/String;)Ljava/lang/String;
+	public fun realpath (Ljava/lang/String;)Ljava/lang/String;
+	public fun rmdir (Ljava/lang/String;)Z
+	public fun stat (Ljava/lang/String;)Lkorlibs/io/core/FileSystemFSStat;
+	public fun unlink (Ljava/lang/String;)Z
+}
+
+public final class korlibs/io/core/SyncSystemFS$DefaultImpls {
+	public static fun exec (Lkorlibs/io/core/SyncSystemFS;Ljava/util/List;Ljava/util/Map;Ljava/lang/String;)Lkorlibs/io/core/SyncSystemFSProcess;
+	public static fun exists (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;)Z
+	public static fun getFileSeparatorChar (Lkorlibs/io/core/SyncSystemFS;)C
+	public static fun getPathSeparatorChar (Lkorlibs/io/core/SyncSystemFS;)C
+	public static fun getResourceBytes (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;)[B
+	public static synthetic fun getResourceBytes$default (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;ILjava/lang/Object;)[B
+	public static fun getResourceLength (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;)J
+	public static synthetic fun getResourceLength$default (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;ILjava/lang/Object;)J
+	public static fun getcwd (Lkorlibs/io/core/SyncSystemFS;)Ljava/lang/String;
+	public static fun isDirectory (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;)Z
+	public static fun isFile (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;)Z
+	public static synthetic fun open$default (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;ZILjava/lang/Object;)Lkorlibs/io/core/SyncFileSystemFS;
+	public static fun readlink (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;)Ljava/lang/String;
+	public static fun realpath (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;)Ljava/lang/String;
+}
+
+public class korlibs/io/core/SyncSystemFSProcess : java/lang/AutoCloseable {
+	public fun <init> (Lkorlibs/io/stream/SyncOutputStream;Lkorlibs/io/stream/SyncInputStream;Lkorlibs/io/stream/SyncInputStream;)V
+	public fun close ()V
+	public fun destroy ()V
+	public fun getExitCode ()I
+	public final fun getStderr ()Lkorlibs/io/stream/SyncInputStream;
+	public final fun getStdin ()Lkorlibs/io/stream/SyncOutputStream;
+	public final fun getStdout ()Lkorlibs/io/stream/SyncInputStream;
+}
+
+public abstract interface class korlibs/io/core/SystemFS {
+	public static final field Companion Lkorlibs/io/core/SystemFS$Companion;
+	public abstract fun exec (Ljava/util/List;Ljava/util/Map;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun exists (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getResourceBytes (Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getResourceBytes$default (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun getResourceLength (Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getResourceLength$default (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun isDirectory (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun isFile (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun listdir (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun mkdir (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun open (Ljava/lang/String;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun open$default (Lkorlibs/io/core/SystemFS;Ljava/lang/String;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public abstract fun readlink (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun realpath (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun rmdir (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun stat (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun unlink (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/core/SystemFS$Companion : korlibs/io/core/SystemFS {
+	public fun exec (Ljava/util/List;Ljava/util/Map;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun exists (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getResourceBytes (Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getResourceLength (Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun isDirectory (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun isFile (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun listdir (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun mkdir (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun open (Ljava/lang/String;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun readlink (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun realpath (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun rmdir (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun stat (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun unlink (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/core/SystemFS$DefaultImpls {
+	public static fun exists (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getResourceBytes (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getResourceBytes$default (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static fun getResourceLength (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getResourceLength$default (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static fun isDirectory (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun isFile (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun open$default (Lkorlibs/io/core/SystemFS;Ljava/lang/String;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/core/SystemFSKt {
+	public static final fun checkExecFolder (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;Ljava/util/List;)V
+	public static final fun getNullSystemFS ()Lkorlibs/io/core/SystemFS;
+	public static final fun readBytes (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;)[B
+	public static final fun size (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;)Ljava/lang/Long;
+	public static final fun toAsync (Lkorlibs/io/core/SyncSystemFS;Lkotlinx/coroutines/CoroutineDispatcher;)Lkorlibs/io/core/SystemFS;
+	public static final fun writeBytes (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;[B)V
+}
+
+public class korlibs/io/core/SystemFSProcess : korlibs/io/async/AsyncCloseable {
+	public fun <init> (Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncInputStream;)V
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun destroy (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun exitCode (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getStderr ()Lkorlibs/io/stream/AsyncInputStream;
+	public final fun getStdin ()Lkorlibs/io/stream/AsyncOutputStream;
+	public final fun getStdout ()Lkorlibs/io/stream/AsyncInputStream;
+}
+
+public final class korlibs/io/core/SystemFS_jvmAndAndroidKt {
+	public static final fun getDefaultSyncSystemFS ()Lkorlibs/io/core/SyncSystemFS;
+	public static final fun getDefaultSystemFS ()Lkorlibs/io/core/SystemFS;
+}
+
+public abstract interface class korlibs/io/core/internal/InternalSystemFSShellArgs {
+	public static final field Companion Lkorlibs/io/core/internal/InternalSystemFSShellArgs$Companion;
+	public fun buildShellExecCommandLine (Ljava/util/List;)Ljava/lang/String;
+	public fun buildShellExecCommandLineArray (Ljava/util/List;)Ljava/util/List;
+	public fun buildShellExecCommandLineArrayForExecl (Ljava/util/List;)Ljava/util/List;
+	public fun buildShellExecCommandLineArrayForNodeSpawn (Ljava/util/List;)Ljava/util/List;
+	public fun buildShellExecCommandLineArrayForProcessBuilder (Ljava/util/List;)Ljava/util/List;
+	public fun buildShellExecCommandLineForPopen (Ljava/util/List;)Ljava/lang/String;
+	public fun escapeshellCommandUnix (Ljava/util/List;)Ljava/lang/String;
+	public fun escapeshellCommandWin (Ljava/util/List;)Ljava/lang/String;
+	public fun escapeshellargUnix (Ljava/lang/String;)Ljava/lang/String;
+	public fun escapeshellargWin (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class korlibs/io/core/internal/InternalSystemFSShellArgs$Companion : korlibs/io/core/internal/InternalSystemFSShellArgs {
+	public fun buildShellExecCommandLine (Ljava/util/List;)Ljava/lang/String;
+	public fun buildShellExecCommandLineArray (Ljava/util/List;)Ljava/util/List;
+	public fun buildShellExecCommandLineArrayForExecl (Ljava/util/List;)Ljava/util/List;
+	public fun buildShellExecCommandLineArrayForNodeSpawn (Ljava/util/List;)Ljava/util/List;
+	public fun buildShellExecCommandLineArrayForProcessBuilder (Ljava/util/List;)Ljava/util/List;
+	public fun buildShellExecCommandLineForPopen (Ljava/util/List;)Ljava/lang/String;
+	public fun escapeshellCommandUnix (Ljava/util/List;)Ljava/lang/String;
+	public fun escapeshellCommandWin (Ljava/util/List;)Ljava/lang/String;
+	public fun escapeshellargUnix (Ljava/lang/String;)Ljava/lang/String;
+	public fun escapeshellargWin (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class korlibs/io/core/internal/InternalSystemFSShellArgs$DefaultImpls {
+	public static fun buildShellExecCommandLine (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/util/List;)Ljava/lang/String;
+	public static fun buildShellExecCommandLineArray (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/util/List;)Ljava/util/List;
+	public static fun buildShellExecCommandLineArrayForExecl (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/util/List;)Ljava/util/List;
+	public static fun buildShellExecCommandLineArrayForNodeSpawn (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/util/List;)Ljava/util/List;
+	public static fun buildShellExecCommandLineArrayForProcessBuilder (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/util/List;)Ljava/util/List;
+	public static fun buildShellExecCommandLineForPopen (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/util/List;)Ljava/lang/String;
+	public static fun escapeshellCommandUnix (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/util/List;)Ljava/lang/String;
+	public static fun escapeshellCommandWin (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/util/List;)Ljava/lang/String;
+	public static fun escapeshellargUnix (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/lang/String;)Ljava/lang/String;
+	public static fun escapeshellargWin (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/lang/String;)Ljava/lang/String;
+}
+

@@ -1,0 +1,506 @@
+public class korlibs/io/lang/Properties {
+	public static final field Companion Lkorlibs/io/lang/Properties$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/util/Map;)V
+	public synthetic fun <init> (Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun contains (Ljava/lang/String;)Z
+	public fun get (Ljava/lang/String;)Ljava/lang/String;
+	public fun getAll ()Ljava/util/Map;
+	public fun remove (Ljava/lang/String;)V
+	public fun set (Ljava/lang/String;Ljava/lang/String;)V
+	public fun setAll (Ljava/util/Map;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/lang/Properties$Companion {
+	public final fun parseString (Ljava/lang/String;)Lkorlibs/io/lang/Properties;
+}
+
+public final class korlibs/io/lang/SystemProperties : korlibs/io/lang/Properties {
+	public static final field INSTANCE Lkorlibs/io/lang/SystemProperties;
+	public fun get (Ljava/lang/String;)Ljava/lang/String;
+	public fun getAll ()Ljava/util/Map;
+	public fun remove (Ljava/lang/String;)V
+	public fun set (Ljava/lang/String;Ljava/lang/String;)V
+}
+
+public final class korlibs/io/serialization/csv/CSV : java/util/Collection, kotlin/jvm/internal/markers/KMappedMarker {
+	public static final field Companion Lkorlibs/io/serialization/csv/CSV$Companion;
+	public static final field DEFAULT_SEPARATOR C
+	public fun <init> (Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun add (Ljava/lang/Object;)Z
+	public fun add (Lkorlibs/io/serialization/csv/CSV$Record;)Z
+	public fun addAll (Ljava/util/Collection;)Z
+	public fun clear ()V
+	public final fun contains (Ljava/lang/Object;)Z
+	public fun contains (Lkorlibs/io/serialization/csv/CSV$Record;)Z
+	public fun containsAll (Ljava/util/Collection;)Z
+	public final fun get (I)Lkorlibs/io/serialization/csv/CSV$Record;
+	public final fun getLines ()Ljava/util/List;
+	public final fun getLinesWithNames ()Ljava/util/List;
+	public final fun getNames ()Ljava/util/List;
+	public final fun getNamesToIndex ()Ljava/util/Map;
+	public final fun getRecords ()Ljava/util/List;
+	public fun getSize ()I
+	public fun isEmpty ()Z
+	public fun iterator ()Ljava/util/Iterator;
+	public fun remove (Ljava/lang/Object;)Z
+	public fun removeAll (Ljava/util/Collection;)Z
+	public fun removeIf (Ljava/util/function/Predicate;)Z
+	public fun retainAll (Ljava/util/Collection;)Z
+	public final fun size ()I
+	public fun toArray ()[Ljava/lang/Object;
+	public fun toArray ([Ljava/lang/Object;)[Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+	public final fun toString (C)Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/csv/CSV$Companion {
+	public final fun parse (Ljava/lang/String;CZ)Lkorlibs/io/serialization/csv/CSV;
+	public final fun parse (Lkorlibs/util/SimpleStrReader;CZ)Lkorlibs/io/serialization/csv/CSV;
+	public static synthetic fun parse$default (Lkorlibs/io/serialization/csv/CSV$Companion;Ljava/lang/String;CZILjava/lang/Object;)Lkorlibs/io/serialization/csv/CSV;
+	public static synthetic fun parse$default (Lkorlibs/io/serialization/csv/CSV$Companion;Lkorlibs/util/SimpleStrReader;CZILjava/lang/Object;)Lkorlibs/io/serialization/csv/CSV;
+	public final fun parseLine (Ljava/lang/String;C)Ljava/util/List;
+	public final fun parseLine (Lkorlibs/util/SimpleStrReader;C)Ljava/util/List;
+	public static synthetic fun parseLine$default (Lkorlibs/io/serialization/csv/CSV$Companion;Ljava/lang/String;CILjava/lang/Object;)Ljava/util/List;
+	public static synthetic fun parseLine$default (Lkorlibs/io/serialization/csv/CSV$Companion;Lkorlibs/util/SimpleStrReader;CILjava/lang/Object;)Ljava/util/List;
+	public final fun serializeLine (Ljava/util/List;C)Ljava/lang/String;
+	public static synthetic fun serializeLine$default (Lkorlibs/io/serialization/csv/CSV$Companion;Ljava/util/List;CILjava/lang/Object;)Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/csv/CSV$Record {
+	public fun <init> (Lkorlibs/io/serialization/csv/CSV;Ljava/util/List;)V
+	public final fun get (I)Ljava/lang/String;
+	public final fun get (Ljava/lang/String;)Ljava/lang/String;
+	public final fun getCells ()Ljava/util/List;
+	public final fun getOrNull (I)Ljava/lang/String;
+	public final fun getOrNull (Ljava/lang/String;)Ljava/lang/String;
+	public final fun toMap ()Ljava/util/Map;
+	public fun toString ()Ljava/lang/String;
+}
+
+public class korlibs/io/serialization/json/Json {
+	public static final field Companion Lkorlibs/io/serialization/json/Json$Companion;
+	public fun <init> ()V
+	protected fun createArrayList (I)Ljava/util/List;
+	public static synthetic fun createArrayList$default (Lkorlibs/io/serialization/json/Json;IILjava/lang/Object;)Ljava/util/List;
+	protected fun createDoubleArrayList (Lkorlibs/io/serialization/json/Json$MiniNumberArrayList;)Ljava/lang/Object;
+	protected fun getOptimizeNumbers ()Z
+	public final fun parse (Ljava/lang/String;)Ljava/lang/Object;
+	public final fun parse (Lkorlibs/util/SimpleStrReader;)Ljava/lang/Object;
+	public final fun readStringLit (Lkorlibs/util/SimpleStrReader;ZLjava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public static synthetic fun readStringLit$default (Lkorlibs/io/serialization/json/Json;Lkorlibs/util/SimpleStrReader;ZLjava/lang/StringBuilder;ILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public final fun stringify (Ljava/lang/Object;Ljava/lang/StringBuilder;)V
+	public final fun stringify (Ljava/lang/Object;Z)Ljava/lang/String;
+	public static synthetic fun stringify$default (Lkorlibs/io/serialization/json/Json;Ljava/lang/Object;ZILjava/lang/Object;)Ljava/lang/String;
+	public final fun stringifyPretty (Ljava/lang/Object;Lkorlibs/util/SimpleIndenter;)V
+}
+
+public final class korlibs/io/serialization/json/Json$Companion : korlibs/io/serialization/json/Json {
+}
+
+public abstract interface class korlibs/io/serialization/json/Json$CustomSerializer {
+	public abstract fun encodeToJson (Ljava/lang/StringBuilder;)V
+}
+
+protected final class korlibs/io/serialization/json/Json$MiniNumberArrayList : korlibs/datastructure/DoubleList {
+	public fun <init> ()V
+	public final fun add (D)V
+	public fun add (D)Z
+	public synthetic fun add (Ljava/lang/Object;)Z
+	public fun addAll (Ljava/util/Collection;)Z
+	public final fun clear ()V
+	public fun clone ()Lkorlibs/datastructure/DoubleList;
+	public fun contains (D)Z
+	public final fun contains (Ljava/lang/Object;)Z
+	public fun containsAll (Ljava/util/Collection;)Z
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun fastForEach (Lkotlin/jvm/functions/Function1;)V
+	public fun get (I)D
+	public fun getAt (I)D
+	public final fun getCapacity ()I
+	public final fun getItems ()[D
+	public fun getSize ()I
+	public fun hashCode ()I
+	public fun indexOf (D)I
+	public fun indexOf (DII)I
+	public fun isAlmostEquals (Lkorlibs/datastructure/DoubleList;D)Z
+	public fun isEmpty ()Z
+	public fun iterator ()Ljava/util/Iterator;
+	public fun lastIndexOf (D)I
+	public fun lastIndexOf (DII)I
+	public fun listIterator ()Ljava/util/ListIterator;
+	public fun listIterator (I)Ljava/util/ListIterator;
+	public fun remove (Ljava/lang/Object;)Z
+	public fun removeAll (Ljava/util/Collection;)Z
+	public fun removeIf (Ljava/util/function/Predicate;)Z
+	public fun retainAll (Ljava/util/Collection;)Z
+	public final fun setItems ([D)V
+	public final fun size ()I
+	public fun subList (II)Ljava/util/List;
+	public fun toArray ()[Ljava/lang/Object;
+	public fun toArray ([Ljava/lang/Object;)[Ljava/lang/Object;
+	public fun toDoubleArray ()[D
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/json/JsonFast : korlibs/io/serialization/json/Json {
+	public static final field INSTANCE Lkorlibs/io/serialization/json/JsonFast;
+}
+
+public final class korlibs/io/serialization/json/JsonKt {
+	public static final fun fromJson (Ljava/lang/String;)Ljava/lang/Object;
+	public static final fun toJson (Ljava/util/Map;Z)Ljava/lang/String;
+	public static synthetic fun toJson$default (Ljava/util/Map;ZILjava/lang/Object;)Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/toml/TOML {
+	public static final field INSTANCE Lkorlibs/io/serialization/toml/TOML;
+	public final fun isValidLiteralChar (C)Z
+	public final fun parseToml (Ljava/lang/String;Ljava/util/Map;)Ljava/util/Map;
+	public static synthetic fun parseToml$default (Lkorlibs/io/serialization/toml/TOML;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Ljava/util/Map;
+}
+
+public final class korlibs/io/serialization/xml/Xml {
+	public static final field Companion Lkorlibs/io/serialization/xml/Xml$Companion;
+	public fun <init> (Lkorlibs/io/serialization/xml/Xml$Type;Ljava/lang/String;Ljava/util/Map;Ljava/util/List;Ljava/lang/String;)V
+	public final fun attribute (Ljava/lang/String;)Ljava/lang/String;
+	public final fun boolean (Ljava/lang/String;Z)Z
+	public static synthetic fun boolean$default (Lkorlibs/io/serialization/xml/Xml;Ljava/lang/String;ZILjava/lang/Object;)Z
+	public final fun booleanOrNull (Ljava/lang/String;)Ljava/lang/Boolean;
+	public final fun child (Ljava/lang/String;)Lkorlibs/io/serialization/xml/Xml;
+	public final fun childText (Ljava/lang/String;)Ljava/lang/String;
+	public final fun children (Ljava/lang/String;)Ljava/lang/Iterable;
+	public final fun component1 ()Lkorlibs/io/serialization/xml/Xml$Type;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/util/Map;
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun copy (Lkorlibs/io/serialization/xml/Xml$Type;Ljava/lang/String;Ljava/util/Map;Ljava/util/List;Ljava/lang/String;)Lkorlibs/io/serialization/xml/Xml;
+	public static synthetic fun copy$default (Lkorlibs/io/serialization/xml/Xml;Lkorlibs/io/serialization/xml/Xml$Type;Ljava/lang/String;Ljava/util/Map;Ljava/util/List;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/serialization/xml/Xml;
+	public final fun double (Ljava/lang/String;D)D
+	public static synthetic fun double$default (Lkorlibs/io/serialization/xml/Xml;Ljava/lang/String;DILjava/lang/Object;)D
+	public final fun doubleNull (Ljava/lang/String;)Ljava/lang/Double;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun float (Ljava/lang/String;F)F
+	public static synthetic fun float$default (Lkorlibs/io/serialization/xml/Xml;Ljava/lang/String;FILjava/lang/Object;)F
+	public final fun floatNull (Ljava/lang/String;)Ljava/lang/Float;
+	public final fun get (Ljava/lang/String;)Ljava/lang/Iterable;
+	public final fun getAllChildren ()Ljava/util/List;
+	public final fun getAllChildrenNoComments ()Ljava/util/List;
+	public final fun getAllNodeChildren ()Ljava/util/List;
+	public final fun getAttributes ()Ljava/util/Map;
+	public final fun getAttributesLC ()Ljava/util/Map;
+	public final fun getAttributesStr ()Ljava/lang/String;
+	public final fun getContent ()Ljava/lang/String;
+	public final fun getDescendants ()Lkotlin/sequences/Sequence;
+	public final fun getDouble (Ljava/lang/String;)Ljava/lang/Double;
+	public final fun getFloat (Ljava/lang/String;)Ljava/lang/Float;
+	public final fun getInnerXml ()Ljava/lang/String;
+	public final fun getInt (Ljava/lang/String;)Ljava/lang/Integer;
+	public final fun getLong (Ljava/lang/String;)Ljava/lang/Long;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getNameLC ()Ljava/lang/String;
+	public final fun getOuterXml ()Ljava/lang/String;
+	public final fun getString (Ljava/lang/String;)Ljava/lang/String;
+	public final fun getText ()Ljava/lang/String;
+	public final fun getType ()Lkorlibs/io/serialization/xml/Xml$Type;
+	public final fun hasAttribute (Ljava/lang/String;)Z
+	public fun hashCode ()I
+	public final fun int (Ljava/lang/String;I)I
+	public static synthetic fun int$default (Lkorlibs/io/serialization/xml/Xml;Ljava/lang/String;IILjava/lang/Object;)I
+	public final fun intNull (Ljava/lang/String;)Ljava/lang/Integer;
+	public final fun long (Ljava/lang/String;J)J
+	public static synthetic fun long$default (Lkorlibs/io/serialization/xml/Xml;Ljava/lang/String;JILjava/lang/Object;)J
+	public final fun longNull (Ljava/lang/String;)Ljava/lang/Long;
+	public final fun str (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun str$default (Lkorlibs/io/serialization/xml/Xml;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public final fun strNull (Ljava/lang/String;)Ljava/lang/String;
+	public final fun toOuterXmlIndented (Lkorlibs/util/SimpleIndenter;)Lkorlibs/util/SimpleIndenter;
+	public static synthetic fun toOuterXmlIndented$default (Lkorlibs/io/serialization/xml/Xml;Lkorlibs/util/SimpleIndenter;ILjava/lang/Object;)Lkorlibs/util/SimpleIndenter;
+	public final fun toOuterXmlIndentedString (Lkorlibs/util/SimpleIndenter;)Ljava/lang/String;
+	public static synthetic fun toOuterXmlIndentedString$default (Lkorlibs/io/serialization/xml/Xml;Lkorlibs/util/SimpleIndenter;ILjava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+	public final fun uint-8fN1j4Y (Ljava/lang/String;I)I
+	public static synthetic fun uint-8fN1j4Y$default (Lkorlibs/io/serialization/xml/Xml;Ljava/lang/String;IILjava/lang/Object;)I
+	public final fun withExtraChild (Lkorlibs/io/serialization/xml/Xml;)Lkorlibs/io/serialization/xml/Xml;
+}
+
+public final class korlibs/io/serialization/xml/Xml$Companion {
+	public final fun CData (Ljava/lang/String;)Lkorlibs/io/serialization/xml/Xml;
+	public final fun Comment (Ljava/lang/String;)Lkorlibs/io/serialization/xml/Xml;
+	public final fun Raw (Ljava/lang/String;)Lkorlibs/io/serialization/xml/Xml;
+	public final fun Tag (Ljava/lang/String;Ljava/util/Map;Ljava/util/List;)Lkorlibs/io/serialization/xml/Xml;
+	public final fun Text (Ljava/lang/String;)Lkorlibs/io/serialization/xml/Xml;
+	public final fun parse (Ljava/lang/String;ZZ)Lkorlibs/io/serialization/xml/Xml;
+	public static synthetic fun parse$default (Lkorlibs/io/serialization/xml/Xml$Companion;Ljava/lang/String;ZZILjava/lang/Object;)Lkorlibs/io/serialization/xml/Xml;
+}
+
+public final class korlibs/io/serialization/xml/Xml$Encode {
+	public static final field INSTANCE Lkorlibs/io/serialization/xml/Xml$Encode;
+	public final fun encodeCloseTag (Ljava/lang/String;)Ljava/lang/String;
+	public final fun encodeOpenTag (Ljava/lang/String;Ljava/util/Map;Z)Ljava/lang/String;
+	public static synthetic fun encodeOpenTag$default (Lkorlibs/io/serialization/xml/Xml$Encode;Ljava/lang/String;Ljava/util/Map;ZILjava/lang/Object;)Ljava/lang/String;
+	public final fun quote (Ljava/lang/Object;)Ljava/lang/String;
+	public final fun quote (Ljava/lang/String;)Ljava/lang/String;
+	public final fun quoteParams (Ljava/util/Map;)Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/xml/Xml$Entities {
+	public static final field INSTANCE Lkorlibs/io/serialization/xml/Xml$Entities;
+	public final fun decode (Ljava/lang/String;)Ljava/lang/String;
+	public final fun decode (Lkorlibs/util/SimpleStrReader;)Ljava/lang/String;
+	public final fun encode (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/xml/Xml$Literals {
+	public static final field Companion Lkorlibs/io/serialization/xml/Xml$Literals$Companion;
+	public fun <init> ([Ljava/lang/String;Ljava/util/Map;[Ljava/lang/Integer;)V
+	public final fun contains (Ljava/lang/String;)Z
+	public final fun getLengths ()[Ljava/lang/Integer;
+	public final fun matchAt (Ljava/lang/String;I)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/xml/Xml$Literals$Companion {
+	public final fun fromList ([Ljava/lang/String;)Lkorlibs/io/serialization/xml/Xml$Literals;
+	public final fun invoke ([Ljava/lang/String;)Lkorlibs/io/serialization/xml/Xml$Literals;
+}
+
+public final class korlibs/io/serialization/xml/Xml$Stream {
+	public static final field INSTANCE Lkorlibs/io/serialization/xml/Xml$Stream;
+	public final fun parse (Ljava/lang/String;Z)Ljava/lang/Iterable;
+	public final fun parse (Lkorlibs/io/stream/CharReader;Z)Ljava/lang/Iterable;
+	public final fun parse (Lkorlibs/util/SimpleStrReader;Z)Ljava/lang/Iterable;
+	public static synthetic fun parse$default (Lkorlibs/io/serialization/xml/Xml$Stream;Ljava/lang/String;ZILjava/lang/Object;)Ljava/lang/Iterable;
+	public static synthetic fun parse$default (Lkorlibs/io/serialization/xml/Xml$Stream;Lkorlibs/io/stream/CharReader;ZILjava/lang/Object;)Ljava/lang/Iterable;
+	public static synthetic fun parse$default (Lkorlibs/io/serialization/xml/Xml$Stream;Lkorlibs/util/SimpleStrReader;ZILjava/lang/Object;)Ljava/lang/Iterable;
+	public final fun xmlSequence (Ljava/lang/String;ZZ)Lkotlin/sequences/Sequence;
+	public final fun xmlSequence (Lkorlibs/util/SimpleStrReader;ZZ)Lkotlin/sequences/Sequence;
+	public static synthetic fun xmlSequence$default (Lkorlibs/io/serialization/xml/Xml$Stream;Ljava/lang/String;ZZILjava/lang/Object;)Lkotlin/sequences/Sequence;
+	public static synthetic fun xmlSequence$default (Lkorlibs/io/serialization/xml/Xml$Stream;Lkorlibs/util/SimpleStrReader;ZZILjava/lang/Object;)Lkotlin/sequences/Sequence;
+}
+
+public abstract class korlibs/io/serialization/xml/Xml$Stream$Element {
+}
+
+public final class korlibs/io/serialization/xml/Xml$Stream$Element$CloseTag : korlibs/io/serialization/xml/Xml$Stream$Element {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/io/serialization/xml/Xml$Stream$Element$CloseTag;
+	public static synthetic fun copy$default (Lkorlibs/io/serialization/xml/Xml$Stream$Element$CloseTag;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/serialization/xml/Xml$Stream$Element$CloseTag;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/xml/Xml$Stream$Element$CommentTag : korlibs/io/serialization/xml/Xml$Stream$Element {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/io/serialization/xml/Xml$Stream$Element$CommentTag;
+	public static synthetic fun copy$default (Lkorlibs/io/serialization/xml/Xml$Stream$Element$CommentTag;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/serialization/xml/Xml$Stream$Element$CommentTag;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getText ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/xml/Xml$Stream$Element$OpenCloseTag : korlibs/io/serialization/xml/Xml$Stream$Element {
+	public fun <init> (Ljava/lang/String;Ljava/util/Map;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/Map;
+	public final fun copy (Ljava/lang/String;Ljava/util/Map;)Lkorlibs/io/serialization/xml/Xml$Stream$Element$OpenCloseTag;
+	public static synthetic fun copy$default (Lkorlibs/io/serialization/xml/Xml$Stream$Element$OpenCloseTag;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lkorlibs/io/serialization/xml/Xml$Stream$Element$OpenCloseTag;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAttributes ()Ljava/util/Map;
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/xml/Xml$Stream$Element$OpenTag : korlibs/io/serialization/xml/Xml$Stream$Element {
+	public fun <init> (Ljava/lang/String;Ljava/util/Map;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/Map;
+	public final fun copy (Ljava/lang/String;Ljava/util/Map;)Lkorlibs/io/serialization/xml/Xml$Stream$Element$OpenTag;
+	public static synthetic fun copy$default (Lkorlibs/io/serialization/xml/Xml$Stream$Element$OpenTag;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lkorlibs/io/serialization/xml/Xml$Stream$Element$OpenTag;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAttributes ()Ljava/util/Map;
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/xml/Xml$Stream$Element$ProcessingInstructionTag : korlibs/io/serialization/xml/Xml$Stream$Element {
+	public fun <init> (Ljava/lang/String;Ljava/util/Map;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/Map;
+	public final fun copy (Ljava/lang/String;Ljava/util/Map;)Lkorlibs/io/serialization/xml/Xml$Stream$Element$ProcessingInstructionTag;
+	public static synthetic fun copy$default (Lkorlibs/io/serialization/xml/Xml$Stream$Element$ProcessingInstructionTag;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lkorlibs/io/serialization/xml/Xml$Stream$Element$ProcessingInstructionTag;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAttributes ()Ljava/util/Map;
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/xml/Xml$Stream$Element$Text : korlibs/io/serialization/xml/Xml$Stream$Element {
+	public fun <init> (Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Z
+	public final fun copy (Ljava/lang/String;Z)Lkorlibs/io/serialization/xml/Xml$Stream$Element$Text;
+	public static synthetic fun copy$default (Lkorlibs/io/serialization/xml/Xml$Stream$Element$Text;Ljava/lang/String;ZILjava/lang/Object;)Lkorlibs/io/serialization/xml/Xml$Stream$Element$Text;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCdata ()Z
+	public final fun getText ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun setCdata (Z)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/xml/Xml$Stream$Xml2Iterable : java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {
+	public fun <init> (Lkorlibs/util/SimpleStrReader;Z)V
+	public final fun getReader ()Lkorlibs/util/SimpleStrReader;
+	public final fun getReader2 ()Lkorlibs/util/SimpleStrReader;
+	public final fun getSkipSpaces ()Z
+	public fun iterator ()Ljava/util/Iterator;
+}
+
+public final class korlibs/io/serialization/xml/Xml$Type : java/lang/Enum {
+	public static final field COMMENT Lkorlibs/io/serialization/xml/Xml$Type;
+	public static final field NODE Lkorlibs/io/serialization/xml/Xml$Type;
+	public static final field TEXT Lkorlibs/io/serialization/xml/Xml$Type;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/io/serialization/xml/Xml$Type;
+	public static fun values ()[Lkorlibs/io/serialization/xml/Xml$Type;
+}
+
+public final class korlibs/io/serialization/xml/XmlBuilder {
+	public fun <init> ()V
+	public final fun cdata (Ljava/lang/String;)Lkorlibs/io/serialization/xml/Xml;
+	public final fun comment (Ljava/lang/String;)Lkorlibs/io/serialization/xml/Xml;
+	public final fun getNodes ()Ljava/util/ArrayList;
+	public final fun node (Ljava/lang/String;[Lkotlin/Pair;Lkotlin/jvm/functions/Function1;)Lkorlibs/io/serialization/xml/Xml;
+	public final fun node (Lkorlibs/io/serialization/xml/Xml;)Lkorlibs/io/serialization/xml/Xml;
+	public static synthetic fun node$default (Lkorlibs/io/serialization/xml/XmlBuilder;Ljava/lang/String;[Lkotlin/Pair;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkorlibs/io/serialization/xml/Xml;
+	public final fun raw (Ljava/lang/String;)Lkorlibs/io/serialization/xml/Xml;
+	public final fun text (Ljava/lang/String;)Lkorlibs/io/serialization/xml/Xml;
+}
+
+public final class korlibs/io/serialization/xml/XmlKt {
+	public static final fun Xml (Ljava/lang/String;Ljava/util/Map;Lkotlin/jvm/functions/Function1;)Lkorlibs/io/serialization/xml/Xml;
+	public static final fun Xml (Ljava/lang/String;ZZ)Lkorlibs/io/serialization/xml/Xml;
+	public static final fun Xml (Ljava/lang/String;[Lkotlin/Pair;Lkotlin/jvm/functions/Function1;)Lkorlibs/io/serialization/xml/Xml;
+	public static synthetic fun Xml$default (Ljava/lang/String;Ljava/util/Map;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkorlibs/io/serialization/xml/Xml;
+	public static synthetic fun Xml$default (Ljava/lang/String;ZZILjava/lang/Object;)Lkorlibs/io/serialization/xml/Xml;
+	public static synthetic fun Xml$default (Ljava/lang/String;[Lkotlin/Pair;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkorlibs/io/serialization/xml/Xml;
+	public static final fun buildXml (Ljava/lang/String;[Lkotlin/Pair;Lkotlin/jvm/functions/Function1;)Lkorlibs/io/serialization/xml/Xml;
+	public static synthetic fun buildXml$default (Ljava/lang/String;[Lkotlin/Pair;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkorlibs/io/serialization/xml/Xml;
+	public static final fun children (Ljava/lang/Iterable;Ljava/lang/String;)Ljava/lang/Iterable;
+	public static final fun children (Lkotlin/sequences/Sequence;Ljava/lang/String;)Lkotlin/sequences/Sequence;
+	public static final fun descendants (Lkorlibs/io/serialization/xml/Xml;Ljava/lang/String;)Lkotlin/sequences/Sequence;
+	public static final fun firstDescendant (Lkorlibs/io/serialization/xml/Xml;Ljava/lang/String;)Lkorlibs/io/serialization/xml/Xml;
+	public static final fun get (Ljava/lang/Iterable;Ljava/lang/String;)Ljava/lang/Iterable;
+	public static final fun get (Lkotlin/sequences/Sequence;Ljava/lang/String;)Lkotlin/sequences/Sequence;
+	public static final fun getAllChildren (Ljava/lang/Iterable;)Ljava/lang/Iterable;
+	public static final fun getAllChildren (Lkotlin/sequences/Sequence;)Lkotlin/sequences/Sequence;
+	public static final fun getAllNodeChildren (Ljava/lang/Iterable;)Ljava/lang/Iterable;
+	public static final fun getAllNodeChildren (Lkotlin/sequences/Sequence;)Lkotlin/sequences/Sequence;
+	public static final fun getFirstText (Ljava/lang/Iterable;)Ljava/lang/String;
+	public static final fun getFirstText (Lkotlin/sequences/Sequence;)Ljava/lang/String;
+	public static final fun getText (Ljava/lang/Iterable;)Ljava/lang/String;
+	public static final fun getText (Lkotlin/sequences/Sequence;)Ljava/lang/String;
+	public static final fun isComment (Lkorlibs/io/serialization/xml/Xml;)Z
+	public static final fun isNode (Lkorlibs/io/serialization/xml/Xml;)Z
+	public static final fun isText (Lkorlibs/io/serialization/xml/Xml;)Z
+	public static final fun str (Ljava/lang/Iterable;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun str (Lkotlin/sequences/Sequence;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun str$default (Ljava/lang/Iterable;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public static synthetic fun str$default (Lkotlin/sequences/Sequence;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public static final fun toXml (Ljava/lang/String;Z)Lkorlibs/io/serialization/xml/Xml;
+	public static synthetic fun toXml$default (Ljava/lang/String;ZILjava/lang/Object;)Lkorlibs/io/serialization/xml/Xml;
+}
+
+public final class korlibs/io/serialization/yaml/Yaml {
+	public static final field INSTANCE Lkorlibs/io/serialization/yaml/Yaml;
+	public static final field TRACE Z
+	public final fun decode (Ljava/lang/String;)Ljava/lang/Object;
+	public final fun read (Ljava/lang/String;)Ljava/lang/Object;
+	public final fun tokenize (Ljava/lang/String;)Ljava/util/List;
+}
+
+public abstract interface class korlibs/io/serialization/yaml/Yaml$Token {
+	public abstract fun getStr ()Ljava/lang/String;
+	public fun getUstr ()Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/yaml/Yaml$Token$DefaultImpls {
+	public static fun getUstr (Lkorlibs/io/serialization/yaml/Yaml$Token;)Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/yaml/Yaml$Token$EOF : korlibs/io/serialization/yaml/Yaml$Token {
+	public static final field INSTANCE Lkorlibs/io/serialization/yaml/Yaml$Token$EOF;
+	public fun getStr ()Ljava/lang/String;
+	public fun getUstr ()Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/yaml/Yaml$Token$ID : korlibs/io/serialization/yaml/Yaml$Token {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/io/serialization/yaml/Yaml$Token$ID;
+	public static synthetic fun copy$default (Lkorlibs/io/serialization/yaml/Yaml$Token$ID;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/serialization/yaml/Yaml$Token$ID;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getStr ()Ljava/lang/String;
+	public fun getUstr ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/yaml/Yaml$Token$LINE : korlibs/io/serialization/yaml/Yaml$Token {
+	public fun <init> (Ljava/lang/String;I)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()I
+	public final fun copy (Ljava/lang/String;I)Lkorlibs/io/serialization/yaml/Yaml$Token$LINE;
+	public static synthetic fun copy$default (Lkorlibs/io/serialization/yaml/Yaml$Token$LINE;Ljava/lang/String;IILjava/lang/Object;)Lkorlibs/io/serialization/yaml/Yaml$Token$LINE;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLevel ()I
+	public fun getStr ()Ljava/lang/String;
+	public fun getUstr ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/yaml/Yaml$Token$STR : korlibs/io/serialization/yaml/Yaml$Token {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/io/serialization/yaml/Yaml$Token$STR;
+	public static synthetic fun copy$default (Lkorlibs/io/serialization/yaml/Yaml$Token$STR;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/serialization/yaml/Yaml$Token$STR;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getStr ()Ljava/lang/String;
+	public fun getUstr ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/serialization/yaml/Yaml$Token$SYMBOL : korlibs/io/serialization/yaml/Yaml$Token {
+	public fun <init> (Ljava/lang/String;C)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()C
+	public final fun copy (Ljava/lang/String;C)Lkorlibs/io/serialization/yaml/Yaml$Token$SYMBOL;
+	public static synthetic fun copy$default (Lkorlibs/io/serialization/yaml/Yaml$Token$SYMBOL;Ljava/lang/String;CILjava/lang/Object;)Lkorlibs/io/serialization/yaml/Yaml$Token$SYMBOL;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getNext ()C
+	public fun getStr ()Ljava/lang/String;
+	public fun getUstr ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isNextWhite ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/util/HtmlspecialcharsKt {
+	public static final fun htmlspecialchars (Ljava/lang/String;)Ljava/lang/String;
+}
+

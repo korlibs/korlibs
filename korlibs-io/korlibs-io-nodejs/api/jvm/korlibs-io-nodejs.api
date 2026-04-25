@@ -1,0 +1,4 @@
+public final class korlibs/io/runtime/node/ConfigureNodeJsTargetKt {
+	public static final fun configureNodeJsTarget ()V
+}
+

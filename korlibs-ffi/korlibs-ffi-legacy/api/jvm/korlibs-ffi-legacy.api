@@ -1,0 +1,1029 @@
+public class korlibs/ffi/ExecutableResolver {
+	public static final field Companion Lkorlibs/ffi/ExecutableResolver$Companion;
+	public final fun findInPaths (Ljava/lang/String;Ljava/util/List;)Ljava/lang/String;
+}
+
+public final class korlibs/ffi/ExecutableResolver$Companion : korlibs/ffi/ExecutableResolver {
+}
+
+public final class korlibs/ffi/FFIArena {
+	public fun <init> ()V
+	public final fun allocBytes (I)Lcom/sun/jna/Pointer;
+	public final fun clear ()V
+}
+
+public abstract interface class korlibs/ffi/FFICallback {
+}
+
+public final class korlibs/ffi/FFIDelegateBoolProperty {
+	public static final synthetic fun box-impl (I)Lkorlibs/ffi/FFIDelegateBoolProperty;
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getOffset ()I
+	public static final fun getValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;)Z
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun setValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;Z)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/ffi/FFIDelegateByteProperty {
+	public static final synthetic fun box-impl (I)Lkorlibs/ffi/FFIDelegateByteProperty;
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getOffset ()I
+	public static final fun getValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;)B
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun setValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;B)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/ffi/FFIDelegateDoubleProperty {
+	public static final synthetic fun box-impl (I)Lkorlibs/ffi/FFIDelegateDoubleProperty;
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getOffset ()I
+	public static final fun getValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;)D
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun setValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;D)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/ffi/FFIDelegateFFIPointerProperty {
+	public static final synthetic fun box-impl (I)Lkorlibs/ffi/FFIDelegateFFIPointerProperty;
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getOffset ()I
+	public static final fun getValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;)Lcom/sun/jna/Pointer;
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun setValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;Lcom/sun/jna/Pointer;)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/ffi/FFIDelegateFFIPointerPropertyT {
+	public static final synthetic fun box-impl (I)Lkorlibs/ffi/FFIDelegateFFIPointerPropertyT;
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getOffset ()I
+	public static final fun getValue-7g_9NO0 (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;)Lcom/sun/jna/Pointer;
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun setValue-kwOL1qw (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;Lcom/sun/jna/Pointer;)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/ffi/FFIDelegateFixedBytesProperty {
+	public fun <init> (II)V
+	public final fun getBytes ()[B
+	public final fun getOffset ()I
+	public final fun getSize ()I
+	public final fun getValue (Lkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;)[B
+	public final fun setValue (Lkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;[B)V
+}
+
+public final class korlibs/ffi/FFIDelegateFloatProperty {
+	public static final synthetic fun box-impl (I)Lkorlibs/ffi/FFIDelegateFloatProperty;
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getOffset ()I
+	public static final fun getValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;)F
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun setValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;F)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/ffi/FFIDelegateIntProperty {
+	public static final synthetic fun box-impl (I)Lkorlibs/ffi/FFIDelegateIntProperty;
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getOffset ()I
+	public static final fun getValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun setValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;I)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/ffi/FFIDelegateLongProperty {
+	public static final synthetic fun box-impl (I)Lkorlibs/ffi/FFIDelegateLongProperty;
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getOffset ()I
+	public static final fun getValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;)J
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun setValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;J)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/ffi/FFIDelegateNativeDoubleProperty {
+	public static final synthetic fun box-impl (I)Lkorlibs/ffi/FFIDelegateNativeDoubleProperty;
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public static final fun get-impl (ILcom/sun/jna/Pointer;)D
+	public final fun getOffset ()I
+	public static final fun getValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;)D
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun set-impl (ILcom/sun/jna/Pointer;D)V
+	public static final fun setValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;D)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/ffi/FFIDelegateNativeLongProperty {
+	public static final synthetic fun box-impl (I)Lkorlibs/ffi/FFIDelegateNativeLongProperty;
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getOffset ()I
+	public static final fun getValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;)J
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun setValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;J)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/ffi/FFIDelegateShortProperty {
+	public static final synthetic fun box-impl (I)Lkorlibs/ffi/FFIDelegateShortProperty;
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getOffset ()I
+	public static final fun getValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;)S
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun setValue-impl (ILkorlibs/ffi/FFIStructure;Lkotlin/reflect/KProperty;S)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/ffi/FFIFuncConfig {
+	public static final field Companion Lkorlibs/ffi/FFIFuncConfig$Companion;
+	public fun <init> ()V
+	public fun <init> (ZZ)V
+	public synthetic fun <init> (ZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun copy (ZZ)Lkorlibs/ffi/FFIFuncConfig;
+	public static synthetic fun copy$default (Lkorlibs/ffi/FFIFuncConfig;ZZILjava/lang/Object;)Lkorlibs/ffi/FFIFuncConfig;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAltAbiConvention ()Z
+	public final fun getWideString ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/ffi/FFIFuncConfig$Companion {
+	public final fun getDEFAULT ()Lkorlibs/ffi/FFIFuncConfig;
+	public final fun getWIDE_STRING ()Lkorlibs/ffi/FFIFuncConfig;
+}
+
+public class korlibs/ffi/FFILib : java/lang/AutoCloseable {
+	public static final field Companion Lkorlibs/ffi/FFILib$Companion;
+	public fun <init> (Ljava/util/List;Z)V
+	public synthetic fun <init> (Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> ([Ljava/lang/String;Z)V
+	public synthetic fun <init> ([Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close ()V
+	protected fun createFFILibSym ()Lkorlibs/ffi/FFILibSym;
+	protected final fun finalize ()V
+	public final fun getFunctions ()Ljava/util/ArrayList;
+	public final fun getLazyCreate ()Z
+	public final fun getLoaded ()Z
+	public final fun getPaths ()Ljava/util/List;
+	public final fun getResolvedPath ()Ljava/lang/String;
+	public final fun getSym ()Lkorlibs/ffi/FFILibSym;
+	public final fun get_sym ()Lkorlibs/ffi/FFILibSym;
+	public final fun set_sym (Lkorlibs/ffi/FFILibSym;)V
+}
+
+public final class korlibs/ffi/FFILib$Companion {
+	public final fun extractTypeFunc (Lkotlin/reflect/KType;)Lkorlibs/ffi/FuncType;
+	public final fun isFFISupported ()Z
+}
+
+public final class korlibs/ffi/FFILib$FuncDelegate : kotlin/properties/ReadOnlyProperty {
+	public fun <init> (Lkorlibs/ffi/FFILib;Ljava/lang/String;Ljava/lang/String;Lkotlin/reflect/KType;Lkorlibs/ffi/FFIFuncConfig;Z)V
+	public final fun getBase ()Lkorlibs/ffi/FFILib;
+	public final fun getBname ()Ljava/lang/String;
+	public final fun getCached ()Ljava/lang/Object;
+	public final fun getConfig ()Lkorlibs/ffi/FFIFuncConfig;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getParams ()Ljava/util/List;
+	public final fun getParts ()Lkorlibs/ffi/FuncType;
+	public final fun getRequired ()Z
+	public final fun getRet ()Lkotlin/reflect/KClassifier;
+	public final fun getType ()Lkotlin/reflect/KType;
+	public synthetic fun getValue (Ljava/lang/Object;Lkotlin/reflect/KProperty;)Ljava/lang/Object;
+	public fun getValue (Lkorlibs/ffi/FFILib;Lkotlin/reflect/KProperty;)Ljava/lang/Object;
+	public final fun setCached (Ljava/lang/Object;)V
+}
+
+public final class korlibs/ffi/FFILib$FuncInfo {
+	public fun <init> (Lkotlin/reflect/KType;Ljava/lang/String;Lkorlibs/ffi/FFIFuncConfig;Z)V
+	public synthetic fun <init> (Lkotlin/reflect/KType;Ljava/lang/String;Lkorlibs/ffi/FFIFuncConfig;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getConfig ()Lkorlibs/ffi/FFIFuncConfig;
+	public final fun getExtraName ()Ljava/lang/String;
+	public final fun getRequired ()Z
+	public final fun getType ()Lkotlin/reflect/KType;
+	public final fun provideDelegate (Lkorlibs/ffi/FFILib;Lkotlin/reflect/KProperty;)Lkotlin/properties/ReadOnlyProperty;
+}
+
+public final class korlibs/ffi/FFILibKt {
+	public static final fun FFIMemory (ILkotlin/Unit;)Lcom/sun/jna/Memory;
+	public static final fun FFIMemory ([BLkotlin/Unit;)Lcom/sun/jna/Memory;
+	public static synthetic fun FFIMemory$default (ILkotlin/Unit;ILjava/lang/Object;)Lcom/sun/jna/Memory;
+	public static synthetic fun FFIMemory$default ([BLkotlin/Unit;ILjava/lang/Object;)Lcom/sun/jna/Memory;
+	public static final fun FFIPointer (JLkotlin/Unit;)Lcom/sun/jna/Pointer;
+	public static synthetic fun FFIPointer$default (JLkotlin/Unit;ILjava/lang/Object;)Lcom/sun/jna/Pointer;
+	public static final fun allocBytes (Lkorlibs/ffi/FFIArena;ILkotlin/jvm/functions/Function1;)Lcom/sun/jna/Pointer;
+	public static final fun arraycopy (Lcom/sun/jna/Pointer;ILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy (Lkorlibs/memory/Buffer;ILcom/sun/jna/Pointer;II)V
+	public static final fun ffiPointerArrayOf ([Lcom/sun/jna/Pointer;)Lkorlibs/ffi/FFIPointerArray;
+	public static final fun ffiScoped (Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static final fun get-Lx_nz-s (Lcom/sun/jna/Pointer;I)B
+	public static final fun get-Lx_nz-s (Lcom/sun/jna/Pointer;I)D
+	public static final fun get-Lx_nz-s (Lcom/sun/jna/Pointer;I)F
+	public static final fun get-Lx_nz-s (Lcom/sun/jna/Pointer;I)I
+	public static final fun get-Lx_nz-s (Lcom/sun/jna/Pointer;I)J
+	public static final fun get-Lx_nz-s (Lcom/sun/jna/Pointer;I)Lcom/sun/jna/Pointer;
+	public static final fun get-Lx_nz-s (Lcom/sun/jna/Pointer;I)S
+	public static final fun getAlignedF32 (Lcom/sun/jna/Pointer;I)F
+	public static synthetic fun getAlignedF32$default (Lcom/sun/jna/Pointer;IILjava/lang/Object;)F
+	public static final fun getAlignedF64 (Lcom/sun/jna/Pointer;I)D
+	public static synthetic fun getAlignedF64$default (Lcom/sun/jna/Pointer;IILjava/lang/Object;)D
+	public static final fun getAlignedFFIPointer (Lcom/sun/jna/Pointer;I)Lcom/sun/jna/Pointer;
+	public static synthetic fun getAlignedFFIPointer$default (Lcom/sun/jna/Pointer;IILjava/lang/Object;)Lcom/sun/jna/Pointer;
+	public static final fun getAlignedS16 (Lcom/sun/jna/Pointer;I)S
+	public static synthetic fun getAlignedS16$default (Lcom/sun/jna/Pointer;IILjava/lang/Object;)S
+	public static final fun getAlignedS32 (Lcom/sun/jna/Pointer;I)I
+	public static synthetic fun getAlignedS32$default (Lcom/sun/jna/Pointer;IILjava/lang/Object;)I
+	public static final fun getAlignedS64 (Lcom/sun/jna/Pointer;I)J
+	public static synthetic fun getAlignedS64$default (Lcom/sun/jna/Pointer;IILjava/lang/Object;)J
+	public static final fun getByteArray (Lcom/sun/jna/Pointer;II)[B
+	public static synthetic fun getByteArray$default (Lcom/sun/jna/Pointer;IIILjava/lang/Object;)[B
+	public static final fun getFFIPointer (Lcom/sun/jna/Pointer;I)Lcom/sun/jna/Pointer;
+	public static final fun getFFIPointer (Lkorlibs/memory/Buffer;I)Lcom/sun/jna/Pointer;
+	public static synthetic fun getFFIPointer$default (Lcom/sun/jna/Pointer;IILjava/lang/Object;)Lcom/sun/jna/Pointer;
+	public static final fun getFFI_NATIVE_LONG_SIZE ()I
+	public static final fun getShortArray (Lcom/sun/jna/Pointer;II)[S
+	public static synthetic fun getShortArray$default (Lcom/sun/jna/Pointer;IIILjava/lang/Object;)[S
+	public static final fun getUnalignedFFIPointer (Lkorlibs/memory/Buffer;I)Lcom/sun/jna/Pointer;
+	public static final fun plus (Lcom/sun/jna/Pointer;I)Lcom/sun/jna/Pointer;
+	public static final fun reinterpret-p0gdXDQ (Lcom/sun/jna/Pointer;)Lcom/sun/jna/Pointer;
+	public static final fun set-5g6wF0o (Lcom/sun/jna/Pointer;IB)V
+	public static final fun set-5g6wF0o (Lcom/sun/jna/Pointer;ID)V
+	public static final fun set-5g6wF0o (Lcom/sun/jna/Pointer;IF)V
+	public static final fun set-5g6wF0o (Lcom/sun/jna/Pointer;II)V
+	public static final fun set-5g6wF0o (Lcom/sun/jna/Pointer;IJ)V
+	public static final fun set-5g6wF0o (Lcom/sun/jna/Pointer;ILcom/sun/jna/Pointer;)V
+	public static final fun set-5g6wF0o (Lcom/sun/jna/Pointer;IS)V
+	public static final fun setAligned16 (Lcom/sun/jna/Pointer;SI)V
+	public static synthetic fun setAligned16$default (Lcom/sun/jna/Pointer;SIILjava/lang/Object;)V
+	public static final fun setAligned32 (Lcom/sun/jna/Pointer;II)V
+	public static synthetic fun setAligned32$default (Lcom/sun/jna/Pointer;IIILjava/lang/Object;)V
+	public static final fun setAligned64 (Lcom/sun/jna/Pointer;JI)V
+	public static synthetic fun setAligned64$default (Lcom/sun/jna/Pointer;JIILjava/lang/Object;)V
+	public static final fun setAlignedF32 (Lcom/sun/jna/Pointer;FI)V
+	public static synthetic fun setAlignedF32$default (Lcom/sun/jna/Pointer;FIILjava/lang/Object;)V
+	public static final fun setAlignedF64 (Lcom/sun/jna/Pointer;DI)V
+	public static synthetic fun setAlignedF64$default (Lcom/sun/jna/Pointer;DIILjava/lang/Object;)V
+	public static final fun setAlignedFFIPointer (Lcom/sun/jna/Pointer;Lcom/sun/jna/Pointer;I)V
+	public static synthetic fun setAlignedFFIPointer$default (Lcom/sun/jna/Pointer;Lcom/sun/jna/Pointer;IILjava/lang/Object;)V
+	public static final fun setFFIPointer (Lcom/sun/jna/Pointer;Lcom/sun/jna/Pointer;I)V
+	public static final fun setFFIPointer (Lkorlibs/memory/Buffer;ILcom/sun/jna/Pointer;)V
+	public static synthetic fun setFFIPointer$default (Lcom/sun/jna/Pointer;Lcom/sun/jna/Pointer;IILjava/lang/Object;)V
+	public static final fun setUnalignedFFIPointer (Lkorlibs/memory/Buffer;ILcom/sun/jna/Pointer;)V
+	public static final fun set_typedPointer (Lcom/sun/jna/Pointer;I)Lcom/sun/jna/Pointer;
+	public static final fun set_typedPointer (Lcom/sun/jna/Pointer;ILcom/sun/jna/Pointer;)V
+	public static final fun strlen (Lcom/sun/jna/Pointer;I)I
+	public static synthetic fun strlen$default (Lcom/sun/jna/Pointer;IILjava/lang/Object;)I
+	public static final fun typed (Lcom/sun/jna/Pointer;)Lcom/sun/jna/Pointer;
+	public static final fun withOffset (Lcom/sun/jna/Pointer;I)Lcom/sun/jna/Pointer;
+}
+
+public abstract interface class korlibs/ffi/FFILibSym : java/lang/AutoCloseable {
+	public fun close ()V
+	public fun get (Ljava/lang/String;Lkotlin/reflect/KType;)Ljava/lang/Object;
+}
+
+public final class korlibs/ffi/FFILibSym$DefaultImpls {
+	public static fun close (Lkorlibs/ffi/FFILibSym;)V
+	public static fun get (Lkorlibs/ffi/FFILibSym;Ljava/lang/String;Lkotlin/reflect/KType;)Ljava/lang/Object;
+}
+
+public final class korlibs/ffi/FFILibSymJVM : korlibs/ffi/FFILibSym {
+	public fun <init> (Lkorlibs/ffi/FFILib;)V
+	public fun close ()V
+	public final fun createFunction (Ljava/lang/String;Lkotlin/reflect/KType;Lkorlibs/ffi/FFIFuncConfig;Z)Lkotlin/Function;
+	public fun get (Ljava/lang/String;Lkotlin/reflect/KType;)Ljava/lang/Object;
+	public final fun getFunctions ()Ljava/util/Map;
+	public final fun getLib ()Lkorlibs/ffi/FFILib;
+	public final fun getNlib ()Lcom/sun/jna/NativeLibrary;
+}
+
+public final class korlibs/ffi/FFILib_jvmKt {
+	public static final fun CreateFFIMemory (I)Lcom/sun/jna/Memory;
+	public static final fun CreateFFIMemory ([B)Lcom/sun/jna/Memory;
+	public static final fun FFICreateProxyFunction (Lkotlin/reflect/KType;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static final fun FFILibSym (Lkorlibs/ffi/FFILib;)Lkorlibs/ffi/FFILibSym;
+	public static final fun FFIPointerCreation (J)Lcom/sun/jna/Pointer;
+	public static final fun arraycopy (Lcom/sun/jna/Pointer;ILcom/sun/jna/Pointer;II)V
+	public static final fun castToFunc (Lcom/sun/jna/Pointer;Lkotlin/reflect/KType;Lkorlibs/ffi/FFIFuncConfig;)Ljava/lang/Object;
+	public static synthetic fun castToFunc$default (Lcom/sun/jna/Pointer;Lkotlin/reflect/KType;Lkorlibs/ffi/FFIFuncConfig;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun createJNAFunctionToPlainFunc (Lcom/sun/jna/Function;Lkotlin/reflect/KType;Lkorlibs/ffi/FFIFuncConfig;Ljava/lang/String;)Lkotlin/Function;
+	public static final fun getAddress (Lcom/sun/jna/Pointer;)J
+	public static final fun getDirectBuffer_addressHandle ()Ljava/lang/invoke/MethodHandle;
+	public static final fun getF32 (Lcom/sun/jna/Pointer;I)F
+	public static synthetic fun getF32$default (Lcom/sun/jna/Pointer;IILjava/lang/Object;)F
+	public static final fun getF64 (Lcom/sun/jna/Pointer;I)D
+	public static synthetic fun getF64$default (Lcom/sun/jna/Pointer;IILjava/lang/Object;)D
+	public static final fun getFFI_POINTER_SIZE ()I
+	public static final fun getFFI_SUPPORTED ()Z
+	public static final fun getIntArray (Lcom/sun/jna/Pointer;II)[I
+	public static synthetic fun getIntArray$default (Lcom/sun/jna/Pointer;IIILjava/lang/Object;)[I
+	public static final fun getPointer (Lcom/sun/jna/Memory;)Lcom/sun/jna/Pointer;
+	public static final fun getPointer (Lkorlibs/memory/Buffer;)Lcom/sun/jna/Pointer;
+	public static final fun getS16 (Lcom/sun/jna/Pointer;I)S
+	public static synthetic fun getS16$default (Lcom/sun/jna/Pointer;IILjava/lang/Object;)S
+	public static final fun getS32 (Lcom/sun/jna/Pointer;I)I
+	public static synthetic fun getS32$default (Lcom/sun/jna/Pointer;IILjava/lang/Object;)I
+	public static final fun getS64 (Lcom/sun/jna/Pointer;I)J
+	public static synthetic fun getS64$default (Lcom/sun/jna/Pointer;IILjava/lang/Object;)J
+	public static final fun getS8 (Lcom/sun/jna/Pointer;I)B
+	public static synthetic fun getS8$default (Lcom/sun/jna/Pointer;IILjava/lang/Object;)B
+	public static final fun getStr (Lcom/sun/jna/Pointer;)Ljava/lang/String;
+	public static final fun getStringz (Lcom/sun/jna/Pointer;)Ljava/lang/String;
+	public static final fun getWideStringz (Lcom/sun/jna/Pointer;)Ljava/lang/String;
+	public static final fun pointerAddress (Ljava/nio/ByteBuffer;)J
+	public static final fun set16 (Lcom/sun/jna/Pointer;SI)V
+	public static synthetic fun set16$default (Lcom/sun/jna/Pointer;SIILjava/lang/Object;)V
+	public static final fun set32 (Lcom/sun/jna/Pointer;II)V
+	public static synthetic fun set32$default (Lcom/sun/jna/Pointer;IIILjava/lang/Object;)V
+	public static final fun set64 (Lcom/sun/jna/Pointer;JI)V
+	public static synthetic fun set64$default (Lcom/sun/jna/Pointer;JIILjava/lang/Object;)V
+	public static final fun set8 (Lcom/sun/jna/Pointer;BI)V
+	public static synthetic fun set8$default (Lcom/sun/jna/Pointer;BIILjava/lang/Object;)V
+	public static final fun setF32 (Lcom/sun/jna/Pointer;FI)V
+	public static synthetic fun setF32$default (Lcom/sun/jna/Pointer;FIILjava/lang/Object;)V
+	public static final fun setF64 (Lcom/sun/jna/Pointer;DI)V
+	public static synthetic fun setF64$default (Lcom/sun/jna/Pointer;DIILjava/lang/Object;)V
+	public static final fun usePointer (Lcom/sun/jna/Memory;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static final fun usePointer (Lkorlibs/memory/Buffer;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+}
+
+public class korlibs/ffi/FFIMemLayoutBuilder {
+	public fun <init> ()V
+	public final fun bool-KreyfSI ()I
+	public final fun byte-Rg5Sx7g ()I
+	public final fun double-_W-5J0A ()I
+	public final fun fixedBytes (II)Lkorlibs/ffi/FFIDelegateFixedBytesProperty;
+	public static synthetic fun fixedBytes$default (Lkorlibs/ffi/FFIMemLayoutBuilder;IIILjava/lang/Object;)Lkorlibs/ffi/FFIDelegateFixedBytesProperty;
+	public final fun float-MOuJEXM ()I
+	public final fun getMaxAlign ()I
+	public final fun getOffset ()I
+	public final fun getSize ()I
+	public final fun int-4vUtyEE ()I
+	public final fun kpointer-D1b64a0 ()I
+	public final fun kpointerT-ga4NFYA ()I
+	public final fun long-SQGKMVk ()I
+	public final fun nativeFloat-wOAQfho ()I
+	public final fun nativeLong-l3ck6h0 ()I
+	public final fun rawAlloc (II)I
+	public static synthetic fun rawAlloc$default (Lkorlibs/ffi/FFIMemLayoutBuilder;IIILjava/lang/Object;)I
+	public final fun short-y2FZdbA ()I
+}
+
+public final class korlibs/ffi/FFINativeLong {
+	public fun <init> (J)V
+	public final fun getValue ()J
+}
+
+public final class korlibs/ffi/FFIPointerArray : java/util/List, kotlin/jvm/internal/markers/KMappedMarker {
+	public fun <init> (I)V
+	public fun <init> ([I)V
+	public fun add (ILcom/sun/jna/Pointer;)V
+	public synthetic fun add (ILjava/lang/Object;)V
+	public fun add (Lcom/sun/jna/Pointer;)Z
+	public synthetic fun add (Ljava/lang/Object;)Z
+	public fun addAll (ILjava/util/Collection;)Z
+	public fun addAll (Ljava/util/Collection;)Z
+	public fun addFirst (Lcom/sun/jna/Pointer;)V
+	public synthetic fun addFirst (Ljava/lang/Object;)V
+	public fun addLast (Lcom/sun/jna/Pointer;)V
+	public synthetic fun addLast (Ljava/lang/Object;)V
+	public fun clear ()V
+	public final fun component1 ()[I
+	public fun contains (Lcom/sun/jna/Pointer;)Z
+	public final fun contains (Ljava/lang/Object;)Z
+	public fun containsAll (Ljava/util/Collection;)Z
+	public final fun copy ([I)Lkorlibs/ffi/FFIPointerArray;
+	public static synthetic fun copy$default (Lkorlibs/ffi/FFIPointerArray;[IILjava/lang/Object;)Lkorlibs/ffi/FFIPointerArray;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun get (I)Lcom/sun/jna/Pointer;
+	public synthetic fun get (I)Ljava/lang/Object;
+	public final fun getData ()[I
+	public fun getSize ()I
+	public fun hashCode ()I
+	public fun indexOf (Lcom/sun/jna/Pointer;)I
+	public final fun indexOf (Ljava/lang/Object;)I
+	public fun isEmpty ()Z
+	public fun iterator ()Ljava/util/Iterator;
+	public fun lastIndexOf (Lcom/sun/jna/Pointer;)I
+	public final fun lastIndexOf (Ljava/lang/Object;)I
+	public fun listIterator ()Ljava/util/ListIterator;
+	public fun listIterator (I)Ljava/util/ListIterator;
+	public fun remove (I)Lcom/sun/jna/Pointer;
+	public synthetic fun remove (I)Ljava/lang/Object;
+	public fun remove (Ljava/lang/Object;)Z
+	public fun removeAll (Ljava/util/Collection;)Z
+	public fun removeFirst ()Lcom/sun/jna/Pointer;
+	public synthetic fun removeFirst ()Ljava/lang/Object;
+	public fun removeLast ()Lcom/sun/jna/Pointer;
+	public synthetic fun removeLast ()Ljava/lang/Object;
+	public fun replaceAll (Ljava/util/function/UnaryOperator;)V
+	public fun retainAll (Ljava/util/Collection;)Z
+	public fun set (ILcom/sun/jna/Pointer;)Lcom/sun/jna/Pointer;
+	public final fun set (ILcom/sun/jna/Pointer;)V
+	public synthetic fun set (ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun size ()I
+	public fun sort (Ljava/util/Comparator;)V
+	public fun subList (II)Ljava/util/List;
+	public fun toArray ()[Ljava/lang/Object;
+	public fun toArray ([Ljava/lang/Object;)[Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+}
+
+public class korlibs/ffi/FFIStructure {
+	public fun <init> (Lcom/sun/jna/Pointer;)V
+	public final fun bool-KreyfSI ()I
+	public final fun byte-Rg5Sx7g ()I
+	public final fun double-_W-5J0A ()I
+	public final fun fixedBytes (I)Lkorlibs/ffi/FFIDelegateFixedBytesProperty;
+	public final fun getLayout ()Lkorlibs/ffi/FFIMemLayoutBuilder;
+	public final fun getPtr ()Lcom/sun/jna/Pointer;
+	public final fun getPtrSure ()Lcom/sun/jna/Pointer;
+	public final fun getSize ()I
+	public final fun int-4vUtyEE ()I
+	public final fun long-SQGKMVk ()I
+	public final fun nativeFloat-wOAQfho ()I
+	public final fun nativeLong-l3ck6h0 ()I
+	public final fun pointer-D1b64a0 ()I
+	public final fun pointer-ga4NFYA ()I
+	public final fun setPtr (Lcom/sun/jna/Pointer;)V
+	public final fun short-y2FZdbA ()I
+}
+
+public final class korlibs/ffi/FFITypedPointer {
+	public static final synthetic fun box-impl (Lcom/sun/jna/Pointer;)Lkorlibs/ffi/FFITypedPointer;
+	public static fun constructor-impl (Lcom/sun/jna/Pointer;)Lcom/sun/jna/Pointer;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Lcom/sun/jna/Pointer;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Lcom/sun/jna/Pointer;Lcom/sun/jna/Pointer;)Z
+	public final fun getPointer ()Lcom/sun/jna/Pointer;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Lcom/sun/jna/Pointer;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Lcom/sun/jna/Pointer;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Lcom/sun/jna/Pointer;
+}
+
+public final class korlibs/ffi/FFIVarargs {
+	public static final synthetic fun box-impl (Ljava/util/List;)Lkorlibs/ffi/FFIVarargs;
+	public static fun constructor-impl (Ljava/util/List;)Ljava/util/List;
+	public static fun constructor-impl ([Ljava/lang/Object;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/util/List;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/util/List;Ljava/util/List;)Z
+	public final fun getArgs ()Ljava/util/List;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/util/List;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/util/List;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/util/List;
+}
+
+public final class korlibs/ffi/FuncType {
+	public fun <init> (Ljava/util/List;Lkotlin/reflect/KType;)V
+	public final fun getParams ()Ljava/util/List;
+	public final fun getParamsClass ()Ljava/util/List;
+	public final fun getRet ()Lkotlin/reflect/KType;
+	public final fun getRetClass ()Lkotlin/reflect/KClassifier;
+}
+
+public class korlibs/ffi/LDLibraries {
+	public static final field Companion Lkorlibs/ffi/LDLibraries$Companion;
+	public final fun addPath (Ljava/lang/String;)V
+	public final fun getLdFolders ()Ljava/util/List;
+	public final fun hasLibrary (Ljava/lang/String;)Z
+}
+
+public final class korlibs/ffi/LDLibraries$Companion : korlibs/ffi/LDLibraries {
+}
+
+public class korlibs/ffi/LibraryResolver {
+	public static final field Companion Lkorlibs/ffi/LibraryResolver$Companion;
+	public final fun getLdLibraries ()Lkorlibs/ffi/LDLibraries;
+	public final fun getPlatform ()Lkorlibs/platform/Platform;
+	public final fun resolve (Ljava/lang/String;)Ljava/lang/String;
+	public final fun resolve ([Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class korlibs/ffi/LibraryResolver$Companion : korlibs/ffi/LibraryResolver {
+}
+
+public class korlibs/ffi/SymbolResolverFFILib : korlibs/ffi/FFILib {
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	protected fun createFFILibSym ()Lkorlibs/ffi/FFILibSym;
+	public final fun getResolve ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class korlibs/ffi/osx/ConstObjcType : korlibs/ffi/osx/ObjcType {
+	public fun <init> (Lkorlibs/ffi/osx/ObjcType;)V
+	public final fun component1 ()Lkorlibs/ffi/osx/ObjcType;
+	public final fun copy (Lkorlibs/ffi/osx/ObjcType;)Lkorlibs/ffi/osx/ConstObjcType;
+	public static synthetic fun copy$default (Lkorlibs/ffi/osx/ConstObjcType;Lkorlibs/ffi/osx/ObjcType;ILjava/lang/Object;)Lkorlibs/ffi/osx/ConstObjcType;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBase ()Lkorlibs/ffi/osx/ObjcType;
+	public fun hashCode ()I
+	public fun toKotlinString ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/ffi/osx/CoreFoundation : korlibs/ffi/FFILib {
+	public static final field INSTANCE Lkorlibs/ffi/osx/CoreFoundation;
+	public final fun getDlopen ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class korlibs/ffi/osx/FFIObjc : korlibs/ffi/FFILib {
+	public static final field INSTANCE Lkorlibs/ffi/osx/FFIObjc;
+	public final fun getClass_addMethod ()Lkotlin/jvm/functions/Function4;
+	public final fun getClass_addProtocol ()Lkotlin/jvm/functions/Function2;
+	public final fun getClass_conformsToProtocol ()Lkotlin/jvm/functions/Function2;
+	public final fun getClass_copyIvarList ()Lkotlin/jvm/functions/Function2;
+	public final fun getClass_copyMethodList ()Lkotlin/jvm/functions/Function2;
+	public final fun getClass_copyPropertyList ()Lkotlin/jvm/functions/Function2;
+	public final fun getClass_createInstance ()Lkotlin/jvm/functions/Function2;
+	public final fun getClass_getImageName ()Lkotlin/jvm/functions/Function1;
+	public final fun getClass_getInstanceMethod ()Lkotlin/jvm/functions/Function2;
+	public final fun getClass_getInstanceVariable ()Lkotlin/jvm/functions/Function2;
+	public final fun getClass_getName ()Lkotlin/jvm/functions/Function1;
+	public final fun getClass_getProperty ()Lkotlin/jvm/functions/Function2;
+	public final fun getIvar_getName ()Lkotlin/jvm/functions/Function1;
+	public final fun getIvar_getTypeEncoding ()Lkotlin/jvm/functions/Function1;
+	public final fun getMethod_getName ()Lkotlin/jvm/functions/Function1;
+	public final fun getMethod_getNameString ()Lkotlin/jvm/functions/Function1;
+	public final fun getMethod_getReturnType ()Lkotlin/jvm/functions/Function3;
+	public final fun getMethod_getTypeEncoding ()Lkotlin/jvm/functions/Function1;
+	public final fun getObjc_allocateClassPair ()Lkotlin/jvm/functions/Function3;
+	public final fun getObjc_copyProtocolList ()Lkotlin/jvm/functions/Function1;
+	public final fun getObjc_getClass ()Lkotlin/jvm/functions/Function1;
+	public final fun getObjc_getClassList ()Lkotlin/jvm/functions/Function2;
+	public final fun getObjc_getProtocol ()Lkotlin/jvm/functions/Function1;
+	public final fun getObjc_lookUpClass ()Lkotlin/jvm/functions/Function1;
+	public final fun getObjc_msgSend ()Lkotlin/jvm/functions/Function1;
+	public final fun getObjc_msgSendDouble ()Lkotlin/jvm/functions/Function1;
+	public final fun getObjc_msgSendFloat ()Lkotlin/jvm/functions/Function1;
+	public final fun getObjc_msgSendInt ()Lkotlin/jvm/functions/Function1;
+	public final fun getObjc_msgSendVoid ()Lkotlin/jvm/functions/Function1;
+	public final fun getObjc_msgSend_stret ()Lkotlin/jvm/functions/Function2;
+	public final fun getObjc_registerClassPair ()Lkotlin/jvm/functions/Function1;
+	public final fun getObject_getClass ()Lkotlin/jvm/functions/Function1;
+	public final fun getObject_getClassName ()Lkotlin/jvm/functions/Function1;
+	public final fun getObject_getIvar ()Lkotlin/jvm/functions/Function2;
+	public final fun getProperty_getAttributes ()Lkotlin/jvm/functions/Function1;
+	public final fun getProperty_getName ()Lkotlin/jvm/functions/Function1;
+	public final fun getProtocol_copyMethodDescriptionList ()Lkotlin/jvm/functions/Function4;
+	public final fun getProtocol_getName ()Lkotlin/jvm/functions/Function1;
+	public final fun getSel_getName ()Lkotlin/jvm/functions/Function1;
+	public final fun getSel_getNameString ()Lkotlin/jvm/functions/Function1;
+	public final fun getSel_registerName ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class korlibs/ffi/osx/FFIObjcKt {
+	public static final fun getAllClassIDs (Lkorlibs/ffi/osx/FFIObjc;)Ljava/util/List;
+	public static final fun getClassByName (Lkorlibs/ffi/osx/FFIObjc;Ljava/lang/String;)Lkorlibs/ffi/osx/ObjcClassRef;
+	public static final fun getKotlinKeywords ()Ljava/util/Set;
+}
+
+public final class korlibs/ffi/osx/FixedArrayObjcType : korlibs/ffi/osx/ObjcType {
+	public fun <init> (ILkorlibs/ffi/osx/ObjcType;)V
+	public final fun component1 ()I
+	public final fun component2 ()Lkorlibs/ffi/osx/ObjcType;
+	public final fun copy (ILkorlibs/ffi/osx/ObjcType;)Lkorlibs/ffi/osx/FixedArrayObjcType;
+	public static synthetic fun copy$default (Lkorlibs/ffi/osx/FixedArrayObjcType;ILkorlibs/ffi/osx/ObjcType;ILjava/lang/Object;)Lkorlibs/ffi/osx/FixedArrayObjcType;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCount ()I
+	public final fun getType ()Lkorlibs/ffi/osx/ObjcType;
+	public fun hashCode ()I
+	public fun toKotlinString ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/ffi/osx/NSArray : kotlin/collections/AbstractList {
+	public synthetic fun <init> (JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun contains (J)Z
+	public final fun contains (Ljava/lang/Object;)Z
+	public fun get (I)Ljava/lang/Long;
+	public synthetic fun get (I)Ljava/lang/Object;
+	public final fun getCount ()I
+	public final fun getId-BIn8Vkg ()J
+	public fun getSize ()I
+	public fun indexOf (J)I
+	public final fun indexOf (Ljava/lang/Object;)I
+	public fun lastIndexOf (J)I
+	public final fun lastIndexOf (Ljava/lang/Object;)I
+	public fun toString ()Ljava/lang/String;
+}
+
+public class korlibs/ffi/osx/NSClass : korlibs/ffi/osx/NSObject {
+	public fun <init> (J)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun getName ()Ljava/lang/String;
+	public final fun getOBJ_CLASS-BIn8Vkg ()J
+	public fun toString ()Ljava/lang/String;
+}
+
+public class korlibs/ffi/osx/NSDictionary : korlibs/ffi/osx/NSObject {
+	public fun <init> ()V
+	public fun <init> (J)V
+	public final fun getCount ()J
+	public final fun getObjectForKey ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class korlibs/ffi/osx/NSMutableDictionary : korlibs/ffi/osx/NSDictionary {
+	public fun <init> ()V
+	public fun <init> (J)V
+	public final fun get (Ljava/lang/Object;)Lkorlibs/ffi/osx/NSObject;
+	public final fun getValue (Lkorlibs/ffi/osx/NSObject;)Lkorlibs/ffi/osx/NSObject;
+	public final fun set (Ljava/lang/Object;Ljava/lang/Object;)V
+	public final fun set (Lkorlibs/ffi/osx/NSObject;Lkorlibs/ffi/osx/NSObject;)V
+	public final fun setValue (Lkorlibs/ffi/osx/NSObject;Lkorlibs/ffi/osx/NSObject;)V
+}
+
+public final class korlibs/ffi/osx/NSNumber : korlibs/ffi/osx/NSObject {
+	public fun <init> (D)V
+	public fun <init> (I)V
+	public fun <init> (JLkotlin/Unit;)V
+	public synthetic fun <init> (JLkotlin/Unit;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getBoolValue ()Z
+	public final fun getIntValue ()I
+	public final fun getLongValue ()J
+}
+
+public class korlibs/ffi/osx/NSObject {
+	public static final field Companion Lkorlibs/ffi/osx/NSObject$Companion;
+	public fun <init> (J)V
+	public synthetic fun <init> (JLkotlin/Unit;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JLkotlin/Unit;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun alloc ()Lkorlibs/ffi/osx/NSObject;
+	public final fun getId ()J
+	public final fun getObjcClass ()Lkorlibs/ffi/osx/NSClass;
+	public final fun getRef-BIn8Vkg ()J
+	public final fun msgSend (Ljava/lang/String;[Ljava/lang/Object;)J
+	public final fun msgSendDouble (Ljava/lang/String;[Ljava/lang/Object;)D
+	public final fun msgSendFloat (Ljava/lang/String;[Ljava/lang/Object;)F
+	public final fun msgSendInt (Ljava/lang/String;[Ljava/lang/Object;)I
+	public final fun msgSendRef-nRX2E6M (Ljava/lang/String;[Ljava/lang/Object;)J
+	public final fun msgSendVoid (Ljava/lang/String;[Ljava/lang/Object;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/ffi/osx/NSObject$Companion : korlibs/ffi/osx/NSClass {
+	public final fun sel (Ljava/lang/String;)J
+}
+
+public final class korlibs/ffi/osx/NSObject$FuncDelegate : kotlin/properties/ReadOnlyProperty {
+	public fun <init> (Lkorlibs/ffi/osx/NSObject;Ljava/lang/String;Ljava/lang/String;Lkotlin/reflect/KType;)V
+	public final fun getBase ()Lkorlibs/ffi/osx/NSObject;
+	public final fun getCached ()Lkotlin/Function;
+	public final fun getDef ()Ljava/lang/String;
+	public final fun getParams ()Ljava/util/List;
+	public final fun getParts ()Lkorlibs/ffi/FuncType;
+	public final fun getRet ()Lkotlin/reflect/KClassifier;
+	public final fun getSelector ()Ljava/lang/String;
+	public final fun getType ()Lkotlin/reflect/KType;
+	public synthetic fun getValue (Ljava/lang/Object;Lkotlin/reflect/KProperty;)Ljava/lang/Object;
+	public fun getValue (Lkorlibs/ffi/osx/NSObject;Lkotlin/reflect/KProperty;)Lkotlin/Function;
+	public final fun setCached (Lkotlin/Function;)V
+}
+
+public final class korlibs/ffi/osx/NSObject$FuncInfo {
+	public fun <init> (Lkotlin/reflect/KType;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun getDef ()Ljava/lang/String;
+	public final fun getSelector ()Ljava/lang/String;
+	public final fun getType ()Lkotlin/reflect/KType;
+	public final fun provideDelegate (Lkorlibs/ffi/osx/NSObject;Lkotlin/reflect/KProperty;)Lkotlin/properties/ReadOnlyProperty;
+}
+
+public final class korlibs/ffi/osx/NSObject$PropInfo {
+	public fun <init> (Lkotlin/reflect/KType;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun getDef ()Ljava/lang/String;
+	public final fun getInfo ()Lkorlibs/ffi/osx/NSObject$FuncInfo;
+	public final fun getSelector ()Ljava/lang/String;
+	public final fun getType ()Lkotlin/reflect/KType;
+	public final fun getValue (Lkorlibs/ffi/osx/NSObject;Lkotlin/reflect/KProperty;)Ljava/lang/Object;
+}
+
+public class korlibs/ffi/osx/NSString : korlibs/ffi/osx/NSObject {
+	public static final field Companion Lkorlibs/ffi/osx/NSString$Companion;
+	public fun <init> ()V
+	public fun <init> (J)V
+	public fun <init> (Ljava/lang/Long;)V
+	public fun <init> (Ljava/lang/String;)V
+	public final fun getCString ()Ljava/lang/String;
+	public final fun getLength ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/ffi/osx/NSString$Companion : korlibs/ffi/osx/NSClass {
+	public final fun getLENGTH_ivar ()J
+}
+
+public final class korlibs/ffi/osx/ObjcClassRef : korlibs/ffi/osx/ObjcProtocolClassBaseRef {
+	public static final field Companion Lkorlibs/ffi/osx/ObjcClassRef$Companion;
+	public fun <init> (J)V
+	public final fun component1 ()J
+	public final fun copy (J)Lkorlibs/ffi/osx/ObjcClassRef;
+	public static synthetic fun copy$default (Lkorlibs/ffi/osx/ObjcClassRef;JILjava/lang/Object;)Lkorlibs/ffi/osx/ObjcClassRef;
+	public final fun createInstance (I)J
+	public static synthetic fun createInstance$default (Lkorlibs/ffi/osx/ObjcClassRef;IILjava/lang/Object;)J
+	public final fun dumpKotlin ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getImageName ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+	public final fun getRef ()J
+	public fun hashCode ()I
+	public final fun listIVars ()V
+	public final fun listMethods ()Ljava/util/List;
+	public final fun listProperties ()V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/ffi/osx/ObjcClassRef$Companion {
+	public final fun fromName (Ljava/lang/String;)Lkorlibs/ffi/osx/ObjcClassRef;
+	public final fun listAll ()Ljava/util/List;
+}
+
+public final class korlibs/ffi/osx/ObjcMethodDesc {
+	public fun <init> (Ljava/lang/String;Ljava/util/List;)V
+	public fun <init> (Ljava/lang/String;Lkorlibs/ffi/osx/ObjcParam;Ljava/util/List;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkorlibs/ffi/osx/ObjcParam;
+	public final fun component3 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;Lkorlibs/ffi/osx/ObjcParam;Ljava/util/List;)Lkorlibs/ffi/osx/ObjcMethodDesc;
+	public static synthetic fun copy$default (Lkorlibs/ffi/osx/ObjcMethodDesc;Ljava/lang/String;Lkorlibs/ffi/osx/ObjcParam;Ljava/util/List;ILjava/lang/Object;)Lkorlibs/ffi/osx/ObjcMethodDesc;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDesc ()Ljava/lang/String;
+	public final fun getParams ()Ljava/util/List;
+	public final fun getReturnType ()Lkorlibs/ffi/osx/ObjcParam;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/ffi/osx/ObjcMethodDescription {
+	public fun <init> (Lkorlibs/ffi/osx/ObjcProtocol;JLjava/lang/String;)V
+	public final fun component1 ()Lkorlibs/ffi/osx/ObjcProtocol;
+	public final fun component2 ()J
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Lkorlibs/ffi/osx/ObjcProtocol;JLjava/lang/String;)Lkorlibs/ffi/osx/ObjcMethodDescription;
+	public static synthetic fun copy$default (Lkorlibs/ffi/osx/ObjcMethodDescription;Lkorlibs/ffi/osx/ObjcProtocol;JLjava/lang/String;ILjava/lang/Object;)Lkorlibs/ffi/osx/ObjcMethodDescription;
+	public final fun dumpKotlin ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId ()J
+	public final fun getMethod ()J
+	public final fun getName ()Ljava/lang/String;
+	public final fun getParsedTypes ()Lkorlibs/ffi/osx/ObjcMethodDesc;
+	public final fun getProtocol ()Lkorlibs/ffi/osx/ObjcProtocol;
+	public final fun getTypes ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/ffi/osx/ObjcMethodRef {
+	public fun <init> (Lkorlibs/ffi/osx/ObjcProtocolClassBaseRef;Lcom/sun/jna/Pointer;)V
+	public final fun component1 ()Lkorlibs/ffi/osx/ObjcProtocolClassBaseRef;
+	public final fun component2 ()Lcom/sun/jna/Pointer;
+	public final fun copy (Lkorlibs/ffi/osx/ObjcProtocolClassBaseRef;Lcom/sun/jna/Pointer;)Lkorlibs/ffi/osx/ObjcMethodRef;
+	public static synthetic fun copy$default (Lkorlibs/ffi/osx/ObjcMethodRef;Lkorlibs/ffi/osx/ObjcProtocolClassBaseRef;Lcom/sun/jna/Pointer;ILjava/lang/Object;)Lkorlibs/ffi/osx/ObjcMethodRef;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getName ()Ljava/lang/String;
+	public final fun getObjcClass ()Lkorlibs/ffi/osx/ObjcProtocolClassBaseRef;
+	public final fun getParsedTypes ()Lkorlibs/ffi/osx/ObjcMethodDesc;
+	public final fun getPtr ()Lcom/sun/jna/Pointer;
+	public final fun getSelName ()Ljava/lang/String;
+	public final fun getTypes ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/ffi/osx/ObjcParam {
+	public fun <init> (ILkorlibs/ffi/osx/ObjcType;)V
+	public final fun component1 ()I
+	public final fun component2 ()Lkorlibs/ffi/osx/ObjcType;
+	public final fun copy (ILkorlibs/ffi/osx/ObjcType;)Lkorlibs/ffi/osx/ObjcParam;
+	public static synthetic fun copy$default (Lkorlibs/ffi/osx/ObjcParam;ILkorlibs/ffi/osx/ObjcType;ILjava/lang/Object;)Lkorlibs/ffi/osx/ObjcParam;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getOffset ()I
+	public final fun getType ()Lkorlibs/ffi/osx/ObjcType;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/ffi/osx/ObjcProtocol : korlibs/ffi/osx/ObjcProtocolClassBaseRef {
+	public static final field Companion Lkorlibs/ffi/osx/ObjcProtocol$Companion;
+	public fun <init> (J)V
+	public final fun dumpKotlin ()V
+	public fun getName ()Ljava/lang/String;
+	public final fun getRef ()J
+	public final fun listMethods ()Ljava/util/List;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/ffi/osx/ObjcProtocol$Companion {
+	public final fun fromName (Ljava/lang/String;)Lkorlibs/ffi/osx/ObjcProtocol;
+	public final fun listAll ()Ljava/util/List;
+}
+
+public abstract interface class korlibs/ffi/osx/ObjcProtocolClassBaseRef {
+	public abstract fun getName ()Ljava/lang/String;
+}
+
+public final class korlibs/ffi/osx/ObjcRef {
+	public static final synthetic fun box-impl (J)Lkorlibs/ffi/osx/ObjcRef;
+	public static fun constructor-impl (J)J
+	public static fun constructor-impl (JLkotlin/Unit;)J
+	public static synthetic fun constructor-impl$default (JLkotlin/Unit;ILkotlin/jvm/internal/DefaultConstructorMarker;)J
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (JLjava/lang/Object;)Z
+	public static final fun equals-impl0 (JJ)Z
+	public final fun getId ()J
+	public fun hashCode ()I
+	public static fun hashCode-impl (J)I
+	public static final fun msgSend-aKcK_gA (JJ[Ljava/lang/Object;)J
+	public static final fun msgSend-impl (JLjava/lang/String;[Ljava/lang/Object;)J
+	public static final fun msgSendDouble-aKcK_gA (JJ[Ljava/lang/Object;)D
+	public static final fun msgSendDouble-impl (JLjava/lang/String;[Ljava/lang/Object;)D
+	public static final fun msgSendFloat-aKcK_gA (JJ[Ljava/lang/Object;)F
+	public static final fun msgSendFloat-impl (JLjava/lang/String;[Ljava/lang/Object;)F
+	public static final fun msgSendInt-aKcK_gA (JJ[Ljava/lang/Object;)I
+	public static final fun msgSendInt-impl (JLjava/lang/String;[Ljava/lang/Object;)I
+	public static final fun msgSendRef-fFhT0H0 (JJ[Ljava/lang/Object;)J
+	public static final fun msgSendRef-nRX2E6M (JLjava/lang/String;[Ljava/lang/Object;)J
+	public static final fun msgSendVoid-aKcK_gA (JJ[Ljava/lang/Object;)V
+	public static final fun msgSendVoid-impl (JLjava/lang/String;[Ljava/lang/Object;)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (J)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()J
+}
+
+public final class korlibs/ffi/osx/ObjcSel {
+	public static final field Companion Lkorlibs/ffi/osx/ObjcSel$Companion;
+	public static final synthetic fun box-impl (J)Lkorlibs/ffi/osx/ObjcSel;
+	public static fun constructor-impl (J)J
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (JLjava/lang/Object;)Z
+	public static final fun equals-impl0 (JJ)Z
+	public final fun getId ()J
+	public fun hashCode ()I
+	public static fun hashCode-impl (J)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (J)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()J
+}
+
+public final class korlibs/ffi/osx/ObjcSel$Companion {
+	public final fun invoke-etUw1OY (Ljava/lang/String;)J
+}
+
+public final class korlibs/ffi/osx/ObjcStandardKt {
+	public static final fun cast (Lkorlibs/ffi/osx/NSObject$Companion;Ljava/lang/Object;)Lkorlibs/ffi/osx/NSObject;
+}
+
+public abstract interface class korlibs/ffi/osx/ObjcType {
+	public abstract fun toKotlinString ()Ljava/lang/String;
+}
+
+public final class korlibs/ffi/osx/ObjcTypeParser {
+	public static final field INSTANCE Lkorlibs/ffi/osx/ObjcTypeParser;
+	public final fun parse (Ljava/lang/String;)Lkorlibs/ffi/osx/ObjcMethodDesc;
+	public final fun parse (Lkorlibs/ffi/osx/ObjcTypeParser$StrReader;)Lkorlibs/ffi/osx/ObjcMethodDesc;
+	public final fun parseInt (Lkorlibs/ffi/osx/ObjcTypeParser$StrReader;)I
+	public final fun parseParam (Lkorlibs/ffi/osx/ObjcTypeParser$StrReader;)Lkorlibs/ffi/osx/ObjcParam;
+	public final fun parseType (Lkorlibs/ffi/osx/ObjcTypeParser$StrReader;)Lkorlibs/ffi/osx/ObjcType;
+}
+
+public final class korlibs/ffi/osx/ObjcTypeParser$StrReader {
+	public fun <init> (Ljava/lang/String;II)V
+	public synthetic fun <init> (Ljava/lang/String;IIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun copy (Ljava/lang/String;II)Lkorlibs/ffi/osx/ObjcTypeParser$StrReader;
+	public static synthetic fun copy$default (Lkorlibs/ffi/osx/ObjcTypeParser$StrReader;Ljava/lang/String;IIILjava/lang/Object;)Lkorlibs/ffi/osx/ObjcTypeParser$StrReader;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEnd ()I
+	public final fun getHasMore ()Z
+	public final fun getPos ()I
+	public final fun getStr ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun peekChar ()C
+	public final fun readChar ()C
+	public final fun readUntil (Lkotlin/jvm/functions/Function1;)Ljava/lang/String;
+	public final fun setEnd (I)V
+	public final fun setPos (I)V
+	public final fun skip (I)V
+	public static synthetic fun skip$default (Lkorlibs/ffi/osx/ObjcTypeParser$StrReader;IILjava/lang/Object;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/ffi/osx/PointerObjcType : korlibs/ffi/osx/ObjcType {
+	public fun <init> (Lkorlibs/ffi/osx/ObjcType;)V
+	public final fun component1 ()Lkorlibs/ffi/osx/ObjcType;
+	public final fun copy (Lkorlibs/ffi/osx/ObjcType;)Lkorlibs/ffi/osx/PointerObjcType;
+	public static synthetic fun copy$default (Lkorlibs/ffi/osx/PointerObjcType;Lkorlibs/ffi/osx/ObjcType;ILjava/lang/Object;)Lkorlibs/ffi/osx/PointerObjcType;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBase ()Lkorlibs/ffi/osx/ObjcType;
+	public fun hashCode ()I
+	public fun toKotlinString ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/ffi/osx/PrimitiveObjcType : java/lang/Enum, korlibs/ffi/osx/ObjcType {
+	public static final field BLOCK Lkorlibs/ffi/osx/PrimitiveObjcType;
+	public static final field BOOL Lkorlibs/ffi/osx/PrimitiveObjcType;
+	public static final field BYTE Lkorlibs/ffi/osx/PrimitiveObjcType;
+	public static final field DOUBLE Lkorlibs/ffi/osx/PrimitiveObjcType;
+	public static final field FLOAT Lkorlibs/ffi/osx/PrimitiveObjcType;
+	public static final field ID Lkorlibs/ffi/osx/PrimitiveObjcType;
+	public static final field INT Lkorlibs/ffi/osx/PrimitiveObjcType;
+	public static final field NINT Lkorlibs/ffi/osx/PrimitiveObjcType;
+	public static final field NUINT Lkorlibs/ffi/osx/PrimitiveObjcType;
+	public static final field SEL Lkorlibs/ffi/osx/PrimitiveObjcType;
+	public static final field UINT Lkorlibs/ffi/osx/PrimitiveObjcType;
+	public static final field VOID Lkorlibs/ffi/osx/PrimitiveObjcType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public fun toKotlinString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/ffi/osx/PrimitiveObjcType;
+	public static fun values ()[Lkorlibs/ffi/osx/PrimitiveObjcType;
+}
+
+public final class korlibs/ffi/osx/StructObjcType : korlibs/ffi/osx/ObjcType {
+	public fun <init> (Ljava/lang/String;Ljava/util/List;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;Ljava/util/List;)Lkorlibs/ffi/osx/StructObjcType;
+	public static synthetic fun copy$default (Lkorlibs/ffi/osx/StructObjcType;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lkorlibs/ffi/osx/StructObjcType;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getStrName ()Ljava/lang/String;
+	public final fun getTypes ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toKotlinString ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+

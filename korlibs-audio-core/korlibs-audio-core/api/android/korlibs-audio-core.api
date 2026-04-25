@@ -1,0 +1,341 @@
+public final class korlibs/audio/sound/AndroidNativeSoundProvider : korlibs/audio/sound/NativeSoundProvider {
+	public static final field INSTANCE Lkorlibs/audio/sound/AndroidNativeSoundProvider;
+	public fun createNewPlatformAudioOutput (IILkotlin/jvm/functions/Function1;)Lkorlibs/audio/sound/AudioPlatformOutput;
+	public final fun ensureAudioManager (Landroid/content/Context;)V
+	public final fun ensureAudioManager (Lkotlin/coroutines/CoroutineContext;)V
+	public final fun getAudioSessionId ()I
+	public final fun getINVALID_AUDIO_SESSION_ID ()I
+	public fun getPaused ()Z
+	public fun getTarget ()Ljava/lang/String;
+	public final fun getUNSET_AUDIO_SESSION_ID ()I
+	public fun setPaused (Z)V
+}
+
+public final class korlibs/audio/sound/AudioData : korlibs/datastructure/Extra {
+	public static final field Companion Lkorlibs/audio/sound/AudioData$Companion;
+	public fun <init> (ILkorlibs/audio/sound/AudioSamples;Ljava/lang/String;)V
+	public synthetic fun <init> (ILkorlibs/audio/sound/AudioSamples;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun get-3Up4yNg (I)[S
+	public final fun get-wXPHvEc (II)S
+	public final fun getChannels ()I
+	public fun getExtra ()Lkorlibs/datastructure/ExtraObject;
+	public final fun getFrequency ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun getRate ()I
+	public final fun getSamples ()Lkorlibs/audio/sound/AudioSamples;
+	public final fun getStereo ()Z
+	public final fun getTotalSamples ()I
+	public final fun getTotalTime-UwyO8pc ()J
+	public final fun sampleAtTime-LRDsOJo (J)I
+	public final fun set-Ej4zOlY (IIS)V
+	public fun setExtra (Lkorlibs/datastructure/ExtraObject;)V
+	public final fun timeAtSample-5sfh64U (I)J
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/audio/sound/AudioData$Companion {
+	public final fun getDUMMY ()Lkorlibs/audio/sound/AudioData;
+}
+
+public final class korlibs/audio/sound/AudioPlatformOutput : java/lang/AutoCloseable, korlibs/audio/sound/SoundProps, korlibs/datastructure/Extra {
+	public static final field Companion Lkorlibs/audio/sound/AudioPlatformOutput$Companion;
+	public fun <init> (Lkorlibs/audio/sound/SoundListenerProps;IILkotlin/jvm/functions/Function1;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlin/jvm/functions/Function2;)V
+	public synthetic fun <init> (Lkorlibs/audio/sound/SoundListenerProps;IILkotlin/jvm/functions/Function1;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlin/jvm/functions/Function2;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun close ()V
+	public final fun genSafe (Lkorlibs/audio/sound/AudioSamplesInterleaved;)V
+	public final fun getBlock ()Lkotlin/jvm/functions/Function2;
+	public final fun getChannels ()I
+	public final fun getDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public fun getExtra ()Lkorlibs/datastructure/ExtraObject;
+	public final fun getFrequency ()I
+	public final fun getListener ()Lkorlibs/audio/sound/SoundListenerProps;
+	public fun getPanning ()D
+	public final fun getPaused ()Z
+	public fun getPitch ()D
+	public fun getPosition ()Lkorlibs/math/geom/Vector3F;
+	public final fun getRunning ()Z
+	public fun getVolume ()D
+	public fun setExtra (Lkorlibs/datastructure/ExtraObject;)V
+	public fun setPanning (D)V
+	public final fun setPaused (Z)V
+	public fun setPitch (D)V
+	public fun setPosition (Lkorlibs/math/geom/Vector3F;)V
+	public final fun setRunning (Z)V
+	public fun setVolume (D)V
+	public final fun start ()V
+	public final fun stop ()V
+	public final fun suspendWhileRunning (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/sound/AudioPlatformOutput$Companion {
+	public final fun getDEFAULT_BLOCK_SIZE ()I
+	public final fun simple (Lkorlibs/audio/sound/SoundListenerProps;IILkotlin/jvm/functions/Function1;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlin/jvm/functions/Function1;)Lkorlibs/audio/sound/AudioPlatformOutput;
+	public static synthetic fun simple$default (Lkorlibs/audio/sound/AudioPlatformOutput$Companion;Lkorlibs/audio/sound/SoundListenerProps;IILkotlin/jvm/functions/Function1;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkorlibs/audio/sound/AudioPlatformOutput;
+}
+
+public final class korlibs/audio/sound/AudioPlatformOutputSimple {
+	public fun <init> ()V
+	public fun <init> (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/Unit;)V
+	public synthetic fun <init> (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/Unit;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getClose ()Lkotlin/jvm/functions/Function2;
+	public final fun getInit ()Lkotlin/jvm/functions/Function2;
+	public final fun getOutput ()Lkotlin/jvm/functions/Function2;
+	public final fun getPaused ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class korlibs/audio/sound/AudioSample {
+	public static final field Companion Lkorlibs/audio/sound/AudioSample$Companion;
+	public static final synthetic fun box-impl (S)Lkorlibs/audio/sound/AudioSample;
+	public static fun constructor-impl (F)S
+	public static fun constructor-impl (I)S
+	public static fun constructor-impl (S)S
+	public static final fun div-9ZU3Ptw (SD)S
+	public static final fun div-9ZU3Ptw (SF)S
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (SLjava/lang/Object;)Z
+	public static final fun equals-impl0 (SS)Z
+	public static final fun getFloat-impl (S)F
+	public static final fun getShort-impl (S)S
+	public static final fun getShortInt-impl (S)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (S)I
+	public static final fun times-9ZU3Ptw (SD)S
+	public static final fun times-9ZU3Ptw (SF)S
+	public static final fun toFloat-impl (S)F
+	public static final fun toInt-impl (S)I
+	public static final fun toShort-impl (S)S
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (S)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()S
+}
+
+public final class korlibs/audio/sound/AudioSample$Companion {
+	public final fun fromFloat-9ZU3Ptw (F)S
+	public final fun fromShort-9ZU3Ptw (I)S
+	public final fun getZERO-6u8d8Fg ()S
+}
+
+public final class korlibs/audio/sound/AudioSampleArray : java/util/Collection, kotlin/jvm/internal/markers/KMappedMarker {
+	public synthetic fun add (Ljava/lang/Object;)Z
+	public fun add-IEWiOBc (S)Z
+	public fun addAll (Ljava/util/Collection;)Z
+	public static final fun asShortArray-impl ([S)[S
+	public static final synthetic fun box-impl ([S)Lkorlibs/audio/sound/AudioSampleArray;
+	public fun clear ()V
+	public static fun constructor-impl (I)[S
+	public static fun constructor-impl (ILkotlin/jvm/functions/Function1;)[S
+	public static fun constructor-impl ([S)[S
+	public final fun contains (Ljava/lang/Object;)Z
+	public fun contains-IEWiOBc (S)Z
+	public static fun contains-IEWiOBc ([SS)Z
+	public fun containsAll (Ljava/util/Collection;)Z
+	public static fun containsAll-impl ([SLjava/util/Collection;)Z
+	public static final fun contentEquals-wXVa1Fc ([S[S)Z
+	public static final fun contentHashCode-impl ([S)I
+	public static final fun contentToString-impl ([S)Ljava/lang/String;
+	public static final fun copyInto-Ymd31kU ([S[SIII)[S
+	public static synthetic fun copyInto-Ymd31kU$default ([S[SIIIILjava/lang/Object;)[S
+	public static final fun copyOf-3Up4yNg ([SI)[S
+	public static synthetic fun copyOf-3Up4yNg$default ([SIILjava/lang/Object;)[S
+	public static final fun copyOfRange-BqaLPGg ([SII)[S
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl ([SLjava/lang/Object;)Z
+	public static final fun equals-impl0 ([S[S)Z
+	public static final fun fill-5ZW2NFs ([SSII)V
+	public static synthetic fun fill-5ZW2NFs$default ([SSIIILjava/lang/Object;)V
+	public static final fun get-9ZU3Ptw ([SI)S
+	public fun getSize ()I
+	public static fun getSize-impl ([S)I
+	public fun hashCode ()I
+	public static fun hashCode-impl ([S)I
+	public fun isEmpty ()Z
+	public static fun isEmpty-impl ([S)Z
+	public fun iterator ()Ljava/util/Iterator;
+	public static fun iterator-impl ([S)Ljava/util/Iterator;
+	public fun remove (Ljava/lang/Object;)Z
+	public fun removeAll (Ljava/util/Collection;)Z
+	public fun removeIf (Ljava/util/function/Predicate;)Z
+	public fun retainAll (Ljava/util/Collection;)Z
+	public static final fun set-w13VV2Q ([SIS)V
+	public synthetic fun size ()I
+	public fun toArray ()[Ljava/lang/Object;
+	public fun toArray ([Ljava/lang/Object;)[Ljava/lang/Object;
+	public static final fun toFloatArray-impl ([S[F)[F
+	public static synthetic fun toFloatArray-impl$default ([S[FILjava/lang/Object;)[F
+	public static final fun toList-impl ([S)Ljava/util/List;
+	public static final fun toShortArray-impl ([S[S)[S
+	public static synthetic fun toShortArray-impl$default ([S[SILjava/lang/Object;)[S
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl ([S)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()[S
+}
+
+public final class korlibs/audio/sound/AudioSampleKt {
+	public static final fun arraycopy--Rd3sYM ([SI[SII)V
+	public static final fun audioSampleArrayOf ([Lkorlibs/audio/sound/AudioSample;)[S
+	public static final fun getSampled (Lkorlibs/audio/sound/AudioSamples;IF)S
+	public static final fun getSampled (Lkorlibs/audio/sound/AudioSamplesInterleaved;IF)S
+	public static final fun getSampled-ZYT5tlU ([SF)S
+}
+
+public final class korlibs/audio/sound/AudioSamples {
+	public fun <init> (II[Lkorlibs/audio/sound/AudioSampleArray;)V
+	public synthetic fun <init> (II[Lkorlibs/audio/sound/AudioSampleArray;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun clone (Lkorlibs/audio/sound/AudioSamples;)Lkorlibs/audio/sound/AudioSamples;
+	public static synthetic fun clone$default (Lkorlibs/audio/sound/AudioSamples;Lkorlibs/audio/sound/AudioSamples;ILjava/lang/Object;)Lkorlibs/audio/sound/AudioSamples;
+	public final fun copyOf (I)Lkorlibs/audio/sound/AudioSamples;
+	public static synthetic fun copyOf$default (Lkorlibs/audio/sound/AudioSamples;IILjava/lang/Object;)Lkorlibs/audio/sound/AudioSamples;
+	public final fun copyOfRange (II)Lkorlibs/audio/sound/AudioSamples;
+	public final fun copyTo (Lkorlibs/audio/sound/AudioSamples;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun get-3Up4yNg (I)[S
+	public final fun get-wXPHvEc (II)S
+	public final fun getChannels ()I
+	public final fun getData ()[Lkorlibs/audio/sound/AudioSampleArray;
+	public final fun getTotalSamples ()I
+	public fun hashCode ()I
+	public final fun scaleVolume (F)Lkorlibs/audio/sound/AudioSamples;
+	public final fun scaleVolume ([F)Lkorlibs/audio/sound/AudioSamples;
+	public final fun set-Ej4zOlY (IIS)V
+	public final fun setStereo-B8LGUF4 (ISS)V
+	public final fun setTo (Lkorlibs/audio/sound/AudioSamples;)Lkorlibs/audio/sound/AudioSamples;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/audio/sound/AudioSamplesInterleaved {
+	public synthetic fun <init> (II[SILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (II[SLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun copyOf (I)Lkorlibs/audio/sound/AudioSamplesInterleaved;
+	public static synthetic fun copyOf$default (Lkorlibs/audio/sound/AudioSamplesInterleaved;IILjava/lang/Object;)Lkorlibs/audio/sound/AudioSamplesInterleaved;
+	public final fun copyOfRange (II)Lkorlibs/audio/sound/AudioSamplesInterleaved;
+	public final fun get-wXPHvEc (II)S
+	public final fun getChannels ()I
+	public final fun getData-v3MGmss ()[S
+	public final fun getTotalSamples ()I
+	public final fun scaleVolume (F)Lkorlibs/audio/sound/AudioSamplesInterleaved;
+	public final fun scaleVolume ([F)Lkorlibs/audio/sound/AudioSamplesInterleaved;
+	public final fun set-Ej4zOlY (IIS)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/audio/sound/Dispatchers_AUDIOKt {
+	public static final fun getAUDIO (Lkotlinx/coroutines/Dispatchers;)Lkotlinx/coroutines/CoroutineDispatcher;
+}
+
+public class korlibs/audio/sound/DummyNativeSoundProvider : korlibs/audio/sound/NativeSoundProvider {
+	public static final field Companion Lkorlibs/audio/sound/DummyNativeSoundProvider$Companion;
+	public fun <init> ()V
+}
+
+public final class korlibs/audio/sound/DummyNativeSoundProvider$Companion : korlibs/audio/sound/DummyNativeSoundProvider {
+}
+
+public class korlibs/audio/sound/NativeSoundProvider : java/lang/AutoCloseable, korlibs/audio/sound/SoundListenerProps, korlibs/datastructure/pauseable/Pauseable {
+	public fun <init> ()V
+	public fun close ()V
+	public fun createNewPlatformAudioOutput (IILkotlin/jvm/functions/Function1;)Lkorlibs/audio/sound/AudioPlatformOutput;
+	public static synthetic fun createNewPlatformAudioOutput$default (Lkorlibs/audio/sound/NativeSoundProvider;IILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkorlibs/audio/sound/AudioPlatformOutput;
+	public fun getListenerOrientationAt ()Lkorlibs/math/geom/Vector3F;
+	public fun getListenerOrientationUp ()Lkorlibs/math/geom/Vector3F;
+	public fun getListenerPosition ()Lkorlibs/math/geom/Vector3F;
+	public fun getListenerSpeed ()Lkorlibs/math/geom/Vector3F;
+	public fun getPaused ()Z
+	public fun getTarget ()Ljava/lang/String;
+	public fun setListenerOrientationAt (Lkorlibs/math/geom/Vector3F;)V
+	public fun setListenerOrientationUp (Lkorlibs/math/geom/Vector3F;)V
+	public fun setListenerPosition (Lkorlibs/math/geom/Vector3F;)V
+	public fun setListenerSpeed (Lkorlibs/math/geom/Vector3F;)V
+	public fun setPaused (Z)V
+}
+
+public final class korlibs/audio/sound/NativeSoundProvider_androidKt {
+	public static final fun getNativeSoundProvider ()Lkorlibs/audio/sound/NativeSoundProvider;
+}
+
+public abstract interface class korlibs/audio/sound/ReadonlySoundProps {
+	public abstract fun getPanning ()D
+	public fun getPitch ()D
+	public abstract fun getPosition ()Lkorlibs/math/geom/Vector3F;
+	public abstract fun getVolume ()D
+}
+
+public final class korlibs/audio/sound/ReadonlySoundProps$DefaultImpls {
+	public static fun getPitch (Lkorlibs/audio/sound/ReadonlySoundProps;)D
+}
+
+public abstract interface class korlibs/audio/sound/SoundListenerProps {
+	public fun getListenerOrientationAt ()Lkorlibs/math/geom/Vector3F;
+	public fun getListenerOrientationUp ()Lkorlibs/math/geom/Vector3F;
+	public fun getListenerPosition ()Lkorlibs/math/geom/Vector3F;
+	public fun getListenerSpeed ()Lkorlibs/math/geom/Vector3F;
+}
+
+public final class korlibs/audio/sound/SoundListenerProps$DefaultImpls {
+	public static fun getListenerOrientationAt (Lkorlibs/audio/sound/SoundListenerProps;)Lkorlibs/math/geom/Vector3F;
+	public static fun getListenerOrientationUp (Lkorlibs/audio/sound/SoundListenerProps;)Lkorlibs/math/geom/Vector3F;
+	public static fun getListenerPosition (Lkorlibs/audio/sound/SoundListenerProps;)Lkorlibs/math/geom/Vector3F;
+	public static fun getListenerSpeed (Lkorlibs/audio/sound/SoundListenerProps;)Lkorlibs/math/geom/Vector3F;
+}
+
+public abstract interface class korlibs/audio/sound/SoundProps : korlibs/audio/sound/ReadonlySoundProps, korlibs/datastructure/Extra {
+	public abstract fun getPanning ()D
+	public fun getPitch ()D
+	public abstract fun getPosition ()Lkorlibs/math/geom/Vector3F;
+	public abstract fun getVolume ()D
+	public abstract fun setPanning (D)V
+	public fun setPitch (D)V
+	public abstract fun setPosition (Lkorlibs/math/geom/Vector3F;)V
+	public abstract fun setVolume (D)V
+}
+
+public final class korlibs/audio/sound/SoundProps$DefaultImpls {
+	public static fun getPitch (Lkorlibs/audio/sound/SoundProps;)D
+	public static fun setPitch (Lkorlibs/audio/sound/SoundProps;D)V
+}
+
+public final class korlibs/audio/sound/SoundProps$Dummy : korlibs/audio/sound/SoundProps, korlibs/datastructure/Extra {
+	public static final field INSTANCE Lkorlibs/audio/sound/SoundProps$Dummy;
+	public fun getExtra ()Lkorlibs/datastructure/ExtraObject;
+	public fun getPanning ()D
+	public fun getPitch ()D
+	public fun getPosition ()Lkorlibs/math/geom/Vector3F;
+	public fun getVolume ()D
+	public fun setExtra (Lkorlibs/datastructure/ExtraObject;)V
+	public fun setPanning (D)V
+	public fun setPitch (D)V
+	public fun setPosition (Lkorlibs/math/geom/Vector3F;)V
+	public fun setVolume (D)V
+}
+
+public final class korlibs/audio/sound/SoundPropsKt {
+	public static final fun applyPropsTo (Lkorlibs/audio/sound/ReadonlySoundProps;Lkorlibs/audio/sound/SoundListenerProps;Lkorlibs/audio/sound/AudioSamplesInterleaved;)V
+	public static final fun volumeForChannel (Lkorlibs/audio/sound/ReadonlySoundProps;Lkorlibs/audio/sound/SoundListenerProps;I)F
+}
+
+public final class korlibs/audio/sound/backend/FFIALSANativeSoundProvider : korlibs/audio/sound/NativeSoundProvider {
+	public static final field INSTANCE Lkorlibs/audio/sound/backend/FFIALSANativeSoundProvider;
+	public fun createNewPlatformAudioOutput (IILkotlin/jvm/functions/Function1;)Lkorlibs/audio/sound/AudioPlatformOutput;
+}
+
+public final class korlibs/audio/sound/backend/FFIALSANativeSoundProvider$A2 : korlibs/ffi/FFILib {
+	public static final field EPIPE I
+	public static final field INSTANCE Lkorlibs/audio/sound/backend/FFIALSANativeSoundProvider$A2;
+	public static final field SND_PCM_ACCESS_RW_INTERLEAVED I
+	public static final field SND_PCM_FORMAT_S16_LE I
+	public static final field SND_PCM_STREAM_PLAYBACK I
+	public final fun getSnd_pcm_close ()Lkotlin/jvm/functions/Function1;
+	public final fun getSnd_pcm_drain ()Lkotlin/jvm/functions/Function1;
+	public final fun getSnd_pcm_open ()Lkotlin/jvm/functions/Function4;
+	public final fun getSnd_pcm_recover ()Lkotlin/jvm/functions/Function3;
+	public final fun getSnd_pcm_set_params ()Lkotlin/jvm/functions/Function7;
+	public final fun getSnd_pcm_wait ()Lkotlin/jvm/functions/Function2;
+	public final fun getSnd_pcm_writei ()Lkotlin/jvm/functions/Function3;
+	public final fun snd_pcm_open (Ljava/lang/String;II)Lkorlibs/ffi/FFIPointer;
+	public final fun snd_pcm_writei (Lkorlibs/ffi/FFIPointer;[SIII)I
+}
+
+public final class korlibs/audio/sound/backend/FFIJVMWaveOutNativeSoundProvider : korlibs/audio/sound/NativeSoundProvider {
+	public static final field INSTANCE Lkorlibs/audio/sound/backend/FFIJVMWaveOutNativeSoundProvider;
+	public fun createNewPlatformAudioOutput (IILkotlin/jvm/functions/Function1;)Lkorlibs/audio/sound/AudioPlatformOutput;
+}
+

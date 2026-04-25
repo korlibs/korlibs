@@ -1,0 +1,84 @@
+public final class korlibs/encoding/ASCII {
+	public static final field INSTANCE Lkorlibs/encoding/ASCII;
+	public final fun decode ([B)Ljava/lang/String;
+	public final fun encode (Ljava/lang/String;)[B
+	public final fun invoke (Ljava/lang/String;)[B
+	public final fun invoke ([B)Ljava/lang/String;
+}
+
+public final class korlibs/encoding/ASCIIKt {
+	public static final fun fromAscii (Ljava/lang/String;)[B
+	public static final fun getAscii ([B)Ljava/lang/String;
+}
+
+public final class korlibs/encoding/Base64 {
+	public static final field INSTANCE Lkorlibs/encoding/Base64;
+	public final fun decode (Ljava/lang/String;Z)[B
+	public final fun decode (ZLjava/lang/String;Z)[B
+	public final fun decode ([B[BZ)I
+	public static synthetic fun decode$default (Lkorlibs/encoding/Base64;Ljava/lang/String;ZILjava/lang/Object;)[B
+	public static synthetic fun decode$default (Lkorlibs/encoding/Base64;ZLjava/lang/String;ZILjava/lang/Object;)[B
+	public static synthetic fun decode$default (Lkorlibs/encoding/Base64;[B[BZILjava/lang/Object;)I
+	public final fun decodeIgnoringSpaces (Ljava/lang/String;Z)[B
+	public static synthetic fun decodeIgnoringSpaces$default (Lkorlibs/encoding/Base64;Ljava/lang/String;ZILjava/lang/Object;)[B
+	public final fun encode ([BZZ)Ljava/lang/String;
+	public static synthetic fun encode$default (Lkorlibs/encoding/Base64;[BZZILjava/lang/Object;)Ljava/lang/String;
+	public final fun invoke (Ljava/lang/String;Z)[B
+	public final fun invoke ([BZ)Ljava/lang/String;
+	public static synthetic fun invoke$default (Lkorlibs/encoding/Base64;Ljava/lang/String;ZILjava/lang/Object;)[B
+	public static synthetic fun invoke$default (Lkorlibs/encoding/Base64;[BZILjava/lang/Object;)Ljava/lang/String;
+}
+
+public final class korlibs/encoding/Base64Kt {
+	public static final fun fromBase64 (Ljava/lang/String;ZZ)[B
+	public static synthetic fun fromBase64$default (Ljava/lang/String;ZZILjava/lang/Object;)[B
+	public static final fun fromBase64IgnoreSpaces (Ljava/lang/String;Z)[B
+	public static synthetic fun fromBase64IgnoreSpaces$default (Ljava/lang/String;ZILjava/lang/Object;)[B
+	public static final fun getBase64 ([B)Ljava/lang/String;
+	public static final fun getBase64Url ([B)Ljava/lang/String;
+	public static final fun toBase64 ([BZZ)Ljava/lang/String;
+	public static synthetic fun toBase64$default ([BZZILjava/lang/Object;)Ljava/lang/String;
+}
+
+public final class korlibs/encoding/Hex {
+	public static final field INSTANCE Lkorlibs/encoding/Hex;
+	public final fun appendHexByte (Ljava/lang/Appendable;I)V
+	public final fun decode (Ljava/lang/String;Lkotlin/jvm/functions/Function2;)V
+	public final fun decode (Ljava/lang/String;[B)[B
+	public static synthetic fun decode$default (Lkorlibs/encoding/Hex;Ljava/lang/String;[BILjava/lang/Object;)[B
+	public final fun decodeChar (C)I
+	public final fun decodeHexDigit (C)I
+	public final fun decodeIgnoreSpaces (Ljava/lang/String;)[B
+	public final fun encode ([B)Ljava/lang/String;
+	public final fun encode ([BLjava/lang/Appendable;)V
+	public final fun encodeCharLower (I)C
+	public final fun encodeCharUpper (I)C
+	public final fun encodeLower ([B)Ljava/lang/String;
+	public final fun encodeLower ([BLjava/lang/Appendable;)V
+	public final fun encodeUpper ([B)Ljava/lang/String;
+	public final fun encodeUpper ([BLjava/lang/Appendable;)V
+	public final fun invoke (Ljava/lang/String;)[B
+	public final fun invoke ([B)Ljava/lang/String;
+	public final fun isHexDigit (C)Z
+	public final fun shex (B)Ljava/lang/String;
+	public final fun shex (I)Ljava/lang/String;
+}
+
+public final class korlibs/encoding/HexKt {
+	public static final fun appendHexByte (Ljava/lang/Appendable;I)V
+	public static final fun fromHex (Ljava/lang/String;)[B
+	public static final fun getHex (B)Ljava/lang/String;
+	public static final fun getHex (I)Ljava/lang/String;
+	public static final fun getHex ([B)Ljava/lang/String;
+	public static final fun getHexLower ([B)Ljava/lang/String;
+	public static final fun getHexUpper ([B)Ljava/lang/String;
+	public static final fun getShex (B)Ljava/lang/String;
+	public static final fun getShex (I)Ljava/lang/String;
+	public static final fun getUnhex (Ljava/lang/String;)[B
+	public static final fun getUnhexIgnoreSpaces (Ljava/lang/String;)[B
+	public static final fun getUnhexIgnoreSpaces (Ljava/util/List;)[B
+	public static final fun isHexDigit (C)Z
+	public static final fun toHexStringLower ([B)Ljava/lang/String;
+	public static final fun toHexStringUpper ([B)Ljava/lang/String;
+}
+

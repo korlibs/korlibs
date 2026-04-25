@@ -1,0 +1,10 @@
+/.gradle
+/.kotlin
+/.idea
+/build
+/java_*.hprof
+/local.properties
+$catalog.json
+/stagedRepositoryId
+/*/build
+.DS_Store

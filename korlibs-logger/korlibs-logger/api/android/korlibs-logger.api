@@ -1,0 +1,330 @@
+public abstract interface class korlibs/logger/AnsiEscape {
+	public static final field Companion Lkorlibs/logger/AnsiEscape$Companion;
+	public fun ansiEscape (Ljava/lang/String;ILjava/lang/String;C)Ljava/lang/String;
+	public static synthetic fun ansiEscape$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;ILjava/lang/String;CILjava/lang/Object;)Ljava/lang/String;
+	public fun appendAnsiScape (Ljava/lang/StringBuilder;ILjava/lang/String;C)Ljava/lang/StringBuilder;
+	public static synthetic fun appendAnsiScape$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;ILjava/lang/String;CILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public fun appendBgColor (Ljava/lang/StringBuilder;Lkorlibs/logger/AnsiEscape$Color;Z)Ljava/lang/StringBuilder;
+	public static synthetic fun appendBgColor$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;Lkorlibs/logger/AnsiEscape$Color;ZILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public fun appendBgColor256 (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public fun appendBold (Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public fun appendColorReversed (Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public fun appendFgColor (Ljava/lang/StringBuilder;Lkorlibs/logger/AnsiEscape$Color;Z)Ljava/lang/StringBuilder;
+	public static synthetic fun appendFgColor$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;Lkorlibs/logger/AnsiEscape$Color;ZILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public fun appendFgColor256 (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public fun appendMoveDown (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public static synthetic fun appendMoveDown$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;IILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public fun appendMoveLeft (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public static synthetic fun appendMoveLeft$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;IILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public fun appendMoveRight (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public static synthetic fun appendMoveRight$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;IILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public fun appendMoveUp (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public static synthetic fun appendMoveUp$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;IILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public fun appendReset (Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public fun appendUnderline (Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public fun bgColor (Ljava/lang/String;Lkorlibs/logger/AnsiEscape$Color;Z)Ljava/lang/String;
+	public static synthetic fun bgColor$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;Lkorlibs/logger/AnsiEscape$Color;ZILjava/lang/Object;)Ljava/lang/String;
+	public fun bgColor256 (Ljava/lang/String;I)Ljava/lang/String;
+	public fun color (Ljava/lang/String;Lkorlibs/logger/AnsiEscape$Color;Z)Ljava/lang/String;
+	public static synthetic fun color$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;Lkorlibs/logger/AnsiEscape$Color;ZILjava/lang/Object;)Ljava/lang/String;
+	public fun color256 (Ljava/lang/String;I)Ljava/lang/String;
+	public fun getBgBlack (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgBlue (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgCyan (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgGreen (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgPurple (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgRed (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgWhite (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgYellow (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBlack (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBlue (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBold (Ljava/lang/String;)Ljava/lang/String;
+	public fun getColorReversed (Ljava/lang/String;)Ljava/lang/String;
+	public fun getCyan (Ljava/lang/String;)Ljava/lang/String;
+	public fun getGreen (Ljava/lang/String;)Ljava/lang/String;
+	public fun getPurple (Ljava/lang/String;)Ljava/lang/String;
+	public fun getRed (Ljava/lang/String;)Ljava/lang/String;
+	public fun getUnderline (Ljava/lang/String;)Ljava/lang/String;
+	public fun getWhite (Ljava/lang/String;)Ljava/lang/String;
+	public fun getYellow (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class korlibs/logger/AnsiEscape$Color : java/lang/Enum {
+	public static final field BLACK Lkorlibs/logger/AnsiEscape$Color;
+	public static final field BLUE Lkorlibs/logger/AnsiEscape$Color;
+	public static final field CYAN Lkorlibs/logger/AnsiEscape$Color;
+	public static final field GREEN Lkorlibs/logger/AnsiEscape$Color;
+	public static final field PURPLE Lkorlibs/logger/AnsiEscape$Color;
+	public static final field RED Lkorlibs/logger/AnsiEscape$Color;
+	public static final field WHITE Lkorlibs/logger/AnsiEscape$Color;
+	public static final field YELLOW Lkorlibs/logger/AnsiEscape$Color;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getIndex ()I
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/logger/AnsiEscape$Color;
+	public static fun values ()[Lkorlibs/logger/AnsiEscape$Color;
+}
+
+public final class korlibs/logger/AnsiEscape$Companion : korlibs/logger/AnsiEscape {
+	public fun ansiEscape (Ljava/lang/String;ILjava/lang/String;C)Ljava/lang/String;
+	public fun appendAnsiScape (Ljava/lang/StringBuilder;ILjava/lang/String;C)Ljava/lang/StringBuilder;
+	public fun appendBgColor (Ljava/lang/StringBuilder;Lkorlibs/logger/AnsiEscape$Color;Z)Ljava/lang/StringBuilder;
+	public fun appendBgColor256 (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public fun appendBold (Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public fun appendColorReversed (Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public fun appendFgColor (Ljava/lang/StringBuilder;Lkorlibs/logger/AnsiEscape$Color;Z)Ljava/lang/StringBuilder;
+	public fun appendFgColor256 (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public fun appendMoveDown (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public fun appendMoveLeft (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public fun appendMoveRight (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public fun appendMoveUp (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public fun appendReset (Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public fun appendUnderline (Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public fun bgColor (Ljava/lang/String;Lkorlibs/logger/AnsiEscape$Color;Z)Ljava/lang/String;
+	public fun bgColor256 (Ljava/lang/String;I)Ljava/lang/String;
+	public fun color (Ljava/lang/String;Lkorlibs/logger/AnsiEscape$Color;Z)Ljava/lang/String;
+	public fun color256 (Ljava/lang/String;I)Ljava/lang/String;
+	public fun getBgBlack (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgBlue (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgCyan (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgGreen (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgPurple (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgRed (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgWhite (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgYellow (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBlack (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBlue (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBold (Ljava/lang/String;)Ljava/lang/String;
+	public fun getColorReversed (Ljava/lang/String;)Ljava/lang/String;
+	public fun getCyan (Ljava/lang/String;)Ljava/lang/String;
+	public fun getGreen (Ljava/lang/String;)Ljava/lang/String;
+	public fun getPurple (Ljava/lang/String;)Ljava/lang/String;
+	public fun getRed (Ljava/lang/String;)Ljava/lang/String;
+	public fun getUnderline (Ljava/lang/String;)Ljava/lang/String;
+	public fun getWhite (Ljava/lang/String;)Ljava/lang/String;
+	public fun getYellow (Ljava/lang/String;)Ljava/lang/String;
+	public final fun invoke (Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+}
+
+public final class korlibs/logger/AnsiEscape$DefaultImpls {
+	public static fun ansiEscape (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;ILjava/lang/String;C)Ljava/lang/String;
+	public static synthetic fun ansiEscape$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;ILjava/lang/String;CILjava/lang/Object;)Ljava/lang/String;
+	public static fun appendAnsiScape (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;ILjava/lang/String;C)Ljava/lang/StringBuilder;
+	public static synthetic fun appendAnsiScape$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;ILjava/lang/String;CILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public static fun appendBgColor (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;Lkorlibs/logger/AnsiEscape$Color;Z)Ljava/lang/StringBuilder;
+	public static synthetic fun appendBgColor$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;Lkorlibs/logger/AnsiEscape$Color;ZILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public static fun appendBgColor256 (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public static fun appendBold (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public static fun appendColorReversed (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public static fun appendFgColor (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;Lkorlibs/logger/AnsiEscape$Color;Z)Ljava/lang/StringBuilder;
+	public static synthetic fun appendFgColor$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;Lkorlibs/logger/AnsiEscape$Color;ZILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public static fun appendFgColor256 (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public static fun appendMoveDown (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public static synthetic fun appendMoveDown$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;IILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public static fun appendMoveLeft (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public static synthetic fun appendMoveLeft$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;IILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public static fun appendMoveRight (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public static synthetic fun appendMoveRight$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;IILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public static fun appendMoveUp (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public static synthetic fun appendMoveUp$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;IILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public static fun appendReset (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public static fun appendUnderline (Lkorlibs/logger/AnsiEscape;Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public static fun bgColor (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;Lkorlibs/logger/AnsiEscape$Color;Z)Ljava/lang/String;
+	public static synthetic fun bgColor$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;Lkorlibs/logger/AnsiEscape$Color;ZILjava/lang/Object;)Ljava/lang/String;
+	public static fun bgColor256 (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;I)Ljava/lang/String;
+	public static fun color (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;Lkorlibs/logger/AnsiEscape$Color;Z)Ljava/lang/String;
+	public static synthetic fun color$default (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;Lkorlibs/logger/AnsiEscape$Color;ZILjava/lang/Object;)Ljava/lang/String;
+	public static fun color256 (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;I)Ljava/lang/String;
+	public static fun getBgBlack (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getBgBlue (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getBgCyan (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getBgGreen (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getBgPurple (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getBgRed (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getBgWhite (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getBgYellow (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getBlack (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getBlue (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getBold (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getColorReversed (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getCyan (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getGreen (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getPurple (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getRed (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getUnderline (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getWhite (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getYellow (Lkorlibs/logger/AnsiEscape;Ljava/lang/String;)Ljava/lang/String;
+}
+
+public class korlibs/logger/BaseConsole : korlibs/logger/AnsiEscape {
+	public fun <init> ()V
+	public fun ansiEscape (Ljava/lang/String;ILjava/lang/String;C)Ljava/lang/String;
+	public fun appendAnsiScape (Ljava/lang/StringBuilder;ILjava/lang/String;C)Ljava/lang/StringBuilder;
+	public fun appendBgColor (Ljava/lang/StringBuilder;Lkorlibs/logger/AnsiEscape$Color;Z)Ljava/lang/StringBuilder;
+	public fun appendBgColor256 (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public fun appendBold (Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public fun appendColorReversed (Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public fun appendFgColor (Ljava/lang/StringBuilder;Lkorlibs/logger/AnsiEscape$Color;Z)Ljava/lang/StringBuilder;
+	public fun appendFgColor256 (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public fun appendMoveDown (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public fun appendMoveLeft (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public fun appendMoveRight (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public fun appendMoveUp (Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;
+	public fun appendReset (Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public fun appendUnderline (Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public fun bgColor (Ljava/lang/String;Lkorlibs/logger/AnsiEscape$Color;Z)Ljava/lang/String;
+	public fun bgColor256 (Ljava/lang/String;I)Ljava/lang/String;
+	public final fun capture (Lkotlin/jvm/functions/Function0;)Ljava/util/List;
+	public fun color (Ljava/lang/String;Lkorlibs/logger/AnsiEscape$Color;Z)Ljava/lang/String;
+	public fun color256 (Ljava/lang/String;I)Ljava/lang/String;
+	public final fun debug ([Ljava/lang/Object;)V
+	public final fun error ([Ljava/lang/Object;)V
+	public fun getBgBlack (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgBlue (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgCyan (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgGreen (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgPurple (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgRed (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgWhite (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBgYellow (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBlack (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBlue (Ljava/lang/String;)Ljava/lang/String;
+	public fun getBold (Ljava/lang/String;)Ljava/lang/String;
+	public fun getColorReversed (Ljava/lang/String;)Ljava/lang/String;
+	public fun getCyan (Ljava/lang/String;)Ljava/lang/String;
+	public fun getGreen (Ljava/lang/String;)Ljava/lang/String;
+	public fun getPurple (Ljava/lang/String;)Ljava/lang/String;
+	public fun getRed (Ljava/lang/String;)Ljava/lang/String;
+	public fun getUnderline (Ljava/lang/String;)Ljava/lang/String;
+	public fun getWhite (Ljava/lang/String;)Ljava/lang/String;
+	public fun getYellow (Ljava/lang/String;)Ljava/lang/String;
+	public final fun hook (Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public final fun info ([Ljava/lang/Object;)V
+	public final fun log (Lkorlibs/logger/BaseConsole$Kind;[Ljava/lang/Object;)V
+	public final fun log ([Ljava/lang/Object;)V
+	protected fun logInternal (Lkorlibs/logger/BaseConsole$Kind;[Ljava/lang/Object;)V
+	protected fun logToString (Lkorlibs/logger/BaseConsole$Kind;[Ljava/lang/Object;)Ljava/lang/String;
+	public final fun trace ([Ljava/lang/Object;)V
+	public final fun warn ([Ljava/lang/Object;)V
+}
+
+public final class korlibs/logger/BaseConsole$Kind : java/lang/Enum {
+	public static final field DEBUG Lkorlibs/logger/BaseConsole$Kind;
+	public static final field ERROR Lkorlibs/logger/BaseConsole$Kind;
+	public static final field INFO Lkorlibs/logger/BaseConsole$Kind;
+	public static final field LOG Lkorlibs/logger/BaseConsole$Kind;
+	public static final field TRACE Lkorlibs/logger/BaseConsole$Kind;
+	public static final field WARN Lkorlibs/logger/BaseConsole$Kind;
+	public final fun getColor ()Lkorlibs/logger/AnsiEscape$Color;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getLevel ()I
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/logger/BaseConsole$Kind;
+	public static fun values ()[Lkorlibs/logger/BaseConsole$Kind;
+}
+
+public final class korlibs/logger/BaseConsole$LogEntry {
+	public fun <init> (Lkorlibs/logger/BaseConsole$Kind;Ljava/util/List;)V
+	public final fun component1 ()Lkorlibs/logger/BaseConsole$Kind;
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (Lkorlibs/logger/BaseConsole$Kind;Ljava/util/List;)Lkorlibs/logger/BaseConsole$LogEntry;
+	public static synthetic fun copy$default (Lkorlibs/logger/BaseConsole$LogEntry;Lkorlibs/logger/BaseConsole$Kind;Ljava/util/List;ILjava/lang/Object;)Lkorlibs/logger/BaseConsole$LogEntry;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getKind ()Lkorlibs/logger/BaseConsole$Kind;
+	public final fun getMsg ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/logger/Console : korlibs/logger/BaseConsole {
+	public static final field INSTANCE Lkorlibs/logger/Console;
+}
+
+public final class korlibs/logger/ConsoleKt {
+	public static final fun assert (Lkorlibs/logger/Console;ZLjava/lang/String;)V
+	public static final fun getBaseConsoleHook ()Lkotlin/jvm/functions/Function3;
+	public static final fun setBaseConsoleHook (Lkotlin/jvm/functions/Function3;)V
+}
+
+public final class korlibs/logger/DefaultLogOutput : korlibs/logger/Logger$Output {
+	public static final field INSTANCE Lkorlibs/logger/DefaultLogOutput;
+	public fun output (Lkorlibs/logger/Logger;Lkorlibs/logger/Logger$Level;Ljava/lang/Object;)V
+}
+
+public final class korlibs/logger/Logger {
+	public static final field Companion Lkorlibs/logger/Logger$Companion;
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun actualLog (Lkorlibs/logger/Logger$Level;Ljava/lang/Object;)V
+	public final fun debug (Lkotlin/jvm/functions/Function0;)V
+	public final fun error (Lkotlin/jvm/functions/Function0;)V
+	public final fun fatal (Lkotlin/jvm/functions/Function0;)V
+	public final fun getDummy ()Z
+	public final fun getLevel ()Lkorlibs/logger/Logger$Level;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getNativeLogger ()Ljava/lang/Object;
+	public final fun getNormalizedName ()Ljava/lang/String;
+	public final fun getOptLevel ()Lkorlibs/logger/Logger$Level;
+	public final fun getOptOutput ()Lkorlibs/logger/Logger$Output;
+	public final fun getOutput ()Lkorlibs/logger/Logger$Output;
+	public final fun info (Lkotlin/jvm/functions/Function0;)V
+	public final fun isDebugEnabled ()Z
+	public final fun isEnabled (Lkorlibs/logger/Logger$Level;)Z
+	public final fun isErrorEnabled ()Z
+	public final fun isFatalEnabled ()Z
+	public final fun isInfoEnabled ()Z
+	public final fun isLocalLevelSet ()Z
+	public final fun isLocalOutputSet ()Z
+	public final fun isTraceEnabled ()Z
+	public final fun isWarnEnabled ()Z
+	public final fun log (Lkorlibs/logger/Logger$Level;Lkotlin/jvm/functions/Function0;)V
+	public final fun logTime (Ljava/lang/String;Lkorlibs/logger/Logger$Level;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static synthetic fun logTime$default (Lkorlibs/logger/Logger;Ljava/lang/String;Lkorlibs/logger/Logger$Level;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun setLevel (Lkorlibs/logger/Logger$Level;)V
+	public final fun setNativeLogger (Ljava/lang/Object;)V
+	public final fun setOptLevel (Lkorlibs/logger/Logger$Level;)V
+	public final fun setOptOutput (Lkorlibs/logger/Logger$Output;)V
+	public final fun setOutput (Lkorlibs/logger/Logger$Output;)V
+	public final fun trace (Lkotlin/jvm/functions/Function0;)V
+	public final fun warn (Lkotlin/jvm/functions/Function0;)V
+}
+
+public final class korlibs/logger/Logger$Companion {
+	public final fun getDefaultLevel ()Lkorlibs/logger/Logger$Level;
+	public final fun getDefaultOutput ()Lkorlibs/logger/Logger$Output;
+	public final fun invoke (Ljava/lang/String;)Lkorlibs/logger/Logger;
+	public final fun setDefaultLevel (Lkorlibs/logger/Logger$Level;)V
+	public final fun setDefaultOutput (Lkorlibs/logger/Logger$Output;)V
+}
+
+public final class korlibs/logger/Logger$ConsoleLogOutput : korlibs/logger/Logger$Output {
+	public static final field INSTANCE Lkorlibs/logger/Logger$ConsoleLogOutput;
+	public fun output (Lkorlibs/logger/Logger;Lkorlibs/logger/Logger$Level;Ljava/lang/Object;)V
+}
+
+public final class korlibs/logger/Logger$Level : java/lang/Enum {
+	public static final field Companion Lkorlibs/logger/Logger$Level$Companion;
+	public static final field DEBUG Lkorlibs/logger/Logger$Level;
+	public static final field ERROR Lkorlibs/logger/Logger$Level;
+	public static final field FATAL Lkorlibs/logger/Logger$Level;
+	public static final field INFO Lkorlibs/logger/Logger$Level;
+	public static final field NONE Lkorlibs/logger/Logger$Level;
+	public static final field TRACE Lkorlibs/logger/Logger$Level;
+	public static final field WARN Lkorlibs/logger/Logger$Level;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getIndex ()I
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/logger/Logger$Level;
+	public static fun values ()[Lkorlibs/logger/Logger$Level;
+}
+
+public final class korlibs/logger/Logger$Level$Companion {
+	public final fun get (Ljava/lang/String;)Lkorlibs/logger/Logger$Level;
+	public final fun getBY_NAME ()Ljava/util/Map;
+}
+
+public abstract interface class korlibs/logger/Logger$Output {
+	public abstract fun output (Lkorlibs/logger/Logger;Lkorlibs/logger/Logger$Level;Ljava/lang/Object;)V
+}
+
+public final class korlibs/logger/LoggerKt {
+	public static final fun setLevel (Lkorlibs/logger/Logger;Lkorlibs/logger/Logger$Level;)Lkorlibs/logger/Logger;
+	public static final fun setOutput (Lkorlibs/logger/Logger;Lkorlibs/logger/Logger$Output;)Lkorlibs/logger/Logger;
+}
+

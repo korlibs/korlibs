@@ -1,0 +1,2789 @@
+public class korlibs/wasm/Base64DeflateWASMLib : korlibs/wasm/WASMLib {
+	public fun <init> (Ljava/lang/String;)V
+}
+
+public class korlibs/wasm/Base64GZipWASMLib : korlibs/wasm/WASMLib {
+	public fun <init> (Ljava/lang/String;)V
+}
+
+public class korlibs/wasm/Base64ZlibWASMLib : korlibs/wasm/WASMLib {
+	public fun <init> (Ljava/lang/String;)V
+}
+
+public abstract class korlibs/wasm/BaseWASMLib : korlibs/wasm/IWASMLib {
+	public fun <init> ([B)V
+	public fun allocBytes (I)I
+	public fun allocBytes ([B)I
+	public fun allocInts (I)I
+	public fun allocInts ([I)I
+	public fun close ()V
+	public fun freeBytes ([I)V
+	public fun getContent ()[B
+	public final fun getLoaded ()Z
+	protected final fun get_context ()Lkotlin/coroutines/CoroutineContext;
+	public fun initOnce (Lkotlin/coroutines/CoroutineContext;)V
+	public fun invokeFunc (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+	public fun invokeFuncFloat (Ljava/lang/String;[Ljava/lang/Object;)F
+	public fun invokeFuncIndirect (I[Ljava/lang/Object;)Ljava/lang/Object;
+	public fun invokeFuncInt (Ljava/lang/String;[Ljava/lang/Object;)I
+	public fun invokeFuncUnit (Ljava/lang/String;[Ljava/lang/Object;)V
+	public fun isAvailable ()Z
+	public fun readBytes (II)[B
+	public fun readInts (II)[I
+	public fun readShorts (II)[S
+	protected final fun set_context (Lkotlin/coroutines/CoroutineContext;)V
+	public fun stackAlloc (I)I
+	public fun stackAllocAndWrite ([B)I
+	public fun stackAllocAndWrite ([I)I
+	public fun stackAllocAndWrite ([S)I
+	public fun stackRestore (I)V
+	public fun stackSave ()I
+	public fun toByteArray ([I)[B
+	public fun toByteArray ([S)[B
+	public fun writeBytes (I[B)V
+	public fun writeInts (I[I)V
+	public fun writeShorts (I[S)V
+}
+
+public final class korlibs/wasm/CustomWasmType : korlibs/wasm/WasmType {
+	public fun <init> (Ljava/lang/String;)V
+	public fun getId ()I
+	public final fun getName ()Ljava/lang/String;
+	public fun getSignature ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/FuncWithType {
+	public fun <init> (Ljava/lang/String;Lkorlibs/wasm/WasmType$Function;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkorlibs/wasm/WasmType$Function;
+	public final fun copy (Ljava/lang/String;Lkorlibs/wasm/WasmType$Function;)Lkorlibs/wasm/FuncWithType;
+	public static synthetic fun copy$default (Lkorlibs/wasm/FuncWithType;Ljava/lang/String;Lkorlibs/wasm/WasmType$Function;ILjava/lang/Object;)Lkorlibs/wasm/FuncWithType;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFunc ()Lkorlibs/wasm/WasmType$Function;
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/wasm/IWASMLib : java/lang/AutoCloseable {
+	public fun allocBytes (I)I
+	public fun allocBytes ([B)I
+	public fun allocInts (I)I
+	public fun allocInts ([I)I
+	public fun freeBytes ([I)V
+	public abstract fun getContent ()[B
+	public fun initOnce (Lkotlin/coroutines/CoroutineContext;)V
+	public fun invokeFunc (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+	public fun invokeFuncFloat (Ljava/lang/String;[Ljava/lang/Object;)F
+	public fun invokeFuncIndirect (I[Ljava/lang/Object;)Ljava/lang/Object;
+	public fun invokeFuncInt (Ljava/lang/String;[Ljava/lang/Object;)I
+	public fun invokeFuncUnit (Ljava/lang/String;[Ljava/lang/Object;)V
+	public fun isAvailable ()Z
+	public fun readBytes (II)[B
+	public fun readInts (II)[I
+	public fun readShorts (II)[S
+	public fun stackAlloc (I)I
+	public fun stackAllocAndWrite ([B)I
+	public fun stackAllocAndWrite ([I)I
+	public fun stackAllocAndWrite ([S)I
+	public fun stackRestore (I)V
+	public fun stackSave ()I
+	public fun toByteArray ([I)[B
+	public fun toByteArray ([S)[B
+	public fun writeBytes (I[B)V
+	public fun writeInts (I[I)V
+	public fun writeShorts (I[S)V
+}
+
+public final class korlibs/wasm/IWASMLib$DefaultImpls {
+	public static fun allocBytes (Lkorlibs/wasm/IWASMLib;I)I
+	public static fun allocBytes (Lkorlibs/wasm/IWASMLib;[B)I
+	public static fun allocInts (Lkorlibs/wasm/IWASMLib;I)I
+	public static fun allocInts (Lkorlibs/wasm/IWASMLib;[I)I
+	public static fun freeBytes (Lkorlibs/wasm/IWASMLib;[I)V
+	public static fun initOnce (Lkorlibs/wasm/IWASMLib;Lkotlin/coroutines/CoroutineContext;)V
+	public static fun invokeFunc (Lkorlibs/wasm/IWASMLib;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+	public static fun invokeFuncFloat (Lkorlibs/wasm/IWASMLib;Ljava/lang/String;[Ljava/lang/Object;)F
+	public static fun invokeFuncIndirect (Lkorlibs/wasm/IWASMLib;I[Ljava/lang/Object;)Ljava/lang/Object;
+	public static fun invokeFuncInt (Lkorlibs/wasm/IWASMLib;Ljava/lang/String;[Ljava/lang/Object;)I
+	public static fun invokeFuncUnit (Lkorlibs/wasm/IWASMLib;Ljava/lang/String;[Ljava/lang/Object;)V
+	public static fun isAvailable (Lkorlibs/wasm/IWASMLib;)Z
+	public static fun readBytes (Lkorlibs/wasm/IWASMLib;II)[B
+	public static fun readInts (Lkorlibs/wasm/IWASMLib;II)[I
+	public static fun readShorts (Lkorlibs/wasm/IWASMLib;II)[S
+	public static fun stackAlloc (Lkorlibs/wasm/IWASMLib;I)I
+	public static fun stackAllocAndWrite (Lkorlibs/wasm/IWASMLib;[B)I
+	public static fun stackAllocAndWrite (Lkorlibs/wasm/IWASMLib;[I)I
+	public static fun stackAllocAndWrite (Lkorlibs/wasm/IWASMLib;[S)I
+	public static fun stackRestore (Lkorlibs/wasm/IWASMLib;I)V
+	public static fun stackSave (Lkorlibs/wasm/IWASMLib;)I
+	public static fun toByteArray (Lkorlibs/wasm/IWASMLib;[I)[B
+	public static fun toByteArray (Lkorlibs/wasm/IWASMLib;[S)[B
+	public static fun writeBytes (Lkorlibs/wasm/IWASMLib;I[B)V
+	public static fun writeInts (Lkorlibs/wasm/IWASMLib;I[I)V
+	public static fun writeShorts (Lkorlibs/wasm/IWASMLib;I[S)V
+}
+
+public class korlibs/wasm/InterpreterWASMLib : korlibs/wasm/BaseWASMLib {
+	public fun <init> ([B)V
+	public final fun getInterpreter ()Lkorlibs/wasm/WasmRunInterpreter;
+	public fun invokeFunc (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+	public fun readBytes (II)[B
+	public fun writeBytes (I[B)V
+}
+
+public final class korlibs/wasm/JVMWasmLib : korlibs/wasm/BaseWASMLib, korlibs/wasm/IWASMLib {
+	public fun <init> ([B)V
+	public fun close ()V
+	public fun invokeFunc (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+	public fun invokeFuncIndirect (I[Ljava/lang/Object;)Ljava/lang/Object;
+	public fun readBytes (II)[B
+	public fun writeBytes (I[B)V
+}
+
+public final class korlibs/wasm/NamedWasmType {
+	public fun <init> (ILjava/lang/String;Lkorlibs/wasm/WasmType;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Lkorlibs/wasm/WasmType;
+	public final fun copy (ILjava/lang/String;Lkorlibs/wasm/WasmType;)Lkorlibs/wasm/NamedWasmType;
+	public static synthetic fun copy$default (Lkorlibs/wasm/NamedWasmType;ILjava/lang/String;Lkorlibs/wasm/WasmType;ILjava/lang/Object;)Lkorlibs/wasm/NamedWasmType;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIndex ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun getType ()Lkorlibs/wasm/WasmType;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WASMJSPolyfillKt {
+	public static final fun getWASMJSPolyfill ()Ljava/lang/String;
+}
+
+public class korlibs/wasm/WASMLib : korlibs/wasm/IWASMLib {
+	public fun <init> ([B)V
+	public fun allocBytes (I)I
+	public fun allocBytes ([B)I
+	public fun allocInts (I)I
+	public fun allocInts ([I)I
+	public fun close ()V
+	public fun freeBytes ([I)V
+	public fun getContent ()[B
+	public fun initOnce (Lkotlin/coroutines/CoroutineContext;)V
+	public fun invokeFunc (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+	public fun invokeFuncFloat (Ljava/lang/String;[Ljava/lang/Object;)F
+	public fun invokeFuncIndirect (I[Ljava/lang/Object;)Ljava/lang/Object;
+	public fun invokeFuncInt (Ljava/lang/String;[Ljava/lang/Object;)I
+	public fun invokeFuncUnit (Ljava/lang/String;[Ljava/lang/Object;)V
+	public fun isAvailable ()Z
+	public fun readBytes (II)[B
+	public fun readInts (II)[I
+	public fun readShorts (II)[S
+	public fun stackAlloc (I)I
+	public fun stackAllocAndWrite ([B)I
+	public fun stackAllocAndWrite ([I)I
+	public fun stackAllocAndWrite ([S)I
+	public fun stackRestore (I)V
+	public fun stackSave ()I
+	public fun toByteArray ([I)[B
+	public fun toByteArray ([S)[B
+	public fun writeBytes (I[B)V
+	public fun writeInts (I[I)V
+	public fun writeShorts (I[S)V
+}
+
+public final class korlibs/wasm/WASMLibKt {
+	public static final fun stackKeep (Lkorlibs/wasm/IWASMLib;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/wasm/WasmAssert {
+}
+
+public final class korlibs/wasm/WasmAssertReturn : korlibs/wasm/WasmAssert {
+	public fun <init> (Lkorlibs/wasm/WasmExpr;Lkorlibs/wasm/WasmExpr;Ljava/lang/String;)V
+	public final fun component1 ()Lkorlibs/wasm/WasmExpr;
+	public final fun component2 ()Lkorlibs/wasm/WasmExpr;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Lkorlibs/wasm/WasmExpr;Lkorlibs/wasm/WasmExpr;Ljava/lang/String;)Lkorlibs/wasm/WasmAssertReturn;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmAssertReturn;Lkorlibs/wasm/WasmExpr;Lkorlibs/wasm/WasmExpr;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/wasm/WasmAssertReturn;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getActual ()Lkorlibs/wasm/WasmExpr;
+	public final fun getExpect ()Lkorlibs/wasm/WasmExpr;
+	public final fun getMsg ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmCode {
+	public fun <init> (Ljava/util/List;Ljava/util/List;Lkorlibs/wasm/WasmExpr;)V
+	public final fun getBody ()Lkorlibs/wasm/WasmExpr;
+	public final fun getFlatLocals ()Ljava/util/List;
+	public final fun getInterpreterCode ()Lkorlibs/wasm/WasmInterpreterCode;
+	public final fun getLocals ()Ljava/util/List;
+	public final fun getParams ()Ljava/util/List;
+	public final fun setInterpreterCode (Lkorlibs/wasm/WasmInterpreterCode;)V
+}
+
+public abstract interface class korlibs/wasm/WasmCodeVisitor {
+	public fun visit (Lkorlibs/wasm/WasmInstruction;Lkorlibs/wasm/WasmCodeVisitor$Context;)V
+	public fun visitFuncEnd (Lkorlibs/wasm/WasmCodeVisitor$Context;)V
+	public fun visitFuncStart (Lkorlibs/wasm/WasmCodeVisitor$Context;)V
+	public fun visitGoto (Lkorlibs/wasm/WasmCodeVisitor$Label;Ljava/lang/Boolean;Lkorlibs/wasm/WasmCodeVisitor$Context;)V
+	public fun visitGotoTable (Ljava/util/List;Lkorlibs/wasm/WasmCodeVisitor$Label;Lkorlibs/wasm/WasmCodeVisitor$Context;)V
+	public fun visitLabel (Lkorlibs/wasm/WasmCodeVisitor$Label;Lkorlibs/wasm/WasmCodeVisitor$Context;)V
+}
+
+public final class korlibs/wasm/WasmCodeVisitor$Context {
+	public fun <init> (Lkorlibs/wasm/WasmFunc;Lkorlibs/wasm/WasmModule;)V
+	public final fun addControlStructure (Lkorlibs/wasm/WasmCodeVisitor$Label;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public final fun createLabel ()Lkorlibs/wasm/WasmCodeVisitor$Label;
+	public final fun getControlStructures ()Ljava/util/ArrayList;
+	public final fun getFunc ()Lkorlibs/wasm/WasmFunc;
+	public final fun getFuncLocals ()Ljava/util/List;
+	public final fun getLabelByControlStructureIndex (I)Lkorlibs/wasm/WasmCodeVisitor$Label;
+	public final fun getLastInstructionInputStack ()I
+	public final fun getLastInstructionOutputType ()Lkorlibs/wasm/WasmSType;
+	public final fun getLastInstructionType ()Lkorlibs/wasm/WasmSType;
+	public final fun getLastLabel ()I
+	public final fun getLastStackType ()Lkorlibs/wasm/WasmSType;
+	public final fun getLocalsMemOffset ()[I
+	public final fun getLocalsOffset ()I
+	public final fun getModule ()Lkorlibs/wasm/WasmModule;
+	public final fun getParamsOffset ()I
+	public final fun getRetType ()Lkorlibs/wasm/WasmType;
+	public final fun getStack ()Ljava/util/ArrayList;
+	public final fun pop (I)V
+	public static synthetic fun pop$default (Lkorlibs/wasm/WasmCodeVisitor$Context;IILjava/lang/Object;)V
+	public final fun push (Lkorlibs/wasm/WasmType;)V
+	public final fun setLastInstructionInputStack (I)V
+	public final fun setLastInstructionOutputType (Lkorlibs/wasm/WasmSType;)V
+	public final fun setLastInstructionType (Lkorlibs/wasm/WasmSType;)V
+	public final fun setLastLabel (I)V
+	public final fun stackRestore (Ljava/util/List;)V
+	public final fun stackSave ()Ljava/util/List;
+}
+
+public final class korlibs/wasm/WasmCodeVisitor$ControlStructure {
+	public fun <init> (Lkorlibs/wasm/WasmCodeVisitor$Label;)V
+	public final fun getLabel ()Lkorlibs/wasm/WasmCodeVisitor$Label;
+}
+
+public final class korlibs/wasm/WasmCodeVisitor$DefaultImpls {
+	public static fun visit (Lkorlibs/wasm/WasmCodeVisitor;Lkorlibs/wasm/WasmInstruction;Lkorlibs/wasm/WasmCodeVisitor$Context;)V
+	public static fun visitFuncEnd (Lkorlibs/wasm/WasmCodeVisitor;Lkorlibs/wasm/WasmCodeVisitor$Context;)V
+	public static fun visitFuncStart (Lkorlibs/wasm/WasmCodeVisitor;Lkorlibs/wasm/WasmCodeVisitor$Context;)V
+	public static fun visitGoto (Lkorlibs/wasm/WasmCodeVisitor;Lkorlibs/wasm/WasmCodeVisitor$Label;Ljava/lang/Boolean;Lkorlibs/wasm/WasmCodeVisitor$Context;)V
+	public static fun visitGotoTable (Lkorlibs/wasm/WasmCodeVisitor;Ljava/util/List;Lkorlibs/wasm/WasmCodeVisitor$Label;Lkorlibs/wasm/WasmCodeVisitor$Context;)V
+	public static fun visitLabel (Lkorlibs/wasm/WasmCodeVisitor;Lkorlibs/wasm/WasmCodeVisitor$Label;Lkorlibs/wasm/WasmCodeVisitor$Context;)V
+}
+
+public final class korlibs/wasm/WasmCodeVisitor$Label {
+	public fun <init> (I)V
+	public final fun getId ()I
+	public final fun getTarget ()I
+	public final fun setTarget (I)V
+}
+
+public final class korlibs/wasm/WasmCodeVisitorKt {
+	public static final fun accept (Lkorlibs/wasm/WasmExpr;Lkorlibs/wasm/WasmCodeVisitor;Lkorlibs/wasm/WasmCodeVisitor$Context;)V
+	public static final fun accept (Lkorlibs/wasm/WasmFunc;Lkorlibs/wasm/WasmModule;ZLkorlibs/wasm/WasmCodeVisitor;)V
+	public static final fun accept (Lkorlibs/wasm/WasmInstruction;Lkorlibs/wasm/WasmCodeVisitor;Lkorlibs/wasm/WasmCodeVisitor$Context;)Z
+}
+
+public final class korlibs/wasm/WasmCommonKt {
+	public static final fun toWasmSType (Lkorlibs/wasm/WasmType;)Lkorlibs/wasm/WasmSType;
+}
+
+public final class korlibs/wasm/WasmData {
+	public fun <init> (I[BILkorlibs/wasm/WasmExpr;)V
+	public synthetic fun <init> (I[BILkorlibs/wasm/WasmExpr;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()[B
+	public final fun component3 ()I
+	public final fun component4 ()Lkorlibs/wasm/WasmExpr;
+	public final fun copy (I[BILkorlibs/wasm/WasmExpr;)Lkorlibs/wasm/WasmData;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmData;I[BILkorlibs/wasm/WasmExpr;ILjava/lang/Object;)Lkorlibs/wasm/WasmData;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getData ()[B
+	public final fun getE ()Lkorlibs/wasm/WasmExpr;
+	public final fun getIndex ()I
+	public final fun getMemindex ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmDebugContext {
+	public fun <init> (Ljava/lang/String;I)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()I
+	public final fun copy (Ljava/lang/String;I)Lkorlibs/wasm/WasmDebugContext;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmDebugContext;Ljava/lang/String;IILjava/lang/Object;)Lkorlibs/wasm/WasmDebugContext;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIndex ()I
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmElement {
+	public fun <init> (ILjava/util/List;Ljava/util/List;Lkorlibs/wasm/WasmExpr;)V
+	public synthetic fun <init> (ILjava/util/List;Ljava/util/List;Lkorlibs/wasm/WasmExpr;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Lkorlibs/wasm/WasmExpr;
+	public final fun copy (ILjava/util/List;Ljava/util/List;Lkorlibs/wasm/WasmExpr;)Lkorlibs/wasm/WasmElement;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmElement;ILjava/util/List;Ljava/util/List;Lkorlibs/wasm/WasmExpr;ILjava/lang/Object;)Lkorlibs/wasm/WasmElement;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun get (Lkorlibs/wasm/WasmModule;I)Lkorlibs/wasm/WasmFunc;
+	public final fun getExpr ()Lkorlibs/wasm/WasmExpr;
+	public final fun getFuncIdxs ()Ljava/util/List;
+	public final fun getFuncNames ()Ljava/util/List;
+	public final fun getFuncRefs ()Ljava/util/List;
+	public final fun getFunctions (Lkorlibs/wasm/WasmModule;)Ljava/util/List;
+	public final fun getSize ()I
+	public final fun getTableIdx ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmExport {
+	public fun <init> (Ljava/lang/String;IILjava/lang/Object;)V
+	public final fun getIdx ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun getObj ()Ljava/lang/Object;
+	public final fun getTid ()I
+	public final fun getTidName ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmExpr {
+	public fun <init> (Ljava/util/List;)V
+	public fun <init> ([Lkorlibs/wasm/WasmInstruction;)V
+	public final fun getInstructions ()Ljava/util/List;
+	public final fun getInterpreterCode ()Lkorlibs/wasm/WasmInterpreterCode;
+	public final fun setInterpreterCode (Lkorlibs/wasm/WasmInterpreterCode;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmFunc : korlibs/wasm/WasmFuncRef {
+	public static final field Companion Lkorlibs/wasm/WasmFunc$Companion;
+	public fun <init> (ILkorlibs/wasm/WasmType$Function;Lkorlibs/wasm/WasmCode;Lkorlibs/wasm/WasmImport;Ljava/lang/String;)V
+	public synthetic fun <init> (ILkorlibs/wasm/WasmType$Function;Lkorlibs/wasm/WasmCode;Lkorlibs/wasm/WasmImport;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun addExport (Lkorlibs/wasm/WasmExport;)V
+	public final fun component1 ()I
+	public final fun component2 ()Lkorlibs/wasm/WasmType$Function;
+	public final fun component3 ()Lkorlibs/wasm/WasmCode;
+	public final fun component4 ()Lkorlibs/wasm/WasmImport;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun copy (ILkorlibs/wasm/WasmType$Function;Lkorlibs/wasm/WasmCode;Lkorlibs/wasm/WasmImport;Ljava/lang/String;)Lkorlibs/wasm/WasmFunc;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmFunc;ILkorlibs/wasm/WasmType$Function;Lkorlibs/wasm/WasmCode;Lkorlibs/wasm/WasmImport;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/wasm/WasmFunc;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCode ()Lkorlibs/wasm/WasmCode;
+	public final fun getExportName ()Ljava/lang/String;
+	public final fun getExports ()Ljava/util/ArrayList;
+	public final fun getFimport ()Lkorlibs/wasm/WasmImport;
+	public final fun getFtype ()Lkorlibs/wasm/FuncWithType;
+	public fun getFunc ()Lkorlibs/wasm/WasmFunc;
+	public final fun getFwt ()Lkorlibs/wasm/WasmFuncWithType;
+	public final fun getImportFunc ()Lkotlin/jvm/functions/Function2;
+	public final fun getIndex ()I
+	public fun getName ()Ljava/lang/String;
+	public final fun getName2 ()Ljava/lang/String;
+	public final fun getRlocals ()Ljava/util/List;
+	public final fun getRname ()Ljava/lang/String;
+	public final fun getType ()Lkorlibs/wasm/WasmType$Function;
+	public fun hashCode ()I
+	public final fun setCode (Lkorlibs/wasm/WasmCode;)V
+	public final fun setFimport (Lkorlibs/wasm/WasmImport;)V
+	public final fun setImportFunc (Lkotlin/jvm/functions/Function2;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmFunc$Companion {
+	public final fun anonymousFunc (Lkorlibs/wasm/WasmType$Function;Lkorlibs/wasm/WasmExpr;)Lkorlibs/wasm/WasmFunc;
+}
+
+public final class korlibs/wasm/WasmFuncName : korlibs/wasm/WasmFuncRef {
+	public fun <init> (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkotlin/jvm/functions/Function1;
+	public final fun copy (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lkorlibs/wasm/WasmFuncName;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmFuncName;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkorlibs/wasm/WasmFuncName;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getFunc ()Lkorlibs/wasm/WasmFunc;
+	public fun getName ()Ljava/lang/String;
+	public final fun getResolve ()Lkotlin/jvm/functions/Function1;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/wasm/WasmFuncRef {
+	public abstract fun getFunc ()Lkorlibs/wasm/WasmFunc;
+	public abstract fun getName ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/wasm/WasmFuncResolver {
+	public abstract fun resolveFunc (Ljava/lang/String;)Lkorlibs/wasm/WasmFunc;
+}
+
+public final class korlibs/wasm/WasmFuncWithType {
+	public fun <init> (Ljava/lang/String;Lkorlibs/wasm/WasmType$Function;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkorlibs/wasm/WasmType$Function;
+	public final fun copy (Ljava/lang/String;Lkorlibs/wasm/WasmType$Function;)Lkorlibs/wasm/WasmFuncWithType;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmFuncWithType;Ljava/lang/String;Lkorlibs/wasm/WasmType$Function;ILjava/lang/Object;)Lkorlibs/wasm/WasmFuncWithType;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getName ()Ljava/lang/String;
+	public final fun getType ()Lkorlibs/wasm/WasmType$Function;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmGlobal {
+	public fun <init> (Lkorlibs/wasm/WasmType;ILkorlibs/wasm/WasmExpr;Lkorlibs/wasm/WasmImport;Ljava/lang/String;)V
+	public synthetic fun <init> (Lkorlibs/wasm/WasmType;ILkorlibs/wasm/WasmExpr;Lkorlibs/wasm/WasmImport;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkorlibs/wasm/WasmType;
+	public final fun component2 ()I
+	public final fun component3 ()Lkorlibs/wasm/WasmExpr;
+	public final fun component4 ()Lkorlibs/wasm/WasmImport;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun copy (Lkorlibs/wasm/WasmType;ILkorlibs/wasm/WasmExpr;Lkorlibs/wasm/WasmImport;Ljava/lang/String;)Lkorlibs/wasm/WasmGlobal;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmGlobal;Lkorlibs/wasm/WasmType;ILkorlibs/wasm/WasmExpr;Lkorlibs/wasm/WasmImport;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/wasm/WasmGlobal;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getExpr ()Lkorlibs/wasm/WasmExpr;
+	public final fun getGimport ()Lkorlibs/wasm/WasmImport;
+	public final fun getGlobalOffset ()I
+	public final fun getGlobalType ()Lkorlibs/wasm/WasmType;
+	public final fun getIndex ()I
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun setGimport (Lkorlibs/wasm/WasmImport;)V
+	public final fun setGlobalOffset (I)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmImport {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;IILjava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()I
+	public final fun component4 ()I
+	public final fun component5 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;IILjava/lang/Object;)Lkorlibs/wasm/WasmImport;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmImport;Ljava/lang/String;Ljava/lang/String;IILjava/lang/Object;ILjava/lang/Object;)Lkorlibs/wasm/WasmImport;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getImportPair ()Lkotlin/Pair;
+	public final fun getIndex ()I
+	public final fun getIndexSpace ()I
+	public final fun getModuleName ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getType ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/wasm/WasmInstruction {
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public abstract fun getOp ()Lkorlibs/wasm/WasmOp;
+}
+
+public abstract interface class korlibs/wasm/WasmInstruction$BlockOrLoop : korlibs/wasm/WasmInstruction$ControlStructureInstruction {
+	public abstract fun getExpr ()Lkorlibs/wasm/WasmExpr;
+}
+
+public final class korlibs/wasm/WasmInstruction$BlockOrLoop$DefaultImpls {
+	public static fun getItype (Lkorlibs/wasm/WasmInstruction$BlockOrLoop;)Lkorlibs/wasm/WasmSType;
+}
+
+public final class korlibs/wasm/WasmInstruction$CALL : korlibs/wasm/WasmInstruction {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Lkorlibs/wasm/WasmInstruction$CALL;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$CALL;IILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$CALL;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFuncIdx ()I
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$CALL_INDIRECT : korlibs/wasm/WasmInstruction {
+	public fun <init> (II)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun copy (II)Lkorlibs/wasm/WasmInstruction$CALL_INDIRECT;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$CALL_INDIRECT;IIILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$CALL_INDIRECT;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public final fun getTypeIdx ()I
+	public final fun getZero ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/wasm/WasmInstruction$ControlStructureInstruction : korlibs/wasm/WasmInstruction {
+	public abstract fun getB ()Lkorlibs/wasm/WasmType;
+}
+
+public final class korlibs/wasm/WasmInstruction$ControlStructureInstruction$DefaultImpls {
+	public static fun getItype (Lkorlibs/wasm/WasmInstruction$ControlStructureInstruction;)Lkorlibs/wasm/WasmSType;
+}
+
+public final class korlibs/wasm/WasmInstruction$DefaultImpls {
+	public static fun getItype (Lkorlibs/wasm/WasmInstruction;)Lkorlibs/wasm/WasmSType;
+}
+
+public final class korlibs/wasm/WasmInstruction$ELSE : korlibs/wasm/WasmInstruction {
+	public fun <init> (Lkorlibs/wasm/WasmExpr;)V
+	public final fun component1 ()Lkorlibs/wasm/WasmExpr;
+	public final fun copy (Lkorlibs/wasm/WasmExpr;)Lkorlibs/wasm/WasmInstruction$ELSE;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$ELSE;Lkorlibs/wasm/WasmExpr;ILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$ELSE;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCode ()Lkorlibs/wasm/WasmExpr;
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$End : korlibs/wasm/WasmInstruction {
+	public static final field INSTANCE Lkorlibs/wasm/WasmInstruction$End;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$IF : korlibs/wasm/WasmInstruction$ControlStructureInstruction {
+	public fun <init> (Lkorlibs/wasm/WasmType;Lkorlibs/wasm/WasmExpr;Lkorlibs/wasm/WasmExpr;)V
+	public final fun component1 ()Lkorlibs/wasm/WasmType;
+	public final fun component2 ()Lkorlibs/wasm/WasmExpr;
+	public final fun component3 ()Lkorlibs/wasm/WasmExpr;
+	public final fun copy (Lkorlibs/wasm/WasmType;Lkorlibs/wasm/WasmExpr;Lkorlibs/wasm/WasmExpr;)Lkorlibs/wasm/WasmInstruction$IF;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$IF;Lkorlibs/wasm/WasmType;Lkorlibs/wasm/WasmExpr;Lkorlibs/wasm/WasmExpr;ILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$IF;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getB ()Lkorlibs/wasm/WasmType;
+	public final fun getBfalse ()Lkorlibs/wasm/WasmExpr;
+	public final fun getBtrue ()Lkorlibs/wasm/WasmExpr;
+	public final fun getCompOp ()Lkorlibs/wasm/WasmOp;
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun hashCode ()I
+	public final fun setCompOp (Lkorlibs/wasm/WasmOp;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$INVOKE : korlibs/wasm/WasmInstruction {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/wasm/WasmInstruction$INVOKE;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$INVOKE;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$INVOKE;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public final fun getName ()Ljava/lang/String;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$Ins : korlibs/wasm/WasmInstruction {
+	public fun <init> (Lkorlibs/wasm/WasmOp;)V
+	public final fun component1 ()Lkorlibs/wasm/WasmOp;
+	public final fun copy (Lkorlibs/wasm/WasmOp;)Lkorlibs/wasm/WasmInstruction$Ins;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$Ins;Lkorlibs/wasm/WasmOp;ILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$Ins;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/wasm/WasmInstruction$InsConst : korlibs/wasm/WasmInstruction {
+	public abstract fun getType ()Lkorlibs/wasm/WasmSType;
+}
+
+public final class korlibs/wasm/WasmInstruction$InsConst$DefaultImpls {
+	public static fun getItype (Lkorlibs/wasm/WasmInstruction$InsConst;)Lkorlibs/wasm/WasmSType;
+}
+
+public final class korlibs/wasm/WasmInstruction$InsConstDouble : korlibs/wasm/WasmInstruction$InsConst {
+	public fun <init> (DLkorlibs/wasm/WasmOp;)V
+	public synthetic fun <init> (DLkorlibs/wasm/WasmOp;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()D
+	public final fun component2 ()Lkorlibs/wasm/WasmOp;
+	public final fun copy (DLkorlibs/wasm/WasmOp;)Lkorlibs/wasm/WasmInstruction$InsConstDouble;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$InsConstDouble;DLkorlibs/wasm/WasmOp;ILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$InsConstDouble;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun getType ()Lkorlibs/wasm/WasmSType;
+	public final fun getValue ()D
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$InsConstFloat : korlibs/wasm/WasmInstruction$InsConst {
+	public fun <init> (FLkorlibs/wasm/WasmOp;)V
+	public synthetic fun <init> (FLkorlibs/wasm/WasmOp;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()Lkorlibs/wasm/WasmOp;
+	public final fun copy (FLkorlibs/wasm/WasmOp;)Lkorlibs/wasm/WasmInstruction$InsConstFloat;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$InsConstFloat;FLkorlibs/wasm/WasmOp;ILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$InsConstFloat;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun getType ()Lkorlibs/wasm/WasmSType;
+	public final fun getValue ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$InsConstInt : korlibs/wasm/WasmInstruction$InsConst {
+	public fun <init> (ILkorlibs/wasm/WasmOp;)V
+	public synthetic fun <init> (ILkorlibs/wasm/WasmOp;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()Lkorlibs/wasm/WasmOp;
+	public final fun copy (ILkorlibs/wasm/WasmOp;)Lkorlibs/wasm/WasmInstruction$InsConstInt;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$InsConstInt;ILkorlibs/wasm/WasmOp;ILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$InsConstInt;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun getType ()Lkorlibs/wasm/WasmSType;
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$InsConstLong : korlibs/wasm/WasmInstruction$InsConst {
+	public fun <init> (JLkorlibs/wasm/WasmOp;)V
+	public synthetic fun <init> (JLkorlibs/wasm/WasmOp;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Lkorlibs/wasm/WasmOp;
+	public final fun copy (JLkorlibs/wasm/WasmOp;)Lkorlibs/wasm/WasmInstruction$InsConstLong;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$InsConstLong;JLkorlibs/wasm/WasmOp;ILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$InsConstLong;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun getType ()Lkorlibs/wasm/WasmSType;
+	public final fun getValue ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$InsInt : korlibs/wasm/WasmInstruction {
+	public fun <init> (Lkorlibs/wasm/WasmOp;I)V
+	public final fun component1 ()Lkorlibs/wasm/WasmOp;
+	public final fun component2 ()I
+	public final fun copy (Lkorlibs/wasm/WasmOp;I)Lkorlibs/wasm/WasmInstruction$InsInt;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$InsInt;Lkorlibs/wasm/WasmOp;IILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$InsInt;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public final fun getParam ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$InsMemarg : korlibs/wasm/WasmInstruction {
+	public fun <init> (Lkorlibs/wasm/WasmOp;II)V
+	public final fun component1 ()Lkorlibs/wasm/WasmOp;
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun copy (Lkorlibs/wasm/WasmOp;II)Lkorlibs/wasm/WasmInstruction$InsMemarg;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$InsMemarg;Lkorlibs/wasm/WasmOp;IIILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$InsMemarg;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAlign ()I
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public final fun getOffset ()I
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$InsType : korlibs/wasm/WasmInstruction {
+	public fun <init> (Lkorlibs/wasm/WasmOp;Lkorlibs/wasm/WasmType;)V
+	public final fun component1 ()Lkorlibs/wasm/WasmOp;
+	public final fun component2 ()Lkorlibs/wasm/WasmType;
+	public final fun copy (Lkorlibs/wasm/WasmOp;Lkorlibs/wasm/WasmType;)Lkorlibs/wasm/WasmInstruction$InsType;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$InsType;Lkorlibs/wasm/WasmOp;Lkorlibs/wasm/WasmType;ILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$InsType;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public final fun getParam ()Lkorlibs/wasm/WasmType;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$RETURN : korlibs/wasm/WasmInstruction {
+	public static final field INSTANCE Lkorlibs/wasm/WasmInstruction$RETURN;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$block : korlibs/wasm/WasmInstruction$BlockOrLoop {
+	public fun <init> (Lkorlibs/wasm/WasmType;Lkorlibs/wasm/WasmExpr;)V
+	public final fun component1 ()Lkorlibs/wasm/WasmType;
+	public final fun component2 ()Lkorlibs/wasm/WasmExpr;
+	public final fun copy (Lkorlibs/wasm/WasmType;Lkorlibs/wasm/WasmExpr;)Lkorlibs/wasm/WasmInstruction$block;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$block;Lkorlibs/wasm/WasmType;Lkorlibs/wasm/WasmExpr;ILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$block;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getB ()Lkorlibs/wasm/WasmType;
+	public fun getExpr ()Lkorlibs/wasm/WasmExpr;
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$br : korlibs/wasm/WasmInstruction$br_base {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Lkorlibs/wasm/WasmInstruction$br;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$br;IILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$br;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getLabel ()I
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/wasm/WasmInstruction$br_base : korlibs/wasm/WasmInstruction {
+	public abstract fun getLabel ()I
+}
+
+public final class korlibs/wasm/WasmInstruction$br_base$DefaultImpls {
+	public static fun getItype (Lkorlibs/wasm/WasmInstruction$br_base;)Lkorlibs/wasm/WasmSType;
+}
+
+public final class korlibs/wasm/WasmInstruction$br_if : korlibs/wasm/WasmInstruction$br_base {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Lkorlibs/wasm/WasmInstruction$br_if;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$br_if;IILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$br_if;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCompOp ()Lkorlibs/wasm/WasmOp;
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getLabel ()I
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun hashCode ()I
+	public final fun setCompOp (Lkorlibs/wasm/WasmOp;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$br_table : korlibs/wasm/WasmInstruction {
+	public fun <init> (Ljava/util/List;I)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()I
+	public final fun copy (Ljava/util/List;I)Lkorlibs/wasm/WasmInstruction$br_table;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$br_table;Ljava/util/List;IILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$br_table;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDefault ()I
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public final fun getLabels ()Ljava/util/List;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$loop : korlibs/wasm/WasmInstruction$BlockOrLoop {
+	public fun <init> (Lkorlibs/wasm/WasmType;Lkorlibs/wasm/WasmExpr;)V
+	public final fun component1 ()Lkorlibs/wasm/WasmType;
+	public final fun component2 ()Lkorlibs/wasm/WasmExpr;
+	public final fun copy (Lkorlibs/wasm/WasmType;Lkorlibs/wasm/WasmExpr;)Lkorlibs/wasm/WasmInstruction$loop;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInstruction$loop;Lkorlibs/wasm/WasmType;Lkorlibs/wasm/WasmExpr;ILjava/lang/Object;)Lkorlibs/wasm/WasmInstruction$loop;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getB ()Lkorlibs/wasm/WasmType;
+	public fun getExpr ()Lkorlibs/wasm/WasmExpr;
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$nop : korlibs/wasm/WasmInstruction {
+	public static final field INSTANCE Lkorlibs/wasm/WasmInstruction$nop;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInstruction$unreachable : korlibs/wasm/WasmInstruction {
+	public static final field INSTANCE Lkorlibs/wasm/WasmInstruction$unreachable;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getItype ()Lkorlibs/wasm/WasmSType;
+	public fun getOp ()Lkorlibs/wasm/WasmOp;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmInterpreterCode {
+	public fun <init> ([I[I[J[F[DIIII[ILjava/util/List;Lkorlibs/wasm/WasmDebugContext;)V
+	public synthetic fun <init> ([I[I[J[F[DIIII[ILjava/util/List;Lkorlibs/wasm/WasmDebugContext;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()[I
+	public final fun component10 ()[I
+	public final fun component11 ()Ljava/util/List;
+	public final fun component12 ()Lkorlibs/wasm/WasmDebugContext;
+	public final fun component2 ()[I
+	public final fun component3 ()[J
+	public final fun component4 ()[F
+	public final fun component5 ()[D
+	public final fun component6 ()I
+	public final fun component7 ()I
+	public final fun component8 ()I
+	public final fun component9 ()I
+	public final fun copy ([I[I[J[F[DIIII[ILjava/util/List;Lkorlibs/wasm/WasmDebugContext;)Lkorlibs/wasm/WasmInterpreterCode;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmInterpreterCode;[I[I[J[F[DIIII[ILjava/util/List;Lkorlibs/wasm/WasmDebugContext;ILjava/lang/Object;)Lkorlibs/wasm/WasmInterpreterCode;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDebug ()Lkorlibs/wasm/WasmDebugContext;
+	public final fun getDoublePool ()[D
+	public final fun getEndStack ()Ljava/util/List;
+	public final fun getFloatPool ()[F
+	public final fun getInstructions ()[I
+	public final fun getIntPool ()[I
+	public final fun getLocalSize ()I
+	public final fun getLocalsCount ()I
+	public final fun getLocalsOffsets ()[I
+	public final fun getLongPool ()[J
+	public final fun getParamsCount ()I
+	public final fun getParamsSize ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmModule {
+	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAsserts ()Ljava/util/List;
+	public final fun getDatas ()Ljava/util/List;
+	public final fun getElements ()Ljava/util/List;
+	public final fun getExports ()Ljava/util/List;
+	public final fun getExportsByName ()Ljava/util/Map;
+	public final fun getFunction (I)Lkorlibs/wasm/WasmFunc;
+	public final fun getFunction (Ljava/lang/Object;)Lkorlibs/wasm/WasmFunc;
+	public final fun getFunction (Ljava/lang/String;)Lkorlibs/wasm/WasmFunc;
+	public final fun getFunctions ()Ljava/util/List;
+	public final fun getFunctionsByName ()Ljava/util/Map;
+	public final fun getGlobals ()Ljava/util/List;
+	public final fun getGlobalsByIndex ()Ljava/util/Map;
+	public final fun getMemories ()Ljava/util/List;
+	public final fun getStartFunc ()I
+	public final fun getTables ()Ljava/util/List;
+	public final fun getTypes ()Ljava/util/List;
+}
+
+public final class korlibs/wasm/WasmOp : java/lang/Enum {
+	public static final field Companion Lkorlibs/wasm/WasmOp$Companion;
+	public static final field Op_block Lkorlibs/wasm/WasmOp;
+	public static final field Op_br Lkorlibs/wasm/WasmOp;
+	public static final field Op_br_if Lkorlibs/wasm/WasmOp;
+	public static final field Op_br_table Lkorlibs/wasm/WasmOp;
+	public static final field Op_call Lkorlibs/wasm/WasmOp;
+	public static final field Op_call_indirect Lkorlibs/wasm/WasmOp;
+	public static final field Op_call_ref Lkorlibs/wasm/WasmOp;
+	public static final field Op_catch Lkorlibs/wasm/WasmOp;
+	public static final field Op_catch_all Lkorlibs/wasm/WasmOp;
+	public static final field Op_data_drop Lkorlibs/wasm/WasmOp;
+	public static final field Op_delegate Lkorlibs/wasm/WasmOp;
+	public static final field Op_drop Lkorlibs/wasm/WasmOp;
+	public static final field Op_elem_drop Lkorlibs/wasm/WasmOp;
+	public static final field Op_else Lkorlibs/wasm/WasmOp;
+	public static final field Op_end Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_abs Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_add Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_ceil Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_const Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_convert_i32_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_convert_i32_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_convert_i64_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_convert_i64_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_copysign Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_demote_f64 Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_div Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_eq Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_floor Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_ge Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_gt Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_le Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_load Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_lt Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_max Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_min Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_mul Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_ne Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_nearest Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_neg Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_reinterpret_i32 Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_sqrt Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_store Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_sub Lkorlibs/wasm/WasmOp;
+	public static final field Op_f32_trunc Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_abs Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_add Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_ceil Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_const Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_convert_i32_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_convert_i32_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_convert_i64_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_convert_i64_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_copysign Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_div Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_eq Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_floor Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_ge Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_gt Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_le Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_load Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_lt Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_max Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_min Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_mul Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_ne Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_nearest Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_neg Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_promote_f32 Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_reinterpret_i64 Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_sqrt Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_store Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_sub Lkorlibs/wasm/WasmOp;
+	public static final field Op_f64_trunc Lkorlibs/wasm/WasmOp;
+	public static final field Op_global_get Lkorlibs/wasm/WasmOp;
+	public static final field Op_global_set Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_add Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_and Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_clz Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_const Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_ctz Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_div_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_div_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_eq Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_eqz Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_extend16_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_extend8_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_ge_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_ge_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_gt_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_gt_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_le_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_le_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_load Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_load16_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_load16_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_load8_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_load8_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_lt_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_lt_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_mul Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_ne Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_or Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_popcnt Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_reinterpret_f32 Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_rem_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_rem_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_rotl Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_rotr Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_shl Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_shr_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_shr_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_store Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_store16 Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_store8 Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_sub Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_trunc_f32_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_trunc_f32_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_trunc_f64_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_trunc_f64_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_trunc_sat_f32_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_trunc_sat_f32_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_trunc_sat_f64_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_trunc_sat_f64_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_wrap_i64 Lkorlibs/wasm/WasmOp;
+	public static final field Op_i32_xor Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_add Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_and Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_clz Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_const Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_ctz Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_div_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_div_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_eq Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_eqz Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_extend16_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_extend32_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_extend8_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_extend_i32_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_extend_i32_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_ge_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_ge_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_gt_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_gt_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_le_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_le_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_load Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_load16_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_load16_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_load32_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_load32_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_load8_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_load8_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_lt_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_lt_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_mul Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_ne Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_or Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_popcnt Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_reinterpret_f64 Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_rem_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_rem_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_rotl Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_rotr Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_shl Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_shr_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_shr_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_store Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_store16 Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_store32 Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_store8 Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_sub Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_trunc_f32_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_trunc_f32_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_trunc_f64_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_trunc_f64_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_trunc_sat_f32_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_trunc_sat_f32_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_trunc_sat_f64_s Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_trunc_sat_f64_u Lkorlibs/wasm/WasmOp;
+	public static final field Op_i64_xor Lkorlibs/wasm/WasmOp;
+	public static final field Op_if Lkorlibs/wasm/WasmOp;
+	public static final field Op_local_get Lkorlibs/wasm/WasmOp;
+	public static final field Op_local_set Lkorlibs/wasm/WasmOp;
+	public static final field Op_local_tee Lkorlibs/wasm/WasmOp;
+	public static final field Op_loop Lkorlibs/wasm/WasmOp;
+	public static final field Op_memory_copy Lkorlibs/wasm/WasmOp;
+	public static final field Op_memory_fill Lkorlibs/wasm/WasmOp;
+	public static final field Op_memory_grow Lkorlibs/wasm/WasmOp;
+	public static final field Op_memory_init Lkorlibs/wasm/WasmOp;
+	public static final field Op_memory_size Lkorlibs/wasm/WasmOp;
+	public static final field Op_nop Lkorlibs/wasm/WasmOp;
+	public static final field Op_ref_is_null Lkorlibs/wasm/WasmOp;
+	public static final field Op_ref_null Lkorlibs/wasm/WasmOp;
+	public static final field Op_reserved_0x0a Lkorlibs/wasm/WasmOp;
+	public static final field Op_rethrow Lkorlibs/wasm/WasmOp;
+	public static final field Op_return Lkorlibs/wasm/WasmOp;
+	public static final field Op_return_call Lkorlibs/wasm/WasmOp;
+	public static final field Op_return_call_indirect Lkorlibs/wasm/WasmOp;
+	public static final field Op_return_call_ref Lkorlibs/wasm/WasmOp;
+	public static final field Op_select Lkorlibs/wasm/WasmOp;
+	public static final field Op_table_copy Lkorlibs/wasm/WasmOp;
+	public static final field Op_table_fill Lkorlibs/wasm/WasmOp;
+	public static final field Op_table_grow Lkorlibs/wasm/WasmOp;
+	public static final field Op_table_init Lkorlibs/wasm/WasmOp;
+	public static final field Op_table_size Lkorlibs/wasm/WasmOp;
+	public static final field Op_throw Lkorlibs/wasm/WasmOp;
+	public static final field Op_try Lkorlibs/wasm/WasmOp;
+	public static final field Op_unreachable Lkorlibs/wasm/WasmOp;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getId ()I
+	public final fun getIstack ()I
+	public final fun getItype ()Lkorlibs/wasm/WasmSType;
+	public final fun getItypeOpt ()Lkorlibs/wasm/WasmSType;
+	public final fun getKind ()Lkorlibs/wasm/WasmOp$Kind;
+	public final fun getOutType ()Lkorlibs/wasm/WasmSType;
+	public final fun getRstack ()I
+	public final fun getSname ()Ljava/lang/String;
+	public final fun getSymbol ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/wasm/WasmOp;
+	public static fun values ()[Lkorlibs/wasm/WasmOp;
+}
+
+public final class korlibs/wasm/WasmOp$Companion {
+	public final fun get (I)Lkorlibs/wasm/WasmOp;
+	public final fun get (Ljava/lang/String;)Lkorlibs/wasm/WasmOp;
+	public final fun getOPS_BY_ID ()Ljava/util/Map;
+	public final fun getOPS_BY_SNAME ()Ljava/util/Map;
+	public final fun getOrNull (I)Lkorlibs/wasm/WasmOp;
+	public final fun getOrNull (Ljava/lang/String;)Lkorlibs/wasm/WasmOp;
+	public final fun invoke (I)Lkorlibs/wasm/WasmOp;
+	public final fun invoke (Ljava/lang/String;)Lkorlibs/wasm/WasmOp;
+}
+
+public final class korlibs/wasm/WasmOp$Kind : java/lang/Enum {
+	public static final field BINOP Lkorlibs/wasm/WasmOp$Kind;
+	public static final field BINOP_COMP Lkorlibs/wasm/WasmOp$Kind;
+	public static final field CALL Lkorlibs/wasm/WasmOp$Kind;
+	public static final field DROP Lkorlibs/wasm/WasmOp$Kind;
+	public static final field EXCEPTION Lkorlibs/wasm/WasmOp$Kind;
+	public static final field FLOW Lkorlibs/wasm/WasmOp$Kind;
+	public static final field LITERAL Lkorlibs/wasm/WasmOp$Kind;
+	public static final field LOCAL_GLOBAL Lkorlibs/wasm/WasmOp$Kind;
+	public static final field MEMORY_LOAD Lkorlibs/wasm/WasmOp$Kind;
+	public static final field MEMORY_OP Lkorlibs/wasm/WasmOp$Kind;
+	public static final field MEMORY_STORE Lkorlibs/wasm/WasmOp$Kind;
+	public static final field OTHER Lkorlibs/wasm/WasmOp$Kind;
+	public static final field RESERVED Lkorlibs/wasm/WasmOp$Kind;
+	public static final field TEROP Lkorlibs/wasm/WasmOp$Kind;
+	public static final field UNOP Lkorlibs/wasm/WasmOp$Kind;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getMemoryTransfer ()Z
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/wasm/WasmOp$Kind;
+	public static fun values ()[Lkorlibs/wasm/WasmOp$Kind;
+}
+
+public final class korlibs/wasm/WasmReaderBinary {
+	public static final field Companion Lkorlibs/wasm/WasmReaderBinary$Companion;
+	public fun <init> ()V
+	public final fun doTrace (Z)Lkorlibs/wasm/WasmReaderBinary;
+	public final fun getDataCount ()I
+	public final fun getDatas ()Ljava/util/List;
+	public final fun getDoTrace ()Z
+	public final fun getElements ()Ljava/util/List;
+	public final fun getExports ()Ljava/util/List;
+	public final fun getExportsByName ()Ljava/util/Map;
+	public final fun getFuncByName (Ljava/lang/String;)Lkorlibs/wasm/WasmFunc;
+	public final fun getFunctions ()Ljava/util/LinkedHashMap;
+	public final fun getGlobals ()Ljava/util/LinkedHashMap;
+	public final fun getINDEX_FUNCTIONS ()I
+	public final fun getINDEX_GLOBALS ()I
+	public final fun getINDEX_MEMTYPES ()I
+	public final fun getINDEX_TABLES ()I
+	public final fun getImportFunctionsOffset ()I
+	public final fun getImports ()Ljava/util/List;
+	public final fun getImportsInTables ()[Ljava/lang/Integer;
+	public final fun getIndicesInTables ()[Ljava/lang/Integer;
+	public final fun getMemories ()Ljava/util/List;
+	public final fun getStartFunc ()I
+	public final fun getTables ()Ljava/util/List;
+	public final fun getTypes ()Ljava/util/List;
+	public final fun peekU8 (Lkorlibs/io/stream/SyncStream;)I
+	public final fun read (Lkorlibs/io/stream/SyncStream;)Lkorlibs/wasm/WasmReaderBinary;
+	public final fun readBlockType (Lkorlibs/io/stream/SyncStream;)Lkorlibs/wasm/WasmType;
+	public final fun readCode (Lkorlibs/io/stream/SyncStream;)Lkorlibs/wasm/WasmCode;
+	public final fun readCodeLocals (Lkorlibs/io/stream/SyncStream;)Ljava/util/List;
+	public final fun readCodeSection (Lkorlibs/io/stream/SyncStream;)V
+	public final fun readData (Lkorlibs/io/stream/SyncStream;I)Lkorlibs/wasm/WasmData;
+	public final fun readDataCountSection (Lkorlibs/io/stream/SyncStream;)V
+	public final fun readDataSection (Lkorlibs/io/stream/SyncStream;)V
+	public final fun readElement (Lkorlibs/io/stream/SyncStream;)Lkorlibs/wasm/WasmElement;
+	public final fun readElementSection (Lkorlibs/io/stream/SyncStream;)V
+	public final fun readExport (Lkorlibs/io/stream/SyncStream;)Lkorlibs/wasm/WasmExport;
+	public final fun readExportSection (Lkorlibs/io/stream/SyncStream;)V
+	public final fun readExpr (Lkorlibs/io/stream/SyncStream;)Lkorlibs/wasm/WasmExpr;
+	public final fun readFuncIdx (Lkorlibs/io/stream/SyncStream;)I
+	public final fun readFunctionSection (Lkorlibs/io/stream/SyncStream;)V
+	public final fun readGlobal (Lkorlibs/io/stream/SyncStream;)Lkorlibs/wasm/WasmGlobal;
+	public final fun readGlobalSection (Lkorlibs/io/stream/SyncStream;)V
+	public final fun readGlobalType (Lkorlibs/io/stream/SyncStream;)Lkorlibs/wasm/WasmType;
+	public final fun readImport (Lkorlibs/io/stream/SyncStream;)Lkorlibs/wasm/WasmImport;
+	public final fun readImportSection (Lkorlibs/io/stream/SyncStream;)V
+	public final fun readInstr (Lkorlibs/io/stream/SyncStream;)Lkorlibs/wasm/WasmInstruction;
+	public final fun readLEB128 (Lkorlibs/io/stream/SyncStream;)I
+	public final fun readLEB128Long (Lkorlibs/io/stream/SyncStream;)J
+	public final fun readLEB128S (Lkorlibs/io/stream/SyncStream;)I
+	public final fun readLEB128SLong (Lkorlibs/io/stream/SyncStream;)J
+	public final fun readMemorySection (Lkorlibs/io/stream/SyncStream;)V
+	public final fun readMemtype (Lkorlibs/io/stream/SyncStream;)Lkorlibs/wasm/WasmType$Limit;
+	public final fun readModule (Lkorlibs/io/stream/SyncStream;)Lkorlibs/wasm/WasmReaderBinary;
+	public final fun readName (Lkorlibs/io/stream/SyncStream;)Ljava/lang/String;
+	public final fun readSection (Lkorlibs/io/stream/SyncStream;)V
+	public final fun readStartSection (Lkorlibs/io/stream/SyncStream;)V
+	public final fun readTableIdx (Lkorlibs/io/stream/SyncStream;)I
+	public final fun readTableSection (Lkorlibs/io/stream/SyncStream;)V
+	public final fun readTableType (Lkorlibs/io/stream/SyncStream;)Lkorlibs/wasm/WasmType$TableType;
+	public final fun readType (Lkorlibs/io/stream/SyncStream;)Lkorlibs/wasm/WasmType;
+	public final fun readTypesSection (Lkorlibs/io/stream/SyncStream;)V
+	public final fun readVec (Lkorlibs/io/stream/SyncStream;Lkotlin/jvm/functions/Function1;)Ljava/util/List;
+	public final fun setDoTrace (Z)V
+	public final fun toModule ()Lkorlibs/wasm/WasmModule;
+}
+
+public final class korlibs/wasm/WasmReaderBinary$Companion {
+	public final fun getINT_FUNC_TYPE ()Lkorlibs/wasm/WasmType$Function;
+}
+
+public final class korlibs/wasm/WasmReaderBinaryKt {
+	public static final fun getInstructions (Ljava/util/List;)Ljava/util/List;
+}
+
+public final class korlibs/wasm/WasmReaderText {
+	public fun <init> ()V
+	public final fun getCurrentModule ()Lkorlibs/wasm/WasmReaderText$WasmModuleBuilder;
+	public final fun getModules ()Ljava/util/ArrayList;
+	public final fun readCodeLevel (Ljava/util/List;Lkorlibs/wasm/WasmReaderText$WasmFuncBuilder;)Lkorlibs/wasm/WasmExpr;
+	public final fun readCodeLevel (Lkorlibs/wasm/WasmReaderText$WastBlock;Lkorlibs/wasm/WasmReaderText$WasmFuncBuilder;)Lkorlibs/wasm/WasmExpr;
+	public final fun readExprParams (Lkorlibs/wasm/WasmReaderText$WastBlock;Lkorlibs/wasm/WasmReaderText$WasmFuncBuilder;)Lkorlibs/wasm/WasmReaderText$ExprParamsResult;
+	public final fun readModuleLevel (Lkorlibs/wasm/WasmReaderText$WastBlock;Lkorlibs/wasm/WasmReaderText$WasmModuleBuilder;)V
+	public final fun readTopLevel (Ljava/lang/String;)Lkorlibs/wasm/WasmReaderText;
+	public final fun readTopLevel (Lkorlibs/wasm/WasmReaderText$WastBlock;)V
+	public final fun readType (Lkorlibs/wasm/WasmReaderText$WastBlockOrValue;)Lkorlibs/wasm/WasmType;
+	public final fun toNumberExOrNull (Ljava/lang/String;I)Ljava/lang/Number;
+	public static synthetic fun toNumberExOrNull$default (Lkorlibs/wasm/WasmReaderText;Ljava/lang/String;IILjava/lang/Object;)Ljava/lang/Number;
+	public final fun toNumberUnprefixedExOrNull (Ljava/lang/String;I)Ljava/lang/Number;
+	public static synthetic fun toNumberUnprefixedExOrNull$default (Lkorlibs/wasm/WasmReaderText;Ljava/lang/String;IILjava/lang/Object;)Ljava/lang/Number;
+}
+
+public final class korlibs/wasm/WasmReaderText$ExprParamsResult {
+	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
+	public final fun getExprs ()Ljava/util/List;
+	public final fun getInstructions ()Ljava/util/List;
+	public final fun getResults ()Ljava/util/List;
+	public final fun getTypes ()Ljava/util/List;
+}
+
+public final class korlibs/wasm/WasmReaderText$WasmFuncBuilder {
+	public fun <init> (Lkorlibs/wasm/WasmReaderText$WasmModuleBuilder;)V
+	public final fun addResult (Lkorlibs/wasm/WasmType;)Lkorlibs/wasm/WasmReaderText$WasmFuncBuilder;
+	public final fun addVar (Ljava/lang/String;Lkorlibs/wasm/WasmType;Z)Lkorlibs/wasm/WasmReaderText$WasmFuncBuilder;
+	public final fun addVar (Lkorlibs/wasm/WastLocal;Z)Lkorlibs/wasm/WasmReaderText$WasmFuncBuilder;
+	public final fun buildFunc (Lkorlibs/wasm/WasmReaderText$WasmModuleBuilder;)Lkorlibs/wasm/WasmFunc;
+	public final fun getBlocks ()Ljava/util/ArrayList;
+	public final fun getExportName ()Ljava/lang/String;
+	public final fun getFuncName ()Ljava/lang/String;
+	public final fun getFuncType ()Lkorlibs/wasm/WasmType$Function;
+	public final fun getInstructions ()Ljava/util/ArrayList;
+	public final fun getJustLocals ()Ljava/util/ArrayList;
+	public final fun getLocals ()Ljava/util/ArrayList;
+	public final fun getLocalsByName ()Ljava/util/LinkedHashMap;
+	public final fun getModule ()Lkorlibs/wasm/WasmReaderText$WasmModuleBuilder;
+	public final fun getParams ()Ljava/util/ArrayList;
+	public final fun getResults ()Ljava/util/ArrayList;
+	public final fun popBlock ()V
+	public final fun pushBlock (Ljava/lang/String;Ljava/lang/String;)Lkorlibs/wasm/WasmReaderText$WasmFuncBuilder$BlockDef;
+	public final fun pushBlock (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static synthetic fun pushBlock$default (Lkorlibs/wasm/WasmReaderText$WasmFuncBuilder;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/wasm/WasmReaderText$WasmFuncBuilder$BlockDef;
+	public static synthetic fun pushBlock$default (Lkorlibs/wasm/WasmReaderText$WasmFuncBuilder;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun relativeIndexOfBlockById (Ljava/lang/String;)Ljava/lang/Integer;
+	public final fun setExportName (Ljava/lang/String;)V
+	public final fun setFuncName (Ljava/lang/String;)V
+	public final fun setResults (Ljava/util/ArrayList;)V
+}
+
+public final class korlibs/wasm/WasmReaderText$WasmFuncBuilder$BlockDef {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lkorlibs/wasm/WasmReaderText$WasmFuncBuilder$BlockDef;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmReaderText$WasmFuncBuilder$BlockDef;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/wasm/WasmReaderText$WasmFuncBuilder$BlockDef;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId ()Ljava/lang/String;
+	public final fun getKind ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmReaderText$WasmModuleBuilder {
+	public fun <init> ()V
+	public final fun addFunc (Lkorlibs/wasm/WasmFunc;)Lkorlibs/wasm/WasmFunc;
+	public final fun addGlobal (Lkorlibs/wasm/WasmGlobal;)Lkorlibs/wasm/WasmGlobal;
+	public final fun addTable (Lkorlibs/wasm/WasmType$TableType;Ljava/lang/String;)V
+	public final fun addType (Lkorlibs/wasm/NamedWasmType;)V
+	public final fun buildModule ()Lkorlibs/wasm/WasmModule;
+	public final fun getAsserts ()Ljava/util/ArrayList;
+	public final fun getDatas ()Ljava/util/ArrayList;
+	public final fun getElements ()Ljava/util/ArrayList;
+	public final fun getExports ()Ljava/util/ArrayList;
+	public final fun getFuncs ()Ljava/util/ArrayList;
+	public final fun getFuncsByName ()Ljava/util/LinkedHashMap;
+	public final fun getGlobals ()Ljava/util/ArrayList;
+	public final fun getGlobalsByName ()Ljava/util/LinkedHashMap;
+	public final fun getLastDataPtr ()I
+	public final fun getMemories ()Ljava/util/ArrayList;
+	public final fun getStartFunc ()I
+	public final fun getTables ()Ljava/util/ArrayList;
+	public final fun getTablesByName ()Ljava/util/LinkedHashMap;
+	public final fun getTypes ()Ljava/util/ArrayList;
+	public final fun getTypesByName ()Ljava/util/LinkedHashMap;
+	public final fun setLastDataPtr (I)V
+	public final fun setStartFunc (I)V
+}
+
+public final class korlibs/wasm/WasmReaderText$WastBlock : korlibs/wasm/WasmReaderText$WastBlockOrValue {
+	public fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun block (I)Lkorlibs/wasm/WasmReaderText$WastBlock;
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;)Lkorlibs/wasm/WasmReaderText$WastBlock;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmReaderText$WastBlock;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/wasm/WasmReaderText$WastBlock;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBlockParams ()Ljava/util/List;
+	public final fun getComment ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getNparams ()I
+	public final fun getParams ()Ljava/util/List;
+	public final fun getValueParams ()Ljava/util/List;
+	public fun hashCode ()I
+	public final fun reader ()Lkorlibs/wasm/WasmReaderText$WastParser$ParamsReader;
+	public final fun string (I)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/wasm/WasmReaderText$WastBlockOrValue {
+}
+
+public final class korlibs/wasm/WasmReaderText$WastParser {
+	public static final field INSTANCE Lkorlibs/wasm/WasmReaderText$WastParser;
+	public final fun parseBlock (Ljava/lang/String;)Lkorlibs/wasm/WasmReaderText$WastBlock;
+	public final fun parseBlocks (Ljava/lang/String;)Ljava/util/List;
+	public final fun parseLevel (Lkorlibs/datastructure/ListReader;Ljava/lang/String;I)Ljava/util/List;
+	public static synthetic fun parseLevel$default (Lkorlibs/wasm/WasmReaderText$WastParser;Lkorlibs/datastructure/ListReader;Ljava/lang/String;IILjava/lang/Object;)Ljava/util/List;
+}
+
+public final class korlibs/wasm/WasmReaderText$WastParser$CLOSE_BRAC : korlibs/wasm/WasmReaderText$WastParser$Token {
+	public static final field INSTANCE Lkorlibs/wasm/WasmReaderText$WastParser$CLOSE_BRAC;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getStr ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmReaderText$WastParser$COMMENT : korlibs/wasm/WasmReaderText$WastParser$Token {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/wasm/WasmReaderText$WastParser$COMMENT;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmReaderText$WastParser$COMMENT;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/wasm/WasmReaderText$WastParser$COMMENT;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getComment ()Ljava/lang/String;
+	public fun getStr ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmReaderText$WastParser$HexUtil {
+	public static final field INSTANCE Lkorlibs/wasm/WasmReaderText$WastParser$HexUtil;
+	public final fun unhex (C)I
+}
+
+public final class korlibs/wasm/WasmReaderText$WastParser$Id : korlibs/wasm/WasmReaderText$WastParser$Token {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/wasm/WasmReaderText$WastParser$Id;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmReaderText$WastParser$Id;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/wasm/WasmReaderText$WastParser$Id;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId ()Ljava/lang/String;
+	public fun getStr ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmReaderText$WastParser$Num : korlibs/wasm/WasmReaderText$WastParser$Token {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/wasm/WasmReaderText$WastParser$Num;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmReaderText$WastParser$Num;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/wasm/WasmReaderText$WastParser$Num;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getNum ()Ljava/lang/String;
+	public fun getStr ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmReaderText$WastParser$OPEN_BRAC : korlibs/wasm/WasmReaderText$WastParser$Token {
+	public static final field INSTANCE Lkorlibs/wasm/WasmReaderText$WastParser$OPEN_BRAC;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getStr ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmReaderText$WastParser$Op : korlibs/wasm/WasmReaderText$WastParser$Token {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/wasm/WasmReaderText$WastParser$Op;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmReaderText$WastParser$Op;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/wasm/WasmReaderText$WastParser$Op;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getOp ()Ljava/lang/String;
+	public fun getStr ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmReaderText$WastParser$ParamsReader {
+	public fun <init> (Ljava/util/List;)V
+	public final fun block ()Lkorlibs/wasm/WasmReaderText$WastBlock;
+	public final fun getHasMore ()Z
+	public final fun getParams ()Ljava/util/List;
+	public final fun getReader ()Lkorlibs/datastructure/ListReader;
+	public final fun peek ()Ljava/lang/Object;
+	public final fun read ()Ljava/lang/Object;
+	public final fun rest ()Ljava/util/List;
+	public final fun restBlock ()Ljava/util/List;
+	public final fun string ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmReaderText$WastParser$SpecialNum : korlibs/wasm/WasmReaderText$WastParser$Token {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lkorlibs/wasm/WasmReaderText$WastParser$SpecialNum;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmReaderText$WastParser$SpecialNum;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/wasm/WasmReaderText$WastParser$SpecialNum;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getNum ()Ljava/lang/String;
+	public final fun getSpecial ()Ljava/lang/String;
+	public fun getStr ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmReaderText$WastParser$Str : korlibs/wasm/WasmReaderText$WastParser$Token {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/wasm/WasmReaderText$WastParser$Str;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmReaderText$WastParser$Str;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/wasm/WasmReaderText$WastParser$Str;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getStr ()Ljava/lang/String;
+	public final fun getString ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/wasm/WasmReaderText$WastParser$Token {
+	public abstract fun getStr ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmReaderText$WastValue : korlibs/wasm/WasmReaderText$WastBlockOrValue {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/wasm/WasmReaderText$WastValue;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmReaderText$WastValue;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/wasm/WasmReaderText$WastValue;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmRunInterpreter : korlibs/wasm/WasmRuntime {
+	public fun <init> (Lkorlibs/wasm/WasmModule;II)V
+	public synthetic fun <init> (Lkorlibs/wasm/WasmModule;IIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun binopF32 (Lkotlin/jvm/functions/Function2;)V
+	public final fun binopF32_bool (Lkotlin/jvm/functions/Function2;)Z
+	public final fun binopF32_int (Lkotlin/jvm/functions/Function2;)V
+	public final fun binopF64 (Lkotlin/jvm/functions/Function2;)V
+	public final fun binopF64_bool (Lkotlin/jvm/functions/Function2;)Z
+	public final fun binopF64_int (Lkotlin/jvm/functions/Function2;)V
+	public final fun binopI32 (Lkotlin/jvm/functions/Function2;)V
+	public final fun binopI32_bool (Lkotlin/jvm/functions/Function2;)Z
+	public final fun binopI64 (Lkotlin/jvm/functions/Function2;)V
+	public final fun binopI64_bool (Lkotlin/jvm/functions/Function2;)Z
+	public final fun binopI64_int (Lkotlin/jvm/functions/Function2;)V
+	public final fun compile (Lkorlibs/wasm/WasmFunc;ZLkorlibs/wasm/WasmDebugContext;)Lkorlibs/wasm/WasmInterpreterCode;
+	public final fun eval (Lkorlibs/wasm/WasmExpr;Lkorlibs/wasm/WasmType$Function;Lkorlibs/wasm/WasmDebugContext;)Ljava/util/List;
+	public final fun getGlobalsD ()[D
+	public final fun getGlobalsF ()[F
+	public final fun getGlobalsI ()[I
+	public final fun getGlobalsL ()[J
+	public final fun getInterprerCode (Lkorlibs/wasm/WasmFunc;)Lkorlibs/wasm/WasmInterpreterCode;
+	public final fun getLocalF32 (I)F
+	public final fun getLocalF64 (I)D
+	public final fun getLocalI32 (I)I
+	public final fun getLocalI64 (I)J
+	public final fun getLocalsPos ()I
+	public final fun getMAX_STACK ()I
+	public final fun getModule ()Lkorlibs/wasm/WasmModule;
+	public final fun getStackD ()[D
+	public final fun getStackF ()[F
+	public final fun getStackI ()[I
+	public final fun getStackL ()[J
+	public final fun getStackPos ()I
+	public final fun initGlobals ()Lkorlibs/wasm/WasmRunInterpreter;
+	public fun invoke (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun invoke (Lkorlibs/wasm/WasmFunc;)V
+	public fun invokeIndirect (I[Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun popF32 ()F
+	public final fun popF64 ()D
+	public final fun popI32 ()I
+	public final fun popI64 ()J
+	public final fun popType (Lkorlibs/wasm/WasmSType;)Ljava/lang/Object;
+	public final fun pushF32 (F)V
+	public final fun pushF64 (D)V
+	public final fun pushI32 (I)V
+	public final fun pushI64 (J)V
+	public final fun pushType (Lkorlibs/wasm/WasmSType;Ljava/lang/Object;)V
+	public final fun readTypes (Ljava/util/List;)[Ljava/lang/Object;
+	public final fun runAsserts ()V
+	public final fun setGlobal (Lkorlibs/wasm/WasmGlobal;Ljava/lang/Object;)V
+	public final fun setLocal (Lkorlibs/wasm/WasmSType;ILjava/lang/Object;)V
+	public final fun setLocalF32 (IF)F
+	public final fun setLocalF64 (ID)D
+	public final fun setLocalI32 (II)I
+	public final fun setLocalI64 (IJ)J
+	public final fun setLocalsPos (I)V
+	public final fun setStackPos (I)V
+	public final fun unopF32 (Lkotlin/jvm/functions/Function1;)V
+	public final fun unopF32_bool (Lkotlin/jvm/functions/Function1;)Z
+	public final fun unopF64 (Lkotlin/jvm/functions/Function1;)V
+	public final fun unopF64_bool (Lkotlin/jvm/functions/Function1;)Z
+	public final fun unopI32 (Lkotlin/jvm/functions/Function1;)V
+	public final fun unopI32_bool (Lkotlin/jvm/functions/Function1;)Z
+	public final fun unopI64 (Lkotlin/jvm/functions/Function1;)V
+	public final fun unopI64_bool (Lkotlin/jvm/functions/Function1;)Z
+}
+
+public final class korlibs/wasm/WasmRunInterpreter$WasmFastInstructions {
+	public static final field INSTANCE Lkorlibs/wasm/WasmRunInterpreter$WasmFastInstructions;
+	public static final field Op_block I
+	public static final field Op_br I
+	public static final field Op_br_if I
+	public static final field Op_br_table I
+	public static final field Op_call I
+	public static final field Op_call_indirect I
+	public static final field Op_call_ref I
+	public static final field Op_catch I
+	public static final field Op_catch_all I
+	public static final field Op_data_drop I
+	public static final field Op_delegate I
+	public static final field Op_drop I
+	public static final field Op_elem_drop I
+	public static final field Op_else I
+	public static final field Op_end I
+	public static final field Op_f32_abs I
+	public static final field Op_f32_add I
+	public static final field Op_f32_ceil I
+	public static final field Op_f32_const I
+	public static final field Op_f32_convert_i32_s I
+	public static final field Op_f32_convert_i32_u I
+	public static final field Op_f32_convert_i64_s I
+	public static final field Op_f32_convert_i64_u I
+	public static final field Op_f32_copysign I
+	public static final field Op_f32_demote_f64 I
+	public static final field Op_f32_div I
+	public static final field Op_f32_drop I
+	public static final field Op_f32_eq I
+	public static final field Op_f32_floor I
+	public static final field Op_f32_ge I
+	public static final field Op_f32_global_get I
+	public static final field Op_f32_global_set I
+	public static final field Op_f32_gt I
+	public static final field Op_f32_le I
+	public static final field Op_f32_load I
+	public static final field Op_f32_local_get I
+	public static final field Op_f32_local_set I
+	public static final field Op_f32_local_tee I
+	public static final field Op_f32_lt I
+	public static final field Op_f32_max I
+	public static final field Op_f32_min I
+	public static final field Op_f32_mul I
+	public static final field Op_f32_ne I
+	public static final field Op_f32_nearest I
+	public static final field Op_f32_neg I
+	public static final field Op_f32_reinterpret_i32 I
+	public static final field Op_f32_return I
+	public static final field Op_f32_select I
+	public static final field Op_f32_short_const I
+	public static final field Op_f32_sqrt I
+	public static final field Op_f32_store I
+	public static final field Op_f32_sub I
+	public static final field Op_f32_trunc I
+	public static final field Op_f64_abs I
+	public static final field Op_f64_add I
+	public static final field Op_f64_ceil I
+	public static final field Op_f64_const I
+	public static final field Op_f64_convert_i32_s I
+	public static final field Op_f64_convert_i32_u I
+	public static final field Op_f64_convert_i64_s I
+	public static final field Op_f64_convert_i64_u I
+	public static final field Op_f64_copysign I
+	public static final field Op_f64_div I
+	public static final field Op_f64_drop I
+	public static final field Op_f64_eq I
+	public static final field Op_f64_floor I
+	public static final field Op_f64_ge I
+	public static final field Op_f64_global_get I
+	public static final field Op_f64_global_set I
+	public static final field Op_f64_gt I
+	public static final field Op_f64_le I
+	public static final field Op_f64_load I
+	public static final field Op_f64_local_get I
+	public static final field Op_f64_local_set I
+	public static final field Op_f64_local_tee I
+	public static final field Op_f64_lt I
+	public static final field Op_f64_max I
+	public static final field Op_f64_min I
+	public static final field Op_f64_mul I
+	public static final field Op_f64_ne I
+	public static final field Op_f64_nearest I
+	public static final field Op_f64_neg I
+	public static final field Op_f64_promote_f32 I
+	public static final field Op_f64_reinterpret_i64 I
+	public static final field Op_f64_return I
+	public static final field Op_f64_select I
+	public static final field Op_f64_short_const I
+	public static final field Op_f64_sqrt I
+	public static final field Op_f64_store I
+	public static final field Op_f64_sub I
+	public static final field Op_f64_trunc I
+	public static final field Op_global_get I
+	public static final field Op_global_set I
+	public static final field Op_goto I
+	public static final field Op_goto_if I
+	public static final field Op_goto_if_not I
+	public static final field Op_goto_if_not_f32_eq I
+	public static final field Op_goto_if_not_f32_ge I
+	public static final field Op_goto_if_not_f32_gt I
+	public static final field Op_goto_if_not_f32_le I
+	public static final field Op_goto_if_not_f32_lt I
+	public static final field Op_goto_if_not_f32_ne I
+	public static final field Op_goto_if_not_f64_eq I
+	public static final field Op_goto_if_not_f64_ge I
+	public static final field Op_goto_if_not_f64_gt I
+	public static final field Op_goto_if_not_f64_le I
+	public static final field Op_goto_if_not_f64_lt I
+	public static final field Op_goto_if_not_f64_ne I
+	public static final field Op_goto_if_not_i32_eq I
+	public static final field Op_goto_if_not_i32_eqz I
+	public static final field Op_goto_if_not_i32_ge_s I
+	public static final field Op_goto_if_not_i32_ge_u I
+	public static final field Op_goto_if_not_i32_gt_s I
+	public static final field Op_goto_if_not_i32_gt_u I
+	public static final field Op_goto_if_not_i32_le_s I
+	public static final field Op_goto_if_not_i32_le_u I
+	public static final field Op_goto_if_not_i32_lt_s I
+	public static final field Op_goto_if_not_i32_lt_u I
+	public static final field Op_goto_if_not_i32_ne I
+	public static final field Op_goto_if_not_i64_eq I
+	public static final field Op_goto_if_not_i64_eqz I
+	public static final field Op_goto_if_not_i64_ge_s I
+	public static final field Op_goto_if_not_i64_ge_u I
+	public static final field Op_goto_if_not_i64_gt_s I
+	public static final field Op_goto_if_not_i64_gt_u I
+	public static final field Op_goto_if_not_i64_le_s I
+	public static final field Op_goto_if_not_i64_le_u I
+	public static final field Op_goto_if_not_i64_lt_s I
+	public static final field Op_goto_if_not_i64_lt_u I
+	public static final field Op_goto_if_not_i64_ne I
+	public static final field Op_goto_table I
+	public static final field Op_i32_add I
+	public static final field Op_i32_and I
+	public static final field Op_i32_clz I
+	public static final field Op_i32_const I
+	public static final field Op_i32_ctz I
+	public static final field Op_i32_div_s I
+	public static final field Op_i32_div_u I
+	public static final field Op_i32_drop I
+	public static final field Op_i32_eq I
+	public static final field Op_i32_eqz I
+	public static final field Op_i32_extend16_s I
+	public static final field Op_i32_extend8_s I
+	public static final field Op_i32_ge_s I
+	public static final field Op_i32_ge_u I
+	public static final field Op_i32_global_get I
+	public static final field Op_i32_global_set I
+	public static final field Op_i32_gt_s I
+	public static final field Op_i32_gt_u I
+	public static final field Op_i32_le_s I
+	public static final field Op_i32_le_u I
+	public static final field Op_i32_load I
+	public static final field Op_i32_load16_s I
+	public static final field Op_i32_load16_u I
+	public static final field Op_i32_load8_s I
+	public static final field Op_i32_load8_u I
+	public static final field Op_i32_local_get I
+	public static final field Op_i32_local_set I
+	public static final field Op_i32_local_tee I
+	public static final field Op_i32_lt_s I
+	public static final field Op_i32_lt_u I
+	public static final field Op_i32_mul I
+	public static final field Op_i32_ne I
+	public static final field Op_i32_or I
+	public static final field Op_i32_popcnt I
+	public static final field Op_i32_reinterpret_f32 I
+	public static final field Op_i32_rem_s I
+	public static final field Op_i32_rem_u I
+	public static final field Op_i32_return I
+	public static final field Op_i32_rotl I
+	public static final field Op_i32_rotr I
+	public static final field Op_i32_select I
+	public static final field Op_i32_shl I
+	public static final field Op_i32_short_const I
+	public static final field Op_i32_shr_s I
+	public static final field Op_i32_shr_u I
+	public static final field Op_i32_store I
+	public static final field Op_i32_store16 I
+	public static final field Op_i32_store8 I
+	public static final field Op_i32_sub I
+	public static final field Op_i32_trunc_f32_s I
+	public static final field Op_i32_trunc_f32_u I
+	public static final field Op_i32_trunc_f64_s I
+	public static final field Op_i32_trunc_f64_u I
+	public static final field Op_i32_trunc_sat_f32_s I
+	public static final field Op_i32_trunc_sat_f32_u I
+	public static final field Op_i32_trunc_sat_f64_s I
+	public static final field Op_i32_trunc_sat_f64_u I
+	public static final field Op_i32_wrap_i64 I
+	public static final field Op_i32_xor I
+	public static final field Op_i64_add I
+	public static final field Op_i64_and I
+	public static final field Op_i64_clz I
+	public static final field Op_i64_const I
+	public static final field Op_i64_ctz I
+	public static final field Op_i64_div_s I
+	public static final field Op_i64_div_u I
+	public static final field Op_i64_drop I
+	public static final field Op_i64_eq I
+	public static final field Op_i64_eqz I
+	public static final field Op_i64_extend16_s I
+	public static final field Op_i64_extend32_s I
+	public static final field Op_i64_extend8_s I
+	public static final field Op_i64_extend_i32_s I
+	public static final field Op_i64_extend_i32_u I
+	public static final field Op_i64_ge_s I
+	public static final field Op_i64_ge_u I
+	public static final field Op_i64_global_get I
+	public static final field Op_i64_global_set I
+	public static final field Op_i64_gt_s I
+	public static final field Op_i64_gt_u I
+	public static final field Op_i64_le_s I
+	public static final field Op_i64_le_u I
+	public static final field Op_i64_load I
+	public static final field Op_i64_load16_s I
+	public static final field Op_i64_load16_u I
+	public static final field Op_i64_load32_s I
+	public static final field Op_i64_load32_u I
+	public static final field Op_i64_load8_s I
+	public static final field Op_i64_load8_u I
+	public static final field Op_i64_local_get I
+	public static final field Op_i64_local_set I
+	public static final field Op_i64_local_tee I
+	public static final field Op_i64_lt_s I
+	public static final field Op_i64_lt_u I
+	public static final field Op_i64_mul I
+	public static final field Op_i64_ne I
+	public static final field Op_i64_or I
+	public static final field Op_i64_popcnt I
+	public static final field Op_i64_reinterpret_f64 I
+	public static final field Op_i64_rem_s I
+	public static final field Op_i64_rem_u I
+	public static final field Op_i64_return I
+	public static final field Op_i64_rotl I
+	public static final field Op_i64_rotr I
+	public static final field Op_i64_select I
+	public static final field Op_i64_shl I
+	public static final field Op_i64_short_const I
+	public static final field Op_i64_shr_s I
+	public static final field Op_i64_shr_u I
+	public static final field Op_i64_store I
+	public static final field Op_i64_store16 I
+	public static final field Op_i64_store32 I
+	public static final field Op_i64_store8 I
+	public static final field Op_i64_sub I
+	public static final field Op_i64_trunc_f32_s I
+	public static final field Op_i64_trunc_f32_u I
+	public static final field Op_i64_trunc_f64_s I
+	public static final field Op_i64_trunc_f64_u I
+	public static final field Op_i64_trunc_sat_f32_s I
+	public static final field Op_i64_trunc_sat_f32_u I
+	public static final field Op_i64_trunc_sat_f64_s I
+	public static final field Op_i64_trunc_sat_f64_u I
+	public static final field Op_i64_xor I
+	public static final field Op_if I
+	public static final field Op_local_get I
+	public static final field Op_local_set I
+	public static final field Op_local_tee I
+	public static final field Op_loop I
+	public static final field Op_memory_copy I
+	public static final field Op_memory_fill I
+	public static final field Op_memory_grow I
+	public static final field Op_memory_init I
+	public static final field Op_memory_size I
+	public static final field Op_nop I
+	public static final field Op_ref_is_null I
+	public static final field Op_ref_null I
+	public static final field Op_reserved_0x0a I
+	public static final field Op_rethrow I
+	public static final field Op_return I
+	public static final field Op_return_call I
+	public static final field Op_return_call_indirect I
+	public static final field Op_return_call_ref I
+	public static final field Op_select I
+	public static final field Op_table_copy I
+	public static final field Op_table_fill I
+	public static final field Op_table_grow I
+	public static final field Op_table_init I
+	public static final field Op_table_size I
+	public static final field Op_throw I
+	public static final field Op_try I
+	public static final field Op_unreachable I
+	public static final field Op_v128_drop I
+	public static final field Op_v128_global_get I
+	public static final field Op_v128_global_set I
+	public static final field Op_v128_local_get I
+	public static final field Op_v128_local_set I
+	public static final field Op_v128_local_tee I
+	public static final field Op_v128_return I
+	public static final field Op_v128_select I
+	public static final field Op_void_return I
+	public final fun getNAME_FROM_OP ()Ljava/util/Map;
+	public final fun getOP_FROM_NAME ()Ljava/util/Map;
+}
+
+public final class korlibs/wasm/WasmRunInterpreter$WasmFuncCallInt : korlibs/wasm/WasmRuntime$WasmFuncCall {
+	public fun <init> (Lkorlibs/wasm/WasmRunInterpreter;Lkorlibs/wasm/WasmFunc;)V
+	public final fun getFunc ()Lkorlibs/wasm/WasmFunc;
+	public final fun getInterpreter ()Lkorlibs/wasm/WasmRunInterpreter;
+	public fun invoke (Lkorlibs/wasm/WasmRuntime;[Ljava/lang/Object;)Ljava/lang/Object;
+}
+
+public class korlibs/wasm/WasmRunJVMJIT : korlibs/wasm/WasmRuntime {
+	public static final field Companion Lkorlibs/wasm/WasmRunJVMJIT$Companion;
+	public fun <init> (Lkorlibs/wasm/WasmModule;II)V
+	public final fun getDeclaredMethodsByName ()Ljava/util/Map;
+	public fun getExported ()Ljava/util/Set;
+	public final fun getImports ()Ljava/util/LinkedHashMap;
+	public fun invoke (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun invokeImport (Ljava/lang/String;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+	public fun register (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function2;)V
+	public final fun setElements (Ljava/util/ArrayList;)V
+}
+
+public final class korlibs/wasm/WasmRunJVMJIT$Companion {
+	public final fun build (Lkorlibs/wasm/WasmModule;Lkotlin/jvm/functions/Function0;Z)Lkorlibs/wasm/WasmRunJVMJIT;
+	public static synthetic fun build$default (Lkorlibs/wasm/WasmRunJVMJIT$Companion;Lkorlibs/wasm/WasmModule;Lkotlin/jvm/functions/Function0;ZILjava/lang/Object;)Lkorlibs/wasm/WasmRunJVMJIT;
+	public final fun get (Lkotlin/reflect/KFunction;)Ljava/lang/reflect/Method;
+	public final fun getDeclaredMethodsByName ()Ljava/util/Map;
+}
+
+public final class korlibs/wasm/WasmRunJVMJIT$MethodWasmFuncCall : korlibs/wasm/WasmRuntime$WasmFuncCall {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/reflect/Method;Ljava/lang/String;)V
+	public final fun getMethod ()Ljava/lang/reflect/Method;
+	public final fun getMethodName ()Ljava/lang/String;
+	public final fun getObj ()Ljava/lang/Object;
+	public fun invoke (Lkorlibs/wasm/WasmRuntime;[Ljava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/wasm/WasmRunJVMJIT$V128 {
+	public fun <init> ([B)V
+	public final fun d (I)D
+	public final fun f (I)F
+	public final fun getData ()[B
+	public final fun i (I)I
+	public final fun l (I)J
+}
+
+public class korlibs/wasm/WasmRunJVMOutput {
+	public static final field Companion Lkorlibs/wasm/WasmRunJVMOutput$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun boxType (Lorg/objectweb/asm/MethodVisitor;Lkorlibs/wasm/WasmSType;)V
+	public final fun createClass (Ljava/lang/String;Ljava/lang/Class;[Ljava/lang/Class;ZZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Ljava/lang/Class;
+	public static synthetic fun createClass$default (Lkorlibs/wasm/WasmRunJVMOutput;Ljava/lang/String;Ljava/lang/Class;[Ljava/lang/Class;ZZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/lang/Class;
+	public final fun createConstructor (Lorg/objectweb/asm/ClassVisitor;[Ljava/lang/Class;Lkotlin/jvm/functions/Function1;)V
+	public final fun createMethod (Lorg/objectweb/asm/ClassVisitor;Ljava/lang/String;Ljava/lang/Class;[Ljava/lang/Object;ZIILkotlin/jvm/functions/Function1;)V
+	public static synthetic fun createMethod$default (Lkorlibs/wasm/WasmRunJVMOutput;Lorg/objectweb/asm/ClassVisitor;Ljava/lang/String;Ljava/lang/Class;[Ljava/lang/Object;ZIILkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public fun dumpJVMBytecode ([B)V
+	public final fun generate (Lkorlibs/wasm/WasmModule;)Lkorlibs/wasm/WasmRunJVMJIT;
+	public final fun generateExpr (Lorg/objectweb/asm/MethodVisitor;Lkorlibs/wasm/WasmExpr;Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;IZ)V
+	public static synthetic fun generateExpr$default (Lkorlibs/wasm/WasmRunJVMOutput;Lorg/objectweb/asm/MethodVisitor;Lkorlibs/wasm/WasmExpr;Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;IZILjava/lang/Object;)V
+	public final fun generateFunc (Lorg/objectweb/asm/MethodVisitor;Lkorlibs/wasm/WasmFunc;Lkorlibs/wasm/WasmModule;)V
+	public final fun generateInstruction (Lorg/objectweb/asm/MethodVisitor;Lkorlibs/wasm/WasmInstruction;Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;I)V
+	public fun getClassVisitor (Lorg/objectweb/asm/ClassWriter;Z)Lorg/objectweb/asm/ClassVisitor;
+	public final fun getFunctionType (Lkorlibs/wasm/WasmGlobal;)Lkorlibs/wasm/WasmType$Function;
+	public final fun getGetterGlobalName (Lkorlibs/wasm/WasmGlobal;)Ljava/lang/String;
+	public final fun getJvmDescriptor (Lkorlibs/wasm/WasmType$Function;[Ljava/lang/Object;)Ljava/lang/String;
+	public final fun getJvmName (Lkorlibs/wasm/WasmFunc;)Ljava/lang/String;
+	public final fun getOUTPUT_CLASS_NAME ()Ljava/lang/String;
+	public final fun getTrace ()Z
+	public final fun getValidate ()Z
+	public final fun getWasmGlobal (Lorg/objectweb/asm/MethodVisitor;Lkorlibs/wasm/WasmGlobal;)V
+	public final fun setTrace (Z)V
+	public final fun setValidate (Z)V
+	public final fun setWasmGlobal (Lorg/objectweb/asm/MethodVisitor;Lkorlibs/wasm/WasmGlobal;)V
+	public final fun toJDescriptor (Lkorlibs/wasm/WasmType;Z)Ljava/lang/String;
+	public static synthetic fun toJDescriptor$default (Lkorlibs/wasm/WasmRunJVMOutput;Lkorlibs/wasm/WasmType;ZILjava/lang/Object;)Ljava/lang/String;
+	public final fun toJava (Lkorlibs/wasm/WasmType;)Ljava/lang/Class;
+	public final fun toNullValue (Lkorlibs/wasm/WasmType;)Ljava/lang/Object;
+	public final fun unboxType (Lorg/objectweb/asm/MethodVisitor;Lkorlibs/wasm/WasmSType;)V
+	public fun useMethodVisitor (Lorg/objectweb/asm/MethodVisitor;ZLkotlin/jvm/functions/Function1;)V
+}
+
+public final class korlibs/wasm/WasmRunJVMOutput$Companion {
+	public final fun IF (Lorg/objectweb/asm/MethodVisitor;ILorg/objectweb/asm/Label;Lkotlin/jvm/functions/Function0;)V
+	public static synthetic fun IF$default (Lkorlibs/wasm/WasmRunJVMOutput$Companion;Lorg/objectweb/asm/MethodVisitor;ILorg/objectweb/asm/Label;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
+	public final fun IF_ELSE (Lorg/objectweb/asm/MethodVisitor;ILkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;Lorg/objectweb/asm/Label;Lkotlin/Unit;)V
+	public static synthetic fun IF_ELSE$default (Lkorlibs/wasm/WasmRunJVMOutput$Companion;Lorg/objectweb/asm/MethodVisitor;ILkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;Lorg/objectweb/asm/Label;Lkotlin/Unit;ILjava/lang/Object;)V
+	public final fun _aload (Lorg/objectweb/asm/MethodVisitor;I)V
+	public final fun _astore (Lorg/objectweb/asm/MethodVisitor;I)V
+	public final fun _dload (Lorg/objectweb/asm/MethodVisitor;I)V
+	public final fun _dstore (Lorg/objectweb/asm/MethodVisitor;I)V
+	public final fun _fload (Lorg/objectweb/asm/MethodVisitor;I)V
+	public final fun _fstore (Lorg/objectweb/asm/MethodVisitor;I)V
+	public final fun _iload (Lorg/objectweb/asm/MethodVisitor;I)V
+	public final fun _istore (Lorg/objectweb/asm/MethodVisitor;I)V
+	public final fun _lload (Lorg/objectweb/asm/MethodVisitor;I)V
+	public final fun _lstore (Lorg/objectweb/asm/MethodVisitor;I)V
+	public final fun aret (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun constant (Lorg/objectweb/asm/MethodVisitor;Ljava/lang/Object;)V
+	public final fun constructor (Lorg/objectweb/asm/MethodVisitor;Ljava/lang/reflect/Constructor;)V
+	public final fun dadd (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun ddiv (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun descriptor (Ljava/lang/Class;)Ljava/lang/String;
+	public final fun dmul (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun drem (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun dret (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun dsub (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun fadd (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun fdiv (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun field (Lorg/objectweb/asm/MethodVisitor;Ljava/lang/reflect/Field;)V
+	public final fun fmul (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun frem (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun fret (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun fsub (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun get (Lkotlin/reflect/KFunction;)Ljava/lang/reflect/Method;
+	public final fun getCreate_unreachable_exception_instance ()Ljava/lang/reflect/Method;
+	public final fun getDeclaredMethodsByName ()Ljava/util/Map;
+	public final fun getOp_f32_abs ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_ceil ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_convert_s_i32 ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_convert_s_i64 ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_convert_u_i32 ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_convert_u_i64 ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_copysign ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_demote_f64 ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_eq ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_floor ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_ge ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_gt ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_le ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_load ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_lt ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_max ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_min ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_ne ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_nearest ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_neg ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_reinterpret_i32 ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_sqrt ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_store ()Ljava/lang/reflect/Method;
+	public final fun getOp_f32_trunc ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_abs ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_ceil ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_convert_s_i32 ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_convert_s_i64 ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_convert_u_i32 ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_convert_u_i64 ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_copysign ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_eq ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_floor ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_ge ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_gt ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_le ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_load ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_lt ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_max ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_min ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_ne ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_nearest ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_neg ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_promote_f32 ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_reinterpret_i64 ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_sqrt ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_store ()Ljava/lang/reflect/Method;
+	public final fun getOp_f64_trunc ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_clz ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_ctz ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_div_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_eq ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_eqz ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_extend16_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_extend8_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_ge_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_ge_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_gt_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_gt_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_le_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_le_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_load ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_load16_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_load16_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_load8_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_load8_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_lt_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_lt_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_ne ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_popcnt ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_reinterpret_f32 ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_rem_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_rotl ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_rotr ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_store ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_store16 ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_store8 ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_trunc_s_f32 ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_trunc_s_f64 ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_trunc_sat_f32_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_trunc_sat_f32_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_trunc_sat_f64_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_trunc_sat_f64_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_trunc_u_f32 ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_trunc_u_f64 ()Ljava/lang/reflect/Method;
+	public final fun getOp_i32_wrap_i64 ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_clz ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_ctz ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_div_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_eq ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_eqz ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_extend16_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_extend32_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_extend8_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_extend_i32_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_extend_i32_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_ge_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_ge_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_gt_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_gt_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_le_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_le_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_load ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_load16_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_load16_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_load32_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_load32_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_load8_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_load8_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_lt_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_lt_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_ne ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_popcnt ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_reinterpret_f64 ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_rem_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_rotl ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_rotr ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_store ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_store16 ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_store32 ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_store8 ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_trunc_s_f32 ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_trunc_s_f64 ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_trunc_sat_f32_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_trunc_sat_f32_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_trunc_sat_f64_s ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_trunc_sat_f64_u ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_trunc_u_f32 ()Ljava/lang/reflect/Method;
+	public final fun getOp_i64_trunc_u_f64 ()Ljava/lang/reflect/Method;
+	public final fun getOp_memory_copy ()Ljava/lang/reflect/Method;
+	public final fun getOp_memory_fill ()Ljava/lang/reflect/Method;
+	public final fun getOp_memory_grow ()Ljava/lang/reflect/Method;
+	public final fun getOp_memory_size ()Ljava/lang/reflect/Method;
+	public final fun getOp_selectD ()Ljava/lang/reflect/Method;
+	public final fun getOp_selectF ()Ljava/lang/reflect/Method;
+	public final fun getOp_selectI ()Ljava/lang/reflect/Method;
+	public final fun getOp_selectL ()Ljava/lang/reflect/Method;
+	public final fun iadd (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun iand (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun idiv (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun ifeq (Lorg/objectweb/asm/MethodVisitor;Lorg/objectweb/asm/Label;)V
+	public final fun ifne (Lorg/objectweb/asm/MethodVisitor;Lorg/objectweb/asm/Label;)V
+	public final fun imul (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun internalName (Ljava/lang/Class;)Ljava/lang/String;
+	public final fun invoke (Lorg/objectweb/asm/MethodVisitor;Ljava/lang/reflect/Method;[Ljava/lang/Object;Z)V
+	public static synthetic fun invoke$default (Lkorlibs/wasm/WasmRunJVMOutput$Companion;Lorg/objectweb/asm/MethodVisitor;Ljava/lang/reflect/Method;[Ljava/lang/Object;ZILjava/lang/Object;)V
+	public final fun ior (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun irem (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun iret (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun isStatic (Ljava/lang/reflect/Member;)Z
+	public final fun ishl (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun ishr (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun isub (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun iushr (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun ixor (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun ladd (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun land (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun ldiv (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun lmul (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun lor (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun lrem (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun lret (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun lshl (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun lshr (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun lsub (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun lushr (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun lxor (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun negateCompOpcode (I)I
+	public final fun ret (Lorg/objectweb/asm/MethodVisitor;)V
+	public final fun ret (Lorg/objectweb/asm/MethodVisitor;Lkorlibs/wasm/WasmSType;)V
+	public final fun toBinaryString ([B)Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmRunJVMOutput$Companion$ByteArrayClassLoader : java/security/SecureClassLoader {
+	public fun <init> ([BLjava/lang/String;)V
+	public final fun getClassName ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmRunJVMOutput$ControlStructure {
+	public fun <init> (Ljava/lang/String;Ljava/util/List;Lkorlibs/wasm/WasmType;Lorg/objectweb/asm/Label;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;Lkorlibs/wasm/WasmType;Lorg/objectweb/asm/Label;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Lkorlibs/wasm/WasmType;
+	public final fun component4 ()Lorg/objectweb/asm/Label;
+	public final fun copy (Ljava/lang/String;Ljava/util/List;Lkorlibs/wasm/WasmType;Lorg/objectweb/asm/Label;)Lkorlibs/wasm/WasmRunJVMOutput$ControlStructure;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmRunJVMOutput$ControlStructure;Ljava/lang/String;Ljava/util/List;Lkorlibs/wasm/WasmType;Lorg/objectweb/asm/Label;ILjava/lang/Object;)Lkorlibs/wasm/WasmRunJVMOutput$ControlStructure;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getKind ()Ljava/lang/String;
+	public final fun getLabel ()Lorg/objectweb/asm/Label;
+	public final fun getResult ()Lkorlibs/wasm/WasmType;
+	public final fun getStartStack ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmRunJVMOutput$ElementInfo {
+	public fun <init> (IILjava/util/List;)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()Ljava/util/List;
+	public final fun copy (IILjava/util/List;)Lkorlibs/wasm/WasmRunJVMOutput$ElementInfo;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmRunJVMOutput$ElementInfo;IILjava/util/List;ILjava/lang/Object;)Lkorlibs/wasm/WasmRunJVMOutput$ElementInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getElements ()Ljava/util/List;
+	public final fun getIndex ()I
+	public final fun getTableIndex ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmRunJVMOutput$ElementItem {
+	public fun <init> (Lkorlibs/wasm/WasmFunc;Ljava/lang/String;)V
+	public final fun component1 ()Lkorlibs/wasm/WasmFunc;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Lkorlibs/wasm/WasmFunc;Ljava/lang/String;)Lkorlibs/wasm/WasmRunJVMOutput$ElementItem;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmRunJVMOutput$ElementItem;Lkorlibs/wasm/WasmFunc;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/wasm/WasmRunJVMOutput$ElementItem;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFunc ()Lkorlibs/wasm/WasmFunc;
+	public final fun getFuncName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmRunJVMOutput$GenMethodContext {
+	public fun <init> (Ljava/lang/String;Lorg/objectweb/asm/MethodVisitor;Lkorlibs/wasm/WasmFunc;Lkorlibs/wasm/WasmModule;)V
+	public final fun addLocal (Lkorlibs/wasm/WasmSType;Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalKind;)I
+	public final fun aload (IZ)V
+	public static synthetic fun aload$default (Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;IZILjava/lang/Object;)V
+	public final fun astore (IZ)V
+	public static synthetic fun astore$default (Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;IZILjava/lang/Object;)V
+	public final fun dload (IZ)V
+	public static synthetic fun dload$default (Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;IZILjava/lang/Object;)V
+	public final fun drop (Lkorlibs/wasm/WasmSType;)V
+	public final fun dstore (IZ)V
+	public static synthetic fun dstore$default (Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;IZILjava/lang/Object;)V
+	public final fun fload (IZ)V
+	public static synthetic fun fload$default (Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;IZILjava/lang/Object;)V
+	public final fun fstore (IZ)V
+	public static synthetic fun fstore$default (Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;IZILjava/lang/Object;)V
+	public final fun getControlByRelativeIndex (I)Lkorlibs/wasm/WasmRunJVMOutput$ControlStructure;
+	public final fun getControlStack ()Ljava/util/ArrayList;
+	public final fun getFunc ()Lkorlibs/wasm/WasmFunc;
+	public final fun getLocalIndex (IZ)I
+	public static synthetic fun getLocalIndex$default (Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;IZILjava/lang/Object;)I
+	public final fun getLocals ()Ljava/util/ArrayList;
+	public final fun getLongTemp ()Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalInfo;
+	public final fun getLongTempIndex ()I
+	public final fun getMethodVisitor ()Lorg/objectweb/asm/MethodVisitor;
+	public final fun getModule ()Lkorlibs/wasm/WasmModule;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getRuntimeLocalIndex ()I
+	public final fun getTypeStack ()Ljava/util/ArrayList;
+	public final fun global (I)Lkorlibs/wasm/WasmGlobal;
+	public final fun globalType (I)Lkorlibs/wasm/WasmSType;
+	public final fun iload (IZ)V
+	public static synthetic fun iload$default (Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;IZILjava/lang/Object;)V
+	public final fun istore (IZ)V
+	public static synthetic fun istore$default (Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;IZILjava/lang/Object;)V
+	public final fun lload (IZ)V
+	public static synthetic fun lload$default (Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;IZILjava/lang/Object;)V
+	public final fun load (ILkorlibs/wasm/WasmSType;Z)V
+	public static synthetic fun load$default (Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;ILkorlibs/wasm/WasmSType;ZILjava/lang/Object;)V
+	public final fun loadTemp (Lkorlibs/wasm/WasmType;Z)V
+	public static synthetic fun loadTemp$default (Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;Lkorlibs/wasm/WasmType;ZILjava/lang/Object;)V
+	public final fun local (I)Lkorlibs/wasm/WastLocal;
+	public final fun localType (I)Lkorlibs/wasm/WasmSType;
+	public final fun lstore (IZ)V
+	public static synthetic fun lstore$default (Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;IZILjava/lang/Object;)V
+	public final fun prepareToJump (Lkorlibs/wasm/WasmRunJVMOutput$ControlStructure;Z)V
+	public final fun pushControlStructure (Lkorlibs/wasm/WasmRunJVMOutput$ControlStructure;Lkotlin/jvm/functions/Function0;)V
+	public final fun restoreStack (Ljava/util/List;Lkorlibs/wasm/WasmSType;)V
+	public static synthetic fun restoreStack$default (Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;Ljava/util/List;Lkorlibs/wasm/WasmSType;ILjava/lang/Object;)V
+	public final fun ret (Lkorlibs/wasm/WasmSType;)V
+	public final fun saveStack ()Ljava/util/List;
+	public final fun setTypeStack (Ljava/util/ArrayList;)V
+	public final fun stack (I[Lkorlibs/wasm/WasmSType;)V
+	public final fun store (ILkorlibs/wasm/WasmSType;Z)V
+	public static synthetic fun store$default (Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;ILkorlibs/wasm/WasmSType;ZILjava/lang/Object;)V
+	public final fun storeTemp (Lkorlibs/wasm/WasmType;Z)V
+	public static synthetic fun storeTemp$default (Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext;Lkorlibs/wasm/WasmType;ZILjava/lang/Object;)V
+}
+
+public final class korlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalInfo {
+	public fun <init> (ILkorlibs/wasm/WasmSType;Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalKind;)V
+	public final fun component1 ()I
+	public final fun component2 ()Lkorlibs/wasm/WasmSType;
+	public final fun component3 ()Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalKind;
+	public final fun copy (ILkorlibs/wasm/WasmSType;Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalKind;)Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalInfo;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalInfo;ILkorlibs/wasm/WasmSType;Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalKind;ILjava/lang/Object;)Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIndex ()I
+	public final fun getKind ()Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalKind;
+	public final fun getType ()Lkorlibs/wasm/WasmSType;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalKind : java/lang/Enum {
+	public static final field LOCAL Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalKind;
+	public static final field PARAM Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalKind;
+	public static final field RUNTIME Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalKind;
+	public static final field TEMP Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalKind;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalKind;
+	public static fun values ()[Lkorlibs/wasm/WasmRunJVMOutput$GenMethodContext$LocalKind;
+}
+
+public class korlibs/wasm/WasmRuntime {
+	public static final field Companion Lkorlibs/wasm/WasmRuntime$Companion;
+	public static final field PAGE_SIZE I
+	public fun <init> (Lkorlibs/wasm/WasmModule;II)V
+	public static final fun Op_f32_abs (F)F
+	public static final fun Op_f32_ceil (F)F
+	public static final fun Op_f32_convert_s_i32 (I)F
+	public static final fun Op_f32_convert_s_i64 (J)F
+	public static final fun Op_f32_convert_u_i32 (I)F
+	public static final fun Op_f32_convert_u_i64 (J)F
+	public static final fun Op_f32_copysign (FF)F
+	public static final fun Op_f32_demote_f64 (D)F
+	public static final fun Op_f32_eq (FF)I
+	public static final fun Op_f32_floor (F)F
+	public static final fun Op_f32_ge (FF)I
+	public static final fun Op_f32_gt (FF)I
+	public static final fun Op_f32_le (FF)I
+	public static final fun Op_f32_load (IILkorlibs/wasm/WasmRuntime;)F
+	public static final fun Op_f32_lt (FF)I
+	public static final fun Op_f32_max (FF)F
+	public static final fun Op_f32_min (FF)F
+	public static final fun Op_f32_ne (FF)I
+	public static final fun Op_f32_nearest (F)F
+	public static final fun Op_f32_neg (F)F
+	public static final fun Op_f32_reinterpret_i32 (I)F
+	public static final fun Op_f32_sqrt (F)F
+	public static final fun Op_f32_store (IFILkorlibs/wasm/WasmRuntime;)V
+	public static final fun Op_f32_trunc (F)F
+	public static final fun Op_f64_abs (D)D
+	public static final fun Op_f64_ceil (D)D
+	public static final fun Op_f64_convert_s_i32 (I)D
+	public static final fun Op_f64_convert_s_i64 (J)D
+	public static final fun Op_f64_convert_u_i32 (I)D
+	public static final fun Op_f64_convert_u_i64 (J)D
+	public static final fun Op_f64_copysign (DD)D
+	public static final fun Op_f64_eq (DD)I
+	public static final fun Op_f64_floor (D)D
+	public static final fun Op_f64_ge (DD)I
+	public static final fun Op_f64_gt (DD)I
+	public static final fun Op_f64_le (DD)I
+	public static final fun Op_f64_load (IILkorlibs/wasm/WasmRuntime;)D
+	public static final fun Op_f64_lt (DD)I
+	public static final fun Op_f64_max (DD)D
+	public static final fun Op_f64_min (DD)D
+	public static final fun Op_f64_ne (DD)I
+	public static final fun Op_f64_nearest (D)D
+	public static final fun Op_f64_neg (D)D
+	public static final fun Op_f64_promote_f32 (F)D
+	public static final fun Op_f64_reinterpret_i64 (J)D
+	public static final fun Op_f64_sqrt (D)D
+	public static final fun Op_f64_store (IDILkorlibs/wasm/WasmRuntime;)V
+	public static final fun Op_f64_trunc (D)D
+	public static final fun Op_i32_clz (I)I
+	public static final fun Op_i32_ctz (I)I
+	public static final fun Op_i32_div_u (II)I
+	public static final fun Op_i32_eq (II)I
+	public static final fun Op_i32_eqz (I)I
+	public static final fun Op_i32_extend16_s (I)I
+	public static final fun Op_i32_extend8_s (I)I
+	public static final fun Op_i32_ge_s (II)I
+	public static final fun Op_i32_ge_u (II)I
+	public static final fun Op_i32_gt_s (II)I
+	public static final fun Op_i32_gt_u (II)I
+	public static final fun Op_i32_le_s (II)I
+	public static final fun Op_i32_le_u (II)I
+	public static final fun Op_i32_load (IILkorlibs/wasm/WasmRuntime;)I
+	public static final fun Op_i32_load16_s (IILkorlibs/wasm/WasmRuntime;)I
+	public static final fun Op_i32_load16_u (IILkorlibs/wasm/WasmRuntime;)I
+	public static final fun Op_i32_load8_s (IILkorlibs/wasm/WasmRuntime;)I
+	public static final fun Op_i32_load8_u (IILkorlibs/wasm/WasmRuntime;)I
+	public static final fun Op_i32_lt_s (II)I
+	public static final fun Op_i32_lt_u (II)I
+	public static final fun Op_i32_ne (II)I
+	public static final fun Op_i32_popcnt (I)I
+	public static final fun Op_i32_reinterpret_f32 (F)I
+	public static final fun Op_i32_rem_u (II)I
+	public static final fun Op_i32_rotl (II)I
+	public static final fun Op_i32_rotr (II)I
+	public static final fun Op_i32_store (IIILkorlibs/wasm/WasmRuntime;)V
+	public static final fun Op_i32_store16 (IIILkorlibs/wasm/WasmRuntime;)V
+	public static final fun Op_i32_store8 (IIILkorlibs/wasm/WasmRuntime;)V
+	public static final fun Op_i32_trunc_s_f32 (F)I
+	public static final fun Op_i32_trunc_s_f64 (D)I
+	public static final fun Op_i32_trunc_sat_f32_s (F)I
+	public static final fun Op_i32_trunc_sat_f32_u (F)I
+	public static final fun Op_i32_trunc_sat_f64_s (D)I
+	public static final fun Op_i32_trunc_sat_f64_u (D)I
+	public static final fun Op_i32_trunc_u_f32 (F)I
+	public static final fun Op_i32_trunc_u_f64 (D)I
+	public static final fun Op_i32_wrap_i64 (J)I
+	public static final fun Op_i64_clz (J)J
+	public static final fun Op_i64_ctz (J)J
+	public static final fun Op_i64_div_u (JJ)J
+	public static final fun Op_i64_eq (JJ)I
+	public static final fun Op_i64_eqz (J)I
+	public static final fun Op_i64_extend16_s (J)J
+	public static final fun Op_i64_extend32_s (J)J
+	public static final fun Op_i64_extend8_s (J)J
+	public static final fun Op_i64_extend_i32_s (I)J
+	public static final fun Op_i64_extend_i32_u (I)J
+	public static final fun Op_i64_ge_s (JJ)I
+	public static final fun Op_i64_ge_u (JJ)I
+	public static final fun Op_i64_gt_s (JJ)I
+	public static final fun Op_i64_gt_u (JJ)I
+	public static final fun Op_i64_le_s (JJ)I
+	public static final fun Op_i64_le_u (JJ)I
+	public static final fun Op_i64_load (IILkorlibs/wasm/WasmRuntime;)J
+	public static final fun Op_i64_load16_s (IILkorlibs/wasm/WasmRuntime;)J
+	public static final fun Op_i64_load16_u (IILkorlibs/wasm/WasmRuntime;)J
+	public static final fun Op_i64_load32_s (IILkorlibs/wasm/WasmRuntime;)J
+	public static final fun Op_i64_load32_u (IILkorlibs/wasm/WasmRuntime;)J
+	public static final fun Op_i64_load8_s (IILkorlibs/wasm/WasmRuntime;)J
+	public static final fun Op_i64_load8_u (IILkorlibs/wasm/WasmRuntime;)J
+	public static final fun Op_i64_lt_s (JJ)I
+	public static final fun Op_i64_lt_u (JJ)I
+	public static final fun Op_i64_ne (JJ)I
+	public static final fun Op_i64_popcnt (J)J
+	public static final fun Op_i64_reinterpret_f64 (D)J
+	public static final fun Op_i64_rem_u (JJ)J
+	public static final fun Op_i64_rotl (JJ)J
+	public static final fun Op_i64_rotr (JJ)J
+	public static final fun Op_i64_store (IJILkorlibs/wasm/WasmRuntime;)V
+	public static final fun Op_i64_store16 (IJILkorlibs/wasm/WasmRuntime;)V
+	public static final fun Op_i64_store32 (IJILkorlibs/wasm/WasmRuntime;)V
+	public static final fun Op_i64_store8 (IJILkorlibs/wasm/WasmRuntime;)V
+	public static final fun Op_i64_trunc_s_f32 (F)J
+	public static final fun Op_i64_trunc_s_f64 (D)J
+	public static final fun Op_i64_trunc_sat_f32_s (F)J
+	public static final fun Op_i64_trunc_sat_f32_u (F)J
+	public static final fun Op_i64_trunc_sat_f64_s (D)J
+	public static final fun Op_i64_trunc_sat_f64_u (D)J
+	public static final fun Op_i64_trunc_u_f32 (F)J
+	public static final fun Op_i64_trunc_u_f64 (D)J
+	public static final fun Op_memory_copy (IIILkorlibs/wasm/WasmRuntime;)V
+	public static final fun Op_memory_fill (IIILkorlibs/wasm/WasmRuntime;)V
+	public static final fun Op_memory_grow (ILkorlibs/wasm/WasmRuntime;)I
+	public static final fun Op_memory_init (Lkorlibs/wasm/WasmRuntime;)V
+	public static final fun Op_memory_size (Lkorlibs/wasm/WasmRuntime;)I
+	public static final fun Op_selectD (DDI)D
+	public static final fun Op_selectF (FFI)F
+	public static final fun Op_selectI (III)I
+	public static final fun Op_selectL (JJI)J
+	public final fun alloc (I)I
+	public final fun allocAndWrite ([B)I
+	public static final fun assert_return_any (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/String;)I
+	public static final fun assert_return_f32 (FFLjava/lang/String;)I
+	public static final fun assert_return_f64 (DDLjava/lang/String;)I
+	public static final fun assert_return_i32 (IILjava/lang/String;)I
+	public static final fun assert_return_i64 (JJLjava/lang/String;)I
+	public static final fun assert_return_ref (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/String;)I
+	public static final fun assert_return_void (Ljava/lang/String;)I
+	public static final fun assert_summary (II)V
+	public static final fun call_indirect (II[Ljava/lang/Object;Lkorlibs/wasm/WasmRuntime;)Ljava/lang/Object;
+	public fun close ()V
+	public static final fun create_todo_exception_instance ()Ljava/lang/Throwable;
+	public static final fun create_unknown_indirect_function (ILjava/lang/String;)Ljava/lang/Throwable;
+	public static final fun create_unreachable_exception_instance (Ljava/lang/String;)Ljava/lang/Throwable;
+	public final fun free (I)V
+	public final fun free ([I)V
+	public fun getExported ()Ljava/util/Set;
+	public final fun getFunctions ()Ljava/util/LinkedHashMap;
+	public final fun getInstructionsExecuted ()J
+	public final fun getMemMax ()I
+	public final fun getMemSize ()I
+	public final fun getMemory ()Lkorlibs/memory/Buffer;
+	public final fun getMemoryNumPages ()I
+	public final fun getTables ()Ljava/util/List;
+	public final fun getTrace ()Z
+	public final fun getUsedClassMemory ()I
+	public fun invoke (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;
+	public fun invokeIndirect (I[Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun readBytes (II)[B
+	public final fun readBytes (I[B)[B
+	public final fun readString (I)Ljava/lang/String;
+	public final fun readStringz (I)Ljava/lang/String;
+	public final fun readStringz16 (I)Ljava/lang/String;
+	public static final fun read_string (ILkorlibs/wasm/WasmRuntime;)Ljava/lang/String;
+	public fun register (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function2;)V
+	public final fun setInstructionsExecuted (J)V
+	public final fun setMemory (Lkorlibs/memory/Buffer;)V
+	public final fun setTrace (Z)V
+	public final fun setUsedClassMemory (I)V
+	public static final fun set_memory (ILjava/lang/String;ILkorlibs/wasm/WasmRuntime;)V
+	public final fun stackAlloc (I)I
+	public final fun stackAllocAndWrite ([B)I
+	public final fun stackRestore (I)V
+	public final fun stackSave ()I
+	public final fun strlen (I)I
+	public final fun strlen16 (I)I
+	public final fun writeBytes (I[B)V
+}
+
+public final class korlibs/wasm/WasmRuntime$Companion {
+	public final fun Op_f32_abs (F)F
+	public final fun Op_f32_ceil (F)F
+	public final fun Op_f32_convert_s_i32 (I)F
+	public final fun Op_f32_convert_s_i64 (J)F
+	public final fun Op_f32_convert_u_i32 (I)F
+	public final fun Op_f32_convert_u_i64 (J)F
+	public final fun Op_f32_copysign (FF)F
+	public final fun Op_f32_demote_f64 (D)F
+	public final fun Op_f32_eq (FF)I
+	public final fun Op_f32_floor (F)F
+	public final fun Op_f32_ge (FF)I
+	public final fun Op_f32_gt (FF)I
+	public final fun Op_f32_le (FF)I
+	public final fun Op_f32_load (IILkorlibs/wasm/WasmRuntime;)F
+	public final fun Op_f32_lt (FF)I
+	public final fun Op_f32_max (FF)F
+	public final fun Op_f32_min (FF)F
+	public final fun Op_f32_ne (FF)I
+	public final fun Op_f32_nearest (F)F
+	public final fun Op_f32_neg (F)F
+	public final fun Op_f32_reinterpret_i32 (I)F
+	public final fun Op_f32_sqrt (F)F
+	public final fun Op_f32_store (IFILkorlibs/wasm/WasmRuntime;)V
+	public final fun Op_f32_trunc (F)F
+	public final fun Op_f64_abs (D)D
+	public final fun Op_f64_ceil (D)D
+	public final fun Op_f64_convert_s_i32 (I)D
+	public final fun Op_f64_convert_s_i64 (J)D
+	public final fun Op_f64_convert_u_i32 (I)D
+	public final fun Op_f64_convert_u_i64 (J)D
+	public final fun Op_f64_copysign (DD)D
+	public final fun Op_f64_eq (DD)I
+	public final fun Op_f64_floor (D)D
+	public final fun Op_f64_ge (DD)I
+	public final fun Op_f64_gt (DD)I
+	public final fun Op_f64_le (DD)I
+	public final fun Op_f64_load (IILkorlibs/wasm/WasmRuntime;)D
+	public final fun Op_f64_lt (DD)I
+	public final fun Op_f64_max (DD)D
+	public final fun Op_f64_min (DD)D
+	public final fun Op_f64_ne (DD)I
+	public final fun Op_f64_nearest (D)D
+	public final fun Op_f64_neg (D)D
+	public final fun Op_f64_promote_f32 (F)D
+	public final fun Op_f64_reinterpret_i64 (J)D
+	public final fun Op_f64_sqrt (D)D
+	public final fun Op_f64_store (IDILkorlibs/wasm/WasmRuntime;)V
+	public final fun Op_f64_trunc (D)D
+	public final fun Op_i32_clz (I)I
+	public final fun Op_i32_ctz (I)I
+	public final fun Op_i32_div_u (II)I
+	public final fun Op_i32_eq (II)I
+	public final fun Op_i32_eqz (I)I
+	public final fun Op_i32_extend16_s (I)I
+	public final fun Op_i32_extend8_s (I)I
+	public final fun Op_i32_ge_s (II)I
+	public final fun Op_i32_ge_u (II)I
+	public final fun Op_i32_gt_s (II)I
+	public final fun Op_i32_gt_u (II)I
+	public final fun Op_i32_le_s (II)I
+	public final fun Op_i32_le_u (II)I
+	public final fun Op_i32_load (IILkorlibs/wasm/WasmRuntime;)I
+	public final fun Op_i32_load16_s (IILkorlibs/wasm/WasmRuntime;)I
+	public final fun Op_i32_load16_u (IILkorlibs/wasm/WasmRuntime;)I
+	public final fun Op_i32_load8_s (IILkorlibs/wasm/WasmRuntime;)I
+	public final fun Op_i32_load8_u (IILkorlibs/wasm/WasmRuntime;)I
+	public final fun Op_i32_lt_s (II)I
+	public final fun Op_i32_lt_u (II)I
+	public final fun Op_i32_ne (II)I
+	public final fun Op_i32_popcnt (I)I
+	public final fun Op_i32_reinterpret_f32 (F)I
+	public final fun Op_i32_rem_u (II)I
+	public final fun Op_i32_rotl (II)I
+	public final fun Op_i32_rotr (II)I
+	public final fun Op_i32_store (IIILkorlibs/wasm/WasmRuntime;)V
+	public final fun Op_i32_store16 (IIILkorlibs/wasm/WasmRuntime;)V
+	public final fun Op_i32_store8 (IIILkorlibs/wasm/WasmRuntime;)V
+	public final fun Op_i32_trunc_s_f32 (F)I
+	public final fun Op_i32_trunc_s_f64 (D)I
+	public final fun Op_i32_trunc_sat_f32_s (F)I
+	public final fun Op_i32_trunc_sat_f32_u (F)I
+	public final fun Op_i32_trunc_sat_f64_s (D)I
+	public final fun Op_i32_trunc_sat_f64_u (D)I
+	public final fun Op_i32_trunc_u_f32 (F)I
+	public final fun Op_i32_trunc_u_f64 (D)I
+	public final fun Op_i32_wrap_i64 (J)I
+	public final fun Op_i64_clz (J)J
+	public final fun Op_i64_ctz (J)J
+	public final fun Op_i64_div_u (JJ)J
+	public final fun Op_i64_eq (JJ)I
+	public final fun Op_i64_eqz (J)I
+	public final fun Op_i64_extend16_s (J)J
+	public final fun Op_i64_extend32_s (J)J
+	public final fun Op_i64_extend8_s (J)J
+	public final fun Op_i64_extend_i32_s (I)J
+	public final fun Op_i64_extend_i32_u (I)J
+	public final fun Op_i64_ge_s (JJ)I
+	public final fun Op_i64_ge_u (JJ)I
+	public final fun Op_i64_gt_s (JJ)I
+	public final fun Op_i64_gt_u (JJ)I
+	public final fun Op_i64_le_s (JJ)I
+	public final fun Op_i64_le_u (JJ)I
+	public final fun Op_i64_load (IILkorlibs/wasm/WasmRuntime;)J
+	public final fun Op_i64_load16_s (IILkorlibs/wasm/WasmRuntime;)J
+	public final fun Op_i64_load16_u (IILkorlibs/wasm/WasmRuntime;)J
+	public final fun Op_i64_load32_s (IILkorlibs/wasm/WasmRuntime;)J
+	public final fun Op_i64_load32_u (IILkorlibs/wasm/WasmRuntime;)J
+	public final fun Op_i64_load8_s (IILkorlibs/wasm/WasmRuntime;)J
+	public final fun Op_i64_load8_u (IILkorlibs/wasm/WasmRuntime;)J
+	public final fun Op_i64_lt_s (JJ)I
+	public final fun Op_i64_lt_u (JJ)I
+	public final fun Op_i64_ne (JJ)I
+	public final fun Op_i64_popcnt (J)J
+	public final fun Op_i64_reinterpret_f64 (D)J
+	public final fun Op_i64_rem_u (JJ)J
+	public final fun Op_i64_rotl (JJ)J
+	public final fun Op_i64_rotr (JJ)J
+	public final fun Op_i64_store (IJILkorlibs/wasm/WasmRuntime;)V
+	public final fun Op_i64_store16 (IJILkorlibs/wasm/WasmRuntime;)V
+	public final fun Op_i64_store32 (IJILkorlibs/wasm/WasmRuntime;)V
+	public final fun Op_i64_store8 (IJILkorlibs/wasm/WasmRuntime;)V
+	public final fun Op_i64_trunc_s_f32 (F)J
+	public final fun Op_i64_trunc_s_f64 (D)J
+	public final fun Op_i64_trunc_sat_f32_s (F)J
+	public final fun Op_i64_trunc_sat_f32_u (F)J
+	public final fun Op_i64_trunc_sat_f64_s (D)J
+	public final fun Op_i64_trunc_sat_f64_u (D)J
+	public final fun Op_i64_trunc_u_f32 (F)J
+	public final fun Op_i64_trunc_u_f64 (D)J
+	public final fun Op_memory_copy (IIILkorlibs/wasm/WasmRuntime;)V
+	public final fun Op_memory_fill (IIILkorlibs/wasm/WasmRuntime;)V
+	public final fun Op_memory_grow (ILkorlibs/wasm/WasmRuntime;)I
+	public final fun Op_memory_init (Lkorlibs/wasm/WasmRuntime;)V
+	public final fun Op_memory_size (Lkorlibs/wasm/WasmRuntime;)I
+	public final fun Op_selectD (DDI)D
+	public final fun Op_selectF (FFI)F
+	public final fun Op_selectI (III)I
+	public final fun Op_selectL (JJI)J
+	public final fun assert_return_any (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/String;)I
+	public final fun assert_return_f32 (FFLjava/lang/String;)I
+	public final fun assert_return_f64 (DDLjava/lang/String;)I
+	public final fun assert_return_i32 (IILjava/lang/String;)I
+	public final fun assert_return_i64 (JJLjava/lang/String;)I
+	public final fun assert_return_ref (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/String;)I
+	public final fun assert_return_void (Ljava/lang/String;)I
+	public final fun assert_summary (II)V
+	public final fun call_indirect (II[Ljava/lang/Object;Lkorlibs/wasm/WasmRuntime;)Ljava/lang/Object;
+	public final fun checkAddr (IILkorlibs/wasm/WasmRuntime;)I
+	public final fun create_todo_exception_instance ()Ljava/lang/Throwable;
+	public final fun create_unknown_indirect_function (ILjava/lang/String;)Ljava/lang/Throwable;
+	public final fun create_unreachable_exception_instance (Ljava/lang/String;)Ljava/lang/Throwable;
+	public final fun read_string (ILkorlibs/wasm/WasmRuntime;)Ljava/lang/String;
+	public final fun set_memory (ILjava/lang/String;ILkorlibs/wasm/WasmRuntime;)V
+}
+
+public abstract interface class korlibs/wasm/WasmRuntime$WasmFuncCall {
+	public abstract fun invoke (Lkorlibs/wasm/WasmRuntime;[Ljava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/wasm/WasmRuntime$WasmTable {
+	public fun <init> (Lkorlibs/wasm/WasmType$Limit;)V
+	public final fun getElements ()[Lkorlibs/wasm/WasmRuntime$WasmFuncCall;
+	public final fun getLimit ()Lkorlibs/wasm/WasmType$Limit;
+	public final fun setElements ([Lkorlibs/wasm/WasmRuntime$WasmFuncCall;)V
+	public final fun tableEnsureSize (I)V
+}
+
+public final class korlibs/wasm/WasmSType : java/lang/Enum, korlibs/wasm/WasmType {
+	public static final field ANYREF Lkorlibs/wasm/WasmSType;
+	public static final field F32 Lkorlibs/wasm/WasmSType;
+	public static final field F64 Lkorlibs/wasm/WasmSType;
+	public static final field FUNCREF Lkorlibs/wasm/WasmSType;
+	public static final field I32 Lkorlibs/wasm/WasmSType;
+	public static final field I64 Lkorlibs/wasm/WasmSType;
+	public static final field V128 Lkorlibs/wasm/WasmSType;
+	public static final field VOID Lkorlibs/wasm/WasmSType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public fun getId ()I
+	public final fun getNbytes ()I
+	public fun getSignature ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/wasm/WasmSType;
+	public static fun values ()[Lkorlibs/wasm/WasmSType;
+}
+
+public abstract interface class korlibs/wasm/WasmType {
+	public static final field Companion Lkorlibs/wasm/WasmType$Companion;
+	public abstract fun getId ()I
+	public abstract fun getSignature ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmType$Companion {
+	public final fun getF32 ()Lkorlibs/wasm/WasmSType;
+	public final fun getF64 ()Lkorlibs/wasm/WasmSType;
+	public final fun getI32 ()Lkorlibs/wasm/WasmSType;
+	public final fun getI64 ()Lkorlibs/wasm/WasmSType;
+	public final fun getVoid ()Lkorlibs/wasm/WasmSType;
+	public final fun invoke (Ljava/lang/String;)Lkorlibs/wasm/WasmType;
+}
+
+public final class korlibs/wasm/WasmType$Function : korlibs/wasm/WasmType {
+	public fun <init> (Ljava/util/List;Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;Ljava/util/List;)Lkorlibs/wasm/WasmType$Function;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmType$Function;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lkorlibs/wasm/WasmType$Function;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getArgs ()Ljava/util/List;
+	public final fun getArgsByName ()Ljava/util/Map;
+	public final fun getArgsPlusRet ()Ljava/util/List;
+	public final fun getCachedJDescriptor ()Ljava/lang/String;
+	public fun getId ()I
+	public final fun getRetType ()Lkorlibs/wasm/WasmType;
+	public final fun getRetTypeVoid ()Z
+	public final fun getRets ()Ljava/util/List;
+	public fun getSignature ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun setCachedJDescriptor (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+	public final fun withoutArgNames ()Lkorlibs/wasm/WasmType$Function;
+}
+
+public final class korlibs/wasm/WasmType$Limit : korlibs/wasm/WasmType {
+	public fun <init> ()V
+	public fun <init> (ILjava/lang/Integer;)V
+	public synthetic fun <init> (ILjava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/Integer;
+	public final fun copy (ILjava/lang/Integer;)Lkorlibs/wasm/WasmType$Limit;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmType$Limit;ILjava/lang/Integer;ILjava/lang/Object;)Lkorlibs/wasm/WasmType$Limit;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getId ()I
+	public final fun getMax ()Ljava/lang/Integer;
+	public final fun getMin ()I
+	public fun getSignature ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun setMax (Ljava/lang/Integer;)V
+	public final fun setMin (I)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmType$Mutable : korlibs/wasm/WasmType {
+	public fun <init> (Lkorlibs/wasm/WasmType;)V
+	public final fun component1 ()Lkorlibs/wasm/WasmType;
+	public final fun copy (Lkorlibs/wasm/WasmType;)Lkorlibs/wasm/WasmType$Mutable;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmType$Mutable;Lkorlibs/wasm/WasmType;ILjava/lang/Object;)Lkorlibs/wasm/WasmType$Mutable;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getId ()I
+	public final fun getRtype ()Lkorlibs/wasm/WasmType;
+	public fun getSignature ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmType$TableType {
+	public fun <init> (Lkorlibs/wasm/WasmType$Limit;Lkotlin/reflect/KClass;)V
+	public final fun component1 ()Lkorlibs/wasm/WasmType$Limit;
+	public final fun component2 ()Lkotlin/reflect/KClass;
+	public final fun copy (Lkorlibs/wasm/WasmType$Limit;Lkotlin/reflect/KClass;)Lkorlibs/wasm/WasmType$TableType;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WasmType$TableType;Lkorlibs/wasm/WasmType$Limit;Lkotlin/reflect/KClass;ILjava/lang/Object;)Lkorlibs/wasm/WasmType$TableType;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClazz ()Lkotlin/reflect/KClass;
+	public final fun getLimit ()Lkorlibs/wasm/WasmType$Limit;
+	public fun hashCode ()I
+	public final fun setLimit (Lkorlibs/wasm/WasmType$Limit;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmType$_ARRAY : korlibs/wasm/WasmType {
+	public fun <init> (Lkorlibs/wasm/WasmType;)V
+	public final fun getElement ()Lkorlibs/wasm/WasmType;
+	public fun getId ()I
+	public fun getSignature ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmType$_NULLABLE : korlibs/wasm/WasmType {
+	public fun <init> (Lkorlibs/wasm/WasmType;)V
+	public final fun getElement ()Lkorlibs/wasm/WasmType;
+	public fun getId ()I
+	public fun getSignature ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmType$_VARARG : korlibs/wasm/WasmType {
+	public fun <init> (Lkorlibs/wasm/WasmType;)V
+	public final fun getElement ()Lkorlibs/wasm/WasmType;
+	public fun getId ()I
+	public fun getSignature ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmType$_boolean : korlibs/wasm/WasmType {
+	public static final field INSTANCE Lkorlibs/wasm/WasmType$_boolean;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getId ()I
+	public fun getSignature ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmType$_i16 : korlibs/wasm/WasmType {
+	public static final field INSTANCE Lkorlibs/wasm/WasmType$_i16;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getId ()I
+	public fun getSignature ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmType$_i8 : korlibs/wasm/WasmType {
+	public static final field INSTANCE Lkorlibs/wasm/WasmType$_i8;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getId ()I
+	public fun getSignature ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WasmType$v128 : korlibs/wasm/WasmType {
+	public static final field INSTANCE Lkorlibs/wasm/WasmType$v128;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getId ()I
+	public fun getSignature ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/wasm/WastLocal {
+	public fun <init> (ILkorlibs/wasm/WasmType;)V
+	public fun <init> (Ljava/lang/String;Lkorlibs/wasm/WasmType;I)V
+	public synthetic fun <init> (Ljava/lang/String;Lkorlibs/wasm/WasmType;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkorlibs/wasm/WasmType;
+	public final fun component3 ()I
+	public final fun copy (Ljava/lang/String;Lkorlibs/wasm/WasmType;I)Lkorlibs/wasm/WastLocal;
+	public static synthetic fun copy$default (Lkorlibs/wasm/WastLocal;Ljava/lang/String;Lkorlibs/wasm/WasmType;IILjava/lang/Object;)Lkorlibs/wasm/WastLocal;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIndex ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun getStype ()Lkorlibs/wasm/WasmSType;
+	public final fun getType ()Lkorlibs/wasm/WasmType;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+

@@ -1,0 +1,504 @@
+public abstract interface class korlibs/concurrent/lock/BaseLock {
+	public static final field Companion Lkorlibs/concurrent/lock/BaseLock$Companion;
+}
+
+public final class korlibs/concurrent/lock/BaseLock$Companion {
+	public final fun isSupported ()Z
+}
+
+public abstract interface class korlibs/concurrent/lock/BaseLockWithNotifyAndWait : korlibs/concurrent/lock/BaseLock {
+	public abstract fun notify (Lkotlin/Unit;)V
+	public static synthetic fun notify$default (Lkorlibs/concurrent/lock/BaseLockWithNotifyAndWait;Lkotlin/Unit;ILjava/lang/Object;)V
+	public fun wait-LRDsOJo (J)V
+	public abstract fun wait-WoYshz0 (D)V
+}
+
+public final class korlibs/concurrent/lock/BaseLockWithNotifyAndWait$DefaultImpls {
+	public static synthetic fun notify$default (Lkorlibs/concurrent/lock/BaseLockWithNotifyAndWait;Lkotlin/Unit;ILjava/lang/Object;)V
+	public static fun wait-LRDsOJo (Lkorlibs/concurrent/lock/BaseLockWithNotifyAndWait;J)V
+}
+
+public final class korlibs/concurrent/lock/Lock : korlibs/concurrent/lock/BaseLockWithNotifyAndWait {
+	public static final field Companion Lkorlibs/concurrent/lock/Lock$Companion;
+	public fun <init> ()V
+	public final fun getLock ()Ljava/util/concurrent/locks/ReentrantLock;
+	public final fun invoke (Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public fun notify (Lkotlin/Unit;)V
+	public fun wait-LRDsOJo (J)V
+	public fun wait-WoYshz0 (D)V
+}
+
+public final class korlibs/concurrent/lock/Lock$Companion {
+}
+
+public abstract class korlibs/concurrent/lock/LockImpl : korlibs/concurrent/lock/BaseLockWithNotifyAndWait {
+	public fun <init> ()V
+	public final fun lock ()V
+	public final fun lockUnlock (Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public fun notify (Lkotlin/Unit;)V
+	public final fun unlock ()V
+	public fun wait-LRDsOJo (J)V
+	public fun wait-WoYshz0 (D)V
+}
+
+public final class korlibs/concurrent/lock/LockKt {
+	public static final fun invoke (Ljava/util/concurrent/locks/ReentrantLock;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun isSupported (Lkorlibs/concurrent/lock/Lock$Companion;)Z
+	public static final fun notify (Lkorlibs/concurrent/lock/Lock;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun waitForever (Lkorlibs/concurrent/lock/Lock;)V
+	public static final fun waitForeverNoLock (Lkorlibs/concurrent/lock/Lock;)V
+}
+
+public final class korlibs/concurrent/lock/NonRecursiveLock : korlibs/concurrent/lock/BaseLock {
+	public fun <init> ()V
+	public final fun getObj ()Ljava/lang/Object;
+	public final fun invoke (Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+}
+
+public final class korlibs/concurrent/thread/FixedPoolNativeThreadDispatcher : kotlinx/coroutines/CoroutineDispatcher, java/lang/AutoCloseable, kotlinx/coroutines/Delay {
+	public synthetic fun <init> (ILjava/lang/String;DZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ILjava/lang/String;DZZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close ()V
+	public fun delay (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dispatch (Lkotlin/coroutines/CoroutineContext;Ljava/lang/Runnable;)V
+	public fun dispatchYield (Lkotlin/coroutines/CoroutineContext;Ljava/lang/Runnable;)V
+	public final fun getDispatchers ()[Lkorlibs/concurrent/thread/NativeThreadDispatcher;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getNumThreads ()I
+	public final fun getPreciseTimings ()Z
+	public final fun getPriority-HqdcNRw ()D
+	public final fun getThreadIds ()Ljava/util/HashSet;
+	public fun invokeOnTimeout (JLjava/lang/Runnable;Lkotlin/coroutines/CoroutineContext;)Lkotlinx/coroutines/DisposableHandle;
+	public final fun isDaemon ()Z
+	public fun isDispatchNeeded (Lkotlin/coroutines/CoroutineContext;)Z
+	public fun scheduleResumeAfterDelay (JLkotlinx/coroutines/CancellableContinuation;)V
+}
+
+public final class korlibs/concurrent/thread/NativeThread {
+	public static final field Companion Lkorlibs/concurrent/thread/NativeThread$Companion;
+	public static final synthetic fun box-impl (Ljava/lang/Thread;)Lkorlibs/concurrent/thread/NativeThread;
+	public static fun constructor-impl (Ljava/lang/Thread;)Ljava/lang/Thread;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/Thread;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/Thread;Ljava/lang/Thread;)Z
+	public static final fun getId-impl (Ljava/lang/Thread;)J
+	public static final fun getName-impl (Ljava/lang/Thread;)Ljava/lang/String;
+	public final fun getNative ()Ljava/lang/Thread;
+	public static final fun getPriority-HqdcNRw (Ljava/lang/Thread;)D
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/Thread;)I
+	public static final fun interrupt-impl (Ljava/lang/Thread;)V
+	public static final fun isDaemon-impl (Ljava/lang/Thread;)Z
+	public static final fun join-impl (Ljava/lang/Thread;)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/Thread;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/Thread;
+}
+
+public final class korlibs/concurrent/thread/NativeThread$Companion {
+	public final fun gc (Z)V
+	public final fun getCurrent-9Ck0DsE ()Ljava/lang/Thread;
+	public final fun getCurrentThreadId ()J
+	public final fun getCurrentThreadName ()Ljava/lang/String;
+	public final fun isSupported ()Z
+	public final fun sleep-WoYshz0 (D)V
+	public final fun spinWhile (Lkotlin/jvm/functions/Function0;)V
+	public final fun start-JQ2U-jo (Ljava/lang/String;ZDLkotlin/jvm/functions/Function0;)Ljava/lang/Thread;
+	public static synthetic fun start-JQ2U-jo$default (Lkorlibs/concurrent/thread/NativeThread$Companion;Ljava/lang/String;ZDLkotlin/jvm/functions/Function0;ILjava/lang/Object;)Ljava/lang/Thread;
+}
+
+public final class korlibs/concurrent/thread/NativeThreadDispatcher : kotlinx/coroutines/CoroutineDispatcher, java/lang/AutoCloseable, kotlinx/coroutines/Delay {
+	public synthetic fun <init> (Ljava/lang/String;DZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;DZZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close ()V
+	public fun delay (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dispatch (Lkotlin/coroutines/CoroutineContext;Ljava/lang/Runnable;)V
+	public fun dispatchYield (Lkotlin/coroutines/CoroutineContext;Ljava/lang/Runnable;)V
+	public final fun getName ()Ljava/lang/String;
+	public final fun getNumTasks ()I
+	public final fun getNumTimedTasks ()I
+	public final fun getPreciseTimings ()Z
+	public final fun getPriority-HqdcNRw ()D
+	public final fun getRunning ()Z
+	public final fun getTasks ()Lkotlin/collections/ArrayDeque;
+	public final fun getTasksLock ()Lkorlibs/concurrent/lock/Lock;
+	public final fun getThread-9Ck0DsE ()Ljava/lang/Thread;
+	public final fun getTimedTasks ()Lkotlin/collections/ArrayDeque;
+	public final fun getTimedTasksLock ()Ljava/lang/Object;
+	public fun invokeOnTimeout (JLjava/lang/Runnable;Lkotlin/coroutines/CoroutineContext;)Lkotlinx/coroutines/DisposableHandle;
+	public final fun isDaemon ()Z
+	public fun isDispatchNeeded (Lkotlin/coroutines/CoroutineContext;)Z
+	public fun scheduleResumeAfterDelay (JLkotlinx/coroutines/CancellableContinuation;)V
+	public final fun setRunning (Z)V
+}
+
+public final class korlibs/concurrent/thread/NativeThreadDispatcher$TimedTask : java/lang/Comparable, kotlinx/coroutines/DisposableHandle {
+	public synthetic fun <init> (Lkorlibs/concurrent/thread/NativeThreadDispatcher;DLkotlin/coroutines/Continuation;Ljava/lang/Runnable;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo (Lkorlibs/concurrent/thread/NativeThreadDispatcher$TimedTask;)I
+	public fun dispose ()V
+	public final fun getBlock ()Ljava/lang/Runnable;
+	public final fun getDispatcher ()Lkorlibs/concurrent/thread/NativeThreadDispatcher;
+	public final fun getTask ()Lkotlin/coroutines/Continuation;
+	public final fun getTime-8Hnv5yo ()D
+}
+
+public final class korlibs/concurrent/thread/NativeThreadKt {
+	public static final fun nativeThread-JmuIsFQ (ZLjava/lang/String;DZLkotlin/jvm/functions/Function1;)Ljava/lang/Thread;
+	public static synthetic fun nativeThread-JmuIsFQ$default (ZLjava/lang/String;DZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/lang/Thread;
+	public static final fun sleep-8Mi8wO0 (Lkorlibs/concurrent/thread/NativeThread$Companion;JZ)V
+	public static final fun sleep-HG0u8IE (Lkorlibs/concurrent/thread/NativeThread$Companion;J)V
+	public static final fun sleep-Ld_0z1w (Lkorlibs/concurrent/thread/NativeThread$Companion;DZ)V
+	public static final fun sleepExact-HG0u8IE (Lkorlibs/concurrent/thread/NativeThread$Companion;J)V
+	public static final fun sleepExact-R4m-uyU (Lkorlibs/concurrent/thread/NativeThread$Companion;D)V
+	public static final fun sleepUntil-Gi7IvD8 (Lkorlibs/concurrent/thread/NativeThread$Companion;DZ)V
+	public static synthetic fun sleepUntil-Gi7IvD8$default (Lkorlibs/concurrent/thread/NativeThread$Companion;DZILjava/lang/Object;)V
+	public static final fun sleepWhile-eLm8gpg (Lkorlibs/concurrent/thread/NativeThread$Companion;DZLkotlin/jvm/functions/Function0;)V
+	public static synthetic fun sleepWhile-eLm8gpg$default (Lkorlibs/concurrent/thread/NativeThread$Companion;DZLkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
+}
+
+public final class korlibs/concurrent/thread/NativeThreadPriority {
+	public static final field Companion Lkorlibs/concurrent/thread/NativeThreadPriority$Companion;
+	public static final synthetic fun box-impl (D)Lkorlibs/concurrent/thread/NativeThreadPriority;
+	public static fun constructor-impl (D)D
+	public static final fun convert-impl (DIII)I
+	public static synthetic fun convert-impl$default (DIIIILjava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (DLjava/lang/Object;)Z
+	public static final fun equals-impl0 (DD)Z
+	public final fun getRatio ()D
+	public fun hashCode ()I
+	public static fun hashCode-impl (D)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (D)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()D
+}
+
+public final class korlibs/concurrent/thread/NativeThreadPriority$Companion {
+	public final fun from-iI5L3B8 (IIII)D
+	public static synthetic fun from-iI5L3B8$default (Lkorlibs/concurrent/thread/NativeThreadPriority$Companion;IIIIILjava/lang/Object;)D
+	public final fun getEVEN_HIGHER-HqdcNRw ()D
+	public final fun getHIGHER-HqdcNRw ()D
+	public final fun getHIGHEST-HqdcNRw ()D
+	public final fun getLOW-HqdcNRw ()D
+	public final fun getLOWEST-HqdcNRw ()D
+	public final fun getNORMAL-HqdcNRw ()D
+}
+
+public final class korlibs/concurrent/thread/NativeThread_jvmKt {
+	public static final fun NativeThreadThread_spinWhile (Lkotlin/jvm/functions/Function0;)V
+	public static final fun getOnSpinWait ()Ljava/lang/reflect/Method;
+}
+
+public final class korlibs/io/android/AndroidCoroutineContext : kotlin/coroutines/CoroutineContext$Element {
+	public fun <init> (Landroid/content/Context;)V
+	public fun fold (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public fun get (Lkotlin/coroutines/CoroutineContext$Key;)Lkotlin/coroutines/CoroutineContext$Element;
+	public final fun getContext ()Landroid/content/Context;
+	public fun getKey ()Lkotlin/coroutines/CoroutineContext$Key;
+	public fun minusKey (Lkotlin/coroutines/CoroutineContext$Key;)Lkotlin/coroutines/CoroutineContext;
+	public fun plus (Lkotlin/coroutines/CoroutineContext;)Lkotlin/coroutines/CoroutineContext;
+}
+
+public final class korlibs/io/android/AndroidCoroutineContext$Key : kotlin/coroutines/CoroutineContext$Key {
+	public static final field INSTANCE Lkorlibs/io/android/AndroidCoroutineContext$Key;
+}
+
+public final class korlibs/io/android/AndroidCoroutineContextKt {
+	public static final fun androidContext (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun androidContext (Lkotlin/coroutines/CoroutineContext;)Landroid/content/Context;
+	public static final fun androidContextOrNull (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun androidContextOrNull (Lkotlin/coroutines/CoroutineContext;)Landroid/content/Context;
+	public static final fun withAndroidContext (Landroid/content/Context;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/async/AsyncExt_jvmKt {
+	public static final fun invoke (Ljava/util/concurrent/ExecutorService;Lkotlin/jvm/functions/Function0;)V
+	public static final fun jvmSyncAwait (Lkotlinx/coroutines/Deferred;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/async/AsyncInvokable {
+	public abstract fun invoke (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/async/AsyncQueue {
+	public fun <init> ()V
+	public final fun await (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun await (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getThread ()Lkorlibs/io/async/AsyncThread;
+	public final fun invoke (Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;)Lkorlibs/io/async/AsyncQueue;
+	public final fun invoke (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/async/AsyncQueueKt {
+	public static final fun withContext (Lkorlibs/io/async/AsyncQueue;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun withContext (Lkorlibs/io/async/AsyncQueue;Lkotlin/coroutines/CoroutineContext;)Lkorlibs/io/async/AsyncQueueWithContext;
+}
+
+public final class korlibs/io/async/AsyncQueueWithContext {
+	public fun <init> (Lkorlibs/io/async/AsyncQueue;Lkotlin/coroutines/CoroutineContext;)V
+	public final fun await (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun await (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getContext ()Lkotlin/coroutines/CoroutineContext;
+	public final fun getQueue ()Lkorlibs/io/async/AsyncQueue;
+	public final fun invoke (Lkotlin/jvm/functions/Function1;)Lkorlibs/io/async/AsyncQueue;
+}
+
+public final class korlibs/io/async/AsyncSignal : korlibs/io/async/BaseSignal {
+	public fun <init> ()V
+	public fun <init> (Lkotlin/jvm/functions/Function0;)V
+	public synthetic fun <init> (Lkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun add (Lkotlin/jvm/functions/Function2;)Ljava/lang/AutoCloseable;
+	public final fun invoke (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun invoke (Lkotlin/jvm/functions/Function2;)Ljava/lang/AutoCloseable;
+	public final fun once (Lkotlin/jvm/functions/Function2;)Ljava/lang/AutoCloseable;
+	public fun waitOneBase (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/async/AsyncStuffKt {
+	public static final fun onCancel (Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;)Ljava/lang/AutoCloseable;
+	public static synthetic fun onCancel$default (Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/lang/AutoCloseable;
+}
+
+public final class korlibs/io/async/AsyncStuff_androidKt {
+	public static final fun asyncEntryPoint (Lkotlin/jvm/functions/Function1;)V
+	public static final fun asyncTestEntryPoint (Lkotlin/jvm/functions/Function1;)V
+	public static final fun runBlockingNoJs (Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public static synthetic fun runBlockingNoJs$default (Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/async/AsyncThread : korlibs/io/async/AsyncInvokable {
+	public fun <init> ()V
+	public final fun await (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun cancel ()Lkorlibs/io/async/AsyncThread;
+	public final fun cancelAndQueue (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun invoke (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun queue (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun sync (Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/Deferred;
+	public final fun sync (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract class korlibs/io/async/BaseSignal {
+	public fun <init> ()V
+	public fun <init> (Lkotlin/jvm/functions/Function0;)V
+	public synthetic fun <init> (Lkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	protected final fun _add (ZLjava/lang/Object;)Ljava/lang/AutoCloseable;
+	public final fun clear ()V
+	protected final fun getHandlers ()Ljava/util/List;
+	protected final fun getHandlersToRemove ()Ljava/util/List;
+	public final fun getHasListeners ()Z
+	protected final fun getIterating ()I
+	public final fun getListenerCount ()I
+	public final fun getOnRegister ()Lkotlin/jvm/functions/Function0;
+	protected final fun iterateCallbacks (Lkotlin/jvm/functions/Function1;)V
+	public final fun listen (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	protected final fun setHandlers (Ljava/util/List;)V
+	protected final fun setHandlersToRemove (Ljava/util/List;)V
+	protected final fun setIterating (I)V
+	public abstract fun waitOneBase (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/async/BaseSignal$Node : java/lang/AutoCloseable {
+	public fun <init> (Lkorlibs/io/async/BaseSignal;ZLjava/lang/Object;)V
+	public fun close ()V
+	public final fun getItem ()Ljava/lang/Object;
+	public final fun getOnce ()Z
+}
+
+public abstract class korlibs/io/async/BaseSignal2 {
+	public fun <init> ()V
+	public fun <init> (Lkotlin/jvm/functions/Function0;)V
+	public synthetic fun <init> (Lkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	protected final fun _add (ZLkotlin/jvm/functions/Function2;)Ljava/lang/AutoCloseable;
+	public final fun clear ()V
+	protected final fun getHandlers ()Ljava/util/ArrayList;
+	protected final fun getHandlersToRemove ()Ljava/util/ArrayList;
+	protected final fun getIterating ()I
+	public final fun getListenerCount ()I
+	public final fun getOnRegister ()Lkotlin/jvm/functions/Function0;
+	protected final fun iterateCallbacks (Lkotlin/jvm/functions/Function1;)V
+	public final fun listen (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	protected final fun setHandlers (Ljava/util/ArrayList;)V
+	protected final fun setHandlersToRemove (Ljava/util/ArrayList;)V
+	protected final fun setIterating (I)V
+	public abstract fun waitOneBase (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/async/BaseSignal2$Node : java/lang/AutoCloseable {
+	public fun <init> (Lkorlibs/io/async/BaseSignal2;ZLkotlin/jvm/functions/Function2;)V
+	public fun close ()V
+	public final fun getItem ()Lkotlin/jvm/functions/Function2;
+	public final fun getOnce ()Z
+}
+
+public final class korlibs/io/async/DispatchersExtKt {
+	public static final fun getResourceDecoder (Lkotlinx/coroutines/Dispatchers;)Lkotlinx/coroutines/CoroutineDispatcher;
+}
+
+public final class korlibs/io/async/DispatchersExt_concurrentKt {
+	public static final fun _createFixedThreadDispatcher (Lkotlinx/coroutines/Dispatchers;Ljava/lang/String;I)Lkotlinx/coroutines/CoroutineDispatcher;
+	public static synthetic fun _createFixedThreadDispatcher$default (Lkotlinx/coroutines/Dispatchers;Ljava/lang/String;IILjava/lang/Object;)Lkotlinx/coroutines/CoroutineDispatcher;
+	public static final fun getCIO (Lkotlinx/coroutines/Dispatchers;)Lkotlinx/coroutines/CoroutineDispatcher;
+}
+
+public final class korlibs/io/async/DispatchersExt_jvmAndAndroidKt {
+	public static final fun getConcurrencyLevel (Lkotlinx/coroutines/Dispatchers;)I
+}
+
+public final class korlibs/io/async/EventLoopExecutorService : java/util/concurrent/ExecutorService {
+	public fun <init> (Lkotlin/coroutines/CoroutineContext;)V
+	public fun awaitTermination (JLjava/util/concurrent/TimeUnit;)Z
+	public fun execute (Ljava/lang/Runnable;)V
+	public final fun getContext ()Lkotlin/coroutines/CoroutineContext;
+	public final fun getShutdown ()Z
+	public fun invokeAll (Ljava/util/Collection;)Ljava/util/List;
+	public fun invokeAll (Ljava/util/Collection;JLjava/util/concurrent/TimeUnit;)Ljava/util/List;
+	public fun invokeAny (Ljava/util/Collection;)Ljava/lang/Object;
+	public fun invokeAny (Ljava/util/Collection;JLjava/util/concurrent/TimeUnit;)Ljava/lang/Object;
+	public fun isShutdown ()Z
+	public fun isTerminated ()Z
+	public final fun setShutdown (Z)V
+	public fun shutdown ()V
+	public fun shutdownNow ()Ljava/util/List;
+	public fun submit (Ljava/lang/Runnable;)Ljava/util/concurrent/Future;
+	public fun submit (Ljava/lang/Runnable;Ljava/lang/Object;)Ljava/util/concurrent/Future;
+	public fun submit (Ljava/util/concurrent/Callable;)Ljava/util/concurrent/Future;
+}
+
+public final class korlibs/io/async/InvokeSuspendKt {
+	public static final fun invokeSuspend (Ljava/lang/reflect/Method;Ljava/lang/Object;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/async/PreferSyncIo : kotlin/coroutines/CoroutineContext$Element {
+	public static final field Companion Lkorlibs/io/async/PreferSyncIo$Companion;
+	public fun <init> (Z)V
+	public final fun component1 ()Z
+	public final fun copy (Z)Lkorlibs/io/async/PreferSyncIo;
+	public static synthetic fun copy$default (Lkorlibs/io/async/PreferSyncIo;ZILjava/lang/Object;)Lkorlibs/io/async/PreferSyncIo;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun fold (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public fun get (Lkotlin/coroutines/CoroutineContext$Key;)Lkotlin/coroutines/CoroutineContext$Element;
+	public fun getKey ()Lkorlibs/io/async/PreferSyncIo$Companion;
+	public synthetic fun getKey ()Lkotlin/coroutines/CoroutineContext$Key;
+	public final fun getPreferSyncIo ()Z
+	public fun hashCode ()I
+	public fun minusKey (Lkotlin/coroutines/CoroutineContext$Key;)Lkotlin/coroutines/CoroutineContext;
+	public fun plus (Lkotlin/coroutines/CoroutineContext;)Lkotlin/coroutines/CoroutineContext;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/async/PreferSyncIo$Companion : kotlin/coroutines/CoroutineContext$Key {
+	public final fun getASYNC ()Lkorlibs/io/async/PreferSyncIo;
+	public final fun getSYNC ()Lkorlibs/io/async/PreferSyncIo;
+	public final fun invoke (Ljava/lang/Boolean;)Lkorlibs/io/async/PreferSyncIo;
+}
+
+public final class korlibs/io/async/PreferSyncIoKt {
+	public static final fun getPreferSyncIo (Lkotlin/coroutines/CoroutineContext;)Z
+}
+
+public final class korlibs/io/async/RunBlockingNoSuspensionsKt {
+	public static final fun noSuspend (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public static final fun runBlockingNoSuspensions (Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static final fun runBlockingNoSuspensionsNullable (Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/async/Signal : korlibs/io/async/BaseSignal {
+	public fun <init> ()V
+	public fun <init> (Lkotlin/jvm/functions/Function0;)V
+	public synthetic fun <init> (Lkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun add (Lkotlin/jvm/functions/Function1;)Ljava/lang/AutoCloseable;
+	public final fun invoke (Ljava/lang/Object;)V
+	public final fun invoke (Lkotlin/jvm/functions/Function1;)Ljava/lang/AutoCloseable;
+	public final fun once (Lkotlin/jvm/functions/Function1;)Ljava/lang/AutoCloseable;
+	public fun waitOneBase (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/async/Signal2 : korlibs/io/async/BaseSignal2 {
+	public fun <init> ()V
+	public fun <init> (Lkotlin/jvm/functions/Function0;)V
+	public synthetic fun <init> (Lkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun add (Lkotlin/jvm/functions/Function2;)Ljava/lang/AutoCloseable;
+	public final fun invoke (Ljava/lang/Object;Ljava/lang/Object;)V
+	public final fun invoke (Lkotlin/jvm/functions/Function2;)Ljava/lang/AutoCloseable;
+	public final fun once (Lkotlin/jvm/functions/Function2;)Ljava/lang/AutoCloseable;
+	public fun waitOneBase (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/async/Signal2Kt {
+	public static final fun waitOne (Lkorlibs/io/async/Signal2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/async/SignalKt {
+	public static final fun addCallInit (Lkorlibs/io/async/Signal;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Ljava/lang/AutoCloseable;
+	public static final fun addCallInit (Lkorlibs/io/async/Signal;Lkotlin/jvm/functions/Function1;)Ljava/lang/AutoCloseable;
+	public static final fun addSuspend (Lkorlibs/io/async/Signal;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function2;)Ljava/lang/AutoCloseable;
+	public static final fun addSuspend (Lkorlibs/io/async/Signal;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun executeAndWaitAnySignal (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function0;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun executeAndWaitAnySignal (Ljava/util/Map;Lkotlin/jvm/functions/Function0;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun executeAndWaitSignal (Lkorlibs/io/async/Signal;Lkotlin/jvm/functions/Function0;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun fastIterateRemove (Ljava/util/List;Lkotlin/jvm/functions/Function1;)Ljava/util/List;
+	public static final fun invoke (Lkorlibs/io/async/AsyncSignal;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun invoke (Lkorlibs/io/async/Signal;)V
+	public static final fun mapSignal (Lkorlibs/io/async/AsyncSignal;Lkotlin/jvm/functions/Function1;)Lkorlibs/io/async/AsyncSignal;
+	public static final fun mapSignal (Lkorlibs/io/async/Signal;Lkotlin/jvm/functions/Function1;)Lkorlibs/io/async/Signal;
+	public static final fun waitOne (Ljava/lang/Iterable;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun waitOne (Lkorlibs/io/async/AsyncSignal;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun waitOne (Lkorlibs/io/async/Signal;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun waitOne-8Mi8wO0 (Lkorlibs/io/async/Signal;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun waitOneAsync (Lkorlibs/io/async/Signal;)Lkotlinx/coroutines/Deferred;
+	public static final fun waitOneOpt-Kx4hsE0 (Lkorlibs/io/async/Signal;Lkotlin/time/Duration;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/async/WithContextNullableKt {
+	public static final fun withContextNullable (Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/concurrent/DispatchersExtKt {
+	public static final fun close (Lkotlinx/coroutines/CoroutineDispatcher;)V
+	public static final fun createFixedThreadDispatcher (Lkotlinx/coroutines/Dispatchers;Ljava/lang/String;I)Lkotlinx/coroutines/CoroutineDispatcher;
+	public static synthetic fun createFixedThreadDispatcher$default (Lkotlinx/coroutines/Dispatchers;Ljava/lang/String;IILjava/lang/Object;)Lkotlinx/coroutines/CoroutineDispatcher;
+	public static final fun createRedirectedDispatcher (Lkotlinx/coroutines/Dispatchers;Ljava/lang/String;Lkotlinx/coroutines/CoroutineDispatcher;)Lkotlinx/coroutines/CoroutineDispatcher;
+	public static final fun createSingleThreadedDispatcher (Lkotlinx/coroutines/Dispatchers;Ljava/lang/String;)Lkotlinx/coroutines/CoroutineDispatcher;
+	public static final fun getCONCURRENCY_COUNT ()I
+}
+
+public final class korlibs/io/concurrent/atomic/AtomicLazyKt {
+	public static final fun atomicLazy (Lkotlin/jvm/functions/Function0;)Lkotlin/Lazy;
+}
+
+public final class korlibs/io/concurrent/atomic/KorAtomicKt {
+	public static final fun korAtomic (I)Lkotlinx/atomicfu/AtomicInt;
+	public static final fun korAtomic (J)Lkotlinx/atomicfu/AtomicLong;
+	public static final fun korAtomic (Ljava/lang/Object;)Lkotlinx/atomicfu/AtomicRef;
+	public static final fun korAtomic (Z)Lkotlinx/atomicfu/AtomicBoolean;
+	public static final fun update (Lkotlinx/atomicfu/AtomicBoolean;Lkotlin/jvm/functions/Function1;)Z
+	public static final fun update (Lkotlinx/atomicfu/AtomicInt;Lkotlin/jvm/functions/Function1;)I
+	public static final fun update (Lkotlinx/atomicfu/AtomicLong;Lkotlin/jvm/functions/Function1;)J
+	public static final fun update (Lkotlinx/atomicfu/AtomicRef;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/file/std/VfsAndroidBaseKt {
+	public static final fun getAbsoluteCwd ()Ljava/lang/String;
+	public static final fun getTmpdir ()Ljava/lang/String;
+	public static final fun setAbsoluteCwd (Ljava/lang/String;)V
+	public static final fun vfsInitWithAndroidContextOnce (Landroid/content/Context;)V
+}
+
+public abstract class korlibs/io/lang/NativeThreadLocal {
+	public fun <init> ()V
+	public final fun get ()Ljava/lang/Object;
+	public abstract fun initialValue ()Ljava/lang/Object;
+	public final fun set (Ljava/lang/Object;)V
+}
+
+public final class korlibs/io/lang/threadLocal {
+	public fun <init> (Lkotlin/jvm/functions/Function0;)V
+	public final fun getGen ()Lkotlin/jvm/functions/Function0;
+	public final fun getLocal ()Lkorlibs/io/lang/NativeThreadLocal;
+	public final fun getValue ()Ljava/lang/Object;
+	public final fun getValue (Ljava/lang/Object;Lkotlin/reflect/KProperty;)Ljava/lang/Object;
+	public final fun setValue (Ljava/lang/Object;)V
+	public final fun setValue (Ljava/lang/Object;Lkotlin/reflect/KProperty;Ljava/lang/Object;)V
+}
+

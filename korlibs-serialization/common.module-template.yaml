@@ -1,0 +1,11 @@
+settings:
+  kotlin:
+    apiVersion: 1.9
+    languageVersion: 1.9
+  jvm:
+    target: 1.8
+  android:
+    compileSdk: 33
+
+test-dependencies:
+  - $kotlin-test
