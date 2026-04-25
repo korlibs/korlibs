@@ -378,7 +378,6 @@ public final class korlibs/ffi/FFILib_jvmKt {
 	public static synthetic fun castToFunc$default (Lcom/sun/jna/Pointer;Lkotlin/reflect/KType;Lkorlibs/ffi/FFIFuncConfig;ILjava/lang/Object;)Ljava/lang/Object;
 	public static final fun createJNAFunctionToPlainFunc (Lcom/sun/jna/Function;Lkotlin/reflect/KType;Lkorlibs/ffi/FFIFuncConfig;Ljava/lang/String;)Lkotlin/Function;
 	public static final fun getAddress (Lcom/sun/jna/Pointer;)J
-	public static final fun getDirectBuffer_addressHandle ()Ljava/lang/invoke/MethodHandle;
 	public static final fun getF32 (Lcom/sun/jna/Pointer;I)F
 	public static synthetic fun getF32$default (Lcom/sun/jna/Pointer;IILjava/lang/Object;)F
 	public static final fun getF64 (Lcom/sun/jna/Pointer;I)D
