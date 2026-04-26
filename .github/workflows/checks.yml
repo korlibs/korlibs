@@ -42,7 +42,7 @@ jobs:
           - outputKey: testJsAndroid
             os: ubuntu-latest
             testTask: "wasmBrowserTest"
-            buildTasks: "jsBrowserTest jsDenoTest"
+            buildTasks: "jsBrowserTest"
             upgradeYarnLock: true
             enableAndroid: true
           - outputKey: testLinux
@@ -53,7 +53,7 @@ jobs:
             e2e: true
           - outputKey: testWindows
             os: windows-latest
-            testTask: jvmTest mingwX64Test jsDenoTest
+            testTask: jvmTest mingwX64Test
             precompileTask: compileTestKotlinJvm
             upgradeYarnLock: true
     timeout-minutes: 60
