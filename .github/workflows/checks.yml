@@ -107,7 +107,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@e89f39f1abbbd05b1113a29cf4db69e7540cae5a
         with:
           "api-level": 21
-          "script": "./gradlew connectedCheck lintDebug" # https://github.com/ReactiveCircus/android-emulator-runner/releases/tag/v2.37.0
+          "script": "./gradlew androidConnectedCheck androidCompileLintChecks" # https://github.com/ReactiveCircus/android-emulator-runner/releases/tag/v2.37.0
       - name: "Archive Test Results"
         if: failure()
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f

@@ -26,6 +26,8 @@ kotlin {
         minSdk = libs.versions.minSdk.get().toInt()
 
         androidResources.enable = true
+        withHostTest {}
+        withDeviceTest {}
     }
     js {
         browser {
@@ -84,7 +86,7 @@ afterEvaluate {
         if (target.name.contains("linux") || target.name.contains("mingw")) {
             target.compilations.getByName("main") {
                 (this as KotlinNativeCompilation).cinterops {
-                    val stb_image by creating {
+                    create("stb_image") {
                         defFile(project.file("nativeInterop/cinterop/stb_image.def"))
                     }
                 }

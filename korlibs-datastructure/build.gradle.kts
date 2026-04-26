@@ -25,6 +25,7 @@ kotlin {
 
         androidResources.enable = true
         withHostTest {}
+        withDeviceTest {}
     }
     js {
         browser {

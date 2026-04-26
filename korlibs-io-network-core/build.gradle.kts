@@ -24,6 +24,8 @@ kotlin {
         minSdk = libs.versions.minSdk.get().toInt()
 
         androidResources.enable = true
+        withHostTest {}
+        withDeviceTest {}
     }
     js {
         browser {
@@ -53,7 +55,7 @@ kotlin {
     mingwX64 {
         compilations.getByName("main") {
             cinterops {
-                val win32ssl by creating {
+                create("win32ssl") {
                     defFile(project.file("nativeInterop/cinterop/win32ssl.def"))
                 }
             }

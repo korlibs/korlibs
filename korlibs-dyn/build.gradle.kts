@@ -24,8 +24,8 @@ kotlin {
         minSdk = libs.versions.minSdk.get().toInt()
 
         androidResources.enable = true
-
         withHostTest {}
+        withDeviceTest {}
     }
     js {
         browser {
@@ -86,7 +86,7 @@ kotlin {
             dependsOn(jvmAndAndroidTest)
         }
 
-        val androidHostTest by getting {
+        getByName("androidHostTest") {
             dependsOn(jvmAndAndroidTest)
         }
     }
