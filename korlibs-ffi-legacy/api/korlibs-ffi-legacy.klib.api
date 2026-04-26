@@ -1,0 +1,1632 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: native => [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-ffi-legacy>
+final enum class korlibs.ffi.osx/PrimitiveObjcType : korlibs.ffi.osx/ObjcType, kotlin/Enum<korlibs.ffi.osx/PrimitiveObjcType> { // korlibs.ffi.osx/PrimitiveObjcType|null[0]
+    enum entry BLOCK // korlibs.ffi.osx/PrimitiveObjcType.BLOCK|null[0]
+    enum entry BOOL // korlibs.ffi.osx/PrimitiveObjcType.BOOL|null[0]
+    enum entry BYTE // korlibs.ffi.osx/PrimitiveObjcType.BYTE|null[0]
+    enum entry DOUBLE // korlibs.ffi.osx/PrimitiveObjcType.DOUBLE|null[0]
+    enum entry FLOAT // korlibs.ffi.osx/PrimitiveObjcType.FLOAT|null[0]
+    enum entry ID // korlibs.ffi.osx/PrimitiveObjcType.ID|null[0]
+    enum entry INT // korlibs.ffi.osx/PrimitiveObjcType.INT|null[0]
+    enum entry NINT // korlibs.ffi.osx/PrimitiveObjcType.NINT|null[0]
+    enum entry NUINT // korlibs.ffi.osx/PrimitiveObjcType.NUINT|null[0]
+    enum entry SEL // korlibs.ffi.osx/PrimitiveObjcType.SEL|null[0]
+    enum entry UINT // korlibs.ffi.osx/PrimitiveObjcType.UINT|null[0]
+    enum entry VOID // korlibs.ffi.osx/PrimitiveObjcType.VOID|null[0]
+
+    final val entries // korlibs.ffi.osx/PrimitiveObjcType.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<korlibs.ffi.osx/PrimitiveObjcType> // korlibs.ffi.osx/PrimitiveObjcType.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun toKotlinString(): kotlin/String // korlibs.ffi.osx/PrimitiveObjcType.toKotlinString|toKotlinString(){}[0]
+    final fun valueOf(kotlin/String): korlibs.ffi.osx/PrimitiveObjcType // korlibs.ffi.osx/PrimitiveObjcType.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<korlibs.ffi.osx/PrimitiveObjcType> // korlibs.ffi.osx/PrimitiveObjcType.values|values#static(){}[0]
+}
+
+abstract interface korlibs.ffi.osx/ObjcProtocolClassBaseRef { // korlibs.ffi.osx/ObjcProtocolClassBaseRef|null[0]
+    abstract val name // korlibs.ffi.osx/ObjcProtocolClassBaseRef.name|{}name[0]
+        abstract fun <get-name>(): kotlin/String // korlibs.ffi.osx/ObjcProtocolClassBaseRef.name.<get-name>|<get-name>(){}[0]
+}
+
+abstract interface korlibs.ffi.osx/ObjcType { // korlibs.ffi.osx/ObjcType|null[0]
+    abstract fun toKotlinString(): kotlin/String // korlibs.ffi.osx/ObjcType.toKotlinString|toKotlinString(){}[0]
+}
+
+abstract interface korlibs.ffi/FFICallback // korlibs.ffi/FFICallback|null[0]
+
+abstract interface korlibs.ffi/FFILibSym : kotlin/AutoCloseable { // korlibs.ffi/FFILibSym|null[0]
+    open fun <#A1: kotlin/Any?> get(kotlin/String, kotlin.reflect/KType): #A1 // korlibs.ffi/FFILibSym.get|get(kotlin.String;kotlin.reflect.KType){0§<kotlin.Any?>}[0]
+    open fun close() // korlibs.ffi/FFILibSym.close|close(){}[0]
+}
+
+final class korlibs.ffi.osx/ConstObjcType : korlibs.ffi.osx/ObjcType { // korlibs.ffi.osx/ConstObjcType|null[0]
+    constructor <init>(korlibs.ffi.osx/ObjcType) // korlibs.ffi.osx/ConstObjcType.<init>|<init>(korlibs.ffi.osx.ObjcType){}[0]
+
+    final val base // korlibs.ffi.osx/ConstObjcType.base|{}base[0]
+        final fun <get-base>(): korlibs.ffi.osx/ObjcType // korlibs.ffi.osx/ConstObjcType.base.<get-base>|<get-base>(){}[0]
+
+    final fun component1(): korlibs.ffi.osx/ObjcType // korlibs.ffi.osx/ConstObjcType.component1|component1(){}[0]
+    final fun copy(korlibs.ffi.osx/ObjcType = ...): korlibs.ffi.osx/ConstObjcType // korlibs.ffi.osx/ConstObjcType.copy|copy(korlibs.ffi.osx.ObjcType){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi.osx/ConstObjcType.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi.osx/ConstObjcType.hashCode|hashCode(){}[0]
+    final fun toKotlinString(): kotlin/String // korlibs.ffi.osx/ConstObjcType.toKotlinString|toKotlinString(){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi.osx/ConstObjcType.toString|toString(){}[0]
+}
+
+final class korlibs.ffi.osx/FixedArrayObjcType : korlibs.ffi.osx/ObjcType { // korlibs.ffi.osx/FixedArrayObjcType|null[0]
+    constructor <init>(kotlin/Int, korlibs.ffi.osx/ObjcType) // korlibs.ffi.osx/FixedArrayObjcType.<init>|<init>(kotlin.Int;korlibs.ffi.osx.ObjcType){}[0]
+
+    final val count // korlibs.ffi.osx/FixedArrayObjcType.count|{}count[0]
+        final fun <get-count>(): kotlin/Int // korlibs.ffi.osx/FixedArrayObjcType.count.<get-count>|<get-count>(){}[0]
+    final val type // korlibs.ffi.osx/FixedArrayObjcType.type|{}type[0]
+        final fun <get-type>(): korlibs.ffi.osx/ObjcType // korlibs.ffi.osx/FixedArrayObjcType.type.<get-type>|<get-type>(){}[0]
+
+    final fun component1(): kotlin/Int // korlibs.ffi.osx/FixedArrayObjcType.component1|component1(){}[0]
+    final fun component2(): korlibs.ffi.osx/ObjcType // korlibs.ffi.osx/FixedArrayObjcType.component2|component2(){}[0]
+    final fun copy(kotlin/Int = ..., korlibs.ffi.osx/ObjcType = ...): korlibs.ffi.osx/FixedArrayObjcType // korlibs.ffi.osx/FixedArrayObjcType.copy|copy(kotlin.Int;korlibs.ffi.osx.ObjcType){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi.osx/FixedArrayObjcType.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi.osx/FixedArrayObjcType.hashCode|hashCode(){}[0]
+    final fun toKotlinString(): kotlin/String // korlibs.ffi.osx/FixedArrayObjcType.toKotlinString|toKotlinString(){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi.osx/FixedArrayObjcType.toString|toString(){}[0]
+}
+
+final class korlibs.ffi.osx/NSArray : kotlin.collections/AbstractList<kotlin/Long> { // korlibs.ffi.osx/NSArray|null[0]
+    constructor <init>(korlibs.ffi.osx/ObjcRef) // korlibs.ffi.osx/NSArray.<init>|<init>(korlibs.ffi.osx.ObjcRef){}[0]
+
+    final val count // korlibs.ffi.osx/NSArray.count|{}count[0]
+        final fun <get-count>(): kotlin/Int // korlibs.ffi.osx/NSArray.count.<get-count>|<get-count>(){}[0]
+    final val id // korlibs.ffi.osx/NSArray.id|{}id[0]
+        final fun <get-id>(): korlibs.ffi.osx/ObjcRef // korlibs.ffi.osx/NSArray.id.<get-id>|<get-id>(){}[0]
+    final val size // korlibs.ffi.osx/NSArray.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // korlibs.ffi.osx/NSArray.size.<get-size>|<get-size>(){}[0]
+
+    final fun get(kotlin/Int): kotlin/Long // korlibs.ffi.osx/NSArray.get|get(kotlin.Int){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi.osx/NSArray.toString|toString(){}[0]
+}
+
+final class korlibs.ffi.osx/NSMutableDictionary : korlibs.ffi.osx/NSDictionary { // korlibs.ffi.osx/NSMutableDictionary|null[0]
+    constructor <init>() // korlibs.ffi.osx/NSMutableDictionary.<init>|<init>(){}[0]
+    constructor <init>(kotlin/Long) // korlibs.ffi.osx/NSMutableDictionary.<init>|<init>(kotlin.Long){}[0]
+
+    final fun get(kotlin/Any): korlibs.ffi.osx/NSObject // korlibs.ffi.osx/NSMutableDictionary.get|get(kotlin.Any){}[0]
+    final fun getValue(korlibs.ffi.osx/NSObject): korlibs.ffi.osx/NSObject // korlibs.ffi.osx/NSMutableDictionary.getValue|getValue(korlibs.ffi.osx.NSObject){}[0]
+    final fun set(korlibs.ffi.osx/NSObject, korlibs.ffi.osx/NSObject) // korlibs.ffi.osx/NSMutableDictionary.set|set(korlibs.ffi.osx.NSObject;korlibs.ffi.osx.NSObject){}[0]
+    final fun set(kotlin/Any, kotlin/Any) // korlibs.ffi.osx/NSMutableDictionary.set|set(kotlin.Any;kotlin.Any){}[0]
+    final fun setValue(korlibs.ffi.osx/NSObject, korlibs.ffi.osx/NSObject) // korlibs.ffi.osx/NSMutableDictionary.setValue|setValue(korlibs.ffi.osx.NSObject;korlibs.ffi.osx.NSObject){}[0]
+}
+
+final class korlibs.ffi.osx/NSNumber : korlibs.ffi.osx/NSObject { // korlibs.ffi.osx/NSNumber|null[0]
+    constructor <init>(kotlin/Double) // korlibs.ffi.osx/NSNumber.<init>|<init>(kotlin.Double){}[0]
+    constructor <init>(kotlin/Int) // korlibs.ffi.osx/NSNumber.<init>|<init>(kotlin.Int){}[0]
+    constructor <init>(kotlin/Long, kotlin/Unit = ...) // korlibs.ffi.osx/NSNumber.<init>|<init>(kotlin.Long;kotlin.Unit){}[0]
+
+    final val boolValue // korlibs.ffi.osx/NSNumber.boolValue|{}boolValue[0]
+        final fun <get-boolValue>(): kotlin/Boolean // korlibs.ffi.osx/NSNumber.boolValue.<get-boolValue>|<get-boolValue>(){}[0]
+    final val intValue // korlibs.ffi.osx/NSNumber.intValue|{}intValue[0]
+        final fun <get-intValue>(): kotlin/Int // korlibs.ffi.osx/NSNumber.intValue.<get-intValue>|<get-intValue>(){}[0]
+    final val longValue // korlibs.ffi.osx/NSNumber.longValue|{}longValue[0]
+        final fun <get-longValue>(): kotlin/Long // korlibs.ffi.osx/NSNumber.longValue.<get-longValue>|<get-longValue>(){}[0]
+}
+
+final class korlibs.ffi.osx/ObjcClassRef : korlibs.ffi.osx/ObjcProtocolClassBaseRef { // korlibs.ffi.osx/ObjcClassRef|null[0]
+    constructor <init>(kotlin/Long) // korlibs.ffi.osx/ObjcClassRef.<init>|<init>(kotlin.Long){}[0]
+
+    final val imageName // korlibs.ffi.osx/ObjcClassRef.imageName|{}imageName[0]
+        final fun <get-imageName>(): kotlin/String // korlibs.ffi.osx/ObjcClassRef.imageName.<get-imageName>|<get-imageName>(){}[0]
+    final val name // korlibs.ffi.osx/ObjcClassRef.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.ffi.osx/ObjcClassRef.name.<get-name>|<get-name>(){}[0]
+    final val ref // korlibs.ffi.osx/ObjcClassRef.ref|{}ref[0]
+        final fun <get-ref>(): kotlin/Long // korlibs.ffi.osx/ObjcClassRef.ref.<get-ref>|<get-ref>(){}[0]
+
+    final fun component1(): kotlin/Long // korlibs.ffi.osx/ObjcClassRef.component1|component1(){}[0]
+    final fun copy(kotlin/Long = ...): korlibs.ffi.osx/ObjcClassRef // korlibs.ffi.osx/ObjcClassRef.copy|copy(kotlin.Long){}[0]
+    final fun createInstance(kotlin/Int = ...): kotlin/Long // korlibs.ffi.osx/ObjcClassRef.createInstance|createInstance(kotlin.Int){}[0]
+    final fun dumpKotlin() // korlibs.ffi.osx/ObjcClassRef.dumpKotlin|dumpKotlin(){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi.osx/ObjcClassRef.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi.osx/ObjcClassRef.hashCode|hashCode(){}[0]
+    final fun listIVars() // korlibs.ffi.osx/ObjcClassRef.listIVars|listIVars(){}[0]
+    final fun listMethods(): kotlin.collections/List<korlibs.ffi.osx/ObjcMethodRef> // korlibs.ffi.osx/ObjcClassRef.listMethods|listMethods(){}[0]
+    final fun listProperties() // korlibs.ffi.osx/ObjcClassRef.listProperties|listProperties(){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi.osx/ObjcClassRef.toString|toString(){}[0]
+
+    final object Companion { // korlibs.ffi.osx/ObjcClassRef.Companion|null[0]
+        final fun fromName(kotlin/String): korlibs.ffi.osx/ObjcClassRef? // korlibs.ffi.osx/ObjcClassRef.Companion.fromName|fromName(kotlin.String){}[0]
+        final fun listAll(): kotlin.collections/List<korlibs.ffi.osx/ObjcClassRef> // korlibs.ffi.osx/ObjcClassRef.Companion.listAll|listAll(){}[0]
+    }
+}
+
+final class korlibs.ffi.osx/ObjcMethodDesc { // korlibs.ffi.osx/ObjcMethodDesc|null[0]
+    constructor <init>(kotlin/String, korlibs.ffi.osx/ObjcParam, kotlin.collections/List<korlibs.ffi.osx/ObjcParam>) // korlibs.ffi.osx/ObjcMethodDesc.<init>|<init>(kotlin.String;korlibs.ffi.osx.ObjcParam;kotlin.collections.List<korlibs.ffi.osx.ObjcParam>){}[0]
+    constructor <init>(kotlin/String, kotlin.collections/List<korlibs.ffi.osx/ObjcParam>) // korlibs.ffi.osx/ObjcMethodDesc.<init>|<init>(kotlin.String;kotlin.collections.List<korlibs.ffi.osx.ObjcParam>){}[0]
+
+    final val desc // korlibs.ffi.osx/ObjcMethodDesc.desc|{}desc[0]
+        final fun <get-desc>(): kotlin/String // korlibs.ffi.osx/ObjcMethodDesc.desc.<get-desc>|<get-desc>(){}[0]
+    final val params // korlibs.ffi.osx/ObjcMethodDesc.params|{}params[0]
+        final fun <get-params>(): kotlin.collections/List<korlibs.ffi.osx/ObjcParam> // korlibs.ffi.osx/ObjcMethodDesc.params.<get-params>|<get-params>(){}[0]
+    final val returnType // korlibs.ffi.osx/ObjcMethodDesc.returnType|{}returnType[0]
+        final fun <get-returnType>(): korlibs.ffi.osx/ObjcParam // korlibs.ffi.osx/ObjcMethodDesc.returnType.<get-returnType>|<get-returnType>(){}[0]
+
+    final fun component1(): kotlin/String // korlibs.ffi.osx/ObjcMethodDesc.component1|component1(){}[0]
+    final fun component2(): korlibs.ffi.osx/ObjcParam // korlibs.ffi.osx/ObjcMethodDesc.component2|component2(){}[0]
+    final fun component3(): kotlin.collections/List<korlibs.ffi.osx/ObjcParam> // korlibs.ffi.osx/ObjcMethodDesc.component3|component3(){}[0]
+    final fun copy(kotlin/String = ..., korlibs.ffi.osx/ObjcParam = ..., kotlin.collections/List<korlibs.ffi.osx/ObjcParam> = ...): korlibs.ffi.osx/ObjcMethodDesc // korlibs.ffi.osx/ObjcMethodDesc.copy|copy(kotlin.String;korlibs.ffi.osx.ObjcParam;kotlin.collections.List<korlibs.ffi.osx.ObjcParam>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi.osx/ObjcMethodDesc.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi.osx/ObjcMethodDesc.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi.osx/ObjcMethodDesc.toString|toString(){}[0]
+}
+
+final class korlibs.ffi.osx/ObjcMethodDescription { // korlibs.ffi.osx/ObjcMethodDescription|null[0]
+    constructor <init>(korlibs.ffi.osx/ObjcProtocol, kotlin/Long, kotlin/String) // korlibs.ffi.osx/ObjcMethodDescription.<init>|<init>(korlibs.ffi.osx.ObjcProtocol;kotlin.Long;kotlin.String){}[0]
+
+    final val id // korlibs.ffi.osx/ObjcMethodDescription.id|{}id[0]
+        final fun <get-id>(): kotlin/Long // korlibs.ffi.osx/ObjcMethodDescription.id.<get-id>|<get-id>(){}[0]
+    final val method // korlibs.ffi.osx/ObjcMethodDescription.method|{}method[0]
+        final fun <get-method>(): kotlin/Long // korlibs.ffi.osx/ObjcMethodDescription.method.<get-method>|<get-method>(){}[0]
+    final val name // korlibs.ffi.osx/ObjcMethodDescription.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.ffi.osx/ObjcMethodDescription.name.<get-name>|<get-name>(){}[0]
+    final val parsedTypes // korlibs.ffi.osx/ObjcMethodDescription.parsedTypes|{}parsedTypes[0]
+        final fun <get-parsedTypes>(): korlibs.ffi.osx/ObjcMethodDesc // korlibs.ffi.osx/ObjcMethodDescription.parsedTypes.<get-parsedTypes>|<get-parsedTypes>(){}[0]
+    final val protocol // korlibs.ffi.osx/ObjcMethodDescription.protocol|{}protocol[0]
+        final fun <get-protocol>(): korlibs.ffi.osx/ObjcProtocol // korlibs.ffi.osx/ObjcMethodDescription.protocol.<get-protocol>|<get-protocol>(){}[0]
+    final val types // korlibs.ffi.osx/ObjcMethodDescription.types|{}types[0]
+        final fun <get-types>(): kotlin/String // korlibs.ffi.osx/ObjcMethodDescription.types.<get-types>|<get-types>(){}[0]
+
+    final fun component1(): korlibs.ffi.osx/ObjcProtocol // korlibs.ffi.osx/ObjcMethodDescription.component1|component1(){}[0]
+    final fun component2(): kotlin/Long // korlibs.ffi.osx/ObjcMethodDescription.component2|component2(){}[0]
+    final fun component3(): kotlin/String // korlibs.ffi.osx/ObjcMethodDescription.component3|component3(){}[0]
+    final fun copy(korlibs.ffi.osx/ObjcProtocol = ..., kotlin/Long = ..., kotlin/String = ...): korlibs.ffi.osx/ObjcMethodDescription // korlibs.ffi.osx/ObjcMethodDescription.copy|copy(korlibs.ffi.osx.ObjcProtocol;kotlin.Long;kotlin.String){}[0]
+    final fun dumpKotlin() // korlibs.ffi.osx/ObjcMethodDescription.dumpKotlin|dumpKotlin(){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi.osx/ObjcMethodDescription.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi.osx/ObjcMethodDescription.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi.osx/ObjcMethodDescription.toString|toString(){}[0]
+}
+
+final class korlibs.ffi.osx/ObjcMethodRef { // korlibs.ffi.osx/ObjcMethodRef|null[0]
+    final val name // korlibs.ffi.osx/ObjcMethodRef.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.ffi.osx/ObjcMethodRef.name.<get-name>|<get-name>(){}[0]
+    final val objcClass // korlibs.ffi.osx/ObjcMethodRef.objcClass|{}objcClass[0]
+        final fun <get-objcClass>(): korlibs.ffi.osx/ObjcProtocolClassBaseRef // korlibs.ffi.osx/ObjcMethodRef.objcClass.<get-objcClass>|<get-objcClass>(){}[0]
+    final val parsedTypes // korlibs.ffi.osx/ObjcMethodRef.parsedTypes|{}parsedTypes[0]
+        final fun <get-parsedTypes>(): korlibs.ffi.osx/ObjcMethodDesc // korlibs.ffi.osx/ObjcMethodRef.parsedTypes.<get-parsedTypes>|<get-parsedTypes>(){}[0]
+    final val ptr // korlibs.ffi.osx/ObjcMethodRef.ptr|{}ptr[0]
+        // Targets: [native, wasmJs]
+        final fun <get-ptr>(): korlibs.ffi/FFIPointer? // korlibs.ffi.osx/ObjcMethodRef.ptr.<get-ptr>|<get-ptr>(){}[0]
+
+        // Targets: [js]
+        final fun <get-ptr>(): korlibs.js/DenoPointer? // korlibs.ffi.osx/ObjcMethodRef.ptr.<get-ptr>|<get-ptr>(){}[0]
+    final val selName // korlibs.ffi.osx/ObjcMethodRef.selName|{}selName[0]
+        final fun <get-selName>(): kotlin/String // korlibs.ffi.osx/ObjcMethodRef.selName.<get-selName>|<get-selName>(){}[0]
+    final val types // korlibs.ffi.osx/ObjcMethodRef.types|{}types[0]
+        final fun <get-types>(): kotlin/String // korlibs.ffi.osx/ObjcMethodRef.types.<get-types>|<get-types>(){}[0]
+
+    final fun component1(): korlibs.ffi.osx/ObjcProtocolClassBaseRef // korlibs.ffi.osx/ObjcMethodRef.component1|component1(){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi.osx/ObjcMethodRef.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi.osx/ObjcMethodRef.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi.osx/ObjcMethodRef.toString|toString(){}[0]
+
+    // Targets: [native, wasmJs]
+    constructor <init>(korlibs.ffi.osx/ObjcProtocolClassBaseRef, korlibs.ffi/FFIPointer?) // korlibs.ffi.osx/ObjcMethodRef.<init>|<init>(korlibs.ffi.osx.ObjcProtocolClassBaseRef;korlibs.ffi.FFIPointer?){}[0]
+
+    // Targets: [native, wasmJs]
+    final fun component2(): korlibs.ffi/FFIPointer? // korlibs.ffi.osx/ObjcMethodRef.component2|component2(){}[0]
+
+    // Targets: [native, wasmJs]
+    final fun copy(korlibs.ffi.osx/ObjcProtocolClassBaseRef = ..., korlibs.ffi/FFIPointer? = ...): korlibs.ffi.osx/ObjcMethodRef // korlibs.ffi.osx/ObjcMethodRef.copy|copy(korlibs.ffi.osx.ObjcProtocolClassBaseRef;korlibs.ffi.FFIPointer?){}[0]
+
+    // Targets: [js]
+    constructor <init>(korlibs.ffi.osx/ObjcProtocolClassBaseRef, korlibs.js/DenoPointer?) // korlibs.ffi.osx/ObjcMethodRef.<init>|<init>(korlibs.ffi.osx.ObjcProtocolClassBaseRef;korlibs.js.DenoPointer?){}[0]
+
+    // Targets: [js]
+    final fun component2(): korlibs.js/DenoPointer? // korlibs.ffi.osx/ObjcMethodRef.component2|component2(){}[0]
+
+    // Targets: [js]
+    final fun copy(korlibs.ffi.osx/ObjcProtocolClassBaseRef = ..., korlibs.js/DenoPointer? = ...): korlibs.ffi.osx/ObjcMethodRef // korlibs.ffi.osx/ObjcMethodRef.copy|copy(korlibs.ffi.osx.ObjcProtocolClassBaseRef;korlibs.js.DenoPointer?){}[0]
+}
+
+final class korlibs.ffi.osx/ObjcParam { // korlibs.ffi.osx/ObjcParam|null[0]
+    constructor <init>(kotlin/Int, korlibs.ffi.osx/ObjcType) // korlibs.ffi.osx/ObjcParam.<init>|<init>(kotlin.Int;korlibs.ffi.osx.ObjcType){}[0]
+
+    final val offset // korlibs.ffi.osx/ObjcParam.offset|{}offset[0]
+        final fun <get-offset>(): kotlin/Int // korlibs.ffi.osx/ObjcParam.offset.<get-offset>|<get-offset>(){}[0]
+    final val type // korlibs.ffi.osx/ObjcParam.type|{}type[0]
+        final fun <get-type>(): korlibs.ffi.osx/ObjcType // korlibs.ffi.osx/ObjcParam.type.<get-type>|<get-type>(){}[0]
+
+    final fun component1(): kotlin/Int // korlibs.ffi.osx/ObjcParam.component1|component1(){}[0]
+    final fun component2(): korlibs.ffi.osx/ObjcType // korlibs.ffi.osx/ObjcParam.component2|component2(){}[0]
+    final fun copy(kotlin/Int = ..., korlibs.ffi.osx/ObjcType = ...): korlibs.ffi.osx/ObjcParam // korlibs.ffi.osx/ObjcParam.copy|copy(kotlin.Int;korlibs.ffi.osx.ObjcType){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi.osx/ObjcParam.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi.osx/ObjcParam.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi.osx/ObjcParam.toString|toString(){}[0]
+}
+
+final class korlibs.ffi.osx/ObjcProtocol : korlibs.ffi.osx/ObjcProtocolClassBaseRef { // korlibs.ffi.osx/ObjcProtocol|null[0]
+    constructor <init>(kotlin/Long) // korlibs.ffi.osx/ObjcProtocol.<init>|<init>(kotlin.Long){}[0]
+
+    final val name // korlibs.ffi.osx/ObjcProtocol.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.ffi.osx/ObjcProtocol.name.<get-name>|<get-name>(){}[0]
+    final val ref // korlibs.ffi.osx/ObjcProtocol.ref|{}ref[0]
+        final fun <get-ref>(): kotlin/Long // korlibs.ffi.osx/ObjcProtocol.ref.<get-ref>|<get-ref>(){}[0]
+
+    final fun dumpKotlin() // korlibs.ffi.osx/ObjcProtocol.dumpKotlin|dumpKotlin(){}[0]
+    final fun listMethods(): kotlin.collections/List<korlibs.ffi.osx/ObjcMethodDescription> // korlibs.ffi.osx/ObjcProtocol.listMethods|listMethods(){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi.osx/ObjcProtocol.toString|toString(){}[0]
+
+    final object Companion { // korlibs.ffi.osx/ObjcProtocol.Companion|null[0]
+        final fun fromName(kotlin/String): korlibs.ffi.osx/ObjcProtocol? // korlibs.ffi.osx/ObjcProtocol.Companion.fromName|fromName(kotlin.String){}[0]
+        final fun listAll(): kotlin.collections/List<korlibs.ffi.osx/ObjcProtocol> // korlibs.ffi.osx/ObjcProtocol.Companion.listAll|listAll(){}[0]
+    }
+}
+
+final class korlibs.ffi.osx/PointerObjcType : korlibs.ffi.osx/ObjcType { // korlibs.ffi.osx/PointerObjcType|null[0]
+    constructor <init>(korlibs.ffi.osx/ObjcType) // korlibs.ffi.osx/PointerObjcType.<init>|<init>(korlibs.ffi.osx.ObjcType){}[0]
+
+    final val base // korlibs.ffi.osx/PointerObjcType.base|{}base[0]
+        final fun <get-base>(): korlibs.ffi.osx/ObjcType // korlibs.ffi.osx/PointerObjcType.base.<get-base>|<get-base>(){}[0]
+
+    final fun component1(): korlibs.ffi.osx/ObjcType // korlibs.ffi.osx/PointerObjcType.component1|component1(){}[0]
+    final fun copy(korlibs.ffi.osx/ObjcType = ...): korlibs.ffi.osx/PointerObjcType // korlibs.ffi.osx/PointerObjcType.copy|copy(korlibs.ffi.osx.ObjcType){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi.osx/PointerObjcType.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi.osx/PointerObjcType.hashCode|hashCode(){}[0]
+    final fun toKotlinString(): kotlin/String // korlibs.ffi.osx/PointerObjcType.toKotlinString|toKotlinString(){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi.osx/PointerObjcType.toString|toString(){}[0]
+}
+
+final class korlibs.ffi.osx/StructObjcType : korlibs.ffi.osx/ObjcType { // korlibs.ffi.osx/StructObjcType|null[0]
+    constructor <init>(kotlin/String, kotlin.collections/List<korlibs.ffi.osx/ObjcType>) // korlibs.ffi.osx/StructObjcType.<init>|<init>(kotlin.String;kotlin.collections.List<korlibs.ffi.osx.ObjcType>){}[0]
+
+    final val strName // korlibs.ffi.osx/StructObjcType.strName|{}strName[0]
+        final fun <get-strName>(): kotlin/String // korlibs.ffi.osx/StructObjcType.strName.<get-strName>|<get-strName>(){}[0]
+    final val types // korlibs.ffi.osx/StructObjcType.types|{}types[0]
+        final fun <get-types>(): kotlin.collections/List<korlibs.ffi.osx/ObjcType> // korlibs.ffi.osx/StructObjcType.types.<get-types>|<get-types>(){}[0]
+
+    final fun component1(): kotlin/String // korlibs.ffi.osx/StructObjcType.component1|component1(){}[0]
+    final fun component2(): kotlin.collections/List<korlibs.ffi.osx/ObjcType> // korlibs.ffi.osx/StructObjcType.component2|component2(){}[0]
+    final fun copy(kotlin/String = ..., kotlin.collections/List<korlibs.ffi.osx/ObjcType> = ...): korlibs.ffi.osx/StructObjcType // korlibs.ffi.osx/StructObjcType.copy|copy(kotlin.String;kotlin.collections.List<korlibs.ffi.osx.ObjcType>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi.osx/StructObjcType.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi.osx/StructObjcType.hashCode|hashCode(){}[0]
+    final fun toKotlinString(): kotlin/String // korlibs.ffi.osx/StructObjcType.toKotlinString|toKotlinString(){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi.osx/StructObjcType.toString|toString(){}[0]
+}
+
+final class korlibs.ffi/FFIArena { // korlibs.ffi/FFIArena|null[0]
+    constructor <init>() // korlibs.ffi/FFIArena.<init>|<init>(){}[0]
+
+    final fun clear() // korlibs.ffi/FFIArena.clear|clear(){}[0]
+
+    // Targets: [native, wasmJs]
+    final fun allocBytes(kotlin/Int): korlibs.ffi/FFIPointer // korlibs.ffi/FFIArena.allocBytes|allocBytes(kotlin.Int){}[0]
+
+    // Targets: [native]
+    final val arena // korlibs.ffi/FFIArena.arena|{}arena[0]
+        final fun <get-arena>(): kotlinx.cinterop/Arena // korlibs.ffi/FFIArena.arena.<get-arena>|<get-arena>(){}[0]
+
+    // Targets: [js]
+    final fun allocBytes(kotlin/Int): korlibs.js/DenoPointer // korlibs.ffi/FFIArena.allocBytes|allocBytes(kotlin.Int){}[0]
+}
+
+final class korlibs.ffi/FFIDelegateFixedBytesProperty { // korlibs.ffi/FFIDelegateFixedBytesProperty|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int) // korlibs.ffi/FFIDelegateFixedBytesProperty.<init>|<init>(kotlin.Int;kotlin.Int){}[0]
+
+    final val bytes // korlibs.ffi/FFIDelegateFixedBytesProperty.bytes|{}bytes[0]
+        final fun <get-bytes>(): kotlin/ByteArray // korlibs.ffi/FFIDelegateFixedBytesProperty.bytes.<get-bytes>|<get-bytes>(){}[0]
+    final val offset // korlibs.ffi/FFIDelegateFixedBytesProperty.offset|{}offset[0]
+        final fun <get-offset>(): kotlin/Int // korlibs.ffi/FFIDelegateFixedBytesProperty.offset.<get-offset>|<get-offset>(){}[0]
+    final val size // korlibs.ffi/FFIDelegateFixedBytesProperty.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // korlibs.ffi/FFIDelegateFixedBytesProperty.size.<get-size>|<get-size>(){}[0]
+
+    final fun getValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>): kotlin/ByteArray // korlibs.ffi/FFIDelegateFixedBytesProperty.getValue|getValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>){}[0]
+    final fun setValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>, kotlin/ByteArray) // korlibs.ffi/FFIDelegateFixedBytesProperty.setValue|setValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>;kotlin.ByteArray){}[0]
+}
+
+final class korlibs.ffi/FFIFuncConfig { // korlibs.ffi/FFIFuncConfig|null[0]
+    constructor <init>(kotlin/Boolean = ..., kotlin/Boolean = ...) // korlibs.ffi/FFIFuncConfig.<init>|<init>(kotlin.Boolean;kotlin.Boolean){}[0]
+
+    final val altAbiConvention // korlibs.ffi/FFIFuncConfig.altAbiConvention|{}altAbiConvention[0]
+        final fun <get-altAbiConvention>(): kotlin/Boolean // korlibs.ffi/FFIFuncConfig.altAbiConvention.<get-altAbiConvention>|<get-altAbiConvention>(){}[0]
+    final val wideString // korlibs.ffi/FFIFuncConfig.wideString|{}wideString[0]
+        final fun <get-wideString>(): kotlin/Boolean // korlibs.ffi/FFIFuncConfig.wideString.<get-wideString>|<get-wideString>(){}[0]
+
+    final fun component1(): kotlin/Boolean // korlibs.ffi/FFIFuncConfig.component1|component1(){}[0]
+    final fun component2(): kotlin/Boolean // korlibs.ffi/FFIFuncConfig.component2|component2(){}[0]
+    final fun copy(kotlin/Boolean = ..., kotlin/Boolean = ...): korlibs.ffi/FFIFuncConfig // korlibs.ffi/FFIFuncConfig.copy|copy(kotlin.Boolean;kotlin.Boolean){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi/FFIFuncConfig.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi/FFIFuncConfig.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi/FFIFuncConfig.toString|toString(){}[0]
+
+    final object Companion { // korlibs.ffi/FFIFuncConfig.Companion|null[0]
+        final val DEFAULT // korlibs.ffi/FFIFuncConfig.Companion.DEFAULT|{}DEFAULT[0]
+            final fun <get-DEFAULT>(): korlibs.ffi/FFIFuncConfig // korlibs.ffi/FFIFuncConfig.Companion.DEFAULT.<get-DEFAULT>|<get-DEFAULT>(){}[0]
+        final val WIDE_STRING // korlibs.ffi/FFIFuncConfig.Companion.WIDE_STRING|{}WIDE_STRING[0]
+            final fun <get-WIDE_STRING>(): korlibs.ffi/FFIFuncConfig // korlibs.ffi/FFIFuncConfig.Companion.WIDE_STRING.<get-WIDE_STRING>|<get-WIDE_STRING>(){}[0]
+    }
+}
+
+final class korlibs.ffi/FFINativeLong { // korlibs.ffi/FFINativeLong|null[0]
+    constructor <init>(kotlin/Long) // korlibs.ffi/FFINativeLong.<init>|<init>(kotlin.Long){}[0]
+
+    final val value // korlibs.ffi/FFINativeLong.value|{}value[0]
+        final fun <get-value>(): kotlin/Long // korlibs.ffi/FFINativeLong.value.<get-value>|<get-value>(){}[0]
+}
+
+final class korlibs.ffi/FuncType { // korlibs.ffi/FuncType|null[0]
+    constructor <init>(kotlin.collections/List<kotlin.reflect/KType?>, kotlin.reflect/KType?) // korlibs.ffi/FuncType.<init>|<init>(kotlin.collections.List<kotlin.reflect.KType?>;kotlin.reflect.KType?){}[0]
+
+    final val params // korlibs.ffi/FuncType.params|{}params[0]
+        final fun <get-params>(): kotlin.collections/List<kotlin.reflect/KType?> // korlibs.ffi/FuncType.params.<get-params>|<get-params>(){}[0]
+    final val paramsClass // korlibs.ffi/FuncType.paramsClass|{}paramsClass[0]
+        final fun <get-paramsClass>(): kotlin.collections/List<kotlin.reflect/KClassifier?> // korlibs.ffi/FuncType.paramsClass.<get-paramsClass>|<get-paramsClass>(){}[0]
+    final val ret // korlibs.ffi/FuncType.ret|{}ret[0]
+        final fun <get-ret>(): kotlin.reflect/KType? // korlibs.ffi/FuncType.ret.<get-ret>|<get-ret>(){}[0]
+    final val retClass // korlibs.ffi/FuncType.retClass|{}retClass[0]
+        final fun <get-retClass>(): kotlin.reflect/KClassifier? // korlibs.ffi/FuncType.retClass.<get-retClass>|<get-retClass>(){}[0]
+}
+
+final value class <#A: kotlin/Any?> korlibs.ffi/FFIDelegateFFIPointerPropertyT { // korlibs.ffi/FFIDelegateFFIPointerPropertyT|null[0]
+    constructor <init>(kotlin/Int) // korlibs.ffi/FFIDelegateFFIPointerPropertyT.<init>|<init>(kotlin.Int){}[0]
+
+    final val offset // korlibs.ffi/FFIDelegateFFIPointerPropertyT.offset|{}offset[0]
+        final fun <get-offset>(): kotlin/Int // korlibs.ffi/FFIDelegateFFIPointerPropertyT.offset.<get-offset>|<get-offset>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi/FFIDelegateFFIPointerPropertyT.equals|equals(kotlin.Any?){}[0]
+    final fun getValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>): korlibs.ffi/FFITypedPointer<#A>? // korlibs.ffi/FFIDelegateFFIPointerPropertyT.getValue|getValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi/FFIDelegateFFIPointerPropertyT.hashCode|hashCode(){}[0]
+    final fun setValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>, korlibs.ffi/FFITypedPointer<#A>?) // korlibs.ffi/FFIDelegateFFIPointerPropertyT.setValue|setValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>;korlibs.ffi.FFITypedPointer<1:0>?){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi/FFIDelegateFFIPointerPropertyT.toString|toString(){}[0]
+}
+
+final value class <#A: kotlin/Any?> korlibs.ffi/FFITypedPointer { // korlibs.ffi/FFITypedPointer|null[0]
+    final val pointer // korlibs.ffi/FFITypedPointer.pointer|{}pointer[0]
+        // Targets: [native, wasmJs]
+        final fun <get-pointer>(): korlibs.ffi/FFIPointer // korlibs.ffi/FFITypedPointer.pointer.<get-pointer>|<get-pointer>(){}[0]
+
+        // Targets: [js]
+        final fun <get-pointer>(): korlibs.js/DenoPointer // korlibs.ffi/FFITypedPointer.pointer.<get-pointer>|<get-pointer>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi/FFITypedPointer.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi/FFITypedPointer.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi/FFITypedPointer.toString|toString(){}[0]
+
+    // Targets: [native, wasmJs]
+    constructor <init>(korlibs.ffi/FFIPointer) // korlibs.ffi/FFITypedPointer.<init>|<init>(korlibs.ffi.FFIPointer){}[0]
+
+    // Targets: [js]
+    constructor <init>(korlibs.js/DenoPointer) // korlibs.ffi/FFITypedPointer.<init>|<init>(korlibs.js.DenoPointer){}[0]
+}
+
+final value class korlibs.ffi.osx/ObjcRef { // korlibs.ffi.osx/ObjcRef|null[0]
+    constructor <init>(korlibs.ffi.osx/ObjcRef, kotlin/Unit = ...) // korlibs.ffi.osx/ObjcRef.<init>|<init>(korlibs.ffi.osx.ObjcRef;kotlin.Unit){}[0]
+    constructor <init>(kotlin/Long) // korlibs.ffi.osx/ObjcRef.<init>|<init>(kotlin.Long){}[0]
+
+    final val id // korlibs.ffi.osx/ObjcRef.id|{}id[0]
+        final fun <get-id>(): kotlin/Long // korlibs.ffi.osx/ObjcRef.id.<get-id>|<get-id>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi.osx/ObjcRef.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi.osx/ObjcRef.hashCode|hashCode(){}[0]
+    final fun msgSend(korlibs.ffi.osx/ObjcSel, kotlin/Array<out kotlin/Any?>...): kotlin/Long // korlibs.ffi.osx/ObjcRef.msgSend|msgSend(korlibs.ffi.osx.ObjcSel;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun msgSend(kotlin/String, kotlin/Array<out kotlin/Any?>...): kotlin/Long // korlibs.ffi.osx/ObjcRef.msgSend|msgSend(kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun msgSendDouble(korlibs.ffi.osx/ObjcSel, kotlin/Array<out kotlin/Any?>...): kotlin/Double // korlibs.ffi.osx/ObjcRef.msgSendDouble|msgSendDouble(korlibs.ffi.osx.ObjcSel;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun msgSendDouble(kotlin/String, kotlin/Array<out kotlin/Any?>...): kotlin/Double // korlibs.ffi.osx/ObjcRef.msgSendDouble|msgSendDouble(kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun msgSendFloat(korlibs.ffi.osx/ObjcSel, kotlin/Array<out kotlin/Any?>...): kotlin/Float // korlibs.ffi.osx/ObjcRef.msgSendFloat|msgSendFloat(korlibs.ffi.osx.ObjcSel;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun msgSendFloat(kotlin/String, kotlin/Array<out kotlin/Any?>...): kotlin/Float // korlibs.ffi.osx/ObjcRef.msgSendFloat|msgSendFloat(kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun msgSendInt(korlibs.ffi.osx/ObjcSel, kotlin/Array<out kotlin/Any?>...): kotlin/Int // korlibs.ffi.osx/ObjcRef.msgSendInt|msgSendInt(korlibs.ffi.osx.ObjcSel;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun msgSendInt(kotlin/String, kotlin/Array<out kotlin/Any?>...): kotlin/Int // korlibs.ffi.osx/ObjcRef.msgSendInt|msgSendInt(kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun msgSendRef(korlibs.ffi.osx/ObjcSel, kotlin/Array<out kotlin/Any?>...): korlibs.ffi.osx/ObjcRef // korlibs.ffi.osx/ObjcRef.msgSendRef|msgSendRef(korlibs.ffi.osx.ObjcSel;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun msgSendRef(kotlin/String, kotlin/Array<out kotlin/Any?>...): korlibs.ffi.osx/ObjcRef // korlibs.ffi.osx/ObjcRef.msgSendRef|msgSendRef(kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun msgSendVoid(korlibs.ffi.osx/ObjcSel, kotlin/Array<out kotlin/Any?>...) // korlibs.ffi.osx/ObjcRef.msgSendVoid|msgSendVoid(korlibs.ffi.osx.ObjcSel;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun msgSendVoid(kotlin/String, kotlin/Array<out kotlin/Any?>...) // korlibs.ffi.osx/ObjcRef.msgSendVoid|msgSendVoid(kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi.osx/ObjcRef.toString|toString(){}[0]
+}
+
+final value class korlibs.ffi.osx/ObjcSel { // korlibs.ffi.osx/ObjcSel|null[0]
+    constructor <init>(kotlin/Long) // korlibs.ffi.osx/ObjcSel.<init>|<init>(kotlin.Long){}[0]
+
+    final val id // korlibs.ffi.osx/ObjcSel.id|{}id[0]
+        final fun <get-id>(): kotlin/Long // korlibs.ffi.osx/ObjcSel.id.<get-id>|<get-id>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi.osx/ObjcSel.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi.osx/ObjcSel.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi.osx/ObjcSel.toString|toString(){}[0]
+
+    final object Companion { // korlibs.ffi.osx/ObjcSel.Companion|null[0]
+        final fun invoke(kotlin/String): korlibs.ffi.osx/ObjcSel // korlibs.ffi.osx/ObjcSel.Companion.invoke|invoke(kotlin.String){}[0]
+    }
+}
+
+final value class korlibs.ffi/FFIDelegateBoolProperty { // korlibs.ffi/FFIDelegateBoolProperty|null[0]
+    constructor <init>(kotlin/Int) // korlibs.ffi/FFIDelegateBoolProperty.<init>|<init>(kotlin.Int){}[0]
+
+    final val offset // korlibs.ffi/FFIDelegateBoolProperty.offset|{}offset[0]
+        final fun <get-offset>(): kotlin/Int // korlibs.ffi/FFIDelegateBoolProperty.offset.<get-offset>|<get-offset>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi/FFIDelegateBoolProperty.equals|equals(kotlin.Any?){}[0]
+    final fun getValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>): kotlin/Boolean // korlibs.ffi/FFIDelegateBoolProperty.getValue|getValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi/FFIDelegateBoolProperty.hashCode|hashCode(){}[0]
+    final fun setValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>, kotlin/Boolean) // korlibs.ffi/FFIDelegateBoolProperty.setValue|setValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>;kotlin.Boolean){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi/FFIDelegateBoolProperty.toString|toString(){}[0]
+}
+
+final value class korlibs.ffi/FFIDelegateByteProperty { // korlibs.ffi/FFIDelegateByteProperty|null[0]
+    constructor <init>(kotlin/Int) // korlibs.ffi/FFIDelegateByteProperty.<init>|<init>(kotlin.Int){}[0]
+
+    final val offset // korlibs.ffi/FFIDelegateByteProperty.offset|{}offset[0]
+        final fun <get-offset>(): kotlin/Int // korlibs.ffi/FFIDelegateByteProperty.offset.<get-offset>|<get-offset>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi/FFIDelegateByteProperty.equals|equals(kotlin.Any?){}[0]
+    final fun getValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>): kotlin/Byte // korlibs.ffi/FFIDelegateByteProperty.getValue|getValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi/FFIDelegateByteProperty.hashCode|hashCode(){}[0]
+    final fun setValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>, kotlin/Byte) // korlibs.ffi/FFIDelegateByteProperty.setValue|setValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>;kotlin.Byte){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi/FFIDelegateByteProperty.toString|toString(){}[0]
+}
+
+final value class korlibs.ffi/FFIDelegateDoubleProperty { // korlibs.ffi/FFIDelegateDoubleProperty|null[0]
+    constructor <init>(kotlin/Int) // korlibs.ffi/FFIDelegateDoubleProperty.<init>|<init>(kotlin.Int){}[0]
+
+    final val offset // korlibs.ffi/FFIDelegateDoubleProperty.offset|{}offset[0]
+        final fun <get-offset>(): kotlin/Int // korlibs.ffi/FFIDelegateDoubleProperty.offset.<get-offset>|<get-offset>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi/FFIDelegateDoubleProperty.equals|equals(kotlin.Any?){}[0]
+    final fun getValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>): kotlin/Double // korlibs.ffi/FFIDelegateDoubleProperty.getValue|getValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi/FFIDelegateDoubleProperty.hashCode|hashCode(){}[0]
+    final fun setValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>, kotlin/Double) // korlibs.ffi/FFIDelegateDoubleProperty.setValue|setValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>;kotlin.Double){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi/FFIDelegateDoubleProperty.toString|toString(){}[0]
+}
+
+final value class korlibs.ffi/FFIDelegateFFIPointerProperty { // korlibs.ffi/FFIDelegateFFIPointerProperty|null[0]
+    constructor <init>(kotlin/Int) // korlibs.ffi/FFIDelegateFFIPointerProperty.<init>|<init>(kotlin.Int){}[0]
+
+    final val offset // korlibs.ffi/FFIDelegateFFIPointerProperty.offset|{}offset[0]
+        final fun <get-offset>(): kotlin/Int // korlibs.ffi/FFIDelegateFFIPointerProperty.offset.<get-offset>|<get-offset>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi/FFIDelegateFFIPointerProperty.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi/FFIDelegateFFIPointerProperty.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi/FFIDelegateFFIPointerProperty.toString|toString(){}[0]
+
+    // Targets: [native, wasmJs]
+    final fun getValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>): korlibs.ffi/FFIPointer? // korlibs.ffi/FFIDelegateFFIPointerProperty.getValue|getValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>){}[0]
+
+    // Targets: [native, wasmJs]
+    final fun setValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>, korlibs.ffi/FFIPointer?) // korlibs.ffi/FFIDelegateFFIPointerProperty.setValue|setValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>;korlibs.ffi.FFIPointer?){}[0]
+
+    // Targets: [js]
+    final fun getValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>): korlibs.js/DenoPointer? // korlibs.ffi/FFIDelegateFFIPointerProperty.getValue|getValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>){}[0]
+
+    // Targets: [js]
+    final fun setValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>, korlibs.js/DenoPointer?) // korlibs.ffi/FFIDelegateFFIPointerProperty.setValue|setValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>;korlibs.js.DenoPointer?){}[0]
+}
+
+final value class korlibs.ffi/FFIDelegateFloatProperty { // korlibs.ffi/FFIDelegateFloatProperty|null[0]
+    constructor <init>(kotlin/Int) // korlibs.ffi/FFIDelegateFloatProperty.<init>|<init>(kotlin.Int){}[0]
+
+    final val offset // korlibs.ffi/FFIDelegateFloatProperty.offset|{}offset[0]
+        final fun <get-offset>(): kotlin/Int // korlibs.ffi/FFIDelegateFloatProperty.offset.<get-offset>|<get-offset>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi/FFIDelegateFloatProperty.equals|equals(kotlin.Any?){}[0]
+    final fun getValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>): kotlin/Float // korlibs.ffi/FFIDelegateFloatProperty.getValue|getValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi/FFIDelegateFloatProperty.hashCode|hashCode(){}[0]
+    final fun setValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>, kotlin/Float) // korlibs.ffi/FFIDelegateFloatProperty.setValue|setValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>;kotlin.Float){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi/FFIDelegateFloatProperty.toString|toString(){}[0]
+}
+
+final value class korlibs.ffi/FFIDelegateIntProperty { // korlibs.ffi/FFIDelegateIntProperty|null[0]
+    constructor <init>(kotlin/Int) // korlibs.ffi/FFIDelegateIntProperty.<init>|<init>(kotlin.Int){}[0]
+
+    final val offset // korlibs.ffi/FFIDelegateIntProperty.offset|{}offset[0]
+        final fun <get-offset>(): kotlin/Int // korlibs.ffi/FFIDelegateIntProperty.offset.<get-offset>|<get-offset>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi/FFIDelegateIntProperty.equals|equals(kotlin.Any?){}[0]
+    final fun getValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>): kotlin/Int // korlibs.ffi/FFIDelegateIntProperty.getValue|getValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi/FFIDelegateIntProperty.hashCode|hashCode(){}[0]
+    final fun setValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>, kotlin/Int) // korlibs.ffi/FFIDelegateIntProperty.setValue|setValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>;kotlin.Int){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi/FFIDelegateIntProperty.toString|toString(){}[0]
+}
+
+final value class korlibs.ffi/FFIDelegateLongProperty { // korlibs.ffi/FFIDelegateLongProperty|null[0]
+    constructor <init>(kotlin/Int) // korlibs.ffi/FFIDelegateLongProperty.<init>|<init>(kotlin.Int){}[0]
+
+    final val offset // korlibs.ffi/FFIDelegateLongProperty.offset|{}offset[0]
+        final fun <get-offset>(): kotlin/Int // korlibs.ffi/FFIDelegateLongProperty.offset.<get-offset>|<get-offset>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi/FFIDelegateLongProperty.equals|equals(kotlin.Any?){}[0]
+    final fun getValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>): kotlin/Long // korlibs.ffi/FFIDelegateLongProperty.getValue|getValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi/FFIDelegateLongProperty.hashCode|hashCode(){}[0]
+    final fun setValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>, kotlin/Long) // korlibs.ffi/FFIDelegateLongProperty.setValue|setValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>;kotlin.Long){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi/FFIDelegateLongProperty.toString|toString(){}[0]
+}
+
+final value class korlibs.ffi/FFIDelegateNativeDoubleProperty { // korlibs.ffi/FFIDelegateNativeDoubleProperty|null[0]
+    constructor <init>(kotlin/Int) // korlibs.ffi/FFIDelegateNativeDoubleProperty.<init>|<init>(kotlin.Int){}[0]
+
+    final val offset // korlibs.ffi/FFIDelegateNativeDoubleProperty.offset|{}offset[0]
+        final fun <get-offset>(): kotlin/Int // korlibs.ffi/FFIDelegateNativeDoubleProperty.offset.<get-offset>|<get-offset>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi/FFIDelegateNativeDoubleProperty.equals|equals(kotlin.Any?){}[0]
+    final fun getValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>): kotlin/Double // korlibs.ffi/FFIDelegateNativeDoubleProperty.getValue|getValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi/FFIDelegateNativeDoubleProperty.hashCode|hashCode(){}[0]
+    final fun setValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>, kotlin/Double) // korlibs.ffi/FFIDelegateNativeDoubleProperty.setValue|setValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>;kotlin.Double){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi/FFIDelegateNativeDoubleProperty.toString|toString(){}[0]
+
+    // Targets: [native, wasmJs]
+    final fun get(korlibs.ffi/FFIPointer): kotlin/Double // korlibs.ffi/FFIDelegateNativeDoubleProperty.get|get(korlibs.ffi.FFIPointer){}[0]
+
+    // Targets: [native, wasmJs]
+    final fun set(korlibs.ffi/FFIPointer, kotlin/Double) // korlibs.ffi/FFIDelegateNativeDoubleProperty.set|set(korlibs.ffi.FFIPointer;kotlin.Double){}[0]
+
+    // Targets: [js]
+    final fun get(korlibs.js/DenoPointer): kotlin/Double // korlibs.ffi/FFIDelegateNativeDoubleProperty.get|get(korlibs.js.DenoPointer){}[0]
+
+    // Targets: [js]
+    final fun set(korlibs.js/DenoPointer, kotlin/Double) // korlibs.ffi/FFIDelegateNativeDoubleProperty.set|set(korlibs.js.DenoPointer;kotlin.Double){}[0]
+}
+
+final value class korlibs.ffi/FFIDelegateNativeLongProperty { // korlibs.ffi/FFIDelegateNativeLongProperty|null[0]
+    constructor <init>(kotlin/Int) // korlibs.ffi/FFIDelegateNativeLongProperty.<init>|<init>(kotlin.Int){}[0]
+
+    final val offset // korlibs.ffi/FFIDelegateNativeLongProperty.offset|{}offset[0]
+        final fun <get-offset>(): kotlin/Int // korlibs.ffi/FFIDelegateNativeLongProperty.offset.<get-offset>|<get-offset>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi/FFIDelegateNativeLongProperty.equals|equals(kotlin.Any?){}[0]
+    final fun getValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>): kotlin/Long // korlibs.ffi/FFIDelegateNativeLongProperty.getValue|getValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi/FFIDelegateNativeLongProperty.hashCode|hashCode(){}[0]
+    final fun setValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>, kotlin/Long) // korlibs.ffi/FFIDelegateNativeLongProperty.setValue|setValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>;kotlin.Long){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi/FFIDelegateNativeLongProperty.toString|toString(){}[0]
+}
+
+final value class korlibs.ffi/FFIDelegateShortProperty { // korlibs.ffi/FFIDelegateShortProperty|null[0]
+    constructor <init>(kotlin/Int) // korlibs.ffi/FFIDelegateShortProperty.<init>|<init>(kotlin.Int){}[0]
+
+    final val offset // korlibs.ffi/FFIDelegateShortProperty.offset|{}offset[0]
+        final fun <get-offset>(): kotlin/Int // korlibs.ffi/FFIDelegateShortProperty.offset.<get-offset>|<get-offset>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi/FFIDelegateShortProperty.equals|equals(kotlin.Any?){}[0]
+    final fun getValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>): kotlin/Short // korlibs.ffi/FFIDelegateShortProperty.getValue|getValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi/FFIDelegateShortProperty.hashCode|hashCode(){}[0]
+    final fun setValue(korlibs.ffi/FFIStructure, kotlin.reflect/KProperty<*>, kotlin/Short) // korlibs.ffi/FFIDelegateShortProperty.setValue|setValue(korlibs.ffi.FFIStructure;kotlin.reflect.KProperty<*>;kotlin.Short){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi/FFIDelegateShortProperty.toString|toString(){}[0]
+}
+
+final value class korlibs.ffi/FFIVarargs { // korlibs.ffi/FFIVarargs|null[0]
+    constructor <init>(kotlin.collections/List<kotlin/Any?>) // korlibs.ffi/FFIVarargs.<init>|<init>(kotlin.collections.List<kotlin.Any?>){}[0]
+    constructor <init>(kotlin/Array<out kotlin/Any?>...) // korlibs.ffi/FFIVarargs.<init>|<init>(kotlin.Array<out|kotlin.Any?>...){}[0]
+
+    final val args // korlibs.ffi/FFIVarargs.args|{}args[0]
+        final fun <get-args>(): kotlin.collections/List<kotlin/Any?> // korlibs.ffi/FFIVarargs.args.<get-args>|<get-args>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi/FFIVarargs.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi/FFIVarargs.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi/FFIVarargs.toString|toString(){}[0]
+}
+
+open class korlibs.ffi.osx/NSClass : korlibs.ffi.osx/NSObject { // korlibs.ffi.osx/NSClass|null[0]
+    constructor <init>(kotlin/Long) // korlibs.ffi.osx/NSClass.<init>|<init>(kotlin.Long){}[0]
+    constructor <init>(kotlin/String) // korlibs.ffi.osx/NSClass.<init>|<init>(kotlin.String){}[0]
+
+    final val OBJ_CLASS // korlibs.ffi.osx/NSClass.OBJ_CLASS|{}OBJ_CLASS[0]
+        final fun <get-OBJ_CLASS>(): korlibs.ffi.osx/ObjcRef // korlibs.ffi.osx/NSClass.OBJ_CLASS.<get-OBJ_CLASS>|<get-OBJ_CLASS>(){}[0]
+    final val name // korlibs.ffi.osx/NSClass.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.ffi.osx/NSClass.name.<get-name>|<get-name>(){}[0]
+
+    open fun toString(): kotlin/String // korlibs.ffi.osx/NSClass.toString|toString(){}[0]
+}
+
+open class korlibs.ffi.osx/NSDictionary : korlibs.ffi.osx/NSObject { // korlibs.ffi.osx/NSDictionary|null[0]
+    constructor <init>() // korlibs.ffi.osx/NSDictionary.<init>|<init>(){}[0]
+    constructor <init>(kotlin/Long) // korlibs.ffi.osx/NSDictionary.<init>|<init>(kotlin.Long){}[0]
+
+    final val count // korlibs.ffi.osx/NSDictionary.count|{}count[0]
+        final fun <get-count>(): kotlin/Long // korlibs.ffi.osx/NSDictionary.count.<get-count>|<get-count>(){}[0]
+    final val objectForKey // korlibs.ffi.osx/NSDictionary.objectForKey|{}objectForKey[0]
+        final fun <get-objectForKey>(): kotlin/Function1<kotlin/Long, kotlin/Long> // korlibs.ffi.osx/NSDictionary.objectForKey.<get-objectForKey>|<get-objectForKey>(){}[0]
+}
+
+open class korlibs.ffi.osx/NSObject { // korlibs.ffi.osx/NSObject|null[0]
+    constructor <init>(korlibs.ffi.osx/ObjcRef, kotlin/Unit = ...) // korlibs.ffi.osx/NSObject.<init>|<init>(korlibs.ffi.osx.ObjcRef;kotlin.Unit){}[0]
+    constructor <init>(kotlin/Long) // korlibs.ffi.osx/NSObject.<init>|<init>(kotlin.Long){}[0]
+
+    final val id // korlibs.ffi.osx/NSObject.id|{}id[0]
+        final fun <get-id>(): kotlin/Long // korlibs.ffi.osx/NSObject.id.<get-id>|<get-id>(){}[0]
+    final val objcClass // korlibs.ffi.osx/NSObject.objcClass|{}objcClass[0]
+        final fun <get-objcClass>(): korlibs.ffi.osx/NSClass // korlibs.ffi.osx/NSObject.objcClass.<get-objcClass>|<get-objcClass>(){}[0]
+    final val ref // korlibs.ffi.osx/NSObject.ref|{}ref[0]
+        final fun <get-ref>(): korlibs.ffi.osx/ObjcRef // korlibs.ffi.osx/NSObject.ref.<get-ref>|<get-ref>(){}[0]
+
+    final fun alloc(): korlibs.ffi.osx/NSObject // korlibs.ffi.osx/NSObject.alloc|alloc(){}[0]
+    final fun msgSend(kotlin/String, kotlin/Array<out kotlin/Any?>...): kotlin/Long // korlibs.ffi.osx/NSObject.msgSend|msgSend(kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun msgSendDouble(kotlin/String, kotlin/Array<out kotlin/Any?>...): kotlin/Double // korlibs.ffi.osx/NSObject.msgSendDouble|msgSendDouble(kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun msgSendFloat(kotlin/String, kotlin/Array<out kotlin/Any?>...): kotlin/Float // korlibs.ffi.osx/NSObject.msgSendFloat|msgSendFloat(kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun msgSendInt(kotlin/String, kotlin/Array<out kotlin/Any?>...): kotlin/Int // korlibs.ffi.osx/NSObject.msgSendInt|msgSendInt(kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun msgSendRef(kotlin/String, kotlin/Array<out kotlin/Any?>...): korlibs.ffi.osx/ObjcRef // korlibs.ffi.osx/NSObject.msgSendRef|msgSendRef(kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun msgSendVoid(kotlin/String, kotlin/Array<out kotlin/Any?>...) // korlibs.ffi.osx/NSObject.msgSendVoid|msgSendVoid(kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final inline fun <#A1: reified kotlin/Any?> objProp(kotlin/String, kotlin/String): korlibs.ffi.osx/NSObject.PropInfo<#A1> // korlibs.ffi.osx/NSObject.objProp|objProp(kotlin.String;kotlin.String){0§<kotlin.Any?>}[0]
+    final inline fun <#A1: reified kotlin/Function<*>> objFunc(kotlin/String, kotlin/String): korlibs.ffi.osx/NSObject.FuncInfo<#A1> // korlibs.ffi.osx/NSObject.objFunc|objFunc(kotlin.String;kotlin.String){0§<kotlin.Function<*>>}[0]
+    open fun toString(): kotlin/String // korlibs.ffi.osx/NSObject.toString|toString(){}[0]
+
+    final class <#A1: kotlin/Any?> PropInfo { // korlibs.ffi.osx/NSObject.PropInfo|null[0]
+        constructor <init>(kotlin.reflect/KType, kotlin/String, kotlin/String) // korlibs.ffi.osx/NSObject.PropInfo.<init>|<init>(kotlin.reflect.KType;kotlin.String;kotlin.String){}[0]
+
+        final val def // korlibs.ffi.osx/NSObject.PropInfo.def|{}def[0]
+            final fun <get-def>(): kotlin/String // korlibs.ffi.osx/NSObject.PropInfo.def.<get-def>|<get-def>(){}[0]
+        final val info // korlibs.ffi.osx/NSObject.PropInfo.info|{}info[0]
+            final fun <get-info>(): korlibs.ffi.osx/NSObject.FuncInfo<kotlin/Function0<#A1>> // korlibs.ffi.osx/NSObject.PropInfo.info.<get-info>|<get-info>(){}[0]
+        final val selector // korlibs.ffi.osx/NSObject.PropInfo.selector|{}selector[0]
+            final fun <get-selector>(): kotlin/String // korlibs.ffi.osx/NSObject.PropInfo.selector.<get-selector>|<get-selector>(){}[0]
+        final val type // korlibs.ffi.osx/NSObject.PropInfo.type|{}type[0]
+            final fun <get-type>(): kotlin.reflect/KType // korlibs.ffi.osx/NSObject.PropInfo.type.<get-type>|<get-type>(){}[0]
+
+        final fun getValue(korlibs.ffi.osx/NSObject, kotlin.reflect/KProperty<*>): #A1 // korlibs.ffi.osx/NSObject.PropInfo.getValue|getValue(korlibs.ffi.osx.NSObject;kotlin.reflect.KProperty<*>){}[0]
+    }
+
+    final class <#A1: kotlin/Function<*>> FuncDelegate : kotlin.properties/ReadOnlyProperty<korlibs.ffi.osx/NSObject, #A1> { // korlibs.ffi.osx/NSObject.FuncDelegate|null[0]
+        constructor <init>(korlibs.ffi.osx/NSObject, kotlin/String, kotlin/String, kotlin.reflect/KType) // korlibs.ffi.osx/NSObject.FuncDelegate.<init>|<init>(korlibs.ffi.osx.NSObject;kotlin.String;kotlin.String;kotlin.reflect.KType){}[0]
+
+        final val base // korlibs.ffi.osx/NSObject.FuncDelegate.base|{}base[0]
+            final fun <get-base>(): korlibs.ffi.osx/NSObject // korlibs.ffi.osx/NSObject.FuncDelegate.base.<get-base>|<get-base>(){}[0]
+        final val def // korlibs.ffi.osx/NSObject.FuncDelegate.def|{}def[0]
+            final fun <get-def>(): kotlin/String // korlibs.ffi.osx/NSObject.FuncDelegate.def.<get-def>|<get-def>(){}[0]
+        final val params // korlibs.ffi.osx/NSObject.FuncDelegate.params|{}params[0]
+            final fun <get-params>(): kotlin.collections/List<kotlin.reflect/KClassifier?> // korlibs.ffi.osx/NSObject.FuncDelegate.params.<get-params>|<get-params>(){}[0]
+        final val parts // korlibs.ffi.osx/NSObject.FuncDelegate.parts|{}parts[0]
+            final fun <get-parts>(): korlibs.ffi/FuncType // korlibs.ffi.osx/NSObject.FuncDelegate.parts.<get-parts>|<get-parts>(){}[0]
+        final val ret // korlibs.ffi.osx/NSObject.FuncDelegate.ret|{}ret[0]
+            final fun <get-ret>(): kotlin.reflect/KClassifier? // korlibs.ffi.osx/NSObject.FuncDelegate.ret.<get-ret>|<get-ret>(){}[0]
+        final val selector // korlibs.ffi.osx/NSObject.FuncDelegate.selector|{}selector[0]
+            final fun <get-selector>(): kotlin/String // korlibs.ffi.osx/NSObject.FuncDelegate.selector.<get-selector>|<get-selector>(){}[0]
+        final val type // korlibs.ffi.osx/NSObject.FuncDelegate.type|{}type[0]
+            final fun <get-type>(): kotlin.reflect/KType // korlibs.ffi.osx/NSObject.FuncDelegate.type.<get-type>|<get-type>(){}[0]
+
+        final var cached // korlibs.ffi.osx/NSObject.FuncDelegate.cached|{}cached[0]
+            final fun <get-cached>(): #A1? // korlibs.ffi.osx/NSObject.FuncDelegate.cached.<get-cached>|<get-cached>(){}[0]
+            final fun <set-cached>(#A1?) // korlibs.ffi.osx/NSObject.FuncDelegate.cached.<set-cached>|<set-cached>(1:0?){}[0]
+
+        final fun getValue(korlibs.ffi.osx/NSObject, kotlin.reflect/KProperty<*>): #A1 // korlibs.ffi.osx/NSObject.FuncDelegate.getValue|getValue(korlibs.ffi.osx.NSObject;kotlin.reflect.KProperty<*>){}[0]
+    }
+
+    final class <#A1: kotlin/Function<*>> FuncInfo { // korlibs.ffi.osx/NSObject.FuncInfo|null[0]
+        constructor <init>(kotlin.reflect/KType, kotlin/String, kotlin/String) // korlibs.ffi.osx/NSObject.FuncInfo.<init>|<init>(kotlin.reflect.KType;kotlin.String;kotlin.String){}[0]
+
+        final val def // korlibs.ffi.osx/NSObject.FuncInfo.def|{}def[0]
+            final fun <get-def>(): kotlin/String // korlibs.ffi.osx/NSObject.FuncInfo.def.<get-def>|<get-def>(){}[0]
+        final val selector // korlibs.ffi.osx/NSObject.FuncInfo.selector|{}selector[0]
+            final fun <get-selector>(): kotlin/String // korlibs.ffi.osx/NSObject.FuncInfo.selector.<get-selector>|<get-selector>(){}[0]
+        final val type // korlibs.ffi.osx/NSObject.FuncInfo.type|{}type[0]
+            final fun <get-type>(): kotlin.reflect/KType // korlibs.ffi.osx/NSObject.FuncInfo.type.<get-type>|<get-type>(){}[0]
+
+        final fun provideDelegate(korlibs.ffi.osx/NSObject, kotlin.reflect/KProperty<*>): kotlin.properties/ReadOnlyProperty<korlibs.ffi.osx/NSObject, #A1> // korlibs.ffi.osx/NSObject.FuncInfo.provideDelegate|provideDelegate(korlibs.ffi.osx.NSObject;kotlin.reflect.KProperty<*>){}[0]
+    }
+
+    final object Companion : korlibs.ffi.osx/NSClass { // korlibs.ffi.osx/NSObject.Companion|null[0]
+        final fun sel(kotlin/String): kotlin/Long // korlibs.ffi.osx/NSObject.Companion.sel|sel(kotlin.String){}[0]
+    }
+}
+
+open class korlibs.ffi.osx/NSString : korlibs.ffi.osx/NSObject { // korlibs.ffi.osx/NSString|null[0]
+    constructor <init>() // korlibs.ffi.osx/NSString.<init>|<init>(){}[0]
+    constructor <init>(kotlin/Long) // korlibs.ffi.osx/NSString.<init>|<init>(kotlin.Long){}[0]
+    constructor <init>(kotlin/Long?) // korlibs.ffi.osx/NSString.<init>|<init>(kotlin.Long?){}[0]
+    constructor <init>(kotlin/String) // korlibs.ffi.osx/NSString.<init>|<init>(kotlin.String){}[0]
+
+    final val cString // korlibs.ffi.osx/NSString.cString|{}cString[0]
+        final fun <get-cString>(): kotlin/String // korlibs.ffi.osx/NSString.cString.<get-cString>|<get-cString>(){}[0]
+    final val length // korlibs.ffi.osx/NSString.length|{}length[0]
+        final fun <get-length>(): kotlin/Int // korlibs.ffi.osx/NSString.length.<get-length>|<get-length>(){}[0]
+
+    open fun toString(): kotlin/String // korlibs.ffi.osx/NSString.toString|toString(){}[0]
+
+    final object Companion : korlibs.ffi.osx/NSClass { // korlibs.ffi.osx/NSString.Companion|null[0]
+        final val LENGTH_ivar // korlibs.ffi.osx/NSString.Companion.LENGTH_ivar|{}LENGTH_ivar[0]
+            final fun <get-LENGTH_ivar>(): kotlin/Long // korlibs.ffi.osx/NSString.Companion.LENGTH_ivar.<get-LENGTH_ivar>|<get-LENGTH_ivar>(){}[0]
+    }
+}
+
+open class korlibs.ffi/ExecutableResolver { // korlibs.ffi/ExecutableResolver|null[0]
+    final fun findInPaths(kotlin/String, kotlin.collections/List<kotlin/String>): kotlin/String? // korlibs.ffi/ExecutableResolver.findInPaths|findInPaths(kotlin.String;kotlin.collections.List<kotlin.String>){}[0]
+
+    final object Companion : korlibs.ffi/ExecutableResolver // korlibs.ffi/ExecutableResolver.Companion|null[0]
+}
+
+open class korlibs.ffi/FFILib : kotlin/AutoCloseable { // korlibs.ffi/FFILib|null[0]
+    constructor <init>(kotlin.collections/List<kotlin/String>, kotlin/Boolean = ...) // korlibs.ffi/FFILib.<init>|<init>(kotlin.collections.List<kotlin.String>;kotlin.Boolean){}[0]
+    constructor <init>(kotlin/Array<out kotlin/String?>..., kotlin/Boolean = ...) // korlibs.ffi/FFILib.<init>|<init>(kotlin.Array<out|kotlin.String?>...;kotlin.Boolean){}[0]
+
+    final val functions // korlibs.ffi/FFILib.functions|{}functions[0]
+        final fun <get-functions>(): kotlin.collections/ArrayList<korlibs.ffi/FFILib.FuncDelegate<*>> // korlibs.ffi/FFILib.functions.<get-functions>|<get-functions>(){}[0]
+    final val lazyCreate // korlibs.ffi/FFILib.lazyCreate|{}lazyCreate[0]
+        final fun <get-lazyCreate>(): kotlin/Boolean // korlibs.ffi/FFILib.lazyCreate.<get-lazyCreate>|<get-lazyCreate>(){}[0]
+    final val loaded // korlibs.ffi/FFILib.loaded|{}loaded[0]
+        final fun <get-loaded>(): kotlin/Boolean // korlibs.ffi/FFILib.loaded.<get-loaded>|<get-loaded>(){}[0]
+    final val paths // korlibs.ffi/FFILib.paths|{}paths[0]
+        final fun <get-paths>(): kotlin.collections/List<kotlin/String> // korlibs.ffi/FFILib.paths.<get-paths>|<get-paths>(){}[0]
+    final val resolvedPath // korlibs.ffi/FFILib.resolvedPath|{}resolvedPath[0]
+        final fun <get-resolvedPath>(): kotlin/String? // korlibs.ffi/FFILib.resolvedPath.<get-resolvedPath>|<get-resolvedPath>(){}[0]
+    final val sym // korlibs.ffi/FFILib.sym|{}sym[0]
+        final fun <get-sym>(): korlibs.ffi/FFILibSym // korlibs.ffi/FFILib.sym.<get-sym>|<get-sym>(){}[0]
+
+    final var _sym // korlibs.ffi/FFILib._sym|{}_sym[0]
+        final fun <get-_sym>(): korlibs.ffi/FFILibSym? // korlibs.ffi/FFILib._sym.<get-_sym>|<get-_sym>(){}[0]
+        final fun <set-_sym>(korlibs.ffi/FFILibSym?) // korlibs.ffi/FFILib._sym.<set-_sym>|<set-_sym>(korlibs.ffi.FFILibSym?){}[0]
+
+    final fun finalize() // korlibs.ffi/FFILib.finalize|finalize(){}[0]
+    final inline fun <#A1: reified kotlin/Function<*>> func(kotlin/String? = ..., korlibs.ffi/FFIFuncConfig = ..., kotlin/Boolean = ...): korlibs.ffi/FFILib.FuncInfo<#A1> // korlibs.ffi/FFILib.func|func(kotlin.String?;korlibs.ffi.FFIFuncConfig;kotlin.Boolean){0§<kotlin.Function<*>>}[0]
+    open fun close() // korlibs.ffi/FFILib.close|close(){}[0]
+    open fun createFFILibSym(): korlibs.ffi/FFILibSym // korlibs.ffi/FFILib.createFFILibSym|createFFILibSym(){}[0]
+
+    final class <#A1: kotlin/Any?> FuncDelegate : kotlin.properties/ReadOnlyProperty<korlibs.ffi/FFILib, #A1> { // korlibs.ffi/FFILib.FuncDelegate|null[0]
+        constructor <init>(korlibs.ffi/FFILib, kotlin/String, kotlin/String, kotlin.reflect/KType, korlibs.ffi/FFIFuncConfig, kotlin/Boolean) // korlibs.ffi/FFILib.FuncDelegate.<init>|<init>(korlibs.ffi.FFILib;kotlin.String;kotlin.String;kotlin.reflect.KType;korlibs.ffi.FFIFuncConfig;kotlin.Boolean){}[0]
+
+        final val base // korlibs.ffi/FFILib.FuncDelegate.base|{}base[0]
+            final fun <get-base>(): korlibs.ffi/FFILib // korlibs.ffi/FFILib.FuncDelegate.base.<get-base>|<get-base>(){}[0]
+        final val bname // korlibs.ffi/FFILib.FuncDelegate.bname|{}bname[0]
+            final fun <get-bname>(): kotlin/String // korlibs.ffi/FFILib.FuncDelegate.bname.<get-bname>|<get-bname>(){}[0]
+        final val config // korlibs.ffi/FFILib.FuncDelegate.config|{}config[0]
+            final fun <get-config>(): korlibs.ffi/FFIFuncConfig // korlibs.ffi/FFILib.FuncDelegate.config.<get-config>|<get-config>(){}[0]
+        final val name // korlibs.ffi/FFILib.FuncDelegate.name|{}name[0]
+            final fun <get-name>(): kotlin/String // korlibs.ffi/FFILib.FuncDelegate.name.<get-name>|<get-name>(){}[0]
+        final val params // korlibs.ffi/FFILib.FuncDelegate.params|{}params[0]
+            final fun <get-params>(): kotlin.collections/List<kotlin.reflect/KClassifier?> // korlibs.ffi/FFILib.FuncDelegate.params.<get-params>|<get-params>(){}[0]
+        final val parts // korlibs.ffi/FFILib.FuncDelegate.parts|{}parts[0]
+            final fun <get-parts>(): korlibs.ffi/FuncType // korlibs.ffi/FFILib.FuncDelegate.parts.<get-parts>|<get-parts>(){}[0]
+        final val required // korlibs.ffi/FFILib.FuncDelegate.required|{}required[0]
+            final fun <get-required>(): kotlin/Boolean // korlibs.ffi/FFILib.FuncDelegate.required.<get-required>|<get-required>(){}[0]
+        final val ret // korlibs.ffi/FFILib.FuncDelegate.ret|{}ret[0]
+            final fun <get-ret>(): kotlin.reflect/KClassifier? // korlibs.ffi/FFILib.FuncDelegate.ret.<get-ret>|<get-ret>(){}[0]
+        final val type // korlibs.ffi/FFILib.FuncDelegate.type|{}type[0]
+            final fun <get-type>(): kotlin.reflect/KType // korlibs.ffi/FFILib.FuncDelegate.type.<get-type>|<get-type>(){}[0]
+
+        final var cached // korlibs.ffi/FFILib.FuncDelegate.cached|{}cached[0]
+            final fun <get-cached>(): #A1? // korlibs.ffi/FFILib.FuncDelegate.cached.<get-cached>|<get-cached>(){}[0]
+            final fun <set-cached>(#A1?) // korlibs.ffi/FFILib.FuncDelegate.cached.<set-cached>|<set-cached>(1:0?){}[0]
+
+        final fun getValue(korlibs.ffi/FFILib, kotlin.reflect/KProperty<*>): #A1 // korlibs.ffi/FFILib.FuncDelegate.getValue|getValue(korlibs.ffi.FFILib;kotlin.reflect.KProperty<*>){}[0]
+    }
+
+    final class <#A1: kotlin/Any?> FuncInfo { // korlibs.ffi/FFILib.FuncInfo|null[0]
+        constructor <init>(kotlin.reflect/KType, kotlin/String?, korlibs.ffi/FFIFuncConfig, kotlin/Boolean = ...) // korlibs.ffi/FFILib.FuncInfo.<init>|<init>(kotlin.reflect.KType;kotlin.String?;korlibs.ffi.FFIFuncConfig;kotlin.Boolean){}[0]
+
+        final val config // korlibs.ffi/FFILib.FuncInfo.config|{}config[0]
+            final fun <get-config>(): korlibs.ffi/FFIFuncConfig // korlibs.ffi/FFILib.FuncInfo.config.<get-config>|<get-config>(){}[0]
+        final val extraName // korlibs.ffi/FFILib.FuncInfo.extraName|{}extraName[0]
+            final fun <get-extraName>(): kotlin/String? // korlibs.ffi/FFILib.FuncInfo.extraName.<get-extraName>|<get-extraName>(){}[0]
+        final val required // korlibs.ffi/FFILib.FuncInfo.required|{}required[0]
+            final fun <get-required>(): kotlin/Boolean // korlibs.ffi/FFILib.FuncInfo.required.<get-required>|<get-required>(){}[0]
+        final val type // korlibs.ffi/FFILib.FuncInfo.type|{}type[0]
+            final fun <get-type>(): kotlin.reflect/KType // korlibs.ffi/FFILib.FuncInfo.type.<get-type>|<get-type>(){}[0]
+
+        final fun provideDelegate(korlibs.ffi/FFILib, kotlin.reflect/KProperty<*>): kotlin.properties/ReadOnlyProperty<korlibs.ffi/FFILib, #A1> // korlibs.ffi/FFILib.FuncInfo.provideDelegate|provideDelegate(korlibs.ffi.FFILib;kotlin.reflect.KProperty<*>){}[0]
+    }
+
+    final object Companion { // korlibs.ffi/FFILib.Companion|null[0]
+        final val isFFISupported // korlibs.ffi/FFILib.Companion.isFFISupported|{}isFFISupported[0]
+            final fun <get-isFFISupported>(): kotlin/Boolean // korlibs.ffi/FFILib.Companion.isFFISupported.<get-isFFISupported>|<get-isFFISupported>(){}[0]
+
+        final fun extractTypeFunc(kotlin.reflect/KType): korlibs.ffi/FuncType // korlibs.ffi/FFILib.Companion.extractTypeFunc|extractTypeFunc(kotlin.reflect.KType){}[0]
+    }
+}
+
+open class korlibs.ffi/FFIMemLayoutBuilder { // korlibs.ffi/FFIMemLayoutBuilder|null[0]
+    constructor <init>() // korlibs.ffi/FFIMemLayoutBuilder.<init>|<init>(){}[0]
+
+    final val size // korlibs.ffi/FFIMemLayoutBuilder.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // korlibs.ffi/FFIMemLayoutBuilder.size.<get-size>|<get-size>(){}[0]
+
+    final var maxAlign // korlibs.ffi/FFIMemLayoutBuilder.maxAlign|{}maxAlign[0]
+        final fun <get-maxAlign>(): kotlin/Int // korlibs.ffi/FFIMemLayoutBuilder.maxAlign.<get-maxAlign>|<get-maxAlign>(){}[0]
+    final var offset // korlibs.ffi/FFIMemLayoutBuilder.offset|{}offset[0]
+        final fun <get-offset>(): kotlin/Int // korlibs.ffi/FFIMemLayoutBuilder.offset.<get-offset>|<get-offset>(){}[0]
+
+    final fun <#A1: kotlin/Any?> kpointerT(): korlibs.ffi/FFIDelegateFFIPointerPropertyT<#A1> // korlibs.ffi/FFIMemLayoutBuilder.kpointerT|kpointerT(){0§<kotlin.Any?>}[0]
+    final fun bool(): korlibs.ffi/FFIDelegateBoolProperty // korlibs.ffi/FFIMemLayoutBuilder.bool|bool(){}[0]
+    final fun byte(): korlibs.ffi/FFIDelegateByteProperty // korlibs.ffi/FFIMemLayoutBuilder.byte|byte(){}[0]
+    final fun double(): korlibs.ffi/FFIDelegateDoubleProperty // korlibs.ffi/FFIMemLayoutBuilder.double|double(){}[0]
+    final fun fixedBytes(kotlin/Int, kotlin/Int = ...): korlibs.ffi/FFIDelegateFixedBytesProperty // korlibs.ffi/FFIMemLayoutBuilder.fixedBytes|fixedBytes(kotlin.Int;kotlin.Int){}[0]
+    final fun float(): korlibs.ffi/FFIDelegateFloatProperty // korlibs.ffi/FFIMemLayoutBuilder.float|float(){}[0]
+    final fun int(): korlibs.ffi/FFIDelegateIntProperty // korlibs.ffi/FFIMemLayoutBuilder.int|int(){}[0]
+    final fun kpointer(): korlibs.ffi/FFIDelegateFFIPointerProperty // korlibs.ffi/FFIMemLayoutBuilder.kpointer|kpointer(){}[0]
+    final fun long(): korlibs.ffi/FFIDelegateLongProperty // korlibs.ffi/FFIMemLayoutBuilder.long|long(){}[0]
+    final fun nativeFloat(): korlibs.ffi/FFIDelegateNativeDoubleProperty // korlibs.ffi/FFIMemLayoutBuilder.nativeFloat|nativeFloat(){}[0]
+    final fun nativeLong(): korlibs.ffi/FFIDelegateNativeLongProperty // korlibs.ffi/FFIMemLayoutBuilder.nativeLong|nativeLong(){}[0]
+    final fun rawAlloc(kotlin/Int, kotlin/Int = ...): kotlin/Int // korlibs.ffi/FFIMemLayoutBuilder.rawAlloc|rawAlloc(kotlin.Int;kotlin.Int){}[0]
+    final fun short(): korlibs.ffi/FFIDelegateShortProperty // korlibs.ffi/FFIMemLayoutBuilder.short|short(){}[0]
+}
+
+open class korlibs.ffi/FFIStructure { // korlibs.ffi/FFIStructure|null[0]
+    final val layout // korlibs.ffi/FFIStructure.layout|{}layout[0]
+        final fun <get-layout>(): korlibs.ffi/FFIMemLayoutBuilder // korlibs.ffi/FFIStructure.layout.<get-layout>|<get-layout>(){}[0]
+    final val ptrSure // korlibs.ffi/FFIStructure.ptrSure|{}ptrSure[0]
+        // Targets: [native, wasmJs]
+        final fun <get-ptrSure>(): korlibs.ffi/FFIPointer // korlibs.ffi/FFIStructure.ptrSure.<get-ptrSure>|<get-ptrSure>(){}[0]
+
+        // Targets: [js]
+        final fun <get-ptrSure>(): korlibs.js/DenoPointer // korlibs.ffi/FFIStructure.ptrSure.<get-ptrSure>|<get-ptrSure>(){}[0]
+    final val size // korlibs.ffi/FFIStructure.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // korlibs.ffi/FFIStructure.size.<get-size>|<get-size>(){}[0]
+
+    final var ptr // korlibs.ffi/FFIStructure.ptr|{}ptr[0]
+        // Targets: [native, wasmJs]
+        final fun <get-ptr>(): korlibs.ffi/FFIPointer? // korlibs.ffi/FFIStructure.ptr.<get-ptr>|<get-ptr>(){}[0]
+
+        // Targets: [native, wasmJs]
+        final fun <set-ptr>(korlibs.ffi/FFIPointer?) // korlibs.ffi/FFIStructure.ptr.<set-ptr>|<set-ptr>(korlibs.ffi.FFIPointer?){}[0]
+
+        // Targets: [js]
+        final fun <get-ptr>(): korlibs.js/DenoPointer? // korlibs.ffi/FFIStructure.ptr.<get-ptr>|<get-ptr>(){}[0]
+
+        // Targets: [js]
+        final fun <set-ptr>(korlibs.js/DenoPointer?) // korlibs.ffi/FFIStructure.ptr.<set-ptr>|<set-ptr>(korlibs.js.DenoPointer?){}[0]
+
+    final fun <#A1: kotlin/Any?> pointer(): korlibs.ffi/FFIDelegateFFIPointerPropertyT<#A1> // korlibs.ffi/FFIStructure.pointer|pointer(){0§<kotlin.Any?>}[0]
+    final fun bool(): korlibs.ffi/FFIDelegateBoolProperty // korlibs.ffi/FFIStructure.bool|bool(){}[0]
+    final fun byte(): korlibs.ffi/FFIDelegateByteProperty // korlibs.ffi/FFIStructure.byte|byte(){}[0]
+    final fun double(): korlibs.ffi/FFIDelegateDoubleProperty // korlibs.ffi/FFIStructure.double|double(){}[0]
+    final fun fixedBytes(kotlin/Int): korlibs.ffi/FFIDelegateFixedBytesProperty // korlibs.ffi/FFIStructure.fixedBytes|fixedBytes(kotlin.Int){}[0]
+    final fun int(): korlibs.ffi/FFIDelegateIntProperty // korlibs.ffi/FFIStructure.int|int(){}[0]
+    final fun long(): korlibs.ffi/FFIDelegateLongProperty // korlibs.ffi/FFIStructure.long|long(){}[0]
+    final fun nativeFloat(): korlibs.ffi/FFIDelegateNativeDoubleProperty // korlibs.ffi/FFIStructure.nativeFloat|nativeFloat(){}[0]
+    final fun nativeLong(): korlibs.ffi/FFIDelegateNativeLongProperty // korlibs.ffi/FFIStructure.nativeLong|nativeLong(){}[0]
+    final fun pointer(): korlibs.ffi/FFIDelegateFFIPointerProperty // korlibs.ffi/FFIStructure.pointer|pointer(){}[0]
+    final fun short(): korlibs.ffi/FFIDelegateShortProperty // korlibs.ffi/FFIStructure.short|short(){}[0]
+
+    // Targets: [native, wasmJs]
+    constructor <init>(korlibs.ffi/FFIPointer?) // korlibs.ffi/FFIStructure.<init>|<init>(korlibs.ffi.FFIPointer?){}[0]
+
+    // Targets: [js]
+    constructor <init>(korlibs.js/DenoPointer?) // korlibs.ffi/FFIStructure.<init>|<init>(korlibs.js.DenoPointer?){}[0]
+}
+
+open class korlibs.ffi/LDLibraries { // korlibs.ffi/LDLibraries|null[0]
+    final val ldFolders // korlibs.ffi/LDLibraries.ldFolders|{}ldFolders[0]
+        final fun <get-ldFolders>(): kotlin.collections/List<kotlin/String> // korlibs.ffi/LDLibraries.ldFolders.<get-ldFolders>|<get-ldFolders>(){}[0]
+
+    final fun addPath(kotlin/String) // korlibs.ffi/LDLibraries.addPath|addPath(kotlin.String){}[0]
+    final fun hasLibrary(kotlin/String): kotlin/Boolean // korlibs.ffi/LDLibraries.hasLibrary|hasLibrary(kotlin.String){}[0]
+
+    final object Companion : korlibs.ffi/LDLibraries // korlibs.ffi/LDLibraries.Companion|null[0]
+}
+
+open class korlibs.ffi/LibraryResolver { // korlibs.ffi/LibraryResolver|null[0]
+    final val ldLibraries // korlibs.ffi/LibraryResolver.ldLibraries|{}ldLibraries[0]
+        final fun <get-ldLibraries>(): korlibs.ffi/LDLibraries // korlibs.ffi/LibraryResolver.ldLibraries.<get-ldLibraries>|<get-ldLibraries>(){}[0]
+    final val platform // korlibs.ffi/LibraryResolver.platform|{}platform[0]
+        final fun <get-platform>(): korlibs.platform/Platform // korlibs.ffi/LibraryResolver.platform.<get-platform>|<get-platform>(){}[0]
+
+    final fun resolve(kotlin/Array<out kotlin/String>...): kotlin/String? // korlibs.ffi/LibraryResolver.resolve|resolve(kotlin.Array<out|kotlin.String>...){}[0]
+    final fun resolve(kotlin/String): kotlin/String? // korlibs.ffi/LibraryResolver.resolve|resolve(kotlin.String){}[0]
+
+    final object Companion : korlibs.ffi/LibraryResolver // korlibs.ffi/LibraryResolver.Companion|null[0]
+}
+
+open class korlibs.ffi/SymbolResolverFFILib : korlibs.ffi/FFILib { // korlibs.ffi/SymbolResolverFFILib|null[0]
+    final val resolve // korlibs.ffi/SymbolResolverFFILib.resolve|{}resolve[0]
+        // Targets: [native, wasmJs]
+        final fun <get-resolve>(): kotlin/Function1<kotlin/String, korlibs.ffi/FFIPointer?> // korlibs.ffi/SymbolResolverFFILib.resolve.<get-resolve>|<get-resolve>(){}[0]
+
+        // Targets: [js]
+        final fun <get-resolve>(): kotlin/Function1<kotlin/String, korlibs.js/DenoPointer?> // korlibs.ffi/SymbolResolverFFILib.resolve.<get-resolve>|<get-resolve>(){}[0]
+
+    open fun createFFILibSym(): korlibs.ffi/FFILibSym // korlibs.ffi/SymbolResolverFFILib.createFFILibSym|createFFILibSym(){}[0]
+
+    // Targets: [native, wasmJs]
+    constructor <init>(kotlin/Function1<kotlin/String, korlibs.ffi/FFIPointer?>) // korlibs.ffi/SymbolResolverFFILib.<init>|<init>(kotlin.Function1<kotlin.String,korlibs.ffi.FFIPointer?>){}[0]
+
+    // Targets: [js]
+    constructor <init>(kotlin/Function1<kotlin/String, korlibs.js/DenoPointer?>) // korlibs.ffi/SymbolResolverFFILib.<init>|<init>(kotlin.Function1<kotlin.String,korlibs.js.DenoPointer?>){}[0]
+}
+
+final object korlibs.ffi.osx/CoreFoundation : korlibs.ffi/FFILib { // korlibs.ffi.osx/CoreFoundation|null[0]
+    final val dlopen // korlibs.ffi.osx/CoreFoundation.dlopen|{}dlopen[0]
+        // Targets: [native, wasmJs]
+        final fun <get-dlopen>(): kotlin/Function2<kotlin/String, kotlin/Int, korlibs.ffi/FFIPointer?> // korlibs.ffi.osx/CoreFoundation.dlopen.<get-dlopen>|<get-dlopen>(){}[0]
+
+        // Targets: [js]
+        final fun <get-dlopen>(): kotlin/Function2<kotlin/String, kotlin/Int, korlibs.js/DenoPointer?> // korlibs.ffi.osx/CoreFoundation.dlopen.<get-dlopen>|<get-dlopen>(){}[0]
+}
+
+final object korlibs.ffi.osx/FFIObjc : korlibs.ffi/FFILib { // korlibs.ffi.osx/FFIObjc|null[0]
+    final val class_addMethod // korlibs.ffi.osx/FFIObjc.class_addMethod|{}class_addMethod[0]
+        final fun <get-class_addMethod>(): kotlin/Function4<kotlin/Long, kotlin/Long, korlibs.ffi/FFICallback, kotlin/String, kotlin/Long> // korlibs.ffi.osx/FFIObjc.class_addMethod.<get-class_addMethod>|<get-class_addMethod>(){}[0]
+    final val class_addProtocol // korlibs.ffi.osx/FFIObjc.class_addProtocol|{}class_addProtocol[0]
+        final fun <get-class_addProtocol>(): kotlin/Function2<kotlin/Long, kotlin/Long, kotlin/Long> // korlibs.ffi.osx/FFIObjc.class_addProtocol.<get-class_addProtocol>|<get-class_addProtocol>(){}[0]
+    final val class_conformsToProtocol // korlibs.ffi.osx/FFIObjc.class_conformsToProtocol|{}class_conformsToProtocol[0]
+        final fun <get-class_conformsToProtocol>(): kotlin/Function2<kotlin/Long, kotlin/Long, kotlin/Boolean> // korlibs.ffi.osx/FFIObjc.class_conformsToProtocol.<get-class_conformsToProtocol>|<get-class_conformsToProtocol>(){}[0]
+    final val class_copyIvarList // korlibs.ffi.osx/FFIObjc.class_copyIvarList|{}class_copyIvarList[0]
+        // Targets: [native, wasmJs]
+        final fun <get-class_copyIvarList>(): kotlin/Function2<kotlin/Long, kotlin/IntArray, korlibs.ffi/FFIPointer?> // korlibs.ffi.osx/FFIObjc.class_copyIvarList.<get-class_copyIvarList>|<get-class_copyIvarList>(){}[0]
+
+        // Targets: [js]
+        final fun <get-class_copyIvarList>(): kotlin/Function2<kotlin/Long, kotlin/IntArray, korlibs.js/DenoPointer?> // korlibs.ffi.osx/FFIObjc.class_copyIvarList.<get-class_copyIvarList>|<get-class_copyIvarList>(){}[0]
+    final val class_copyMethodList // korlibs.ffi.osx/FFIObjc.class_copyMethodList|{}class_copyMethodList[0]
+        // Targets: [native, wasmJs]
+        final fun <get-class_copyMethodList>(): kotlin/Function2<kotlin/Long, kotlin/IntArray, korlibs.ffi/FFIPointer?> // korlibs.ffi.osx/FFIObjc.class_copyMethodList.<get-class_copyMethodList>|<get-class_copyMethodList>(){}[0]
+
+        // Targets: [js]
+        final fun <get-class_copyMethodList>(): kotlin/Function2<kotlin/Long, kotlin/IntArray, korlibs.js/DenoPointer?> // korlibs.ffi.osx/FFIObjc.class_copyMethodList.<get-class_copyMethodList>|<get-class_copyMethodList>(){}[0]
+    final val class_copyPropertyList // korlibs.ffi.osx/FFIObjc.class_copyPropertyList|{}class_copyPropertyList[0]
+        // Targets: [native, wasmJs]
+        final fun <get-class_copyPropertyList>(): kotlin/Function2<kotlin/Long, kotlin/IntArray, korlibs.ffi/FFIPointer?> // korlibs.ffi.osx/FFIObjc.class_copyPropertyList.<get-class_copyPropertyList>|<get-class_copyPropertyList>(){}[0]
+
+        // Targets: [js]
+        final fun <get-class_copyPropertyList>(): kotlin/Function2<kotlin/Long, kotlin/IntArray, korlibs.js/DenoPointer?> // korlibs.ffi.osx/FFIObjc.class_copyPropertyList.<get-class_copyPropertyList>|<get-class_copyPropertyList>(){}[0]
+    final val class_createInstance // korlibs.ffi.osx/FFIObjc.class_createInstance|{}class_createInstance[0]
+        final fun <get-class_createInstance>(): kotlin/Function2<kotlin/Long, kotlin/Long, kotlin/Long> // korlibs.ffi.osx/FFIObjc.class_createInstance.<get-class_createInstance>|<get-class_createInstance>(){}[0]
+    final val class_getImageName // korlibs.ffi.osx/FFIObjc.class_getImageName|{}class_getImageName[0]
+        final fun <get-class_getImageName>(): kotlin/Function1<kotlin/Long, kotlin/String> // korlibs.ffi.osx/FFIObjc.class_getImageName.<get-class_getImageName>|<get-class_getImageName>(){}[0]
+    final val class_getInstanceMethod // korlibs.ffi.osx/FFIObjc.class_getInstanceMethod|{}class_getInstanceMethod[0]
+        final fun <get-class_getInstanceMethod>(): kotlin/Function2<kotlin/Long, kotlin/Long, kotlin/Long> // korlibs.ffi.osx/FFIObjc.class_getInstanceMethod.<get-class_getInstanceMethod>|<get-class_getInstanceMethod>(){}[0]
+    final val class_getInstanceVariable // korlibs.ffi.osx/FFIObjc.class_getInstanceVariable|{}class_getInstanceVariable[0]
+        final fun <get-class_getInstanceVariable>(): kotlin/Function2<kotlin/Long, kotlin/String, kotlin/Long> // korlibs.ffi.osx/FFIObjc.class_getInstanceVariable.<get-class_getInstanceVariable>|<get-class_getInstanceVariable>(){}[0]
+    final val class_getName // korlibs.ffi.osx/FFIObjc.class_getName|{}class_getName[0]
+        final fun <get-class_getName>(): kotlin/Function1<kotlin/Long, kotlin/String> // korlibs.ffi.osx/FFIObjc.class_getName.<get-class_getName>|<get-class_getName>(){}[0]
+    final val class_getProperty // korlibs.ffi.osx/FFIObjc.class_getProperty|{}class_getProperty[0]
+        final fun <get-class_getProperty>(): kotlin/Function2<kotlin/Long, kotlin/String, kotlin/Long> // korlibs.ffi.osx/FFIObjc.class_getProperty.<get-class_getProperty>|<get-class_getProperty>(){}[0]
+    final val ivar_getName // korlibs.ffi.osx/FFIObjc.ivar_getName|{}ivar_getName[0]
+        // Targets: [native, wasmJs]
+        final fun <get-ivar_getName>(): kotlin/Function1<korlibs.ffi/FFIPointer?, kotlin/String?> // korlibs.ffi.osx/FFIObjc.ivar_getName.<get-ivar_getName>|<get-ivar_getName>(){}[0]
+
+        // Targets: [js]
+        final fun <get-ivar_getName>(): kotlin/Function1<korlibs.js/DenoPointer?, kotlin/String?> // korlibs.ffi.osx/FFIObjc.ivar_getName.<get-ivar_getName>|<get-ivar_getName>(){}[0]
+    final val ivar_getTypeEncoding // korlibs.ffi.osx/FFIObjc.ivar_getTypeEncoding|{}ivar_getTypeEncoding[0]
+        // Targets: [native, wasmJs]
+        final fun <get-ivar_getTypeEncoding>(): kotlin/Function1<korlibs.ffi/FFIPointer?, kotlin/String?> // korlibs.ffi.osx/FFIObjc.ivar_getTypeEncoding.<get-ivar_getTypeEncoding>|<get-ivar_getTypeEncoding>(){}[0]
+
+        // Targets: [js]
+        final fun <get-ivar_getTypeEncoding>(): kotlin/Function1<korlibs.js/DenoPointer?, kotlin/String?> // korlibs.ffi.osx/FFIObjc.ivar_getTypeEncoding.<get-ivar_getTypeEncoding>|<get-ivar_getTypeEncoding>(){}[0]
+    final val method_getName // korlibs.ffi.osx/FFIObjc.method_getName|{}method_getName[0]
+        final fun <get-method_getName>(): kotlin/Function1<kotlin/Long, kotlin/Long> // korlibs.ffi.osx/FFIObjc.method_getName.<get-method_getName>|<get-method_getName>(){}[0]
+    final val method_getNameString // korlibs.ffi.osx/FFIObjc.method_getNameString|{}method_getNameString[0]
+        final fun <get-method_getNameString>(): kotlin/Function1<kotlin/Long, kotlin/String> // korlibs.ffi.osx/FFIObjc.method_getNameString.<get-method_getNameString>|<get-method_getNameString>(){}[0]
+    final val method_getReturnType // korlibs.ffi.osx/FFIObjc.method_getReturnType|{}method_getReturnType[0]
+        // Targets: [native, wasmJs]
+        final fun <get-method_getReturnType>(): kotlin/Function3<kotlin/Long, korlibs.ffi/FFIPointer?, kotlin/Long, kotlin/Unit> // korlibs.ffi.osx/FFIObjc.method_getReturnType.<get-method_getReturnType>|<get-method_getReturnType>(){}[0]
+
+        // Targets: [js]
+        final fun <get-method_getReturnType>(): kotlin/Function3<kotlin/Long, korlibs.js/DenoPointer?, kotlin/Long, kotlin/Unit> // korlibs.ffi.osx/FFIObjc.method_getReturnType.<get-method_getReturnType>|<get-method_getReturnType>(){}[0]
+    final val method_getTypeEncoding // korlibs.ffi.osx/FFIObjc.method_getTypeEncoding|{}method_getTypeEncoding[0]
+        // Targets: [native, wasmJs]
+        final fun <get-method_getTypeEncoding>(): kotlin/Function1<korlibs.ffi/FFIPointer?, kotlin/String> // korlibs.ffi.osx/FFIObjc.method_getTypeEncoding.<get-method_getTypeEncoding>|<get-method_getTypeEncoding>(){}[0]
+
+        // Targets: [js]
+        final fun <get-method_getTypeEncoding>(): kotlin/Function1<korlibs.js/DenoPointer?, kotlin/String> // korlibs.ffi.osx/FFIObjc.method_getTypeEncoding.<get-method_getTypeEncoding>|<get-method_getTypeEncoding>(){}[0]
+    final val objc_allocateClassPair // korlibs.ffi.osx/FFIObjc.objc_allocateClassPair|{}objc_allocateClassPair[0]
+        final fun <get-objc_allocateClassPair>(): kotlin/Function3<kotlin/Long, kotlin/String, kotlin/Int, kotlin/Long> // korlibs.ffi.osx/FFIObjc.objc_allocateClassPair.<get-objc_allocateClassPair>|<get-objc_allocateClassPair>(){}[0]
+    final val objc_copyProtocolList // korlibs.ffi.osx/FFIObjc.objc_copyProtocolList|{}objc_copyProtocolList[0]
+        // Targets: [native, wasmJs]
+        final fun <get-objc_copyProtocolList>(): kotlin/Function1<kotlin/IntArray, korlibs.ffi/FFIPointer?> // korlibs.ffi.osx/FFIObjc.objc_copyProtocolList.<get-objc_copyProtocolList>|<get-objc_copyProtocolList>(){}[0]
+
+        // Targets: [js]
+        final fun <get-objc_copyProtocolList>(): kotlin/Function1<kotlin/IntArray, korlibs.js/DenoPointer?> // korlibs.ffi.osx/FFIObjc.objc_copyProtocolList.<get-objc_copyProtocolList>|<get-objc_copyProtocolList>(){}[0]
+    final val objc_getClass // korlibs.ffi.osx/FFIObjc.objc_getClass|{}objc_getClass[0]
+        final fun <get-objc_getClass>(): kotlin/Function1<kotlin/String, kotlin/Long> // korlibs.ffi.osx/FFIObjc.objc_getClass.<get-objc_getClass>|<get-objc_getClass>(){}[0]
+    final val objc_getClassList // korlibs.ffi.osx/FFIObjc.objc_getClassList|{}objc_getClassList[0]
+        // Targets: [native, wasmJs]
+        final fun <get-objc_getClassList>(): kotlin/Function2<korlibs.ffi/FFIPointer?, kotlin/Int, kotlin/Int> // korlibs.ffi.osx/FFIObjc.objc_getClassList.<get-objc_getClassList>|<get-objc_getClassList>(){}[0]
+
+        // Targets: [js]
+        final fun <get-objc_getClassList>(): kotlin/Function2<korlibs.js/DenoPointer?, kotlin/Int, kotlin/Int> // korlibs.ffi.osx/FFIObjc.objc_getClassList.<get-objc_getClassList>|<get-objc_getClassList>(){}[0]
+    final val objc_getProtocol // korlibs.ffi.osx/FFIObjc.objc_getProtocol|{}objc_getProtocol[0]
+        final fun <get-objc_getProtocol>(): kotlin/Function1<kotlin/String, kotlin/Long> // korlibs.ffi.osx/FFIObjc.objc_getProtocol.<get-objc_getProtocol>|<get-objc_getProtocol>(){}[0]
+    final val objc_lookUpClass // korlibs.ffi.osx/FFIObjc.objc_lookUpClass|{}objc_lookUpClass[0]
+        final fun <get-objc_lookUpClass>(): kotlin/Function1<kotlin/String, kotlin/Long> // korlibs.ffi.osx/FFIObjc.objc_lookUpClass.<get-objc_lookUpClass>|<get-objc_lookUpClass>(){}[0]
+    final val objc_msgSend // korlibs.ffi.osx/FFIObjc.objc_msgSend|{}objc_msgSend[0]
+        final fun <get-objc_msgSend>(): kotlin/Function1<korlibs.ffi/FFIVarargs, kotlin/Long> // korlibs.ffi.osx/FFIObjc.objc_msgSend.<get-objc_msgSend>|<get-objc_msgSend>(){}[0]
+    final val objc_msgSendDouble // korlibs.ffi.osx/FFIObjc.objc_msgSendDouble|{}objc_msgSendDouble[0]
+        final fun <get-objc_msgSendDouble>(): kotlin/Function1<korlibs.ffi/FFIVarargs, kotlin/Double> // korlibs.ffi.osx/FFIObjc.objc_msgSendDouble.<get-objc_msgSendDouble>|<get-objc_msgSendDouble>(){}[0]
+    final val objc_msgSendFloat // korlibs.ffi.osx/FFIObjc.objc_msgSendFloat|{}objc_msgSendFloat[0]
+        final fun <get-objc_msgSendFloat>(): kotlin/Function1<korlibs.ffi/FFIVarargs, kotlin/Float> // korlibs.ffi.osx/FFIObjc.objc_msgSendFloat.<get-objc_msgSendFloat>|<get-objc_msgSendFloat>(){}[0]
+    final val objc_msgSendInt // korlibs.ffi.osx/FFIObjc.objc_msgSendInt|{}objc_msgSendInt[0]
+        final fun <get-objc_msgSendInt>(): kotlin/Function1<korlibs.ffi/FFIVarargs, kotlin/Int> // korlibs.ffi.osx/FFIObjc.objc_msgSendInt.<get-objc_msgSendInt>|<get-objc_msgSendInt>(){}[0]
+    final val objc_msgSendVoid // korlibs.ffi.osx/FFIObjc.objc_msgSendVoid|{}objc_msgSendVoid[0]
+        final fun <get-objc_msgSendVoid>(): kotlin/Function1<korlibs.ffi/FFIVarargs, kotlin/Unit> // korlibs.ffi.osx/FFIObjc.objc_msgSendVoid.<get-objc_msgSendVoid>|<get-objc_msgSendVoid>(){}[0]
+    final val objc_msgSend_stret // korlibs.ffi.osx/FFIObjc.objc_msgSend_stret|{}objc_msgSend_stret[0]
+        final fun <get-objc_msgSend_stret>(): kotlin/Function2<kotlin/Any?, korlibs.ffi/FFIVarargs, kotlin/Unit> // korlibs.ffi.osx/FFIObjc.objc_msgSend_stret.<get-objc_msgSend_stret>|<get-objc_msgSend_stret>(){}[0]
+    final val objc_registerClassPair // korlibs.ffi.osx/FFIObjc.objc_registerClassPair|{}objc_registerClassPair[0]
+        final fun <get-objc_registerClassPair>(): kotlin/Function1<kotlin/Long, kotlin/Unit> // korlibs.ffi.osx/FFIObjc.objc_registerClassPair.<get-objc_registerClassPair>|<get-objc_registerClassPair>(){}[0]
+    final val object_getClass // korlibs.ffi.osx/FFIObjc.object_getClass|{}object_getClass[0]
+        final fun <get-object_getClass>(): kotlin/Function1<kotlin/Long, kotlin/Long> // korlibs.ffi.osx/FFIObjc.object_getClass.<get-object_getClass>|<get-object_getClass>(){}[0]
+    final val object_getClassName // korlibs.ffi.osx/FFIObjc.object_getClassName|{}object_getClassName[0]
+        final fun <get-object_getClassName>(): kotlin/Function1<kotlin/Long, kotlin/String> // korlibs.ffi.osx/FFIObjc.object_getClassName.<get-object_getClassName>|<get-object_getClassName>(){}[0]
+    final val object_getIvar // korlibs.ffi.osx/FFIObjc.object_getIvar|{}object_getIvar[0]
+        final fun <get-object_getIvar>(): kotlin/Function2<kotlin/Long, kotlin/Long, kotlin/Long> // korlibs.ffi.osx/FFIObjc.object_getIvar.<get-object_getIvar>|<get-object_getIvar>(){}[0]
+    final val property_getAttributes // korlibs.ffi.osx/FFIObjc.property_getAttributes|{}property_getAttributes[0]
+        final fun <get-property_getAttributes>(): kotlin/Function1<kotlin/Long, kotlin/String> // korlibs.ffi.osx/FFIObjc.property_getAttributes.<get-property_getAttributes>|<get-property_getAttributes>(){}[0]
+    final val property_getName // korlibs.ffi.osx/FFIObjc.property_getName|{}property_getName[0]
+        final fun <get-property_getName>(): kotlin/Function1<kotlin/Long, kotlin/String> // korlibs.ffi.osx/FFIObjc.property_getName.<get-property_getName>|<get-property_getName>(){}[0]
+    final val protocol_copyMethodDescriptionList // korlibs.ffi.osx/FFIObjc.protocol_copyMethodDescriptionList|{}protocol_copyMethodDescriptionList[0]
+        // Targets: [native, wasmJs]
+        final fun <get-protocol_copyMethodDescriptionList>(): kotlin/Function4<kotlin/Long, kotlin/Boolean, kotlin/Boolean, kotlin/IntArray, korlibs.ffi/FFIPointer?> // korlibs.ffi.osx/FFIObjc.protocol_copyMethodDescriptionList.<get-protocol_copyMethodDescriptionList>|<get-protocol_copyMethodDescriptionList>(){}[0]
+
+        // Targets: [js]
+        final fun <get-protocol_copyMethodDescriptionList>(): kotlin/Function4<kotlin/Long, kotlin/Boolean, kotlin/Boolean, kotlin/IntArray, korlibs.js/DenoPointer?> // korlibs.ffi.osx/FFIObjc.protocol_copyMethodDescriptionList.<get-protocol_copyMethodDescriptionList>|<get-protocol_copyMethodDescriptionList>(){}[0]
+    final val protocol_getName // korlibs.ffi.osx/FFIObjc.protocol_getName|{}protocol_getName[0]
+        final fun <get-protocol_getName>(): kotlin/Function1<kotlin/Long, kotlin/String> // korlibs.ffi.osx/FFIObjc.protocol_getName.<get-protocol_getName>|<get-protocol_getName>(){}[0]
+    final val sel_getName // korlibs.ffi.osx/FFIObjc.sel_getName|{}sel_getName[0]
+        final fun <get-sel_getName>(): kotlin/Function1<kotlin/Long, kotlin/String> // korlibs.ffi.osx/FFIObjc.sel_getName.<get-sel_getName>|<get-sel_getName>(){}[0]
+    final val sel_getNameString // korlibs.ffi.osx/FFIObjc.sel_getNameString|{}sel_getNameString[0]
+        final fun <get-sel_getNameString>(): kotlin/Function1<kotlin/String, kotlin/String> // korlibs.ffi.osx/FFIObjc.sel_getNameString.<get-sel_getNameString>|<get-sel_getNameString>(){}[0]
+    final val sel_registerName // korlibs.ffi.osx/FFIObjc.sel_registerName|{}sel_registerName[0]
+        final fun <get-sel_registerName>(): kotlin/Function1<kotlin/String, kotlin/Long> // korlibs.ffi.osx/FFIObjc.sel_registerName.<get-sel_registerName>|<get-sel_registerName>(){}[0]
+}
+
+final object korlibs.ffi.osx/ObjcTypeParser { // korlibs.ffi.osx/ObjcTypeParser|null[0]
+    final fun parse(korlibs.ffi.osx/ObjcTypeParser.StrReader): korlibs.ffi.osx/ObjcMethodDesc // korlibs.ffi.osx/ObjcTypeParser.parse|parse(korlibs.ffi.osx.ObjcTypeParser.StrReader){}[0]
+    final fun parse(kotlin/String): korlibs.ffi.osx/ObjcMethodDesc // korlibs.ffi.osx/ObjcTypeParser.parse|parse(kotlin.String){}[0]
+    final fun parseInt(korlibs.ffi.osx/ObjcTypeParser.StrReader): kotlin/Int // korlibs.ffi.osx/ObjcTypeParser.parseInt|parseInt(korlibs.ffi.osx.ObjcTypeParser.StrReader){}[0]
+    final fun parseParam(korlibs.ffi.osx/ObjcTypeParser.StrReader): korlibs.ffi.osx/ObjcParam // korlibs.ffi.osx/ObjcTypeParser.parseParam|parseParam(korlibs.ffi.osx.ObjcTypeParser.StrReader){}[0]
+    final fun parseType(korlibs.ffi.osx/ObjcTypeParser.StrReader): korlibs.ffi.osx/ObjcType // korlibs.ffi.osx/ObjcTypeParser.parseType|parseType(korlibs.ffi.osx.ObjcTypeParser.StrReader){}[0]
+
+    final class StrReader { // korlibs.ffi.osx/ObjcTypeParser.StrReader|null[0]
+        constructor <init>(kotlin/String, kotlin/Int = ..., kotlin/Int = ...) // korlibs.ffi.osx/ObjcTypeParser.StrReader.<init>|<init>(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+
+        final val hasMore // korlibs.ffi.osx/ObjcTypeParser.StrReader.hasMore|{}hasMore[0]
+            final fun <get-hasMore>(): kotlin/Boolean // korlibs.ffi.osx/ObjcTypeParser.StrReader.hasMore.<get-hasMore>|<get-hasMore>(){}[0]
+        final val str // korlibs.ffi.osx/ObjcTypeParser.StrReader.str|{}str[0]
+            final fun <get-str>(): kotlin/String // korlibs.ffi.osx/ObjcTypeParser.StrReader.str.<get-str>|<get-str>(){}[0]
+
+        final var end // korlibs.ffi.osx/ObjcTypeParser.StrReader.end|{}end[0]
+            final fun <get-end>(): kotlin/Int // korlibs.ffi.osx/ObjcTypeParser.StrReader.end.<get-end>|<get-end>(){}[0]
+            final fun <set-end>(kotlin/Int) // korlibs.ffi.osx/ObjcTypeParser.StrReader.end.<set-end>|<set-end>(kotlin.Int){}[0]
+        final var pos // korlibs.ffi.osx/ObjcTypeParser.StrReader.pos|{}pos[0]
+            final fun <get-pos>(): kotlin/Int // korlibs.ffi.osx/ObjcTypeParser.StrReader.pos.<get-pos>|<get-pos>(){}[0]
+            final fun <set-pos>(kotlin/Int) // korlibs.ffi.osx/ObjcTypeParser.StrReader.pos.<set-pos>|<set-pos>(kotlin.Int){}[0]
+
+        final fun component1(): kotlin/String // korlibs.ffi.osx/ObjcTypeParser.StrReader.component1|component1(){}[0]
+        final fun component2(): kotlin/Int // korlibs.ffi.osx/ObjcTypeParser.StrReader.component2|component2(){}[0]
+        final fun component3(): kotlin/Int // korlibs.ffi.osx/ObjcTypeParser.StrReader.component3|component3(){}[0]
+        final fun copy(kotlin/String = ..., kotlin/Int = ..., kotlin/Int = ...): korlibs.ffi.osx/ObjcTypeParser.StrReader // korlibs.ffi.osx/ObjcTypeParser.StrReader.copy|copy(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi.osx/ObjcTypeParser.StrReader.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.ffi.osx/ObjcTypeParser.StrReader.hashCode|hashCode(){}[0]
+        final fun peekChar(): kotlin/Char // korlibs.ffi.osx/ObjcTypeParser.StrReader.peekChar|peekChar(){}[0]
+        final fun readChar(): kotlin/Char // korlibs.ffi.osx/ObjcTypeParser.StrReader.readChar|readChar(){}[0]
+        final fun readUntil(kotlin/Function1<kotlin/Char, kotlin/Boolean>): kotlin/String // korlibs.ffi.osx/ObjcTypeParser.StrReader.readUntil|readUntil(kotlin.Function1<kotlin.Char,kotlin.Boolean>){}[0]
+        final fun skip(kotlin/Int = ...) // korlibs.ffi.osx/ObjcTypeParser.StrReader.skip|skip(kotlin.Int){}[0]
+        final fun toString(): kotlin/String // korlibs.ffi.osx/ObjcTypeParser.StrReader.toString|toString(){}[0]
+    }
+}
+
+final val korlibs.ffi.osx/KotlinKeywords // korlibs.ffi.osx/KotlinKeywords|{}KotlinKeywords[0]
+    final fun <get-KotlinKeywords>(): kotlin.collections/Set<kotlin/String> // korlibs.ffi.osx/KotlinKeywords.<get-KotlinKeywords>|<get-KotlinKeywords>(){}[0]
+final val korlibs.ffi/FFI_NATIVE_LONG_SIZE // korlibs.ffi/FFI_NATIVE_LONG_SIZE|{}FFI_NATIVE_LONG_SIZE[0]
+    final fun <get-FFI_NATIVE_LONG_SIZE>(): kotlin/Int // korlibs.ffi/FFI_NATIVE_LONG_SIZE.<get-FFI_NATIVE_LONG_SIZE>|<get-FFI_NATIVE_LONG_SIZE>(){}[0]
+final val korlibs.ffi/FFI_POINTER_SIZE // korlibs.ffi/FFI_POINTER_SIZE|{}FFI_POINTER_SIZE[0]
+    final fun <get-FFI_POINTER_SIZE>(): kotlin/Int // korlibs.ffi/FFI_POINTER_SIZE.<get-FFI_POINTER_SIZE>|<get-FFI_POINTER_SIZE>(){}[0]
+final val korlibs.ffi/FFI_SUPPORTED // korlibs.ffi/FFI_SUPPORTED|{}FFI_SUPPORTED[0]
+    final fun <get-FFI_SUPPORTED>(): kotlin/Boolean // korlibs.ffi/FFI_SUPPORTED.<get-FFI_SUPPORTED>|<get-FFI_SUPPORTED>(){}[0]
+final val korlibs.ffi/pointer // korlibs.ffi/pointer|@korlibs.memory.Buffer{}pointer[0]
+    // Targets: [native, wasmJs]
+    final fun (korlibs.memory/Buffer).<get-pointer>(): korlibs.ffi/FFIPointer // korlibs.ffi/pointer.<get-pointer>|<get-pointer>@korlibs.memory.Buffer(){}[0]
+
+    // Targets: [js]
+    final fun (korlibs.memory/Buffer).<get-pointer>(): korlibs.js/DenoPointer // korlibs.ffi/pointer.<get-pointer>|<get-pointer>@korlibs.memory.Buffer(){}[0]
+
+final fun (korlibs.ffi.osx/FFIObjc).korlibs.ffi.osx/getAllClassIDs(): kotlin.collections/List<korlibs.ffi.osx/ObjcClassRef> // korlibs.ffi.osx/getAllClassIDs|getAllClassIDs@korlibs.ffi.osx.FFIObjc(){}[0]
+final fun (korlibs.ffi.osx/FFIObjc).korlibs.ffi.osx/getClassByName(kotlin/String): korlibs.ffi.osx/ObjcClassRef? // korlibs.ffi.osx/getClassByName|getClassByName@korlibs.ffi.osx.FFIObjc(kotlin.String){}[0]
+final fun (korlibs.ffi.osx/NSObject.Companion).korlibs.ffi.osx/cast(kotlin/Any): korlibs.ffi.osx/NSObject // korlibs.ffi.osx/cast|cast@korlibs.ffi.osx.NSObject.Companion(kotlin.Any){}[0]
+final fun (korlibs.ffi/FFITypedPointer<kotlin/Byte>).korlibs.ffi/get(kotlin/Int): kotlin/Byte // korlibs.ffi/get|get@korlibs.ffi.FFITypedPointer<kotlin.Byte>(kotlin.Int){}[0]
+final fun (korlibs.ffi/FFITypedPointer<kotlin/Byte>).korlibs.ffi/set(kotlin/Int, kotlin/Byte) // korlibs.ffi/set|set@korlibs.ffi.FFITypedPointer<kotlin.Byte>(kotlin.Int;kotlin.Byte){}[0]
+final fun (korlibs.ffi/FFITypedPointer<kotlin/Double>).korlibs.ffi/get(kotlin/Int): kotlin/Double // korlibs.ffi/get|get@korlibs.ffi.FFITypedPointer<kotlin.Double>(kotlin.Int){}[0]
+final fun (korlibs.ffi/FFITypedPointer<kotlin/Double>).korlibs.ffi/set(kotlin/Int, kotlin/Double) // korlibs.ffi/set|set@korlibs.ffi.FFITypedPointer<kotlin.Double>(kotlin.Int;kotlin.Double){}[0]
+final fun (korlibs.ffi/FFITypedPointer<kotlin/Float>).korlibs.ffi/get(kotlin/Int): kotlin/Float // korlibs.ffi/get|get@korlibs.ffi.FFITypedPointer<kotlin.Float>(kotlin.Int){}[0]
+final fun (korlibs.ffi/FFITypedPointer<kotlin/Float>).korlibs.ffi/set(kotlin/Int, kotlin/Float) // korlibs.ffi/set|set@korlibs.ffi.FFITypedPointer<kotlin.Float>(kotlin.Int;kotlin.Float){}[0]
+final fun (korlibs.ffi/FFITypedPointer<kotlin/Int>).korlibs.ffi/get(kotlin/Int): kotlin/Int // korlibs.ffi/get|get@korlibs.ffi.FFITypedPointer<kotlin.Int>(kotlin.Int){}[0]
+final fun (korlibs.ffi/FFITypedPointer<kotlin/Int>).korlibs.ffi/set(kotlin/Int, kotlin/Int) // korlibs.ffi/set|set@korlibs.ffi.FFITypedPointer<kotlin.Int>(kotlin.Int;kotlin.Int){}[0]
+final fun (korlibs.ffi/FFITypedPointer<kotlin/Long>).korlibs.ffi/get(kotlin/Int): kotlin/Long // korlibs.ffi/get|get@korlibs.ffi.FFITypedPointer<kotlin.Long>(kotlin.Int){}[0]
+final fun (korlibs.ffi/FFITypedPointer<kotlin/Long>).korlibs.ffi/set(kotlin/Int, kotlin/Long) // korlibs.ffi/set|set@korlibs.ffi.FFITypedPointer<kotlin.Long>(kotlin.Int;kotlin.Long){}[0]
+final fun (korlibs.ffi/FFITypedPointer<kotlin/Short>).korlibs.ffi/get(kotlin/Int): kotlin/Short // korlibs.ffi/get|get@korlibs.ffi.FFITypedPointer<kotlin.Short>(kotlin.Int){}[0]
+final fun (korlibs.ffi/FFITypedPointer<kotlin/Short>).korlibs.ffi/set(kotlin/Int, kotlin/Short) // korlibs.ffi/set|set@korlibs.ffi.FFITypedPointer<kotlin.Short>(kotlin.Int;kotlin.Short){}[0]
+final fun <#A: kotlin/Any?> (korlibs.ffi/FFITypedPointer<*>).korlibs.ffi/reinterpret(): korlibs.ffi/FFITypedPointer<#A> // korlibs.ffi/reinterpret|reinterpret@korlibs.ffi.FFITypedPointer<*>(){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (korlibs.ffi/FFITypedPointer<korlibs.ffi/FFITypedPointer<#A>>).korlibs.ffi/get(kotlin/Int): korlibs.ffi/FFITypedPointer<#A>? // korlibs.ffi/get|get@korlibs.ffi.FFITypedPointer<korlibs.ffi.FFITypedPointer<0:0>>(kotlin.Int){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (korlibs.ffi/FFITypedPointer<korlibs.ffi/FFITypedPointer<#A>>).korlibs.ffi/set(kotlin/Int, korlibs.ffi/FFITypedPointer<#A>?) // korlibs.ffi/set|set@korlibs.ffi.FFITypedPointer<korlibs.ffi.FFITypedPointer<0:0>>(kotlin.Int;korlibs.ffi.FFITypedPointer<0:0>?){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> korlibs.ffi/FFICreateProxyFunction(kotlin.reflect/KType, kotlin/Function1<kotlin/Array<kotlin/Any?>, kotlin/Any?>): #A // korlibs.ffi/FFICreateProxyFunction|FFICreateProxyFunction(kotlin.reflect.KType;kotlin.Function1<kotlin.Array<kotlin.Any?>,kotlin.Any?>){0§<kotlin.Any?>}[0]
+final fun korlibs.ffi/FFILibSym(korlibs.ffi/FFILib): korlibs.ffi/FFILibSym // korlibs.ffi/FFILibSym|FFILibSym(korlibs.ffi.FFILib){}[0]
+final inline fun <#A: kotlin/Any?> korlibs.ffi/ffiScoped(kotlin/Function1<korlibs.ffi/FFIArena, #A>): #A // korlibs.ffi/ffiScoped|ffiScoped(kotlin.Function1<korlibs.ffi.FFIArena,0:0>){0§<kotlin.Any?>}[0]
+final inline fun <#A: reified kotlin/Any?> korlibs.ffi/FFICreateProxyFunction(noinline kotlin/Function1<kotlin/Array<kotlin/Any?>, kotlin/Any?>): #A // korlibs.ffi/FFICreateProxyFunction|FFICreateProxyFunction(kotlin.Function1<kotlin.Array<kotlin.Any?>,kotlin.Any?>){0§<kotlin.Any?>}[0]
+
+// Targets: [native, wasmJs]
+final class korlibs.ffi/FFIPointer { // korlibs.ffi/FFIPointer|null[0]
+    // Targets: [native]
+    constructor <init>(kotlin.native.internal/NativePtr) // korlibs.ffi/FFIPointer.<init>|<init>(kotlin.native.internal.NativePtr){}[0]
+
+    // Targets: [native]
+    final val long // korlibs.ffi/FFIPointer.long|{}long[0]
+        final fun <get-long>(): kotlin/Long // korlibs.ffi/FFIPointer.long.<get-long>|<get-long>(){}[0]
+
+    // Targets: [native]
+    final val ptr // korlibs.ffi/FFIPointer.ptr|{}ptr[0]
+        final fun <get-ptr>(): kotlin.native.internal/NativePtr // korlibs.ffi/FFIPointer.ptr.<get-ptr>|<get-ptr>(){}[0]
+
+    // Targets: [wasmJs]
+    constructor <init>() // korlibs.ffi/FFIPointer.<init>|<init>(){}[0]
+}
+
+// Targets: [native, wasmJs]
+final class korlibs.ffi/FFIPointerArray : kotlin.collections/List<korlibs.ffi/FFIPointer?> { // korlibs.ffi/FFIPointerArray|null[0]
+    constructor <init>(kotlin/Int) // korlibs.ffi/FFIPointerArray.<init>|<init>(kotlin.Int){}[0]
+    constructor <init>(kotlin/IntArray) // korlibs.ffi/FFIPointerArray.<init>|<init>(kotlin.IntArray){}[0]
+
+    final val data // korlibs.ffi/FFIPointerArray.data|{}data[0]
+        final fun <get-data>(): kotlin/IntArray // korlibs.ffi/FFIPointerArray.data.<get-data>|<get-data>(){}[0]
+    final val size // korlibs.ffi/FFIPointerArray.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // korlibs.ffi/FFIPointerArray.size.<get-size>|<get-size>(){}[0]
+
+    final fun component1(): kotlin/IntArray // korlibs.ffi/FFIPointerArray.component1|component1(){}[0]
+    final fun contains(korlibs.ffi/FFIPointer?): kotlin/Boolean // korlibs.ffi/FFIPointerArray.contains|contains(korlibs.ffi.FFIPointer?){}[0]
+    final fun containsAll(kotlin.collections/Collection<korlibs.ffi/FFIPointer?>): kotlin/Boolean // korlibs.ffi/FFIPointerArray.containsAll|containsAll(kotlin.collections.Collection<korlibs.ffi.FFIPointer?>){}[0]
+    final fun copy(kotlin/IntArray = ...): korlibs.ffi/FFIPointerArray // korlibs.ffi/FFIPointerArray.copy|copy(kotlin.IntArray){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi/FFIPointerArray.equals|equals(kotlin.Any?){}[0]
+    final fun get(kotlin/Int): korlibs.ffi/FFIPointer? // korlibs.ffi/FFIPointerArray.get|get(kotlin.Int){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi/FFIPointerArray.hashCode|hashCode(){}[0]
+    final fun indexOf(korlibs.ffi/FFIPointer?): kotlin/Int // korlibs.ffi/FFIPointerArray.indexOf|indexOf(korlibs.ffi.FFIPointer?){}[0]
+    final fun isEmpty(): kotlin/Boolean // korlibs.ffi/FFIPointerArray.isEmpty|isEmpty(){}[0]
+    final fun iterator(): kotlin.collections/Iterator<korlibs.ffi/FFIPointer?> // korlibs.ffi/FFIPointerArray.iterator|iterator(){}[0]
+    final fun lastIndexOf(korlibs.ffi/FFIPointer?): kotlin/Int // korlibs.ffi/FFIPointerArray.lastIndexOf|lastIndexOf(korlibs.ffi.FFIPointer?){}[0]
+    final fun listIterator(): kotlin.collections/ListIterator<korlibs.ffi/FFIPointer?> // korlibs.ffi/FFIPointerArray.listIterator|listIterator(){}[0]
+    final fun listIterator(kotlin/Int): kotlin.collections/ListIterator<korlibs.ffi/FFIPointer?> // korlibs.ffi/FFIPointerArray.listIterator|listIterator(kotlin.Int){}[0]
+    final fun set(kotlin/Int, korlibs.ffi/FFIPointer?) // korlibs.ffi/FFIPointerArray.set|set(kotlin.Int;korlibs.ffi.FFIPointer?){}[0]
+    final fun subList(kotlin/Int, kotlin/Int): kotlin.collections/List<korlibs.ffi/FFIPointer?> // korlibs.ffi/FFIPointerArray.subList|subList(kotlin.Int;kotlin.Int){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi/FFIPointerArray.toString|toString(){}[0]
+}
+
+// Targets: [native, wasmJs]
+final val korlibs.ffi/address // korlibs.ffi/address|@korlibs.ffi.FFIPointer?{}address[0]
+    final fun (korlibs.ffi/FFIPointer?).<get-address>(): kotlin/Long // korlibs.ffi/address.<get-address>|<get-address>@korlibs.ffi.FFIPointer?(){}[0]
+
+// Targets: [native, wasmJs]
+final val korlibs.ffi/str // korlibs.ffi/str|@korlibs.ffi.FFIPointer?{}str[0]
+    final fun (korlibs.ffi/FFIPointer?).<get-str>(): kotlin/String // korlibs.ffi/str.<get-str>|<get-str>@korlibs.ffi.FFIPointer?(){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getAlignedF32(kotlin/Int = ...): kotlin/Float // korlibs.ffi/getAlignedF32|getAlignedF32@korlibs.ffi.FFIPointer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getAlignedF64(kotlin/Int = ...): kotlin/Double // korlibs.ffi/getAlignedF64|getAlignedF64@korlibs.ffi.FFIPointer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getAlignedFFIPointer(kotlin/Int = ...): korlibs.ffi/FFIPointer? // korlibs.ffi/getAlignedFFIPointer|getAlignedFFIPointer@korlibs.ffi.FFIPointer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getAlignedS16(kotlin/Int = ...): kotlin/Short // korlibs.ffi/getAlignedS16|getAlignedS16@korlibs.ffi.FFIPointer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getAlignedS32(kotlin/Int = ...): kotlin/Int // korlibs.ffi/getAlignedS32|getAlignedS32@korlibs.ffi.FFIPointer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getAlignedS64(kotlin/Int = ...): kotlin/Long // korlibs.ffi/getAlignedS64|getAlignedS64@korlibs.ffi.FFIPointer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getByteArray(kotlin/Int, kotlin/Int = ...): kotlin/ByteArray // korlibs.ffi/getByteArray|getByteArray@korlibs.ffi.FFIPointer(kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getF32(kotlin/Int = ...): kotlin/Float // korlibs.ffi/getF32|getF32@korlibs.ffi.FFIPointer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getF64(kotlin/Int = ...): kotlin/Double // korlibs.ffi/getF64|getF64@korlibs.ffi.FFIPointer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getFFIPointer(kotlin/Int = ...): korlibs.ffi/FFIPointer? // korlibs.ffi/getFFIPointer|getFFIPointer@korlibs.ffi.FFIPointer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getIntArray(kotlin/Int, kotlin/Int = ...): kotlin/IntArray // korlibs.ffi/getIntArray|getIntArray@korlibs.ffi.FFIPointer(kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getS16(kotlin/Int = ...): kotlin/Short // korlibs.ffi/getS16|getS16@korlibs.ffi.FFIPointer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getS32(kotlin/Int = ...): kotlin/Int // korlibs.ffi/getS32|getS32@korlibs.ffi.FFIPointer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getS64(kotlin/Int = ...): kotlin/Long // korlibs.ffi/getS64|getS64@korlibs.ffi.FFIPointer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getS8(kotlin/Int = ...): kotlin/Byte // korlibs.ffi/getS8|getS8@korlibs.ffi.FFIPointer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getShortArray(kotlin/Int, kotlin/Int = ...): kotlin/ShortArray // korlibs.ffi/getShortArray|getShortArray@korlibs.ffi.FFIPointer(kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getStringz(): kotlin/String // korlibs.ffi/getStringz|getStringz@korlibs.ffi.FFIPointer(){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/getWideStringz(): kotlin/String // korlibs.ffi/getWideStringz|getWideStringz@korlibs.ffi.FFIPointer(){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/plus(kotlin/Int): korlibs.ffi/FFIPointer // korlibs.ffi/plus|plus@korlibs.ffi.FFIPointer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/set16(kotlin/Short, kotlin/Int = ...) // korlibs.ffi/set16|set16@korlibs.ffi.FFIPointer(kotlin.Short;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/set32(kotlin/Int, kotlin/Int = ...) // korlibs.ffi/set32|set32@korlibs.ffi.FFIPointer(kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/set64(kotlin/Long, kotlin/Int = ...) // korlibs.ffi/set64|set64@korlibs.ffi.FFIPointer(kotlin.Long;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/set8(kotlin/Byte, kotlin/Int = ...) // korlibs.ffi/set8|set8@korlibs.ffi.FFIPointer(kotlin.Byte;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/setAligned16(kotlin/Short, kotlin/Int = ...) // korlibs.ffi/setAligned16|setAligned16@korlibs.ffi.FFIPointer(kotlin.Short;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/setAligned32(kotlin/Int, kotlin/Int = ...) // korlibs.ffi/setAligned32|setAligned32@korlibs.ffi.FFIPointer(kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/setAligned64(kotlin/Long, kotlin/Int = ...) // korlibs.ffi/setAligned64|setAligned64@korlibs.ffi.FFIPointer(kotlin.Long;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/setAlignedF32(kotlin/Float, kotlin/Int = ...) // korlibs.ffi/setAlignedF32|setAlignedF32@korlibs.ffi.FFIPointer(kotlin.Float;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/setAlignedF64(kotlin/Double, kotlin/Int = ...) // korlibs.ffi/setAlignedF64|setAlignedF64@korlibs.ffi.FFIPointer(kotlin.Double;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/setAlignedFFIPointer(korlibs.ffi/FFIPointer?, kotlin/Int = ...) // korlibs.ffi/setAlignedFFIPointer|setAlignedFFIPointer@korlibs.ffi.FFIPointer(korlibs.ffi.FFIPointer?;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/setF32(kotlin/Float, kotlin/Int = ...) // korlibs.ffi/setF32|setF32@korlibs.ffi.FFIPointer(kotlin.Float;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/setF64(kotlin/Double, kotlin/Int = ...) // korlibs.ffi/setF64|setF64@korlibs.ffi.FFIPointer(kotlin.Double;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/setFFIPointer(korlibs.ffi/FFIPointer?, kotlin/Int = ...) // korlibs.ffi/setFFIPointer|setFFIPointer@korlibs.ffi.FFIPointer(korlibs.ffi.FFIPointer?;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/strlen(kotlin/Int = ...): kotlin/Int // korlibs.ffi/strlen|strlen@korlibs.ffi.FFIPointer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFIPointer).korlibs.ffi/withOffset(kotlin/Int): korlibs.ffi/FFIPointer? // korlibs.ffi/withOffset|withOffset@korlibs.ffi.FFIPointer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFITypedPointer<korlibs.ffi/FFIPointer?>).korlibs.ffi/get(kotlin/Int): korlibs.ffi/FFIPointer? // korlibs.ffi/get|get@korlibs.ffi.FFITypedPointer<korlibs.ffi.FFIPointer?>(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.ffi/FFITypedPointer<korlibs.ffi/FFIPointer?>).korlibs.ffi/set(kotlin/Int, korlibs.ffi/FFIPointer?) // korlibs.ffi/set|set@korlibs.ffi.FFITypedPointer<korlibs.ffi.FFIPointer?>(kotlin.Int;korlibs.ffi.FFIPointer?){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.memory/Buffer).korlibs.ffi/getFFIPointer(kotlin/Int): korlibs.ffi/FFIPointer? // korlibs.ffi/getFFIPointer|getFFIPointer@korlibs.memory.Buffer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.memory/Buffer).korlibs.ffi/getUnalignedFFIPointer(kotlin/Int): korlibs.ffi/FFIPointer? // korlibs.ffi/getUnalignedFFIPointer|getUnalignedFFIPointer@korlibs.memory.Buffer(kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.memory/Buffer).korlibs.ffi/setFFIPointer(kotlin/Int, korlibs.ffi/FFIPointer?) // korlibs.ffi/setFFIPointer|setFFIPointer@korlibs.memory.Buffer(kotlin.Int;korlibs.ffi.FFIPointer?){}[0]
+
+// Targets: [native, wasmJs]
+final fun (korlibs.memory/Buffer).korlibs.ffi/setUnalignedFFIPointer(kotlin/Int, korlibs.ffi/FFIPointer?) // korlibs.ffi/setUnalignedFFIPointer|setUnalignedFFIPointer@korlibs.memory.Buffer(kotlin.Int;korlibs.ffi.FFIPointer?){}[0]
+
+// Targets: [native, wasmJs]
+final fun <#A: kotlin/Any?> (korlibs.ffi/FFIPointer).korlibs.ffi/castToFunc(kotlin.reflect/KType, korlibs.ffi/FFIFuncConfig = ...): #A // korlibs.ffi/castToFunc|castToFunc@korlibs.ffi.FFIPointer(kotlin.reflect.KType;korlibs.ffi.FFIFuncConfig){0§<kotlin.Any?>}[0]
+
+// Targets: [native, wasmJs]
+final fun <#A: kotlin/Any?> (korlibs.ffi/FFIPointer).korlibs.ffi/typed(): korlibs.ffi/FFITypedPointer<#A> // korlibs.ffi/typed|typed@korlibs.ffi.FFIPointer(){0§<kotlin.Any?>}[0]
+
+// Targets: [native, wasmJs]
+final fun korlibs.ffi/CreateFFIPointer(kotlin/Long): korlibs.ffi/FFIPointer? // korlibs.ffi/CreateFFIPointer|CreateFFIPointer(kotlin.Long){}[0]
+
+// Targets: [native, wasmJs]
+final fun korlibs.ffi/arraycopy(korlibs.ffi/FFIPointer, kotlin/Int, korlibs.ffi/FFIPointer, kotlin/Int, kotlin/Int) // korlibs.ffi/arraycopy|arraycopy(korlibs.ffi.FFIPointer;kotlin.Int;korlibs.ffi.FFIPointer;kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun korlibs.ffi/arraycopy(korlibs.ffi/FFIPointer, kotlin/Int, korlibs.memory/Buffer, kotlin/Int, kotlin/Int) // korlibs.ffi/arraycopy|arraycopy(korlibs.ffi.FFIPointer;kotlin.Int;korlibs.memory.Buffer;kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun korlibs.ffi/arraycopy(korlibs.memory/Buffer, kotlin/Int, korlibs.ffi/FFIPointer, kotlin/Int, kotlin/Int) // korlibs.ffi/arraycopy|arraycopy(korlibs.memory.Buffer;kotlin.Int;korlibs.ffi.FFIPointer;kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [native, wasmJs]
+final fun korlibs.ffi/ffiPointerArrayOf(kotlin/Array<out korlibs.ffi/FFIPointer?>...): korlibs.ffi/FFIPointerArray // korlibs.ffi/ffiPointerArrayOf|ffiPointerArrayOf(kotlin.Array<out|korlibs.ffi.FFIPointer?>...){}[0]
+
+// Targets: [native, wasmJs]
+final inline fun (korlibs.ffi/FFIArena).korlibs.ffi/allocBytes(kotlin/Int, kotlin/Function1<kotlin/Int, kotlin/Byte>): korlibs.ffi/FFIPointer // korlibs.ffi/allocBytes|allocBytes@korlibs.ffi.FFIArena(kotlin.Int;kotlin.Function1<kotlin.Int,kotlin.Byte>){}[0]
+
+// Targets: [native, wasmJs]
+final inline fun <#A: kotlin/Any?> (korlibs.memory/Buffer).korlibs.ffi/usePointer(kotlin/Function1<korlibs.ffi/FFIPointer, #A>): #A // korlibs.ffi/usePointer|usePointer@korlibs.memory.Buffer(kotlin.Function1<korlibs.ffi.FFIPointer,0:0>){0§<kotlin.Any?>}[0]
+
+// Targets: [native, wasmJs]
+final inline fun <#A: reified kotlin/Any?> (korlibs.ffi/FFIPointer).korlibs.ffi/castToFunc(): #A // korlibs.ffi/castToFunc|castToFunc@korlibs.ffi.FFIPointer(){0§<kotlin.Any?>}[0]
+
+// Targets: [native, wasmJs]
+final inline fun korlibs.ffi/FFIPointer(kotlin/Long, kotlin/Unit = ...): korlibs.ffi/FFIPointer? // korlibs.ffi/FFIPointer|FFIPointer(kotlin.Long;kotlin.Unit){}[0]
+
+// Targets: [native]
+final val korlibs.ffi/pointer // korlibs.ffi/pointer|@kotlin.ByteArray{}pointer[0]
+    final fun (kotlin/ByteArray).<get-pointer>(): korlibs.ffi/FFIPointer // korlibs.ffi/pointer.<get-pointer>|<get-pointer>@kotlin.ByteArray(){}[0]
+
+// Targets: [native]
+final fun korlibs.ffi/CreateFFIMemory(kotlin/ByteArray): kotlin/ByteArray // korlibs.ffi/CreateFFIMemory|CreateFFIMemory(kotlin.ByteArray){}[0]
+
+// Targets: [native]
+final fun korlibs.ffi/CreateFFIMemory(kotlin/Int): kotlin/ByteArray // korlibs.ffi/CreateFFIMemory|CreateFFIMemory(kotlin.Int){}[0]
+
+// Targets: [native]
+final inline fun <#A: kotlin/Any?> (kotlin/ByteArray).korlibs.ffi/usePointer(kotlin/Function1<korlibs.ffi/FFIPointer, #A>): #A // korlibs.ffi/usePointer|usePointer@kotlin.ByteArray(kotlin.Function1<korlibs.ffi.FFIPointer,0:0>){0§<kotlin.Any?>}[0]
+
+// Targets: [native]
+final inline fun korlibs.ffi/FFIMemory(kotlin/ByteArray, kotlin/Unit = ...): kotlin/ByteArray // korlibs.ffi/FFIMemory|FFIMemory(kotlin.ByteArray;kotlin.Unit){}[0]
+
+// Targets: [native]
+final inline fun korlibs.ffi/FFIMemory(kotlin/Int, kotlin/Unit = ...): kotlin/ByteArray // korlibs.ffi/FFIMemory|FFIMemory(kotlin.Int;kotlin.Unit){}[0]
+
+// Targets: [js]
+final class korlibs.ffi/FFILibSymJS : korlibs.ffi/FFILibSym { // korlibs.ffi/FFILibSymJS|null[0]
+    constructor <init>(korlibs.ffi/FFILib) // korlibs.ffi/FFILibSymJS.<init>|<init>(korlibs.ffi.FFILib){}[0]
+
+    final val dylib // korlibs.ffi/FFILibSymJS.dylib|{}dylib[0]
+        final fun <get-dylib>(): dynamic // korlibs.ffi/FFILibSymJS.dylib.<get-dylib>|<get-dylib>(){}[0]
+    final val lib // korlibs.ffi/FFILibSymJS.lib|{}lib[0]
+        final fun <get-lib>(): korlibs.ffi/FFILib // korlibs.ffi/FFILibSymJS.lib.<get-lib>|<get-lib>(){}[0]
+    final val symbolsByName // korlibs.ffi/FFILibSymJS.symbolsByName|{}symbolsByName[0]
+        final fun <get-symbolsByName>(): kotlin.collections/Map<kotlin/String, korlibs.ffi/FFILib.FuncDelegate<*>> // korlibs.ffi/FFILibSymJS.symbolsByName.<get-symbolsByName>|<get-symbolsByName>(){}[0]
+    final val syms // korlibs.ffi/FFILibSymJS.syms|{}syms[0]
+        final fun <get-syms>(): dynamic // korlibs.ffi/FFILibSymJS.syms.<get-syms>|<get-syms>(){}[0]
+
+    final fun <#A1: kotlin/Any?> get(kotlin/String, kotlin.reflect/KType): #A1 // korlibs.ffi/FFILibSymJS.get|get(kotlin.String;kotlin.reflect.KType){0§<kotlin.Any?>}[0]
+    final fun close() // korlibs.ffi/FFILibSymJS.close|close(){}[0]
+}
+
+// Targets: [js]
+final class korlibs.ffi/FFIPointerArray : kotlin.collections/List<korlibs.js/DenoPointer?> { // korlibs.ffi/FFIPointerArray|null[0]
+    constructor <init>(kotlin/Int) // korlibs.ffi/FFIPointerArray.<init>|<init>(kotlin.Int){}[0]
+    constructor <init>(kotlin/IntArray) // korlibs.ffi/FFIPointerArray.<init>|<init>(kotlin.IntArray){}[0]
+
+    final val data // korlibs.ffi/FFIPointerArray.data|{}data[0]
+        final fun <get-data>(): kotlin/IntArray // korlibs.ffi/FFIPointerArray.data.<get-data>|<get-data>(){}[0]
+    final val size // korlibs.ffi/FFIPointerArray.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // korlibs.ffi/FFIPointerArray.size.<get-size>|<get-size>(){}[0]
+
+    final fun component1(): kotlin/IntArray // korlibs.ffi/FFIPointerArray.component1|component1(){}[0]
+    final fun contains(korlibs.js/DenoPointer?): kotlin/Boolean // korlibs.ffi/FFIPointerArray.contains|contains(korlibs.js.DenoPointer?){}[0]
+    final fun containsAll(kotlin.collections/Collection<korlibs.js/DenoPointer?>): kotlin/Boolean // korlibs.ffi/FFIPointerArray.containsAll|containsAll(kotlin.collections.Collection<korlibs.js.DenoPointer?>){}[0]
+    final fun copy(kotlin/IntArray = ...): korlibs.ffi/FFIPointerArray // korlibs.ffi/FFIPointerArray.copy|copy(kotlin.IntArray){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi/FFIPointerArray.equals|equals(kotlin.Any?){}[0]
+    final fun get(kotlin/Int): korlibs.js/DenoPointer? // korlibs.ffi/FFIPointerArray.get|get(kotlin.Int){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi/FFIPointerArray.hashCode|hashCode(){}[0]
+    final fun indexOf(korlibs.js/DenoPointer?): kotlin/Int // korlibs.ffi/FFIPointerArray.indexOf|indexOf(korlibs.js.DenoPointer?){}[0]
+    final fun isEmpty(): kotlin/Boolean // korlibs.ffi/FFIPointerArray.isEmpty|isEmpty(){}[0]
+    final fun iterator(): kotlin.collections/Iterator<korlibs.js/DenoPointer?> // korlibs.ffi/FFIPointerArray.iterator|iterator(){}[0]
+    final fun lastIndexOf(korlibs.js/DenoPointer?): kotlin/Int // korlibs.ffi/FFIPointerArray.lastIndexOf|lastIndexOf(korlibs.js.DenoPointer?){}[0]
+    final fun listIterator(): kotlin.collections/ListIterator<korlibs.js/DenoPointer?> // korlibs.ffi/FFIPointerArray.listIterator|listIterator(){}[0]
+    final fun listIterator(kotlin/Int): kotlin.collections/ListIterator<korlibs.js/DenoPointer?> // korlibs.ffi/FFIPointerArray.listIterator|listIterator(kotlin.Int){}[0]
+    final fun set(kotlin/Int, korlibs.js/DenoPointer?) // korlibs.ffi/FFIPointerArray.set|set(kotlin.Int;korlibs.js.DenoPointer?){}[0]
+    final fun subList(kotlin/Int, kotlin/Int): kotlin.collections/List<korlibs.js/DenoPointer?> // korlibs.ffi/FFIPointerArray.subList|subList(kotlin.Int;kotlin.Int){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi/FFIPointerArray.toString|toString(){}[0]
+}
+
+// Targets: [js]
+final class korlibs.ffi/WebAssembly { // korlibs.ffi/WebAssembly|null[0]
+    constructor <init>() // korlibs.ffi/WebAssembly.<init>|<init>(){}[0]
+
+    final class Instance { // korlibs.ffi/WebAssembly.Instance|null[0]
+        constructor <init>(korlibs.ffi/WebAssembly.Module, dynamic) // korlibs.ffi/WebAssembly.Instance.<init>|<init>(korlibs.ffi.WebAssembly.Module;<dynamic>){}[0]
+
+        final val exports // korlibs.ffi/WebAssembly.Instance.exports|{}exports[0]
+            final fun <get-exports>(): dynamic // korlibs.ffi/WebAssembly.Instance.exports.<get-exports>|<get-exports>(){}[0]
+        final val memory // korlibs.ffi/WebAssembly.Instance.memory|{}memory[0]
+            final fun <get-memory>(): org.khronos.webgl/ArrayBuffer // korlibs.ffi/WebAssembly.Instance.memory.<get-memory>|<get-memory>(){}[0]
+    }
+
+    final class Module { // korlibs.ffi/WebAssembly.Module|null[0]
+        constructor <init>(kotlin/ByteArray) // korlibs.ffi/WebAssembly.Module.<init>|<init>(kotlin.ByteArray){}[0]
+    }
+}
+
+// Targets: [js]
+final val korlibs.ffi/address // korlibs.ffi/address|@korlibs.js.DenoPointer?{}address[0]
+    final fun (korlibs.js/DenoPointer?).<get-address>(): kotlin/Long // korlibs.ffi/address.<get-address>|<get-address>@korlibs.js.DenoPointer?(){}[0]
+
+// Targets: [js]
+final val korlibs.ffi/pointer // korlibs.ffi/pointer|@org.khronos.webgl.Uint8Array{}pointer[0]
+    final fun (org.khronos.webgl/Uint8Array).<get-pointer>(): korlibs.js/DenoPointer // korlibs.ffi/pointer.<get-pointer>|<get-pointer>@org.khronos.webgl.Uint8Array(){}[0]
+
+// Targets: [js]
+final val korlibs.ffi/str // korlibs.ffi/str|@korlibs.js.DenoPointer?{}str[0]
+    final fun (korlibs.js/DenoPointer?).<get-str>(): kotlin/String // korlibs.ffi/str.<get-str>|<get-str>@korlibs.js.DenoPointer?(){}[0]
+
+// Targets: [js]
+final fun (korlibs.ffi/FFITypedPointer<korlibs.js/DenoPointer?>).korlibs.ffi/get(kotlin/Int): korlibs.js/DenoPointer? // korlibs.ffi/get|get@korlibs.ffi.FFITypedPointer<korlibs.js.DenoPointer?>(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.ffi/FFITypedPointer<korlibs.js/DenoPointer?>).korlibs.ffi/set(kotlin/Int, korlibs.js/DenoPointer?) // korlibs.ffi/set|set@korlibs.ffi.FFITypedPointer<korlibs.js.DenoPointer?>(kotlin.Int;korlibs.js.DenoPointer?){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getAlignedF32(kotlin/Int = ...): kotlin/Float // korlibs.ffi/getAlignedF32|getAlignedF32@korlibs.js.DenoPointer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getAlignedF64(kotlin/Int = ...): kotlin/Double // korlibs.ffi/getAlignedF64|getAlignedF64@korlibs.js.DenoPointer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getAlignedFFIPointer(kotlin/Int = ...): korlibs.js/DenoPointer? // korlibs.ffi/getAlignedFFIPointer|getAlignedFFIPointer@korlibs.js.DenoPointer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getAlignedS16(kotlin/Int = ...): kotlin/Short // korlibs.ffi/getAlignedS16|getAlignedS16@korlibs.js.DenoPointer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getAlignedS32(kotlin/Int = ...): kotlin/Int // korlibs.ffi/getAlignedS32|getAlignedS32@korlibs.js.DenoPointer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getAlignedS64(kotlin/Int = ...): kotlin/Long // korlibs.ffi/getAlignedS64|getAlignedS64@korlibs.js.DenoPointer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getByteArray(kotlin/Int, kotlin/Int = ...): kotlin/ByteArray // korlibs.ffi/getByteArray|getByteArray@korlibs.js.DenoPointer(kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getDataView(kotlin/Int, kotlin/Int): org.khronos.webgl/DataView // korlibs.ffi/getDataView|getDataView@korlibs.js.DenoPointer(kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getF32(kotlin/Int = ...): kotlin/Float // korlibs.ffi/getF32|getF32@korlibs.js.DenoPointer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getF64(kotlin/Int = ...): kotlin/Double // korlibs.ffi/getF64|getF64@korlibs.js.DenoPointer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getFFIPointer(kotlin/Int = ...): korlibs.js/DenoPointer? // korlibs.ffi/getFFIPointer|getFFIPointer@korlibs.js.DenoPointer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getIntArray(kotlin/Int, kotlin/Int = ...): kotlin/IntArray // korlibs.ffi/getIntArray|getIntArray@korlibs.js.DenoPointer(kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getS16(kotlin/Int = ...): kotlin/Short // korlibs.ffi/getS16|getS16@korlibs.js.DenoPointer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getS32(kotlin/Int = ...): kotlin/Int // korlibs.ffi/getS32|getS32@korlibs.js.DenoPointer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getS64(kotlin/Int = ...): kotlin/Long // korlibs.ffi/getS64|getS64@korlibs.js.DenoPointer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getS8(kotlin/Int = ...): kotlin/Byte // korlibs.ffi/getS8|getS8@korlibs.js.DenoPointer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getShortArray(kotlin/Int, kotlin/Int = ...): kotlin/ShortArray // korlibs.ffi/getShortArray|getShortArray@korlibs.js.DenoPointer(kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getStringz(): kotlin/String // korlibs.ffi/getStringz|getStringz@korlibs.js.DenoPointer(){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/getWideStringz(): kotlin/String // korlibs.ffi/getWideStringz|getWideStringz@korlibs.js.DenoPointer(){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/plus(kotlin/Int): korlibs.js/DenoPointer // korlibs.ffi/plus|plus@korlibs.js.DenoPointer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/set16(kotlin/Short, kotlin/Int = ...) // korlibs.ffi/set16|set16@korlibs.js.DenoPointer(kotlin.Short;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/set32(kotlin/Int, kotlin/Int = ...) // korlibs.ffi/set32|set32@korlibs.js.DenoPointer(kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/set64(kotlin/Long, kotlin/Int = ...) // korlibs.ffi/set64|set64@korlibs.js.DenoPointer(kotlin.Long;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/set8(kotlin/Byte, kotlin/Int = ...) // korlibs.ffi/set8|set8@korlibs.js.DenoPointer(kotlin.Byte;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/setAligned16(kotlin/Short, kotlin/Int = ...) // korlibs.ffi/setAligned16|setAligned16@korlibs.js.DenoPointer(kotlin.Short;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/setAligned32(kotlin/Int, kotlin/Int = ...) // korlibs.ffi/setAligned32|setAligned32@korlibs.js.DenoPointer(kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/setAligned64(kotlin/Long, kotlin/Int = ...) // korlibs.ffi/setAligned64|setAligned64@korlibs.js.DenoPointer(kotlin.Long;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/setAlignedF32(kotlin/Float, kotlin/Int = ...) // korlibs.ffi/setAlignedF32|setAlignedF32@korlibs.js.DenoPointer(kotlin.Float;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/setAlignedF64(kotlin/Double, kotlin/Int = ...) // korlibs.ffi/setAlignedF64|setAlignedF64@korlibs.js.DenoPointer(kotlin.Double;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/setAlignedFFIPointer(korlibs.js/DenoPointer?, kotlin/Int = ...) // korlibs.ffi/setAlignedFFIPointer|setAlignedFFIPointer@korlibs.js.DenoPointer(korlibs.js.DenoPointer?;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/setF32(kotlin/Float, kotlin/Int = ...) // korlibs.ffi/setF32|setF32@korlibs.js.DenoPointer(kotlin.Float;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/setF64(kotlin/Double, kotlin/Int = ...) // korlibs.ffi/setF64|setF64@korlibs.js.DenoPointer(kotlin.Double;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/setFFIPointer(korlibs.js/DenoPointer?, kotlin/Int = ...) // korlibs.ffi/setFFIPointer|setFFIPointer@korlibs.js.DenoPointer(korlibs.js.DenoPointer?;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/strlen(kotlin/Int = ...): kotlin/Int // korlibs.ffi/strlen|strlen@korlibs.js.DenoPointer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/DenoPointer).korlibs.ffi/withOffset(kotlin/Int): korlibs.js/DenoPointer? // korlibs.ffi/withOffset|withOffset@korlibs.js.DenoPointer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.memory/Buffer).korlibs.ffi/getFFIPointer(kotlin/Int): korlibs.js/DenoPointer? // korlibs.ffi/getFFIPointer|getFFIPointer@korlibs.memory.Buffer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.memory/Buffer).korlibs.ffi/getUnalignedFFIPointer(kotlin/Int): korlibs.js/DenoPointer? // korlibs.ffi/getUnalignedFFIPointer|getUnalignedFFIPointer@korlibs.memory.Buffer(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.memory/Buffer).korlibs.ffi/setFFIPointer(kotlin/Int, korlibs.js/DenoPointer?) // korlibs.ffi/setFFIPointer|setFFIPointer@korlibs.memory.Buffer(kotlin.Int;korlibs.js.DenoPointer?){}[0]
+
+// Targets: [js]
+final fun (korlibs.memory/Buffer).korlibs.ffi/setUnalignedFFIPointer(kotlin/Int, korlibs.js/DenoPointer?) // korlibs.ffi/setUnalignedFFIPointer|setUnalignedFFIPointer@korlibs.memory.Buffer(kotlin.Int;korlibs.js.DenoPointer?){}[0]
+
+// Targets: [js]
+final fun (kotlin.reflect/KClassifier).korlibs.ffi/toDenoFFI(kotlin/Boolean): dynamic // korlibs.ffi/toDenoFFI|toDenoFFI@kotlin.reflect.KClassifier(kotlin.Boolean){}[0]
+
+// Targets: [js]
+final fun (kotlin.reflect/KType).korlibs.ffi/funcToDenoDef(): dynamic // korlibs.ffi/funcToDenoDef|funcToDenoDef@kotlin.reflect.KType(){}[0]
+
+// Targets: [js]
+final fun (kotlin.reflect/KType).korlibs.ffi/toDenoFFI(kotlin/Boolean): dynamic // korlibs.ffi/toDenoFFI|toDenoFFI@kotlin.reflect.KType(kotlin.Boolean){}[0]
+
+// Targets: [js]
+final fun <#A: kotlin/Any?> (korlibs.js/DenoPointer).korlibs.ffi/castToFunc(kotlin.reflect/KType, korlibs.ffi/FFIFuncConfig = ...): #A // korlibs.ffi/castToFunc|castToFunc@korlibs.js.DenoPointer(kotlin.reflect.KType;korlibs.ffi.FFIFuncConfig){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+final fun <#A: kotlin/Any?> (korlibs.js/DenoPointer).korlibs.ffi/typed(): korlibs.ffi/FFITypedPointer<#A> // korlibs.ffi/typed|typed@korlibs.js.DenoPointer(){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+final fun korlibs.ffi/CreateFFIMemory(kotlin/ByteArray): org.khronos.webgl/Uint8Array // korlibs.ffi/CreateFFIMemory|CreateFFIMemory(kotlin.ByteArray){}[0]
+
+// Targets: [js]
+final fun korlibs.ffi/CreateFFIMemory(kotlin/Int): org.khronos.webgl/Uint8Array // korlibs.ffi/CreateFFIMemory|CreateFFIMemory(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun korlibs.ffi/CreateFFIPointer(kotlin/Long): korlibs.js/DenoPointer? // korlibs.ffi/CreateFFIPointer|CreateFFIPointer(kotlin.Long){}[0]
+
+// Targets: [js]
+final fun korlibs.ffi/arraycopy(korlibs.js/DenoPointer, kotlin/Int, korlibs.js/DenoPointer, kotlin/Int, kotlin/Int) // korlibs.ffi/arraycopy|arraycopy(korlibs.js.DenoPointer;kotlin.Int;korlibs.js.DenoPointer;kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun korlibs.ffi/arraycopy(korlibs.js/DenoPointer, kotlin/Int, korlibs.memory/Buffer, kotlin/Int, kotlin/Int) // korlibs.ffi/arraycopy|arraycopy(korlibs.js.DenoPointer;kotlin.Int;korlibs.memory.Buffer;kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun korlibs.ffi/arraycopy(korlibs.memory/Buffer, kotlin/Int, korlibs.js/DenoPointer, kotlin/Int, kotlin/Int) // korlibs.ffi/arraycopy|arraycopy(korlibs.memory.Buffer;kotlin.Int;korlibs.js.DenoPointer;kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun korlibs.ffi/ffiPointerArrayOf(kotlin/Array<out korlibs.js/DenoPointer?>...): korlibs.ffi/FFIPointerArray // korlibs.ffi/ffiPointerArrayOf|ffiPointerArrayOf(kotlin.Array<out|korlibs.js.DenoPointer?>...){}[0]
+
+// Targets: [js]
+final fun korlibs.ffi/getCString(korlibs.js/DenoPointer?): kotlin/String? // korlibs.ffi/getCString|getCString(korlibs.js.DenoPointer?){}[0]
+
+// Targets: [js]
+final inline fun (korlibs.ffi/FFIArena).korlibs.ffi/allocBytes(kotlin/Int, kotlin/Function1<kotlin/Int, kotlin/Byte>): korlibs.js/DenoPointer // korlibs.ffi/allocBytes|allocBytes@korlibs.ffi.FFIArena(kotlin.Int;kotlin.Function1<kotlin.Int,kotlin.Byte>){}[0]
+
+// Targets: [js]
+final inline fun <#A: kotlin/Any?> (korlibs.memory/Buffer).korlibs.ffi/usePointer(kotlin/Function1<korlibs.js/DenoPointer, #A>): #A // korlibs.ffi/usePointer|usePointer@korlibs.memory.Buffer(kotlin.Function1<korlibs.js.DenoPointer,0:0>){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+final inline fun <#A: kotlin/Any?> (org.khronos.webgl/Uint8Array).korlibs.ffi/usePointer(kotlin/Function1<korlibs.js/DenoPointer, #A>): #A // korlibs.ffi/usePointer|usePointer@org.khronos.webgl.Uint8Array(kotlin.Function1<korlibs.js.DenoPointer,0:0>){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+final inline fun <#A: reified kotlin/Any?> (korlibs.js/DenoPointer).korlibs.ffi/castToFunc(): #A // korlibs.ffi/castToFunc|castToFunc@korlibs.js.DenoPointer(){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+final inline fun korlibs.ffi/FFIMemory(kotlin/ByteArray, kotlin/Unit = ...): org.khronos.webgl/Uint8Array // korlibs.ffi/FFIMemory|FFIMemory(kotlin.ByteArray;kotlin.Unit){}[0]
+
+// Targets: [js]
+final inline fun korlibs.ffi/FFIMemory(kotlin/Int, kotlin/Unit = ...): org.khronos.webgl/Uint8Array // korlibs.ffi/FFIMemory|FFIMemory(kotlin.Int;kotlin.Unit){}[0]
+
+// Targets: [js]
+final inline fun korlibs.ffi/FFIPointer(kotlin/Long, kotlin/Unit = ...): korlibs.js/DenoPointer? // korlibs.ffi/FFIPointer|FFIPointer(kotlin.Long;kotlin.Unit){}[0]
+
+// Targets: [wasmJs]
+final class korlibs.ffi/FFIMemory { // korlibs.ffi/FFIMemory|null[0]
+    constructor <init>() // korlibs.ffi/FFIMemory.<init>|<init>(){}[0]
+}
+
+// Targets: [wasmJs]
+final val korlibs.ffi/pointer // korlibs.ffi/pointer|@korlibs.ffi.FFIMemory{}pointer[0]
+    final fun (korlibs.ffi/FFIMemory).<get-pointer>(): korlibs.ffi/FFIPointer // korlibs.ffi/pointer.<get-pointer>|<get-pointer>@korlibs.ffi.FFIMemory(){}[0]
+
+// Targets: [wasmJs]
+final fun korlibs.ffi/CreateFFIMemory(kotlin/ByteArray): korlibs.ffi/FFIMemory // korlibs.ffi/CreateFFIMemory|CreateFFIMemory(kotlin.ByteArray){}[0]
+
+// Targets: [wasmJs]
+final fun korlibs.ffi/CreateFFIMemory(kotlin/Int): korlibs.ffi/FFIMemory // korlibs.ffi/CreateFFIMemory|CreateFFIMemory(kotlin.Int){}[0]
+
+// Targets: [wasmJs]
+final inline fun <#A: kotlin/Any?> (korlibs.ffi/FFIMemory).korlibs.ffi/usePointer(kotlin/Function1<korlibs.ffi/FFIPointer, #A>): #A // korlibs.ffi/usePointer|usePointer@korlibs.ffi.FFIMemory(kotlin.Function1<korlibs.ffi.FFIPointer,0:0>){0§<kotlin.Any?>}[0]
+
+// Targets: [wasmJs]
+final inline fun korlibs.ffi/FFIMemory(kotlin/ByteArray, kotlin/Unit = ...): korlibs.ffi/FFIMemory // korlibs.ffi/FFIMemory|FFIMemory(kotlin.ByteArray;kotlin.Unit){}[0]
+
+// Targets: [wasmJs]
+final inline fun korlibs.ffi/FFIMemory(kotlin/Int, kotlin/Unit = ...): korlibs.ffi/FFIMemory // korlibs.ffi/FFIMemory|FFIMemory(kotlin.Int;kotlin.Unit){}[0]

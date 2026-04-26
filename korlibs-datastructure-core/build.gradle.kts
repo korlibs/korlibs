@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinMetadataTarget
-import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrTarget
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -13,6 +13,10 @@ plugins {
 
 kotlin {
     applyDefaultHierarchyTemplate()
+    @OptIn(ExperimentalAbiValidation::class)
+    abiValidation {
+        enabled.set(true)
+    }
 
     jvm()
 

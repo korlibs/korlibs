@@ -47,7 +47,7 @@ jobs:
             enableAndroid: true
           - outputKey: testLinux
             os: ubuntu-latest
-            testTask: apiCheck jvmTest linuxX64Test
+            testTask: checkKotlinAbi jvmTest linuxX64Test
             precompileTask: compileTestKotlinJvm
             enableCodecov: true
             e2e: true

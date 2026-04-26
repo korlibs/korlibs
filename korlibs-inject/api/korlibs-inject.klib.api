@@ -1,0 +1,176 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: native => [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-inject>
+open annotation class korlibs.inject/FactoryClass : kotlin/Annotation { // korlibs.inject/FactoryClass|null[0]
+    constructor <init>(kotlin.reflect/KClass<out korlibs.inject/InjectorFactory<*>>) // korlibs.inject/FactoryClass.<init>|<init>(kotlin.reflect.KClass<out|korlibs.inject.InjectorFactory<*>>){}[0]
+
+    final val clazz // korlibs.inject/FactoryClass.clazz|{}clazz[0]
+        final fun <get-clazz>(): kotlin.reflect/KClass<out korlibs.inject/InjectorFactory<*>> // korlibs.inject/FactoryClass.clazz.<get-clazz>|<get-clazz>(){}[0]
+}
+
+abstract interface <#A: kotlin/Any?> korlibs.inject/InjectorFactory { // korlibs.inject/InjectorFactory|null[0]
+    abstract fun create(): #A // korlibs.inject/InjectorFactory.create|create(){}[0]
+}
+
+abstract interface <#A: kotlin/Any?> korlibs.inject/ObjectProvider { // korlibs.inject/ObjectProvider|null[0]
+    abstract fun deinit() // korlibs.inject/ObjectProvider.deinit|deinit(){}[0]
+    abstract fun get(korlibs.inject/Injector): #A // korlibs.inject/ObjectProvider.get|get(korlibs.inject.Injector){}[0]
+}
+
+abstract interface korlibs.inject/InjectedHandler { // korlibs.inject/InjectedHandler|null[0]
+    abstract fun injectedInto(kotlin/Any) // korlibs.inject/InjectedHandler.injectedInto|injectedInto(kotlin.Any){}[0]
+}
+
+abstract interface korlibs.inject/InjectorDependency { // korlibs.inject/InjectorDependency|null[0]
+    abstract fun init(korlibs.inject/Injector) // korlibs.inject/InjectorDependency.init|init(korlibs.inject.Injector){}[0]
+}
+
+abstract interface korlibs.inject/InjectorDestructor { // korlibs.inject/InjectorDestructor|null[0]
+    abstract fun deinit() // korlibs.inject/InjectorDestructor.deinit|deinit(){}[0]
+}
+
+final class <#A: kotlin/Any?> korlibs.inject/FactoryObjectProvider : korlibs.inject/ObjectProvider<#A> { // korlibs.inject/FactoryObjectProvider|null[0]
+    constructor <init>(kotlin/Function1<korlibs.inject/Injector, korlibs.inject/InjectorFactory<#A>>) // korlibs.inject/FactoryObjectProvider.<init>|<init>(kotlin.Function1<korlibs.inject.Injector,korlibs.inject.InjectorFactory<1:0>>){}[0]
+
+    final val generator // korlibs.inject/FactoryObjectProvider.generator|{}generator[0]
+        final fun <get-generator>(): kotlin/Function1<korlibs.inject/Injector, korlibs.inject/InjectorFactory<#A>> // korlibs.inject/FactoryObjectProvider.generator.<get-generator>|<get-generator>(){}[0]
+
+    final fun deinit() // korlibs.inject/FactoryObjectProvider.deinit|deinit(){}[0]
+    final fun get(korlibs.inject/Injector): #A // korlibs.inject/FactoryObjectProvider.get|get(korlibs.inject.Injector){}[0]
+    final fun toString(): kotlin/String // korlibs.inject/FactoryObjectProvider.toString|toString(){}[0]
+}
+
+final class <#A: kotlin/Any?> korlibs.inject/InstanceObjectProvider : korlibs.inject/ObjectProvider<#A> { // korlibs.inject/InstanceObjectProvider|null[0]
+    constructor <init>(#A) // korlibs.inject/InstanceObjectProvider.<init>|<init>(1:0){}[0]
+
+    final val instance // korlibs.inject/InstanceObjectProvider.instance|{}instance[0]
+        final fun <get-instance>(): #A // korlibs.inject/InstanceObjectProvider.instance.<get-instance>|<get-instance>(){}[0]
+
+    final fun deinit() // korlibs.inject/InstanceObjectProvider.deinit|deinit(){}[0]
+    final fun get(korlibs.inject/Injector): #A // korlibs.inject/InstanceObjectProvider.get|get(korlibs.inject.Injector){}[0]
+    final fun toString(): kotlin/String // korlibs.inject/InstanceObjectProvider.toString|toString(){}[0]
+}
+
+final class <#A: kotlin/Any?> korlibs.inject/PrototypeObjectProvider : korlibs.inject/ObjectProvider<#A> { // korlibs.inject/PrototypeObjectProvider|null[0]
+    constructor <init>(kotlin/Function1<korlibs.inject/Injector, #A>) // korlibs.inject/PrototypeObjectProvider.<init>|<init>(kotlin.Function1<korlibs.inject.Injector,1:0>){}[0]
+
+    final val generator // korlibs.inject/PrototypeObjectProvider.generator|{}generator[0]
+        final fun <get-generator>(): kotlin/Function1<korlibs.inject/Injector, #A> // korlibs.inject/PrototypeObjectProvider.generator.<get-generator>|<get-generator>(){}[0]
+
+    final fun deinit() // korlibs.inject/PrototypeObjectProvider.deinit|deinit(){}[0]
+    final fun get(korlibs.inject/Injector): #A // korlibs.inject/PrototypeObjectProvider.get|get(korlibs.inject.Injector){}[0]
+    final fun toString(): kotlin/String // korlibs.inject/PrototypeObjectProvider.toString|toString(){}[0]
+}
+
+final class <#A: kotlin/Any?> korlibs.inject/SingletonObjectProvider : korlibs.inject/ObjectProvider<#A> { // korlibs.inject/SingletonObjectProvider|null[0]
+    constructor <init>(kotlin/Function1<korlibs.inject/Injector, #A>) // korlibs.inject/SingletonObjectProvider.<init>|<init>(kotlin.Function1<korlibs.inject.Injector,1:0>){}[0]
+
+    final val generator // korlibs.inject/SingletonObjectProvider.generator|{}generator[0]
+        final fun <get-generator>(): kotlin/Function1<korlibs.inject/Injector, #A> // korlibs.inject/SingletonObjectProvider.generator.<get-generator>|<get-generator>(){}[0]
+
+    final var value // korlibs.inject/SingletonObjectProvider.value|{}value[0]
+        final fun <get-value>(): #A? // korlibs.inject/SingletonObjectProvider.value.<get-value>|<get-value>(){}[0]
+        final fun <set-value>(#A?) // korlibs.inject/SingletonObjectProvider.value.<set-value>|<set-value>(1:0?){}[0]
+
+    final fun deinit() // korlibs.inject/SingletonObjectProvider.deinit|deinit(){}[0]
+    final fun get(korlibs.inject/Injector): #A // korlibs.inject/SingletonObjectProvider.get|get(korlibs.inject.Injector){}[0]
+    final fun toString(): kotlin/String // korlibs.inject/SingletonObjectProvider.toString|toString(){}[0]
+}
+
+final class korlibs.inject/Injector { // korlibs.inject/Injector|null[0]
+    constructor <init>(korlibs.inject/Injector? = ..., kotlin/Int = ...) // korlibs.inject/Injector.<init>|<init>(korlibs.inject.Injector?;kotlin.Int){}[0]
+
+    final val level // korlibs.inject/Injector.level|{}level[0]
+        final fun <get-level>(): kotlin/Int // korlibs.inject/Injector.level.<get-level>|<get-level>(){}[0]
+    final val nearestFallbackProvider // korlibs.inject/Injector.nearestFallbackProvider|{}nearestFallbackProvider[0]
+        final fun <get-nearestFallbackProvider>(): kotlin/Function2<kotlin.reflect/KClass<*>, korlibs.inject/Injector.RequestContext, korlibs.inject/ObjectProvider<*>>? // korlibs.inject/Injector.nearestFallbackProvider.<get-nearestFallbackProvider>|<get-nearestFallbackProvider>(){}[0]
+    final val parent // korlibs.inject/Injector.parent|{}parent[0]
+        final fun <get-parent>(): korlibs.inject/Injector? // korlibs.inject/Injector.parent.<get-parent>|<get-parent>(){}[0]
+    final val providersByClass // korlibs.inject/Injector.providersByClass|{}providersByClass[0]
+        // Targets: [native, wasmJs]
+        final fun <get-providersByClass>(): kotlin.collections/HashMap<kotlin.reflect/KClass<*>, korlibs.inject/ObjectProvider<*>> // korlibs.inject/Injector.providersByClass.<get-providersByClass>|<get-providersByClass>(){}[0]
+
+        // Targets: [js]
+        final fun <get-providersByClass>(): kotlin.collections/LinkedHashMap<kotlin.reflect/KClass<*>, korlibs.inject/ObjectProvider<*>> // korlibs.inject/Injector.providersByClass.<get-providersByClass>|<get-providersByClass>(){}[0]
+    final val root // korlibs.inject/Injector.root|{}root[0]
+        final fun <get-root>(): korlibs.inject/Injector // korlibs.inject/Injector.root.<get-root>|<get-root>(){}[0]
+
+    final var fallbackProvider // korlibs.inject/Injector.fallbackProvider|{}fallbackProvider[0]
+        final fun <get-fallbackProvider>(): kotlin/Function2<kotlin.reflect/KClass<*>, korlibs.inject/Injector.RequestContext, korlibs.inject/ObjectProvider<*>>? // korlibs.inject/Injector.fallbackProvider.<get-fallbackProvider>|<get-fallbackProvider>(){}[0]
+        final fun <set-fallbackProvider>(kotlin/Function2<kotlin.reflect/KClass<*>, korlibs.inject/Injector.RequestContext, korlibs.inject/ObjectProvider<*>>?) // korlibs.inject/Injector.fallbackProvider.<set-fallbackProvider>|<set-fallbackProvider>(kotlin.Function2<kotlin.reflect.KClass<*>,korlibs.inject.Injector.RequestContext,korlibs.inject.ObjectProvider<*>>?){}[0]
+
+    final fun <#A1: kotlin/Any> get(kotlin.reflect/KClass<#A1>, korlibs.inject/Injector.RequestContext = ...): #A1 // korlibs.inject/Injector.get|get(kotlin.reflect.KClass<0:0>;korlibs.inject.Injector.RequestContext){0§<kotlin.Any>}[0]
+    final fun <#A1: kotlin/Any> getOrNull(kotlin.reflect/KClass<#A1>, korlibs.inject/Injector.RequestContext = ...): #A1? // korlibs.inject/Injector.getOrNull|getOrNull(kotlin.reflect.KClass<0:0>;korlibs.inject.Injector.RequestContext){0§<kotlin.Any>}[0]
+    final fun <#A1: kotlin/Any> getProvider(kotlin.reflect/KClass<#A1>, korlibs.inject/Injector.RequestContext = ...): korlibs.inject/ObjectProvider<#A1> // korlibs.inject/Injector.getProvider|getProvider(kotlin.reflect.KClass<0:0>;korlibs.inject.Injector.RequestContext){0§<kotlin.Any>}[0]
+    final fun <#A1: kotlin/Any> getProviderOrNull(kotlin.reflect/KClass<#A1>, korlibs.inject/Injector.RequestContext = ...): korlibs.inject/ObjectProvider<#A1>? // korlibs.inject/Injector.getProviderOrNull|getProviderOrNull(kotlin.reflect.KClass<0:0>;korlibs.inject.Injector.RequestContext){0§<kotlin.Any>}[0]
+    final fun <#A1: kotlin/Any> getWith(kotlin.reflect/KClass<#A1>, kotlin/Array<out kotlin/Any>...): #A1 // korlibs.inject/Injector.getWith|getWith(kotlin.reflect.KClass<0:0>;kotlin.Array<out|kotlin.Any>...){0§<kotlin.Any>}[0]
+    final fun <#A1: kotlin/Any> has(kotlin.reflect/KClass<#A1>): kotlin/Boolean // korlibs.inject/Injector.has|has(kotlin.reflect.KClass<0:0>){0§<kotlin.Any>}[0]
+    final fun <#A1: kotlin/Any> mapFactory(kotlin.reflect/KClass<#A1>, kotlin/Function1<korlibs.inject/Injector, korlibs.inject/InjectorFactory<#A1>>): korlibs.inject/Injector // korlibs.inject/Injector.mapFactory|mapFactory(kotlin.reflect.KClass<0:0>;kotlin.Function1<korlibs.inject.Injector,korlibs.inject.InjectorFactory<0:0>>){0§<kotlin.Any>}[0]
+    final fun <#A1: kotlin/Any> mapInstance(kotlin.reflect/KClass<#A1>, #A1): korlibs.inject/Injector // korlibs.inject/Injector.mapInstance|mapInstance(kotlin.reflect.KClass<0:0>;0:0){0§<kotlin.Any>}[0]
+    final fun <#A1: kotlin/Any> mapPrototype(kotlin.reflect/KClass<#A1>, kotlin/Function1<korlibs.inject/Injector, #A1>): korlibs.inject/Injector // korlibs.inject/Injector.mapPrototype|mapPrototype(kotlin.reflect.KClass<0:0>;kotlin.Function1<korlibs.inject.Injector,0:0>){0§<kotlin.Any>}[0]
+    final fun <#A1: kotlin/Any> mapSingleton(kotlin.reflect/KClass<#A1>, kotlin/Function1<korlibs.inject/Injector, #A1>): korlibs.inject/Injector // korlibs.inject/Injector.mapSingleton|mapSingleton(kotlin.reflect.KClass<0:0>;kotlin.Function1<korlibs.inject.Injector,0:0>){0§<kotlin.Any>}[0]
+    final fun addDeinit(korlibs.inject/InjectorDestructor) // korlibs.inject/Injector.addDeinit|addDeinit(korlibs.inject.InjectorDestructor){}[0]
+    final fun child(): korlibs.inject/Injector // korlibs.inject/Injector.child|child(){}[0]
+    final fun deinit() // korlibs.inject/Injector.deinit|deinit(){}[0]
+    final fun dump() // korlibs.inject/Injector.dump|dump(){}[0]
+    final fun getClassDefiner(kotlin.reflect/KClass<*>): korlibs.inject/Injector? // korlibs.inject/Injector.getClassDefiner|getClassDefiner(kotlin.reflect.KClass<*>){}[0]
+    final fun removeMapping(kotlin.reflect/KClass<*>) // korlibs.inject/Injector.removeMapping|removeMapping(kotlin.reflect.KClass<*>){}[0]
+    final fun toString(): kotlin/String // korlibs.inject/Injector.toString|toString(){}[0]
+    final inline fun <#A1: reified kotlin/Any> get(): #A1 // korlibs.inject/Injector.get|get(){0§<kotlin.Any>}[0]
+    final inline fun <#A1: reified kotlin/Any> getOrNull(): #A1? // korlibs.inject/Injector.getOrNull|getOrNull(){0§<kotlin.Any>}[0]
+    final inline fun <#A1: reified kotlin/Any> getSync(): #A1 // korlibs.inject/Injector.getSync|getSync(){0§<kotlin.Any>}[0]
+    final inline fun <#A1: reified kotlin/Any> getSyncOrNull(): #A1? // korlibs.inject/Injector.getSyncOrNull|getSyncOrNull(){0§<kotlin.Any>}[0]
+    final inline fun <#A1: reified kotlin/Any> getWith(kotlin/Array<out kotlin/Any>...): #A1 // korlibs.inject/Injector.getWith|getWith(kotlin.Array<out|kotlin.Any>...){0§<kotlin.Any>}[0]
+    final inline fun <#A1: reified kotlin/Any> mapFactory(noinline kotlin/Function1<korlibs.inject/Injector, korlibs.inject/InjectorFactory<#A1>>): korlibs.inject/Injector // korlibs.inject/Injector.mapFactory|mapFactory(kotlin.Function1<korlibs.inject.Injector,korlibs.inject.InjectorFactory<0:0>>){0§<kotlin.Any>}[0]
+    final inline fun <#A1: reified kotlin/Any> mapInstance(#A1): korlibs.inject/Injector // korlibs.inject/Injector.mapInstance|mapInstance(0:0){0§<kotlin.Any>}[0]
+    final inline fun <#A1: reified kotlin/Any> mapPrototype(noinline kotlin/Function1<korlibs.inject/Injector, #A1>): korlibs.inject/Injector // korlibs.inject/Injector.mapPrototype|mapPrototype(kotlin.Function1<korlibs.inject.Injector,0:0>){0§<kotlin.Any>}[0]
+    final inline fun <#A1: reified kotlin/Any> mapSingleton(noinline kotlin/Function1<korlibs.inject/Injector, #A1>): korlibs.inject/Injector // korlibs.inject/Injector.mapSingleton|mapSingleton(kotlin.Function1<korlibs.inject.Injector,0:0>){0§<kotlin.Any>}[0]
+
+    final class NotMappedException : kotlin/RuntimeException { // korlibs.inject/Injector.NotMappedException|null[0]
+        constructor <init>(kotlin.reflect/KClass<*>, kotlin.reflect/KClass<*>, korlibs.inject/Injector.RequestContext, kotlin/String = ...) // korlibs.inject/Injector.NotMappedException.<init>|<init>(kotlin.reflect.KClass<*>;kotlin.reflect.KClass<*>;korlibs.inject.Injector.RequestContext;kotlin.String){}[0]
+
+        final val clazz // korlibs.inject/Injector.NotMappedException.clazz|{}clazz[0]
+            final fun <get-clazz>(): kotlin.reflect/KClass<*> // korlibs.inject/Injector.NotMappedException.clazz.<get-clazz>|<get-clazz>(){}[0]
+        final val ctx // korlibs.inject/Injector.NotMappedException.ctx|{}ctx[0]
+            final fun <get-ctx>(): korlibs.inject/Injector.RequestContext // korlibs.inject/Injector.NotMappedException.ctx.<get-ctx>|<get-ctx>(){}[0]
+        final val msg // korlibs.inject/Injector.NotMappedException.msg|{}msg[0]
+            final fun <get-msg>(): kotlin/String // korlibs.inject/Injector.NotMappedException.msg.<get-msg>|<get-msg>(){}[0]
+        final val requestedByClass // korlibs.inject/Injector.NotMappedException.requestedByClass|{}requestedByClass[0]
+            final fun <get-requestedByClass>(): kotlin.reflect/KClass<*> // korlibs.inject/Injector.NotMappedException.requestedByClass.<get-requestedByClass>|<get-requestedByClass>(){}[0]
+    }
+
+    final class RequestContext { // korlibs.inject/Injector.RequestContext|null[0]
+        constructor <init>(kotlin.reflect/KClass<*>) // korlibs.inject/Injector.RequestContext.<init>|<init>(kotlin.reflect.KClass<*>){}[0]
+
+        final val initialClazz // korlibs.inject/Injector.RequestContext.initialClazz|{}initialClazz[0]
+            final fun <get-initialClazz>(): kotlin.reflect/KClass<*> // korlibs.inject/Injector.RequestContext.initialClazz.<get-initialClazz>|<get-initialClazz>(){}[0]
+
+        final fun component1(): kotlin.reflect/KClass<*> // korlibs.inject/Injector.RequestContext.component1|component1(){}[0]
+        final fun copy(kotlin.reflect/KClass<*> = ...): korlibs.inject/Injector.RequestContext // korlibs.inject/Injector.RequestContext.copy|copy(kotlin.reflect.KClass<*>){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.inject/Injector.RequestContext.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.inject/Injector.RequestContext.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.inject/Injector.RequestContext.toString|toString(){}[0]
+    }
+
+    final object Companion // korlibs.inject/Injector.Companion|null[0]
+}
+
+final class korlibs.inject/InjectorContext : kotlin.coroutines/CoroutineContext.Element { // korlibs.inject/InjectorContext|null[0]
+    constructor <init>(korlibs.inject/Injector) // korlibs.inject/InjectorContext.<init>|<init>(korlibs.inject.Injector){}[0]
+
+    final val injector // korlibs.inject/InjectorContext.injector|{}injector[0]
+        final fun <get-injector>(): korlibs.inject/Injector // korlibs.inject/InjectorContext.injector.<get-injector>|<get-injector>(){}[0]
+    final val key // korlibs.inject/InjectorContext.key|{}key[0]
+        final fun <get-key>(): korlibs.inject/InjectorContext.Companion // korlibs.inject/InjectorContext.key.<get-key>|<get-key>(){}[0]
+
+    final object Companion : kotlin.coroutines/CoroutineContext.Key<korlibs.inject/InjectorContext> // korlibs.inject/InjectorContext.Companion|null[0]
+}
+
+final suspend fun <#A: kotlin/Any?> korlibs.inject/withInjector(korlibs.inject/Injector, kotlin.coroutines/SuspendFunction0<#A>): #A // korlibs.inject/withInjector|withInjector(korlibs.inject.Injector;kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any?>}[0]
+final suspend fun korlibs.inject/injector(): korlibs.inject/Injector // korlibs.inject/injector|injector(){}[0]

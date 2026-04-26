@@ -20,7 +20,6 @@ plugins {
     alias(libs.plugins.android.multiplatform.library) apply false
     alias(libs.plugins.kotlinx.kover) apply false
     alias(libs.plugins.dokka)
-    alias(libs.plugins.kotlinx.binaryCompatibilityValidator)
     alias(libs.plugins.vanniktech.mavenPublish)
 }
 

@@ -1,0 +1,33 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-jseval>
+abstract interface korlibs.io.lang/IJSEval { // korlibs.io.lang/IJSEval|null[0]
+    abstract val available // korlibs.io.lang/IJSEval.available|{}available[0]
+        abstract fun <get-available>(): kotlin/Boolean // korlibs.io.lang/IJSEval.available.<get-available>|<get-available>(){}[0]
+    abstract val globalThis // korlibs.io.lang/IJSEval.globalThis|{}globalThis[0]
+        abstract fun <get-globalThis>(): kotlin/Any? // korlibs.io.lang/IJSEval.globalThis.<get-globalThis>|<get-globalThis>(){}[0]
+
+    abstract fun invoke(kotlin/String, kotlin.collections/Map<kotlin/String, kotlin/Any?>): kotlin/Any? // korlibs.io.lang/IJSEval.invoke|invoke(kotlin.String;kotlin.collections.Map<kotlin.String,kotlin.Any?>){}[0]
+    open suspend fun invokeSuspend(kotlin/String, kotlin.collections/Map<kotlin/String, kotlin/Any?>): kotlin/Any? // korlibs.io.lang/IJSEval.invokeSuspend|invokeSuspend(kotlin.String;kotlin.collections.Map<kotlin.String,kotlin.Any?>){}[0]
+}
+
+final val korlibs.io.lang/JSEval // korlibs.io.lang/JSEval|{}JSEval[0]
+    final fun <get-JSEval>(): korlibs.io.lang/IJSEval // korlibs.io.lang/JSEval.<get-JSEval>|<get-JSEval>(){}[0]
+
+final fun (korlibs.io.lang/IJSEval).korlibs.io.lang/expr(kotlin/String, kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/Any?>>...): kotlin/Any? // korlibs.io.lang/expr|expr@korlibs.io.lang.IJSEval(kotlin.String;kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.Any?>>...){}[0]
+final fun (korlibs.io.lang/IJSEval).korlibs.io.lang/invoke(kotlin/String, kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/Any?>>...): kotlin/Any? // korlibs.io.lang/invoke|invoke@korlibs.io.lang.IJSEval(kotlin.String;kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.Any?>>...){}[0]
+final suspend fun (korlibs.io.lang/IJSEval).korlibs.io.lang/exprSuspend(kotlin/String, kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/Any?>>...): kotlin/Any? // korlibs.io.lang/exprSuspend|exprSuspend@korlibs.io.lang.IJSEval(kotlin.String;kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.Any?>>...){}[0]
+final suspend fun (korlibs.io.lang/IJSEval).korlibs.io.lang/invokeSuspend(kotlin/String, kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/Any?>>...): kotlin/Any? // korlibs.io.lang/invokeSuspend|invokeSuspend@korlibs.io.lang.IJSEval(kotlin.String;kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.Any?>>...){}[0]
+
+// Targets: [wasmJs]
+final class korlibs.io.lang/ExternalJsException : kotlin/Throwable { // korlibs.io.lang/ExternalJsException|null[0]
+    constructor <init>(kotlin/Any?) // korlibs.io.lang/ExternalJsException.<init>|<init>(kotlin.Any?){}[0]
+
+    final val e // korlibs.io.lang/ExternalJsException.e|{}e[0]
+        final fun <get-e>(): kotlin/Any? // korlibs.io.lang/ExternalJsException.e.<get-e>|<get-e>(){}[0]
+}

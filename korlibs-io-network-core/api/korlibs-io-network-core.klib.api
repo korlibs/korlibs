@@ -1,0 +1,516 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: native => [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: apple => [iosArm64, iosSimulatorArm64, iosX64, macosArm64, tvosArm64, tvosSimulatorArm64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: linux => [linuxArm64, linuxX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-io-network-core>
+abstract interface korlibs.io.http.core/HttpFetch { // korlibs.io.http.core/HttpFetch|null[0]
+    abstract suspend fun fetch(kotlin/String, kotlin/String, kotlin/Int, kotlin/String, kotlin/Boolean, kotlin.collections/List<kotlin/Pair<kotlin/String, kotlin/String>>, korlibs.io.stream/AsyncInputStream? = ...): korlibs.io.http.core/HttpFetchResult // korlibs.io.http.core/HttpFetch.fetch|fetch(kotlin.String;kotlin.String;kotlin.Int;kotlin.String;kotlin.Boolean;kotlin.collections.List<kotlin.Pair<kotlin.String,kotlin.String>>;korlibs.io.stream.AsyncInputStream?){}[0]
+
+    final object Companion : korlibs.io.http.core/HttpFetch { // korlibs.io.http.core/HttpFetch.Companion|null[0]
+        final suspend fun fetch(kotlin/String, kotlin/String, kotlin/Int, kotlin/String, kotlin/Boolean, kotlin.collections/List<kotlin/Pair<kotlin/String, kotlin/String>>, korlibs.io.stream/AsyncInputStream?): korlibs.io.http.core/HttpFetchResult // korlibs.io.http.core/HttpFetch.Companion.fetch|fetch(kotlin.String;kotlin.String;kotlin.Int;kotlin.String;kotlin.Boolean;kotlin.collections.List<kotlin.Pair<kotlin.String,kotlin.String>>;korlibs.io.stream.AsyncInputStream?){}[0]
+    }
+}
+
+abstract interface korlibs.io.socket/AsyncServerSocket : korlibs.io.async/AsyncCloseable { // korlibs.io.socket/AsyncServerSocket|null[0]
+    abstract val backlog // korlibs.io.socket/AsyncServerSocket.backlog|{}backlog[0]
+        abstract fun <get-backlog>(): kotlin/Int // korlibs.io.socket/AsyncServerSocket.backlog.<get-backlog>|<get-backlog>(){}[0]
+    abstract val host // korlibs.io.socket/AsyncServerSocket.host|{}host[0]
+        abstract fun <get-host>(): kotlin/String // korlibs.io.socket/AsyncServerSocket.host.<get-host>|<get-host>(){}[0]
+    abstract val port // korlibs.io.socket/AsyncServerSocket.port|{}port[0]
+        abstract fun <get-port>(): kotlin/Int // korlibs.io.socket/AsyncServerSocket.port.<get-port>|<get-port>(){}[0]
+    abstract val requestPort // korlibs.io.socket/AsyncServerSocket.requestPort|{}requestPort[0]
+        abstract fun <get-requestPort>(): kotlin/Int // korlibs.io.socket/AsyncServerSocket.requestPort.<get-requestPort>|<get-requestPort>(){}[0]
+
+    abstract suspend fun accept(): korlibs.io.socket/AsyncSocket // korlibs.io.socket/AsyncServerSocket.accept|accept(){}[0]
+    open suspend fun close() // korlibs.io.socket/AsyncServerSocket.close|close(){}[0]
+    open suspend fun listen(kotlin.coroutines/SuspendFunction1<korlibs.io.socket/AsyncSocket, kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.socket/AsyncServerSocket.listen|listen(kotlin.coroutines.SuspendFunction1<korlibs.io.socket.AsyncSocket,kotlin.Unit>){}[0]
+    open suspend fun listenFlow(): kotlinx.coroutines.flow/Flow<korlibs.io.socket/AsyncSocket> // korlibs.io.socket/AsyncServerSocket.listenFlow|listenFlow(){}[0]
+
+    final object Companion { // korlibs.io.socket/AsyncServerSocket.Companion|null[0]
+        final val ANY_PORT // korlibs.io.socket/AsyncServerSocket.Companion.ANY_PORT|{}ANY_PORT[0]
+            final fun <get-ANY_PORT>(): kotlin/Int // korlibs.io.socket/AsyncServerSocket.Companion.ANY_PORT.<get-ANY_PORT>|<get-ANY_PORT>(){}[0]
+    }
+}
+
+abstract interface korlibs.io.socket/AsyncSocket : korlibs.io.stream/AsyncInputStream, korlibs.io.stream/AsyncOutputStream { // korlibs.io.socket/AsyncSocket|null[0]
+    abstract val connected // korlibs.io.socket/AsyncSocket.connected|{}connected[0]
+        abstract fun <get-connected>(): kotlin/Boolean // korlibs.io.socket/AsyncSocket.connected.<get-connected>|<get-connected>(){}[0]
+    open val address // korlibs.io.socket/AsyncSocket.address|{}address[0]
+        open fun <get-address>(): korlibs.io.socket/AsyncSocketAddress // korlibs.io.socket/AsyncSocket.address.<get-address>|<get-address>(){}[0]
+
+    abstract suspend fun close() // korlibs.io.socket/AsyncSocket.close|close(){}[0]
+    abstract suspend fun connect(kotlin/String, kotlin/Int) // korlibs.io.socket/AsyncSocket.connect|connect(kotlin.String;kotlin.Int){}[0]
+    abstract suspend fun read(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.socket/AsyncSocket.read|read(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    abstract suspend fun write(kotlin/ByteArray, kotlin/Int, kotlin/Int) // korlibs.io.socket/AsyncSocket.write|write(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+
+    final object Companion // korlibs.io.socket/AsyncSocket.Companion|null[0]
+
+    final object Stats { // korlibs.io.socket/AsyncSocket.Stats|null[0]
+        final val writeCountEnd // korlibs.io.socket/AsyncSocket.Stats.writeCountEnd|{}writeCountEnd[0]
+            final fun <get-writeCountEnd>(): kotlinx.atomicfu/AtomicLong // korlibs.io.socket/AsyncSocket.Stats.writeCountEnd.<get-writeCountEnd>|<get-writeCountEnd>(){}[0]
+        final val writeCountError // korlibs.io.socket/AsyncSocket.Stats.writeCountError|{}writeCountError[0]
+            final fun <get-writeCountError>(): kotlinx.atomicfu/AtomicLong // korlibs.io.socket/AsyncSocket.Stats.writeCountError.<get-writeCountError>|<get-writeCountError>(){}[0]
+        final val writeCountStart // korlibs.io.socket/AsyncSocket.Stats.writeCountStart|{}writeCountStart[0]
+            final fun <get-writeCountStart>(): kotlinx.atomicfu/AtomicLong // korlibs.io.socket/AsyncSocket.Stats.writeCountStart.<get-writeCountStart>|<get-writeCountStart>(){}[0]
+
+        final fun toString(): kotlin/String // korlibs.io.socket/AsyncSocket.Stats.toString|toString(){}[0]
+    }
+}
+
+abstract interface korlibs.io.socket/SSLProcessor { // korlibs.io.socket/SSLProcessor|null[0]
+    abstract val isAlive // korlibs.io.socket/SSLProcessor.isAlive|{}isAlive[0]
+        abstract fun <get-isAlive>(): kotlin/Boolean // korlibs.io.socket/SSLProcessor.isAlive.<get-isAlive>|<get-isAlive>(){}[0]
+    abstract val needInput // korlibs.io.socket/SSLProcessor.needInput|{}needInput[0]
+        abstract fun <get-needInput>(): kotlin/Boolean // korlibs.io.socket/SSLProcessor.needInput.<get-needInput>|<get-needInput>(){}[0]
+    abstract val needSync // korlibs.io.socket/SSLProcessor.needSync|{}needSync[0]
+        abstract fun <get-needSync>(): kotlin/Boolean // korlibs.io.socket/SSLProcessor.needSync.<get-needSync>|<get-needSync>(){}[0]
+    abstract val status // korlibs.io.socket/SSLProcessor.status|{}status[0]
+        abstract fun <get-status>(): kotlin/Any? // korlibs.io.socket/SSLProcessor.status.<get-status>|<get-status>(){}[0]
+
+    abstract fun addDecryptedClientData(kotlin/ByteArray, kotlin/Int, kotlin/Int) // korlibs.io.socket/SSLProcessor.addDecryptedClientData|addDecryptedClientData(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    abstract fun addEncryptedServerData(kotlin/ByteArray, kotlin/Int, kotlin/Int) // korlibs.io.socket/SSLProcessor.addEncryptedServerData|addEncryptedServerData(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    abstract fun clientClose() // korlibs.io.socket/SSLProcessor.clientClose|clientClose(){}[0]
+    abstract fun getDecryptedServerData(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.socket/SSLProcessor.getDecryptedServerData|getDecryptedServerData(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    abstract fun getEncryptedClientData(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.socket/SSLProcessor.getEncryptedClientData|getEncryptedClientData(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    abstract fun setEndPoint(kotlin/String, kotlin/Int) // korlibs.io.socket/SSLProcessor.setEndPoint|setEndPoint(kotlin.String;kotlin.Int){}[0]
+}
+
+final class korlibs.io.http.core/HttpFetchResult { // korlibs.io.http.core/HttpFetchResult|null[0]
+    constructor <init>(kotlin/Int, kotlin/String, kotlin.collections/List<kotlin/Pair<kotlin/String, kotlin/String>>, korlibs.io.stream/AsyncInputStream) // korlibs.io.http.core/HttpFetchResult.<init>|<init>(kotlin.Int;kotlin.String;kotlin.collections.List<kotlin.Pair<kotlin.String,kotlin.String>>;korlibs.io.stream.AsyncInputStream){}[0]
+
+    final val bodyRaw // korlibs.io.http.core/HttpFetchResult.bodyRaw|{}bodyRaw[0]
+        final fun <get-bodyRaw>(): korlibs.io.stream/AsyncInputStream // korlibs.io.http.core/HttpFetchResult.bodyRaw.<get-bodyRaw>|<get-bodyRaw>(){}[0]
+    final val headers // korlibs.io.http.core/HttpFetchResult.headers|{}headers[0]
+        final fun <get-headers>(): kotlin.collections/List<kotlin/Pair<kotlin/String, kotlin/String>> // korlibs.io.http.core/HttpFetchResult.headers.<get-headers>|<get-headers>(){}[0]
+    final val status // korlibs.io.http.core/HttpFetchResult.status|{}status[0]
+        final fun <get-status>(): kotlin/Int // korlibs.io.http.core/HttpFetchResult.status.<get-status>|<get-status>(){}[0]
+    final val statusText // korlibs.io.http.core/HttpFetchResult.statusText|{}statusText[0]
+        final fun <get-statusText>(): kotlin/String // korlibs.io.http.core/HttpFetchResult.statusText.<get-statusText>|<get-statusText>(){}[0]
+
+    final fun component1(): kotlin/Int // korlibs.io.http.core/HttpFetchResult.component1|component1(){}[0]
+    final fun component2(): kotlin/String // korlibs.io.http.core/HttpFetchResult.component2|component2(){}[0]
+    final fun component3(): kotlin.collections/List<kotlin/Pair<kotlin/String, kotlin/String>> // korlibs.io.http.core/HttpFetchResult.component3|component3(){}[0]
+    final fun component4(): korlibs.io.stream/AsyncInputStream // korlibs.io.http.core/HttpFetchResult.component4|component4(){}[0]
+    final fun copy(kotlin/Int = ..., kotlin/String = ..., kotlin.collections/List<kotlin/Pair<kotlin/String, kotlin/String>> = ..., korlibs.io.stream/AsyncInputStream = ...): korlibs.io.http.core/HttpFetchResult // korlibs.io.http.core/HttpFetchResult.copy|copy(kotlin.Int;kotlin.String;kotlin.collections.List<kotlin.Pair<kotlin.String,kotlin.String>>;korlibs.io.stream.AsyncInputStream){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.http.core/HttpFetchResult.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.io.http.core/HttpFetchResult.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.io.http.core/HttpFetchResult.toString|toString(){}[0]
+}
+
+final class korlibs.io.socket/AsyncClientSSLProcessor : korlibs.io.socket/AsyncSocket { // korlibs.io.socket/AsyncClientSSLProcessor|null[0]
+    constructor <init>(korlibs.io.socket/AsyncSocket, korlibs.io.socket/SSLProcessor = ...) // korlibs.io.socket/AsyncClientSSLProcessor.<init>|<init>(korlibs.io.socket.AsyncSocket;korlibs.io.socket.SSLProcessor){}[0]
+
+    final val address // korlibs.io.socket/AsyncClientSSLProcessor.address|{}address[0]
+        final fun <get-address>(): korlibs.io.socket/AsyncSocketAddress // korlibs.io.socket/AsyncClientSSLProcessor.address.<get-address>|<get-address>(){}[0]
+    final val client // korlibs.io.socket/AsyncClientSSLProcessor.client|{}client[0]
+        final fun <get-client>(): korlibs.io.socket/AsyncSocket // korlibs.io.socket/AsyncClientSSLProcessor.client.<get-client>|<get-client>(){}[0]
+    final val connected // korlibs.io.socket/AsyncClientSSLProcessor.connected|{}connected[0]
+        final fun <get-connected>(): kotlin/Boolean // korlibs.io.socket/AsyncClientSSLProcessor.connected.<get-connected>|<get-connected>(){}[0]
+    final val processor // korlibs.io.socket/AsyncClientSSLProcessor.processor|{}processor[0]
+        final fun <get-processor>(): korlibs.io.socket/SSLProcessor // korlibs.io.socket/AsyncClientSSLProcessor.processor.<get-processor>|<get-processor>(){}[0]
+
+    final suspend fun close() // korlibs.io.socket/AsyncClientSSLProcessor.close|close(){}[0]
+    final suspend fun connect(kotlin/String, kotlin/Int) // korlibs.io.socket/AsyncClientSSLProcessor.connect|connect(kotlin.String;kotlin.Int){}[0]
+    final suspend fun read(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.socket/AsyncClientSSLProcessor.read|read(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final suspend fun write(kotlin/ByteArray, kotlin/Int, kotlin/Int) // korlibs.io.socket/AsyncClientSSLProcessor.write|write(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+final class korlibs.io.socket/AsyncSocketAddress { // korlibs.io.socket/AsyncSocketAddress|null[0]
+    constructor <init>(kotlin/String = ..., kotlin/Int = ...) // korlibs.io.socket/AsyncSocketAddress.<init>|<init>(kotlin.String;kotlin.Int){}[0]
+
+    final val address // korlibs.io.socket/AsyncSocketAddress.address|{}address[0]
+        final fun <get-address>(): kotlin/String // korlibs.io.socket/AsyncSocketAddress.address.<get-address>|<get-address>(){}[0]
+    final val port // korlibs.io.socket/AsyncSocketAddress.port|{}port[0]
+        final fun <get-port>(): kotlin/Int // korlibs.io.socket/AsyncSocketAddress.port.<get-port>|<get-port>(){}[0]
+
+    final fun component1(): kotlin/String // korlibs.io.socket/AsyncSocketAddress.component1|component1(){}[0]
+    final fun component2(): kotlin/Int // korlibs.io.socket/AsyncSocketAddress.component2|component2(){}[0]
+    final fun copy(kotlin/String = ..., kotlin/Int = ...): korlibs.io.socket/AsyncSocketAddress // korlibs.io.socket/AsyncSocketAddress.copy|copy(kotlin.String;kotlin.Int){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.socket/AsyncSocketAddress.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.io.socket/AsyncSocketAddress.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.io.socket/AsyncSocketAddress.toString|toString(){}[0]
+}
+
+final class korlibs.io.socket/PairAsyncSocket : korlibs.io.socket/AsyncSocket { // korlibs.io.socket/PairAsyncSocket|null[0]
+    constructor <init>() // korlibs.io.socket/PairAsyncSocket.<init>|<init>(){}[0]
+
+    final val connected // korlibs.io.socket/PairAsyncSocket.connected|{}connected[0]
+        final fun <get-connected>(): kotlin/Boolean // korlibs.io.socket/PairAsyncSocket.connected.<get-connected>|<get-connected>(){}[0]
+    final val readDeque // korlibs.io.socket/PairAsyncSocket.readDeque|{}readDeque[0]
+        final fun <get-readDeque>(): korlibs.io.stream/SyncStream // korlibs.io.socket/PairAsyncSocket.readDeque.<get-readDeque>|<get-readDeque>(){}[0]
+    final val writeDeque // korlibs.io.socket/PairAsyncSocket.writeDeque|{}writeDeque[0]
+        final fun <get-writeDeque>(): korlibs.io.stream/SyncStream // korlibs.io.socket/PairAsyncSocket.writeDeque.<get-writeDeque>|<get-writeDeque>(){}[0]
+
+    final suspend fun close() // korlibs.io.socket/PairAsyncSocket.close|close(){}[0]
+    final suspend fun connect(kotlin/String, kotlin/Int) // korlibs.io.socket/PairAsyncSocket.connect|connect(kotlin.String;kotlin.Int){}[0]
+    final suspend fun read(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.socket/PairAsyncSocket.read|read(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final suspend fun write(kotlin/ByteArray, kotlin/Int, kotlin/Int) // korlibs.io.socket/PairAsyncSocket.write|write(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+final fun (korlibs.io.socket/SSLProcessor).korlibs.io.socket/getAllDecryptedServerData(): kotlin.collections/List<kotlin/ByteArray> // korlibs.io.socket/getAllDecryptedServerData|getAllDecryptedServerData@korlibs.io.socket.SSLProcessor(){}[0]
+final fun (korlibs.io.socket/SSLProcessor).korlibs.io.socket/getAllEncryptedClientData(): kotlin.collections/List<kotlin/ByteArray> // korlibs.io.socket/getAllEncryptedClientData|getAllEncryptedClientData@korlibs.io.socket.SSLProcessor(){}[0]
+final fun (korlibs.io.socket/SSLProcessor).korlibs.io.socket/getDecryptedServerData(): kotlin/ByteArray? // korlibs.io.socket/getDecryptedServerData|getDecryptedServerData@korlibs.io.socket.SSLProcessor(){}[0]
+final fun (korlibs.io.socket/SSLProcessor).korlibs.io.socket/getEncryptedClientData(): kotlin/ByteArray? // korlibs.io.socket/getEncryptedClientData|getEncryptedClientData@korlibs.io.socket.SSLProcessor(){}[0]
+final fun korlibs.io.socket/DefaultSSLProcessor(): korlibs.io.socket/SSLProcessor // korlibs.io.socket/DefaultSSLProcessor|DefaultSSLProcessor(){}[0]
+final suspend fun (korlibs.io.socket/AsyncServerSocket.Companion).korlibs.io.socket/invoke(kotlin/Int, kotlin/String = ..., kotlin/Int = ..., kotlin/Boolean = ...): korlibs.io.socket/AsyncServerSocket // korlibs.io.socket/invoke|invoke@korlibs.io.socket.AsyncServerSocket.Companion(kotlin.Int;kotlin.String;kotlin.Int;kotlin.Boolean){}[0]
+final suspend fun (korlibs.io.socket/AsyncServerSocket.Companion).korlibs.io.socket/unix(kotlin/String, kotlin/Int = ...): korlibs.io.socket/AsyncServerSocket // korlibs.io.socket/unix|unix@korlibs.io.socket.AsyncServerSocket.Companion(kotlin.String;kotlin.Int){}[0]
+final suspend fun (korlibs.io.socket/AsyncSocket.Companion).korlibs.io.socket/invoke(kotlin/Boolean = ...): korlibs.io.socket/AsyncSocket // korlibs.io.socket/invoke|invoke@korlibs.io.socket.AsyncSocket.Companion(kotlin.Boolean){}[0]
+final suspend fun (korlibs.io.socket/AsyncSocket.Companion).korlibs.io.socket/unix(kotlin/String): korlibs.io.socket/AsyncSocket // korlibs.io.socket/unix|unix@korlibs.io.socket.AsyncSocket.Companion(kotlin.String){}[0]
+
+// Targets: [native]
+final class korlibs.io.socket/NativeAsyncSocket : korlibs.io.socket/AsyncSocket { // korlibs.io.socket/NativeAsyncSocket|null[0]
+    final val address // korlibs.io.socket/NativeAsyncSocket.address|{}address[0]
+        final fun <get-address>(): korlibs.io.socket/AsyncSocketAddress // korlibs.io.socket/NativeAsyncSocket.address.<get-address>|<get-address>(){}[0]
+    final val connected // korlibs.io.socket/NativeAsyncSocket.connected|{}connected[0]
+        final fun <get-connected>(): kotlin/Boolean // korlibs.io.socket/NativeAsyncSocket.connected.<get-connected>|<get-connected>(){}[0]
+    final val socket // korlibs.io.socket/NativeAsyncSocket.socket|{}socket[0]
+        // Targets: [apple, linux]
+        final fun <get-socket>(): korlibs.io.socket/NativeSocket // korlibs.io.socket/NativeAsyncSocket.socket.<get-socket>|<get-socket>(){}[0]
+
+        // Targets: [mingwX64]
+        final fun <get-socket>(): korlibs.io.socket/Win32Socket // korlibs.io.socket/NativeAsyncSocket.socket.<get-socket>|<get-socket>(){}[0]
+
+    final suspend fun close() // korlibs.io.socket/NativeAsyncSocket.close|close(){}[0]
+    final suspend fun connect(kotlin/String, kotlin/Int) // korlibs.io.socket/NativeAsyncSocket.connect|connect(kotlin.String;kotlin.Int){}[0]
+    final suspend fun read(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.socket/NativeAsyncSocket.read|read(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final suspend fun write(kotlin/ByteArray, kotlin/Int, kotlin/Int) // korlibs.io.socket/NativeAsyncSocket.write|write(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+
+    // Targets: [apple, linux]
+    constructor <init>(korlibs.io.socket/NativeSocket = ...) // korlibs.io.socket/NativeAsyncSocket.<init>|<init>(korlibs.io.socket.NativeSocket){}[0]
+
+    // Targets: [mingwX64]
+    constructor <init>(korlibs.io.socket/Win32Socket) // korlibs.io.socket/NativeAsyncSocket.<init>|<init>(korlibs.io.socket.Win32Socket){}[0]
+}
+
+// Targets: [apple, linux]
+final class korlibs.io.socket/NativeAsyncServerSocket : korlibs.io.socket/AsyncServerSocket { // korlibs.io.socket/NativeAsyncServerSocket|null[0]
+    constructor <init>(korlibs.io.socket/NativeSocket, kotlin/Int, kotlin/Int) // korlibs.io.socket/NativeAsyncServerSocket.<init>|<init>(korlibs.io.socket.NativeSocket;kotlin.Int;kotlin.Int){}[0]
+    constructor <init>(kotlin/Int, kotlin/String, kotlin/Int, kotlin/Boolean) // korlibs.io.socket/NativeAsyncServerSocket.<init>|<init>(kotlin.Int;kotlin.String;kotlin.Int;kotlin.Boolean){}[0]
+
+    final val backlog // korlibs.io.socket/NativeAsyncServerSocket.backlog|{}backlog[0]
+        final fun <get-backlog>(): kotlin/Int // korlibs.io.socket/NativeAsyncServerSocket.backlog.<get-backlog>|<get-backlog>(){}[0]
+    final val host // korlibs.io.socket/NativeAsyncServerSocket.host|{}host[0]
+        final fun <get-host>(): kotlin/String // korlibs.io.socket/NativeAsyncServerSocket.host.<get-host>|<get-host>(){}[0]
+    final val port // korlibs.io.socket/NativeAsyncServerSocket.port|{}port[0]
+        final fun <get-port>(): kotlin/Int // korlibs.io.socket/NativeAsyncServerSocket.port.<get-port>|<get-port>(){}[0]
+    final val requestPort // korlibs.io.socket/NativeAsyncServerSocket.requestPort|{}requestPort[0]
+        final fun <get-requestPort>(): kotlin/Int // korlibs.io.socket/NativeAsyncServerSocket.requestPort.<get-requestPort>|<get-requestPort>(){}[0]
+    final val socket // korlibs.io.socket/NativeAsyncServerSocket.socket|{}socket[0]
+        final fun <get-socket>(): korlibs.io.socket/NativeSocket // korlibs.io.socket/NativeAsyncServerSocket.socket.<get-socket>|<get-socket>(){}[0]
+
+    final suspend fun accept(): korlibs.io.socket/AsyncSocket // korlibs.io.socket/NativeAsyncServerSocket.accept|accept(){}[0]
+    final suspend fun close() // korlibs.io.socket/NativeAsyncServerSocket.close|close(){}[0]
+}
+
+// Targets: [apple, linux]
+final class korlibs.io.socket/NativeSocket { // korlibs.io.socket/NativeSocket|null[0]
+    final val availableBytes // korlibs.io.socket/NativeSocket.availableBytes|{}availableBytes[0]
+        final fun <get-availableBytes>(): kotlin/Int // korlibs.io.socket/NativeSocket.availableBytes.<get-availableBytes>|<get-availableBytes>(){}[0]
+    final val connected // korlibs.io.socket/NativeSocket.connected|{}connected[0]
+        final fun <get-connected>(): kotlin/Boolean // korlibs.io.socket/NativeSocket.connected.<get-connected>|<get-connected>(){}[0]
+
+    final var endpoint // korlibs.io.socket/NativeSocket.endpoint|{}endpoint[0]
+        final fun <get-endpoint>(): korlibs.io.socket/NativeSocket.Endpoint // korlibs.io.socket/NativeSocket.endpoint.<get-endpoint>|<get-endpoint>(){}[0]
+
+    final fun (kotlinx.cinterop/CPointer<platform.posix/sockaddr_in>).set(korlibs.io.socket/NativeSocket.IP, kotlin/Int) // korlibs.io.socket/NativeSocket.set|set@kotlinx.cinterop.CPointer<platform.posix.sockaddr_in>(korlibs.io.socket.NativeSocket.IP;kotlin.Int){}[0]
+    final fun (kotlinx.cinterop/CPointer<platform.posix/sockaddr_in>).toEndpoint(): korlibs.io.socket/NativeSocket.Endpoint // korlibs.io.socket/NativeSocket.toEndpoint|toEndpoint@kotlinx.cinterop.CPointer<platform.posix.sockaddr_in>(){}[0]
+    final fun bind(kotlin/String, kotlin/Int, kotlin/Int = ...) // korlibs.io.socket/NativeSocket.bind|bind(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    final fun close() // korlibs.io.socket/NativeSocket.close|close(){}[0]
+    final fun connect(kotlin/String, kotlin/Int) // korlibs.io.socket/NativeSocket.connect|connect(kotlin.String;kotlin.Int){}[0]
+    final fun getLocalEndpoint(): korlibs.io.socket/NativeSocket.Endpoint // korlibs.io.socket/NativeSocket.getLocalEndpoint|getLocalEndpoint(){}[0]
+    final fun getRemoveEndpoint(): korlibs.io.socket/NativeSocket.Endpoint // korlibs.io.socket/NativeSocket.getRemoveEndpoint|getRemoveEndpoint(){}[0]
+    final fun recv(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.socket/NativeSocket.recv|recv(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun recv(kotlin/Int): kotlin/ByteArray // korlibs.io.socket/NativeSocket.recv|recv(kotlin.Int){}[0]
+    final fun send(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...) // korlibs.io.socket/NativeSocket.send|send(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun toString(): kotlin/String // korlibs.io.socket/NativeSocket.toString|toString(){}[0]
+    final fun tryAccept(): korlibs.io.socket/NativeSocket? // korlibs.io.socket/NativeSocket.tryAccept|tryAccept(){}[0]
+    final fun tryRecv(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.socket/NativeSocket.tryRecv|tryRecv(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun tryRecv(kotlin/Int): kotlin/ByteArray? // korlibs.io.socket/NativeSocket.tryRecv|tryRecv(kotlin.Int){}[0]
+
+    final class Endpoint { // korlibs.io.socket/NativeSocket.Endpoint|null[0]
+        constructor <init>(korlibs.io.socket/NativeSocket.IP, kotlin/Int) // korlibs.io.socket/NativeSocket.Endpoint.<init>|<init>(korlibs.io.socket.NativeSocket.IP;kotlin.Int){}[0]
+
+        final val ip // korlibs.io.socket/NativeSocket.Endpoint.ip|{}ip[0]
+            final fun <get-ip>(): korlibs.io.socket/NativeSocket.IP // korlibs.io.socket/NativeSocket.Endpoint.ip.<get-ip>|<get-ip>(){}[0]
+        final val port // korlibs.io.socket/NativeSocket.Endpoint.port|{}port[0]
+            final fun <get-port>(): kotlin/Int // korlibs.io.socket/NativeSocket.Endpoint.port.<get-port>|<get-port>(){}[0]
+
+        final fun component1(): korlibs.io.socket/NativeSocket.IP // korlibs.io.socket/NativeSocket.Endpoint.component1|component1(){}[0]
+        final fun component2(): kotlin/Int // korlibs.io.socket/NativeSocket.Endpoint.component2|component2(){}[0]
+        final fun copy(korlibs.io.socket/NativeSocket.IP = ..., kotlin/Int = ...): korlibs.io.socket/NativeSocket.Endpoint // korlibs.io.socket/NativeSocket.Endpoint.copy|copy(korlibs.io.socket.NativeSocket.IP;kotlin.Int){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.socket/NativeSocket.Endpoint.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.io.socket/NativeSocket.Endpoint.hashCode|hashCode(){}[0]
+        final fun toAsyncAddress(): korlibs.io.socket/AsyncSocketAddress // korlibs.io.socket/NativeSocket.Endpoint.toAsyncAddress|toAsyncAddress(){}[0]
+        final fun toString(): kotlin/String // korlibs.io.socket/NativeSocket.Endpoint.toString|toString(){}[0]
+    }
+
+    final class IP { // korlibs.io.socket/NativeSocket.IP|null[0]
+        constructor <init>(kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int) // korlibs.io.socket/NativeSocket.IP.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+        constructor <init>(kotlin/UByte, kotlin/UByte, kotlin/UByte, kotlin/UByte) // korlibs.io.socket/NativeSocket.IP.<init>|<init>(kotlin.UByte;kotlin.UByte;kotlin.UByte;kotlin.UByte){}[0]
+        constructor <init>(kotlin/UByteArray) // korlibs.io.socket/NativeSocket.IP.<init>|<init>(kotlin.UByteArray){}[0]
+        constructor <init>(kotlinx.cinterop/CPointer<kotlinx.cinterop/ByteVarOf<kotlin/Byte>>) // korlibs.io.socket/NativeSocket.IP.<init>|<init>(kotlinx.cinterop.CPointer<kotlinx.cinterop.ByteVarOf<kotlin.Byte>>){}[0]
+        constructor <init>(kotlinx.cinterop/CPointer<kotlinx.cinterop/UByteVarOf<kotlin/UByte>>) // korlibs.io.socket/NativeSocket.IP.<init>|<init>(kotlinx.cinterop.CPointer<kotlinx.cinterop.UByteVarOf<kotlin.UByte>>){}[0]
+
+        final val data // korlibs.io.socket/NativeSocket.IP.data|{}data[0]
+            final fun <get-data>(): kotlin/UByteArray // korlibs.io.socket/NativeSocket.IP.data.<get-data>|<get-data>(){}[0]
+        final val str // korlibs.io.socket/NativeSocket.IP.str|{}str[0]
+            final fun <get-str>(): kotlin/String // korlibs.io.socket/NativeSocket.IP.str.<get-str>|<get-str>(){}[0]
+        final val v0 // korlibs.io.socket/NativeSocket.IP.v0|{}v0[0]
+            final fun <get-v0>(): kotlin/UByte // korlibs.io.socket/NativeSocket.IP.v0.<get-v0>|<get-v0>(){}[0]
+        final val v1 // korlibs.io.socket/NativeSocket.IP.v1|{}v1[0]
+            final fun <get-v1>(): kotlin/UByte // korlibs.io.socket/NativeSocket.IP.v1.<get-v1>|<get-v1>(){}[0]
+        final val v2 // korlibs.io.socket/NativeSocket.IP.v2|{}v2[0]
+            final fun <get-v2>(): kotlin/UByte // korlibs.io.socket/NativeSocket.IP.v2.<get-v2>|<get-v2>(){}[0]
+        final val v3 // korlibs.io.socket/NativeSocket.IP.v3|{}v3[0]
+            final fun <get-v3>(): kotlin/UByte // korlibs.io.socket/NativeSocket.IP.v3.<get-v3>|<get-v3>(){}[0]
+        final val value // korlibs.io.socket/NativeSocket.IP.value|{}value[0]
+            final fun <get-value>(): kotlin/Int // korlibs.io.socket/NativeSocket.IP.value.<get-value>|<get-value>(){}[0]
+
+        final fun toString(): kotlin/String // korlibs.io.socket/NativeSocket.IP.toString|toString(){}[0]
+
+        final object Companion { // korlibs.io.socket/NativeSocket.IP.Companion|null[0]
+            final fun fromHost(kotlin/String): korlibs.io.socket/NativeSocket.IP // korlibs.io.socket/NativeSocket.IP.Companion.fromHost|fromHost(kotlin.String){}[0]
+        }
+    }
+
+    final object Companion { // korlibs.io.socket/NativeSocket.Companion|null[0]
+        final fun invoke(): korlibs.io.socket/NativeSocket // korlibs.io.socket/NativeSocket.Companion.invoke|invoke(){}[0]
+        final suspend fun bound(kotlin/String, kotlin/Int): korlibs.io.socket/NativeSocket // korlibs.io.socket/NativeSocket.Companion.bound|bound(kotlin.String;kotlin.Int){}[0]
+        final suspend fun connect(kotlin/String, kotlin/Int): korlibs.io.socket/NativeSocket // korlibs.io.socket/NativeSocket.Companion.connect|connect(kotlin.String;kotlin.Int){}[0]
+    }
+}
+
+// Targets: [apple, linux]
+final suspend fun (korlibs.io.socket/NativeSocket).korlibs.io.socket/accept(): korlibs.io.socket/NativeSocket // korlibs.io.socket/accept|accept@korlibs.io.socket.NativeSocket(){}[0]
+
+// Targets: [apple, linux]
+final suspend fun (korlibs.io.socket/NativeSocket).korlibs.io.socket/suspendRecvExact(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.socket/suspendRecvExact|suspendRecvExact@korlibs.io.socket.NativeSocket(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [apple, linux]
+final suspend fun (korlibs.io.socket/NativeSocket).korlibs.io.socket/suspendRecvExact(kotlin/Int): kotlin/ByteArray // korlibs.io.socket/suspendRecvExact|suspendRecvExact@korlibs.io.socket.NativeSocket(kotlin.Int){}[0]
+
+// Targets: [apple, linux]
+final suspend fun (korlibs.io.socket/NativeSocket).korlibs.io.socket/suspendRecvUpTo(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.socket/suspendRecvUpTo|suspendRecvUpTo@korlibs.io.socket.NativeSocket(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [apple, linux]
+final suspend fun (korlibs.io.socket/NativeSocket).korlibs.io.socket/suspendRecvUpTo(kotlin/Int): kotlin/ByteArray // korlibs.io.socket/suspendRecvUpTo|suspendRecvUpTo@korlibs.io.socket.NativeSocket(kotlin.Int){}[0]
+
+// Targets: [apple, linux]
+final suspend fun (korlibs.io.socket/NativeSocket).korlibs.io.socket/suspendSend(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...) // korlibs.io.socket/suspendSend|suspendSend@korlibs.io.socket.NativeSocket(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [apple]
+final class korlibs.io.socket/DarwinSSLSocket { // korlibs.io.socket/DarwinSSLSocket|null[0]
+    constructor <init>() // korlibs.io.socket/DarwinSSLSocket.<init>|<init>(){}[0]
+
+    final val arena // korlibs.io.socket/DarwinSSLSocket.arena|{}arena[0]
+        final fun <get-arena>(): kotlinx.cinterop/Arena // korlibs.io.socket/DarwinSSLSocket.arena.<get-arena>|<get-arena>(){}[0]
+    final val connected // korlibs.io.socket/DarwinSSLSocket.connected|{}connected[0]
+        final fun <get-connected>(): kotlin/Boolean // korlibs.io.socket/DarwinSSLSocket.connected.<get-connected>|<get-connected>(){}[0]
+
+    final var ctx // korlibs.io.socket/DarwinSSLSocket.ctx|{}ctx[0]
+        final fun <get-ctx>(): kotlinx.cinterop/CPointer<cnames.structs/SSLContext>? // korlibs.io.socket/DarwinSSLSocket.ctx.<get-ctx>|<get-ctx>(){}[0]
+        final fun <set-ctx>(kotlinx.cinterop/CPointer<cnames.structs/SSLContext>?) // korlibs.io.socket/DarwinSSLSocket.ctx.<set-ctx>|<set-ctx>(kotlinx.cinterop.CPointer<cnames.structs.SSLContext>?){}[0]
+    final var endpoint // korlibs.io.socket/DarwinSSLSocket.endpoint|{}endpoint[0]
+        final fun <get-endpoint>(): korlibs.io.socket/NativeSocket.Endpoint // korlibs.io.socket/DarwinSSLSocket.endpoint.<get-endpoint>|<get-endpoint>(){}[0]
+    final var sockfd // korlibs.io.socket/DarwinSSLSocket.sockfd|{}sockfd[0]
+        final fun <get-sockfd>(): kotlin/Int // korlibs.io.socket/DarwinSSLSocket.sockfd.<get-sockfd>|<get-sockfd>(){}[0]
+        final fun <set-sockfd>(kotlin/Int) // korlibs.io.socket/DarwinSSLSocket.sockfd.<set-sockfd>|<set-sockfd>(kotlin.Int){}[0]
+
+    final fun close() // korlibs.io.socket/DarwinSSLSocket.close|close(){}[0]
+    final suspend fun connect(kotlin/String, kotlin/Int) // korlibs.io.socket/DarwinSSLSocket.connect|connect(kotlin.String;kotlin.Int){}[0]
+    final suspend fun read(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.socket/DarwinSSLSocket.read|read(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final suspend fun read(kotlin/Int): kotlin/ByteArray // korlibs.io.socket/DarwinSSLSocket.read|read(kotlin.Int){}[0]
+    final suspend fun write(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...) // korlibs.io.socket/DarwinSSLSocket.write|write(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+
+    final object Companion // korlibs.io.socket/DarwinSSLSocket.Companion|null[0]
+}
+
+// Targets: [apple]
+final class korlibs.io.socket/DarwinSecureAsyncClient : korlibs.io.socket/AsyncSocket { // korlibs.io.socket/DarwinSecureAsyncClient|null[0]
+    constructor <init>(korlibs.io.socket/DarwinSSLSocket) // korlibs.io.socket/DarwinSecureAsyncClient.<init>|<init>(korlibs.io.socket.DarwinSSLSocket){}[0]
+
+    final val address // korlibs.io.socket/DarwinSecureAsyncClient.address|{}address[0]
+        final fun <get-address>(): korlibs.io.socket/AsyncSocketAddress // korlibs.io.socket/DarwinSecureAsyncClient.address.<get-address>|<get-address>(){}[0]
+    final val connected // korlibs.io.socket/DarwinSecureAsyncClient.connected|{}connected[0]
+        final fun <get-connected>(): kotlin/Boolean // korlibs.io.socket/DarwinSecureAsyncClient.connected.<get-connected>|<get-connected>(){}[0]
+    final val socket // korlibs.io.socket/DarwinSecureAsyncClient.socket|{}socket[0]
+        final fun <get-socket>(): korlibs.io.socket/DarwinSSLSocket // korlibs.io.socket/DarwinSecureAsyncClient.socket.<get-socket>|<get-socket>(){}[0]
+
+    final suspend fun close() // korlibs.io.socket/DarwinSecureAsyncClient.close|close(){}[0]
+    final suspend fun connect(kotlin/String, kotlin/Int) // korlibs.io.socket/DarwinSecureAsyncClient.connect|connect(kotlin.String;kotlin.Int){}[0]
+    final suspend fun read(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.socket/DarwinSecureAsyncClient.read|read(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final suspend fun write(kotlin/ByteArray, kotlin/Int, kotlin/Int) // korlibs.io.socket/DarwinSecureAsyncClient.write|write(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+// Targets: [linux]
+final class korlibs.io.socket/LinuxSSLSocket { // korlibs.io.socket/LinuxSSLSocket|null[0]
+    constructor <init>() // korlibs.io.socket/LinuxSSLSocket.<init>|<init>(){}[0]
+
+    final val connected // korlibs.io.socket/LinuxSSLSocket.connected|{}connected[0]
+        final fun <get-connected>(): kotlin/Boolean // korlibs.io.socket/LinuxSSLSocket.connected.<get-connected>|<get-connected>(){}[0]
+
+    final var endpoint // korlibs.io.socket/LinuxSSLSocket.endpoint|{}endpoint[0]
+        final fun <get-endpoint>(): korlibs.io.socket/NativeSocket.Endpoint // korlibs.io.socket/LinuxSSLSocket.endpoint.<get-endpoint>|<get-endpoint>(){}[0]
+
+    final fun close() // korlibs.io.socket/LinuxSSLSocket.close|close(){}[0]
+    final suspend fun connect(kotlin/String, kotlin/Int) // korlibs.io.socket/LinuxSSLSocket.connect|connect(kotlin.String;kotlin.Int){}[0]
+    final suspend fun read(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.socket/LinuxSSLSocket.read|read(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final suspend fun read(kotlin/Int): kotlin/ByteArray // korlibs.io.socket/LinuxSSLSocket.read|read(kotlin.Int){}[0]
+    final suspend fun write(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.socket/LinuxSSLSocket.write|write(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+
+    final object Companion { // korlibs.io.socket/LinuxSSLSocket.Companion|null[0]
+        final val ctx // korlibs.io.socket/LinuxSSLSocket.Companion.ctx|{}ctx[0]
+            final fun <get-ctx>(): kotlinx.cinterop/CPointer<out kotlinx.cinterop/CPointed>? // korlibs.io.socket/LinuxSSLSocket.Companion.ctx.<get-ctx>|<get-ctx>(){}[0]
+        final val method // korlibs.io.socket/LinuxSSLSocket.Companion.method|{}method[0]
+            final fun <get-method>(): kotlinx.cinterop/CPointer<out kotlinx.cinterop/CPointed>? // korlibs.io.socket/LinuxSSLSocket.Companion.method.<get-method>|<get-method>(){}[0]
+
+        final fun deinit() // korlibs.io.socket/LinuxSSLSocket.Companion.deinit|deinit(){}[0]
+    }
+}
+
+// Targets: [linux]
+final class korlibs.io.socket/NativeSecureAsyncSocket : korlibs.io.socket/AsyncSocket { // korlibs.io.socket/NativeSecureAsyncSocket|null[0]
+    constructor <init>(korlibs.io.socket/LinuxSSLSocket) // korlibs.io.socket/NativeSecureAsyncSocket.<init>|<init>(korlibs.io.socket.LinuxSSLSocket){}[0]
+
+    final val address // korlibs.io.socket/NativeSecureAsyncSocket.address|{}address[0]
+        final fun <get-address>(): korlibs.io.socket/AsyncSocketAddress // korlibs.io.socket/NativeSecureAsyncSocket.address.<get-address>|<get-address>(){}[0]
+    final val connected // korlibs.io.socket/NativeSecureAsyncSocket.connected|{}connected[0]
+        final fun <get-connected>(): kotlin/Boolean // korlibs.io.socket/NativeSecureAsyncSocket.connected.<get-connected>|<get-connected>(){}[0]
+    final val socket // korlibs.io.socket/NativeSecureAsyncSocket.socket|{}socket[0]
+        final fun <get-socket>(): korlibs.io.socket/LinuxSSLSocket // korlibs.io.socket/NativeSecureAsyncSocket.socket.<get-socket>|<get-socket>(){}[0]
+
+    final suspend fun close() // korlibs.io.socket/NativeSecureAsyncSocket.close|close(){}[0]
+    final suspend fun connect(kotlin/String, kotlin/Int) // korlibs.io.socket/NativeSecureAsyncSocket.connect|connect(kotlin.String;kotlin.Int){}[0]
+    final suspend fun read(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.socket/NativeSecureAsyncSocket.read|read(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final suspend fun write(kotlin/ByteArray, kotlin/Int, kotlin/Int) // korlibs.io.socket/NativeSecureAsyncSocket.write|write(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+// Targets: [mingwX64]
+final class korlibs.io.socket/NativeAsyncServer : korlibs.io.socket/AsyncServerSocket { // korlibs.io.socket/NativeAsyncServer|null[0]
+    constructor <init>(korlibs.io.socket/Win32Socket, kotlin/Int, kotlin/Int) // korlibs.io.socket/NativeAsyncServer.<init>|<init>(korlibs.io.socket.Win32Socket;kotlin.Int;kotlin.Int){}[0]
+
+    final val backlog // korlibs.io.socket/NativeAsyncServer.backlog|{}backlog[0]
+        final fun <get-backlog>(): kotlin/Int // korlibs.io.socket/NativeAsyncServer.backlog.<get-backlog>|<get-backlog>(){}[0]
+    final val host // korlibs.io.socket/NativeAsyncServer.host|{}host[0]
+        final fun <get-host>(): kotlin/String // korlibs.io.socket/NativeAsyncServer.host.<get-host>|<get-host>(){}[0]
+    final val port // korlibs.io.socket/NativeAsyncServer.port|{}port[0]
+        final fun <get-port>(): kotlin/Int // korlibs.io.socket/NativeAsyncServer.port.<get-port>|<get-port>(){}[0]
+    final val requestPort // korlibs.io.socket/NativeAsyncServer.requestPort|{}requestPort[0]
+        final fun <get-requestPort>(): kotlin/Int // korlibs.io.socket/NativeAsyncServer.requestPort.<get-requestPort>|<get-requestPort>(){}[0]
+    final val socket // korlibs.io.socket/NativeAsyncServer.socket|{}socket[0]
+        final fun <get-socket>(): korlibs.io.socket/Win32Socket // korlibs.io.socket/NativeAsyncServer.socket.<get-socket>|<get-socket>(){}[0]
+
+    final suspend fun accept(): korlibs.io.socket/AsyncSocket // korlibs.io.socket/NativeAsyncServer.accept|accept(){}[0]
+    final suspend fun close() // korlibs.io.socket/NativeAsyncServer.close|close(){}[0]
+}
+
+// Targets: [mingwX64]
+final class korlibs.io.socket/Win32Socket { // korlibs.io.socket/Win32Socket|null[0]
+    final val availableBytes // korlibs.io.socket/Win32Socket.availableBytes|{}availableBytes[0]
+        final fun <get-availableBytes>(): kotlin/Int // korlibs.io.socket/Win32Socket.availableBytes.<get-availableBytes>|<get-availableBytes>(){}[0]
+    final val connected // korlibs.io.socket/Win32Socket.connected|{}connected[0]
+        final fun <get-connected>(): kotlin/Boolean // korlibs.io.socket/Win32Socket.connected.<get-connected>|<get-connected>(){}[0]
+    final val debug // korlibs.io.socket/Win32Socket.debug|{}debug[0]
+        final fun <get-debug>(): kotlin/Boolean // korlibs.io.socket/Win32Socket.debug.<get-debug>|<get-debug>(){}[0]
+    final val secure // korlibs.io.socket/Win32Socket.secure|{}secure[0]
+        final fun <get-secure>(): kotlin/Boolean // korlibs.io.socket/Win32Socket.secure.<get-secure>|<get-secure>(){}[0]
+
+    final var endpoint // korlibs.io.socket/Win32Socket.endpoint|{}endpoint[0]
+        final fun <get-endpoint>(): korlibs.io.socket/Win32Socket.Endpoint // korlibs.io.socket/Win32Socket.endpoint.<get-endpoint>|<get-endpoint>(){}[0]
+    final var ssl // korlibs.io.socket/Win32Socket.ssl|{}ssl[0]
+        final fun <get-ssl>(): kotlinx.cinterop/CPointer<win32ssl/SSL_SOCKET>? // korlibs.io.socket/Win32Socket.ssl.<get-ssl>|<get-ssl>(){}[0]
+        final fun <set-ssl>(kotlinx.cinterop/CPointer<win32ssl/SSL_SOCKET>?) // korlibs.io.socket/Win32Socket.ssl.<set-ssl>|<set-ssl>(kotlinx.cinterop.CPointer<win32ssl.SSL_SOCKET>?){}[0]
+
+    final fun (kotlinx.cinterop/CPointer<platform.posix/sockaddr_in>).set(korlibs.io.socket/Win32Socket.IP, kotlin/Int) // korlibs.io.socket/Win32Socket.set|set@kotlinx.cinterop.CPointer<platform.posix.sockaddr_in>(korlibs.io.socket.Win32Socket.IP;kotlin.Int){}[0]
+    final fun (kotlinx.cinterop/CPointer<platform.posix/sockaddr_in>).toEndpoint(): korlibs.io.socket/Win32Socket.Endpoint // korlibs.io.socket/Win32Socket.toEndpoint|toEndpoint@kotlinx.cinterop.CPointer<platform.posix.sockaddr_in>(){}[0]
+    final fun bind(kotlin/String, kotlin/Int, kotlin/Int = ...) // korlibs.io.socket/Win32Socket.bind|bind(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+    final fun close() // korlibs.io.socket/Win32Socket.close|close(){}[0]
+    final fun connect(kotlin/String, kotlin/Int) // korlibs.io.socket/Win32Socket.connect|connect(kotlin.String;kotlin.Int){}[0]
+    final fun getLocalEndpoint(): korlibs.io.socket/Win32Socket.Endpoint // korlibs.io.socket/Win32Socket.getLocalEndpoint|getLocalEndpoint(){}[0]
+    final fun getRemoveEndpoint(): korlibs.io.socket/Win32Socket.Endpoint // korlibs.io.socket/Win32Socket.getRemoveEndpoint|getRemoveEndpoint(){}[0]
+    final fun recv(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.socket/Win32Socket.recv|recv(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun recv(kotlin/Int): kotlin/ByteArray // korlibs.io.socket/Win32Socket.recv|recv(kotlin.Int){}[0]
+    final fun send(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...) // korlibs.io.socket/Win32Socket.send|send(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun toString(): kotlin/String // korlibs.io.socket/Win32Socket.toString|toString(){}[0]
+    final fun tryAccept(): korlibs.io.socket/Win32Socket? // korlibs.io.socket/Win32Socket.tryAccept|tryAccept(){}[0]
+    final fun tryRecv(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.socket/Win32Socket.tryRecv|tryRecv(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun tryRecv(kotlin/Int): kotlin/ByteArray? // korlibs.io.socket/Win32Socket.tryRecv|tryRecv(kotlin.Int){}[0]
+    final fun wouldBlock(): kotlin/Boolean // korlibs.io.socket/Win32Socket.wouldBlock|wouldBlock(){}[0]
+
+    final class Endpoint { // korlibs.io.socket/Win32Socket.Endpoint|null[0]
+        constructor <init>(korlibs.io.socket/Win32Socket.IP, kotlin/Int) // korlibs.io.socket/Win32Socket.Endpoint.<init>|<init>(korlibs.io.socket.Win32Socket.IP;kotlin.Int){}[0]
+
+        final val ip // korlibs.io.socket/Win32Socket.Endpoint.ip|{}ip[0]
+            final fun <get-ip>(): korlibs.io.socket/Win32Socket.IP // korlibs.io.socket/Win32Socket.Endpoint.ip.<get-ip>|<get-ip>(){}[0]
+        final val port // korlibs.io.socket/Win32Socket.Endpoint.port|{}port[0]
+            final fun <get-port>(): kotlin/Int // korlibs.io.socket/Win32Socket.Endpoint.port.<get-port>|<get-port>(){}[0]
+
+        final fun component1(): korlibs.io.socket/Win32Socket.IP // korlibs.io.socket/Win32Socket.Endpoint.component1|component1(){}[0]
+        final fun component2(): kotlin/Int // korlibs.io.socket/Win32Socket.Endpoint.component2|component2(){}[0]
+        final fun copy(korlibs.io.socket/Win32Socket.IP = ..., kotlin/Int = ...): korlibs.io.socket/Win32Socket.Endpoint // korlibs.io.socket/Win32Socket.Endpoint.copy|copy(korlibs.io.socket.Win32Socket.IP;kotlin.Int){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.socket/Win32Socket.Endpoint.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.io.socket/Win32Socket.Endpoint.hashCode|hashCode(){}[0]
+        final fun toAsyncAddress(): korlibs.io.socket/AsyncSocketAddress // korlibs.io.socket/Win32Socket.Endpoint.toAsyncAddress|toAsyncAddress(){}[0]
+        final fun toString(): kotlin/String // korlibs.io.socket/Win32Socket.Endpoint.toString|toString(){}[0]
+    }
+
+    final class IP { // korlibs.io.socket/Win32Socket.IP|null[0]
+        constructor <init>(kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int) // korlibs.io.socket/Win32Socket.IP.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+        constructor <init>(kotlin/UByteArray) // korlibs.io.socket/Win32Socket.IP.<init>|<init>(kotlin.UByteArray){}[0]
+
+        final val data // korlibs.io.socket/Win32Socket.IP.data|{}data[0]
+            final fun <get-data>(): kotlin/UByteArray // korlibs.io.socket/Win32Socket.IP.data.<get-data>|<get-data>(){}[0]
+        final val str // korlibs.io.socket/Win32Socket.IP.str|{}str[0]
+            final fun <get-str>(): kotlin/String // korlibs.io.socket/Win32Socket.IP.str.<get-str>|<get-str>(){}[0]
+        final val v0 // korlibs.io.socket/Win32Socket.IP.v0|{}v0[0]
+            final fun <get-v0>(): kotlin/UByte // korlibs.io.socket/Win32Socket.IP.v0.<get-v0>|<get-v0>(){}[0]
+        final val v1 // korlibs.io.socket/Win32Socket.IP.v1|{}v1[0]
+            final fun <get-v1>(): kotlin/UByte // korlibs.io.socket/Win32Socket.IP.v1.<get-v1>|<get-v1>(){}[0]
+        final val v2 // korlibs.io.socket/Win32Socket.IP.v2|{}v2[0]
+            final fun <get-v2>(): kotlin/UByte // korlibs.io.socket/Win32Socket.IP.v2.<get-v2>|<get-v2>(){}[0]
+        final val v3 // korlibs.io.socket/Win32Socket.IP.v3|{}v3[0]
+            final fun <get-v3>(): kotlin/UByte // korlibs.io.socket/Win32Socket.IP.v3.<get-v3>|<get-v3>(){}[0]
+        final val value // korlibs.io.socket/Win32Socket.IP.value|{}value[0]
+            final fun <get-value>(): kotlin/Int // korlibs.io.socket/Win32Socket.IP.value.<get-value>|<get-value>(){}[0]
+
+        final fun toString(): kotlin/String // korlibs.io.socket/Win32Socket.IP.toString|toString(){}[0]
+
+        final object Companion { // korlibs.io.socket/Win32Socket.IP.Companion|null[0]
+            final fun fromHost(kotlin/String): korlibs.io.socket/Win32Socket.IP // korlibs.io.socket/Win32Socket.IP.Companion.fromHost|fromHost(kotlin.String){}[0]
+        }
+    }
+
+    final object Companion { // korlibs.io.socket/Win32Socket.Companion|null[0]
+        final const val DEBUG_SOCKET // korlibs.io.socket/Win32Socket.Companion.DEBUG_SOCKET|{}DEBUG_SOCKET[0]
+            final fun <get-DEBUG_SOCKET>(): kotlin/Boolean // korlibs.io.socket/Win32Socket.Companion.DEBUG_SOCKET.<get-DEBUG_SOCKET>|<get-DEBUG_SOCKET>(){}[0]
+
+        final fun checkErrors(kotlin/String = ...) // korlibs.io.socket/Win32Socket.Companion.checkErrors|checkErrors(kotlin.String){}[0]
+        final fun invoke(kotlin/Boolean): korlibs.io.socket/Win32Socket // korlibs.io.socket/Win32Socket.Companion.invoke|invoke(kotlin.Boolean){}[0]
+        final suspend fun bound(kotlin/String, kotlin/Int, kotlin/Boolean = ...): korlibs.io.socket/Win32Socket // korlibs.io.socket/Win32Socket.Companion.bound|bound(kotlin.String;kotlin.Int;kotlin.Boolean){}[0]
+        final suspend fun connect(kotlin/String, kotlin/Int, kotlin/Boolean = ...): korlibs.io.socket/Win32Socket // korlibs.io.socket/Win32Socket.Companion.connect|connect(kotlin.String;kotlin.Int;kotlin.Boolean){}[0]
+    }
+}
+
+// Targets: [mingwX64]
+final suspend fun (korlibs.io.socket/Win32Socket).korlibs.io.socket/accept(): korlibs.io.socket/Win32Socket // korlibs.io.socket/accept|accept@korlibs.io.socket.Win32Socket(){}[0]
+
+// Targets: [mingwX64]
+final suspend fun (korlibs.io.socket/Win32Socket).korlibs.io.socket/suspendRecvExact(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.socket/suspendRecvExact|suspendRecvExact@korlibs.io.socket.Win32Socket(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [mingwX64]
+final suspend fun (korlibs.io.socket/Win32Socket).korlibs.io.socket/suspendRecvExact(kotlin/Int): kotlin/ByteArray // korlibs.io.socket/suspendRecvExact|suspendRecvExact@korlibs.io.socket.Win32Socket(kotlin.Int){}[0]
+
+// Targets: [mingwX64]
+final suspend fun (korlibs.io.socket/Win32Socket).korlibs.io.socket/suspendRecvUpTo(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.socket/suspendRecvUpTo|suspendRecvUpTo@korlibs.io.socket.Win32Socket(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [mingwX64]
+final suspend fun (korlibs.io.socket/Win32Socket).korlibs.io.socket/suspendRecvUpTo(kotlin/Int): kotlin/ByteArray // korlibs.io.socket/suspendRecvUpTo|suspendRecvUpTo@korlibs.io.socket.Win32Socket(kotlin.Int){}[0]
+
+// Targets: [mingwX64]
+final suspend fun (korlibs.io.socket/Win32Socket).korlibs.io.socket/suspendSend(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...) // korlibs.io.socket/suspendSend|suspendSend@korlibs.io.socket.Win32Socket(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
