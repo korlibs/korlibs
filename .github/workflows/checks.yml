@@ -38,7 +38,7 @@ jobs:
           - outputKey: testMacosIos
             os: macos-latest
             testTask: jvmTest macosArm64Test iosSimulatorArm64Test
-            buildTasks: publishMacosX64PublicationToMavenLocal
+            buildTasks: publishMacosArm64PublicationToMavenLocal
           - outputKey: testJsAndroid
             os: ubuntu-latest
             testTask: "wasmBrowserTest"

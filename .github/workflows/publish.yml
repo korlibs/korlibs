@@ -40,9 +40,9 @@ jobs:
           - os: ubuntu-latest
             publishTask: "publishJsPublicationToMavenCentral publishWasmJsPublicationToMavenCentral"
           - os: macos-latest
-            publishTask: "publishMacosX64PublicationToMavenCentral publishMacosArm64PublicationToMavenCentral"
+            publishTask: "publishMacosArm64PublicationToMavenCentral"
           - os: macos-latest
-            publishTask: "publishTvosArm64PublicationToMavenCentral publishTvosSimulatorArm64PublicationToMavenCentral publishTvosX64PublicationToMavenCentral"
+            publishTask: "publishTvosArm64PublicationToMavenCentral publishTvosSimulatorArm64PublicationToMavenCentral"
           - os: macos-latest
             publishTask: "publishIosArm64PublicationToMavenCentral publishIosSimulatorArm64PublicationToMavenCentral publishIosX64PublicationToMavenCentral"
           - os: macos-latest
