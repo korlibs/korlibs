@@ -1,0 +1,500 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-serialization>
+final class korlibs.io.serialization.csv/CSV : kotlin.collections/Collection<korlibs.io.serialization.csv/CSV.Record> { // korlibs.io.serialization.csv/CSV|null[0]
+    constructor <init>(kotlin.collections/List<kotlin.collections/List<kotlin/String>>, kotlin.collections/List<kotlin/String>? = ...) // korlibs.io.serialization.csv/CSV.<init>|<init>(kotlin.collections.List<kotlin.collections.List<kotlin.String>>;kotlin.collections.List<kotlin.String>?){}[0]
+
+    final val lines // korlibs.io.serialization.csv/CSV.lines|{}lines[0]
+        final fun <get-lines>(): kotlin.collections/List<kotlin.collections/List<kotlin/String>> // korlibs.io.serialization.csv/CSV.lines.<get-lines>|<get-lines>(){}[0]
+    final val linesWithNames // korlibs.io.serialization.csv/CSV.linesWithNames|{}linesWithNames[0]
+        final fun <get-linesWithNames>(): kotlin.collections/List<kotlin.collections/List<kotlin/String>> // korlibs.io.serialization.csv/CSV.linesWithNames.<get-linesWithNames>|<get-linesWithNames>(){}[0]
+    final val names // korlibs.io.serialization.csv/CSV.names|{}names[0]
+        final fun <get-names>(): kotlin.collections/List<kotlin/String>? // korlibs.io.serialization.csv/CSV.names.<get-names>|<get-names>(){}[0]
+    final val namesToIndex // korlibs.io.serialization.csv/CSV.namesToIndex|{}namesToIndex[0]
+        final fun <get-namesToIndex>(): kotlin.collections/Map<kotlin/String, kotlin/Int> // korlibs.io.serialization.csv/CSV.namesToIndex.<get-namesToIndex>|<get-namesToIndex>(){}[0]
+    final val records // korlibs.io.serialization.csv/CSV.records|{}records[0]
+        final fun <get-records>(): kotlin.collections/List<korlibs.io.serialization.csv/CSV.Record> // korlibs.io.serialization.csv/CSV.records.<get-records>|<get-records>(){}[0]
+    final val size // korlibs.io.serialization.csv/CSV.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // korlibs.io.serialization.csv/CSV.size.<get-size>|<get-size>(){}[0]
+
+    final fun contains(korlibs.io.serialization.csv/CSV.Record): kotlin/Boolean // korlibs.io.serialization.csv/CSV.contains|contains(korlibs.io.serialization.csv.CSV.Record){}[0]
+    final fun containsAll(kotlin.collections/Collection<korlibs.io.serialization.csv/CSV.Record>): kotlin/Boolean // korlibs.io.serialization.csv/CSV.containsAll|containsAll(kotlin.collections.Collection<korlibs.io.serialization.csv.CSV.Record>){}[0]
+    final fun get(kotlin/Int): korlibs.io.serialization.csv/CSV.Record // korlibs.io.serialization.csv/CSV.get|get(kotlin.Int){}[0]
+    final fun isEmpty(): kotlin/Boolean // korlibs.io.serialization.csv/CSV.isEmpty|isEmpty(){}[0]
+    final fun iterator(): kotlin.collections/Iterator<korlibs.io.serialization.csv/CSV.Record> // korlibs.io.serialization.csv/CSV.iterator|iterator(){}[0]
+    final fun toString(): kotlin/String // korlibs.io.serialization.csv/CSV.toString|toString(){}[0]
+    final fun toString(kotlin/Char): kotlin/String // korlibs.io.serialization.csv/CSV.toString|toString(kotlin.Char){}[0]
+
+    final inner class Record { // korlibs.io.serialization.csv/CSV.Record|null[0]
+        constructor <init>(kotlin.collections/List<kotlin/String>) // korlibs.io.serialization.csv/CSV.Record.<init>|<init>(kotlin.collections.List<kotlin.String>){}[0]
+
+        final val cells // korlibs.io.serialization.csv/CSV.Record.cells|{}cells[0]
+            final fun <get-cells>(): kotlin.collections/List<kotlin/String> // korlibs.io.serialization.csv/CSV.Record.cells.<get-cells>|<get-cells>(){}[0]
+
+        final fun get(kotlin/Int): kotlin/String // korlibs.io.serialization.csv/CSV.Record.get|get(kotlin.Int){}[0]
+        final fun get(kotlin/String): kotlin/String // korlibs.io.serialization.csv/CSV.Record.get|get(kotlin.String){}[0]
+        final fun getOrNull(kotlin/Int): kotlin/String? // korlibs.io.serialization.csv/CSV.Record.getOrNull|getOrNull(kotlin.Int){}[0]
+        final fun getOrNull(kotlin/String): kotlin/String? // korlibs.io.serialization.csv/CSV.Record.getOrNull|getOrNull(kotlin.String){}[0]
+        final fun toMap(): kotlin.collections/Map<kotlin/String, kotlin/String> // korlibs.io.serialization.csv/CSV.Record.toMap|toMap(){}[0]
+        final fun toString(): kotlin/String // korlibs.io.serialization.csv/CSV.Record.toString|toString(){}[0]
+    }
+
+    final object Companion { // korlibs.io.serialization.csv/CSV.Companion|null[0]
+        final const val DEFAULT_SEPARATOR // korlibs.io.serialization.csv/CSV.Companion.DEFAULT_SEPARATOR|{}DEFAULT_SEPARATOR[0]
+            final fun <get-DEFAULT_SEPARATOR>(): kotlin/Char // korlibs.io.serialization.csv/CSV.Companion.DEFAULT_SEPARATOR.<get-DEFAULT_SEPARATOR>|<get-DEFAULT_SEPARATOR>(){}[0]
+
+        final fun parse(korlibs.util/SimpleStrReader, kotlin/Char = ..., kotlin/Boolean = ...): korlibs.io.serialization.csv/CSV // korlibs.io.serialization.csv/CSV.Companion.parse|parse(korlibs.util.SimpleStrReader;kotlin.Char;kotlin.Boolean){}[0]
+        final fun parse(kotlin/String, kotlin/Char = ..., kotlin/Boolean = ...): korlibs.io.serialization.csv/CSV // korlibs.io.serialization.csv/CSV.Companion.parse|parse(kotlin.String;kotlin.Char;kotlin.Boolean){}[0]
+        final fun parseLine(korlibs.util/SimpleStrReader, kotlin/Char = ...): kotlin.collections/List<kotlin/String> // korlibs.io.serialization.csv/CSV.Companion.parseLine|parseLine(korlibs.util.SimpleStrReader;kotlin.Char){}[0]
+        final fun parseLine(kotlin/String, kotlin/Char = ...): kotlin.collections/List<kotlin/String> // korlibs.io.serialization.csv/CSV.Companion.parseLine|parseLine(kotlin.String;kotlin.Char){}[0]
+        final fun serializeLine(kotlin.collections/List<kotlin/String>, kotlin/Char = ...): kotlin/String // korlibs.io.serialization.csv/CSV.Companion.serializeLine|serializeLine(kotlin.collections.List<kotlin.String>;kotlin.Char){}[0]
+    }
+}
+
+final class korlibs.io.serialization.xml/Xml { // korlibs.io.serialization.xml/Xml|null[0]
+    constructor <init>(korlibs.io.serialization.xml/Xml.Type, kotlin/String, kotlin.collections/Map<kotlin/String, kotlin/String>, kotlin.collections/List<korlibs.io.serialization.xml/Xml>, kotlin/String) // korlibs.io.serialization.xml/Xml.<init>|<init>(korlibs.io.serialization.xml.Xml.Type;kotlin.String;kotlin.collections.Map<kotlin.String,kotlin.String>;kotlin.collections.List<korlibs.io.serialization.xml.Xml>;kotlin.String){}[0]
+
+    final val allChildren // korlibs.io.serialization.xml/Xml.allChildren|{}allChildren[0]
+        final fun <get-allChildren>(): kotlin.collections/List<korlibs.io.serialization.xml/Xml> // korlibs.io.serialization.xml/Xml.allChildren.<get-allChildren>|<get-allChildren>(){}[0]
+    final val allChildrenNoComments // korlibs.io.serialization.xml/Xml.allChildrenNoComments|{}allChildrenNoComments[0]
+        final fun <get-allChildrenNoComments>(): kotlin.collections/List<korlibs.io.serialization.xml/Xml> // korlibs.io.serialization.xml/Xml.allChildrenNoComments.<get-allChildrenNoComments>|<get-allChildrenNoComments>(){}[0]
+    final val allNodeChildren // korlibs.io.serialization.xml/Xml.allNodeChildren|{}allNodeChildren[0]
+        final fun <get-allNodeChildren>(): kotlin.collections/List<korlibs.io.serialization.xml/Xml> // korlibs.io.serialization.xml/Xml.allNodeChildren.<get-allNodeChildren>|<get-allNodeChildren>(){}[0]
+    final val attributes // korlibs.io.serialization.xml/Xml.attributes|{}attributes[0]
+        final fun <get-attributes>(): kotlin.collections/Map<kotlin/String, kotlin/String> // korlibs.io.serialization.xml/Xml.attributes.<get-attributes>|<get-attributes>(){}[0]
+    final val attributesLC // korlibs.io.serialization.xml/Xml.attributesLC|{}attributesLC[0]
+        final fun <get-attributesLC>(): kotlin.collections/Map<kotlin/String, kotlin/String> // korlibs.io.serialization.xml/Xml.attributesLC.<get-attributesLC>|<get-attributesLC>(){}[0]
+    final val attributesStr // korlibs.io.serialization.xml/Xml.attributesStr|{}attributesStr[0]
+        final fun <get-attributesStr>(): kotlin/String // korlibs.io.serialization.xml/Xml.attributesStr.<get-attributesStr>|<get-attributesStr>(){}[0]
+    final val content // korlibs.io.serialization.xml/Xml.content|{}content[0]
+        final fun <get-content>(): kotlin/String // korlibs.io.serialization.xml/Xml.content.<get-content>|<get-content>(){}[0]
+    final val descendants // korlibs.io.serialization.xml/Xml.descendants|{}descendants[0]
+        final fun <get-descendants>(): kotlin.sequences/Sequence<korlibs.io.serialization.xml/Xml> // korlibs.io.serialization.xml/Xml.descendants.<get-descendants>|<get-descendants>(){}[0]
+    final val innerXml // korlibs.io.serialization.xml/Xml.innerXml|{}innerXml[0]
+        final fun <get-innerXml>(): kotlin/String // korlibs.io.serialization.xml/Xml.innerXml.<get-innerXml>|<get-innerXml>(){}[0]
+    final val name // korlibs.io.serialization.xml/Xml.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.io.serialization.xml/Xml.name.<get-name>|<get-name>(){}[0]
+    final val nameLC // korlibs.io.serialization.xml/Xml.nameLC|{}nameLC[0]
+        final fun <get-nameLC>(): kotlin/String // korlibs.io.serialization.xml/Xml.nameLC.<get-nameLC>|<get-nameLC>(){}[0]
+    final val outerXml // korlibs.io.serialization.xml/Xml.outerXml|{}outerXml[0]
+        final fun <get-outerXml>(): kotlin/String // korlibs.io.serialization.xml/Xml.outerXml.<get-outerXml>|<get-outerXml>(){}[0]
+    final val text // korlibs.io.serialization.xml/Xml.text|{}text[0]
+        final fun <get-text>(): kotlin/String // korlibs.io.serialization.xml/Xml.text.<get-text>|<get-text>(){}[0]
+    final val type // korlibs.io.serialization.xml/Xml.type|{}type[0]
+        final fun <get-type>(): korlibs.io.serialization.xml/Xml.Type // korlibs.io.serialization.xml/Xml.type.<get-type>|<get-type>(){}[0]
+
+    final fun attribute(kotlin/String): kotlin/String? // korlibs.io.serialization.xml/Xml.attribute|attribute(kotlin.String){}[0]
+    final fun boolean(kotlin/String, kotlin/Boolean = ...): kotlin/Boolean // korlibs.io.serialization.xml/Xml.boolean|boolean(kotlin.String;kotlin.Boolean){}[0]
+    final fun booleanOrNull(kotlin/String): kotlin/Boolean? // korlibs.io.serialization.xml/Xml.booleanOrNull|booleanOrNull(kotlin.String){}[0]
+    final fun child(kotlin/String): korlibs.io.serialization.xml/Xml? // korlibs.io.serialization.xml/Xml.child|child(kotlin.String){}[0]
+    final fun childText(kotlin/String): kotlin/String? // korlibs.io.serialization.xml/Xml.childText|childText(kotlin.String){}[0]
+    final fun children(kotlin/String): kotlin.collections/Iterable<korlibs.io.serialization.xml/Xml> // korlibs.io.serialization.xml/Xml.children|children(kotlin.String){}[0]
+    final fun component1(): korlibs.io.serialization.xml/Xml.Type // korlibs.io.serialization.xml/Xml.component1|component1(){}[0]
+    final fun component2(): kotlin/String // korlibs.io.serialization.xml/Xml.component2|component2(){}[0]
+    final fun component3(): kotlin.collections/Map<kotlin/String, kotlin/String> // korlibs.io.serialization.xml/Xml.component3|component3(){}[0]
+    final fun component4(): kotlin.collections/List<korlibs.io.serialization.xml/Xml> // korlibs.io.serialization.xml/Xml.component4|component4(){}[0]
+    final fun component5(): kotlin/String // korlibs.io.serialization.xml/Xml.component5|component5(){}[0]
+    final fun copy(korlibs.io.serialization.xml/Xml.Type = ..., kotlin/String = ..., kotlin.collections/Map<kotlin/String, kotlin/String> = ..., kotlin.collections/List<korlibs.io.serialization.xml/Xml> = ..., kotlin/String = ...): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/Xml.copy|copy(korlibs.io.serialization.xml.Xml.Type;kotlin.String;kotlin.collections.Map<kotlin.String,kotlin.String>;kotlin.collections.List<korlibs.io.serialization.xml.Xml>;kotlin.String){}[0]
+    final fun double(kotlin/String, kotlin/Double = ...): kotlin/Double // korlibs.io.serialization.xml/Xml.double|double(kotlin.String;kotlin.Double){}[0]
+    final fun doubleNull(kotlin/String): kotlin/Double? // korlibs.io.serialization.xml/Xml.doubleNull|doubleNull(kotlin.String){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.serialization.xml/Xml.equals|equals(kotlin.Any?){}[0]
+    final fun float(kotlin/String, kotlin/Float = ...): kotlin/Float // korlibs.io.serialization.xml/Xml.float|float(kotlin.String;kotlin.Float){}[0]
+    final fun floatNull(kotlin/String): kotlin/Float? // korlibs.io.serialization.xml/Xml.floatNull|floatNull(kotlin.String){}[0]
+    final fun get(kotlin/String): kotlin.collections/Iterable<korlibs.io.serialization.xml/Xml> // korlibs.io.serialization.xml/Xml.get|get(kotlin.String){}[0]
+    final fun getDouble(kotlin/String): kotlin/Double? // korlibs.io.serialization.xml/Xml.getDouble|getDouble(kotlin.String){}[0]
+    final fun getFloat(kotlin/String): kotlin/Float? // korlibs.io.serialization.xml/Xml.getFloat|getFloat(kotlin.String){}[0]
+    final fun getInt(kotlin/String): kotlin/Int? // korlibs.io.serialization.xml/Xml.getInt|getInt(kotlin.String){}[0]
+    final fun getLong(kotlin/String): kotlin/Long? // korlibs.io.serialization.xml/Xml.getLong|getLong(kotlin.String){}[0]
+    final fun getString(kotlin/String): kotlin/String? // korlibs.io.serialization.xml/Xml.getString|getString(kotlin.String){}[0]
+    final fun hasAttribute(kotlin/String): kotlin/Boolean // korlibs.io.serialization.xml/Xml.hasAttribute|hasAttribute(kotlin.String){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.io.serialization.xml/Xml.hashCode|hashCode(){}[0]
+    final fun int(kotlin/String, kotlin/Int = ...): kotlin/Int // korlibs.io.serialization.xml/Xml.int|int(kotlin.String;kotlin.Int){}[0]
+    final fun intNull(kotlin/String): kotlin/Int? // korlibs.io.serialization.xml/Xml.intNull|intNull(kotlin.String){}[0]
+    final fun long(kotlin/String, kotlin/Long = ...): kotlin/Long // korlibs.io.serialization.xml/Xml.long|long(kotlin.String;kotlin.Long){}[0]
+    final fun longNull(kotlin/String): kotlin/Long? // korlibs.io.serialization.xml/Xml.longNull|longNull(kotlin.String){}[0]
+    final fun str(kotlin/String, kotlin/String = ...): kotlin/String // korlibs.io.serialization.xml/Xml.str|str(kotlin.String;kotlin.String){}[0]
+    final fun strNull(kotlin/String): kotlin/String? // korlibs.io.serialization.xml/Xml.strNull|strNull(kotlin.String){}[0]
+    final fun toOuterXmlIndented(korlibs.util/SimpleIndenter = ...): korlibs.util/SimpleIndenter // korlibs.io.serialization.xml/Xml.toOuterXmlIndented|toOuterXmlIndented(korlibs.util.SimpleIndenter){}[0]
+    final fun toOuterXmlIndentedString(korlibs.util/SimpleIndenter = ...): kotlin/String // korlibs.io.serialization.xml/Xml.toOuterXmlIndentedString|toOuterXmlIndentedString(korlibs.util.SimpleIndenter){}[0]
+    final fun toString(): kotlin/String // korlibs.io.serialization.xml/Xml.toString|toString(){}[0]
+    final fun uint(kotlin/String, kotlin/UInt = ...): kotlin/UInt // korlibs.io.serialization.xml/Xml.uint|uint(kotlin.String;kotlin.UInt){}[0]
+    final fun withExtraChild(korlibs.io.serialization.xml/Xml): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/Xml.withExtraChild|withExtraChild(korlibs.io.serialization.xml.Xml){}[0]
+
+    final enum class Type : kotlin/Enum<korlibs.io.serialization.xml/Xml.Type> { // korlibs.io.serialization.xml/Xml.Type|null[0]
+        enum entry COMMENT // korlibs.io.serialization.xml/Xml.Type.COMMENT|null[0]
+        enum entry NODE // korlibs.io.serialization.xml/Xml.Type.NODE|null[0]
+        enum entry TEXT // korlibs.io.serialization.xml/Xml.Type.TEXT|null[0]
+
+        final val entries // korlibs.io.serialization.xml/Xml.Type.entries|#static{}entries[0]
+            final fun <get-entries>(): kotlin.enums/EnumEntries<korlibs.io.serialization.xml/Xml.Type> // korlibs.io.serialization.xml/Xml.Type.entries.<get-entries>|<get-entries>#static(){}[0]
+
+        final fun valueOf(kotlin/String): korlibs.io.serialization.xml/Xml.Type // korlibs.io.serialization.xml/Xml.Type.valueOf|valueOf#static(kotlin.String){}[0]
+        final fun values(): kotlin/Array<korlibs.io.serialization.xml/Xml.Type> // korlibs.io.serialization.xml/Xml.Type.values|values#static(){}[0]
+    }
+
+    final class Literals { // korlibs.io.serialization.xml/Xml.Literals|null[0]
+        constructor <init>(kotlin/Array<kotlin/String>, kotlin.collections/MutableMap<kotlin/String, kotlin/Boolean>, kotlin/Array<kotlin/Int>) // korlibs.io.serialization.xml/Xml.Literals.<init>|<init>(kotlin.Array<kotlin.String>;kotlin.collections.MutableMap<kotlin.String,kotlin.Boolean>;kotlin.Array<kotlin.Int>){}[0]
+
+        final val lengths // korlibs.io.serialization.xml/Xml.Literals.lengths|{}lengths[0]
+            final fun <get-lengths>(): kotlin/Array<kotlin/Int> // korlibs.io.serialization.xml/Xml.Literals.lengths.<get-lengths>|<get-lengths>(){}[0]
+
+        final fun contains(kotlin/String): kotlin/Boolean // korlibs.io.serialization.xml/Xml.Literals.contains|contains(kotlin.String){}[0]
+        final fun matchAt(kotlin/String, kotlin/Int): kotlin/String? // korlibs.io.serialization.xml/Xml.Literals.matchAt|matchAt(kotlin.String;kotlin.Int){}[0]
+        final fun toString(): kotlin/String // korlibs.io.serialization.xml/Xml.Literals.toString|toString(){}[0]
+
+        final object Companion { // korlibs.io.serialization.xml/Xml.Literals.Companion|null[0]
+            final fun fromList(kotlin/Array<kotlin/String>): korlibs.io.serialization.xml/Xml.Literals // korlibs.io.serialization.xml/Xml.Literals.Companion.fromList|fromList(kotlin.Array<kotlin.String>){}[0]
+            final fun invoke(kotlin/Array<out kotlin/String>...): korlibs.io.serialization.xml/Xml.Literals // korlibs.io.serialization.xml/Xml.Literals.Companion.invoke|invoke(kotlin.Array<out|kotlin.String>...){}[0]
+        }
+    }
+
+    final object Companion { // korlibs.io.serialization.xml/Xml.Companion|null[0]
+        final fun CData(kotlin/String): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/Xml.Companion.CData|CData(kotlin.String){}[0]
+        final fun Comment(kotlin/String): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/Xml.Companion.Comment|Comment(kotlin.String){}[0]
+        final fun Raw(kotlin/String): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/Xml.Companion.Raw|Raw(kotlin.String){}[0]
+        final fun Tag(kotlin/String, kotlin.collections/Map<kotlin/String, kotlin/Any?>, kotlin.collections/List<korlibs.io.serialization.xml/Xml>): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/Xml.Companion.Tag|Tag(kotlin.String;kotlin.collections.Map<kotlin.String,kotlin.Any?>;kotlin.collections.List<korlibs.io.serialization.xml.Xml>){}[0]
+        final fun Text(kotlin/String): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/Xml.Companion.Text|Text(kotlin.String){}[0]
+        final fun parse(kotlin/String, kotlin/Boolean = ..., kotlin/Boolean = ...): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/Xml.Companion.parse|parse(kotlin.String;kotlin.Boolean;kotlin.Boolean){}[0]
+    }
+
+    final object Encode { // korlibs.io.serialization.xml/Xml.Encode|null[0]
+        final fun encodeCloseTag(kotlin/String): kotlin/String // korlibs.io.serialization.xml/Xml.Encode.encodeCloseTag|encodeCloseTag(kotlin.String){}[0]
+        final fun encodeOpenTag(kotlin/String, kotlin.collections/Map<kotlin/String, kotlin/Any?>, kotlin/Boolean = ...): kotlin/String // korlibs.io.serialization.xml/Xml.Encode.encodeOpenTag|encodeOpenTag(kotlin.String;kotlin.collections.Map<kotlin.String,kotlin.Any?>;kotlin.Boolean){}[0]
+        final fun quote(kotlin/Any?): kotlin/String // korlibs.io.serialization.xml/Xml.Encode.quote|quote(kotlin.Any?){}[0]
+        final fun quote(kotlin/String): kotlin/String // korlibs.io.serialization.xml/Xml.Encode.quote|quote(kotlin.String){}[0]
+        final fun quoteParams(kotlin.collections/Map<kotlin/String, kotlin/Any?>): kotlin/String // korlibs.io.serialization.xml/Xml.Encode.quoteParams|quoteParams(kotlin.collections.Map<kotlin.String,kotlin.Any?>){}[0]
+    }
+
+    final object Entities { // korlibs.io.serialization.xml/Xml.Entities|null[0]
+        final fun decode(korlibs.util/SimpleStrReader): kotlin/String // korlibs.io.serialization.xml/Xml.Entities.decode|decode(korlibs.util.SimpleStrReader){}[0]
+        final fun decode(kotlin/String): kotlin/String // korlibs.io.serialization.xml/Xml.Entities.decode|decode(kotlin.String){}[0]
+        final fun encode(kotlin/String): kotlin/String // korlibs.io.serialization.xml/Xml.Entities.encode|encode(kotlin.String){}[0]
+    }
+
+    final object Stream { // korlibs.io.serialization.xml/Xml.Stream|null[0]
+        final fun parse(korlibs.io.stream/CharReader, kotlin/Boolean = ...): kotlin.collections/Iterable<korlibs.io.serialization.xml/Xml.Stream.Element> // korlibs.io.serialization.xml/Xml.Stream.parse|parse(korlibs.io.stream.CharReader;kotlin.Boolean){}[0]
+        final fun parse(korlibs.util/SimpleStrReader, kotlin/Boolean = ...): kotlin.collections/Iterable<korlibs.io.serialization.xml/Xml.Stream.Element> // korlibs.io.serialization.xml/Xml.Stream.parse|parse(korlibs.util.SimpleStrReader;kotlin.Boolean){}[0]
+        final fun parse(kotlin/String, kotlin/Boolean = ...): kotlin.collections/Iterable<korlibs.io.serialization.xml/Xml.Stream.Element> // korlibs.io.serialization.xml/Xml.Stream.parse|parse(kotlin.String;kotlin.Boolean){}[0]
+        final fun xmlSequence(korlibs.util/SimpleStrReader, kotlin/Boolean = ..., kotlin/Boolean = ...): kotlin.sequences/Sequence<korlibs.io.serialization.xml/Xml.Stream.Element> // korlibs.io.serialization.xml/Xml.Stream.xmlSequence|xmlSequence(korlibs.util.SimpleStrReader;kotlin.Boolean;kotlin.Boolean){}[0]
+        final fun xmlSequence(kotlin/String, kotlin/Boolean = ..., kotlin/Boolean = ...): kotlin.sequences/Sequence<korlibs.io.serialization.xml/Xml.Stream.Element> // korlibs.io.serialization.xml/Xml.Stream.xmlSequence|xmlSequence(kotlin.String;kotlin.Boolean;kotlin.Boolean){}[0]
+
+        final class Xml2Iterable : kotlin.collections/Iterable<korlibs.io.serialization.xml/Xml.Stream.Element> { // korlibs.io.serialization.xml/Xml.Stream.Xml2Iterable|null[0]
+            constructor <init>(korlibs.util/SimpleStrReader, kotlin/Boolean) // korlibs.io.serialization.xml/Xml.Stream.Xml2Iterable.<init>|<init>(korlibs.util.SimpleStrReader;kotlin.Boolean){}[0]
+
+            final val reader // korlibs.io.serialization.xml/Xml.Stream.Xml2Iterable.reader|{}reader[0]
+                final fun <get-reader>(): korlibs.util/SimpleStrReader // korlibs.io.serialization.xml/Xml.Stream.Xml2Iterable.reader.<get-reader>|<get-reader>(){}[0]
+            final val reader2 // korlibs.io.serialization.xml/Xml.Stream.Xml2Iterable.reader2|{}reader2[0]
+                final fun <get-reader2>(): korlibs.util/SimpleStrReader // korlibs.io.serialization.xml/Xml.Stream.Xml2Iterable.reader2.<get-reader2>|<get-reader2>(){}[0]
+            final val skipSpaces // korlibs.io.serialization.xml/Xml.Stream.Xml2Iterable.skipSpaces|{}skipSpaces[0]
+                final fun <get-skipSpaces>(): kotlin/Boolean // korlibs.io.serialization.xml/Xml.Stream.Xml2Iterable.skipSpaces.<get-skipSpaces>|<get-skipSpaces>(){}[0]
+
+            final fun iterator(): kotlin.collections/Iterator<korlibs.io.serialization.xml/Xml.Stream.Element> // korlibs.io.serialization.xml/Xml.Stream.Xml2Iterable.iterator|iterator(){}[0]
+        }
+
+        sealed class Element { // korlibs.io.serialization.xml/Xml.Stream.Element|null[0]
+            final class CloseTag : korlibs.io.serialization.xml/Xml.Stream.Element { // korlibs.io.serialization.xml/Xml.Stream.Element.CloseTag|null[0]
+                constructor <init>(kotlin/String) // korlibs.io.serialization.xml/Xml.Stream.Element.CloseTag.<init>|<init>(kotlin.String){}[0]
+
+                final val name // korlibs.io.serialization.xml/Xml.Stream.Element.CloseTag.name|{}name[0]
+                    final fun <get-name>(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.CloseTag.name.<get-name>|<get-name>(){}[0]
+
+                final fun component1(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.CloseTag.component1|component1(){}[0]
+                final fun copy(kotlin/String = ...): korlibs.io.serialization.xml/Xml.Stream.Element.CloseTag // korlibs.io.serialization.xml/Xml.Stream.Element.CloseTag.copy|copy(kotlin.String){}[0]
+                final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.serialization.xml/Xml.Stream.Element.CloseTag.equals|equals(kotlin.Any?){}[0]
+                final fun hashCode(): kotlin/Int // korlibs.io.serialization.xml/Xml.Stream.Element.CloseTag.hashCode|hashCode(){}[0]
+                final fun toString(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.CloseTag.toString|toString(){}[0]
+            }
+
+            final class CommentTag : korlibs.io.serialization.xml/Xml.Stream.Element { // korlibs.io.serialization.xml/Xml.Stream.Element.CommentTag|null[0]
+                constructor <init>(kotlin/String) // korlibs.io.serialization.xml/Xml.Stream.Element.CommentTag.<init>|<init>(kotlin.String){}[0]
+
+                final val text // korlibs.io.serialization.xml/Xml.Stream.Element.CommentTag.text|{}text[0]
+                    final fun <get-text>(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.CommentTag.text.<get-text>|<get-text>(){}[0]
+
+                final fun component1(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.CommentTag.component1|component1(){}[0]
+                final fun copy(kotlin/String = ...): korlibs.io.serialization.xml/Xml.Stream.Element.CommentTag // korlibs.io.serialization.xml/Xml.Stream.Element.CommentTag.copy|copy(kotlin.String){}[0]
+                final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.serialization.xml/Xml.Stream.Element.CommentTag.equals|equals(kotlin.Any?){}[0]
+                final fun hashCode(): kotlin/Int // korlibs.io.serialization.xml/Xml.Stream.Element.CommentTag.hashCode|hashCode(){}[0]
+                final fun toString(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.CommentTag.toString|toString(){}[0]
+            }
+
+            final class OpenCloseTag : korlibs.io.serialization.xml/Xml.Stream.Element { // korlibs.io.serialization.xml/Xml.Stream.Element.OpenCloseTag|null[0]
+                constructor <init>(kotlin/String, kotlin.collections/Map<kotlin/String, kotlin/String>) // korlibs.io.serialization.xml/Xml.Stream.Element.OpenCloseTag.<init>|<init>(kotlin.String;kotlin.collections.Map<kotlin.String,kotlin.String>){}[0]
+
+                final val attributes // korlibs.io.serialization.xml/Xml.Stream.Element.OpenCloseTag.attributes|{}attributes[0]
+                    final fun <get-attributes>(): kotlin.collections/Map<kotlin/String, kotlin/String> // korlibs.io.serialization.xml/Xml.Stream.Element.OpenCloseTag.attributes.<get-attributes>|<get-attributes>(){}[0]
+                final val name // korlibs.io.serialization.xml/Xml.Stream.Element.OpenCloseTag.name|{}name[0]
+                    final fun <get-name>(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.OpenCloseTag.name.<get-name>|<get-name>(){}[0]
+
+                final fun component1(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.OpenCloseTag.component1|component1(){}[0]
+                final fun component2(): kotlin.collections/Map<kotlin/String, kotlin/String> // korlibs.io.serialization.xml/Xml.Stream.Element.OpenCloseTag.component2|component2(){}[0]
+                final fun copy(kotlin/String = ..., kotlin.collections/Map<kotlin/String, kotlin/String> = ...): korlibs.io.serialization.xml/Xml.Stream.Element.OpenCloseTag // korlibs.io.serialization.xml/Xml.Stream.Element.OpenCloseTag.copy|copy(kotlin.String;kotlin.collections.Map<kotlin.String,kotlin.String>){}[0]
+                final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.serialization.xml/Xml.Stream.Element.OpenCloseTag.equals|equals(kotlin.Any?){}[0]
+                final fun hashCode(): kotlin/Int // korlibs.io.serialization.xml/Xml.Stream.Element.OpenCloseTag.hashCode|hashCode(){}[0]
+                final fun toString(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.OpenCloseTag.toString|toString(){}[0]
+            }
+
+            final class OpenTag : korlibs.io.serialization.xml/Xml.Stream.Element { // korlibs.io.serialization.xml/Xml.Stream.Element.OpenTag|null[0]
+                constructor <init>(kotlin/String, kotlin.collections/Map<kotlin/String, kotlin/String>) // korlibs.io.serialization.xml/Xml.Stream.Element.OpenTag.<init>|<init>(kotlin.String;kotlin.collections.Map<kotlin.String,kotlin.String>){}[0]
+
+                final val attributes // korlibs.io.serialization.xml/Xml.Stream.Element.OpenTag.attributes|{}attributes[0]
+                    final fun <get-attributes>(): kotlin.collections/Map<kotlin/String, kotlin/String> // korlibs.io.serialization.xml/Xml.Stream.Element.OpenTag.attributes.<get-attributes>|<get-attributes>(){}[0]
+                final val name // korlibs.io.serialization.xml/Xml.Stream.Element.OpenTag.name|{}name[0]
+                    final fun <get-name>(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.OpenTag.name.<get-name>|<get-name>(){}[0]
+
+                final fun component1(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.OpenTag.component1|component1(){}[0]
+                final fun component2(): kotlin.collections/Map<kotlin/String, kotlin/String> // korlibs.io.serialization.xml/Xml.Stream.Element.OpenTag.component2|component2(){}[0]
+                final fun copy(kotlin/String = ..., kotlin.collections/Map<kotlin/String, kotlin/String> = ...): korlibs.io.serialization.xml/Xml.Stream.Element.OpenTag // korlibs.io.serialization.xml/Xml.Stream.Element.OpenTag.copy|copy(kotlin.String;kotlin.collections.Map<kotlin.String,kotlin.String>){}[0]
+                final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.serialization.xml/Xml.Stream.Element.OpenTag.equals|equals(kotlin.Any?){}[0]
+                final fun hashCode(): kotlin/Int // korlibs.io.serialization.xml/Xml.Stream.Element.OpenTag.hashCode|hashCode(){}[0]
+                final fun toString(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.OpenTag.toString|toString(){}[0]
+            }
+
+            final class ProcessingInstructionTag : korlibs.io.serialization.xml/Xml.Stream.Element { // korlibs.io.serialization.xml/Xml.Stream.Element.ProcessingInstructionTag|null[0]
+                constructor <init>(kotlin/String, kotlin.collections/Map<kotlin/String, kotlin/String>) // korlibs.io.serialization.xml/Xml.Stream.Element.ProcessingInstructionTag.<init>|<init>(kotlin.String;kotlin.collections.Map<kotlin.String,kotlin.String>){}[0]
+
+                final val attributes // korlibs.io.serialization.xml/Xml.Stream.Element.ProcessingInstructionTag.attributes|{}attributes[0]
+                    final fun <get-attributes>(): kotlin.collections/Map<kotlin/String, kotlin/String> // korlibs.io.serialization.xml/Xml.Stream.Element.ProcessingInstructionTag.attributes.<get-attributes>|<get-attributes>(){}[0]
+                final val name // korlibs.io.serialization.xml/Xml.Stream.Element.ProcessingInstructionTag.name|{}name[0]
+                    final fun <get-name>(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.ProcessingInstructionTag.name.<get-name>|<get-name>(){}[0]
+
+                final fun component1(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.ProcessingInstructionTag.component1|component1(){}[0]
+                final fun component2(): kotlin.collections/Map<kotlin/String, kotlin/String> // korlibs.io.serialization.xml/Xml.Stream.Element.ProcessingInstructionTag.component2|component2(){}[0]
+                final fun copy(kotlin/String = ..., kotlin.collections/Map<kotlin/String, kotlin/String> = ...): korlibs.io.serialization.xml/Xml.Stream.Element.ProcessingInstructionTag // korlibs.io.serialization.xml/Xml.Stream.Element.ProcessingInstructionTag.copy|copy(kotlin.String;kotlin.collections.Map<kotlin.String,kotlin.String>){}[0]
+                final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.serialization.xml/Xml.Stream.Element.ProcessingInstructionTag.equals|equals(kotlin.Any?){}[0]
+                final fun hashCode(): kotlin/Int // korlibs.io.serialization.xml/Xml.Stream.Element.ProcessingInstructionTag.hashCode|hashCode(){}[0]
+                final fun toString(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.ProcessingInstructionTag.toString|toString(){}[0]
+            }
+
+            final class Text : korlibs.io.serialization.xml/Xml.Stream.Element { // korlibs.io.serialization.xml/Xml.Stream.Element.Text|null[0]
+                constructor <init>(kotlin/String, kotlin/Boolean = ...) // korlibs.io.serialization.xml/Xml.Stream.Element.Text.<init>|<init>(kotlin.String;kotlin.Boolean){}[0]
+
+                final val text // korlibs.io.serialization.xml/Xml.Stream.Element.Text.text|{}text[0]
+                    final fun <get-text>(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.Text.text.<get-text>|<get-text>(){}[0]
+
+                final var cdata // korlibs.io.serialization.xml/Xml.Stream.Element.Text.cdata|{}cdata[0]
+                    final fun <get-cdata>(): kotlin/Boolean // korlibs.io.serialization.xml/Xml.Stream.Element.Text.cdata.<get-cdata>|<get-cdata>(){}[0]
+                    final fun <set-cdata>(kotlin/Boolean) // korlibs.io.serialization.xml/Xml.Stream.Element.Text.cdata.<set-cdata>|<set-cdata>(kotlin.Boolean){}[0]
+
+                final fun component1(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.Text.component1|component1(){}[0]
+                final fun component2(): kotlin/Boolean // korlibs.io.serialization.xml/Xml.Stream.Element.Text.component2|component2(){}[0]
+                final fun copy(kotlin/String = ..., kotlin/Boolean = ...): korlibs.io.serialization.xml/Xml.Stream.Element.Text // korlibs.io.serialization.xml/Xml.Stream.Element.Text.copy|copy(kotlin.String;kotlin.Boolean){}[0]
+                final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.serialization.xml/Xml.Stream.Element.Text.equals|equals(kotlin.Any?){}[0]
+                final fun hashCode(): kotlin/Int // korlibs.io.serialization.xml/Xml.Stream.Element.Text.hashCode|hashCode(){}[0]
+                final fun toString(): kotlin/String // korlibs.io.serialization.xml/Xml.Stream.Element.Text.toString|toString(){}[0]
+            }
+        }
+    }
+}
+
+final class korlibs.io.serialization.xml/XmlBuilder { // korlibs.io.serialization.xml/XmlBuilder|null[0]
+    constructor <init>() // korlibs.io.serialization.xml/XmlBuilder.<init>|<init>(){}[0]
+
+    final val nodes // korlibs.io.serialization.xml/XmlBuilder.nodes|{}nodes[0]
+        final fun <get-nodes>(): kotlin.collections/ArrayList<korlibs.io.serialization.xml/Xml> // korlibs.io.serialization.xml/XmlBuilder.nodes.<get-nodes>|<get-nodes>(){}[0]
+
+    final fun cdata(kotlin/String): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/XmlBuilder.cdata|cdata(kotlin.String){}[0]
+    final fun comment(kotlin/String): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/XmlBuilder.comment|comment(kotlin.String){}[0]
+    final fun node(korlibs.io.serialization.xml/Xml): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/XmlBuilder.node|node(korlibs.io.serialization.xml.Xml){}[0]
+    final fun raw(kotlin/String): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/XmlBuilder.raw|raw(kotlin.String){}[0]
+    final fun text(kotlin/String): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/XmlBuilder.text|text(kotlin.String){}[0]
+    final inline fun node(kotlin/String, kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/Any?>>..., kotlin/Function1<korlibs.io.serialization.xml/XmlBuilder, kotlin/Unit> = ...): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/XmlBuilder.node|node(kotlin.String;kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.Any?>>...;kotlin.Function1<korlibs.io.serialization.xml.XmlBuilder,kotlin.Unit>){}[0]
+}
+
+open class korlibs.io.lang/Properties { // korlibs.io.lang/Properties|null[0]
+    constructor <init>(kotlin.collections/Map<kotlin/String, kotlin/String>? = ...) // korlibs.io.lang/Properties.<init>|<init>(kotlin.collections.Map<kotlin.String,kotlin.String>?){}[0]
+
+    open fun contains(kotlin/String): kotlin/Boolean // korlibs.io.lang/Properties.contains|contains(kotlin.String){}[0]
+    open fun get(kotlin/String): kotlin/String? // korlibs.io.lang/Properties.get|get(kotlin.String){}[0]
+    open fun getAll(): kotlin.collections/Map<kotlin/String, kotlin/String> // korlibs.io.lang/Properties.getAll|getAll(){}[0]
+    open fun remove(kotlin/String) // korlibs.io.lang/Properties.remove|remove(kotlin.String){}[0]
+    open fun set(kotlin/String, kotlin/String) // korlibs.io.lang/Properties.set|set(kotlin.String;kotlin.String){}[0]
+    open fun setAll(kotlin.collections/Map<kotlin/String, kotlin/String>) // korlibs.io.lang/Properties.setAll|setAll(kotlin.collections.Map<kotlin.String,kotlin.String>){}[0]
+    open fun toString(): kotlin/String // korlibs.io.lang/Properties.toString|toString(){}[0]
+
+    final object Companion { // korlibs.io.lang/Properties.Companion|null[0]
+        final fun parseString(kotlin/String): korlibs.io.lang/Properties // korlibs.io.lang/Properties.Companion.parseString|parseString(kotlin.String){}[0]
+    }
+}
+
+open class korlibs.io.serialization.json/Json { // korlibs.io.serialization.json/Json|null[0]
+    constructor <init>() // korlibs.io.serialization.json/Json.<init>|<init>(){}[0]
+
+    open val optimizeNumbers // korlibs.io.serialization.json/Json.optimizeNumbers|{}optimizeNumbers[0]
+        open fun <get-optimizeNumbers>(): kotlin/Boolean // korlibs.io.serialization.json/Json.optimizeNumbers.<get-optimizeNumbers>|<get-optimizeNumbers>(){}[0]
+
+    final fun (korlibs.util/SimpleStrReader).readStringLit(kotlin/Boolean = ..., kotlin.text/StringBuilder = ...): kotlin.text/StringBuilder // korlibs.io.serialization.json/Json.readStringLit|readStringLit@korlibs.util.SimpleStrReader(kotlin.Boolean;kotlin.text.StringBuilder){}[0]
+    final fun parse(korlibs.util/SimpleStrReader): kotlin/Any? // korlibs.io.serialization.json/Json.parse|parse(korlibs.util.SimpleStrReader){}[0]
+    final fun parse(kotlin/String): kotlin/Any? // korlibs.io.serialization.json/Json.parse|parse(kotlin.String){}[0]
+    final fun stringify(kotlin/Any?, kotlin.text/StringBuilder) // korlibs.io.serialization.json/Json.stringify|stringify(kotlin.Any?;kotlin.text.StringBuilder){}[0]
+    final fun stringify(kotlin/Any?, kotlin/Boolean = ...): kotlin/String // korlibs.io.serialization.json/Json.stringify|stringify(kotlin.Any?;kotlin.Boolean){}[0]
+    final fun stringifyPretty(kotlin/Any?, korlibs.util/SimpleIndenter) // korlibs.io.serialization.json/Json.stringifyPretty|stringifyPretty(kotlin.Any?;korlibs.util.SimpleIndenter){}[0]
+    open fun <#A1: kotlin/Any?> createArrayList(kotlin/Int = ...): kotlin.collections/MutableList<#A1> // korlibs.io.serialization.json/Json.createArrayList|createArrayList(kotlin.Int){0§<kotlin.Any?>}[0]
+    open fun createDoubleArrayList(korlibs.io.serialization.json/Json.MiniNumberArrayList): kotlin/Any // korlibs.io.serialization.json/Json.createDoubleArrayList|createDoubleArrayList(korlibs.io.serialization.json.Json.MiniNumberArrayList){}[0]
+
+    abstract interface CustomSerializer { // korlibs.io.serialization.json/Json.CustomSerializer|null[0]
+        abstract fun encodeToJson(kotlin.text/StringBuilder) // korlibs.io.serialization.json/Json.CustomSerializer.encodeToJson|encodeToJson(kotlin.text.StringBuilder){}[0]
+    }
+
+    final class MiniNumberArrayList : korlibs.datastructure/DoubleList { // korlibs.io.serialization.json/Json.MiniNumberArrayList|null[0]
+        constructor <init>() // korlibs.io.serialization.json/Json.MiniNumberArrayList.<init>|<init>(){}[0]
+
+        final val capacity // korlibs.io.serialization.json/Json.MiniNumberArrayList.capacity|{}capacity[0]
+            final fun <get-capacity>(): kotlin/Int // korlibs.io.serialization.json/Json.MiniNumberArrayList.capacity.<get-capacity>|<get-capacity>(){}[0]
+
+        final var items // korlibs.io.serialization.json/Json.MiniNumberArrayList.items|{}items[0]
+            final fun <get-items>(): kotlin/DoubleArray // korlibs.io.serialization.json/Json.MiniNumberArrayList.items.<get-items>|<get-items>(){}[0]
+            final fun <set-items>(kotlin/DoubleArray) // korlibs.io.serialization.json/Json.MiniNumberArrayList.items.<set-items>|<set-items>(kotlin.DoubleArray){}[0]
+        final var size // korlibs.io.serialization.json/Json.MiniNumberArrayList.size|{}size[0]
+            final fun <get-size>(): kotlin/Int // korlibs.io.serialization.json/Json.MiniNumberArrayList.size.<get-size>|<get-size>(){}[0]
+
+        final fun add(kotlin/Double) // korlibs.io.serialization.json/Json.MiniNumberArrayList.add|add(kotlin.Double){}[0]
+        final fun clear() // korlibs.io.serialization.json/Json.MiniNumberArrayList.clear|clear(){}[0]
+        final fun clone(): korlibs.datastructure/DoubleList // korlibs.io.serialization.json/Json.MiniNumberArrayList.clone|clone(){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.serialization.json/Json.MiniNumberArrayList.equals|equals(kotlin.Any?){}[0]
+        final fun get(kotlin/Int): kotlin/Double // korlibs.io.serialization.json/Json.MiniNumberArrayList.get|get(kotlin.Int){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.io.serialization.json/Json.MiniNumberArrayList.hashCode|hashCode(){}[0]
+        final fun toDoubleArray(): kotlin/DoubleArray // korlibs.io.serialization.json/Json.MiniNumberArrayList.toDoubleArray|toDoubleArray(){}[0]
+        final fun toString(): kotlin/String // korlibs.io.serialization.json/Json.MiniNumberArrayList.toString|toString(){}[0]
+        final inline fun fastForEach(kotlin/Function1<kotlin/Double, kotlin/Unit>) // korlibs.io.serialization.json/Json.MiniNumberArrayList.fastForEach|fastForEach(kotlin.Function1<kotlin.Double,kotlin.Unit>){}[0]
+    }
+
+    final object Companion : korlibs.io.serialization.json/Json // korlibs.io.serialization.json/Json.Companion|null[0]
+}
+
+final object korlibs.io.lang/SystemProperties : korlibs.io.lang/Properties // korlibs.io.lang/SystemProperties|null[0]
+
+final object korlibs.io.serialization.json/JsonFast : korlibs.io.serialization.json/Json // korlibs.io.serialization.json/JsonFast|null[0]
+
+final object korlibs.io.serialization.toml/TOML { // korlibs.io.serialization.toml/TOML|null[0]
+    final fun (kotlin/Char).isValidLiteralChar(): kotlin/Boolean // korlibs.io.serialization.toml/TOML.isValidLiteralChar|isValidLiteralChar@kotlin.Char(){}[0]
+    final fun parseToml(kotlin/String, kotlin.collections/MutableMap<kotlin/String, kotlin/Any?> = ...): kotlin.collections/Map<kotlin/String, kotlin/Any?> // korlibs.io.serialization.toml/TOML.parseToml|parseToml(kotlin.String;kotlin.collections.MutableMap<kotlin.String,kotlin.Any?>){}[0]
+}
+
+final object korlibs.io.serialization.yaml/Yaml { // korlibs.io.serialization.yaml/Yaml|null[0]
+    final const val TRACE // korlibs.io.serialization.yaml/Yaml.TRACE|{}TRACE[0]
+        final fun <get-TRACE>(): kotlin/Boolean // korlibs.io.serialization.yaml/Yaml.TRACE.<get-TRACE>|<get-TRACE>(){}[0]
+
+    final fun decode(kotlin/String): kotlin/Any? // korlibs.io.serialization.yaml/Yaml.decode|decode(kotlin.String){}[0]
+    final fun read(kotlin/String): kotlin/Any? // korlibs.io.serialization.yaml/Yaml.read|read(kotlin.String){}[0]
+    final fun tokenize(kotlin/String): kotlin.collections/List<korlibs.io.serialization.yaml/Yaml.Token> // korlibs.io.serialization.yaml/Yaml.tokenize|tokenize(kotlin.String){}[0]
+
+    abstract interface Token { // korlibs.io.serialization.yaml/Yaml.Token|null[0]
+        abstract val str // korlibs.io.serialization.yaml/Yaml.Token.str|{}str[0]
+            abstract fun <get-str>(): kotlin/String // korlibs.io.serialization.yaml/Yaml.Token.str.<get-str>|<get-str>(){}[0]
+        open val ustr // korlibs.io.serialization.yaml/Yaml.Token.ustr|{}ustr[0]
+            open fun <get-ustr>(): kotlin/String // korlibs.io.serialization.yaml/Yaml.Token.ustr.<get-ustr>|<get-ustr>(){}[0]
+
+        final class ID : korlibs.io.serialization.yaml/Yaml.Token { // korlibs.io.serialization.yaml/Yaml.Token.ID|null[0]
+            constructor <init>(kotlin/String) // korlibs.io.serialization.yaml/Yaml.Token.ID.<init>|<init>(kotlin.String){}[0]
+
+            final val str // korlibs.io.serialization.yaml/Yaml.Token.ID.str|{}str[0]
+                final fun <get-str>(): kotlin/String // korlibs.io.serialization.yaml/Yaml.Token.ID.str.<get-str>|<get-str>(){}[0]
+
+            final fun component1(): kotlin/String // korlibs.io.serialization.yaml/Yaml.Token.ID.component1|component1(){}[0]
+            final fun copy(kotlin/String = ...): korlibs.io.serialization.yaml/Yaml.Token.ID // korlibs.io.serialization.yaml/Yaml.Token.ID.copy|copy(kotlin.String){}[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.serialization.yaml/Yaml.Token.ID.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // korlibs.io.serialization.yaml/Yaml.Token.ID.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // korlibs.io.serialization.yaml/Yaml.Token.ID.toString|toString(){}[0]
+        }
+
+        final class LINE : korlibs.io.serialization.yaml/Yaml.Token { // korlibs.io.serialization.yaml/Yaml.Token.LINE|null[0]
+            constructor <init>(kotlin/String, kotlin/Int) // korlibs.io.serialization.yaml/Yaml.Token.LINE.<init>|<init>(kotlin.String;kotlin.Int){}[0]
+
+            final val level // korlibs.io.serialization.yaml/Yaml.Token.LINE.level|{}level[0]
+                final fun <get-level>(): kotlin/Int // korlibs.io.serialization.yaml/Yaml.Token.LINE.level.<get-level>|<get-level>(){}[0]
+            final val str // korlibs.io.serialization.yaml/Yaml.Token.LINE.str|{}str[0]
+                final fun <get-str>(): kotlin/String // korlibs.io.serialization.yaml/Yaml.Token.LINE.str.<get-str>|<get-str>(){}[0]
+
+            final fun component1(): kotlin/String // korlibs.io.serialization.yaml/Yaml.Token.LINE.component1|component1(){}[0]
+            final fun component2(): kotlin/Int // korlibs.io.serialization.yaml/Yaml.Token.LINE.component2|component2(){}[0]
+            final fun copy(kotlin/String = ..., kotlin/Int = ...): korlibs.io.serialization.yaml/Yaml.Token.LINE // korlibs.io.serialization.yaml/Yaml.Token.LINE.copy|copy(kotlin.String;kotlin.Int){}[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.serialization.yaml/Yaml.Token.LINE.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // korlibs.io.serialization.yaml/Yaml.Token.LINE.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // korlibs.io.serialization.yaml/Yaml.Token.LINE.toString|toString(){}[0]
+        }
+
+        final class STR : korlibs.io.serialization.yaml/Yaml.Token { // korlibs.io.serialization.yaml/Yaml.Token.STR|null[0]
+            constructor <init>(kotlin/String) // korlibs.io.serialization.yaml/Yaml.Token.STR.<init>|<init>(kotlin.String){}[0]
+
+            final val str // korlibs.io.serialization.yaml/Yaml.Token.STR.str|{}str[0]
+                final fun <get-str>(): kotlin/String // korlibs.io.serialization.yaml/Yaml.Token.STR.str.<get-str>|<get-str>(){}[0]
+            final val ustr // korlibs.io.serialization.yaml/Yaml.Token.STR.ustr|{}ustr[0]
+                final fun <get-ustr>(): kotlin/String // korlibs.io.serialization.yaml/Yaml.Token.STR.ustr.<get-ustr>|<get-ustr>(){}[0]
+
+            final fun component1(): kotlin/String // korlibs.io.serialization.yaml/Yaml.Token.STR.component1|component1(){}[0]
+            final fun copy(kotlin/String = ...): korlibs.io.serialization.yaml/Yaml.Token.STR // korlibs.io.serialization.yaml/Yaml.Token.STR.copy|copy(kotlin.String){}[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.serialization.yaml/Yaml.Token.STR.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // korlibs.io.serialization.yaml/Yaml.Token.STR.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // korlibs.io.serialization.yaml/Yaml.Token.STR.toString|toString(){}[0]
+        }
+
+        final class SYMBOL : korlibs.io.serialization.yaml/Yaml.Token { // korlibs.io.serialization.yaml/Yaml.Token.SYMBOL|null[0]
+            constructor <init>(kotlin/String, kotlin/Char) // korlibs.io.serialization.yaml/Yaml.Token.SYMBOL.<init>|<init>(kotlin.String;kotlin.Char){}[0]
+
+            final val isNextWhite // korlibs.io.serialization.yaml/Yaml.Token.SYMBOL.isNextWhite|{}isNextWhite[0]
+                final fun <get-isNextWhite>(): kotlin/Boolean // korlibs.io.serialization.yaml/Yaml.Token.SYMBOL.isNextWhite.<get-isNextWhite>|<get-isNextWhite>(){}[0]
+            final val next // korlibs.io.serialization.yaml/Yaml.Token.SYMBOL.next|{}next[0]
+                final fun <get-next>(): kotlin/Char // korlibs.io.serialization.yaml/Yaml.Token.SYMBOL.next.<get-next>|<get-next>(){}[0]
+            final val str // korlibs.io.serialization.yaml/Yaml.Token.SYMBOL.str|{}str[0]
+                final fun <get-str>(): kotlin/String // korlibs.io.serialization.yaml/Yaml.Token.SYMBOL.str.<get-str>|<get-str>(){}[0]
+
+            final fun component1(): kotlin/String // korlibs.io.serialization.yaml/Yaml.Token.SYMBOL.component1|component1(){}[0]
+            final fun component2(): kotlin/Char // korlibs.io.serialization.yaml/Yaml.Token.SYMBOL.component2|component2(){}[0]
+            final fun copy(kotlin/String = ..., kotlin/Char = ...): korlibs.io.serialization.yaml/Yaml.Token.SYMBOL // korlibs.io.serialization.yaml/Yaml.Token.SYMBOL.copy|copy(kotlin.String;kotlin.Char){}[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.serialization.yaml/Yaml.Token.SYMBOL.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // korlibs.io.serialization.yaml/Yaml.Token.SYMBOL.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // korlibs.io.serialization.yaml/Yaml.Token.SYMBOL.toString|toString(){}[0]
+        }
+
+        final object EOF : korlibs.io.serialization.yaml/Yaml.Token { // korlibs.io.serialization.yaml/Yaml.Token.EOF|null[0]
+            final val str // korlibs.io.serialization.yaml/Yaml.Token.EOF.str|{}str[0]
+                final fun <get-str>(): kotlin/String // korlibs.io.serialization.yaml/Yaml.Token.EOF.str.<get-str>|<get-str>(){}[0]
+        }
+    }
+}
+
+final val korlibs.io.serialization.xml/allChildren // korlibs.io.serialization.xml/allChildren|@kotlin.collections.Iterable<korlibs.io.serialization.xml.Xml>{}allChildren[0]
+    final fun (kotlin.collections/Iterable<korlibs.io.serialization.xml/Xml>).<get-allChildren>(): kotlin.collections/Iterable<korlibs.io.serialization.xml/Xml> // korlibs.io.serialization.xml/allChildren.<get-allChildren>|<get-allChildren>@kotlin.collections.Iterable<korlibs.io.serialization.xml.Xml>(){}[0]
+final val korlibs.io.serialization.xml/allChildren // korlibs.io.serialization.xml/allChildren|@kotlin.sequences.Sequence<korlibs.io.serialization.xml.Xml>{}allChildren[0]
+    final fun (kotlin.sequences/Sequence<korlibs.io.serialization.xml/Xml>).<get-allChildren>(): kotlin.sequences/Sequence<korlibs.io.serialization.xml/Xml> // korlibs.io.serialization.xml/allChildren.<get-allChildren>|<get-allChildren>@kotlin.sequences.Sequence<korlibs.io.serialization.xml.Xml>(){}[0]
+final val korlibs.io.serialization.xml/allNodeChildren // korlibs.io.serialization.xml/allNodeChildren|@kotlin.collections.Iterable<korlibs.io.serialization.xml.Xml>{}allNodeChildren[0]
+    final fun (kotlin.collections/Iterable<korlibs.io.serialization.xml/Xml>).<get-allNodeChildren>(): kotlin.collections/Iterable<korlibs.io.serialization.xml/Xml> // korlibs.io.serialization.xml/allNodeChildren.<get-allNodeChildren>|<get-allNodeChildren>@kotlin.collections.Iterable<korlibs.io.serialization.xml.Xml>(){}[0]
+final val korlibs.io.serialization.xml/allNodeChildren // korlibs.io.serialization.xml/allNodeChildren|@kotlin.sequences.Sequence<korlibs.io.serialization.xml.Xml>{}allNodeChildren[0]
+    final fun (kotlin.sequences/Sequence<korlibs.io.serialization.xml/Xml>).<get-allNodeChildren>(): kotlin.sequences/Sequence<korlibs.io.serialization.xml/Xml> // korlibs.io.serialization.xml/allNodeChildren.<get-allNodeChildren>|<get-allNodeChildren>@kotlin.sequences.Sequence<korlibs.io.serialization.xml.Xml>(){}[0]
+final val korlibs.io.serialization.xml/firstText // korlibs.io.serialization.xml/firstText|@kotlin.collections.Iterable<korlibs.io.serialization.xml.Xml>{}firstText[0]
+    final fun (kotlin.collections/Iterable<korlibs.io.serialization.xml/Xml>).<get-firstText>(): kotlin/String? // korlibs.io.serialization.xml/firstText.<get-firstText>|<get-firstText>@kotlin.collections.Iterable<korlibs.io.serialization.xml.Xml>(){}[0]
+final val korlibs.io.serialization.xml/firstText // korlibs.io.serialization.xml/firstText|@kotlin.sequences.Sequence<korlibs.io.serialization.xml.Xml>{}firstText[0]
+    final fun (kotlin.sequences/Sequence<korlibs.io.serialization.xml/Xml>).<get-firstText>(): kotlin/String? // korlibs.io.serialization.xml/firstText.<get-firstText>|<get-firstText>@kotlin.sequences.Sequence<korlibs.io.serialization.xml.Xml>(){}[0]
+final val korlibs.io.serialization.xml/isComment // korlibs.io.serialization.xml/isComment|@korlibs.io.serialization.xml.Xml{}isComment[0]
+    final fun (korlibs.io.serialization.xml/Xml).<get-isComment>(): kotlin/Boolean // korlibs.io.serialization.xml/isComment.<get-isComment>|<get-isComment>@korlibs.io.serialization.xml.Xml(){}[0]
+final val korlibs.io.serialization.xml/isNode // korlibs.io.serialization.xml/isNode|@korlibs.io.serialization.xml.Xml{}isNode[0]
+    final fun (korlibs.io.serialization.xml/Xml).<get-isNode>(): kotlin/Boolean // korlibs.io.serialization.xml/isNode.<get-isNode>|<get-isNode>@korlibs.io.serialization.xml.Xml(){}[0]
+final val korlibs.io.serialization.xml/isText // korlibs.io.serialization.xml/isText|@korlibs.io.serialization.xml.Xml{}isText[0]
+    final fun (korlibs.io.serialization.xml/Xml).<get-isText>(): kotlin/Boolean // korlibs.io.serialization.xml/isText.<get-isText>|<get-isText>@korlibs.io.serialization.xml.Xml(){}[0]
+final val korlibs.io.serialization.xml/text // korlibs.io.serialization.xml/text|@kotlin.collections.Iterable<korlibs.io.serialization.xml.Xml>{}text[0]
+    final fun (kotlin.collections/Iterable<korlibs.io.serialization.xml/Xml>).<get-text>(): kotlin/String // korlibs.io.serialization.xml/text.<get-text>|<get-text>@kotlin.collections.Iterable<korlibs.io.serialization.xml.Xml>(){}[0]
+final val korlibs.io.serialization.xml/text // korlibs.io.serialization.xml/text|@kotlin.sequences.Sequence<korlibs.io.serialization.xml.Xml>{}text[0]
+    final fun (kotlin.sequences/Sequence<korlibs.io.serialization.xml/Xml>).<get-text>(): kotlin/String // korlibs.io.serialization.xml/text.<get-text>|<get-text>@kotlin.sequences.Sequence<korlibs.io.serialization.xml.Xml>(){}[0]
+
+final fun (korlibs.io.serialization.xml/Xml).korlibs.io.serialization.xml/descendants(kotlin/String): kotlin.sequences/Sequence<korlibs.io.serialization.xml/Xml> // korlibs.io.serialization.xml/descendants|descendants@korlibs.io.serialization.xml.Xml(kotlin.String){}[0]
+final fun (korlibs.io.serialization.xml/Xml).korlibs.io.serialization.xml/firstDescendant(kotlin/String): korlibs.io.serialization.xml/Xml? // korlibs.io.serialization.xml/firstDescendant|firstDescendant@korlibs.io.serialization.xml.Xml(kotlin.String){}[0]
+final fun (kotlin.collections/Iterable<korlibs.io.serialization.xml/Xml>).korlibs.io.serialization.xml/children(kotlin/String): kotlin.collections/Iterable<korlibs.io.serialization.xml/Xml> // korlibs.io.serialization.xml/children|children@kotlin.collections.Iterable<korlibs.io.serialization.xml.Xml>(kotlin.String){}[0]
+final fun (kotlin.collections/Iterable<korlibs.io.serialization.xml/Xml>).korlibs.io.serialization.xml/get(kotlin/String): kotlin.collections/Iterable<korlibs.io.serialization.xml/Xml> // korlibs.io.serialization.xml/get|get@kotlin.collections.Iterable<korlibs.io.serialization.xml.Xml>(kotlin.String){}[0]
+final fun (kotlin.collections/Iterable<korlibs.io.serialization.xml/Xml>).korlibs.io.serialization.xml/str(kotlin/String, kotlin/String = ...): kotlin/String // korlibs.io.serialization.xml/str|str@kotlin.collections.Iterable<korlibs.io.serialization.xml.Xml>(kotlin.String;kotlin.String){}[0]
+final fun (kotlin.collections/Map<*, *>).korlibs.io.serialization.json/toJson(kotlin/Boolean = ...): kotlin/String // korlibs.io.serialization.json/toJson|toJson@kotlin.collections.Map<*,*>(kotlin.Boolean){}[0]
+final fun (kotlin.sequences/Sequence<korlibs.io.serialization.xml/Xml>).korlibs.io.serialization.xml/children(kotlin/String): kotlin.sequences/Sequence<korlibs.io.serialization.xml/Xml> // korlibs.io.serialization.xml/children|children@kotlin.sequences.Sequence<korlibs.io.serialization.xml.Xml>(kotlin.String){}[0]
+final fun (kotlin.sequences/Sequence<korlibs.io.serialization.xml/Xml>).korlibs.io.serialization.xml/get(kotlin/String): kotlin.sequences/Sequence<korlibs.io.serialization.xml/Xml> // korlibs.io.serialization.xml/get|get@kotlin.sequences.Sequence<korlibs.io.serialization.xml.Xml>(kotlin.String){}[0]
+final fun (kotlin.sequences/Sequence<korlibs.io.serialization.xml/Xml>).korlibs.io.serialization.xml/str(kotlin/String, kotlin/String = ...): kotlin/String // korlibs.io.serialization.xml/str|str@kotlin.sequences.Sequence<korlibs.io.serialization.xml.Xml>(kotlin.String;kotlin.String){}[0]
+final fun (kotlin/String).korlibs.io.serialization.json/fromJson(): kotlin/Any? // korlibs.io.serialization.json/fromJson|fromJson@kotlin.String(){}[0]
+final fun (kotlin/String).korlibs.io.serialization.xml/toXml(kotlin/Boolean = ...): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/toXml|toXml@kotlin.String(kotlin.Boolean){}[0]
+final fun (kotlin/String).korlibs.io.util/htmlspecialchars(): kotlin/String // korlibs.io.util/htmlspecialchars|htmlspecialchars@kotlin.String(){}[0]
+final fun korlibs.io.serialization.xml/Xml(kotlin/String, kotlin/Boolean = ..., kotlin/Boolean = ...): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/Xml|Xml(kotlin.String;kotlin.Boolean;kotlin.Boolean){}[0]
+final inline fun korlibs.io.serialization.xml/Xml(kotlin/String, kotlin.collections/Map<kotlin/String, kotlin/Any?>?, kotlin/Function1<korlibs.io.serialization.xml/XmlBuilder, kotlin/Unit> = ...): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/Xml|Xml(kotlin.String;kotlin.collections.Map<kotlin.String,kotlin.Any?>?;kotlin.Function1<korlibs.io.serialization.xml.XmlBuilder,kotlin.Unit>){}[0]
+final inline fun korlibs.io.serialization.xml/Xml(kotlin/String, kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/Any?>>..., kotlin/Function1<korlibs.io.serialization.xml/XmlBuilder, kotlin/Unit> = ...): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/Xml|Xml(kotlin.String;kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.Any?>>...;kotlin.Function1<korlibs.io.serialization.xml.XmlBuilder,kotlin.Unit>){}[0]
+final inline fun korlibs.io.serialization.xml/buildXml(kotlin/String, kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/Any?>>..., crossinline kotlin/Function1<korlibs.io.serialization.xml/XmlBuilder, kotlin/Unit> = ...): korlibs.io.serialization.xml/Xml // korlibs.io.serialization.xml/buildXml|buildXml(kotlin.String;kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.Any?>>...;kotlin.Function1<korlibs.io.serialization.xml.XmlBuilder,kotlin.Unit>){}[0]

@@ -1,0 +1,1737 @@
+public final class korlibs/template/DefaultBlocks {
+	public static final field INSTANCE Lkorlibs/template/DefaultBlocks;
+}
+
+public final class korlibs/template/DefaultBlocks$BlockBlock : korlibs/template/KorteBlock {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lkorlibs/template/DefaultBlocks$BlockBlock;
+	public static synthetic fun copy$default (Lkorlibs/template/DefaultBlocks$BlockBlock;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/DefaultBlocks$BlockBlock;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getContentType ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/DefaultBlocks$BlockCapture : korlibs/template/KorteBlock {
+	public fun <init> (Ljava/lang/String;Lkorlibs/template/KorteBlock;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Lkorlibs/template/KorteBlock;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkorlibs/template/KorteBlock;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Lkorlibs/template/KorteBlock;Ljava/lang/String;)Lkorlibs/template/DefaultBlocks$BlockCapture;
+	public static synthetic fun copy$default (Lkorlibs/template/DefaultBlocks$BlockCapture;Ljava/lang/String;Lkorlibs/template/KorteBlock;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/DefaultBlocks$BlockCapture;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getContent ()Lkorlibs/template/KorteBlock;
+	public final fun getContentType ()Ljava/lang/String;
+	public final fun getVarname ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/DefaultBlocks$BlockDebug : korlibs/template/KorteBlock {
+	public fun <init> (Lkorlibs/template/KorteExprNode;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Lkorlibs/template/KorteExprNode;
+	public final fun copy (Lkorlibs/template/KorteExprNode;)Lkorlibs/template/DefaultBlocks$BlockDebug;
+	public static synthetic fun copy$default (Lkorlibs/template/DefaultBlocks$BlockDebug;Lkorlibs/template/KorteExprNode;ILjava/lang/Object;)Lkorlibs/template/DefaultBlocks$BlockDebug;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getExpr ()Lkorlibs/template/KorteExprNode;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/DefaultBlocks$BlockExpr : korlibs/template/KorteBlock {
+	public fun <init> (Lkorlibs/template/KorteExprNode;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Lkorlibs/template/KorteExprNode;
+	public final fun copy (Lkorlibs/template/KorteExprNode;)Lkorlibs/template/DefaultBlocks$BlockExpr;
+	public static synthetic fun copy$default (Lkorlibs/template/DefaultBlocks$BlockExpr;Lkorlibs/template/KorteExprNode;ILjava/lang/Object;)Lkorlibs/template/DefaultBlocks$BlockExpr;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getExpr ()Lkorlibs/template/KorteExprNode;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/DefaultBlocks$BlockExtends : korlibs/template/KorteBlock {
+	public fun <init> (Lkorlibs/template/KorteExprNode;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Lkorlibs/template/KorteExprNode;
+	public final fun copy (Lkorlibs/template/KorteExprNode;)Lkorlibs/template/DefaultBlocks$BlockExtends;
+	public static synthetic fun copy$default (Lkorlibs/template/DefaultBlocks$BlockExtends;Lkorlibs/template/KorteExprNode;ILjava/lang/Object;)Lkorlibs/template/DefaultBlocks$BlockExtends;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getExpr ()Lkorlibs/template/KorteExprNode;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/DefaultBlocks$BlockFor : korlibs/template/KorteBlock {
+	public fun <init> (Ljava/util/List;Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteBlock;Lkorlibs/template/KorteBlock;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Lkorlibs/template/KorteExprNode;
+	public final fun component3 ()Lkorlibs/template/KorteBlock;
+	public final fun component4 ()Lkorlibs/template/KorteBlock;
+	public final fun copy (Ljava/util/List;Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteBlock;Lkorlibs/template/KorteBlock;)Lkorlibs/template/DefaultBlocks$BlockFor;
+	public static synthetic fun copy$default (Lkorlibs/template/DefaultBlocks$BlockFor;Ljava/util/List;Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteBlock;Lkorlibs/template/KorteBlock;ILjava/lang/Object;)Lkorlibs/template/DefaultBlocks$BlockFor;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getElseNode ()Lkorlibs/template/KorteBlock;
+	public final fun getExpr ()Lkorlibs/template/KorteExprNode;
+	public final fun getLoop ()Lkorlibs/template/KorteBlock;
+	public final fun getVarnames ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/DefaultBlocks$BlockGroup : korlibs/template/KorteBlock {
+	public fun <init> (Ljava/util/List;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lkorlibs/template/DefaultBlocks$BlockGroup;
+	public static synthetic fun copy$default (Lkorlibs/template/DefaultBlocks$BlockGroup;Ljava/util/List;ILjava/lang/Object;)Lkorlibs/template/DefaultBlocks$BlockGroup;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getChildren ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/DefaultBlocks$BlockIf : korlibs/template/KorteBlock {
+	public fun <init> (Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteBlock;Lkorlibs/template/KorteBlock;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Lkorlibs/template/KorteExprNode;
+	public final fun component2 ()Lkorlibs/template/KorteBlock;
+	public final fun component3 ()Lkorlibs/template/KorteBlock;
+	public final fun copy (Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteBlock;Lkorlibs/template/KorteBlock;)Lkorlibs/template/DefaultBlocks$BlockIf;
+	public static synthetic fun copy$default (Lkorlibs/template/DefaultBlocks$BlockIf;Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteBlock;Lkorlibs/template/KorteBlock;ILjava/lang/Object;)Lkorlibs/template/DefaultBlocks$BlockIf;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getCond ()Lkorlibs/template/KorteExprNode;
+	public final fun getFalseContent ()Lkorlibs/template/KorteBlock;
+	public final fun getTrueContent ()Lkorlibs/template/KorteBlock;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/DefaultBlocks$BlockImport : korlibs/template/KorteBlock {
+	public fun <init> (Lkorlibs/template/KorteExprNode;Ljava/lang/String;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Lkorlibs/template/KorteExprNode;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Lkorlibs/template/KorteExprNode;Ljava/lang/String;)Lkorlibs/template/DefaultBlocks$BlockImport;
+	public static synthetic fun copy$default (Lkorlibs/template/DefaultBlocks$BlockImport;Lkorlibs/template/KorteExprNode;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/DefaultBlocks$BlockImport;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getExportName ()Ljava/lang/String;
+	public final fun getFileExpr ()Lkorlibs/template/KorteExprNode;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/DefaultBlocks$BlockInclude : korlibs/template/KorteBlock {
+	public fun <init> (Lkorlibs/template/KorteExprNode;Ljava/util/LinkedHashMap;Lkorlibs/template/KorteFilePosContext;Ljava/lang/String;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Lkorlibs/template/KorteExprNode;
+	public final fun component2 ()Ljava/util/LinkedHashMap;
+	public final fun component3 ()Lkorlibs/template/KorteFilePosContext;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (Lkorlibs/template/KorteExprNode;Ljava/util/LinkedHashMap;Lkorlibs/template/KorteFilePosContext;Ljava/lang/String;)Lkorlibs/template/DefaultBlocks$BlockInclude;
+	public static synthetic fun copy$default (Lkorlibs/template/DefaultBlocks$BlockInclude;Lkorlibs/template/KorteExprNode;Ljava/util/LinkedHashMap;Lkorlibs/template/KorteFilePosContext;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/DefaultBlocks$BlockInclude;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getFileNameExpr ()Lkorlibs/template/KorteExprNode;
+	public final fun getFilePos ()Lkorlibs/template/KorteFilePosContext;
+	public final fun getParams ()Ljava/util/LinkedHashMap;
+	public final fun getTagContent ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/DefaultBlocks$BlockMacro : korlibs/template/KorteBlock {
+	public fun <init> (Ljava/lang/String;Ljava/util/List;Lkorlibs/template/KorteBlock;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Lkorlibs/template/KorteBlock;
+	public final fun copy (Ljava/lang/String;Ljava/util/List;Lkorlibs/template/KorteBlock;)Lkorlibs/template/DefaultBlocks$BlockMacro;
+	public static synthetic fun copy$default (Lkorlibs/template/DefaultBlocks$BlockMacro;Ljava/lang/String;Ljava/util/List;Lkorlibs/template/KorteBlock;ILjava/lang/Object;)Lkorlibs/template/DefaultBlocks$BlockMacro;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getArgs ()Ljava/util/List;
+	public final fun getBody ()Lkorlibs/template/KorteBlock;
+	public final fun getFuncname ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/DefaultBlocks$BlockSet : korlibs/template/KorteBlock {
+	public fun <init> (Ljava/lang/String;Lkorlibs/template/KorteExprNode;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkorlibs/template/KorteExprNode;
+	public final fun copy (Ljava/lang/String;Lkorlibs/template/KorteExprNode;)Lkorlibs/template/DefaultBlocks$BlockSet;
+	public static synthetic fun copy$default (Lkorlibs/template/DefaultBlocks$BlockSet;Ljava/lang/String;Lkorlibs/template/KorteExprNode;ILjava/lang/Object;)Lkorlibs/template/DefaultBlocks$BlockSet;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getExpr ()Lkorlibs/template/KorteExprNode;
+	public final fun getVarname ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/DefaultBlocks$BlockText : korlibs/template/KorteBlock {
+	public fun <init> (Ljava/lang/String;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/template/DefaultBlocks$BlockText;
+	public static synthetic fun copy$default (Lkorlibs/template/DefaultBlocks$BlockText;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/DefaultBlocks$BlockText;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getContent ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteAutoEscapeMode {
+	public static final field Companion Lkorlibs/template/KorteAutoEscapeMode$Companion;
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	public final fun getTransform ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class korlibs/template/KorteAutoEscapeMode$Companion {
+	public final fun getHTML ()Lkorlibs/template/KorteAutoEscapeMode;
+	public final fun getRAW ()Lkorlibs/template/KorteAutoEscapeMode;
+}
+
+public abstract interface class korlibs/template/KorteBlock : korlibs/template/dynamic/KorteDynamicContext {
+	public static final field Companion Lkorlibs/template/KorteBlock$Companion;
+	public abstract fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/template/KorteBlock$Companion {
+	public final fun group (Ljava/util/List;)Lkorlibs/template/KorteBlock;
+	public final fun parse (Ljava/util/List;Lkorlibs/template/KorteTemplate$ParseContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/template/KorteBlock$Companion$Parse {
+	public fun <init> (Ljava/util/List;Lkorlibs/template/KorteTemplate$ParseContext;)V
+	public final fun getParseContext ()Lkorlibs/template/KorteTemplate$ParseContext;
+	public final fun getTokens ()Ljava/util/List;
+	public final fun getTr ()Lkorlibs/template/util/KorteListReader;
+	public final fun handle (Lkorlibs/template/KorteTag;Lkorlibs/template/KorteToken$TTag;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/template/KorteBlock$DefaultImpls {
+	public static fun combineTypes (Lkorlibs/template/KorteBlock;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public static fun compareTo (Lkorlibs/template/KorteBlock;Ljava/lang/Number;Ljava/lang/Number;)I
+	public static fun dynamicCall (Lkorlibs/template/KorteBlock;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun dynamicCallMethod (Lkorlibs/template/KorteBlock;Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun dynamicGet (Lkorlibs/template/KorteBlock;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun dynamicLength (Lkorlibs/template/KorteBlock;Ljava/lang/Object;)I
+	public static fun dynamicSet (Lkorlibs/template/KorteBlock;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun toDynamicBool (Lkorlibs/template/KorteBlock;Ljava/lang/Object;)Z
+	public static fun toDynamicCastToType (Lkorlibs/template/KorteBlock;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public static fun toDynamicDouble (Lkorlibs/template/KorteBlock;Ljava/lang/Object;)D
+	public static fun toDynamicInt (Lkorlibs/template/KorteBlock;Ljava/lang/Object;)I
+	public static fun toDynamicList (Lkorlibs/template/KorteBlock;Ljava/lang/Object;)Ljava/util/List;
+	public static fun toDynamicLong (Lkorlibs/template/KorteBlock;Ljava/lang/Object;)J
+	public static fun toDynamicNumber (Lkorlibs/template/KorteBlock;Ljava/lang/Object;)Ljava/lang/Number;
+	public static fun toDynamicString (Lkorlibs/template/KorteBlock;Ljava/lang/Object;)Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteDefaultFilters {
+	public static final field INSTANCE Lkorlibs/template/KorteDefaultFilters;
+	public final fun getALL ()Ljava/util/List;
+	public final fun getAbs ()Lkorlibs/template/KorteFilter;
+	public final fun getAtLeast ()Lkorlibs/template/KorteFilter;
+	public final fun getAtMost ()Lkorlibs/template/KorteFilter;
+	public final fun getCapitalize ()Lkorlibs/template/KorteFilter;
+	public final fun getCeil ()Lkorlibs/template/KorteFilter;
+	public final fun getChunked ()Lkorlibs/template/KorteFilter;
+	public final fun getConcat ()Lkorlibs/template/KorteFilter;
+	public final fun getDefault ()Lkorlibs/template/KorteFilter;
+	public final fun getDividedBy ()Lkorlibs/template/KorteFilter;
+	public final fun getDowncase ()Lkorlibs/template/KorteFilter;
+	public final fun getFirst ()Lkorlibs/template/KorteFilter;
+	public final fun getFloor ()Lkorlibs/template/KorteFilter;
+	public final fun getFormat ()Lkorlibs/template/KorteFilter;
+	public final fun getJoin ()Lkorlibs/template/KorteFilter;
+	public final fun getJsonEncode ()Lkorlibs/template/KorteFilter;
+	public final fun getLast ()Lkorlibs/template/KorteFilter;
+	public final fun getLength ()Lkorlibs/template/KorteFilter;
+	public final fun getLower ()Lkorlibs/template/KorteFilter;
+	public final fun getMap ()Lkorlibs/template/KorteFilter;
+	public final fun getMerge ()Lkorlibs/template/KorteFilter;
+	public final fun getMinus ()Lkorlibs/template/KorteFilter;
+	public final fun getModulo ()Lkorlibs/template/KorteFilter;
+	public final fun getPlus ()Lkorlibs/template/KorteFilter;
+	public final fun getQuote ()Lkorlibs/template/KorteFilter;
+	public final fun getRaw ()Lkorlibs/template/KorteFilter;
+	public final fun getReplace ()Lkorlibs/template/KorteFilter;
+	public final fun getReverse ()Lkorlibs/template/KorteFilter;
+	public final fun getRound ()Lkorlibs/template/KorteFilter;
+	public final fun getSize ()Lkorlibs/template/KorteFilter;
+	public final fun getSlice ()Lkorlibs/template/KorteFilter;
+	public final fun getSort ()Lkorlibs/template/KorteFilter;
+	public final fun getSplit ()Lkorlibs/template/KorteFilter;
+	public final fun getTimes ()Lkorlibs/template/KorteFilter;
+	public final fun getTrim ()Lkorlibs/template/KorteFilter;
+	public final fun getUniq ()Lkorlibs/template/KorteFilter;
+	public final fun getUpcase ()Lkorlibs/template/KorteFilter;
+	public final fun getUpper ()Lkorlibs/template/KorteFilter;
+	public final fun getWhere ()Lkorlibs/template/KorteFilter;
+	public final fun getWhereExp ()Lkorlibs/template/KorteFilter;
+}
+
+public final class korlibs/template/KorteDefaultFunctions {
+	public static final field INSTANCE Lkorlibs/template/KorteDefaultFunctions;
+	public final fun getALL ()Ljava/util/List;
+	public final fun getCycle ()Lkorlibs/template/KorteFunction;
+	public final fun getParent ()Lkorlibs/template/KorteFunction;
+	public final fun getRange ()Lkorlibs/template/KorteFunction;
+}
+
+public final class korlibs/template/KorteDefaultTags {
+	public static final field INSTANCE Lkorlibs/template/KorteDefaultTags;
+	public final fun BuildIf (Lkorlibs/template/KorteTag$BuildContext;Z)Lkorlibs/template/KorteBlock;
+	public final fun getALL ()Ljava/util/List;
+	public final fun getAssign ()Lkorlibs/template/KorteTag;
+	public final fun getBlockTag ()Lkorlibs/template/KorteTag;
+	public final fun getCapture ()Lkorlibs/template/KorteTag;
+	public final fun getDebug ()Lkorlibs/template/KorteTag;
+	public final fun getEmpty ()Lkorlibs/template/KorteTag;
+	public final fun getExtends ()Lkorlibs/template/KorteTag;
+	public final fun getFor ()Lkorlibs/template/KorteTag;
+	public final fun getIf ()Lkorlibs/template/KorteTag;
+	public final fun getImport ()Lkorlibs/template/KorteTag;
+	public final fun getInclude ()Lkorlibs/template/KorteTag;
+	public final fun getMacro ()Lkorlibs/template/KorteTag;
+	public final fun getSet ()Lkorlibs/template/KorteTag;
+	public final fun getSwitch ()Lkorlibs/template/KorteTag;
+	public final fun getUnless ()Lkorlibs/template/KorteTag;
+}
+
+public final class korlibs/template/KorteDefaultsKt {
+	public static final fun getDebugPrintln (Lkorlibs/template/KorteTemplateConfig;)Lkotlin/jvm/functions/Function1;
+	public static final fun setDebugPrintln (Lkorlibs/template/KorteTemplateConfig;Lkotlin/jvm/functions/Function1;)V
+}
+
+public class korlibs/template/KorteException : java/lang/RuntimeException {
+	public fun <init> (Ljava/lang/String;Lkorlibs/template/KorteFilePosContext;)V
+	public final fun getContext ()Lkorlibs/template/KorteFilePosContext;
+	public fun getMessage ()Ljava/lang/String;
+	public final fun getMsg ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/template/KorteExprNode : korlibs/template/dynamic/KorteDynamicContext {
+	public static final field Companion Lkorlibs/template/KorteExprNode$Companion;
+	public abstract fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/template/KorteExprNode$ACCESS : korlibs/template/KorteExprNode {
+	public fun <init> (Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteExprNode;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Lkorlibs/template/KorteExprNode;
+	public final fun component2 ()Lkorlibs/template/KorteExprNode;
+	public final fun copy (Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteExprNode;)Lkorlibs/template/KorteExprNode$ACCESS;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteExprNode$ACCESS;Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteExprNode;ILjava/lang/Object;)Lkorlibs/template/KorteExprNode$ACCESS;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getExpr ()Lkorlibs/template/KorteExprNode;
+	public final fun getName ()Lkorlibs/template/KorteExprNode;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteExprNode$ARRAY_LIT : korlibs/template/KorteExprNode {
+	public fun <init> (Ljava/util/List;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lkorlibs/template/KorteExprNode$ARRAY_LIT;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteExprNode$ARRAY_LIT;Ljava/util/List;ILjava/lang/Object;)Lkorlibs/template/KorteExprNode$ARRAY_LIT;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getItems ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteExprNode$BINOP : korlibs/template/KorteExprNode {
+	public fun <init> (Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteExprNode;Ljava/lang/String;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Lkorlibs/template/KorteExprNode;
+	public final fun component2 ()Lkorlibs/template/KorteExprNode;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteExprNode;Ljava/lang/String;)Lkorlibs/template/KorteExprNode$BINOP;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteExprNode$BINOP;Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteExprNode;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/KorteExprNode$BINOP;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getL ()Lkorlibs/template/KorteExprNode;
+	public final fun getOp ()Ljava/lang/String;
+	public final fun getR ()Lkorlibs/template/KorteExprNode;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteExprNode$CALL : korlibs/template/KorteExprNode {
+	public fun <init> (Lkorlibs/template/KorteExprNode;Ljava/util/List;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Lkorlibs/template/KorteExprNode;
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (Lkorlibs/template/KorteExprNode;Ljava/util/List;)Lkorlibs/template/KorteExprNode$CALL;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteExprNode$CALL;Lkorlibs/template/KorteExprNode;Ljava/util/List;ILjava/lang/Object;)Lkorlibs/template/KorteExprNode$CALL;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getArgs ()Ljava/util/List;
+	public final fun getMethod ()Lkorlibs/template/KorteExprNode;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteExprNode$Companion {
+	public final fun binopPr (Ljava/lang/String;)I
+	public final fun expect (Lkorlibs/template/util/KorteListReader;[Ljava/lang/String;)V
+	public final fun parse (Ljava/lang/String;Ljava/lang/String;)Lkorlibs/template/KorteExprNode;
+	public final fun parse (Ljava/lang/String;Lkorlibs/template/KorteFilePosContext;)Lkorlibs/template/KorteExprNode;
+	public final fun parse (Lkorlibs/template/KorteToken$TTag;)Lkorlibs/template/KorteExprNode;
+	public static synthetic fun parse$default (Lkorlibs/template/KorteExprNode$Companion;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/KorteExprNode;
+	public final fun parseBinExpr (Lkorlibs/template/util/KorteListReader;)Lkorlibs/template/KorteExprNode;
+	public final fun parseExpr (Lkorlibs/template/util/KorteListReader;)Lkorlibs/template/KorteExprNode;
+	public final fun parseFullExpr (Lkorlibs/template/util/KorteListReader;)Lkorlibs/template/KorteExprNode;
+	public final fun parseId (Lkorlibs/template/util/KorteListReader;)Ljava/lang/String;
+	public final fun parseTernaryExpr (Lkorlibs/template/util/KorteListReader;)Lkorlibs/template/KorteExprNode;
+}
+
+public final class korlibs/template/KorteExprNode$DefaultImpls {
+	public static fun combineTypes (Lkorlibs/template/KorteExprNode;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public static fun compareTo (Lkorlibs/template/KorteExprNode;Ljava/lang/Number;Ljava/lang/Number;)I
+	public static fun dynamicCall (Lkorlibs/template/KorteExprNode;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun dynamicCallMethod (Lkorlibs/template/KorteExprNode;Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun dynamicGet (Lkorlibs/template/KorteExprNode;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun dynamicLength (Lkorlibs/template/KorteExprNode;Ljava/lang/Object;)I
+	public static fun dynamicSet (Lkorlibs/template/KorteExprNode;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun toDynamicBool (Lkorlibs/template/KorteExprNode;Ljava/lang/Object;)Z
+	public static fun toDynamicCastToType (Lkorlibs/template/KorteExprNode;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public static fun toDynamicDouble (Lkorlibs/template/KorteExprNode;Ljava/lang/Object;)D
+	public static fun toDynamicInt (Lkorlibs/template/KorteExprNode;Ljava/lang/Object;)I
+	public static fun toDynamicList (Lkorlibs/template/KorteExprNode;Ljava/lang/Object;)Ljava/util/List;
+	public static fun toDynamicLong (Lkorlibs/template/KorteExprNode;Ljava/lang/Object;)J
+	public static fun toDynamicNumber (Lkorlibs/template/KorteExprNode;Ljava/lang/Object;)Ljava/lang/Number;
+	public static fun toDynamicString (Lkorlibs/template/KorteExprNode;Ljava/lang/Object;)Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteExprNode$FILTER : korlibs/template/KorteExprNode {
+	public fun <init> (Ljava/lang/String;Lkorlibs/template/KorteExprNode;Ljava/util/List;Lkorlibs/template/KorteExprNode$Token;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkorlibs/template/KorteExprNode;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Lkorlibs/template/KorteExprNode$Token;
+	public final fun copy (Ljava/lang/String;Lkorlibs/template/KorteExprNode;Ljava/util/List;Lkorlibs/template/KorteExprNode$Token;)Lkorlibs/template/KorteExprNode$FILTER;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteExprNode$FILTER;Ljava/lang/String;Lkorlibs/template/KorteExprNode;Ljava/util/List;Lkorlibs/template/KorteExprNode$Token;ILjava/lang/Object;)Lkorlibs/template/KorteExprNode$FILTER;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getExpr ()Lkorlibs/template/KorteExprNode;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getParams ()Ljava/util/List;
+	public final fun getTok ()Lkorlibs/template/KorteExprNode$Token;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteExprNode$LIT : korlibs/template/KorteExprNode {
+	public fun <init> (Ljava/lang/Object;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/Object;)Lkorlibs/template/KorteExprNode$LIT;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteExprNode$LIT;Ljava/lang/Object;ILjava/lang/Object;)Lkorlibs/template/KorteExprNode$LIT;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getValue ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteExprNode$OBJECT_LIT : korlibs/template/KorteExprNode {
+	public fun <init> (Ljava/util/List;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lkorlibs/template/KorteExprNode$OBJECT_LIT;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteExprNode$OBJECT_LIT;Ljava/util/List;ILjava/lang/Object;)Lkorlibs/template/KorteExprNode$OBJECT_LIT;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getItems ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteExprNode$TERNARY : korlibs/template/KorteExprNode {
+	public fun <init> (Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteExprNode;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Lkorlibs/template/KorteExprNode;
+	public final fun component2 ()Lkorlibs/template/KorteExprNode;
+	public final fun component3 ()Lkorlibs/template/KorteExprNode;
+	public final fun copy (Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteExprNode;)Lkorlibs/template/KorteExprNode$TERNARY;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteExprNode$TERNARY;Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteExprNode;Lkorlibs/template/KorteExprNode;ILjava/lang/Object;)Lkorlibs/template/KorteExprNode$TERNARY;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getCond ()Lkorlibs/template/KorteExprNode;
+	public final fun getEfalse ()Lkorlibs/template/KorteExprNode;
+	public final fun getEtrue ()Lkorlibs/template/KorteExprNode;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/template/KorteExprNode$Token : korlibs/template/KorteTokenContext {
+	public static final field Companion Lkorlibs/template/KorteExprNode$Token$Companion;
+	public abstract fun getText ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteExprNode$Token$Companion {
+	public final fun annotate (Lkorlibs/template/KorteExprNode$Token;Lkorlibs/template/KorteFilePosContext;I)Lkorlibs/template/KorteExprNode$Token;
+	public final fun tokenize (Ljava/lang/String;Lkorlibs/template/KorteFilePosContext;)Lkorlibs/template/util/KorteListReader;
+}
+
+public final class korlibs/template/KorteExprNode$Token$DefaultImpls {
+	public static fun exception (Lkorlibs/template/KorteExprNode$Token;Ljava/lang/String;)Ljava/lang/Void;
+	public static fun getPosContext (Lkorlibs/template/KorteExprNode$Token;)Lkorlibs/template/KorteFilePosContext;
+}
+
+public final class korlibs/template/KorteExprNode$Token$TEnd : korlibs/template/KorteExprNode$Token, korlibs/template/KorteTokenContext {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/template/KorteExprNode$Token$TEnd;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteExprNode$Token$TEnd;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/KorteExprNode$Token$TEnd;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun exception (Ljava/lang/String;)Ljava/lang/Void;
+	public fun getFile ()Lkorlibs/template/KorteFileContext;
+	public fun getPos ()I
+	public fun getPosContext ()Lkorlibs/template/KorteFilePosContext;
+	public fun getText ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setFile (Lkorlibs/template/KorteFileContext;)V
+	public fun setPos (I)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteExprNode$Token$TId : korlibs/template/KorteExprNode$Token, korlibs/template/KorteTokenContext {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/template/KorteExprNode$Token$TId;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteExprNode$Token$TId;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/KorteExprNode$Token$TId;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun exception (Ljava/lang/String;)Ljava/lang/Void;
+	public fun getFile ()Lkorlibs/template/KorteFileContext;
+	public fun getPos ()I
+	public fun getPosContext ()Lkorlibs/template/KorteFilePosContext;
+	public fun getText ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setFile (Lkorlibs/template/KorteFileContext;)V
+	public fun setPos (I)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteExprNode$Token$TNumber : korlibs/template/KorteExprNode$Token, korlibs/template/KorteTokenContext {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/template/KorteExprNode$Token$TNumber;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteExprNode$Token$TNumber;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/KorteExprNode$Token$TNumber;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun exception (Ljava/lang/String;)Ljava/lang/Void;
+	public fun getFile ()Lkorlibs/template/KorteFileContext;
+	public fun getPos ()I
+	public fun getPosContext ()Lkorlibs/template/KorteFilePosContext;
+	public fun getText ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setFile (Lkorlibs/template/KorteFileContext;)V
+	public fun setPos (I)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteExprNode$Token$TOperator : korlibs/template/KorteExprNode$Token, korlibs/template/KorteTokenContext {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/template/KorteExprNode$Token$TOperator;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteExprNode$Token$TOperator;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/KorteExprNode$Token$TOperator;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun exception (Ljava/lang/String;)Ljava/lang/Void;
+	public fun getFile ()Lkorlibs/template/KorteFileContext;
+	public fun getPos ()I
+	public fun getPosContext ()Lkorlibs/template/KorteFilePosContext;
+	public fun getText ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setFile (Lkorlibs/template/KorteFileContext;)V
+	public fun setPos (I)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteExprNode$Token$TString : korlibs/template/KorteExprNode$Token, korlibs/template/KorteTokenContext {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lkorlibs/template/KorteExprNode$Token$TString;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteExprNode$Token$TString;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/KorteExprNode$Token$TString;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun exception (Ljava/lang/String;)Ljava/lang/Void;
+	public fun getFile ()Lkorlibs/template/KorteFileContext;
+	public fun getPos ()I
+	public fun getPosContext ()Lkorlibs/template/KorteFilePosContext;
+	public final fun getProcessedValue ()Ljava/lang/String;
+	public fun getText ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setFile (Lkorlibs/template/KorteFileContext;)V
+	public fun setPos (I)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteExprNode$UNOP : korlibs/template/KorteExprNode {
+	public fun <init> (Lkorlibs/template/KorteExprNode;Ljava/lang/String;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Lkorlibs/template/KorteExprNode;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Lkorlibs/template/KorteExprNode;Ljava/lang/String;)Lkorlibs/template/KorteExprNode$UNOP;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteExprNode$UNOP;Lkorlibs/template/KorteExprNode;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/KorteExprNode$UNOP;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getOp ()Ljava/lang/String;
+	public final fun getR ()Lkorlibs/template/KorteExprNode;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteExprNode$VAR : korlibs/template/KorteExprNode {
+	public fun <init> (Ljava/lang/String;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/template/KorteExprNode$VAR;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteExprNode$VAR;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/KorteExprNode$VAR;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteExprNodeKt {
+	public static final fun expect (Lkorlibs/template/util/KorteListReader;[Ljava/lang/String;)Lkorlibs/template/KorteExprNode$Token;
+	public static final fun expectEnd (Lkorlibs/template/util/KorteListReader;)V
+	public static final fun expectPeek (Lkorlibs/template/util/KorteListReader;[Ljava/lang/String;)Lkorlibs/template/KorteExprNode$Token;
+	public static final fun parseExpr (Lkorlibs/template/util/KorteListReader;)Lkorlibs/template/KorteExprNode;
+	public static final fun parseId (Lkorlibs/template/util/KorteListReader;)Ljava/lang/String;
+	public static final fun parseIdList (Lkorlibs/template/util/KorteListReader;)Ljava/util/List;
+	public static final fun tryRead (Lkorlibs/template/util/KorteListReader;[Ljava/lang/String;)Lkorlibs/template/KorteExprNode$Token;
+}
+
+public final class korlibs/template/KorteFileContext {
+	public static final field Companion Lkorlibs/template/KorteFileContext$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lkorlibs/template/KorteFileContext;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteFileContext;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/KorteFileContext;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun findRow0At (I)I
+	public final fun getFileContent ()Ljava/lang/String;
+	public final fun getFileName ()Ljava/lang/String;
+	public final fun getLineOffsets ()Ljava/util/ArrayList;
+	public final fun getLines ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteFileContext$Companion {
+	public final fun getDUMMY ()Lkorlibs/template/KorteFileContext;
+}
+
+public final class korlibs/template/KorteFilePosContext {
+	public fun <init> (Lkorlibs/template/KorteFileContext;I)V
+	public final fun component1 ()Lkorlibs/template/KorteFileContext;
+	public final fun component2 ()I
+	public final fun copy (Lkorlibs/template/KorteFileContext;I)Lkorlibs/template/KorteFilePosContext;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteFilePosContext;Lkorlibs/template/KorteFileContext;IILjava/lang/Object;)Lkorlibs/template/KorteFilePosContext;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun exception (Ljava/lang/String;)Ljava/lang/Void;
+	public final fun getColumn ()I
+	public final fun getColumn0 ()I
+	public final fun getFile ()Lkorlibs/template/KorteFileContext;
+	public final fun getFileContent ()Ljava/lang/String;
+	public final fun getFileName ()Ljava/lang/String;
+	public final fun getPos ()I
+	public final fun getRow ()I
+	public final fun getRow0 ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public final fun withPosAdd (I)Lkorlibs/template/KorteFilePosContext;
+}
+
+public final class korlibs/template/KorteFilter {
+	public fun <init> (Ljava/lang/String;Lkotlin/jvm/functions/Function2;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkotlin/jvm/functions/Function2;
+	public final fun copy (Ljava/lang/String;Lkotlin/jvm/functions/Function2;)Lkorlibs/template/KorteFilter;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteFilter;Ljava/lang/String;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lkorlibs/template/KorteFilter;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEval ()Lkotlin/jvm/functions/Function2;
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteFilter$Ctx : korlibs/template/dynamic/KorteDynamicContext {
+	public field context Lkorlibs/template/KorteTemplate$EvalContext;
+	public field name Ljava/lang/String;
+	public field tok Lkorlibs/template/KorteExprNode$Token;
+	public fun <init> ()V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getArgs ()Ljava/util/List;
+	public final fun getContext ()Lkorlibs/template/KorteTemplate$EvalContext;
+	public final fun getMapper ()Lkorlibs/template/dynamic/KorteObjectMapper2;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getSubject ()Ljava/lang/Object;
+	public final fun getTok ()Lkorlibs/template/KorteExprNode$Token;
+	public final fun setArgs (Ljava/util/List;)V
+	public final fun setContext (Lkorlibs/template/KorteTemplate$EvalContext;)V
+	public final fun setName (Ljava/lang/String;)V
+	public final fun setSubject (Ljava/lang/Object;)V
+	public final fun setTok (Lkorlibs/template/KorteExprNode$Token;)V
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteFunction {
+	public fun <init> (Ljava/lang/String;Lkotlin/jvm/functions/Function3;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkotlin/jvm/functions/Function3;
+	public final fun copy (Ljava/lang/String;Lkotlin/jvm/functions/Function3;)Lkorlibs/template/KorteFunction;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteFunction;Ljava/lang/String;Lkotlin/jvm/functions/Function3;ILjava/lang/Object;)Lkorlibs/template/KorteFunction;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun eval (Ljava/util/List;Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getEval ()Lkotlin/jvm/functions/Function3;
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteKt {
+	public static final fun KorteNewTemplateProvider (Ljava/util/Map;)Lkorlibs/template/KorteNewTemplateProvider;
+	public static final fun KorteNewTemplateProvider ([Lkotlin/Pair;)Lkorlibs/template/KorteNewTemplateProvider;
+	public static final fun KorteTemplate (Ljava/lang/String;Lkorlibs/template/KorteTemplateConfig;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun KorteTemplate (Ljava/lang/String;Lkorlibs/template/KorteTemplates;Lkorlibs/template/KorteNewTemplateProvider;Lkorlibs/template/KorteNewTemplateProvider;Lkorlibs/template/KorteTemplateConfig;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun KorteTemplate$default (Ljava/lang/String;Lkorlibs/template/KorteTemplateConfig;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun KorteTemplate$default (Ljava/lang/String;Lkorlibs/template/KorteTemplates;Lkorlibs/template/KorteNewTemplateProvider;Lkorlibs/template/KorteNewTemplateProvider;Lkorlibs/template/KorteTemplateConfig;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun KorteTemplateProvider (Ljava/util/Map;)Lkorlibs/template/KorteTemplateProvider;
+	public static final fun KorteTemplateProvider ([Lkotlin/Pair;)Lkorlibs/template/KorteTemplateProvider;
+	public static final fun getSure (Lkorlibs/template/KorteTemplateProvider;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun korteException (Ljava/lang/String;Lkorlibs/template/KorteFilePosContext;)Ljava/lang/Void;
+	public static final fun newGetSure (Lkorlibs/template/KorteNewTemplateProvider;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/template/KorteNewTemplateProvider {
+	public abstract fun newGet (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/template/KorteRawString {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getContentType ()Ljava/lang/String;
+	public final fun getStr ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteTag : korlibs/template/dynamic/KorteDynamicContext {
+	public fun <init> (Ljava/lang/String;Ljava/util/Set;Ljava/util/Set;Ljava/util/List;Lkotlin/jvm/functions/Function2;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/Set;Ljava/util/Set;Ljava/util/List;Lkotlin/jvm/functions/Function2;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/Set;
+	public final fun component3 ()Ljava/util/Set;
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Lkotlin/jvm/functions/Function2;
+	public final fun copy (Ljava/lang/String;Ljava/util/Set;Ljava/util/Set;Ljava/util/List;Lkotlin/jvm/functions/Function2;)Lkorlibs/template/KorteTag;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteTag;Ljava/lang/String;Ljava/util/Set;Ljava/util/Set;Ljava/util/List;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lkorlibs/template/KorteTag;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAliases ()Ljava/util/List;
+	public final fun getBuildNode ()Lkotlin/jvm/functions/Function2;
+	public final fun getEnd ()Ljava/util/Set;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getNextList ()Ljava/util/Set;
+	public fun hashCode ()I
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteTag$BuildContext {
+	public fun <init> (Lkorlibs/template/KorteTemplate$ParseContext;Ljava/util/List;)V
+	public final fun component1 ()Lkorlibs/template/KorteTemplate$ParseContext;
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (Lkorlibs/template/KorteTemplate$ParseContext;Ljava/util/List;)Lkorlibs/template/KorteTag$BuildContext;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteTag$BuildContext;Lkorlibs/template/KorteTemplate$ParseContext;Ljava/util/List;ILjava/lang/Object;)Lkorlibs/template/KorteTag$BuildContext;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChunks ()Ljava/util/List;
+	public final fun getContext ()Lkorlibs/template/KorteTemplate$ParseContext;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteTag$Part {
+	public fun <init> (Lkorlibs/template/KorteToken$TTag;Lkorlibs/template/KorteBlock;)V
+	public final fun component1 ()Lkorlibs/template/KorteToken$TTag;
+	public final fun component2 ()Lkorlibs/template/KorteBlock;
+	public final fun copy (Lkorlibs/template/KorteToken$TTag;Lkorlibs/template/KorteBlock;)Lkorlibs/template/KorteTag$Part;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteTag$Part;Lkorlibs/template/KorteToken$TTag;Lkorlibs/template/KorteBlock;ILjava/lang/Object;)Lkorlibs/template/KorteTag$Part;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBody ()Lkorlibs/template/KorteBlock;
+	public final fun getTag ()Lkorlibs/template/KorteToken$TTag;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteTemplate {
+	public final fun addBlock (Ljava/lang/String;Lkorlibs/template/KorteBlock;)V
+	public final fun createEvalContext (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getBlocks ()Ljava/util/HashMap;
+	public final fun getConfig ()Lkorlibs/template/KorteTemplateConfig;
+	public final fun getFrontMatter ()Ljava/util/Map;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getParseContext ()Lkorlibs/template/KorteTemplate$ParseContext;
+	public final fun getRootNode ()Lkorlibs/template/KorteBlock;
+	public final fun getTemplate ()Ljava/lang/String;
+	public final fun getTemplateContent ()Lkorlibs/template/KorteTemplateContent;
+	public final fun getTemplateTokens ()Ljava/util/List;
+	public final fun getTemplates ()Lkorlibs/template/KorteTemplates;
+	public final fun init (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun invoke (Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun invoke ([Lkotlin/Pair;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun invoke$default (Lkorlibs/template/KorteTemplate;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun invoke$default (Lkorlibs/template/KorteTemplate;[Lkotlin/Pair;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun prender (Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun prender ([Lkotlin/Pair;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun prender$default (Lkorlibs/template/KorteTemplate;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun prender$default (Lkorlibs/template/KorteTemplate;[Lkotlin/Pair;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun setFrontMatter (Ljava/util/Map;)V
+}
+
+public final class korlibs/template/KorteTemplate$BlockInTemplateEval {
+	public fun <init> (Ljava/lang/String;Lkorlibs/template/KorteBlock;Lkorlibs/template/KorteTemplate$TemplateEvalContext;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkorlibs/template/KorteBlock;
+	public final fun component3 ()Lkorlibs/template/KorteTemplate$TemplateEvalContext;
+	public final fun copy (Ljava/lang/String;Lkorlibs/template/KorteBlock;Lkorlibs/template/KorteTemplate$TemplateEvalContext;)Lkorlibs/template/KorteTemplate$BlockInTemplateEval;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteTemplate$BlockInTemplateEval;Ljava/lang/String;Lkorlibs/template/KorteBlock;Lkorlibs/template/KorteTemplate$TemplateEvalContext;ILjava/lang/Object;)Lkorlibs/template/KorteTemplate$BlockInTemplateEval;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getBlock ()Lkorlibs/template/KorteBlock;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getParent ()Lkorlibs/template/KorteTemplate$BlockInTemplateEval;
+	public final fun getTemplate ()Lkorlibs/template/KorteTemplate$TemplateEvalContext;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/template/KorteTemplate$DynamicInvokable {
+	public abstract fun invoke (Lkorlibs/template/KorteTemplate$EvalContext;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/template/KorteTemplate$EvalContext : korlibs/template/dynamic/KorteDynamicContext {
+	public fun <init> (Lkorlibs/template/KorteTemplate$TemplateEvalContext;Lkorlibs/template/KorteTemplate$Scope;Lkorlibs/template/KorteTemplateConfig;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/jvm/functions/Function2;)V
+	public final fun capture (Lkotlin/jvm/functions/Function0;)Ljava/lang/String;
+	public final fun captureRaw (Lkotlin/jvm/functions/Function0;)Lkorlibs/template/KorteRawString;
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public final fun createScope (Ljava/util/Map;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static synthetic fun createScope$default (Lkorlibs/template/KorteTemplate$EvalContext;Ljava/util/Map;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getConfig ()Lkorlibs/template/KorteTemplateConfig;
+	public final fun getCurrentBlock ()Lkorlibs/template/KorteTemplate$BlockInTemplateEval;
+	public final fun getCurrentTemplate ()Lkorlibs/template/KorteTemplate$TemplateEvalContext;
+	public final fun getLeafTemplate ()Lkorlibs/template/KorteTemplate$TemplateEvalContext;
+	public final fun getMacros ()Ljava/util/HashMap;
+	public final fun getMapper ()Lkorlibs/template/dynamic/KorteObjectMapper2;
+	public final fun getScope ()Lkorlibs/template/KorteTemplate$Scope;
+	public final fun getTemplates ()Lkorlibs/template/KorteTemplates;
+	public final fun getWrite ()Lkotlin/jvm/functions/Function2;
+	public final fun setCurrentBlock (Lkorlibs/template/KorteTemplate$BlockInTemplateEval;)V
+	public final fun setCurrentTemplate (Lkorlibs/template/KorteTemplate$TemplateEvalContext;)V
+	public final fun setScope (Lkorlibs/template/KorteTemplate$Scope;)V
+	public final fun setTempTemplate (Lkorlibs/template/KorteTemplate$TemplateEvalContext;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public final fun setWrite (Lkotlin/jvm/functions/Function2;)V
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteTemplate$ExecResult {
+	public fun <init> (Lkorlibs/template/KorteTemplate$EvalContext;Ljava/lang/String;)V
+	public final fun component1 ()Lkorlibs/template/KorteTemplate$EvalContext;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Lkorlibs/template/KorteTemplate$EvalContext;Ljava/lang/String;)Lkorlibs/template/KorteTemplate$ExecResult;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteTemplate$ExecResult;Lkorlibs/template/KorteTemplate$EvalContext;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/KorteTemplate$ExecResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getContext ()Lkorlibs/template/KorteTemplate$EvalContext;
+	public final fun getStr ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteTemplate$Macro : korlibs/template/KorteTemplate$DynamicInvokable {
+	public fun <init> (Ljava/lang/String;Ljava/util/List;Lkorlibs/template/KorteBlock;)V
+	public final fun getArgNames ()Ljava/util/List;
+	public final fun getCode ()Lkorlibs/template/KorteBlock;
+	public final fun getName ()Ljava/lang/String;
+	public fun invoke (Lkorlibs/template/KorteTemplate$EvalContext;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/template/KorteTemplate$ParseContext {
+	public fun <init> (Lkorlibs/template/KorteTemplate;Lkorlibs/template/KorteTemplateConfig;)V
+	public final fun getConfig ()Lkorlibs/template/KorteTemplateConfig;
+	public final fun getTemplate ()Lkorlibs/template/KorteTemplate;
+	public final fun getTemplates ()Lkorlibs/template/KorteTemplates;
+}
+
+public final class korlibs/template/KorteTemplate$Scope : korlibs/template/dynamic/KorteDynamicContext {
+	public fun <init> (Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkorlibs/template/KorteTemplate$Scope;)V
+	public synthetic fun <init> (Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkorlibs/template/KorteTemplate$Scope;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun get (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getMap ()Ljava/lang/Object;
+	public final fun getMapper ()Lkorlibs/template/dynamic/KorteObjectMapper2;
+	public final fun getParent ()Lkorlibs/template/KorteTemplate$Scope;
+	public final fun set (Ljava/lang/Object;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteTemplate$StopEvaluatingException : java/lang/Exception {
+	public fun <init> ()V
+}
+
+public final class korlibs/template/KorteTemplate$TemplateEvalContext {
+	public fun <init> (Lkorlibs/template/KorteTemplate;)V
+	public final fun eval (Lkorlibs/template/KorteTemplate$EvalContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun exec (Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkorlibs/template/KorteTemplate$Scope;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun exec ([Lkotlin/Pair;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkorlibs/template/KorteTemplate$Scope;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun exec$default (Lkorlibs/template/KorteTemplate$TemplateEvalContext;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkorlibs/template/KorteTemplate$Scope;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun exec$default (Lkorlibs/template/KorteTemplate$TemplateEvalContext;[Lkotlin/Pair;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkorlibs/template/KorteTemplate$Scope;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun exec2 (Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkorlibs/template/KorteTemplate$Scope;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun exec2$default (Lkorlibs/template/KorteTemplate$TemplateEvalContext;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkorlibs/template/KorteTemplate$Scope;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun getBlock (Ljava/lang/String;)Lkorlibs/template/KorteTemplate$BlockInTemplateEval;
+	public final fun getBlockOrNull (Ljava/lang/String;)Lkorlibs/template/KorteTemplate$BlockInTemplateEval;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getParent ()Lkorlibs/template/KorteTemplate$TemplateEvalContext;
+	public final fun getRoot ()Lkorlibs/template/KorteTemplate$TemplateEvalContext;
+	public final fun getTemplate ()Lkorlibs/template/KorteTemplate;
+	public final fun getTemplates ()Lkorlibs/template/KorteTemplates;
+	public final fun invoke (Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkorlibs/template/KorteTemplate$Scope;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun invoke ([Lkotlin/Pair;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkorlibs/template/KorteTemplate$Scope;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun invoke$default (Lkorlibs/template/KorteTemplate$TemplateEvalContext;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkorlibs/template/KorteTemplate$Scope;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun invoke$default (Lkorlibs/template/KorteTemplate$TemplateEvalContext;[Lkotlin/Pair;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkorlibs/template/KorteTemplate$Scope;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun setParent (Lkorlibs/template/KorteTemplate$TemplateEvalContext;)V
+	public final fun withArgs (Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkorlibs/template/KorteTemplate$Scope;)Lkorlibs/template/KorteTemplate$TemplateEvalContext$WithArgs;
+	public static synthetic fun withArgs$default (Lkorlibs/template/KorteTemplate$TemplateEvalContext;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkorlibs/template/KorteTemplate$Scope;ILjava/lang/Object;)Lkorlibs/template/KorteTemplate$TemplateEvalContext$WithArgs;
+}
+
+public final class korlibs/template/KorteTemplate$TemplateEvalContext$WithArgs : korlibs/template/util/KorteAsyncTextWriterContainer {
+	public fun <init> (Lkorlibs/template/KorteTemplate$TemplateEvalContext;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkorlibs/template/KorteTemplate$Scope;)V
+	public synthetic fun <init> (Lkorlibs/template/KorteTemplate$TemplateEvalContext;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkorlibs/template/KorteTemplate$Scope;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getArgs ()Ljava/lang/Object;
+	public final fun getContext ()Lkorlibs/template/KorteTemplate$TemplateEvalContext;
+	public final fun getMapper ()Lkorlibs/template/dynamic/KorteObjectMapper2;
+	public final fun getParentScope ()Lkorlibs/template/KorteTemplate$Scope;
+	public fun write (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public class korlibs/template/KorteTemplateConfig {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;Lkorlibs/template/KorteFilter;Lkorlibs/template/KorteAutoEscapeMode;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/Unit;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;Lkorlibs/template/KorteFilter;Lkorlibs/template/KorteAutoEscapeMode;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/Unit;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAutoEscapeMode ()Lkorlibs/template/KorteAutoEscapeMode;
+	public final fun getContentTypeProcessor ()Lkotlin/jvm/functions/Function2;
+	public final fun getExtra ()Ljava/util/LinkedHashMap;
+	public final fun getFilters ()Ljava/util/HashMap;
+	public final fun getFrontMatterParser ()Lkotlin/jvm/functions/Function1;
+	public final fun getFunctions ()Ljava/util/HashMap;
+	public final fun getIntegratedFilters ()Ljava/util/List;
+	public final fun getIntegratedFunctions ()Ljava/util/List;
+	public final fun getIntegratedTags ()Ljava/util/List;
+	public final fun getTags ()Ljava/util/HashMap;
+	public final fun getUnknownFilter ()Lkorlibs/template/KorteFilter;
+	public final fun getVariableProcessor ()Lkotlin/jvm/functions/Function3;
+	public final fun getWriteBlockExpressionResult ()Lkotlin/jvm/functions/Function3;
+	public final fun register ([Lkorlibs/template/KorteFilter;)Lkorlibs/template/KorteTemplateConfig;
+	public final fun register ([Lkorlibs/template/KorteFunction;)Lkorlibs/template/KorteTemplateConfig;
+	public final fun register ([Lkorlibs/template/KorteTag;)Lkorlibs/template/KorteTemplateConfig;
+	public final fun replaceVariablePocessor (Lkotlin/jvm/functions/Function4;)V
+	public final fun replaceWriteBlockExpressionResult (Lkotlin/jvm/functions/Function4;)V
+	public final fun setUnknownFilter (Lkorlibs/template/KorteFilter;)V
+	public final fun setVariableProcessor (Lkotlin/jvm/functions/Function3;)V
+	public final fun setWriteBlockExpressionResult (Lkotlin/jvm/functions/Function3;)V
+}
+
+public class korlibs/template/KorteTemplateConfigWithTemplates : korlibs/template/KorteTemplateConfig {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun cache (Z)Lkorlibs/template/KorteTemplateConfigWithTemplates;
+	public final fun getTemplates ()Lkorlibs/template/KorteTemplates;
+	public final fun root (Lkorlibs/template/KorteNewTemplateProvider;Lkorlibs/template/KorteNewTemplateProvider;Lkorlibs/template/KorteNewTemplateProvider;)Lkorlibs/template/KorteTemplateConfigWithTemplates;
+	public static synthetic fun root$default (Lkorlibs/template/KorteTemplateConfigWithTemplates;Lkorlibs/template/KorteNewTemplateProvider;Lkorlibs/template/KorteNewTemplateProvider;Lkorlibs/template/KorteNewTemplateProvider;ILjava/lang/Object;)Lkorlibs/template/KorteTemplateConfigWithTemplates;
+	public final fun setTemplates (Lkorlibs/template/KorteTemplates;)V
+}
+
+public class korlibs/template/KorteTemplateContent {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getChunkProcessor ()Lkotlin/jvm/functions/Function1;
+	public final fun getContentType ()Ljava/lang/String;
+	public final fun getText ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/template/KorteTemplateProvider : korlibs/template/KorteNewTemplateProvider {
+	public abstract fun get (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun newGet (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/template/KorteTemplateProvider$DefaultImpls {
+	public static fun newGet (Lkorlibs/template/KorteTemplateProvider;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/template/KorteTemplateProvider$NotFoundException : java/lang/RuntimeException {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun getTemplate ()Ljava/lang/String;
+}
+
+public class korlibs/template/KorteTemplates {
+	public fun <init> (Lkorlibs/template/KorteNewTemplateProvider;Lkorlibs/template/KorteNewTemplateProvider;Lkorlibs/template/KorteNewTemplateProvider;Lkorlibs/template/KorteTemplateConfig;Z)V
+	public synthetic fun <init> (Lkorlibs/template/KorteNewTemplateProvider;Lkorlibs/template/KorteNewTemplateProvider;Lkorlibs/template/KorteNewTemplateProvider;Lkorlibs/template/KorteTemplateConfig;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun cache (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun get (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getCache ()Z
+	public final fun getConfig ()Lkorlibs/template/KorteTemplateConfig;
+	public fun getInclude (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getIncludes ()Lkorlibs/template/KorteNewTemplateProvider;
+	public fun getLayout (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getLayouts ()Lkorlibs/template/KorteNewTemplateProvider;
+	public final fun getRoot ()Lkorlibs/template/KorteNewTemplateProvider;
+	public final fun getTcache ()Lkorlibs/template/internal/KorteAsyncCache;
+	public final fun invalidateCache ()V
+	public final fun prender (Ljava/lang/String;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun prender (Ljava/lang/String;[Lkotlin/Pair;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun render (Ljava/lang/String;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun render (Ljava/lang/String;[Lkotlin/Pair;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setCache (Z)V
+	public final fun setIncludes (Lkorlibs/template/KorteNewTemplateProvider;)V
+	public final fun setLayouts (Lkorlibs/template/KorteNewTemplateProvider;)V
+	public final fun setRoot (Lkorlibs/template/KorteNewTemplateProvider;)V
+}
+
+public abstract class korlibs/template/KorteToken : korlibs/template/KorteTokenContext {
+	public static final field Companion Lkorlibs/template/KorteToken$Companion;
+	public fun exception (Ljava/lang/String;)Ljava/lang/Void;
+	public fun getPosContext ()Lkorlibs/template/KorteFilePosContext;
+	public final fun getTrimLeft ()Z
+	public final fun getTrimRight ()Z
+	public final fun setTrimLeft (Z)V
+	public final fun setTrimRight (Z)V
+}
+
+public final class korlibs/template/KorteToken$Companion {
+	public final fun tokenize (Ljava/lang/String;Lkorlibs/template/KorteFilePosContext;)Ljava/util/List;
+}
+
+public final class korlibs/template/KorteToken$TExpr : korlibs/template/KorteToken, korlibs/template/KorteTokenContext {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/template/KorteToken$TExpr;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteToken$TExpr;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/KorteToken$TExpr;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun exception (Ljava/lang/String;)Ljava/lang/Void;
+	public final fun getContent ()Ljava/lang/String;
+	public fun getFile ()Lkorlibs/template/KorteFileContext;
+	public fun getPos ()I
+	public fun getPosContext ()Lkorlibs/template/KorteFilePosContext;
+	public fun hashCode ()I
+	public fun setFile (Lkorlibs/template/KorteFileContext;)V
+	public fun setPos (I)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteToken$TLiteral : korlibs/template/KorteToken, korlibs/template/KorteTokenContext {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lkorlibs/template/KorteToken$TLiteral;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteToken$TLiteral;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/KorteToken$TLiteral;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun exception (Ljava/lang/String;)Ljava/lang/Void;
+	public final fun getContent ()Ljava/lang/String;
+	public fun getFile ()Lkorlibs/template/KorteFileContext;
+	public fun getPos ()I
+	public fun getPosContext ()Lkorlibs/template/KorteFilePosContext;
+	public fun hashCode ()I
+	public fun setFile (Lkorlibs/template/KorteFileContext;)V
+	public fun setPos (I)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/KorteToken$TTag : korlibs/template/KorteToken, korlibs/template/KorteTokenContext {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lkorlibs/template/KorteToken$TTag;
+	public static synthetic fun copy$default (Lkorlibs/template/KorteToken$TTag;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/template/KorteToken$TTag;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun exception (Ljava/lang/String;)Ljava/lang/Void;
+	public final fun getContent ()Ljava/lang/String;
+	public final fun getExpr ()Lkorlibs/template/KorteExprNode;
+	public fun getFile ()Lkorlibs/template/KorteFileContext;
+	public final fun getName ()Ljava/lang/String;
+	public fun getPos ()I
+	public fun getPosContext ()Lkorlibs/template/KorteFilePosContext;
+	public final fun getTokens ()Lkorlibs/template/util/KorteListReader;
+	public fun hashCode ()I
+	public fun setFile (Lkorlibs/template/KorteFileContext;)V
+	public fun setPos (I)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/template/KorteTokenContext {
+	public fun exception (Ljava/lang/String;)Ljava/lang/Void;
+	public abstract fun getFile ()Lkorlibs/template/KorteFileContext;
+	public abstract fun getPos ()I
+	public fun getPosContext ()Lkorlibs/template/KorteFilePosContext;
+	public abstract fun setFile (Lkorlibs/template/KorteFileContext;)V
+	public abstract fun setPos (I)V
+}
+
+public final class korlibs/template/KorteTokenContext$DefaultImpls {
+	public static fun exception (Lkorlibs/template/KorteTokenContext;Ljava/lang/String;)Ljava/lang/Void;
+	public static fun getPosContext (Lkorlibs/template/KorteTokenContext;)Lkorlibs/template/KorteFilePosContext;
+}
+
+public final class korlibs/template/KorteTokenContext$Mixin : korlibs/template/KorteTokenContext {
+	public fun <init> ()V
+	public fun exception (Ljava/lang/String;)Ljava/lang/Void;
+	public fun getFile ()Lkorlibs/template/KorteFileContext;
+	public fun getPos ()I
+	public fun getPosContext ()Lkorlibs/template/KorteFilePosContext;
+	public fun setFile (Lkorlibs/template/KorteFileContext;)V
+	public fun setPos (I)V
+}
+
+public class korlibs/template/dynamic/JvmObjectMapper2 : korlibs/template/dynamic/KorteObjectMapper2 {
+	public fun <init> ()V
+	public fun accessAny (Ljava/lang/Object;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun accessAnyObject (Ljava/lang/Object;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun get (Ljava/lang/Object;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getClassInfo (Lkotlin/reflect/KClass;)Lkorlibs/template/dynamic/JvmObjectMapper2$ClassReflectCache;
+	public fun getDynamicShape (Lkorlibs/template/dynamic/KorteDynamicType;)Lkorlibs/template/dynamic/KorteDynamicShape;
+	public fun hasMethod (Ljava/lang/Object;Ljava/lang/String;)Z
+	public fun hasProperty (Ljava/lang/Object;Ljava/lang/String;)Z
+	public fun invokeAsync (Lkotlin/reflect/KClass;Ljava/lang/Object;Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun set (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/template/dynamic/JvmObjectMapper2$ClassReflectCache {
+	public fun <init> (Lkotlin/reflect/KClass;)V
+	public final fun getClazz ()Lkotlin/reflect/KClass;
+	public final fun getFieldsByName ()Ljava/util/Map;
+	public final fun getJclass ()Ljava/lang/Class;
+	public final fun getMethodsByName ()Ljava/util/Map;
+	public final fun getPotentialPropertyNames ()Ljava/util/Set;
+	public final fun getPotentialPropertyNamesFields ()Ljava/util/List;
+	public final fun getPotentialPropertyNamesGetters ()Ljava/util/List;
+	public final fun getPropByName ()Ljava/util/Map;
+}
+
+public final class korlibs/template/dynamic/JvmObjectMapper2$ClassReflectCache$MyProperty {
+	public fun <init> (Ljava/lang/String;Ljava/lang/reflect/Method;Ljava/lang/reflect/Method;Ljava/lang/reflect/Field;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/reflect/Method;Ljava/lang/reflect/Method;Ljava/lang/reflect/Field;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/reflect/Method;
+	public final fun component3 ()Ljava/lang/reflect/Method;
+	public final fun component4 ()Ljava/lang/reflect/Field;
+	public final fun copy (Ljava/lang/String;Ljava/lang/reflect/Method;Ljava/lang/reflect/Method;Ljava/lang/reflect/Field;)Lkorlibs/template/dynamic/JvmObjectMapper2$ClassReflectCache$MyProperty;
+	public static synthetic fun copy$default (Lkorlibs/template/dynamic/JvmObjectMapper2$ClassReflectCache$MyProperty;Ljava/lang/String;Ljava/lang/reflect/Method;Ljava/lang/reflect/Method;Ljava/lang/reflect/Field;ILjava/lang/Object;)Lkorlibs/template/dynamic/JvmObjectMapper2$ClassReflectCache$MyProperty;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getField ()Ljava/lang/reflect/Field;
+	public final fun getGetter ()Ljava/lang/reflect/Method;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getSetter ()Ljava/lang/reflect/Method;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/template/dynamic/KorteDynamic2 {
+	public static final field INSTANCE Lkorlibs/template/dynamic/KorteDynamic2;
+	public final fun accessAny (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun binop (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;
+	public final fun callAny (Ljava/lang/Object;Ljava/lang/Object;Ljava/util/List;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun callAny (Ljava/lang/Object;Ljava/util/List;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun compare (Ljava/lang/Object;Ljava/lang/Object;)I
+	public final fun contains (Ljava/lang/Object;Ljava/lang/Object;)Z
+	public final fun length (Ljava/lang/Object;)I
+	public final fun setAny (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun toBool (Ljava/lang/Object;)Z
+	public final fun toBoolOrNull (Ljava/lang/Object;)Ljava/lang/Boolean;
+	public final fun toComparable (Ljava/lang/Object;)Ljava/lang/Comparable;
+	public final fun toDouble (Ljava/lang/Object;)D
+	public final fun toInt (Ljava/lang/Object;)I
+	public final fun toIterable (Ljava/lang/Object;)Ljava/lang/Iterable;
+	public final fun toList (Ljava/lang/Object;)Ljava/util/List;
+	public final fun toLong (Ljava/lang/Object;)J
+	public final fun toNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public final fun toNumber (Ljava/lang/String;)Ljava/lang/Number;
+	public final fun toString (Ljava/lang/Object;)Ljava/lang/String;
+	public final fun unop (Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/template/dynamic/KorteDynamic2Callable {
+	public abstract fun dynamic2Call (Ljava/lang/Object;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/template/dynamic/KorteDynamic2Gettable {
+	public abstract fun dynamic2Get (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/template/dynamic/KorteDynamic2Settable {
+	public abstract fun dynamic2Set (Ljava/lang/Object;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/template/dynamic/KorteDynamicContext {
+	public static final field Companion Lkorlibs/template/dynamic/KorteDynamicContext$Companion;
+	public fun combineTypes (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun compareTo (Ljava/lang/Number;Ljava/lang/Number;)I
+	public fun dynamicCall (Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicCallMethod (Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicGet (Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dynamicLength (Ljava/lang/Object;)I
+	public fun dynamicSet (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toDynamicBool (Ljava/lang/Object;)Z
+	public fun toDynamicCastToType (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun toDynamicDouble (Ljava/lang/Object;)D
+	public fun toDynamicInt (Ljava/lang/Object;)I
+	public fun toDynamicList (Ljava/lang/Object;)Ljava/util/List;
+	public fun toDynamicLong (Ljava/lang/Object;)J
+	public fun toDynamicNumber (Ljava/lang/Object;)Ljava/lang/Number;
+	public fun toDynamicString (Ljava/lang/Object;)Ljava/lang/String;
+}
+
+public final class korlibs/template/dynamic/KorteDynamicContext$Companion {
+	public final fun getInstance ()Lkorlibs/template/dynamic/KorteDynamicContext;
+	public final fun invoke (Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+}
+
+public final class korlibs/template/dynamic/KorteDynamicContext$DefaultImpls {
+	public static fun combineTypes (Lkorlibs/template/dynamic/KorteDynamicContext;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public static fun compareTo (Lkorlibs/template/dynamic/KorteDynamicContext;Ljava/lang/Number;Ljava/lang/Number;)I
+	public static fun dynamicCall (Lkorlibs/template/dynamic/KorteDynamicContext;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun dynamicCallMethod (Lkorlibs/template/dynamic/KorteDynamicContext;Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun dynamicGet (Lkorlibs/template/dynamic/KorteDynamicContext;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun dynamicLength (Lkorlibs/template/dynamic/KorteDynamicContext;Ljava/lang/Object;)I
+	public static fun dynamicSet (Lkorlibs/template/dynamic/KorteDynamicContext;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun toDynamicBool (Lkorlibs/template/dynamic/KorteDynamicContext;Ljava/lang/Object;)Z
+	public static fun toDynamicCastToType (Lkorlibs/template/dynamic/KorteDynamicContext;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public static fun toDynamicDouble (Lkorlibs/template/dynamic/KorteDynamicContext;Ljava/lang/Object;)D
+	public static fun toDynamicInt (Lkorlibs/template/dynamic/KorteDynamicContext;Ljava/lang/Object;)I
+	public static fun toDynamicList (Lkorlibs/template/dynamic/KorteDynamicContext;Ljava/lang/Object;)Ljava/util/List;
+	public static fun toDynamicLong (Lkorlibs/template/dynamic/KorteDynamicContext;Ljava/lang/Object;)J
+	public static fun toDynamicNumber (Lkorlibs/template/dynamic/KorteDynamicContext;Ljava/lang/Object;)Ljava/lang/Number;
+	public static fun toDynamicString (Lkorlibs/template/dynamic/KorteDynamicContext;Ljava/lang/Object;)Ljava/lang/String;
+}
+
+public final class korlibs/template/dynamic/KorteDynamicShape : korlibs/template/dynamic/KorteDynamicShapeRegister {
+	public fun <init> ()V
+	public final fun callMethod (Ljava/lang/Object;Ljava/lang/Object;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getProp (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun hasMethod (Ljava/lang/String;)Z
+	public final fun hasProp (Ljava/lang/String;)Z
+	public fun register (Ljava/lang/String;Lkotlin/jvm/functions/Function3;)Lkorlibs/template/dynamic/KorteDynamicShapeRegister;
+	public fun register (Lkotlin/reflect/KCallable;)Lkorlibs/template/dynamic/KorteDynamicShape;
+	public synthetic fun register (Lkotlin/reflect/KCallable;)Lkorlibs/template/dynamic/KorteDynamicShapeRegister;
+	public fun register (Lkotlin/reflect/KProperty;)Lkorlibs/template/dynamic/KorteDynamicShape;
+	public synthetic fun register (Lkotlin/reflect/KProperty;)Lkorlibs/template/dynamic/KorteDynamicShapeRegister;
+	public fun register ([Lkotlin/reflect/KCallable;Lkotlin/Unit;)Lkorlibs/template/dynamic/KorteDynamicShapeRegister;
+	public fun register ([Lkotlin/reflect/KProperty;)Lkorlibs/template/dynamic/KorteDynamicShapeRegister;
+	public final fun setProp (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V
+}
+
+public abstract interface class korlibs/template/dynamic/KorteDynamicShapeRegister {
+	public abstract fun register (Ljava/lang/String;Lkotlin/jvm/functions/Function3;)Lkorlibs/template/dynamic/KorteDynamicShapeRegister;
+	public abstract fun register (Lkotlin/reflect/KCallable;)Lkorlibs/template/dynamic/KorteDynamicShapeRegister;
+	public abstract fun register (Lkotlin/reflect/KProperty;)Lkorlibs/template/dynamic/KorteDynamicShapeRegister;
+	public fun register ([Lkotlin/reflect/KCallable;Lkotlin/Unit;)Lkorlibs/template/dynamic/KorteDynamicShapeRegister;
+	public fun register ([Lkotlin/reflect/KProperty;)Lkorlibs/template/dynamic/KorteDynamicShapeRegister;
+	public static synthetic fun register$default (Lkorlibs/template/dynamic/KorteDynamicShapeRegister;[Lkotlin/reflect/KCallable;Lkotlin/Unit;ILjava/lang/Object;)Lkorlibs/template/dynamic/KorteDynamicShapeRegister;
+}
+
+public final class korlibs/template/dynamic/KorteDynamicShapeRegister$DefaultImpls {
+	public static fun register (Lkorlibs/template/dynamic/KorteDynamicShapeRegister;[Lkotlin/reflect/KCallable;Lkotlin/Unit;)Lkorlibs/template/dynamic/KorteDynamicShapeRegister;
+	public static fun register (Lkorlibs/template/dynamic/KorteDynamicShapeRegister;[Lkotlin/reflect/KProperty;)Lkorlibs/template/dynamic/KorteDynamicShapeRegister;
+	public static synthetic fun register$default (Lkorlibs/template/dynamic/KorteDynamicShapeRegister;[Lkotlin/reflect/KCallable;Lkotlin/Unit;ILjava/lang/Object;)Lkorlibs/template/dynamic/KorteDynamicShapeRegister;
+}
+
+public abstract interface class korlibs/template/dynamic/KorteDynamicType {
+	public abstract fun get__dynamicShape (Lkorlibs/template/dynamic/KorteDynamicTypeScope;)Lkorlibs/template/dynamic/KorteDynamicShape;
+}
+
+public final class korlibs/template/dynamic/KorteDynamicTypeScope {
+	public static final field INSTANCE Lkorlibs/template/dynamic/KorteDynamicTypeScope;
+}
+
+public abstract interface class korlibs/template/dynamic/KorteObjectMapper2 {
+	public fun accessAny (Ljava/lang/Object;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun accessAnyObject (Ljava/lang/Object;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun get (Ljava/lang/Object;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getDynamicShape (Lkorlibs/template/dynamic/KorteDynamicType;)Lkorlibs/template/dynamic/KorteDynamicShape;
+	public fun hasMethod (Ljava/lang/Object;Ljava/lang/String;)Z
+	public fun hasProperty (Ljava/lang/Object;Ljava/lang/String;)Z
+	public fun invokeAsync (Lkotlin/reflect/KClass;Ljava/lang/Object;Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun set (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/template/dynamic/KorteObjectMapper2$DefaultImpls {
+	public static fun accessAny (Lkorlibs/template/dynamic/KorteObjectMapper2;Ljava/lang/Object;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun accessAnyObject (Lkorlibs/template/dynamic/KorteObjectMapper2;Ljava/lang/Object;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun get (Lkorlibs/template/dynamic/KorteObjectMapper2;Ljava/lang/Object;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getDynamicShape (Lkorlibs/template/dynamic/KorteObjectMapper2;Lkorlibs/template/dynamic/KorteDynamicType;)Lkorlibs/template/dynamic/KorteDynamicShape;
+	public static fun hasMethod (Lkorlibs/template/dynamic/KorteObjectMapper2;Ljava/lang/Object;Ljava/lang/String;)Z
+	public static fun hasProperty (Lkorlibs/template/dynamic/KorteObjectMapper2;Ljava/lang/Object;Ljava/lang/String;)Z
+	public static fun invokeAsync (Lkorlibs/template/dynamic/KorteObjectMapper2;Lkotlin/reflect/KClass;Ljava/lang/Object;Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun set (Lkorlibs/template/dynamic/KorteObjectMapper2;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/template/dynamic/_Template_dynamic_commonKt {
+	public static final fun KorteDynamicType (Lkotlin/jvm/functions/Function1;)Lkorlibs/template/dynamic/KorteDynamicType;
+}
+
+public final class korlibs/template/dynamic/_Template_dynamic_jvmKt {
+	public static final fun getKorteMapper2 ()Lkorlibs/template/dynamic/KorteObjectMapper2;
+	public static final fun invokeSuspend (Ljava/lang/reflect/Method;Ljava/lang/Object;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/template/util/KorteAsyncTextWriterContainer {
+	public abstract fun write (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/template/util/KorteDeferred {
+	public static final field Companion Lkorlibs/template/util/KorteDeferred$Companion;
+	public fun <init> ()V
+	public final fun await (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun complete (Ljava/lang/Object;)V
+	public final fun completeExceptionally (Ljava/lang/Throwable;)V
+	public final fun completeWith (Ljava/lang/Object;)V
+	public final fun toContinuation (Lkotlin/coroutines/CoroutineContext;)Lkotlin/coroutines/Continuation;
+}
+
+public final class korlibs/template/util/KorteDeferred$Companion {
+	public final fun asyncImmediately (Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;)Lkorlibs/template/util/KorteDeferred;
+}
+
+public final class korlibs/template/util/KorteListReader {
+	public fun <init> (Ljava/util/List;Ljava/lang/Object;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/lang/Object;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getCtx ()Ljava/lang/Object;
+	public final fun getEof ()Z
+	public final fun getHasMore ()Z
+	public final fun getList ()Ljava/util/List;
+	public final fun getPosition ()I
+	public final fun getSize ()I
+	public final fun peek ()Ljava/lang/Object;
+	public final fun peekOrNull ()Ljava/lang/Object;
+	public final fun prev ()Ljava/lang/Object;
+	public final fun prevOrContext ()Ljava/lang/Object;
+	public final fun read ()Ljava/lang/Object;
+	public final fun setPosition (I)V
+	public final fun skip (I)Lkorlibs/template/util/KorteListReader;
+	public static synthetic fun skip$default (Lkorlibs/template/util/KorteListReader;IILjava/lang/Object;)Lkorlibs/template/util/KorteListReader;
+	public fun toString ()Ljava/lang/String;
+	public final fun tryPeek (I)Ljava/lang/Object;
+	public final fun tryPrev ()Ljava/lang/Object;
+	public final fun tryRead ()Ljava/lang/Object;
+}
+
+public final class korlibs/template/util/KorteListReader$OutOfBoundsException : java/lang/RuntimeException {
+	public fun <init> (Lkorlibs/template/util/KorteListReader;I)V
+	public final fun getList ()Lkorlibs/template/util/KorteListReader;
+	public final fun getPos ()I
+}
+

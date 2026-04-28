@@ -1,0 +1,288 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: native => [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-datastructure-core>
+open annotation class korlibs.io.resources/ResourcePath : kotlin/Annotation { // korlibs.io.resources/ResourcePath|null[0]
+    constructor <init>() // korlibs.io.resources/ResourcePath.<init>|<init>(){}[0]
+}
+
+abstract interface <#A: kotlin/Any> korlibs.io.resources/Resourceable { // korlibs.io.resources/Resourceable|null[0]
+    abstract fun getOrNull(): #A? // korlibs.io.resources/Resourceable.getOrNull|getOrNull(){}[0]
+    abstract suspend fun get(): #A // korlibs.io.resources/Resourceable.get|get(){}[0]
+
+    final class <#A1: kotlin/Any> Fixed : korlibs.io.resources/Resourceable<#A1> { // korlibs.io.resources/Resourceable.Fixed|null[0]
+        constructor <init>(#A1) // korlibs.io.resources/Resourceable.Fixed.<init>|<init>(1:0){}[0]
+
+        final val value // korlibs.io.resources/Resourceable.Fixed.value|{}value[0]
+            final fun <get-value>(): #A1 // korlibs.io.resources/Resourceable.Fixed.value.<get-value>|<get-value>(){}[0]
+
+        final fun component1(): #A1 // korlibs.io.resources/Resourceable.Fixed.component1|component1(){}[0]
+        final fun copy(#A1 = ...): korlibs.io.resources/Resourceable.Fixed<#A1> // korlibs.io.resources/Resourceable.Fixed.copy|copy(1:0){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.resources/Resourceable.Fixed.equals|equals(kotlin.Any?){}[0]
+        final fun getOrNull(): #A1 // korlibs.io.resources/Resourceable.Fixed.getOrNull|getOrNull(){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.io.resources/Resourceable.Fixed.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.io.resources/Resourceable.Fixed.toString|toString(){}[0]
+        final suspend fun get(): #A1 // korlibs.io.resources/Resourceable.Fixed.get|get(){}[0]
+    }
+}
+
+abstract interface <#A: kotlin/Any?> korlibs.datastructure/MutableListEx : kotlin.collections/MutableList<#A> { // korlibs.datastructure/MutableListEx|null[0]
+    abstract fun removeRange(kotlin/Int, kotlin/Int) // korlibs.datastructure/MutableListEx.removeRange|removeRange(kotlin.Int;kotlin.Int){}[0]
+    open fun addAll(korlibs.datastructure/FastArrayList<#A>): kotlin/Boolean // korlibs.datastructure/MutableListEx.addAll|addAll(korlibs.datastructure.FastArrayList<1:0>){}[0]
+    open fun addAll(korlibs.datastructure/FastArrayList<#A>, kotlin/Int = ..., kotlin/Int = ...) // korlibs.datastructure/MutableListEx.addAll|addAll(korlibs.datastructure.FastArrayList<1:0>;kotlin.Int;kotlin.Int){}[0]
+    open fun removeToSize(kotlin/Int) // korlibs.datastructure/MutableListEx.removeToSize|removeToSize(kotlin.Int){}[0]
+    open fun setAddAll(kotlin/Int, korlibs.datastructure/FastArrayList<#A>, kotlin/Int = ..., kotlin/Int = ...) // korlibs.datastructure/MutableListEx.setAddAll|setAddAll(kotlin.Int;korlibs.datastructure.FastArrayList<1:0>;kotlin.Int;kotlin.Int){}[0]
+    open fun setAll(kotlin/Int, korlibs.datastructure/FastArrayList<#A>, kotlin/Int = ..., kotlin/Int = ...) // korlibs.datastructure/MutableListEx.setAll|setAll(kotlin.Int;korlibs.datastructure.FastArrayList<1:0>;kotlin.Int;kotlin.Int){}[0]
+}
+
+abstract interface korlibs.datastructure/DoubleList : kotlin.collections/Collection<kotlin/Double> { // korlibs.datastructure/DoubleList|null[0]
+    abstract fun clone(): korlibs.datastructure/DoubleList // korlibs.datastructure/DoubleList.clone|clone(){}[0]
+    abstract fun get(kotlin/Int): kotlin/Double // korlibs.datastructure/DoubleList.get|get(kotlin.Int){}[0]
+    open fun contains(kotlin/Double): kotlin/Boolean // korlibs.datastructure/DoubleList.contains|contains(kotlin.Double){}[0]
+    open fun containsAll(kotlin.collections/Collection<kotlin/Double>): kotlin/Boolean // korlibs.datastructure/DoubleList.containsAll|containsAll(kotlin.collections.Collection<kotlin.Double>){}[0]
+    open fun getAt(kotlin/Int): kotlin/Double // korlibs.datastructure/DoubleList.getAt|getAt(kotlin.Int){}[0]
+    open fun indexOf(kotlin/Double): kotlin/Int // korlibs.datastructure/DoubleList.indexOf|indexOf(kotlin.Double){}[0]
+    open fun indexOf(kotlin/Double, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.datastructure/DoubleList.indexOf|indexOf(kotlin.Double;kotlin.Int;kotlin.Int){}[0]
+    open fun isAlmostEquals(korlibs.datastructure/DoubleList, kotlin/Double): kotlin/Boolean // korlibs.datastructure/DoubleList.isAlmostEquals|isAlmostEquals(korlibs.datastructure.DoubleList;kotlin.Double){}[0]
+    open fun isEmpty(): kotlin/Boolean // korlibs.datastructure/DoubleList.isEmpty|isEmpty(){}[0]
+    open fun iterator(): kotlin.collections/Iterator<kotlin/Double> // korlibs.datastructure/DoubleList.iterator|iterator(){}[0]
+    open fun lastIndexOf(kotlin/Double): kotlin/Int // korlibs.datastructure/DoubleList.lastIndexOf|lastIndexOf(kotlin.Double){}[0]
+    open fun lastIndexOf(kotlin/Double, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.datastructure/DoubleList.lastIndexOf|lastIndexOf(kotlin.Double;kotlin.Int;kotlin.Int){}[0]
+    open fun listIterator(): kotlin.collections/ListIterator<kotlin/Double> // korlibs.datastructure/DoubleList.listIterator|listIterator(){}[0]
+    open fun listIterator(kotlin/Int): kotlin.collections/ListIterator<kotlin/Double> // korlibs.datastructure/DoubleList.listIterator|listIterator(kotlin.Int){}[0]
+    open fun subList(kotlin/Int, kotlin/Int): kotlin.collections/List<kotlin/Double> // korlibs.datastructure/DoubleList.subList|subList(kotlin.Int;kotlin.Int){}[0]
+    open fun toDoubleArray(): kotlin/DoubleArray // korlibs.datastructure/DoubleList.toDoubleArray|toDoubleArray(){}[0]
+}
+
+abstract interface korlibs.datastructure/Extra { // korlibs.datastructure/Extra|null[0]
+    abstract var extra // korlibs.datastructure/Extra.extra|{}extra[0]
+        abstract fun <get-extra>(): korlibs.datastructure/ExtraObject? // korlibs.datastructure/Extra.extra.<get-extra>|<get-extra>(){}[0]
+        abstract fun <set-extra>(korlibs.datastructure/ExtraObject?) // korlibs.datastructure/Extra.extra.<set-extra>|<set-extra>(korlibs.datastructure.ExtraObject?){}[0]
+
+    final class <#A1: korlibs.datastructure/Extra, #B1: kotlin/Any?> PropertyThis { // korlibs.datastructure/Extra.PropertyThis|null[0]
+        constructor <init>(kotlin/String? = ..., kotlin/Function1<#A1, #B1>) // korlibs.datastructure/Extra.PropertyThis.<init>|<init>(kotlin.String?;kotlin.Function1<1:0,1:1>){}[0]
+
+        final val defaultGen // korlibs.datastructure/Extra.PropertyThis.defaultGen|{}defaultGen[0]
+            final fun <get-defaultGen>(): kotlin/Function1<#A1, #B1> // korlibs.datastructure/Extra.PropertyThis.defaultGen.<get-defaultGen>|<get-defaultGen>(){}[0]
+        final val name // korlibs.datastructure/Extra.PropertyThis.name|{}name[0]
+            final fun <get-name>(): kotlin/String? // korlibs.datastructure/Extra.PropertyThis.name.<get-name>|<get-name>(){}[0]
+
+        final var transform // korlibs.datastructure/Extra.PropertyThis.transform|{}transform[0]
+            final fun <get-transform>(): kotlin/Function2<#A1, #B1, #B1> // korlibs.datastructure/Extra.PropertyThis.transform.<get-transform>|<get-transform>(){}[0]
+            final fun <set-transform>(kotlin/Function2<#A1, #B1, #B1>) // korlibs.datastructure/Extra.PropertyThis.transform.<set-transform>|<set-transform>(kotlin.Function2<1:0,1:1,1:1>){}[0]
+
+        final inline fun getValue(#A1, kotlin.reflect/KProperty<*>): #B1 // korlibs.datastructure/Extra.PropertyThis.getValue|getValue(1:0;kotlin.reflect.KProperty<*>){}[0]
+        final inline fun setValue(#A1, kotlin.reflect/KProperty<*>, #B1) // korlibs.datastructure/Extra.PropertyThis.setValue|setValue(1:0;kotlin.reflect.KProperty<*>;1:1){}[0]
+        final inline fun setValueUntransformed(#A1, kotlin.reflect/KProperty<*>, #B1) // korlibs.datastructure/Extra.PropertyThis.setValueUntransformed|setValueUntransformed(1:0;kotlin.reflect.KProperty<*>;1:1){}[0]
+        final inline fun withTransform(noinline kotlin/Function2<#A1, #B1, #B1>): korlibs.datastructure/Extra.PropertyThis<#A1, #B1> // korlibs.datastructure/Extra.PropertyThis.withTransform|withTransform(kotlin.Function2<1:0,1:1,1:1>){}[0]
+    }
+
+    final class <#A1: kotlin/Any?> Property { // korlibs.datastructure/Extra.Property|null[0]
+        constructor <init>(kotlin/String? = ..., kotlin/Function0<#A1>) // korlibs.datastructure/Extra.Property.<init>|<init>(kotlin.String?;kotlin.Function0<1:0>){}[0]
+
+        final val defaultGen // korlibs.datastructure/Extra.Property.defaultGen|{}defaultGen[0]
+            final fun <get-defaultGen>(): kotlin/Function0<#A1> // korlibs.datastructure/Extra.Property.defaultGen.<get-defaultGen>|<get-defaultGen>(){}[0]
+        final val name // korlibs.datastructure/Extra.Property.name|{}name[0]
+            final fun <get-name>(): kotlin/String? // korlibs.datastructure/Extra.Property.name.<get-name>|<get-name>(){}[0]
+
+        final inline fun getValue(korlibs.datastructure/Extra, kotlin.reflect/KProperty<*>): #A1 // korlibs.datastructure/Extra.Property.getValue|getValue(korlibs.datastructure.Extra;kotlin.reflect.KProperty<*>){}[0]
+        final inline fun setValue(korlibs.datastructure/Extra, kotlin.reflect/KProperty<*>, #A1) // korlibs.datastructure/Extra.Property.setValue|setValue(korlibs.datastructure.Extra;kotlin.reflect.KProperty<*>;1:0){}[0]
+    }
+
+    open class Mixin : korlibs.datastructure/Extra { // korlibs.datastructure/Extra.Mixin|null[0]
+        constructor <init>(korlibs.datastructure/ExtraObject? = ...) // korlibs.datastructure/Extra.Mixin.<init>|<init>(korlibs.datastructure.ExtraObject?){}[0]
+
+        open var extra // korlibs.datastructure/Extra.Mixin.extra|{}extra[0]
+            open fun <get-extra>(): korlibs.datastructure/ExtraObject? // korlibs.datastructure/Extra.Mixin.extra.<get-extra>|<get-extra>(){}[0]
+            open fun <set-extra>(korlibs.datastructure/ExtraObject?) // korlibs.datastructure/Extra.Mixin.extra.<set-extra>|<set-extra>(korlibs.datastructure.ExtraObject?){}[0]
+    }
+
+    final object Companion { // korlibs.datastructure/Extra.Companion|null[0]
+        final fun invoke(): korlibs.datastructure/Extra.Mixin // korlibs.datastructure/Extra.Companion.invoke|invoke(){}[0]
+    }
+}
+
+abstract interface korlibs.datastructure/FloatList : kotlin.collections/Collection<kotlin/Float> { // korlibs.datastructure/FloatList|null[0]
+    abstract fun clone(): korlibs.datastructure/FloatList // korlibs.datastructure/FloatList.clone|clone(){}[0]
+    abstract fun get(kotlin/Int): kotlin/Float // korlibs.datastructure/FloatList.get|get(kotlin.Int){}[0]
+    open fun contains(kotlin/Float): kotlin/Boolean // korlibs.datastructure/FloatList.contains|contains(kotlin.Float){}[0]
+    open fun containsAll(kotlin.collections/Collection<kotlin/Float>): kotlin/Boolean // korlibs.datastructure/FloatList.containsAll|containsAll(kotlin.collections.Collection<kotlin.Float>){}[0]
+    open fun getAt(kotlin/Int): kotlin/Float // korlibs.datastructure/FloatList.getAt|getAt(kotlin.Int){}[0]
+    open fun indexOf(kotlin/Float): kotlin/Int // korlibs.datastructure/FloatList.indexOf|indexOf(kotlin.Float){}[0]
+    open fun indexOf(kotlin/Float, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.datastructure/FloatList.indexOf|indexOf(kotlin.Float;kotlin.Int;kotlin.Int){}[0]
+    open fun isAlmostEquals(korlibs.datastructure/FloatList, kotlin/Float): kotlin/Boolean // korlibs.datastructure/FloatList.isAlmostEquals|isAlmostEquals(korlibs.datastructure.FloatList;kotlin.Float){}[0]
+    open fun isEmpty(): kotlin/Boolean // korlibs.datastructure/FloatList.isEmpty|isEmpty(){}[0]
+    open fun iterator(): kotlin.collections/Iterator<kotlin/Float> // korlibs.datastructure/FloatList.iterator|iterator(){}[0]
+    open fun lastIndexOf(kotlin/Float): kotlin/Int // korlibs.datastructure/FloatList.lastIndexOf|lastIndexOf(kotlin.Float){}[0]
+    open fun lastIndexOf(kotlin/Float, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.datastructure/FloatList.lastIndexOf|lastIndexOf(kotlin.Float;kotlin.Int;kotlin.Int){}[0]
+    open fun listIterator(): kotlin.collections/ListIterator<kotlin/Float> // korlibs.datastructure/FloatList.listIterator|listIterator(){}[0]
+    open fun listIterator(kotlin/Int): kotlin.collections/ListIterator<kotlin/Float> // korlibs.datastructure/FloatList.listIterator|listIterator(kotlin.Int){}[0]
+    open fun subList(kotlin/Int, kotlin/Int): kotlin.collections/List<kotlin/Float> // korlibs.datastructure/FloatList.subList|subList(kotlin.Int;kotlin.Int){}[0]
+    open fun toFloatArray(): kotlin/FloatArray // korlibs.datastructure/FloatList.toFloatArray|toFloatArray(){}[0]
+}
+
+abstract interface korlibs.datastructure/IntList : kotlin.collections/Collection<kotlin/Int> { // korlibs.datastructure/IntList|null[0]
+    abstract fun clone(): korlibs.datastructure/IntList // korlibs.datastructure/IntList.clone|clone(){}[0]
+    abstract fun get(kotlin/Int): kotlin/Int // korlibs.datastructure/IntList.get|get(kotlin.Int){}[0]
+    open fun contains(kotlin/Int): kotlin/Boolean // korlibs.datastructure/IntList.contains|contains(kotlin.Int){}[0]
+    open fun containsAll(kotlin.collections/Collection<kotlin/Int>): kotlin/Boolean // korlibs.datastructure/IntList.containsAll|containsAll(kotlin.collections.Collection<kotlin.Int>){}[0]
+    open fun getAt(kotlin/Int): kotlin/Int // korlibs.datastructure/IntList.getAt|getAt(kotlin.Int){}[0]
+    open fun indexOf(kotlin/Int): kotlin/Int // korlibs.datastructure/IntList.indexOf|indexOf(kotlin.Int){}[0]
+    open fun indexOf(kotlin/Int, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.datastructure/IntList.indexOf|indexOf(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    open fun isEmpty(): kotlin/Boolean // korlibs.datastructure/IntList.isEmpty|isEmpty(){}[0]
+    open fun iterator(): kotlin.collections/Iterator<kotlin/Int> // korlibs.datastructure/IntList.iterator|iterator(){}[0]
+    open fun lastIndexOf(kotlin/Int): kotlin/Int // korlibs.datastructure/IntList.lastIndexOf|lastIndexOf(kotlin.Int){}[0]
+    open fun lastIndexOf(kotlin/Int, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.datastructure/IntList.lastIndexOf|lastIndexOf(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    open fun listIterator(): kotlin.collections/ListIterator<kotlin/Int> // korlibs.datastructure/IntList.listIterator|listIterator(){}[0]
+    open fun listIterator(kotlin/Int): kotlin.collections/ListIterator<kotlin/Int> // korlibs.datastructure/IntList.listIterator|listIterator(kotlin.Int){}[0]
+    open fun subList(kotlin/Int, kotlin/Int): kotlin.collections/List<kotlin/Int> // korlibs.datastructure/IntList.subList|subList(kotlin.Int;kotlin.Int){}[0]
+    open fun toIntArray(): kotlin/IntArray // korlibs.datastructure/IntList.toIntArray|toIntArray(){}[0]
+}
+
+final class korlibs.datastructure/ExtraObject : kotlin.collections/MutableMap<kotlin/String, kotlin/Any?> { // korlibs.datastructure/ExtraObject|null[0]
+    constructor <init>() // korlibs.datastructure/ExtraObject.<init>|<init>(){}[0]
+
+    final val entries // korlibs.datastructure/ExtraObject.entries|{}entries[0]
+        final fun <get-entries>(): kotlin.collections/MutableSet<kotlin.collections/MutableMap.MutableEntry<kotlin/String, kotlin/Any?>> // korlibs.datastructure/ExtraObject.entries.<get-entries>|<get-entries>(){}[0]
+    final val keys // korlibs.datastructure/ExtraObject.keys|{}keys[0]
+        final fun <get-keys>(): kotlin.collections/MutableSet<kotlin/String> // korlibs.datastructure/ExtraObject.keys.<get-keys>|<get-keys>(){}[0]
+    final val size // korlibs.datastructure/ExtraObject.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // korlibs.datastructure/ExtraObject.size.<get-size>|<get-size>(){}[0]
+    final val values // korlibs.datastructure/ExtraObject.values|{}values[0]
+        final fun <get-values>(): kotlin.collections/MutableCollection<kotlin/Any?> // korlibs.datastructure/ExtraObject.values.<get-values>|<get-values>(){}[0]
+
+    final fun clear() // korlibs.datastructure/ExtraObject.clear|clear(){}[0]
+    final fun contains(kotlin/String): kotlin/Boolean // korlibs.datastructure/ExtraObject.contains|contains(kotlin.String){}[0]
+    final fun containsKey(kotlin/String): kotlin/Boolean // korlibs.datastructure/ExtraObject.containsKey|containsKey(kotlin.String){}[0]
+    final fun containsValue(kotlin/Any?): kotlin/Boolean // korlibs.datastructure/ExtraObject.containsValue|containsValue(kotlin.Any?){}[0]
+    final fun get(kotlin/String): kotlin/Any? // korlibs.datastructure/ExtraObject.get|get(kotlin.String){}[0]
+    final fun isEmpty(): kotlin/Boolean // korlibs.datastructure/ExtraObject.isEmpty|isEmpty(){}[0]
+    final fun put(kotlin/String, kotlin/Any?): kotlin/Any? // korlibs.datastructure/ExtraObject.put|put(kotlin.String;kotlin.Any?){}[0]
+    final fun putAll(kotlin.collections/Map<out kotlin/String, kotlin/Any?>) // korlibs.datastructure/ExtraObject.putAll|putAll(kotlin.collections.Map<out|kotlin.String,kotlin.Any?>){}[0]
+    final fun remove(kotlin/String): kotlin/Any? // korlibs.datastructure/ExtraObject.remove|remove(kotlin.String){}[0]
+    final fun set(kotlin/String, kotlin/Any?) // korlibs.datastructure/ExtraObject.set|set(kotlin.String;kotlin.Any?){}[0]
+}
+
+open class <#A: kotlin/Any?> korlibs.datastructure/FastArrayList : korlibs.datastructure/MutableListEx<#A>, kotlin.collections/AbstractMutableList<#A>, kotlin.collections/RandomAccess { // korlibs.datastructure/FastArrayList|null[0]
+    constructor <init>() // korlibs.datastructure/FastArrayList.<init>|<init>(){}[0]
+    constructor <init>(kotlin.collections/Collection<#A>) // korlibs.datastructure/FastArrayList.<init>|<init>(kotlin.collections.Collection<1:0>){}[0]
+    constructor <init>(kotlin/Int) // korlibs.datastructure/FastArrayList.<init>|<init>(kotlin.Int){}[0]
+
+    open val size // korlibs.datastructure/FastArrayList.size|{}size[0]
+        open fun <get-size>(): kotlin/Int // korlibs.datastructure/FastArrayList.size.<get-size>|<get-size>(){}[0]
+
+    final fun ensureCapacity(kotlin/Int) // korlibs.datastructure/FastArrayList.ensureCapacity|ensureCapacity(kotlin.Int){}[0]
+    final fun trimToSize() // korlibs.datastructure/FastArrayList.trimToSize|trimToSize(){}[0]
+    final inline fun fastForEach(kotlin/Function1<#A, kotlin/Unit>) // korlibs.datastructure/FastArrayList.fastForEach|fastForEach(kotlin.Function1<1:0,kotlin.Unit>){}[0]
+    final inline fun fastForEachReverse(kotlin/Function1<#A, kotlin/Unit>) // korlibs.datastructure/FastArrayList.fastForEachReverse|fastForEachReverse(kotlin.Function1<1:0,kotlin.Unit>){}[0]
+    final inline fun fastForEachReverseWithIndex(kotlin/Function2<kotlin/Int, #A, kotlin/Unit>) // korlibs.datastructure/FastArrayList.fastForEachReverseWithIndex|fastForEachReverseWithIndex(kotlin.Function2<kotlin.Int,1:0,kotlin.Unit>){}[0]
+    final inline fun fastForEachWithIndex(kotlin/Function2<kotlin/Int, #A, kotlin/Unit>) // korlibs.datastructure/FastArrayList.fastForEachWithIndex|fastForEachWithIndex(kotlin.Function2<kotlin.Int,1:0,kotlin.Unit>){}[0]
+    open fun add(#A): kotlin/Boolean // korlibs.datastructure/FastArrayList.add|add(1:0){}[0]
+    open fun add(kotlin/Int, #A) // korlibs.datastructure/FastArrayList.add|add(kotlin.Int;1:0){}[0]
+    open fun addAll(kotlin.collections/Collection<#A>): kotlin/Boolean // korlibs.datastructure/FastArrayList.addAll|addAll(kotlin.collections.Collection<1:0>){}[0]
+    open fun addAll(kotlin/Int, kotlin.collections/Collection<#A>): kotlin/Boolean // korlibs.datastructure/FastArrayList.addAll|addAll(kotlin.Int;kotlin.collections.Collection<1:0>){}[0]
+    open fun clear() // korlibs.datastructure/FastArrayList.clear|clear(){}[0]
+    open fun get(kotlin/Int): #A // korlibs.datastructure/FastArrayList.get|get(kotlin.Int){}[0]
+    open fun indexOf(#A): kotlin/Int // korlibs.datastructure/FastArrayList.indexOf|indexOf(1:0){}[0]
+    open fun lastIndexOf(#A): kotlin/Int // korlibs.datastructure/FastArrayList.lastIndexOf|lastIndexOf(1:0){}[0]
+    open fun remove(#A): kotlin/Boolean // korlibs.datastructure/FastArrayList.remove|remove(1:0){}[0]
+    open fun removeAt(kotlin/Int): #A // korlibs.datastructure/FastArrayList.removeAt|removeAt(kotlin.Int){}[0]
+    open fun removeRange(kotlin/Int, kotlin/Int) // korlibs.datastructure/FastArrayList.removeRange|removeRange(kotlin.Int;kotlin.Int){}[0]
+    open fun set(kotlin/Int, #A): #A // korlibs.datastructure/FastArrayList.set|set(kotlin.Int;1:0){}[0]
+    open fun toString(): kotlin/String // korlibs.datastructure/FastArrayList.toString|toString(){}[0]
+
+    // Targets: [native, wasmJs]
+    final var _size // korlibs.datastructure/FastArrayList._size|{}_size[0]
+        final fun <get-_size>(): kotlin/Int // korlibs.datastructure/FastArrayList._size.<get-_size>|<get-_size>(){}[0]
+        final fun <set-_size>(kotlin/Int) // korlibs.datastructure/FastArrayList._size.<set-_size>|<set-_size>(kotlin.Int){}[0]
+
+    // Targets: [native, wasmJs]
+    final var array // korlibs.datastructure/FastArrayList.array|{}array[0]
+        final fun <get-array>(): kotlin/Array<kotlin/Any?> // korlibs.datastructure/FastArrayList.array.<get-array>|<get-array>(){}[0]
+        final fun <set-array>(kotlin/Array<kotlin/Any?>) // korlibs.datastructure/FastArrayList.array.<set-array>|<set-array>(kotlin.Array<kotlin.Any?>){}[0]
+
+    // Targets: [native, wasmJs]
+    final var arrayCapacity // korlibs.datastructure/FastArrayList.arrayCapacity|{}arrayCapacity[0]
+        final fun <get-arrayCapacity>(): kotlin/Int // korlibs.datastructure/FastArrayList.arrayCapacity.<get-arrayCapacity>|<get-arrayCapacity>(){}[0]
+        final fun <set-arrayCapacity>(kotlin/Int) // korlibs.datastructure/FastArrayList.arrayCapacity.<set-arrayCapacity>|<set-arrayCapacity>(kotlin.Int){}[0]
+
+    // Targets: [native, wasmJs]
+    open fun addAll(korlibs.datastructure/FastArrayList<#A>, kotlin/Int, kotlin/Int) // korlibs.datastructure/FastArrayList.addAll|addAll(korlibs.datastructure.FastArrayList<1:0>;kotlin.Int;kotlin.Int){}[0]
+
+    // Targets: [native, wasmJs]
+    open fun contains(#A): kotlin/Boolean // korlibs.datastructure/FastArrayList.contains|contains(1:0){}[0]
+
+    // Targets: [native, wasmJs]
+    open fun setAll(kotlin/Int, korlibs.datastructure/FastArrayList<#A>, kotlin/Int, kotlin/Int) // korlibs.datastructure/FastArrayList.setAll|setAll(kotlin.Int;korlibs.datastructure.FastArrayList<1:0>;kotlin.Int;kotlin.Int){}[0]
+
+    // Targets: [js]
+    final val __array // korlibs.datastructure/FastArrayList.__array|{}__array[0]
+        final fun <get-__array>(): kotlin/Array<#A> // korlibs.datastructure/FastArrayList.__array.<get-__array>|<get-__array>(){}[0]
+
+    // Targets: [js]
+    final val jsArray // korlibs.datastructure/FastArrayList.jsArray|{}jsArray[0]
+        final inline fun <get-jsArray>(): korlibs.datastructure/JsArray<#A> // korlibs.datastructure/FastArrayList.jsArray.<get-jsArray>|<get-jsArray>(){}[0]
+
+    // Targets: [js]
+    open fun addAll(korlibs.datastructure/FastArrayList<#A>): kotlin/Boolean // korlibs.datastructure/FastArrayList.addAll|addAll(korlibs.datastructure.FastArrayList<1:0>){}[0]
+
+    // Targets: [js]
+    open fun toArray(): kotlin/Array<kotlin/Any?> // korlibs.datastructure/FastArrayList.toArray|toArray(){}[0]
+}
+
+final fun (korlibs.datastructure/Extra).korlibs.datastructure/getExtra(kotlin/String): kotlin/Any? // korlibs.datastructure/getExtra|getExtra@korlibs.datastructure.Extra(kotlin.String){}[0]
+final fun (korlibs.datastructure/Extra).korlibs.datastructure/hasExtra(kotlin/String): kotlin/Boolean // korlibs.datastructure/hasExtra|hasExtra@korlibs.datastructure.Extra(kotlin.String){}[0]
+final fun (korlibs.datastructure/Extra).korlibs.datastructure/setExtra(kotlin/String, kotlin/Any?) // korlibs.datastructure/setExtra|setExtra@korlibs.datastructure.Extra(kotlin.String;kotlin.Any?){}[0]
+final fun (kotlin/DoubleArray).korlibs.datastructure/toImmutableDoubleList(): korlibs.datastructure/DoubleList // korlibs.datastructure/toImmutableDoubleList|toImmutableDoubleList@kotlin.DoubleArray(){}[0]
+final fun (kotlin/FloatArray).korlibs.datastructure/toImmutableFloatList(): korlibs.datastructure/FloatList // korlibs.datastructure/toImmutableFloatList|toImmutableFloatList@kotlin.FloatArray(){}[0]
+final fun (kotlin/IntArray).korlibs.datastructure/toImmutableIntList(): korlibs.datastructure/IntList // korlibs.datastructure/toImmutableIntList|toImmutableIntList@kotlin.IntArray(){}[0]
+final fun <#A: kotlin/Any> korlibs.io.resources/Resourceable(#A): korlibs.io.resources/Resourceable.Fixed<#A> // korlibs.io.resources/Resourceable|Resourceable(0:0){0§<kotlin.Any>}[0]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/Extra).korlibs.datastructure/extraCache(kotlin/String, kotlin/Function0<#A>): #A // korlibs.datastructure/extraCache|extraCache@korlibs.datastructure.Extra(kotlin.String;kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/Extra).korlibs.datastructure/getExtraTyped(kotlin/String): #A? // korlibs.datastructure/getExtraTyped|getExtraTyped@korlibs.datastructure.Extra(kotlin.String){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/FastArrayList<#A>).korlibs.datastructure/toFastList(korlibs.datastructure/FastArrayList<#A> = ...): korlibs.datastructure/FastArrayList<#A> // korlibs.datastructure/toFastList|toFastList@korlibs.datastructure.FastArrayList<0:0>(korlibs.datastructure.FastArrayList<0:0>){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (kotlin.collections/List<#A>).korlibs.datastructure/ensureFastList(): korlibs.datastructure/FastArrayList<#A> // korlibs.datastructure/ensureFastList|ensureFastList@kotlin.collections.List<0:0>(){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (kotlin.collections/List<#A>).korlibs.datastructure/toFastList(): kotlin.collections/List<#A> // korlibs.datastructure/toFastList|toFastList@kotlin.collections.List<0:0>(){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (kotlin.collections/List<#A>).korlibs.datastructure/toFastList(korlibs.datastructure/FastArrayList<#A> = ...): korlibs.datastructure/FastArrayList<#A> // korlibs.datastructure/toFastList|toFastList@kotlin.collections.List<0:0>(korlibs.datastructure.FastArrayList<0:0>){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (kotlin/Array<#A>).korlibs.datastructure/toFastList(): kotlin.collections/List<#A> // korlibs.datastructure/toFastList|toFastList@kotlin.Array<0:0>(){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> korlibs.datastructure/SimpleListIterator(kotlin/Int, kotlin/Int, kotlin/Function1<kotlin/Int, #A>): kotlin.collections/ListIterator<#A> // korlibs.datastructure/SimpleListIterator|SimpleListIterator(kotlin.Int;kotlin.Int;kotlin.Function1<kotlin.Int,0:0>){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> korlibs.datastructure/SimpleSubList(kotlin/Int, kotlin/Int, kotlin/Function1<kotlin/Int, #A>): kotlin.collections/List<#A> // korlibs.datastructure/SimpleSubList|SimpleSubList(kotlin.Int;kotlin.Int;kotlin.Function1<kotlin.Int,0:0>){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> korlibs.datastructure/fastArrayListOf(kotlin/Array<out #A>...): korlibs.datastructure/FastArrayList<#A> // korlibs.datastructure/fastArrayListOf|fastArrayListOf(kotlin.Array<out|0:0>...){0§<kotlin.Any?>}[0]
+final fun korlibs.datastructure/ExtraTypeCreate(): korlibs.datastructure/ExtraObject // korlibs.datastructure/ExtraTypeCreate|ExtraTypeCreate(){}[0]
+final inline fun <#A: korlibs.datastructure/Extra, #B: kotlin/Any?> korlibs.datastructure/extraPropertyThis(kotlin/String? = ..., noinline kotlin/Function2<#A, #B, #B> = ..., noinline kotlin/Function1<#A, #B>): korlibs.datastructure/Extra.PropertyThis<#A, #B> // korlibs.datastructure/extraPropertyThis|extraPropertyThis(kotlin.String?;kotlin.Function2<0:0,0:1,0:1>;kotlin.Function1<0:0,0:1>){0§<korlibs.datastructure.Extra>;1§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> korlibs.datastructure/buildFastList(kotlin/Function1<korlibs.datastructure/FastArrayList<#A>, kotlin/Unit>): korlibs.datastructure/FastArrayList<#A> // korlibs.datastructure/buildFastList|buildFastList(kotlin.Function1<korlibs.datastructure.FastArrayList<0:0>,kotlin.Unit>){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> korlibs.datastructure/extraProperty(kotlin/String? = ..., noinline kotlin/Function0<#A>): korlibs.datastructure/Extra.Property<#A> // korlibs.datastructure/extraProperty|extraProperty(kotlin.String?;kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+final class <#A: kotlin/Any?> korlibs.datastructure/JsArray { // korlibs.datastructure/JsArray|null[0]
+    constructor <init>() // korlibs.datastructure/JsArray.<init>|<init>(){}[0]
+
+    final var length // korlibs.datastructure/JsArray.length|{}length[0]
+        final fun <get-length>(): kotlin/Int // korlibs.datastructure/JsArray.length.<get-length>|<get-length>(){}[0]
+        final fun <set-length>(kotlin/Int) // korlibs.datastructure/JsArray.length.<set-length>|<set-length>(kotlin.Int){}[0]
+
+    final fun concat(kotlin/Array<out korlibs.datastructure/JsArray<#A>>...): korlibs.datastructure/JsArray<#A> // korlibs.datastructure/JsArray.concat|concat(kotlin.Array<out|korlibs.datastructure.JsArray<1:0>>...){}[0]
+    final fun indexOf(#A): kotlin/Int // korlibs.datastructure/JsArray.indexOf|indexOf(1:0){}[0]
+    final fun lastIndexOf(#A): kotlin/Int // korlibs.datastructure/JsArray.lastIndexOf|lastIndexOf(1:0){}[0]
+    final fun pop(): #A // korlibs.datastructure/JsArray.pop|pop(){}[0]
+    final fun push(kotlin/Array<out #A>...) // korlibs.datastructure/JsArray.push|push(kotlin.Array<out|1:0>...){}[0]
+    final fun shift(): #A // korlibs.datastructure/JsArray.shift|shift(){}[0]
+    final fun splice(kotlin/Int, kotlin/Int, kotlin/Array<out #A>...): korlibs.datastructure/JsArray<#A> // korlibs.datastructure/JsArray.splice|splice(kotlin.Int;kotlin.Int;kotlin.Array<out|1:0>...){}[0]
+
+    final object Companion { // korlibs.datastructure/JsArray.Companion|null[0]
+        final fun from(dynamic): kotlin/Array<dynamic> // korlibs.datastructure/JsArray.Companion.from|from(<dynamic>){}[0]
+    }
+}
+
+// Targets: [js]
+final fun korlibs.datastructure/Array_from(dynamic): kotlin/Array<dynamic> // korlibs.datastructure/Array_from|Array_from(<dynamic>){}[0]
+
+// Targets: [js]
+final inline fun <#A: kotlin/Any?> (korlibs.datastructure/JsArray<#A>).korlibs.datastructure/get(kotlin/Int): #A // korlibs.datastructure/get|get@korlibs.datastructure.JsArray<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+final inline fun <#A: kotlin/Any?> (korlibs.datastructure/JsArray<#A>).korlibs.datastructure/set(kotlin/Int, #A) // korlibs.datastructure/set|set@korlibs.datastructure.JsArray<0:0>(kotlin.Int;0:0){0§<kotlin.Any?>}[0]

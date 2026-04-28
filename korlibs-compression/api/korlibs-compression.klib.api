@@ -1,0 +1,541 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-compression>
+abstract interface korlibs.compression.deflate/IDeflater : korlibs.io.compression/CompressionMethod { // korlibs.compression.deflate/IDeflater|null[0]
+    open val name // korlibs.compression.deflate/IDeflater.name|{}name[0]
+        open fun <get-name>(): kotlin/String // korlibs.compression.deflate/IDeflater.name.<get-name>|<get-name>(){}[0]
+}
+
+abstract interface korlibs.io.compression/CompressionMethod { // korlibs.io.compression/CompressionMethod|null[0]
+    open val level // korlibs.io.compression/CompressionMethod.level|{}level[0]
+        open fun <get-level>(): kotlin/Int // korlibs.io.compression/CompressionMethod.level.<get-level>|<get-level>(){}[0]
+    open val name // korlibs.io.compression/CompressionMethod.name|{}name[0]
+        open fun <get-name>(): kotlin/String // korlibs.io.compression/CompressionMethod.name.<get-name>|<get-name>(){}[0]
+
+    open suspend fun compress(korlibs.io.stream/AsyncInputStream, korlibs.io.stream/AsyncOutputStream, korlibs.io.compression/CompressionContext = ...) // korlibs.io.compression/CompressionMethod.compress|compress(korlibs.io.stream.AsyncInputStream;korlibs.io.stream.AsyncOutputStream;korlibs.io.compression.CompressionContext){}[0]
+    open suspend fun uncompress(korlibs.io.stream/AsyncInputStream, korlibs.io.stream/AsyncOutputStream) // korlibs.io.compression/CompressionMethod.uncompress|uncompress(korlibs.io.stream.AsyncInputStream;korlibs.io.stream.AsyncOutputStream){}[0]
+
+    final object Uncompressed : korlibs.io.compression/CompressionMethod { // korlibs.io.compression/CompressionMethod.Uncompressed|null[0]
+        final val name // korlibs.io.compression/CompressionMethod.Uncompressed.name|{}name[0]
+            final fun <get-name>(): kotlin/String // korlibs.io.compression/CompressionMethod.Uncompressed.name.<get-name>|<get-name>(){}[0]
+
+        final suspend fun compress(korlibs.io.stream/AsyncInputStream, korlibs.io.stream/AsyncOutputStream, korlibs.io.compression/CompressionContext) // korlibs.io.compression/CompressionMethod.Uncompressed.compress|compress(korlibs.io.stream.AsyncInputStream;korlibs.io.stream.AsyncOutputStream;korlibs.io.compression.CompressionContext){}[0]
+        final suspend fun uncompress(korlibs.io.stream/AsyncInputStream, korlibs.io.stream/AsyncOutputStream) // korlibs.io.compression/CompressionMethod.Uncompressed.uncompress|uncompress(korlibs.io.stream.AsyncInputStream;korlibs.io.stream.AsyncOutputStream){}[0]
+    }
+}
+
+final class korlibs.io.compression/CompressionMethodWithConfig : korlibs.datastructure/Extra, korlibs.io.compression/CompressionMethod { // korlibs.io.compression/CompressionMethodWithConfig|null[0]
+    constructor <init>(korlibs.io.compression/CompressionMethod, kotlin/Int) // korlibs.io.compression/CompressionMethodWithConfig.<init>|<init>(korlibs.io.compression.CompressionMethod;kotlin.Int){}[0]
+
+    final val level // korlibs.io.compression/CompressionMethodWithConfig.level|{}level[0]
+        final fun <get-level>(): kotlin/Int // korlibs.io.compression/CompressionMethodWithConfig.level.<get-level>|<get-level>(){}[0]
+    final val method // korlibs.io.compression/CompressionMethodWithConfig.method|{}method[0]
+        final fun <get-method>(): korlibs.io.compression/CompressionMethod // korlibs.io.compression/CompressionMethodWithConfig.method.<get-method>|<get-method>(){}[0]
+    final val name // korlibs.io.compression/CompressionMethodWithConfig.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.io.compression/CompressionMethodWithConfig.name.<get-name>|<get-name>(){}[0]
+
+    final var extra // korlibs.io.compression/CompressionMethodWithConfig.extra|{}extra[0]
+        final fun <get-extra>(): korlibs.datastructure/ExtraObject? // korlibs.io.compression/CompressionMethodWithConfig.extra.<get-extra>|<get-extra>(){}[0]
+        final fun <set-extra>(korlibs.datastructure/ExtraObject?) // korlibs.io.compression/CompressionMethodWithConfig.extra.<set-extra>|<set-extra>(korlibs.datastructure.ExtraObject?){}[0]
+
+    final fun component1(): korlibs.io.compression/CompressionMethod // korlibs.io.compression/CompressionMethodWithConfig.component1|component1(){}[0]
+    final fun component2(): kotlin/Int // korlibs.io.compression/CompressionMethodWithConfig.component2|component2(){}[0]
+    final fun copy(korlibs.io.compression/CompressionMethod = ..., kotlin/Int = ...): korlibs.io.compression/CompressionMethodWithConfig // korlibs.io.compression/CompressionMethodWithConfig.copy|copy(korlibs.io.compression.CompressionMethod;kotlin.Int){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.compression/CompressionMethodWithConfig.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.io.compression/CompressionMethodWithConfig.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.io.compression/CompressionMethodWithConfig.toString|toString(){}[0]
+    final suspend fun compress(korlibs.io.stream/AsyncInputStream, korlibs.io.stream/AsyncOutputStream, korlibs.io.compression/CompressionContext) // korlibs.io.compression/CompressionMethodWithConfig.compress|compress(korlibs.io.stream.AsyncInputStream;korlibs.io.stream.AsyncOutputStream;korlibs.io.compression.CompressionContext){}[0]
+    final suspend fun uncompress(korlibs.io.stream/AsyncInputStream, korlibs.io.stream/AsyncOutputStream) // korlibs.io.compression/CompressionMethodWithConfig.uncompress|uncompress(korlibs.io.stream.AsyncInputStream;korlibs.io.stream.AsyncOutputStream){}[0]
+}
+
+open class korlibs.io.compression.deflate/GZIP : korlibs.io.compression.deflate/GZIPBase { // korlibs.io.compression.deflate/GZIP|null[0]
+    constructor <init>(kotlin/Function0<korlibs.compression.deflate/IDeflater>) // korlibs.io.compression.deflate/GZIP.<init>|<init>(kotlin.Function0<korlibs.compression.deflate.IDeflater>){}[0]
+
+    final object Companion : korlibs.io.compression.deflate/GZIP { // korlibs.io.compression.deflate/GZIP.Companion|null[0]
+        final fun toString(): kotlin/String // korlibs.io.compression.deflate/GZIP.Companion.toString|toString(){}[0]
+    }
+}
+
+open class korlibs.io.compression.deflate/GZIPBase : korlibs.io.compression/CompressionMethod { // korlibs.io.compression.deflate/GZIPBase|null[0]
+    constructor <init>(kotlin/Boolean, kotlin/Function0<korlibs.compression.deflate/IDeflater>) // korlibs.io.compression.deflate/GZIPBase.<init>|<init>(kotlin.Boolean;kotlin.Function0<korlibs.compression.deflate.IDeflater>){}[0]
+
+    final val checkCrc // korlibs.io.compression.deflate/GZIPBase.checkCrc|{}checkCrc[0]
+        final fun <get-checkCrc>(): kotlin/Boolean // korlibs.io.compression.deflate/GZIPBase.checkCrc.<get-checkCrc>|<get-checkCrc>(){}[0]
+    final val deflater // korlibs.io.compression.deflate/GZIPBase.deflater|{}deflater[0]
+        final fun <get-deflater>(): kotlin/Function0<korlibs.compression.deflate/IDeflater> // korlibs.io.compression.deflate/GZIPBase.deflater.<get-deflater>|<get-deflater>(){}[0]
+    open val name // korlibs.io.compression.deflate/GZIPBase.name|{}name[0]
+        open fun <get-name>(): kotlin/String // korlibs.io.compression.deflate/GZIPBase.name.<get-name>|<get-name>(){}[0]
+
+    open fun toString(): kotlin/String // korlibs.io.compression.deflate/GZIPBase.toString|toString(){}[0]
+    open suspend fun compress(korlibs.io.stream/AsyncInputStream, korlibs.io.stream/AsyncOutputStream, korlibs.io.compression/CompressionContext) // korlibs.io.compression.deflate/GZIPBase.compress|compress(korlibs.io.stream.AsyncInputStream;korlibs.io.stream.AsyncOutputStream;korlibs.io.compression.CompressionContext){}[0]
+    open suspend fun uncompress(korlibs.io.stream/AsyncInputStream, korlibs.io.stream/AsyncOutputStream) // korlibs.io.compression.deflate/GZIPBase.uncompress|uncompress(korlibs.io.stream.AsyncInputStream;korlibs.io.stream.AsyncOutputStream){}[0]
+}
+
+open class korlibs.io.compression.deflate/GZIPNoCrc : korlibs.io.compression.deflate/GZIPBase { // korlibs.io.compression.deflate/GZIPNoCrc|null[0]
+    constructor <init>(kotlin/Function0<korlibs.compression.deflate/IDeflater>) // korlibs.io.compression.deflate/GZIPNoCrc.<init>|<init>(kotlin.Function0<korlibs.compression.deflate.IDeflater>){}[0]
+
+    final object Companion : korlibs.io.compression.deflate/GZIPNoCrc { // korlibs.io.compression.deflate/GZIPNoCrc.Companion|null[0]
+        final fun toString(): kotlin/String // korlibs.io.compression.deflate/GZIPNoCrc.Companion.toString|toString(){}[0]
+    }
+}
+
+open class korlibs.io.compression.deflate/ZLib : korlibs.io.compression/CompressionMethod { // korlibs.io.compression.deflate/ZLib|null[0]
+    constructor <init>(kotlin/Function1<kotlin/Int, korlibs.compression.deflate/IDeflater>) // korlibs.io.compression.deflate/ZLib.<init>|<init>(kotlin.Function1<kotlin.Int,korlibs.compression.deflate.IDeflater>){}[0]
+
+    final val deflater // korlibs.io.compression.deflate/ZLib.deflater|{}deflater[0]
+        final fun <get-deflater>(): kotlin/Function1<kotlin/Int, korlibs.compression.deflate/IDeflater> // korlibs.io.compression.deflate/ZLib.deflater.<get-deflater>|<get-deflater>(){}[0]
+    open val name // korlibs.io.compression.deflate/ZLib.name|{}name[0]
+        open fun <get-name>(): kotlin/String // korlibs.io.compression.deflate/ZLib.name.<get-name>|<get-name>(){}[0]
+
+    open suspend fun compress(korlibs.io.stream/AsyncInputStream, korlibs.io.stream/AsyncOutputStream, korlibs.io.compression/CompressionContext) // korlibs.io.compression.deflate/ZLib.compress|compress(korlibs.io.stream.AsyncInputStream;korlibs.io.stream.AsyncOutputStream;korlibs.io.compression.CompressionContext){}[0]
+    open suspend fun uncompress(korlibs.io.stream/AsyncInputStream, korlibs.io.stream/AsyncOutputStream) // korlibs.io.compression.deflate/ZLib.uncompress|uncompress(korlibs.io.stream.AsyncInputStream;korlibs.io.stream.AsyncOutputStream){}[0]
+
+    final object Companion : korlibs.io.compression.deflate/ZLib // korlibs.io.compression.deflate/ZLib.Companion|null[0]
+
+    final object Portable : korlibs.io.compression.deflate/ZLib // korlibs.io.compression.deflate/ZLib.Portable|null[0]
+}
+
+open class korlibs.io.compression.lzo/LZO : korlibs.io.compression/CompressionMethod { // korlibs.io.compression.lzo/LZO|null[0]
+    constructor <init>(korlibs.io.compression.lzo/LZO.HeaderType = ...) // korlibs.io.compression.lzo/LZO.<init>|<init>(korlibs.io.compression.lzo.LZO.HeaderType){}[0]
+
+    final val headerType // korlibs.io.compression.lzo/LZO.headerType|{}headerType[0]
+        final fun <get-headerType>(): korlibs.io.compression.lzo/LZO.HeaderType // korlibs.io.compression.lzo/LZO.headerType.<get-headerType>|<get-headerType>(){}[0]
+    open val name // korlibs.io.compression.lzo/LZO.name|{}name[0]
+        open fun <get-name>(): kotlin/String // korlibs.io.compression.lzo/LZO.name.<get-name>|<get-name>(){}[0]
+
+    open suspend fun compress(korlibs.io.stream/AsyncInputStream, korlibs.io.stream/AsyncOutputStream, korlibs.io.compression/CompressionContext) // korlibs.io.compression.lzo/LZO.compress|compress(korlibs.io.stream.AsyncInputStream;korlibs.io.stream.AsyncOutputStream;korlibs.io.compression.CompressionContext){}[0]
+    open suspend fun uncompress(korlibs.io.stream/AsyncInputStream, korlibs.io.stream/AsyncOutputStream) // korlibs.io.compression.lzo/LZO.uncompress|uncompress(korlibs.io.stream.AsyncInputStream;korlibs.io.stream.AsyncOutputStream){}[0]
+
+    final enum class HeaderType : kotlin/Enum<korlibs.io.compression.lzo/LZO.HeaderType> { // korlibs.io.compression.lzo/LZO.HeaderType|null[0]
+        enum entry LONG // korlibs.io.compression.lzo/LZO.HeaderType.LONG|null[0]
+        enum entry NONE // korlibs.io.compression.lzo/LZO.HeaderType.NONE|null[0]
+        enum entry SHORT // korlibs.io.compression.lzo/LZO.HeaderType.SHORT|null[0]
+
+        final val entries // korlibs.io.compression.lzo/LZO.HeaderType.entries|#static{}entries[0]
+            final fun <get-entries>(): kotlin.enums/EnumEntries<korlibs.io.compression.lzo/LZO.HeaderType> // korlibs.io.compression.lzo/LZO.HeaderType.entries.<get-entries>|<get-entries>#static(){}[0]
+
+        final fun valueOf(kotlin/String): korlibs.io.compression.lzo/LZO.HeaderType // korlibs.io.compression.lzo/LZO.HeaderType.valueOf|valueOf#static(kotlin.String){}[0]
+        final fun values(): kotlin/Array<korlibs.io.compression.lzo/LZO.HeaderType> // korlibs.io.compression.lzo/LZO.HeaderType.values|values#static(){}[0]
+    }
+
+    final class HeaderLong { // korlibs.io.compression.lzo/LZO.HeaderLong|null[0]
+        constructor <init>(kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/String = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ...) // korlibs.io.compression.lzo/LZO.HeaderLong.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.String;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+
+        final var GMTdiff // korlibs.io.compression.lzo/LZO.HeaderLong.GMTdiff|{}GMTdiff[0]
+            final fun <get-GMTdiff>(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.GMTdiff.<get-GMTdiff>|<get-GMTdiff>(){}[0]
+            final fun <set-GMTdiff>(kotlin/Int) // korlibs.io.compression.lzo/LZO.HeaderLong.GMTdiff.<set-GMTdiff>|<set-GMTdiff>(kotlin.Int){}[0]
+        final var checksum // korlibs.io.compression.lzo/LZO.HeaderLong.checksum|{}checksum[0]
+            final fun <get-checksum>(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.checksum.<get-checksum>|<get-checksum>(){}[0]
+            final fun <set-checksum>(kotlin/Int) // korlibs.io.compression.lzo/LZO.HeaderLong.checksum.<set-checksum>|<set-checksum>(kotlin.Int){}[0]
+        final var checksumCompressed // korlibs.io.compression.lzo/LZO.HeaderLong.checksumCompressed|{}checksumCompressed[0]
+            final fun <get-checksumCompressed>(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.checksumCompressed.<get-checksumCompressed>|<get-checksumCompressed>(){}[0]
+            final fun <set-checksumCompressed>(kotlin/Int) // korlibs.io.compression.lzo/LZO.HeaderLong.checksumCompressed.<set-checksumCompressed>|<set-checksumCompressed>(kotlin.Int){}[0]
+        final var checksumUncompressed // korlibs.io.compression.lzo/LZO.HeaderLong.checksumUncompressed|{}checksumUncompressed[0]
+            final fun <get-checksumUncompressed>(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.checksumUncompressed.<get-checksumUncompressed>|<get-checksumUncompressed>(){}[0]
+            final fun <set-checksumUncompressed>(kotlin/Int) // korlibs.io.compression.lzo/LZO.HeaderLong.checksumUncompressed.<set-checksumUncompressed>|<set-checksumUncompressed>(kotlin.Int){}[0]
+        final var compressedSize // korlibs.io.compression.lzo/LZO.HeaderLong.compressedSize|{}compressedSize[0]
+            final fun <get-compressedSize>(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.compressedSize.<get-compressedSize>|<get-compressedSize>(){}[0]
+            final fun <set-compressedSize>(kotlin/Int) // korlibs.io.compression.lzo/LZO.HeaderLong.compressedSize.<set-compressedSize>|<set-compressedSize>(kotlin.Int){}[0]
+        final var filter // korlibs.io.compression.lzo/LZO.HeaderLong.filter|{}filter[0]
+            final fun <get-filter>(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.filter.<get-filter>|<get-filter>(){}[0]
+            final fun <set-filter>(kotlin/Int) // korlibs.io.compression.lzo/LZO.HeaderLong.filter.<set-filter>|<set-filter>(kotlin.Int){}[0]
+        final var flags // korlibs.io.compression.lzo/LZO.HeaderLong.flags|{}flags[0]
+            final fun <get-flags>(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.flags.<get-flags>|<get-flags>(){}[0]
+            final fun <set-flags>(kotlin/Int) // korlibs.io.compression.lzo/LZO.HeaderLong.flags.<set-flags>|<set-flags>(kotlin.Int){}[0]
+        final var level // korlibs.io.compression.lzo/LZO.HeaderLong.level|{}level[0]
+            final fun <get-level>(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.level.<get-level>|<get-level>(){}[0]
+            final fun <set-level>(kotlin/Int) // korlibs.io.compression.lzo/LZO.HeaderLong.level.<set-level>|<set-level>(kotlin.Int){}[0]
+        final var libVersion // korlibs.io.compression.lzo/LZO.HeaderLong.libVersion|{}libVersion[0]
+            final fun <get-libVersion>(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.libVersion.<get-libVersion>|<get-libVersion>(){}[0]
+            final fun <set-libVersion>(kotlin/Int) // korlibs.io.compression.lzo/LZO.HeaderLong.libVersion.<set-libVersion>|<set-libVersion>(kotlin.Int){}[0]
+        final var method // korlibs.io.compression.lzo/LZO.HeaderLong.method|{}method[0]
+            final fun <get-method>(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.method.<get-method>|<get-method>(){}[0]
+            final fun <set-method>(kotlin/Int) // korlibs.io.compression.lzo/LZO.HeaderLong.method.<set-method>|<set-method>(kotlin.Int){}[0]
+        final var mode // korlibs.io.compression.lzo/LZO.HeaderLong.mode|{}mode[0]
+            final fun <get-mode>(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.mode.<get-mode>|<get-mode>(){}[0]
+            final fun <set-mode>(kotlin/Int) // korlibs.io.compression.lzo/LZO.HeaderLong.mode.<set-mode>|<set-mode>(kotlin.Int){}[0]
+        final var mtime // korlibs.io.compression.lzo/LZO.HeaderLong.mtime|{}mtime[0]
+            final fun <get-mtime>(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.mtime.<get-mtime>|<get-mtime>(){}[0]
+            final fun <set-mtime>(kotlin/Int) // korlibs.io.compression.lzo/LZO.HeaderLong.mtime.<set-mtime>|<set-mtime>(kotlin.Int){}[0]
+        final var name // korlibs.io.compression.lzo/LZO.HeaderLong.name|{}name[0]
+            final fun <get-name>(): kotlin/String // korlibs.io.compression.lzo/LZO.HeaderLong.name.<get-name>|<get-name>(){}[0]
+            final fun <set-name>(kotlin/String) // korlibs.io.compression.lzo/LZO.HeaderLong.name.<set-name>|<set-name>(kotlin.String){}[0]
+        final var uncompressedSize // korlibs.io.compression.lzo/LZO.HeaderLong.uncompressedSize|{}uncompressedSize[0]
+            final fun <get-uncompressedSize>(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.uncompressedSize.<get-uncompressedSize>|<get-uncompressedSize>(){}[0]
+            final fun <set-uncompressedSize>(kotlin/Int) // korlibs.io.compression.lzo/LZO.HeaderLong.uncompressedSize.<set-uncompressedSize>|<set-uncompressedSize>(kotlin.Int){}[0]
+        final var version // korlibs.io.compression.lzo/LZO.HeaderLong.version|{}version[0]
+            final fun <get-version>(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.version.<get-version>|<get-version>(){}[0]
+            final fun <set-version>(kotlin/Int) // korlibs.io.compression.lzo/LZO.HeaderLong.version.<set-version>|<set-version>(kotlin.Int){}[0]
+        final var versionNeeded // korlibs.io.compression.lzo/LZO.HeaderLong.versionNeeded|{}versionNeeded[0]
+            final fun <get-versionNeeded>(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.versionNeeded.<get-versionNeeded>|<get-versionNeeded>(){}[0]
+            final fun <set-versionNeeded>(kotlin/Int) // korlibs.io.compression.lzo/LZO.HeaderLong.versionNeeded.<set-versionNeeded>|<set-versionNeeded>(kotlin.Int){}[0]
+
+        final fun component1(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.component1|component1(){}[0]
+        final fun component10(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.component10|component10(){}[0]
+        final fun component11(): kotlin/String // korlibs.io.compression.lzo/LZO.HeaderLong.component11|component11(){}[0]
+        final fun component12(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.component12|component12(){}[0]
+        final fun component13(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.component13|component13(){}[0]
+        final fun component14(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.component14|component14(){}[0]
+        final fun component15(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.component15|component15(){}[0]
+        final fun component16(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.component16|component16(){}[0]
+        final fun component2(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.component2|component2(){}[0]
+        final fun component3(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.component3|component3(){}[0]
+        final fun component4(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.component4|component4(){}[0]
+        final fun component5(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.component5|component5(){}[0]
+        final fun component6(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.component6|component6(){}[0]
+        final fun component7(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.component7|component7(){}[0]
+        final fun component8(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.component8|component8(){}[0]
+        final fun component9(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.component9|component9(){}[0]
+        final fun copy(kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/String = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ...): korlibs.io.compression.lzo/LZO.HeaderLong // korlibs.io.compression.lzo/LZO.HeaderLong.copy|copy(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.String;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.compression.lzo/LZO.HeaderLong.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.io.compression.lzo/LZO.HeaderLong.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.io.compression.lzo/LZO.HeaderLong.toString|toString(){}[0]
+        final suspend fun read(korlibs.io.stream/AsyncInputStream, kotlin/Boolean) // korlibs.io.compression.lzo/LZO.HeaderLong.read|read(korlibs.io.stream.AsyncInputStream;kotlin.Boolean){}[0]
+        final suspend fun write(korlibs.io.stream/AsyncOutputStream) // korlibs.io.compression.lzo/LZO.HeaderLong.write|write(korlibs.io.stream.AsyncOutputStream){}[0]
+
+        final object Companion { // korlibs.io.compression.lzo/LZO.HeaderLong.Companion|null[0]
+            final val MAGIC // korlibs.io.compression.lzo/LZO.HeaderLong.Companion.MAGIC|{}MAGIC[0]
+                final fun <get-MAGIC>(): kotlin/ByteArray // korlibs.io.compression.lzo/LZO.HeaderLong.Companion.MAGIC.<get-MAGIC>|<get-MAGIC>(){}[0]
+        }
+    }
+
+    final object Companion : korlibs.io.compression.lzo/LZO // korlibs.io.compression.lzo/LZO.Companion|null[0]
+}
+
+open class korlibs.io.compression/CompressionContext { // korlibs.io.compression/CompressionContext|null[0]
+    constructor <init>(kotlin/Int = ...) // korlibs.io.compression/CompressionContext.<init>|<init>(kotlin.Int){}[0]
+
+    final var custom // korlibs.io.compression/CompressionContext.custom|{}custom[0]
+        final fun <get-custom>(): kotlin/Any? // korlibs.io.compression/CompressionContext.custom.<get-custom>|<get-custom>(){}[0]
+        final fun <set-custom>(kotlin/Any?) // korlibs.io.compression/CompressionContext.custom.<set-custom>|<set-custom>(kotlin.Any?){}[0]
+    final var level // korlibs.io.compression/CompressionContext.level|{}level[0]
+        final fun <get-level>(): kotlin/Int // korlibs.io.compression/CompressionContext.level.<get-level>|<get-level>(){}[0]
+        final fun <set-level>(kotlin/Int) // korlibs.io.compression/CompressionContext.level.<set-level>|<set-level>(kotlin.Int){}[0]
+    final var name // korlibs.io.compression/CompressionContext.name|{}name[0]
+        final fun <get-name>(): kotlin/String? // korlibs.io.compression/CompressionContext.name.<get-name>|<get-name>(){}[0]
+        final fun <set-name>(kotlin/String?) // korlibs.io.compression/CompressionContext.name.<set-name>|<set-name>(kotlin.String?){}[0]
+}
+
+final object korlibs.compression.lzma/SevenZip { // korlibs.compression.lzma/SevenZip|null[0]
+    abstract interface ICodeProgress { // korlibs.compression.lzma/SevenZip.ICodeProgress|null[0]
+        abstract fun setProgress(kotlin/Long, kotlin/Long) // korlibs.compression.lzma/SevenZip.ICodeProgress.setProgress|setProgress(kotlin.Long;kotlin.Long){}[0]
+    }
+
+    abstract interface LzmaInputStream { // korlibs.compression.lzma/SevenZip.LzmaInputStream|null[0]
+        abstract fun read(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaInputStream.read|read(){}[0]
+        abstract fun read(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaInputStream.read|read(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    }
+
+    abstract interface LzmaOutputStream { // korlibs.compression.lzma/SevenZip.LzmaOutputStream|null[0]
+        abstract fun flush() // korlibs.compression.lzma/SevenZip.LzmaOutputStream.flush|flush(){}[0]
+        abstract fun write(kotlin/ByteArray, kotlin/Int, kotlin/Int) // korlibs.compression.lzma/SevenZip.LzmaOutputStream.write|write(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+        abstract fun write8(kotlin/Int) // korlibs.compression.lzma/SevenZip.LzmaOutputStream.write8|write8(kotlin.Int){}[0]
+    }
+
+    final class BitTreeDecoder { // korlibs.compression.lzma/SevenZip.BitTreeDecoder|null[0]
+        constructor <init>(kotlin/Int) // korlibs.compression.lzma/SevenZip.BitTreeDecoder.<init>|<init>(kotlin.Int){}[0]
+
+        final fun decode(korlibs.compression.lzma/SevenZip.RangeDecoder): kotlin/Int // korlibs.compression.lzma/SevenZip.BitTreeDecoder.decode|decode(korlibs.compression.lzma.SevenZip.RangeDecoder){}[0]
+        final fun init() // korlibs.compression.lzma/SevenZip.BitTreeDecoder.init|init(){}[0]
+        final fun reverseDecode(korlibs.compression.lzma/SevenZip.RangeDecoder): kotlin/Int // korlibs.compression.lzma/SevenZip.BitTreeDecoder.reverseDecode|reverseDecode(korlibs.compression.lzma.SevenZip.RangeDecoder){}[0]
+
+        final object Companion { // korlibs.compression.lzma/SevenZip.BitTreeDecoder.Companion|null[0]
+            final fun reverseDecode(kotlin/ShortArray, kotlin/Int, korlibs.compression.lzma/SevenZip.RangeDecoder, kotlin/Int): kotlin/Int // korlibs.compression.lzma/SevenZip.BitTreeDecoder.Companion.reverseDecode|reverseDecode(kotlin.ShortArray;kotlin.Int;korlibs.compression.lzma.SevenZip.RangeDecoder;kotlin.Int){}[0]
+        }
+    }
+
+    final class BitTreeEncoder { // korlibs.compression.lzma/SevenZip.BitTreeEncoder|null[0]
+        constructor <init>(kotlin/Int) // korlibs.compression.lzma/SevenZip.BitTreeEncoder.<init>|<init>(kotlin.Int){}[0]
+
+        final fun encode(korlibs.compression.lzma/SevenZip.RangeEncoder, kotlin/Int) // korlibs.compression.lzma/SevenZip.BitTreeEncoder.encode|encode(korlibs.compression.lzma.SevenZip.RangeEncoder;kotlin.Int){}[0]
+        final fun getPrice(kotlin/Int): kotlin/Int // korlibs.compression.lzma/SevenZip.BitTreeEncoder.getPrice|getPrice(kotlin.Int){}[0]
+        final fun init() // korlibs.compression.lzma/SevenZip.BitTreeEncoder.init|init(){}[0]
+        final fun reverseEncode(korlibs.compression.lzma/SevenZip.RangeEncoder, kotlin/Int) // korlibs.compression.lzma/SevenZip.BitTreeEncoder.reverseEncode|reverseEncode(korlibs.compression.lzma.SevenZip.RangeEncoder;kotlin.Int){}[0]
+        final fun reverseGetPrice(kotlin/Int): kotlin/Int // korlibs.compression.lzma/SevenZip.BitTreeEncoder.reverseGetPrice|reverseGetPrice(kotlin.Int){}[0]
+
+        final object Companion { // korlibs.compression.lzma/SevenZip.BitTreeEncoder.Companion|null[0]
+            final fun reverseEncode(kotlin/ShortArray, kotlin/Int, korlibs.compression.lzma/SevenZip.RangeEncoder, kotlin/Int, kotlin/Int) // korlibs.compression.lzma/SevenZip.BitTreeEncoder.Companion.reverseEncode|reverseEncode(kotlin.ShortArray;kotlin.Int;korlibs.compression.lzma.SevenZip.RangeEncoder;kotlin.Int;kotlin.Int){}[0]
+            final fun reverseGetPrice(kotlin/ShortArray, kotlin/Int, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.compression.lzma/SevenZip.BitTreeEncoder.Companion.reverseGetPrice|reverseGetPrice(kotlin.ShortArray;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+        }
+    }
+
+    final class LzBinTree : korlibs.compression.lzma/SevenZip.LzInWindow { // korlibs.compression.lzma/SevenZip.LzBinTree|null[0]
+        constructor <init>() // korlibs.compression.lzma/SevenZip.LzBinTree.<init>|<init>(){}[0]
+
+        final fun create(kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int): kotlin/Boolean // korlibs.compression.lzma/SevenZip.LzBinTree.create|create(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+        final fun getMatches(kotlin/IntArray): kotlin/Int // korlibs.compression.lzma/SevenZip.LzBinTree.getMatches|getMatches(kotlin.IntArray){}[0]
+        final fun init() // korlibs.compression.lzma/SevenZip.LzBinTree.init|init(){}[0]
+        final fun movePos() // korlibs.compression.lzma/SevenZip.LzBinTree.movePos|movePos(){}[0]
+        final fun setType(kotlin/Int) // korlibs.compression.lzma/SevenZip.LzBinTree.setType|setType(kotlin.Int){}[0]
+        final fun skip(kotlin/Int) // korlibs.compression.lzma/SevenZip.LzBinTree.skip|skip(kotlin.Int){}[0]
+
+        final object Companion // korlibs.compression.lzma/SevenZip.LzBinTree.Companion|null[0]
+    }
+
+    final class LzOutWindow { // korlibs.compression.lzma/SevenZip.LzOutWindow|null[0]
+        constructor <init>() // korlibs.compression.lzma/SevenZip.LzOutWindow.<init>|<init>(){}[0]
+
+        final fun copyBlock(kotlin/Int, kotlin/Int) // korlibs.compression.lzma/SevenZip.LzOutWindow.copyBlock|copyBlock(kotlin.Int;kotlin.Int){}[0]
+        final fun create(kotlin/Int) // korlibs.compression.lzma/SevenZip.LzOutWindow.create|create(kotlin.Int){}[0]
+        final fun flush() // korlibs.compression.lzma/SevenZip.LzOutWindow.flush|flush(){}[0]
+        final fun getByte(kotlin/Int): kotlin/Byte // korlibs.compression.lzma/SevenZip.LzOutWindow.getByte|getByte(kotlin.Int){}[0]
+        final fun init(kotlin/Boolean) // korlibs.compression.lzma/SevenZip.LzOutWindow.init|init(kotlin.Boolean){}[0]
+        final fun putByte(kotlin/Byte) // korlibs.compression.lzma/SevenZip.LzOutWindow.putByte|putByte(kotlin.Byte){}[0]
+        final fun releaseStream() // korlibs.compression.lzma/SevenZip.LzOutWindow.releaseStream|releaseStream(){}[0]
+        final fun setStream(korlibs.compression.lzma/SevenZip.LzmaOutputStream) // korlibs.compression.lzma/SevenZip.LzOutWindow.setStream|setStream(korlibs.compression.lzma.SevenZip.LzmaOutputStream){}[0]
+    }
+
+    final class LzmaDecoder { // korlibs.compression.lzma/SevenZip.LzmaDecoder|null[0]
+        constructor <init>() // korlibs.compression.lzma/SevenZip.LzmaDecoder.<init>|<init>(){}[0]
+
+        final fun code(korlibs.compression.lzma/SevenZip.LzmaInputStream, korlibs.compression.lzma/SevenZip.LzmaOutputStream, kotlin/Long): kotlin/Boolean // korlibs.compression.lzma/SevenZip.LzmaDecoder.code|code(korlibs.compression.lzma.SevenZip.LzmaInputStream;korlibs.compression.lzma.SevenZip.LzmaOutputStream;kotlin.Long){}[0]
+        final fun setDecoderProperties(kotlin/ByteArray): kotlin/Boolean // korlibs.compression.lzma/SevenZip.LzmaDecoder.setDecoderProperties|setDecoderProperties(kotlin.ByteArray){}[0]
+    }
+
+    final class LzmaEncoder { // korlibs.compression.lzma/SevenZip.LzmaEncoder|null[0]
+        constructor <init>() // korlibs.compression.lzma/SevenZip.LzmaEncoder.<init>|<init>(){}[0]
+
+        final fun code(korlibs.compression.lzma/SevenZip.LzmaInputStream, korlibs.compression.lzma/SevenZip.LzmaOutputStream, kotlin/Long, kotlin/Long, korlibs.compression.lzma/SevenZip.ICodeProgress?) // korlibs.compression.lzma/SevenZip.LzmaEncoder.code|code(korlibs.compression.lzma.SevenZip.LzmaInputStream;korlibs.compression.lzma.SevenZip.LzmaOutputStream;kotlin.Long;kotlin.Long;korlibs.compression.lzma.SevenZip.ICodeProgress?){}[0]
+        final fun setAlgorithm(kotlin/Int): kotlin/Boolean // korlibs.compression.lzma/SevenZip.LzmaEncoder.setAlgorithm|setAlgorithm(kotlin.Int){}[0]
+        final fun setDictionarySize(kotlin/Int): kotlin/Boolean // korlibs.compression.lzma/SevenZip.LzmaEncoder.setDictionarySize|setDictionarySize(kotlin.Int){}[0]
+        final fun setEndMarkerMode(kotlin/Boolean) // korlibs.compression.lzma/SevenZip.LzmaEncoder.setEndMarkerMode|setEndMarkerMode(kotlin.Boolean){}[0]
+        final fun setLcLpPb(kotlin/Int, kotlin/Int, kotlin/Int): kotlin/Boolean // korlibs.compression.lzma/SevenZip.LzmaEncoder.setLcLpPb|setLcLpPb(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+        final fun setMatchFinder(kotlin/Int): kotlin/Boolean // korlibs.compression.lzma/SevenZip.LzmaEncoder.setMatchFinder|setMatchFinder(kotlin.Int){}[0]
+        final fun setNumFastBytes(kotlin/Int): kotlin/Boolean // korlibs.compression.lzma/SevenZip.LzmaEncoder.setNumFastBytes|setNumFastBytes(kotlin.Int){}[0]
+        final fun writeCoderProperties(korlibs.compression.lzma/SevenZip.LzmaOutputStream) // korlibs.compression.lzma/SevenZip.LzmaEncoder.writeCoderProperties|writeCoderProperties(korlibs.compression.lzma.SevenZip.LzmaOutputStream){}[0]
+
+        final object Companion { // korlibs.compression.lzma/SevenZip.LzmaEncoder.Companion|null[0]
+            final const val EMatchFinderTypeBT2 // korlibs.compression.lzma/SevenZip.LzmaEncoder.Companion.EMatchFinderTypeBT2|{}EMatchFinderTypeBT2[0]
+                final fun <get-EMatchFinderTypeBT2>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaEncoder.Companion.EMatchFinderTypeBT2.<get-EMatchFinderTypeBT2>|<get-EMatchFinderTypeBT2>(){}[0]
+            final const val EMatchFinderTypeBT4 // korlibs.compression.lzma/SevenZip.LzmaEncoder.Companion.EMatchFinderTypeBT4|{}EMatchFinderTypeBT4[0]
+                final fun <get-EMatchFinderTypeBT4>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaEncoder.Companion.EMatchFinderTypeBT4.<get-EMatchFinderTypeBT4>|<get-EMatchFinderTypeBT4>(){}[0]
+            final const val kPropSize // korlibs.compression.lzma/SevenZip.LzmaEncoder.Companion.kPropSize|{}kPropSize[0]
+                final fun <get-kPropSize>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaEncoder.Companion.kPropSize.<get-kPropSize>|<get-kPropSize>(){}[0]
+        }
+    }
+
+    final class RangeDecoder { // korlibs.compression.lzma/SevenZip.RangeDecoder|null[0]
+        constructor <init>() // korlibs.compression.lzma/SevenZip.RangeDecoder.<init>|<init>(){}[0]
+
+        final fun decodeBit(kotlin/ShortArray, kotlin/Int): kotlin/Int // korlibs.compression.lzma/SevenZip.RangeDecoder.decodeBit|decodeBit(kotlin.ShortArray;kotlin.Int){}[0]
+        final fun decodeDirectBits(kotlin/Int): kotlin/Int // korlibs.compression.lzma/SevenZip.RangeDecoder.decodeDirectBits|decodeDirectBits(kotlin.Int){}[0]
+        final fun init() // korlibs.compression.lzma/SevenZip.RangeDecoder.init|init(){}[0]
+        final fun releaseStream() // korlibs.compression.lzma/SevenZip.RangeDecoder.releaseStream|releaseStream(){}[0]
+        final fun setStream(korlibs.compression.lzma/SevenZip.LzmaInputStream) // korlibs.compression.lzma/SevenZip.RangeDecoder.setStream|setStream(korlibs.compression.lzma.SevenZip.LzmaInputStream){}[0]
+
+        final object Companion { // korlibs.compression.lzma/SevenZip.RangeDecoder.Companion|null[0]
+            final fun initBitModels(kotlin/ShortArray) // korlibs.compression.lzma/SevenZip.RangeDecoder.Companion.initBitModels|initBitModels(kotlin.ShortArray){}[0]
+        }
+    }
+
+    final class RangeEncoder { // korlibs.compression.lzma/SevenZip.RangeEncoder|null[0]
+        constructor <init>() // korlibs.compression.lzma/SevenZip.RangeEncoder.<init>|<init>(){}[0]
+
+        final fun encode(kotlin/ShortArray, kotlin/Int, kotlin/Int) // korlibs.compression.lzma/SevenZip.RangeEncoder.encode|encode(kotlin.ShortArray;kotlin.Int;kotlin.Int){}[0]
+        final fun encodeDirectBits(kotlin/Int, kotlin/Int) // korlibs.compression.lzma/SevenZip.RangeEncoder.encodeDirectBits|encodeDirectBits(kotlin.Int;kotlin.Int){}[0]
+        final fun flushData() // korlibs.compression.lzma/SevenZip.RangeEncoder.flushData|flushData(){}[0]
+        final fun flushStream() // korlibs.compression.lzma/SevenZip.RangeEncoder.flushStream|flushStream(){}[0]
+        final fun getProcessedSizeAdd(): kotlin/Long // korlibs.compression.lzma/SevenZip.RangeEncoder.getProcessedSizeAdd|getProcessedSizeAdd(){}[0]
+        final fun init() // korlibs.compression.lzma/SevenZip.RangeEncoder.init|init(){}[0]
+        final fun releaseStream() // korlibs.compression.lzma/SevenZip.RangeEncoder.releaseStream|releaseStream(){}[0]
+        final fun setStream(korlibs.compression.lzma/SevenZip.LzmaOutputStream) // korlibs.compression.lzma/SevenZip.RangeEncoder.setStream|setStream(korlibs.compression.lzma.SevenZip.LzmaOutputStream){}[0]
+
+        final object Companion { // korlibs.compression.lzma/SevenZip.RangeEncoder.Companion|null[0]
+            final const val kNumBitPriceShiftBits // korlibs.compression.lzma/SevenZip.RangeEncoder.Companion.kNumBitPriceShiftBits|{}kNumBitPriceShiftBits[0]
+                final fun <get-kNumBitPriceShiftBits>(): kotlin/Int // korlibs.compression.lzma/SevenZip.RangeEncoder.Companion.kNumBitPriceShiftBits.<get-kNumBitPriceShiftBits>|<get-kNumBitPriceShiftBits>(){}[0]
+
+            final fun getPrice(kotlin/Int, kotlin/Int): kotlin/Int // korlibs.compression.lzma/SevenZip.RangeEncoder.Companion.getPrice|getPrice(kotlin.Int;kotlin.Int){}[0]
+            final fun getPrice0(kotlin/Int): kotlin/Int // korlibs.compression.lzma/SevenZip.RangeEncoder.Companion.getPrice0|getPrice0(kotlin.Int){}[0]
+            final fun getPrice1(kotlin/Int): kotlin/Int // korlibs.compression.lzma/SevenZip.RangeEncoder.Companion.getPrice1|getPrice1(kotlin.Int){}[0]
+            final fun initBitModels(kotlin/ShortArray) // korlibs.compression.lzma/SevenZip.RangeEncoder.Companion.initBitModels|initBitModels(kotlin.ShortArray){}[0]
+        }
+    }
+
+    open class LzInWindow { // korlibs.compression.lzma/SevenZip.LzInWindow|null[0]
+        constructor <init>() // korlibs.compression.lzma/SevenZip.LzInWindow.<init>|<init>(){}[0]
+
+        final var _bufferBase // korlibs.compression.lzma/SevenZip.LzInWindow._bufferBase|{}_bufferBase[0]
+            final fun <get-_bufferBase>(): kotlin/ByteArray? // korlibs.compression.lzma/SevenZip.LzInWindow._bufferBase.<get-_bufferBase>|<get-_bufferBase>(){}[0]
+            final fun <set-_bufferBase>(kotlin/ByteArray?) // korlibs.compression.lzma/SevenZip.LzInWindow._bufferBase.<set-_bufferBase>|<set-_bufferBase>(kotlin.ByteArray?){}[0]
+        final var _bufferOffset // korlibs.compression.lzma/SevenZip.LzInWindow._bufferOffset|{}_bufferOffset[0]
+            final fun <get-_bufferOffset>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzInWindow._bufferOffset.<get-_bufferOffset>|<get-_bufferOffset>(){}[0]
+            final fun <set-_bufferOffset>(kotlin/Int) // korlibs.compression.lzma/SevenZip.LzInWindow._bufferOffset.<set-_bufferOffset>|<set-_bufferOffset>(kotlin.Int){}[0]
+        final var _pos // korlibs.compression.lzma/SevenZip.LzInWindow._pos|{}_pos[0]
+            final fun <get-_pos>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzInWindow._pos.<get-_pos>|<get-_pos>(){}[0]
+            final fun <set-_pos>(kotlin/Int) // korlibs.compression.lzma/SevenZip.LzInWindow._pos.<set-_pos>|<set-_pos>(kotlin.Int){}[0]
+        final var _streamPos // korlibs.compression.lzma/SevenZip.LzInWindow._streamPos|{}_streamPos[0]
+            final fun <get-_streamPos>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzInWindow._streamPos.<get-_streamPos>|<get-_streamPos>(){}[0]
+            final fun <set-_streamPos>(kotlin/Int) // korlibs.compression.lzma/SevenZip.LzInWindow._streamPos.<set-_streamPos>|<set-_streamPos>(kotlin.Int){}[0]
+
+        final fun create(kotlin/Int, kotlin/Int, kotlin/Int) // korlibs.compression.lzma/SevenZip.LzInWindow.create|create(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+        final fun getIndexByte(kotlin/Int): kotlin/Byte // korlibs.compression.lzma/SevenZip.LzInWindow.getIndexByte|getIndexByte(kotlin.Int){}[0]
+        final fun getMatchLen(kotlin/Int, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.compression.lzma/SevenZip.LzInWindow.getMatchLen|getMatchLen(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+        final fun getNumAvailableBytes(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzInWindow.getNumAvailableBytes|getNumAvailableBytes(){}[0]
+        final fun reduceOffsets(kotlin/Int) // korlibs.compression.lzma/SevenZip.LzInWindow.reduceOffsets|reduceOffsets(kotlin.Int){}[0]
+        final fun releaseStream() // korlibs.compression.lzma/SevenZip.LzInWindow.releaseStream|releaseStream(){}[0]
+        final fun setStream(korlibs.compression.lzma/SevenZip.LzmaInputStream) // korlibs.compression.lzma/SevenZip.LzInWindow.setStream|setStream(korlibs.compression.lzma.SevenZip.LzmaInputStream){}[0]
+        open fun init() // korlibs.compression.lzma/SevenZip.LzInWindow.init|init(){}[0]
+        open fun movePos() // korlibs.compression.lzma/SevenZip.LzInWindow.movePos|movePos(){}[0]
+    }
+
+    final object LzmaBase { // korlibs.compression.lzma/SevenZip.LzmaBase|null[0]
+        final const val kAlignMask // korlibs.compression.lzma/SevenZip.LzmaBase.kAlignMask|{}kAlignMask[0]
+            final fun <get-kAlignMask>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kAlignMask.<get-kAlignMask>|<get-kAlignMask>(){}[0]
+        final const val kAlignTableSize // korlibs.compression.lzma/SevenZip.LzmaBase.kAlignTableSize|{}kAlignTableSize[0]
+            final fun <get-kAlignTableSize>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kAlignTableSize.<get-kAlignTableSize>|<get-kAlignTableSize>(){}[0]
+        final const val kDicLogSizeMin // korlibs.compression.lzma/SevenZip.LzmaBase.kDicLogSizeMin|{}kDicLogSizeMin[0]
+            final fun <get-kDicLogSizeMin>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kDicLogSizeMin.<get-kDicLogSizeMin>|<get-kDicLogSizeMin>(){}[0]
+        final const val kEndPosModelIndex // korlibs.compression.lzma/SevenZip.LzmaBase.kEndPosModelIndex|{}kEndPosModelIndex[0]
+            final fun <get-kEndPosModelIndex>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kEndPosModelIndex.<get-kEndPosModelIndex>|<get-kEndPosModelIndex>(){}[0]
+        final const val kMatchMaxLen // korlibs.compression.lzma/SevenZip.LzmaBase.kMatchMaxLen|{}kMatchMaxLen[0]
+            final fun <get-kMatchMaxLen>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kMatchMaxLen.<get-kMatchMaxLen>|<get-kMatchMaxLen>(){}[0]
+        final const val kMatchMinLen // korlibs.compression.lzma/SevenZip.LzmaBase.kMatchMinLen|{}kMatchMinLen[0]
+            final fun <get-kMatchMinLen>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kMatchMinLen.<get-kMatchMinLen>|<get-kMatchMinLen>(){}[0]
+        final const val kNumAlignBits // korlibs.compression.lzma/SevenZip.LzmaBase.kNumAlignBits|{}kNumAlignBits[0]
+            final fun <get-kNumAlignBits>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumAlignBits.<get-kNumAlignBits>|<get-kNumAlignBits>(){}[0]
+        final const val kNumFullDistances // korlibs.compression.lzma/SevenZip.LzmaBase.kNumFullDistances|{}kNumFullDistances[0]
+            final fun <get-kNumFullDistances>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumFullDistances.<get-kNumFullDistances>|<get-kNumFullDistances>(){}[0]
+        final const val kNumHighLenBits // korlibs.compression.lzma/SevenZip.LzmaBase.kNumHighLenBits|{}kNumHighLenBits[0]
+            final fun <get-kNumHighLenBits>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumHighLenBits.<get-kNumHighLenBits>|<get-kNumHighLenBits>(){}[0]
+        final const val kNumLenSymbols // korlibs.compression.lzma/SevenZip.LzmaBase.kNumLenSymbols|{}kNumLenSymbols[0]
+            final fun <get-kNumLenSymbols>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumLenSymbols.<get-kNumLenSymbols>|<get-kNumLenSymbols>(){}[0]
+        final const val kNumLenToPosStates // korlibs.compression.lzma/SevenZip.LzmaBase.kNumLenToPosStates|{}kNumLenToPosStates[0]
+            final fun <get-kNumLenToPosStates>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumLenToPosStates.<get-kNumLenToPosStates>|<get-kNumLenToPosStates>(){}[0]
+        final const val kNumLenToPosStatesBits // korlibs.compression.lzma/SevenZip.LzmaBase.kNumLenToPosStatesBits|{}kNumLenToPosStatesBits[0]
+            final fun <get-kNumLenToPosStatesBits>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumLenToPosStatesBits.<get-kNumLenToPosStatesBits>|<get-kNumLenToPosStatesBits>(){}[0]
+        final const val kNumLitContextBitsMax // korlibs.compression.lzma/SevenZip.LzmaBase.kNumLitContextBitsMax|{}kNumLitContextBitsMax[0]
+            final fun <get-kNumLitContextBitsMax>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumLitContextBitsMax.<get-kNumLitContextBitsMax>|<get-kNumLitContextBitsMax>(){}[0]
+        final const val kNumLitPosStatesBitsEncodingMax // korlibs.compression.lzma/SevenZip.LzmaBase.kNumLitPosStatesBitsEncodingMax|{}kNumLitPosStatesBitsEncodingMax[0]
+            final fun <get-kNumLitPosStatesBitsEncodingMax>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumLitPosStatesBitsEncodingMax.<get-kNumLitPosStatesBitsEncodingMax>|<get-kNumLitPosStatesBitsEncodingMax>(){}[0]
+        final const val kNumLowLenBits // korlibs.compression.lzma/SevenZip.LzmaBase.kNumLowLenBits|{}kNumLowLenBits[0]
+            final fun <get-kNumLowLenBits>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumLowLenBits.<get-kNumLowLenBits>|<get-kNumLowLenBits>(){}[0]
+        final const val kNumLowLenSymbols // korlibs.compression.lzma/SevenZip.LzmaBase.kNumLowLenSymbols|{}kNumLowLenSymbols[0]
+            final fun <get-kNumLowLenSymbols>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumLowLenSymbols.<get-kNumLowLenSymbols>|<get-kNumLowLenSymbols>(){}[0]
+        final const val kNumMidLenBits // korlibs.compression.lzma/SevenZip.LzmaBase.kNumMidLenBits|{}kNumMidLenBits[0]
+            final fun <get-kNumMidLenBits>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumMidLenBits.<get-kNumMidLenBits>|<get-kNumMidLenBits>(){}[0]
+        final const val kNumMidLenSymbols // korlibs.compression.lzma/SevenZip.LzmaBase.kNumMidLenSymbols|{}kNumMidLenSymbols[0]
+            final fun <get-kNumMidLenSymbols>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumMidLenSymbols.<get-kNumMidLenSymbols>|<get-kNumMidLenSymbols>(){}[0]
+        final const val kNumPosSlotBits // korlibs.compression.lzma/SevenZip.LzmaBase.kNumPosSlotBits|{}kNumPosSlotBits[0]
+            final fun <get-kNumPosSlotBits>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumPosSlotBits.<get-kNumPosSlotBits>|<get-kNumPosSlotBits>(){}[0]
+        final const val kNumPosStatesBitsEncodingMax // korlibs.compression.lzma/SevenZip.LzmaBase.kNumPosStatesBitsEncodingMax|{}kNumPosStatesBitsEncodingMax[0]
+            final fun <get-kNumPosStatesBitsEncodingMax>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumPosStatesBitsEncodingMax.<get-kNumPosStatesBitsEncodingMax>|<get-kNumPosStatesBitsEncodingMax>(){}[0]
+        final const val kNumPosStatesBitsMax // korlibs.compression.lzma/SevenZip.LzmaBase.kNumPosStatesBitsMax|{}kNumPosStatesBitsMax[0]
+            final fun <get-kNumPosStatesBitsMax>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumPosStatesBitsMax.<get-kNumPosStatesBitsMax>|<get-kNumPosStatesBitsMax>(){}[0]
+        final const val kNumPosStatesEncodingMax // korlibs.compression.lzma/SevenZip.LzmaBase.kNumPosStatesEncodingMax|{}kNumPosStatesEncodingMax[0]
+            final fun <get-kNumPosStatesEncodingMax>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumPosStatesEncodingMax.<get-kNumPosStatesEncodingMax>|<get-kNumPosStatesEncodingMax>(){}[0]
+        final const val kNumPosStatesMax // korlibs.compression.lzma/SevenZip.LzmaBase.kNumPosStatesMax|{}kNumPosStatesMax[0]
+            final fun <get-kNumPosStatesMax>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumPosStatesMax.<get-kNumPosStatesMax>|<get-kNumPosStatesMax>(){}[0]
+        final const val kNumRepDistances // korlibs.compression.lzma/SevenZip.LzmaBase.kNumRepDistances|{}kNumRepDistances[0]
+            final fun <get-kNumRepDistances>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumRepDistances.<get-kNumRepDistances>|<get-kNumRepDistances>(){}[0]
+        final const val kNumStates // korlibs.compression.lzma/SevenZip.LzmaBase.kNumStates|{}kNumStates[0]
+            final fun <get-kNumStates>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kNumStates.<get-kNumStates>|<get-kNumStates>(){}[0]
+        final const val kStartPosModelIndex // korlibs.compression.lzma/SevenZip.LzmaBase.kStartPosModelIndex|{}kStartPosModelIndex[0]
+            final fun <get-kStartPosModelIndex>(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.kStartPosModelIndex.<get-kStartPosModelIndex>|<get-kStartPosModelIndex>(){}[0]
+
+        final fun getLenToPosState(kotlin/Int): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.getLenToPosState|getLenToPosState(kotlin.Int){}[0]
+        final fun stateInit(): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.stateInit|stateInit(){}[0]
+        final fun stateIsCharState(kotlin/Int): kotlin/Boolean // korlibs.compression.lzma/SevenZip.LzmaBase.stateIsCharState|stateIsCharState(kotlin.Int){}[0]
+        final fun stateUpdateChar(kotlin/Int): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.stateUpdateChar|stateUpdateChar(kotlin.Int){}[0]
+        final fun stateUpdateMatch(kotlin/Int): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.stateUpdateMatch|stateUpdateMatch(kotlin.Int){}[0]
+        final fun stateUpdateRep(kotlin/Int): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.stateUpdateRep|stateUpdateRep(kotlin.Int){}[0]
+        final fun stateUpdateShortRep(kotlin/Int): kotlin/Int // korlibs.compression.lzma/SevenZip.LzmaBase.stateUpdateShortRep|stateUpdateShortRep(kotlin.Int){}[0]
+    }
+}
+
+final object korlibs.compression.lzo/LzoConstants { // korlibs.compression.lzo/LzoConstants|null[0]
+    final const val F_ADLER32_C // korlibs.compression.lzo/LzoConstants.F_ADLER32_C|{}F_ADLER32_C[0]
+        final fun <get-F_ADLER32_C>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.F_ADLER32_C.<get-F_ADLER32_C>|<get-F_ADLER32_C>(){}[0]
+    final const val F_ADLER32_D // korlibs.compression.lzo/LzoConstants.F_ADLER32_D|{}F_ADLER32_D[0]
+        final fun <get-F_ADLER32_D>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.F_ADLER32_D.<get-F_ADLER32_D>|<get-F_ADLER32_D>(){}[0]
+    final const val F_CRC32_C // korlibs.compression.lzo/LzoConstants.F_CRC32_C|{}F_CRC32_C[0]
+        final fun <get-F_CRC32_C>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.F_CRC32_C.<get-F_CRC32_C>|<get-F_CRC32_C>(){}[0]
+    final const val F_CRC32_D // korlibs.compression.lzo/LzoConstants.F_CRC32_D|{}F_CRC32_D[0]
+        final fun <get-F_CRC32_D>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.F_CRC32_D.<get-F_CRC32_D>|<get-F_CRC32_D>(){}[0]
+    final const val F_DOSISH // korlibs.compression.lzo/LzoConstants.F_DOSISH|{}F_DOSISH[0]
+        final fun <get-F_DOSISH>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.F_DOSISH.<get-F_DOSISH>|<get-F_DOSISH>(){}[0]
+    final const val F_H_CRC32 // korlibs.compression.lzo/LzoConstants.F_H_CRC32|{}F_H_CRC32[0]
+        final fun <get-F_H_CRC32>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.F_H_CRC32.<get-F_H_CRC32>|<get-F_H_CRC32>(){}[0]
+    final const val F_H_EXTRA_FIELD // korlibs.compression.lzo/LzoConstants.F_H_EXTRA_FIELD|{}F_H_EXTRA_FIELD[0]
+        final fun <get-F_H_EXTRA_FIELD>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.F_H_EXTRA_FIELD.<get-F_H_EXTRA_FIELD>|<get-F_H_EXTRA_FIELD>(){}[0]
+    final const val F_H_FILTER // korlibs.compression.lzo/LzoConstants.F_H_FILTER|{}F_H_FILTER[0]
+        final fun <get-F_H_FILTER>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.F_H_FILTER.<get-F_H_FILTER>|<get-F_H_FILTER>(){}[0]
+    final const val F_H_GMTDIFF // korlibs.compression.lzo/LzoConstants.F_H_GMTDIFF|{}F_H_GMTDIFF[0]
+        final fun <get-F_H_GMTDIFF>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.F_H_GMTDIFF.<get-F_H_GMTDIFF>|<get-F_H_GMTDIFF>(){}[0]
+    final const val F_H_PATH // korlibs.compression.lzo/LzoConstants.F_H_PATH|{}F_H_PATH[0]
+        final fun <get-F_H_PATH>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.F_H_PATH.<get-F_H_PATH>|<get-F_H_PATH>(){}[0]
+    final const val F_MASK // korlibs.compression.lzo/LzoConstants.F_MASK|{}F_MASK[0]
+        final fun <get-F_MASK>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.F_MASK.<get-F_MASK>|<get-F_MASK>(){}[0]
+    final const val F_MULTIPART // korlibs.compression.lzo/LzoConstants.F_MULTIPART|{}F_MULTIPART[0]
+        final fun <get-F_MULTIPART>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.F_MULTIPART.<get-F_MULTIPART>|<get-F_MULTIPART>(){}[0]
+    final const val F_NAME_DEFAULT // korlibs.compression.lzo/LzoConstants.F_NAME_DEFAULT|{}F_NAME_DEFAULT[0]
+        final fun <get-F_NAME_DEFAULT>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.F_NAME_DEFAULT.<get-F_NAME_DEFAULT>|<get-F_NAME_DEFAULT>(){}[0]
+    final const val F_STDIN // korlibs.compression.lzo/LzoConstants.F_STDIN|{}F_STDIN[0]
+        final fun <get-F_STDIN>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.F_STDIN.<get-F_STDIN>|<get-F_STDIN>(){}[0]
+    final const val F_STDOUT // korlibs.compression.lzo/LzoConstants.F_STDOUT|{}F_STDOUT[0]
+        final fun <get-F_STDOUT>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.F_STDOUT.<get-F_STDOUT>|<get-F_STDOUT>(){}[0]
+    final const val SIZE_OF_INT // korlibs.compression.lzo/LzoConstants.SIZE_OF_INT|{}SIZE_OF_INT[0]
+        final fun <get-SIZE_OF_INT>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.SIZE_OF_INT.<get-SIZE_OF_INT>|<get-SIZE_OF_INT>(){}[0]
+    final const val SIZE_OF_LONG // korlibs.compression.lzo/LzoConstants.SIZE_OF_LONG|{}SIZE_OF_LONG[0]
+        final fun <get-SIZE_OF_LONG>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.SIZE_OF_LONG.<get-SIZE_OF_LONG>|<get-SIZE_OF_LONG>(){}[0]
+    final const val SIZE_OF_SHORT // korlibs.compression.lzo/LzoConstants.SIZE_OF_SHORT|{}SIZE_OF_SHORT[0]
+        final fun <get-SIZE_OF_SHORT>(): kotlin/Int // korlibs.compression.lzo/LzoConstants.SIZE_OF_SHORT.<get-SIZE_OF_SHORT>|<get-SIZE_OF_SHORT>(){}[0]
+}
+
+final object korlibs.compression.lzo/LzoRawCompressor { // korlibs.compression.lzo/LzoRawCompressor|null[0]
+    final const val LAST_LITERAL_SIZE // korlibs.compression.lzo/LzoRawCompressor.LAST_LITERAL_SIZE|{}LAST_LITERAL_SIZE[0]
+        final fun <get-LAST_LITERAL_SIZE>(): kotlin/Int // korlibs.compression.lzo/LzoRawCompressor.LAST_LITERAL_SIZE.<get-LAST_LITERAL_SIZE>|<get-LAST_LITERAL_SIZE>(){}[0]
+    final const val MAX_TABLE_SIZE // korlibs.compression.lzo/LzoRawCompressor.MAX_TABLE_SIZE|{}MAX_TABLE_SIZE[0]
+        final fun <get-MAX_TABLE_SIZE>(): kotlin/Int // korlibs.compression.lzo/LzoRawCompressor.MAX_TABLE_SIZE.<get-MAX_TABLE_SIZE>|<get-MAX_TABLE_SIZE>(){}[0]
+    final const val MIN_MATCH // korlibs.compression.lzo/LzoRawCompressor.MIN_MATCH|{}MIN_MATCH[0]
+        final fun <get-MIN_MATCH>(): kotlin/Int // korlibs.compression.lzo/LzoRawCompressor.MIN_MATCH.<get-MIN_MATCH>|<get-MIN_MATCH>(){}[0]
+
+    final fun compress(kotlin/ByteArray, kotlin/Int, kotlin/Int, kotlin/ByteArray, kotlin/Int, kotlin/Int, kotlin/IntArray = ...): kotlin/Int // korlibs.compression.lzo/LzoRawCompressor.compress|compress(kotlin.ByteArray;kotlin.Int;kotlin.Int;kotlin.ByteArray;kotlin.Int;kotlin.Int;kotlin.IntArray){}[0]
+    final fun maxCompressedLength(kotlin/Int): kotlin/Int // korlibs.compression.lzo/LzoRawCompressor.maxCompressedLength|maxCompressedLength(kotlin.Int){}[0]
+}
+
+final object korlibs.compression.lzo/LzoRawDecompressor { // korlibs.compression.lzo/LzoRawDecompressor|null[0]
+    final fun decompress(kotlin/ByteArray, kotlin/Int, kotlin/Int, kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.compression.lzo/LzoRawDecompressor.decompress|decompress(kotlin.ByteArray;kotlin.Int;kotlin.Int;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+
+    final class MalformedInputException : kotlin/Exception { // korlibs.compression.lzo/LzoRawDecompressor.MalformedInputException|null[0]
+        constructor <init>(kotlin/Int, kotlin/String = ...) // korlibs.compression.lzo/LzoRawDecompressor.MalformedInputException.<init>|<init>(kotlin.Int;kotlin.String){}[0]
+
+        final val index // korlibs.compression.lzo/LzoRawDecompressor.MalformedInputException.index|{}index[0]
+            final fun <get-index>(): kotlin/Int // korlibs.compression.lzo/LzoRawDecompressor.MalformedInputException.index.<get-index>|<get-index>(){}[0]
+    }
+}
+
+final object korlibs.io.compression.lzma/Lzma : korlibs.io.compression/CompressionMethod { // korlibs.io.compression.lzma/Lzma|null[0]
+    final val name // korlibs.io.compression.lzma/Lzma.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.io.compression.lzma/Lzma.name.<get-name>|<get-name>(){}[0]
+
+    final fun (korlibs.io.stream/SyncInputStream).toLzmaInput(): korlibs.compression.lzma/SevenZip.LzmaInputStream // korlibs.io.compression.lzma/Lzma.toLzmaInput|toLzmaInput@korlibs.io.stream.SyncInputStream(){}[0]
+    final fun (korlibs.io.stream/SyncOutputStream).toLzmaOutput(): korlibs.compression.lzma/SevenZip.LzmaOutputStream // korlibs.io.compression.lzma/Lzma.toLzmaOutput|toLzmaOutput@korlibs.io.stream.SyncOutputStream(){}[0]
+    final suspend fun compress(korlibs.io.stream/AsyncInputStream, korlibs.io.stream/AsyncOutputStream, korlibs.io.compression/CompressionContext) // korlibs.io.compression.lzma/Lzma.compress|compress(korlibs.io.stream.AsyncInputStream;korlibs.io.stream.AsyncOutputStream;korlibs.io.compression.CompressionContext){}[0]
+    final suspend fun uncompress(korlibs.io.stream/AsyncInputStream, korlibs.io.stream/AsyncOutputStream) // korlibs.io.compression.lzma/Lzma.uncompress|uncompress(korlibs.io.stream.AsyncInputStream;korlibs.io.stream.AsyncOutputStream){}[0]
+}
+
+final val korlibs.io.compression.deflate/Deflate // korlibs.io.compression.deflate/Deflate|{}Deflate[0]
+    final fun <get-Deflate>(): korlibs.compression.deflate/IDeflater // korlibs.io.compression.deflate/Deflate.<get-Deflate>|<get-Deflate>(){}[0]
+final val korlibs.io.compression.deflate/DeflatePortable // korlibs.io.compression.deflate/DeflatePortable|{}DeflatePortable[0]
+    final fun <get-DeflatePortable>(): korlibs.compression.deflate/IDeflater // korlibs.io.compression.deflate/DeflatePortable.<get-DeflatePortable>|<get-DeflatePortable>(){}[0]
+
+final fun (korlibs.io.compression/CompressionMethod).korlibs.io.compression/compress(korlibs.io.stream/SyncInputStream, korlibs.io.stream/SyncOutputStream, korlibs.io.compression/CompressionContext = ...) // korlibs.io.compression/compress|compress@korlibs.io.compression.CompressionMethod(korlibs.io.stream.SyncInputStream;korlibs.io.stream.SyncOutputStream;korlibs.io.compression.CompressionContext){}[0]
+final fun (korlibs.io.compression/CompressionMethod).korlibs.io.compression/compress(kotlin/ByteArray, korlibs.io.compression/CompressionContext = ..., kotlin/Int = ...): kotlin/ByteArray // korlibs.io.compression/compress|compress@korlibs.io.compression.CompressionMethod(kotlin.ByteArray;korlibs.io.compression.CompressionContext;kotlin.Int){}[0]
+final fun (korlibs.io.compression/CompressionMethod).korlibs.io.compression/uncompress(korlibs.io.stream/SyncInputStream, korlibs.io.stream/SyncOutputStream) // korlibs.io.compression/uncompress|uncompress@korlibs.io.compression.CompressionMethod(korlibs.io.stream.SyncInputStream;korlibs.io.stream.SyncOutputStream){}[0]
+final fun (korlibs.io.compression/CompressionMethod).korlibs.io.compression/uncompress(kotlin/ByteArray, kotlin/Int = ...): kotlin/ByteArray // korlibs.io.compression/uncompress|uncompress@korlibs.io.compression.CompressionMethod(kotlin.ByteArray;kotlin.Int){}[0]
+final fun (korlibs.io.compression/CompressionMethod).korlibs.io.compression/withLevel(kotlin/Int): korlibs.io.compression/CompressionMethodWithConfig // korlibs.io.compression/withLevel|withLevel@korlibs.io.compression.CompressionMethod(kotlin.Int){}[0]
+final fun (kotlin/ByteArray).korlibs.compression.lzo.internal/set32LE(kotlin/Int, kotlin/Long) // korlibs.compression.lzo.internal/set32LE|set32LE@kotlin.ByteArray(kotlin.Int;kotlin.Long){}[0]
+final fun (kotlin/ByteArray).korlibs.io.compression/compress(korlibs.io.compression/CompressionMethod, korlibs.io.compression/CompressionContext = ..., kotlin/Int = ...): kotlin/ByteArray // korlibs.io.compression/compress|compress@kotlin.ByteArray(korlibs.io.compression.CompressionMethod;korlibs.io.compression.CompressionContext;kotlin.Int){}[0]
+final fun (kotlin/ByteArray).korlibs.io.compression/uncompress(korlibs.io.compression/CompressionMethod, kotlin/Int = ...): kotlin/ByteArray // korlibs.io.compression/uncompress|uncompress@kotlin.ByteArray(korlibs.io.compression.CompressionMethod;kotlin.Int){}[0]
+final fun korlibs.compression.deflate/DeflaterNative(kotlin/Int): korlibs.compression.deflate/IDeflater // korlibs.compression.deflate/DeflaterNative|DeflaterNative(kotlin.Int){}[0]
+final fun korlibs.io.compression.deflate/Deflate(kotlin/Int): korlibs.compression.deflate/IDeflater // korlibs.io.compression.deflate/Deflate|Deflate(kotlin.Int){}[0]
+final fun korlibs.io.compression.deflate/DeflatePortable(kotlin/Int): korlibs.compression.deflate/IDeflater // korlibs.io.compression.deflate/DeflatePortable|DeflatePortable(kotlin.Int){}[0]
+final suspend fun (korlibs.io.compression/CompressionMethod).korlibs.io.compression/compressStream(korlibs.io.stream/AsyncInputStream, korlibs.io.compression/CompressionContext = ..., kotlin/Int = ...): korlibs.io.stream/AsyncInputStream // korlibs.io.compression/compressStream|compressStream@korlibs.io.compression.CompressionMethod(korlibs.io.stream.AsyncInputStream;korlibs.io.compression.CompressionContext;kotlin.Int){}[0]
+final suspend fun (korlibs.io.compression/CompressionMethod).korlibs.io.compression/uncompressStream(korlibs.io.stream/AsyncInputStream, kotlin/Int = ...): korlibs.io.stream/AsyncInputStream // korlibs.io.compression/uncompressStream|uncompressStream@korlibs.io.compression.CompressionMethod(korlibs.io.stream.AsyncInputStream;kotlin.Int){}[0]
+final suspend fun (korlibs.io.stream/AsyncInputStream).korlibs.io.compression/compressed(korlibs.io.compression/CompressionMethod, korlibs.io.compression/CompressionContext = ..., kotlin/Int = ...): korlibs.io.stream/AsyncInputStream // korlibs.io.compression/compressed|compressed@korlibs.io.stream.AsyncInputStream(korlibs.io.compression.CompressionMethod;korlibs.io.compression.CompressionContext;kotlin.Int){}[0]
+final suspend fun (korlibs.io.stream/AsyncInputStream).korlibs.io.compression/uncompressed(korlibs.io.compression/CompressionMethod, kotlin/Int = ...): korlibs.io.stream/AsyncInputStream // korlibs.io.compression/uncompressed|uncompressed@korlibs.io.stream.AsyncInputStream(korlibs.io.compression.CompressionMethod;kotlin.Int){}[0]

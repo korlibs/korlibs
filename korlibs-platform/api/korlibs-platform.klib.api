@@ -1,0 +1,1244 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: apple => [iosArm64, iosSimulatorArm64, iosX64, macosArm64, tvosArm64, tvosSimulatorArm64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-platform>
+final enum class korlibs.platform/Arch : kotlin/Enum<korlibs.platform/Arch> { // korlibs.platform/Arch|null[0]
+    enum entry ARM32 // korlibs.platform/Arch.ARM32|null[0]
+    enum entry ARM64 // korlibs.platform/Arch.ARM64|null[0]
+    enum entry MIPS32 // korlibs.platform/Arch.MIPS32|null[0]
+    enum entry MIPS64 // korlibs.platform/Arch.MIPS64|null[0]
+    enum entry MIPSEL32 // korlibs.platform/Arch.MIPSEL32|null[0]
+    enum entry MIPSEL64 // korlibs.platform/Arch.MIPSEL64|null[0]
+    enum entry POWERPC64 // korlibs.platform/Arch.POWERPC64|null[0]
+    enum entry UNKNOWN // korlibs.platform/Arch.UNKNOWN|null[0]
+    enum entry WASM32 // korlibs.platform/Arch.WASM32|null[0]
+    enum entry X64 // korlibs.platform/Arch.X64|null[0]
+    enum entry X86 // korlibs.platform/Arch.X86|null[0]
+
+    final val bits // korlibs.platform/Arch.bits|{}bits[0]
+        final fun <get-bits>(): kotlin/Int // korlibs.platform/Arch.bits.<get-bits>|<get-bits>(){}[0]
+    final val entries // korlibs.platform/Arch.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<korlibs.platform/Arch> // korlibs.platform/Arch.entries.<get-entries>|<get-entries>#static(){}[0]
+    final val is32Bits // korlibs.platform/Arch.is32Bits|{}is32Bits[0]
+        final fun <get-is32Bits>(): kotlin/Boolean // korlibs.platform/Arch.is32Bits.<get-is32Bits>|<get-is32Bits>(){}[0]
+    final val is64Bits // korlibs.platform/Arch.is64Bits|{}is64Bits[0]
+        final fun <get-is64Bits>(): kotlin/Boolean // korlibs.platform/Arch.is64Bits.<get-is64Bits>|<get-is64Bits>(){}[0]
+    final val isArm // korlibs.platform/Arch.isArm|{}isArm[0]
+        final fun <get-isArm>(): kotlin/Boolean // korlibs.platform/Arch.isArm.<get-isArm>|<get-isArm>(){}[0]
+    final val isArm32 // korlibs.platform/Arch.isArm32|{}isArm32[0]
+        final fun <get-isArm32>(): kotlin/Boolean // korlibs.platform/Arch.isArm32.<get-isArm32>|<get-isArm32>(){}[0]
+    final val isArm64 // korlibs.platform/Arch.isArm64|{}isArm64[0]
+        final fun <get-isArm64>(): kotlin/Boolean // korlibs.platform/Arch.isArm64.<get-isArm64>|<get-isArm64>(){}[0]
+    final val isMIPS32 // korlibs.platform/Arch.isMIPS32|{}isMIPS32[0]
+        final fun <get-isMIPS32>(): kotlin/Boolean // korlibs.platform/Arch.isMIPS32.<get-isMIPS32>|<get-isMIPS32>(){}[0]
+    final val isMIPS64 // korlibs.platform/Arch.isMIPS64|{}isMIPS64[0]
+        final fun <get-isMIPS64>(): kotlin/Boolean // korlibs.platform/Arch.isMIPS64.<get-isMIPS64>|<get-isMIPS64>(){}[0]
+    final val isMIPSEL32 // korlibs.platform/Arch.isMIPSEL32|{}isMIPSEL32[0]
+        final fun <get-isMIPSEL32>(): kotlin/Boolean // korlibs.platform/Arch.isMIPSEL32.<get-isMIPSEL32>|<get-isMIPSEL32>(){}[0]
+    final val isMIPSEL64 // korlibs.platform/Arch.isMIPSEL64|{}isMIPSEL64[0]
+        final fun <get-isMIPSEL64>(): kotlin/Boolean // korlibs.platform/Arch.isMIPSEL64.<get-isMIPSEL64>|<get-isMIPSEL64>(){}[0]
+    final val isMips // korlibs.platform/Arch.isMips|{}isMips[0]
+        final fun <get-isMips>(): kotlin/Boolean // korlibs.platform/Arch.isMips.<get-isMips>|<get-isMips>(){}[0]
+    final val isPOWERPC64 // korlibs.platform/Arch.isPOWERPC64|{}isPOWERPC64[0]
+        final fun <get-isPOWERPC64>(): kotlin/Boolean // korlibs.platform/Arch.isPOWERPC64.<get-isPOWERPC64>|<get-isPOWERPC64>(){}[0]
+    final val isPowerPC // korlibs.platform/Arch.isPowerPC|{}isPowerPC[0]
+        final fun <get-isPowerPC>(): kotlin/Boolean // korlibs.platform/Arch.isPowerPC.<get-isPowerPC>|<get-isPowerPC>(){}[0]
+    final val isWASM32 // korlibs.platform/Arch.isWASM32|{}isWASM32[0]
+        final fun <get-isWASM32>(): kotlin/Boolean // korlibs.platform/Arch.isWASM32.<get-isWASM32>|<get-isWASM32>(){}[0]
+    final val isWasm // korlibs.platform/Arch.isWasm|{}isWasm[0]
+        final fun <get-isWasm>(): kotlin/Boolean // korlibs.platform/Arch.isWasm.<get-isWasm>|<get-isWasm>(){}[0]
+    final val isX64 // korlibs.platform/Arch.isX64|{}isX64[0]
+        final fun <get-isX64>(): kotlin/Boolean // korlibs.platform/Arch.isX64.<get-isX64>|<get-isX64>(){}[0]
+    final val isX86 // korlibs.platform/Arch.isX86|{}isX86[0]
+        final fun <get-isX86>(): kotlin/Boolean // korlibs.platform/Arch.isX86.<get-isX86>|<get-isX86>(){}[0]
+    final val isX86OrX64 // korlibs.platform/Arch.isX86OrX64|{}isX86OrX64[0]
+        final fun <get-isX86OrX64>(): kotlin/Boolean // korlibs.platform/Arch.isX86OrX64.<get-isX86OrX64>|<get-isX86OrX64>(){}[0]
+
+    final fun valueOf(kotlin/String): korlibs.platform/Arch // korlibs.platform/Arch.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<korlibs.platform/Arch> // korlibs.platform/Arch.values|values#static(){}[0]
+
+    final object Companion { // korlibs.platform/Arch.Companion|null[0]
+        final val CURRENT // korlibs.platform/Arch.Companion.CURRENT|{}CURRENT[0]
+            final fun <get-CURRENT>(): korlibs.platform/Arch // korlibs.platform/Arch.Companion.CURRENT.<get-CURRENT>|<get-CURRENT>(){}[0]
+    }
+}
+
+final enum class korlibs.platform/BuildVariant : kotlin/Enum<korlibs.platform/BuildVariant> { // korlibs.platform/BuildVariant|null[0]
+    enum entry DEBUG // korlibs.platform/BuildVariant.DEBUG|null[0]
+    enum entry RELEASE // korlibs.platform/BuildVariant.RELEASE|null[0]
+
+    final val entries // korlibs.platform/BuildVariant.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<korlibs.platform/BuildVariant> // korlibs.platform/BuildVariant.entries.<get-entries>|<get-entries>#static(){}[0]
+    final val isDebug // korlibs.platform/BuildVariant.isDebug|{}isDebug[0]
+        final fun <get-isDebug>(): kotlin/Boolean // korlibs.platform/BuildVariant.isDebug.<get-isDebug>|<get-isDebug>(){}[0]
+    final val isRelease // korlibs.platform/BuildVariant.isRelease|{}isRelease[0]
+        final fun <get-isRelease>(): kotlin/Boolean // korlibs.platform/BuildVariant.isRelease.<get-isRelease>|<get-isRelease>(){}[0]
+
+    final fun valueOf(kotlin/String): korlibs.platform/BuildVariant // korlibs.platform/BuildVariant.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<korlibs.platform/BuildVariant> // korlibs.platform/BuildVariant.values|values#static(){}[0]
+
+    final object Companion { // korlibs.platform/BuildVariant.Companion|null[0]
+        final val CURRENT // korlibs.platform/BuildVariant.Companion.CURRENT|{}CURRENT[0]
+            final fun <get-CURRENT>(): korlibs.platform/BuildVariant // korlibs.platform/BuildVariant.Companion.CURRENT.<get-CURRENT>|<get-CURRENT>(){}[0]
+    }
+}
+
+final enum class korlibs.platform/Endian : kotlin/Enum<korlibs.platform/Endian> { // korlibs.platform/Endian|null[0]
+    enum entry BIG_ENDIAN // korlibs.platform/Endian.BIG_ENDIAN|null[0]
+    enum entry LITTLE_ENDIAN // korlibs.platform/Endian.LITTLE_ENDIAN|null[0]
+
+    final val entries // korlibs.platform/Endian.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<korlibs.platform/Endian> // korlibs.platform/Endian.entries.<get-entries>|<get-entries>#static(){}[0]
+    final val isBig // korlibs.platform/Endian.isBig|{}isBig[0]
+        final fun <get-isBig>(): kotlin/Boolean // korlibs.platform/Endian.isBig.<get-isBig>|<get-isBig>(){}[0]
+    final val isLittle // korlibs.platform/Endian.isLittle|{}isLittle[0]
+        final fun <get-isLittle>(): kotlin/Boolean // korlibs.platform/Endian.isLittle.<get-isLittle>|<get-isLittle>(){}[0]
+
+    final fun valueOf(kotlin/String): korlibs.platform/Endian // korlibs.platform/Endian.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<korlibs.platform/Endian> // korlibs.platform/Endian.values|values#static(){}[0]
+
+    final object Companion { // korlibs.platform/Endian.Companion|null[0]
+        final val NATIVE // korlibs.platform/Endian.Companion.NATIVE|{}NATIVE[0]
+            final fun <get-NATIVE>(): korlibs.platform/Endian // korlibs.platform/Endian.Companion.NATIVE.<get-NATIVE>|<get-NATIVE>(){}[0]
+        final val isBigEndian // korlibs.platform/Endian.Companion.isBigEndian|{}isBigEndian[0]
+            final fun <get-isBigEndian>(): kotlin/Boolean // korlibs.platform/Endian.Companion.isBigEndian.<get-isBigEndian>|<get-isBigEndian>(){}[0]
+        final val isLittleEndian // korlibs.platform/Endian.Companion.isLittleEndian|{}isLittleEndian[0]
+            final fun <get-isLittleEndian>(): kotlin/Boolean // korlibs.platform/Endian.Companion.isLittleEndian.<get-isLittleEndian>|<get-isLittleEndian>(){}[0]
+    }
+}
+
+final enum class korlibs.platform/Os : kotlin/Enum<korlibs.platform/Os> { // korlibs.platform/Os|null[0]
+    enum entry ANDROID // korlibs.platform/Os.ANDROID|null[0]
+    enum entry IOS // korlibs.platform/Os.IOS|null[0]
+    enum entry LINUX // korlibs.platform/Os.LINUX|null[0]
+    enum entry MACOSX // korlibs.platform/Os.MACOSX|null[0]
+    enum entry TVOS // korlibs.platform/Os.TVOS|null[0]
+    enum entry UNKNOWN // korlibs.platform/Os.UNKNOWN|null[0]
+    enum entry WASM // korlibs.platform/Os.WASM|null[0]
+    enum entry WATCHOS // korlibs.platform/Os.WATCHOS|null[0]
+    enum entry WINDOWS // korlibs.platform/Os.WINDOWS|null[0]
+
+    final val entries // korlibs.platform/Os.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<korlibs.platform/Os> // korlibs.platform/Os.entries.<get-entries>|<get-entries>#static(){}[0]
+    final val isAndroid // korlibs.platform/Os.isAndroid|{}isAndroid[0]
+        final fun <get-isAndroid>(): kotlin/Boolean // korlibs.platform/Os.isAndroid.<get-isAndroid>|<get-isAndroid>(){}[0]
+    final val isApple // korlibs.platform/Os.isApple|{}isApple[0]
+        final fun <get-isApple>(): kotlin/Boolean // korlibs.platform/Os.isApple.<get-isApple>|<get-isApple>(){}[0]
+    final val isAppleMobile // korlibs.platform/Os.isAppleMobile|{}isAppleMobile[0]
+        final fun <get-isAppleMobile>(): kotlin/Boolean // korlibs.platform/Os.isAppleMobile.<get-isAppleMobile>|<get-isAppleMobile>(){}[0]
+    final val isDesktop // korlibs.platform/Os.isDesktop|{}isDesktop[0]
+        final fun <get-isDesktop>(): kotlin/Boolean // korlibs.platform/Os.isDesktop.<get-isDesktop>|<get-isDesktop>(){}[0]
+    final val isIos // korlibs.platform/Os.isIos|{}isIos[0]
+        final fun <get-isIos>(): kotlin/Boolean // korlibs.platform/Os.isIos.<get-isIos>|<get-isIos>(){}[0]
+    final val isLinux // korlibs.platform/Os.isLinux|{}isLinux[0]
+        final fun <get-isLinux>(): kotlin/Boolean // korlibs.platform/Os.isLinux.<get-isLinux>|<get-isLinux>(){}[0]
+    final val isMac // korlibs.platform/Os.isMac|{}isMac[0]
+        final fun <get-isMac>(): kotlin/Boolean // korlibs.platform/Os.isMac.<get-isMac>|<get-isMac>(){}[0]
+    final val isMobile // korlibs.platform/Os.isMobile|{}isMobile[0]
+        final fun <get-isMobile>(): kotlin/Boolean // korlibs.platform/Os.isMobile.<get-isMobile>|<get-isMobile>(){}[0]
+    final val isPosix // korlibs.platform/Os.isPosix|{}isPosix[0]
+        final fun <get-isPosix>(): kotlin/Boolean // korlibs.platform/Os.isPosix.<get-isPosix>|<get-isPosix>(){}[0]
+    final val isTvos // korlibs.platform/Os.isTvos|{}isTvos[0]
+        final fun <get-isTvos>(): kotlin/Boolean // korlibs.platform/Os.isTvos.<get-isTvos>|<get-isTvos>(){}[0]
+    final val isWatchos // korlibs.platform/Os.isWatchos|{}isWatchos[0]
+        final fun <get-isWatchos>(): kotlin/Boolean // korlibs.platform/Os.isWatchos.<get-isWatchos>|<get-isWatchos>(){}[0]
+    final val isWindows // korlibs.platform/Os.isWindows|{}isWindows[0]
+        final fun <get-isWindows>(): kotlin/Boolean // korlibs.platform/Os.isWindows.<get-isWindows>|<get-isWindows>(){}[0]
+
+    final fun valueOf(kotlin/String): korlibs.platform/Os // korlibs.platform/Os.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<korlibs.platform/Os> // korlibs.platform/Os.values|values#static(){}[0]
+
+    final object Companion { // korlibs.platform/Os.Companion|null[0]
+        final val CURRENT // korlibs.platform/Os.Companion.CURRENT|{}CURRENT[0]
+            final fun <get-CURRENT>(): korlibs.platform/Os // korlibs.platform/Os.Companion.CURRENT.<get-CURRENT>|<get-CURRENT>(){}[0]
+        final val VALUES // korlibs.platform/Os.Companion.VALUES|{}VALUES[0]
+            final fun <get-VALUES>(): kotlin.enums/EnumEntries<korlibs.platform/Os> // korlibs.platform/Os.Companion.VALUES.<get-VALUES>|<get-VALUES>(){}[0]
+    }
+}
+
+final enum class korlibs.platform/Runtime : kotlin/Enum<korlibs.platform/Runtime> { // korlibs.platform/Runtime|null[0]
+    enum entry ANDROID // korlibs.platform/Runtime.ANDROID|null[0]
+    enum entry JS // korlibs.platform/Runtime.JS|null[0]
+    enum entry JVM // korlibs.platform/Runtime.JVM|null[0]
+    enum entry NATIVE // korlibs.platform/Runtime.NATIVE|null[0]
+    enum entry WASM // korlibs.platform/Runtime.WASM|null[0]
+
+    final val entries // korlibs.platform/Runtime.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<korlibs.platform/Runtime> // korlibs.platform/Runtime.entries.<get-entries>|<get-entries>#static(){}[0]
+    final val isAndroid // korlibs.platform/Runtime.isAndroid|{}isAndroid[0]
+        final fun <get-isAndroid>(): kotlin/Boolean // korlibs.platform/Runtime.isAndroid.<get-isAndroid>|<get-isAndroid>(){}[0]
+    final val isJs // korlibs.platform/Runtime.isJs|{}isJs[0]
+        final fun <get-isJs>(): kotlin/Boolean // korlibs.platform/Runtime.isJs.<get-isJs>|<get-isJs>(){}[0]
+    final val isJvm // korlibs.platform/Runtime.isJvm|{}isJvm[0]
+        final fun <get-isJvm>(): kotlin/Boolean // korlibs.platform/Runtime.isJvm.<get-isJvm>|<get-isJvm>(){}[0]
+    final val isJvmOrAndroid // korlibs.platform/Runtime.isJvmOrAndroid|{}isJvmOrAndroid[0]
+        final fun <get-isJvmOrAndroid>(): kotlin/Boolean // korlibs.platform/Runtime.isJvmOrAndroid.<get-isJvmOrAndroid>|<get-isJvmOrAndroid>(){}[0]
+    final val isNative // korlibs.platform/Runtime.isNative|{}isNative[0]
+        final fun <get-isNative>(): kotlin/Boolean // korlibs.platform/Runtime.isNative.<get-isNative>|<get-isNative>(){}[0]
+    final val isWasm // korlibs.platform/Runtime.isWasm|{}isWasm[0]
+        final fun <get-isWasm>(): kotlin/Boolean // korlibs.platform/Runtime.isWasm.<get-isWasm>|<get-isWasm>(){}[0]
+
+    final fun valueOf(kotlin/String): korlibs.platform/Runtime // korlibs.platform/Runtime.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<korlibs.platform/Runtime> // korlibs.platform/Runtime.values|values#static(){}[0]
+
+    final object Companion { // korlibs.platform/Runtime.Companion|null[0]
+        final val CURRENT // korlibs.platform/Runtime.Companion.CURRENT|{}CURRENT[0]
+            final fun <get-CURRENT>(): korlibs.platform/Runtime // korlibs.platform/Runtime.Companion.CURRENT.<get-CURRENT>|<get-CURRENT>(){}[0]
+    }
+}
+
+abstract fun interface korlibs.io.lang/Cancellable { // korlibs.io.lang/Cancellable|null[0]
+    abstract fun cancel(kotlin/Throwable) // korlibs.io.lang/Cancellable.cancel|cancel(kotlin.Throwable){}[0]
+
+    final object Companion { // korlibs.io.lang/Cancellable.Companion|null[0]
+        final fun invoke(kotlin.collections/List<korlibs.io.lang/Cancellable>): korlibs.io.lang/Cancellable // korlibs.io.lang/Cancellable.Companion.invoke|invoke(kotlin.collections.List<korlibs.io.lang.Cancellable>){}[0]
+        final fun invoke(kotlin/Function1<kotlin/Throwable, kotlin/Unit>): korlibs.io.lang/Cancellable // korlibs.io.lang/Cancellable.Companion.invoke|invoke(kotlin.Function1<kotlin.Throwable,kotlin.Unit>){}[0]
+    }
+}
+
+abstract interface <#A: korlibs.io.lang/EnumLike<#A>> korlibs.io.lang/EnumLike { // korlibs.io.lang/EnumLike|null[0]
+    abstract fun (korlibs.io.lang/EnumLike.Scope).getValues(): kotlin.collections/List<#A> // korlibs.io.lang/EnumLike.getValues|getValues@korlibs.io.lang.EnumLike.Scope(){}[0]
+
+    final object Companion { // korlibs.io.lang/EnumLike.Companion|null[0]
+        final inline fun <#A2: reified korlibs.io.lang/EnumLike<#A2>> getValues(korlibs.io.lang/EnumLike<#A2>): kotlin.collections/List<#A2> // korlibs.io.lang/EnumLike.Companion.getValues|getValues(korlibs.io.lang.EnumLike<0:0>){0§<korlibs.io.lang.EnumLike<0:0>>}[0]
+        final inline fun <#A2: reified kotlin/Enum<#A2>> getValues(#A2): kotlin.collections/List<#A2> // korlibs.io.lang/EnumLike.Companion.getValues|getValues(0:0){0§<kotlin.Enum<0:0>>}[0]
+    }
+
+    final object Scope // korlibs.io.lang/EnumLike.Scope|null[0]
+}
+
+abstract interface korlibs.image.bitmap/NativeImageRef { // korlibs.image.bitmap/NativeImageRef|null[0]
+    abstract val data // korlibs.image.bitmap/NativeImageRef.data|{}data[0]
+        abstract fun <get-data>(): kotlin/Any? // korlibs.image.bitmap/NativeImageRef.data.<get-data>|<get-data>(){}[0]
+    abstract val height // korlibs.image.bitmap/NativeImageRef.height|{}height[0]
+        abstract fun <get-height>(): kotlin/Int // korlibs.image.bitmap/NativeImageRef.height.<get-height>|<get-height>(){}[0]
+    abstract val width // korlibs.image.bitmap/NativeImageRef.width|{}width[0]
+        abstract fun <get-width>(): kotlin/Int // korlibs.image.bitmap/NativeImageRef.width.<get-width>|<get-width>(){}[0]
+}
+
+abstract interface korlibs.io.async/AsyncCloseable { // korlibs.io.async/AsyncCloseable|null[0]
+    abstract suspend fun close() // korlibs.io.async/AsyncCloseable.close|close(){}[0]
+
+    final object Companion { // korlibs.io.async/AsyncCloseable.Companion|null[0]
+        final val DUMMY // korlibs.io.async/AsyncCloseable.Companion.DUMMY|{}DUMMY[0]
+            final fun <get-DUMMY>(): korlibs.io.async/AsyncCloseable // korlibs.io.async/AsyncCloseable.Companion.DUMMY.<get-DUMMY>|<get-DUMMY>(){}[0]
+    }
+}
+
+abstract interface korlibs.io.async/OptionalAsyncCloseable : korlibs.io.async/AsyncCloseable { // korlibs.io.async/OptionalAsyncCloseable|null[0]
+    open suspend fun close() // korlibs.io.async/OptionalAsyncCloseable.close|close(){}[0]
+}
+
+abstract interface korlibs.io.lang/CloseableCancellable : korlibs.io.lang/Cancellable, kotlin/AutoCloseable { // korlibs.io.lang/CloseableCancellable|null[0]
+    open fun cancel(kotlin/Throwable) // korlibs.io.lang/CloseableCancellable.cancel|cancel(kotlin.Throwable){}[0]
+
+    final object Companion { // korlibs.io.lang/CloseableCancellable.Companion|null[0]
+        final fun invoke(kotlin/Function1<kotlin/Throwable?, kotlin/Unit>): korlibs.io.lang/CloseableCancellable // korlibs.io.lang/CloseableCancellable.Companion.invoke|invoke(kotlin.Function1<kotlin.Throwable?,kotlin.Unit>){}[0]
+    }
+}
+
+abstract interface korlibs.io.lang/Environment { // korlibs.io.lang/Environment|null[0]
+    abstract fun get(kotlin/String): kotlin/String? // korlibs.io.lang/Environment.get|get(kotlin.String){}[0]
+    abstract fun getAll(): kotlin.collections/Map<kotlin/String, kotlin/String> // korlibs.io.lang/Environment.getAll|getAll(){}[0]
+    abstract fun set(kotlin/String, kotlin/String) // korlibs.io.lang/Environment.set|set(kotlin.String;kotlin.String){}[0]
+
+    final object Companion : korlibs.io.lang/Environment { // korlibs.io.lang/Environment.Companion|null[0]
+        final val DIR_SEPARATOR // korlibs.io.lang/Environment.Companion.DIR_SEPARATOR|{}DIR_SEPARATOR[0]
+            final fun <get-DIR_SEPARATOR>(): kotlin/Char // korlibs.io.lang/Environment.Companion.DIR_SEPARATOR.<get-DIR_SEPARATOR>|<get-DIR_SEPARATOR>(){}[0]
+        final val PATH_SEPARATOR // korlibs.io.lang/Environment.Companion.PATH_SEPARATOR|{}PATH_SEPARATOR[0]
+            final fun <get-PATH_SEPARATOR>(): kotlin/Char // korlibs.io.lang/Environment.Companion.PATH_SEPARATOR.<get-PATH_SEPARATOR>|<get-PATH_SEPARATOR>(){}[0]
+
+        final fun get(kotlin/String): kotlin/String? // korlibs.io.lang/Environment.Companion.get|get(kotlin.String){}[0]
+        final fun getAll(): kotlin.collections/Map<kotlin/String, kotlin/String> // korlibs.io.lang/Environment.Companion.getAll|getAll(){}[0]
+        final fun set(kotlin/String, kotlin/String) // korlibs.io.lang/Environment.Companion.set|set(kotlin.String;kotlin.String){}[0]
+    }
+}
+
+abstract interface korlibs.io.lang/OptionalAutoCloseable : kotlin/AutoCloseable { // korlibs.io.lang/OptionalAutoCloseable|null[0]
+    open fun close() // korlibs.io.lang/OptionalAutoCloseable.close|close(){}[0]
+}
+
+abstract interface korlibs.platform/Platform { // korlibs.platform/Platform|null[0]
+    abstract val arch // korlibs.platform/Platform.arch|{}arch[0]
+        abstract fun <get-arch>(): korlibs.platform/Arch // korlibs.platform/Platform.arch.<get-arch>|<get-arch>(){}[0]
+    abstract val buildVariant // korlibs.platform/Platform.buildVariant|{}buildVariant[0]
+        abstract fun <get-buildVariant>(): korlibs.platform/BuildVariant // korlibs.platform/Platform.buildVariant.<get-buildVariant>|<get-buildVariant>(){}[0]
+    abstract val endian // korlibs.platform/Platform.endian|{}endian[0]
+        abstract fun <get-endian>(): korlibs.platform/Endian // korlibs.platform/Platform.endian.<get-endian>|<get-endian>(){}[0]
+    abstract val hasMultithreadedSharedHeap // korlibs.platform/Platform.hasMultithreadedSharedHeap|{}hasMultithreadedSharedHeap[0]
+        abstract fun <get-hasMultithreadedSharedHeap>(): kotlin/Boolean // korlibs.platform/Platform.hasMultithreadedSharedHeap.<get-hasMultithreadedSharedHeap>|<get-hasMultithreadedSharedHeap>(){}[0]
+    abstract val os // korlibs.platform/Platform.os|{}os[0]
+        abstract fun <get-os>(): korlibs.platform/Os // korlibs.platform/Platform.os.<get-os>|<get-os>(){}[0]
+    abstract val rawOsName // korlibs.platform/Platform.rawOsName|{}rawOsName[0]
+        abstract fun <get-rawOsName>(): kotlin/String // korlibs.platform/Platform.rawOsName.<get-rawOsName>|<get-rawOsName>(){}[0]
+    abstract val rawPlatformName // korlibs.platform/Platform.rawPlatformName|{}rawPlatformName[0]
+        abstract fun <get-rawPlatformName>(): kotlin/String // korlibs.platform/Platform.rawPlatformName.<get-rawPlatformName>|<get-rawPlatformName>(){}[0]
+    abstract val runtime // korlibs.platform/Platform.runtime|{}runtime[0]
+        abstract fun <get-runtime>(): korlibs.platform/Runtime // korlibs.platform/Platform.runtime.<get-runtime>|<get-runtime>(){}[0]
+    open val isAndroid // korlibs.platform/Platform.isAndroid|{}isAndroid[0]
+        open fun <get-isAndroid>(): kotlin/Boolean // korlibs.platform/Platform.isAndroid.<get-isAndroid>|<get-isAndroid>(){}[0]
+    open val isApple // korlibs.platform/Platform.isApple|{}isApple[0]
+        open fun <get-isApple>(): kotlin/Boolean // korlibs.platform/Platform.isApple.<get-isApple>|<get-isApple>(){}[0]
+    open val isAppleMobile // korlibs.platform/Platform.isAppleMobile|{}isAppleMobile[0]
+        open fun <get-isAppleMobile>(): kotlin/Boolean // korlibs.platform/Platform.isAppleMobile.<get-isAppleMobile>|<get-isAppleMobile>(){}[0]
+    open val isBigEndian // korlibs.platform/Platform.isBigEndian|{}isBigEndian[0]
+        open fun <get-isBigEndian>(): kotlin/Boolean // korlibs.platform/Platform.isBigEndian.<get-isBigEndian>|<get-isBigEndian>(){}[0]
+    open val isDebug // korlibs.platform/Platform.isDebug|{}isDebug[0]
+        open fun <get-isDebug>(): kotlin/Boolean // korlibs.platform/Platform.isDebug.<get-isDebug>|<get-isDebug>(){}[0]
+    open val isInsideBrowser // korlibs.platform/Platform.isInsideBrowser|{}isInsideBrowser[0]
+        open fun <get-isInsideBrowser>(): kotlin/Boolean // korlibs.platform/Platform.isInsideBrowser.<get-isInsideBrowser>|<get-isInsideBrowser>(){}[0]
+    open val isIos // korlibs.platform/Platform.isIos|{}isIos[0]
+        open fun <get-isIos>(): kotlin/Boolean // korlibs.platform/Platform.isIos.<get-isIos>|<get-isIos>(){}[0]
+    open val isJs // korlibs.platform/Platform.isJs|{}isJs[0]
+        open fun <get-isJs>(): kotlin/Boolean // korlibs.platform/Platform.isJs.<get-isJs>|<get-isJs>(){}[0]
+    open val isJsBrowser // korlibs.platform/Platform.isJsBrowser|{}isJsBrowser[0]
+        open fun <get-isJsBrowser>(): kotlin/Boolean // korlibs.platform/Platform.isJsBrowser.<get-isJsBrowser>|<get-isJsBrowser>(){}[0]
+    open val isJsBrowserOrWorker // korlibs.platform/Platform.isJsBrowserOrWorker|{}isJsBrowserOrWorker[0]
+        open fun <get-isJsBrowserOrWorker>(): kotlin/Boolean // korlibs.platform/Platform.isJsBrowserOrWorker.<get-isJsBrowserOrWorker>|<get-isJsBrowserOrWorker>(){}[0]
+    open val isJsDenoJs // korlibs.platform/Platform.isJsDenoJs|{}isJsDenoJs[0]
+        open fun <get-isJsDenoJs>(): kotlin/Boolean // korlibs.platform/Platform.isJsDenoJs.<get-isJsDenoJs>|<get-isJsDenoJs>(){}[0]
+    open val isJsNodeJs // korlibs.platform/Platform.isJsNodeJs|{}isJsNodeJs[0]
+        open fun <get-isJsNodeJs>(): kotlin/Boolean // korlibs.platform/Platform.isJsNodeJs.<get-isJsNodeJs>|<get-isJsNodeJs>(){}[0]
+    open val isJsOrWasm // korlibs.platform/Platform.isJsOrWasm|{}isJsOrWasm[0]
+        open fun <get-isJsOrWasm>(): kotlin/Boolean // korlibs.platform/Platform.isJsOrWasm.<get-isJsOrWasm>|<get-isJsOrWasm>(){}[0]
+    open val isJsShell // korlibs.platform/Platform.isJsShell|{}isJsShell[0]
+        open fun <get-isJsShell>(): kotlin/Boolean // korlibs.platform/Platform.isJsShell.<get-isJsShell>|<get-isJsShell>(){}[0]
+    open val isJsWorker // korlibs.platform/Platform.isJsWorker|{}isJsWorker[0]
+        open fun <get-isJsWorker>(): kotlin/Boolean // korlibs.platform/Platform.isJsWorker.<get-isJsWorker>|<get-isJsWorker>(){}[0]
+    open val isJvm // korlibs.platform/Platform.isJvm|{}isJvm[0]
+        open fun <get-isJvm>(): kotlin/Boolean // korlibs.platform/Platform.isJvm.<get-isJvm>|<get-isJvm>(){}[0]
+    open val isLinux // korlibs.platform/Platform.isLinux|{}isLinux[0]
+        open fun <get-isLinux>(): kotlin/Boolean // korlibs.platform/Platform.isLinux.<get-isLinux>|<get-isLinux>(){}[0]
+    open val isLittleEndian // korlibs.platform/Platform.isLittleEndian|{}isLittleEndian[0]
+        open fun <get-isLittleEndian>(): kotlin/Boolean // korlibs.platform/Platform.isLittleEndian.<get-isLittleEndian>|<get-isLittleEndian>(){}[0]
+    open val isMac // korlibs.platform/Platform.isMac|{}isMac[0]
+        open fun <get-isMac>(): kotlin/Boolean // korlibs.platform/Platform.isMac.<get-isMac>|<get-isMac>(){}[0]
+    open val isNative // korlibs.platform/Platform.isNative|{}isNative[0]
+        open fun <get-isNative>(): kotlin/Boolean // korlibs.platform/Platform.isNative.<get-isNative>|<get-isNative>(){}[0]
+    open val isNativeDesktop // korlibs.platform/Platform.isNativeDesktop|{}isNativeDesktop[0]
+        open fun <get-isNativeDesktop>(): kotlin/Boolean // korlibs.platform/Platform.isNativeDesktop.<get-isNativeDesktop>|<get-isNativeDesktop>(){}[0]
+    open val isPosix // korlibs.platform/Platform.isPosix|{}isPosix[0]
+        open fun <get-isPosix>(): kotlin/Boolean // korlibs.platform/Platform.isPosix.<get-isPosix>|<get-isPosix>(){}[0]
+    open val isRelease // korlibs.platform/Platform.isRelease|{}isRelease[0]
+        open fun <get-isRelease>(): kotlin/Boolean // korlibs.platform/Platform.isRelease.<get-isRelease>|<get-isRelease>(){}[0]
+    open val isTvos // korlibs.platform/Platform.isTvos|{}isTvos[0]
+        open fun <get-isTvos>(): kotlin/Boolean // korlibs.platform/Platform.isTvos.<get-isTvos>|<get-isTvos>(){}[0]
+    open val isUnix // korlibs.platform/Platform.isUnix|{}isUnix[0]
+        open fun <get-isUnix>(): kotlin/Boolean // korlibs.platform/Platform.isUnix.<get-isUnix>|<get-isUnix>(){}[0]
+    open val isWasm // korlibs.platform/Platform.isWasm|{}isWasm[0]
+        open fun <get-isWasm>(): kotlin/Boolean // korlibs.platform/Platform.isWasm.<get-isWasm>|<get-isWasm>(){}[0]
+    open val isWatchos // korlibs.platform/Platform.isWatchos|{}isWatchos[0]
+        open fun <get-isWatchos>(): kotlin/Boolean // korlibs.platform/Platform.isWatchos.<get-isWatchos>|<get-isWatchos>(){}[0]
+    open val isWindows // korlibs.platform/Platform.isWindows|{}isWindows[0]
+        open fun <get-isWindows>(): kotlin/Boolean // korlibs.platform/Platform.isWindows.<get-isWindows>|<get-isWindows>(){}[0]
+
+    final class Impl : korlibs.platform/Platform { // korlibs.platform/Platform.Impl|null[0]
+        constructor <init>(korlibs.platform/Endian, korlibs.platform/Arch, korlibs.platform/Os, korlibs.platform/Runtime, korlibs.platform/BuildVariant, kotlin/String, kotlin/String, kotlin/Boolean) // korlibs.platform/Platform.Impl.<init>|<init>(korlibs.platform.Endian;korlibs.platform.Arch;korlibs.platform.Os;korlibs.platform.Runtime;korlibs.platform.BuildVariant;kotlin.String;kotlin.String;kotlin.Boolean){}[0]
+
+        final val arch // korlibs.platform/Platform.Impl.arch|{}arch[0]
+            final fun <get-arch>(): korlibs.platform/Arch // korlibs.platform/Platform.Impl.arch.<get-arch>|<get-arch>(){}[0]
+        final val buildVariant // korlibs.platform/Platform.Impl.buildVariant|{}buildVariant[0]
+            final fun <get-buildVariant>(): korlibs.platform/BuildVariant // korlibs.platform/Platform.Impl.buildVariant.<get-buildVariant>|<get-buildVariant>(){}[0]
+        final val endian // korlibs.platform/Platform.Impl.endian|{}endian[0]
+            final fun <get-endian>(): korlibs.platform/Endian // korlibs.platform/Platform.Impl.endian.<get-endian>|<get-endian>(){}[0]
+        final val hasMultithreadedSharedHeap // korlibs.platform/Platform.Impl.hasMultithreadedSharedHeap|{}hasMultithreadedSharedHeap[0]
+            final fun <get-hasMultithreadedSharedHeap>(): kotlin/Boolean // korlibs.platform/Platform.Impl.hasMultithreadedSharedHeap.<get-hasMultithreadedSharedHeap>|<get-hasMultithreadedSharedHeap>(){}[0]
+        final val os // korlibs.platform/Platform.Impl.os|{}os[0]
+            final fun <get-os>(): korlibs.platform/Os // korlibs.platform/Platform.Impl.os.<get-os>|<get-os>(){}[0]
+        final val rawOsName // korlibs.platform/Platform.Impl.rawOsName|{}rawOsName[0]
+            final fun <get-rawOsName>(): kotlin/String // korlibs.platform/Platform.Impl.rawOsName.<get-rawOsName>|<get-rawOsName>(){}[0]
+        final val rawPlatformName // korlibs.platform/Platform.Impl.rawPlatformName|{}rawPlatformName[0]
+            final fun <get-rawPlatformName>(): kotlin/String // korlibs.platform/Platform.Impl.rawPlatformName.<get-rawPlatformName>|<get-rawPlatformName>(){}[0]
+        final val runtime // korlibs.platform/Platform.Impl.runtime|{}runtime[0]
+            final fun <get-runtime>(): korlibs.platform/Runtime // korlibs.platform/Platform.Impl.runtime.<get-runtime>|<get-runtime>(){}[0]
+
+        final fun component1(): korlibs.platform/Endian // korlibs.platform/Platform.Impl.component1|component1(){}[0]
+        final fun component2(): korlibs.platform/Arch // korlibs.platform/Platform.Impl.component2|component2(){}[0]
+        final fun component3(): korlibs.platform/Os // korlibs.platform/Platform.Impl.component3|component3(){}[0]
+        final fun component4(): korlibs.platform/Runtime // korlibs.platform/Platform.Impl.component4|component4(){}[0]
+        final fun component5(): korlibs.platform/BuildVariant // korlibs.platform/Platform.Impl.component5|component5(){}[0]
+        final fun component6(): kotlin/String // korlibs.platform/Platform.Impl.component6|component6(){}[0]
+        final fun component7(): kotlin/String // korlibs.platform/Platform.Impl.component7|component7(){}[0]
+        final fun component8(): kotlin/Boolean // korlibs.platform/Platform.Impl.component8|component8(){}[0]
+        final fun copy(korlibs.platform/Endian = ..., korlibs.platform/Arch = ..., korlibs.platform/Os = ..., korlibs.platform/Runtime = ..., korlibs.platform/BuildVariant = ..., kotlin/String = ..., kotlin/String = ..., kotlin/Boolean = ...): korlibs.platform/Platform.Impl // korlibs.platform/Platform.Impl.copy|copy(korlibs.platform.Endian;korlibs.platform.Arch;korlibs.platform.Os;korlibs.platform.Runtime;korlibs.platform.BuildVariant;kotlin.String;kotlin.String;kotlin.Boolean){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.platform/Platform.Impl.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.platform/Platform.Impl.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.platform/Platform.Impl.toString|toString(){}[0]
+    }
+
+    final object Companion : korlibs.platform/Platform { // korlibs.platform/Platform.Companion|null[0]
+        final val arch // korlibs.platform/Platform.Companion.arch|{}arch[0]
+            final fun <get-arch>(): korlibs.platform/Arch // korlibs.platform/Platform.Companion.arch.<get-arch>|<get-arch>(){}[0]
+        final val buildVariant // korlibs.platform/Platform.Companion.buildVariant|{}buildVariant[0]
+            final fun <get-buildVariant>(): korlibs.platform/BuildVariant // korlibs.platform/Platform.Companion.buildVariant.<get-buildVariant>|<get-buildVariant>(){}[0]
+        final val endian // korlibs.platform/Platform.Companion.endian|{}endian[0]
+            final fun <get-endian>(): korlibs.platform/Endian // korlibs.platform/Platform.Companion.endian.<get-endian>|<get-endian>(){}[0]
+        final val envs // korlibs.platform/Platform.Companion.envs|{}envs[0]
+            final fun <get-envs>(): kotlin.collections/Map<kotlin/String, kotlin/String> // korlibs.platform/Platform.Companion.envs.<get-envs>|<get-envs>(){}[0]
+        final val envsUC // korlibs.platform/Platform.Companion.envsUC|{}envsUC[0]
+            final fun <get-envsUC>(): kotlin.collections/Map<kotlin/String, kotlin/String> // korlibs.platform/Platform.Companion.envsUC.<get-envsUC>|<get-envsUC>(){}[0]
+        final val hasMultithreadedSharedHeap // korlibs.platform/Platform.Companion.hasMultithreadedSharedHeap|{}hasMultithreadedSharedHeap[0]
+            final fun <get-hasMultithreadedSharedHeap>(): kotlin/Boolean // korlibs.platform/Platform.Companion.hasMultithreadedSharedHeap.<get-hasMultithreadedSharedHeap>|<get-hasMultithreadedSharedHeap>(){}[0]
+        final val isBigEndian // korlibs.platform/Platform.Companion.isBigEndian|{}isBigEndian[0]
+            final fun <get-isBigEndian>(): kotlin/Boolean // korlibs.platform/Platform.Companion.isBigEndian.<get-isBigEndian>|<get-isBigEndian>(){}[0]
+        final val isDebug // korlibs.platform/Platform.Companion.isDebug|{}isDebug[0]
+            final fun <get-isDebug>(): kotlin/Boolean // korlibs.platform/Platform.Companion.isDebug.<get-isDebug>|<get-isDebug>(){}[0]
+        final val isLittleEndian // korlibs.platform/Platform.Companion.isLittleEndian|{}isLittleEndian[0]
+            final fun <get-isLittleEndian>(): kotlin/Boolean // korlibs.platform/Platform.Companion.isLittleEndian.<get-isLittleEndian>|<get-isLittleEndian>(){}[0]
+        final val isRelease // korlibs.platform/Platform.Companion.isRelease|{}isRelease[0]
+            final fun <get-isRelease>(): kotlin/Boolean // korlibs.platform/Platform.Companion.isRelease.<get-isRelease>|<get-isRelease>(){}[0]
+        final val languagesRaw // korlibs.platform/Platform.Companion.languagesRaw|{}languagesRaw[0]
+            final fun <get-languagesRaw>(): kotlin.collections/List<kotlin/String> // korlibs.platform/Platform.Companion.languagesRaw.<get-languagesRaw>|<get-languagesRaw>(){}[0]
+        final val os // korlibs.platform/Platform.Companion.os|{}os[0]
+            final fun <get-os>(): korlibs.platform/Os // korlibs.platform/Platform.Companion.os.<get-os>|<get-os>(){}[0]
+        final val rawOsName // korlibs.platform/Platform.Companion.rawOsName|{}rawOsName[0]
+            final fun <get-rawOsName>(): kotlin/String // korlibs.platform/Platform.Companion.rawOsName.<get-rawOsName>|<get-rawOsName>(){}[0]
+        final val rawPlatformName // korlibs.platform/Platform.Companion.rawPlatformName|{}rawPlatformName[0]
+            final fun <get-rawPlatformName>(): kotlin/String // korlibs.platform/Platform.Companion.rawPlatformName.<get-rawPlatformName>|<get-rawPlatformName>(){}[0]
+        final val runtime // korlibs.platform/Platform.Companion.runtime|{}runtime[0]
+            final fun <get-runtime>(): korlibs.platform/Runtime // korlibs.platform/Platform.Companion.runtime.<get-runtime>|<get-runtime>(){}[0]
+
+        final fun invoke(korlibs.platform/Endian = ..., korlibs.platform/Arch = ..., korlibs.platform/Os = ..., korlibs.platform/Runtime = ..., korlibs.platform/BuildVariant = ..., kotlin/String = ..., kotlin/String = ..., kotlin/Boolean = ...): korlibs.platform/Platform // korlibs.platform/Platform.Companion.invoke|invoke(korlibs.platform.Endian;korlibs.platform.Arch;korlibs.platform.Os;korlibs.platform.Runtime;korlibs.platform.BuildVariant;kotlin.String;kotlin.String;kotlin.Boolean){}[0]
+    }
+}
+
+final class korlibs.io.lang/CancelException : kotlin/Exception { // korlibs.io.lang/CancelException|null[0]
+    constructor <init>(kotlin/String = ...) // korlibs.io.lang/CancelException.<init>|<init>(kotlin.String){}[0]
+}
+
+final class korlibs.io.lang/CancellableGroup : korlibs.io.lang/CloseableCancellable { // korlibs.io.lang/CancellableGroup|null[0]
+    constructor <init>() // korlibs.io.lang/CancellableGroup.<init>|<init>(){}[0]
+    constructor <init>(kotlin.collections/Iterable<korlibs.io.lang/Cancellable>) // korlibs.io.lang/CancellableGroup.<init>|<init>(kotlin.collections.Iterable<korlibs.io.lang.Cancellable>){}[0]
+    constructor <init>(kotlin/Array<out korlibs.io.lang/Cancellable>...) // korlibs.io.lang/CancellableGroup.<init>|<init>(kotlin.Array<out|korlibs.io.lang.Cancellable>...){}[0]
+
+    final fun addCancellable(korlibs.io.lang/Cancellable) // korlibs.io.lang/CancellableGroup.addCancellable|addCancellable(korlibs.io.lang.Cancellable){}[0]
+    final fun addCloseable(kotlin/AutoCloseable) // korlibs.io.lang/CancellableGroup.addCloseable|addCloseable(kotlin.AutoCloseable){}[0]
+    final fun cancel(kotlin/Throwable) // korlibs.io.lang/CancellableGroup.cancel|cancel(kotlin.Throwable){}[0]
+    final fun close() // korlibs.io.lang/CancellableGroup.close|close(){}[0]
+    final fun plusAssign(korlibs.io.lang/Cancellable) // korlibs.io.lang/CancellableGroup.plusAssign|plusAssign(korlibs.io.lang.Cancellable){}[0]
+    final fun plusAssign(korlibs.io.lang/CloseableCancellable) // korlibs.io.lang/CancellableGroup.plusAssign|plusAssign(korlibs.io.lang.CloseableCancellable){}[0]
+    final fun plusAssign(kotlin/AutoCloseable) // korlibs.io.lang/CancellableGroup.plusAssign|plusAssign(kotlin.AutoCloseable){}[0]
+
+    final object Companion { // korlibs.io.lang/CancellableGroup.Companion|null[0]
+        final inline fun <#A2: kotlin/Any?> invoke(kotlin/Function1<korlibs.io.lang/CancellableGroup, #A2>): #A2 // korlibs.io.lang/CancellableGroup.Companion.invoke|invoke(kotlin.Function1<korlibs.io.lang.CancellableGroup,0:0>){0§<kotlin.Any?>}[0]
+    }
+}
+
+final class korlibs.io.lang/DeprecatedException : kotlin/Exception { // korlibs.io.lang/DeprecatedException|null[0]
+    constructor <init>(kotlin/String = ...) // korlibs.io.lang/DeprecatedException.<init>|<init>(kotlin.String){}[0]
+}
+
+final class korlibs.io.lang/FileAlreadyExistsException : korlibs.io.lang/IOException { // korlibs.io.lang/FileAlreadyExistsException|null[0]
+    constructor <init>(kotlin/String) // korlibs.io.lang/FileAlreadyExistsException.<init>|<init>(kotlin.String){}[0]
+}
+
+final class korlibs.io.lang/InternalException : kotlin/Exception { // korlibs.io.lang/InternalException|null[0]
+    constructor <init>(kotlin/Int) // korlibs.io.lang/InternalException.<init>|<init>(kotlin.Int){}[0]
+
+    final val code // korlibs.io.lang/InternalException.code|{}code[0]
+        final fun <get-code>(): kotlin/Int // korlibs.io.lang/InternalException.code.<get-code>|<get-code>(){}[0]
+}
+
+final class korlibs.io.lang/InvalidOperationException : kotlin/Exception { // korlibs.io.lang/InvalidOperationException|null[0]
+    constructor <init>(kotlin/String = ...) // korlibs.io.lang/InvalidOperationException.<init>|<init>(kotlin.String){}[0]
+}
+
+final class korlibs.io.lang/KeyNotFoundException : kotlin/Exception { // korlibs.io.lang/KeyNotFoundException|null[0]
+    constructor <init>(kotlin/String = ...) // korlibs.io.lang/KeyNotFoundException.<init>|<init>(kotlin.String){}[0]
+}
+
+final class korlibs.io.lang/MustOverrideException : kotlin/Exception { // korlibs.io.lang/MustOverrideException|null[0]
+    constructor <init>(kotlin/String = ...) // korlibs.io.lang/MustOverrideException.<init>|<init>(kotlin.String){}[0]
+}
+
+final class korlibs.io.lang/MustValidateCodeException : kotlin/Exception { // korlibs.io.lang/MustValidateCodeException|null[0]
+    constructor <init>(kotlin/String = ...) // korlibs.io.lang/MustValidateCodeException.<init>|<init>(kotlin.String){}[0]
+}
+
+final class korlibs.io.lang/NotImplementedException : kotlin/Exception { // korlibs.io.lang/NotImplementedException|null[0]
+    constructor <init>(kotlin/String = ...) // korlibs.io.lang/NotImplementedException.<init>|<init>(kotlin.String){}[0]
+}
+
+final class korlibs.io.lang/OutOfBoundsException : kotlin/Exception { // korlibs.io.lang/OutOfBoundsException|null[0]
+    constructor <init>(kotlin/Int = ..., kotlin/String = ...) // korlibs.io.lang/OutOfBoundsException.<init>|<init>(kotlin.Int;kotlin.String){}[0]
+}
+
+final class korlibs.io.lang/ReservedException : kotlin/Exception { // korlibs.io.lang/ReservedException|null[0]
+    constructor <init>(kotlin/String = ...) // korlibs.io.lang/ReservedException.<init>|<init>(kotlin.String){}[0]
+}
+
+final class korlibs.io.lang/UnexpectedException : kotlin/Exception { // korlibs.io.lang/UnexpectedException|null[0]
+    constructor <init>(kotlin/String = ...) // korlibs.io.lang/UnexpectedException.<init>|<init>(kotlin.String){}[0]
+}
+
+final class korlibs.io.lang/UnreachableException : kotlin/Exception { // korlibs.io.lang/UnreachableException|null[0]
+    constructor <init>(kotlin/String = ...) // korlibs.io.lang/UnreachableException.<init>|<init>(kotlin.String){}[0]
+}
+
+final class korlibs.memory/ByteArrayBuilder { // korlibs.memory/ByteArrayBuilder|null[0]
+    constructor <init>(kotlin/ByteArray, kotlin/Int = ..., kotlin/Boolean = ...) // korlibs.memory/ByteArrayBuilder.<init>|<init>(kotlin.ByteArray;kotlin.Int;kotlin.Boolean){}[0]
+    constructor <init>(kotlin/Int = ...) // korlibs.memory/ByteArrayBuilder.<init>|<init>(kotlin.Int){}[0]
+
+    final val allowGrow // korlibs.memory/ByteArrayBuilder.allowGrow|{}allowGrow[0]
+        final fun <get-allowGrow>(): kotlin/Boolean // korlibs.memory/ByteArrayBuilder.allowGrow.<get-allowGrow>|<get-allowGrow>(){}[0]
+
+    final var data // korlibs.memory/ByteArrayBuilder.data|{}data[0]
+        final fun <get-data>(): kotlin/ByteArray // korlibs.memory/ByteArrayBuilder.data.<get-data>|<get-data>(){}[0]
+        final fun <set-data>(kotlin/ByteArray) // korlibs.memory/ByteArrayBuilder.data.<set-data>|<set-data>(kotlin.ByteArray){}[0]
+    final var size // korlibs.memory/ByteArrayBuilder.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // korlibs.memory/ByteArrayBuilder.size.<get-size>|<get-size>(){}[0]
+        final fun <set-size>(kotlin/Int) // korlibs.memory/ByteArrayBuilder.size.<set-size>|<set-size>(kotlin.Int){}[0]
+
+    final fun append(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...) // korlibs.memory/ByteArrayBuilder.append|append(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun append(kotlin/ByteArray...) // korlibs.memory/ByteArrayBuilder.append|append(kotlin.ByteArray...){}[0]
+    final fun append(kotlin/IntArray...): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.append|append(kotlin.IntArray...){}[0]
+    final fun appendByte(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.appendByte|appendByte(kotlin.Int){}[0]
+    final fun appendFast(kotlin/Byte) // korlibs.memory/ByteArrayBuilder.appendFast|appendFast(kotlin.Byte){}[0]
+    final fun clear() // korlibs.memory/ByteArrayBuilder.clear|clear(){}[0]
+    final fun f32(kotlin/Float, kotlin/Boolean): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.f32|f32(kotlin.Float;kotlin.Boolean){}[0]
+    final fun f32BE(kotlin/Float): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.f32BE|f32BE(kotlin.Float){}[0]
+    final fun f32LE(kotlin/Float): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.f32LE|f32LE(kotlin.Float){}[0]
+    final fun f64(kotlin/Double, kotlin/Boolean): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.f64|f64(kotlin.Double;kotlin.Boolean){}[0]
+    final fun f64BE(kotlin/Double): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.f64BE|f64BE(kotlin.Double){}[0]
+    final fun f64LE(kotlin/Double): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.f64LE|f64LE(kotlin.Double){}[0]
+    final fun s16(kotlin/Int, kotlin/Boolean): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.s16|s16(kotlin.Int;kotlin.Boolean){}[0]
+    final fun s16BE(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.s16BE|s16BE(kotlin.Int){}[0]
+    final fun s16LE(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.s16LE|s16LE(kotlin.Int){}[0]
+    final fun s24(kotlin/Int, kotlin/Boolean): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.s24|s24(kotlin.Int;kotlin.Boolean){}[0]
+    final fun s24BE(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.s24BE|s24BE(kotlin.Int){}[0]
+    final fun s24LE(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.s24LE|s24LE(kotlin.Int){}[0]
+    final fun s32(kotlin/Int, kotlin/Boolean): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.s32|s32(kotlin.Int;kotlin.Boolean){}[0]
+    final fun s32BE(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.s32BE|s32BE(kotlin.Int){}[0]
+    final fun s32LE(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.s32LE|s32LE(kotlin.Int){}[0]
+    final fun s8(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.s8|s8(kotlin.Int){}[0]
+    final fun toByteArray(): kotlin/ByteArray // korlibs.memory/ByteArrayBuilder.toByteArray|toByteArray(){}[0]
+    final inline fun append(kotlin/Byte): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.append|append(kotlin.Byte){}[0]
+}
+
+final value class korlibs.memory/ByteArrayBuilderBE { // korlibs.memory/ByteArrayBuilderBE|null[0]
+    constructor <init>(korlibs.memory/ByteArrayBuilder) // korlibs.memory/ByteArrayBuilderBE.<init>|<init>(korlibs.memory.ByteArrayBuilder){}[0]
+
+    final val bab // korlibs.memory/ByteArrayBuilderBE.bab|{}bab[0]
+        final fun <get-bab>(): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderBE.bab.<get-bab>|<get-bab>(){}[0]
+    final val size // korlibs.memory/ByteArrayBuilderBE.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // korlibs.memory/ByteArrayBuilderBE.size.<get-size>|<get-size>(){}[0]
+
+    final fun append(kotlin/Byte): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderBE.append|append(kotlin.Byte){}[0]
+    final fun append(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...) // korlibs.memory/ByteArrayBuilderBE.append|append(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun append(kotlin/ByteArray...) // korlibs.memory/ByteArrayBuilderBE.append|append(kotlin.ByteArray...){}[0]
+    final fun append(kotlin/IntArray...): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderBE.append|append(kotlin.IntArray...){}[0]
+    final fun appendByte(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderBE.appendByte|appendByte(kotlin.Int){}[0]
+    final fun clear() // korlibs.memory/ByteArrayBuilderBE.clear|clear(){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.memory/ByteArrayBuilderBE.equals|equals(kotlin.Any?){}[0]
+    final fun f32(kotlin/Float): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderBE.f32|f32(kotlin.Float){}[0]
+    final fun f64(kotlin/Double): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderBE.f64|f64(kotlin.Double){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.memory/ByteArrayBuilderBE.hashCode|hashCode(){}[0]
+    final fun s16(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderBE.s16|s16(kotlin.Int){}[0]
+    final fun s24(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderBE.s24|s24(kotlin.Int){}[0]
+    final fun s32(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderBE.s32|s32(kotlin.Int){}[0]
+    final fun s8(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderBE.s8|s8(kotlin.Int){}[0]
+    final fun toByteArray(): kotlin/ByteArray // korlibs.memory/ByteArrayBuilderBE.toByteArray|toByteArray(){}[0]
+    final fun toString(): kotlin/String // korlibs.memory/ByteArrayBuilderBE.toString|toString(){}[0]
+}
+
+final value class korlibs.memory/ByteArrayBuilderLE { // korlibs.memory/ByteArrayBuilderLE|null[0]
+    constructor <init>(korlibs.memory/ByteArrayBuilder) // korlibs.memory/ByteArrayBuilderLE.<init>|<init>(korlibs.memory.ByteArrayBuilder){}[0]
+
+    final val bab // korlibs.memory/ByteArrayBuilderLE.bab|{}bab[0]
+        final fun <get-bab>(): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderLE.bab.<get-bab>|<get-bab>(){}[0]
+    final val size // korlibs.memory/ByteArrayBuilderLE.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // korlibs.memory/ByteArrayBuilderLE.size.<get-size>|<get-size>(){}[0]
+
+    final fun append(kotlin/Byte): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderLE.append|append(kotlin.Byte){}[0]
+    final fun append(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...) // korlibs.memory/ByteArrayBuilderLE.append|append(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun append(kotlin/ByteArray...) // korlibs.memory/ByteArrayBuilderLE.append|append(kotlin.ByteArray...){}[0]
+    final fun append(kotlin/IntArray...): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderLE.append|append(kotlin.IntArray...){}[0]
+    final fun appendByte(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderLE.appendByte|appendByte(kotlin.Int){}[0]
+    final fun clear() // korlibs.memory/ByteArrayBuilderLE.clear|clear(){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.memory/ByteArrayBuilderLE.equals|equals(kotlin.Any?){}[0]
+    final fun f32(kotlin/Float): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderLE.f32|f32(kotlin.Float){}[0]
+    final fun f64(kotlin/Double): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderLE.f64|f64(kotlin.Double){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.memory/ByteArrayBuilderLE.hashCode|hashCode(){}[0]
+    final fun s16(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderLE.s16|s16(kotlin.Int){}[0]
+    final fun s24(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderLE.s24|s24(kotlin.Int){}[0]
+    final fun s32(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderLE.s32|s32(kotlin.Int){}[0]
+    final fun s8(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilderLE.s8|s8(kotlin.Int){}[0]
+    final fun toByteArray(): kotlin/ByteArray // korlibs.memory/ByteArrayBuilderLE.toByteArray|toByteArray(){}[0]
+    final fun toString(): kotlin/String // korlibs.memory/ByteArrayBuilderLE.toString|toString(){}[0]
+}
+
+open class korlibs.io.lang/EOFException : korlibs.io.lang/IOException { // korlibs.io.lang/EOFException|null[0]
+    constructor <init>(kotlin/String) // korlibs.io.lang/EOFException.<init>|<init>(kotlin.String){}[0]
+}
+
+open class korlibs.io.lang/EnvironmentCustom : korlibs.io.lang/Environment { // korlibs.io.lang/EnvironmentCustom|null[0]
+    constructor <init>(kotlin.collections/Map<kotlin/String, kotlin/String> = ...) // korlibs.io.lang/EnvironmentCustom.<init>|<init>(kotlin.collections.Map<kotlin.String,kotlin.String>){}[0]
+
+    final var customEnvironments // korlibs.io.lang/EnvironmentCustom.customEnvironments|{}customEnvironments[0]
+        final fun <get-customEnvironments>(): kotlin.collections/MutableMap<kotlin/String, kotlin/String> // korlibs.io.lang/EnvironmentCustom.customEnvironments.<get-customEnvironments>|<get-customEnvironments>(){}[0]
+        final fun <set-customEnvironments>(kotlin.collections/MutableMap<kotlin/String, kotlin/String>) // korlibs.io.lang/EnvironmentCustom.customEnvironments.<set-customEnvironments>|<set-customEnvironments>(kotlin.collections.MutableMap<kotlin.String,kotlin.String>){}[0]
+
+    final fun (kotlin/String).normalized(): kotlin/String // korlibs.io.lang/EnvironmentCustom.normalized|normalized@kotlin.String(){}[0]
+    open fun get(kotlin/String): kotlin/String? // korlibs.io.lang/EnvironmentCustom.get|get(kotlin.String){}[0]
+    open fun getAll(): kotlin.collections/Map<kotlin/String, kotlin/String> // korlibs.io.lang/EnvironmentCustom.getAll|getAll(){}[0]
+    open fun set(kotlin/String, kotlin/String) // korlibs.io.lang/EnvironmentCustom.set|set(kotlin.String;kotlin.String){}[0]
+}
+
+open class korlibs.io.lang/FileNotFoundException : korlibs.io.lang/IOException { // korlibs.io.lang/FileNotFoundException|null[0]
+    constructor <init>(kotlin/String) // korlibs.io.lang/FileNotFoundException.<init>|<init>(kotlin.String){}[0]
+}
+
+open class korlibs.io.lang/IOException : kotlin/Exception { // korlibs.io.lang/IOException|null[0]
+    constructor <init>(kotlin/String) // korlibs.io.lang/IOException.<init>|<init>(kotlin.String){}[0]
+}
+
+open class korlibs.io.lang/MalformedInputException : kotlin/Exception { // korlibs.io.lang/MalformedInputException|null[0]
+    constructor <init>(kotlin/Int, kotlin/String = ...) // korlibs.io.lang/MalformedInputException.<init>|<init>(kotlin.Int;kotlin.String){}[0]
+    constructor <init>(kotlin/String) // korlibs.io.lang/MalformedInputException.<init>|<init>(kotlin.String){}[0]
+}
+
+final object korlibs.io.lang/DummyAutoCloseable : kotlin/AutoCloseable { // korlibs.io.lang/DummyAutoCloseable|null[0]
+    final fun close() // korlibs.io.lang/DummyAutoCloseable.close|close(){}[0]
+}
+
+final val korlibs.io.lang/DummyCloseable // korlibs.io.lang/DummyCloseable|{}DummyCloseable[0]
+    final fun <get-DummyCloseable>(): korlibs.io.lang/DummyAutoCloseable // korlibs.io.lang/DummyCloseable.<get-DummyCloseable>|<get-DummyCloseable>(){}[0]
+final val korlibs.io.lang/TEMP // korlibs.io.lang/TEMP|@korlibs.io.lang.Environment{}TEMP[0]
+    final fun (korlibs.io.lang/Environment).<get-TEMP>(): kotlin/String // korlibs.io.lang/TEMP.<get-TEMP>|<get-TEMP>@korlibs.io.lang.Environment(){}[0]
+final val korlibs.io.lang/deprecated // korlibs.io.lang/deprecated|{}deprecated[0]
+    final fun <get-deprecated>(): kotlin/Nothing // korlibs.io.lang/deprecated.<get-deprecated>|<get-deprecated>(){}[0]
+final val korlibs.io.lang/invalidArg // korlibs.io.lang/invalidArg|{}invalidArg[0]
+    final fun <get-invalidArg>(): kotlin/Nothing // korlibs.io.lang/invalidArg.<get-invalidArg>|<get-invalidArg>(){}[0]
+final val korlibs.io.lang/invalidOp // korlibs.io.lang/invalidOp|{}invalidOp[0]
+    final fun <get-invalidOp>(): kotlin/Nothing // korlibs.io.lang/invalidOp.<get-invalidOp>|<get-invalidOp>(){}[0]
+final val korlibs.io.lang/mustValidate // korlibs.io.lang/mustValidate|{}mustValidate[0]
+    final fun <get-mustValidate>(): kotlin/Nothing // korlibs.io.lang/mustValidate.<get-mustValidate>|<get-mustValidate>(){}[0]
+final val korlibs.io.lang/noImpl // korlibs.io.lang/noImpl|{}noImpl[0]
+    final fun <get-noImpl>(): kotlin/Nothing // korlibs.io.lang/noImpl.<get-noImpl>|<get-noImpl>(){}[0]
+final val korlibs.io.lang/portableSimpleName // korlibs.io.lang/portableSimpleName|@kotlin.reflect.KClass<0:0>{0§<kotlin.Any>}portableSimpleName[0]
+    final fun <#A1: kotlin/Any> (kotlin.reflect/KClass<#A1>).<get-portableSimpleName>(): kotlin/String // korlibs.io.lang/portableSimpleName.<get-portableSimpleName>|<get-portableSimpleName>@kotlin.reflect.KClass<0:0>(){0§<kotlin.Any>}[0]
+final val korlibs.io.lang/reserved // korlibs.io.lang/reserved|{}reserved[0]
+    final fun <get-reserved>(): kotlin/Nothing // korlibs.io.lang/reserved.<get-reserved>|<get-reserved>(){}[0]
+final val korlibs.io.lang/tempPath // korlibs.io.lang/tempPath|@korlibs.io.lang.Environment{}tempPath[0]
+    final fun (korlibs.io.lang/Environment).<get-tempPath>(): kotlin/String // korlibs.io.lang/tempPath.<get-tempPath>|<get-tempPath>@korlibs.io.lang.Environment(){}[0]
+final val korlibs.io.lang/unreachable // korlibs.io.lang/unreachable|{}unreachable[0]
+    final fun <get-unreachable>(): kotlin/Nothing // korlibs.io.lang/unreachable.<get-unreachable>|<get-unreachable>(){}[0]
+final val korlibs.io.lang/userHome // korlibs.io.lang/userHome|@korlibs.io.lang.Environment{}userHome[0]
+    final fun (korlibs.io.lang/Environment).<get-userHome>(): kotlin/String // korlibs.io.lang/userHome.<get-userHome>|<get-userHome>@korlibs.io.lang.Environment(){}[0]
+final val korlibs.platform/currentBuildVariant // korlibs.platform/currentBuildVariant|{}currentBuildVariant[0]
+    final fun <get-currentBuildVariant>(): korlibs.platform/BuildVariant // korlibs.platform/currentBuildVariant.<get-currentBuildVariant>|<get-currentBuildVariant>(){}[0]
+
+final fun (korlibs.io.lang/Cancellable).korlibs.io.lang/cancel() // korlibs.io.lang/cancel|cancel@korlibs.io.lang.Cancellable(){}[0]
+final fun (korlibs.io.lang/Cancellable).korlibs.io.lang/closeable(kotlin/Function0<kotlin/Throwable> = ...): kotlin/AutoCloseable // korlibs.io.lang/closeable|closeable@korlibs.io.lang.Cancellable(kotlin.Function0<kotlin.Throwable>){}[0]
+final fun (korlibs.io.lang/Environment).korlibs.io.lang/expand(kotlin/String): kotlin/String // korlibs.io.lang/expand|expand@korlibs.io.lang.Environment(kotlin.String){}[0]
+final fun (kotlin.collections/Iterable<korlibs.io.lang/Cancellable>).korlibs.io.lang/cancel(kotlin/Throwable = ...) // korlibs.io.lang/cancel|cancel@kotlin.collections.Iterable<korlibs.io.lang.Cancellable>(kotlin.Throwable){}[0]
+final fun (kotlin.collections/Iterable<korlibs.io.lang/Cancellable>).korlibs.io.lang/cancellable(): korlibs.io.lang/Cancellable // korlibs.io.lang/cancellable|cancellable@kotlin.collections.Iterable<korlibs.io.lang.Cancellable>(){}[0]
+final fun (kotlin.collections/Iterable<kotlin/AutoCloseable>).korlibs.io.lang/close() // korlibs.io.lang/close|close@kotlin.collections.Iterable<kotlin.AutoCloseable>(){}[0]
+final fun (kotlin.collections/Iterable<kotlin/AutoCloseable>).korlibs.io.lang/closeable(): kotlin/AutoCloseable // korlibs.io.lang/closeable|closeable@kotlin.collections.Iterable<kotlin.AutoCloseable>(){}[0]
+final fun (kotlin/AutoCloseable).korlibs.io.lang/cancellable(): korlibs.io.lang/Cancellable // korlibs.io.lang/cancellable|cancellable@kotlin.AutoCloseable(){}[0]
+final fun korlibs.io.lang/AutoCloseable(kotlin/Function0<kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.lang/AutoCloseable|AutoCloseable(kotlin.Function0<kotlin.Unit>){}[0]
+final fun korlibs.io.lang/Closeable(kotlin/Function0<kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.lang/Closeable|Closeable(kotlin.Function0<kotlin.Unit>){}[0]
+final fun korlibs.io.lang/Environment(kotlin.collections/Map<kotlin/String, kotlin/String> = ...): korlibs.io.lang/Environment // korlibs.io.lang/Environment|Environment(kotlin.collections.Map<kotlin.String,kotlin.String>){}[0]
+final fun korlibs.io.lang/Environment(kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/String>>...): korlibs.io.lang/Environment // korlibs.io.lang/Environment|Environment(kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.String>>...){}[0]
+final fun korlibs.io.lang/deprecated(kotlin/String): kotlin/Nothing // korlibs.io.lang/deprecated|deprecated(kotlin.String){}[0]
+final fun korlibs.io.lang/enterDebugger() // korlibs.io.lang/enterDebugger|enterDebugger(){}[0]
+final fun korlibs.io.lang/internalException(kotlin/Int): kotlin/Nothing // korlibs.io.lang/internalException|internalException(kotlin.Int){}[0]
+final fun korlibs.io.lang/invalidArg(kotlin/String): kotlin/Nothing // korlibs.io.lang/invalidArg|invalidArg(kotlin.String){}[0]
+final fun korlibs.io.lang/invalidArgument(kotlin/String): kotlin/Nothing // korlibs.io.lang/invalidArgument|invalidArgument(kotlin.String){}[0]
+final fun korlibs.io.lang/invalidOp(kotlin/String): kotlin/Nothing // korlibs.io.lang/invalidOp|invalidOp(kotlin.String){}[0]
+final fun korlibs.io.lang/malformedInput(kotlin/String): kotlin/Nothing // korlibs.io.lang/malformedInput|malformedInput(kotlin.String){}[0]
+final fun korlibs.io.lang/mustValidate(kotlin/String): kotlin/Nothing // korlibs.io.lang/mustValidate|mustValidate(kotlin.String){}[0]
+final fun korlibs.io.lang/noImpl(kotlin/String): kotlin/Nothing // korlibs.io.lang/noImpl|noImpl(kotlin.String){}[0]
+final fun korlibs.io.lang/reserved(kotlin/String): kotlin/Nothing // korlibs.io.lang/reserved|reserved(kotlin.String){}[0]
+final fun korlibs.io.lang/unexpected(kotlin/String): kotlin/Nothing // korlibs.io.lang/unexpected|unexpected(kotlin.String){}[0]
+final fun korlibs.io.lang/unreachable(kotlin/String): kotlin/Nothing // korlibs.io.lang/unreachable|unreachable(kotlin.String){}[0]
+final fun korlibs.io.lang/unsupported(kotlin/String = ...): kotlin/Nothing // korlibs.io.lang/unsupported|unsupported(kotlin.String){}[0]
+final inline fun <#A: kotlin/Any?> korlibs.io.lang/runIgnoringExceptions(kotlin/Boolean = ..., kotlin/Function0<#A>): #A? // korlibs.io.lang/runIgnoringExceptions|runIgnoringExceptions(kotlin.Boolean;kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/AutoCloseable?, #B: kotlin/Any?> (#A).korlibs.io.lang/useIt(kotlin/Function1<#A, #B>): #B // korlibs.io.lang/useIt|useIt@0:0(kotlin.Function1<0:0,0:1>){0§<kotlin.AutoCloseable?>;1§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/AutoCloseable?, #B: kotlin/Any?> (#A).korlibs.io.lang/useThis(kotlin/Function1<#A, #B>): #B // korlibs.io.lang/useThis|useThis@0:0(kotlin.Function1<0:0,0:1>){0§<kotlin.AutoCloseable?>;1§<kotlin.Any?>}[0]
+final inline fun korlibs.memory/buildByteArray(kotlin/Int = ..., kotlin/Function1<korlibs.memory/ByteArrayBuilder, kotlin/Unit>): kotlin/ByteArray // korlibs.memory/buildByteArray|buildByteArray(kotlin.Int;kotlin.Function1<korlibs.memory.ByteArrayBuilder,kotlin.Unit>){}[0]
+final inline fun korlibs.memory/buildByteArrayBE(kotlin/Int = ..., kotlin/Function1<korlibs.memory/ByteArrayBuilderBE, kotlin/Unit>): kotlin/ByteArray // korlibs.memory/buildByteArrayBE|buildByteArrayBE(kotlin.Int;kotlin.Function1<korlibs.memory.ByteArrayBuilderBE,kotlin.Unit>){}[0]
+final inline fun korlibs.memory/buildByteArrayLE(kotlin/Int = ..., kotlin/Function1<korlibs.memory/ByteArrayBuilderLE, kotlin/Unit>): kotlin/ByteArray // korlibs.memory/buildByteArrayLE|buildByteArrayLE(kotlin.Int;kotlin.Function1<korlibs.memory.ByteArrayBuilderLE,kotlin.Unit>){}[0]
+final suspend inline fun <#A: korlibs.io.async/AsyncCloseable?, #B: kotlin/Any?> (#A).korlibs.io.async/use(kotlin/Function1<#A, #B>): #B // korlibs.io.async/use|use@0:0(kotlin.Function1<0:0,0:1>){0§<korlibs.io.async.AsyncCloseable?>;1§<kotlin.Any?>}[0]
+final suspend inline fun <#A: korlibs.io.async/AsyncCloseable?, #B: kotlin/Any?> (#A).korlibs.io.async/useIt(kotlin/Function1<#A, #B>): #B // korlibs.io.async/useIt|useIt@0:0(kotlin.Function1<0:0,0:1>){0§<korlibs.io.async.AsyncCloseable?>;1§<kotlin.Any?>}[0]
+final suspend inline fun <#A: korlibs.io.async/AsyncCloseable?, #B: kotlin/Any?> (#A).korlibs.io.async/useThis(kotlin/Function1<#A, #B>): #B // korlibs.io.async/useThis|useThis@0:0(kotlin.Function1<0:0,0:1>){0§<korlibs.io.async.AsyncCloseable?>;1§<kotlin.Any?>}[0]
+
+// Targets: [apple]
+final fun (kotlin/ByteArray).korlibs.platform/toNSData(): platform.Foundation/NSData // korlibs.platform/toNSData|toNSData@kotlin.ByteArray(){}[0]
+
+// Targets: [apple]
+final fun (platform.Foundation/NSData).korlibs.platform/toByteArray(): kotlin/ByteArray // korlibs.platform/toByteArray|toByteArray@platform.Foundation.NSData(){}[0]
+
+// Targets: [apple]
+final inline fun <#A: kotlin/Any?> (kotlin/String).korlibs.platform/useCFStringRef(kotlin/Function1<kotlinx.cinterop/CPointer<cnames.structs/__CFString>, #A>): #A // korlibs.platform/useCFStringRef|useCFStringRef@kotlin.String(kotlin.Function1<kotlinx.cinterop.CPointer<cnames.structs.__CFString>,0:0>){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+abstract interface <#A: kotlin/Any?> korlibs.js/DenoDlOpen { // korlibs.js/DenoDlOpen|null[0]
+    abstract val symbols // korlibs.js/DenoDlOpen.symbols|{}symbols[0]
+        abstract fun <get-symbols>(): #A // korlibs.js/DenoDlOpen.symbols.<get-symbols>|<get-symbols>(){}[0]
+}
+
+// Targets: [js]
+abstract interface <#A: kotlin/Any?> korlibs.js/Deno_PointerValue : korlibs.js/Deno_PointerObject // korlibs.js/Deno_PointerValue|null[0]
+
+// Targets: [js]
+abstract interface <#A: kotlin/Any?> korlibs.js/JSAsyncIterable // korlibs.js/JSAsyncIterable|null[0]
+
+// Targets: [js]
+abstract interface <#A: kotlin/Any?> korlibs.js/JSIterable { // korlibs.js/JSIterable|null[0]
+    abstract fun next(): korlibs.js/JSIterableResult<#A> // korlibs.js/JSIterable.next|next(){}[0]
+}
+
+// Targets: [js]
+abstract interface <#A: kotlin/Any?> korlibs.js/JSIterableResult { // korlibs.js/JSIterableResult|null[0]
+    abstract val done // korlibs.js/JSIterableResult.done|{}done[0]
+        abstract fun <get-done>(): kotlin/Boolean // korlibs.js/JSIterableResult.done.<get-done>|<get-done>(){}[0]
+    abstract val value // korlibs.js/JSIterableResult.value|{}value[0]
+        abstract fun <get-value>(): #A? // korlibs.js/JSIterableResult.value.<get-value>|<get-value>(){}[0]
+}
+
+// Targets: [js]
+abstract interface korlibs.js/DenoBuild { // korlibs.js/DenoBuild|null[0]
+    abstract val arch // korlibs.js/DenoBuild.arch|{}arch[0]
+        abstract fun <get-arch>(): kotlin/String // korlibs.js/DenoBuild.arch.<get-arch>|<get-arch>(){}[0]
+    abstract val os // korlibs.js/DenoBuild.os|{}os[0]
+        abstract fun <get-os>(): kotlin/String // korlibs.js/DenoBuild.os.<get-os>|<get-os>(){}[0]
+    abstract val target // korlibs.js/DenoBuild.target|{}target[0]
+        abstract fun <get-target>(): kotlin/String // korlibs.js/DenoBuild.target.<get-target>|<get-target>(){}[0]
+    abstract val vendor // korlibs.js/DenoBuild.vendor|{}vendor[0]
+        abstract fun <get-vendor>(): kotlin/String // korlibs.js/DenoBuild.vendor.<get-vendor>|<get-vendor>(){}[0]
+}
+
+// Targets: [js]
+abstract interface korlibs.js/DenoDirEntry { // korlibs.js/DenoDirEntry|null[0]
+    abstract val isDirectory // korlibs.js/DenoDirEntry.isDirectory|{}isDirectory[0]
+        abstract fun <get-isDirectory>(): kotlin/Boolean // korlibs.js/DenoDirEntry.isDirectory.<get-isDirectory>|<get-isDirectory>(){}[0]
+    abstract val isFile // korlibs.js/DenoDirEntry.isFile|{}isFile[0]
+        abstract fun <get-isFile>(): kotlin/Boolean // korlibs.js/DenoDirEntry.isFile.<get-isFile>|<get-isFile>(){}[0]
+    abstract val isSymlink // korlibs.js/DenoDirEntry.isSymlink|{}isSymlink[0]
+        abstract fun <get-isSymlink>(): kotlin/Boolean // korlibs.js/DenoDirEntry.isSymlink.<get-isSymlink>|<get-isSymlink>(){}[0]
+    abstract val name // korlibs.js/DenoDirEntry.name|{}name[0]
+        abstract fun <get-name>(): kotlin/String // korlibs.js/DenoDirEntry.name.<get-name>|<get-name>(){}[0]
+}
+
+// Targets: [js]
+abstract interface korlibs.js/DenoFileInfo { // korlibs.js/DenoFileInfo|null[0]
+    abstract val atime // korlibs.js/DenoFileInfo.atime|{}atime[0]
+        abstract fun <get-atime>(): kotlin.js/Date? // korlibs.js/DenoFileInfo.atime.<get-atime>|<get-atime>(){}[0]
+    abstract val birthtime // korlibs.js/DenoFileInfo.birthtime|{}birthtime[0]
+        abstract fun <get-birthtime>(): kotlin.js/Date? // korlibs.js/DenoFileInfo.birthtime.<get-birthtime>|<get-birthtime>(){}[0]
+    abstract val blksize // korlibs.js/DenoFileInfo.blksize|{}blksize[0]
+        abstract fun <get-blksize>(): kotlin/Double? // korlibs.js/DenoFileInfo.blksize.<get-blksize>|<get-blksize>(){}[0]
+    abstract val blocks // korlibs.js/DenoFileInfo.blocks|{}blocks[0]
+        abstract fun <get-blocks>(): kotlin/Double? // korlibs.js/DenoFileInfo.blocks.<get-blocks>|<get-blocks>(){}[0]
+    abstract val dev // korlibs.js/DenoFileInfo.dev|{}dev[0]
+        abstract fun <get-dev>(): kotlin/Double // korlibs.js/DenoFileInfo.dev.<get-dev>|<get-dev>(){}[0]
+    abstract val gid // korlibs.js/DenoFileInfo.gid|{}gid[0]
+        abstract fun <get-gid>(): kotlin/Double? // korlibs.js/DenoFileInfo.gid.<get-gid>|<get-gid>(){}[0]
+    abstract val ino // korlibs.js/DenoFileInfo.ino|{}ino[0]
+        abstract fun <get-ino>(): kotlin/Double? // korlibs.js/DenoFileInfo.ino.<get-ino>|<get-ino>(){}[0]
+    abstract val isBlockDEvice // korlibs.js/DenoFileInfo.isBlockDEvice|{}isBlockDEvice[0]
+        abstract fun <get-isBlockDEvice>(): kotlin/Double? // korlibs.js/DenoFileInfo.isBlockDEvice.<get-isBlockDEvice>|<get-isBlockDEvice>(){}[0]
+    abstract val isDirectory // korlibs.js/DenoFileInfo.isDirectory|{}isDirectory[0]
+        abstract fun <get-isDirectory>(): kotlin/Boolean // korlibs.js/DenoFileInfo.isDirectory.<get-isDirectory>|<get-isDirectory>(){}[0]
+    abstract val isFifo // korlibs.js/DenoFileInfo.isFifo|{}isFifo[0]
+        abstract fun <get-isFifo>(): kotlin/Double? // korlibs.js/DenoFileInfo.isFifo.<get-isFifo>|<get-isFifo>(){}[0]
+    abstract val isFile // korlibs.js/DenoFileInfo.isFile|{}isFile[0]
+        abstract fun <get-isFile>(): kotlin/Boolean // korlibs.js/DenoFileInfo.isFile.<get-isFile>|<get-isFile>(){}[0]
+    abstract val isSocket // korlibs.js/DenoFileInfo.isSocket|{}isSocket[0]
+        abstract fun <get-isSocket>(): kotlin/Double? // korlibs.js/DenoFileInfo.isSocket.<get-isSocket>|<get-isSocket>(){}[0]
+    abstract val isSymlink // korlibs.js/DenoFileInfo.isSymlink|{}isSymlink[0]
+        abstract fun <get-isSymlink>(): kotlin/Boolean // korlibs.js/DenoFileInfo.isSymlink.<get-isSymlink>|<get-isSymlink>(){}[0]
+    abstract val mode // korlibs.js/DenoFileInfo.mode|{}mode[0]
+        abstract fun <get-mode>(): kotlin/Double? // korlibs.js/DenoFileInfo.mode.<get-mode>|<get-mode>(){}[0]
+    abstract val mtime // korlibs.js/DenoFileInfo.mtime|{}mtime[0]
+        abstract fun <get-mtime>(): kotlin.js/Date? // korlibs.js/DenoFileInfo.mtime.<get-mtime>|<get-mtime>(){}[0]
+    abstract val nlink // korlibs.js/DenoFileInfo.nlink|{}nlink[0]
+        abstract fun <get-nlink>(): kotlin/Double? // korlibs.js/DenoFileInfo.nlink.<get-nlink>|<get-nlink>(){}[0]
+    abstract val rdev // korlibs.js/DenoFileInfo.rdev|{}rdev[0]
+        abstract fun <get-rdev>(): kotlin/Double? // korlibs.js/DenoFileInfo.rdev.<get-rdev>|<get-rdev>(){}[0]
+    abstract val size // korlibs.js/DenoFileInfo.size|{}size[0]
+        abstract fun <get-size>(): kotlin/Double // korlibs.js/DenoFileInfo.size.<get-size>|<get-size>(){}[0]
+    abstract val uid // korlibs.js/DenoFileInfo.uid|{}uid[0]
+        abstract fun <get-uid>(): kotlin/Double? // korlibs.js/DenoFileInfo.uid.<get-uid>|<get-uid>(){}[0]
+}
+
+// Targets: [js]
+abstract interface korlibs.js/DenoFsFile { // korlibs.js/DenoFsFile|null[0]
+    abstract fun close() // korlibs.js/DenoFsFile.close|close(){}[0]
+    abstract fun read(org.khronos.webgl/Uint8Array): kotlin.js/Promise<kotlin/Double?> // korlibs.js/DenoFsFile.read|read(org.khronos.webgl.Uint8Array){}[0]
+    abstract fun readSync(org.khronos.webgl/Uint8Array): kotlin/Double? // korlibs.js/DenoFsFile.readSync|readSync(org.khronos.webgl.Uint8Array){}[0]
+    abstract fun seek(kotlin/Double, kotlin/Int): kotlin.js/Promise<kotlin/Double> // korlibs.js/DenoFsFile.seek|seek(kotlin.Double;kotlin.Int){}[0]
+    abstract fun seekSync(kotlin/Double, kotlin/Int): kotlin/Double // korlibs.js/DenoFsFile.seekSync|seekSync(kotlin.Double;kotlin.Int){}[0]
+    abstract fun stat(): kotlin.js/Promise<korlibs.js/DenoFileInfo> // korlibs.js/DenoFsFile.stat|stat(){}[0]
+    abstract fun statSync(): korlibs.js/DenoFileInfo // korlibs.js/DenoFsFile.statSync|statSync(){}[0]
+    abstract fun truncate(kotlin/Double? = ...): kotlin.js/Promise<kotlin/Unit> // korlibs.js/DenoFsFile.truncate|truncate(kotlin.Double?){}[0]
+    abstract fun truncateSync(kotlin/Double? = ...) // korlibs.js/DenoFsFile.truncateSync|truncateSync(kotlin.Double?){}[0]
+    abstract fun write(org.khronos.webgl/Uint8Array): kotlin.js/Promise<kotlin/Double> // korlibs.js/DenoFsFile.write|write(org.khronos.webgl.Uint8Array){}[0]
+    abstract fun writeSync(org.khronos.webgl/Uint8Array): kotlin/Double // korlibs.js/DenoFsFile.writeSync|writeSync(org.khronos.webgl.Uint8Array){}[0]
+}
+
+// Targets: [js]
+abstract interface korlibs.js/Deno_PointerObject // korlibs.js/Deno_PointerObject|null[0]
+
+// Targets: [js]
+abstract interface korlibs.js/JsBigInt // korlibs.js/JsBigInt|null[0]
+
+// Targets: [js]
+final class <#A: kotlin/Any?> korlibs.js/JSArray { // korlibs.js/JSArray|null[0]
+    constructor <init>() // korlibs.js/JSArray.<init>|<init>(){}[0]
+
+    final var length // korlibs.js/JSArray.length|{}length[0]
+        final fun <get-length>(): kotlin/Int // korlibs.js/JSArray.length.<get-length>|<get-length>(){}[0]
+        final fun <set-length>(kotlin/Int) // korlibs.js/JSArray.length.<set-length>|<set-length>(kotlin.Int){}[0]
+
+    final fun concat(kotlin/Array<out korlibs.js/JSArray<#A>>...): korlibs.js/JSArray<#A> // korlibs.js/JSArray.concat|concat(kotlin.Array<out|korlibs.js.JSArray<1:0>>...){}[0]
+    final fun indexOf(#A): kotlin/Int // korlibs.js/JSArray.indexOf|indexOf(1:0){}[0]
+    final fun lastIndexOf(#A): kotlin/Int // korlibs.js/JSArray.lastIndexOf|lastIndexOf(1:0){}[0]
+    final fun pop(): #A // korlibs.js/JSArray.pop|pop(){}[0]
+    final fun push(kotlin/Array<out #A>...) // korlibs.js/JSArray.push|push(kotlin.Array<out|1:0>...){}[0]
+    final fun shift(): #A // korlibs.js/JSArray.shift|shift(){}[0]
+    final fun splice(kotlin/Int, kotlin/Int, kotlin/Array<out #A>...): korlibs.js/JSArray<#A> // korlibs.js/JSArray.splice|splice(kotlin.Int;kotlin.Int;kotlin.Array<out|1:0>...){}[0]
+    final fun unshift(kotlin/Array<out #A>...) // korlibs.js/JSArray.unshift|unshift(kotlin.Array<out|1:0>...){}[0]
+
+    final object Companion { // korlibs.js/JSArray.Companion|null[0]
+        final fun <#A2: kotlin/Any?> from(korlibs.js/JSIterable<#A2>): kotlin/Array<#A2> // korlibs.js/JSArray.Companion.from|from(korlibs.js.JSIterable<0:0>){0§<kotlin.Any?>}[0]
+        final fun from(dynamic): kotlin/Array<dynamic> // korlibs.js/JSArray.Companion.from|from(<dynamic>){}[0]
+    }
+}
+
+// Targets: [js]
+final class korlibs.js/DenoPointer { // korlibs.js/DenoPointer|null[0]
+    constructor <init>(korlibs.js/Deno_PointerObject) // korlibs.js/DenoPointer.<init>|<init>(korlibs.js.Deno_PointerObject){}[0]
+
+    final val rawPointer // korlibs.js/DenoPointer.rawPointer|{}rawPointer[0]
+        final fun <get-rawPointer>(): korlibs.js/Deno_PointerObject // korlibs.js/DenoPointer.rawPointer.<get-rawPointer>|<get-rawPointer>(){}[0]
+
+    final fun component1(): korlibs.js/Deno_PointerObject // korlibs.js/DenoPointer.component1|component1(){}[0]
+    final fun copy(korlibs.js/Deno_PointerObject = ...): korlibs.js/DenoPointer // korlibs.js/DenoPointer.copy|copy(korlibs.js.Deno_PointerObject){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.js/DenoPointer.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.js/DenoPointer.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.js/DenoPointer.toString|toString(){}[0]
+
+    final object Companion { // korlibs.js/DenoPointer.Companion|null[0]
+        final fun isRawPointer(dynamic): kotlin/Boolean // korlibs.js/DenoPointer.Companion.isRawPointer|isRawPointer(<dynamic>){}[0]
+        final fun wrap(korlibs.js/Deno_PointerObject): korlibs.js/DenoPointer // korlibs.js/DenoPointer.Companion.wrap|wrap(korlibs.js.Deno_PointerObject){}[0]
+    }
+}
+
+// Targets: [js]
+final class korlibs.js/JSMap { // korlibs.js/JSMap|null[0]
+    constructor <init>() // korlibs.js/JSMap.<init>|<init>(){}[0]
+}
+
+// Targets: [js]
+final class korlibs.js/JSWeakMap { // korlibs.js/JSWeakMap|null[0]
+    constructor <init>() // korlibs.js/JSWeakMap.<init>|<init>(){}[0]
+
+    final fun delete(dynamic) // korlibs.js/JSWeakMap.delete|delete(<dynamic>){}[0]
+    final fun get(dynamic): dynamic // korlibs.js/JSWeakMap.get|get(<dynamic>){}[0]
+    final fun has(dynamic): kotlin/Boolean // korlibs.js/JSWeakMap.has|has(<dynamic>){}[0]
+    final fun set(dynamic, dynamic) // korlibs.js/JSWeakMap.set|set(<dynamic>;<dynamic>){}[0]
+}
+
+// Targets: [js]
+open class korlibs.js/BigInt64Array : org.khronos.webgl/ArrayBufferView { // korlibs.js/BigInt64Array|null[0]
+    constructor <init>(kotlin/Int) // korlibs.js/BigInt64Array.<init>|<init>(kotlin.Int){}[0]
+
+    open val buffer // korlibs.js/BigInt64Array.buffer|{}buffer[0]
+        open fun <get-buffer>(): org.khronos.webgl/ArrayBuffer // korlibs.js/BigInt64Array.buffer.<get-buffer>|<get-buffer>(){}[0]
+    open val byteLength // korlibs.js/BigInt64Array.byteLength|{}byteLength[0]
+        open fun <get-byteLength>(): kotlin/Int // korlibs.js/BigInt64Array.byteLength.<get-byteLength>|<get-byteLength>(){}[0]
+    open val byteOffset // korlibs.js/BigInt64Array.byteOffset|{}byteOffset[0]
+        open fun <get-byteOffset>(): kotlin/Int // korlibs.js/BigInt64Array.byteOffset.<get-byteOffset>|<get-byteOffset>(){}[0]
+}
+
+// Targets: [js]
+final object korlibs.js/Deno { // korlibs.js/Deno|null[0]
+    final val build // korlibs.js/Deno.build|{}build[0]
+        final fun <get-build>(): korlibs.js/DenoBuild // korlibs.js/Deno.build.<get-build>|<get-build>(){}[0]
+    final val env // korlibs.js/Deno.env|{}env[0]
+        final fun <get-env>(): dynamic // korlibs.js/Deno.env.<get-env>|<get-env>(){}[0]
+    final val mainModule // korlibs.js/Deno.mainModule|{}mainModule[0]
+        final fun <get-mainModule>(): kotlin/String // korlibs.js/Deno.mainModule.<get-mainModule>|<get-mainModule>(){}[0]
+
+    final fun <#A1: kotlin/Any?> dlopen(kotlin/String, dynamic = ...): korlibs.js/DenoDlOpen<#A1> // korlibs.js/Deno.dlopen|dlopen(kotlin.String;<dynamic>){0§<kotlin.Any?>}[0]
+    final fun addSignalListener(kotlin/String, kotlin/Function0<kotlin/Unit>) // korlibs.js/Deno.addSignalListener|addSignalListener(kotlin.String;kotlin.Function0<kotlin.Unit>){}[0]
+    final fun cwd(): kotlin/String // korlibs.js/Deno.cwd|cwd(){}[0]
+    final fun exit(kotlin/Int = ...) // korlibs.js/Deno.exit|exit(kotlin.Int){}[0]
+    final fun inspect(dynamic): kotlin/String // korlibs.js/Deno.inspect|inspect(<dynamic>){}[0]
+    final fun linkSync(kotlin/String?, kotlin/String?): kotlin/String? // korlibs.js/Deno.linkSync|linkSync(kotlin.String?;kotlin.String?){}[0]
+    final fun mkdir(kotlin/String, dynamic = ...): kotlin.js/Promise<kotlin/Unit> // korlibs.js/Deno.mkdir|mkdir(kotlin.String;<dynamic>){}[0]
+    final fun mkdirSync(kotlin/String, dynamic = ...) // korlibs.js/Deno.mkdirSync|mkdirSync(kotlin.String;<dynamic>){}[0]
+    final fun open(kotlin/String, dynamic = ...): kotlin.js/Promise<korlibs.js/DenoFsFile> // korlibs.js/Deno.open|open(kotlin.String;<dynamic>){}[0]
+    final fun openSync(kotlin/String, dynamic): korlibs.js/DenoFsFile // korlibs.js/Deno.openSync|openSync(kotlin.String;<dynamic>){}[0]
+    final fun readDir(kotlin/String): korlibs.js/JSAsyncIterable<korlibs.js/DenoDirEntry> // korlibs.js/Deno.readDir|readDir(kotlin.String){}[0]
+    final fun readDirSync(kotlin/String): korlibs.js/JSIterable<korlibs.js/DenoDirEntry> // korlibs.js/Deno.readDirSync|readDirSync(kotlin.String){}[0]
+    final fun readFileSync(kotlin/String): kotlin/ByteArray // korlibs.js/Deno.readFileSync|readFileSync(kotlin.String){}[0]
+    final fun readLink(kotlin/String): kotlin.js/Promise<kotlin/String?> // korlibs.js/Deno.readLink|readLink(kotlin.String){}[0]
+    final fun readLinkSync(kotlin/String): kotlin/String? // korlibs.js/Deno.readLinkSync|readLinkSync(kotlin.String){}[0]
+    final fun realPath(kotlin/String): kotlin.js/Promise<kotlin/String> // korlibs.js/Deno.realPath|realPath(kotlin.String){}[0]
+    final fun realPathSync(kotlin/String): kotlin/String // korlibs.js/Deno.realPathSync|realPathSync(kotlin.String){}[0]
+    final fun remove(kotlin/String, dynamic = ...): kotlin.js/Promise<kotlin/Unit> // korlibs.js/Deno.remove|remove(kotlin.String;<dynamic>){}[0]
+    final fun removeSync(kotlin/String, dynamic = ...) // korlibs.js/Deno.removeSync|removeSync(kotlin.String;<dynamic>){}[0]
+    final fun rename(kotlin/String, kotlin/String): kotlin.js/Promise<kotlin/Unit> // korlibs.js/Deno.rename|rename(kotlin.String;kotlin.String){}[0]
+    final fun stat(kotlin/String): kotlin.js/Promise<korlibs.js/DenoFileInfo> // korlibs.js/Deno.stat|stat(kotlin.String){}[0]
+    final fun statSync(kotlin/String): korlibs.js/DenoFileInfo // korlibs.js/Deno.statSync|statSync(kotlin.String){}[0]
+    final fun writeFileSync(kotlin/String, kotlin/ByteArray, dynamic = ...) // korlibs.js/Deno.writeFileSync|writeFileSync(kotlin.String;kotlin.ByteArray;<dynamic>){}[0]
+
+    final class UnsafeFnPointer { // korlibs.js/Deno.UnsafeFnPointer|null[0]
+        constructor <init>(korlibs.js/DenoPointer?, dynamic) // korlibs.js/Deno.UnsafeFnPointer.<init>|<init>(korlibs.js.DenoPointer?;<dynamic>){}[0]
+
+        final val pointer // korlibs.js/Deno.UnsafeFnPointer.pointer|{}pointer[0]
+            final fun <get-pointer>(): korlibs.js/DenoPointer // korlibs.js/Deno.UnsafeFnPointer.pointer.<get-pointer>|<get-pointer>(){}[0]
+    }
+
+    final class UnsafePointerView { // korlibs.js/Deno.UnsafePointerView|null[0]
+        constructor <init>(korlibs.js/Deno_PointerObject) // korlibs.js/Deno.UnsafePointerView.<init>|<init>(korlibs.js.Deno_PointerObject){}[0]
+
+        final val pointer // korlibs.js/Deno.UnsafePointerView.pointer|{}pointer[0]
+            final fun <get-pointer>(): korlibs.js/Deno_PointerObject // korlibs.js/Deno.UnsafePointerView.pointer.<get-pointer>|<get-pointer>(){}[0]
+
+        final fun getArrayBuffer(kotlin/Int, kotlin/Int = ...): org.khronos.webgl/ArrayBuffer // korlibs.js/Deno.UnsafePointerView.getArrayBuffer|getArrayBuffer(kotlin.Int;kotlin.Int){}[0]
+        final fun getBigInt64(kotlin/Int = ...): korlibs.js/JsBigInt // korlibs.js/Deno.UnsafePointerView.getBigInt64|getBigInt64(kotlin.Int){}[0]
+        final fun getFloat32(kotlin/Int = ...): kotlin/Float // korlibs.js/Deno.UnsafePointerView.getFloat32|getFloat32(kotlin.Int){}[0]
+        final fun getFloat64(kotlin/Int = ...): kotlin/Double // korlibs.js/Deno.UnsafePointerView.getFloat64|getFloat64(kotlin.Int){}[0]
+        final fun getInt16(kotlin/Int = ...): kotlin/Short // korlibs.js/Deno.UnsafePointerView.getInt16|getInt16(kotlin.Int){}[0]
+        final fun getInt32(kotlin/Int = ...): kotlin/Int // korlibs.js/Deno.UnsafePointerView.getInt32|getInt32(kotlin.Int){}[0]
+        final fun getInt8(kotlin/Int = ...): kotlin/Byte // korlibs.js/Deno.UnsafePointerView.getInt8|getInt8(kotlin.Int){}[0]
+
+        final object Companion { // korlibs.js/Deno.UnsafePointerView.Companion|null[0]
+            final fun getArrayBuffer(korlibs.js/Deno_PointerObject, kotlin/Int, kotlin/Int = ...): org.khronos.webgl/ArrayBuffer // korlibs.js/Deno.UnsafePointerView.Companion.getArrayBuffer|getArrayBuffer(korlibs.js.Deno_PointerObject;kotlin.Int;kotlin.Int){}[0]
+            final fun getCString(korlibs.js/Deno_PointerObject, kotlin/Int = ...): kotlin/String // korlibs.js/Deno.UnsafePointerView.Companion.getCString|getCString(korlibs.js.Deno_PointerObject;kotlin.Int){}[0]
+        }
+    }
+
+    final object SeekMode { // korlibs.js/Deno.SeekMode|null[0]
+        final val Current // korlibs.js/Deno.SeekMode.Current|{}Current[0]
+            final fun <get-Current>(): kotlin/Int // korlibs.js/Deno.SeekMode.Current.<get-Current>|<get-Current>(){}[0]
+        final val End // korlibs.js/Deno.SeekMode.End|{}End[0]
+            final fun <get-End>(): kotlin/Int // korlibs.js/Deno.SeekMode.End.<get-End>|<get-End>(){}[0]
+        final val Start // korlibs.js/Deno.SeekMode.Start|{}Start[0]
+            final fun <get-Start>(): kotlin/Int // korlibs.js/Deno.SeekMode.Start.<get-Start>|<get-Start>(){}[0]
+    }
+
+    final object UnsafePointer { // korlibs.js/Deno.UnsafePointer|null[0]
+        final fun create(korlibs.js/JsBigInt): korlibs.js/Deno_PointerObject // korlibs.js/Deno.UnsafePointer.create|create(korlibs.js.JsBigInt){}[0]
+        final fun equals(korlibs.js/JsBigInt, korlibs.js/JsBigInt): kotlin/Boolean // korlibs.js/Deno.UnsafePointer.equals|equals(korlibs.js.JsBigInt;korlibs.js.JsBigInt){}[0]
+        final fun of(org.khronos.webgl/ArrayBufferView): korlibs.js/Deno_PointerObject // korlibs.js/Deno.UnsafePointer.of|of(org.khronos.webgl.ArrayBufferView){}[0]
+        final fun offset(org.khronos.webgl/ArrayBufferView, kotlin/Int): korlibs.js/Deno_PointerObject? // korlibs.js/Deno.UnsafePointer.offset|offset(org.khronos.webgl.ArrayBufferView;kotlin.Int){}[0]
+        final fun value(korlibs.js/Deno_PointerObject?): dynamic // korlibs.js/Deno.UnsafePointer.value|value(korlibs.js.Deno_PointerObject?){}[0]
+    }
+}
+
+// Targets: [js]
+final object korlibs.platform/JsObject { // korlibs.platform/JsObject|null[0]
+    final fun keys(dynamic): dynamic // korlibs.platform/JsObject.keys|keys(<dynamic>){}[0]
+}
+
+// Targets: [js]
+final val korlibs.js/Deno_isDeno // korlibs.js/Deno_isDeno|{}Deno_isDeno[0]
+    final fun <get-Deno_isDeno>(): kotlin/Boolean // korlibs.js/Deno_isDeno.<get-Deno_isDeno>|<get-Deno_isDeno>(){}[0]
+
+// Targets: [js]
+final val korlibs.js/Object // korlibs.js/Object|{}Object[0]
+    final fun <get-Object>(): dynamic // korlibs.js/Object.<get-Object>|<get-Object>(){}[0]
+
+// Targets: [js]
+final val korlibs.js/Symbol // korlibs.js/Symbol|{}Symbol[0]
+    final fun <get-Symbol>(): dynamic // korlibs.js/Symbol.<get-Symbol>|<get-Symbol>(){}[0]
+
+// Targets: [js]
+final val korlibs.js/Symbol_asyncIterator // korlibs.js/Symbol_asyncIterator|{}Symbol_asyncIterator[0]
+    final fun <get-Symbol_asyncIterator>(): dynamic // korlibs.js/Symbol_asyncIterator.<get-Symbol_asyncIterator>|<get-Symbol_asyncIterator>(){}[0]
+
+// Targets: [js]
+final val korlibs.js/pointer // korlibs.js/pointer|@korlibs.js.Deno_PointerObject{}pointer[0]
+    final fun (korlibs.js/Deno_PointerObject).<get-pointer>(): korlibs.js/DenoPointer // korlibs.js/pointer.<get-pointer>|<get-pointer>@korlibs.js.Deno_PointerObject(){}[0]
+
+// Targets: [js]
+final val korlibs.js/value // korlibs.js/value|@korlibs.js.Deno_PointerObject{}value[0]
+    final fun (korlibs.js/Deno_PointerObject).<get-value>(): korlibs.js/JsBigInt // korlibs.js/value.<get-value>|<get-value>@korlibs.js.Deno_PointerObject(){}[0]
+
+// Targets: [js]
+final val korlibs.platform/jsDocument // korlibs.platform/jsDocument|{}jsDocument[0]
+    final fun <get-jsDocument>(): org.w3c.dom/Document // korlibs.platform/jsDocument.<get-jsDocument>|<get-jsDocument>(){}[0]
+
+// Targets: [js]
+final val korlibs.platform/jsGlobalThis // korlibs.platform/jsGlobalThis|{}jsGlobalThis[0]
+    final fun <get-jsGlobalThis>(): org.w3c.dom/WindowOrWorkerGlobalScope // korlibs.platform/jsGlobalThis.<get-jsGlobalThis>|<get-jsGlobalThis>(){}[0]
+
+// Targets: [js]
+final val korlibs.platform/jsWindow // korlibs.platform/jsWindow|{}jsWindow[0]
+    final fun <get-jsWindow>(): org.w3c.dom/Window // korlibs.platform/jsWindow.<get-jsWindow>|<get-jsWindow>(){}[0]
+
+// Targets: [js]
+final val korlibs.platform/process // korlibs.platform/process|{}process[0]
+    final fun <get-process>(): dynamic // korlibs.platform/process.<get-process>|<get-process>(){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/BigInt64Array).korlibs.js/get(kotlin/Int): korlibs.js/JsBigInt // korlibs.js/get|get@korlibs.js.BigInt64Array(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/BigInt64Array).korlibs.js/set(kotlin/Int, korlibs.js/JsBigInt) // korlibs.js/set|set@korlibs.js.BigInt64Array(kotlin.Int;korlibs.js.JsBigInt){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/Deno_PointerObject).korlibs.js/readStringz(kotlin/Int = ...): kotlin/String // korlibs.js/readStringz|readStringz@korlibs.js.Deno_PointerObject(kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (korlibs.js/JsBigInt).korlibs.js/toLong(): kotlin/Long // korlibs.js/toLong|toLong@korlibs.js.JsBigInt(){}[0]
+
+// Targets: [js]
+final fun (kotlin.collections/Map<kotlin/String, kotlin/Any?>).korlibs.js/toJsObject(): dynamic // korlibs.js/toJsObject|toJsObject@kotlin.collections.Map<kotlin.String,kotlin.Any?>(){}[0]
+
+// Targets: [js]
+final fun (kotlin/Long).korlibs.js/toJsBigInt(): korlibs.js/JsBigInt // korlibs.js/toJsBigInt|toJsBigInt@kotlin.Long(){}[0]
+
+// Targets: [js]
+final fun <#A: kotlin/Any?> (korlibs.js/JSArray.Companion).korlibs.js/createEmpty(): korlibs.js/JSArray<#A> // korlibs.js/createEmpty|createEmpty@korlibs.js.JSArray.Companion(){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+final fun <#A: kotlin/Any?> (korlibs.js/JSIterable<#A>).korlibs.js/toArray(): kotlin/Array<#A> // korlibs.js/toArray|toArray@korlibs.js.JSIterable<0:0>(){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+final fun <#A: kotlin/Any?> (korlibs.js/JSIterable<#A>).korlibs.js/toList(): kotlin.collections/List<#A> // korlibs.js/toList|toList@korlibs.js.JSIterable<0:0>(){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+final fun korlibs.js/JsBigInt(dynamic): korlibs.js/JsBigInt // korlibs.js/JsBigInt|JsBigInt(<dynamic>){}[0]
+
+// Targets: [js]
+final fun korlibs.js/bigInt64ArrayOf(kotlin/Array<out korlibs.js/JsBigInt>...): korlibs.js/BigInt64Array // korlibs.js/bigInt64ArrayOf|bigInt64ArrayOf(kotlin.Array<out|korlibs.js.JsBigInt>...){}[0]
+
+// Targets: [js]
+final fun korlibs.js/jsArray(kotlin/Array<out dynamic>...): kotlin/Array<dynamic> // korlibs.js/jsArray|jsArray(kotlin.Array<out|<dynamic>>...){}[0]
+
+// Targets: [js]
+final fun korlibs.js/jsEmptyArray(): dynamic // korlibs.js/jsEmptyArray|jsEmptyArray(){}[0]
+
+// Targets: [js]
+final fun korlibs.js/jsEmptyObj(): dynamic // korlibs.js/jsEmptyObj|jsEmptyObj(){}[0]
+
+// Targets: [js]
+final fun korlibs.js/jsEnsureInt(dynamic): kotlin/Int // korlibs.js/jsEnsureInt|jsEnsureInt(<dynamic>){}[0]
+
+// Targets: [js]
+final fun korlibs.js/jsEnsureNumber(dynamic): kotlin/Number // korlibs.js/jsEnsureNumber|jsEnsureNumber(<dynamic>){}[0]
+
+// Targets: [js]
+final fun korlibs.js/jsEnsureString(dynamic): kotlin/String // korlibs.js/jsEnsureString|jsEnsureString(<dynamic>){}[0]
+
+// Targets: [js]
+final fun korlibs.js/jsNew(dynamic): dynamic // korlibs.js/jsNew|jsNew(<dynamic>){}[0]
+
+// Targets: [js]
+final fun korlibs.js/jsNew(dynamic, dynamic): dynamic // korlibs.js/jsNew|jsNew(<dynamic>;<dynamic>){}[0]
+
+// Targets: [js]
+final fun korlibs.js/jsNew(dynamic, dynamic, dynamic): dynamic // korlibs.js/jsNew|jsNew(<dynamic>;<dynamic>;<dynamic>){}[0]
+
+// Targets: [js]
+final fun korlibs.js/jsNew(dynamic, dynamic, dynamic, dynamic): dynamic // korlibs.js/jsNew|jsNew(<dynamic>;<dynamic>;<dynamic>;<dynamic>){}[0]
+
+// Targets: [js]
+final fun korlibs.js/jsObject(kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/Any?>>...): dynamic // korlibs.js/jsObject|jsObject(kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.Any?>>...){}[0]
+
+// Targets: [js]
+final fun korlibs.js/jsObjectKeys(dynamic): dynamic // korlibs.js/jsObjectKeys|jsObjectKeys(<dynamic>){}[0]
+
+// Targets: [js]
+final fun korlibs.js/jsObjectKeysArray(dynamic): kotlin/Array<kotlin/String> // korlibs.js/jsObjectKeysArray|jsObjectKeysArray(<dynamic>){}[0]
+
+// Targets: [js]
+final fun korlibs.js/jsObjectOf(kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/Any?>>...): dynamic // korlibs.js/jsObjectOf|jsObjectOf(kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.Any?>>...){}[0]
+
+// Targets: [js]
+final fun korlibs.js/jsObjectToMap(dynamic): kotlin.collections/Map<kotlin/String, dynamic> // korlibs.js/jsObjectToMap|jsObjectToMap(<dynamic>){}[0]
+
+// Targets: [js]
+final fun korlibs.js/jsToArray(dynamic): kotlin/Array<kotlin/Any?> // korlibs.js/jsToArray|jsToArray(<dynamic>){}[0]
+
+// Targets: [js]
+final fun korlibs.js/jsToObjectMap(dynamic): kotlin.collections/Map<kotlin/String, kotlin/Any?>? // korlibs.js/jsToObjectMap|jsToObjectMap(<dynamic>){}[0]
+
+// Targets: [js]
+final fun korlibs.platform/jsImport(kotlin/String): dynamic // korlibs.platform/jsImport|jsImport(kotlin.String){}[0]
+
+// Targets: [js]
+final inline fun <#A: kotlin/Any?> (korlibs.js/JSArray<#A>).korlibs.js/get(kotlin/Int): #A // korlibs.js/get|get@korlibs.js.JSArray<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+final inline fun <#A: kotlin/Any?> (korlibs.js/JSArray<#A>).korlibs.js/set(kotlin/Int, #A) // korlibs.js/set|set@korlibs.js.JSArray<0:0>(kotlin.Int;0:0){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+final inline fun <#A: reified kotlin/Any?> korlibs.js/jsToArrayT(dynamic): kotlin/Array<#A> // korlibs.js/jsToArrayT|jsToArrayT(<dynamic>){0§<kotlin.Any?>}[0]
+
+// Targets: [wasmJs]
+abstract class korlibs.wasm/GlobalScope : kotlin.js/JsAny, org.w3c.dom.events/EventTarget, org.w3c.dom/WindowOrWorkerGlobalScope, org.w3c.performance/GlobalPerformance { // korlibs.wasm/GlobalScope|null[0]
+    constructor <init>() // korlibs.wasm/GlobalScope.<init>|<init>(){}[0]
+
+    final fun cancelAnimationFrame(kotlin/Int) // korlibs.wasm/GlobalScope.cancelAnimationFrame|cancelAnimationFrame(kotlin.Int){}[0]
+    final fun postMessage(kotlin.js/JsAny, kotlin.js/JsAny = ..., kotlin.js/JsAny = ...) // korlibs.wasm/GlobalScope.postMessage|postMessage(kotlin.js.JsAny;kotlin.js.JsAny;kotlin.js.JsAny){}[0]
+    final fun requestAnimationFrame(kotlin/Function1<kotlin/Double, kotlin/Unit>): kotlin/Int // korlibs.wasm/GlobalScope.requestAnimationFrame|requestAnimationFrame(kotlin.Function1<kotlin.Double,kotlin.Unit>){}[0]
+}
+
+// Targets: [wasmJs]
+final class korlibs.wasm/JsDynamic { // korlibs.wasm/JsDynamic|null[0]
+    constructor <init>(kotlin.js/JsAny?) // korlibs.wasm/JsDynamic.<init>|<init>(kotlin.js.JsAny?){}[0]
+
+    final val value // korlibs.wasm/JsDynamic.value|{}value[0]
+        final fun <get-value>(): kotlin.js/JsAny? // korlibs.wasm/JsDynamic.value.<get-value>|<get-value>(){}[0]
+
+    final fun contains(korlibs.wasm/JsDynamic): kotlin/Boolean // korlibs.wasm/JsDynamic.contains|contains(korlibs.wasm.JsDynamic){}[0]
+    final fun contains(kotlin.js/JsAny?): kotlin/Boolean // korlibs.wasm/JsDynamic.contains|contains(kotlin.js.JsAny?){}[0]
+    final fun contains(kotlin/Int): kotlin/Boolean // korlibs.wasm/JsDynamic.contains|contains(kotlin.Int){}[0]
+    final fun contains(kotlin/String): kotlin/Boolean // korlibs.wasm/JsDynamic.contains|contains(kotlin.String){}[0]
+    final fun get(korlibs.wasm/JsDynamic): korlibs.wasm/JsDynamic // korlibs.wasm/JsDynamic.get|get(korlibs.wasm.JsDynamic){}[0]
+    final fun get(kotlin.js/JsAny?): korlibs.wasm/JsDynamic // korlibs.wasm/JsDynamic.get|get(kotlin.js.JsAny?){}[0]
+    final fun get(kotlin/Int): korlibs.wasm/JsDynamic // korlibs.wasm/JsDynamic.get|get(kotlin.Int){}[0]
+    final fun get(kotlin/String): korlibs.wasm/JsDynamic // korlibs.wasm/JsDynamic.get|get(kotlin.String){}[0]
+    final fun set(korlibs.wasm/JsDynamic, korlibs.wasm/JsDynamic) // korlibs.wasm/JsDynamic.set|set(korlibs.wasm.JsDynamic;korlibs.wasm.JsDynamic){}[0]
+    final fun set(korlibs.wasm/JsDynamic, kotlin.js/JsAny?) // korlibs.wasm/JsDynamic.set|set(korlibs.wasm.JsDynamic;kotlin.js.JsAny?){}[0]
+    final fun set(kotlin.js/JsAny?, korlibs.wasm/JsDynamic) // korlibs.wasm/JsDynamic.set|set(kotlin.js.JsAny?;korlibs.wasm.JsDynamic){}[0]
+    final fun set(kotlin.js/JsAny?, kotlin.js/JsAny?) // korlibs.wasm/JsDynamic.set|set(kotlin.js.JsAny?;kotlin.js.JsAny?){}[0]
+    final fun set(kotlin/Int, korlibs.wasm/JsDynamic) // korlibs.wasm/JsDynamic.set|set(kotlin.Int;korlibs.wasm.JsDynamic){}[0]
+    final fun set(kotlin/Int, kotlin.js/JsAny?) // korlibs.wasm/JsDynamic.set|set(kotlin.Int;kotlin.js.JsAny?){}[0]
+    final fun set(kotlin/String, korlibs.wasm/JsDynamic) // korlibs.wasm/JsDynamic.set|set(kotlin.String;korlibs.wasm.JsDynamic){}[0]
+    final fun set(kotlin/String, kotlin.js/JsAny?) // korlibs.wasm/JsDynamic.set|set(kotlin.String;kotlin.js.JsAny?){}[0]
+    final fun toDouble(kotlin/Double = ...): kotlin/Double // korlibs.wasm/JsDynamic.toDouble|toDouble(kotlin.Double){}[0]
+    final fun toFloat(kotlin/Float = ...): kotlin/Float // korlibs.wasm/JsDynamic.toFloat|toFloat(kotlin.Float){}[0]
+    final fun toInt(kotlin/Int = ...): kotlin/Int // korlibs.wasm/JsDynamic.toInt|toInt(kotlin.Int){}[0]
+    final fun toLong(kotlin/Long = ...): kotlin/Long // korlibs.wasm/JsDynamic.toLong|toLong(kotlin.Long){}[0]
+    final fun toString(): kotlin/String // korlibs.wasm/JsDynamic.toString|toString(){}[0]
+    final inline fun <#A1: kotlin.js/JsAny> unsafeCast(): #A1? // korlibs.wasm/JsDynamic.unsafeCast|unsafeCast(){0§<kotlin.js.JsAny>}[0]
+}
+
+// Targets: [wasmJs]
+final class korlibs.wasm/JsFunction { // korlibs.wasm/JsFunction|null[0]
+    constructor <init>() // korlibs.wasm/JsFunction.<init>|<init>(){}[0]
+
+    final fun apply(kotlin.js/JsAny, kotlin.js/JsArray<kotlin.js/JsAny?>): kotlin.js/JsAny? // korlibs.wasm/JsFunction.apply|apply(kotlin.js.JsAny;kotlin.js.JsArray<kotlin.js.JsAny?>){}[0]
+}
+
+// Targets: [wasmJs]
+final val korlibs.wasm/jsDyn // korlibs.wasm/jsDyn|@kotlin.js.JsAny?{}jsDyn[0]
+    final fun (kotlin.js/JsAny?).<get-jsDyn>(): korlibs.wasm/JsDynamic // korlibs.wasm/jsDyn.<get-jsDyn>|<get-jsDyn>@kotlin.js.JsAny?(){}[0]
+
+// Targets: [wasmJs]
+final val korlibs.wasm/jsGlobal // korlibs.wasm/jsGlobal|{}jsGlobal[0]
+    final fun <get-jsGlobal>(): korlibs.wasm/GlobalScope // korlibs.wasm/jsGlobal.<get-jsGlobal>|<get-jsGlobal>(){}[0]
+
+// Targets: [wasmJs]
+final fun (kotlin.collections/Map<kotlin/String, kotlin/Any?>).korlibs.wasm/toJsObject(): kotlin.js/JsAny // korlibs.wasm/toJsObject|toJsObject@kotlin.collections.Map<kotlin.String,kotlin.Any?>(){}[0]
+
+// Targets: [wasmJs]
+final fun (kotlin.js/JsAny).korlibs.wasm/dynamicInvoke(kotlin.js/JsString, kotlin.js/JsArray<kotlin.js/JsAny?>): kotlin.js/JsAny? // korlibs.wasm/dynamicInvoke|dynamicInvoke@kotlin.js.JsAny(kotlin.js.JsString;kotlin.js.JsArray<kotlin.js.JsAny?>){}[0]
+
+// Targets: [wasmJs]
+final fun (kotlin.js/JsAny).korlibs.wasm/getAny(kotlin.js/JsAny?): kotlin.js/JsAny? // korlibs.wasm/getAny|getAny@kotlin.js.JsAny(kotlin.js.JsAny?){}[0]
+
+// Targets: [wasmJs]
+final fun (kotlin.js/JsAny).korlibs.wasm/getAny(kotlin/Int): kotlin.js/JsAny? // korlibs.wasm/getAny|getAny@kotlin.js.JsAny(kotlin.Int){}[0]
+
+// Targets: [wasmJs]
+final fun (kotlin.js/JsAny).korlibs.wasm/getAny(kotlin/String): kotlin.js/JsAny? // korlibs.wasm/getAny|getAny@kotlin.js.JsAny(kotlin.String){}[0]
+
+// Targets: [wasmJs]
+final fun (kotlin.js/JsAny).korlibs.wasm/hasAny(kotlin.js/JsAny?): kotlin/Boolean // korlibs.wasm/hasAny|hasAny@kotlin.js.JsAny(kotlin.js.JsAny?){}[0]
+
+// Targets: [wasmJs]
+final fun (kotlin.js/JsAny).korlibs.wasm/hasAny(kotlin.js/JsString): kotlin/Boolean // korlibs.wasm/hasAny|hasAny@kotlin.js.JsAny(kotlin.js.JsString){}[0]
+
+// Targets: [wasmJs]
+final fun (kotlin.js/JsAny).korlibs.wasm/hasAny(kotlin/Int): kotlin/Boolean // korlibs.wasm/hasAny|hasAny@kotlin.js.JsAny(kotlin.Int){}[0]
+
+// Targets: [wasmJs]
+final fun (kotlin.js/JsAny).korlibs.wasm/hasAny(kotlin/String): kotlin/Boolean // korlibs.wasm/hasAny|hasAny@kotlin.js.JsAny(kotlin.String){}[0]
+
+// Targets: [wasmJs]
+final fun (kotlin.js/JsAny).korlibs.wasm/setAny(kotlin.js/JsAny?, kotlin.js/JsAny?) // korlibs.wasm/setAny|setAny@kotlin.js.JsAny(kotlin.js.JsAny?;kotlin.js.JsAny?){}[0]
+
+// Targets: [wasmJs]
+final fun (kotlin.js/JsAny).korlibs.wasm/setAny(kotlin/Int, kotlin.js/JsAny?) // korlibs.wasm/setAny|setAny@kotlin.js.JsAny(kotlin.Int;kotlin.js.JsAny?){}[0]
+
+// Targets: [wasmJs]
+final fun (kotlin.js/JsAny).korlibs.wasm/setAny(kotlin/String, kotlin.js/JsAny?) // korlibs.wasm/setAny|setAny@kotlin.js.JsAny(kotlin.String;kotlin.js.JsAny?){}[0]
+
+// Targets: [wasmJs]
+final fun (kotlin.js/JsNumber).korlibs.wasm/toLong(): kotlin/Long // korlibs.wasm/toLong|toLong@kotlin.js.JsNumber(){}[0]
+
+// Targets: [wasmJs]
+final fun (kotlin/Any?).korlibs.wasm/toJsAny(): kotlin.js/JsAny // korlibs.wasm/toJsAny|toJsAny@kotlin.Any?(){}[0]
+
+// Targets: [wasmJs]
+final fun (kotlin/ByteArray).korlibs.wasm/toInt8Array(): org.khronos.webgl/Int8Array // korlibs.wasm/toInt8Array|toInt8Array@kotlin.ByteArray(){}[0]
+
+// Targets: [wasmJs]
+final fun (org.khronos.webgl/ArrayBuffer).korlibs.wasm/toByteArray(): kotlin/ByteArray // korlibs.wasm/toByteArray|toByteArray@org.khronos.webgl.ArrayBuffer(){}[0]
+
+// Targets: [wasmJs]
+final fun (org.khronos.webgl/Int8Array).korlibs.wasm/toByteArray(): kotlin/ByteArray // korlibs.wasm/toByteArray|toByteArray@org.khronos.webgl.Int8Array(){}[0]
+
+// Targets: [wasmJs]
+final fun (org.khronos.webgl/Uint8Array).korlibs.wasm/toByteArray(): kotlin/ByteArray // korlibs.wasm/toByteArray|toByteArray@org.khronos.webgl.Uint8Array(){}[0]
+
+// Targets: [wasmJs]
+final fun <#A: kotlin.js/JsAny?> (kotlin.js/JsArray<#A>).korlibs.wasm/push(#A) // korlibs.wasm/push|push@kotlin.js.JsArray<0:0>(0:0){0§<kotlin.js.JsAny?>}[0]
+
+// Targets: [wasmJs]
+final fun <#A: kotlin.js/JsAny?> (kotlin.js/JsArray<#A>).korlibs.wasm/toList(): kotlin.collections/List<#A> // korlibs.wasm/toList|toList@kotlin.js.JsArray<0:0>(){0§<kotlin.js.JsAny?>}[0]
+
+// Targets: [wasmJs]
+final fun <#A: kotlin.js/JsAny?> korlibs.wasm/jsArrayOf(kotlin/Array<out #A>...): kotlin.js/JsArray<#A> // korlibs.wasm/jsArrayOf|jsArrayOf(kotlin.Array<out|0:0>...){0§<kotlin.js.JsAny?>}[0]
+
+// Targets: [wasmJs]
+final fun <#A: kotlin.js/JsAny?> korlibs.wasm/jsEmptyArray(): kotlin.js/JsArray<#A> // korlibs.wasm/jsEmptyArray|jsEmptyArray(){0§<kotlin.js.JsAny?>}[0]
+
+// Targets: [wasmJs]
+final fun <#A: kotlin.js/JsAny?> korlibs.wasm/jsToArray(kotlin.js/JsArray<#A>): kotlin/Array<#A> // korlibs.wasm/jsToArray|jsToArray(kotlin.js.JsArray<0:0>){0§<kotlin.js.JsAny?>}[0]
+
+// Targets: [wasmJs]
+final fun <#A: kotlin/Any?, #B: kotlin.js/JsAny?> (kotlin.collections/List<#A>).korlibs.wasm/mapToJsArray(kotlin/Function1<#A, #B>): kotlin.js/JsArray<#B> // korlibs.wasm/mapToJsArray|mapToJsArray@kotlin.collections.List<0:0>(kotlin.Function1<0:0,0:1>){0§<kotlin.Any?>;1§<kotlin.js.JsAny?>}[0]
+
+// Targets: [wasmJs]
+final fun korlibs.platform/jsObjectToMap(kotlin.js/JsAny): kotlin.collections/Map<kotlin/String, kotlin.js/JsAny?> // korlibs.platform/jsObjectToMap|jsObjectToMap(kotlin.js.JsAny){}[0]
+
+// Targets: [wasmJs]
+final fun korlibs.wasm/eval(kotlin/String): korlibs.wasm/JsFunction? // korlibs.wasm/eval|eval(kotlin.String){}[0]
+
+// Targets: [wasmJs]
+final fun korlibs.wasm/getJsGlobalDynamic(): korlibs.wasm/GlobalScope // korlibs.wasm/getJsGlobalDynamic|getJsGlobalDynamic(){}[0]
+
+// Targets: [wasmJs]
+final fun korlibs.wasm/jsArray(kotlin/Array<out kotlin.js/JsAny?>...): kotlin/Array<kotlin.js/JsAny?> // korlibs.wasm/jsArray|jsArray(kotlin.Array<out|kotlin.js.JsAny?>...){}[0]
+
+// Targets: [wasmJs]
+final fun korlibs.wasm/jsEmptyObj(): kotlin.js/JsAny // korlibs.wasm/jsEmptyObj|jsEmptyObj(){}[0]
+
+// Targets: [wasmJs]
+final fun korlibs.wasm/jsObject(kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/Any?>>...): kotlin.js/JsAny // korlibs.wasm/jsObject|jsObject(kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.Any?>>...){}[0]
+
+// Targets: [wasmJs]
+final fun korlibs.wasm/jsObjectGet(kotlin.js/JsAny, kotlin.js/JsAny?): kotlin.js/JsAny? // korlibs.wasm/jsObjectGet|jsObjectGet(kotlin.js.JsAny;kotlin.js.JsAny?){}[0]
+
+// Targets: [wasmJs]
+final fun korlibs.wasm/jsObjectKeys(kotlin.js/JsAny?): kotlin.js/JsArray<kotlin.js/JsString> // korlibs.wasm/jsObjectKeys|jsObjectKeys(kotlin.js.JsAny?){}[0]
+
+// Targets: [wasmJs]
+final fun korlibs.wasm/jsObjectKeysArray(kotlin.js/JsAny?): kotlin/Array<kotlin/String> // korlibs.wasm/jsObjectKeysArray|jsObjectKeysArray(kotlin.js.JsAny?){}[0]
+
+// Targets: [wasmJs]
+final fun korlibs.wasm/jsObjectSet(kotlin.js/JsAny, kotlin.js/JsAny?, kotlin.js/JsAny?): kotlin.js/JsAny? // korlibs.wasm/jsObjectSet|jsObjectSet(kotlin.js.JsAny;kotlin.js.JsAny?;kotlin.js.JsAny?){}[0]
+
+// Targets: [wasmJs]
+final fun korlibs.wasm/jsObjectToMap(kotlin.js/JsAny?): kotlin.collections/Map<kotlin/String, kotlin.js/JsAny?> // korlibs.wasm/jsObjectToMap|jsObjectToMap(kotlin.js.JsAny?){}[0]
+
+// Targets: [wasmJs]
+final fun korlibs.wasm/jsToObjectMap(kotlin.js/JsAny?): kotlin.collections/Map<kotlin/String, kotlin/Any?>? // korlibs.wasm/jsToObjectMap|jsToObjectMap(kotlin.js.JsAny?){}[0]
+
+// Targets: [wasmJs]
+final inline fun <#A: reified kotlin.js/JsAny?> (kotlin.js/JsArray<#A>).korlibs.wasm/toTypedArray(): kotlin/Array<#A> // korlibs.wasm/toTypedArray|toTypedArray@kotlin.js.JsArray<0:0>(){0§<kotlin.js.JsAny?>}[0]

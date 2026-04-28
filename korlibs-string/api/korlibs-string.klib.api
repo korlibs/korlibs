@@ -1,0 +1,449 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: apple => [iosArm64, iosSimulatorArm64, iosX64, macosArm64, tvosArm64, tvosSimulatorArm64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-string>
+abstract fun interface korlibs.io.lang/CharsetProvider { // korlibs.io.lang/CharsetProvider|null[0]
+    abstract fun invoke(kotlin/String, kotlin/String): korlibs.io.lang/Charset? // korlibs.io.lang/CharsetProvider.invoke|invoke(kotlin.String;kotlin.String){}[0]
+
+    final object Companion : korlibs.io.lang/CharsetProvider { // korlibs.io.lang/CharsetProvider.Companion|null[0]
+        final fun invoke(kotlin/String, kotlin/String): korlibs.io.lang/Charset? // korlibs.io.lang/CharsetProvider.Companion.invoke|invoke(kotlin.String;kotlin.String){}[0]
+    }
+}
+
+abstract interface korlibs.io.stream/CharReader { // korlibs.io.stream/CharReader|null[0]
+    abstract fun clone(): korlibs.io.stream/CharReader // korlibs.io.stream/CharReader.clone|clone(){}[0]
+    abstract fun read(kotlin.text/StringBuilder, kotlin/Int): kotlin/Int // korlibs.io.stream/CharReader.read|read(kotlin.text.StringBuilder;kotlin.Int){}[0]
+}
+
+abstract interface korlibs.util/SimpleIndenter { // korlibs.util/SimpleIndenter|null[0]
+    abstract fun clear() // korlibs.util/SimpleIndenter.clear|clear(){}[0]
+    abstract fun indent() // korlibs.util/SimpleIndenter.indent|indent(){}[0]
+    abstract fun inline(kotlin/String): korlibs.util/SimpleIndenter // korlibs.util/SimpleIndenter.inline|inline(kotlin.String){}[0]
+    abstract fun line(kotlin/String): korlibs.util/SimpleIndenter // korlibs.util/SimpleIndenter.line|line(kotlin.String){}[0]
+    abstract fun toString(): kotlin/String // korlibs.util/SimpleIndenter.toString|toString(){}[0]
+    abstract fun unindent() // korlibs.util/SimpleIndenter.unindent|unindent(){}[0]
+
+    final object Companion { // korlibs.util/SimpleIndenter.Companion|null[0]
+        final fun invoke(kotlin/Boolean = ...): korlibs.util/SimpleIndenter // korlibs.util/SimpleIndenter.Companion.invoke|invoke(kotlin.Boolean){}[0]
+
+        final class Impl : korlibs.util/SimpleIndenter { // korlibs.util/SimpleIndenter.Companion.Impl|null[0]
+            constructor <init>(kotlin/Boolean) // korlibs.util/SimpleIndenter.Companion.Impl.<init>|<init>(kotlin.Boolean){}[0]
+
+            final val lines // korlibs.util/SimpleIndenter.Companion.Impl.lines|{}lines[0]
+                final fun <get-lines>(): kotlin.collections/ArrayList<kotlin/String> // korlibs.util/SimpleIndenter.Companion.Impl.lines.<get-lines>|<get-lines>(){}[0]
+            final val trailingLine // korlibs.util/SimpleIndenter.Companion.Impl.trailingLine|{}trailingLine[0]
+                final fun <get-trailingLine>(): kotlin/Boolean // korlibs.util/SimpleIndenter.Companion.Impl.trailingLine.<get-trailingLine>|<get-trailingLine>(){}[0]
+
+            final var currentLine // korlibs.util/SimpleIndenter.Companion.Impl.currentLine|{}currentLine[0]
+                final fun <get-currentLine>(): kotlin.text/StringBuilder // korlibs.util/SimpleIndenter.Companion.Impl.currentLine.<get-currentLine>|<get-currentLine>(){}[0]
+                final fun <set-currentLine>(kotlin.text/StringBuilder) // korlibs.util/SimpleIndenter.Companion.Impl.currentLine.<set-currentLine>|<set-currentLine>(kotlin.text.StringBuilder){}[0]
+            final var indentation // korlibs.util/SimpleIndenter.Companion.Impl.indentation|{}indentation[0]
+                final fun <get-indentation>(): kotlin/Int // korlibs.util/SimpleIndenter.Companion.Impl.indentation.<get-indentation>|<get-indentation>(){}[0]
+                final fun <set-indentation>(kotlin/Int) // korlibs.util/SimpleIndenter.Companion.Impl.indentation.<set-indentation>|<set-indentation>(kotlin.Int){}[0]
+
+            final fun clear() // korlibs.util/SimpleIndenter.Companion.Impl.clear|clear(){}[0]
+            final fun flush() // korlibs.util/SimpleIndenter.Companion.Impl.flush|flush(){}[0]
+            final fun indent() // korlibs.util/SimpleIndenter.Companion.Impl.indent|indent(){}[0]
+            final fun inline(kotlin/String): korlibs.util/SimpleIndenter // korlibs.util/SimpleIndenter.Companion.Impl.inline|inline(kotlin.String){}[0]
+            final fun line(kotlin/String): korlibs.util/SimpleIndenter // korlibs.util/SimpleIndenter.Companion.Impl.line|line(kotlin.String){}[0]
+            final fun toString(): kotlin/String // korlibs.util/SimpleIndenter.Companion.Impl.toString|toString(){}[0]
+            final fun unindent() // korlibs.util/SimpleIndenter.Companion.Impl.unindent|unindent(){}[0]
+        }
+    }
+
+    final object INDENTS { // korlibs.util/SimpleIndenter.INDENTS|null[0]
+        final fun get(kotlin/Int): kotlin/String // korlibs.util/SimpleIndenter.INDENTS.get|get(kotlin.Int){}[0]
+    }
+}
+
+abstract interface korlibs.util/SimpleStrReader { // korlibs.util/SimpleStrReader|null[0]
+    abstract val hasMore // korlibs.util/SimpleStrReader.hasMore|{}hasMore[0]
+        abstract fun <get-hasMore>(): kotlin/Boolean // korlibs.util/SimpleStrReader.hasMore.<get-hasMore>|<get-hasMore>(){}[0]
+    abstract val pos // korlibs.util/SimpleStrReader.pos|{}pos[0]
+        abstract fun <get-pos>(): kotlin/Int // korlibs.util/SimpleStrReader.pos.<get-pos>|<get-pos>(){}[0]
+
+    abstract fun clone(): korlibs.util/SimpleStrReader // korlibs.util/SimpleStrReader.clone|clone(){}[0]
+    abstract fun peekChar(): kotlin/Char // korlibs.util/SimpleStrReader.peekChar|peekChar(){}[0]
+    abstract fun readChar(): kotlin/Char // korlibs.util/SimpleStrReader.readChar|readChar(){}[0]
+    open fun skip(kotlin/Int = ...): korlibs.util/SimpleStrReader // korlibs.util/SimpleStrReader.skip|skip(kotlin.Int){}[0]
+    open fun toStringContext(): kotlin/String // korlibs.util/SimpleStrReader.toStringContext|toStringContext(){}[0]
+
+    final object Companion { // korlibs.util/SimpleStrReader.Companion|null[0]
+        final fun invoke(kotlin/String, kotlin/Int = ...): korlibs.util/SimpleStrReader // korlibs.util/SimpleStrReader.Companion.invoke|invoke(kotlin.String;kotlin.Int){}[0]
+    }
+}
+
+abstract class korlibs.io.lang/BaseSingleByteCharset : korlibs.io.lang/Charset { // korlibs.io.lang/BaseSingleByteCharset|null[0]
+    constructor <init>(kotlin/String) // korlibs.io.lang/BaseSingleByteCharset.<init>|<init>(kotlin.String){}[0]
+
+    open fun estimateNumberOfBytesForCharacters(kotlin/Int): kotlin/Int // korlibs.io.lang/BaseSingleByteCharset.estimateNumberOfBytesForCharacters|estimateNumberOfBytesForCharacters(kotlin.Int){}[0]
+    open fun estimateNumberOfCharactersForBytes(kotlin/Int): kotlin/Int // korlibs.io.lang/BaseSingleByteCharset.estimateNumberOfCharactersForBytes|estimateNumberOfCharactersForBytes(kotlin.Int){}[0]
+}
+
+abstract class korlibs.io.lang/Charset { // korlibs.io.lang/Charset|null[0]
+    constructor <init>(kotlin/String) // korlibs.io.lang/Charset.<init>|<init>(kotlin.String){}[0]
+
+    final val name // korlibs.io.lang/Charset.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.io.lang/Charset.name.<get-name>|<get-name>(){}[0]
+
+    abstract fun decode(kotlin.text/StringBuilder, kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.lang/Charset.decode|decode(kotlin.text.StringBuilder;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    abstract fun encode(korlibs.memory/ByteArrayBuilder, kotlin/CharSequence, kotlin/Int = ..., kotlin/Int = ...) // korlibs.io.lang/Charset.encode|encode(korlibs.memory.ByteArrayBuilder;kotlin.CharSequence;kotlin.Int;kotlin.Int){}[0]
+    open fun estimateNumberOfBytesForCharacters(kotlin/Int): kotlin/Int // korlibs.io.lang/Charset.estimateNumberOfBytesForCharacters|estimateNumberOfBytesForCharacters(kotlin.Int){}[0]
+    open fun estimateNumberOfCharactersForBytes(kotlin/Int): kotlin/Int // korlibs.io.lang/Charset.estimateNumberOfCharactersForBytes|estimateNumberOfCharactersForBytes(kotlin.Int){}[0]
+
+    final object Companion { // korlibs.io.lang/Charset.Companion|null[0]
+        final fun (kotlin.text/StringBuilder).appendCodePointV(kotlin/Int) // korlibs.io.lang/Charset.Companion.appendCodePointV|appendCodePointV@kotlin.text.StringBuilder(kotlin.Int){}[0]
+        final fun forName(kotlin/String): korlibs.io.lang/Charset // korlibs.io.lang/Charset.Companion.forName|forName(kotlin.String){}[0]
+        final fun registerProvider(korlibs.io.lang/CharsetProvider) // korlibs.io.lang/Charset.Companion.registerProvider|registerProvider(korlibs.io.lang.CharsetProvider){}[0]
+        final fun unregisterProvider(korlibs.io.lang/CharsetProvider) // korlibs.io.lang/Charset.Companion.unregisterProvider|unregisterProvider(korlibs.io.lang.CharsetProvider){}[0]
+        final inline fun <#A2: kotlin/Any?> registerProvider(korlibs.io.lang/CharsetProvider, kotlin/Function0<#A2>): #A2 // korlibs.io.lang/Charset.Companion.registerProvider|registerProvider(korlibs.io.lang.CharsetProvider;kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+        final inline fun decodeCodePoints(kotlin/CharSequence, kotlin/Int, kotlin/Int, kotlin/Function1<kotlin/Int, kotlin/Unit>) // korlibs.io.lang/Charset.Companion.decodeCodePoints|decodeCodePoints(kotlin.CharSequence;kotlin.Int;kotlin.Int;kotlin.Function1<kotlin.Int,kotlin.Unit>){}[0]
+    }
+}
+
+final class korlibs.io.lang/UTF16Charset : korlibs.io.lang/Charset { // korlibs.io.lang/UTF16Charset|null[0]
+    constructor <init>(kotlin/Boolean) // korlibs.io.lang/UTF16Charset.<init>|<init>(kotlin.Boolean){}[0]
+
+    final val le // korlibs.io.lang/UTF16Charset.le|{}le[0]
+        final fun <get-le>(): kotlin/Boolean // korlibs.io.lang/UTF16Charset.le.<get-le>|<get-le>(){}[0]
+
+    final fun decode(kotlin.text/StringBuilder, kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.lang/UTF16Charset.decode|decode(kotlin.text.StringBuilder;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun encode(korlibs.memory/ByteArrayBuilder, kotlin/CharSequence, kotlin/Int, kotlin/Int) // korlibs.io.lang/UTF16Charset.encode|encode(korlibs.memory.ByteArrayBuilder;kotlin.CharSequence;kotlin.Int;kotlin.Int){}[0]
+    final fun estimateNumberOfBytesForCharacters(kotlin/Int): kotlin/Int // korlibs.io.lang/UTF16Charset.estimateNumberOfBytesForCharacters|estimateNumberOfBytesForCharacters(kotlin.Int){}[0]
+    final fun estimateNumberOfCharactersForBytes(kotlin/Int): kotlin/Int // korlibs.io.lang/UTF16Charset.estimateNumberOfCharactersForBytes|estimateNumberOfCharactersForBytes(kotlin.Int){}[0]
+}
+
+final class korlibs.io.lang/WString { // korlibs.io.lang/WString|null[0]
+    final val length // korlibs.io.lang/WString.length|{}length[0]
+        final fun <get-length>(): kotlin/Int // korlibs.io.lang/WString.length.<get-length>|<get-length>(){}[0]
+
+    final fun codePointAt(kotlin/Int): kotlin/Int // korlibs.io.lang/WString.codePointAt|codePointAt(kotlin.Int){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.lang/WString.equals|equals(kotlin.Any?){}[0]
+    final fun get(kotlin/Int): korlibs.io.lang/WChar // korlibs.io.lang/WString.get|get(kotlin.Int){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.io.lang/WString.hashCode|hashCode(){}[0]
+    final fun substring(kotlin/Int): korlibs.io.lang/WString // korlibs.io.lang/WString.substring|substring(kotlin.Int){}[0]
+    final fun substring(kotlin/Int, kotlin/Int): korlibs.io.lang/WString // korlibs.io.lang/WString.substring|substring(kotlin.Int;kotlin.Int){}[0]
+    final fun toCodePointIntArray(): kotlin/IntArray // korlibs.io.lang/WString.toCodePointIntArray|toCodePointIntArray(){}[0]
+    final fun toString(): kotlin/String // korlibs.io.lang/WString.toString|toString(){}[0]
+    final inline fun getOrElse(kotlin/Int, kotlin/Function1<kotlin/Int, korlibs.io.lang/WChar>): korlibs.io.lang/WChar // korlibs.io.lang/WString.getOrElse|getOrElse(kotlin.Int;kotlin.Function1<kotlin.Int,korlibs.io.lang.WChar>){}[0]
+
+    final object Companion { // korlibs.io.lang/WString.Companion|null[0]
+        final fun fromCodePoints(kotlin/IntArray): korlibs.io.lang/WString // korlibs.io.lang/WString.Companion.fromCodePoints|fromCodePoints(kotlin.IntArray){}[0]
+        final fun fromString(kotlin/String): korlibs.io.lang/WString // korlibs.io.lang/WString.Companion.fromString|fromString(kotlin.String){}[0]
+        final fun invoke(kotlin/IntArray): korlibs.io.lang/WString // korlibs.io.lang/WString.Companion.invoke|invoke(kotlin.IntArray){}[0]
+        final fun invoke(kotlin/String): korlibs.io.lang/WString // korlibs.io.lang/WString.Companion.invoke|invoke(kotlin.String){}[0]
+    }
+}
+
+final class korlibs.io.lang/WStringReader { // korlibs.io.lang/WStringReader|null[0]
+    constructor <init>(korlibs.io.lang/WString, kotlin/Int = ...) // korlibs.io.lang/WStringReader.<init>|<init>(korlibs.io.lang.WString;kotlin.Int){}[0]
+    constructor <init>(kotlin/String, kotlin/Int = ...) // korlibs.io.lang/WStringReader.<init>|<init>(kotlin.String;kotlin.Int){}[0]
+
+    final val available // korlibs.io.lang/WStringReader.available|{}available[0]
+        final fun <get-available>(): kotlin/Int // korlibs.io.lang/WStringReader.available.<get-available>|<get-available>(){}[0]
+    final val eof // korlibs.io.lang/WStringReader.eof|{}eof[0]
+        final fun <get-eof>(): kotlin/Boolean // korlibs.io.lang/WStringReader.eof.<get-eof>|<get-eof>(){}[0]
+    final val hasMore // korlibs.io.lang/WStringReader.hasMore|{}hasMore[0]
+        final fun <get-hasMore>(): kotlin/Boolean // korlibs.io.lang/WStringReader.hasMore.<get-hasMore>|<get-hasMore>(){}[0]
+    final val length // korlibs.io.lang/WStringReader.length|{}length[0]
+        final fun <get-length>(): kotlin/Int // korlibs.io.lang/WStringReader.length.<get-length>|<get-length>(){}[0]
+    final val str // korlibs.io.lang/WStringReader.str|{}str[0]
+        final fun <get-str>(): korlibs.io.lang/WString // korlibs.io.lang/WStringReader.str.<get-str>|<get-str>(){}[0]
+
+    final var position // korlibs.io.lang/WStringReader.position|{}position[0]
+        final fun <get-position>(): kotlin/Int // korlibs.io.lang/WStringReader.position.<get-position>|<get-position>(){}[0]
+        final fun <set-position>(kotlin/Int) // korlibs.io.lang/WStringReader.position.<set-position>|<set-position>(kotlin.Int){}[0]
+
+    final fun peek(kotlin/Int = ...): korlibs.io.lang/WChar // korlibs.io.lang/WStringReader.peek|peek(kotlin.Int){}[0]
+    final fun read(): korlibs.io.lang/WChar // korlibs.io.lang/WStringReader.read|read(){}[0]
+    final fun skip(kotlin/Int) // korlibs.io.lang/WStringReader.skip|skip(kotlin.Int){}[0]
+    final fun substr(kotlin/Int, kotlin/Int = ...): korlibs.io.lang/WString // korlibs.io.lang/WStringReader.substr|substr(kotlin.Int;kotlin.Int){}[0]
+}
+
+final class korlibs.util/CharReaderStrReader : korlibs.util/SimpleStrReader { // korlibs.util/CharReaderStrReader|null[0]
+    constructor <init>(korlibs.io.stream/CharReader, kotlin.text/StringBuilder = ..., kotlin/Int = ...) // korlibs.util/CharReaderStrReader.<init>|<init>(korlibs.io.stream.CharReader;kotlin.text.StringBuilder;kotlin.Int){}[0]
+
+    final val buffer // korlibs.util/CharReaderStrReader.buffer|{}buffer[0]
+        final fun <get-buffer>(): kotlin.text/StringBuilder // korlibs.util/CharReaderStrReader.buffer.<get-buffer>|<get-buffer>(){}[0]
+    final val hasMore // korlibs.util/CharReaderStrReader.hasMore|{}hasMore[0]
+        final fun <get-hasMore>(): kotlin/Boolean // korlibs.util/CharReaderStrReader.hasMore.<get-hasMore>|<get-hasMore>(){}[0]
+    final val reader // korlibs.util/CharReaderStrReader.reader|{}reader[0]
+        final fun <get-reader>(): korlibs.io.stream/CharReader // korlibs.util/CharReaderStrReader.reader.<get-reader>|<get-reader>(){}[0]
+
+    final var bufferPos // korlibs.util/CharReaderStrReader.bufferPos|{}bufferPos[0]
+        final fun <get-bufferPos>(): kotlin/Int // korlibs.util/CharReaderStrReader.bufferPos.<get-bufferPos>|<get-bufferPos>(){}[0]
+        final fun <set-bufferPos>(kotlin/Int) // korlibs.util/CharReaderStrReader.bufferPos.<set-bufferPos>|<set-bufferPos>(kotlin.Int){}[0]
+    final var pos // korlibs.util/CharReaderStrReader.pos|{}pos[0]
+        final fun <get-pos>(): kotlin/Int // korlibs.util/CharReaderStrReader.pos.<get-pos>|<get-pos>(){}[0]
+        final fun <set-pos>(kotlin/Int) // korlibs.util/CharReaderStrReader.pos.<set-pos>|<set-pos>(kotlin.Int){}[0]
+
+    final fun clone(): korlibs.util/SimpleStrReader // korlibs.util/CharReaderStrReader.clone|clone(){}[0]
+    final fun peekChar(): kotlin/Char // korlibs.util/CharReaderStrReader.peekChar|peekChar(){}[0]
+    final fun readChar(): kotlin/Char // korlibs.util/CharReaderStrReader.readChar|readChar(){}[0]
+}
+
+final class korlibs.util/StrReaderCharReader : korlibs.io.stream/CharReader { // korlibs.util/StrReaderCharReader|null[0]
+    constructor <init>(korlibs.util/SimpleStrReader) // korlibs.util/StrReaderCharReader.<init>|<init>(korlibs.util.SimpleStrReader){}[0]
+
+    final val reader // korlibs.util/StrReaderCharReader.reader|{}reader[0]
+        final fun <get-reader>(): korlibs.util/SimpleStrReader // korlibs.util/StrReaderCharReader.reader.<get-reader>|<get-reader>(){}[0]
+
+    final fun clone(): korlibs.io.stream/CharReader // korlibs.util/StrReaderCharReader.clone|clone(){}[0]
+    final fun read(kotlin.text/StringBuilder, kotlin/Int): kotlin/Int // korlibs.util/StrReaderCharReader.read|read(kotlin.text.StringBuilder;kotlin.Int){}[0]
+}
+
+final value class korlibs.io.lang/StringCase { // korlibs.io.lang/StringCase|null[0]
+    constructor <init>(kotlin.collections/List<kotlin/String>) // korlibs.io.lang/StringCase.<init>|<init>(kotlin.collections.List<kotlin.String>){}[0]
+    constructor <init>(kotlin/Array<out kotlin/String>...) // korlibs.io.lang/StringCase.<init>|<init>(kotlin.Array<out|kotlin.String>...){}[0]
+
+    final val camelCase // korlibs.io.lang/StringCase.camelCase|{}camelCase[0]
+        final fun <get-camelCase>(): kotlin/String // korlibs.io.lang/StringCase.camelCase.<get-camelCase>|<get-camelCase>(){}[0]
+    final val kebabCase // korlibs.io.lang/StringCase.kebabCase|{}kebabCase[0]
+        final fun <get-kebabCase>(): kotlin/String // korlibs.io.lang/StringCase.kebabCase.<get-kebabCase>|<get-kebabCase>(){}[0]
+    final val pascalCase // korlibs.io.lang/StringCase.pascalCase|{}pascalCase[0]
+        final fun <get-pascalCase>(): kotlin/String // korlibs.io.lang/StringCase.pascalCase.<get-pascalCase>|<get-pascalCase>(){}[0]
+    final val screamingSnakeCase // korlibs.io.lang/StringCase.screamingSnakeCase|{}screamingSnakeCase[0]
+        final fun <get-screamingSnakeCase>(): kotlin/String // korlibs.io.lang/StringCase.screamingSnakeCase.<get-screamingSnakeCase>|<get-screamingSnakeCase>(){}[0]
+    final val snakeCase // korlibs.io.lang/StringCase.snakeCase|{}snakeCase[0]
+        final fun <get-snakeCase>(): kotlin/String // korlibs.io.lang/StringCase.snakeCase.<get-snakeCase>|<get-snakeCase>(){}[0]
+    final val spaceCase // korlibs.io.lang/StringCase.spaceCase|{}spaceCase[0]
+        final fun <get-spaceCase>(): kotlin/String // korlibs.io.lang/StringCase.spaceCase.<get-spaceCase>|<get-spaceCase>(){}[0]
+    final val words // korlibs.io.lang/StringCase.words|{}words[0]
+        final fun <get-words>(): kotlin.collections/List<kotlin/String> // korlibs.io.lang/StringCase.words.<get-words>|<get-words>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.lang/StringCase.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.io.lang/StringCase.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.io.lang/StringCase.toString|toString(){}[0]
+
+    final object Companion { // korlibs.io.lang/StringCase.Companion|null[0]
+        final fun autodetect(kotlin/String, kotlin/Boolean = ...): korlibs.io.lang/StringCase // korlibs.io.lang/StringCase.Companion.autodetect|autodetect(kotlin.String;kotlin.Boolean){}[0]
+    }
+}
+
+final value class korlibs.io.lang/WChar { // korlibs.io.lang/WChar|null[0]
+    constructor <init>(kotlin/Int) // korlibs.io.lang/WChar.<init>|<init>(kotlin.Int){}[0]
+
+    final val code // korlibs.io.lang/WChar.code|{}code[0]
+        final fun <get-code>(): kotlin/Int // korlibs.io.lang/WChar.code.<get-code>|<get-code>(){}[0]
+    final val codePoint // korlibs.io.lang/WChar.codePoint|{}codePoint[0]
+        final fun <get-codePoint>(): kotlin/Int // korlibs.io.lang/WChar.codePoint.<get-codePoint>|<get-codePoint>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.lang/WChar.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.io.lang/WChar.hashCode|hashCode(){}[0]
+    final fun toChar(): kotlin/Char // korlibs.io.lang/WChar.toChar|toChar(){}[0]
+    final fun toInt(): kotlin/Int // korlibs.io.lang/WChar.toInt|toInt(){}[0]
+    final fun toString(): kotlin/String // korlibs.io.lang/WChar.toString|toString(){}[0]
+}
+
+open class korlibs.io.lang/SingleByteCharset : korlibs.io.lang/BaseSingleByteCharset { // korlibs.io.lang/SingleByteCharset|null[0]
+    constructor <init>(kotlin/String, kotlin/String) // korlibs.io.lang/SingleByteCharset.<init>|<init>(kotlin.String;kotlin.String){}[0]
+
+    final val conv // korlibs.io.lang/SingleByteCharset.conv|{}conv[0]
+        final fun <get-conv>(): kotlin/String // korlibs.io.lang/SingleByteCharset.conv.<get-conv>|<get-conv>(){}[0]
+    final val v // korlibs.io.lang/SingleByteCharset.v|{}v[0]
+        final fun <get-v>(): kotlin/ByteArray // korlibs.io.lang/SingleByteCharset.v.<get-v>|<get-v>(){}[0]
+
+    open fun decode(kotlin.text/StringBuilder, kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.lang/SingleByteCharset.decode|decode(kotlin.text.StringBuilder;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    open fun encode(korlibs.memory/ByteArrayBuilder, kotlin/CharSequence, kotlin/Int, kotlin/Int) // korlibs.io.lang/SingleByteCharset.encode|encode(korlibs.memory.ByteArrayBuilder;kotlin.CharSequence;kotlin.Int;kotlin.Int){}[0]
+}
+
+open class korlibs.io.lang/UTC8CharsetBase : korlibs.io.lang/Charset { // korlibs.io.lang/UTC8CharsetBase|null[0]
+    constructor <init>(kotlin/String) // korlibs.io.lang/UTC8CharsetBase.<init>|<init>(kotlin.String){}[0]
+
+    open fun decode(kotlin.text/StringBuilder, kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.lang/UTC8CharsetBase.decode|decode(kotlin.text.StringBuilder;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    open fun encode(korlibs.memory/ByteArrayBuilder, kotlin/CharSequence, kotlin/Int, kotlin/Int) // korlibs.io.lang/UTC8CharsetBase.encode|encode(korlibs.memory.ByteArrayBuilder;kotlin.CharSequence;kotlin.Int;kotlin.Int){}[0]
+    open fun estimateNumberOfBytesForCharacters(kotlin/Int): kotlin/Int // korlibs.io.lang/UTC8CharsetBase.estimateNumberOfBytesForCharacters|estimateNumberOfBytesForCharacters(kotlin.Int){}[0]
+    open fun estimateNumberOfCharactersForBytes(kotlin/Int): kotlin/Int // korlibs.io.lang/UTC8CharsetBase.estimateNumberOfCharactersForBytes|estimateNumberOfCharactersForBytes(kotlin.Int){}[0]
+}
+
+final object korlibs.io.lang/ASCII : korlibs.io.lang/SingleByteCharset // korlibs.io.lang/ASCII|null[0]
+
+final object korlibs.io.lang/Charsets { // korlibs.io.lang/Charsets|null[0]
+    final val LATIN1 // korlibs.io.lang/Charsets.LATIN1|{}LATIN1[0]
+        final fun <get-LATIN1>(): korlibs.io.lang/ISO_8859_1 // korlibs.io.lang/Charsets.LATIN1.<get-LATIN1>|<get-LATIN1>(){}[0]
+    final val UTF16_BE // korlibs.io.lang/Charsets.UTF16_BE|{}UTF16_BE[0]
+        final fun <get-UTF16_BE>(): korlibs.io.lang/UTF16Charset // korlibs.io.lang/Charsets.UTF16_BE.<get-UTF16_BE>|<get-UTF16_BE>(){}[0]
+    final val UTF16_LE // korlibs.io.lang/Charsets.UTF16_LE|{}UTF16_LE[0]
+        final fun <get-UTF16_LE>(): korlibs.io.lang/UTF16Charset // korlibs.io.lang/Charsets.UTF16_LE.<get-UTF16_LE>|<get-UTF16_LE>(){}[0]
+    final val UTF8 // korlibs.io.lang/Charsets.UTF8|{}UTF8[0]
+        final fun <get-UTF8>(): korlibs.io.lang/Charset // korlibs.io.lang/Charsets.UTF8.<get-UTF8>|<get-UTF8>(){}[0]
+}
+
+final object korlibs.io.lang/ISO_8859_1 : korlibs.io.lang/SingleByteCharset // korlibs.io.lang/ISO_8859_1|null[0]
+
+final val korlibs.io.lang/LATIN1 // korlibs.io.lang/LATIN1|{}LATIN1[0]
+    final fun <get-LATIN1>(): korlibs.io.lang/ISO_8859_1 // korlibs.io.lang/LATIN1.<get-LATIN1>|<get-LATIN1>(){}[0]
+final val korlibs.io.lang/UTF16_BE // korlibs.io.lang/UTF16_BE|{}UTF16_BE[0]
+    final fun <get-UTF16_BE>(): korlibs.io.lang/UTF16Charset // korlibs.io.lang/UTF16_BE.<get-UTF16_BE>|<get-UTF16_BE>(){}[0]
+final val korlibs.io.lang/UTF16_LE // korlibs.io.lang/UTF16_LE|{}UTF16_LE[0]
+    final fun <get-UTF16_LE>(): korlibs.io.lang/UTF16Charset // korlibs.io.lang/UTF16_LE.<get-UTF16_LE>|<get-UTF16_LE>(){}[0]
+final val korlibs.io.lang/UTF8 // korlibs.io.lang/UTF8|{}UTF8[0]
+    final fun <get-UTF8>(): korlibs.io.lang/Charset // korlibs.io.lang/UTF8.<get-UTF8>|<get-UTF8>(){}[0]
+final val korlibs.io.lang/case // korlibs.io.lang/case|@kotlin.String{}case[0]
+    final fun (kotlin/String).<get-case>(): korlibs.io.lang/StringCase // korlibs.io.lang/case.<get-case>|<get-case>@kotlin.String(){}[0]
+final val korlibs.io.util/isNumeric // korlibs.io.util/isNumeric|@kotlin.Char{}isNumeric[0]
+    final fun (kotlin/Char).<get-isNumeric>(): kotlin/Boolean // korlibs.io.util/isNumeric.<get-isNumeric>|<get-isNumeric>@kotlin.Char(){}[0]
+final val korlibs.io.util/isPossibleFloatChar // korlibs.io.util/isPossibleFloatChar|@kotlin.Char{}isPossibleFloatChar[0]
+    final fun (kotlin/Char).<get-isPossibleFloatChar>(): kotlin/Boolean // korlibs.io.util/isPossibleFloatChar.<get-isPossibleFloatChar>|<get-isPossibleFloatChar>@kotlin.Char(){}[0]
+final val korlibs.io.util/quoted // korlibs.io.util/quoted|@kotlin.String?{}quoted[0]
+    final fun (kotlin/String?).<get-quoted>(): kotlin/String // korlibs.io.util/quoted.<get-quoted>|<get-quoted>@kotlin.String?(){}[0]
+final val korlibs.io.util/unquoted // korlibs.io.util/unquoted|@kotlin.String{}unquoted[0]
+    final fun (kotlin/String).<get-unquoted>(): kotlin/String // korlibs.io.util/unquoted.<get-unquoted>|<get-unquoted>@kotlin.String(){}[0]
+final val korlibs.util/eof // korlibs.util/eof|@korlibs.util.SimpleStrReader{}eof[0]
+    final fun (korlibs.util/SimpleStrReader).<get-eof>(): kotlin/Boolean // korlibs.util/eof.<get-eof>|<get-eof>@korlibs.util.SimpleStrReader(){}[0]
+
+final fun (korlibs.io.lang/WString).korlibs.io.lang/substr(kotlin/Int, kotlin/Int = ...): korlibs.io.lang/WString // korlibs.io.lang/substr|substr@korlibs.io.lang.WString(kotlin.Int;kotlin.Int){}[0]
+final fun (korlibs.io.stream/CharReader).korlibs.io.stream/read(kotlin/Int): kotlin/String // korlibs.io.stream/read|read@korlibs.io.stream.CharReader(kotlin.Int){}[0]
+final fun (korlibs.util/SimpleStrReader).korlibs.util/matchIdentifier(kotlin.text/StringBuilder): kotlin.text/StringBuilder? // korlibs.util/matchIdentifier|matchIdentifier@korlibs.util.SimpleStrReader(kotlin.text.StringBuilder){}[0]
+final fun (korlibs.util/SimpleStrReader).korlibs.util/matchSingleOrDoubleQuoteString(kotlin.text/StringBuilder): kotlin.text/StringBuilder? // korlibs.util/matchSingleOrDoubleQuoteString|matchSingleOrDoubleQuoteString@korlibs.util.SimpleStrReader(kotlin.text.StringBuilder){}[0]
+final fun (korlibs.util/SimpleStrReader).korlibs.util/read(kotlin/Int): kotlin/String // korlibs.util/read|read@korlibs.util.SimpleStrReader(kotlin.Int){}[0]
+final fun (korlibs.util/SimpleStrReader).korlibs.util/readUntilBuilder(kotlin/Char, kotlin.text/StringBuilder, kotlin/Boolean = ...): kotlin.text/StringBuilder // korlibs.util/readUntilBuilder|readUntilBuilder@korlibs.util.SimpleStrReader(kotlin.Char;kotlin.text.StringBuilder;kotlin.Boolean){}[0]
+final fun (korlibs.util/SimpleStrReader).korlibs.util/skipExpect(kotlin/Char) // korlibs.util/skipExpect|skipExpect@korlibs.util.SimpleStrReader(kotlin.Char){}[0]
+final fun (korlibs.util/SimpleStrReader).korlibs.util/skipSpaces(): korlibs.util/SimpleStrReader // korlibs.util/skipSpaces|skipSpaces@korlibs.util.SimpleStrReader(){}[0]
+final fun (korlibs.util/SimpleStrReader).korlibs.util/skipWhile(kotlin/Function1<kotlin/Char, kotlin/Boolean>): korlibs.util/SimpleStrReader // korlibs.util/skipWhile|skipWhile@korlibs.util.SimpleStrReader(kotlin.Function1<kotlin.Char,kotlin.Boolean>){}[0]
+final fun (korlibs.util/SimpleStrReader).korlibs.util/tryExpect(kotlin/Char, kotlin/Boolean = ...): kotlin/Boolean // korlibs.util/tryExpect|tryExpect@korlibs.util.SimpleStrReader(kotlin.Char;kotlin.Boolean){}[0]
+final fun (kotlin/ByteArray).korlibs.io.lang.internal/getS16(kotlin/Int, kotlin/Boolean): kotlin/Int // korlibs.io.lang.internal/getS16|getS16@kotlin.ByteArray(kotlin.Int;kotlin.Boolean){}[0]
+final fun (kotlin/ByteArray).korlibs.io.lang.internal/getS16BE(kotlin/Int): kotlin/Int // korlibs.io.lang.internal/getS16BE|getS16BE@kotlin.ByteArray(kotlin.Int){}[0]
+final fun (kotlin/ByteArray).korlibs.io.lang.internal/getS16LE(kotlin/Int): kotlin/Int // korlibs.io.lang.internal/getS16LE|getS16LE@kotlin.ByteArray(kotlin.Int){}[0]
+final fun (kotlin/ByteArray).korlibs.io.lang.internal/set16(kotlin/Int, kotlin/Int, kotlin/Boolean) // korlibs.io.lang.internal/set16|set16@kotlin.ByteArray(kotlin.Int;kotlin.Int;kotlin.Boolean){}[0]
+final fun (kotlin/ByteArray).korlibs.io.lang.internal/set16BE(kotlin/Int, kotlin/Int) // korlibs.io.lang.internal/set16BE|set16BE@kotlin.ByteArray(kotlin.Int;kotlin.Int){}[0]
+final fun (kotlin/ByteArray).korlibs.io.lang.internal/set16LE(kotlin/Int, kotlin/Int) // korlibs.io.lang.internal/set16LE|set16LE@kotlin.ByteArray(kotlin.Int;kotlin.Int){}[0]
+final fun (kotlin/ByteArray).korlibs.io.lang.internal/u8(kotlin/Int): kotlin/Int // korlibs.io.lang.internal/u8|u8@kotlin.ByteArray(kotlin.Int){}[0]
+final fun (kotlin/ByteArray).korlibs.io.lang/decodeToString(korlibs.io.lang/Charset, kotlin/Int = ..., kotlin/Int = ..., kotlin/Boolean = ...): kotlin/String // korlibs.io.lang/decodeToString|decodeToString@kotlin.ByteArray(korlibs.io.lang.Charset;kotlin.Int;kotlin.Int;kotlin.Boolean){}[0]
+final fun (kotlin/ByteArray).korlibs.io.lang/readString(kotlin/Int, kotlin/Int, korlibs.io.lang/Charset = ...): kotlin/String // korlibs.io.lang/readString|readString@kotlin.ByteArray(kotlin.Int;kotlin.Int;korlibs.io.lang.Charset){}[0]
+final fun (kotlin/ByteArray).korlibs.io.lang/readStringz(kotlin/Int, korlibs.io.lang/Charset = ...): kotlin/String // korlibs.io.lang/readStringz|readStringz@kotlin.ByteArray(kotlin.Int;korlibs.io.lang.Charset){}[0]
+final fun (kotlin/ByteArray).korlibs.io.lang/readStringz(kotlin/Int, kotlin/Int, korlibs.io.lang/Charset = ...): kotlin/String // korlibs.io.lang/readStringz|readStringz@kotlin.ByteArray(kotlin.Int;kotlin.Int;korlibs.io.lang.Charset){}[0]
+final fun (kotlin/ByteArray).korlibs.io.lang/toString(korlibs.io.lang/Charset, kotlin/Int = ..., kotlin/Int = ...): kotlin/String // korlibs.io.lang/toString|toString@kotlin.ByteArray(korlibs.io.lang.Charset;kotlin.Int;kotlin.Int){}[0]
+final fun (kotlin/Char).korlibs.io.util/isDigit(): kotlin/Boolean // korlibs.io.util/isDigit|isDigit@kotlin.Char(){}[0]
+final fun (kotlin/Char).korlibs.io.util/isLetter(): kotlin/Boolean // korlibs.io.util/isLetter|isLetter@kotlin.Char(){}[0]
+final fun (kotlin/Char).korlibs.io.util/isLetterDigitOrUnderscore(): kotlin/Boolean // korlibs.io.util/isLetterDigitOrUnderscore|isLetterDigitOrUnderscore@kotlin.Char(){}[0]
+final fun (kotlin/Char).korlibs.io.util/isLetterOrDigit(): kotlin/Boolean // korlibs.io.util/isLetterOrDigit|isLetterOrDigit@kotlin.Char(){}[0]
+final fun (kotlin/Char).korlibs.io.util/isLetterOrDigitOrDollar(): kotlin/Boolean // korlibs.io.util/isLetterOrDigitOrDollar|isLetterOrDigitOrDollar@kotlin.Char(){}[0]
+final fun (kotlin/Char).korlibs.io.util/isLetterOrUnderscore(): kotlin/Boolean // korlibs.io.util/isLetterOrUnderscore|isLetterOrUnderscore@kotlin.Char(){}[0]
+final fun (kotlin/Char).korlibs.io.util/isPrintable(): kotlin/Boolean // korlibs.io.util/isPrintable|isPrintable@kotlin.Char(){}[0]
+final fun (kotlin/Char).korlibs.io.util/isWhitespaceFast(): kotlin/Boolean // korlibs.io.util/isWhitespaceFast|isWhitespaceFast@kotlin.Char(){}[0]
+final fun (kotlin/Int).korlibs.io.lang.internal/extract(kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.lang.internal/extract|extract@kotlin.Int(kotlin.Int;kotlin.Int){}[0]
+final fun (kotlin/Int).korlibs.io.lang.internal/extractByte(kotlin/Int): kotlin/Byte // korlibs.io.lang.internal/extractByte|extractByte@kotlin.Int(kotlin.Int){}[0]
+final fun (kotlin/Int).korlibs.io.lang.internal/insert(kotlin/Int, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.lang.internal/insert|insert@kotlin.Int(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+final fun (kotlin/Int).korlibs.io.lang.internal/mask(): kotlin/Int // korlibs.io.lang.internal/mask|mask@kotlin.Int(){}[0]
+final fun (kotlin/Int).korlibs.io.lang.internal/signExtend(kotlin/Int): kotlin/Int // korlibs.io.lang.internal/signExtend|signExtend@kotlin.Int(kotlin.Int){}[0]
+final fun (kotlin/String).korlibs.io.lang/encodeToByteArray(korlibs.io.lang/Charset, kotlin/Int = ..., kotlin/Int = ..., kotlin/Boolean = ...): kotlin/ByteArray // korlibs.io.lang/encodeToByteArray|encodeToByteArray@kotlin.String(korlibs.io.lang.Charset;kotlin.Int;kotlin.Int;kotlin.Boolean){}[0]
+final fun (kotlin/String).korlibs.io.lang/indexOfOrNull(kotlin/Char, kotlin/Int = ...): kotlin/Int? // korlibs.io.lang/indexOfOrNull|indexOfOrNull@kotlin.String(kotlin.Char;kotlin.Int){}[0]
+final fun (kotlin/String).korlibs.io.lang/lastIndexOfOrNull(kotlin/Char, kotlin/Int = ...): kotlin/Int? // korlibs.io.lang/lastIndexOfOrNull|lastIndexOfOrNull@kotlin.String(kotlin.Char;kotlin.Int){}[0]
+final fun (kotlin/String).korlibs.io.lang/parseInt(): kotlin/Int // korlibs.io.lang/parseInt|parseInt@kotlin.String(){}[0]
+final fun (kotlin/String).korlibs.io.lang/replaceNonPrintableCharacters(kotlin/String = ...): kotlin/String // korlibs.io.lang/replaceNonPrintableCharacters|replaceNonPrintableCharacters@kotlin.String(kotlin.String){}[0]
+final fun (kotlin/String).korlibs.io.lang/splitInChunks(kotlin/Int): kotlin.collections/List<kotlin/String> // korlibs.io.lang/splitInChunks|splitInChunks@kotlin.String(kotlin.Int){}[0]
+final fun (kotlin/String).korlibs.io.lang/splitKeep(kotlin.text/Regex): kotlin.collections/List<kotlin/String> // korlibs.io.lang/splitKeep|splitKeep@kotlin.String(kotlin.text.Regex){}[0]
+final fun (kotlin/String).korlibs.io.lang/stringCase(): korlibs.io.lang/StringCase // korlibs.io.lang/stringCase|stringCase@kotlin.String(){}[0]
+final fun (kotlin/String).korlibs.io.lang/substr(kotlin/Int): kotlin/String // korlibs.io.lang/substr|substr@kotlin.String(kotlin.Int){}[0]
+final fun (kotlin/String).korlibs.io.lang/substr(kotlin/Int, kotlin/Int): kotlin/String // korlibs.io.lang/substr|substr@kotlin.String(kotlin.Int;kotlin.Int){}[0]
+final fun (kotlin/String).korlibs.io.lang/textCase(): korlibs.io.lang/StringCase // korlibs.io.lang/textCase|textCase@kotlin.String(){}[0]
+final fun (kotlin/String).korlibs.io.lang/toByteArray(korlibs.io.lang/Charset = ..., kotlin/Int = ..., kotlin/Int = ...): kotlin/ByteArray // korlibs.io.lang/toByteArray|toByteArray@kotlin.String(korlibs.io.lang.Charset;kotlin.Int;kotlin.Int){}[0]
+final fun (kotlin/String).korlibs.io.lang/toCharArray(): kotlin/CharArray // korlibs.io.lang/toCharArray|toCharArray@kotlin.String(){}[0]
+final fun (kotlin/String).korlibs.io.lang/toWString(): korlibs.io.lang/WString // korlibs.io.lang/toWString|toWString@kotlin.String(){}[0]
+final fun (kotlin/String).korlibs.io.lang/withInsertion(kotlin/Int, kotlin/String): kotlin/String // korlibs.io.lang/withInsertion|withInsertion@kotlin.String(kotlin.Int;kotlin.String){}[0]
+final fun (kotlin/String).korlibs.io.lang/withoutIndex(kotlin/Int): kotlin/String // korlibs.io.lang/withoutIndex|withoutIndex@kotlin.String(kotlin.Int){}[0]
+final fun (kotlin/String).korlibs.io.lang/withoutRange(kotlin.ranges/IntRange): kotlin/String // korlibs.io.lang/withoutRange|withoutRange@kotlin.String(kotlin.ranges.IntRange){}[0]
+final fun (kotlin/String).korlibs.io.util/escape(): kotlin/String // korlibs.io.util/escape|escape@kotlin.String(){}[0]
+final fun (kotlin/String).korlibs.io.util/escape(kotlin/Boolean): kotlin/String // korlibs.io.util/escape|escape@kotlin.String(kotlin.Boolean){}[0]
+final fun (kotlin/String).korlibs.io.util/escapeUnicode(): kotlin/String // korlibs.io.util/escapeUnicode|escapeUnicode@kotlin.String(){}[0]
+final fun (kotlin/String).korlibs.io.util/isQuoted(): kotlin/Boolean // korlibs.io.util/isQuoted|isQuoted@kotlin.String(){}[0]
+final fun (kotlin/String).korlibs.io.util/substringAfterLastOrNull(kotlin/Char): kotlin/String? // korlibs.io.util/substringAfterLastOrNull|substringAfterLastOrNull@kotlin.String(kotlin.Char){}[0]
+final fun (kotlin/String).korlibs.io.util/substringAfterLastOrNull(kotlin/String): kotlin/String? // korlibs.io.util/substringAfterLastOrNull|substringAfterLastOrNull@kotlin.String(kotlin.String){}[0]
+final fun (kotlin/String).korlibs.io.util/substringAfterOrNull(kotlin/Char): kotlin/String? // korlibs.io.util/substringAfterOrNull|substringAfterOrNull@kotlin.String(kotlin.Char){}[0]
+final fun (kotlin/String).korlibs.io.util/substringAfterOrNull(kotlin/String): kotlin/String? // korlibs.io.util/substringAfterOrNull|substringAfterOrNull@kotlin.String(kotlin.String){}[0]
+final fun (kotlin/String).korlibs.io.util/substringBeforeLastOrNull(kotlin/Char): kotlin/String? // korlibs.io.util/substringBeforeLastOrNull|substringBeforeLastOrNull@kotlin.String(kotlin.Char){}[0]
+final fun (kotlin/String).korlibs.io.util/substringBeforeLastOrNull(kotlin/String): kotlin/String? // korlibs.io.util/substringBeforeLastOrNull|substringBeforeLastOrNull@kotlin.String(kotlin.String){}[0]
+final fun (kotlin/String).korlibs.io.util/substringBeforeOrNull(kotlin/Char): kotlin/String? // korlibs.io.util/substringBeforeOrNull|substringBeforeOrNull@kotlin.String(kotlin.Char){}[0]
+final fun (kotlin/String).korlibs.io.util/substringBeforeOrNull(kotlin/String): kotlin/String? // korlibs.io.util/substringBeforeOrNull|substringBeforeOrNull@kotlin.String(kotlin.String){}[0]
+final fun (kotlin/String).korlibs.io.util/uescape(): kotlin/String // korlibs.io.util/uescape|uescape@kotlin.String(){}[0]
+final fun (kotlin/String).korlibs.io.util/unescape(): kotlin/String // korlibs.io.util/unescape|unescape@kotlin.String(){}[0]
+final fun (kotlin/String).korlibs.io.util/unquote(): kotlin/String // korlibs.io.util/unquote|unquote@kotlin.String(){}[0]
+final fun (kotlin/String).korlibs.util/format(kotlin/Array<out kotlin/Any>...): kotlin/String // korlibs.util/format|format@kotlin.String(kotlin.Array<out|kotlin.Any>...){}[0]
+final fun (kotlin/String.Companion).korlibs.io.lang/fromCharArray(kotlin/CharArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/String // korlibs.io.lang/fromCharArray|fromCharArray@kotlin.String.Companion(kotlin.CharArray;kotlin.Int;kotlin.Int){}[0]
+final fun (kotlin/String.Companion).korlibs.io.lang/fromIntArray(kotlin/IntArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/String // korlibs.io.lang/fromIntArray|fromIntArray@kotlin.String.Companion(kotlin.IntArray;kotlin.Int;kotlin.Int){}[0]
+final fun (kotlin/String.Companion).korlibs.io.lang/invoke(kotlin/IntArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/String // korlibs.io.lang/invoke|invoke@kotlin.String.Companion(kotlin.IntArray;kotlin.Int;kotlin.Int){}[0]
+final fun (kotlin/String.Companion).korlibs.io.lang/substringEquals(kotlin/String, kotlin/Int, kotlin/String, kotlin/Int, kotlin/Int): kotlin/Boolean // korlibs.io.lang/substringEquals|substringEquals@kotlin.String.Companion(kotlin.String;kotlin.Int;kotlin.String;kotlin.Int;kotlin.Int){}[0]
+final fun (kotlin/String?).korlibs.io.util/quote(): kotlin/String // korlibs.io.util/quote|quote@kotlin.String?(){}[0]
+final fun (kotlin/String?).korlibs.io.util/quote(kotlin/Boolean): kotlin/String // korlibs.io.util/quote|quote@kotlin.String?(kotlin.Boolean){}[0]
+final fun (kotlin/String?).korlibs.io.util/quoteUnicode(): kotlin/String // korlibs.io.util/quoteUnicode|quoteUnicode@kotlin.String?(){}[0]
+final fun (kotlin/String?).korlibs.io.util/uquote(): kotlin/String // korlibs.io.util/uquote|uquote@kotlin.String?(){}[0]
+final inline fun (korlibs.io.lang/WString).korlibs.io.lang/forEachCodePoint(kotlin/Function3<kotlin/Int, kotlin/Int, kotlin/Boolean, kotlin/Unit>): kotlin/Int // korlibs.io.lang/forEachCodePoint|forEachCodePoint@korlibs.io.lang.WString(kotlin.Function3<kotlin.Int,kotlin.Int,kotlin.Boolean,kotlin.Unit>){}[0]
+final inline fun (korlibs.util/SimpleStrReader).korlibs.util/readUntilBuilder(kotlin/Boolean = ..., kotlin.text/StringBuilder, kotlin/Function1<kotlin/Char, kotlin/Boolean>): kotlin.text/StringBuilder // korlibs.util/readUntilBuilder|readUntilBuilder@korlibs.util.SimpleStrReader(kotlin.Boolean;kotlin.text.StringBuilder;kotlin.Function1<kotlin.Char,kotlin.Boolean>){}[0]
+final inline fun (korlibs.util/SimpleStrReader).korlibs.util/readWhileBuilder(kotlin/Boolean = ..., kotlin.text/StringBuilder, kotlin/Function1<kotlin/Char, kotlin/Boolean>): kotlin.text/StringBuilder // korlibs.util/readWhileBuilder|readWhileBuilder@korlibs.util.SimpleStrReader(kotlin.Boolean;kotlin.text.StringBuilder;kotlin.Function1<kotlin.Char,kotlin.Boolean>){}[0]
+final inline fun (kotlin/ByteArray).korlibs.io.lang.internal/get16BE(kotlin/Int): kotlin/Int // korlibs.io.lang.internal/get16BE|get16BE@kotlin.ByteArray(kotlin.Int){}[0]
+final inline fun (kotlin/ByteArray).korlibs.io.lang.internal/get16LE(kotlin/Int): kotlin/Int // korlibs.io.lang.internal/get16LE|get16LE@kotlin.ByteArray(kotlin.Int){}[0]
+final inline fun (kotlin/String).korlibs.io.lang/eachBuilder(kotlin/Function2<kotlin.text/StringBuilder, kotlin/Char, kotlin/Unit>): kotlin/String // korlibs.io.lang/eachBuilder|eachBuilder@kotlin.String(kotlin.Function2<kotlin.text.StringBuilder,kotlin.Char,kotlin.Unit>){}[0]
+final inline fun (kotlin/String).korlibs.io.lang/forEachCodePoint(kotlin/Function3<kotlin/Int, kotlin/Int, kotlin/Boolean, kotlin/Unit>): kotlin/Int // korlibs.io.lang/forEachCodePoint|forEachCodePoint@kotlin.String(kotlin.Function3<kotlin.Int,kotlin.Int,kotlin.Boolean,kotlin.Unit>){}[0]
+final inline fun (kotlin/String).korlibs.io.lang/transform(kotlin/Function1<kotlin/Char, kotlin/String>): kotlin/String // korlibs.io.lang/transform|transform@kotlin.String(kotlin.Function1<kotlin.Char,kotlin.String>){}[0]
+final inline fun <#A: kotlin/Any?> (korlibs.io.lang/WStringReader?).korlibs.io.lang/keep(kotlin/Function0<#A>): #A // korlibs.io.lang/keep|keep@korlibs.io.lang.WStringReader?(kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> (korlibs.util/SimpleIndenter).korlibs.util/indent(kotlin/Function0<#A>): #A // korlibs.util/indent|indent@korlibs.util.SimpleIndenter(kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+
+// Targets: [apple]
+final class korlibs.io.lang/CharsetApple : korlibs.io.lang/Charset { // korlibs.io.lang/CharsetApple|null[0]
+    constructor <init>(kotlin/String) // korlibs.io.lang/CharsetApple.<init>|<init>(kotlin.String){}[0]
+
+    final fun decode(kotlin.text/StringBuilder, kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.lang/CharsetApple.decode|decode(kotlin.text.StringBuilder;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun encode(korlibs.memory/ByteArrayBuilder, kotlin/CharSequence, kotlin/Int, kotlin/Int) // korlibs.io.lang/CharsetApple.encode|encode(korlibs.memory.ByteArrayBuilder;kotlin.CharSequence;kotlin.Int;kotlin.Int){}[0]
+}
+
+// Targets: [js, wasmJs]
+final class korlibs.io.lang/JsCharset : korlibs.io.lang/Charset { // korlibs.io.lang/JsCharset|null[0]
+    constructor <init>(korlibs.io.lang/TextEncoder, korlibs.io.lang/TextDecoder) // korlibs.io.lang/JsCharset.<init>|<init>(korlibs.io.lang.TextEncoder;korlibs.io.lang.TextDecoder){}[0]
+
+    final val textDecoder // korlibs.io.lang/JsCharset.textDecoder|{}textDecoder[0]
+        final fun <get-textDecoder>(): korlibs.io.lang/TextDecoder // korlibs.io.lang/JsCharset.textDecoder.<get-textDecoder>|<get-textDecoder>(){}[0]
+    final val textEncoder // korlibs.io.lang/JsCharset.textEncoder|{}textEncoder[0]
+        final fun <get-textEncoder>(): korlibs.io.lang/TextEncoder // korlibs.io.lang/JsCharset.textEncoder.<get-textEncoder>|<get-textEncoder>(){}[0]
+
+    final fun decode(kotlin.text/StringBuilder, kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.lang/JsCharset.decode|decode(kotlin.text.StringBuilder;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun encode(korlibs.memory/ByteArrayBuilder, kotlin/CharSequence, kotlin/Int, kotlin/Int) // korlibs.io.lang/JsCharset.encode|encode(korlibs.memory.ByteArrayBuilder;kotlin.CharSequence;kotlin.Int;kotlin.Int){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.lang/JsCharset.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.io.lang/JsCharset.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.io.lang/JsCharset.toString|toString(){}[0]
+}
+
+// Targets: [js]
+final class korlibs.io.lang/TextDecoder { // korlibs.io.lang/TextDecoder|null[0]
+    constructor <init>(kotlin/String) // korlibs.io.lang/TextDecoder.<init>|<init>(kotlin.String){}[0]
+
+    final val encoding // korlibs.io.lang/TextDecoder.encoding|{}encoding[0]
+        final fun <get-encoding>(): kotlin/String // korlibs.io.lang/TextDecoder.encoding.<get-encoding>|<get-encoding>(){}[0]
+
+    final fun decode(org.khronos.webgl/ArrayBufferView): kotlin/String // korlibs.io.lang/TextDecoder.decode|decode(org.khronos.webgl.ArrayBufferView){}[0]
+}
+
+// Targets: [js]
+final class korlibs.io.lang/TextEncoder { // korlibs.io.lang/TextEncoder|null[0]
+    constructor <init>(kotlin/String) // korlibs.io.lang/TextEncoder.<init>|<init>(kotlin.String){}[0]
+
+    final val encoding // korlibs.io.lang/TextEncoder.encoding|{}encoding[0]
+        final fun <get-encoding>(): kotlin/String // korlibs.io.lang/TextEncoder.encoding.<get-encoding>|<get-encoding>(){}[0]
+
+    final fun encode(kotlin/String): org.khronos.webgl/Uint8Array // korlibs.io.lang/TextEncoder.encode|encode(kotlin.String){}[0]
+}
+
+// Targets: [wasmJs]
+final class korlibs.io.lang/TextDecoder : kotlin.js/JsAny { // korlibs.io.lang/TextDecoder|null[0]
+    constructor <init>(kotlin/String) // korlibs.io.lang/TextDecoder.<init>|<init>(kotlin.String){}[0]
+
+    final val encoding // korlibs.io.lang/TextDecoder.encoding|{}encoding[0]
+        final fun <get-encoding>(): kotlin/String // korlibs.io.lang/TextDecoder.encoding.<get-encoding>|<get-encoding>(){}[0]
+
+    final fun decode(org.khronos.webgl/ArrayBufferView): kotlin/String // korlibs.io.lang/TextDecoder.decode|decode(org.khronos.webgl.ArrayBufferView){}[0]
+}
+
+// Targets: [wasmJs]
+final class korlibs.io.lang/TextEncoder : kotlin.js/JsAny { // korlibs.io.lang/TextEncoder|null[0]
+    constructor <init>(kotlin/String) // korlibs.io.lang/TextEncoder.<init>|<init>(kotlin.String){}[0]
+
+    final val encoding // korlibs.io.lang/TextEncoder.encoding|{}encoding[0]
+        final fun <get-encoding>(): kotlin/String // korlibs.io.lang/TextEncoder.encoding.<get-encoding>|<get-encoding>(){}[0]
+
+    final fun encode(kotlin/String): org.khronos.webgl/Uint8Array // korlibs.io.lang/TextEncoder.encode|encode(kotlin.String){}[0]
+}

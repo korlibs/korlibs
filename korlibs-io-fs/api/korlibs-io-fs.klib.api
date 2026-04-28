@@ -1,0 +1,317 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: native => [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: apple => [iosArm64, iosSimulatorArm64, iosX64, macosArm64, tvosArm64, tvosSimulatorArm64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: linux => [linuxArm64, linuxX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-io-fs>
+abstract interface korlibs.io.core.internal/InternalSystemFSShellArgs { // korlibs.io.core.internal/InternalSystemFSShellArgs|null[0]
+    open fun buildShellExecCommandLine(kotlin.collections/List<kotlin/String>): kotlin/String // korlibs.io.core.internal/InternalSystemFSShellArgs.buildShellExecCommandLine|buildShellExecCommandLine(kotlin.collections.List<kotlin.String>){}[0]
+    open fun buildShellExecCommandLineArray(kotlin.collections/List<kotlin/String>): kotlin.collections/List<kotlin/String> // korlibs.io.core.internal/InternalSystemFSShellArgs.buildShellExecCommandLineArray|buildShellExecCommandLineArray(kotlin.collections.List<kotlin.String>){}[0]
+    open fun buildShellExecCommandLineArrayForExecl(kotlin.collections/List<kotlin/String>): kotlin.collections/List<kotlin/String> // korlibs.io.core.internal/InternalSystemFSShellArgs.buildShellExecCommandLineArrayForExecl|buildShellExecCommandLineArrayForExecl(kotlin.collections.List<kotlin.String>){}[0]
+    open fun buildShellExecCommandLineArrayForNodeSpawn(kotlin.collections/List<kotlin/String>): kotlin.collections/List<kotlin/String> // korlibs.io.core.internal/InternalSystemFSShellArgs.buildShellExecCommandLineArrayForNodeSpawn|buildShellExecCommandLineArrayForNodeSpawn(kotlin.collections.List<kotlin.String>){}[0]
+    open fun buildShellExecCommandLineArrayForProcessBuilder(kotlin.collections/List<kotlin/String>): kotlin.collections/List<kotlin/String> // korlibs.io.core.internal/InternalSystemFSShellArgs.buildShellExecCommandLineArrayForProcessBuilder|buildShellExecCommandLineArrayForProcessBuilder(kotlin.collections.List<kotlin.String>){}[0]
+    open fun buildShellExecCommandLineForPopen(kotlin.collections/List<kotlin/String>): kotlin/String // korlibs.io.core.internal/InternalSystemFSShellArgs.buildShellExecCommandLineForPopen|buildShellExecCommandLineForPopen(kotlin.collections.List<kotlin.String>){}[0]
+    open fun escapeshellCommandUnix(kotlin.collections/List<kotlin/String>): kotlin/String // korlibs.io.core.internal/InternalSystemFSShellArgs.escapeshellCommandUnix|escapeshellCommandUnix(kotlin.collections.List<kotlin.String>){}[0]
+    open fun escapeshellCommandWin(kotlin.collections/List<kotlin/String>): kotlin/String // korlibs.io.core.internal/InternalSystemFSShellArgs.escapeshellCommandWin|escapeshellCommandWin(kotlin.collections.List<kotlin.String>){}[0]
+    open fun escapeshellargUnix(kotlin/String): kotlin/String // korlibs.io.core.internal/InternalSystemFSShellArgs.escapeshellargUnix|escapeshellargUnix(kotlin.String){}[0]
+    open fun escapeshellargWin(kotlin/String): kotlin/String // korlibs.io.core.internal/InternalSystemFSShellArgs.escapeshellargWin|escapeshellargWin(kotlin.String){}[0]
+
+    final object Companion : korlibs.io.core.internal/InternalSystemFSShellArgs // korlibs.io.core.internal/InternalSystemFSShellArgs.Companion|null[0]
+}
+
+abstract interface korlibs.io.core/SyncSystemFS { // korlibs.io.core/SyncSystemFS|null[0]
+    open val fileSeparatorChar // korlibs.io.core/SyncSystemFS.fileSeparatorChar|{}fileSeparatorChar[0]
+        open fun <get-fileSeparatorChar>(): kotlin/Char // korlibs.io.core/SyncSystemFS.fileSeparatorChar.<get-fileSeparatorChar>|<get-fileSeparatorChar>(){}[0]
+    open val pathSeparatorChar // korlibs.io.core/SyncSystemFS.pathSeparatorChar|{}pathSeparatorChar[0]
+        open fun <get-pathSeparatorChar>(): kotlin/Char // korlibs.io.core/SyncSystemFS.pathSeparatorChar.<get-pathSeparatorChar>|<get-pathSeparatorChar>(){}[0]
+
+    abstract fun listdir(kotlin/String): kotlin.sequences/Sequence<kotlin/String> // korlibs.io.core/SyncSystemFS.listdir|listdir(kotlin.String){}[0]
+    abstract fun mkdir(kotlin/String): kotlin/Boolean // korlibs.io.core/SyncSystemFS.mkdir|mkdir(kotlin.String){}[0]
+    abstract fun open(kotlin/String, kotlin/Boolean = ...): korlibs.io.core/SyncFileSystemFS? // korlibs.io.core/SyncSystemFS.open|open(kotlin.String;kotlin.Boolean){}[0]
+    abstract fun rmdir(kotlin/String): kotlin/Boolean // korlibs.io.core/SyncSystemFS.rmdir|rmdir(kotlin.String){}[0]
+    abstract fun stat(kotlin/String): korlibs.io.core/FileSystemFSStat? // korlibs.io.core/SyncSystemFS.stat|stat(kotlin.String){}[0]
+    abstract fun unlink(kotlin/String): kotlin/Boolean // korlibs.io.core/SyncSystemFS.unlink|unlink(kotlin.String){}[0]
+    open fun exec(kotlin.collections/List<kotlin/String>, kotlin.collections/Map<kotlin/String, kotlin/String>, kotlin/String): korlibs.io.core/SyncSystemFSProcess // korlibs.io.core/SyncSystemFS.exec|exec(kotlin.collections.List<kotlin.String>;kotlin.collections.Map<kotlin.String,kotlin.String>;kotlin.String){}[0]
+    open fun exists(kotlin/String): kotlin/Boolean // korlibs.io.core/SyncSystemFS.exists|exists(kotlin.String){}[0]
+    open fun getResourceBytes(kotlin/String, kotlin.reflect/KClass<*>? = ...): kotlin/ByteArray // korlibs.io.core/SyncSystemFS.getResourceBytes|getResourceBytes(kotlin.String;kotlin.reflect.KClass<*>?){}[0]
+    open fun getResourceLength(kotlin/String, kotlin.reflect/KClass<*>? = ...): kotlin/Long // korlibs.io.core/SyncSystemFS.getResourceLength|getResourceLength(kotlin.String;kotlin.reflect.KClass<*>?){}[0]
+    open fun getcwd(): kotlin/String // korlibs.io.core/SyncSystemFS.getcwd|getcwd(){}[0]
+    open fun isDirectory(kotlin/String): kotlin/Boolean // korlibs.io.core/SyncSystemFS.isDirectory|isDirectory(kotlin.String){}[0]
+    open fun isFile(kotlin/String): kotlin/Boolean // korlibs.io.core/SyncSystemFS.isFile|isFile(kotlin.String){}[0]
+    open fun readlink(kotlin/String): kotlin/String? // korlibs.io.core/SyncSystemFS.readlink|readlink(kotlin.String){}[0]
+    open fun realpath(kotlin/String): kotlin/String // korlibs.io.core/SyncSystemFS.realpath|realpath(kotlin.String){}[0]
+
+    final object Companion : korlibs.io.core/SyncSystemFS { // korlibs.io.core/SyncSystemFS.Companion|null[0]
+        final val fileSeparatorChar // korlibs.io.core/SyncSystemFS.Companion.fileSeparatorChar|{}fileSeparatorChar[0]
+            final fun <get-fileSeparatorChar>(): kotlin/Char // korlibs.io.core/SyncSystemFS.Companion.fileSeparatorChar.<get-fileSeparatorChar>|<get-fileSeparatorChar>(){}[0]
+        final val pathSeparatorChar // korlibs.io.core/SyncSystemFS.Companion.pathSeparatorChar|{}pathSeparatorChar[0]
+            final fun <get-pathSeparatorChar>(): kotlin/Char // korlibs.io.core/SyncSystemFS.Companion.pathSeparatorChar.<get-pathSeparatorChar>|<get-pathSeparatorChar>(){}[0]
+
+        final fun exec(kotlin.collections/List<kotlin/String>, kotlin.collections/Map<kotlin/String, kotlin/String>, kotlin/String): korlibs.io.core/SyncSystemFSProcess // korlibs.io.core/SyncSystemFS.Companion.exec|exec(kotlin.collections.List<kotlin.String>;kotlin.collections.Map<kotlin.String,kotlin.String>;kotlin.String){}[0]
+        final fun exists(kotlin/String): kotlin/Boolean // korlibs.io.core/SyncSystemFS.Companion.exists|exists(kotlin.String){}[0]
+        final fun getResourceBytes(kotlin/String, kotlin.reflect/KClass<*>?): kotlin/ByteArray // korlibs.io.core/SyncSystemFS.Companion.getResourceBytes|getResourceBytes(kotlin.String;kotlin.reflect.KClass<*>?){}[0]
+        final fun getResourceLength(kotlin/String, kotlin.reflect/KClass<*>?): kotlin/Long // korlibs.io.core/SyncSystemFS.Companion.getResourceLength|getResourceLength(kotlin.String;kotlin.reflect.KClass<*>?){}[0]
+        final fun getcwd(): kotlin/String // korlibs.io.core/SyncSystemFS.Companion.getcwd|getcwd(){}[0]
+        final fun isDirectory(kotlin/String): kotlin/Boolean // korlibs.io.core/SyncSystemFS.Companion.isDirectory|isDirectory(kotlin.String){}[0]
+        final fun isFile(kotlin/String): kotlin/Boolean // korlibs.io.core/SyncSystemFS.Companion.isFile|isFile(kotlin.String){}[0]
+        final fun listdir(kotlin/String): kotlin.sequences/Sequence<kotlin/String> // korlibs.io.core/SyncSystemFS.Companion.listdir|listdir(kotlin.String){}[0]
+        final fun mkdir(kotlin/String): kotlin/Boolean // korlibs.io.core/SyncSystemFS.Companion.mkdir|mkdir(kotlin.String){}[0]
+        final fun open(kotlin/String, kotlin/Boolean): korlibs.io.core/SyncFileSystemFS? // korlibs.io.core/SyncSystemFS.Companion.open|open(kotlin.String;kotlin.Boolean){}[0]
+        final fun readlink(kotlin/String): kotlin/String? // korlibs.io.core/SyncSystemFS.Companion.readlink|readlink(kotlin.String){}[0]
+        final fun realpath(kotlin/String): kotlin/String // korlibs.io.core/SyncSystemFS.Companion.realpath|realpath(kotlin.String){}[0]
+        final fun rmdir(kotlin/String): kotlin/Boolean // korlibs.io.core/SyncSystemFS.Companion.rmdir|rmdir(kotlin.String){}[0]
+        final fun stat(kotlin/String): korlibs.io.core/FileSystemFSStat? // korlibs.io.core/SyncSystemFS.Companion.stat|stat(kotlin.String){}[0]
+        final fun unlink(kotlin/String): kotlin/Boolean // korlibs.io.core/SyncSystemFS.Companion.unlink|unlink(kotlin.String){}[0]
+    }
+}
+
+abstract interface korlibs.io.core/SystemFS { // korlibs.io.core/SystemFS|null[0]
+    abstract suspend fun exec(kotlin.collections/List<kotlin/String>, kotlin.collections/Map<kotlin/String, kotlin/String>, kotlin/String): korlibs.io.core/SystemFSProcess // korlibs.io.core/SystemFS.exec|exec(kotlin.collections.List<kotlin.String>;kotlin.collections.Map<kotlin.String,kotlin.String>;kotlin.String){}[0]
+    abstract suspend fun listdir(kotlin/String): kotlinx.coroutines.flow/Flow<kotlin/String> // korlibs.io.core/SystemFS.listdir|listdir(kotlin.String){}[0]
+    abstract suspend fun mkdir(kotlin/String): kotlin/Boolean // korlibs.io.core/SystemFS.mkdir|mkdir(kotlin.String){}[0]
+    abstract suspend fun open(kotlin/String, kotlin/Boolean = ...): korlibs.io.core/FileSystemFS? // korlibs.io.core/SystemFS.open|open(kotlin.String;kotlin.Boolean){}[0]
+    abstract suspend fun readlink(kotlin/String): kotlin/String? // korlibs.io.core/SystemFS.readlink|readlink(kotlin.String){}[0]
+    abstract suspend fun realpath(kotlin/String): kotlin/String // korlibs.io.core/SystemFS.realpath|realpath(kotlin.String){}[0]
+    abstract suspend fun rmdir(kotlin/String): kotlin/Boolean // korlibs.io.core/SystemFS.rmdir|rmdir(kotlin.String){}[0]
+    abstract suspend fun stat(kotlin/String): korlibs.io.core/FileSystemFSStat? // korlibs.io.core/SystemFS.stat|stat(kotlin.String){}[0]
+    abstract suspend fun unlink(kotlin/String): kotlin/Boolean // korlibs.io.core/SystemFS.unlink|unlink(kotlin.String){}[0]
+    open suspend fun exists(kotlin/String): kotlin/Boolean // korlibs.io.core/SystemFS.exists|exists(kotlin.String){}[0]
+    open suspend fun getResourceBytes(kotlin/String, kotlin.reflect/KClass<*>? = ...): kotlin/ByteArray // korlibs.io.core/SystemFS.getResourceBytes|getResourceBytes(kotlin.String;kotlin.reflect.KClass<*>?){}[0]
+    open suspend fun getResourceLength(kotlin/String, kotlin.reflect/KClass<*>? = ...): kotlin/Long // korlibs.io.core/SystemFS.getResourceLength|getResourceLength(kotlin.String;kotlin.reflect.KClass<*>?){}[0]
+    open suspend fun isDirectory(kotlin/String): kotlin/Boolean // korlibs.io.core/SystemFS.isDirectory|isDirectory(kotlin.String){}[0]
+    open suspend fun isFile(kotlin/String): kotlin/Boolean // korlibs.io.core/SystemFS.isFile|isFile(kotlin.String){}[0]
+
+    final object Companion : korlibs.io.core/SystemFS { // korlibs.io.core/SystemFS.Companion|null[0]
+        final suspend fun exec(kotlin.collections/List<kotlin/String>, kotlin.collections/Map<kotlin/String, kotlin/String>, kotlin/String): korlibs.io.core/SystemFSProcess // korlibs.io.core/SystemFS.Companion.exec|exec(kotlin.collections.List<kotlin.String>;kotlin.collections.Map<kotlin.String,kotlin.String>;kotlin.String){}[0]
+        final suspend fun exists(kotlin/String): kotlin/Boolean // korlibs.io.core/SystemFS.Companion.exists|exists(kotlin.String){}[0]
+        final suspend fun getResourceBytes(kotlin/String, kotlin.reflect/KClass<*>?): kotlin/ByteArray // korlibs.io.core/SystemFS.Companion.getResourceBytes|getResourceBytes(kotlin.String;kotlin.reflect.KClass<*>?){}[0]
+        final suspend fun getResourceLength(kotlin/String, kotlin.reflect/KClass<*>?): kotlin/Long // korlibs.io.core/SystemFS.Companion.getResourceLength|getResourceLength(kotlin.String;kotlin.reflect.KClass<*>?){}[0]
+        final suspend fun isDirectory(kotlin/String): kotlin/Boolean // korlibs.io.core/SystemFS.Companion.isDirectory|isDirectory(kotlin.String){}[0]
+        final suspend fun isFile(kotlin/String): kotlin/Boolean // korlibs.io.core/SystemFS.Companion.isFile|isFile(kotlin.String){}[0]
+        final suspend fun listdir(kotlin/String): kotlinx.coroutines.flow/Flow<kotlin/String> // korlibs.io.core/SystemFS.Companion.listdir|listdir(kotlin.String){}[0]
+        final suspend fun mkdir(kotlin/String): kotlin/Boolean // korlibs.io.core/SystemFS.Companion.mkdir|mkdir(kotlin.String){}[0]
+        final suspend fun open(kotlin/String, kotlin/Boolean): korlibs.io.core/FileSystemFS? // korlibs.io.core/SystemFS.Companion.open|open(kotlin.String;kotlin.Boolean){}[0]
+        final suspend fun readlink(kotlin/String): kotlin/String? // korlibs.io.core/SystemFS.Companion.readlink|readlink(kotlin.String){}[0]
+        final suspend fun realpath(kotlin/String): kotlin/String // korlibs.io.core/SystemFS.Companion.realpath|realpath(kotlin.String){}[0]
+        final suspend fun rmdir(kotlin/String): kotlin/Boolean // korlibs.io.core/SystemFS.Companion.rmdir|rmdir(kotlin.String){}[0]
+        final suspend fun stat(kotlin/String): korlibs.io.core/FileSystemFSStat? // korlibs.io.core/SystemFS.Companion.stat|stat(kotlin.String){}[0]
+        final suspend fun unlink(kotlin/String): kotlin/Boolean // korlibs.io.core/SystemFS.Companion.unlink|unlink(kotlin.String){}[0]
+    }
+}
+
+abstract class korlibs.io.core/FileSystemFS : korlibs.io.async/AsyncCloseable, korlibs.io.stream/AsyncInputStream, korlibs.io.stream/AsyncOutputStream { // korlibs.io.core/FileSystemFS|null[0]
+    constructor <init>() // korlibs.io.core/FileSystemFS.<init>|<init>(){}[0]
+
+    abstract suspend fun close() // korlibs.io.core/FileSystemFS.close|close(){}[0]
+    abstract suspend fun getLength(): kotlin/Long // korlibs.io.core/FileSystemFS.getLength|getLength(){}[0]
+    abstract suspend fun getPosition(): kotlin/Long // korlibs.io.core/FileSystemFS.getPosition|getPosition(){}[0]
+    abstract suspend fun read(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.core/FileSystemFS.read|read(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    abstract suspend fun setLength(kotlin/Long) // korlibs.io.core/FileSystemFS.setLength|setLength(kotlin.Long){}[0]
+    abstract suspend fun setPosition(kotlin/Long) // korlibs.io.core/FileSystemFS.setPosition|setPosition(kotlin.Long){}[0]
+    abstract suspend fun write(kotlin/ByteArray, kotlin/Int, kotlin/Int) // korlibs.io.core/FileSystemFS.write|write(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+abstract class korlibs.io.core/SyncFileSystemFS : korlibs.io.stream/SyncInputStream, korlibs.io.stream/SyncOutputStream, kotlin/AutoCloseable { // korlibs.io.core/SyncFileSystemFS|null[0]
+    constructor <init>() // korlibs.io.core/SyncFileSystemFS.<init>|<init>(){}[0]
+
+    abstract fun close() // korlibs.io.core/SyncFileSystemFS.close|close(){}[0]
+    abstract fun getLength(): kotlin/Long // korlibs.io.core/SyncFileSystemFS.getLength|getLength(){}[0]
+    abstract fun getPosition(): kotlin/Long // korlibs.io.core/SyncFileSystemFS.getPosition|getPosition(){}[0]
+    abstract fun read(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.core/SyncFileSystemFS.read|read(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    abstract fun setLength(kotlin/Long) // korlibs.io.core/SyncFileSystemFS.setLength|setLength(kotlin.Long){}[0]
+    abstract fun setPosition(kotlin/Long) // korlibs.io.core/SyncFileSystemFS.setPosition|setPosition(kotlin.Long){}[0]
+    abstract fun write(kotlin/ByteArray, kotlin/Int, kotlin/Int) // korlibs.io.core/SyncFileSystemFS.write|write(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+final class korlibs.io.core/FileSystemFSStat { // korlibs.io.core/FileSystemFSStat|null[0]
+    constructor <init>(kotlin/String, kotlin/Long = ..., kotlin/Int = ..., kotlin/Boolean = ..., kotlin/Long = ..., kotlin/Long = ..., kotlin/Long = ..., kotlin/Long = ...) // korlibs.io.core/FileSystemFSStat.<init>|<init>(kotlin.String;kotlin.Long;kotlin.Int;kotlin.Boolean;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long){}[0]
+
+    final val inode // korlibs.io.core/FileSystemFSStat.inode|{}inode[0]
+        final fun <get-inode>(): kotlin/Long // korlibs.io.core/FileSystemFSStat.inode.<get-inode>|<get-inode>(){}[0]
+    final val isDirectory // korlibs.io.core/FileSystemFSStat.isDirectory|{}isDirectory[0]
+        final fun <get-isDirectory>(): kotlin/Boolean // korlibs.io.core/FileSystemFSStat.isDirectory.<get-isDirectory>|<get-isDirectory>(){}[0]
+    final val mode // korlibs.io.core/FileSystemFSStat.mode|{}mode[0]
+        final fun <get-mode>(): kotlin/Int // korlibs.io.core/FileSystemFSStat.mode.<get-mode>|<get-mode>(){}[0]
+    final val name // korlibs.io.core/FileSystemFSStat.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.io.core/FileSystemFSStat.name.<get-name>|<get-name>(){}[0]
+    final val size // korlibs.io.core/FileSystemFSStat.size|{}size[0]
+        final fun <get-size>(): kotlin/Long // korlibs.io.core/FileSystemFSStat.size.<get-size>|<get-size>(){}[0]
+    final val timeCreation // korlibs.io.core/FileSystemFSStat.timeCreation|{}timeCreation[0]
+        final fun <get-timeCreation>(): kotlin/Long // korlibs.io.core/FileSystemFSStat.timeCreation.<get-timeCreation>|<get-timeCreation>(){}[0]
+    final val timeLastAccess // korlibs.io.core/FileSystemFSStat.timeLastAccess|{}timeLastAccess[0]
+        final fun <get-timeLastAccess>(): kotlin/Long // korlibs.io.core/FileSystemFSStat.timeLastAccess.<get-timeLastAccess>|<get-timeLastAccess>(){}[0]
+    final val timeLastModification // korlibs.io.core/FileSystemFSStat.timeLastModification|{}timeLastModification[0]
+        final fun <get-timeLastModification>(): kotlin/Long // korlibs.io.core/FileSystemFSStat.timeLastModification.<get-timeLastModification>|<get-timeLastModification>(){}[0]
+
+    final fun component1(): kotlin/String // korlibs.io.core/FileSystemFSStat.component1|component1(){}[0]
+    final fun component2(): kotlin/Long // korlibs.io.core/FileSystemFSStat.component2|component2(){}[0]
+    final fun component3(): kotlin/Int // korlibs.io.core/FileSystemFSStat.component3|component3(){}[0]
+    final fun component4(): kotlin/Boolean // korlibs.io.core/FileSystemFSStat.component4|component4(){}[0]
+    final fun component5(): kotlin/Long // korlibs.io.core/FileSystemFSStat.component5|component5(){}[0]
+    final fun component6(): kotlin/Long // korlibs.io.core/FileSystemFSStat.component6|component6(){}[0]
+    final fun component7(): kotlin/Long // korlibs.io.core/FileSystemFSStat.component7|component7(){}[0]
+    final fun component8(): kotlin/Long // korlibs.io.core/FileSystemFSStat.component8|component8(){}[0]
+    final fun copy(kotlin/String = ..., kotlin/Long = ..., kotlin/Int = ..., kotlin/Boolean = ..., kotlin/Long = ..., kotlin/Long = ..., kotlin/Long = ..., kotlin/Long = ...): korlibs.io.core/FileSystemFSStat // korlibs.io.core/FileSystemFSStat.copy|copy(kotlin.String;kotlin.Long;kotlin.Int;kotlin.Boolean;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.core/FileSystemFSStat.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.io.core/FileSystemFSStat.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.io.core/FileSystemFSStat.toString|toString(){}[0]
+}
+
+open class korlibs.io.core/SyncSystemFSProcess : kotlin/AutoCloseable { // korlibs.io.core/SyncSystemFSProcess|null[0]
+    constructor <init>(korlibs.io.stream/SyncOutputStream, korlibs.io.stream/SyncInputStream, korlibs.io.stream/SyncInputStream) // korlibs.io.core/SyncSystemFSProcess.<init>|<init>(korlibs.io.stream.SyncOutputStream;korlibs.io.stream.SyncInputStream;korlibs.io.stream.SyncInputStream){}[0]
+
+    final val stderr // korlibs.io.core/SyncSystemFSProcess.stderr|{}stderr[0]
+        final fun <get-stderr>(): korlibs.io.stream/SyncInputStream // korlibs.io.core/SyncSystemFSProcess.stderr.<get-stderr>|<get-stderr>(){}[0]
+    final val stdin // korlibs.io.core/SyncSystemFSProcess.stdin|{}stdin[0]
+        final fun <get-stdin>(): korlibs.io.stream/SyncOutputStream // korlibs.io.core/SyncSystemFSProcess.stdin.<get-stdin>|<get-stdin>(){}[0]
+    final val stdout // korlibs.io.core/SyncSystemFSProcess.stdout|{}stdout[0]
+        final fun <get-stdout>(): korlibs.io.stream/SyncInputStream // korlibs.io.core/SyncSystemFSProcess.stdout.<get-stdout>|<get-stdout>(){}[0]
+    open val exitCode // korlibs.io.core/SyncSystemFSProcess.exitCode|{}exitCode[0]
+        open fun <get-exitCode>(): kotlin/Int // korlibs.io.core/SyncSystemFSProcess.exitCode.<get-exitCode>|<get-exitCode>(){}[0]
+
+    open fun close() // korlibs.io.core/SyncSystemFSProcess.close|close(){}[0]
+    open fun destroy() // korlibs.io.core/SyncSystemFSProcess.destroy|destroy(){}[0]
+}
+
+open class korlibs.io.core/SystemFSProcess : korlibs.io.async/AsyncCloseable { // korlibs.io.core/SystemFSProcess|null[0]
+    constructor <init>(korlibs.io.stream/AsyncOutputStream, korlibs.io.stream/AsyncInputStream, korlibs.io.stream/AsyncInputStream) // korlibs.io.core/SystemFSProcess.<init>|<init>(korlibs.io.stream.AsyncOutputStream;korlibs.io.stream.AsyncInputStream;korlibs.io.stream.AsyncInputStream){}[0]
+
+    final val stderr // korlibs.io.core/SystemFSProcess.stderr|{}stderr[0]
+        final fun <get-stderr>(): korlibs.io.stream/AsyncInputStream // korlibs.io.core/SystemFSProcess.stderr.<get-stderr>|<get-stderr>(){}[0]
+    final val stdin // korlibs.io.core/SystemFSProcess.stdin|{}stdin[0]
+        final fun <get-stdin>(): korlibs.io.stream/AsyncOutputStream // korlibs.io.core/SystemFSProcess.stdin.<get-stdin>|<get-stdin>(){}[0]
+    final val stdout // korlibs.io.core/SystemFSProcess.stdout|{}stdout[0]
+        final fun <get-stdout>(): korlibs.io.stream/AsyncInputStream // korlibs.io.core/SystemFSProcess.stdout.<get-stdout>|<get-stdout>(){}[0]
+
+    open suspend fun close() // korlibs.io.core/SystemFSProcess.close|close(){}[0]
+    open suspend fun destroy() // korlibs.io.core/SystemFSProcess.destroy|destroy(){}[0]
+    open suspend fun exitCode(): kotlin/Int // korlibs.io.core/SystemFSProcess.exitCode|exitCode(){}[0]
+}
+
+final object korlibs.io.core/NullSyncSystemFS : korlibs.io.core/SyncSystemFS { // korlibs.io.core/NullSyncSystemFS|null[0]
+    final fun exec(kotlin.collections/List<kotlin/String>, kotlin.collections/Map<kotlin/String, kotlin/String>, kotlin/String): korlibs.io.core/SyncSystemFSProcess // korlibs.io.core/NullSyncSystemFS.exec|exec(kotlin.collections.List<kotlin.String>;kotlin.collections.Map<kotlin.String,kotlin.String>;kotlin.String){}[0]
+    final fun listdir(kotlin/String): kotlin.sequences/Sequence<kotlin/String> // korlibs.io.core/NullSyncSystemFS.listdir|listdir(kotlin.String){}[0]
+    final fun mkdir(kotlin/String): kotlin/Boolean // korlibs.io.core/NullSyncSystemFS.mkdir|mkdir(kotlin.String){}[0]
+    final fun open(kotlin/String, kotlin/Boolean): korlibs.io.core/SyncFileSystemFS? // korlibs.io.core/NullSyncSystemFS.open|open(kotlin.String;kotlin.Boolean){}[0]
+    final fun readlink(kotlin/String): kotlin/String? // korlibs.io.core/NullSyncSystemFS.readlink|readlink(kotlin.String){}[0]
+    final fun realpath(kotlin/String): kotlin/String // korlibs.io.core/NullSyncSystemFS.realpath|realpath(kotlin.String){}[0]
+    final fun rmdir(kotlin/String): kotlin/Boolean // korlibs.io.core/NullSyncSystemFS.rmdir|rmdir(kotlin.String){}[0]
+    final fun stat(kotlin/String): korlibs.io.core/FileSystemFSStat? // korlibs.io.core/NullSyncSystemFS.stat|stat(kotlin.String){}[0]
+    final fun unlink(kotlin/String): kotlin/Boolean // korlibs.io.core/NullSyncSystemFS.unlink|unlink(kotlin.String){}[0]
+}
+
+final val korlibs.io.core/NullSystemFS // korlibs.io.core/NullSystemFS|{}NullSystemFS[0]
+    final fun <get-NullSystemFS>(): korlibs.io.core/SystemFS // korlibs.io.core/NullSystemFS.<get-NullSystemFS>|<get-NullSystemFS>(){}[0]
+final val korlibs.io.core/defaultSyncSystemFS // korlibs.io.core/defaultSyncSystemFS|{}defaultSyncSystemFS[0]
+    final fun <get-defaultSyncSystemFS>(): korlibs.io.core/SyncSystemFS // korlibs.io.core/defaultSyncSystemFS.<get-defaultSyncSystemFS>|<get-defaultSyncSystemFS>(){}[0]
+final val korlibs.io.core/defaultSystemFS // korlibs.io.core/defaultSystemFS|{}defaultSystemFS[0]
+    final fun <get-defaultSystemFS>(): korlibs.io.core/SystemFS // korlibs.io.core/defaultSystemFS.<get-defaultSystemFS>|<get-defaultSystemFS>(){}[0]
+
+final fun (korlibs.io.core/SyncSystemFS).korlibs.io.core/checkExecFolder(kotlin/String, kotlin.collections/List<kotlin/String>) // korlibs.io.core/checkExecFolder|checkExecFolder@korlibs.io.core.SyncSystemFS(kotlin.String;kotlin.collections.List<kotlin.String>){}[0]
+final fun (korlibs.io.core/SyncSystemFS).korlibs.io.core/readBytes(kotlin/String): kotlin/ByteArray // korlibs.io.core/readBytes|readBytes@korlibs.io.core.SyncSystemFS(kotlin.String){}[0]
+final fun (korlibs.io.core/SyncSystemFS).korlibs.io.core/size(kotlin/String): kotlin/Long? // korlibs.io.core/size|size@korlibs.io.core.SyncSystemFS(kotlin.String){}[0]
+final fun (korlibs.io.core/SyncSystemFS).korlibs.io.core/toAsync(kotlinx.coroutines/CoroutineDispatcher?): korlibs.io.core/SystemFS // korlibs.io.core/toAsync|toAsync@korlibs.io.core.SyncSystemFS(kotlinx.coroutines.CoroutineDispatcher?){}[0]
+final fun (korlibs.io.core/SyncSystemFS).korlibs.io.core/writeBytes(kotlin/String, kotlin/ByteArray) // korlibs.io.core/writeBytes|writeBytes@korlibs.io.core.SyncSystemFS(kotlin.String;kotlin.ByteArray){}[0]
+
+// Targets: [native]
+abstract class korlibs.io.core/SyncFileSystemFSNativeBase : korlibs.io.core/SyncFileSystemFS { // korlibs.io.core/SyncFileSystemFSNativeBase|null[0]
+    final val fd // korlibs.io.core/SyncFileSystemFSNativeBase.fd|{}fd[0]
+        final fun <get-fd>(): kotlin/Int // korlibs.io.core/SyncFileSystemFSNativeBase.fd.<get-fd>|<get-fd>(){}[0]
+    final val file // korlibs.io.core/SyncFileSystemFSNativeBase.file|{}file[0]
+        // Targets: [apple]
+        final fun <get-file>(): kotlinx.cinterop/CPointer<platform.posix/__sFILE>? // korlibs.io.core/SyncFileSystemFSNativeBase.file.<get-file>|<get-file>(){}[0]
+
+        // Targets: [linux]
+        final fun <get-file>(): kotlinx.cinterop/CPointer<platform.posix/_IO_FILE>? // korlibs.io.core/SyncFileSystemFSNativeBase.file.<get-file>|<get-file>(){}[0]
+
+        // Targets: [mingwX64]
+        final fun <get-file>(): kotlinx.cinterop/CPointer<platform.posix/_iobuf>? // korlibs.io.core/SyncFileSystemFSNativeBase.file.<get-file>|<get-file>(){}[0]
+    final val startAddressOf // korlibs.io.core/SyncFileSystemFSNativeBase.startAddressOf|@kotlinx.cinterop.Pinned<kotlin.ByteArray>{}startAddressOf[0]
+        final fun (kotlinx.cinterop/Pinned<kotlin/ByteArray>).<get-startAddressOf>(): kotlinx.cinterop/CPointer<kotlinx.cinterop/ByteVarOf<kotlin/Byte>> // korlibs.io.core/SyncFileSystemFSNativeBase.startAddressOf.<get-startAddressOf>|<get-startAddressOf>@kotlinx.cinterop.Pinned<kotlin.ByteArray>(){}[0]
+
+    abstract fun fseek64(kotlin/Long, kotlin/Int): kotlin/Long // korlibs.io.core/SyncFileSystemFSNativeBase.fseek64|fseek64(kotlin.Long;kotlin.Int){}[0]
+    abstract fun ftell64(): kotlin/Long // korlibs.io.core/SyncFileSystemFSNativeBase.ftell64|ftell64(){}[0]
+    abstract fun ftruncate64(kotlin/Long) // korlibs.io.core/SyncFileSystemFSNativeBase.ftruncate64|ftruncate64(kotlin.Long){}[0]
+    open fun close() // korlibs.io.core/SyncFileSystemFSNativeBase.close|close(){}[0]
+    open fun getLength(): kotlin/Long // korlibs.io.core/SyncFileSystemFSNativeBase.getLength|getLength(){}[0]
+    open fun getPosition(): kotlin/Long // korlibs.io.core/SyncFileSystemFSNativeBase.getPosition|getPosition(){}[0]
+    open fun read(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.core/SyncFileSystemFSNativeBase.read|read(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    open fun setLength(kotlin/Long) // korlibs.io.core/SyncFileSystemFSNativeBase.setLength|setLength(kotlin.Long){}[0]
+    open fun setPosition(kotlin/Long) // korlibs.io.core/SyncFileSystemFSNativeBase.setPosition|setPosition(kotlin.Long){}[0]
+    open fun write(kotlin/ByteArray, kotlin/Int, kotlin/Int) // korlibs.io.core/SyncFileSystemFSNativeBase.write|write(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+
+    // Targets: [apple]
+    constructor <init>(kotlinx.cinterop/CPointer<platform.posix/__sFILE>?) // korlibs.io.core/SyncFileSystemFSNativeBase.<init>|<init>(kotlinx.cinterop.CPointer<platform.posix.__sFILE>?){}[0]
+
+    // Targets: [linux]
+    constructor <init>(kotlinx.cinterop/CPointer<platform.posix/_IO_FILE>?) // korlibs.io.core/SyncFileSystemFSNativeBase.<init>|<init>(kotlinx.cinterop.CPointer<platform.posix._IO_FILE>?){}[0]
+
+    // Targets: [mingwX64]
+    constructor <init>(kotlinx.cinterop/CPointer<platform.posix/_iobuf>?) // korlibs.io.core/SyncFileSystemFSNativeBase.<init>|<init>(kotlinx.cinterop.CPointer<platform.posix._iobuf>?){}[0]
+}
+
+// Targets: [native]
+abstract class korlibs.io.core/SyncSystemFSNativeBase : korlibs.io.core/SyncSystemFS { // korlibs.io.core/SyncSystemFSNativeBase|null[0]
+    constructor <init>() // korlibs.io.core/SyncSystemFSNativeBase.<init>|<init>(){}[0]
+
+    open fun listdir(kotlin/String): kotlin.sequences/Sequence<kotlin/String> // korlibs.io.core/SyncSystemFSNativeBase.listdir|listdir(kotlin.String){}[0]
+    open fun open(kotlin/String, kotlin/Boolean): korlibs.io.core/SyncFileSystemFS? // korlibs.io.core/SyncSystemFSNativeBase.open|open(kotlin.String;kotlin.Boolean){}[0]
+    open fun rmdir(kotlin/String): kotlin/Boolean // korlibs.io.core/SyncSystemFSNativeBase.rmdir|rmdir(kotlin.String){}[0]
+    open fun stat(kotlin/String): korlibs.io.core/FileSystemFSStat? // korlibs.io.core/SyncSystemFSNativeBase.stat|stat(kotlin.String){}[0]
+    open fun unlink(kotlin/String): kotlin/Boolean // korlibs.io.core/SyncSystemFSNativeBase.unlink|unlink(kotlin.String){}[0]
+
+    // Targets: [apple]
+    abstract fun createSyncFileSystemFS(kotlinx.cinterop/CPointer<platform.posix/__sFILE>?): korlibs.io.core/SyncFileSystemFSNativeBase // korlibs.io.core/SyncSystemFSNativeBase.createSyncFileSystemFS|createSyncFileSystemFS(kotlinx.cinterop.CPointer<platform.posix.__sFILE>?){}[0]
+
+    // Targets: [linux]
+    abstract fun createSyncFileSystemFS(kotlinx.cinterop/CPointer<platform.posix/_IO_FILE>?): korlibs.io.core/SyncFileSystemFSNativeBase // korlibs.io.core/SyncSystemFSNativeBase.createSyncFileSystemFS|createSyncFileSystemFS(kotlinx.cinterop.CPointer<platform.posix._IO_FILE>?){}[0]
+
+    // Targets: [mingwX64]
+    abstract fun createSyncFileSystemFS(kotlinx.cinterop/CPointer<platform.posix/_iobuf>?): korlibs.io.core/SyncFileSystemFSNativeBase // korlibs.io.core/SyncSystemFSNativeBase.createSyncFileSystemFS|createSyncFileSystemFS(kotlinx.cinterop.CPointer<platform.posix._iobuf>?){}[0]
+}
+
+// Targets: [apple, linux]
+open class korlibs.io.core/SyncSystemFSPosixBase : korlibs.io.core/SyncSystemFSNativeBase { // korlibs.io.core/SyncSystemFSPosixBase|null[0]
+    constructor <init>() // korlibs.io.core/SyncSystemFSPosixBase.<init>|<init>(){}[0]
+
+    final fun posixReadlink(kotlin/String): kotlin/String? // korlibs.io.core/SyncSystemFSPosixBase.posixReadlink|posixReadlink(kotlin.String){}[0]
+    final fun posixRealpath(kotlin/String): kotlin/String // korlibs.io.core/SyncSystemFSPosixBase.posixRealpath|posixRealpath(kotlin.String){}[0]
+    open fun mkdir(kotlin/String): kotlin/Boolean // korlibs.io.core/SyncSystemFSPosixBase.mkdir|mkdir(kotlin.String){}[0]
+
+    // Targets: [apple]
+    open fun createSyncFileSystemFS(kotlinx.cinterop/CPointer<platform.posix/__sFILE>?): korlibs.io.core/SyncFileSystemFSNativeBase // korlibs.io.core/SyncSystemFSPosixBase.createSyncFileSystemFS|createSyncFileSystemFS(kotlinx.cinterop.CPointer<platform.posix.__sFILE>?){}[0]
+
+    // Targets: [linux]
+    open fun createSyncFileSystemFS(kotlinx.cinterop/CPointer<platform.posix/_IO_FILE>?): korlibs.io.core/SyncFileSystemFSNativeBase // korlibs.io.core/SyncSystemFSPosixBase.createSyncFileSystemFS|createSyncFileSystemFS(kotlinx.cinterop.CPointer<platform.posix._IO_FILE>?){}[0]
+}
+
+// Targets: [apple]
+final object korlibs.io.core/AppleSyncSystemFS : korlibs.io.core/SyncSystemFSPosixBase { // korlibs.io.core/AppleSyncSystemFS|null[0]
+    final fun getcwd(): kotlin/String // korlibs.io.core/AppleSyncSystemFS.getcwd|getcwd(){}[0]
+}
+
+// Targets: [linux]
+final object korlibs.io.core/LinuxSyncSystemFS : korlibs.io.core/SyncSystemFSPosixBase { // korlibs.io.core/LinuxSyncSystemFS|null[0]
+    final fun getCurrentExe(): kotlin/String? // korlibs.io.core/LinuxSyncSystemFS.getCurrentExe|getCurrentExe(){}[0]
+    final fun getCurrentExeFolder(): kotlin/String? // korlibs.io.core/LinuxSyncSystemFS.getCurrentExeFolder|getCurrentExeFolder(){}[0]
+    final fun getcwd(): kotlin/String // korlibs.io.core/LinuxSyncSystemFS.getcwd|getcwd(){}[0]
+}
+
+// Targets: [mingwX64]
+final object korlibs.io.core/MingwSyncSystemFS : korlibs.io.core/SyncSystemFSNativeBase { // korlibs.io.core/MingwSyncSystemFS|null[0]
+    final val fileSeparatorChar // korlibs.io.core/MingwSyncSystemFS.fileSeparatorChar|{}fileSeparatorChar[0]
+        final fun <get-fileSeparatorChar>(): kotlin/Char // korlibs.io.core/MingwSyncSystemFS.fileSeparatorChar.<get-fileSeparatorChar>|<get-fileSeparatorChar>(){}[0]
+    final val pathSeparatorChar // korlibs.io.core/MingwSyncSystemFS.pathSeparatorChar|{}pathSeparatorChar[0]
+        final fun <get-pathSeparatorChar>(): kotlin/Char // korlibs.io.core/MingwSyncSystemFS.pathSeparatorChar.<get-pathSeparatorChar>|<get-pathSeparatorChar>(){}[0]
+
+    final fun createSyncFileSystemFS(kotlinx.cinterop/CPointer<platform.posix/_iobuf>?): korlibs.io.core/SyncFileSystemFSNativeBase // korlibs.io.core/MingwSyncSystemFS.createSyncFileSystemFS|createSyncFileSystemFS(kotlinx.cinterop.CPointer<platform.posix._iobuf>?){}[0]
+    final fun getExecutableDirectory(): kotlin/String // korlibs.io.core/MingwSyncSystemFS.getExecutableDirectory|getExecutableDirectory(){}[0]
+    final fun getExecutablePath(): kotlin/String // korlibs.io.core/MingwSyncSystemFS.getExecutablePath|getExecutablePath(){}[0]
+    final fun getcwd(): kotlin/String // korlibs.io.core/MingwSyncSystemFS.getcwd|getcwd(){}[0]
+    final fun mkdir(kotlin/String): kotlin/Boolean // korlibs.io.core/MingwSyncSystemFS.mkdir|mkdir(kotlin.String){}[0]
+}

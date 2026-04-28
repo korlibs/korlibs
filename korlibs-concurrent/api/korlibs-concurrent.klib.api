@@ -1,0 +1,544 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: native => [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: apple => [iosArm64, iosSimulatorArm64, iosX64, macosArm64, tvosArm64, tvosSimulatorArm64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: linux => [linuxArm64, linuxX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-concurrent>
+abstract interface korlibs.concurrent.lock/BaseLock { // korlibs.concurrent.lock/BaseLock|null[0]
+    final object Companion { // korlibs.concurrent.lock/BaseLock.Companion|null[0]
+        final val isSupported // korlibs.concurrent.lock/BaseLock.Companion.isSupported|{}isSupported[0]
+            final fun <get-isSupported>(): kotlin/Boolean // korlibs.concurrent.lock/BaseLock.Companion.isSupported.<get-isSupported>|<get-isSupported>(){}[0]
+    }
+}
+
+abstract interface korlibs.concurrent.lock/BaseLockWithNotifyAndWait : korlibs.concurrent.lock/BaseLock { // korlibs.concurrent.lock/BaseLockWithNotifyAndWait|null[0]
+    abstract fun notify(kotlin/Unit = ...) // korlibs.concurrent.lock/BaseLockWithNotifyAndWait.notify|notify(kotlin.Unit){}[0]
+    abstract fun wait(korlibs.time/FastDuration) // korlibs.concurrent.lock/BaseLockWithNotifyAndWait.wait|wait(korlibs.time.FastDuration){}[0]
+    open fun wait(kotlin.time/Duration) // korlibs.concurrent.lock/BaseLockWithNotifyAndWait.wait|wait(kotlin.time.Duration){}[0]
+}
+
+abstract interface korlibs.io.async/AsyncInvokable { // korlibs.io.async/AsyncInvokable|null[0]
+    abstract suspend fun <#A1: kotlin/Any?> invoke(kotlin.coroutines/SuspendFunction0<#A1>): #A1 // korlibs.io.async/AsyncInvokable.invoke|invoke(kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any?>}[0]
+}
+
+abstract class <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.io.async/BaseSignal { // korlibs.io.async/BaseSignal|null[0]
+    constructor <init>(kotlin/Function0<kotlin/Unit> = ...) // korlibs.io.async/BaseSignal.<init>|<init>(kotlin.Function0<kotlin.Unit>){}[0]
+
+    final val hasListeners // korlibs.io.async/BaseSignal.hasListeners|{}hasListeners[0]
+        final fun <get-hasListeners>(): kotlin/Boolean // korlibs.io.async/BaseSignal.hasListeners.<get-hasListeners>|<get-hasListeners>(){}[0]
+    final val listenerCount // korlibs.io.async/BaseSignal.listenerCount|{}listenerCount[0]
+        final fun <get-listenerCount>(): kotlin/Int // korlibs.io.async/BaseSignal.listenerCount.<get-listenerCount>|<get-listenerCount>(){}[0]
+    final val onRegister // korlibs.io.async/BaseSignal.onRegister|{}onRegister[0]
+        final fun <get-onRegister>(): kotlin/Function0<kotlin/Unit> // korlibs.io.async/BaseSignal.onRegister.<get-onRegister>|<get-onRegister>(){}[0]
+
+    final var handlers // korlibs.io.async/BaseSignal.handlers|{}handlers[0]
+        final fun <get-handlers>(): kotlin.collections/MutableList<korlibs.io.async/BaseSignal.Node<#A, #B>> // korlibs.io.async/BaseSignal.handlers.<get-handlers>|<get-handlers>(){}[0]
+        final fun <set-handlers>(kotlin.collections/MutableList<korlibs.io.async/BaseSignal.Node<#A, #B>>) // korlibs.io.async/BaseSignal.handlers.<set-handlers>|<set-handlers>(kotlin.collections.MutableList<korlibs.io.async.BaseSignal.Node<1:0,1:1>>){}[0]
+    final var handlersToRemove // korlibs.io.async/BaseSignal.handlersToRemove|{}handlersToRemove[0]
+        final fun <get-handlersToRemove>(): kotlin.collections/MutableList<korlibs.io.async/BaseSignal.Node<#A, #B>> // korlibs.io.async/BaseSignal.handlersToRemove.<get-handlersToRemove>|<get-handlersToRemove>(){}[0]
+        final fun <set-handlersToRemove>(kotlin.collections/MutableList<korlibs.io.async/BaseSignal.Node<#A, #B>>) // korlibs.io.async/BaseSignal.handlersToRemove.<set-handlersToRemove>|<set-handlersToRemove>(kotlin.collections.MutableList<korlibs.io.async.BaseSignal.Node<1:0,1:1>>){}[0]
+    final var iterating // korlibs.io.async/BaseSignal.iterating|{}iterating[0]
+        final fun <get-iterating>(): kotlin/Int // korlibs.io.async/BaseSignal.iterating.<get-iterating>|<get-iterating>(){}[0]
+        final fun <set-iterating>(kotlin/Int) // korlibs.io.async/BaseSignal.iterating.<set-iterating>|<set-iterating>(kotlin.Int){}[0]
+
+    abstract suspend fun waitOneBase(): #A // korlibs.io.async/BaseSignal.waitOneBase|waitOneBase(){}[0]
+    final fun _add(kotlin/Boolean, #B): kotlin/AutoCloseable // korlibs.io.async/BaseSignal._add|_add(kotlin.Boolean;1:1){}[0]
+    final fun clear() // korlibs.io.async/BaseSignal.clear|clear(){}[0]
+    final inline fun iterateCallbacks(kotlin/Function1<#B, kotlin/Unit>) // korlibs.io.async/BaseSignal.iterateCallbacks|iterateCallbacks(kotlin.Function1<1:1,kotlin.Unit>){}[0]
+    final suspend fun listen(): kotlinx.coroutines.channels/ReceiveChannel<#A> // korlibs.io.async/BaseSignal.listen|listen(){}[0]
+
+    final inner class Node : kotlin/AutoCloseable { // korlibs.io.async/BaseSignal.Node|null[0]
+        constructor <init>(kotlin/Boolean, #B) // korlibs.io.async/BaseSignal.Node.<init>|<init>(kotlin.Boolean;2:1){}[0]
+
+        final val item // korlibs.io.async/BaseSignal.Node.item|{}item[0]
+            final fun <get-item>(): #B // korlibs.io.async/BaseSignal.Node.item.<get-item>|<get-item>(){}[0]
+        final val once // korlibs.io.async/BaseSignal.Node.once|{}once[0]
+            final fun <get-once>(): kotlin/Boolean // korlibs.io.async/BaseSignal.Node.once.<get-once>|<get-once>(){}[0]
+
+        final fun close() // korlibs.io.async/BaseSignal.Node.close|close(){}[0]
+    }
+}
+
+abstract class <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.io.async/BaseSignal2 { // korlibs.io.async/BaseSignal2|null[0]
+    constructor <init>(kotlin/Function0<kotlin/Unit> = ...) // korlibs.io.async/BaseSignal2.<init>|<init>(kotlin.Function0<kotlin.Unit>){}[0]
+
+    final val listenerCount // korlibs.io.async/BaseSignal2.listenerCount|{}listenerCount[0]
+        final fun <get-listenerCount>(): kotlin/Int // korlibs.io.async/BaseSignal2.listenerCount.<get-listenerCount>|<get-listenerCount>(){}[0]
+    final val onRegister // korlibs.io.async/BaseSignal2.onRegister|{}onRegister[0]
+        final fun <get-onRegister>(): kotlin/Function0<kotlin/Unit> // korlibs.io.async/BaseSignal2.onRegister.<get-onRegister>|<get-onRegister>(){}[0]
+
+    final var handlers // korlibs.io.async/BaseSignal2.handlers|{}handlers[0]
+        final fun <get-handlers>(): kotlin.collections/ArrayList<korlibs.io.async/BaseSignal2.Node<#A, #B>> // korlibs.io.async/BaseSignal2.handlers.<get-handlers>|<get-handlers>(){}[0]
+        final fun <set-handlers>(kotlin.collections/ArrayList<korlibs.io.async/BaseSignal2.Node<#A, #B>>) // korlibs.io.async/BaseSignal2.handlers.<set-handlers>|<set-handlers>(kotlin.collections.ArrayList<korlibs.io.async.BaseSignal2.Node<1:0,1:1>>){}[0]
+    final var handlersToRemove // korlibs.io.async/BaseSignal2.handlersToRemove|{}handlersToRemove[0]
+        final fun <get-handlersToRemove>(): kotlin.collections/ArrayList<korlibs.io.async/BaseSignal2.Node<#A, #B>> // korlibs.io.async/BaseSignal2.handlersToRemove.<get-handlersToRemove>|<get-handlersToRemove>(){}[0]
+        final fun <set-handlersToRemove>(kotlin.collections/ArrayList<korlibs.io.async/BaseSignal2.Node<#A, #B>>) // korlibs.io.async/BaseSignal2.handlersToRemove.<set-handlersToRemove>|<set-handlersToRemove>(kotlin.collections.ArrayList<korlibs.io.async.BaseSignal2.Node<1:0,1:1>>){}[0]
+    final var iterating // korlibs.io.async/BaseSignal2.iterating|{}iterating[0]
+        final fun <get-iterating>(): kotlin/Int // korlibs.io.async/BaseSignal2.iterating.<get-iterating>|<get-iterating>(){}[0]
+        final fun <set-iterating>(kotlin/Int) // korlibs.io.async/BaseSignal2.iterating.<set-iterating>|<set-iterating>(kotlin.Int){}[0]
+
+    abstract suspend fun waitOneBase(): kotlin/Pair<#A, #B> // korlibs.io.async/BaseSignal2.waitOneBase|waitOneBase(){}[0]
+    final fun _add(kotlin/Boolean, kotlin/Function2<#A, #B, kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.async/BaseSignal2._add|_add(kotlin.Boolean;kotlin.Function2<1:0,1:1,kotlin.Unit>){}[0]
+    final fun clear() // korlibs.io.async/BaseSignal2.clear|clear(){}[0]
+    final inline fun iterateCallbacks(kotlin/Function1<kotlin/Function2<#A, #B, kotlin/Unit>, kotlin/Unit>) // korlibs.io.async/BaseSignal2.iterateCallbacks|iterateCallbacks(kotlin.Function1<kotlin.Function2<1:0,1:1,kotlin.Unit>,kotlin.Unit>){}[0]
+    final suspend fun listen(): kotlinx.coroutines.channels/ReceiveChannel<kotlin/Pair<#A, #B>> // korlibs.io.async/BaseSignal2.listen|listen(){}[0]
+
+    final inner class Node : kotlin/AutoCloseable { // korlibs.io.async/BaseSignal2.Node|null[0]
+        constructor <init>(kotlin/Boolean, kotlin/Function2<#A, #B, kotlin/Unit>) // korlibs.io.async/BaseSignal2.Node.<init>|<init>(kotlin.Boolean;kotlin.Function2<2:0,2:1,kotlin.Unit>){}[0]
+
+        final val item // korlibs.io.async/BaseSignal2.Node.item|{}item[0]
+            final fun <get-item>(): kotlin/Function2<#A, #B, kotlin/Unit> // korlibs.io.async/BaseSignal2.Node.item.<get-item>|<get-item>(){}[0]
+        final val once // korlibs.io.async/BaseSignal2.Node.once|{}once[0]
+            final fun <get-once>(): kotlin/Boolean // korlibs.io.async/BaseSignal2.Node.once.<get-once>|<get-once>(){}[0]
+
+        final fun close() // korlibs.io.async/BaseSignal2.Node.close|close(){}[0]
+    }
+}
+
+abstract class <#A: kotlin/Any?> korlibs.io.lang/NativeThreadLocal { // korlibs.io.lang/NativeThreadLocal|null[0]
+    constructor <init>() // korlibs.io.lang/NativeThreadLocal.<init>|<init>(){}[0]
+
+    abstract fun initialValue(): #A // korlibs.io.lang/NativeThreadLocal.initialValue|initialValue(){}[0]
+    final fun get(): #A // korlibs.io.lang/NativeThreadLocal.get|get(){}[0]
+    final fun set(#A) // korlibs.io.lang/NativeThreadLocal.set|set(1:0){}[0]
+}
+
+abstract class korlibs.concurrent.lock/LockImpl : korlibs.concurrent.lock/BaseLockWithNotifyAndWait { // korlibs.concurrent.lock/LockImpl|null[0]
+    constructor <init>() // korlibs.concurrent.lock/LockImpl.<init>|<init>(){}[0]
+
+    final fun lock() // korlibs.concurrent.lock/LockImpl.lock|lock(){}[0]
+    final fun unlock() // korlibs.concurrent.lock/LockImpl.unlock|unlock(){}[0]
+    final inline fun <#A1: kotlin/Any?> lockUnlock(kotlin/Function0<#A1>): #A1 // korlibs.concurrent.lock/LockImpl.lockUnlock|lockUnlock(kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+    open fun notify(kotlin/Unit) // korlibs.concurrent.lock/LockImpl.notify|notify(kotlin.Unit){}[0]
+    open fun wait(korlibs.time/FastDuration) // korlibs.concurrent.lock/LockImpl.wait|wait(korlibs.time.FastDuration){}[0]
+}
+
+final class <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.io.async/Signal2 : korlibs.io.async/BaseSignal2<#A, #B> { // korlibs.io.async/Signal2|null[0]
+    constructor <init>(kotlin/Function0<kotlin/Unit> = ...) // korlibs.io.async/Signal2.<init>|<init>(kotlin.Function0<kotlin.Unit>){}[0]
+
+    final fun add(kotlin/Function2<#A, #B, kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.async/Signal2.add|add(kotlin.Function2<1:0,1:1,kotlin.Unit>){}[0]
+    final fun invoke(#A, #B) // korlibs.io.async/Signal2.invoke|invoke(1:0;1:1){}[0]
+    final fun invoke(kotlin/Function2<#A, #B, kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.async/Signal2.invoke|invoke(kotlin.Function2<1:0,1:1,kotlin.Unit>){}[0]
+    final fun once(kotlin/Function2<#A, #B, kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.async/Signal2.once|once(kotlin.Function2<1:0,1:1,kotlin.Unit>){}[0]
+    final suspend fun waitOneBase(): kotlin/Pair<#A, #B> // korlibs.io.async/Signal2.waitOneBase|waitOneBase(){}[0]
+}
+
+final class <#A: kotlin/Any?> korlibs.io.async/AsyncSignal : korlibs.io.async/BaseSignal<#A, kotlin.coroutines/SuspendFunction1<#A, kotlin/Unit>> { // korlibs.io.async/AsyncSignal|null[0]
+    constructor <init>(kotlin/Function0<kotlin/Unit> = ...) // korlibs.io.async/AsyncSignal.<init>|<init>(kotlin.Function0<kotlin.Unit>){}[0]
+
+    final fun add(kotlin.coroutines/SuspendFunction1<#A, kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.async/AsyncSignal.add|add(kotlin.coroutines.SuspendFunction1<1:0,kotlin.Unit>){}[0]
+    final fun invoke(kotlin.coroutines/SuspendFunction1<#A, kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.async/AsyncSignal.invoke|invoke(kotlin.coroutines.SuspendFunction1<1:0,kotlin.Unit>){}[0]
+    final fun once(kotlin.coroutines/SuspendFunction1<#A, kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.async/AsyncSignal.once|once(kotlin.coroutines.SuspendFunction1<1:0,kotlin.Unit>){}[0]
+    final suspend fun invoke(#A) // korlibs.io.async/AsyncSignal.invoke|invoke(1:0){}[0]
+    final suspend fun waitOneBase(): #A // korlibs.io.async/AsyncSignal.waitOneBase|waitOneBase(){}[0]
+}
+
+final class <#A: kotlin/Any?> korlibs.io.async/Signal : korlibs.io.async/BaseSignal<#A, kotlin/Function1<#A, kotlin/Unit>> { // korlibs.io.async/Signal|null[0]
+    constructor <init>(kotlin/Function0<kotlin/Unit> = ...) // korlibs.io.async/Signal.<init>|<init>(kotlin.Function0<kotlin.Unit>){}[0]
+
+    final fun add(kotlin/Function1<#A, kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.async/Signal.add|add(kotlin.Function1<1:0,kotlin.Unit>){}[0]
+    final fun invoke(#A) // korlibs.io.async/Signal.invoke|invoke(1:0){}[0]
+    final fun invoke(kotlin/Function1<#A, kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.async/Signal.invoke|invoke(kotlin.Function1<1:0,kotlin.Unit>){}[0]
+    final fun once(kotlin/Function1<#A, kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.async/Signal.once|once(kotlin.Function1<1:0,kotlin.Unit>){}[0]
+    final suspend fun waitOneBase(): #A // korlibs.io.async/Signal.waitOneBase|waitOneBase(){}[0]
+}
+
+final class <#A: kotlin/Any?> korlibs.io.lang/threadLocal { // korlibs.io.lang/threadLocal|null[0]
+    constructor <init>(kotlin/Function0<#A>) // korlibs.io.lang/threadLocal.<init>|<init>(kotlin.Function0<1:0>){}[0]
+
+    final val gen // korlibs.io.lang/threadLocal.gen|{}gen[0]
+        final fun <get-gen>(): kotlin/Function0<#A> // korlibs.io.lang/threadLocal.gen.<get-gen>|<get-gen>(){}[0]
+    final val local // korlibs.io.lang/threadLocal.local|{}local[0]
+        final fun <get-local>(): korlibs.io.lang/NativeThreadLocal<#A> // korlibs.io.lang/threadLocal.local.<get-local>|<get-local>(){}[0]
+
+    final var value // korlibs.io.lang/threadLocal.value|{}value[0]
+        final fun <get-value>(): #A // korlibs.io.lang/threadLocal.value.<get-value>|<get-value>(){}[0]
+        final fun <set-value>(#A) // korlibs.io.lang/threadLocal.value.<set-value>|<set-value>(1:0){}[0]
+
+    final inline fun getValue(kotlin/Any?, kotlin.reflect/KProperty<*>?): #A // korlibs.io.lang/threadLocal.getValue|getValue(kotlin.Any?;kotlin.reflect.KProperty<*>?){}[0]
+    final inline fun setValue(kotlin/Any?, kotlin.reflect/KProperty<*>?, #A) // korlibs.io.lang/threadLocal.setValue|setValue(kotlin.Any?;kotlin.reflect.KProperty<*>?;1:0){}[0]
+}
+
+final class korlibs.concurrent.lock/NonRecursiveLock : korlibs.concurrent.lock/BaseLock { // korlibs.concurrent.lock/NonRecursiveLock|null[0]
+    constructor <init>() // korlibs.concurrent.lock/NonRecursiveLock.<init>|<init>(){}[0]
+
+    final val obj // korlibs.concurrent.lock/NonRecursiveLock.obj|{}obj[0]
+        // Targets: [native]
+        final fun <get-obj>(): kotlinx.atomicfu.locks/SynchronizedObject // korlibs.concurrent.lock/NonRecursiveLock.obj.<get-obj>|<get-obj>(){}[0]
+
+        // Targets: [js, wasmJs]
+        final fun <get-obj>(): kotlin/Any // korlibs.concurrent.lock/NonRecursiveLock.obj.<get-obj>|<get-obj>(){}[0]
+
+    final inline fun <#A1: kotlin/Any?> invoke(kotlin/Function0<#A1>): #A1 // korlibs.concurrent.lock/NonRecursiveLock.invoke|invoke(kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+}
+
+final class korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher : kotlin/AutoCloseable, kotlinx.coroutines/CoroutineDispatcher, kotlinx.coroutines/Delay { // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher|null[0]
+    constructor <init>(kotlin/Int, kotlin/String = ..., korlibs.concurrent.thread/NativeThreadPriority = ..., kotlin/Boolean = ..., kotlin/Boolean = ...) // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.<init>|<init>(kotlin.Int;kotlin.String;korlibs.concurrent.thread.NativeThreadPriority;kotlin.Boolean;kotlin.Boolean){}[0]
+
+    final val dispatchers // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.dispatchers|{}dispatchers[0]
+        final fun <get-dispatchers>(): kotlin/Array<korlibs.concurrent.thread/NativeThreadDispatcher> // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.dispatchers.<get-dispatchers>|<get-dispatchers>(){}[0]
+    final val isDaemon // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.isDaemon|{}isDaemon[0]
+        final fun <get-isDaemon>(): kotlin/Boolean // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.isDaemon.<get-isDaemon>|<get-isDaemon>(){}[0]
+    final val name // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.name.<get-name>|<get-name>(){}[0]
+    final val numThreads // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.numThreads|{}numThreads[0]
+        final fun <get-numThreads>(): kotlin/Int // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.numThreads.<get-numThreads>|<get-numThreads>(){}[0]
+    final val preciseTimings // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.preciseTimings|{}preciseTimings[0]
+        final fun <get-preciseTimings>(): kotlin/Boolean // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.preciseTimings.<get-preciseTimings>|<get-preciseTimings>(){}[0]
+    final val priority // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.priority|{}priority[0]
+        final fun <get-priority>(): korlibs.concurrent.thread/NativeThreadPriority // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.priority.<get-priority>|<get-priority>(){}[0]
+    final val threadIds // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.threadIds|{}threadIds[0]
+        final fun <get-threadIds>(): kotlin.collections/HashSet<kotlin/Long> // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.threadIds.<get-threadIds>|<get-threadIds>(){}[0]
+
+    final fun close() // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.close|close(){}[0]
+    final fun dispatch(kotlin.coroutines/CoroutineContext, kotlinx.coroutines/Runnable) // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.dispatch|dispatch(kotlin.coroutines.CoroutineContext;kotlinx.coroutines.Runnable){}[0]
+    final fun dispatchYield(kotlin.coroutines/CoroutineContext, kotlinx.coroutines/Runnable) // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.dispatchYield|dispatchYield(kotlin.coroutines.CoroutineContext;kotlinx.coroutines.Runnable){}[0]
+    final fun invokeOnTimeout(kotlin/Long, kotlinx.coroutines/Runnable, kotlin.coroutines/CoroutineContext): kotlinx.coroutines/DisposableHandle // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.invokeOnTimeout|invokeOnTimeout(kotlin.Long;kotlinx.coroutines.Runnable;kotlin.coroutines.CoroutineContext){}[0]
+    final fun isDispatchNeeded(kotlin.coroutines/CoroutineContext): kotlin/Boolean // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.isDispatchNeeded|isDispatchNeeded(kotlin.coroutines.CoroutineContext){}[0]
+    final fun scheduleResumeAfterDelay(kotlin/Long, kotlinx.coroutines/CancellableContinuation<kotlin/Unit>) // korlibs.concurrent.thread/FixedPoolNativeThreadDispatcher.scheduleResumeAfterDelay|scheduleResumeAfterDelay(kotlin.Long;kotlinx.coroutines.CancellableContinuation<kotlin.Unit>){}[0]
+}
+
+final class korlibs.concurrent.thread/NativeThreadDispatcher : kotlin/AutoCloseable, kotlinx.coroutines/CoroutineDispatcher, kotlinx.coroutines/Delay { // korlibs.concurrent.thread/NativeThreadDispatcher|null[0]
+    constructor <init>(kotlin/String = ..., korlibs.concurrent.thread/NativeThreadPriority = ..., kotlin/Boolean = ..., kotlin/Boolean = ...) // korlibs.concurrent.thread/NativeThreadDispatcher.<init>|<init>(kotlin.String;korlibs.concurrent.thread.NativeThreadPriority;kotlin.Boolean;kotlin.Boolean){}[0]
+
+    final val isDaemon // korlibs.concurrent.thread/NativeThreadDispatcher.isDaemon|{}isDaemon[0]
+        final fun <get-isDaemon>(): kotlin/Boolean // korlibs.concurrent.thread/NativeThreadDispatcher.isDaemon.<get-isDaemon>|<get-isDaemon>(){}[0]
+    final val name // korlibs.concurrent.thread/NativeThreadDispatcher.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.concurrent.thread/NativeThreadDispatcher.name.<get-name>|<get-name>(){}[0]
+    final val numTasks // korlibs.concurrent.thread/NativeThreadDispatcher.numTasks|{}numTasks[0]
+        final fun <get-numTasks>(): kotlin/Int // korlibs.concurrent.thread/NativeThreadDispatcher.numTasks.<get-numTasks>|<get-numTasks>(){}[0]
+    final val numTimedTasks // korlibs.concurrent.thread/NativeThreadDispatcher.numTimedTasks|{}numTimedTasks[0]
+        final fun <get-numTimedTasks>(): kotlin/Int // korlibs.concurrent.thread/NativeThreadDispatcher.numTimedTasks.<get-numTimedTasks>|<get-numTimedTasks>(){}[0]
+    final val preciseTimings // korlibs.concurrent.thread/NativeThreadDispatcher.preciseTimings|{}preciseTimings[0]
+        final fun <get-preciseTimings>(): kotlin/Boolean // korlibs.concurrent.thread/NativeThreadDispatcher.preciseTimings.<get-preciseTimings>|<get-preciseTimings>(){}[0]
+    final val priority // korlibs.concurrent.thread/NativeThreadDispatcher.priority|{}priority[0]
+        final fun <get-priority>(): korlibs.concurrent.thread/NativeThreadPriority // korlibs.concurrent.thread/NativeThreadDispatcher.priority.<get-priority>|<get-priority>(){}[0]
+    final val tasks // korlibs.concurrent.thread/NativeThreadDispatcher.tasks|{}tasks[0]
+        final fun <get-tasks>(): kotlin.collections/ArrayDeque<kotlinx.coroutines/Runnable> // korlibs.concurrent.thread/NativeThreadDispatcher.tasks.<get-tasks>|<get-tasks>(){}[0]
+    final val tasksLock // korlibs.concurrent.thread/NativeThreadDispatcher.tasksLock|{}tasksLock[0]
+        final fun <get-tasksLock>(): korlibs.concurrent.lock/Lock // korlibs.concurrent.thread/NativeThreadDispatcher.tasksLock.<get-tasksLock>|<get-tasksLock>(){}[0]
+    final val thread // korlibs.concurrent.thread/NativeThreadDispatcher.thread|{}thread[0]
+        final fun <get-thread>(): korlibs.concurrent.thread/NativeThread // korlibs.concurrent.thread/NativeThreadDispatcher.thread.<get-thread>|<get-thread>(){}[0]
+    final val timedTasks // korlibs.concurrent.thread/NativeThreadDispatcher.timedTasks|{}timedTasks[0]
+        final fun <get-timedTasks>(): kotlin.collections/ArrayDeque<korlibs.concurrent.thread/NativeThreadDispatcher.TimedTask> // korlibs.concurrent.thread/NativeThreadDispatcher.timedTasks.<get-timedTasks>|<get-timedTasks>(){}[0]
+    final val timedTasksLock // korlibs.concurrent.thread/NativeThreadDispatcher.timedTasksLock|{}timedTasksLock[0]
+        // Targets: [native]
+        final fun <get-timedTasksLock>(): kotlinx.atomicfu.locks/SynchronizedObject // korlibs.concurrent.thread/NativeThreadDispatcher.timedTasksLock.<get-timedTasksLock>|<get-timedTasksLock>(){}[0]
+
+        // Targets: [js, wasmJs]
+        final fun <get-timedTasksLock>(): kotlin/Any // korlibs.concurrent.thread/NativeThreadDispatcher.timedTasksLock.<get-timedTasksLock>|<get-timedTasksLock>(){}[0]
+
+    final var running // korlibs.concurrent.thread/NativeThreadDispatcher.running|{}running[0]
+        final fun <get-running>(): kotlin/Boolean // korlibs.concurrent.thread/NativeThreadDispatcher.running.<get-running>|<get-running>(){}[0]
+        final fun <set-running>(kotlin/Boolean) // korlibs.concurrent.thread/NativeThreadDispatcher.running.<set-running>|<set-running>(kotlin.Boolean){}[0]
+
+    final fun close() // korlibs.concurrent.thread/NativeThreadDispatcher.close|close(){}[0]
+    final fun dispatch(kotlin.coroutines/CoroutineContext, kotlinx.coroutines/Runnable) // korlibs.concurrent.thread/NativeThreadDispatcher.dispatch|dispatch(kotlin.coroutines.CoroutineContext;kotlinx.coroutines.Runnable){}[0]
+    final fun dispatchYield(kotlin.coroutines/CoroutineContext, kotlinx.coroutines/Runnable) // korlibs.concurrent.thread/NativeThreadDispatcher.dispatchYield|dispatchYield(kotlin.coroutines.CoroutineContext;kotlinx.coroutines.Runnable){}[0]
+    final fun invokeOnTimeout(kotlin/Long, kotlinx.coroutines/Runnable, kotlin.coroutines/CoroutineContext): kotlinx.coroutines/DisposableHandle // korlibs.concurrent.thread/NativeThreadDispatcher.invokeOnTimeout|invokeOnTimeout(kotlin.Long;kotlinx.coroutines.Runnable;kotlin.coroutines.CoroutineContext){}[0]
+    final fun isDispatchNeeded(kotlin.coroutines/CoroutineContext): kotlin/Boolean // korlibs.concurrent.thread/NativeThreadDispatcher.isDispatchNeeded|isDispatchNeeded(kotlin.coroutines.CoroutineContext){}[0]
+    final fun scheduleResumeAfterDelay(kotlin/Long, kotlinx.coroutines/CancellableContinuation<kotlin/Unit>) // korlibs.concurrent.thread/NativeThreadDispatcher.scheduleResumeAfterDelay|scheduleResumeAfterDelay(kotlin.Long;kotlinx.coroutines.CancellableContinuation<kotlin.Unit>){}[0]
+
+    final class TimedTask : kotlin/Comparable<korlibs.concurrent.thread/NativeThreadDispatcher.TimedTask>, kotlinx.coroutines/DisposableHandle { // korlibs.concurrent.thread/NativeThreadDispatcher.TimedTask|null[0]
+        constructor <init>(korlibs.concurrent.thread/NativeThreadDispatcher, korlibs.time/FastDuration, kotlin.coroutines/Continuation<kotlin/Unit>?, kotlinx.coroutines/Runnable?) // korlibs.concurrent.thread/NativeThreadDispatcher.TimedTask.<init>|<init>(korlibs.concurrent.thread.NativeThreadDispatcher;korlibs.time.FastDuration;kotlin.coroutines.Continuation<kotlin.Unit>?;kotlinx.coroutines.Runnable?){}[0]
+
+        final val block // korlibs.concurrent.thread/NativeThreadDispatcher.TimedTask.block|{}block[0]
+            final fun <get-block>(): kotlinx.coroutines/Runnable? // korlibs.concurrent.thread/NativeThreadDispatcher.TimedTask.block.<get-block>|<get-block>(){}[0]
+        final val dispatcher // korlibs.concurrent.thread/NativeThreadDispatcher.TimedTask.dispatcher|{}dispatcher[0]
+            final fun <get-dispatcher>(): korlibs.concurrent.thread/NativeThreadDispatcher // korlibs.concurrent.thread/NativeThreadDispatcher.TimedTask.dispatcher.<get-dispatcher>|<get-dispatcher>(){}[0]
+        final val task // korlibs.concurrent.thread/NativeThreadDispatcher.TimedTask.task|{}task[0]
+            final fun <get-task>(): kotlin.coroutines/Continuation<kotlin/Unit>? // korlibs.concurrent.thread/NativeThreadDispatcher.TimedTask.task.<get-task>|<get-task>(){}[0]
+        final val time // korlibs.concurrent.thread/NativeThreadDispatcher.TimedTask.time|{}time[0]
+            final fun <get-time>(): korlibs.time/FastDuration // korlibs.concurrent.thread/NativeThreadDispatcher.TimedTask.time.<get-time>|<get-time>(){}[0]
+
+        final fun compareTo(korlibs.concurrent.thread/NativeThreadDispatcher.TimedTask): kotlin/Int // korlibs.concurrent.thread/NativeThreadDispatcher.TimedTask.compareTo|compareTo(korlibs.concurrent.thread.NativeThreadDispatcher.TimedTask){}[0]
+        final fun dispose() // korlibs.concurrent.thread/NativeThreadDispatcher.TimedTask.dispose|dispose(){}[0]
+    }
+}
+
+final class korlibs.io.async/AsyncQueue { // korlibs.io.async/AsyncQueue|null[0]
+    constructor <init>() // korlibs.io.async/AsyncQueue.<init>|<init>(){}[0]
+
+    final val thread // korlibs.io.async/AsyncQueue.thread|{}thread[0]
+        final fun <get-thread>(): korlibs.io.async/AsyncThread // korlibs.io.async/AsyncQueue.thread.<get-thread>|<get-thread>(){}[0]
+
+    final fun invoke(kotlin.coroutines/CoroutineContext, kotlin.coroutines/SuspendFunction0<kotlin/Unit>): korlibs.io.async/AsyncQueue // korlibs.io.async/AsyncQueue.invoke|invoke(kotlin.coroutines.CoroutineContext;kotlin.coroutines.SuspendFunction0<kotlin.Unit>){}[0]
+    final suspend fun await() // korlibs.io.async/AsyncQueue.await|await(){}[0]
+    final suspend fun await(kotlin.coroutines/SuspendFunction0<kotlin/Unit>) // korlibs.io.async/AsyncQueue.await|await(kotlin.coroutines.SuspendFunction0<kotlin.Unit>){}[0]
+    final suspend fun invoke(kotlin.coroutines/SuspendFunction0<kotlin/Unit>): korlibs.io.async/AsyncQueue // korlibs.io.async/AsyncQueue.invoke|invoke(kotlin.coroutines.SuspendFunction0<kotlin.Unit>){}[0]
+}
+
+final class korlibs.io.async/AsyncQueueWithContext { // korlibs.io.async/AsyncQueueWithContext|null[0]
+    constructor <init>(korlibs.io.async/AsyncQueue, kotlin.coroutines/CoroutineContext) // korlibs.io.async/AsyncQueueWithContext.<init>|<init>(korlibs.io.async.AsyncQueue;kotlin.coroutines.CoroutineContext){}[0]
+
+    final val context // korlibs.io.async/AsyncQueueWithContext.context|{}context[0]
+        final fun <get-context>(): kotlin.coroutines/CoroutineContext // korlibs.io.async/AsyncQueueWithContext.context.<get-context>|<get-context>(){}[0]
+    final val queue // korlibs.io.async/AsyncQueueWithContext.queue|{}queue[0]
+        final fun <get-queue>(): korlibs.io.async/AsyncQueue // korlibs.io.async/AsyncQueueWithContext.queue.<get-queue>|<get-queue>(){}[0]
+
+    final fun invoke(kotlin.coroutines/SuspendFunction0<kotlin/Unit>): korlibs.io.async/AsyncQueue // korlibs.io.async/AsyncQueueWithContext.invoke|invoke(kotlin.coroutines.SuspendFunction0<kotlin.Unit>){}[0]
+    final suspend fun await() // korlibs.io.async/AsyncQueueWithContext.await|await(){}[0]
+    final suspend fun await(kotlin.coroutines/SuspendFunction0<kotlin/Unit>) // korlibs.io.async/AsyncQueueWithContext.await|await(kotlin.coroutines.SuspendFunction0<kotlin.Unit>){}[0]
+}
+
+final class korlibs.io.async/AsyncThread : korlibs.io.async/AsyncInvokable { // korlibs.io.async/AsyncThread|null[0]
+    constructor <init>() // korlibs.io.async/AsyncThread.<init>|<init>(){}[0]
+
+    final fun <#A1: kotlin/Any?> sync(kotlin.coroutines/CoroutineContext, kotlin.coroutines/SuspendFunction0<#A1>): kotlinx.coroutines/Deferred<#A1> // korlibs.io.async/AsyncThread.sync|sync(kotlin.coroutines.CoroutineContext;kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any?>}[0]
+    final fun cancel(): korlibs.io.async/AsyncThread // korlibs.io.async/AsyncThread.cancel|cancel(){}[0]
+    final suspend fun <#A1: kotlin/Any?> cancelAndQueue(kotlin.coroutines/SuspendFunction0<#A1>): #A1 // korlibs.io.async/AsyncThread.cancelAndQueue|cancelAndQueue(kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any?>}[0]
+    final suspend fun <#A1: kotlin/Any?> invoke(kotlin.coroutines/SuspendFunction0<#A1>): #A1 // korlibs.io.async/AsyncThread.invoke|invoke(kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any?>}[0]
+    final suspend fun <#A1: kotlin/Any?> queue(kotlin.coroutines/SuspendFunction0<#A1>): #A1 // korlibs.io.async/AsyncThread.queue|queue(kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any?>}[0]
+    final suspend fun <#A1: kotlin/Any?> sync(kotlin.coroutines/SuspendFunction0<#A1>): kotlinx.coroutines/Deferred<#A1> // korlibs.io.async/AsyncThread.sync|sync(kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any?>}[0]
+    final suspend fun await() // korlibs.io.async/AsyncThread.await|await(){}[0]
+}
+
+final class korlibs.io.async/PreferSyncIo : kotlin.coroutines/CoroutineContext.Element { // korlibs.io.async/PreferSyncIo|null[0]
+    constructor <init>(kotlin/Boolean) // korlibs.io.async/PreferSyncIo.<init>|<init>(kotlin.Boolean){}[0]
+
+    final val key // korlibs.io.async/PreferSyncIo.key|{}key[0]
+        final fun <get-key>(): korlibs.io.async/PreferSyncIo.Companion // korlibs.io.async/PreferSyncIo.key.<get-key>|<get-key>(){}[0]
+    final val preferSyncIo // korlibs.io.async/PreferSyncIo.preferSyncIo|{}preferSyncIo[0]
+        final fun <get-preferSyncIo>(): kotlin/Boolean // korlibs.io.async/PreferSyncIo.preferSyncIo.<get-preferSyncIo>|<get-preferSyncIo>(){}[0]
+
+    final fun component1(): kotlin/Boolean // korlibs.io.async/PreferSyncIo.component1|component1(){}[0]
+    final fun copy(kotlin/Boolean = ...): korlibs.io.async/PreferSyncIo // korlibs.io.async/PreferSyncIo.copy|copy(kotlin.Boolean){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.io.async/PreferSyncIo.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.io.async/PreferSyncIo.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.io.async/PreferSyncIo.toString|toString(){}[0]
+
+    final object Companion : kotlin.coroutines/CoroutineContext.Key<korlibs.io.async/PreferSyncIo> { // korlibs.io.async/PreferSyncIo.Companion|null[0]
+        final val ASYNC // korlibs.io.async/PreferSyncIo.Companion.ASYNC|{}ASYNC[0]
+            final fun <get-ASYNC>(): korlibs.io.async/PreferSyncIo // korlibs.io.async/PreferSyncIo.Companion.ASYNC.<get-ASYNC>|<get-ASYNC>(){}[0]
+        final val SYNC // korlibs.io.async/PreferSyncIo.Companion.SYNC|{}SYNC[0]
+            final fun <get-SYNC>(): korlibs.io.async/PreferSyncIo // korlibs.io.async/PreferSyncIo.Companion.SYNC.<get-SYNC>|<get-SYNC>(){}[0]
+
+        final fun invoke(kotlin/Boolean?): korlibs.io.async/PreferSyncIo // korlibs.io.async/PreferSyncIo.Companion.invoke|invoke(kotlin.Boolean?){}[0]
+    }
+}
+
+final value class korlibs.concurrent.thread/NativeThread { // korlibs.concurrent.thread/NativeThread|null[0]
+    constructor <init>(kotlin/Long) // korlibs.concurrent.thread/NativeThread.<init>|<init>(kotlin.Long){}[0]
+
+    final val id // korlibs.concurrent.thread/NativeThread.id|{}id[0]
+        final fun <get-id>(): kotlin/Long // korlibs.concurrent.thread/NativeThread.id.<get-id>|<get-id>(){}[0]
+    final val isDaemon // korlibs.concurrent.thread/NativeThread.isDaemon|{}isDaemon[0]
+        final fun <get-isDaemon>(): kotlin/Boolean // korlibs.concurrent.thread/NativeThread.isDaemon.<get-isDaemon>|<get-isDaemon>(){}[0]
+    final val name // korlibs.concurrent.thread/NativeThread.name|{}name[0]
+        final fun <get-name>(): kotlin/String? // korlibs.concurrent.thread/NativeThread.name.<get-name>|<get-name>(){}[0]
+    final val native // korlibs.concurrent.thread/NativeThread.native|{}native[0]
+        final fun <get-native>(): kotlin/Long // korlibs.concurrent.thread/NativeThread.native.<get-native>|<get-native>(){}[0]
+    final val priority // korlibs.concurrent.thread/NativeThread.priority|{}priority[0]
+        final fun <get-priority>(): korlibs.concurrent.thread/NativeThreadPriority // korlibs.concurrent.thread/NativeThread.priority.<get-priority>|<get-priority>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.concurrent.thread/NativeThread.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.concurrent.thread/NativeThread.hashCode|hashCode(){}[0]
+    final fun interrupt() // korlibs.concurrent.thread/NativeThread.interrupt|interrupt(){}[0]
+    final fun join() // korlibs.concurrent.thread/NativeThread.join|join(){}[0]
+    final fun toString(): kotlin/String // korlibs.concurrent.thread/NativeThread.toString|toString(){}[0]
+
+    final object Companion { // korlibs.concurrent.thread/NativeThread.Companion|null[0]
+        final val current // korlibs.concurrent.thread/NativeThread.Companion.current|{}current[0]
+            final fun <get-current>(): korlibs.concurrent.thread/NativeThread // korlibs.concurrent.thread/NativeThread.Companion.current.<get-current>|<get-current>(){}[0]
+        final val currentThreadId // korlibs.concurrent.thread/NativeThread.Companion.currentThreadId|{}currentThreadId[0]
+            final fun <get-currentThreadId>(): kotlin/Long // korlibs.concurrent.thread/NativeThread.Companion.currentThreadId.<get-currentThreadId>|<get-currentThreadId>(){}[0]
+        final val currentThreadName // korlibs.concurrent.thread/NativeThread.Companion.currentThreadName|{}currentThreadName[0]
+            final fun <get-currentThreadName>(): kotlin/String? // korlibs.concurrent.thread/NativeThread.Companion.currentThreadName.<get-currentThreadName>|<get-currentThreadName>(){}[0]
+        final val isSupported // korlibs.concurrent.thread/NativeThread.Companion.isSupported|{}isSupported[0]
+            final fun <get-isSupported>(): kotlin/Boolean // korlibs.concurrent.thread/NativeThread.Companion.isSupported.<get-isSupported>|<get-isSupported>(){}[0]
+
+        final fun gc(kotlin/Boolean) // korlibs.concurrent.thread/NativeThread.Companion.gc|gc(kotlin.Boolean){}[0]
+        final fun sleep(korlibs.time/FastDuration) // korlibs.concurrent.thread/NativeThread.Companion.sleep|sleep(korlibs.time.FastDuration){}[0]
+        final fun start(kotlin/String? = ..., kotlin/Boolean = ..., korlibs.concurrent.thread/NativeThreadPriority = ..., kotlin/Function0<kotlin/Unit>): korlibs.concurrent.thread/NativeThread // korlibs.concurrent.thread/NativeThread.Companion.start|start(kotlin.String?;kotlin.Boolean;korlibs.concurrent.thread.NativeThreadPriority;kotlin.Function0<kotlin.Unit>){}[0]
+        final inline fun spinWhile(kotlin/Function0<kotlin/Boolean>) // korlibs.concurrent.thread/NativeThread.Companion.spinWhile|spinWhile(kotlin.Function0<kotlin.Boolean>){}[0]
+    }
+}
+
+final value class korlibs.concurrent.thread/NativeThreadPriority { // korlibs.concurrent.thread/NativeThreadPriority|null[0]
+    constructor <init>(kotlin/Double) // korlibs.concurrent.thread/NativeThreadPriority.<init>|<init>(kotlin.Double){}[0]
+
+    final val ratio // korlibs.concurrent.thread/NativeThreadPriority.ratio|{}ratio[0]
+        final fun <get-ratio>(): kotlin/Double // korlibs.concurrent.thread/NativeThreadPriority.ratio.<get-ratio>|<get-ratio>(){}[0]
+
+    final fun convert(kotlin/Int, kotlin/Int, kotlin/Int = ...): kotlin/Int // korlibs.concurrent.thread/NativeThreadPriority.convert|convert(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.concurrent.thread/NativeThreadPriority.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.concurrent.thread/NativeThreadPriority.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.concurrent.thread/NativeThreadPriority.toString|toString(){}[0]
+
+    final object Companion { // korlibs.concurrent.thread/NativeThreadPriority.Companion|null[0]
+        final val EVEN_HIGHER // korlibs.concurrent.thread/NativeThreadPriority.Companion.EVEN_HIGHER|{}EVEN_HIGHER[0]
+            final fun <get-EVEN_HIGHER>(): korlibs.concurrent.thread/NativeThreadPriority // korlibs.concurrent.thread/NativeThreadPriority.Companion.EVEN_HIGHER.<get-EVEN_HIGHER>|<get-EVEN_HIGHER>(){}[0]
+        final val HIGHER // korlibs.concurrent.thread/NativeThreadPriority.Companion.HIGHER|{}HIGHER[0]
+            final fun <get-HIGHER>(): korlibs.concurrent.thread/NativeThreadPriority // korlibs.concurrent.thread/NativeThreadPriority.Companion.HIGHER.<get-HIGHER>|<get-HIGHER>(){}[0]
+        final val HIGHEST // korlibs.concurrent.thread/NativeThreadPriority.Companion.HIGHEST|{}HIGHEST[0]
+            final fun <get-HIGHEST>(): korlibs.concurrent.thread/NativeThreadPriority // korlibs.concurrent.thread/NativeThreadPriority.Companion.HIGHEST.<get-HIGHEST>|<get-HIGHEST>(){}[0]
+        final val LOW // korlibs.concurrent.thread/NativeThreadPriority.Companion.LOW|{}LOW[0]
+            final fun <get-LOW>(): korlibs.concurrent.thread/NativeThreadPriority // korlibs.concurrent.thread/NativeThreadPriority.Companion.LOW.<get-LOW>|<get-LOW>(){}[0]
+        final val LOWEST // korlibs.concurrent.thread/NativeThreadPriority.Companion.LOWEST|{}LOWEST[0]
+            final fun <get-LOWEST>(): korlibs.concurrent.thread/NativeThreadPriority // korlibs.concurrent.thread/NativeThreadPriority.Companion.LOWEST.<get-LOWEST>|<get-LOWEST>(){}[0]
+        final val NORMAL // korlibs.concurrent.thread/NativeThreadPriority.Companion.NORMAL|{}NORMAL[0]
+            final fun <get-NORMAL>(): korlibs.concurrent.thread/NativeThreadPriority // korlibs.concurrent.thread/NativeThreadPriority.Companion.NORMAL.<get-NORMAL>|<get-NORMAL>(){}[0]
+
+        final fun from(kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int = ...): korlibs.concurrent.thread/NativeThreadPriority // korlibs.concurrent.thread/NativeThreadPriority.Companion.from|from(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    }
+}
+
+final val korlibs.concurrent.lock/isSupported // korlibs.concurrent.lock/isSupported|@korlibs.concurrent.lock.Lock.Companion{}isSupported[0]
+    final fun (korlibs.concurrent.lock/Lock.Companion).<get-isSupported>(): kotlin/Boolean // korlibs.concurrent.lock/isSupported.<get-isSupported>|<get-isSupported>@korlibs.concurrent.lock.Lock.Companion(){}[0]
+final val korlibs.io.async/CIO // korlibs.io.async/CIO|@kotlinx.coroutines.Dispatchers{}CIO[0]
+    final fun (kotlinx.coroutines/Dispatchers).<get-CIO>(): kotlinx.coroutines/CoroutineDispatcher // korlibs.io.async/CIO.<get-CIO>|<get-CIO>@kotlinx.coroutines.Dispatchers(){}[0]
+final val korlibs.io.async/ConcurrencyLevel // korlibs.io.async/ConcurrencyLevel|@kotlinx.coroutines.Dispatchers{}ConcurrencyLevel[0]
+    final fun (kotlinx.coroutines/Dispatchers).<get-ConcurrencyLevel>(): kotlin/Int // korlibs.io.async/ConcurrencyLevel.<get-ConcurrencyLevel>|<get-ConcurrencyLevel>@kotlinx.coroutines.Dispatchers(){}[0]
+final val korlibs.io.async/ResourceDecoder // korlibs.io.async/ResourceDecoder|@kotlinx.coroutines.Dispatchers{}ResourceDecoder[0]
+    final fun (kotlinx.coroutines/Dispatchers).<get-ResourceDecoder>(): kotlinx.coroutines/CoroutineDispatcher // korlibs.io.async/ResourceDecoder.<get-ResourceDecoder>|<get-ResourceDecoder>@kotlinx.coroutines.Dispatchers(){}[0]
+final val korlibs.io.async/preferSyncIo // korlibs.io.async/preferSyncIo|@kotlin.coroutines.CoroutineContext{}preferSyncIo[0]
+    final fun (kotlin.coroutines/CoroutineContext).<get-preferSyncIo>(): kotlin/Boolean // korlibs.io.async/preferSyncIo.<get-preferSyncIo>|<get-preferSyncIo>@kotlin.coroutines.CoroutineContext(){}[0]
+final val korlibs.io.concurrent/CONCURRENCY_COUNT // korlibs.io.concurrent/CONCURRENCY_COUNT|{}CONCURRENCY_COUNT[0]
+    final fun <get-CONCURRENCY_COUNT>(): kotlin/Int // korlibs.io.concurrent/CONCURRENCY_COUNT.<get-CONCURRENCY_COUNT>|<get-CONCURRENCY_COUNT>(){}[0]
+
+final fun (korlibs.concurrent.lock/Lock).korlibs.concurrent.lock/waitForever() // korlibs.concurrent.lock/waitForever|waitForever@korlibs.concurrent.lock.Lock(){}[0]
+final fun (korlibs.concurrent.lock/Lock).korlibs.concurrent.lock/waitForeverNoLock() // korlibs.concurrent.lock/waitForeverNoLock|waitForeverNoLock@korlibs.concurrent.lock.Lock(){}[0]
+final fun (korlibs.concurrent.thread/NativeThread.Companion).korlibs.concurrent.thread/sleep(korlibs.time/FastDuration, kotlin/Boolean) // korlibs.concurrent.thread/sleep|sleep@korlibs.concurrent.thread.NativeThread.Companion(korlibs.time.FastDuration;kotlin.Boolean){}[0]
+final fun (korlibs.concurrent.thread/NativeThread.Companion).korlibs.concurrent.thread/sleep(kotlin.time/Duration) // korlibs.concurrent.thread/sleep|sleep@korlibs.concurrent.thread.NativeThread.Companion(kotlin.time.Duration){}[0]
+final fun (korlibs.concurrent.thread/NativeThread.Companion).korlibs.concurrent.thread/sleep(kotlin.time/Duration, kotlin/Boolean) // korlibs.concurrent.thread/sleep|sleep@korlibs.concurrent.thread.NativeThread.Companion(kotlin.time.Duration;kotlin.Boolean){}[0]
+final fun (korlibs.concurrent.thread/NativeThread.Companion).korlibs.concurrent.thread/sleepExact(korlibs.time/FastDuration) // korlibs.concurrent.thread/sleepExact|sleepExact@korlibs.concurrent.thread.NativeThread.Companion(korlibs.time.FastDuration){}[0]
+final fun (korlibs.concurrent.thread/NativeThread.Companion).korlibs.concurrent.thread/sleepExact(kotlin.time/Duration) // korlibs.concurrent.thread/sleepExact|sleepExact@korlibs.concurrent.thread.NativeThread.Companion(kotlin.time.Duration){}[0]
+final fun (korlibs.concurrent.thread/NativeThread.Companion).korlibs.concurrent.thread/sleepUntil(korlibs.time/DateTime, kotlin/Boolean = ...) // korlibs.concurrent.thread/sleepUntil|sleepUntil@korlibs.concurrent.thread.NativeThread.Companion(korlibs.time.DateTime;kotlin.Boolean){}[0]
+final fun (korlibs.io.async/AsyncQueue).korlibs.io.async/withContext(kotlin.coroutines/CoroutineContext): korlibs.io.async/AsyncQueueWithContext // korlibs.io.async/withContext|withContext@korlibs.io.async.AsyncQueue(kotlin.coroutines.CoroutineContext){}[0]
+final fun (korlibs.io.async/Signal<kotlin/Unit>).korlibs.io.async/addCallInit(kotlin/Function1<kotlin/Unit, kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.async/addCallInit|addCallInit@korlibs.io.async.Signal<kotlin.Unit>(kotlin.Function1<kotlin.Unit,kotlin.Unit>){}[0]
+final fun (korlibs.io.async/Signal<kotlin/Unit>).korlibs.io.async/invoke() // korlibs.io.async/invoke|invoke@korlibs.io.async.Signal<kotlin.Unit>(){}[0]
+final fun (kotlin.coroutines/CoroutineContext).korlibs.io.async/onCancel(kotlin/Function0<kotlin/Boolean> = ..., kotlin/Function1<kotlin/Boolean, kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.async/onCancel|onCancel@kotlin.coroutines.CoroutineContext(kotlin.Function0<kotlin.Boolean>;kotlin.Function1<kotlin.Boolean,kotlin.Unit>){}[0]
+final fun (kotlinx.coroutines/CoroutineDispatcher).korlibs.io.concurrent/close() // korlibs.io.concurrent/close|close@kotlinx.coroutines.CoroutineDispatcher(){}[0]
+final fun (kotlinx.coroutines/Dispatchers).korlibs.io.async/_createFixedThreadDispatcher(kotlin/String, kotlin/Int = ...): kotlinx.coroutines/CoroutineDispatcher // korlibs.io.async/_createFixedThreadDispatcher|_createFixedThreadDispatcher@kotlinx.coroutines.Dispatchers(kotlin.String;kotlin.Int){}[0]
+final fun (kotlinx.coroutines/Dispatchers).korlibs.io.concurrent/createFixedThreadDispatcher(kotlin/String, kotlin/Int = ...): kotlinx.coroutines/CoroutineDispatcher // korlibs.io.concurrent/createFixedThreadDispatcher|createFixedThreadDispatcher@kotlinx.coroutines.Dispatchers(kotlin.String;kotlin.Int){}[0]
+final fun (kotlinx.coroutines/Dispatchers).korlibs.io.concurrent/createRedirectedDispatcher(kotlin/String, kotlinx.coroutines/CoroutineDispatcher): kotlinx.coroutines/CoroutineDispatcher // korlibs.io.concurrent/createRedirectedDispatcher|createRedirectedDispatcher@kotlinx.coroutines.Dispatchers(kotlin.String;kotlinx.coroutines.CoroutineDispatcher){}[0]
+final fun (kotlinx.coroutines/Dispatchers).korlibs.io.concurrent/createSingleThreadedDispatcher(kotlin/String): kotlinx.coroutines/CoroutineDispatcher // korlibs.io.concurrent/createSingleThreadedDispatcher|createSingleThreadedDispatcher@kotlinx.coroutines.Dispatchers(kotlin.String){}[0]
+final fun <#A: kotlin/Any, #B: kotlin/Any> (#A).korlibs.io.async/noSuspend(kotlin.coroutines/SuspendFunction1<#A, #B>): #B // korlibs.io.async/noSuspend|noSuspend@0:0(kotlin.coroutines.SuspendFunction1<0:0,0:1>){0§<kotlin.Any>;1§<kotlin.Any>}[0]
+final fun <#A: kotlin/Any> korlibs.io.async/runBlockingNoSuspensions(kotlin.coroutines/SuspendFunction0<#A>): #A // korlibs.io.async/runBlockingNoSuspensions|runBlockingNoSuspensions(kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> (korlibs.io.async/AsyncSignal<#A>).korlibs.io.async/mapSignal(kotlin/Function1<#A, #B>): korlibs.io.async/AsyncSignal<#B> // korlibs.io.async/mapSignal|mapSignal@korlibs.io.async.AsyncSignal<0:0>(kotlin.Function1<0:0,0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> (korlibs.io.async/Signal<#A>).korlibs.io.async/mapSignal(kotlin/Function1<#A, #B>): korlibs.io.async/Signal<#B> // korlibs.io.async/mapSignal|mapSignal@korlibs.io.async.Signal<0:0>(kotlin.Function1<0:0,0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (korlibs.io.async/Signal<#A>).korlibs.io.async/addCallInit(#A, kotlin/Function1<#A, kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.async/addCallInit|addCallInit@korlibs.io.async.Signal<0:0>(0:0;kotlin.Function1<0:0,kotlin.Unit>){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (korlibs.io.async/Signal<#A>).korlibs.io.async/addSuspend(kotlin.coroutines/CoroutineContext, kotlin.coroutines/SuspendFunction1<#A, kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.async/addSuspend|addSuspend@korlibs.io.async.Signal<0:0>(kotlin.coroutines.CoroutineContext;kotlin.coroutines.SuspendFunction1<0:0,kotlin.Unit>){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (korlibs.io.async/Signal<#A>).korlibs.io.async/waitOneAsync(): kotlinx.coroutines/Deferred<#A> // korlibs.io.async/waitOneAsync|waitOneAsync@korlibs.io.async.Signal<0:0>(){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> korlibs.io.async/runBlockingNoJs(kotlin.coroutines/CoroutineContext = ..., kotlin.coroutines/SuspendFunction1<kotlinx.coroutines/CoroutineScope, #A>): #A // korlibs.io.async/runBlockingNoJs|runBlockingNoJs(kotlin.coroutines.CoroutineContext;kotlin.coroutines.SuspendFunction1<kotlinx.coroutines.CoroutineScope,0:0>){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> korlibs.io.async/runBlockingNoSuspensionsNullable(kotlin.coroutines/SuspendFunction0<#A>): #A // korlibs.io.async/runBlockingNoSuspensionsNullable|runBlockingNoSuspensionsNullable(kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> korlibs.io.concurrent.atomic/atomicLazy(kotlin/Function0<#A>): kotlin/Lazy<#A> // korlibs.io.concurrent.atomic/atomicLazy|atomicLazy(kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> korlibs.io.concurrent.atomic/korAtomic(#A): kotlinx.atomicfu/AtomicRef<#A> // korlibs.io.concurrent.atomic/korAtomic|korAtomic(0:0){0§<kotlin.Any?>}[0]
+final fun korlibs.concurrent.thread/nativeThread(kotlin/Boolean = ..., kotlin/String? = ..., korlibs.concurrent.thread/NativeThreadPriority = ..., kotlin/Boolean = ..., kotlin/Function1<korlibs.concurrent.thread/NativeThread, kotlin/Unit>): korlibs.concurrent.thread/NativeThread // korlibs.concurrent.thread/nativeThread|nativeThread(kotlin.Boolean;kotlin.String?;korlibs.concurrent.thread.NativeThreadPriority;kotlin.Boolean;kotlin.Function1<korlibs.concurrent.thread.NativeThread,kotlin.Unit>){}[0]
+final fun korlibs.io.concurrent.atomic/korAtomic(kotlin/Boolean): kotlinx.atomicfu/AtomicBoolean // korlibs.io.concurrent.atomic/korAtomic|korAtomic(kotlin.Boolean){}[0]
+final fun korlibs.io.concurrent.atomic/korAtomic(kotlin/Int): kotlinx.atomicfu/AtomicInt // korlibs.io.concurrent.atomic/korAtomic|korAtomic(kotlin.Int){}[0]
+final fun korlibs.io.concurrent.atomic/korAtomic(kotlin/Long): kotlinx.atomicfu/AtomicLong // korlibs.io.concurrent.atomic/korAtomic|korAtomic(kotlin.Long){}[0]
+final inline fun (korlibs.concurrent.thread/NativeThread.Companion).korlibs.concurrent.thread/sleepWhile(korlibs.time/FastDuration = ..., kotlin/Boolean = ..., kotlin/Function0<kotlin/Boolean>) // korlibs.concurrent.thread/sleepWhile|sleepWhile@korlibs.concurrent.thread.NativeThread.Companion(korlibs.time.FastDuration;kotlin.Boolean;kotlin.Function0<kotlin.Boolean>){}[0]
+final inline fun (kotlinx.atomicfu/AtomicBoolean).korlibs.io.concurrent.atomic/update(kotlin/Function1<kotlin/Boolean, kotlin/Boolean>): kotlin/Boolean // korlibs.io.concurrent.atomic/update|update@kotlinx.atomicfu.AtomicBoolean(kotlin.Function1<kotlin.Boolean,kotlin.Boolean>){}[0]
+final inline fun (kotlinx.atomicfu/AtomicInt).korlibs.io.concurrent.atomic/update(kotlin/Function1<kotlin/Int, kotlin/Int>): kotlin/Int // korlibs.io.concurrent.atomic/update|update@kotlinx.atomicfu.AtomicInt(kotlin.Function1<kotlin.Int,kotlin.Int>){}[0]
+final inline fun (kotlinx.atomicfu/AtomicLong).korlibs.io.concurrent.atomic/update(kotlin/Function1<kotlin/Long, kotlin/Long>): kotlin/Long // korlibs.io.concurrent.atomic/update|update@kotlinx.atomicfu.AtomicLong(kotlin.Function1<kotlin.Long,kotlin.Long>){}[0]
+final inline fun <#A: kotlin/Any?> (korlibs.concurrent.lock/Lock).korlibs.concurrent.lock/notify(kotlin/Function0<#A>): #A // korlibs.concurrent.lock/notify|notify@korlibs.concurrent.lock.Lock(kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> (kotlin.collections/MutableList<#A>).korlibs.io.async/fastIterateRemove(kotlin/Function1<#A, kotlin/Boolean>): kotlin.collections/MutableList<#A> // korlibs.io.async/fastIterateRemove|fastIterateRemove@kotlin.collections.MutableList<0:0>(kotlin.Function1<0:0,kotlin.Boolean>){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> (kotlinx.atomicfu/AtomicRef<#A>).korlibs.io.concurrent.atomic/update(kotlin/Function1<#A, #A>): #A // korlibs.io.concurrent.atomic/update|update@kotlinx.atomicfu.AtomicRef<0:0>(kotlin.Function1<0:0,0:0>){0§<kotlin.Any?>}[0]
+final inline fun korlibs.concurrent.thread/NativeThreadThread_spinWhile(kotlin/Function0<kotlin/Boolean>) // korlibs.concurrent.thread/NativeThreadThread_spinWhile|NativeThreadThread_spinWhile(kotlin.Function0<kotlin.Boolean>){}[0]
+final suspend fun (korlibs.io.async/AsyncQueue).korlibs.io.async/withContext(): korlibs.io.async/AsyncQueueWithContext // korlibs.io.async/withContext|withContext@korlibs.io.async.AsyncQueue(){}[0]
+final suspend fun (korlibs.io.async/AsyncSignal<kotlin/Unit>).korlibs.io.async/invoke() // korlibs.io.async/invoke|invoke@korlibs.io.async.AsyncSignal<kotlin.Unit>(){}[0]
+final suspend fun (kotlin.collections/Iterable<korlibs.io.async/Signal<*>>).korlibs.io.async/waitOne(): kotlin/Any? // korlibs.io.async/waitOne|waitOne@kotlin.collections.Iterable<korlibs.io.async.Signal<*>>(){}[0]
+final suspend fun <#A: kotlin/Any?, #B: kotlin/Any?> (korlibs.io.async/Signal2<#A, #B>).korlibs.io.async/waitOne(): kotlin/Pair<#A, #B> // korlibs.io.async/waitOne|waitOne@korlibs.io.async.Signal2<0:0,0:1>(){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final suspend fun <#A: kotlin/Any?> (korlibs.io.async/AsyncSignal<#A>).korlibs.io.async/waitOne(): #A // korlibs.io.async/waitOne|waitOne@korlibs.io.async.AsyncSignal<0:0>(){0§<kotlin.Any?>}[0]
+final suspend fun <#A: kotlin/Any?> (korlibs.io.async/Signal<#A>).korlibs.io.async/addSuspend(kotlin.coroutines/SuspendFunction1<#A, kotlin/Unit>): kotlin/AutoCloseable // korlibs.io.async/addSuspend|addSuspend@korlibs.io.async.Signal<0:0>(kotlin.coroutines.SuspendFunction1<0:0,kotlin.Unit>){0§<kotlin.Any?>}[0]
+final suspend fun <#A: kotlin/Any?> (korlibs.io.async/Signal<#A>).korlibs.io.async/waitOne(): #A // korlibs.io.async/waitOne|waitOne@korlibs.io.async.Signal<0:0>(){0§<kotlin.Any?>}[0]
+final suspend fun <#A: kotlin/Any?> (korlibs.io.async/Signal<#A>).korlibs.io.async/waitOne(kotlin.time/Duration): #A? // korlibs.io.async/waitOne|waitOne@korlibs.io.async.Signal<0:0>(kotlin.time.Duration){0§<kotlin.Any?>}[0]
+final suspend fun <#A: kotlin/Any?> (korlibs.io.async/Signal<#A>).korlibs.io.async/waitOneOpt(kotlin.time/Duration?): #A? // korlibs.io.async/waitOneOpt|waitOneOpt@korlibs.io.async.Signal<0:0>(kotlin.time.Duration?){0§<kotlin.Any?>}[0]
+final suspend fun <#A: kotlin/Any?> korlibs.io.async/withContextNullable(kotlin.coroutines/CoroutineContext?, kotlin.coroutines/SuspendFunction0<#A>): #A // korlibs.io.async/withContextNullable|withContextNullable(kotlin.coroutines.CoroutineContext?;kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any?>}[0]
+final suspend inline fun <#A: kotlin/Any?> (korlibs.io.async/Signal<#A>).korlibs.io.async/executeAndWaitSignal(kotlin/Function0<kotlin/Unit>): #A // korlibs.io.async/executeAndWaitSignal|executeAndWaitSignal@korlibs.io.async.Signal<0:0>(kotlin.Function0<kotlin.Unit>){0§<kotlin.Any?>}[0]
+final suspend inline fun <#A: kotlin/Any?> (kotlin.collections/Iterable<korlibs.io.async/Signal<#A>>).korlibs.io.async/executeAndWaitAnySignal(kotlin/Function0<kotlin/Unit>): kotlin/Pair<korlibs.io.async/Signal<#A>, #A> // korlibs.io.async/executeAndWaitAnySignal|executeAndWaitAnySignal@kotlin.collections.Iterable<korlibs.io.async.Signal<0:0>>(kotlin.Function0<kotlin.Unit>){0§<kotlin.Any?>}[0]
+final suspend inline fun <#A: kotlin/Any?> (kotlin.collections/Map<korlibs.io.async/Signal<kotlin/Unit>, #A>).korlibs.io.async/executeAndWaitAnySignal(kotlin/Function0<kotlin/Unit>): #A // korlibs.io.async/executeAndWaitAnySignal|executeAndWaitAnySignal@kotlin.collections.Map<korlibs.io.async.Signal<kotlin.Unit>,0:0>(kotlin.Function0<kotlin.Unit>){0§<kotlin.Any?>}[0]
+
+// Targets: [native]
+final class korlibs.concurrent.lock/Lock : korlibs.concurrent.lock/BaseLockWithNotifyAndWait { // korlibs.concurrent.lock/Lock|null[0]
+    constructor <init>() // korlibs.concurrent.lock/Lock.<init>|<init>(){}[0]
+
+    final fun lock() // korlibs.concurrent.lock/Lock.lock|lock(){}[0]
+    final fun notify(kotlin/Unit) // korlibs.concurrent.lock/Lock.notify|notify(kotlin.Unit){}[0]
+    final fun unlock() // korlibs.concurrent.lock/Lock.unlock|unlock(){}[0]
+    final fun wait(korlibs.time/FastDuration) // korlibs.concurrent.lock/Lock.wait|wait(korlibs.time.FastDuration){}[0]
+    final inline fun <#A1: kotlin/Any?> invoke(kotlin/Function0<#A1>): #A1 // korlibs.concurrent.lock/Lock.invoke|invoke(kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+
+    final object Companion // korlibs.concurrent.lock/Lock.Companion|null[0]
+}
+
+// Targets: [native]
+final class korlibs.concurrent.thread/ThreadInfo { // korlibs.concurrent.thread/ThreadInfo|null[0]
+    constructor <init>(kotlin/String?, kotlin/Function0<kotlin/Unit>) // korlibs.concurrent.thread/ThreadInfo.<init>|<init>(kotlin.String?;kotlin.Function0<kotlin.Unit>){}[0]
+
+    final val code // korlibs.concurrent.thread/ThreadInfo.code|{}code[0]
+        final fun <get-code>(): kotlin/Function0<kotlin/Unit> // korlibs.concurrent.thread/ThreadInfo.code.<get-code>|<get-code>(){}[0]
+    final val name // korlibs.concurrent.thread/ThreadInfo.name|{}name[0]
+        final fun <get-name>(): kotlin/String? // korlibs.concurrent.thread/ThreadInfo.name.<get-name>|<get-name>(){}[0]
+}
+
+// Targets: [native]
+final fun (kotlin.time/Duration).korlibs.concurrent.lock/toTimespec(platform.posix/timespec): platform.posix/timespec // korlibs.concurrent.lock/toTimespec|toTimespec@kotlin.time.Duration(platform.posix.timespec){}[0]
+
+// Targets: [native]
+final fun (kotlinx.cinterop/NativePlacement).korlibs.concurrent.lock/allocTimespecNowPlusAdd(kotlin.time/Duration): platform.posix/timespec // korlibs.concurrent.lock/allocTimespecNowPlusAdd|allocTimespecNowPlusAdd@kotlinx.cinterop.NativePlacement(kotlin.time.Duration){}[0]
+
+// Targets: [native]
+final fun (platform.posix/timespec).korlibs.concurrent.lock/toDuration(): kotlin.time/Duration // korlibs.concurrent.lock/toDuration|toDuration@platform.posix.timespec(){}[0]
+
+// Targets: [native]
+final fun korlibs.concurrent.thread/__threadStart(kotlinx.cinterop/CPointer<out kotlinx.cinterop/CPointed>?): kotlinx.cinterop/CPointer<out kotlinx.cinterop/CPointed>? // korlibs.concurrent.thread/__threadStart|__threadStart(kotlinx.cinterop.CPointer<out|kotlinx.cinterop.CPointed>?){}[0]
+
+// Targets: [native]
+final fun korlibs.io.async/asyncEntryPoint(kotlin.coroutines/SuspendFunction0<kotlin/Unit>) // korlibs.io.async/asyncEntryPoint|asyncEntryPoint(kotlin.coroutines.SuspendFunction0<kotlin.Unit>){}[0]
+
+// Targets: [native]
+final fun korlibs.io.async/asyncTestEntryPoint(kotlin.coroutines/SuspendFunction0<kotlin/Unit>) // korlibs.io.async/asyncTestEntryPoint|asyncTestEntryPoint(kotlin.coroutines.SuspendFunction0<kotlin.Unit>){}[0]
+
+// Targets: [native]
+final inline fun <#A: kotlin/Any?> (kotlinx.atomicfu.locks/SynchronizedObject).korlibs.concurrent.lock/invoke(kotlin/Function0<#A>): #A // korlibs.concurrent.lock/invoke|invoke@kotlinx.atomicfu.locks.SynchronizedObject(kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+
+// Targets: [apple, linux]
+final val korlibs.concurrent.thread/pthread // korlibs.concurrent.thread/pthread|@kotlin.Long{}pthread[0]
+    // Targets: [apple]
+    final fun (kotlin/Long).<get-pthread>(): kotlinx.cinterop/CPointer<platform.posix/_opaque_pthread_t>? // korlibs.concurrent.thread/pthread.<get-pthread>|<get-pthread>@kotlin.Long(){}[0]
+
+    // Targets: [linux]
+    final fun (kotlin/Long).<get-pthread>(): kotlin/ULong // korlibs.concurrent.thread/pthread.<get-pthread>|<get-pthread>@kotlin.Long(){}[0]
+
+// Targets: [js, wasmJs]
+final class korlibs.concurrent.lock/Lock : korlibs.concurrent.lock/BaseLockWithNotifyAndWait, korlibs.concurrent.lock/LockImpl { // korlibs.concurrent.lock/Lock|null[0]
+    constructor <init>() // korlibs.concurrent.lock/Lock.<init>|<init>(){}[0]
+
+    final inline fun <#A1: kotlin/Any?> invoke(kotlin/Function0<#A1>): #A1 // korlibs.concurrent.lock/Lock.invoke|invoke(kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+
+    final object Companion // korlibs.concurrent.lock/Lock.Companion|null[0]
+}
+
+// Targets: [js, wasmJs]
+final class korlibs.io.async/AsyncEntryPointResult { // korlibs.io.async/AsyncEntryPointResult|null[0]
+    // Targets: [js]
+    constructor <init>(kotlin/Function2<kotlin/Function1<kotlin/Unit, kotlin/Unit>, kotlin/Function1<kotlin/Throwable, kotlin/Unit>, kotlin/Unit>) // korlibs.io.async/AsyncEntryPointResult.<init>|<init>(kotlin.Function2<kotlin.Function1<kotlin.Unit,kotlin.Unit>,kotlin.Function1<kotlin.Throwable,kotlin.Unit>,kotlin.Unit>){}[0]
+
+    // Targets: [wasmJs]
+    constructor <init>(kotlin/Function2<kotlin/Function1<kotlin.js/JsAny?, kotlin/Unit>, kotlin/Function1<kotlin.js/JsAny?, kotlin/Unit>, kotlin/Unit>) // korlibs.io.async/AsyncEntryPointResult.<init>|<init>(kotlin.Function2<kotlin.Function1<kotlin.js.JsAny?,kotlin.Unit>,kotlin.Function1<kotlin.js.JsAny?,kotlin.Unit>,kotlin.Unit>){}[0]
+}
+
+// Targets: [js, wasmJs]
+final fun korlibs.io.async/asyncEntryPoint(kotlin.coroutines/SuspendFunction0<kotlin/Unit>): korlibs.io.async/AsyncEntryPointResult // korlibs.io.async/asyncEntryPoint|asyncEntryPoint(kotlin.coroutines.SuspendFunction0<kotlin.Unit>){}[0]
+
+// Targets: [js, wasmJs]
+final fun korlibs.io.async/asyncTestEntryPoint(kotlin.coroutines/SuspendFunction0<kotlin/Unit>): korlibs.io.async/AsyncEntryPointResult // korlibs.io.async/asyncTestEntryPoint|asyncTestEntryPoint(kotlin.coroutines.SuspendFunction0<kotlin.Unit>){}[0]
+
+// Targets: [js, wasmJs]
+final inline fun <#A: kotlin/Any?> (kotlinx.atomicfu.locks/ReentrantLock).korlibs.concurrent.lock/invoke(kotlin/Function0<#A>): #A // korlibs.concurrent.lock/invoke|invoke@kotlinx.atomicfu.locks.ReentrantLock(kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+final suspend fun <#A: kotlin/Any?> (korlibs.js/JSAsyncIterable<#A>).korlibs.js/toFlow(): kotlinx.coroutines.flow/Flow<#A> // korlibs.js/toFlow|toFlow@korlibs.js.JSAsyncIterable<0:0>(){0§<kotlin.Any?>}[0]
+
+// Targets: [mingwX64]
+final fun <#A: kotlin/Any?> (kotlin/Long).korlibs.concurrent.thread/useHandle(kotlin/Function1<kotlinx.cinterop/CPointer<out kotlinx.cinterop/CPointed>?, #A>): #A // korlibs.concurrent.thread/useHandle|useHandle@kotlin.Long(kotlin.Function1<kotlinx.cinterop.CPointer<out|kotlinx.cinterop.CPointed>?,0:0>){0§<kotlin.Any?>}[0]
+
+// Targets: [mingwX64]
+final fun korlibs.concurrent.thread/__win32_threadStart(kotlinx.cinterop/CPointer<out kotlinx.cinterop/CPointed>?): kotlin/UInt // korlibs.concurrent.thread/__win32_threadStart|__win32_threadStart(kotlinx.cinterop.CPointer<out|kotlinx.cinterop.CPointed>?){}[0]

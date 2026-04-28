@@ -1,0 +1,1546 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: native => [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-template>
+abstract interface <#A: kotlin/Any?> korlibs.template.dynamic/KorteDynamicShapeRegister { // korlibs.template.dynamic/KorteDynamicShapeRegister|null[0]
+    abstract fun register(kotlin.reflect/KCallable<*>): korlibs.template.dynamic/KorteDynamicShapeRegister<#A> // korlibs.template.dynamic/KorteDynamicShapeRegister.register|register(kotlin.reflect.KCallable<*>){}[0]
+    abstract fun register(kotlin.reflect/KProperty<*>): korlibs.template.dynamic/KorteDynamicShapeRegister<#A> // korlibs.template.dynamic/KorteDynamicShapeRegister.register|register(kotlin.reflect.KProperty<*>){}[0]
+    abstract fun register(kotlin/String, kotlin.coroutines/SuspendFunction2<#A, kotlin.collections/List<kotlin/Any?>, kotlin/Any?>): korlibs.template.dynamic/KorteDynamicShapeRegister<#A> // korlibs.template.dynamic/KorteDynamicShapeRegister.register|register(kotlin.String;kotlin.coroutines.SuspendFunction2<1:0,kotlin.collections.List<kotlin.Any?>,kotlin.Any?>){}[0]
+    open fun register(kotlin/Array<out kotlin.reflect/KCallable<*>>..., kotlin/Unit = ...): korlibs.template.dynamic/KorteDynamicShapeRegister<#A> // korlibs.template.dynamic/KorteDynamicShapeRegister.register|register(kotlin.Array<out|kotlin.reflect.KCallable<*>>...;kotlin.Unit){}[0]
+    open fun register(kotlin/Array<out kotlin.reflect/KProperty<*>>...): korlibs.template.dynamic/KorteDynamicShapeRegister<#A> // korlibs.template.dynamic/KorteDynamicShapeRegister.register|register(kotlin.Array<out|kotlin.reflect.KProperty<*>>...){}[0]
+}
+
+abstract interface <#A: kotlin/Any?> korlibs.template.dynamic/KorteDynamicType { // korlibs.template.dynamic/KorteDynamicType|null[0]
+    abstract val __dynamicShape // korlibs.template.dynamic/KorteDynamicType.__dynamicShape|@korlibs.template.dynamic.KorteDynamicTypeScope{}__dynamicShape[0]
+        abstract fun (korlibs.template.dynamic/KorteDynamicTypeScope).<get-__dynamicShape>(): korlibs.template.dynamic/KorteDynamicShape<#A> // korlibs.template.dynamic/KorteDynamicType.__dynamicShape.<get-__dynamicShape>|<get-__dynamicShape>@korlibs.template.dynamic.KorteDynamicTypeScope(){}[0]
+}
+
+abstract interface korlibs.template.dynamic/KorteDynamic2Callable { // korlibs.template.dynamic/KorteDynamic2Callable|null[0]
+    abstract suspend fun dynamic2Call(kotlin/Any?, kotlin.collections/List<kotlin/Any?>): kotlin/Any? // korlibs.template.dynamic/KorteDynamic2Callable.dynamic2Call|dynamic2Call(kotlin.Any?;kotlin.collections.List<kotlin.Any?>){}[0]
+}
+
+abstract interface korlibs.template.dynamic/KorteDynamic2Gettable { // korlibs.template.dynamic/KorteDynamic2Gettable|null[0]
+    abstract suspend fun dynamic2Get(kotlin/Any?): kotlin/Any? // korlibs.template.dynamic/KorteDynamic2Gettable.dynamic2Get|dynamic2Get(kotlin.Any?){}[0]
+}
+
+abstract interface korlibs.template.dynamic/KorteDynamic2Settable { // korlibs.template.dynamic/KorteDynamic2Settable|null[0]
+    abstract suspend fun dynamic2Set(kotlin/Any?, kotlin/Any?) // korlibs.template.dynamic/KorteDynamic2Settable.dynamic2Set|dynamic2Set(kotlin.Any?;kotlin.Any?){}[0]
+}
+
+abstract interface korlibs.template.dynamic/KorteDynamicContext { // korlibs.template.dynamic/KorteDynamicContext|null[0]
+    open fun (kotlin/Any?).dynamicLength(): kotlin/Int // korlibs.template.dynamic/KorteDynamicContext.dynamicLength|dynamicLength@kotlin.Any?(){}[0]
+    open fun (kotlin/Any?).toDynamicBool(): kotlin/Boolean // korlibs.template.dynamic/KorteDynamicContext.toDynamicBool|toDynamicBool@kotlin.Any?(){}[0]
+    open fun (kotlin/Any?).toDynamicCastToType(kotlin/Any?): kotlin/Any? // korlibs.template.dynamic/KorteDynamicContext.toDynamicCastToType|toDynamicCastToType@kotlin.Any?(kotlin.Any?){}[0]
+    open fun (kotlin/Any?).toDynamicDouble(): kotlin/Double // korlibs.template.dynamic/KorteDynamicContext.toDynamicDouble|toDynamicDouble@kotlin.Any?(){}[0]
+    open fun (kotlin/Any?).toDynamicInt(): kotlin/Int // korlibs.template.dynamic/KorteDynamicContext.toDynamicInt|toDynamicInt@kotlin.Any?(){}[0]
+    open fun (kotlin/Any?).toDynamicList(): kotlin.collections/List<*> // korlibs.template.dynamic/KorteDynamicContext.toDynamicList|toDynamicList@kotlin.Any?(){}[0]
+    open fun (kotlin/Any?).toDynamicLong(): kotlin/Long // korlibs.template.dynamic/KorteDynamicContext.toDynamicLong|toDynamicLong@kotlin.Any?(){}[0]
+    open fun (kotlin/Any?).toDynamicNumber(): kotlin/Number // korlibs.template.dynamic/KorteDynamicContext.toDynamicNumber|toDynamicNumber@kotlin.Any?(){}[0]
+    open fun (kotlin/Any?).toDynamicString(): kotlin/String // korlibs.template.dynamic/KorteDynamicContext.toDynamicString|toDynamicString@kotlin.Any?(){}[0]
+    open fun (kotlin/Number).compareTo(kotlin/Number): kotlin/Int // korlibs.template.dynamic/KorteDynamicContext.compareTo|compareTo@kotlin.Number(kotlin.Number){}[0]
+    open fun combineTypes(kotlin/Any?, kotlin/Any?): kotlin/Any? // korlibs.template.dynamic/KorteDynamicContext.combineTypes|combineTypes(kotlin.Any?;kotlin.Any?){}[0]
+    open suspend fun (kotlin/Any?).dynamicCall(kotlin/Array<out kotlin/Any?>..., korlibs.template.dynamic/KorteObjectMapper2): kotlin/Any? // korlibs.template.dynamic/KorteDynamicContext.dynamicCall|dynamicCall@kotlin.Any?(kotlin.Array<out|kotlin.Any?>...;korlibs.template.dynamic.KorteObjectMapper2){}[0]
+    open suspend fun (kotlin/Any?).dynamicCallMethod(kotlin/Any?, kotlin/Array<out kotlin/Any?>..., korlibs.template.dynamic/KorteObjectMapper2): kotlin/Any? // korlibs.template.dynamic/KorteDynamicContext.dynamicCallMethod|dynamicCallMethod@kotlin.Any?(kotlin.Any?;kotlin.Array<out|kotlin.Any?>...;korlibs.template.dynamic.KorteObjectMapper2){}[0]
+    open suspend fun (kotlin/Any?).dynamicGet(kotlin/Any?, korlibs.template.dynamic/KorteObjectMapper2): kotlin/Any? // korlibs.template.dynamic/KorteDynamicContext.dynamicGet|dynamicGet@kotlin.Any?(kotlin.Any?;korlibs.template.dynamic.KorteObjectMapper2){}[0]
+    open suspend fun (kotlin/Any?).dynamicSet(kotlin/Any?, kotlin/Any?, korlibs.template.dynamic/KorteObjectMapper2) // korlibs.template.dynamic/KorteDynamicContext.dynamicSet|dynamicSet@kotlin.Any?(kotlin.Any?;kotlin.Any?;korlibs.template.dynamic.KorteObjectMapper2){}[0]
+
+    final object Companion { // korlibs.template.dynamic/KorteDynamicContext.Companion|null[0]
+        final val Instance // korlibs.template.dynamic/KorteDynamicContext.Companion.Instance|{}Instance[0]
+            final fun <get-Instance>(): korlibs.template.dynamic/KorteDynamicContext // korlibs.template.dynamic/KorteDynamicContext.Companion.Instance.<get-Instance>|<get-Instance>(){}[0]
+
+        final inline fun <#A2: kotlin/Any?> invoke(kotlin/Function1<korlibs.template.dynamic/KorteDynamicContext, #A2>): #A2 // korlibs.template.dynamic/KorteDynamicContext.Companion.invoke|invoke(kotlin.Function1<korlibs.template.dynamic.KorteDynamicContext,0:0>){0§<kotlin.Any?>}[0]
+    }
+}
+
+abstract interface korlibs.template.dynamic/KorteObjectMapper2 { // korlibs.template.dynamic/KorteObjectMapper2|null[0]
+    open val dynamicShape // korlibs.template.dynamic/KorteObjectMapper2.dynamicShape|@korlibs.template.dynamic.KorteDynamicType<*>{}dynamicShape[0]
+        open fun (korlibs.template.dynamic/KorteDynamicType<*>).<get-dynamicShape>(): korlibs.template.dynamic/KorteDynamicShape<kotlin/Any?> // korlibs.template.dynamic/KorteObjectMapper2.dynamicShape.<get-dynamicShape>|<get-dynamicShape>@korlibs.template.dynamic.KorteDynamicType<*>(){}[0]
+
+    open fun hasMethod(kotlin/Any, kotlin/String): kotlin/Boolean // korlibs.template.dynamic/KorteObjectMapper2.hasMethod|hasMethod(kotlin.Any;kotlin.String){}[0]
+    open fun hasProperty(kotlin/Any, kotlin/String): kotlin/Boolean // korlibs.template.dynamic/KorteObjectMapper2.hasProperty|hasProperty(kotlin.Any;kotlin.String){}[0]
+    open suspend fun accessAny(kotlin/Any?, kotlin/Any?): kotlin/Any? // korlibs.template.dynamic/KorteObjectMapper2.accessAny|accessAny(kotlin.Any?;kotlin.Any?){}[0]
+    open suspend fun accessAnyObject(kotlin/Any?, kotlin/Any?): kotlin/Any? // korlibs.template.dynamic/KorteObjectMapper2.accessAnyObject|accessAnyObject(kotlin.Any?;kotlin.Any?){}[0]
+    open suspend fun get(kotlin/Any, kotlin/Any?): kotlin/Any? // korlibs.template.dynamic/KorteObjectMapper2.get|get(kotlin.Any;kotlin.Any?){}[0]
+    open suspend fun invokeAsync(kotlin.reflect/KClass<kotlin/Any>, kotlin/Any?, kotlin/String, kotlin.collections/List<kotlin/Any?>): kotlin/Any? // korlibs.template.dynamic/KorteObjectMapper2.invokeAsync|invokeAsync(kotlin.reflect.KClass<kotlin.Any>;kotlin.Any?;kotlin.String;kotlin.collections.List<kotlin.Any?>){}[0]
+    open suspend fun set(kotlin/Any, kotlin/Any?, kotlin/Any?) // korlibs.template.dynamic/KorteObjectMapper2.set|set(kotlin.Any;kotlin.Any?;kotlin.Any?){}[0]
+}
+
+abstract interface korlibs.template.util/KorteAsyncTextWriterContainer { // korlibs.template.util/KorteAsyncTextWriterContainer|null[0]
+    abstract suspend fun write(kotlin.coroutines/SuspendFunction1<kotlin/String, kotlin/Unit>) // korlibs.template.util/KorteAsyncTextWriterContainer.write|write(kotlin.coroutines.SuspendFunction1<kotlin.String,kotlin.Unit>){}[0]
+}
+
+abstract interface korlibs.template/KorteBlock : korlibs.template.dynamic/KorteDynamicContext { // korlibs.template/KorteBlock|null[0]
+    abstract suspend fun eval(korlibs.template/KorteTemplate.EvalContext) // korlibs.template/KorteBlock.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+
+    final object Companion { // korlibs.template/KorteBlock.Companion|null[0]
+        final fun group(kotlin.collections/List<korlibs.template/KorteBlock>): korlibs.template/KorteBlock // korlibs.template/KorteBlock.Companion.group|group(kotlin.collections.List<korlibs.template.KorteBlock>){}[0]
+        final suspend fun parse(kotlin.collections/List<korlibs.template/KorteToken>, korlibs.template/KorteTemplate.ParseContext): korlibs.template/KorteBlock // korlibs.template/KorteBlock.Companion.parse|parse(kotlin.collections.List<korlibs.template.KorteToken>;korlibs.template.KorteTemplate.ParseContext){}[0]
+
+        final class Parse { // korlibs.template/KorteBlock.Companion.Parse|null[0]
+            constructor <init>(kotlin.collections/List<korlibs.template/KorteToken>, korlibs.template/KorteTemplate.ParseContext) // korlibs.template/KorteBlock.Companion.Parse.<init>|<init>(kotlin.collections.List<korlibs.template.KorteToken>;korlibs.template.KorteTemplate.ParseContext){}[0]
+
+            final val parseContext // korlibs.template/KorteBlock.Companion.Parse.parseContext|{}parseContext[0]
+                final fun <get-parseContext>(): korlibs.template/KorteTemplate.ParseContext // korlibs.template/KorteBlock.Companion.Parse.parseContext.<get-parseContext>|<get-parseContext>(){}[0]
+            final val tokens // korlibs.template/KorteBlock.Companion.Parse.tokens|{}tokens[0]
+                final fun <get-tokens>(): kotlin.collections/List<korlibs.template/KorteToken> // korlibs.template/KorteBlock.Companion.Parse.tokens.<get-tokens>|<get-tokens>(){}[0]
+            final val tr // korlibs.template/KorteBlock.Companion.Parse.tr|{}tr[0]
+                final fun <get-tr>(): korlibs.template.util/KorteListReader<korlibs.template/KorteToken> // korlibs.template/KorteBlock.Companion.Parse.tr.<get-tr>|<get-tr>(){}[0]
+
+            final suspend fun handle(korlibs.template/KorteTag, korlibs.template/KorteToken.TTag): korlibs.template/KorteBlock // korlibs.template/KorteBlock.Companion.Parse.handle|handle(korlibs.template.KorteTag;korlibs.template.KorteToken.TTag){}[0]
+        }
+    }
+}
+
+abstract interface korlibs.template/KorteExprNode : korlibs.template.dynamic/KorteDynamicContext { // korlibs.template/KorteExprNode|null[0]
+    abstract suspend fun eval(korlibs.template/KorteTemplate.EvalContext): kotlin/Any? // korlibs.template/KorteExprNode.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+
+    abstract interface Token : korlibs.template/KorteTokenContext { // korlibs.template/KorteExprNode.Token|null[0]
+        abstract val text // korlibs.template/KorteExprNode.Token.text|{}text[0]
+            abstract fun <get-text>(): kotlin/String // korlibs.template/KorteExprNode.Token.text.<get-text>|<get-text>(){}[0]
+
+        final class TEnd : korlibs.template/KorteExprNode.Token, korlibs.template/KorteTokenContext { // korlibs.template/KorteExprNode.Token.TEnd|null[0]
+            constructor <init>(kotlin/String = ...) // korlibs.template/KorteExprNode.Token.TEnd.<init>|<init>(kotlin.String){}[0]
+
+            final val posContext // korlibs.template/KorteExprNode.Token.TEnd.posContext|{}posContext[0]
+                final fun <get-posContext>(): korlibs.template/KorteFilePosContext // korlibs.template/KorteExprNode.Token.TEnd.posContext.<get-posContext>|<get-posContext>(){}[0]
+            final val text // korlibs.template/KorteExprNode.Token.TEnd.text|{}text[0]
+                final fun <get-text>(): kotlin/String // korlibs.template/KorteExprNode.Token.TEnd.text.<get-text>|<get-text>(){}[0]
+
+            final var file // korlibs.template/KorteExprNode.Token.TEnd.file|{}file[0]
+                final fun <get-file>(): korlibs.template/KorteFileContext // korlibs.template/KorteExprNode.Token.TEnd.file.<get-file>|<get-file>(){}[0]
+                final fun <set-file>(korlibs.template/KorteFileContext) // korlibs.template/KorteExprNode.Token.TEnd.file.<set-file>|<set-file>(korlibs.template.KorteFileContext){}[0]
+            final var pos // korlibs.template/KorteExprNode.Token.TEnd.pos|{}pos[0]
+                final fun <get-pos>(): kotlin/Int // korlibs.template/KorteExprNode.Token.TEnd.pos.<get-pos>|<get-pos>(){}[0]
+                final fun <set-pos>(kotlin/Int) // korlibs.template/KorteExprNode.Token.TEnd.pos.<set-pos>|<set-pos>(kotlin.Int){}[0]
+
+            final fun component1(): kotlin/String // korlibs.template/KorteExprNode.Token.TEnd.component1|component1(){}[0]
+            final fun copy(kotlin/String = ...): korlibs.template/KorteExprNode.Token.TEnd // korlibs.template/KorteExprNode.Token.TEnd.copy|copy(kotlin.String){}[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteExprNode.Token.TEnd.equals|equals(kotlin.Any?){}[0]
+            final fun exception(kotlin/String): kotlin/Nothing // korlibs.template/KorteExprNode.Token.TEnd.exception|exception(kotlin.String){}[0]
+            final fun hashCode(): kotlin/Int // korlibs.template/KorteExprNode.Token.TEnd.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // korlibs.template/KorteExprNode.Token.TEnd.toString|toString(){}[0]
+        }
+
+        final class TId : korlibs.template/KorteExprNode.Token, korlibs.template/KorteTokenContext { // korlibs.template/KorteExprNode.Token.TId|null[0]
+            constructor <init>(kotlin/String) // korlibs.template/KorteExprNode.Token.TId.<init>|<init>(kotlin.String){}[0]
+
+            final val posContext // korlibs.template/KorteExprNode.Token.TId.posContext|{}posContext[0]
+                final fun <get-posContext>(): korlibs.template/KorteFilePosContext // korlibs.template/KorteExprNode.Token.TId.posContext.<get-posContext>|<get-posContext>(){}[0]
+            final val text // korlibs.template/KorteExprNode.Token.TId.text|{}text[0]
+                final fun <get-text>(): kotlin/String // korlibs.template/KorteExprNode.Token.TId.text.<get-text>|<get-text>(){}[0]
+
+            final var file // korlibs.template/KorteExprNode.Token.TId.file|{}file[0]
+                final fun <get-file>(): korlibs.template/KorteFileContext // korlibs.template/KorteExprNode.Token.TId.file.<get-file>|<get-file>(){}[0]
+                final fun <set-file>(korlibs.template/KorteFileContext) // korlibs.template/KorteExprNode.Token.TId.file.<set-file>|<set-file>(korlibs.template.KorteFileContext){}[0]
+            final var pos // korlibs.template/KorteExprNode.Token.TId.pos|{}pos[0]
+                final fun <get-pos>(): kotlin/Int // korlibs.template/KorteExprNode.Token.TId.pos.<get-pos>|<get-pos>(){}[0]
+                final fun <set-pos>(kotlin/Int) // korlibs.template/KorteExprNode.Token.TId.pos.<set-pos>|<set-pos>(kotlin.Int){}[0]
+
+            final fun component1(): kotlin/String // korlibs.template/KorteExprNode.Token.TId.component1|component1(){}[0]
+            final fun copy(kotlin/String = ...): korlibs.template/KorteExprNode.Token.TId // korlibs.template/KorteExprNode.Token.TId.copy|copy(kotlin.String){}[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteExprNode.Token.TId.equals|equals(kotlin.Any?){}[0]
+            final fun exception(kotlin/String): kotlin/Nothing // korlibs.template/KorteExprNode.Token.TId.exception|exception(kotlin.String){}[0]
+            final fun hashCode(): kotlin/Int // korlibs.template/KorteExprNode.Token.TId.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // korlibs.template/KorteExprNode.Token.TId.toString|toString(){}[0]
+        }
+
+        final class TNumber : korlibs.template/KorteExprNode.Token, korlibs.template/KorteTokenContext { // korlibs.template/KorteExprNode.Token.TNumber|null[0]
+            constructor <init>(kotlin/String) // korlibs.template/KorteExprNode.Token.TNumber.<init>|<init>(kotlin.String){}[0]
+
+            final val posContext // korlibs.template/KorteExprNode.Token.TNumber.posContext|{}posContext[0]
+                final fun <get-posContext>(): korlibs.template/KorteFilePosContext // korlibs.template/KorteExprNode.Token.TNumber.posContext.<get-posContext>|<get-posContext>(){}[0]
+            final val text // korlibs.template/KorteExprNode.Token.TNumber.text|{}text[0]
+                final fun <get-text>(): kotlin/String // korlibs.template/KorteExprNode.Token.TNumber.text.<get-text>|<get-text>(){}[0]
+
+            final var file // korlibs.template/KorteExprNode.Token.TNumber.file|{}file[0]
+                final fun <get-file>(): korlibs.template/KorteFileContext // korlibs.template/KorteExprNode.Token.TNumber.file.<get-file>|<get-file>(){}[0]
+                final fun <set-file>(korlibs.template/KorteFileContext) // korlibs.template/KorteExprNode.Token.TNumber.file.<set-file>|<set-file>(korlibs.template.KorteFileContext){}[0]
+            final var pos // korlibs.template/KorteExprNode.Token.TNumber.pos|{}pos[0]
+                final fun <get-pos>(): kotlin/Int // korlibs.template/KorteExprNode.Token.TNumber.pos.<get-pos>|<get-pos>(){}[0]
+                final fun <set-pos>(kotlin/Int) // korlibs.template/KorteExprNode.Token.TNumber.pos.<set-pos>|<set-pos>(kotlin.Int){}[0]
+
+            final fun component1(): kotlin/String // korlibs.template/KorteExprNode.Token.TNumber.component1|component1(){}[0]
+            final fun copy(kotlin/String = ...): korlibs.template/KorteExprNode.Token.TNumber // korlibs.template/KorteExprNode.Token.TNumber.copy|copy(kotlin.String){}[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteExprNode.Token.TNumber.equals|equals(kotlin.Any?){}[0]
+            final fun exception(kotlin/String): kotlin/Nothing // korlibs.template/KorteExprNode.Token.TNumber.exception|exception(kotlin.String){}[0]
+            final fun hashCode(): kotlin/Int // korlibs.template/KorteExprNode.Token.TNumber.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // korlibs.template/KorteExprNode.Token.TNumber.toString|toString(){}[0]
+        }
+
+        final class TOperator : korlibs.template/KorteExprNode.Token, korlibs.template/KorteTokenContext { // korlibs.template/KorteExprNode.Token.TOperator|null[0]
+            constructor <init>(kotlin/String) // korlibs.template/KorteExprNode.Token.TOperator.<init>|<init>(kotlin.String){}[0]
+
+            final val posContext // korlibs.template/KorteExprNode.Token.TOperator.posContext|{}posContext[0]
+                final fun <get-posContext>(): korlibs.template/KorteFilePosContext // korlibs.template/KorteExprNode.Token.TOperator.posContext.<get-posContext>|<get-posContext>(){}[0]
+            final val text // korlibs.template/KorteExprNode.Token.TOperator.text|{}text[0]
+                final fun <get-text>(): kotlin/String // korlibs.template/KorteExprNode.Token.TOperator.text.<get-text>|<get-text>(){}[0]
+
+            final var file // korlibs.template/KorteExprNode.Token.TOperator.file|{}file[0]
+                final fun <get-file>(): korlibs.template/KorteFileContext // korlibs.template/KorteExprNode.Token.TOperator.file.<get-file>|<get-file>(){}[0]
+                final fun <set-file>(korlibs.template/KorteFileContext) // korlibs.template/KorteExprNode.Token.TOperator.file.<set-file>|<set-file>(korlibs.template.KorteFileContext){}[0]
+            final var pos // korlibs.template/KorteExprNode.Token.TOperator.pos|{}pos[0]
+                final fun <get-pos>(): kotlin/Int // korlibs.template/KorteExprNode.Token.TOperator.pos.<get-pos>|<get-pos>(){}[0]
+                final fun <set-pos>(kotlin/Int) // korlibs.template/KorteExprNode.Token.TOperator.pos.<set-pos>|<set-pos>(kotlin.Int){}[0]
+
+            final fun component1(): kotlin/String // korlibs.template/KorteExprNode.Token.TOperator.component1|component1(){}[0]
+            final fun copy(kotlin/String = ...): korlibs.template/KorteExprNode.Token.TOperator // korlibs.template/KorteExprNode.Token.TOperator.copy|copy(kotlin.String){}[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteExprNode.Token.TOperator.equals|equals(kotlin.Any?){}[0]
+            final fun exception(kotlin/String): kotlin/Nothing // korlibs.template/KorteExprNode.Token.TOperator.exception|exception(kotlin.String){}[0]
+            final fun hashCode(): kotlin/Int // korlibs.template/KorteExprNode.Token.TOperator.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // korlibs.template/KorteExprNode.Token.TOperator.toString|toString(){}[0]
+        }
+
+        final class TString : korlibs.template/KorteExprNode.Token, korlibs.template/KorteTokenContext { // korlibs.template/KorteExprNode.Token.TString|null[0]
+            constructor <init>(kotlin/String, kotlin/String) // korlibs.template/KorteExprNode.Token.TString.<init>|<init>(kotlin.String;kotlin.String){}[0]
+
+            final val posContext // korlibs.template/KorteExprNode.Token.TString.posContext|{}posContext[0]
+                final fun <get-posContext>(): korlibs.template/KorteFilePosContext // korlibs.template/KorteExprNode.Token.TString.posContext.<get-posContext>|<get-posContext>(){}[0]
+            final val processedValue // korlibs.template/KorteExprNode.Token.TString.processedValue|{}processedValue[0]
+                final fun <get-processedValue>(): kotlin/String // korlibs.template/KorteExprNode.Token.TString.processedValue.<get-processedValue>|<get-processedValue>(){}[0]
+            final val text // korlibs.template/KorteExprNode.Token.TString.text|{}text[0]
+                final fun <get-text>(): kotlin/String // korlibs.template/KorteExprNode.Token.TString.text.<get-text>|<get-text>(){}[0]
+
+            final var file // korlibs.template/KorteExprNode.Token.TString.file|{}file[0]
+                final fun <get-file>(): korlibs.template/KorteFileContext // korlibs.template/KorteExprNode.Token.TString.file.<get-file>|<get-file>(){}[0]
+                final fun <set-file>(korlibs.template/KorteFileContext) // korlibs.template/KorteExprNode.Token.TString.file.<set-file>|<set-file>(korlibs.template.KorteFileContext){}[0]
+            final var pos // korlibs.template/KorteExprNode.Token.TString.pos|{}pos[0]
+                final fun <get-pos>(): kotlin/Int // korlibs.template/KorteExprNode.Token.TString.pos.<get-pos>|<get-pos>(){}[0]
+                final fun <set-pos>(kotlin/Int) // korlibs.template/KorteExprNode.Token.TString.pos.<set-pos>|<set-pos>(kotlin.Int){}[0]
+
+            final fun component1(): kotlin/String // korlibs.template/KorteExprNode.Token.TString.component1|component1(){}[0]
+            final fun component2(): kotlin/String // korlibs.template/KorteExprNode.Token.TString.component2|component2(){}[0]
+            final fun copy(kotlin/String = ..., kotlin/String = ...): korlibs.template/KorteExprNode.Token.TString // korlibs.template/KorteExprNode.Token.TString.copy|copy(kotlin.String;kotlin.String){}[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteExprNode.Token.TString.equals|equals(kotlin.Any?){}[0]
+            final fun exception(kotlin/String): kotlin/Nothing // korlibs.template/KorteExprNode.Token.TString.exception|exception(kotlin.String){}[0]
+            final fun hashCode(): kotlin/Int // korlibs.template/KorteExprNode.Token.TString.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // korlibs.template/KorteExprNode.Token.TString.toString|toString(){}[0]
+        }
+
+        final object Companion { // korlibs.template/KorteExprNode.Token.Companion|null[0]
+            final fun (korlibs.template/KorteExprNode.Token).annotate(korlibs.template/KorteFilePosContext, kotlin/Int): korlibs.template/KorteExprNode.Token // korlibs.template/KorteExprNode.Token.Companion.annotate|annotate@korlibs.template.KorteExprNode.Token(korlibs.template.KorteFilePosContext;kotlin.Int){}[0]
+            final fun tokenize(kotlin/String, korlibs.template/KorteFilePosContext): korlibs.template.util/KorteListReader<korlibs.template/KorteExprNode.Token> // korlibs.template/KorteExprNode.Token.Companion.tokenize|tokenize(kotlin.String;korlibs.template.KorteFilePosContext){}[0]
+        }
+    }
+
+    final class ACCESS : korlibs.template/KorteExprNode { // korlibs.template/KorteExprNode.ACCESS|null[0]
+        constructor <init>(korlibs.template/KorteExprNode, korlibs.template/KorteExprNode) // korlibs.template/KorteExprNode.ACCESS.<init>|<init>(korlibs.template.KorteExprNode;korlibs.template.KorteExprNode){}[0]
+
+        final val expr // korlibs.template/KorteExprNode.ACCESS.expr|{}expr[0]
+            final fun <get-expr>(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.ACCESS.expr.<get-expr>|<get-expr>(){}[0]
+        final val name // korlibs.template/KorteExprNode.ACCESS.name|{}name[0]
+            final fun <get-name>(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.ACCESS.name.<get-name>|<get-name>(){}[0]
+
+        final fun component1(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.ACCESS.component1|component1(){}[0]
+        final fun component2(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.ACCESS.component2|component2(){}[0]
+        final fun copy(korlibs.template/KorteExprNode = ..., korlibs.template/KorteExprNode = ...): korlibs.template/KorteExprNode.ACCESS // korlibs.template/KorteExprNode.ACCESS.copy|copy(korlibs.template.KorteExprNode;korlibs.template.KorteExprNode){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteExprNode.ACCESS.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/KorteExprNode.ACCESS.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/KorteExprNode.ACCESS.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext): kotlin/Any? // korlibs.template/KorteExprNode.ACCESS.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class ARRAY_LIT : korlibs.template/KorteExprNode { // korlibs.template/KorteExprNode.ARRAY_LIT|null[0]
+        constructor <init>(kotlin.collections/List<korlibs.template/KorteExprNode>) // korlibs.template/KorteExprNode.ARRAY_LIT.<init>|<init>(kotlin.collections.List<korlibs.template.KorteExprNode>){}[0]
+
+        final val items // korlibs.template/KorteExprNode.ARRAY_LIT.items|{}items[0]
+            final fun <get-items>(): kotlin.collections/List<korlibs.template/KorteExprNode> // korlibs.template/KorteExprNode.ARRAY_LIT.items.<get-items>|<get-items>(){}[0]
+
+        final fun component1(): kotlin.collections/List<korlibs.template/KorteExprNode> // korlibs.template/KorteExprNode.ARRAY_LIT.component1|component1(){}[0]
+        final fun copy(kotlin.collections/List<korlibs.template/KorteExprNode> = ...): korlibs.template/KorteExprNode.ARRAY_LIT // korlibs.template/KorteExprNode.ARRAY_LIT.copy|copy(kotlin.collections.List<korlibs.template.KorteExprNode>){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteExprNode.ARRAY_LIT.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/KorteExprNode.ARRAY_LIT.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/KorteExprNode.ARRAY_LIT.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext): kotlin/Any? // korlibs.template/KorteExprNode.ARRAY_LIT.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class BINOP : korlibs.template/KorteExprNode { // korlibs.template/KorteExprNode.BINOP|null[0]
+        constructor <init>(korlibs.template/KorteExprNode, korlibs.template/KorteExprNode, kotlin/String) // korlibs.template/KorteExprNode.BINOP.<init>|<init>(korlibs.template.KorteExprNode;korlibs.template.KorteExprNode;kotlin.String){}[0]
+
+        final val l // korlibs.template/KorteExprNode.BINOP.l|{}l[0]
+            final fun <get-l>(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.BINOP.l.<get-l>|<get-l>(){}[0]
+        final val op // korlibs.template/KorteExprNode.BINOP.op|{}op[0]
+            final fun <get-op>(): kotlin/String // korlibs.template/KorteExprNode.BINOP.op.<get-op>|<get-op>(){}[0]
+        final val r // korlibs.template/KorteExprNode.BINOP.r|{}r[0]
+            final fun <get-r>(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.BINOP.r.<get-r>|<get-r>(){}[0]
+
+        final fun component1(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.BINOP.component1|component1(){}[0]
+        final fun component2(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.BINOP.component2|component2(){}[0]
+        final fun component3(): kotlin/String // korlibs.template/KorteExprNode.BINOP.component3|component3(){}[0]
+        final fun copy(korlibs.template/KorteExprNode = ..., korlibs.template/KorteExprNode = ..., kotlin/String = ...): korlibs.template/KorteExprNode.BINOP // korlibs.template/KorteExprNode.BINOP.copy|copy(korlibs.template.KorteExprNode;korlibs.template.KorteExprNode;kotlin.String){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteExprNode.BINOP.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/KorteExprNode.BINOP.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/KorteExprNode.BINOP.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext): kotlin/Any? // korlibs.template/KorteExprNode.BINOP.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class CALL : korlibs.template/KorteExprNode { // korlibs.template/KorteExprNode.CALL|null[0]
+        constructor <init>(korlibs.template/KorteExprNode, kotlin.collections/List<korlibs.template/KorteExprNode>) // korlibs.template/KorteExprNode.CALL.<init>|<init>(korlibs.template.KorteExprNode;kotlin.collections.List<korlibs.template.KorteExprNode>){}[0]
+
+        final val args // korlibs.template/KorteExprNode.CALL.args|{}args[0]
+            final fun <get-args>(): kotlin.collections/List<korlibs.template/KorteExprNode> // korlibs.template/KorteExprNode.CALL.args.<get-args>|<get-args>(){}[0]
+        final val method // korlibs.template/KorteExprNode.CALL.method|{}method[0]
+            final fun <get-method>(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.CALL.method.<get-method>|<get-method>(){}[0]
+
+        final fun component1(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.CALL.component1|component1(){}[0]
+        final fun component2(): kotlin.collections/List<korlibs.template/KorteExprNode> // korlibs.template/KorteExprNode.CALL.component2|component2(){}[0]
+        final fun copy(korlibs.template/KorteExprNode = ..., kotlin.collections/List<korlibs.template/KorteExprNode> = ...): korlibs.template/KorteExprNode.CALL // korlibs.template/KorteExprNode.CALL.copy|copy(korlibs.template.KorteExprNode;kotlin.collections.List<korlibs.template.KorteExprNode>){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteExprNode.CALL.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/KorteExprNode.CALL.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/KorteExprNode.CALL.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext): kotlin/Any? // korlibs.template/KorteExprNode.CALL.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class FILTER : korlibs.template/KorteExprNode { // korlibs.template/KorteExprNode.FILTER|null[0]
+        constructor <init>(kotlin/String, korlibs.template/KorteExprNode, kotlin.collections/List<korlibs.template/KorteExprNode>, korlibs.template/KorteExprNode.Token) // korlibs.template/KorteExprNode.FILTER.<init>|<init>(kotlin.String;korlibs.template.KorteExprNode;kotlin.collections.List<korlibs.template.KorteExprNode>;korlibs.template.KorteExprNode.Token){}[0]
+
+        final val expr // korlibs.template/KorteExprNode.FILTER.expr|{}expr[0]
+            final fun <get-expr>(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.FILTER.expr.<get-expr>|<get-expr>(){}[0]
+        final val name // korlibs.template/KorteExprNode.FILTER.name|{}name[0]
+            final fun <get-name>(): kotlin/String // korlibs.template/KorteExprNode.FILTER.name.<get-name>|<get-name>(){}[0]
+        final val params // korlibs.template/KorteExprNode.FILTER.params|{}params[0]
+            final fun <get-params>(): kotlin.collections/List<korlibs.template/KorteExprNode> // korlibs.template/KorteExprNode.FILTER.params.<get-params>|<get-params>(){}[0]
+        final val tok // korlibs.template/KorteExprNode.FILTER.tok|{}tok[0]
+            final fun <get-tok>(): korlibs.template/KorteExprNode.Token // korlibs.template/KorteExprNode.FILTER.tok.<get-tok>|<get-tok>(){}[0]
+
+        final fun component1(): kotlin/String // korlibs.template/KorteExprNode.FILTER.component1|component1(){}[0]
+        final fun component2(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.FILTER.component2|component2(){}[0]
+        final fun component3(): kotlin.collections/List<korlibs.template/KorteExprNode> // korlibs.template/KorteExprNode.FILTER.component3|component3(){}[0]
+        final fun component4(): korlibs.template/KorteExprNode.Token // korlibs.template/KorteExprNode.FILTER.component4|component4(){}[0]
+        final fun copy(kotlin/String = ..., korlibs.template/KorteExprNode = ..., kotlin.collections/List<korlibs.template/KorteExprNode> = ..., korlibs.template/KorteExprNode.Token = ...): korlibs.template/KorteExprNode.FILTER // korlibs.template/KorteExprNode.FILTER.copy|copy(kotlin.String;korlibs.template.KorteExprNode;kotlin.collections.List<korlibs.template.KorteExprNode>;korlibs.template.KorteExprNode.Token){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteExprNode.FILTER.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/KorteExprNode.FILTER.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/KorteExprNode.FILTER.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext): kotlin/Any? // korlibs.template/KorteExprNode.FILTER.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class LIT : korlibs.template/KorteExprNode { // korlibs.template/KorteExprNode.LIT|null[0]
+        constructor <init>(kotlin/Any?) // korlibs.template/KorteExprNode.LIT.<init>|<init>(kotlin.Any?){}[0]
+
+        final val value // korlibs.template/KorteExprNode.LIT.value|{}value[0]
+            final fun <get-value>(): kotlin/Any? // korlibs.template/KorteExprNode.LIT.value.<get-value>|<get-value>(){}[0]
+
+        final fun component1(): kotlin/Any? // korlibs.template/KorteExprNode.LIT.component1|component1(){}[0]
+        final fun copy(kotlin/Any? = ...): korlibs.template/KorteExprNode.LIT // korlibs.template/KorteExprNode.LIT.copy|copy(kotlin.Any?){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteExprNode.LIT.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/KorteExprNode.LIT.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/KorteExprNode.LIT.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext): kotlin/Any? // korlibs.template/KorteExprNode.LIT.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class OBJECT_LIT : korlibs.template/KorteExprNode { // korlibs.template/KorteExprNode.OBJECT_LIT|null[0]
+        constructor <init>(kotlin.collections/List<kotlin/Pair<korlibs.template/KorteExprNode, korlibs.template/KorteExprNode>>) // korlibs.template/KorteExprNode.OBJECT_LIT.<init>|<init>(kotlin.collections.List<kotlin.Pair<korlibs.template.KorteExprNode,korlibs.template.KorteExprNode>>){}[0]
+
+        final val items // korlibs.template/KorteExprNode.OBJECT_LIT.items|{}items[0]
+            final fun <get-items>(): kotlin.collections/List<kotlin/Pair<korlibs.template/KorteExprNode, korlibs.template/KorteExprNode>> // korlibs.template/KorteExprNode.OBJECT_LIT.items.<get-items>|<get-items>(){}[0]
+
+        final fun component1(): kotlin.collections/List<kotlin/Pair<korlibs.template/KorteExprNode, korlibs.template/KorteExprNode>> // korlibs.template/KorteExprNode.OBJECT_LIT.component1|component1(){}[0]
+        final fun copy(kotlin.collections/List<kotlin/Pair<korlibs.template/KorteExprNode, korlibs.template/KorteExprNode>> = ...): korlibs.template/KorteExprNode.OBJECT_LIT // korlibs.template/KorteExprNode.OBJECT_LIT.copy|copy(kotlin.collections.List<kotlin.Pair<korlibs.template.KorteExprNode,korlibs.template.KorteExprNode>>){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteExprNode.OBJECT_LIT.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/KorteExprNode.OBJECT_LIT.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/KorteExprNode.OBJECT_LIT.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext): kotlin/Any? // korlibs.template/KorteExprNode.OBJECT_LIT.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class TERNARY : korlibs.template/KorteExprNode { // korlibs.template/KorteExprNode.TERNARY|null[0]
+        constructor <init>(korlibs.template/KorteExprNode, korlibs.template/KorteExprNode, korlibs.template/KorteExprNode) // korlibs.template/KorteExprNode.TERNARY.<init>|<init>(korlibs.template.KorteExprNode;korlibs.template.KorteExprNode;korlibs.template.KorteExprNode){}[0]
+
+        final val cond // korlibs.template/KorteExprNode.TERNARY.cond|{}cond[0]
+            final fun <get-cond>(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.TERNARY.cond.<get-cond>|<get-cond>(){}[0]
+        final val efalse // korlibs.template/KorteExprNode.TERNARY.efalse|{}efalse[0]
+            final fun <get-efalse>(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.TERNARY.efalse.<get-efalse>|<get-efalse>(){}[0]
+        final val etrue // korlibs.template/KorteExprNode.TERNARY.etrue|{}etrue[0]
+            final fun <get-etrue>(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.TERNARY.etrue.<get-etrue>|<get-etrue>(){}[0]
+
+        final fun component1(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.TERNARY.component1|component1(){}[0]
+        final fun component2(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.TERNARY.component2|component2(){}[0]
+        final fun component3(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.TERNARY.component3|component3(){}[0]
+        final fun copy(korlibs.template/KorteExprNode = ..., korlibs.template/KorteExprNode = ..., korlibs.template/KorteExprNode = ...): korlibs.template/KorteExprNode.TERNARY // korlibs.template/KorteExprNode.TERNARY.copy|copy(korlibs.template.KorteExprNode;korlibs.template.KorteExprNode;korlibs.template.KorteExprNode){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteExprNode.TERNARY.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/KorteExprNode.TERNARY.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/KorteExprNode.TERNARY.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext): kotlin/Any? // korlibs.template/KorteExprNode.TERNARY.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class UNOP : korlibs.template/KorteExprNode { // korlibs.template/KorteExprNode.UNOP|null[0]
+        constructor <init>(korlibs.template/KorteExprNode, kotlin/String) // korlibs.template/KorteExprNode.UNOP.<init>|<init>(korlibs.template.KorteExprNode;kotlin.String){}[0]
+
+        final val op // korlibs.template/KorteExprNode.UNOP.op|{}op[0]
+            final fun <get-op>(): kotlin/String // korlibs.template/KorteExprNode.UNOP.op.<get-op>|<get-op>(){}[0]
+        final val r // korlibs.template/KorteExprNode.UNOP.r|{}r[0]
+            final fun <get-r>(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.UNOP.r.<get-r>|<get-r>(){}[0]
+
+        final fun component1(): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.UNOP.component1|component1(){}[0]
+        final fun component2(): kotlin/String // korlibs.template/KorteExprNode.UNOP.component2|component2(){}[0]
+        final fun copy(korlibs.template/KorteExprNode = ..., kotlin/String = ...): korlibs.template/KorteExprNode.UNOP // korlibs.template/KorteExprNode.UNOP.copy|copy(korlibs.template.KorteExprNode;kotlin.String){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteExprNode.UNOP.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/KorteExprNode.UNOP.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/KorteExprNode.UNOP.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext): kotlin/Any? // korlibs.template/KorteExprNode.UNOP.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class VAR : korlibs.template/KorteExprNode { // korlibs.template/KorteExprNode.VAR|null[0]
+        constructor <init>(kotlin/String) // korlibs.template/KorteExprNode.VAR.<init>|<init>(kotlin.String){}[0]
+
+        final val name // korlibs.template/KorteExprNode.VAR.name|{}name[0]
+            final fun <get-name>(): kotlin/String // korlibs.template/KorteExprNode.VAR.name.<get-name>|<get-name>(){}[0]
+
+        final fun component1(): kotlin/String // korlibs.template/KorteExprNode.VAR.component1|component1(){}[0]
+        final fun copy(kotlin/String = ...): korlibs.template/KorteExprNode.VAR // korlibs.template/KorteExprNode.VAR.copy|copy(kotlin.String){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteExprNode.VAR.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/KorteExprNode.VAR.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/KorteExprNode.VAR.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext): kotlin/Any? // korlibs.template/KorteExprNode.VAR.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final object Companion { // korlibs.template/KorteExprNode.Companion|null[0]
+        final fun binopPr(kotlin/String): kotlin/Int // korlibs.template/KorteExprNode.Companion.binopPr|binopPr(kotlin.String){}[0]
+        final fun expect(korlibs.template.util/KorteListReader<korlibs.template/KorteExprNode.Token>, kotlin/Array<out kotlin/String>...) // korlibs.template/KorteExprNode.Companion.expect|expect(korlibs.template.util.KorteListReader<korlibs.template.KorteExprNode.Token>;kotlin.Array<out|kotlin.String>...){}[0]
+        final fun parse(korlibs.template/KorteToken.TTag): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.Companion.parse|parse(korlibs.template.KorteToken.TTag){}[0]
+        final fun parse(kotlin/String, korlibs.template/KorteFilePosContext): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.Companion.parse|parse(kotlin.String;korlibs.template.KorteFilePosContext){}[0]
+        final fun parse(kotlin/String, kotlin/String = ...): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.Companion.parse|parse(kotlin.String;kotlin.String){}[0]
+        final fun parseBinExpr(korlibs.template.util/KorteListReader<korlibs.template/KorteExprNode.Token>): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.Companion.parseBinExpr|parseBinExpr(korlibs.template.util.KorteListReader<korlibs.template.KorteExprNode.Token>){}[0]
+        final fun parseExpr(korlibs.template.util/KorteListReader<korlibs.template/KorteExprNode.Token>): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.Companion.parseExpr|parseExpr(korlibs.template.util.KorteListReader<korlibs.template.KorteExprNode.Token>){}[0]
+        final fun parseFullExpr(korlibs.template.util/KorteListReader<korlibs.template/KorteExprNode.Token>): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.Companion.parseFullExpr|parseFullExpr(korlibs.template.util.KorteListReader<korlibs.template.KorteExprNode.Token>){}[0]
+        final fun parseId(korlibs.template.util/KorteListReader<korlibs.template/KorteExprNode.Token>): kotlin/String // korlibs.template/KorteExprNode.Companion.parseId|parseId(korlibs.template.util.KorteListReader<korlibs.template.KorteExprNode.Token>){}[0]
+        final fun parseTernaryExpr(korlibs.template.util/KorteListReader<korlibs.template/KorteExprNode.Token>): korlibs.template/KorteExprNode // korlibs.template/KorteExprNode.Companion.parseTernaryExpr|parseTernaryExpr(korlibs.template.util.KorteListReader<korlibs.template.KorteExprNode.Token>){}[0]
+    }
+}
+
+abstract interface korlibs.template/KorteNewTemplateProvider { // korlibs.template/KorteNewTemplateProvider|null[0]
+    abstract suspend fun newGet(kotlin/String): korlibs.template/KorteTemplateContent? // korlibs.template/KorteNewTemplateProvider.newGet|newGet(kotlin.String){}[0]
+}
+
+abstract interface korlibs.template/KorteTemplateProvider : korlibs.template/KorteNewTemplateProvider { // korlibs.template/KorteTemplateProvider|null[0]
+    abstract suspend fun get(kotlin/String): kotlin/String? // korlibs.template/KorteTemplateProvider.get|get(kotlin.String){}[0]
+    open suspend fun newGet(kotlin/String): korlibs.template/KorteTemplateContent? // korlibs.template/KorteTemplateProvider.newGet|newGet(kotlin.String){}[0]
+
+    final class NotFoundException : kotlin/RuntimeException { // korlibs.template/KorteTemplateProvider.NotFoundException|null[0]
+        constructor <init>(kotlin/String) // korlibs.template/KorteTemplateProvider.NotFoundException.<init>|<init>(kotlin.String){}[0]
+
+        final val template // korlibs.template/KorteTemplateProvider.NotFoundException.template|{}template[0]
+            final fun <get-template>(): kotlin/String // korlibs.template/KorteTemplateProvider.NotFoundException.template.<get-template>|<get-template>(){}[0]
+    }
+}
+
+abstract interface korlibs.template/KorteTokenContext { // korlibs.template/KorteTokenContext|null[0]
+    open val posContext // korlibs.template/KorteTokenContext.posContext|{}posContext[0]
+        open fun <get-posContext>(): korlibs.template/KorteFilePosContext // korlibs.template/KorteTokenContext.posContext.<get-posContext>|<get-posContext>(){}[0]
+
+    abstract var file // korlibs.template/KorteTokenContext.file|{}file[0]
+        abstract fun <get-file>(): korlibs.template/KorteFileContext // korlibs.template/KorteTokenContext.file.<get-file>|<get-file>(){}[0]
+        abstract fun <set-file>(korlibs.template/KorteFileContext) // korlibs.template/KorteTokenContext.file.<set-file>|<set-file>(korlibs.template.KorteFileContext){}[0]
+    abstract var pos // korlibs.template/KorteTokenContext.pos|{}pos[0]
+        abstract fun <get-pos>(): kotlin/Int // korlibs.template/KorteTokenContext.pos.<get-pos>|<get-pos>(){}[0]
+        abstract fun <set-pos>(kotlin/Int) // korlibs.template/KorteTokenContext.pos.<set-pos>|<set-pos>(kotlin.Int){}[0]
+
+    open fun exception(kotlin/String): kotlin/Nothing // korlibs.template/KorteTokenContext.exception|exception(kotlin.String){}[0]
+
+    final class Mixin : korlibs.template/KorteTokenContext { // korlibs.template/KorteTokenContext.Mixin|null[0]
+        constructor <init>() // korlibs.template/KorteTokenContext.Mixin.<init>|<init>(){}[0]
+
+        final var file // korlibs.template/KorteTokenContext.Mixin.file|{}file[0]
+            final fun <get-file>(): korlibs.template/KorteFileContext // korlibs.template/KorteTokenContext.Mixin.file.<get-file>|<get-file>(){}[0]
+            final fun <set-file>(korlibs.template/KorteFileContext) // korlibs.template/KorteTokenContext.Mixin.file.<set-file>|<set-file>(korlibs.template.KorteFileContext){}[0]
+        final var pos // korlibs.template/KorteTokenContext.Mixin.pos|{}pos[0]
+            final fun <get-pos>(): kotlin/Int // korlibs.template/KorteTokenContext.Mixin.pos.<get-pos>|<get-pos>(){}[0]
+            final fun <set-pos>(kotlin/Int) // korlibs.template/KorteTokenContext.Mixin.pos.<set-pos>|<set-pos>(kotlin.Int){}[0]
+    }
+}
+
+final class <#A: kotlin/Any?> korlibs.template.dynamic/KorteDynamicShape : korlibs.template.dynamic/KorteDynamicShapeRegister<#A> { // korlibs.template.dynamic/KorteDynamicShape|null[0]
+    constructor <init>() // korlibs.template.dynamic/KorteDynamicShape.<init>|<init>(){}[0]
+
+    final fun getProp(#A, kotlin/Any?): kotlin/Any? // korlibs.template.dynamic/KorteDynamicShape.getProp|getProp(1:0;kotlin.Any?){}[0]
+    final fun hasMethod(kotlin/String): kotlin/Boolean // korlibs.template.dynamic/KorteDynamicShape.hasMethod|hasMethod(kotlin.String){}[0]
+    final fun hasProp(kotlin/String): kotlin/Boolean // korlibs.template.dynamic/KorteDynamicShape.hasProp|hasProp(kotlin.String){}[0]
+    final fun register(kotlin.reflect/KCallable<*>): korlibs.template.dynamic/KorteDynamicShape<#A> // korlibs.template.dynamic/KorteDynamicShape.register|register(kotlin.reflect.KCallable<*>){}[0]
+    final fun register(kotlin.reflect/KProperty<*>): korlibs.template.dynamic/KorteDynamicShape<#A> // korlibs.template.dynamic/KorteDynamicShape.register|register(kotlin.reflect.KProperty<*>){}[0]
+    final fun register(kotlin/String, kotlin.coroutines/SuspendFunction2<#A, kotlin.collections/List<kotlin/Any?>, kotlin/Any?>): korlibs.template.dynamic/KorteDynamicShapeRegister<#A> // korlibs.template.dynamic/KorteDynamicShape.register|register(kotlin.String;kotlin.coroutines.SuspendFunction2<1:0,kotlin.collections.List<kotlin.Any?>,kotlin.Any?>){}[0]
+    final fun setProp(#A, kotlin/Any?, kotlin/Any?) // korlibs.template.dynamic/KorteDynamicShape.setProp|setProp(1:0;kotlin.Any?;kotlin.Any?){}[0]
+    final suspend fun callMethod(#A, kotlin/Any?, kotlin.collections/List<kotlin/Any?>): kotlin/Any? // korlibs.template.dynamic/KorteDynamicShape.callMethod|callMethod(1:0;kotlin.Any?;kotlin.collections.List<kotlin.Any?>){}[0]
+}
+
+final class <#A: kotlin/Any?> korlibs.template.util/KorteDeferred { // korlibs.template.util/KorteDeferred|null[0]
+    constructor <init>() // korlibs.template.util/KorteDeferred.<init>|<init>(){}[0]
+
+    final fun complete(#A) // korlibs.template.util/KorteDeferred.complete|complete(1:0){}[0]
+    final fun completeExceptionally(kotlin/Throwable) // korlibs.template.util/KorteDeferred.completeExceptionally|completeExceptionally(kotlin.Throwable){}[0]
+    final fun completeWith(kotlin/Result<#A>) // korlibs.template.util/KorteDeferred.completeWith|completeWith(kotlin.Result<1:0>){}[0]
+    final fun toContinuation(kotlin.coroutines/CoroutineContext): kotlin.coroutines/Continuation<#A> // korlibs.template.util/KorteDeferred.toContinuation|toContinuation(kotlin.coroutines.CoroutineContext){}[0]
+    final suspend fun await(): #A // korlibs.template.util/KorteDeferred.await|await(){}[0]
+
+    final object Companion { // korlibs.template.util/KorteDeferred.Companion|null[0]
+        final fun <#A2: kotlin/Any?> asyncImmediately(kotlin.coroutines/CoroutineContext, kotlin.coroutines/SuspendFunction0<#A2>): korlibs.template.util/KorteDeferred<#A2> // korlibs.template.util/KorteDeferred.Companion.asyncImmediately|asyncImmediately(kotlin.coroutines.CoroutineContext;kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any?>}[0]
+    }
+}
+
+final class <#A: kotlin/Any?> korlibs.template.util/KorteListReader { // korlibs.template.util/KorteListReader|null[0]
+    constructor <init>(kotlin.collections/List<#A>, #A? = ...) // korlibs.template.util/KorteListReader.<init>|<init>(kotlin.collections.List<1:0>;1:0?){}[0]
+
+    final val ctx // korlibs.template.util/KorteListReader.ctx|{}ctx[0]
+        final fun <get-ctx>(): #A? // korlibs.template.util/KorteListReader.ctx.<get-ctx>|<get-ctx>(){}[0]
+    final val eof // korlibs.template.util/KorteListReader.eof|{}eof[0]
+        final fun <get-eof>(): kotlin/Boolean // korlibs.template.util/KorteListReader.eof.<get-eof>|<get-eof>(){}[0]
+    final val hasMore // korlibs.template.util/KorteListReader.hasMore|{}hasMore[0]
+        final fun <get-hasMore>(): kotlin/Boolean // korlibs.template.util/KorteListReader.hasMore.<get-hasMore>|<get-hasMore>(){}[0]
+    final val list // korlibs.template.util/KorteListReader.list|{}list[0]
+        final fun <get-list>(): kotlin.collections/List<#A> // korlibs.template.util/KorteListReader.list.<get-list>|<get-list>(){}[0]
+    final val size // korlibs.template.util/KorteListReader.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // korlibs.template.util/KorteListReader.size.<get-size>|<get-size>(){}[0]
+
+    final var position // korlibs.template.util/KorteListReader.position|{}position[0]
+        final fun <get-position>(): kotlin/Int // korlibs.template.util/KorteListReader.position.<get-position>|<get-position>(){}[0]
+        final fun <set-position>(kotlin/Int) // korlibs.template.util/KorteListReader.position.<set-position>|<set-position>(kotlin.Int){}[0]
+
+    final fun peek(): #A // korlibs.template.util/KorteListReader.peek|peek(){}[0]
+    final fun peekOrNull(): #A? // korlibs.template.util/KorteListReader.peekOrNull|peekOrNull(){}[0]
+    final fun prev(): #A // korlibs.template.util/KorteListReader.prev|prev(){}[0]
+    final fun prevOrContext(): #A // korlibs.template.util/KorteListReader.prevOrContext|prevOrContext(){}[0]
+    final fun read(): #A // korlibs.template.util/KorteListReader.read|read(){}[0]
+    final fun skip(kotlin/Int = ...): korlibs.template.util/KorteListReader<#A> // korlibs.template.util/KorteListReader.skip|skip(kotlin.Int){}[0]
+    final fun toString(): kotlin/String // korlibs.template.util/KorteListReader.toString|toString(){}[0]
+    final fun tryPeek(kotlin/Int): #A? // korlibs.template.util/KorteListReader.tryPeek|tryPeek(kotlin.Int){}[0]
+    final fun tryPrev(): #A? // korlibs.template.util/KorteListReader.tryPrev|tryPrev(){}[0]
+    final fun tryRead(): #A? // korlibs.template.util/KorteListReader.tryRead|tryRead(){}[0]
+
+    final class OutOfBoundsException : kotlin/RuntimeException { // korlibs.template.util/KorteListReader.OutOfBoundsException|null[0]
+        constructor <init>(korlibs.template.util/KorteListReader<*>, kotlin/Int) // korlibs.template.util/KorteListReader.OutOfBoundsException.<init>|<init>(korlibs.template.util.KorteListReader<*>;kotlin.Int){}[0]
+
+        final val list // korlibs.template.util/KorteListReader.OutOfBoundsException.list|{}list[0]
+            final fun <get-list>(): korlibs.template.util/KorteListReader<*> // korlibs.template.util/KorteListReader.OutOfBoundsException.list.<get-list>|<get-list>(){}[0]
+        final val pos // korlibs.template.util/KorteListReader.OutOfBoundsException.pos|{}pos[0]
+            final fun <get-pos>(): kotlin/Int // korlibs.template.util/KorteListReader.OutOfBoundsException.pos.<get-pos>|<get-pos>(){}[0]
+    }
+}
+
+final class korlibs.template/KorteAutoEscapeMode { // korlibs.template/KorteAutoEscapeMode|null[0]
+    constructor <init>(kotlin/Function1<kotlin/String, kotlin/String>) // korlibs.template/KorteAutoEscapeMode.<init>|<init>(kotlin.Function1<kotlin.String,kotlin.String>){}[0]
+
+    final val transform // korlibs.template/KorteAutoEscapeMode.transform|{}transform[0]
+        final fun <get-transform>(): kotlin/Function1<kotlin/String, kotlin/String> // korlibs.template/KorteAutoEscapeMode.transform.<get-transform>|<get-transform>(){}[0]
+
+    final object Companion { // korlibs.template/KorteAutoEscapeMode.Companion|null[0]
+        final val HTML // korlibs.template/KorteAutoEscapeMode.Companion.HTML|{}HTML[0]
+            final fun <get-HTML>(): korlibs.template/KorteAutoEscapeMode // korlibs.template/KorteAutoEscapeMode.Companion.HTML.<get-HTML>|<get-HTML>(){}[0]
+        final val RAW // korlibs.template/KorteAutoEscapeMode.Companion.RAW|{}RAW[0]
+            final fun <get-RAW>(): korlibs.template/KorteAutoEscapeMode // korlibs.template/KorteAutoEscapeMode.Companion.RAW.<get-RAW>|<get-RAW>(){}[0]
+    }
+}
+
+final class korlibs.template/KorteFileContext { // korlibs.template/KorteFileContext|null[0]
+    constructor <init>(kotlin/String, kotlin/String) // korlibs.template/KorteFileContext.<init>|<init>(kotlin.String;kotlin.String){}[0]
+
+    final val fileContent // korlibs.template/KorteFileContext.fileContent|{}fileContent[0]
+        final fun <get-fileContent>(): kotlin/String // korlibs.template/KorteFileContext.fileContent.<get-fileContent>|<get-fileContent>(){}[0]
+    final val fileName // korlibs.template/KorteFileContext.fileName|{}fileName[0]
+        final fun <get-fileName>(): kotlin/String // korlibs.template/KorteFileContext.fileName.<get-fileName>|<get-fileName>(){}[0]
+    final val lineOffsets // korlibs.template/KorteFileContext.lineOffsets|{}lineOffsets[0]
+        final fun <get-lineOffsets>(): kotlin.collections/ArrayList<kotlin/Int> // korlibs.template/KorteFileContext.lineOffsets.<get-lineOffsets>|<get-lineOffsets>(){}[0]
+    final val lines // korlibs.template/KorteFileContext.lines|{}lines[0]
+        final fun <get-lines>(): kotlin.collections/List<kotlin/String> // korlibs.template/KorteFileContext.lines.<get-lines>|<get-lines>(){}[0]
+
+    final fun component1(): kotlin/String // korlibs.template/KorteFileContext.component1|component1(){}[0]
+    final fun component2(): kotlin/String // korlibs.template/KorteFileContext.component2|component2(){}[0]
+    final fun copy(kotlin/String = ..., kotlin/String = ...): korlibs.template/KorteFileContext // korlibs.template/KorteFileContext.copy|copy(kotlin.String;kotlin.String){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteFileContext.equals|equals(kotlin.Any?){}[0]
+    final fun findRow0At(kotlin/Int): kotlin/Int // korlibs.template/KorteFileContext.findRow0At|findRow0At(kotlin.Int){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.template/KorteFileContext.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.template/KorteFileContext.toString|toString(){}[0]
+
+    final object Companion { // korlibs.template/KorteFileContext.Companion|null[0]
+        final val DUMMY // korlibs.template/KorteFileContext.Companion.DUMMY|{}DUMMY[0]
+            final fun <get-DUMMY>(): korlibs.template/KorteFileContext // korlibs.template/KorteFileContext.Companion.DUMMY.<get-DUMMY>|<get-DUMMY>(){}[0]
+    }
+}
+
+final class korlibs.template/KorteFilePosContext { // korlibs.template/KorteFilePosContext|null[0]
+    constructor <init>(korlibs.template/KorteFileContext, kotlin/Int) // korlibs.template/KorteFilePosContext.<init>|<init>(korlibs.template.KorteFileContext;kotlin.Int){}[0]
+
+    final val column // korlibs.template/KorteFilePosContext.column|{}column[0]
+        final fun <get-column>(): kotlin/Int // korlibs.template/KorteFilePosContext.column.<get-column>|<get-column>(){}[0]
+    final val column0 // korlibs.template/KorteFilePosContext.column0|{}column0[0]
+        final fun <get-column0>(): kotlin/Int // korlibs.template/KorteFilePosContext.column0.<get-column0>|<get-column0>(){}[0]
+    final val file // korlibs.template/KorteFilePosContext.file|{}file[0]
+        final fun <get-file>(): korlibs.template/KorteFileContext // korlibs.template/KorteFilePosContext.file.<get-file>|<get-file>(){}[0]
+    final val fileContent // korlibs.template/KorteFilePosContext.fileContent|{}fileContent[0]
+        final fun <get-fileContent>(): kotlin/String // korlibs.template/KorteFilePosContext.fileContent.<get-fileContent>|<get-fileContent>(){}[0]
+    final val fileName // korlibs.template/KorteFilePosContext.fileName|{}fileName[0]
+        final fun <get-fileName>(): kotlin/String // korlibs.template/KorteFilePosContext.fileName.<get-fileName>|<get-fileName>(){}[0]
+    final val pos // korlibs.template/KorteFilePosContext.pos|{}pos[0]
+        final fun <get-pos>(): kotlin/Int // korlibs.template/KorteFilePosContext.pos.<get-pos>|<get-pos>(){}[0]
+    final val row // korlibs.template/KorteFilePosContext.row|{}row[0]
+        final fun <get-row>(): kotlin/Int // korlibs.template/KorteFilePosContext.row.<get-row>|<get-row>(){}[0]
+    final val row0 // korlibs.template/KorteFilePosContext.row0|{}row0[0]
+        final fun <get-row0>(): kotlin/Int // korlibs.template/KorteFilePosContext.row0.<get-row0>|<get-row0>(){}[0]
+
+    final fun component1(): korlibs.template/KorteFileContext // korlibs.template/KorteFilePosContext.component1|component1(){}[0]
+    final fun component2(): kotlin/Int // korlibs.template/KorteFilePosContext.component2|component2(){}[0]
+    final fun copy(korlibs.template/KorteFileContext = ..., kotlin/Int = ...): korlibs.template/KorteFilePosContext // korlibs.template/KorteFilePosContext.copy|copy(korlibs.template.KorteFileContext;kotlin.Int){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteFilePosContext.equals|equals(kotlin.Any?){}[0]
+    final fun exception(kotlin/String): kotlin/Nothing // korlibs.template/KorteFilePosContext.exception|exception(kotlin.String){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.template/KorteFilePosContext.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.template/KorteFilePosContext.toString|toString(){}[0]
+    final fun withPosAdd(kotlin/Int): korlibs.template/KorteFilePosContext // korlibs.template/KorteFilePosContext.withPosAdd|withPosAdd(kotlin.Int){}[0]
+}
+
+final class korlibs.template/KorteFilter { // korlibs.template/KorteFilter|null[0]
+    constructor <init>(kotlin/String, kotlin.coroutines/SuspendFunction1<korlibs.template/KorteFilter.Ctx, kotlin/Any?>) // korlibs.template/KorteFilter.<init>|<init>(kotlin.String;kotlin.coroutines.SuspendFunction1<korlibs.template.KorteFilter.Ctx,kotlin.Any?>){}[0]
+
+    final val eval // korlibs.template/KorteFilter.eval|{}eval[0]
+        final fun <get-eval>(): kotlin.coroutines/SuspendFunction1<korlibs.template/KorteFilter.Ctx, kotlin/Any?> // korlibs.template/KorteFilter.eval.<get-eval>|<get-eval>(){}[0]
+    final val name // korlibs.template/KorteFilter.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.template/KorteFilter.name.<get-name>|<get-name>(){}[0]
+
+    final fun component1(): kotlin/String // korlibs.template/KorteFilter.component1|component1(){}[0]
+    final fun component2(): kotlin.coroutines/SuspendFunction1<korlibs.template/KorteFilter.Ctx, kotlin/Any?> // korlibs.template/KorteFilter.component2|component2(){}[0]
+    final fun copy(kotlin/String = ..., kotlin.coroutines/SuspendFunction1<korlibs.template/KorteFilter.Ctx, kotlin/Any?> = ...): korlibs.template/KorteFilter // korlibs.template/KorteFilter.copy|copy(kotlin.String;kotlin.coroutines.SuspendFunction1<korlibs.template.KorteFilter.Ctx,kotlin.Any?>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteFilter.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.template/KorteFilter.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.template/KorteFilter.toString|toString(){}[0]
+
+    final class Ctx : korlibs.template.dynamic/KorteDynamicContext { // korlibs.template/KorteFilter.Ctx|null[0]
+        constructor <init>() // korlibs.template/KorteFilter.Ctx.<init>|<init>(){}[0]
+
+        final val mapper // korlibs.template/KorteFilter.Ctx.mapper|{}mapper[0]
+            final fun <get-mapper>(): korlibs.template.dynamic/KorteObjectMapper2 // korlibs.template/KorteFilter.Ctx.mapper.<get-mapper>|<get-mapper>(){}[0]
+
+        final var args // korlibs.template/KorteFilter.Ctx.args|{}args[0]
+            final fun <get-args>(): kotlin.collections/List<kotlin/Any?> // korlibs.template/KorteFilter.Ctx.args.<get-args>|<get-args>(){}[0]
+            final fun <set-args>(kotlin.collections/List<kotlin/Any?>) // korlibs.template/KorteFilter.Ctx.args.<set-args>|<set-args>(kotlin.collections.List<kotlin.Any?>){}[0]
+        final var context // korlibs.template/KorteFilter.Ctx.context|{}context[0]
+            final fun <get-context>(): korlibs.template/KorteTemplate.EvalContext // korlibs.template/KorteFilter.Ctx.context.<get-context>|<get-context>(){}[0]
+            final fun <set-context>(korlibs.template/KorteTemplate.EvalContext) // korlibs.template/KorteFilter.Ctx.context.<set-context>|<set-context>(korlibs.template.KorteTemplate.EvalContext){}[0]
+        final var name // korlibs.template/KorteFilter.Ctx.name|{}name[0]
+            final fun <get-name>(): kotlin/String // korlibs.template/KorteFilter.Ctx.name.<get-name>|<get-name>(){}[0]
+            final fun <set-name>(kotlin/String) // korlibs.template/KorteFilter.Ctx.name.<set-name>|<set-name>(kotlin.String){}[0]
+        final var subject // korlibs.template/KorteFilter.Ctx.subject|{}subject[0]
+            final fun <get-subject>(): kotlin/Any? // korlibs.template/KorteFilter.Ctx.subject.<get-subject>|<get-subject>(){}[0]
+            final fun <set-subject>(kotlin/Any?) // korlibs.template/KorteFilter.Ctx.subject.<set-subject>|<set-subject>(kotlin.Any?){}[0]
+        final var tok // korlibs.template/KorteFilter.Ctx.tok|{}tok[0]
+            final fun <get-tok>(): korlibs.template/KorteExprNode.Token // korlibs.template/KorteFilter.Ctx.tok.<get-tok>|<get-tok>(){}[0]
+            final fun <set-tok>(korlibs.template/KorteExprNode.Token) // korlibs.template/KorteFilter.Ctx.tok.<set-tok>|<set-tok>(korlibs.template.KorteExprNode.Token){}[0]
+    }
+}
+
+final class korlibs.template/KorteFunction { // korlibs.template/KorteFunction|null[0]
+    constructor <init>(kotlin/String, kotlin.coroutines/SuspendFunction2<korlibs.template/KorteTemplate.EvalContext, kotlin.collections/List<kotlin/Any?>, kotlin/Any?>) // korlibs.template/KorteFunction.<init>|<init>(kotlin.String;kotlin.coroutines.SuspendFunction2<korlibs.template.KorteTemplate.EvalContext,kotlin.collections.List<kotlin.Any?>,kotlin.Any?>){}[0]
+
+    final val eval // korlibs.template/KorteFunction.eval|{}eval[0]
+        final fun <get-eval>(): kotlin.coroutines/SuspendFunction2<korlibs.template/KorteTemplate.EvalContext, kotlin.collections/List<kotlin/Any?>, kotlin/Any?> // korlibs.template/KorteFunction.eval.<get-eval>|<get-eval>(){}[0]
+    final val name // korlibs.template/KorteFunction.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.template/KorteFunction.name.<get-name>|<get-name>(){}[0]
+
+    final fun component1(): kotlin/String // korlibs.template/KorteFunction.component1|component1(){}[0]
+    final fun component2(): kotlin.coroutines/SuspendFunction2<korlibs.template/KorteTemplate.EvalContext, kotlin.collections/List<kotlin/Any?>, kotlin/Any?> // korlibs.template/KorteFunction.component2|component2(){}[0]
+    final fun copy(kotlin/String = ..., kotlin.coroutines/SuspendFunction2<korlibs.template/KorteTemplate.EvalContext, kotlin.collections/List<kotlin/Any?>, kotlin/Any?> = ...): korlibs.template/KorteFunction // korlibs.template/KorteFunction.copy|copy(kotlin.String;kotlin.coroutines.SuspendFunction2<korlibs.template.KorteTemplate.EvalContext,kotlin.collections.List<kotlin.Any?>,kotlin.Any?>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteFunction.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.template/KorteFunction.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.template/KorteFunction.toString|toString(){}[0]
+    final suspend fun eval(kotlin.collections/List<kotlin/Any?>, korlibs.template/KorteTemplate.EvalContext): kotlin/Any? // korlibs.template/KorteFunction.eval|eval(kotlin.collections.List<kotlin.Any?>;korlibs.template.KorteTemplate.EvalContext){}[0]
+}
+
+final class korlibs.template/KorteRawString { // korlibs.template/KorteRawString|null[0]
+    constructor <init>(kotlin/String, kotlin/String? = ...) // korlibs.template/KorteRawString.<init>|<init>(kotlin.String;kotlin.String?){}[0]
+
+    final val contentType // korlibs.template/KorteRawString.contentType|{}contentType[0]
+        final fun <get-contentType>(): kotlin/String? // korlibs.template/KorteRawString.contentType.<get-contentType>|<get-contentType>(){}[0]
+    final val str // korlibs.template/KorteRawString.str|{}str[0]
+        final fun <get-str>(): kotlin/String // korlibs.template/KorteRawString.str.<get-str>|<get-str>(){}[0]
+
+    final fun toString(): kotlin/String // korlibs.template/KorteRawString.toString|toString(){}[0]
+}
+
+final class korlibs.template/KorteTag : korlibs.template.dynamic/KorteDynamicContext { // korlibs.template/KorteTag|null[0]
+    constructor <init>(kotlin/String, kotlin.collections/Set<kotlin/String>, kotlin.collections/Set<kotlin/String>?, kotlin.collections/List<kotlin/String> = ..., kotlin.coroutines/SuspendFunction1<korlibs.template/KorteTag.BuildContext, korlibs.template/KorteBlock>) // korlibs.template/KorteTag.<init>|<init>(kotlin.String;kotlin.collections.Set<kotlin.String>;kotlin.collections.Set<kotlin.String>?;kotlin.collections.List<kotlin.String>;kotlin.coroutines.SuspendFunction1<korlibs.template.KorteTag.BuildContext,korlibs.template.KorteBlock>){}[0]
+
+    final val aliases // korlibs.template/KorteTag.aliases|{}aliases[0]
+        final fun <get-aliases>(): kotlin.collections/List<kotlin/String> // korlibs.template/KorteTag.aliases.<get-aliases>|<get-aliases>(){}[0]
+    final val buildNode // korlibs.template/KorteTag.buildNode|{}buildNode[0]
+        final fun <get-buildNode>(): kotlin.coroutines/SuspendFunction1<korlibs.template/KorteTag.BuildContext, korlibs.template/KorteBlock> // korlibs.template/KorteTag.buildNode.<get-buildNode>|<get-buildNode>(){}[0]
+    final val end // korlibs.template/KorteTag.end|{}end[0]
+        final fun <get-end>(): kotlin.collections/Set<kotlin/String>? // korlibs.template/KorteTag.end.<get-end>|<get-end>(){}[0]
+    final val name // korlibs.template/KorteTag.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.template/KorteTag.name.<get-name>|<get-name>(){}[0]
+    final val nextList // korlibs.template/KorteTag.nextList|{}nextList[0]
+        final fun <get-nextList>(): kotlin.collections/Set<kotlin/String> // korlibs.template/KorteTag.nextList.<get-nextList>|<get-nextList>(){}[0]
+
+    final fun component1(): kotlin/String // korlibs.template/KorteTag.component1|component1(){}[0]
+    final fun component2(): kotlin.collections/Set<kotlin/String> // korlibs.template/KorteTag.component2|component2(){}[0]
+    final fun component3(): kotlin.collections/Set<kotlin/String>? // korlibs.template/KorteTag.component3|component3(){}[0]
+    final fun component4(): kotlin.collections/List<kotlin/String> // korlibs.template/KorteTag.component4|component4(){}[0]
+    final fun component5(): kotlin.coroutines/SuspendFunction1<korlibs.template/KorteTag.BuildContext, korlibs.template/KorteBlock> // korlibs.template/KorteTag.component5|component5(){}[0]
+    final fun copy(kotlin/String = ..., kotlin.collections/Set<kotlin/String> = ..., kotlin.collections/Set<kotlin/String>? = ..., kotlin.collections/List<kotlin/String> = ..., kotlin.coroutines/SuspendFunction1<korlibs.template/KorteTag.BuildContext, korlibs.template/KorteBlock> = ...): korlibs.template/KorteTag // korlibs.template/KorteTag.copy|copy(kotlin.String;kotlin.collections.Set<kotlin.String>;kotlin.collections.Set<kotlin.String>?;kotlin.collections.List<kotlin.String>;kotlin.coroutines.SuspendFunction1<korlibs.template.KorteTag.BuildContext,korlibs.template.KorteBlock>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteTag.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.template/KorteTag.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.template/KorteTag.toString|toString(){}[0]
+
+    final class BuildContext { // korlibs.template/KorteTag.BuildContext|null[0]
+        constructor <init>(korlibs.template/KorteTemplate.ParseContext, kotlin.collections/List<korlibs.template/KorteTag.Part>) // korlibs.template/KorteTag.BuildContext.<init>|<init>(korlibs.template.KorteTemplate.ParseContext;kotlin.collections.List<korlibs.template.KorteTag.Part>){}[0]
+
+        final val chunks // korlibs.template/KorteTag.BuildContext.chunks|{}chunks[0]
+            final fun <get-chunks>(): kotlin.collections/List<korlibs.template/KorteTag.Part> // korlibs.template/KorteTag.BuildContext.chunks.<get-chunks>|<get-chunks>(){}[0]
+        final val context // korlibs.template/KorteTag.BuildContext.context|{}context[0]
+            final fun <get-context>(): korlibs.template/KorteTemplate.ParseContext // korlibs.template/KorteTag.BuildContext.context.<get-context>|<get-context>(){}[0]
+
+        final fun component1(): korlibs.template/KorteTemplate.ParseContext // korlibs.template/KorteTag.BuildContext.component1|component1(){}[0]
+        final fun component2(): kotlin.collections/List<korlibs.template/KorteTag.Part> // korlibs.template/KorteTag.BuildContext.component2|component2(){}[0]
+        final fun copy(korlibs.template/KorteTemplate.ParseContext = ..., kotlin.collections/List<korlibs.template/KorteTag.Part> = ...): korlibs.template/KorteTag.BuildContext // korlibs.template/KorteTag.BuildContext.copy|copy(korlibs.template.KorteTemplate.ParseContext;kotlin.collections.List<korlibs.template.KorteTag.Part>){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteTag.BuildContext.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/KorteTag.BuildContext.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/KorteTag.BuildContext.toString|toString(){}[0]
+    }
+
+    final class Part { // korlibs.template/KorteTag.Part|null[0]
+        constructor <init>(korlibs.template/KorteToken.TTag, korlibs.template/KorteBlock) // korlibs.template/KorteTag.Part.<init>|<init>(korlibs.template.KorteToken.TTag;korlibs.template.KorteBlock){}[0]
+
+        final val body // korlibs.template/KorteTag.Part.body|{}body[0]
+            final fun <get-body>(): korlibs.template/KorteBlock // korlibs.template/KorteTag.Part.body.<get-body>|<get-body>(){}[0]
+        final val tag // korlibs.template/KorteTag.Part.tag|{}tag[0]
+            final fun <get-tag>(): korlibs.template/KorteToken.TTag // korlibs.template/KorteTag.Part.tag.<get-tag>|<get-tag>(){}[0]
+
+        final fun component1(): korlibs.template/KorteToken.TTag // korlibs.template/KorteTag.Part.component1|component1(){}[0]
+        final fun component2(): korlibs.template/KorteBlock // korlibs.template/KorteTag.Part.component2|component2(){}[0]
+        final fun copy(korlibs.template/KorteToken.TTag = ..., korlibs.template/KorteBlock = ...): korlibs.template/KorteTag.Part // korlibs.template/KorteTag.Part.copy|copy(korlibs.template.KorteToken.TTag;korlibs.template.KorteBlock){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteTag.Part.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/KorteTag.Part.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/KorteTag.Part.toString|toString(){}[0]
+    }
+}
+
+final class korlibs.template/KorteTemplate { // korlibs.template/KorteTemplate|null[0]
+    final val blocks // korlibs.template/KorteTemplate.blocks|{}blocks[0]
+        final fun <get-blocks>(): kotlin.collections/HashMap<kotlin/String, korlibs.template/KorteBlock> // korlibs.template/KorteTemplate.blocks.<get-blocks>|<get-blocks>(){}[0]
+    final val config // korlibs.template/KorteTemplate.config|{}config[0]
+        final fun <get-config>(): korlibs.template/KorteTemplateConfig // korlibs.template/KorteTemplate.config.<get-config>|<get-config>(){}[0]
+    final val name // korlibs.template/KorteTemplate.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.template/KorteTemplate.name.<get-name>|<get-name>(){}[0]
+    final val parseContext // korlibs.template/KorteTemplate.parseContext|{}parseContext[0]
+        final fun <get-parseContext>(): korlibs.template/KorteTemplate.ParseContext // korlibs.template/KorteTemplate.parseContext.<get-parseContext>|<get-parseContext>(){}[0]
+    final val template // korlibs.template/KorteTemplate.template|{}template[0]
+        final fun <get-template>(): kotlin/String // korlibs.template/KorteTemplate.template.<get-template>|<get-template>(){}[0]
+    final val templateContent // korlibs.template/KorteTemplate.templateContent|{}templateContent[0]
+        final fun <get-templateContent>(): korlibs.template/KorteTemplateContent // korlibs.template/KorteTemplate.templateContent.<get-templateContent>|<get-templateContent>(){}[0]
+    final val templateTokens // korlibs.template/KorteTemplate.templateTokens|{}templateTokens[0]
+        final fun <get-templateTokens>(): kotlin.collections/List<korlibs.template/KorteToken> // korlibs.template/KorteTemplate.templateTokens.<get-templateTokens>|<get-templateTokens>(){}[0]
+    final val templates // korlibs.template/KorteTemplate.templates|{}templates[0]
+        final fun <get-templates>(): korlibs.template/KorteTemplates // korlibs.template/KorteTemplate.templates.<get-templates>|<get-templates>(){}[0]
+
+    final var frontMatter // korlibs.template/KorteTemplate.frontMatter|{}frontMatter[0]
+        final fun <get-frontMatter>(): kotlin.collections/Map<kotlin/String, kotlin/Any?>? // korlibs.template/KorteTemplate.frontMatter.<get-frontMatter>|<get-frontMatter>(){}[0]
+        final fun <set-frontMatter>(kotlin.collections/Map<kotlin/String, kotlin/Any?>?) // korlibs.template/KorteTemplate.frontMatter.<set-frontMatter>|<set-frontMatter>(kotlin.collections.Map<kotlin.String,kotlin.Any?>?){}[0]
+    final var rootNode // korlibs.template/KorteTemplate.rootNode|{}rootNode[0]
+        final fun <get-rootNode>(): korlibs.template/KorteBlock // korlibs.template/KorteTemplate.rootNode.<get-rootNode>|<get-rootNode>(){}[0]
+
+    final fun addBlock(kotlin/String, korlibs.template/KorteBlock) // korlibs.template/KorteTemplate.addBlock|addBlock(kotlin.String;korlibs.template.KorteBlock){}[0]
+    final suspend fun createEvalContext(): korlibs.template/KorteTemplate.TemplateEvalContext // korlibs.template/KorteTemplate.createEvalContext|createEvalContext(){}[0]
+    final suspend fun init(): korlibs.template/KorteTemplate // korlibs.template/KorteTemplate.init|init(){}[0]
+    final suspend fun invoke(kotlin/Any?, korlibs.template.dynamic/KorteObjectMapper2 = ...): kotlin/String // korlibs.template/KorteTemplate.invoke|invoke(kotlin.Any?;korlibs.template.dynamic.KorteObjectMapper2){}[0]
+    final suspend fun invoke(kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/Any?>>..., korlibs.template.dynamic/KorteObjectMapper2 = ...): kotlin/String // korlibs.template/KorteTemplate.invoke|invoke(kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.Any?>>...;korlibs.template.dynamic.KorteObjectMapper2){}[0]
+    final suspend fun prender(kotlin/Any?, korlibs.template.dynamic/KorteObjectMapper2 = ...): korlibs.template.util/KorteAsyncTextWriterContainer // korlibs.template/KorteTemplate.prender|prender(kotlin.Any?;korlibs.template.dynamic.KorteObjectMapper2){}[0]
+    final suspend fun prender(kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/Any?>>..., korlibs.template.dynamic/KorteObjectMapper2 = ...): korlibs.template.util/KorteAsyncTextWriterContainer // korlibs.template/KorteTemplate.prender|prender(kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.Any?>>...;korlibs.template.dynamic.KorteObjectMapper2){}[0]
+
+    abstract interface DynamicInvokable { // korlibs.template/KorteTemplate.DynamicInvokable|null[0]
+        abstract suspend fun invoke(korlibs.template/KorteTemplate.EvalContext, kotlin.collections/List<kotlin/Any?>): kotlin/Any? // korlibs.template/KorteTemplate.DynamicInvokable.invoke|invoke(korlibs.template.KorteTemplate.EvalContext;kotlin.collections.List<kotlin.Any?>){}[0]
+    }
+
+    final class BlockInTemplateEval { // korlibs.template/KorteTemplate.BlockInTemplateEval|null[0]
+        constructor <init>(kotlin/String, korlibs.template/KorteBlock, korlibs.template/KorteTemplate.TemplateEvalContext) // korlibs.template/KorteTemplate.BlockInTemplateEval.<init>|<init>(kotlin.String;korlibs.template.KorteBlock;korlibs.template.KorteTemplate.TemplateEvalContext){}[0]
+
+        final val block // korlibs.template/KorteTemplate.BlockInTemplateEval.block|{}block[0]
+            final fun <get-block>(): korlibs.template/KorteBlock // korlibs.template/KorteTemplate.BlockInTemplateEval.block.<get-block>|<get-block>(){}[0]
+        final val name // korlibs.template/KorteTemplate.BlockInTemplateEval.name|{}name[0]
+            final fun <get-name>(): kotlin/String // korlibs.template/KorteTemplate.BlockInTemplateEval.name.<get-name>|<get-name>(){}[0]
+        final val parent // korlibs.template/KorteTemplate.BlockInTemplateEval.parent|{}parent[0]
+            final fun <get-parent>(): korlibs.template/KorteTemplate.BlockInTemplateEval? // korlibs.template/KorteTemplate.BlockInTemplateEval.parent.<get-parent>|<get-parent>(){}[0]
+        final val template // korlibs.template/KorteTemplate.BlockInTemplateEval.template|{}template[0]
+            final fun <get-template>(): korlibs.template/KorteTemplate.TemplateEvalContext // korlibs.template/KorteTemplate.BlockInTemplateEval.template.<get-template>|<get-template>(){}[0]
+
+        final fun component1(): kotlin/String // korlibs.template/KorteTemplate.BlockInTemplateEval.component1|component1(){}[0]
+        final fun component2(): korlibs.template/KorteBlock // korlibs.template/KorteTemplate.BlockInTemplateEval.component2|component2(){}[0]
+        final fun component3(): korlibs.template/KorteTemplate.TemplateEvalContext // korlibs.template/KorteTemplate.BlockInTemplateEval.component3|component3(){}[0]
+        final fun copy(kotlin/String = ..., korlibs.template/KorteBlock = ..., korlibs.template/KorteTemplate.TemplateEvalContext = ...): korlibs.template/KorteTemplate.BlockInTemplateEval // korlibs.template/KorteTemplate.BlockInTemplateEval.copy|copy(kotlin.String;korlibs.template.KorteBlock;korlibs.template.KorteTemplate.TemplateEvalContext){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteTemplate.BlockInTemplateEval.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/KorteTemplate.BlockInTemplateEval.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/KorteTemplate.BlockInTemplateEval.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext) // korlibs.template/KorteTemplate.BlockInTemplateEval.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class EvalContext : korlibs.template.dynamic/KorteDynamicContext { // korlibs.template/KorteTemplate.EvalContext|null[0]
+        constructor <init>(korlibs.template/KorteTemplate.TemplateEvalContext, korlibs.template/KorteTemplate.Scope, korlibs.template/KorteTemplateConfig, korlibs.template.dynamic/KorteObjectMapper2, kotlin.coroutines/SuspendFunction1<kotlin/String, kotlin/Unit>) // korlibs.template/KorteTemplate.EvalContext.<init>|<init>(korlibs.template.KorteTemplate.TemplateEvalContext;korlibs.template.KorteTemplate.Scope;korlibs.template.KorteTemplateConfig;korlibs.template.dynamic.KorteObjectMapper2;kotlin.coroutines.SuspendFunction1<kotlin.String,kotlin.Unit>){}[0]
+
+        final val config // korlibs.template/KorteTemplate.EvalContext.config|{}config[0]
+            final fun <get-config>(): korlibs.template/KorteTemplateConfig // korlibs.template/KorteTemplate.EvalContext.config.<get-config>|<get-config>(){}[0]
+        final val leafTemplate // korlibs.template/KorteTemplate.EvalContext.leafTemplate|{}leafTemplate[0]
+            final fun <get-leafTemplate>(): korlibs.template/KorteTemplate.TemplateEvalContext // korlibs.template/KorteTemplate.EvalContext.leafTemplate.<get-leafTemplate>|<get-leafTemplate>(){}[0]
+        final val macros // korlibs.template/KorteTemplate.EvalContext.macros|{}macros[0]
+            final fun <get-macros>(): kotlin.collections/HashMap<kotlin/String, korlibs.template/KorteTemplate.Macro> // korlibs.template/KorteTemplate.EvalContext.macros.<get-macros>|<get-macros>(){}[0]
+        final val mapper // korlibs.template/KorteTemplate.EvalContext.mapper|{}mapper[0]
+            final fun <get-mapper>(): korlibs.template.dynamic/KorteObjectMapper2 // korlibs.template/KorteTemplate.EvalContext.mapper.<get-mapper>|<get-mapper>(){}[0]
+        final val templates // korlibs.template/KorteTemplate.EvalContext.templates|{}templates[0]
+            final fun <get-templates>(): korlibs.template/KorteTemplates // korlibs.template/KorteTemplate.EvalContext.templates.<get-templates>|<get-templates>(){}[0]
+
+        final var currentBlock // korlibs.template/KorteTemplate.EvalContext.currentBlock|{}currentBlock[0]
+            final fun <get-currentBlock>(): korlibs.template/KorteTemplate.BlockInTemplateEval? // korlibs.template/KorteTemplate.EvalContext.currentBlock.<get-currentBlock>|<get-currentBlock>(){}[0]
+            final fun <set-currentBlock>(korlibs.template/KorteTemplate.BlockInTemplateEval?) // korlibs.template/KorteTemplate.EvalContext.currentBlock.<set-currentBlock>|<set-currentBlock>(korlibs.template.KorteTemplate.BlockInTemplateEval?){}[0]
+        final var currentTemplate // korlibs.template/KorteTemplate.EvalContext.currentTemplate|{}currentTemplate[0]
+            final fun <get-currentTemplate>(): korlibs.template/KorteTemplate.TemplateEvalContext // korlibs.template/KorteTemplate.EvalContext.currentTemplate.<get-currentTemplate>|<get-currentTemplate>(){}[0]
+            final fun <set-currentTemplate>(korlibs.template/KorteTemplate.TemplateEvalContext) // korlibs.template/KorteTemplate.EvalContext.currentTemplate.<set-currentTemplate>|<set-currentTemplate>(korlibs.template.KorteTemplate.TemplateEvalContext){}[0]
+        final var scope // korlibs.template/KorteTemplate.EvalContext.scope|{}scope[0]
+            final fun <get-scope>(): korlibs.template/KorteTemplate.Scope // korlibs.template/KorteTemplate.EvalContext.scope.<get-scope>|<get-scope>(){}[0]
+            final fun <set-scope>(korlibs.template/KorteTemplate.Scope) // korlibs.template/KorteTemplate.EvalContext.scope.<set-scope>|<set-scope>(korlibs.template.KorteTemplate.Scope){}[0]
+        final var write // korlibs.template/KorteTemplate.EvalContext.write|{}write[0]
+            final fun <get-write>(): kotlin.coroutines/SuspendFunction1<kotlin/String, kotlin/Unit> // korlibs.template/KorteTemplate.EvalContext.write.<get-write>|<get-write>(){}[0]
+            final fun <set-write>(kotlin.coroutines/SuspendFunction1<kotlin/String, kotlin/Unit>) // korlibs.template/KorteTemplate.EvalContext.write.<set-write>|<set-write>(kotlin.coroutines.SuspendFunction1<kotlin.String,kotlin.Unit>){}[0]
+
+        final inline fun <#A2: kotlin/Any?> createScope(kotlin.collections/MutableMap<*, *> = ..., kotlin/Function0<#A2>): #A2 // korlibs.template/KorteTemplate.EvalContext.createScope|createScope(kotlin.collections.MutableMap<*,*>;kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+        final inline fun <#A2: kotlin/Any?> setTempTemplate(korlibs.template/KorteTemplate.TemplateEvalContext, kotlin/Function0<#A2>): #A2 // korlibs.template/KorteTemplate.EvalContext.setTempTemplate|setTempTemplate(korlibs.template.KorteTemplate.TemplateEvalContext;kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+        final inline fun capture(kotlin/Function0<kotlin/Unit>): kotlin/String // korlibs.template/KorteTemplate.EvalContext.capture|capture(kotlin.Function0<kotlin.Unit>){}[0]
+        final inline fun captureRaw(kotlin/Function0<kotlin/Unit>): korlibs.template/KorteRawString // korlibs.template/KorteTemplate.EvalContext.captureRaw|captureRaw(kotlin.Function0<kotlin.Unit>){}[0]
+    }
+
+    final class ExecResult { // korlibs.template/KorteTemplate.ExecResult|null[0]
+        constructor <init>(korlibs.template/KorteTemplate.EvalContext, kotlin/String) // korlibs.template/KorteTemplate.ExecResult.<init>|<init>(korlibs.template.KorteTemplate.EvalContext;kotlin.String){}[0]
+
+        final val context // korlibs.template/KorteTemplate.ExecResult.context|{}context[0]
+            final fun <get-context>(): korlibs.template/KorteTemplate.EvalContext // korlibs.template/KorteTemplate.ExecResult.context.<get-context>|<get-context>(){}[0]
+        final val str // korlibs.template/KorteTemplate.ExecResult.str|{}str[0]
+            final fun <get-str>(): kotlin/String // korlibs.template/KorteTemplate.ExecResult.str.<get-str>|<get-str>(){}[0]
+
+        final fun component1(): korlibs.template/KorteTemplate.EvalContext // korlibs.template/KorteTemplate.ExecResult.component1|component1(){}[0]
+        final fun component2(): kotlin/String // korlibs.template/KorteTemplate.ExecResult.component2|component2(){}[0]
+        final fun copy(korlibs.template/KorteTemplate.EvalContext = ..., kotlin/String = ...): korlibs.template/KorteTemplate.ExecResult // korlibs.template/KorteTemplate.ExecResult.copy|copy(korlibs.template.KorteTemplate.EvalContext;kotlin.String){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteTemplate.ExecResult.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/KorteTemplate.ExecResult.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/KorteTemplate.ExecResult.toString|toString(){}[0]
+    }
+
+    final class Macro : korlibs.template/KorteTemplate.DynamicInvokable { // korlibs.template/KorteTemplate.Macro|null[0]
+        constructor <init>(kotlin/String, kotlin.collections/List<kotlin/String>, korlibs.template/KorteBlock) // korlibs.template/KorteTemplate.Macro.<init>|<init>(kotlin.String;kotlin.collections.List<kotlin.String>;korlibs.template.KorteBlock){}[0]
+
+        final val argNames // korlibs.template/KorteTemplate.Macro.argNames|{}argNames[0]
+            final fun <get-argNames>(): kotlin.collections/List<kotlin/String> // korlibs.template/KorteTemplate.Macro.argNames.<get-argNames>|<get-argNames>(){}[0]
+        final val code // korlibs.template/KorteTemplate.Macro.code|{}code[0]
+            final fun <get-code>(): korlibs.template/KorteBlock // korlibs.template/KorteTemplate.Macro.code.<get-code>|<get-code>(){}[0]
+        final val name // korlibs.template/KorteTemplate.Macro.name|{}name[0]
+            final fun <get-name>(): kotlin/String // korlibs.template/KorteTemplate.Macro.name.<get-name>|<get-name>(){}[0]
+
+        final suspend fun invoke(korlibs.template/KorteTemplate.EvalContext, kotlin.collections/List<kotlin/Any?>): kotlin/Any? // korlibs.template/KorteTemplate.Macro.invoke|invoke(korlibs.template.KorteTemplate.EvalContext;kotlin.collections.List<kotlin.Any?>){}[0]
+    }
+
+    final class ParseContext { // korlibs.template/KorteTemplate.ParseContext|null[0]
+        constructor <init>(korlibs.template/KorteTemplate, korlibs.template/KorteTemplateConfig) // korlibs.template/KorteTemplate.ParseContext.<init>|<init>(korlibs.template.KorteTemplate;korlibs.template.KorteTemplateConfig){}[0]
+
+        final val config // korlibs.template/KorteTemplate.ParseContext.config|{}config[0]
+            final fun <get-config>(): korlibs.template/KorteTemplateConfig // korlibs.template/KorteTemplate.ParseContext.config.<get-config>|<get-config>(){}[0]
+        final val template // korlibs.template/KorteTemplate.ParseContext.template|{}template[0]
+            final fun <get-template>(): korlibs.template/KorteTemplate // korlibs.template/KorteTemplate.ParseContext.template.<get-template>|<get-template>(){}[0]
+        final val templates // korlibs.template/KorteTemplate.ParseContext.templates|{}templates[0]
+            final fun <get-templates>(): korlibs.template/KorteTemplates // korlibs.template/KorteTemplate.ParseContext.templates.<get-templates>|<get-templates>(){}[0]
+    }
+
+    final class Scope : korlibs.template.dynamic/KorteDynamicContext { // korlibs.template/KorteTemplate.Scope|null[0]
+        constructor <init>(kotlin/Any?, korlibs.template.dynamic/KorteObjectMapper2, korlibs.template/KorteTemplate.Scope? = ...) // korlibs.template/KorteTemplate.Scope.<init>|<init>(kotlin.Any?;korlibs.template.dynamic.KorteObjectMapper2;korlibs.template.KorteTemplate.Scope?){}[0]
+
+        final val map // korlibs.template/KorteTemplate.Scope.map|{}map[0]
+            final fun <get-map>(): kotlin/Any? // korlibs.template/KorteTemplate.Scope.map.<get-map>|<get-map>(){}[0]
+        final val mapper // korlibs.template/KorteTemplate.Scope.mapper|{}mapper[0]
+            final fun <get-mapper>(): korlibs.template.dynamic/KorteObjectMapper2 // korlibs.template/KorteTemplate.Scope.mapper.<get-mapper>|<get-mapper>(){}[0]
+        final val parent // korlibs.template/KorteTemplate.Scope.parent|{}parent[0]
+            final fun <get-parent>(): korlibs.template/KorteTemplate.Scope? // korlibs.template/KorteTemplate.Scope.parent.<get-parent>|<get-parent>(){}[0]
+
+        final suspend fun get(kotlin/Any?): kotlin/Any? // korlibs.template/KorteTemplate.Scope.get|get(kotlin.Any?){}[0]
+        final suspend fun set(kotlin/Any?, kotlin/Any?) // korlibs.template/KorteTemplate.Scope.set|set(kotlin.Any?;kotlin.Any?){}[0]
+    }
+
+    final class StopEvaluatingException : kotlin/Exception { // korlibs.template/KorteTemplate.StopEvaluatingException|null[0]
+        constructor <init>() // korlibs.template/KorteTemplate.StopEvaluatingException.<init>|<init>(){}[0]
+    }
+
+    final class TemplateEvalContext { // korlibs.template/KorteTemplate.TemplateEvalContext|null[0]
+        constructor <init>(korlibs.template/KorteTemplate) // korlibs.template/KorteTemplate.TemplateEvalContext.<init>|<init>(korlibs.template.KorteTemplate){}[0]
+
+        final val name // korlibs.template/KorteTemplate.TemplateEvalContext.name|{}name[0]
+            final fun <get-name>(): kotlin/String // korlibs.template/KorteTemplate.TemplateEvalContext.name.<get-name>|<get-name>(){}[0]
+        final val root // korlibs.template/KorteTemplate.TemplateEvalContext.root|{}root[0]
+            final fun <get-root>(): korlibs.template/KorteTemplate.TemplateEvalContext // korlibs.template/KorteTemplate.TemplateEvalContext.root.<get-root>|<get-root>(){}[0]
+        final val template // korlibs.template/KorteTemplate.TemplateEvalContext.template|{}template[0]
+            final fun <get-template>(): korlibs.template/KorteTemplate // korlibs.template/KorteTemplate.TemplateEvalContext.template.<get-template>|<get-template>(){}[0]
+        final val templates // korlibs.template/KorteTemplate.TemplateEvalContext.templates|{}templates[0]
+            final fun <get-templates>(): korlibs.template/KorteTemplates // korlibs.template/KorteTemplate.TemplateEvalContext.templates.<get-templates>|<get-templates>(){}[0]
+
+        final var parent // korlibs.template/KorteTemplate.TemplateEvalContext.parent|{}parent[0]
+            final fun <get-parent>(): korlibs.template/KorteTemplate.TemplateEvalContext? // korlibs.template/KorteTemplate.TemplateEvalContext.parent.<get-parent>|<get-parent>(){}[0]
+            final fun <set-parent>(korlibs.template/KorteTemplate.TemplateEvalContext?) // korlibs.template/KorteTemplate.TemplateEvalContext.parent.<set-parent>|<set-parent>(korlibs.template.KorteTemplate.TemplateEvalContext?){}[0]
+
+        final fun getBlock(kotlin/String): korlibs.template/KorteTemplate.BlockInTemplateEval // korlibs.template/KorteTemplate.TemplateEvalContext.getBlock|getBlock(kotlin.String){}[0]
+        final fun getBlockOrNull(kotlin/String): korlibs.template/KorteTemplate.BlockInTemplateEval? // korlibs.template/KorteTemplate.TemplateEvalContext.getBlockOrNull|getBlockOrNull(kotlin.String){}[0]
+        final fun withArgs(kotlin/Any?, korlibs.template.dynamic/KorteObjectMapper2 = ..., korlibs.template/KorteTemplate.Scope? = ...): korlibs.template/KorteTemplate.TemplateEvalContext.WithArgs // korlibs.template/KorteTemplate.TemplateEvalContext.withArgs|withArgs(kotlin.Any?;korlibs.template.dynamic.KorteObjectMapper2;korlibs.template.KorteTemplate.Scope?){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext) // korlibs.template/KorteTemplate.TemplateEvalContext.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+        final suspend fun exec(kotlin/Any?, korlibs.template.dynamic/KorteObjectMapper2 = ..., korlibs.template/KorteTemplate.Scope? = ...): korlibs.template/KorteTemplate.ExecResult // korlibs.template/KorteTemplate.TemplateEvalContext.exec|exec(kotlin.Any?;korlibs.template.dynamic.KorteObjectMapper2;korlibs.template.KorteTemplate.Scope?){}[0]
+        final suspend fun exec(kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/Any?>>..., korlibs.template.dynamic/KorteObjectMapper2 = ..., korlibs.template/KorteTemplate.Scope? = ...): korlibs.template/KorteTemplate.ExecResult // korlibs.template/KorteTemplate.TemplateEvalContext.exec|exec(kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.Any?>>...;korlibs.template.dynamic.KorteObjectMapper2;korlibs.template.KorteTemplate.Scope?){}[0]
+        final suspend fun exec2(kotlin/Any?, korlibs.template.dynamic/KorteObjectMapper2, korlibs.template/KorteTemplate.Scope? = ..., kotlin.coroutines/SuspendFunction1<kotlin/String, kotlin/Unit>): korlibs.template/KorteTemplate.EvalContext // korlibs.template/KorteTemplate.TemplateEvalContext.exec2|exec2(kotlin.Any?;korlibs.template.dynamic.KorteObjectMapper2;korlibs.template.KorteTemplate.Scope?;kotlin.coroutines.SuspendFunction1<kotlin.String,kotlin.Unit>){}[0]
+        final suspend fun invoke(kotlin/Any?, korlibs.template.dynamic/KorteObjectMapper2 = ..., korlibs.template/KorteTemplate.Scope? = ...): kotlin/String // korlibs.template/KorteTemplate.TemplateEvalContext.invoke|invoke(kotlin.Any?;korlibs.template.dynamic.KorteObjectMapper2;korlibs.template.KorteTemplate.Scope?){}[0]
+        final suspend fun invoke(kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/Any?>>..., korlibs.template.dynamic/KorteObjectMapper2 = ..., korlibs.template/KorteTemplate.Scope? = ...): kotlin/String // korlibs.template/KorteTemplate.TemplateEvalContext.invoke|invoke(kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.Any?>>...;korlibs.template.dynamic.KorteObjectMapper2;korlibs.template.KorteTemplate.Scope?){}[0]
+
+        final class WithArgs : korlibs.template.util/KorteAsyncTextWriterContainer { // korlibs.template/KorteTemplate.TemplateEvalContext.WithArgs|null[0]
+            constructor <init>(korlibs.template/KorteTemplate.TemplateEvalContext, kotlin/Any?, korlibs.template.dynamic/KorteObjectMapper2, korlibs.template/KorteTemplate.Scope? = ...) // korlibs.template/KorteTemplate.TemplateEvalContext.WithArgs.<init>|<init>(korlibs.template.KorteTemplate.TemplateEvalContext;kotlin.Any?;korlibs.template.dynamic.KorteObjectMapper2;korlibs.template.KorteTemplate.Scope?){}[0]
+
+            final val args // korlibs.template/KorteTemplate.TemplateEvalContext.WithArgs.args|{}args[0]
+                final fun <get-args>(): kotlin/Any? // korlibs.template/KorteTemplate.TemplateEvalContext.WithArgs.args.<get-args>|<get-args>(){}[0]
+            final val context // korlibs.template/KorteTemplate.TemplateEvalContext.WithArgs.context|{}context[0]
+                final fun <get-context>(): korlibs.template/KorteTemplate.TemplateEvalContext // korlibs.template/KorteTemplate.TemplateEvalContext.WithArgs.context.<get-context>|<get-context>(){}[0]
+            final val mapper // korlibs.template/KorteTemplate.TemplateEvalContext.WithArgs.mapper|{}mapper[0]
+                final fun <get-mapper>(): korlibs.template.dynamic/KorteObjectMapper2 // korlibs.template/KorteTemplate.TemplateEvalContext.WithArgs.mapper.<get-mapper>|<get-mapper>(){}[0]
+            final val parentScope // korlibs.template/KorteTemplate.TemplateEvalContext.WithArgs.parentScope|{}parentScope[0]
+                final fun <get-parentScope>(): korlibs.template/KorteTemplate.Scope? // korlibs.template/KorteTemplate.TemplateEvalContext.WithArgs.parentScope.<get-parentScope>|<get-parentScope>(){}[0]
+
+            final suspend fun write(kotlin.coroutines/SuspendFunction1<kotlin/String, kotlin/Unit>) // korlibs.template/KorteTemplate.TemplateEvalContext.WithArgs.write|write(kotlin.coroutines.SuspendFunction1<kotlin.String,kotlin.Unit>){}[0]
+        }
+    }
+}
+
+open class korlibs.template/KorteException : kotlin/RuntimeException { // korlibs.template/KorteException|null[0]
+    constructor <init>(kotlin/String, korlibs.template/KorteFilePosContext) // korlibs.template/KorteException.<init>|<init>(kotlin.String;korlibs.template.KorteFilePosContext){}[0]
+
+    final val context // korlibs.template/KorteException.context|{}context[0]
+        final fun <get-context>(): korlibs.template/KorteFilePosContext // korlibs.template/KorteException.context.<get-context>|<get-context>(){}[0]
+    final val msg // korlibs.template/KorteException.msg|{}msg[0]
+        final fun <get-msg>(): kotlin/String // korlibs.template/KorteException.msg.<get-msg>|<get-msg>(){}[0]
+    open val message // korlibs.template/KorteException.message|{}message[0]
+        open fun <get-message>(): kotlin/String // korlibs.template/KorteException.message.<get-message>|<get-message>(){}[0]
+}
+
+open class korlibs.template/KorteTemplateConfig { // korlibs.template/KorteTemplateConfig|null[0]
+    constructor <init>(kotlin.collections/List<korlibs.template/KorteTag> = ..., kotlin.collections/List<korlibs.template/KorteFilter> = ..., kotlin.collections/List<korlibs.template/KorteFunction> = ..., korlibs.template/KorteFilter = ..., korlibs.template/KorteAutoEscapeMode = ..., kotlin/Function2<kotlin/String, kotlin/String?, kotlin/String> = ..., kotlin/Function1<kotlin/String, kotlin/Any?> = ..., kotlin/Unit = ...) // korlibs.template/KorteTemplateConfig.<init>|<init>(kotlin.collections.List<korlibs.template.KorteTag>;kotlin.collections.List<korlibs.template.KorteFilter>;kotlin.collections.List<korlibs.template.KorteFunction>;korlibs.template.KorteFilter;korlibs.template.KorteAutoEscapeMode;kotlin.Function2<kotlin.String,kotlin.String?,kotlin.String>;kotlin.Function1<kotlin.String,kotlin.Any?>;kotlin.Unit){}[0]
+
+    final val autoEscapeMode // korlibs.template/KorteTemplateConfig.autoEscapeMode|{}autoEscapeMode[0]
+        final fun <get-autoEscapeMode>(): korlibs.template/KorteAutoEscapeMode // korlibs.template/KorteTemplateConfig.autoEscapeMode.<get-autoEscapeMode>|<get-autoEscapeMode>(){}[0]
+    final val contentTypeProcessor // korlibs.template/KorteTemplateConfig.contentTypeProcessor|{}contentTypeProcessor[0]
+        final fun <get-contentTypeProcessor>(): kotlin/Function2<kotlin/String, kotlin/String?, kotlin/String> // korlibs.template/KorteTemplateConfig.contentTypeProcessor.<get-contentTypeProcessor>|<get-contentTypeProcessor>(){}[0]
+    final val extra // korlibs.template/KorteTemplateConfig.extra|{}extra[0]
+        // Targets: [native, wasmJs]
+        final fun <get-extra>(): kotlin.collections/HashMap<kotlin/String, kotlin/Any> // korlibs.template/KorteTemplateConfig.extra.<get-extra>|<get-extra>(){}[0]
+
+        // Targets: [js]
+        final fun <get-extra>(): kotlin.collections/LinkedHashMap<kotlin/String, kotlin/Any> // korlibs.template/KorteTemplateConfig.extra.<get-extra>|<get-extra>(){}[0]
+    final val filters // korlibs.template/KorteTemplateConfig.filters|{}filters[0]
+        final fun <get-filters>(): kotlin.collections/HashMap<kotlin/String, korlibs.template/KorteFilter> // korlibs.template/KorteTemplateConfig.filters.<get-filters>|<get-filters>(){}[0]
+    final val frontMatterParser // korlibs.template/KorteTemplateConfig.frontMatterParser|{}frontMatterParser[0]
+        final fun <get-frontMatterParser>(): kotlin/Function1<kotlin/String, kotlin/Any?> // korlibs.template/KorteTemplateConfig.frontMatterParser.<get-frontMatterParser>|<get-frontMatterParser>(){}[0]
+    final val functions // korlibs.template/KorteTemplateConfig.functions|{}functions[0]
+        final fun <get-functions>(): kotlin.collections/HashMap<kotlin/String, korlibs.template/KorteFunction> // korlibs.template/KorteTemplateConfig.functions.<get-functions>|<get-functions>(){}[0]
+    final val integratedFilters // korlibs.template/KorteTemplateConfig.integratedFilters|{}integratedFilters[0]
+        final fun <get-integratedFilters>(): kotlin.collections/List<korlibs.template/KorteFilter> // korlibs.template/KorteTemplateConfig.integratedFilters.<get-integratedFilters>|<get-integratedFilters>(){}[0]
+    final val integratedFunctions // korlibs.template/KorteTemplateConfig.integratedFunctions|{}integratedFunctions[0]
+        final fun <get-integratedFunctions>(): kotlin.collections/List<korlibs.template/KorteFunction> // korlibs.template/KorteTemplateConfig.integratedFunctions.<get-integratedFunctions>|<get-integratedFunctions>(){}[0]
+    final val integratedTags // korlibs.template/KorteTemplateConfig.integratedTags|{}integratedTags[0]
+        final fun <get-integratedTags>(): kotlin.collections/List<korlibs.template/KorteTag> // korlibs.template/KorteTemplateConfig.integratedTags.<get-integratedTags>|<get-integratedTags>(){}[0]
+    final val tags // korlibs.template/KorteTemplateConfig.tags|{}tags[0]
+        final fun <get-tags>(): kotlin.collections/HashMap<kotlin/String, korlibs.template/KorteTag> // korlibs.template/KorteTemplateConfig.tags.<get-tags>|<get-tags>(){}[0]
+
+    final var unknownFilter // korlibs.template/KorteTemplateConfig.unknownFilter|{}unknownFilter[0]
+        final fun <get-unknownFilter>(): korlibs.template/KorteFilter // korlibs.template/KorteTemplateConfig.unknownFilter.<get-unknownFilter>|<get-unknownFilter>(){}[0]
+        final fun <set-unknownFilter>(korlibs.template/KorteFilter) // korlibs.template/KorteTemplateConfig.unknownFilter.<set-unknownFilter>|<set-unknownFilter>(korlibs.template.KorteFilter){}[0]
+    final var variableProcessor // korlibs.template/KorteTemplateConfig.variableProcessor|{}variableProcessor[0]
+        final fun <get-variableProcessor>(): kotlin.coroutines/SuspendFunction2<korlibs.template/KorteTemplate.EvalContext, kotlin/String, kotlin/Any?> // korlibs.template/KorteTemplateConfig.variableProcessor.<get-variableProcessor>|<get-variableProcessor>(){}[0]
+        final fun <set-variableProcessor>(kotlin.coroutines/SuspendFunction2<korlibs.template/KorteTemplate.EvalContext, kotlin/String, kotlin/Any?>) // korlibs.template/KorteTemplateConfig.variableProcessor.<set-variableProcessor>|<set-variableProcessor>(kotlin.coroutines.SuspendFunction2<korlibs.template.KorteTemplate.EvalContext,kotlin.String,kotlin.Any?>){}[0]
+    final var writeBlockExpressionResult // korlibs.template/KorteTemplateConfig.writeBlockExpressionResult|{}writeBlockExpressionResult[0]
+        final fun <get-writeBlockExpressionResult>(): kotlin.coroutines/SuspendFunction2<korlibs.template/KorteTemplate.EvalContext, kotlin/Any?, kotlin/Unit> // korlibs.template/KorteTemplateConfig.writeBlockExpressionResult.<get-writeBlockExpressionResult>|<get-writeBlockExpressionResult>(){}[0]
+        final fun <set-writeBlockExpressionResult>(kotlin.coroutines/SuspendFunction2<korlibs.template/KorteTemplate.EvalContext, kotlin/Any?, kotlin/Unit>) // korlibs.template/KorteTemplateConfig.writeBlockExpressionResult.<set-writeBlockExpressionResult>|<set-writeBlockExpressionResult>(kotlin.coroutines.SuspendFunction2<korlibs.template.KorteTemplate.EvalContext,kotlin.Any?,kotlin.Unit>){}[0]
+
+    final fun register(kotlin/Array<out korlibs.template/KorteFilter>...): korlibs.template/KorteTemplateConfig // korlibs.template/KorteTemplateConfig.register|register(kotlin.Array<out|korlibs.template.KorteFilter>...){}[0]
+    final fun register(kotlin/Array<out korlibs.template/KorteFunction>...): korlibs.template/KorteTemplateConfig // korlibs.template/KorteTemplateConfig.register|register(kotlin.Array<out|korlibs.template.KorteFunction>...){}[0]
+    final fun register(kotlin/Array<out korlibs.template/KorteTag>...): korlibs.template/KorteTemplateConfig // korlibs.template/KorteTemplateConfig.register|register(kotlin.Array<out|korlibs.template.KorteTag>...){}[0]
+    final fun replaceVariablePocessor(kotlin.coroutines/SuspendFunction3<korlibs.template/KorteTemplate.EvalContext, kotlin/String, kotlin.coroutines/SuspendFunction2<korlibs.template/KorteTemplate.EvalContext, kotlin/String, kotlin/Any?>, kotlin/Any?>) // korlibs.template/KorteTemplateConfig.replaceVariablePocessor|replaceVariablePocessor(kotlin.coroutines.SuspendFunction3<korlibs.template.KorteTemplate.EvalContext,kotlin.String,kotlin.coroutines.SuspendFunction2<korlibs.template.KorteTemplate.EvalContext,kotlin.String,kotlin.Any?>,kotlin.Any?>){}[0]
+    final fun replaceWriteBlockExpressionResult(kotlin.coroutines/SuspendFunction3<korlibs.template/KorteTemplate.EvalContext, kotlin/Any?, kotlin.coroutines/SuspendFunction2<korlibs.template/KorteTemplate.EvalContext, kotlin/Any?, kotlin/Unit>, kotlin/Unit>) // korlibs.template/KorteTemplateConfig.replaceWriteBlockExpressionResult|replaceWriteBlockExpressionResult(kotlin.coroutines.SuspendFunction3<korlibs.template.KorteTemplate.EvalContext,kotlin.Any?,kotlin.coroutines.SuspendFunction2<korlibs.template.KorteTemplate.EvalContext,kotlin.Any?,kotlin.Unit>,kotlin.Unit>){}[0]
+}
+
+open class korlibs.template/KorteTemplateConfigWithTemplates : korlibs.template/KorteTemplateConfig { // korlibs.template/KorteTemplateConfigWithTemplates|null[0]
+    constructor <init>(kotlin.collections/List<korlibs.template/KorteTag> = ..., kotlin.collections/List<korlibs.template/KorteFilter> = ..., kotlin.collections/List<korlibs.template/KorteFunction> = ...) // korlibs.template/KorteTemplateConfigWithTemplates.<init>|<init>(kotlin.collections.List<korlibs.template.KorteTag>;kotlin.collections.List<korlibs.template.KorteFilter>;kotlin.collections.List<korlibs.template.KorteFunction>){}[0]
+
+    final var templates // korlibs.template/KorteTemplateConfigWithTemplates.templates|{}templates[0]
+        final fun <get-templates>(): korlibs.template/KorteTemplates // korlibs.template/KorteTemplateConfigWithTemplates.templates.<get-templates>|<get-templates>(){}[0]
+        final fun <set-templates>(korlibs.template/KorteTemplates) // korlibs.template/KorteTemplateConfigWithTemplates.templates.<set-templates>|<set-templates>(korlibs.template.KorteTemplates){}[0]
+
+    final fun cache(kotlin/Boolean): korlibs.template/KorteTemplateConfigWithTemplates // korlibs.template/KorteTemplateConfigWithTemplates.cache|cache(kotlin.Boolean){}[0]
+    final fun root(korlibs.template/KorteNewTemplateProvider, korlibs.template/KorteNewTemplateProvider = ..., korlibs.template/KorteNewTemplateProvider = ...): korlibs.template/KorteTemplateConfigWithTemplates // korlibs.template/KorteTemplateConfigWithTemplates.root|root(korlibs.template.KorteNewTemplateProvider;korlibs.template.KorteNewTemplateProvider;korlibs.template.KorteNewTemplateProvider){}[0]
+}
+
+open class korlibs.template/KorteTemplateContent { // korlibs.template/KorteTemplateContent|null[0]
+    constructor <init>(kotlin/String, kotlin/String? = ..., kotlin/Function1<kotlin/String, kotlin/String> = ...) // korlibs.template/KorteTemplateContent.<init>|<init>(kotlin.String;kotlin.String?;kotlin.Function1<kotlin.String,kotlin.String>){}[0]
+
+    final val chunkProcessor // korlibs.template/KorteTemplateContent.chunkProcessor|{}chunkProcessor[0]
+        final fun <get-chunkProcessor>(): kotlin/Function1<kotlin/String, kotlin/String> // korlibs.template/KorteTemplateContent.chunkProcessor.<get-chunkProcessor>|<get-chunkProcessor>(){}[0]
+    final val contentType // korlibs.template/KorteTemplateContent.contentType|{}contentType[0]
+        final fun <get-contentType>(): kotlin/String? // korlibs.template/KorteTemplateContent.contentType.<get-contentType>|<get-contentType>(){}[0]
+    final val text // korlibs.template/KorteTemplateContent.text|{}text[0]
+        final fun <get-text>(): kotlin/String // korlibs.template/KorteTemplateContent.text.<get-text>|<get-text>(){}[0]
+}
+
+open class korlibs.template/KorteTemplates { // korlibs.template/KorteTemplates|null[0]
+    constructor <init>(korlibs.template/KorteNewTemplateProvider, korlibs.template/KorteNewTemplateProvider = ..., korlibs.template/KorteNewTemplateProvider = ..., korlibs.template/KorteTemplateConfig = ..., kotlin/Boolean = ...) // korlibs.template/KorteTemplates.<init>|<init>(korlibs.template.KorteNewTemplateProvider;korlibs.template.KorteNewTemplateProvider;korlibs.template.KorteNewTemplateProvider;korlibs.template.KorteTemplateConfig;kotlin.Boolean){}[0]
+
+    final val config // korlibs.template/KorteTemplates.config|{}config[0]
+        final fun <get-config>(): korlibs.template/KorteTemplateConfig // korlibs.template/KorteTemplates.config.<get-config>|<get-config>(){}[0]
+    final val tcache // korlibs.template/KorteTemplates.tcache|{}tcache[0]
+        final fun <get-tcache>(): korlibs.template.internal/KorteAsyncCache // korlibs.template/KorteTemplates.tcache.<get-tcache>|<get-tcache>(){}[0]
+
+    final var cache // korlibs.template/KorteTemplates.cache|{}cache[0]
+        final fun <get-cache>(): kotlin/Boolean // korlibs.template/KorteTemplates.cache.<get-cache>|<get-cache>(){}[0]
+        final fun <set-cache>(kotlin/Boolean) // korlibs.template/KorteTemplates.cache.<set-cache>|<set-cache>(kotlin.Boolean){}[0]
+    final var includes // korlibs.template/KorteTemplates.includes|{}includes[0]
+        final fun <get-includes>(): korlibs.template/KorteNewTemplateProvider // korlibs.template/KorteTemplates.includes.<get-includes>|<get-includes>(){}[0]
+        final fun <set-includes>(korlibs.template/KorteNewTemplateProvider) // korlibs.template/KorteTemplates.includes.<set-includes>|<set-includes>(korlibs.template.KorteNewTemplateProvider){}[0]
+    final var layouts // korlibs.template/KorteTemplates.layouts|{}layouts[0]
+        final fun <get-layouts>(): korlibs.template/KorteNewTemplateProvider // korlibs.template/KorteTemplates.layouts.<get-layouts>|<get-layouts>(){}[0]
+        final fun <set-layouts>(korlibs.template/KorteNewTemplateProvider) // korlibs.template/KorteTemplates.layouts.<set-layouts>|<set-layouts>(korlibs.template.KorteNewTemplateProvider){}[0]
+    final var root // korlibs.template/KorteTemplates.root|{}root[0]
+        final fun <get-root>(): korlibs.template/KorteNewTemplateProvider // korlibs.template/KorteTemplates.root.<get-root>|<get-root>(){}[0]
+        final fun <set-root>(korlibs.template/KorteNewTemplateProvider) // korlibs.template/KorteTemplates.root.<set-root>|<set-root>(korlibs.template.KorteNewTemplateProvider){}[0]
+
+    final fun invalidateCache() // korlibs.template/KorteTemplates.invalidateCache|invalidateCache(){}[0]
+    final suspend fun cache(kotlin/String, kotlin.coroutines/SuspendFunction0<korlibs.template/KorteTemplate>): korlibs.template/KorteTemplate // korlibs.template/KorteTemplates.cache|cache(kotlin.String;kotlin.coroutines.SuspendFunction0<korlibs.template.KorteTemplate>){}[0]
+    final suspend fun prender(kotlin/String, kotlin/Any?): korlibs.template.util/KorteAsyncTextWriterContainer // korlibs.template/KorteTemplates.prender|prender(kotlin.String;kotlin.Any?){}[0]
+    final suspend fun prender(kotlin/String, kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/Any?>>...): korlibs.template.util/KorteAsyncTextWriterContainer // korlibs.template/KorteTemplates.prender|prender(kotlin.String;kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.Any?>>...){}[0]
+    final suspend fun render(kotlin/String, kotlin/Any?): kotlin/String // korlibs.template/KorteTemplates.render|render(kotlin.String;kotlin.Any?){}[0]
+    final suspend fun render(kotlin/String, kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/Any?>>...): kotlin/String // korlibs.template/KorteTemplates.render|render(kotlin.String;kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.Any?>>...){}[0]
+    open suspend fun get(kotlin/String): korlibs.template/KorteTemplate // korlibs.template/KorteTemplates.get|get(kotlin.String){}[0]
+    open suspend fun getInclude(kotlin/String): korlibs.template/KorteTemplate // korlibs.template/KorteTemplates.getInclude|getInclude(kotlin.String){}[0]
+    open suspend fun getLayout(kotlin/String): korlibs.template/KorteTemplate // korlibs.template/KorteTemplates.getLayout|getLayout(kotlin.String){}[0]
+}
+
+sealed class korlibs.template/KorteToken : korlibs.template/KorteTokenContext { // korlibs.template/KorteToken|null[0]
+    final var trimLeft // korlibs.template/KorteToken.trimLeft|{}trimLeft[0]
+        final fun <get-trimLeft>(): kotlin/Boolean // korlibs.template/KorteToken.trimLeft.<get-trimLeft>|<get-trimLeft>(){}[0]
+        final fun <set-trimLeft>(kotlin/Boolean) // korlibs.template/KorteToken.trimLeft.<set-trimLeft>|<set-trimLeft>(kotlin.Boolean){}[0]
+    final var trimRight // korlibs.template/KorteToken.trimRight|{}trimRight[0]
+        final fun <get-trimRight>(): kotlin/Boolean // korlibs.template/KorteToken.trimRight.<get-trimRight>|<get-trimRight>(){}[0]
+        final fun <set-trimRight>(kotlin/Boolean) // korlibs.template/KorteToken.trimRight.<set-trimRight>|<set-trimRight>(kotlin.Boolean){}[0]
+
+    final class TExpr : korlibs.template/KorteToken, korlibs.template/KorteTokenContext { // korlibs.template/KorteToken.TExpr|null[0]
+        constructor <init>(kotlin/String) // korlibs.template/KorteToken.TExpr.<init>|<init>(kotlin.String){}[0]
+
+        final val content // korlibs.template/KorteToken.TExpr.content|{}content[0]
+            final fun <get-content>(): kotlin/String // korlibs.template/KorteToken.TExpr.content.<get-content>|<get-content>(){}[0]
+        final val posContext // korlibs.template/KorteToken.TExpr.posContext|{}posContext[0]
+            final fun <get-posContext>(): korlibs.template/KorteFilePosContext // korlibs.template/KorteToken.TExpr.posContext.<get-posContext>|<get-posContext>(){}[0]
+
+        final var file // korlibs.template/KorteToken.TExpr.file|{}file[0]
+            final fun <get-file>(): korlibs.template/KorteFileContext // korlibs.template/KorteToken.TExpr.file.<get-file>|<get-file>(){}[0]
+            final fun <set-file>(korlibs.template/KorteFileContext) // korlibs.template/KorteToken.TExpr.file.<set-file>|<set-file>(korlibs.template.KorteFileContext){}[0]
+        final var pos // korlibs.template/KorteToken.TExpr.pos|{}pos[0]
+            final fun <get-pos>(): kotlin/Int // korlibs.template/KorteToken.TExpr.pos.<get-pos>|<get-pos>(){}[0]
+            final fun <set-pos>(kotlin/Int) // korlibs.template/KorteToken.TExpr.pos.<set-pos>|<set-pos>(kotlin.Int){}[0]
+
+        final fun component1(): kotlin/String // korlibs.template/KorteToken.TExpr.component1|component1(){}[0]
+        final fun copy(kotlin/String = ...): korlibs.template/KorteToken.TExpr // korlibs.template/KorteToken.TExpr.copy|copy(kotlin.String){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteToken.TExpr.equals|equals(kotlin.Any?){}[0]
+        final fun exception(kotlin/String): kotlin/Nothing // korlibs.template/KorteToken.TExpr.exception|exception(kotlin.String){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/KorteToken.TExpr.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/KorteToken.TExpr.toString|toString(){}[0]
+    }
+
+    final class TLiteral : korlibs.template/KorteToken, korlibs.template/KorteTokenContext { // korlibs.template/KorteToken.TLiteral|null[0]
+        constructor <init>(kotlin/String) // korlibs.template/KorteToken.TLiteral.<init>|<init>(kotlin.String){}[0]
+
+        final val content // korlibs.template/KorteToken.TLiteral.content|{}content[0]
+            final fun <get-content>(): kotlin/String // korlibs.template/KorteToken.TLiteral.content.<get-content>|<get-content>(){}[0]
+        final val posContext // korlibs.template/KorteToken.TLiteral.posContext|{}posContext[0]
+            final fun <get-posContext>(): korlibs.template/KorteFilePosContext // korlibs.template/KorteToken.TLiteral.posContext.<get-posContext>|<get-posContext>(){}[0]
+
+        final var file // korlibs.template/KorteToken.TLiteral.file|{}file[0]
+            final fun <get-file>(): korlibs.template/KorteFileContext // korlibs.template/KorteToken.TLiteral.file.<get-file>|<get-file>(){}[0]
+            final fun <set-file>(korlibs.template/KorteFileContext) // korlibs.template/KorteToken.TLiteral.file.<set-file>|<set-file>(korlibs.template.KorteFileContext){}[0]
+        final var pos // korlibs.template/KorteToken.TLiteral.pos|{}pos[0]
+            final fun <get-pos>(): kotlin/Int // korlibs.template/KorteToken.TLiteral.pos.<get-pos>|<get-pos>(){}[0]
+            final fun <set-pos>(kotlin/Int) // korlibs.template/KorteToken.TLiteral.pos.<set-pos>|<set-pos>(kotlin.Int){}[0]
+
+        final fun component1(): kotlin/String // korlibs.template/KorteToken.TLiteral.component1|component1(){}[0]
+        final fun copy(kotlin/String = ...): korlibs.template/KorteToken.TLiteral // korlibs.template/KorteToken.TLiteral.copy|copy(kotlin.String){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteToken.TLiteral.equals|equals(kotlin.Any?){}[0]
+        final fun exception(kotlin/String): kotlin/Nothing // korlibs.template/KorteToken.TLiteral.exception|exception(kotlin.String){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/KorteToken.TLiteral.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/KorteToken.TLiteral.toString|toString(){}[0]
+    }
+
+    final class TTag : korlibs.template/KorteToken, korlibs.template/KorteTokenContext { // korlibs.template/KorteToken.TTag|null[0]
+        constructor <init>(kotlin/String, kotlin/String) // korlibs.template/KorteToken.TTag.<init>|<init>(kotlin.String;kotlin.String){}[0]
+
+        final val content // korlibs.template/KorteToken.TTag.content|{}content[0]
+            final fun <get-content>(): kotlin/String // korlibs.template/KorteToken.TTag.content.<get-content>|<get-content>(){}[0]
+        final val expr // korlibs.template/KorteToken.TTag.expr|{}expr[0]
+            final fun <get-expr>(): korlibs.template/KorteExprNode // korlibs.template/KorteToken.TTag.expr.<get-expr>|<get-expr>(){}[0]
+        final val name // korlibs.template/KorteToken.TTag.name|{}name[0]
+            final fun <get-name>(): kotlin/String // korlibs.template/KorteToken.TTag.name.<get-name>|<get-name>(){}[0]
+        final val posContext // korlibs.template/KorteToken.TTag.posContext|{}posContext[0]
+            final fun <get-posContext>(): korlibs.template/KorteFilePosContext // korlibs.template/KorteToken.TTag.posContext.<get-posContext>|<get-posContext>(){}[0]
+        final val tokens // korlibs.template/KorteToken.TTag.tokens|{}tokens[0]
+            final fun <get-tokens>(): korlibs.template.util/KorteListReader<korlibs.template/KorteExprNode.Token> // korlibs.template/KorteToken.TTag.tokens.<get-tokens>|<get-tokens>(){}[0]
+
+        final var file // korlibs.template/KorteToken.TTag.file|{}file[0]
+            final fun <get-file>(): korlibs.template/KorteFileContext // korlibs.template/KorteToken.TTag.file.<get-file>|<get-file>(){}[0]
+            final fun <set-file>(korlibs.template/KorteFileContext) // korlibs.template/KorteToken.TTag.file.<set-file>|<set-file>(korlibs.template.KorteFileContext){}[0]
+        final var pos // korlibs.template/KorteToken.TTag.pos|{}pos[0]
+            final fun <get-pos>(): kotlin/Int // korlibs.template/KorteToken.TTag.pos.<get-pos>|<get-pos>(){}[0]
+            final fun <set-pos>(kotlin/Int) // korlibs.template/KorteToken.TTag.pos.<set-pos>|<set-pos>(kotlin.Int){}[0]
+
+        final fun component1(): kotlin/String // korlibs.template/KorteToken.TTag.component1|component1(){}[0]
+        final fun component2(): kotlin/String // korlibs.template/KorteToken.TTag.component2|component2(){}[0]
+        final fun copy(kotlin/String = ..., kotlin/String = ...): korlibs.template/KorteToken.TTag // korlibs.template/KorteToken.TTag.copy|copy(kotlin.String;kotlin.String){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/KorteToken.TTag.equals|equals(kotlin.Any?){}[0]
+        final fun exception(kotlin/String): kotlin/Nothing // korlibs.template/KorteToken.TTag.exception|exception(kotlin.String){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/KorteToken.TTag.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/KorteToken.TTag.toString|toString(){}[0]
+    }
+
+    final object Companion { // korlibs.template/KorteToken.Companion|null[0]
+        final fun tokenize(kotlin/String, korlibs.template/KorteFilePosContext): kotlin.collections/List<korlibs.template/KorteToken> // korlibs.template/KorteToken.Companion.tokenize|tokenize(kotlin.String;korlibs.template.KorteFilePosContext){}[0]
+    }
+}
+
+final object korlibs.template.dynamic/KorteDynamic2 { // korlibs.template.dynamic/KorteDynamic2|null[0]
+    final fun (kotlin/String).toNumber(): kotlin/Number // korlibs.template.dynamic/KorteDynamic2.toNumber|toNumber@kotlin.String(){}[0]
+    final fun binop(kotlin/Any?, kotlin/Any?, kotlin/String): kotlin/Any? // korlibs.template.dynamic/KorteDynamic2.binop|binop(kotlin.Any?;kotlin.Any?;kotlin.String){}[0]
+    final fun compare(kotlin/Any?, kotlin/Any?): kotlin/Int // korlibs.template.dynamic/KorteDynamic2.compare|compare(kotlin.Any?;kotlin.Any?){}[0]
+    final fun contains(kotlin/Any?, kotlin/Any?): kotlin/Boolean // korlibs.template.dynamic/KorteDynamic2.contains|contains(kotlin.Any?;kotlin.Any?){}[0]
+    final fun length(kotlin/Any?): kotlin/Int // korlibs.template.dynamic/KorteDynamic2.length|length(kotlin.Any?){}[0]
+    final fun toBool(kotlin/Any?): kotlin/Boolean // korlibs.template.dynamic/KorteDynamic2.toBool|toBool(kotlin.Any?){}[0]
+    final fun toBoolOrNull(kotlin/Any?): kotlin/Boolean? // korlibs.template.dynamic/KorteDynamic2.toBoolOrNull|toBoolOrNull(kotlin.Any?){}[0]
+    final fun toComparable(kotlin/Any?): kotlin/Comparable<kotlin/Any?> // korlibs.template.dynamic/KorteDynamic2.toComparable|toComparable(kotlin.Any?){}[0]
+    final fun toDouble(kotlin/Any?): kotlin/Double // korlibs.template.dynamic/KorteDynamic2.toDouble|toDouble(kotlin.Any?){}[0]
+    final fun toInt(kotlin/Any?): kotlin/Int // korlibs.template.dynamic/KorteDynamic2.toInt|toInt(kotlin.Any?){}[0]
+    final fun toIterable(kotlin/Any?): kotlin.collections/Iterable<*> // korlibs.template.dynamic/KorteDynamic2.toIterable|toIterable(kotlin.Any?){}[0]
+    final fun toList(kotlin/Any?): kotlin.collections/List<*> // korlibs.template.dynamic/KorteDynamic2.toList|toList(kotlin.Any?){}[0]
+    final fun toLong(kotlin/Any?): kotlin/Long // korlibs.template.dynamic/KorteDynamic2.toLong|toLong(kotlin.Any?){}[0]
+    final fun toNumber(kotlin/Any?): kotlin/Number // korlibs.template.dynamic/KorteDynamic2.toNumber|toNumber(kotlin.Any?){}[0]
+    final fun toString(kotlin/Any?): kotlin/String // korlibs.template.dynamic/KorteDynamic2.toString|toString(kotlin.Any?){}[0]
+    final fun unop(kotlin/Any?, kotlin/String): kotlin/Any? // korlibs.template.dynamic/KorteDynamic2.unop|unop(kotlin.Any?;kotlin.String){}[0]
+    final suspend fun accessAny(kotlin/Any?, kotlin/Any?, korlibs.template.dynamic/KorteObjectMapper2): kotlin/Any? // korlibs.template.dynamic/KorteDynamic2.accessAny|accessAny(kotlin.Any?;kotlin.Any?;korlibs.template.dynamic.KorteObjectMapper2){}[0]
+    final suspend fun callAny(kotlin/Any?, kotlin.collections/List<kotlin/Any?>, korlibs.template.dynamic/KorteObjectMapper2): kotlin/Any? // korlibs.template.dynamic/KorteDynamic2.callAny|callAny(kotlin.Any?;kotlin.collections.List<kotlin.Any?>;korlibs.template.dynamic.KorteObjectMapper2){}[0]
+    final suspend fun callAny(kotlin/Any?, kotlin/Any?, kotlin.collections/List<kotlin/Any?>, korlibs.template.dynamic/KorteObjectMapper2): kotlin/Any? // korlibs.template.dynamic/KorteDynamic2.callAny|callAny(kotlin.Any?;kotlin.Any?;kotlin.collections.List<kotlin.Any?>;korlibs.template.dynamic.KorteObjectMapper2){}[0]
+    final suspend fun setAny(kotlin/Any?, kotlin/Any?, kotlin/Any?, korlibs.template.dynamic/KorteObjectMapper2) // korlibs.template.dynamic/KorteDynamic2.setAny|setAny(kotlin.Any?;kotlin.Any?;kotlin.Any?;korlibs.template.dynamic.KorteObjectMapper2){}[0]
+}
+
+final object korlibs.template.dynamic/KorteDynamicTypeScope // korlibs.template.dynamic/KorteDynamicTypeScope|null[0]
+
+final object korlibs.template/DefaultBlocks { // korlibs.template/DefaultBlocks|null[0]
+    final class BlockBlock : korlibs.template/KorteBlock { // korlibs.template/DefaultBlocks.BlockBlock|null[0]
+        constructor <init>(kotlin/String, kotlin/String?) // korlibs.template/DefaultBlocks.BlockBlock.<init>|<init>(kotlin.String;kotlin.String?){}[0]
+
+        final val contentType // korlibs.template/DefaultBlocks.BlockBlock.contentType|{}contentType[0]
+            final fun <get-contentType>(): kotlin/String? // korlibs.template/DefaultBlocks.BlockBlock.contentType.<get-contentType>|<get-contentType>(){}[0]
+        final val name // korlibs.template/DefaultBlocks.BlockBlock.name|{}name[0]
+            final fun <get-name>(): kotlin/String // korlibs.template/DefaultBlocks.BlockBlock.name.<get-name>|<get-name>(){}[0]
+
+        final fun component1(): kotlin/String // korlibs.template/DefaultBlocks.BlockBlock.component1|component1(){}[0]
+        final fun component2(): kotlin/String? // korlibs.template/DefaultBlocks.BlockBlock.component2|component2(){}[0]
+        final fun copy(kotlin/String = ..., kotlin/String? = ...): korlibs.template/DefaultBlocks.BlockBlock // korlibs.template/DefaultBlocks.BlockBlock.copy|copy(kotlin.String;kotlin.String?){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/DefaultBlocks.BlockBlock.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/DefaultBlocks.BlockBlock.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/DefaultBlocks.BlockBlock.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext) // korlibs.template/DefaultBlocks.BlockBlock.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class BlockCapture : korlibs.template/KorteBlock { // korlibs.template/DefaultBlocks.BlockCapture|null[0]
+        constructor <init>(kotlin/String, korlibs.template/KorteBlock, kotlin/String? = ...) // korlibs.template/DefaultBlocks.BlockCapture.<init>|<init>(kotlin.String;korlibs.template.KorteBlock;kotlin.String?){}[0]
+
+        final val content // korlibs.template/DefaultBlocks.BlockCapture.content|{}content[0]
+            final fun <get-content>(): korlibs.template/KorteBlock // korlibs.template/DefaultBlocks.BlockCapture.content.<get-content>|<get-content>(){}[0]
+        final val contentType // korlibs.template/DefaultBlocks.BlockCapture.contentType|{}contentType[0]
+            final fun <get-contentType>(): kotlin/String? // korlibs.template/DefaultBlocks.BlockCapture.contentType.<get-contentType>|<get-contentType>(){}[0]
+        final val varname // korlibs.template/DefaultBlocks.BlockCapture.varname|{}varname[0]
+            final fun <get-varname>(): kotlin/String // korlibs.template/DefaultBlocks.BlockCapture.varname.<get-varname>|<get-varname>(){}[0]
+
+        final fun component1(): kotlin/String // korlibs.template/DefaultBlocks.BlockCapture.component1|component1(){}[0]
+        final fun component2(): korlibs.template/KorteBlock // korlibs.template/DefaultBlocks.BlockCapture.component2|component2(){}[0]
+        final fun component3(): kotlin/String? // korlibs.template/DefaultBlocks.BlockCapture.component3|component3(){}[0]
+        final fun copy(kotlin/String = ..., korlibs.template/KorteBlock = ..., kotlin/String? = ...): korlibs.template/DefaultBlocks.BlockCapture // korlibs.template/DefaultBlocks.BlockCapture.copy|copy(kotlin.String;korlibs.template.KorteBlock;kotlin.String?){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/DefaultBlocks.BlockCapture.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/DefaultBlocks.BlockCapture.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/DefaultBlocks.BlockCapture.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext) // korlibs.template/DefaultBlocks.BlockCapture.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class BlockDebug : korlibs.template/KorteBlock { // korlibs.template/DefaultBlocks.BlockDebug|null[0]
+        constructor <init>(korlibs.template/KorteExprNode) // korlibs.template/DefaultBlocks.BlockDebug.<init>|<init>(korlibs.template.KorteExprNode){}[0]
+
+        final val expr // korlibs.template/DefaultBlocks.BlockDebug.expr|{}expr[0]
+            final fun <get-expr>(): korlibs.template/KorteExprNode // korlibs.template/DefaultBlocks.BlockDebug.expr.<get-expr>|<get-expr>(){}[0]
+
+        final fun component1(): korlibs.template/KorteExprNode // korlibs.template/DefaultBlocks.BlockDebug.component1|component1(){}[0]
+        final fun copy(korlibs.template/KorteExprNode = ...): korlibs.template/DefaultBlocks.BlockDebug // korlibs.template/DefaultBlocks.BlockDebug.copy|copy(korlibs.template.KorteExprNode){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/DefaultBlocks.BlockDebug.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/DefaultBlocks.BlockDebug.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/DefaultBlocks.BlockDebug.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext) // korlibs.template/DefaultBlocks.BlockDebug.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class BlockExpr : korlibs.template/KorteBlock { // korlibs.template/DefaultBlocks.BlockExpr|null[0]
+        constructor <init>(korlibs.template/KorteExprNode) // korlibs.template/DefaultBlocks.BlockExpr.<init>|<init>(korlibs.template.KorteExprNode){}[0]
+
+        final val expr // korlibs.template/DefaultBlocks.BlockExpr.expr|{}expr[0]
+            final fun <get-expr>(): korlibs.template/KorteExprNode // korlibs.template/DefaultBlocks.BlockExpr.expr.<get-expr>|<get-expr>(){}[0]
+
+        final fun component1(): korlibs.template/KorteExprNode // korlibs.template/DefaultBlocks.BlockExpr.component1|component1(){}[0]
+        final fun copy(korlibs.template/KorteExprNode = ...): korlibs.template/DefaultBlocks.BlockExpr // korlibs.template/DefaultBlocks.BlockExpr.copy|copy(korlibs.template.KorteExprNode){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/DefaultBlocks.BlockExpr.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/DefaultBlocks.BlockExpr.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/DefaultBlocks.BlockExpr.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext) // korlibs.template/DefaultBlocks.BlockExpr.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class BlockExtends : korlibs.template/KorteBlock { // korlibs.template/DefaultBlocks.BlockExtends|null[0]
+        constructor <init>(korlibs.template/KorteExprNode) // korlibs.template/DefaultBlocks.BlockExtends.<init>|<init>(korlibs.template.KorteExprNode){}[0]
+
+        final val expr // korlibs.template/DefaultBlocks.BlockExtends.expr|{}expr[0]
+            final fun <get-expr>(): korlibs.template/KorteExprNode // korlibs.template/DefaultBlocks.BlockExtends.expr.<get-expr>|<get-expr>(){}[0]
+
+        final fun component1(): korlibs.template/KorteExprNode // korlibs.template/DefaultBlocks.BlockExtends.component1|component1(){}[0]
+        final fun copy(korlibs.template/KorteExprNode = ...): korlibs.template/DefaultBlocks.BlockExtends // korlibs.template/DefaultBlocks.BlockExtends.copy|copy(korlibs.template.KorteExprNode){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/DefaultBlocks.BlockExtends.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/DefaultBlocks.BlockExtends.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/DefaultBlocks.BlockExtends.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext) // korlibs.template/DefaultBlocks.BlockExtends.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class BlockFor : korlibs.template/KorteBlock { // korlibs.template/DefaultBlocks.BlockFor|null[0]
+        constructor <init>(kotlin.collections/List<kotlin/String>, korlibs.template/KorteExprNode, korlibs.template/KorteBlock, korlibs.template/KorteBlock?) // korlibs.template/DefaultBlocks.BlockFor.<init>|<init>(kotlin.collections.List<kotlin.String>;korlibs.template.KorteExprNode;korlibs.template.KorteBlock;korlibs.template.KorteBlock?){}[0]
+
+        final val elseNode // korlibs.template/DefaultBlocks.BlockFor.elseNode|{}elseNode[0]
+            final fun <get-elseNode>(): korlibs.template/KorteBlock? // korlibs.template/DefaultBlocks.BlockFor.elseNode.<get-elseNode>|<get-elseNode>(){}[0]
+        final val expr // korlibs.template/DefaultBlocks.BlockFor.expr|{}expr[0]
+            final fun <get-expr>(): korlibs.template/KorteExprNode // korlibs.template/DefaultBlocks.BlockFor.expr.<get-expr>|<get-expr>(){}[0]
+        final val loop // korlibs.template/DefaultBlocks.BlockFor.loop|{}loop[0]
+            final fun <get-loop>(): korlibs.template/KorteBlock // korlibs.template/DefaultBlocks.BlockFor.loop.<get-loop>|<get-loop>(){}[0]
+        final val varnames // korlibs.template/DefaultBlocks.BlockFor.varnames|{}varnames[0]
+            final fun <get-varnames>(): kotlin.collections/List<kotlin/String> // korlibs.template/DefaultBlocks.BlockFor.varnames.<get-varnames>|<get-varnames>(){}[0]
+
+        final fun component1(): kotlin.collections/List<kotlin/String> // korlibs.template/DefaultBlocks.BlockFor.component1|component1(){}[0]
+        final fun component2(): korlibs.template/KorteExprNode // korlibs.template/DefaultBlocks.BlockFor.component2|component2(){}[0]
+        final fun component3(): korlibs.template/KorteBlock // korlibs.template/DefaultBlocks.BlockFor.component3|component3(){}[0]
+        final fun component4(): korlibs.template/KorteBlock? // korlibs.template/DefaultBlocks.BlockFor.component4|component4(){}[0]
+        final fun copy(kotlin.collections/List<kotlin/String> = ..., korlibs.template/KorteExprNode = ..., korlibs.template/KorteBlock = ..., korlibs.template/KorteBlock? = ...): korlibs.template/DefaultBlocks.BlockFor // korlibs.template/DefaultBlocks.BlockFor.copy|copy(kotlin.collections.List<kotlin.String>;korlibs.template.KorteExprNode;korlibs.template.KorteBlock;korlibs.template.KorteBlock?){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/DefaultBlocks.BlockFor.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/DefaultBlocks.BlockFor.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/DefaultBlocks.BlockFor.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext) // korlibs.template/DefaultBlocks.BlockFor.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class BlockGroup : korlibs.template/KorteBlock { // korlibs.template/DefaultBlocks.BlockGroup|null[0]
+        constructor <init>(kotlin.collections/List<korlibs.template/KorteBlock>) // korlibs.template/DefaultBlocks.BlockGroup.<init>|<init>(kotlin.collections.List<korlibs.template.KorteBlock>){}[0]
+
+        final val children // korlibs.template/DefaultBlocks.BlockGroup.children|{}children[0]
+            final fun <get-children>(): kotlin.collections/List<korlibs.template/KorteBlock> // korlibs.template/DefaultBlocks.BlockGroup.children.<get-children>|<get-children>(){}[0]
+
+        final fun component1(): kotlin.collections/List<korlibs.template/KorteBlock> // korlibs.template/DefaultBlocks.BlockGroup.component1|component1(){}[0]
+        final fun copy(kotlin.collections/List<korlibs.template/KorteBlock> = ...): korlibs.template/DefaultBlocks.BlockGroup // korlibs.template/DefaultBlocks.BlockGroup.copy|copy(kotlin.collections.List<korlibs.template.KorteBlock>){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/DefaultBlocks.BlockGroup.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/DefaultBlocks.BlockGroup.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/DefaultBlocks.BlockGroup.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext) // korlibs.template/DefaultBlocks.BlockGroup.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class BlockIf : korlibs.template/KorteBlock { // korlibs.template/DefaultBlocks.BlockIf|null[0]
+        constructor <init>(korlibs.template/KorteExprNode, korlibs.template/KorteBlock, korlibs.template/KorteBlock?) // korlibs.template/DefaultBlocks.BlockIf.<init>|<init>(korlibs.template.KorteExprNode;korlibs.template.KorteBlock;korlibs.template.KorteBlock?){}[0]
+
+        final val cond // korlibs.template/DefaultBlocks.BlockIf.cond|{}cond[0]
+            final fun <get-cond>(): korlibs.template/KorteExprNode // korlibs.template/DefaultBlocks.BlockIf.cond.<get-cond>|<get-cond>(){}[0]
+        final val falseContent // korlibs.template/DefaultBlocks.BlockIf.falseContent|{}falseContent[0]
+            final fun <get-falseContent>(): korlibs.template/KorteBlock? // korlibs.template/DefaultBlocks.BlockIf.falseContent.<get-falseContent>|<get-falseContent>(){}[0]
+        final val trueContent // korlibs.template/DefaultBlocks.BlockIf.trueContent|{}trueContent[0]
+            final fun <get-trueContent>(): korlibs.template/KorteBlock // korlibs.template/DefaultBlocks.BlockIf.trueContent.<get-trueContent>|<get-trueContent>(){}[0]
+
+        final fun component1(): korlibs.template/KorteExprNode // korlibs.template/DefaultBlocks.BlockIf.component1|component1(){}[0]
+        final fun component2(): korlibs.template/KorteBlock // korlibs.template/DefaultBlocks.BlockIf.component2|component2(){}[0]
+        final fun component3(): korlibs.template/KorteBlock? // korlibs.template/DefaultBlocks.BlockIf.component3|component3(){}[0]
+        final fun copy(korlibs.template/KorteExprNode = ..., korlibs.template/KorteBlock = ..., korlibs.template/KorteBlock? = ...): korlibs.template/DefaultBlocks.BlockIf // korlibs.template/DefaultBlocks.BlockIf.copy|copy(korlibs.template.KorteExprNode;korlibs.template.KorteBlock;korlibs.template.KorteBlock?){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/DefaultBlocks.BlockIf.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/DefaultBlocks.BlockIf.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/DefaultBlocks.BlockIf.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext) // korlibs.template/DefaultBlocks.BlockIf.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class BlockImport : korlibs.template/KorteBlock { // korlibs.template/DefaultBlocks.BlockImport|null[0]
+        constructor <init>(korlibs.template/KorteExprNode, kotlin/String) // korlibs.template/DefaultBlocks.BlockImport.<init>|<init>(korlibs.template.KorteExprNode;kotlin.String){}[0]
+
+        final val exportName // korlibs.template/DefaultBlocks.BlockImport.exportName|{}exportName[0]
+            final fun <get-exportName>(): kotlin/String // korlibs.template/DefaultBlocks.BlockImport.exportName.<get-exportName>|<get-exportName>(){}[0]
+        final val fileExpr // korlibs.template/DefaultBlocks.BlockImport.fileExpr|{}fileExpr[0]
+            final fun <get-fileExpr>(): korlibs.template/KorteExprNode // korlibs.template/DefaultBlocks.BlockImport.fileExpr.<get-fileExpr>|<get-fileExpr>(){}[0]
+
+        final fun component1(): korlibs.template/KorteExprNode // korlibs.template/DefaultBlocks.BlockImport.component1|component1(){}[0]
+        final fun component2(): kotlin/String // korlibs.template/DefaultBlocks.BlockImport.component2|component2(){}[0]
+        final fun copy(korlibs.template/KorteExprNode = ..., kotlin/String = ...): korlibs.template/DefaultBlocks.BlockImport // korlibs.template/DefaultBlocks.BlockImport.copy|copy(korlibs.template.KorteExprNode;kotlin.String){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/DefaultBlocks.BlockImport.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/DefaultBlocks.BlockImport.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/DefaultBlocks.BlockImport.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext) // korlibs.template/DefaultBlocks.BlockImport.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class BlockInclude : korlibs.template/KorteBlock { // korlibs.template/DefaultBlocks.BlockInclude|null[0]
+        final val fileNameExpr // korlibs.template/DefaultBlocks.BlockInclude.fileNameExpr|{}fileNameExpr[0]
+            final fun <get-fileNameExpr>(): korlibs.template/KorteExprNode // korlibs.template/DefaultBlocks.BlockInclude.fileNameExpr.<get-fileNameExpr>|<get-fileNameExpr>(){}[0]
+        final val filePos // korlibs.template/DefaultBlocks.BlockInclude.filePos|{}filePos[0]
+            final fun <get-filePos>(): korlibs.template/KorteFilePosContext // korlibs.template/DefaultBlocks.BlockInclude.filePos.<get-filePos>|<get-filePos>(){}[0]
+        final val params // korlibs.template/DefaultBlocks.BlockInclude.params|{}params[0]
+            // Targets: [native, wasmJs]
+            final fun <get-params>(): kotlin.collections/HashMap<kotlin/String, korlibs.template/KorteExprNode> // korlibs.template/DefaultBlocks.BlockInclude.params.<get-params>|<get-params>(){}[0]
+
+            // Targets: [js]
+            final fun <get-params>(): kotlin.collections/LinkedHashMap<kotlin/String, korlibs.template/KorteExprNode> // korlibs.template/DefaultBlocks.BlockInclude.params.<get-params>|<get-params>(){}[0]
+        final val tagContent // korlibs.template/DefaultBlocks.BlockInclude.tagContent|{}tagContent[0]
+            final fun <get-tagContent>(): kotlin/String // korlibs.template/DefaultBlocks.BlockInclude.tagContent.<get-tagContent>|<get-tagContent>(){}[0]
+
+        final fun component1(): korlibs.template/KorteExprNode // korlibs.template/DefaultBlocks.BlockInclude.component1|component1(){}[0]
+        final fun component3(): korlibs.template/KorteFilePosContext // korlibs.template/DefaultBlocks.BlockInclude.component3|component3(){}[0]
+        final fun component4(): kotlin/String // korlibs.template/DefaultBlocks.BlockInclude.component4|component4(){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/DefaultBlocks.BlockInclude.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/DefaultBlocks.BlockInclude.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/DefaultBlocks.BlockInclude.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext) // korlibs.template/DefaultBlocks.BlockInclude.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+
+        // Targets: [native, wasmJs]
+        constructor <init>(korlibs.template/KorteExprNode, kotlin.collections/HashMap<kotlin/String, korlibs.template/KorteExprNode>, korlibs.template/KorteFilePosContext, kotlin/String) // korlibs.template/DefaultBlocks.BlockInclude.<init>|<init>(korlibs.template.KorteExprNode;kotlin.collections.HashMap<kotlin.String,korlibs.template.KorteExprNode>;korlibs.template.KorteFilePosContext;kotlin.String){}[0]
+
+        // Targets: [native, wasmJs]
+        final fun component2(): kotlin.collections/HashMap<kotlin/String, korlibs.template/KorteExprNode> // korlibs.template/DefaultBlocks.BlockInclude.component2|component2(){}[0]
+
+        // Targets: [native, wasmJs]
+        final fun copy(korlibs.template/KorteExprNode = ..., kotlin.collections/HashMap<kotlin/String, korlibs.template/KorteExprNode> = ..., korlibs.template/KorteFilePosContext = ..., kotlin/String = ...): korlibs.template/DefaultBlocks.BlockInclude // korlibs.template/DefaultBlocks.BlockInclude.copy|copy(korlibs.template.KorteExprNode;kotlin.collections.HashMap<kotlin.String,korlibs.template.KorteExprNode>;korlibs.template.KorteFilePosContext;kotlin.String){}[0]
+
+        // Targets: [js]
+        constructor <init>(korlibs.template/KorteExprNode, kotlin.collections/LinkedHashMap<kotlin/String, korlibs.template/KorteExprNode>, korlibs.template/KorteFilePosContext, kotlin/String) // korlibs.template/DefaultBlocks.BlockInclude.<init>|<init>(korlibs.template.KorteExprNode;kotlin.collections.LinkedHashMap<kotlin.String,korlibs.template.KorteExprNode>;korlibs.template.KorteFilePosContext;kotlin.String){}[0]
+
+        // Targets: [js]
+        final fun component2(): kotlin.collections/LinkedHashMap<kotlin/String, korlibs.template/KorteExprNode> // korlibs.template/DefaultBlocks.BlockInclude.component2|component2(){}[0]
+
+        // Targets: [js]
+        final fun copy(korlibs.template/KorteExprNode = ..., kotlin.collections/LinkedHashMap<kotlin/String, korlibs.template/KorteExprNode> = ..., korlibs.template/KorteFilePosContext = ..., kotlin/String = ...): korlibs.template/DefaultBlocks.BlockInclude // korlibs.template/DefaultBlocks.BlockInclude.copy|copy(korlibs.template.KorteExprNode;kotlin.collections.LinkedHashMap<kotlin.String,korlibs.template.KorteExprNode>;korlibs.template.KorteFilePosContext;kotlin.String){}[0]
+    }
+
+    final class BlockMacro : korlibs.template/KorteBlock { // korlibs.template/DefaultBlocks.BlockMacro|null[0]
+        constructor <init>(kotlin/String, kotlin.collections/List<kotlin/String>, korlibs.template/KorteBlock) // korlibs.template/DefaultBlocks.BlockMacro.<init>|<init>(kotlin.String;kotlin.collections.List<kotlin.String>;korlibs.template.KorteBlock){}[0]
+
+        final val args // korlibs.template/DefaultBlocks.BlockMacro.args|{}args[0]
+            final fun <get-args>(): kotlin.collections/List<kotlin/String> // korlibs.template/DefaultBlocks.BlockMacro.args.<get-args>|<get-args>(){}[0]
+        final val body // korlibs.template/DefaultBlocks.BlockMacro.body|{}body[0]
+            final fun <get-body>(): korlibs.template/KorteBlock // korlibs.template/DefaultBlocks.BlockMacro.body.<get-body>|<get-body>(){}[0]
+        final val funcname // korlibs.template/DefaultBlocks.BlockMacro.funcname|{}funcname[0]
+            final fun <get-funcname>(): kotlin/String // korlibs.template/DefaultBlocks.BlockMacro.funcname.<get-funcname>|<get-funcname>(){}[0]
+
+        final fun component1(): kotlin/String // korlibs.template/DefaultBlocks.BlockMacro.component1|component1(){}[0]
+        final fun component2(): kotlin.collections/List<kotlin/String> // korlibs.template/DefaultBlocks.BlockMacro.component2|component2(){}[0]
+        final fun component3(): korlibs.template/KorteBlock // korlibs.template/DefaultBlocks.BlockMacro.component3|component3(){}[0]
+        final fun copy(kotlin/String = ..., kotlin.collections/List<kotlin/String> = ..., korlibs.template/KorteBlock = ...): korlibs.template/DefaultBlocks.BlockMacro // korlibs.template/DefaultBlocks.BlockMacro.copy|copy(kotlin.String;kotlin.collections.List<kotlin.String>;korlibs.template.KorteBlock){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/DefaultBlocks.BlockMacro.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/DefaultBlocks.BlockMacro.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/DefaultBlocks.BlockMacro.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext) // korlibs.template/DefaultBlocks.BlockMacro.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class BlockSet : korlibs.template/KorteBlock { // korlibs.template/DefaultBlocks.BlockSet|null[0]
+        constructor <init>(kotlin/String, korlibs.template/KorteExprNode) // korlibs.template/DefaultBlocks.BlockSet.<init>|<init>(kotlin.String;korlibs.template.KorteExprNode){}[0]
+
+        final val expr // korlibs.template/DefaultBlocks.BlockSet.expr|{}expr[0]
+            final fun <get-expr>(): korlibs.template/KorteExprNode // korlibs.template/DefaultBlocks.BlockSet.expr.<get-expr>|<get-expr>(){}[0]
+        final val varname // korlibs.template/DefaultBlocks.BlockSet.varname|{}varname[0]
+            final fun <get-varname>(): kotlin/String // korlibs.template/DefaultBlocks.BlockSet.varname.<get-varname>|<get-varname>(){}[0]
+
+        final fun component1(): kotlin/String // korlibs.template/DefaultBlocks.BlockSet.component1|component1(){}[0]
+        final fun component2(): korlibs.template/KorteExprNode // korlibs.template/DefaultBlocks.BlockSet.component2|component2(){}[0]
+        final fun copy(kotlin/String = ..., korlibs.template/KorteExprNode = ...): korlibs.template/DefaultBlocks.BlockSet // korlibs.template/DefaultBlocks.BlockSet.copy|copy(kotlin.String;korlibs.template.KorteExprNode){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/DefaultBlocks.BlockSet.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/DefaultBlocks.BlockSet.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/DefaultBlocks.BlockSet.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext) // korlibs.template/DefaultBlocks.BlockSet.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+
+    final class BlockText : korlibs.template/KorteBlock { // korlibs.template/DefaultBlocks.BlockText|null[0]
+        constructor <init>(kotlin/String) // korlibs.template/DefaultBlocks.BlockText.<init>|<init>(kotlin.String){}[0]
+
+        final val content // korlibs.template/DefaultBlocks.BlockText.content|{}content[0]
+            final fun <get-content>(): kotlin/String // korlibs.template/DefaultBlocks.BlockText.content.<get-content>|<get-content>(){}[0]
+
+        final fun component1(): kotlin/String // korlibs.template/DefaultBlocks.BlockText.component1|component1(){}[0]
+        final fun copy(kotlin/String = ...): korlibs.template/DefaultBlocks.BlockText // korlibs.template/DefaultBlocks.BlockText.copy|copy(kotlin.String){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.template/DefaultBlocks.BlockText.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.template/DefaultBlocks.BlockText.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.template/DefaultBlocks.BlockText.toString|toString(){}[0]
+        final suspend fun eval(korlibs.template/KorteTemplate.EvalContext) // korlibs.template/DefaultBlocks.BlockText.eval|eval(korlibs.template.KorteTemplate.EvalContext){}[0]
+    }
+}
+
+final object korlibs.template/KorteDefaultFilters { // korlibs.template/KorteDefaultFilters|null[0]
+    final val ALL // korlibs.template/KorteDefaultFilters.ALL|{}ALL[0]
+        final fun <get-ALL>(): kotlin.collections/List<korlibs.template/KorteFilter> // korlibs.template/KorteDefaultFilters.ALL.<get-ALL>|<get-ALL>(){}[0]
+    final val Abs // korlibs.template/KorteDefaultFilters.Abs|{}Abs[0]
+        final fun <get-Abs>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Abs.<get-Abs>|<get-Abs>(){}[0]
+    final val AtLeast // korlibs.template/KorteDefaultFilters.AtLeast|{}AtLeast[0]
+        final fun <get-AtLeast>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.AtLeast.<get-AtLeast>|<get-AtLeast>(){}[0]
+    final val AtMost // korlibs.template/KorteDefaultFilters.AtMost|{}AtMost[0]
+        final fun <get-AtMost>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.AtMost.<get-AtMost>|<get-AtMost>(){}[0]
+    final val Capitalize // korlibs.template/KorteDefaultFilters.Capitalize|{}Capitalize[0]
+        final fun <get-Capitalize>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Capitalize.<get-Capitalize>|<get-Capitalize>(){}[0]
+    final val Ceil // korlibs.template/KorteDefaultFilters.Ceil|{}Ceil[0]
+        final fun <get-Ceil>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Ceil.<get-Ceil>|<get-Ceil>(){}[0]
+    final val Chunked // korlibs.template/KorteDefaultFilters.Chunked|{}Chunked[0]
+        final fun <get-Chunked>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Chunked.<get-Chunked>|<get-Chunked>(){}[0]
+    final val Concat // korlibs.template/KorteDefaultFilters.Concat|{}Concat[0]
+        final fun <get-Concat>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Concat.<get-Concat>|<get-Concat>(){}[0]
+    final val Default // korlibs.template/KorteDefaultFilters.Default|{}Default[0]
+        final fun <get-Default>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Default.<get-Default>|<get-Default>(){}[0]
+    final val DividedBy // korlibs.template/KorteDefaultFilters.DividedBy|{}DividedBy[0]
+        final fun <get-DividedBy>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.DividedBy.<get-DividedBy>|<get-DividedBy>(){}[0]
+    final val Downcase // korlibs.template/KorteDefaultFilters.Downcase|{}Downcase[0]
+        final fun <get-Downcase>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Downcase.<get-Downcase>|<get-Downcase>(){}[0]
+    final val First // korlibs.template/KorteDefaultFilters.First|{}First[0]
+        final fun <get-First>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.First.<get-First>|<get-First>(){}[0]
+    final val Floor // korlibs.template/KorteDefaultFilters.Floor|{}Floor[0]
+        final fun <get-Floor>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Floor.<get-Floor>|<get-Floor>(){}[0]
+    final val Format // korlibs.template/KorteDefaultFilters.Format|{}Format[0]
+        final fun <get-Format>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Format.<get-Format>|<get-Format>(){}[0]
+    final val Join // korlibs.template/KorteDefaultFilters.Join|{}Join[0]
+        final fun <get-Join>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Join.<get-Join>|<get-Join>(){}[0]
+    final val JsonEncode // korlibs.template/KorteDefaultFilters.JsonEncode|{}JsonEncode[0]
+        final fun <get-JsonEncode>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.JsonEncode.<get-JsonEncode>|<get-JsonEncode>(){}[0]
+    final val Last // korlibs.template/KorteDefaultFilters.Last|{}Last[0]
+        final fun <get-Last>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Last.<get-Last>|<get-Last>(){}[0]
+    final val Length // korlibs.template/KorteDefaultFilters.Length|{}Length[0]
+        final fun <get-Length>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Length.<get-Length>|<get-Length>(){}[0]
+    final val Lower // korlibs.template/KorteDefaultFilters.Lower|{}Lower[0]
+        final fun <get-Lower>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Lower.<get-Lower>|<get-Lower>(){}[0]
+    final val Map // korlibs.template/KorteDefaultFilters.Map|{}Map[0]
+        final fun <get-Map>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Map.<get-Map>|<get-Map>(){}[0]
+    final val Merge // korlibs.template/KorteDefaultFilters.Merge|{}Merge[0]
+        final fun <get-Merge>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Merge.<get-Merge>|<get-Merge>(){}[0]
+    final val Minus // korlibs.template/KorteDefaultFilters.Minus|{}Minus[0]
+        final fun <get-Minus>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Minus.<get-Minus>|<get-Minus>(){}[0]
+    final val Modulo // korlibs.template/KorteDefaultFilters.Modulo|{}Modulo[0]
+        final fun <get-Modulo>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Modulo.<get-Modulo>|<get-Modulo>(){}[0]
+    final val Plus // korlibs.template/KorteDefaultFilters.Plus|{}Plus[0]
+        final fun <get-Plus>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Plus.<get-Plus>|<get-Plus>(){}[0]
+    final val Quote // korlibs.template/KorteDefaultFilters.Quote|{}Quote[0]
+        final fun <get-Quote>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Quote.<get-Quote>|<get-Quote>(){}[0]
+    final val Raw // korlibs.template/KorteDefaultFilters.Raw|{}Raw[0]
+        final fun <get-Raw>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Raw.<get-Raw>|<get-Raw>(){}[0]
+    final val Replace // korlibs.template/KorteDefaultFilters.Replace|{}Replace[0]
+        final fun <get-Replace>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Replace.<get-Replace>|<get-Replace>(){}[0]
+    final val Reverse // korlibs.template/KorteDefaultFilters.Reverse|{}Reverse[0]
+        final fun <get-Reverse>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Reverse.<get-Reverse>|<get-Reverse>(){}[0]
+    final val Round // korlibs.template/KorteDefaultFilters.Round|{}Round[0]
+        final fun <get-Round>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Round.<get-Round>|<get-Round>(){}[0]
+    final val Size // korlibs.template/KorteDefaultFilters.Size|{}Size[0]
+        final fun <get-Size>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Size.<get-Size>|<get-Size>(){}[0]
+    final val Slice // korlibs.template/KorteDefaultFilters.Slice|{}Slice[0]
+        final fun <get-Slice>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Slice.<get-Slice>|<get-Slice>(){}[0]
+    final val Sort // korlibs.template/KorteDefaultFilters.Sort|{}Sort[0]
+        final fun <get-Sort>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Sort.<get-Sort>|<get-Sort>(){}[0]
+    final val Split // korlibs.template/KorteDefaultFilters.Split|{}Split[0]
+        final fun <get-Split>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Split.<get-Split>|<get-Split>(){}[0]
+    final val Times // korlibs.template/KorteDefaultFilters.Times|{}Times[0]
+        final fun <get-Times>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Times.<get-Times>|<get-Times>(){}[0]
+    final val Trim // korlibs.template/KorteDefaultFilters.Trim|{}Trim[0]
+        final fun <get-Trim>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Trim.<get-Trim>|<get-Trim>(){}[0]
+    final val Uniq // korlibs.template/KorteDefaultFilters.Uniq|{}Uniq[0]
+        final fun <get-Uniq>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Uniq.<get-Uniq>|<get-Uniq>(){}[0]
+    final val Upcase // korlibs.template/KorteDefaultFilters.Upcase|{}Upcase[0]
+        final fun <get-Upcase>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Upcase.<get-Upcase>|<get-Upcase>(){}[0]
+    final val Upper // korlibs.template/KorteDefaultFilters.Upper|{}Upper[0]
+        final fun <get-Upper>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Upper.<get-Upper>|<get-Upper>(){}[0]
+    final val Where // korlibs.template/KorteDefaultFilters.Where|{}Where[0]
+        final fun <get-Where>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.Where.<get-Where>|<get-Where>(){}[0]
+    final val WhereExp // korlibs.template/KorteDefaultFilters.WhereExp|{}WhereExp[0]
+        final fun <get-WhereExp>(): korlibs.template/KorteFilter // korlibs.template/KorteDefaultFilters.WhereExp.<get-WhereExp>|<get-WhereExp>(){}[0]
+}
+
+final object korlibs.template/KorteDefaultFunctions { // korlibs.template/KorteDefaultFunctions|null[0]
+    final val ALL // korlibs.template/KorteDefaultFunctions.ALL|{}ALL[0]
+        final fun <get-ALL>(): kotlin.collections/List<korlibs.template/KorteFunction> // korlibs.template/KorteDefaultFunctions.ALL.<get-ALL>|<get-ALL>(){}[0]
+    final val Cycle // korlibs.template/KorteDefaultFunctions.Cycle|{}Cycle[0]
+        final fun <get-Cycle>(): korlibs.template/KorteFunction // korlibs.template/KorteDefaultFunctions.Cycle.<get-Cycle>|<get-Cycle>(){}[0]
+    final val Parent // korlibs.template/KorteDefaultFunctions.Parent|{}Parent[0]
+        final fun <get-Parent>(): korlibs.template/KorteFunction // korlibs.template/KorteDefaultFunctions.Parent.<get-Parent>|<get-Parent>(){}[0]
+    final val Range // korlibs.template/KorteDefaultFunctions.Range|{}Range[0]
+        final fun <get-Range>(): korlibs.template/KorteFunction // korlibs.template/KorteDefaultFunctions.Range.<get-Range>|<get-Range>(){}[0]
+}
+
+final object korlibs.template/KorteDefaultTags { // korlibs.template/KorteDefaultTags|null[0]
+    final val ALL // korlibs.template/KorteDefaultTags.ALL|{}ALL[0]
+        final fun <get-ALL>(): kotlin.collections/List<korlibs.template/KorteTag> // korlibs.template/KorteDefaultTags.ALL.<get-ALL>|<get-ALL>(){}[0]
+    final val Assign // korlibs.template/KorteDefaultTags.Assign|{}Assign[0]
+        final fun <get-Assign>(): korlibs.template/KorteTag // korlibs.template/KorteDefaultTags.Assign.<get-Assign>|<get-Assign>(){}[0]
+    final val BlockTag // korlibs.template/KorteDefaultTags.BlockTag|{}BlockTag[0]
+        final fun <get-BlockTag>(): korlibs.template/KorteTag // korlibs.template/KorteDefaultTags.BlockTag.<get-BlockTag>|<get-BlockTag>(){}[0]
+    final val Capture // korlibs.template/KorteDefaultTags.Capture|{}Capture[0]
+        final fun <get-Capture>(): korlibs.template/KorteTag // korlibs.template/KorteDefaultTags.Capture.<get-Capture>|<get-Capture>(){}[0]
+    final val Debug // korlibs.template/KorteDefaultTags.Debug|{}Debug[0]
+        final fun <get-Debug>(): korlibs.template/KorteTag // korlibs.template/KorteDefaultTags.Debug.<get-Debug>|<get-Debug>(){}[0]
+    final val Empty // korlibs.template/KorteDefaultTags.Empty|{}Empty[0]
+        final fun <get-Empty>(): korlibs.template/KorteTag // korlibs.template/KorteDefaultTags.Empty.<get-Empty>|<get-Empty>(){}[0]
+    final val Extends // korlibs.template/KorteDefaultTags.Extends|{}Extends[0]
+        final fun <get-Extends>(): korlibs.template/KorteTag // korlibs.template/KorteDefaultTags.Extends.<get-Extends>|<get-Extends>(){}[0]
+    final val For // korlibs.template/KorteDefaultTags.For|{}For[0]
+        final fun <get-For>(): korlibs.template/KorteTag // korlibs.template/KorteDefaultTags.For.<get-For>|<get-For>(){}[0]
+    final val If // korlibs.template/KorteDefaultTags.If|{}If[0]
+        final fun <get-If>(): korlibs.template/KorteTag // korlibs.template/KorteDefaultTags.If.<get-If>|<get-If>(){}[0]
+    final val Import // korlibs.template/KorteDefaultTags.Import|{}Import[0]
+        final fun <get-Import>(): korlibs.template/KorteTag // korlibs.template/KorteDefaultTags.Import.<get-Import>|<get-Import>(){}[0]
+    final val Include // korlibs.template/KorteDefaultTags.Include|{}Include[0]
+        final fun <get-Include>(): korlibs.template/KorteTag // korlibs.template/KorteDefaultTags.Include.<get-Include>|<get-Include>(){}[0]
+    final val Macro // korlibs.template/KorteDefaultTags.Macro|{}Macro[0]
+        final fun <get-Macro>(): korlibs.template/KorteTag // korlibs.template/KorteDefaultTags.Macro.<get-Macro>|<get-Macro>(){}[0]
+    final val Set // korlibs.template/KorteDefaultTags.Set|{}Set[0]
+        final fun <get-Set>(): korlibs.template/KorteTag // korlibs.template/KorteDefaultTags.Set.<get-Set>|<get-Set>(){}[0]
+    final val Switch // korlibs.template/KorteDefaultTags.Switch|{}Switch[0]
+        final fun <get-Switch>(): korlibs.template/KorteTag // korlibs.template/KorteDefaultTags.Switch.<get-Switch>|<get-Switch>(){}[0]
+    final val Unless // korlibs.template/KorteDefaultTags.Unless|{}Unless[0]
+        final fun <get-Unless>(): korlibs.template/KorteTag // korlibs.template/KorteDefaultTags.Unless.<get-Unless>|<get-Unless>(){}[0]
+
+    final fun (korlibs.template/KorteTag.BuildContext).BuildIf(kotlin/Boolean): korlibs.template/KorteBlock // korlibs.template/KorteDefaultTags.BuildIf|BuildIf@korlibs.template.KorteTag.BuildContext(kotlin.Boolean){}[0]
+}
+
+final val korlibs.template.dynamic/KorteMapper2 // korlibs.template.dynamic/KorteMapper2|{}KorteMapper2[0]
+    final fun <get-KorteMapper2>(): korlibs.template.dynamic/KorteObjectMapper2 // korlibs.template.dynamic/KorteMapper2.<get-KorteMapper2>|<get-KorteMapper2>(){}[0]
+
+final var korlibs.template/debugPrintln // korlibs.template/debugPrintln|@korlibs.template.KorteTemplateConfig{}debugPrintln[0]
+    final fun (korlibs.template/KorteTemplateConfig).<get-debugPrintln>(): kotlin/Function1<kotlin/Any?, kotlin/Unit> // korlibs.template/debugPrintln.<get-debugPrintln>|<get-debugPrintln>@korlibs.template.KorteTemplateConfig(){}[0]
+    final fun (korlibs.template/KorteTemplateConfig).<set-debugPrintln>(kotlin/Function1<kotlin/Any?, kotlin/Unit>) // korlibs.template/debugPrintln.<set-debugPrintln>|<set-debugPrintln>@korlibs.template.KorteTemplateConfig(kotlin.Function1<kotlin.Any?,kotlin.Unit>){}[0]
+
+final fun (korlibs.template.util/KorteListReader<korlibs.template/KorteExprNode.Token>).korlibs.template/expect(kotlin/Array<out kotlin/String>...): korlibs.template/KorteExprNode.Token // korlibs.template/expect|expect@korlibs.template.util.KorteListReader<korlibs.template.KorteExprNode.Token>(kotlin.Array<out|kotlin.String>...){}[0]
+final fun (korlibs.template.util/KorteListReader<korlibs.template/KorteExprNode.Token>).korlibs.template/expectEnd() // korlibs.template/expectEnd|expectEnd@korlibs.template.util.KorteListReader<korlibs.template.KorteExprNode.Token>(){}[0]
+final fun (korlibs.template.util/KorteListReader<korlibs.template/KorteExprNode.Token>).korlibs.template/expectPeek(kotlin/Array<out kotlin/String>...): korlibs.template/KorteExprNode.Token // korlibs.template/expectPeek|expectPeek@korlibs.template.util.KorteListReader<korlibs.template.KorteExprNode.Token>(kotlin.Array<out|kotlin.String>...){}[0]
+final fun (korlibs.template.util/KorteListReader<korlibs.template/KorteExprNode.Token>).korlibs.template/parseExpr(): korlibs.template/KorteExprNode // korlibs.template/parseExpr|parseExpr@korlibs.template.util.KorteListReader<korlibs.template.KorteExprNode.Token>(){}[0]
+final fun (korlibs.template.util/KorteListReader<korlibs.template/KorteExprNode.Token>).korlibs.template/parseId(): kotlin/String // korlibs.template/parseId|parseId@korlibs.template.util.KorteListReader<korlibs.template.KorteExprNode.Token>(){}[0]
+final fun (korlibs.template.util/KorteListReader<korlibs.template/KorteExprNode.Token>).korlibs.template/parseIdList(): kotlin.collections/List<kotlin/String> // korlibs.template/parseIdList|parseIdList@korlibs.template.util.KorteListReader<korlibs.template.KorteExprNode.Token>(){}[0]
+final fun (korlibs.template.util/KorteListReader<korlibs.template/KorteExprNode.Token>).korlibs.template/tryRead(kotlin/Array<out kotlin/String>...): korlibs.template/KorteExprNode.Token? // korlibs.template/tryRead|tryRead@korlibs.template.util.KorteListReader<korlibs.template.KorteExprNode.Token>(kotlin.Array<out|kotlin.String>...){}[0]
+final fun <#A: kotlin/Any?> korlibs.template.dynamic/KorteDynamicType(kotlin/Function1<korlibs.template.dynamic/KorteDynamicShapeRegister<#A>, kotlin/Unit>): korlibs.template.dynamic/KorteDynamicType<#A> // korlibs.template.dynamic/KorteDynamicType|KorteDynamicType(kotlin.Function1<korlibs.template.dynamic.KorteDynamicShapeRegister<0:0>,kotlin.Unit>){0§<kotlin.Any?>}[0]
+final fun korlibs.template/KorteNewTemplateProvider(kotlin.collections/Map<kotlin/String, korlibs.template/KorteTemplateContent>): korlibs.template/KorteNewTemplateProvider // korlibs.template/KorteNewTemplateProvider|KorteNewTemplateProvider(kotlin.collections.Map<kotlin.String,korlibs.template.KorteTemplateContent>){}[0]
+final fun korlibs.template/KorteNewTemplateProvider(kotlin/Array<out kotlin/Pair<kotlin/String, korlibs.template/KorteTemplateContent>>...): korlibs.template/KorteNewTemplateProvider // korlibs.template/KorteNewTemplateProvider|KorteNewTemplateProvider(kotlin.Array<out|kotlin.Pair<kotlin.String,korlibs.template.KorteTemplateContent>>...){}[0]
+final fun korlibs.template/KorteTemplateProvider(kotlin.collections/Map<kotlin/String, kotlin/String>): korlibs.template/KorteTemplateProvider // korlibs.template/KorteTemplateProvider|KorteTemplateProvider(kotlin.collections.Map<kotlin.String,kotlin.String>){}[0]
+final fun korlibs.template/KorteTemplateProvider(kotlin/Array<out kotlin/Pair<kotlin/String, kotlin/String>>...): korlibs.template/KorteTemplateProvider // korlibs.template/KorteTemplateProvider|KorteTemplateProvider(kotlin.Array<out|kotlin.Pair<kotlin.String,kotlin.String>>...){}[0]
+final fun korlibs.template/korteException(kotlin/String, korlibs.template/KorteFilePosContext): kotlin/Nothing // korlibs.template/korteException|korteException(kotlin.String;korlibs.template.KorteFilePosContext){}[0]
+final suspend fun (korlibs.template/KorteNewTemplateProvider).korlibs.template/newGetSure(kotlin/String): korlibs.template/KorteTemplateContent // korlibs.template/newGetSure|newGetSure@korlibs.template.KorteNewTemplateProvider(kotlin.String){}[0]
+final suspend fun (korlibs.template/KorteTemplateProvider).korlibs.template/getSure(kotlin/String): kotlin/String // korlibs.template/getSure|getSure@korlibs.template.KorteTemplateProvider(kotlin.String){}[0]
+final suspend fun korlibs.template/KorteTemplate(kotlin/String, korlibs.template/KorteTemplateConfig = ...): korlibs.template/KorteTemplate // korlibs.template/KorteTemplate|KorteTemplate(kotlin.String;korlibs.template.KorteTemplateConfig){}[0]
+final suspend fun korlibs.template/KorteTemplate(kotlin/String, korlibs.template/KorteTemplates, korlibs.template/KorteNewTemplateProvider = ..., korlibs.template/KorteNewTemplateProvider = ..., korlibs.template/KorteTemplateConfig = ..., kotlin/Boolean = ...): korlibs.template/KorteTemplate // korlibs.template/KorteTemplate|KorteTemplate(kotlin.String;korlibs.template.KorteTemplates;korlibs.template.KorteNewTemplateProvider;korlibs.template.KorteNewTemplateProvider;korlibs.template.KorteTemplateConfig;kotlin.Boolean){}[0]
+
+// Targets: [native, wasmJs]
+open class korlibs.template.dynamic/NativeObjectMapper2 : korlibs.template.dynamic/KorteObjectMapper2 { // korlibs.template.dynamic/NativeObjectMapper2|null[0]
+    constructor <init>() // korlibs.template.dynamic/NativeObjectMapper2.<init>|<init>(){}[0]
+}
+
+// Targets: [js]
+open class korlibs.template.dynamic/JsObjectMapper2 : korlibs.template.dynamic/KorteObjectMapper2 { // korlibs.template.dynamic/JsObjectMapper2|null[0]
+    constructor <init>() // korlibs.template.dynamic/JsObjectMapper2.<init>|<init>(){}[0]
+
+    open fun hasMethod(kotlin/Any, kotlin/String): kotlin/Boolean // korlibs.template.dynamic/JsObjectMapper2.hasMethod|hasMethod(kotlin.Any;kotlin.String){}[0]
+    open fun hasProperty(kotlin/Any, kotlin/String): kotlin/Boolean // korlibs.template.dynamic/JsObjectMapper2.hasProperty|hasProperty(kotlin.Any;kotlin.String){}[0]
+    open suspend fun get(kotlin/Any, kotlin/Any?): kotlin/Any? // korlibs.template.dynamic/JsObjectMapper2.get|get(kotlin.Any;kotlin.Any?){}[0]
+    open suspend fun invokeAsync(kotlin.reflect/KClass<kotlin/Any>, kotlin/Any?, kotlin/String, kotlin.collections/List<kotlin/Any?>): kotlin/Any? // korlibs.template.dynamic/JsObjectMapper2.invokeAsync|invokeAsync(kotlin.reflect.KClass<kotlin.Any>;kotlin.Any?;kotlin.String;kotlin.collections.List<kotlin.Any?>){}[0]
+    open suspend fun set(kotlin/Any, kotlin/Any?, kotlin/Any?) // korlibs.template.dynamic/JsObjectMapper2.set|set(kotlin.Any;kotlin.Any?;kotlin.Any?){}[0]
+}

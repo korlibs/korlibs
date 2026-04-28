@@ -1,0 +1,1944 @@
+public final class korlibs/audio/error/ErrorsKt {
+	public static final fun seekingNotSupported (Ljava/lang/String;)Ljava/lang/Void;
+	public static synthetic fun seekingNotSupported$default (Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/Void;
+}
+
+public final class korlibs/audio/error/SeekingNotSupported : java/lang/Exception {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class korlibs/audio/format/AudioDecodingProps : korlibs/datastructure/Extra {
+	public static final field Companion Lkorlibs/audio/format/AudioDecodingProps$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/Boolean;ZLkorlibs/audio/format/AudioFormat;ILkotlinx/coroutines/CoroutineDispatcher;)V
+	public synthetic fun <init> (Ljava/lang/Boolean;ZLkorlibs/audio/format/AudioFormat;ILkotlinx/coroutines/CoroutineDispatcher;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Boolean;
+	public final fun component2 ()Z
+	public final fun component3 ()Lkorlibs/audio/format/AudioFormat;
+	public final fun component4 ()I
+	public final fun component5 ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public final fun copy (Ljava/lang/Boolean;ZLkorlibs/audio/format/AudioFormat;ILkotlinx/coroutines/CoroutineDispatcher;)Lkorlibs/audio/format/AudioDecodingProps;
+	public static synthetic fun copy$default (Lkorlibs/audio/format/AudioDecodingProps;Ljava/lang/Boolean;ZLkorlibs/audio/format/AudioFormat;ILkotlinx/coroutines/CoroutineDispatcher;ILjava/lang/Object;)Lkorlibs/audio/format/AudioDecodingProps;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public final fun getExactTimings ()Ljava/lang/Boolean;
+	public fun getExtra ()Lkorlibs/datastructure/ExtraObject;
+	public final fun getFormats ()Lkorlibs/audio/format/AudioFormat;
+	public final fun getMaxSamples ()I
+	public final fun getReadInMemory ()Z
+	public fun hashCode ()I
+	public fun setExtra (Lkorlibs/datastructure/ExtraObject;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/audio/format/AudioDecodingProps$Companion {
+	public final fun getDEFAULT ()Lkorlibs/audio/format/AudioDecodingProps;
+	public final fun getFAST ()Lkorlibs/audio/format/AudioDecodingProps;
+}
+
+public final class korlibs/audio/format/AudioEncodingProps : korlibs/datastructure/Extra {
+	public static final field Companion Lkorlibs/audio/format/AudioEncodingProps$Companion;
+	public fun <init> ()V
+	public fun <init> (DLjava/lang/String;)V
+	public synthetic fun <init> (DLjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()D
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (DLjava/lang/String;)Lkorlibs/audio/format/AudioEncodingProps;
+	public static synthetic fun copy$default (Lkorlibs/audio/format/AudioEncodingProps;DLjava/lang/String;ILjava/lang/Object;)Lkorlibs/audio/format/AudioEncodingProps;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getExtra ()Lkorlibs/datastructure/ExtraObject;
+	public final fun getFilename ()Ljava/lang/String;
+	public final fun getQuality ()D
+	public fun hashCode ()I
+	public fun setExtra (Lkorlibs/datastructure/ExtraObject;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/audio/format/AudioEncodingProps$Companion {
+	public final fun getDEFAULT ()Lkorlibs/audio/format/AudioEncodingProps;
+}
+
+public class korlibs/audio/format/AudioFormat {
+	public fun <init> ([Ljava/lang/String;)V
+	public final fun decode (Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun decode ([BLkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun decode$default (Lkorlibs/audio/format/AudioFormat;Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun decode$default (Lkorlibs/audio/format/AudioFormat;[BLkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun decodeStream (Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun decodeStream$default (Lkorlibs/audio/format/AudioFormat;Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	protected fun decodeStreamInternal (Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun decodeStreamInternal$default (Lkorlibs/audio/format/AudioFormat;Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun decodeStreamOrError (Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun encode (Lkorlibs/audio/sound/AudioData;Lkorlibs/io/stream/AsyncOutputStream;Ljava/lang/String;Lkorlibs/audio/format/AudioEncodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun encode$default (Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/sound/AudioData;Lkorlibs/io/stream/AsyncOutputStream;Ljava/lang/String;Lkorlibs/audio/format/AudioEncodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun encodeToByteArray (Lkorlibs/audio/sound/AudioData;Ljava/lang/String;Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/format/AudioEncodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun encodeToByteArray$default (Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/sound/AudioData;Ljava/lang/String;Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/format/AudioEncodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun getExtensions ()Ljava/util/Set;
+	public fun getName ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+	public fun tryReadInfo (Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun tryReadInfo$default (Lkorlibs/audio/format/AudioFormat;Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/format/AudioFormat$Info : korlibs/datastructure/Extra {
+	public synthetic fun <init> (Lkotlin/time/Duration;ILkotlin/time/Duration;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lkotlin/time/Duration;ILkotlin/time/Duration;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-FghU774 ()Lkotlin/time/Duration;
+	public final fun component2 ()I
+	public final fun component3-FghU774 ()Lkotlin/time/Duration;
+	public final fun copy-87Utntk (Lkotlin/time/Duration;ILkotlin/time/Duration;)Lkorlibs/audio/format/AudioFormat$Info;
+	public static synthetic fun copy-87Utntk$default (Lkorlibs/audio/format/AudioFormat$Info;Lkotlin/time/Duration;ILkotlin/time/Duration;ILjava/lang/Object;)Lkorlibs/audio/format/AudioFormat$Info;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChannels ()I
+	public final fun getDecodingTime-FghU774 ()Lkotlin/time/Duration;
+	public final fun getDuration-FghU774 ()Lkotlin/time/Duration;
+	public final fun getDurationNotNull-UwyO8pc ()J
+	public fun getExtra ()Lkorlibs/datastructure/ExtraObject;
+	public fun hashCode ()I
+	public final fun setChannels (I)V
+	public final fun setDecodingTime-BwNAW2A (Lkotlin/time/Duration;)V
+	public final fun setDuration-BwNAW2A (Lkotlin/time/Duration;)V
+	public fun setExtra (Lkorlibs/datastructure/ExtraObject;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/audio/format/AudioFormatKt {
+	public static final fun getDefaultAudioFormats ()Lkorlibs/audio/format/AudioFormats;
+	public static final fun invalidAudioFormat (Ljava/lang/String;)Ljava/lang/Void;
+	public static synthetic fun invalidAudioFormat$default (Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/Void;
+	public static final fun readSoundInfo (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readSoundInfo$default (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun standardAudioFormats ()Lkorlibs/audio/format/AudioFormats;
+	public static final fun toProps (Lkorlibs/audio/format/AudioFormat;)Lkorlibs/audio/format/AudioDecodingProps;
+}
+
+public final class korlibs/audio/format/AudioFormats : korlibs/audio/format/AudioFormat {
+	public static final field Companion Lkorlibs/audio/format/AudioFormats$Companion;
+	public fun <init> ()V
+	public fun encode (Lkorlibs/audio/sound/AudioData;Lkorlibs/io/stream/AsyncOutputStream;Ljava/lang/String;Lkorlibs/audio/format/AudioEncodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getExtensions ()Ljava/util/Set;
+	public final fun getFormats ()Ljava/util/ArrayList;
+	public final fun plus (Ljava/lang/Iterable;)Lkorlibs/audio/format/AudioFormats;
+	public final fun plus (Lkorlibs/audio/format/AudioFormat;)Lkorlibs/audio/format/AudioFormats;
+	public final fun register (Ljava/lang/Iterable;)Lkorlibs/audio/format/AudioFormats;
+	public final fun register (Lkorlibs/audio/format/AudioFormats;)Lkorlibs/audio/format/AudioFormats;
+	public final fun register ([Lkorlibs/audio/format/AudioFormat;)Lkorlibs/audio/format/AudioFormats;
+	public final fun registerFirst ([Lkorlibs/audio/format/AudioFormat;)Lkorlibs/audio/format/AudioFormats;
+	public fun tryReadInfo (Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/format/AudioFormats$Companion {
+	public final fun invoke (Ljava/lang/Iterable;)Lkorlibs/audio/format/AudioFormats;
+	public final fun invoke ([Lkorlibs/audio/format/AudioFormat;)Lkorlibs/audio/format/AudioFormats;
+}
+
+public abstract class korlibs/audio/format/BaseMinimp3AudioFormat : korlibs/audio/format/AudioFormat {
+	public static final field Companion Lkorlibs/audio/format/BaseMinimp3AudioFormat$Companion;
+	public fun <init> ()V
+	protected abstract fun createMp3Decoder ()Lkorlibs/audio/format/BaseMinimp3AudioFormat$BaseMp3Decoder;
+	protected fun decodeStreamInternal (Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun tryReadInfo (Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/audio/format/BaseMinimp3AudioFormat$BaseMp3Decoder : java/lang/AutoCloseable {
+	public abstract fun decodeFrame (I)[S
+	public abstract fun getInfo ()Lkorlibs/audio/format/BaseMinimp3AudioFormat$BaseMp3DecoderInfo;
+}
+
+public final class korlibs/audio/format/BaseMinimp3AudioFormat$BaseMp3DecoderInfo {
+	public fun <init> ()V
+	public final fun getBitrate_kbps ()I
+	public final fun getCompressedData ()Lkorlibs/datastructure/ByteArrayDeque;
+	public final fun getFrame_bytes ()I
+	public final fun getHz ()I
+	public final fun getNchannels ()I
+	public final fun getPcmDeque ()Lkorlibs/audio/sound/AudioSamplesDeque;
+	public final fun getSamples ()I
+	public final fun getSamplesAvailable ()I
+	public final fun getSamplesRead ()I
+	public final fun getSkipRemaining ()I
+	public final fun getTempBuffer ()[B
+	public final fun getTotalSamples ()I
+	public final fun getXingDelay ()I
+	public final fun getXingFrames ()I
+	public final fun getXingPadding ()I
+	public final fun reset ()V
+	public final fun setBitrate_kbps (I)V
+	public final fun setFrame_bytes (I)V
+	public final fun setHz (I)V
+	public final fun setNchannels (I)V
+	public final fun setPcmDeque (Lkorlibs/audio/sound/AudioSamplesDeque;)V
+	public final fun setSamples (I)V
+	public final fun setSamplesAvailable (I)V
+	public final fun setSamplesRead (I)V
+	public final fun setSkipRemaining (I)V
+	public final fun setTotalSamples (I)V
+	public final fun setXingDelay (I)V
+	public final fun setXingFrames (I)V
+	public final fun setXingPadding (I)V
+	public final fun step (Lkorlibs/audio/format/BaseMinimp3AudioFormat$BaseMp3Decoder;)Z
+}
+
+public final class korlibs/audio/format/BaseMinimp3AudioFormat$Companion {
+	public final fun getInfoTag ()[B
+	public final fun getXingTag ()[B
+}
+
+public class korlibs/audio/format/InvalidAudioFormatException : java/lang/RuntimeException {
+	public fun <init> (Ljava/lang/String;)V
+}
+
+public class korlibs/audio/format/MP3 : korlibs/audio/format/MP3Base {
+	public static final field Companion Lkorlibs/audio/format/MP3$Companion;
+	public fun <init> ()V
+}
+
+public final class korlibs/audio/format/MP3$Companion : korlibs/audio/format/MP3 {
+}
+
+public class korlibs/audio/format/MP3Base : korlibs/audio/format/AudioFormat {
+	public fun <init> ()V
+	public fun tryReadInfo (Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/format/MP3Base$Parser {
+	public static final field Companion Lkorlibs/audio/format/MP3Base$Parser$Companion;
+	public fun <init> (Lkorlibs/io/stream/AsyncStream;J)V
+	public final fun getData ()Lkorlibs/io/stream/AsyncStream;
+	public final fun getDataLength ()J
+	public final fun getDurationEstimate-5sfh64U (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getDurationExact-5sfh64U (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getInfo ()Lkorlibs/audio/format/MP3Base$Parser$Companion$Mp3Info;
+	public final fun getSeekingTable (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setInfo (Lkorlibs/audio/format/MP3Base$Parser$Companion$Mp3Info;)V
+}
+
+public final class korlibs/audio/format/MP3Base$Parser$Companion {
+	public final fun getBitrateKey (II)I
+	public final fun getBitrates ()Ljava/util/Map;
+	public final fun getLayers ()[I
+	public final fun getSampleRates ()Ljava/util/Map;
+	public final fun getSamples ()Ljava/util/Map;
+	public final fun getVersions ()[Ljava/lang/String;
+	public final fun invoke (Lkorlibs/io/stream/AsyncStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun parseFrameHeader-Bs7sjYo ([B)Lkorlibs/audio/format/MP3Base$Parser$Companion$Mp3Info;
+}
+
+public final class korlibs/audio/format/MP3Base$Parser$Companion$ChannelMode : java/lang/Enum {
+	public static final field Companion Lkorlibs/audio/format/MP3Base$Parser$Companion$ChannelMode$Companion;
+	public static final field DUAL_CHANNEL Lkorlibs/audio/format/MP3Base$Parser$Companion$ChannelMode;
+	public static final field JOINT_STEREO Lkorlibs/audio/format/MP3Base$Parser$Companion$ChannelMode;
+	public static final field SINGLE_CHANNEL Lkorlibs/audio/format/MP3Base$Parser$Companion$ChannelMode;
+	public static final field STEREO Lkorlibs/audio/format/MP3Base$Parser$Companion$ChannelMode;
+	public final fun getChannels ()I
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getId ()I
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/audio/format/MP3Base$Parser$Companion$ChannelMode;
+	public static fun values ()[Lkorlibs/audio/format/MP3Base$Parser$Companion$ChannelMode;
+}
+
+public final class korlibs/audio/format/MP3Base$Parser$Companion$ChannelMode$Companion {
+	public final fun getBY_ID ()Ljava/util/Map;
+}
+
+public final class korlibs/audio/format/MP3Base$Parser$Companion$Mp3Info {
+	public fun <init> (Ljava/lang/String;IIILkorlibs/audio/format/MP3Base$Parser$Companion$ChannelMode;II)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun component4 ()I
+	public final fun component5 ()Lkorlibs/audio/format/MP3Base$Parser$Companion$ChannelMode;
+	public final fun component6 ()I
+	public final fun component7 ()I
+	public final fun copy (Ljava/lang/String;IIILkorlibs/audio/format/MP3Base$Parser$Companion$ChannelMode;II)Lkorlibs/audio/format/MP3Base$Parser$Companion$Mp3Info;
+	public static synthetic fun copy$default (Lkorlibs/audio/format/MP3Base$Parser$Companion$Mp3Info;Ljava/lang/String;IIILkorlibs/audio/format/MP3Base$Parser$Companion$ChannelMode;IIILjava/lang/Object;)Lkorlibs/audio/format/MP3Base$Parser$Companion$Mp3Info;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBitrate ()I
+	public final fun getChannelMode ()Lkorlibs/audio/format/MP3Base$Parser$Companion$ChannelMode;
+	public final fun getFrameSize ()I
+	public final fun getLayer ()I
+	public final fun getSamples ()I
+	public final fun getSamplingRate ()I
+	public final fun getVersion ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/audio/format/MP3Base$SeekingTable {
+	public fun <init> (Lkorlibs/datastructure/DoubleArrayList;Lkorlibs/datastructure/DoubleArrayList;)V
+	public final fun getFilePositions ()Lkorlibs/datastructure/DoubleArrayList;
+	public final fun getLengthTime-UwyO8pc ()J
+	public final fun getMicroseconds ()Lkorlibs/datastructure/DoubleArrayList;
+	public final fun lengthSamples (I)J
+	public final fun locate-LRDsOJo (J)J
+	public final fun locateSample (JI)J
+}
+
+public class korlibs/audio/format/MP3Decoder : korlibs/audio/format/AudioFormat {
+	public static final field Companion Lkorlibs/audio/format/MP3Decoder$Companion;
+	public fun <init> ()V
+	protected fun decodeStreamInternal (Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+	public fun tryReadInfo (Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/format/MP3Decoder$Companion : korlibs/audio/format/MP3Decoder {
+}
+
+public class korlibs/audio/format/OGG : korlibs/audio/format/OggBase {
+	public static final field Companion Lkorlibs/audio/format/OGG$Companion;
+	public fun <init> ()V
+}
+
+public final class korlibs/audio/format/OGG$Companion : korlibs/audio/format/OGG {
+}
+
+public class korlibs/audio/format/OggBase : korlibs/audio/format/AudioFormat {
+	public fun <init> ()V
+	public final fun parse (Lkorlibs/io/stream/AsyncStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun tryReadInfo (Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/format/OggBase$PacketTypes {
+	public static final field COMMENT_HEADER I
+	public static final field ID_HEADER I
+	public static final field INSTANCE Lkorlibs/audio/format/OggBase$PacketTypes;
+	public static final field SETUP_HEADER I
+}
+
+public class korlibs/audio/format/WAV : korlibs/audio/format/AudioFormat {
+	public static final field Companion Lkorlibs/audio/format/WAV$Companion;
+	public fun <init> ()V
+	protected fun decodeStreamInternal (Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun encode (Lkorlibs/audio/sound/AudioData;Lkorlibs/io/stream/AsyncOutputStream;Ljava/lang/String;Lkorlibs/audio/format/AudioEncodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun parse (Lkorlibs/io/stream/AsyncStream;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun riff (Lkorlibs/io/stream/AsyncStream;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun tryReadInfo (Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/format/WAV$Chunk {
+	public fun <init> (Ljava/lang/String;Lkorlibs/io/stream/AsyncStream;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkorlibs/io/stream/AsyncStream;
+	public final fun copy (Ljava/lang/String;Lkorlibs/io/stream/AsyncStream;)Lkorlibs/audio/format/WAV$Chunk;
+	public static synthetic fun copy$default (Lkorlibs/audio/format/WAV$Chunk;Ljava/lang/String;Lkorlibs/io/stream/AsyncStream;ILjava/lang/Object;)Lkorlibs/audio/format/WAV$Chunk;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getData ()Lkorlibs/io/stream/AsyncStream;
+	public final fun getType ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/audio/format/WAV$Companion : korlibs/audio/format/WAV {
+}
+
+public final class korlibs/audio/format/WAV$Fmt {
+	public fun <init> ()V
+	public fun <init> (IIIJII)V
+	public synthetic fun <init> (IIIJIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun component4 ()J
+	public final fun component5 ()I
+	public final fun component6 ()I
+	public final fun copy (IIIJII)Lkorlibs/audio/format/WAV$Fmt;
+	public static synthetic fun copy$default (Lkorlibs/audio/format/WAV$Fmt;IIIJIIILjava/lang/Object;)Lkorlibs/audio/format/WAV$Fmt;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAvgBytesPerSec ()J
+	public final fun getBitsPerSample ()I
+	public final fun getBlockAlign ()I
+	public final fun getBytesPerSample ()I
+	public final fun getChannels ()I
+	public final fun getFormatTag ()I
+	public final fun getSamplesPerSec ()I
+	public fun hashCode ()I
+	public final fun setAvgBytesPerSec (J)V
+	public final fun setBitsPerSample (I)V
+	public final fun setBlockAlign (I)V
+	public final fun setChannels (I)V
+	public final fun setFormatTag (I)V
+	public final fun setSamplesPerSec (I)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/audio/format/WAV$ProcessedChunk {
+	public fun <init> (Ljava/lang/String;Lkorlibs/io/stream/AsyncStream;Ljava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkorlibs/io/stream/AsyncStream;
+	public final fun component3 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/String;Lkorlibs/io/stream/AsyncStream;Ljava/lang/Object;)Lkorlibs/audio/format/WAV$ProcessedChunk;
+	public static synthetic fun copy$default (Lkorlibs/audio/format/WAV$ProcessedChunk;Ljava/lang/String;Lkorlibs/io/stream/AsyncStream;Ljava/lang/Object;ILjava/lang/Object;)Lkorlibs/audio/format/WAV$ProcessedChunk;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getData ()Lkorlibs/io/stream/AsyncStream;
+	public final fun getExtra ()Ljava/lang/Object;
+	public final fun getType ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/audio/format/WAV$WavAudioStream : korlibs/audio/sound/AudioStream {
+	public fun <init> (Lkorlibs/audio/format/WAV$Fmt;Lkorlibs/io/stream/AsyncStream;JLkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;)V
+	public fun clone (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getBuffer ()Lkorlibs/io/stream/AsyncStream;
+	public final fun getBufferLength ()J
+	public final fun getBytesPerSample ()I
+	public fun getCurrentPositionInSamples ()J
+	public final fun getData ()Lkorlibs/io/stream/AsyncStream;
+	public fun getFinished ()Z
+	public final fun getFmt ()Lkorlibs/audio/format/WAV$Fmt;
+	public final fun getProps ()Lkorlibs/audio/format/AudioDecodingProps;
+	public fun getTotalLengthInSamples ()Ljava/lang/Long;
+	public fun read (Lkorlibs/audio/sound/AudioSamples;IILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun seek-VtjQ1oo (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setFinished (Z)V
+}
+
+public final class korlibs/audio/format/WAVKt {
+	public static final fun toWav (Lkorlibs/audio/sound/AudioData;)[B
+}
+
+public abstract class korlibs/audio/format/mod/BaseModuleTracker {
+	public static final field Companion Lkorlibs/audio/format/mod/BaseModuleTracker$Companion;
+	public fun <init> ()V
+	public final fun createAudioStream ()Lkorlibs/audio/sound/AudioStream;
+	public final fun createSound (Lkorlibs/audio/sound/NativeSoundProvider;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun createSound$default (Lkorlibs/audio/format/mod/BaseModuleTracker;Lkorlibs/audio/sound/NativeSoundProvider;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun createSoundFromFile (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/sound/NativeSoundProvider;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun createSoundFromFile$default (Lkorlibs/audio/format/mod/BaseModuleTracker;Lkorlibs/io/file/VfsFile;Lkorlibs/audio/sound/NativeSoundProvider;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun getEndofsong ()Z
+	public final fun getPlaying ()Z
+	public final fun getSamplerate ()I
+	public final fun getTotalLengthInSamples ()Ljava/lang/Long;
+	public abstract fun initialize ()V
+	public abstract fun mix ([[FI)V
+	public static synthetic fun mix$default (Lkorlibs/audio/format/mod/BaseModuleTracker;[[FIILjava/lang/Object;)V
+	public abstract fun parse-HIhfOs4 (Lkorlibs/memory/Buffer;)Z
+	public final fun parseAndInit-HIhfOs4 (Lkorlibs/memory/Buffer;)V
+	public final fun setEndofsong (Z)V
+	public final fun setPlaying (Z)V
+	public final fun setSamplerate (I)V
+	public final fun setTotalLengthInSamples (Ljava/lang/Long;)V
+	public fun skip (I)V
+}
+
+public final class korlibs/audio/format/mod/BaseModuleTracker$Companion {
+	public final fun getLOGGER ()Lkorlibs/logger/Logger;
+}
+
+public abstract class korlibs/audio/format/mod/BaseModuleTracker$Format : korlibs/audio/format/AudioFormat {
+	public fun <init> ([Ljava/lang/String;)V
+	public abstract fun createTracker ()Lkorlibs/audio/format/mod/BaseModuleTracker;
+	protected fun decodeStreamInternal (Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun fastValidate (Lkorlibs/io/stream/AsyncStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun tryReadInfo (Lkorlibs/io/stream/AsyncStream;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/format/mod/Fasttracker : korlibs/audio/format/mod/BaseModuleTracker {
+	public fun <init> ()V
+	public final fun advance ()V
+	public final fun calcperiod (II)D
+	public final fun clearsong ()V
+	public final fun computeTime ()I
+	public final fun effect_t0_0 (I)V
+	public final fun effect_t0_1 (I)V
+	public final fun effect_t0_2 (I)V
+	public final fun effect_t0_3 (I)V
+	public final fun effect_t0_4 (I)V
+	public final fun effect_t0_5 (I)V
+	public final fun effect_t0_6 (I)V
+	public final fun effect_t0_7 (I)V
+	public final fun effect_t0_8 (I)V
+	public final fun effect_t0_9 (I)V
+	public final fun effect_t0_a (I)V
+	public final fun effect_t0_b (I)V
+	public final fun effect_t0_c (I)V
+	public final fun effect_t0_d (I)V
+	public final fun effect_t0_e (I)V
+	public final fun effect_t0_e0 (I)V
+	public final fun effect_t0_e1 (I)V
+	public final fun effect_t0_e2 (I)V
+	public final fun effect_t0_e3 (I)V
+	public final fun effect_t0_e4 (I)V
+	public final fun effect_t0_e5 (I)V
+	public final fun effect_t0_e6 (I)V
+	public final fun effect_t0_e7 (I)V
+	public final fun effect_t0_e8 (I)V
+	public final fun effect_t0_e9 (I)V
+	public final fun effect_t0_ea (I)V
+	public final fun effect_t0_eb (I)V
+	public final fun effect_t0_ec (I)V
+	public final fun effect_t0_ed (I)V
+	public final fun effect_t0_ee (I)V
+	public final fun effect_t0_ef (I)V
+	public final fun effect_t0_f (I)V
+	public final fun effect_t0_g (I)V
+	public final fun effect_t0_h (I)V
+	public final fun effect_t0_i (I)V
+	public final fun effect_t0_j (I)V
+	public final fun effect_t0_k (I)V
+	public final fun effect_t0_l (I)V
+	public final fun effect_t0_m (I)V
+	public final fun effect_t0_n (I)V
+	public final fun effect_t0_o (I)V
+	public final fun effect_t0_p (I)V
+	public final fun effect_t0_q (I)V
+	public final fun effect_t0_r (I)V
+	public final fun effect_t0_s (I)V
+	public final fun effect_t0_t (I)V
+	public final fun effect_t0_u (I)V
+	public final fun effect_t0_v (I)V
+	public final fun effect_t0_w (I)V
+	public final fun effect_t0_x (I)V
+	public final fun effect_t0_y (I)V
+	public final fun effect_t0_z (I)V
+	public final fun effect_t1_0 (I)V
+	public final fun effect_t1_1 (I)V
+	public final fun effect_t1_2 (I)V
+	public final fun effect_t1_3 (I)V
+	public final fun effect_t1_4 (I)V
+	public final fun effect_t1_5 (I)V
+	public final fun effect_t1_6 (I)V
+	public final fun effect_t1_7 (I)V
+	public final fun effect_t1_8 (I)V
+	public final fun effect_t1_9 (I)V
+	public final fun effect_t1_a (I)V
+	public final fun effect_t1_b (I)V
+	public final fun effect_t1_c (I)V
+	public final fun effect_t1_d (I)V
+	public final fun effect_t1_e (I)V
+	public final fun effect_t1_e0 (I)V
+	public final fun effect_t1_e1 (I)V
+	public final fun effect_t1_e2 (I)V
+	public final fun effect_t1_e3 (I)V
+	public final fun effect_t1_e4 (I)V
+	public final fun effect_t1_e5 (I)V
+	public final fun effect_t1_e6 (I)V
+	public final fun effect_t1_e7 (I)V
+	public final fun effect_t1_e8 (I)V
+	public final fun effect_t1_e9 (I)V
+	public final fun effect_t1_ea (I)V
+	public final fun effect_t1_eb (I)V
+	public final fun effect_t1_ec (I)V
+	public final fun effect_t1_ed (I)V
+	public final fun effect_t1_ee (I)V
+	public final fun effect_t1_ef (I)V
+	public final fun effect_t1_f (I)V
+	public final fun effect_t1_g (I)V
+	public final fun effect_t1_h (I)V
+	public final fun effect_t1_i (I)V
+	public final fun effect_t1_j (I)V
+	public final fun effect_t1_k (I)V
+	public final fun effect_t1_l (I)V
+	public final fun effect_t1_m (I)V
+	public final fun effect_t1_n (I)V
+	public final fun effect_t1_o (I)V
+	public final fun effect_t1_p (I)V
+	public final fun effect_t1_q (I)V
+	public final fun effect_t1_r (I)V
+	public final fun effect_t1_s (I)V
+	public final fun effect_t1_t (I)V
+	public final fun effect_t1_u (I)V
+	public final fun effect_t1_v (I)V
+	public final fun effect_t1_w (I)V
+	public final fun effect_t1_x (I)V
+	public final fun effect_t1_y (I)V
+	public final fun effect_t1_z (I)V
+	public final fun effect_vol_t0_60 (II)V
+	public final fun effect_vol_t0_70 (II)V
+	public final fun effect_vol_t0_80 (II)V
+	public final fun effect_vol_t0_90 (II)V
+	public final fun effect_vol_t0_a0 (II)V
+	public final fun effect_vol_t0_b0 (II)V
+	public final fun effect_vol_t0_c0 (II)V
+	public final fun effect_vol_t0_d0 (II)V
+	public final fun effect_vol_t0_e0 (II)V
+	public final fun effect_vol_t0_f0 (II)V
+	public final fun effect_vol_t1_60 (II)V
+	public final fun effect_vol_t1_70 (II)V
+	public final fun effect_vol_t1_80 (II)V
+	public final fun effect_vol_t1_90 (II)V
+	public final fun effect_vol_t1_a0 (II)V
+	public final fun effect_vol_t1_b0 (II)V
+	public final fun effect_vol_t1_c0 (II)V
+	public final fun effect_vol_t1_d0 (II)V
+	public final fun effect_vol_t1_e0 (II)V
+	public final fun effect_vol_t1_f0 (II)V
+	public final fun getAmigaperiods ()I
+	public final fun getBmp ()I
+	public final fun getBpm ()I
+	public final fun getBreakrow ()I
+	public final fun getChannel ()[Lkorlibs/audio/format/mod/Fasttracker$Channel;
+	public final fun getChannels ()I
+	public final fun getChvu ()[F
+	public final fun getEffects_t0 ()[Lkotlin/reflect/KFunction;
+	public final fun getEffects_t0_e ()[Lkotlin/reflect/KFunction;
+	public final fun getEffects_t1 ()[Lkotlin/reflect/KFunction;
+	public final fun getEffects_t1_e ()[Lkotlin/reflect/KFunction;
+	public final fun getFilter ()Z
+	public final fun getFinalpan ()[F
+	public final fun getFlags ()I
+	public final fun getGlobalvolslide ()I
+	public final fun getInitBPM ()I
+	public final fun getInitSpeed ()I
+	public final fun getInstrument ()[Lkorlibs/audio/format/mod/Fasttracker$Instrument;
+	public final fun getInstruments ()I
+	public final fun getLoopcount ()I
+	public final fun getLooprow ()I
+	public final fun getLoopstart ()I
+	public final fun getMixval ()D
+	public final fun getPan ()[F
+	public final fun getPattern ()[Lkorlibs/memory/Uint8Buffer;
+	public final fun getPatterndelay ()I
+	public final fun getPatternjump ()I
+	public final fun getPatternlen ()[I
+	public final fun getPatterns ()I
+	public final fun getPatterntable-7EvXJI0 ()Lkorlibs/memory/Buffer;
+	public final fun getPatternwait ()I
+	public final fun getPaused ()Z
+	public final fun getPeriodtable ()[F
+	public final fun getPosition ()I
+	public final fun getRamplen ()D
+	public final fun getRepeat ()Z
+	public final fun getRepeatpos ()I
+	public final fun getRow ()I
+	public final fun getSignature ()Ljava/lang/String;
+	public final fun getSonglen ()I
+	public final fun getSpeed ()I
+	public final fun getStt ()I
+	public final fun getSyncqueue ()Lkorlibs/datastructure/IntDeque;
+	public final fun getTick ()I
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getTrackerversion ()I
+	public final fun getVibratotable ()[[F
+	public final fun getVoleffects_t0 ()[Lkotlin/reflect/KFunction;
+	public final fun getVoleffects_t1 ()[Lkotlin/reflect/KFunction;
+	public final fun getVolume ()I
+	public fun initialize ()V
+	public fun mix ([[FI)V
+	public fun parse-HIhfOs4 (Lkorlibs/memory/Buffer;)Z
+	public final fun pow (DD)D
+	public final fun pow (II)I
+	public final fun process_note (II)V
+	public final fun process_tick ()V
+	public final fun setAmigaperiods (I)V
+	public final fun setBmp (I)V
+	public final fun setBpm (I)V
+	public final fun setBreakrow (I)V
+	public final fun setChannel ([Lkorlibs/audio/format/mod/Fasttracker$Channel;)V
+	public final fun setChannels (I)V
+	public final fun setChvu ([F)V
+	public final fun setFilter (Z)V
+	public final fun setFlags (I)V
+	public final fun setGlobalvolslide (I)V
+	public final fun setInitBPM (I)V
+	public final fun setInitSpeed (I)V
+	public final fun setInstrument ([Lkorlibs/audio/format/mod/Fasttracker$Instrument;)V
+	public final fun setInstruments (I)V
+	public final fun setLoopcount (I)V
+	public final fun setLooprow (I)V
+	public final fun setLoopstart (I)V
+	public final fun setMixval (D)V
+	public final fun setPattern ([Lkorlibs/memory/Uint8Buffer;)V
+	public final fun setPatterndelay (I)V
+	public final fun setPatternjump (I)V
+	public final fun setPatternlen ([I)V
+	public final fun setPatterns (I)V
+	public final fun setPatterntable-HIhfOs4 (Lkorlibs/memory/Buffer;)V
+	public final fun setPatternwait (I)V
+	public final fun setPaused (Z)V
+	public final fun setPosition (I)V
+	public final fun setRamplen (D)V
+	public final fun setRepeat (Z)V
+	public final fun setRepeatpos (I)V
+	public final fun setRow (I)V
+	public final fun setSignature (Ljava/lang/String;)V
+	public final fun setSonglen (I)V
+	public final fun setSpeed (I)V
+	public final fun setStt (I)V
+	public final fun setSyncqueue (Lkorlibs/datastructure/IntDeque;)V
+	public final fun setTick (I)V
+	public final fun setTitle (Ljava/lang/String;)V
+	public final fun setTrackerversion (I)V
+	public final fun setVolume (I)V
+	public fun skip (I)V
+}
+
+public final class korlibs/audio/format/mod/Fasttracker$Channel {
+	public fun <init> ()V
+	public fun <init> (IIIIIDDIZIIDIIIIDIIDIDIIIIIIIIIDDDDDDD)V
+	public synthetic fun <init> (IIIIIDDIZIIDIIIIDIIDIDIIIIIIIIIDDDDDDDIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getArpeggio ()I
+	public final fun getCommand ()I
+	public final fun getCurrentsample ()D
+	public final fun getData ()I
+	public final fun getFadeoutpos ()I
+	public final fun getFinalvolume ()D
+	public final fun getFlags ()I
+	public final fun getFrequency ()I
+	public final fun getInstrument ()I
+	public final fun getLastsample ()D
+	public final fun getNote ()I
+	public final fun getNoteon ()Z
+	public final fun getOldfinalvolume ()D
+	public final fun getPanenvpos ()I
+	public final fun getPeriod ()D
+	public final fun getPlaydir ()I
+	public final fun getSampleindex ()I
+	public final fun getSamplepos ()D
+	public final fun getSamplespeed ()D
+	public final fun getSemitone ()I
+	public final fun getSlidedownspeed ()I
+	public final fun getSlidespeed ()I
+	public final fun getSlideto ()D
+	public final fun getSlidetospeed ()I
+	public final fun getSlideupspeed ()I
+	public final fun getTrigramp ()D
+	public final fun getTrigrampfrom ()D
+	public final fun getVibratodepth ()I
+	public final fun getVibratopos ()I
+	public final fun getVibratospeed ()I
+	public final fun getVibratowave ()I
+	public final fun getVoiceperiod ()D
+	public final fun getVoicevolume ()I
+	public final fun getVolenvpos ()I
+	public final fun getVolramp ()D
+	public final fun getVolrampfrom ()D
+	public final fun getVolslide ()I
+	public final fun getVolume ()I
+	public final fun setArpeggio (I)V
+	public final fun setCommand (I)V
+	public final fun setCurrentsample (D)V
+	public final fun setData (I)V
+	public final fun setFadeoutpos (I)V
+	public final fun setFinalvolume (D)V
+	public final fun setFlags (I)V
+	public final fun setFrequency (I)V
+	public final fun setInstrument (I)V
+	public final fun setLastsample (D)V
+	public final fun setNote (I)V
+	public final fun setNoteon (Z)V
+	public final fun setOldfinalvolume (D)V
+	public final fun setPanenvpos (I)V
+	public final fun setPeriod (D)V
+	public final fun setPlaydir (I)V
+	public final fun setSampleindex (I)V
+	public final fun setSamplepos (D)V
+	public final fun setSamplespeed (D)V
+	public final fun setSemitone (I)V
+	public final fun setSlidedownspeed (I)V
+	public final fun setSlidespeed (I)V
+	public final fun setSlideto (D)V
+	public final fun setSlidetospeed (I)V
+	public final fun setSlideupspeed (I)V
+	public final fun setTrigramp (D)V
+	public final fun setTrigrampfrom (D)V
+	public final fun setVibratodepth (I)V
+	public final fun setVibratopos (I)V
+	public final fun setVibratospeed (I)V
+	public final fun setVibratowave (I)V
+	public final fun setVoiceperiod (D)V
+	public final fun setVoicevolume (I)V
+	public final fun setVolenvpos (I)V
+	public final fun setVolramp (D)V
+	public final fun setVolrampfrom (D)V
+	public final fun setVolslide (I)V
+	public final fun setVolume (I)V
+}
+
+public final class korlibs/audio/format/mod/Fasttracker$Instrument {
+	public synthetic fun <init> (Ljava/lang/String;I[Lkorlibs/audio/format/mod/Fasttracker$Sample;IIIII[F[F[FIIIIIILkorlibs/memory/Buffer;IIIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;I[Lkorlibs/audio/format/mod/Fasttracker$Sample;IIIII[F[F[FIIIIIILkorlibs/memory/Buffer;IIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getName ()Ljava/lang/String;
+	public final fun getPadenv ()[F
+	public final fun getPanenv ()[F
+	public final fun getPanenvlen ()I
+	public final fun getPanloopend ()I
+	public final fun getPanloopstart ()I
+	public final fun getPansustain ()I
+	public final fun getPantype ()I
+	public final fun getSample ()[Lkorlibs/audio/format/mod/Fasttracker$Sample;
+	public final fun getSamplemap-7EvXJI0 ()Lkorlibs/memory/Buffer;
+	public final fun getSamples ()I
+	public final fun getVibratodepth ()I
+	public final fun getVibratorate ()I
+	public final fun getVibratosweep ()I
+	public final fun getVibratotype ()I
+	public final fun getVolenv ()[F
+	public final fun getVolenvlen ()I
+	public final fun getVolfadeout ()I
+	public final fun getVolloopend ()I
+	public final fun getVolloopstart ()I
+	public final fun getVolsustain ()I
+	public final fun getVoltype ()I
+	public final fun setName (Ljava/lang/String;)V
+	public final fun setPadenv ([F)V
+	public final fun setPanenv ([F)V
+	public final fun setPanenvlen (I)V
+	public final fun setPanloopend (I)V
+	public final fun setPanloopstart (I)V
+	public final fun setPansustain (I)V
+	public final fun setPantype (I)V
+	public final fun setSample ([Lkorlibs/audio/format/mod/Fasttracker$Sample;)V
+	public final fun setSamplemap-HIhfOs4 (Lkorlibs/memory/Buffer;)V
+	public final fun setSamples (I)V
+	public final fun setVibratodepth (I)V
+	public final fun setVibratorate (I)V
+	public final fun setVibratosweep (I)V
+	public final fun setVibratotype (I)V
+	public final fun setVolenv ([F)V
+	public final fun setVolenvlen (I)V
+	public final fun setVolfadeout (I)V
+	public final fun setVolloopend (I)V
+	public final fun setVolloopstart (I)V
+	public final fun setVolsustain (I)V
+	public final fun setVoltype (I)V
+}
+
+public final class korlibs/audio/format/mod/Fasttracker$Sample {
+	public fun <init> ()V
+	public fun <init> (IIIIIIIIIIII[FLjava/lang/String;)V
+	public synthetic fun <init> (IIIIIIIIIIII[FLjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getBits ()I
+	public final fun getBps ()I
+	public final fun getData ()[F
+	public final fun getFinetune ()I
+	public final fun getLength ()I
+	public final fun getLoopend ()I
+	public final fun getLooplength ()I
+	public final fun getLoopstart ()I
+	public final fun getLooptype ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun getPanning ()I
+	public final fun getRelativenote ()I
+	public final fun getStereo ()I
+	public final fun getVolume ()I
+	public final fun setBits (I)V
+	public final fun setBps (I)V
+	public final fun setData ([F)V
+	public final fun setFinetune (I)V
+	public final fun setLength (I)V
+	public final fun setLoopend (I)V
+	public final fun setLooplength (I)V
+	public final fun setLoopstart (I)V
+	public final fun setLooptype (I)V
+	public final fun setName (Ljava/lang/String;)V
+	public final fun setPanning (I)V
+	public final fun setRelativenote (I)V
+	public final fun setStereo (I)V
+	public final fun setVolume (I)V
+}
+
+public final class korlibs/audio/format/mod/MOD : korlibs/audio/format/mod/BaseModuleTracker$Format {
+	public static final field INSTANCE Lkorlibs/audio/format/mod/MOD;
+	public fun createTracker ()Lkorlibs/audio/format/mod/BaseModuleTracker;
+	public fun fastValidate (Lkorlibs/io/stream/AsyncStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/format/mod/MODKt {
+	public static final fun readMOD (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/sound/NativeSoundProvider;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readMOD$default (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/sound/NativeSoundProvider;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/format/mod/Protracker : korlibs/audio/format/mod/BaseModuleTracker {
+	public fun <init> ()V
+	public final fun advance ()V
+	public final fun clearsong ()V
+	public final fun computeTime ()I
+	public final fun effect_t0_0 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_1 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_2 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_3 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_4 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_5 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_6 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_7 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_8 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_9 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_a (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_b (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_c (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_d (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_e (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_e0 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_e1 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_e2 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_e3 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_e4 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_e5 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_e6 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_e7 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_e8 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_e9 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_ea (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_eb (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_ec (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_ed (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_ee (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_ef (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t0_f (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_0 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_1 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_2 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_3 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_4 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_5 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_6 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_7 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_8 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_9 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_a (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_b (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_c (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_d (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_e (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_e0 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_e1 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_e2 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_e3 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_e4 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_e5 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_e6 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_e7 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_e8 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_e9 (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_ea (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_eb (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_ec (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_ed (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_ee (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_ef (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun effect_t1_f (Lkorlibs/audio/format/mod/Protracker;I)V
+	public final fun getBaseperiodtable ()[F
+	public final fun getBpm ()I
+	public final fun getBreakrow ()I
+	public final fun getChannel ()[Lkorlibs/audio/format/mod/Protracker$Channel;
+	public final fun getChannels ()I
+	public final fun getChvu ()[F
+	public final fun getEffects_t0 ()[Lkotlin/reflect/KFunction;
+	public final fun getEffects_t0_e ()[Lkotlin/reflect/KFunction;
+	public final fun getEffects_t1 ()[Lkotlin/reflect/KFunction;
+	public final fun getEffects_t1_e ()[Lkotlin/reflect/KFunction;
+	public final fun getFilter ()Z
+	public final fun getFinetunetable ()[F
+	public final fun getFlags ()I
+	public final fun getLoopcount ()I
+	public final fun getLooprow ()I
+	public final fun getLoopstart ()I
+	public final fun getMixval ()D
+	public final fun getNote ()[Lkorlibs/memory/Uint8Buffer;
+	public final fun getOffset ()I
+	public final fun getPattern ()[Lkorlibs/memory/Uint8Buffer;
+	public final fun getPattern_unpack ()[Lkorlibs/memory/Uint8Buffer;
+	public final fun getPatterndelay ()I
+	public final fun getPatternjump ()I
+	public final fun getPatterns ()I
+	public final fun getPatterntable-7EvXJI0 ()Lkorlibs/memory/Buffer;
+	public final fun getPatternwait ()I
+	public final fun getPaused ()Z
+	public final fun getPosition ()I
+	public final fun getRepeat ()Z
+	public final fun getRepeatpos ()I
+	public final fun getRow ()I
+	public final fun getSample ()[Lkorlibs/audio/format/mod/Protracker$Sample;
+	public final fun getSamples ()I
+	public final fun getSignature ()Ljava/lang/String;
+	public final fun getSonglen ()I
+	public final fun getSpd ()D
+	public final fun getSpeed ()I
+	public final fun getSyncqueue ()Lkorlibs/datastructure/IntDeque;
+	public final fun getTick ()I
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getVibratotable ()[[F
+	public fun initialize ()V
+	public fun mix ([[FI)V
+	public fun parse-HIhfOs4 (Lkorlibs/memory/Buffer;)Z
+	public final fun setBpm (I)V
+	public final fun setBreakrow (I)V
+	public final fun setChannel ([Lkorlibs/audio/format/mod/Protracker$Channel;)V
+	public final fun setChannels (I)V
+	public final fun setChvu ([F)V
+	public final fun setFilter (Z)V
+	public final fun setFlags (I)V
+	public final fun setLoopcount (I)V
+	public final fun setLooprow (I)V
+	public final fun setLoopstart (I)V
+	public final fun setMixval (D)V
+	public final fun setNote ([Lkorlibs/memory/Uint8Buffer;)V
+	public final fun setOffset (I)V
+	public final fun setPattern ([Lkorlibs/memory/Uint8Buffer;)V
+	public final fun setPattern_unpack ([Lkorlibs/memory/Uint8Buffer;)V
+	public final fun setPatterndelay (I)V
+	public final fun setPatternjump (I)V
+	public final fun setPatterns (I)V
+	public final fun setPatterntable-HIhfOs4 (Lkorlibs/memory/Buffer;)V
+	public final fun setPatternwait (I)V
+	public final fun setPaused (Z)V
+	public final fun setPosition (I)V
+	public final fun setRepeat (Z)V
+	public final fun setRepeatpos (I)V
+	public final fun setRow (I)V
+	public final fun setSample ([Lkorlibs/audio/format/mod/Protracker$Sample;)V
+	public final fun setSamples (I)V
+	public final fun setSignature (Ljava/lang/String;)V
+	public final fun setSonglen (I)V
+	public final fun setSpeed (I)V
+	public final fun setSyncqueue (Lkorlibs/datastructure/IntDeque;)V
+	public final fun setTick (I)V
+	public final fun setTitle (Ljava/lang/String;)V
+}
+
+public final class korlibs/audio/format/mod/Protracker$Channel {
+	public fun <init> ()V
+	public fun <init> (IIDIIIIDDIIIIIIDIIII)V
+	public synthetic fun <init> (IIDIIIIDDIIIIIIDIIIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component10 ()I
+	public final fun component11 ()I
+	public final fun component12 ()I
+	public final fun component13 ()I
+	public final fun component14 ()I
+	public final fun component15 ()I
+	public final fun component16 ()D
+	public final fun component17 ()I
+	public final fun component18 ()I
+	public final fun component19 ()I
+	public final fun component2 ()I
+	public final fun component20 ()I
+	public final fun component3 ()D
+	public final fun component4 ()I
+	public final fun component5 ()I
+	public final fun component6 ()I
+	public final fun component7 ()I
+	public final fun component8 ()D
+	public final fun component9 ()D
+	public final fun copy (IIDIIIIDDIIIIIIDIIII)Lkorlibs/audio/format/mod/Protracker$Channel;
+	public static synthetic fun copy$default (Lkorlibs/audio/format/mod/Protracker$Channel;IIDIIIIDDIIIIIIDIIIIILjava/lang/Object;)Lkorlibs/audio/format/mod/Protracker$Channel;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getArpeggio ()I
+	public final fun getCommand ()I
+	public final fun getData ()I
+	public final fun getFlags ()I
+	public final fun getNote ()I
+	public final fun getNoteon ()I
+	public final fun getPeriod ()I
+	public final fun getSample ()I
+	public final fun getSamplepos ()D
+	public final fun getSamplespeed ()D
+	public final fun getSemitone ()D
+	public final fun getSlidespeed ()I
+	public final fun getSlideto ()I
+	public final fun getSlidetospeed ()I
+	public final fun getVibratodepth ()I
+	public final fun getVibratopos ()I
+	public final fun getVibratospeed ()I
+	public final fun getVibratowave ()I
+	public final fun getVoiceperiod ()D
+	public final fun getVolume ()I
+	public fun hashCode ()I
+	public final fun setArpeggio (I)V
+	public final fun setCommand (I)V
+	public final fun setData (I)V
+	public final fun setFlags (I)V
+	public final fun setNote (I)V
+	public final fun setNoteon (I)V
+	public final fun setPeriod (I)V
+	public final fun setSample (I)V
+	public final fun setSamplepos (D)V
+	public final fun setSamplespeed (D)V
+	public final fun setSemitone (D)V
+	public final fun setSlidespeed (I)V
+	public final fun setSlideto (I)V
+	public final fun setSlidetospeed (I)V
+	public final fun setVibratodepth (I)V
+	public final fun setVibratopos (I)V
+	public final fun setVibratospeed (I)V
+	public final fun setVibratowave (I)V
+	public final fun setVoiceperiod (D)V
+	public final fun setVolume (I)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/audio/format/mod/Protracker$Sample {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;IIIII[F)V
+	public synthetic fun <init> (Ljava/lang/String;IIIII[FILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getData ()[F
+	public final fun getFinetune ()I
+	public final fun getLength ()I
+	public final fun getLooplength ()I
+	public final fun getLoopstart ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun getVolume ()I
+	public final fun setData ([F)V
+	public final fun setFinetune (I)V
+	public final fun setLength (I)V
+	public final fun setLooplength (I)V
+	public final fun setLoopstart (I)V
+	public final fun setName (Ljava/lang/String;)V
+	public final fun setVolume (I)V
+}
+
+public final class korlibs/audio/format/mod/S3M : korlibs/audio/format/mod/BaseModuleTracker$Format {
+	public static final field INSTANCE Lkorlibs/audio/format/mod/S3M;
+	public fun createTracker ()Lkorlibs/audio/format/mod/BaseModuleTracker;
+	public fun fastValidate (Lkorlibs/io/stream/AsyncStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/format/mod/S3MKt {
+	public static final fun readS3M (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/sound/NativeSoundProvider;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readS3M$default (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/sound/NativeSoundProvider;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/format/mod/Screamtracker : korlibs/audio/format/mod/BaseModuleTracker {
+	public fun <init> ()V
+	public final fun advance ()V
+	public final fun clearsong ()V
+	public final fun computeTime ()I
+	public final fun effect_t0_a (I)V
+	public final fun effect_t0_b (I)V
+	public final fun effect_t0_c (I)V
+	public final fun effect_t0_d (I)V
+	public final fun effect_t0_e (I)V
+	public final fun effect_t0_f (I)V
+	public final fun effect_t0_g (I)V
+	public final fun effect_t0_h (I)V
+	public final fun effect_t0_i (I)V
+	public final fun effect_t0_j (I)V
+	public final fun effect_t0_k (I)V
+	public final fun effect_t0_l (I)V
+	public final fun effect_t0_m (I)V
+	public final fun effect_t0_n (I)V
+	public final fun effect_t0_o (I)V
+	public final fun effect_t0_p (I)V
+	public final fun effect_t0_q (I)V
+	public final fun effect_t0_r (I)V
+	public final fun effect_t0_s (I)V
+	public final fun effect_t0_s0 (I)V
+	public final fun effect_t0_s1 (I)V
+	public final fun effect_t0_s2 (I)V
+	public final fun effect_t0_s3 (I)V
+	public final fun effect_t0_s4 (I)V
+	public final fun effect_t0_s5 (I)V
+	public final fun effect_t0_s6 (I)V
+	public final fun effect_t0_s7 (I)V
+	public final fun effect_t0_s8 (I)V
+	public final fun effect_t0_s9 (I)V
+	public final fun effect_t0_sa (I)V
+	public final fun effect_t0_sb (I)V
+	public final fun effect_t0_sc (I)V
+	public final fun effect_t0_sd (I)V
+	public final fun effect_t0_se (I)V
+	public final fun effect_t0_sf (I)V
+	public final fun effect_t0_t (I)V
+	public final fun effect_t0_u (I)V
+	public final fun effect_t0_v (I)V
+	public final fun effect_t0_w (I)V
+	public final fun effect_t0_x (I)V
+	public final fun effect_t0_y (I)V
+	public final fun effect_t0_z (I)V
+	public final fun effect_t1_a (I)V
+	public final fun effect_t1_b (I)V
+	public final fun effect_t1_c (I)V
+	public final fun effect_t1_d (I)V
+	public final fun effect_t1_e (I)V
+	public final fun effect_t1_f (I)V
+	public final fun effect_t1_g (I)V
+	public final fun effect_t1_h (I)V
+	public final fun effect_t1_i (I)V
+	public final fun effect_t1_j (I)V
+	public final fun effect_t1_k (I)V
+	public final fun effect_t1_l (I)V
+	public final fun effect_t1_m (I)V
+	public final fun effect_t1_n (I)V
+	public final fun effect_t1_o (I)V
+	public final fun effect_t1_p (I)V
+	public final fun effect_t1_q (I)V
+	public final fun effect_t1_r (I)V
+	public final fun effect_t1_s (I)V
+	public final fun effect_t1_s0 (I)V
+	public final fun effect_t1_s1 (I)V
+	public final fun effect_t1_s2 (I)V
+	public final fun effect_t1_s3 (I)V
+	public final fun effect_t1_s4 (I)V
+	public final fun effect_t1_s5 (I)V
+	public final fun effect_t1_s6 (I)V
+	public final fun effect_t1_s7 (I)V
+	public final fun effect_t1_s8 (I)V
+	public final fun effect_t1_s9 (I)V
+	public final fun effect_t1_sa (I)V
+	public final fun effect_t1_sb (I)V
+	public final fun effect_t1_sc (I)V
+	public final fun effect_t1_sd (I)V
+	public final fun effect_t1_se (I)V
+	public final fun effect_t1_sf (I)V
+	public final fun effect_t1_t (I)V
+	public final fun effect_t1_u (I)V
+	public final fun effect_t1_v (I)V
+	public final fun effect_t1_w (I)V
+	public final fun effect_t1_x (I)V
+	public final fun effect_t1_y (I)V
+	public final fun effect_t1_z (I)V
+	public final fun getBpm ()I
+	public final fun getBreakrow ()I
+	public final fun getChannel ()[Lkorlibs/audio/format/mod/Screamtracker$Channel;
+	public final fun getChannels ()I
+	public final fun getChvu ()[F
+	public final fun getEffects_t0 ()[Lkotlin/reflect/KFunction;
+	public final fun getEffects_t0_s ()[Lkotlin/reflect/KFunction;
+	public final fun getEffects_t1 ()[Lkotlin/reflect/KFunction;
+	public final fun getEffects_t1_s ()[Lkotlin/reflect/KFunction;
+	public final fun getFastslide ()I
+	public final fun getFilter ()Z
+	public final fun getFlags ()I
+	public final fun getGlobalVol ()I
+	public final fun getInitBPM ()I
+	public final fun getInitSpeed ()I
+	public final fun getInsNum ()I
+	public final fun getLoopcount ()I
+	public final fun getLooprow ()I
+	public final fun getLoopstart ()I
+	public final fun getMixval ()D
+	public final fun getMod ()Lkorlibs/audio/format/mod/Screamtracker;
+	public final fun getOrdNum ()I
+	public final fun getPan_l ()[F
+	public final fun getPan_r ()[F
+	public final fun getPatNum ()I
+	public final fun getPattern ()[Lkorlibs/memory/Uint8Buffer;
+	public final fun getPatterndelay ()I
+	public final fun getPatternjump ()I
+	public final fun getPatterns ()I
+	public final fun getPatterntable-7EvXJI0 ()Lkorlibs/memory/Buffer;
+	public final fun getPatternwait ()I
+	public final fun getPaused ()Z
+	public final fun getPeriodtable ()[F
+	public final fun getPosition ()I
+	public final fun getRepeat ()Z
+	public final fun getRepeatpos ()I
+	public final fun getRetrigvoltab ()[F
+	public final fun getRow ()I
+	public final fun getSample ()[Lkorlibs/audio/format/mod/Screamtracker$Sample;
+	public final fun getSampleCount ()I
+	public final fun getSignature ()Ljava/lang/String;
+	public final fun getSonglen ()I
+	public final fun getSpeed ()I
+	public final fun getStt ()D
+	public final fun getSyncqueue ()Lkorlibs/datastructure/IntDeque;
+	public final fun getTick ()I
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getVibratotable ()[[F
+	public final fun getVolume ()I
+	public fun initialize ()V
+	public fun mix ([[FI)V
+	public fun parse-HIhfOs4 (Lkorlibs/memory/Buffer;)Z
+	public final fun process_note (II)V
+	public final fun process_tick ()V
+	public final fun setBpm (I)V
+	public final fun setBreakrow (I)V
+	public final fun setChannel ([Lkorlibs/audio/format/mod/Screamtracker$Channel;)V
+	public final fun setChannels (I)V
+	public final fun setChvu ([F)V
+	public final fun setFastslide (I)V
+	public final fun setFilter (Z)V
+	public final fun setFlags (I)V
+	public final fun setGlobalVol (I)V
+	public final fun setInitBPM (I)V
+	public final fun setInitSpeed (I)V
+	public final fun setInsNum (I)V
+	public final fun setLoopcount (I)V
+	public final fun setLooprow (I)V
+	public final fun setLoopstart (I)V
+	public final fun setMixval (D)V
+	public final fun setOrdNum (I)V
+	public final fun setPatNum (I)V
+	public final fun setPattern ([Lkorlibs/memory/Uint8Buffer;)V
+	public final fun setPatterndelay (I)V
+	public final fun setPatternjump (I)V
+	public final fun setPatterns (I)V
+	public final fun setPatterntable-HIhfOs4 (Lkorlibs/memory/Buffer;)V
+	public final fun setPatternwait (I)V
+	public final fun setPaused (Z)V
+	public final fun setPosition (I)V
+	public final fun setRepeat (Z)V
+	public final fun setRepeatpos (I)V
+	public final fun setRow (I)V
+	public final fun setSample ([Lkorlibs/audio/format/mod/Screamtracker$Sample;)V
+	public final fun setSampleCount (I)V
+	public final fun setSignature (Ljava/lang/String;)V
+	public final fun setSonglen (I)V
+	public final fun setSpeed (I)V
+	public final fun setStt (D)V
+	public final fun setSyncqueue (Lkorlibs/datastructure/IntDeque;)V
+	public final fun setTick (I)V
+	public final fun setTitle (Ljava/lang/String;)V
+	public final fun setVolume (I)V
+	public fun skip (I)V
+}
+
+public final class korlibs/audio/format/mod/Screamtracker$Channel {
+	public fun <init> ()V
+	public fun <init> (IIIIDDIIIDIIDIDIIIIIIIIIDIDDDDI)V
+	public synthetic fun <init> (IIIIDDIIIDIIDIDIIIIIIIIIDIDDDDIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getArpeggio ()I
+	public final fun getCommand ()I
+	public final fun getCurrentsample ()D
+	public final fun getData ()I
+	public final fun getFlags ()I
+	public final fun getLastoffset ()I
+	public final fun getLastretrig ()I
+	public final fun getLastsample ()D
+	public final fun getNote ()I
+	public final fun getNoteon ()I
+	public final fun getOldvoicevolume ()I
+	public final fun getPeriod ()D
+	public final fun getSample ()I
+	public final fun getSamplepos ()D
+	public final fun getSamplespeed ()D
+	public final fun getSemitone ()I
+	public final fun getSlidespeed ()I
+	public final fun getSlideto ()D
+	public final fun getSlidetospeed ()I
+	public final fun getTrigramp ()D
+	public final fun getTrigrampfrom ()D
+	public final fun getVibratodepth ()I
+	public final fun getVibratopos ()I
+	public final fun getVibratospeed ()I
+	public final fun getVibratowave ()I
+	public final fun getVoiceperiod ()D
+	public final fun getVoicevolume ()I
+	public final fun getVolramp ()D
+	public final fun getVolrampfrom ()I
+	public final fun getVolslide ()I
+	public final fun getVolume ()I
+	public final fun setArpeggio (I)V
+	public final fun setCommand (I)V
+	public final fun setCurrentsample (D)V
+	public final fun setData (I)V
+	public final fun setFlags (I)V
+	public final fun setLastoffset (I)V
+	public final fun setLastretrig (I)V
+	public final fun setLastsample (D)V
+	public final fun setNote (I)V
+	public final fun setNoteon (I)V
+	public final fun setOldvoicevolume (I)V
+	public final fun setPeriod (D)V
+	public final fun setSample (I)V
+	public final fun setSamplepos (D)V
+	public final fun setSamplespeed (D)V
+	public final fun setSemitone (I)V
+	public final fun setSlidespeed (I)V
+	public final fun setSlideto (D)V
+	public final fun setSlidetospeed (I)V
+	public final fun setTrigramp (D)V
+	public final fun setTrigrampfrom (D)V
+	public final fun setVibratodepth (I)V
+	public final fun setVibratopos (I)V
+	public final fun setVibratospeed (I)V
+	public final fun setVibratowave (I)V
+	public final fun setVoiceperiod (D)V
+	public final fun setVoicevolume (I)V
+	public final fun setVolramp (D)V
+	public final fun setVolrampfrom (I)V
+	public final fun setVolslide (I)V
+	public final fun setVolume (I)V
+}
+
+public final class korlibs/audio/format/mod/Screamtracker$Sample {
+	public fun <init> ()V
+	public fun <init> (IIIIIIILjava/lang/String;[FII)V
+	public synthetic fun <init> (IIIIIIILjava/lang/String;[FIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getBits ()I
+	public final fun getC2spd ()I
+	public final fun getData ()[F
+	public final fun getLength ()I
+	public final fun getLoop ()I
+	public final fun getLoopend ()I
+	public final fun getLooplength ()I
+	public final fun getLoopstart ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun getStereo ()I
+	public final fun getVolume ()I
+	public final fun setBits (I)V
+	public final fun setC2spd (I)V
+	public final fun setData ([F)V
+	public final fun setLength (I)V
+	public final fun setLoop (I)V
+	public final fun setLoopend (I)V
+	public final fun setLooplength (I)V
+	public final fun setLoopstart (I)V
+	public final fun setName (Ljava/lang/String;)V
+	public final fun setStereo (I)V
+	public final fun setVolume (I)V
+}
+
+public final class korlibs/audio/format/mod/XM : korlibs/audio/format/mod/BaseModuleTracker$Format {
+	public static final field INSTANCE Lkorlibs/audio/format/mod/XM;
+	public fun createTracker ()Lkorlibs/audio/format/mod/BaseModuleTracker;
+	public fun fastValidate (Lkorlibs/io/stream/AsyncStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/format/mod/XMKt {
+	public static final fun readXM (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/sound/NativeSoundProvider;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readXM$default (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/sound/NativeSoundProvider;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/sound/AudioConversionQuality : java/lang/Enum {
+	public static final field FAST Lkorlibs/audio/sound/AudioConversionQuality;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/audio/sound/AudioConversionQuality;
+	public static fun values ()[Lkorlibs/audio/sound/AudioConversionQuality;
+}
+
+public final class korlibs/audio/sound/AudioDataExtKt {
+	public static final fun encodeToByteArray (Lkorlibs/audio/sound/AudioData;Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/format/AudioEncodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun encodeToByteArray$default (Lkorlibs/audio/sound/AudioData;Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/format/AudioEncodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun encodeToFile (Lkorlibs/audio/sound/AudioData;Lkorlibs/io/file/VfsFile;Lkorlibs/audio/format/AudioFormats;Lkorlibs/audio/format/AudioEncodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun encodeToFile$default (Lkorlibs/audio/sound/AudioData;Lkorlibs/io/file/VfsFile;Lkorlibs/audio/format/AudioFormats;Lkorlibs/audio/format/AudioEncodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun encodeToStream (Lkorlibs/audio/sound/AudioData;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/format/AudioEncodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun encodeToStream$default (Lkorlibs/audio/sound/AudioData;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/format/AudioEncodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun getSamplesInterleaved (Lkorlibs/audio/sound/AudioData;)Lkorlibs/audio/sound/AudioSamplesInterleaved;
+	public static final fun readAudioData (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readAudioData$default (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun toSound (Lkorlibs/audio/sound/AudioData;Lkorlibs/audio/sound/NativeSoundProvider;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun toSound$default (Lkorlibs/audio/sound/AudioData;Lkorlibs/audio/sound/NativeSoundProvider;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun toStream (Lkorlibs/audio/sound/AudioData;)Lkorlibs/audio/sound/AudioStream;
+	public static final fun withRate (Lkorlibs/audio/sound/AudioData;I)Lkorlibs/audio/sound/AudioData;
+}
+
+public final class korlibs/audio/sound/AudioDataStream : korlibs/audio/sound/AudioStream {
+	public fun <init> (Lkorlibs/audio/sound/AudioData;)V
+	public fun clone (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getCurrentPositionInSamples ()J
+	public final fun getCursor ()I
+	public final fun getData ()Lkorlibs/audio/sound/AudioData;
+	public fun getFinished ()Z
+	public fun getTotalLengthInSamples ()Ljava/lang/Long;
+	public fun read (Lkorlibs/audio/sound/AudioSamples;IILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun seek-VtjQ1oo (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setCursor (I)V
+	public fun setFinished (Z)V
+}
+
+public final class korlibs/audio/sound/AudioSamplesDeque {
+	public static final field Companion Lkorlibs/audio/sound/AudioSamplesDeque$Companion;
+	public fun <init> (I)V
+	public final fun clear ()V
+	public final fun clone ()Lkorlibs/audio/sound/AudioSamplesDeque;
+	public final fun copyTo (Lkorlibs/audio/sound/AudioSamplesDeque;Lkorlibs/audio/sound/AudioSamples;)V
+	public static synthetic fun copyTo$default (Lkorlibs/audio/sound/AudioSamplesDeque;Lkorlibs/audio/sound/AudioSamplesDeque;Lkorlibs/audio/sound/AudioSamples;ILjava/lang/Object;)V
+	public final fun createTempSamples (I)Lkorlibs/audio/sound/AudioSamples;
+	public static synthetic fun createTempSamples$default (Lkorlibs/audio/sound/AudioSamplesDeque;IILjava/lang/Object;)Lkorlibs/audio/sound/AudioSamples;
+	public final fun getAvailableRead ()I
+	public final fun getAvailableReadMax ()I
+	public final fun getBuffer ()[Lkorlibs/datastructure/ShortArrayDeque;
+	public final fun getChannels ()I
+	public final fun read (Lkorlibs/audio/sound/AudioSamples;II)I
+	public final fun read (Lkorlibs/audio/sound/AudioSamplesInterleaved;II)I
+	public static synthetic fun read$default (Lkorlibs/audio/sound/AudioSamplesDeque;Lkorlibs/audio/sound/AudioSamples;IIILjava/lang/Object;)I
+	public static synthetic fun read$default (Lkorlibs/audio/sound/AudioSamplesDeque;Lkorlibs/audio/sound/AudioSamplesInterleaved;IIILjava/lang/Object;)I
+	public final fun read-9ZU3Ptw (I)S
+	public final fun readFloat (I)F
+	public fun toString ()Ljava/lang/String;
+	public final fun write (I[FII)V
+	public final fun write (Lkorlibs/audio/sound/AudioSamples;II)V
+	public final fun write (Lkorlibs/audio/sound/AudioSamplesInterleaved;II)V
+	public static synthetic fun write$default (Lkorlibs/audio/sound/AudioSamplesDeque;I[FIIILjava/lang/Object;)V
+	public static synthetic fun write$default (Lkorlibs/audio/sound/AudioSamplesDeque;Lkorlibs/audio/sound/AudioSamples;IIILjava/lang/Object;)V
+	public static synthetic fun write$default (Lkorlibs/audio/sound/AudioSamplesDeque;Lkorlibs/audio/sound/AudioSamplesInterleaved;IIILjava/lang/Object;)V
+	public final fun write-uTLWSbw (I[SII)V
+	public static synthetic fun write-uTLWSbw$default (Lkorlibs/audio/sound/AudioSamplesDeque;I[SIIILjava/lang/Object;)V
+	public final fun write-w13VV2Q (IS)V
+	public final fun writeFloat (IF)V
+	public final fun writeInterleaved-Tkn8whA ([SIII)V
+	public static synthetic fun writeInterleaved-Tkn8whA$default (Lkorlibs/audio/sound/AudioSamplesDeque;[SIIIILjava/lang/Object;)V
+}
+
+public final class korlibs/audio/sound/AudioSamplesDeque$Companion {
+	public final fun invoke (Lkorlibs/audio/sound/AudioSamples;)Lkorlibs/audio/sound/AudioSamplesDeque;
+	public final fun invoke (Lkorlibs/audio/sound/AudioSamplesInterleaved;)Lkorlibs/audio/sound/AudioSamplesDeque;
+}
+
+public final class korlibs/audio/sound/AudioSamplesDequeKt {
+	public static final fun consumeToData (Lkorlibs/audio/sound/AudioSamplesDeque;I)Lkorlibs/audio/sound/AudioData;
+	public static final fun toData (Lkorlibs/audio/sound/AudioSamplesDeque;I)Lkorlibs/audio/sound/AudioData;
+}
+
+public final class korlibs/audio/sound/AudioSamplesExtKt {
+	public static final fun applyProps (Lkorlibs/audio/sound/AudioSamplesInterleaved;DDD)Lkorlibs/audio/sound/AudioSamplesInterleaved;
+	public static final fun ensureTwoChannels (Lkorlibs/audio/sound/AudioSamplesInterleaved;)Lkorlibs/audio/sound/AudioSamplesInterleaved;
+	public static final fun interleaved (Lkorlibs/audio/sound/AudioSamples;Lkorlibs/audio/sound/AudioSamplesInterleaved;)Lkorlibs/audio/sound/AudioSamplesInterleaved;
+	public static synthetic fun interleaved$default (Lkorlibs/audio/sound/AudioSamples;Lkorlibs/audio/sound/AudioSamplesInterleaved;ILjava/lang/Object;)Lkorlibs/audio/sound/AudioSamplesInterleaved;
+	public static final fun resample (Lkorlibs/audio/sound/AudioSamples;II)Lkorlibs/audio/sound/AudioSamples;
+	public static final fun resampleIfRequired (Lkorlibs/audio/sound/AudioSamples;II)Lkorlibs/audio/sound/AudioSamples;
+	public static final fun separated (Lkorlibs/audio/sound/AudioSamplesInterleaved;Lkorlibs/audio/sound/AudioSamples;)Lkorlibs/audio/sound/AudioSamples;
+	public static synthetic fun separated$default (Lkorlibs/audio/sound/AudioSamplesInterleaved;Lkorlibs/audio/sound/AudioSamples;ILjava/lang/Object;)Lkorlibs/audio/sound/AudioSamples;
+}
+
+public final class korlibs/audio/sound/AudioSamplesProcessor {
+	public fun <init> (II[[F)V
+	public synthetic fun <init> (II[[FILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun add (Lkorlibs/audio/sound/AudioSamples;F)Lkorlibs/audio/sound/AudioSamplesProcessor;
+	public static synthetic fun add$default (Lkorlibs/audio/sound/AudioSamplesProcessor;Lkorlibs/audio/sound/AudioSamples;FILjava/lang/Object;)Lkorlibs/audio/sound/AudioSamplesProcessor;
+	public final fun copyTo (Lkorlibs/audio/sound/AudioSamples;)V
+	public final fun getChannels ()I
+	public final fun getData ()[[F
+	public final fun getTotalSamples ()I
+	public final fun normalize ()Lkorlibs/audio/sound/AudioSamplesProcessor;
+	public final fun reset ()Lkorlibs/audio/sound/AudioSamplesProcessor;
+}
+
+public abstract class korlibs/audio/sound/AudioStream : java/lang/AutoCloseable, korlibs/audio/sound/AudioStreamable {
+	public static final field Companion Lkorlibs/audio/sound/AudioStream$Companion;
+	public fun <init> (IILjava/lang/String;)V
+	public synthetic fun <init> (IILjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public abstract fun clone (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun close ()V
+	public final fun estimateSamplesFromTime-LRDsOJo (J)J
+	public final fun estimateTimeFromSamples-5sfh64U (J)J
+	public final fun getChannels ()I
+	public fun getCurrentPositionInSamples ()J
+	public final fun getCurrentTime-UwyO8pc ()J
+	public fun getFinished ()Z
+	public final fun getName ()Ljava/lang/String;
+	public final fun getRate ()I
+	public final fun getTotalLength-UwyO8pc ()J
+	public fun getTotalLengthInSamples ()Ljava/lang/Long;
+	public fun read (Lkorlibs/audio/sound/AudioSamples;IILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun read$default (Lkorlibs/audio/sound/AudioStream;Lkorlibs/audio/sound/AudioSamples;IILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public abstract fun seek-VtjQ1oo (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toStream (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/sound/AudioStream$Companion {
+	public final fun generator (IILkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;)Lkorlibs/audio/sound/AudioStream;
+	public static synthetic fun generator$default (Lkorlibs/audio/sound/AudioStream$Companion;IILkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;ILjava/lang/Object;)Lkorlibs/audio/sound/AudioStream;
+}
+
+public final class korlibs/audio/sound/AudioStreamKt {
+	public static final fun getDEFAULT_MAX_SAMPLES ()I
+	public static final fun playAndWait (Lkorlibs/audio/sound/AudioStream;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun playAndWait$default (Lkorlibs/audio/sound/AudioStream;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun playAndWait-HoZRZ74 (Lkorlibs/audio/sound/AudioStream;IJJLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun playAndWait-HoZRZ74$default (Lkorlibs/audio/sound/AudioStream;IJJLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun readAudioStream (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readAudioStream$default (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun readAudioStreamOrNull (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readAudioStreamOrNull$default (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun toData (Lkorlibs/audio/sound/AudioStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun toData$default (Lkorlibs/audio/sound/AudioStream;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun toSound (Lkorlibs/audio/sound/AudioStream;ZLjava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun toSound (Lkorlibs/audio/sound/AudioStream;ZLjava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun toSound$default (Lkorlibs/audio/sound/AudioStream;ZLjava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun toSound$default (Lkorlibs/audio/sound/AudioStream;ZLjava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun writeAudio (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/sound/AudioData;Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/format/AudioEncodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun writeAudio$default (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/sound/AudioData;Lkorlibs/audio/format/AudioFormat;Lkorlibs/audio/format/AudioEncodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/sound/AudioStreamProcessorKt {
+	public static final fun withProcessor (Lkorlibs/audio/sound/AudioStream;Lkotlin/jvm/functions/Function3;)Lkorlibs/audio/sound/AudioStream;
+	public static final fun withProcessor (Lkorlibs/audio/sound/AudioStreamable;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/audio/sound/AudioStreamable {
+	public abstract fun toStream (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/sound/AudioTone {
+	public static final field INSTANCE Lkorlibs/audio/sound/AudioTone;
+	public final fun generate-rnQQ1Ag (JDID)Lkorlibs/audio/sound/AudioData;
+	public static synthetic fun generate-rnQQ1Ag$default (Lkorlibs/audio/sound/AudioTone;JDIDILjava/lang/Object;)Lkorlibs/audio/sound/AudioData;
+}
+
+public final class korlibs/audio/sound/DummySoundChannel : korlibs/audio/sound/SoundChannel {
+	public fun <init> (Lkorlibs/audio/sound/Sound;Lkorlibs/audio/sound/AudioData;)V
+	public synthetic fun <init> (Lkorlibs/audio/sound/Sound;Lkorlibs/audio/sound/AudioData;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getCurrent-UwyO8pc ()J
+	public final fun getData ()Lkorlibs/audio/sound/AudioData;
+	public fun getTotal-UwyO8pc ()J
+	public fun setCurrent-LRDsOJo (J)V
+	public fun stop ()V
+}
+
+public class korlibs/audio/sound/LogNativeSoundProvider : korlibs/audio/sound/NativeSoundProvider {
+	public fun <init> ()V
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	public synthetic fun <init> (Lkotlin/jvm/functions/Function1;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun createNewPlatformAudioOutput (IILkotlin/jvm/functions/Function1;)Lkorlibs/audio/sound/AudioPlatformOutput;
+	public final fun getLog ()Ljava/util/ArrayList;
+	public final fun getOnGen ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class korlibs/audio/sound/NativeSoundProviderExtKt {
+	public static final fun createNonStreamingSound (Lkorlibs/audio/sound/NativeSoundProvider;Lkorlibs/audio/sound/AudioData;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun createNonStreamingSound$default (Lkorlibs/audio/sound/NativeSoundProvider;Lkorlibs/audio/sound/AudioData;Ljava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun createSound (Lkorlibs/audio/sound/NativeSoundProvider;Lkorlibs/audio/sound/AudioData;Lkorlibs/audio/format/AudioFormats;ZLjava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun createSound (Lkorlibs/audio/sound/NativeSoundProvider;Lkorlibs/io/file/FinalVfsFile;ZLkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun createSound (Lkorlibs/audio/sound/NativeSoundProvider;Lkorlibs/io/file/Vfs;Ljava/lang/String;ZLkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun createSound (Lkorlibs/audio/sound/NativeSoundProvider;Lkorlibs/io/file/VfsFile;ZLkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun createSound (Lkorlibs/audio/sound/NativeSoundProvider;[BZLkorlibs/audio/format/AudioDecodingProps;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun createSound$default (Lkorlibs/audio/sound/NativeSoundProvider;Lkorlibs/audio/sound/AudioData;Lkorlibs/audio/format/AudioFormats;ZLjava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun createSound$default (Lkorlibs/audio/sound/NativeSoundProvider;Lkorlibs/io/file/FinalVfsFile;ZLkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun createSound$default (Lkorlibs/audio/sound/NativeSoundProvider;Lkorlibs/io/file/Vfs;Ljava/lang/String;ZLkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun createSound$default (Lkorlibs/audio/sound/NativeSoundProvider;Lkorlibs/io/file/VfsFile;ZLkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun createSound$default (Lkorlibs/audio/sound/NativeSoundProvider;[BZLkorlibs/audio/format/AudioDecodingProps;Ljava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun createStreamingSound (Lkorlibs/audio/sound/NativeSoundProvider;Lkorlibs/audio/sound/AudioStream;ZLjava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun createStreamingSound$default (Lkorlibs/audio/sound/NativeSoundProvider;Lkorlibs/audio/sound/AudioStream;ZLjava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun getAudioFormats (Lkorlibs/audio/sound/NativeSoundProvider;)Lkorlibs/audio/format/AudioFormats;
+	public static final fun playAndWait (Lkorlibs/audio/sound/NativeSoundProvider;Lkorlibs/audio/sound/AudioStream;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun playAndWait$default (Lkorlibs/audio/sound/NativeSoundProvider;Lkorlibs/audio/sound/AudioStream;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/sound/PlaybackParameters : korlibs/audio/sound/ReadonlySoundProps {
+	public static final field Companion Lkorlibs/audio/sound/PlaybackParameters$Companion;
+	public synthetic fun <init> (IJJDDDLkorlibs/math/geom/Vector3F;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (IJJDDDLkorlibs/math/geom/Vector3F;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-4f83rf8 ()I
+	public final fun component2-UwyO8pc ()J
+	public final fun component3-UwyO8pc ()J
+	public final fun component4 ()D
+	public final fun component5 ()D
+	public final fun component6 ()D
+	public final fun component7 ()Lkorlibs/math/geom/Vector3F;
+	public final fun component8 ()Lkotlin/jvm/functions/Function0;
+	public final fun component9 ()Lkotlin/jvm/functions/Function0;
+	public final fun copy-FlRLWkI (IJJDDDLkorlibs/math/geom/Vector3F;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;)Lkorlibs/audio/sound/PlaybackParameters;
+	public static synthetic fun copy-FlRLWkI$default (Lkorlibs/audio/sound/PlaybackParameters;IJJDDDLkorlibs/math/geom/Vector3F;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Lkorlibs/audio/sound/PlaybackParameters;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBufferTime-UwyO8pc ()J
+	public final fun getOnCancel ()Lkotlin/jvm/functions/Function0;
+	public final fun getOnFinish ()Lkotlin/jvm/functions/Function0;
+	public fun getPanning ()D
+	public fun getPitch ()D
+	public fun getPosition ()Lkorlibs/math/geom/Vector3F;
+	public final fun getStartTime-UwyO8pc ()J
+	public final fun getTimes-4f83rf8 ()I
+	public fun getVolume ()D
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/audio/sound/PlaybackParameters$Companion {
+	public final fun getDEFAULT ()Lkorlibs/audio/sound/PlaybackParameters;
+}
+
+public final class korlibs/audio/sound/PlaybackParametersKt {
+	public static final fun getInfinitePlaybackTimes ()I
+	public static final fun getPlaybackTimes (I)I
+}
+
+public final class korlibs/audio/sound/PlaybackTimes {
+	public static final field Companion Lkorlibs/audio/sound/PlaybackTimes$Companion;
+	public static final synthetic fun box-impl (I)Lkorlibs/audio/sound/PlaybackTimes;
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getCount ()I
+	public static final fun getHasMore-impl (I)Z
+	public static final fun getOneLess-4f83rf8 (I)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/audio/sound/PlaybackTimes$Companion {
+	public final fun getINFINITE-4f83rf8 ()I
+	public final fun getONE-4f83rf8 ()I
+	public final fun getZERO-4f83rf8 ()I
+}
+
+public abstract class korlibs/audio/sound/Sound : korlibs/audio/sound/AudioStreamable, korlibs/audio/sound/SoundPlay, korlibs/audio/sound/SoundProps, korlibs/datastructure/Extra {
+	public fun <init> (Lkotlin/coroutines/CoroutineContext;)V
+	public abstract fun decode (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun decode$default (Lkorlibs/audio/sound/Sound;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun getCreationCoroutineContext ()Lkotlin/coroutines/CoroutineContext;
+	public final fun getDefaultCoroutineContext ()Lkotlin/coroutines/CoroutineContext;
+	public fun getExtra ()Lkorlibs/datastructure/ExtraObject;
+	public fun getLength-UwyO8pc ()J
+	public fun getName ()Ljava/lang/String;
+	public fun getNchannels ()I
+	public fun getPanning ()D
+	public fun getPitch ()D
+	public fun getPosition ()Lkorlibs/math/geom/Vector3F;
+	public fun getVolume ()D
+	public fun play (Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun play (Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/PlaybackParameters;)Lkorlibs/audio/sound/SoundChannel;
+	public fun play-XFcaBq0 (IJLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun play-smDEYrI (Lkotlin/coroutines/CoroutineContext;IJ)Lkorlibs/audio/sound/SoundChannel;
+	public fun playAndWait (Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun playAndWait-sHvJXaI (IJLkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun playForever-HG0u8IE (Lkotlin/coroutines/CoroutineContext;J)Lkorlibs/audio/sound/SoundChannel;
+	public fun playForever-VtjQ1oo (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun playNoCancel-fqmlicM (IJ)Lkorlibs/audio/sound/SoundChannel;
+	public static synthetic fun playNoCancel-fqmlicM$default (Lkorlibs/audio/sound/Sound;IJILjava/lang/Object;)Lkorlibs/audio/sound/SoundChannel;
+	public final fun playNoCancelForever-LRDsOJo (J)Lkorlibs/audio/sound/SoundChannel;
+	public static synthetic fun playNoCancelForever-LRDsOJo$default (Lkorlibs/audio/sound/Sound;JILjava/lang/Object;)Lkorlibs/audio/sound/SoundChannel;
+	public final fun setDefaultCoroutineContext (Lkotlin/coroutines/CoroutineContext;)V
+	public fun setExtra (Lkorlibs/datastructure/ExtraObject;)V
+	public fun setPanning (D)V
+	public fun setPitch (D)V
+	public fun setPosition (Lkorlibs/math/geom/Vector3F;)V
+	public fun setVolume (D)V
+	public final fun toAudioData (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun toAudioData$default (Lkorlibs/audio/sound/Sound;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun toStream (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/audio/sound/SoundAudioData : korlibs/audio/sound/Sound {
+	public fun <init> (Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/AudioData;Lkorlibs/audio/sound/NativeSoundProvider;Ljava/lang/String;)V
+	public synthetic fun <init> (Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/AudioData;Lkorlibs/audio/sound/NativeSoundProvider;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun decode (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getAudioData ()Lkorlibs/audio/sound/AudioData;
+	public fun getName ()Ljava/lang/String;
+	public final fun getSoundProvider ()Lkorlibs/audio/sound/NativeSoundProvider;
+	public fun play (Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/PlaybackParameters;)Lkorlibs/audio/sound/SoundChannel;
+	public final fun setSoundProvider (Lkorlibs/audio/sound/NativeSoundProvider;)V
+}
+
+public final class korlibs/audio/sound/SoundAudioStream : korlibs/audio/sound/Sound {
+	public static final field Companion Lkorlibs/audio/sound/SoundAudioStream$Companion;
+	public fun <init> (Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/AudioStream;Lkorlibs/audio/sound/NativeSoundProvider;ZLjava/lang/String;Lkotlin/jvm/functions/Function1;)V
+	public synthetic fun <init> (Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/AudioStream;Lkorlibs/audio/sound/NativeSoundProvider;ZLjava/lang/String;Lkotlin/jvm/functions/Function1;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun decode (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getCloseStream ()Z
+	public fun getLength-UwyO8pc ()J
+	public fun getName ()Ljava/lang/String;
+	public final fun getNativeSound ()Lkorlibs/audio/sound/SoundAudioStream;
+	public fun getNchannels ()I
+	public final fun getOnComplete ()Lkotlin/jvm/functions/Function1;
+	public final fun getSoundProvider ()Lkorlibs/audio/sound/NativeSoundProvider;
+	public final fun getStream ()Lkorlibs/audio/sound/AudioStream;
+	public fun play (Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/PlaybackParameters;)Lkorlibs/audio/sound/SoundChannel;
+	public final fun setSoundProvider (Lkorlibs/audio/sound/NativeSoundProvider;)V
+	public fun toStream (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/sound/SoundAudioStream$Companion {
+}
+
+public abstract class korlibs/audio/sound/SoundChannel : korlibs/audio/sound/SoundChannelBase, korlibs/datastructure/Extra {
+	public fun <init> (Lkorlibs/audio/sound/Sound;)V
+	public fun getCurrent-UwyO8pc ()J
+	public fun getExtra ()Lkorlibs/datastructure/ExtraObject;
+	public fun getPanning ()D
+	public fun getPitch ()D
+	public fun getPosition ()Lkorlibs/math/geom/Vector3F;
+	public final fun getSound ()Lkorlibs/audio/sound/Sound;
+	public fun getState ()Lkorlibs/audio/sound/SoundChannelState;
+	public fun getTotal-UwyO8pc ()J
+	public fun getVolume ()D
+	public fun onCompleted (Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function0;)V
+	public fun pause ()V
+	public final fun reset ()V
+	public fun resume ()V
+	public fun setCurrent-LRDsOJo (J)V
+	public fun setExtra (Lkorlibs/datastructure/ExtraObject;)V
+	public fun setPanning (D)V
+	public fun setPitch (D)V
+	public fun setPosition (Lkorlibs/math/geom/Vector3F;)V
+	public fun setVolume (D)V
+	public abstract fun stop ()V
+	public final fun togglePaused ()V
+}
+
+public abstract interface class korlibs/audio/sound/SoundChannelBase : korlibs/audio/sound/SoundProps, korlibs/datastructure/Extra {
+	public abstract fun getState ()Lkorlibs/audio/sound/SoundChannelState;
+	public fun onCompleted (Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function0;)V
+	public abstract fun pause ()V
+	public abstract fun reset ()V
+	public abstract fun resume ()V
+	public abstract fun stop ()V
+}
+
+public final class korlibs/audio/sound/SoundChannelBase$DefaultImpls {
+	public static fun getPitch (Lkorlibs/audio/sound/SoundChannelBase;)D
+	public static fun onCompleted (Lkorlibs/audio/sound/SoundChannelBase;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function0;)V
+	public static fun setPitch (Lkorlibs/audio/sound/SoundChannelBase;D)V
+}
+
+public final class korlibs/audio/sound/SoundChannelGroup : korlibs/audio/sound/SoundChannelBase, korlibs/audio/sound/SoundChannelPlay, korlibs/datastructure/Extra {
+	public fun <init> ()V
+	public fun <init> (DDD)V
+	public synthetic fun <init> (DDDILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun add (Lkorlibs/audio/sound/SoundChannelBase;)V
+	public fun getExtra ()Lkorlibs/datastructure/ExtraObject;
+	public fun getPanning ()D
+	public fun getPitch ()D
+	public fun getPosition ()Lkorlibs/math/geom/Vector3F;
+	public fun getState ()Lkorlibs/audio/sound/SoundChannelState;
+	public fun getVolume ()D
+	public fun onCompleted (Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function0;)V
+	public fun pause ()V
+	public fun play (Lkorlibs/audio/sound/Sound;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun play (Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/Sound;Lkorlibs/audio/sound/PlaybackParameters;)Lkorlibs/audio/sound/SoundChannel;
+	public fun play-QI9ZZ_M (Lkorlibs/audio/sound/Sound;IJLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun play-ph7B00s (Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/Sound;IJ)Lkorlibs/audio/sound/SoundChannel;
+	public fun playAndWait (Lkorlibs/audio/sound/Sound;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun playAndWait-Twv8a-c (Lkorlibs/audio/sound/Sound;IJLkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun playForever-8Mi8wO0 (Lkorlibs/audio/sound/Sound;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun playForever-SxA4cEA (Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/Sound;J)Lkorlibs/audio/sound/SoundChannel;
+	public final fun prune ()V
+	public final fun register (Lkorlibs/audio/sound/SoundChannelBase;Lkotlin/coroutines/CoroutineContext;)V
+	public final fun remove (Lkorlibs/audio/sound/SoundChannelBase;)V
+	public fun reset ()V
+	public fun resume ()V
+	public fun setExtra (Lkorlibs/datastructure/ExtraObject;)V
+	public fun setPanning (D)V
+	public fun setPitch (D)V
+	public fun setPosition (Lkorlibs/math/geom/Vector3F;)V
+	public fun setVolume (D)V
+	public fun stop ()V
+}
+
+public abstract interface class korlibs/audio/sound/SoundChannelPlay {
+	public fun play (Lkorlibs/audio/sound/Sound;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun play (Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/Sound;Lkorlibs/audio/sound/PlaybackParameters;)Lkorlibs/audio/sound/SoundChannel;
+	public static synthetic fun play$default (Lkorlibs/audio/sound/SoundChannelPlay;Lkorlibs/audio/sound/Sound;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun play$default (Lkorlibs/audio/sound/SoundChannelPlay;Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/Sound;Lkorlibs/audio/sound/PlaybackParameters;ILjava/lang/Object;)Lkorlibs/audio/sound/SoundChannel;
+	public fun play-QI9ZZ_M (Lkorlibs/audio/sound/Sound;IJLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun play-QI9ZZ_M$default (Lkorlibs/audio/sound/SoundChannelPlay;Lkorlibs/audio/sound/Sound;IJLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun play-ph7B00s (Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/Sound;IJ)Lkorlibs/audio/sound/SoundChannel;
+	public static synthetic fun play-ph7B00s$default (Lkorlibs/audio/sound/SoundChannelPlay;Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/Sound;IJILjava/lang/Object;)Lkorlibs/audio/sound/SoundChannel;
+	public fun playAndWait (Lkorlibs/audio/sound/Sound;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun playAndWait$default (Lkorlibs/audio/sound/SoundChannelPlay;Lkorlibs/audio/sound/Sound;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun playAndWait-Twv8a-c (Lkorlibs/audio/sound/Sound;IJLkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun playAndWait-Twv8a-c$default (Lkorlibs/audio/sound/SoundChannelPlay;Lkorlibs/audio/sound/Sound;IJLkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun playForever-8Mi8wO0 (Lkorlibs/audio/sound/Sound;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun playForever-8Mi8wO0$default (Lkorlibs/audio/sound/SoundChannelPlay;Lkorlibs/audio/sound/Sound;JLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun playForever-SxA4cEA (Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/Sound;J)Lkorlibs/audio/sound/SoundChannel;
+	public static synthetic fun playForever-SxA4cEA$default (Lkorlibs/audio/sound/SoundChannelPlay;Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/Sound;JILjava/lang/Object;)Lkorlibs/audio/sound/SoundChannel;
+}
+
+public final class korlibs/audio/sound/SoundChannelPlay$DefaultImpls {
+	public static fun play (Lkorlibs/audio/sound/SoundChannelPlay;Lkorlibs/audio/sound/Sound;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun play$default (Lkorlibs/audio/sound/SoundChannelPlay;Lkorlibs/audio/sound/Sound;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun play$default (Lkorlibs/audio/sound/SoundChannelPlay;Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/Sound;Lkorlibs/audio/sound/PlaybackParameters;ILjava/lang/Object;)Lkorlibs/audio/sound/SoundChannel;
+	public static fun play-QI9ZZ_M (Lkorlibs/audio/sound/SoundChannelPlay;Lkorlibs/audio/sound/Sound;IJLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun play-QI9ZZ_M$default (Lkorlibs/audio/sound/SoundChannelPlay;Lkorlibs/audio/sound/Sound;IJLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static fun play-ph7B00s (Lkorlibs/audio/sound/SoundChannelPlay;Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/Sound;IJ)Lkorlibs/audio/sound/SoundChannel;
+	public static synthetic fun play-ph7B00s$default (Lkorlibs/audio/sound/SoundChannelPlay;Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/Sound;IJILjava/lang/Object;)Lkorlibs/audio/sound/SoundChannel;
+	public static fun playAndWait (Lkorlibs/audio/sound/SoundChannelPlay;Lkorlibs/audio/sound/Sound;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun playAndWait$default (Lkorlibs/audio/sound/SoundChannelPlay;Lkorlibs/audio/sound/Sound;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static fun playAndWait-Twv8a-c (Lkorlibs/audio/sound/SoundChannelPlay;Lkorlibs/audio/sound/Sound;IJLkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun playAndWait-Twv8a-c$default (Lkorlibs/audio/sound/SoundChannelPlay;Lkorlibs/audio/sound/Sound;IJLkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static fun playForever-8Mi8wO0 (Lkorlibs/audio/sound/SoundChannelPlay;Lkorlibs/audio/sound/Sound;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun playForever-8Mi8wO0$default (Lkorlibs/audio/sound/SoundChannelPlay;Lkorlibs/audio/sound/Sound;JLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static fun playForever-SxA4cEA (Lkorlibs/audio/sound/SoundChannelPlay;Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/Sound;J)Lkorlibs/audio/sound/SoundChannel;
+	public static synthetic fun playForever-SxA4cEA$default (Lkorlibs/audio/sound/SoundChannelPlay;Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/Sound;JILjava/lang/Object;)Lkorlibs/audio/sound/SoundChannel;
+}
+
+public final class korlibs/audio/sound/SoundChannelState : java/lang/Enum {
+	public static final field INITIAL Lkorlibs/audio/sound/SoundChannelState;
+	public static final field PAUSED Lkorlibs/audio/sound/SoundChannelState;
+	public static final field PLAYING Lkorlibs/audio/sound/SoundChannelState;
+	public static final field STOPPED Lkorlibs/audio/sound/SoundChannelState;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getPaused ()Z
+	public final fun getPlaying ()Z
+	public final fun getPlayingOrPaused ()Z
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/audio/sound/SoundChannelState;
+	public static fun values ()[Lkorlibs/audio/sound/SoundChannelState;
+}
+
+public final class korlibs/audio/sound/SoundKt {
+	public static final fun applyPropsTo (Lkorlibs/audio/sound/SoundProps;Lkorlibs/audio/sound/AudioSamples;)V
+	public static final fun applyPropsTo (Lkorlibs/audio/sound/SoundProps;Lkorlibs/audio/sound/AudioSamplesInterleaved;)V
+	public static final fun attachTo (Lkorlibs/audio/sound/SoundChannelBase;Lkorlibs/audio/sound/SoundChannelGroup;)Lkorlibs/audio/sound/SoundChannelBase;
+	public static final fun await (Lkorlibs/audio/sound/SoundChannel;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun await (Lkorlibs/audio/sound/SoundChannelBase;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun await$default (Lkorlibs/audio/sound/SoundChannel;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun copySoundPropsFrom (Lkorlibs/audio/sound/SoundProps;Lkorlibs/audio/sound/ReadonlySoundProps;)V
+	public static final fun copySoundPropsFromCombined (Lkorlibs/audio/sound/SoundProps;Lkorlibs/audio/sound/ReadonlySoundProps;Lkorlibs/audio/sound/ReadonlySoundProps;)V
+	public static final fun getPaused (Lkorlibs/audio/sound/SoundChannelBase;)Z
+	public static final fun getPlaying (Lkorlibs/audio/sound/SoundChannelBase;)Z
+	public static final fun getPlayingOrPaused (Lkorlibs/audio/sound/SoundChannelBase;)Z
+	public static final fun readMusic (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readMusic ([BLkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readMusic$default (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun readMusic$default ([BLkorlibs/audio/format/AudioDecodingProps;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun readSound (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/format/AudioDecodingProps;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readSound ([BLkorlibs/audio/format/AudioDecodingProps;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readSound$default (Lkorlibs/io/file/VfsFile;Lkorlibs/audio/format/AudioDecodingProps;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun readSound$default ([BLkorlibs/audio/format/AudioDecodingProps;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun volumeForChannel (Lkorlibs/audio/sound/SoundProps;I)F
+}
+
+public abstract interface class korlibs/audio/sound/SoundPlay {
+	public fun play (Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun play (Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/PlaybackParameters;)Lkorlibs/audio/sound/SoundChannel;
+	public static synthetic fun play$default (Lkorlibs/audio/sound/SoundPlay;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun play$default (Lkorlibs/audio/sound/SoundPlay;Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/PlaybackParameters;ILjava/lang/Object;)Lkorlibs/audio/sound/SoundChannel;
+	public fun play-XFcaBq0 (IJLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun play-XFcaBq0$default (Lkorlibs/audio/sound/SoundPlay;IJLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun play-smDEYrI (Lkotlin/coroutines/CoroutineContext;IJ)Lkorlibs/audio/sound/SoundChannel;
+	public static synthetic fun play-smDEYrI$default (Lkorlibs/audio/sound/SoundPlay;Lkotlin/coroutines/CoroutineContext;IJILjava/lang/Object;)Lkorlibs/audio/sound/SoundChannel;
+	public fun playAndWait (Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun playAndWait$default (Lkorlibs/audio/sound/SoundPlay;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun playAndWait-sHvJXaI (IJLkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun playAndWait-sHvJXaI$default (Lkorlibs/audio/sound/SoundPlay;IJLkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun playForever-HG0u8IE (Lkotlin/coroutines/CoroutineContext;J)Lkorlibs/audio/sound/SoundChannel;
+	public static synthetic fun playForever-HG0u8IE$default (Lkorlibs/audio/sound/SoundPlay;Lkotlin/coroutines/CoroutineContext;JILjava/lang/Object;)Lkorlibs/audio/sound/SoundChannel;
+	public fun playForever-VtjQ1oo (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun playForever-VtjQ1oo$default (Lkorlibs/audio/sound/SoundPlay;JLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/sound/SoundPlay$DefaultImpls {
+	public static fun play (Lkorlibs/audio/sound/SoundPlay;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun play$default (Lkorlibs/audio/sound/SoundPlay;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun play$default (Lkorlibs/audio/sound/SoundPlay;Lkotlin/coroutines/CoroutineContext;Lkorlibs/audio/sound/PlaybackParameters;ILjava/lang/Object;)Lkorlibs/audio/sound/SoundChannel;
+	public static fun play-XFcaBq0 (Lkorlibs/audio/sound/SoundPlay;IJLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun play-XFcaBq0$default (Lkorlibs/audio/sound/SoundPlay;IJLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static fun play-smDEYrI (Lkorlibs/audio/sound/SoundPlay;Lkotlin/coroutines/CoroutineContext;IJ)Lkorlibs/audio/sound/SoundChannel;
+	public static synthetic fun play-smDEYrI$default (Lkorlibs/audio/sound/SoundPlay;Lkotlin/coroutines/CoroutineContext;IJILjava/lang/Object;)Lkorlibs/audio/sound/SoundChannel;
+	public static fun playAndWait (Lkorlibs/audio/sound/SoundPlay;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun playAndWait$default (Lkorlibs/audio/sound/SoundPlay;Lkorlibs/audio/sound/PlaybackParameters;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static fun playAndWait-sHvJXaI (Lkorlibs/audio/sound/SoundPlay;IJLkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun playAndWait-sHvJXaI$default (Lkorlibs/audio/sound/SoundPlay;IJLkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static fun playForever-HG0u8IE (Lkorlibs/audio/sound/SoundPlay;Lkotlin/coroutines/CoroutineContext;J)Lkorlibs/audio/sound/SoundChannel;
+	public static synthetic fun playForever-HG0u8IE$default (Lkorlibs/audio/sound/SoundPlay;Lkotlin/coroutines/CoroutineContext;JILjava/lang/Object;)Lkorlibs/audio/sound/SoundChannel;
+	public static fun playForever-VtjQ1oo (Lkorlibs/audio/sound/SoundPlay;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun playForever-VtjQ1oo$default (Lkorlibs/audio/sound/SoundPlay;JLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/sound/effects/AudioStreamEchoConfig {
+	public fun <init> ()V
+	public fun <init> (D)V
+	public synthetic fun <init> (DILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()D
+	public final fun copy (D)Lkorlibs/audio/sound/effects/AudioStreamEchoConfig;
+	public static synthetic fun copy$default (Lkorlibs/audio/sound/effects/AudioStreamEchoConfig;DILjava/lang/Object;)Lkorlibs/audio/sound/effects/AudioStreamEchoConfig;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getVolume ()D
+	public fun hashCode ()I
+	public final fun setVolume (D)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/audio/sound/effects/EchoEffectKt {
+	public static final fun withEcho (Lkorlibs/audio/sound/AudioStreamable;ILkorlibs/audio/sound/effects/AudioStreamEchoConfig;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun withEcho$default (Lkorlibs/audio/sound/AudioStreamable;ILkorlibs/audio/sound/effects/AudioStreamEchoConfig;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/audio/sound/fade/SoundChannelFadeKt {
+	public static final fun fadeIn-dWUq8MI (Lkorlibs/audio/sound/SoundProps;JLkorlibs/math/interpolation/Easing;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun fadeIn-dWUq8MI$default (Lkorlibs/audio/sound/SoundProps;JLkorlibs/math/interpolation/Easing;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun fadeInResume-dWUq8MI (Lkorlibs/audio/sound/SoundChannelBase;JLkorlibs/math/interpolation/Easing;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun fadeInResume-dWUq8MI$default (Lkorlibs/audio/sound/SoundChannelBase;JLkorlibs/math/interpolation/Easing;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun fadeOut-dWUq8MI (Lkorlibs/audio/sound/SoundProps;JLkorlibs/math/interpolation/Easing;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun fadeOut-dWUq8MI$default (Lkorlibs/audio/sound/SoundProps;JLkorlibs/math/interpolation/Easing;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun fadeOutPause-dWUq8MI (Lkorlibs/audio/sound/SoundChannelBase;JLkorlibs/math/interpolation/Easing;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun fadeOutPause-dWUq8MI$default (Lkorlibs/audio/sound/SoundChannelBase;JLkorlibs/math/interpolation/Easing;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun fadeTo-1Y68eR8 (Lkorlibs/audio/sound/SoundProps;DJLkorlibs/math/interpolation/Easing;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun fadeTo-1Y68eR8$default (Lkorlibs/audio/sound/SoundProps;DJLkorlibs/math/interpolation/Easing;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun getDEFAULT_FADE_EASING ()Lkorlibs/math/interpolation/Easing;
+	public static final fun getDEFAULT_FADE_TIME ()J
+	public static final fun getPausedOrPausing (Lkorlibs/audio/sound/SoundChannelBase;)Z
+	public static final fun togglePausedFaded-1Y68eR8 (Lkorlibs/audio/sound/SoundChannelBase;Ljava/lang/Boolean;JLkorlibs/math/interpolation/Easing;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun togglePausedFaded-1Y68eR8$default (Lkorlibs/audio/sound/SoundChannelBase;Ljava/lang/Boolean;JLkorlibs/math/interpolation/Easing;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+

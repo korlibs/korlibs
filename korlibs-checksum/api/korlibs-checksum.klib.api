@@ -1,0 +1,48 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-checksum>
+abstract interface korlibs.io.util.checksum/SimpleChecksum { // korlibs.io.util.checksum/SimpleChecksum|null[0]
+    abstract val initialValue // korlibs.io.util.checksum/SimpleChecksum.initialValue|{}initialValue[0]
+        abstract fun <get-initialValue>(): kotlin/Int // korlibs.io.util.checksum/SimpleChecksum.initialValue.<get-initialValue>|<get-initialValue>(){}[0]
+
+    abstract fun update(kotlin/Int, kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.util.checksum/SimpleChecksum.update|update(kotlin.Int;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+final class korlibs.io.util.checksum/SimpleChecksumUpdater { // korlibs.io.util.checksum/SimpleChecksumUpdater|null[0]
+    constructor <init>(korlibs.io.util.checksum/SimpleChecksum) // korlibs.io.util.checksum/SimpleChecksumUpdater.<init>|<init>(korlibs.io.util.checksum.SimpleChecksum){}[0]
+
+    final val checksum // korlibs.io.util.checksum/SimpleChecksumUpdater.checksum|{}checksum[0]
+        final fun <get-checksum>(): korlibs.io.util.checksum/SimpleChecksum // korlibs.io.util.checksum/SimpleChecksumUpdater.checksum.<get-checksum>|<get-checksum>(){}[0]
+
+    final var current // korlibs.io.util.checksum/SimpleChecksumUpdater.current|{}current[0]
+        final fun <get-current>(): kotlin/Int // korlibs.io.util.checksum/SimpleChecksumUpdater.current.<get-current>|<get-current>(){}[0]
+        final fun <set-current>(kotlin/Int) // korlibs.io.util.checksum/SimpleChecksumUpdater.current.<set-current>|<set-current>(kotlin.Int){}[0]
+
+    final fun reset() // korlibs.io.util.checksum/SimpleChecksumUpdater.reset|reset(){}[0]
+    final fun update(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.util.checksum/SimpleChecksumUpdater.update|update(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final inline fun updateWithRead(kotlin/Function1<kotlin/ByteArray, kotlin/Int>): kotlin/Int // korlibs.io.util.checksum/SimpleChecksumUpdater.updateWithRead|updateWithRead(kotlin.Function1<kotlin.ByteArray,kotlin.Int>){}[0]
+}
+
+final object korlibs.io.util.checksum/Adler32 : korlibs.io.util.checksum/SimpleChecksum { // korlibs.io.util.checksum/Adler32|null[0]
+    final val initialValue // korlibs.io.util.checksum/Adler32.initialValue|{}initialValue[0]
+        final fun <get-initialValue>(): kotlin/Int // korlibs.io.util.checksum/Adler32.initialValue.<get-initialValue>|<get-initialValue>(){}[0]
+
+    final fun update(kotlin/Int, kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.util.checksum/Adler32.update|update(kotlin.Int;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+final object korlibs.io.util.checksum/CRC32 : korlibs.io.util.checksum/SimpleChecksum { // korlibs.io.util.checksum/CRC32|null[0]
+    final val initialValue // korlibs.io.util.checksum/CRC32.initialValue|{}initialValue[0]
+        final fun <get-initialValue>(): kotlin/Int // korlibs.io.util.checksum/CRC32.initialValue.<get-initialValue>|<get-initialValue>(){}[0]
+
+    final fun update(kotlin/Int, kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.io.util.checksum/CRC32.update|update(kotlin.Int;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+final fun (korlibs.io.util.checksum/SimpleChecksum).korlibs.io.util.checksum/compute(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.util.checksum/compute|compute@korlibs.io.util.checksum.SimpleChecksum(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+final fun (korlibs.io.util.checksum/SimpleChecksum).korlibs.io.util.checksum/updater(): korlibs.io.util.checksum/SimpleChecksumUpdater // korlibs.io.util.checksum/updater|updater@korlibs.io.util.checksum.SimpleChecksum(){}[0]
+final fun (kotlin/ByteArray).korlibs.io.util.checksum/checksum(korlibs.io.util.checksum/SimpleChecksum): kotlin/Int // korlibs.io.util.checksum/checksum|checksum@kotlin.ByteArray(korlibs.io.util.checksum.SimpleChecksum){}[0]
+final inline fun (korlibs.io.util.checksum/SimpleChecksum).korlibs.io.util.checksum/computeWithRead(kotlin/Int = ..., kotlin/Function1<kotlin/ByteArray, kotlin/Int>): kotlin/Int // korlibs.io.util.checksum/computeWithRead|computeWithRead@korlibs.io.util.checksum.SimpleChecksum(kotlin.Int;kotlin.Function1<kotlin.ByteArray,kotlin.Int>){}[0]
