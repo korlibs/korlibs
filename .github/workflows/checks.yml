@@ -9,7 +9,6 @@ on:
       - '!**.gitignore'
       - '!**.md'
       - '!**.github/workflows/*'
-      - 'checks.yml'
   pull_request:
     branches: [ main, 'release/**' ]
     paths:
@@ -17,7 +16,6 @@ on:
       - '!**.gitignore'
       - '!**.md'
       - '!**.github/workflows/*'
-      - 'checks.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -35,27 +33,14 @@ jobs:
       fail-fast: true
       matrix:
         include:
-          - outputKey: testMacosIos
+          - outputKey: macos
             os: macos-latest
-            testTask: jvmTest macosArm64Test iosSimulatorArm64Test
-            buildTasks: publishMacosArm64PublicationToMavenLocal
-          - outputKey: testJsAndroid
+          - outputKey: ubuntu
             os: ubuntu-latest
-            testTask: "wasmBrowserTest"
-            buildTasks: "jsBrowserTest"
-            upgradeYarnLock: true
             enableAndroid: true
-          - outputKey: testLinux
-            os: ubuntu-latest
-            testTask: checkKotlinAbi jvmTest linuxX64Test
-            precompileTask: compileTestKotlinJvm
             enableCodecov: true
-            e2e: true
-          - outputKey: testWindows
+          - outputKey: windows
             os: windows-latest
-            testTask: jvmTest mingwX64Test
-            precompileTask: compileTestKotlinJvm
-            upgradeYarnLock: true
     timeout-minutes: 60
     runs-on: ${{ matrix.os }}
     steps:
@@ -65,10 +50,6 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
         with:
           node-version: 24.x # https://github.com/actions/setup-node/releases/tag/v6.3.0
-      - name: "Setup Deno"
-        uses: denoland/setup-deno@e95548e56dfa95d4e1a28d6f422fafe75c4c26fb
-        with:
-          deno-version: "2.7.11" # https://github.com/denoland/setup-deno/releases/tag/v2.0.3
       - name: "Set up JDK"
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654
         with:
@@ -82,20 +63,8 @@ jobs:
           path: "~/.konan"
           key: "${{ runner.os }}-konan"
           restore-keys: "${{ runner.os }}-konan" # https://github.com/actions/cache/releases/tag/v5.0.4
-      - name: Start gradle
-        run: ./gradlew
-      - if: "${{ matrix.upgradeYarnLock }}"
-        name: "Upgrade yarn lock"
-        run: "./gradlew kotlinUpgradeYarnLock"
-      - if: "${{ matrix.precompileTask }}"
-        name: "Building ${{ matrix.precompileTask }} classes"
-        run: "./gradlew --stacktrace ${{ matrix.precompileTask }}"
-      - if: "${{ matrix.testTask }}"
-        name: "Run ${{ matrix.testTask }} tests"
-        run: "./gradlew ${{ matrix.testTask }}"
-      - if: "${{ matrix.buildTasks }}"
-        name: "Run ${{ matrix.buildTasks }}"
-        run: "./gradlew ${{ matrix.buildTasks }}"
+      - name: "Run check"
+        run: "./gradlew check"
       - name: "Enable KVM"
         if: "${{ matrix.enableAndroid }}"
         run: |
@@ -107,7 +76,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@e89f39f1abbbd05b1113a29cf4db69e7540cae5a
         with:
           "api-level": 21
-          "script": "./gradlew androidConnectedCheck androidCompileLintChecks" # https://github.com/ReactiveCircus/android-emulator-runner/releases/tag/v2.37.0
+          "script": "./gradlew androidConnectedCheck lint" # https://github.com/ReactiveCircus/android-emulator-runner/releases/tag/v2.37.0
       - name: "Archive Test Results"
         if: failure()
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
@@ -116,9 +85,6 @@ jobs:
           retention-days: 21
           path: "**/build/reports"
           if-no-files-found: ignore # https://github.com/actions/upload-artifact/releases/tag/v7.0.0
-      - name: "Publish to maven local"
-        if: "${{ matrix.e2e }}"
-        run: "./gradlew publishJvmLocal publishKotlinMultiplatformPublicationToMavenLocal"
       - name: "Code coverage"
         if: "${{ matrix.enableCodecov }}"
         run: "./gradlew koverXmlReport"
@@ -127,5 +93,3 @@ jobs:
         uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2
         with:
           token: "${{ secrets.CODECOV_TOKEN }}" # https://github.com/codecov/codecov-action/releases/tag/v6.0.0
-      - name: "Stop daemon"
-        run: "./gradlew --stop"
