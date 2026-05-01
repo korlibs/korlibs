@@ -2,7 +2,7 @@
 
 package korlibs.crypto
 
-object SHA3_224 : HasherFactory("SHA3-512", { SHA3(224 / Byte.SIZE_BITS) })
+object SHA3_224 : HasherFactory("SHA3-224", { SHA3(224 / Byte.SIZE_BITS) })
 object SHA3_256 : HasherFactory("SHA3-256", { SHA3(256 / Byte.SIZE_BITS) })
 object SHA3_384 : HasherFactory("SHA3-384", { SHA3(384 / Byte.SIZE_BITS) })
 object SHA3_512 : HasherFactory("SHA3-512", { SHA3(512 / Byte.SIZE_BITS) })
