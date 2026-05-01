@@ -32,6 +32,11 @@ kotlin {
             compilerOptions {
                 target.set("es2015")
             }
+            testTask {
+                useMocha {
+                    timeout = "20s" // increase as some browser tests take more than 2s
+                }
+            }
         }
     }
     @OptIn(ExperimentalWasmDsl::class)
@@ -39,6 +44,11 @@ kotlin {
         browser {
             compilerOptions {
                 target.set("es2015")
+            }
+            testTask {
+                useMocha {
+                    timeout = "20s" // increase as some browser tests take more than 2s
+                }
             }
         }
     }
