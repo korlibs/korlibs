@@ -83,7 +83,7 @@ abstract class Hasher(val chunkSize: Int, val digestSize: Int, val name: String)
         }
 
         coreDigest(out)
-        coreReset()
+        reset()
     }
 
     protected abstract fun coreReset()
