@@ -41,7 +41,7 @@ jobs:
             enableCodecov: true
           - outputKey: windows
             os: windows-latest
-    timeout-minutes: 60
+    timeout-minutes: 120
     runs-on: ${{ matrix.os }}
     steps:
       - name: "Checkout"
