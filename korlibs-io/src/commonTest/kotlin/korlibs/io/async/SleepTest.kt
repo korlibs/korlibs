@@ -1,10 +1,10 @@
 package korlibs.io.async
 
 import korlibs.time.DateTime
-import korlibs.time.milliseconds
 import kotlinx.coroutines.delay
 import kotlin.test.Test
 import kotlin.test.assertTrue
+import kotlin.time.Duration.Companion.milliseconds
 
 class SleepTest {
 	// @TODO: Change once we don't wait all the delay time
@@ -13,8 +13,8 @@ class SleepTest {
 	@Test
 	fun name() = suspendTest {
 		val start = time
-		delay(10)
-		delay(20)
+		delay(duration = 10.milliseconds)
+		delay(duration = 20.milliseconds)
 		val end = time
 		assertTrue((end - start) > 25.milliseconds)
 	}

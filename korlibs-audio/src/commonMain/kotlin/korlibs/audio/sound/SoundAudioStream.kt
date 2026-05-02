@@ -8,6 +8,7 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.*
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.time.*
+import kotlin.time.Duration.Companion.milliseconds
 
 class SoundAudioStream(
     coroutineContext: CoroutineContext,
@@ -95,7 +96,7 @@ class SoundAudioStream(
                 }
                 flushing = true
                 var n = 0
-                while (nas.running && deque.availableRead > 0 && n++ < 8) delay(10L)
+                while (nas.running && deque.availableRead > 0 && n++ < 8) delay(duration = 10.milliseconds)
             } catch (e: CancellationException) {
                 // Do nothing
                 params.onCancel?.invoke()

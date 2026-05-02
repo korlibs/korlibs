@@ -7,6 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.coroutines.coroutineContext
+import kotlin.time.Duration.Companion.milliseconds
 
 //@Deprecated("Replace with localVfs")
 //fun nativeLocalVfs(path: String): VfsFile = LocalVfs()[path]
@@ -42,7 +43,7 @@ abstract class LocalVfs(val fs: SystemFS = SystemFS) : Vfs() {
                 val stdout = pipeChunk(res.stdout) { handler.onOut(it) }
                 val stderr = pipeChunk(res.stderr) { handler.onErr(it) }
                 if (!stdout && !stderr && completed) break
-                delay(1L)
+                delay(duration = 1.milliseconds)
             }
         }
         return res.exitCode().also {
