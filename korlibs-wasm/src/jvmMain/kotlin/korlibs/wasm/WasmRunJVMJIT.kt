@@ -74,7 +74,7 @@ open class WasmRunJVMJIT(module: WasmModule, memSize: Int, memMax: Int) : WasmRu
     }
 
     fun invokeImport(module: String, funcName: String, params: Array<Any?>): Any? {
-        val func = imports[module]?.get(funcName) ?: error("Can't find method $module\$$funcName")
+        val func = imports[module]?.get(funcName) ?: error($$"Can't find method $$module$$$funcName")
         return func.invoke(this, params)
     }
 
@@ -424,7 +424,8 @@ open class WasmRunJVMOutput(
                 context.aload(context.runtimeLocalIndex)
                 visitMethodInsn(
                     Opcodes.INVOKESTATIC,
-                    OUTPUT_CLASS_NAME, "call\$indirect", funcType.getJvmDescriptor(Int::class.javaPrimitiveType!!, OUTPUT_CLASS_NAME), false
+                    OUTPUT_CLASS_NAME,
+                    $$"call$indirect", funcType.getJvmDescriptor(Int::class.javaPrimitiveType!!, OUTPUT_CLASS_NAME), false
                 )
                 //println("CALL_INDIRECT: $funcType : context.module.tables=${context.module.tables.size}, table=${table.items.size}")
                 context.stack(funcType.args.size + 1, funcType.retType.toWasmSType())
@@ -883,7 +884,7 @@ open class WasmRunJVMOutput(
     }
 
     val WasmGlobal.functionType: WasmType.Function get() = WasmType.Function(listOf(), listOf(globalType))
-    val WasmGlobal.getterGlobalName: String get() = "gen\$${name}"
+    val WasmGlobal.getterGlobalName: String get() = $$"gen$$${name}"
 
     data class ElementItem(val func: WasmFunc, val funcName: String)
     data class ElementInfo(val tableIndex: Int, val index: Int, val elements: List<ElementItem>)
@@ -972,11 +973,11 @@ open class WasmRunJVMOutput(
             for (ntype in module.types) {
                 val type = ntype.type as WasmType.Function
                 val functionType = WasmType.Function((type.args.map { it.type } + I32).withIndex().map { (index, it) -> WastLocal(index, it) }, listOf(type.retType))
-                createMethod("call\$indirect", type.retType.toJava(), *type.args.map { it.type.toJava() }.toTypedArray(), Int::class.javaPrimitiveType, "LWasmProgram;", isStatic = true) {
+                createMethod($$"call$indirect", type.retType.toJava(), *type.args.map { it.type.toJava() }.toTypedArray(), Int::class.javaPrimitiveType, "LWasmProgram;", isStatic = true) {
                     //ret(type.retType.toWasmSType())
                     val indexIndex = type.args.size
                     val runtimeIndex = type.args.size + 1
-                    val context = GenMethodContext("call\$indirect", this, WasmFunc(-1, functionType), module)
+                    val context = GenMethodContext($$"call$indirect", this, WasmFunc(-1, functionType), module)
 
                     // Create array
                     constant(type.args.size)
@@ -1109,7 +1110,7 @@ open class WasmRunJVMOutput(
 
             //if (module.asserts.isNotEmpty()) {
             if (true) {
-                createMethod("run\$asserts", Void::class.javaPrimitiveType, "LWasmProgram;", isStatic = true, maxLocals = 3) {
+                createMethod($$"run$asserts", Void::class.javaPrimitiveType, "LWasmProgram;", isStatic = true, maxLocals = 3) {
                     if (module.asserts.isNotEmpty()) {
                         constant(0); visitVarInsn(Opcodes.ISTORE, 1)
                         constant(0); visitVarInsn(Opcodes.ISTORE, 2)
@@ -1118,7 +1119,7 @@ open class WasmRunJVMOutput(
                                 is WasmAssertReturn -> {
                                     // @TODO: Check i32, etc.
                                     val genMethodContext = GenMethodContext(
-                                        "run\$asserts",
+                                        $$"run$asserts",
                                         this,
                                         WasmFunc(-1, WasmType.Function(listOf(), listOf())),
                                         module
@@ -1179,9 +1180,9 @@ open class WasmRunJVMOutput(
         val func = this
         val import = func.fimport
         if (import != null) {
-            return "${import.moduleName}\$${import.name}"
+            return $$"$${import.moduleName}$$${import.name}"
         } else {
-            return (func.exportName ?: func.name).replace(".", "\$")
+            return (func.exportName ?: func.name).replace(".", $$"$")
         }
     }
 

@@ -29,7 +29,7 @@ class CharReaderTest {
             "😳捇😗Ҧヿィ😲😵SӚåぐルҩS😯yѹ=ӪӠÀrキえÄ🙎へ¶Mたじ😞冃😃a\\xa0ÙҒ樗ボ😨",
             "らーçウごネ粦😓õ姗ӏ(",
             "Sm糛҆Òう楢ょ😽ê.",
-            "X5O!P%@AP[4\\PZX54(P^)7CC)7}\$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!\$H+H*"
+            $$"X5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*"
         )
         (1..20).forEach { readCount ->
             randomStrings.forEach { inputData ->
