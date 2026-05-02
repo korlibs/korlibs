@@ -1671,4 +1671,42 @@ data class WasmInterpreterCode constructor(
     val localsOffsets: IntArray = IntArray(0),
     val endStack: List<WasmType> = emptyList(),
     val debug: WasmDebugContext
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as WasmInterpreterCode
+
+        if (paramsSize != other.paramsSize) return false
+        if (localSize != other.localSize) return false
+        if (paramsCount != other.paramsCount) return false
+        if (localsCount != other.localsCount) return false
+        if (!instructions.contentEquals(other.instructions)) return false
+        if (!intPool.contentEquals(other.intPool)) return false
+        if (!longPool.contentEquals(other.longPool)) return false
+        if (!floatPool.contentEquals(other.floatPool)) return false
+        if (!doublePool.contentEquals(other.doublePool)) return false
+        if (!localsOffsets.contentEquals(other.localsOffsets)) return false
+        if (endStack != other.endStack) return false
+        if (debug != other.debug) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = paramsSize
+        result = 31 * result + localSize
+        result = 31 * result + paramsCount
+        result = 31 * result + localsCount
+        result = 31 * result + instructions.contentHashCode()
+        result = 31 * result + intPool.contentHashCode()
+        result = 31 * result + longPool.contentHashCode()
+        result = 31 * result + floatPool.contentHashCode()
+        result = 31 * result + doublePool.contentHashCode()
+        result = 31 * result + localsOffsets.contentHashCode()
+        result = 31 * result + endStack.hashCode()
+        result = 31 * result + debug.hashCode()
+        return result
+    }
+}

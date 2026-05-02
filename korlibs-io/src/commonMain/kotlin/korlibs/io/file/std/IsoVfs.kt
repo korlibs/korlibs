@@ -391,7 +391,63 @@ object ISO {
 			predecessorVolumeDescriptorSequenceLocation = s.readS32LE(),
 			flags = s.readU16LE()
 		)
-	}
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (other == null || this::class != other::class) return false
+
+            other as UdfPrimaryVolumeDescriptor
+
+            if (volumeDescriptorSequenceNumber != other.volumeDescriptorSequenceNumber) return false
+            if (primaryVolumeDescriptorNumber != other.primaryVolumeDescriptorNumber) return false
+            if (volumeSequenceNumber != other.volumeSequenceNumber) return false
+            if (maximumVolumeSequenceNumber != other.maximumVolumeSequenceNumber) return false
+            if (interchangeLevel != other.interchangeLevel) return false
+            if (maximumInterchangeLevel != other.maximumInterchangeLevel) return false
+            if (characterSetList != other.characterSetList) return false
+            if (maximumCharacterSetList != other.maximumCharacterSetList) return false
+            if (predecessorVolumeDescriptorSequenceLocation != other.predecessorVolumeDescriptorSequenceLocation) return false
+            if (flags != other.flags) return false
+            if (descriptorTag != other.descriptorTag) return false
+            if (volumeId != other.volumeId) return false
+            if (volumeSetIdentifier != other.volumeSetIdentifier) return false
+            if (descriptorCharacterSet != other.descriptorCharacterSet) return false
+            if (explanatoryCharacterSet != other.explanatoryCharacterSet) return false
+            if (volumeAbstract != other.volumeAbstract) return false
+            if (volumeCopyrightNotice != other.volumeCopyrightNotice) return false
+            if (applicationIdentifier != other.applicationIdentifier) return false
+            if (recordingDateandTime != other.recordingDateandTime) return false
+            if (implementationIdentifier != other.implementationIdentifier) return false
+            if (!implementationUse.contentEquals(other.implementationUse)) return false
+
+            return true
+        }
+
+        override fun hashCode(): Int {
+            var result = volumeDescriptorSequenceNumber
+            result = 31 * result + primaryVolumeDescriptorNumber
+            result = 31 * result + volumeSequenceNumber
+            result = 31 * result + maximumVolumeSequenceNumber
+            result = 31 * result + interchangeLevel
+            result = 31 * result + maximumInterchangeLevel
+            result = 31 * result + characterSetList
+            result = 31 * result + maximumCharacterSetList
+            result = 31 * result + predecessorVolumeDescriptorSequenceLocation
+            result = 31 * result + flags
+            result = 31 * result + descriptorTag.hashCode()
+            result = 31 * result + volumeId.hashCode()
+            result = 31 * result + volumeSetIdentifier.hashCode()
+            result = 31 * result + descriptorCharacterSet.hashCode()
+            result = 31 * result + explanatoryCharacterSet.hashCode()
+            result = 31 * result + volumeAbstract.hashCode()
+            result = 31 * result + volumeCopyrightNotice.hashCode()
+            result = 31 * result + applicationIdentifier.hashCode()
+            result = 31 * result + recordingDateandTime.hashCode()
+            result = 31 * result + implementationIdentifier.hashCode()
+            result = 31 * result + implementationUse.contentHashCode()
+            return result
+        }
+    }
 
 	data class PrimaryVolumeDescriptor(
 		val volumeDescriptorHeader: VolumeDescriptorHeader,
@@ -462,7 +518,83 @@ object ISO {
 		) {
 			//println(this)
 		}
-	}
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (other == null || this::class != other::class) return false
+
+            other as PrimaryVolumeDescriptor
+
+            if (pad1 != other.pad1) return false
+            if (pad2 != other.pad2) return false
+            if (volumeSpaceSize != other.volumeSpaceSize) return false
+            if (volumeSetSize != other.volumeSetSize) return false
+            if (volumeSequenceNumber != other.volumeSequenceNumber) return false
+            if (logicalBlockSize != other.logicalBlockSize) return false
+            if (pathTableSize != other.pathTableSize) return false
+            if (typeLPathTable != other.typeLPathTable) return false
+            if (optType1PathTable != other.optType1PathTable) return false
+            if (typeMPathTable != other.typeMPathTable) return false
+            if (optTypeMPathTable != other.optTypeMPathTable) return false
+            if (fileStructureVersion != other.fileStructureVersion) return false
+            if (pad5 != other.pad5) return false
+            if (volumeDescriptorHeader != other.volumeDescriptorHeader) return false
+            if (systemId != other.systemId) return false
+            if (volumeId != other.volumeId) return false
+            if (!pad3.contentEquals(other.pad3)) return false
+            if (rootDirectoryRecord != other.rootDirectoryRecord) return false
+            if (volumeSetId != other.volumeSetId) return false
+            if (publisherId != other.publisherId) return false
+            if (preparerId != other.preparerId) return false
+            if (applicationId != other.applicationId) return false
+            if (copyrightFileId != other.copyrightFileId) return false
+            if (abstractFileId != other.abstractFileId) return false
+            if (bibliographicFileId != other.bibliographicFileId) return false
+            if (creationDate != other.creationDate) return false
+            if (modificationDate != other.modificationDate) return false
+            if (expirationDate != other.expirationDate) return false
+            if (effectiveDate != other.effectiveDate) return false
+            if (!applicationData.contentEquals(other.applicationData)) return false
+            if (!pad6.contentEquals(other.pad6)) return false
+
+            return true
+        }
+
+        override fun hashCode(): Int {
+            var result = pad1
+            result = 31 * result + pad2.hashCode()
+            result = 31 * result + volumeSpaceSize
+            result = 31 * result + volumeSetSize
+            result = 31 * result + volumeSequenceNumber
+            result = 31 * result + logicalBlockSize
+            result = 31 * result + pathTableSize
+            result = 31 * result + typeLPathTable
+            result = 31 * result + optType1PathTable
+            result = 31 * result + typeMPathTable
+            result = 31 * result + optTypeMPathTable
+            result = 31 * result + fileStructureVersion
+            result = 31 * result + pad5
+            result = 31 * result + volumeDescriptorHeader.hashCode()
+            result = 31 * result + systemId.hashCode()
+            result = 31 * result + volumeId.hashCode()
+            result = 31 * result + pad3.contentHashCode()
+            result = 31 * result + rootDirectoryRecord.hashCode()
+            result = 31 * result + volumeSetId.hashCode()
+            result = 31 * result + publisherId.hashCode()
+            result = 31 * result + preparerId.hashCode()
+            result = 31 * result + applicationId.hashCode()
+            result = 31 * result + copyrightFileId.hashCode()
+            result = 31 * result + abstractFileId.hashCode()
+            result = 31 * result + bibliographicFileId.hashCode()
+            result = 31 * result + creationDate.hashCode()
+            result = 31 * result + modificationDate.hashCode()
+            result = 31 * result + expirationDate.hashCode()
+            result = 31 * result + effectiveDate.hashCode()
+            result = 31 * result + applicationData.contentHashCode()
+            result = 31 * result + pad6.contentHashCode()
+            return result
+        }
+    }
 
 	data class VolumeDescriptorHeader(
 		val type: TypeEnum,

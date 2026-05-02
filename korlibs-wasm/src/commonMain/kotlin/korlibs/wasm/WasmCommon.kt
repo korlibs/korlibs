@@ -536,13 +536,28 @@ data class WasmData(
     val data: ByteArray,
     val index: Int,
     val e: WasmExpr? = null,
-    //val ast: Wast.Expr? = null,
 ) {
-    //fun toAst(module: WasmModule): Wast.Stm = when {
-    //    e != null -> e.toAst(module, WasmFunc(-1, WasmReader.INT_FUNC_TYPE))
-    //    ast != null -> Wast.RETURN(ast)
-    //    else -> TODO()
-    //}
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as WasmData
+
+        if (memindex != other.memindex) return false
+        if (index != other.index) return false
+        if (!data.contentEquals(other.data)) return false
+        if (e != other.e) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = memindex
+        result = 31 * result + index
+        result = 31 * result + data.contentHashCode()
+        result = 31 * result + (e?.hashCode() ?: 0)
+        return result
+    }
 }
 
 class WasmCode constructor(val params: List<WastLocal>?, val locals: List<List<WastLocal>>, val body: WasmExpr) {
