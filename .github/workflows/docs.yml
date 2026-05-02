@@ -45,8 +45,6 @@ jobs:
           java-version: "${{ env.JAVA_VERSION }}" # https://github.com/actions/setup-java/releases/tag/v5.2.0
       - name: "Prepare Gradle"
         uses: gradle/actions/setup-gradle@39e147cb9de83bb9910b8ef8bd7fff0ee20fcd6f # https://github.com/gradle/actions/releases/tag/v6.0.1
-      - name: "Initialize Gradle"
-        run: "./gradlew --no-configuration-cache"
       - name: "Build Documentation"
         run: "./gradlew --no-configuration-cache dokkaGenerate"
       - name: "Upload artifact"
