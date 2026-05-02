@@ -40,7 +40,7 @@ abstract class LocalVfs(val fs: SystemFS = SystemFS) : Vfs() {
                 val stdout = pipeChunk(res.stdout) { handler.onOut(it) }
                 val stderr = pipeChunk(res.stderr) { handler.onErr(it) }
                 if (!stdout && !stderr && completed) break
-                delay(1L)
+                delay(timeMillis = 1)
             }
         }
         return res.exitCode().also {

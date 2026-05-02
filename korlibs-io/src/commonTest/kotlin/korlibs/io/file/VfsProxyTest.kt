@@ -23,13 +23,13 @@ class VfsProxyTest {
             }
             override suspend fun init() {
                 withContext(Dispatchers.CIO) {
-                    delay(100L)
+                    delay(timeMillis = 100)
                     initialized = true
                 }
             }
         }
         val job = CoroutineScope(coroutineContext).launch { vfs["hello"].readString() }
-        delay(1L)
+        delay(timeMillis = 1)
         job.cancel()
         assertEquals("demo", vfs["hello"].readString())
     }

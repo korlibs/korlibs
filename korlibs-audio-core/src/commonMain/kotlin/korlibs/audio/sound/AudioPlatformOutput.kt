@@ -1,9 +1,17 @@
 package korlibs.audio.sound
 
-import korlibs.datastructure.*
-import korlibs.math.geom.*
-import kotlinx.atomicfu.locks.*
-import kotlinx.coroutines.*
+import korlibs.datastructure.Extra
+import korlibs.math.geom.Vector3
+import kotlinx.atomicfu.locks.reentrantLock
+import kotlinx.atomicfu.locks.withLock
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /** Function might be called from different threads, so code must be thread-safe. */
 @ExperimentalStdlibApi
@@ -21,7 +29,7 @@ class AudioPlatformOutput(
         val buffer = AudioSamplesInterleaved(channels, DEFAULT_BLOCK_SIZE)
         while (running) {
             genSafe(buffer)
-            delay(1L)
+            delay(timeMillis = 1)
         }
     }
 ) : AutoCloseable, SoundProps, Extra by Extra.Mixin() {
@@ -47,7 +55,8 @@ class AudioPlatformOutput(
     var running = false
 
     suspend fun suspendWhileRunning() {
-        while (running) delay(10L)
+
+        while (running) delay(timeMillis = 10)
     }
 
     private var job: Job? = null
@@ -108,7 +117,7 @@ class AudioPlatformOutput(
                         gen.paused(paused)
                     }
                     if (paused) {
-                        delay(10L)
+                        delay(timeMillis = 10)
                     } else {
                         genSafe(samples)
                         //println(samples.data.toList())
@@ -117,7 +126,7 @@ class AudioPlatformOutput(
                             gen.init(samples)
                         }
                         gen.output(samples)
-                        delay(1L)
+                        delay(timeMillis = 1)
                     }
                 }
             } finally {

@@ -461,7 +461,7 @@ suspend fun Win32Socket.suspendRecvUpTo(data: ByteArray, offset: Int = 0, count:
 				return -1
 			}
 			read == 0 -> {
-				delay(time)
+				delay(timeMillis = time)
 				time = (time + 1).coerceAtMost(10L)
 				continue
 			}
@@ -502,7 +502,7 @@ suspend fun Win32Socket.accept(): Win32Socket {
 		val socket = tryAccept()
 		//println("suspendAccept: $socket")
 		if (socket != null) return socket
-		delay(time)
+		delay(timeMillis = time)
 		time = (time + 1).coerceAtMost(10L)
 	}
 }

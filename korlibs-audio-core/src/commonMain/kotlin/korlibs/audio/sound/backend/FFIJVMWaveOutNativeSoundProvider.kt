@@ -1,9 +1,20 @@
 package korlibs.audio.sound.backend
 
-import korlibs.audio.sound.*
-import korlibs.ffi.*
-import korlibs.memory.*
-import kotlinx.coroutines.*
+import korlibs.audio.sound.AudioPlatformOutput
+import korlibs.audio.sound.AudioPlatformOutputGen
+import korlibs.audio.sound.AudioPlatformOutputSimple
+import korlibs.audio.sound.AudioSamplesInterleaved
+import korlibs.audio.sound.NativeSoundProvider
+import korlibs.ffi.FFIArena
+import korlibs.ffi.FFILib
+import korlibs.ffi.FFIPointer
+import korlibs.ffi.FFIStructure
+import korlibs.ffi.get
+import korlibs.ffi.reinterpret
+import korlibs.ffi.set
+import korlibs.ffi.typed
+import korlibs.memory.hasFlags
+import kotlinx.coroutines.delay
 
 object FFIJVMWaveOutNativeSoundProvider : NativeSoundProvider() {
     @ExperimentalStdlibApi
@@ -52,12 +63,12 @@ object FFIJVMWaveOutNativeSoundProvider : NativeSoundProvider() {
                         if (position >= it.totalSamples) break
                     } else {
                         //println("ALL QUEUED")
-                        delay(1L)
+                        delay(timeMillis = 1)
                     }
                 }
             },
             close = {
-                while (headers.any { it.hdr.isInQueue }) delay(1L)
+                while (headers.any { it.hdr.isInQueue }) delay(timeMillis = 1)
                 //println("CLOSE")
                 for (header in headers) header.dispose(handlePtr[0])
                 //runBlockingNoJs {

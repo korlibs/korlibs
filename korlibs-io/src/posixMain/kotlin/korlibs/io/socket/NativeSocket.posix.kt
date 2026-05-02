@@ -254,7 +254,7 @@ suspend fun NativeSocket.suspendRecvUpTo(data: ByteArray, offset: Int = 0, count
 	while (true) {
 		val read = tryRecv(data, offset, count)
 		if (read <= 0) {
-			delay(10L)
+			delay(timeMillis = 10)
 			continue
 		}
 		return read
@@ -291,7 +291,7 @@ suspend fun NativeSocket.accept(): NativeSocket {
 		val socket = tryAccept()
 		//println("suspendAccept: $socket")
 		if (socket != null) return socket
-		delay(10L)
+		delay(timeMillis = 10)
 	}
 }
 

@@ -1,19 +1,23 @@
 package korlibs.audio.sound
 
-import korlibs.audio.format.*
-import korlibs.datastructure.*
-import korlibs.datastructure.pauseable.*
-import korlibs.io.async.*
-import korlibs.io.file.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import korlibs.math.*
-import korlibs.math.geom.*
-import korlibs.time.*
-import kotlinx.coroutines.*
-import kotlin.coroutines.*
-import kotlin.time.*
+import korlibs.audio.format.AudioDecodingProps
+import korlibs.datastructure.Extra
+import korlibs.io.async.onCancel
+import korlibs.io.file.VfsFile
+import korlibs.io.lang.unsupported
+import korlibs.math.convertRangeClamped
+import korlibs.math.geom.Vector3
+import korlibs.time.DateTime
+import korlibs.time.milliseconds
+import korlibs.time.seconds
+import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.coroutineContext as coroutineContextKt
+import kotlin.time.Duration
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 open class LogNativeSoundProvider(
     val onGen: (AudioData) -> Unit = { }
@@ -28,7 +32,7 @@ open class LogNativeSoundProvider(
             while (running) {
                 genSafe(buffer)
                 log += AudioData(frequency, buffer.copyOf().separated()).also(onGen)
-                delay(2L)
+                delay(duration = 2.milliseconds)
             }
         }
     }
@@ -202,7 +206,7 @@ interface SoundChannelBase : SoundProps, Extra {
         }
         CoroutineScope(coroutineContext).launch {
             try {
-                while (state.playing) delay(10.milliseconds)
+                while (state.playing) delay(timeMillis = 10)
             } finally {
                 blockOnce?.invoke()
             }

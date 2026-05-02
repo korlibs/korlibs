@@ -3,23 +3,74 @@
 package korlibs.io.socket
 
 import cnames.structs.SSLContext
-import kotlinx.cinterop.*
+import kotlinx.cinterop.Arena
 import kotlinx.cinterop.ByteVar
-import kotlinx.coroutines.*
-import platform.CoreFoundation.*
-import platform.Security.*
-import platform.darwin.*
-import platform.posix.*
+import kotlinx.cinterop.COpaquePointer
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.LongVar
+import kotlinx.cinterop.UByteVarOf
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.get
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.plus
+import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.set
+import kotlinx.cinterop.sizeOf
+import kotlinx.cinterop.staticCFunction
+import kotlinx.cinterop.usePinned
+import kotlinx.cinterop.value
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
+import platform.CoreFoundation.CFStringGetCString
+import platform.CoreFoundation.CFStringGetLength
+import platform.CoreFoundation.CFStringRef
+import platform.CoreFoundation.kCFStringEncodingUTF8
+import platform.Security.SSLClose
+import platform.Security.SSLConnectionRef
+import platform.Security.SSLConnectionType
+import platform.Security.SSLContextRef
+import platform.Security.SSLCreateContext
+import platform.Security.SSLGetSessionState
+import platform.Security.SSLHandshake
+import platform.Security.SSLProtocolSide
+import platform.Security.SSLRead
+import platform.Security.SSLSessionState
+import platform.Security.SSLSetConnection
+import platform.Security.SSLSetIOFuncs
+import platform.Security.SSLSetPeerDomainName
+import platform.Security.SSLWrite
+import platform.Security.SecCopyErrorMessageString
+import platform.Security.errSSLClosedGraceful
+import platform.Security.errSSLWouldBlock
+import platform.darwin.OSStatus
+import platform.darwin.inet_addr
+import platform.darwin.noErr
+import platform.posix.AF_INET
+import platform.posix.SOCK_STREAM
+import platform.posix.SOL_SOCKET
+import platform.posix.SO_RCVTIMEO
+import platform.posix.SO_SNDTIMEO
+import platform.posix.close
+import platform.posix.connect
+import platform.posix.errno
+import platform.posix.gethostbyname
+import platform.posix.recv
+import platform.posix.send
+import platform.posix.setsockopt
+import platform.posix.size_t
+import platform.posix.size_tVar
 import platform.posix.sockaddr_in
-import kotlin.ByteArray
-import kotlin.Int
-import kotlin.String
-import kotlin.TODO
-import kotlin.UByte
-import kotlin.UShort
-import kotlin.error
-import kotlin.native.concurrent.*
-import kotlin.toUShort
+import platform.posix.socket
+import platform.posix.timeval
 
 class DarwinSSLSocket {
     val arena = Arena()
@@ -156,7 +207,7 @@ class DarwinSSLSocket {
                             SSLWrite(ctx, data, 0.convert(), processed.ptr)
                         }
                         //SSLHandshake(ctx)
-                        kotlinx.coroutines.delay(1L)
+                        delay(timeMillis = 1)
                     }
                     SSLSessionState.kSSLClosed -> return false
                     SSLSessionState.kSSLAborted -> return false
@@ -190,7 +241,7 @@ class DarwinSSLSocket {
                             return processed.value.toInt()
                         }
                         errSSLWouldBlock -> {
-                            kotlinx.coroutines.delay(1L)
+                            delay(timeMillis = 1)
                             continue
                         }
                         errSSLClosedGraceful -> {
