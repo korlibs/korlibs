@@ -73,8 +73,8 @@ class DynCommonTest {
 
 	@Test
 	fun testUnaryOps() {
-		assertEquals(-5, (-5.0.dyn).int)
-		assertEquals(5, (+5.0.dyn).int)
+		assertEquals(-5, (-(5.0.dyn)).int)
+		assertEquals(5, (+(5.0.dyn)).int)
 		assertEquals(-1, 0.dyn.inv().int)
 		assertEquals(false, true.dyn.not().bool)
 		assertEquals(true, false.dyn.not().bool)
