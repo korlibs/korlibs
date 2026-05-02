@@ -1,0 +1,461 @@
+public abstract interface class korlibs/bignumber/BigInt : java/lang/Comparable, korlibs/bignumber/BigIntConstructor {
+	public static final field Companion Lkorlibs/bignumber/BigInt$Companion;
+	public fun abs ()Lkorlibs/bignumber/BigInt;
+	public abstract fun and (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun div (I)Lkorlibs/bignumber/BigInt;
+	public abstract fun div (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public abstract fun getSignum ()I
+	public abstract fun inv ()Lkorlibs/bignumber/BigInt;
+	public fun isNegative ()Z
+	public fun isNegativeOrZero ()Z
+	public fun isNotZero ()Z
+	public fun isPositive ()Z
+	public fun isPositiveOrZero ()Z
+	public fun isZero ()Z
+	public fun minus (I)Lkorlibs/bignumber/BigInt;
+	public abstract fun minus (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public abstract fun or (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun plus (I)Lkorlibs/bignumber/BigInt;
+	public abstract fun plus (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public abstract fun pow (I)Lkorlibs/bignumber/BigInt;
+	public abstract fun pow (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun rangeTo (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/ranges/BigIntRange;
+	public fun rem (I)Lkorlibs/bignumber/BigInt;
+	public abstract fun rem (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public abstract fun shl (I)Lkorlibs/bignumber/BigInt;
+	public abstract fun shr (I)Lkorlibs/bignumber/BigInt;
+	public fun square ()Lkorlibs/bignumber/BigInt;
+	public fun times (I)Lkorlibs/bignumber/BigInt;
+	public fun times (J)Lkorlibs/bignumber/BigInt;
+	public abstract fun times (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public abstract fun toInt ()I
+	public abstract fun toString (I)Ljava/lang/String;
+	public abstract fun unaryMinus ()Lkorlibs/bignumber/BigInt;
+	public fun unaryPlus ()Lkorlibs/bignumber/BigInt;
+	public abstract fun xor (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+}
+
+public final class korlibs/bignumber/BigInt$Companion {
+	public final fun getMINUS_ONE ()Lkorlibs/bignumber/BigInt;
+	public final fun getONE ()Lkorlibs/bignumber/BigInt;
+	public final fun getSMALL ()Lkorlibs/bignumber/BigInt;
+	public final fun getTEN ()Lkorlibs/bignumber/BigInt;
+	public final fun getTWO ()Lkorlibs/bignumber/BigInt;
+	public final fun getUsesNativeImplementation ()Z
+	public final fun getZERO ()Lkorlibs/bignumber/BigInt;
+}
+
+public final class korlibs/bignumber/BigInt$DefaultImpls {
+	public static fun abs (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public static fun create (Lkorlibs/bignumber/BigInt;J)Lkorlibs/bignumber/BigInt;
+	public static fun create (Lkorlibs/bignumber/BigInt;Ljava/lang/String;)Lkorlibs/bignumber/BigInt;
+	public static fun create (Lkorlibs/bignumber/BigInt;Ljava/lang/String;I)Lkorlibs/bignumber/BigInt;
+	public static fun div (Lkorlibs/bignumber/BigInt;I)Lkorlibs/bignumber/BigInt;
+	public static fun isNegative (Lkorlibs/bignumber/BigInt;)Z
+	public static fun isNegativeOrZero (Lkorlibs/bignumber/BigInt;)Z
+	public static fun isNotZero (Lkorlibs/bignumber/BigInt;)Z
+	public static fun isPositive (Lkorlibs/bignumber/BigInt;)Z
+	public static fun isPositiveOrZero (Lkorlibs/bignumber/BigInt;)Z
+	public static fun isZero (Lkorlibs/bignumber/BigInt;)Z
+	public static fun minus (Lkorlibs/bignumber/BigInt;I)Lkorlibs/bignumber/BigInt;
+	public static fun plus (Lkorlibs/bignumber/BigInt;I)Lkorlibs/bignumber/BigInt;
+	public static fun rangeTo (Lkorlibs/bignumber/BigInt;Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/ranges/BigIntRange;
+	public static fun rem (Lkorlibs/bignumber/BigInt;I)Lkorlibs/bignumber/BigInt;
+	public static fun square (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public static fun times (Lkorlibs/bignumber/BigInt;I)Lkorlibs/bignumber/BigInt;
+	public static fun times (Lkorlibs/bignumber/BigInt;J)Lkorlibs/bignumber/BigInt;
+	public static fun unaryPlus (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+}
+
+public abstract interface class korlibs/bignumber/BigIntCompanion : korlibs/bignumber/BigIntConstructor {
+	public fun invoke (I)Lkorlibs/bignumber/BigInt;
+	public fun invoke (J)Lkorlibs/bignumber/BigInt;
+	public fun invoke (Ljava/lang/String;)Lkorlibs/bignumber/BigInt;
+	public fun invoke (Ljava/lang/String;I)Lkorlibs/bignumber/BigInt;
+}
+
+public final class korlibs/bignumber/BigIntCompanion$DefaultImpls {
+	public static fun create (Lkorlibs/bignumber/BigIntCompanion;J)Lkorlibs/bignumber/BigInt;
+	public static fun create (Lkorlibs/bignumber/BigIntCompanion;Ljava/lang/String;)Lkorlibs/bignumber/BigInt;
+	public static fun create (Lkorlibs/bignumber/BigIntCompanion;Ljava/lang/String;I)Lkorlibs/bignumber/BigInt;
+	public static fun invoke (Lkorlibs/bignumber/BigIntCompanion;I)Lkorlibs/bignumber/BigInt;
+	public static fun invoke (Lkorlibs/bignumber/BigIntCompanion;J)Lkorlibs/bignumber/BigInt;
+	public static fun invoke (Lkorlibs/bignumber/BigIntCompanion;Ljava/lang/String;)Lkorlibs/bignumber/BigInt;
+	public static fun invoke (Lkorlibs/bignumber/BigIntCompanion;Ljava/lang/String;I)Lkorlibs/bignumber/BigInt;
+}
+
+public abstract interface class korlibs/bignumber/BigIntConstructor {
+	public abstract fun create (I)Lkorlibs/bignumber/BigInt;
+	public fun create (J)Lkorlibs/bignumber/BigInt;
+	public fun create (Ljava/lang/String;)Lkorlibs/bignumber/BigInt;
+	public fun create (Ljava/lang/String;I)Lkorlibs/bignumber/BigInt;
+}
+
+public final class korlibs/bignumber/BigIntConstructor$DefaultImpls {
+	public static fun create (Lkorlibs/bignumber/BigIntConstructor;J)Lkorlibs/bignumber/BigInt;
+	public static fun create (Lkorlibs/bignumber/BigIntConstructor;Ljava/lang/String;)Lkorlibs/bignumber/BigInt;
+	public static fun create (Lkorlibs/bignumber/BigIntConstructor;Ljava/lang/String;I)Lkorlibs/bignumber/BigInt;
+}
+
+public class korlibs/bignumber/BigIntDivisionByZeroException : korlibs/bignumber/BigIntException {
+	public fun <init> ()V
+}
+
+public class korlibs/bignumber/BigIntException : java/lang/Throwable {
+	public fun <init> (Ljava/lang/String;)V
+}
+
+public class korlibs/bignumber/BigIntInvalidFormatException : korlibs/bignumber/BigIntException {
+	public fun <init> (Ljava/lang/String;)V
+}
+
+public final class korlibs/bignumber/BigIntKt {
+	public static final fun BigInt (I)Lkorlibs/bignumber/BigInt;
+	public static final fun BigInt (J)Lkorlibs/bignumber/BigInt;
+	public static final fun BigInt (Ljava/lang/String;)Lkorlibs/bignumber/BigInt;
+	public static final fun BigInt (Ljava/lang/String;I)Lkorlibs/bignumber/BigInt;
+	public static final fun bi (Ljava/lang/String;I)Lkorlibs/bignumber/BigInt;
+	public static final fun getBi (I)Lkorlibs/bignumber/BigInt;
+	public static final fun getBi (J)Lkorlibs/bignumber/BigInt;
+	public static final fun getBi (Ljava/lang/String;)Lkorlibs/bignumber/BigInt;
+}
+
+public class korlibs/bignumber/BigIntNegativeExponentException : korlibs/bignumber/BigIntOverflowException {
+	public fun <init> ()V
+}
+
+public class korlibs/bignumber/BigIntOverflowException : korlibs/bignumber/BigIntException {
+	public fun <init> (Ljava/lang/String;)V
+}
+
+public final class korlibs/bignumber/BigInt_jvmKt {
+	public static final fun getBi (Ljava/math/BigInteger;)Lkorlibs/bignumber/JvmBigInt;
+	public static final fun getBigIntNativeFactory ()Lkorlibs/bignumber/BigIntConstructor;
+	public static final fun toBigInteger (Lkorlibs/bignumber/BigInt;)Ljava/math/BigInteger;
+}
+
+public final class korlibs/bignumber/BigNum : java/lang/Comparable {
+	public static final field Companion Lkorlibs/bignumber/BigNum$Companion;
+	public fun <init> (Lkorlibs/bignumber/BigInt;I)V
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo (Lkorlibs/bignumber/BigNum;)I
+	public final fun convertToScale (I)Lkorlibs/bignumber/BigNum;
+	public final fun div (Lkorlibs/bignumber/BigNum;)Lkorlibs/bignumber/BigNum;
+	public final fun div (Lkorlibs/bignumber/BigNum;I)Lkorlibs/bignumber/BigNum;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDecimalPart ()Lkorlibs/bignumber/BigInt;
+	public final fun getInt ()Lkorlibs/bignumber/BigInt;
+	public final fun getScale ()I
+	public fun hashCode ()I
+	public final fun minus (Lkorlibs/bignumber/BigNum;)Lkorlibs/bignumber/BigNum;
+	public final fun plus (Lkorlibs/bignumber/BigNum;)Lkorlibs/bignumber/BigNum;
+	public final fun pow (I)Lkorlibs/bignumber/BigNum;
+	public final fun pow (II)Lkorlibs/bignumber/BigNum;
+	public final fun rangeTo (Lkorlibs/bignumber/BigNum;)Lkorlibs/bignumber/ranges/ClosedBigNumRange;
+	public final fun times (Lkorlibs/bignumber/BigNum;)Lkorlibs/bignumber/BigNum;
+	public final fun toBigInt ()Lkorlibs/bignumber/BigInt;
+	public final fun toBigIntCeil ()Lkorlibs/bignumber/BigInt;
+	public final fun toBigIntFloor ()Lkorlibs/bignumber/BigInt;
+	public final fun toBigIntRound ()Lkorlibs/bignumber/BigInt;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/bignumber/BigNum$Companion {
+	public final fun getONE ()Lkorlibs/bignumber/BigNum;
+	public final fun getTWO ()Lkorlibs/bignumber/BigNum;
+	public final fun getZERO ()Lkorlibs/bignumber/BigNum;
+	public final fun invoke (Ljava/lang/String;)Lkorlibs/bignumber/BigNum;
+}
+
+public final class korlibs/bignumber/BigNumKt {
+	public static final fun getBn (D)Lkorlibs/bignumber/BigNum;
+	public static final fun getBn (I)Lkorlibs/bignumber/BigNum;
+	public static final fun getBn (J)Lkorlibs/bignumber/BigNum;
+	public static final fun getBn (Ljava/lang/String;)Lkorlibs/bignumber/BigNum;
+}
+
+public final class korlibs/bignumber/CommonBigInt : korlibs/bignumber/BigInt, korlibs/bignumber/BigIntConstructor {
+	public static final field Companion Lkorlibs/bignumber/CommonBigInt$Companion;
+	public synthetic fun <init> (Lkorlibs/bignumber/UInt16ArrayZeroPad;IZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun abs ()Lkorlibs/bignumber/BigInt;
+	public fun abs ()Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun and (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun and (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo (Lkorlibs/bignumber/BigInt;)I
+	public final fun countBits ()I
+	public fun create (I)Lkorlibs/bignumber/BigInt;
+	public fun create (J)Lkorlibs/bignumber/BigInt;
+	public fun create (Ljava/lang/String;)Lkorlibs/bignumber/BigInt;
+	public fun create (Ljava/lang/String;I)Lkorlibs/bignumber/BigInt;
+	public synthetic fun div (I)Lkorlibs/bignumber/BigInt;
+	public fun div (I)Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun div (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun div (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/CommonBigInt;
+	public final fun divRem (Lkorlibs/bignumber/CommonBigInt;)Lkorlibs/bignumber/CommonBigInt$DivRem;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAbsoluteValue ()Lkorlibs/bignumber/CommonBigInt;
+	public final fun getBit (I)Z
+	public final fun getBitInt (I)I
+	public final fun getData ()Lkorlibs/bignumber/UInt16ArrayZeroPad;
+	public final fun getDummy ()Z
+	public final fun getMaxBits ()I
+	public final fun getSignificantBits ()I
+	public fun getSignum ()I
+	public fun hashCode ()I
+	public synthetic fun inv ()Lkorlibs/bignumber/BigInt;
+	public fun inv ()Lkorlibs/bignumber/CommonBigInt;
+	public fun isNegative ()Z
+	public fun isNegativeOrZero ()Z
+	public fun isNotZero ()Z
+	public final fun isOne ()Z
+	public fun isPositive ()Z
+	public fun isPositiveOrZero ()Z
+	public final fun isSmall ()Z
+	public fun isZero ()Z
+	public final fun leadingZeros ()I
+	public synthetic fun minus (I)Lkorlibs/bignumber/BigInt;
+	public fun minus (I)Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun minus (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun minus (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/CommonBigInt;
+	public final fun mulAddSmall (II)Lkorlibs/bignumber/CommonBigInt;
+	public final fun mulWithStats (Lkorlibs/bignumber/CommonBigInt;Lkorlibs/bignumber/CommonBigInt$OpStats;)Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun or (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun or (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun plus (I)Lkorlibs/bignumber/BigInt;
+	public fun plus (I)Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun plus (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun plus (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun pow (I)Lkorlibs/bignumber/BigInt;
+	public fun pow (I)Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun pow (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun pow (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/CommonBigInt;
+	public final fun powWithStats (ILkorlibs/bignumber/CommonBigInt$OpStats;)Lkorlibs/bignumber/CommonBigInt;
+	public fun rangeTo (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/ranges/BigIntRange;
+	public synthetic fun rem (I)Lkorlibs/bignumber/BigInt;
+	public fun rem (I)Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun rem (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun rem (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/CommonBigInt;
+	public final fun setDummy (Z)V
+	public synthetic fun shl (I)Lkorlibs/bignumber/BigInt;
+	public fun shl (I)Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun shr (I)Lkorlibs/bignumber/BigInt;
+	public fun shr (I)Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun square ()Lkorlibs/bignumber/BigInt;
+	public fun square ()Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun times (I)Lkorlibs/bignumber/BigInt;
+	public fun times (I)Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun times (J)Lkorlibs/bignumber/BigInt;
+	public fun times (J)Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun times (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun times (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/CommonBigInt;
+	public final fun toBigNum ()Lkorlibs/bignumber/BigNum;
+	public fun toInt ()I
+	public fun toString ()Ljava/lang/String;
+	public fun toString (I)Ljava/lang/String;
+	public final fun toString (Ljava/lang/StringBuilder;I)V
+	public final fun trailingZeros ()I
+	public synthetic fun unaryMinus ()Lkorlibs/bignumber/BigInt;
+	public fun unaryMinus ()Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun unaryPlus ()Lkorlibs/bignumber/BigInt;
+	public fun unaryPlus ()Lkorlibs/bignumber/CommonBigInt;
+	public final fun withBit (IZ)Lkorlibs/bignumber/CommonBigInt;
+	public static synthetic fun withBit$default (Lkorlibs/bignumber/CommonBigInt;IZILjava/lang/Object;)Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun xor (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun xor (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/CommonBigInt;
+}
+
+public final class korlibs/bignumber/CommonBigInt$Companion : korlibs/bignumber/BigIntCompanion {
+	public synthetic fun create (I)Lkorlibs/bignumber/BigInt;
+	public fun create (I)Lkorlibs/bignumber/CommonBigInt;
+	public fun create (J)Lkorlibs/bignumber/BigInt;
+	public fun create (Ljava/lang/String;)Lkorlibs/bignumber/BigInt;
+	public fun create (Ljava/lang/String;I)Lkorlibs/bignumber/BigInt;
+	public final fun getMINUS_ONE ()Lkorlibs/bignumber/CommonBigInt;
+	public final fun getONE ()Lkorlibs/bignumber/CommonBigInt;
+	public final fun getSMALL ()Lkorlibs/bignumber/CommonBigInt;
+	public final fun getTEN ()Lkorlibs/bignumber/CommonBigInt;
+	public final fun getTWO ()Lkorlibs/bignumber/CommonBigInt;
+	public final fun getZERO ()Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun invoke (I)Lkorlibs/bignumber/BigInt;
+	public fun invoke (I)Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun invoke (J)Lkorlibs/bignumber/BigInt;
+	public fun invoke (J)Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun invoke (Ljava/lang/String;)Lkorlibs/bignumber/BigInt;
+	public fun invoke (Ljava/lang/String;)Lkorlibs/bignumber/CommonBigInt;
+	public synthetic fun invoke (Ljava/lang/String;I)Lkorlibs/bignumber/BigInt;
+	public fun invoke (Ljava/lang/String;I)Lkorlibs/bignumber/CommonBigInt;
+	public final fun invoke (Lkorlibs/bignumber/UInt16ArrayZeroPad;I)Lkorlibs/bignumber/CommonBigInt;
+}
+
+public final class korlibs/bignumber/CommonBigInt$DivRem {
+	public fun <init> (Lkorlibs/bignumber/CommonBigInt;Lkorlibs/bignumber/CommonBigInt;)V
+	public final fun component1 ()Lkorlibs/bignumber/CommonBigInt;
+	public final fun component2 ()Lkorlibs/bignumber/CommonBigInt;
+	public final fun copy (Lkorlibs/bignumber/CommonBigInt;Lkorlibs/bignumber/CommonBigInt;)Lkorlibs/bignumber/CommonBigInt$DivRem;
+	public static synthetic fun copy$default (Lkorlibs/bignumber/CommonBigInt$DivRem;Lkorlibs/bignumber/CommonBigInt;Lkorlibs/bignumber/CommonBigInt;ILjava/lang/Object;)Lkorlibs/bignumber/CommonBigInt$DivRem;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDiv ()Lkorlibs/bignumber/CommonBigInt;
+	public final fun getRem ()Lkorlibs/bignumber/CommonBigInt;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/bignumber/CommonBigInt$OpStats {
+	public fun <init> ()V
+	public fun <init> (III)V
+	public synthetic fun <init> (IIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun copy (III)Lkorlibs/bignumber/CommonBigInt$OpStats;
+	public static synthetic fun copy$default (Lkorlibs/bignumber/CommonBigInt$OpStats;IIIILjava/lang/Object;)Lkorlibs/bignumber/CommonBigInt$OpStats;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBigMultiplications ()I
+	public final fun getIterations ()I
+	public final fun getSquare ()I
+	public fun hashCode ()I
+	public final fun set (III)V
+	public static synthetic fun set$default (Lkorlibs/bignumber/CommonBigInt$OpStats;IIIILjava/lang/Object;)V
+	public final fun setBigMultiplications (I)V
+	public final fun setIterations (I)V
+	public final fun setSquare (I)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/bignumber/JvmBigInt : korlibs/bignumber/BigInt, korlibs/bignumber/BigIntConstructor {
+	public static final field Companion Lkorlibs/bignumber/JvmBigInt$Companion;
+	public fun <init> (I)V
+	public fun <init> (J)V
+	public fun <init> (Ljava/lang/String;I)V
+	public fun <init> (Ljava/math/BigInteger;)V
+	public fun abs ()Lkorlibs/bignumber/BigInt;
+	public fun and (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo (Lkorlibs/bignumber/BigInt;)I
+	public fun create (I)Lkorlibs/bignumber/BigInt;
+	public fun create (J)Lkorlibs/bignumber/BigInt;
+	public fun create (Ljava/lang/String;)Lkorlibs/bignumber/BigInt;
+	public fun create (Ljava/lang/String;I)Lkorlibs/bignumber/BigInt;
+	public fun div (I)Lkorlibs/bignumber/BigInt;
+	public fun div (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getJvm (I)Ljava/math/BigInteger;
+	public final fun getJvm (J)Ljava/math/BigInteger;
+	public final fun getJvm (Lkorlibs/bignumber/BigInt;)Ljava/math/BigInteger;
+	public fun getSignum ()I
+	public final fun getValue ()Ljava/math/BigInteger;
+	public fun hashCode ()I
+	public fun inv ()Lkorlibs/bignumber/BigInt;
+	public fun isNegative ()Z
+	public fun isNegativeOrZero ()Z
+	public fun isNotZero ()Z
+	public fun isPositive ()Z
+	public fun isPositiveOrZero ()Z
+	public fun isZero ()Z
+	public fun minus (I)Lkorlibs/bignumber/BigInt;
+	public fun minus (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun or (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun plus (I)Lkorlibs/bignumber/BigInt;
+	public fun plus (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun pow (I)Lkorlibs/bignumber/BigInt;
+	public fun pow (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun rangeTo (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/ranges/BigIntRange;
+	public fun rem (I)Lkorlibs/bignumber/BigInt;
+	public fun rem (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun shl (I)Lkorlibs/bignumber/BigInt;
+	public fun shr (I)Lkorlibs/bignumber/BigInt;
+	public fun square ()Lkorlibs/bignumber/BigInt;
+	public fun times (I)Lkorlibs/bignumber/BigInt;
+	public fun times (J)Lkorlibs/bignumber/BigInt;
+	public fun times (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+	public fun toInt ()I
+	public fun toString ()Ljava/lang/String;
+	public fun toString (I)Ljava/lang/String;
+	public fun unaryMinus ()Lkorlibs/bignumber/BigInt;
+	public fun unaryPlus ()Lkorlibs/bignumber/BigInt;
+	public fun xor (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/BigInt;
+}
+
+public final class korlibs/bignumber/JvmBigInt$Companion : korlibs/bignumber/BigIntConstructor {
+	public fun create (I)Lkorlibs/bignumber/BigInt;
+	public fun create (J)Lkorlibs/bignumber/BigInt;
+	public fun create (Ljava/lang/String;)Lkorlibs/bignumber/BigInt;
+	public fun create (Ljava/lang/String;I)Lkorlibs/bignumber/BigInt;
+}
+
+public final class korlibs/bignumber/UInt16ArrayZeroPad {
+	public fun <init> (I)V
+	public final fun contentEquals (Lkorlibs/bignumber/UInt16ArrayZeroPad;)Z
+	public final fun contentHashCode ()I
+	public final fun copyOf (I)Lkorlibs/bignumber/UInt16ArrayZeroPad;
+	public static synthetic fun copyOf$default (Lkorlibs/bignumber/UInt16ArrayZeroPad;IILjava/lang/Object;)Lkorlibs/bignumber/UInt16ArrayZeroPad;
+	public final fun copyOfRange (II)Lkorlibs/bignumber/UInt16ArrayZeroPad;
+	public static synthetic fun copyOfRange$default (Lkorlibs/bignumber/UInt16ArrayZeroPad;IIILjava/lang/Object;)Lkorlibs/bignumber/UInt16ArrayZeroPad;
+	public final fun get (I)I
+	public final fun getData ()[I
+	public final fun getSize ()I
+	public final fun isAllZero ()Z
+	public final fun set (II)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public class korlibs/bignumber/ranges/BigIntProgression : java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {
+	public static final field Companion Lkorlibs/bignumber/ranges/BigIntProgression$Companion;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFirst ()Lkorlibs/bignumber/BigInt;
+	public final fun getLast ()Lkorlibs/bignumber/BigInt;
+	public final fun getStep ()Lkorlibs/bignumber/BigInt;
+	public fun hashCode ()I
+	public fun isEmpty ()Z
+	public fun iterator ()Ljava/util/Iterator;
+	public final fun step (Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/ranges/BigIntProgression;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/bignumber/ranges/BigIntProgression$Companion {
+	public final fun fromClosedRange (Lkorlibs/bignumber/BigInt;Lkorlibs/bignumber/BigInt;Lkorlibs/bignumber/BigInt;)Lkorlibs/bignumber/ranges/BigIntProgression;
+}
+
+public final class korlibs/bignumber/ranges/BigIntProgressionIterator : java/util/Iterator, kotlin/jvm/internal/markers/KMappedMarker {
+	public fun <init> (Lkorlibs/bignumber/BigInt;Lkorlibs/bignumber/BigInt;Lkorlibs/bignumber/BigInt;)V
+	public final fun getStep ()Lkorlibs/bignumber/BigInt;
+	public fun hasNext ()Z
+	public synthetic fun next ()Ljava/lang/Object;
+	public fun next ()Lkorlibs/bignumber/BigInt;
+	public fun remove ()V
+}
+
+public final class korlibs/bignumber/ranges/BigIntRange : korlibs/bignumber/ranges/BigIntProgression, kotlin/ranges/ClosedRange {
+	public static final field Companion Lkorlibs/bignumber/ranges/BigIntRange$Companion;
+	public fun <init> (Lkorlibs/bignumber/BigInt;Lkorlibs/bignumber/BigInt;)V
+	public synthetic fun contains (Ljava/lang/Comparable;)Z
+	public fun contains (Lkorlibs/bignumber/BigInt;)Z
+	public fun equals (Ljava/lang/Object;)Z
+	public synthetic fun getEndInclusive ()Ljava/lang/Comparable;
+	public fun getEndInclusive ()Lkorlibs/bignumber/BigInt;
+	public synthetic fun getStart ()Ljava/lang/Comparable;
+	public fun getStart ()Lkorlibs/bignumber/BigInt;
+	public fun hashCode ()I
+	public fun isEmpty ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/bignumber/ranges/BigIntRange$Companion {
+	public final fun getEMPTY ()Lkotlin/ranges/IntRange;
+}
+
+public final class korlibs/bignumber/ranges/ClosedBigNumRange : kotlin/ranges/ClosedRange {
+	public fun <init> (Lkorlibs/bignumber/BigNum;Lkorlibs/bignumber/BigNum;)V
+	public synthetic fun contains (Ljava/lang/Comparable;)Z
+	public fun contains (Lkorlibs/bignumber/BigNum;)Z
+	public fun equals (Ljava/lang/Object;)Z
+	public synthetic fun getEndInclusive ()Ljava/lang/Comparable;
+	public fun getEndInclusive ()Lkorlibs/bignumber/BigNum;
+	public synthetic fun getStart ()Ljava/lang/Comparable;
+	public fun getStart ()Lkorlibs/bignumber/BigNum;
+	public fun hashCode ()I
+	public fun isEmpty ()Z
+	public fun toString ()Ljava/lang/String;
+}
+

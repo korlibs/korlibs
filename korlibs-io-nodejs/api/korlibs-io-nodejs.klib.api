@@ -1,0 +1,24 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-io-nodejs>
+final fun korlibs.io.runtime.node/configureNodeJsTarget() // korlibs.io.runtime.node/configureNodeJsTarget|configureNodeJsTarget(){}[0]
+
+// Targets: [js]
+final fun (kotlin/ByteArray).korlibs.io.runtime.node/asInt8Array(): org.khronos.webgl/Int8Array // korlibs.io.runtime.node/asInt8Array|asInt8Array@kotlin.ByteArray(){}[0]
+
+// Targets: [js]
+final fun (kotlin/ByteArray).korlibs.io.runtime.node/asUint8Array(): org.khronos.webgl/Uint8Array // korlibs.io.runtime.node/asUint8Array|asUint8Array@kotlin.ByteArray(){}[0]
+
+// Targets: [js]
+final fun (kotlin/ByteArray).korlibs.io.runtime.node/toNodeJsBuffer(): org.khronos.webgl/Uint8Array // korlibs.io.runtime.node/toNodeJsBuffer|toNodeJsBuffer@kotlin.ByteArray(){}[0]
+
+// Targets: [js]
+final fun (kotlin/ByteArray).korlibs.io.runtime.node/toNodeJsBuffer(kotlin/Int, kotlin/Int): org.khronos.webgl/Uint8Array // korlibs.io.runtime.node/toNodeJsBuffer|toNodeJsBuffer@kotlin.ByteArray(kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [js]
+final fun (org.khronos.webgl/Uint8Array).korlibs.io.runtime.node/toByteArray(): kotlin/ByteArray // korlibs.io.runtime.node/toByteArray|toByteArray@org.khronos.webgl.Uint8Array(){}[0]

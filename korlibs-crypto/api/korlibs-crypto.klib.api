@@ -1,0 +1,314 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-crypto>
+abstract interface korlibs.crypto/Cipher { // korlibs.crypto/Cipher|null[0]
+    abstract val blockSize // korlibs.crypto/Cipher.blockSize|{}blockSize[0]
+        abstract fun <get-blockSize>(): kotlin/Int // korlibs.crypto/Cipher.blockSize.<get-blockSize>|<get-blockSize>(){}[0]
+
+    abstract fun decrypt(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...) // korlibs.crypto/Cipher.decrypt|decrypt(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    abstract fun encrypt(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...) // korlibs.crypto/Cipher.encrypt|encrypt(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+abstract interface korlibs.crypto/CipherMode { // korlibs.crypto/CipherMode|null[0]
+    abstract val name // korlibs.crypto/CipherMode.name|{}name[0]
+        abstract fun <get-name>(): kotlin/String // korlibs.crypto/CipherMode.name.<get-name>|<get-name>(){}[0]
+
+    abstract fun decrypt(kotlin/ByteArray, korlibs.crypto/Cipher, korlibs.crypto/CipherPadding, kotlin/ByteArray?): kotlin/ByteArray // korlibs.crypto/CipherMode.decrypt|decrypt(kotlin.ByteArray;korlibs.crypto.Cipher;korlibs.crypto.CipherPadding;kotlin.ByteArray?){}[0]
+    abstract fun encrypt(kotlin/ByteArray, korlibs.crypto/Cipher, korlibs.crypto/CipherPadding, kotlin/ByteArray?): kotlin/ByteArray // korlibs.crypto/CipherMode.encrypt|encrypt(kotlin.ByteArray;korlibs.crypto.Cipher;korlibs.crypto.CipherPadding;kotlin.ByteArray?){}[0]
+
+    final object Companion { // korlibs.crypto/CipherMode.Companion|null[0]
+        final val CBC // korlibs.crypto/CipherMode.Companion.CBC|{}CBC[0]
+            final fun <get-CBC>(): korlibs.crypto/CipherMode // korlibs.crypto/CipherMode.Companion.CBC.<get-CBC>|<get-CBC>(){}[0]
+        final val CFB // korlibs.crypto/CipherMode.Companion.CFB|{}CFB[0]
+            final fun <get-CFB>(): korlibs.crypto/CipherMode // korlibs.crypto/CipherMode.Companion.CFB.<get-CFB>|<get-CFB>(){}[0]
+        final val CTR // korlibs.crypto/CipherMode.Companion.CTR|{}CTR[0]
+            final fun <get-CTR>(): korlibs.crypto/CipherMode // korlibs.crypto/CipherMode.Companion.CTR.<get-CTR>|<get-CTR>(){}[0]
+        final val ECB // korlibs.crypto/CipherMode.Companion.ECB|{}ECB[0]
+            final fun <get-ECB>(): korlibs.crypto/CipherMode // korlibs.crypto/CipherMode.Companion.ECB.<get-ECB>|<get-ECB>(){}[0]
+        final val OFB // korlibs.crypto/CipherMode.Companion.OFB|{}OFB[0]
+            final fun <get-OFB>(): korlibs.crypto/CipherMode // korlibs.crypto/CipherMode.Companion.OFB.<get-OFB>|<get-OFB>(){}[0]
+        final val PCBC // korlibs.crypto/CipherMode.Companion.PCBC|{}PCBC[0]
+            final fun <get-PCBC>(): korlibs.crypto/CipherMode // korlibs.crypto/CipherMode.Companion.PCBC.<get-PCBC>|<get-PCBC>(){}[0]
+    }
+}
+
+abstract class korlibs.crypto/CipherPadding { // korlibs.crypto/CipherPadding|null[0]
+    constructor <init>() // korlibs.crypto/CipherPadding.<init>|<init>(){}[0]
+
+    final fun add(kotlin/ByteArray, kotlin/Int): kotlin/ByteArray // korlibs.crypto/CipherPadding.add|add(kotlin.ByteArray;kotlin.Int){}[0]
+    final fun remove(kotlin/ByteArray): kotlin/ByteArray // korlibs.crypto/CipherPadding.remove|remove(kotlin.ByteArray){}[0]
+    open fun addInternal(kotlin/ByteArray, kotlin/Int, kotlin/Int) // korlibs.crypto/CipherPadding.addInternal|addInternal(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    open fun paddingSize(kotlin/Int, kotlin/Int): kotlin/Int // korlibs.crypto/CipherPadding.paddingSize|paddingSize(kotlin.Int;kotlin.Int){}[0]
+    open fun removeInternal(kotlin/ByteArray): kotlin/Int // korlibs.crypto/CipherPadding.removeInternal|removeInternal(kotlin.ByteArray){}[0]
+
+    final object Companion { // korlibs.crypto/CipherPadding.Companion|null[0]
+        final val ANSIX923Padding // korlibs.crypto/CipherPadding.Companion.ANSIX923Padding|{}ANSIX923Padding[0]
+            final fun <get-ANSIX923Padding>(): korlibs.crypto/CipherPadding // korlibs.crypto/CipherPadding.Companion.ANSIX923Padding.<get-ANSIX923Padding>|<get-ANSIX923Padding>(){}[0]
+        final val ISO10126Padding // korlibs.crypto/CipherPadding.Companion.ISO10126Padding|{}ISO10126Padding[0]
+            final fun <get-ISO10126Padding>(): korlibs.crypto/CipherPadding // korlibs.crypto/CipherPadding.Companion.ISO10126Padding.<get-ISO10126Padding>|<get-ISO10126Padding>(){}[0]
+        final val NoPadding // korlibs.crypto/CipherPadding.Companion.NoPadding|{}NoPadding[0]
+            final fun <get-NoPadding>(): korlibs.crypto/CipherPadding // korlibs.crypto/CipherPadding.Companion.NoPadding.<get-NoPadding>|<get-NoPadding>(){}[0]
+        final val PKCS7Padding // korlibs.crypto/CipherPadding.Companion.PKCS7Padding|{}PKCS7Padding[0]
+            final fun <get-PKCS7Padding>(): korlibs.crypto/CipherPadding // korlibs.crypto/CipherPadding.Companion.PKCS7Padding.<get-PKCS7Padding>|<get-PKCS7Padding>(){}[0]
+        final val ZeroPadding // korlibs.crypto/CipherPadding.Companion.ZeroPadding|{}ZeroPadding[0]
+            final fun <get-ZeroPadding>(): korlibs.crypto/CipherPadding // korlibs.crypto/CipherPadding.Companion.ZeroPadding.<get-ZeroPadding>|<get-ZeroPadding>(){}[0]
+
+        final fun padding(kotlin/ByteArray, kotlin/Int, korlibs.crypto/CipherPadding): kotlin/ByteArray // korlibs.crypto/CipherPadding.Companion.padding|padding(kotlin.ByteArray;kotlin.Int;korlibs.crypto.CipherPadding){}[0]
+        final fun removePadding(kotlin/ByteArray, korlibs.crypto/CipherPadding): kotlin/ByteArray // korlibs.crypto/CipherPadding.Companion.removePadding|removePadding(kotlin.ByteArray;korlibs.crypto.CipherPadding){}[0]
+    }
+}
+
+abstract class korlibs.crypto/Hasher { // korlibs.crypto/Hasher|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int, kotlin/String) // korlibs.crypto/Hasher.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.String){}[0]
+
+    final val blockSize // korlibs.crypto/Hasher.blockSize|{}blockSize[0]
+        final fun <get-blockSize>(): kotlin/Int // korlibs.crypto/Hasher.blockSize.<get-blockSize>|<get-blockSize>(){}[0]
+    final val chunkSize // korlibs.crypto/Hasher.chunkSize|{}chunkSize[0]
+        final fun <get-chunkSize>(): kotlin/Int // korlibs.crypto/Hasher.chunkSize.<get-chunkSize>|<get-chunkSize>(){}[0]
+    final val digestSize // korlibs.crypto/Hasher.digestSize|{}digestSize[0]
+        final fun <get-digestSize>(): kotlin/Int // korlibs.crypto/Hasher.digestSize.<get-digestSize>|<get-digestSize>(){}[0]
+    final val name // korlibs.crypto/Hasher.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.crypto/Hasher.name.<get-name>|<get-name>(){}[0]
+
+    final var totalWritten // korlibs.crypto/Hasher.totalWritten|{}totalWritten[0]
+        final fun <get-totalWritten>(): kotlin/Long // korlibs.crypto/Hasher.totalWritten.<get-totalWritten>|<get-totalWritten>(){}[0]
+        final fun <set-totalWritten>(kotlin/Long) // korlibs.crypto/Hasher.totalWritten.<set-totalWritten>|<set-totalWritten>(kotlin.Long){}[0]
+
+    abstract fun coreDigest(kotlin/ByteArray) // korlibs.crypto/Hasher.coreDigest|coreDigest(kotlin.ByteArray){}[0]
+    abstract fun corePadding(kotlin/Long): kotlin/ByteArray // korlibs.crypto/Hasher.corePadding|corePadding(kotlin.Long){}[0]
+    abstract fun coreReset() // korlibs.crypto/Hasher.coreReset|coreReset(){}[0]
+    abstract fun coreUpdate(kotlin/ByteArray) // korlibs.crypto/Hasher.coreUpdate|coreUpdate(kotlin.ByteArray){}[0]
+    final fun digest(): korlibs.crypto/Hash // korlibs.crypto/Hasher.digest|digest(){}[0]
+    final fun update(kotlin/ByteArray): korlibs.crypto/Hasher // korlibs.crypto/Hasher.update|update(kotlin.ByteArray){}[0]
+    open fun digestOut(kotlin/ByteArray) // korlibs.crypto/Hasher.digestOut|digestOut(kotlin.ByteArray){}[0]
+    open fun reset(): korlibs.crypto/Hasher // korlibs.crypto/Hasher.reset|reset(){}[0]
+    open fun toString(): kotlin/String // korlibs.crypto/Hasher.toString|toString(){}[0]
+    open fun update(kotlin/ByteArray, kotlin/Int, kotlin/Int): korlibs.crypto/Hasher // korlibs.crypto/Hasher.update|update(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+abstract class korlibs.crypto/NonCoreHasher : korlibs.crypto/Hasher { // korlibs.crypto/NonCoreHasher|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int, kotlin/String) // korlibs.crypto/NonCoreHasher.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.String){}[0]
+
+    abstract fun digestOut(kotlin/ByteArray) // korlibs.crypto/NonCoreHasher.digestOut|digestOut(kotlin.ByteArray){}[0]
+    abstract fun reset(): korlibs.crypto/Hasher // korlibs.crypto/NonCoreHasher.reset|reset(){}[0]
+    abstract fun update(kotlin/ByteArray, kotlin/Int, kotlin/Int): korlibs.crypto/Hasher // korlibs.crypto/NonCoreHasher.update|update(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    open fun coreDigest(kotlin/ByteArray): kotlin/Nothing // korlibs.crypto/NonCoreHasher.coreDigest|coreDigest(kotlin.ByteArray){}[0]
+    open fun corePadding(kotlin/Long): kotlin/ByteArray // korlibs.crypto/NonCoreHasher.corePadding|corePadding(kotlin.Long){}[0]
+    open fun coreReset(): kotlin/Nothing // korlibs.crypto/NonCoreHasher.coreReset|coreReset(){}[0]
+    open fun coreUpdate(kotlin/ByteArray): kotlin/Nothing // korlibs.crypto/NonCoreHasher.coreUpdate|coreUpdate(kotlin.ByteArray){}[0]
+}
+
+abstract class korlibs.crypto/SHA : korlibs.crypto/Hasher { // korlibs.crypto/SHA|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int, kotlin/String = ...) // korlibs.crypto/SHA.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.String){}[0]
+
+    final fun (kotlin/ByteArray).readS32_be(kotlin/Int): kotlin/Int // korlibs.crypto/SHA.readS32_be|readS32_be@kotlin.ByteArray(kotlin.Int){}[0]
+    final fun (kotlin/ByteArray).readU8(kotlin/Int): kotlin/Int // korlibs.crypto/SHA.readU8|readU8@kotlin.ByteArray(kotlin.Int){}[0]
+    open fun corePadding(kotlin/Long): kotlin/ByteArray // korlibs.crypto/SHA.corePadding|corePadding(kotlin.Long){}[0]
+}
+
+final class korlibs.crypto/AES : korlibs.crypto/Cipher { // korlibs.crypto/AES|null[0]
+    constructor <init>(kotlin/ByteArray) // korlibs.crypto/AES.<init>|<init>(kotlin.ByteArray){}[0]
+    constructor <init>(kotlin/IntArray) // korlibs.crypto/AES.<init>|<init>(kotlin.IntArray){}[0]
+
+    final val blockSize // korlibs.crypto/AES.blockSize|{}blockSize[0]
+        final fun <get-blockSize>(): kotlin/Int // korlibs.crypto/AES.blockSize.<get-blockSize>|<get-blockSize>(){}[0]
+    final val keyWords // korlibs.crypto/AES.keyWords|{}keyWords[0]
+        final fun <get-keyWords>(): kotlin/IntArray // korlibs.crypto/AES.keyWords.<get-keyWords>|<get-keyWords>(){}[0]
+
+    final fun decrypt(kotlin/ByteArray, kotlin/Int, kotlin/Int) // korlibs.crypto/AES.decrypt|decrypt(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun decryptBlock(kotlin/ByteArray, kotlin/Int) // korlibs.crypto/AES.decryptBlock|decryptBlock(kotlin.ByteArray;kotlin.Int){}[0]
+    final fun encrypt(kotlin/ByteArray, kotlin/Int, kotlin/Int) // korlibs.crypto/AES.encrypt|encrypt(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun encryptBlock(kotlin/ByteArray, kotlin/Int) // korlibs.crypto/AES.encryptBlock|encryptBlock(kotlin.ByteArray;kotlin.Int){}[0]
+
+    final object Companion { // korlibs.crypto/AES.Companion|null[0]
+        final fun decryptAesCbc(kotlin/ByteArray, kotlin/ByteArray, kotlin/ByteArray, korlibs.crypto/CipherPadding): kotlin/ByteArray // korlibs.crypto/AES.Companion.decryptAesCbc|decryptAesCbc(kotlin.ByteArray;kotlin.ByteArray;kotlin.ByteArray;korlibs.crypto.CipherPadding){}[0]
+        final fun decryptAesCfb(kotlin/ByteArray, kotlin/ByteArray, kotlin/ByteArray, korlibs.crypto/CipherPadding): kotlin/ByteArray // korlibs.crypto/AES.Companion.decryptAesCfb|decryptAesCfb(kotlin.ByteArray;kotlin.ByteArray;kotlin.ByteArray;korlibs.crypto.CipherPadding){}[0]
+        final fun decryptAesCtr(kotlin/ByteArray, kotlin/ByteArray, kotlin/ByteArray, korlibs.crypto/CipherPadding): kotlin/ByteArray // korlibs.crypto/AES.Companion.decryptAesCtr|decryptAesCtr(kotlin.ByteArray;kotlin.ByteArray;kotlin.ByteArray;korlibs.crypto.CipherPadding){}[0]
+        final fun decryptAesEcb(kotlin/ByteArray, kotlin/ByteArray, korlibs.crypto/CipherPadding): kotlin/ByteArray // korlibs.crypto/AES.Companion.decryptAesEcb|decryptAesEcb(kotlin.ByteArray;kotlin.ByteArray;korlibs.crypto.CipherPadding){}[0]
+        final fun decryptAesOfb(kotlin/ByteArray, kotlin/ByteArray, kotlin/ByteArray, korlibs.crypto/CipherPadding): kotlin/ByteArray // korlibs.crypto/AES.Companion.decryptAesOfb|decryptAesOfb(kotlin.ByteArray;kotlin.ByteArray;kotlin.ByteArray;korlibs.crypto.CipherPadding){}[0]
+        final fun decryptAesPcbc(kotlin/ByteArray, kotlin/ByteArray, kotlin/ByteArray, korlibs.crypto/CipherPadding): kotlin/ByteArray // korlibs.crypto/AES.Companion.decryptAesPcbc|decryptAesPcbc(kotlin.ByteArray;kotlin.ByteArray;kotlin.ByteArray;korlibs.crypto.CipherPadding){}[0]
+        final fun encryptAesCbc(kotlin/ByteArray, kotlin/ByteArray, kotlin/ByteArray, korlibs.crypto/CipherPadding): kotlin/ByteArray // korlibs.crypto/AES.Companion.encryptAesCbc|encryptAesCbc(kotlin.ByteArray;kotlin.ByteArray;kotlin.ByteArray;korlibs.crypto.CipherPadding){}[0]
+        final fun encryptAesCfb(kotlin/ByteArray, kotlin/ByteArray, kotlin/ByteArray, korlibs.crypto/CipherPadding): kotlin/ByteArray // korlibs.crypto/AES.Companion.encryptAesCfb|encryptAesCfb(kotlin.ByteArray;kotlin.ByteArray;kotlin.ByteArray;korlibs.crypto.CipherPadding){}[0]
+        final fun encryptAesCtr(kotlin/ByteArray, kotlin/ByteArray, kotlin/ByteArray, korlibs.crypto/CipherPadding): kotlin/ByteArray // korlibs.crypto/AES.Companion.encryptAesCtr|encryptAesCtr(kotlin.ByteArray;kotlin.ByteArray;kotlin.ByteArray;korlibs.crypto.CipherPadding){}[0]
+        final fun encryptAesEcb(kotlin/ByteArray, kotlin/ByteArray, korlibs.crypto/CipherPadding): kotlin/ByteArray // korlibs.crypto/AES.Companion.encryptAesEcb|encryptAesEcb(kotlin.ByteArray;kotlin.ByteArray;korlibs.crypto.CipherPadding){}[0]
+        final fun encryptAesOfb(kotlin/ByteArray, kotlin/ByteArray, kotlin/ByteArray, korlibs.crypto/CipherPadding): kotlin/ByteArray // korlibs.crypto/AES.Companion.encryptAesOfb|encryptAesOfb(kotlin.ByteArray;kotlin.ByteArray;kotlin.ByteArray;korlibs.crypto.CipherPadding){}[0]
+        final fun encryptAesPcbc(kotlin/ByteArray, kotlin/ByteArray, kotlin/ByteArray, korlibs.crypto/CipherPadding): kotlin/ByteArray // korlibs.crypto/AES.Companion.encryptAesPcbc|encryptAesPcbc(kotlin.ByteArray;kotlin.ByteArray;kotlin.ByteArray;korlibs.crypto.CipherPadding){}[0]
+    }
+}
+
+final class korlibs.crypto/CipherWithModeAndPadding { // korlibs.crypto/CipherWithModeAndPadding|null[0]
+    constructor <init>(korlibs.crypto/Cipher, korlibs.crypto/CipherMode, korlibs.crypto/CipherPadding, kotlin/ByteArray? = ...) // korlibs.crypto/CipherWithModeAndPadding.<init>|<init>(korlibs.crypto.Cipher;korlibs.crypto.CipherMode;korlibs.crypto.CipherPadding;kotlin.ByteArray?){}[0]
+
+    final val cipher // korlibs.crypto/CipherWithModeAndPadding.cipher|{}cipher[0]
+        final fun <get-cipher>(): korlibs.crypto/Cipher // korlibs.crypto/CipherWithModeAndPadding.cipher.<get-cipher>|<get-cipher>(){}[0]
+    final val iv // korlibs.crypto/CipherWithModeAndPadding.iv|{}iv[0]
+        final fun <get-iv>(): kotlin/ByteArray? // korlibs.crypto/CipherWithModeAndPadding.iv.<get-iv>|<get-iv>(){}[0]
+    final val mode // korlibs.crypto/CipherWithModeAndPadding.mode|{}mode[0]
+        final fun <get-mode>(): korlibs.crypto/CipherMode // korlibs.crypto/CipherWithModeAndPadding.mode.<get-mode>|<get-mode>(){}[0]
+    final val padding // korlibs.crypto/CipherWithModeAndPadding.padding|{}padding[0]
+        final fun <get-padding>(): korlibs.crypto/CipherPadding // korlibs.crypto/CipherWithModeAndPadding.padding.<get-padding>|<get-padding>(){}[0]
+
+    final fun decrypt(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/ByteArray // korlibs.crypto/CipherWithModeAndPadding.decrypt|decrypt(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun encrypt(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/ByteArray // korlibs.crypto/CipherWithModeAndPadding.encrypt|encrypt(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+final class korlibs.crypto/HMAC { // korlibs.crypto/HMAC|null[0]
+    constructor <init>() // korlibs.crypto/HMAC.<init>|<init>(){}[0]
+
+    final object Companion { // korlibs.crypto/HMAC.Companion|null[0]
+        final fun hmacMD5(kotlin/ByteArray, kotlin/ByteArray): korlibs.crypto/Hash // korlibs.crypto/HMAC.Companion.hmacMD5|hmacMD5(kotlin.ByteArray;kotlin.ByteArray){}[0]
+        final fun hmacSHA1(kotlin/ByteArray, kotlin/ByteArray): korlibs.crypto/Hash // korlibs.crypto/HMAC.Companion.hmacSHA1|hmacSHA1(kotlin.ByteArray;kotlin.ByteArray){}[0]
+        final fun hmacSHA256(kotlin/ByteArray, kotlin/ByteArray): korlibs.crypto/Hash // korlibs.crypto/HMAC.Companion.hmacSHA256|hmacSHA256(kotlin.ByteArray;kotlin.ByteArray){}[0]
+        final fun hmacSHA512(kotlin/ByteArray, kotlin/ByteArray): korlibs.crypto/Hash // korlibs.crypto/HMAC.Companion.hmacSHA512|hmacSHA512(kotlin.ByteArray;kotlin.ByteArray){}[0]
+    }
+}
+
+final class korlibs.crypto/Hash { // korlibs.crypto/Hash|null[0]
+    constructor <init>(kotlin/ByteArray) // korlibs.crypto/Hash.<init>|<init>(kotlin.ByteArray){}[0]
+
+    final val base64 // korlibs.crypto/Hash.base64|{}base64[0]
+        final fun <get-base64>(): kotlin/String // korlibs.crypto/Hash.base64.<get-base64>|<get-base64>(){}[0]
+    final val base64Url // korlibs.crypto/Hash.base64Url|{}base64Url[0]
+        final fun <get-base64Url>(): kotlin/String // korlibs.crypto/Hash.base64Url.<get-base64Url>|<get-base64Url>(){}[0]
+    final val bytes // korlibs.crypto/Hash.bytes|{}bytes[0]
+        final fun <get-bytes>(): kotlin/ByteArray // korlibs.crypto/Hash.bytes.<get-bytes>|<get-bytes>(){}[0]
+    final val hex // korlibs.crypto/Hash.hex|{}hex[0]
+        final fun <get-hex>(): kotlin/String // korlibs.crypto/Hash.hex.<get-hex>|<get-hex>(){}[0]
+    final val hexLower // korlibs.crypto/Hash.hexLower|{}hexLower[0]
+        final fun <get-hexLower>(): kotlin/String // korlibs.crypto/Hash.hexLower.<get-hexLower>|<get-hexLower>(){}[0]
+    final val hexUpper // korlibs.crypto/Hash.hexUpper|{}hexUpper[0]
+        final fun <get-hexUpper>(): kotlin/String // korlibs.crypto/Hash.hexUpper.<get-hexUpper>|<get-hexUpper>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.crypto/Hash.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.crypto/Hash.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.crypto/Hash.toString|toString(){}[0]
+
+    final object Companion { // korlibs.crypto/Hash.Companion|null[0]
+        final fun fromBase64(kotlin/String): korlibs.crypto/Hash // korlibs.crypto/Hash.Companion.fromBase64|fromBase64(kotlin.String){}[0]
+        final fun fromHex(kotlin/String): korlibs.crypto/Hash // korlibs.crypto/Hash.Companion.fromHex|fromHex(kotlin.String){}[0]
+    }
+}
+
+final class korlibs.crypto/MD4 : korlibs.crypto/Hasher { // korlibs.crypto/MD4|null[0]
+    constructor <init>() // korlibs.crypto/MD4.<init>|<init>(){}[0]
+
+    final object Companion : korlibs.crypto/HasherFactory // korlibs.crypto/MD4.Companion|null[0]
+}
+
+final class korlibs.crypto/MD5 : korlibs.crypto/Hasher { // korlibs.crypto/MD5|null[0]
+    constructor <init>() // korlibs.crypto/MD5.<init>|<init>(){}[0]
+
+    final object Companion : korlibs.crypto/HasherFactory // korlibs.crypto/MD5.Companion|null[0]
+}
+
+final class korlibs.crypto/PBKDF2 { // korlibs.crypto/PBKDF2|null[0]
+    constructor <init>() // korlibs.crypto/PBKDF2.<init>|<init>(){}[0]
+
+    final object Companion { // korlibs.crypto/PBKDF2.Companion|null[0]
+        final fun pbkdf2(kotlin/ByteArray, kotlin/ByteArray, kotlin/Int, kotlin/Int, korlibs.crypto/Hasher): korlibs.crypto/Hash // korlibs.crypto/PBKDF2.Companion.pbkdf2|pbkdf2(kotlin.ByteArray;kotlin.ByteArray;kotlin.Int;kotlin.Int;korlibs.crypto.Hasher){}[0]
+        final fun pbkdf2WithHmacSHA1(kotlin/ByteArray, kotlin/ByteArray, kotlin/Int, kotlin/Int): korlibs.crypto/Hash // korlibs.crypto/PBKDF2.Companion.pbkdf2WithHmacSHA1|pbkdf2WithHmacSHA1(kotlin.ByteArray;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+        final fun pbkdf2WithHmacSHA256(kotlin/ByteArray, kotlin/ByteArray, kotlin/Int, kotlin/Int): korlibs.crypto/Hash // korlibs.crypto/PBKDF2.Companion.pbkdf2WithHmacSHA256|pbkdf2WithHmacSHA256(kotlin.ByteArray;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+        final fun pbkdf2WithHmacSHA512(kotlin/ByteArray, kotlin/ByteArray, kotlin/Int, kotlin/Int): korlibs.crypto/Hash // korlibs.crypto/PBKDF2.Companion.pbkdf2WithHmacSHA512|pbkdf2WithHmacSHA512(kotlin.ByteArray;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    }
+}
+
+final class korlibs.crypto/SHA1 : korlibs.crypto/SHA { // korlibs.crypto/SHA1|null[0]
+    constructor <init>() // korlibs.crypto/SHA1.<init>|<init>(){}[0]
+
+    final object Companion : korlibs.crypto/HasherFactory // korlibs.crypto/SHA1.Companion|null[0]
+}
+
+final class korlibs.crypto/SHA256 : korlibs.crypto/SHA { // korlibs.crypto/SHA256|null[0]
+    constructor <init>() // korlibs.crypto/SHA256.<init>|<init>(){}[0]
+
+    final object Companion : korlibs.crypto/HasherFactory // korlibs.crypto/SHA256.Companion|null[0]
+}
+
+final class korlibs.crypto/SHA512 : korlibs.crypto/SHA { // korlibs.crypto/SHA512|null[0]
+    constructor <init>() // korlibs.crypto/SHA512.<init>|<init>(){}[0]
+
+    final val buf // korlibs.crypto/SHA512.buf|{}buf[0]
+        final fun <get-buf>(): kotlin/UByteArray // korlibs.crypto/SHA512.buf.<get-buf>|<get-buf>(){}[0]
+    final val h // korlibs.crypto/SHA512.h|{}h[0]
+        final fun <get-h>(): kotlin/ULongArray // korlibs.crypto/SHA512.h.<get-h>|<get-h>(){}[0]
+
+    final var len // korlibs.crypto/SHA512.len|{}len[0]
+        final fun <get-len>(): kotlin/ULong // korlibs.crypto/SHA512.len.<get-len>|<get-len>(){}[0]
+        final fun <set-len>(kotlin/ULong) // korlibs.crypto/SHA512.len.<set-len>|<set-len>(kotlin.ULong){}[0]
+
+    final fun digestOut(kotlin/ByteArray) // korlibs.crypto/SHA512.digestOut|digestOut(kotlin.ByteArray){}[0]
+    final fun update(kotlin/ByteArray, kotlin/Int, kotlin/Int): korlibs.crypto/Hasher // korlibs.crypto/SHA512.update|update(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+
+    final object Companion : korlibs.crypto/HasherFactory // korlibs.crypto/SHA512.Companion|null[0]
+}
+
+open class korlibs.crypto/HasherFactory { // korlibs.crypto/HasherFactory|null[0]
+    constructor <init>(kotlin/String, kotlin/Function0<korlibs.crypto/Hasher>) // korlibs.crypto/HasherFactory.<init>|<init>(kotlin.String;kotlin.Function0<korlibs.crypto.Hasher>){}[0]
+
+    final val create // korlibs.crypto/HasherFactory.create|{}create[0]
+        final fun <get-create>(): kotlin/Function0<korlibs.crypto/Hasher> // korlibs.crypto/HasherFactory.create.<get-create>|<get-create>(){}[0]
+    final val name // korlibs.crypto/HasherFactory.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.crypto/HasherFactory.name.<get-name>|<get-name>(){}[0]
+
+    final fun digest(kotlin/ByteArray): korlibs.crypto/Hash // korlibs.crypto/HasherFactory.digest|digest(kotlin.ByteArray){}[0]
+    final fun invoke(): korlibs.crypto/Hasher // korlibs.crypto/HasherFactory.invoke|invoke(){}[0]
+    final inline fun digest(kotlin/ByteArray = ..., kotlin/Function1<kotlin/ByteArray, kotlin/Int>): korlibs.crypto/Hash // korlibs.crypto/HasherFactory.digest|digest(kotlin.ByteArray;kotlin.Function1<kotlin.ByteArray,kotlin.Int>){}[0]
+    open fun toString(): kotlin/String // korlibs.crypto/HasherFactory.toString|toString(){}[0]
+}
+
+open class korlibs.crypto/SHA3 : korlibs.crypto/Hasher { // korlibs.crypto/SHA3|null[0]
+    open fun coreDigest(kotlin/ByteArray) // korlibs.crypto/SHA3.coreDigest|coreDigest(kotlin.ByteArray){}[0]
+    open fun corePadding(kotlin/Long): kotlin/ByteArray // korlibs.crypto/SHA3.corePadding|corePadding(kotlin.Long){}[0]
+    open fun coreReset() // korlibs.crypto/SHA3.coreReset|coreReset(){}[0]
+    open fun coreUpdate(kotlin/ByteArray) // korlibs.crypto/SHA3.coreUpdate|coreUpdate(kotlin.ByteArray){}[0]
+
+    final object Companion : korlibs.crypto/HasherFactory { // korlibs.crypto/SHA3.Companion|null[0]
+        final const val KECCAKF_ROUNDS // korlibs.crypto/SHA3.Companion.KECCAKF_ROUNDS|{}KECCAKF_ROUNDS[0]
+            final fun <get-KECCAKF_ROUNDS>(): kotlin/Int // korlibs.crypto/SHA3.Companion.KECCAKF_ROUNDS.<get-KECCAKF_ROUNDS>|<get-KECCAKF_ROUNDS>(){}[0]
+        final const val SHA3_KECCAK_SPONGE_WORDS // korlibs.crypto/SHA3.Companion.SHA3_KECCAK_SPONGE_WORDS|{}SHA3_KECCAK_SPONGE_WORDS[0]
+            final fun <get-SHA3_KECCAK_SPONGE_WORDS>(): kotlin/Int // korlibs.crypto/SHA3.Companion.SHA3_KECCAK_SPONGE_WORDS.<get-SHA3_KECCAK_SPONGE_WORDS>|<get-SHA3_KECCAK_SPONGE_WORDS>(){}[0]
+
+        final val KECCAKF_PI_LANE // korlibs.crypto/SHA3.Companion.KECCAKF_PI_LANE|{}KECCAKF_PI_LANE[0]
+            final fun <get-KECCAKF_PI_LANE>(): kotlin/IntArray // korlibs.crypto/SHA3.Companion.KECCAKF_PI_LANE.<get-KECCAKF_PI_LANE>|<get-KECCAKF_PI_LANE>(){}[0]
+        final val KECCAKF_ROTATION_OFFSETS // korlibs.crypto/SHA3.Companion.KECCAKF_ROTATION_OFFSETS|{}KECCAKF_ROTATION_OFFSETS[0]
+            final fun <get-KECCAKF_ROTATION_OFFSETS>(): kotlin/IntArray // korlibs.crypto/SHA3.Companion.KECCAKF_ROTATION_OFFSETS.<get-KECCAKF_ROTATION_OFFSETS>|<get-KECCAKF_ROTATION_OFFSETS>(){}[0]
+        final val KECCAKF_ROUND_CONSTANTS // korlibs.crypto/SHA3.Companion.KECCAKF_ROUND_CONSTANTS|{}KECCAKF_ROUND_CONSTANTS[0]
+            final fun <get-KECCAKF_ROUND_CONSTANTS>(): kotlin/ULongArray // korlibs.crypto/SHA3.Companion.KECCAKF_ROUND_CONSTANTS.<get-KECCAKF_ROUND_CONSTANTS>|<get-KECCAKF_ROUND_CONSTANTS>(){}[0]
+    }
+}
+
+final object korlibs.crypto/SHA3_224 : korlibs.crypto/HasherFactory // korlibs.crypto/SHA3_224|null[0]
+
+final object korlibs.crypto/SHA3_256 : korlibs.crypto/HasherFactory // korlibs.crypto/SHA3_256|null[0]
+
+final object korlibs.crypto/SHA3_384 : korlibs.crypto/HasherFactory // korlibs.crypto/SHA3_384|null[0]
+
+final object korlibs.crypto/SHA3_512 : korlibs.crypto/HasherFactory // korlibs.crypto/SHA3_512|null[0]
+
+final object korlibs.crypto/SecureRandom : kotlin.random/Random { // korlibs.crypto/SecureRandom|null[0]
+    final fun addSeed(kotlin/ByteArray) // korlibs.crypto/SecureRandom.addSeed|addSeed(kotlin.ByteArray){}[0]
+    final fun nextBits(kotlin/Int): kotlin/Int // korlibs.crypto/SecureRandom.nextBits|nextBits(kotlin.Int){}[0]
+    final fun nextBytes(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/ByteArray // korlibs.crypto/SecureRandom.nextBytes|nextBytes(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+final fun (korlibs.crypto/Cipher).korlibs.crypto/get(korlibs.crypto/CipherMode, korlibs.crypto/CipherPadding, kotlin/ByteArray? = ...): korlibs.crypto/CipherWithModeAndPadding // korlibs.crypto/get|get@korlibs.crypto.Cipher(korlibs.crypto.CipherMode;korlibs.crypto.CipherPadding;kotlin.ByteArray?){}[0]
+final fun (korlibs.crypto/Cipher).korlibs.crypto/with(korlibs.crypto/CipherMode, korlibs.crypto/CipherPadding, kotlin/ByteArray? = ...): korlibs.crypto/CipherWithModeAndPadding // korlibs.crypto/with|with@korlibs.crypto.Cipher(korlibs.crypto.CipherMode;korlibs.crypto.CipherPadding;kotlin.ByteArray?){}[0]
+final fun (korlibs.crypto/CipherMode).korlibs.crypto/decryptSafe(kotlin/ByteArray, korlibs.crypto/Cipher, korlibs.crypto/CipherPadding, kotlin/ByteArray?): kotlin/ByteArray // korlibs.crypto/decryptSafe|decryptSafe@korlibs.crypto.CipherMode(kotlin.ByteArray;korlibs.crypto.Cipher;korlibs.crypto.CipherPadding;kotlin.ByteArray?){}[0]
+final fun (korlibs.crypto/CipherMode).korlibs.crypto/encryptSafe(kotlin/ByteArray, korlibs.crypto/Cipher, korlibs.crypto/CipherPadding, kotlin/ByteArray?): kotlin/ByteArray // korlibs.crypto/encryptSafe|encryptSafe@korlibs.crypto.CipherMode(kotlin.ByteArray;korlibs.crypto.Cipher;korlibs.crypto.CipherPadding;kotlin.ByteArray?){}[0]
+final fun (kotlin/ByteArray).korlibs.crypto/hash(korlibs.crypto/HasherFactory): korlibs.crypto/Hash // korlibs.crypto/hash|hash@kotlin.ByteArray(korlibs.crypto.HasherFactory){}[0]
+final fun (kotlin/ByteArray).korlibs.crypto/md4(): korlibs.crypto/Hash // korlibs.crypto/md4|md4@kotlin.ByteArray(){}[0]
+final fun (kotlin/ByteArray).korlibs.crypto/md5(): korlibs.crypto/Hash // korlibs.crypto/md5|md5@kotlin.ByteArray(){}[0]
+final fun (kotlin/ByteArray).korlibs.crypto/sha1(): korlibs.crypto/Hash // korlibs.crypto/sha1|sha1@kotlin.ByteArray(){}[0]
+final fun (kotlin/ByteArray).korlibs.crypto/sha256(): korlibs.crypto/Hash // korlibs.crypto/sha256|sha256@kotlin.ByteArray(){}[0]
+final fun (kotlin/ByteArray).korlibs.crypto/sha3_224(): korlibs.crypto/Hash // korlibs.crypto/sha3_224|sha3_224@kotlin.ByteArray(){}[0]
+final fun (kotlin/ByteArray).korlibs.crypto/sha3_256(): korlibs.crypto/Hash // korlibs.crypto/sha3_256|sha3_256@kotlin.ByteArray(){}[0]
+final fun (kotlin/ByteArray).korlibs.crypto/sha3_384(): korlibs.crypto/Hash // korlibs.crypto/sha3_384|sha3_384@kotlin.ByteArray(){}[0]
+final fun (kotlin/ByteArray).korlibs.crypto/sha3_512(): korlibs.crypto/Hash // korlibs.crypto/sha3_512|sha3_512@kotlin.ByteArray(){}[0]
+final fun (kotlin/ByteArray).korlibs.crypto/sha512(): korlibs.crypto/Hash // korlibs.crypto/sha512|sha512@kotlin.ByteArray(){}[0]
+final fun korlibs.crypto/fillRandomBytes(kotlin/ByteArray) // korlibs.crypto/fillRandomBytes|fillRandomBytes(kotlin.ByteArray){}[0]
+final fun korlibs.crypto/seedExtraRandomBytes(kotlin/ByteArray) // korlibs.crypto/seedExtraRandomBytes|seedExtraRandomBytes(kotlin.ByteArray){}[0]

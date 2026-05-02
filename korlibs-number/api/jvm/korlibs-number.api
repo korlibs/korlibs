@@ -1,0 +1,388 @@
+public final class korlibs/number/Complex {
+	public static final field Companion Lkorlibs/number/Complex$Companion;
+	public fun <init> (FF)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun copy (FF)Lkorlibs/number/Complex;
+	public static synthetic fun copy$default (Lkorlibs/number/Complex;FFILjava/lang/Object;)Lkorlibs/number/Complex;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getA ()F
+	public final fun getB ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/number/Complex$Companion {
+	public final fun getI ()Lkorlibs/number/Complex;
+}
+
+public final class korlibs/number/ComplexArray {
+	public static final field Companion Lkorlibs/number/ComplexArray$Companion;
+	public fun <init> ([F)V
+	public final fun asFloatArray ()[F
+	public final fun get (I)Lkorlibs/number/Complex;
+	public final fun getA (I)F
+	public final fun getB (I)F
+	public final fun getSize ()I
+	public final fun set (ILkorlibs/number/Complex;)V
+	public final fun setA (IF)V
+	public final fun setB (IF)V
+}
+
+public final class korlibs/number/ComplexArray$Companion {
+	public final fun invoke (ILkotlin/jvm/functions/Function1;)Lkorlibs/number/ComplexArray;
+	public static synthetic fun invoke$default (Lkorlibs/number/ComplexArray$Companion;ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkorlibs/number/ComplexArray;
+}
+
+public final class korlibs/number/ComplexKt {
+	public static final fun arraycopy (Lkorlibs/number/ComplexArray;ILkorlibs/number/ComplexArray;II)V
+}
+
+public final class korlibs/number/Fixed : java/lang/Comparable {
+	public static final field Companion Lkorlibs/number/Fixed$Companion;
+	public static final field HANDLE_DENORMALS Z
+	public static final field SCALE I
+	public static final field SCALE_DIGITS I
+	public static final synthetic fun box-impl (I)Lkorlibs/number/Fixed;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-M7bRIjc (I)I
+	public static fun compareTo-M7bRIjc (II)I
+	public static final fun div-44vTcCM (II)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getRaw ()I
+	public static final fun getValueDec-impl (I)I
+	public static final fun getValueInt-impl (I)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun minus-44vTcCM (II)I
+	public static final fun plus-44vTcCM (II)I
+	public static final fun rem-44vTcCM (II)I
+	public static final fun times-44vTcCM (II)I
+	public static final fun toDouble-impl (I)D
+	public static final fun toFloat-impl (I)F
+	public static final fun toInt-impl (I)I
+	public static final fun toLong-impl (I)J
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public static final fun unaryMinus-7m73TVk (I)I
+	public static final fun unaryPlus-7m73TVk (I)I
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/number/Fixed$Companion {
+	public final fun fromRaw-LtveTVQ (I)I
+	public final fun getNEGATIVE_INFINITY-7m73TVk ()I
+	public final fun getNaN-7m73TVk ()I
+	public final fun getPOSITIVE_INFINITY-7m73TVk ()I
+	public final fun invoke-LtveTVQ (D)I
+	public final fun invoke-LtveTVQ (Ljava/lang/String;)I
+	public final fun invoke-MXSjnA0 (ILkotlin/Unit;)I
+	public static synthetic fun invoke-MXSjnA0$default (Lkorlibs/number/Fixed$Companion;ILkotlin/Unit;ILjava/lang/Object;)I
+}
+
+public final class korlibs/number/FixedKt {
+	public static final fun getFixed (D)I
+	public static final fun getFixed (F)I
+	public static final fun getFixed (I)I
+	public static final fun getFixed (J)I
+	public static final fun getFixed (Ljava/lang/Number;)I
+	public static final fun getFixed (Ljava/lang/String;)I
+	public static final fun toFixed (D)I
+	public static final fun toFixed (F)I
+	public static final fun toFixed (I)I
+	public static final fun toFixed (J)I
+	public static final fun toFixed (Ljava/lang/Number;)I
+	public static final fun toFixed (Ljava/lang/String;)I
+}
+
+public final class korlibs/number/FixedLong : java/lang/Comparable {
+	public static final field Companion Lkorlibs/number/FixedLong$Companion;
+	public static final field HANDLE_DENORMALS Z
+	public static final field SCALE J
+	public static final field SCALE_DIGITS I
+	public static final synthetic fun box-impl (J)Lkorlibs/number/FixedLong;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-XOWOW98 (J)I
+	public static fun compareTo-XOWOW98 (JJ)I
+	public static final fun div-UKU1v-U (JJ)J
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (JLjava/lang/Object;)Z
+	public static final fun equals-impl0 (JJ)Z
+	public final fun getRaw ()J
+	public static final fun getValueDec-impl (J)I
+	public static final fun getValueInt-impl (J)J
+	public fun hashCode ()I
+	public static fun hashCode-impl (J)I
+	public static final fun minus-UKU1v-U (JJ)J
+	public static final fun plus-UKU1v-U (JJ)J
+	public static final fun rem-UKU1v-U (JJ)J
+	public static final fun times-UKU1v-U (JJ)J
+	public static final fun toDouble-impl (J)D
+	public static final fun toFloat-impl (J)F
+	public static final fun toInt-impl (J)I
+	public static final fun toLong-impl (J)J
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (J)Ljava/lang/String;
+	public static final fun unaryMinus-QOCeHn4 (J)J
+	public static final fun unaryPlus-QOCeHn4 (J)J
+	public final synthetic fun unbox-impl ()J
+}
+
+public final class korlibs/number/FixedLong$Companion {
+	public final fun fromRaw-U8ZeQXM (J)J
+	public final fun getNEGATIVE_INFINITY-QOCeHn4 ()J
+	public final fun getNaN-QOCeHn4 ()J
+	public final fun getPOSITIVE_INFINITY-QOCeHn4 ()J
+	public final fun invoke-U8ZeQXM (D)J
+	public final fun invoke-U8ZeQXM (Ljava/lang/String;)J
+	public final fun invoke-mRiNKlY (JLkotlin/Unit;)J
+	public static synthetic fun invoke-mRiNKlY$default (Lkorlibs/number/FixedLong$Companion;JLkotlin/Unit;ILjava/lang/Object;)J
+}
+
+public final class korlibs/number/FixedLongKt {
+	public static final fun getFixedLong (D)J
+	public static final fun getFixedLong (F)J
+	public static final fun getFixedLong (I)J
+	public static final fun getFixedLong (J)J
+	public static final fun getFixedLong (Ljava/lang/Number;)J
+	public static final fun getFixedLong (Ljava/lang/String;)J
+	public static final fun toFixedLong (D)J
+	public static final fun toFixedLong (F)J
+	public static final fun toFixedLong (I)J
+	public static final fun toFixedLong (J)J
+	public static final fun toFixedLong (Ljava/lang/Number;)J
+	public static final fun toFixedLong (Ljava/lang/String;)J
+}
+
+public final class korlibs/number/FixedShort : java/lang/Comparable {
+	public static final field Companion Lkorlibs/number/FixedShort$Companion;
+	public static final field HANDLE_DENORMALS Z
+	public static final field SCALE I
+	public static final field SCALE_DIGITS I
+	public static final synthetic fun box-impl (S)Lkorlibs/number/FixedShort;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-fHiRFig (S)I
+	public static fun compareTo-fHiRFig (SS)I
+	public static final fun div-vE6hbVY (SS)S
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (SLjava/lang/Object;)Z
+	public static final fun equals-impl0 (SS)Z
+	public final fun getRaw ()S
+	public static final fun getValueDec-impl (S)I
+	public static final fun getValueInt-impl (S)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (S)I
+	public static final fun minus-vE6hbVY (SS)S
+	public static final fun plus-vE6hbVY (SS)S
+	public static final fun rem-vE6hbVY (SS)S
+	public static final fun times-vE6hbVY (SS)S
+	public static final fun toDouble-impl (S)D
+	public static final fun toFloat-impl (S)F
+	public static final fun toInt-impl (S)I
+	public static final fun toLong-impl (S)J
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (S)Ljava/lang/String;
+	public static final fun unaryMinus-kO8_9wU (S)S
+	public static final fun unaryPlus-kO8_9wU (S)S
+	public final synthetic fun unbox-impl ()S
+}
+
+public final class korlibs/number/FixedShort$Companion {
+	public final fun fromRaw-bHh8OXg (S)S
+	public final fun getNEGATIVE_INFINITY-kO8_9wU ()S
+	public final fun getNaN-kO8_9wU ()S
+	public final fun getPOSITIVE_INFINITY-kO8_9wU ()S
+	public final fun invoke-bHh8OXg (D)S
+	public final fun invoke-bHh8OXg (Ljava/lang/String;)S
+	public final fun invoke-pR1r5Zc (ILkotlin/Unit;)S
+	public static synthetic fun invoke-pR1r5Zc$default (Lkorlibs/number/FixedShort$Companion;ILkotlin/Unit;ILjava/lang/Object;)S
+}
+
+public final class korlibs/number/FixedShortKt {
+	public static final fun toFixedShort (D)S
+	public static final fun toFixedShort (F)S
+	public static final fun toFixedShort (I)S
+	public static final fun toFixedShort (J)S
+	public static final fun toFixedShort (Ljava/lang/Number;)S
+	public static final fun toFixedShort (Ljava/lang/String;)S
+	public static final fun toFixedShort (S)S
+}
+
+public final class korlibs/number/Half {
+	public static final field Companion Lkorlibs/number/Half$Companion;
+	public static final field FLOAT16_EXPONENT_BASE I
+	public static final synthetic fun box-impl (S)Lkorlibs/number/Half;
+	public static fun constructor-impl (D)S
+	public static fun constructor-impl (F)S
+	public static fun constructor-impl (S)S
+	public static final fun div-Lp0QtrI (SS)S
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (SLjava/lang/Object;)Z
+	public static final fun equals-impl0 (SS)Z
+	public final fun getRawBits-Mh2AYeg ()S
+	public static final fun getValue-impl (S)F
+	public fun hashCode ()I
+	public static fun hashCode-impl (S)I
+	public static final fun minus-Lp0QtrI (SS)S
+	public static final fun plus-Lp0QtrI (SS)S
+	public static final fun rem-Lp0QtrI (SS)S
+	public static final fun times-Lp0QtrI (SS)S
+	public static final fun toBits-Mh2AYeg (S)S
+	public static final fun toDouble-impl (S)D
+	public static final fun toFloat-impl (S)F
+	public static final fun toRawBits-Mh2AYeg (S)S
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (S)Ljava/lang/String;
+	public static final fun unaryMinus-UKFZWw4 (S)S
+	public static final fun unaryPlus-UKFZWw4 (S)S
+	public final synthetic fun unbox-impl ()S
+}
+
+public final class korlibs/number/Half$Companion {
+	public final fun floatToIntBits-BwKQO78 (F)S
+	public final fun fromBits-g8PiNmM (I)S
+	public final fun fromBits-g8PiNmM (S)S
+	public final fun fromBits-oeDxmAw (S)S
+	public final fun getFloatExp (I)I
+	public final fun getFloatMantissa (I)I
+	public final fun getFloatSign (I)Z
+	public final fun getHalfExp-xj2QHRw (S)I
+	public final fun getHalfMantissa-xj2QHRw (S)I
+	public final fun getHalfSign-xj2QHRw (S)Z
+	public final fun intBitsToFloat-xj2QHRw (S)F
+	public final fun packFloat (IIZ)I
+	public final fun packHalf-q550Csg (IIZ)S
+}
+
+public final class korlibs/number/HalfKt {
+	public static final fun toHalf (D)S
+	public static final fun toHalf (F)S
+	public static final fun toHalf (I)S
+	public static final fun toHalf (Ljava/lang/Number;)S
+	public static final fun toHalf-32l0xJE (S)S
+}
+
+public final class korlibs/number/Int53 : java/lang/Comparable {
+	public static final field Companion Lkorlibs/number/Int53$Companion;
+	public static final fun and-F4dad-c (DD)D
+	public static final synthetic fun box-impl (D)Lkorlibs/number/Int53;
+	public static final fun clear-cFgNkvU (DII)D
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-OnJRTBY (D)I
+	public static fun compareTo-OnJRTBY (DD)I
+	public static final fun compareTo-impl (DD)I
+	public static final fun compareTo-impl (DF)I
+	public static final fun compareTo-impl (DI)I
+	public static fun constructor-impl (D)D
+	public static final fun div-F4dad-c (DD)D
+	public static final fun div-lmZj1yc (DD)D
+	public static final fun div-lmZj1yc (DF)D
+	public static final fun div-lmZj1yc (DI)D
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (DLjava/lang/Object;)Z
+	public static final fun equals-impl0 (DD)Z
+	public static final fun extract-impl (DI)Z
+	public static final fun extract-impl (DII)I
+	public static final fun extractSigned-impl (DII)I
+	public static final fun getDouble-impl (D)D
+	public static final fun getHigh-impl (D)I
+	public static final fun getInt-impl (D)I
+	public static final fun getLong-impl (D)J
+	public static final fun getLow-impl (D)I
+	public final fun getValue ()D
+	public fun hashCode ()I
+	public static fun hashCode-impl (D)I
+	public static final fun insert-cFgNkvU (DZI)D
+	public static final fun insert-uuObgGU (DIII)D
+	public static final fun insertNoClear-cFgNkvU (DZI)D
+	public static final fun insertNoClear-uuObgGU (DIII)D
+	public static final fun inv-FJlGiV0 (D)D
+	public static final fun minus-F4dad-c (DD)D
+	public static final fun minus-lmZj1yc (DD)D
+	public static final fun minus-lmZj1yc (DF)D
+	public static final fun minus-lmZj1yc (DI)D
+	public static final fun or-F4dad-c (DD)D
+	public static final fun plus-F4dad-c (DD)D
+	public static final fun plus-lmZj1yc (DD)D
+	public static final fun plus-lmZj1yc (DF)D
+	public static final fun plus-lmZj1yc (DI)D
+	public static final fun rem-F4dad-c (DD)D
+	public static final fun rem-lmZj1yc (DD)D
+	public static final fun rem-lmZj1yc (DF)D
+	public static final fun rem-lmZj1yc (DI)D
+	public static final fun shl-lmZj1yc (DI)D
+	public static final fun times-F4dad-c (DD)D
+	public static final fun times-lmZj1yc (DD)D
+	public static final fun times-lmZj1yc (DF)D
+	public static final fun times-lmZj1yc (DI)D
+	public static final fun toDouble-impl (D)D
+	public static final fun toInt-impl (D)I
+	public static final fun toLong-impl (D)J
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (D)Ljava/lang/String;
+	public static final fun unaryMinus-FJlGiV0 (D)D
+	public static final fun unaryPlus-FJlGiV0 (D)D
+	public final synthetic fun unbox-impl ()D
+	public static final fun ushr-lmZj1yc (DI)D
+	public static final fun xor-F4dad-c (DD)D
+}
+
+public final class korlibs/number/Int53$Companion {
+	public final fun fromDoubleClamped-lmZj1yc (D)D
+	public final fun fromLowHigh-cFgNkvU (II)D
+	public final fun getMAX_VALUE-FJlGiV0 ()D
+	public final fun getMIN_VALUE-FJlGiV0 ()D
+	public final fun getPOWS ()[D
+	public final fun getZERO-FJlGiV0 ()D
+	public final fun pot (I)D
+}
+
+public final class korlibs/number/Int53Array : java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {
+	public static final field Companion Lkorlibs/number/Int53Array$Companion;
+	public static final synthetic fun box-impl ([D)Lkorlibs/number/Int53Array;
+	public static fun constructor-impl (ID)[D
+	public static fun constructor-impl ([D)[D
+	public static synthetic fun constructor-impl$default (IDILkotlin/jvm/internal/DefaultConstructorMarker;)[D
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl ([DLjava/lang/Object;)Z
+	public static final fun equals-impl0 ([D[D)Z
+	public static final fun get-lmZj1yc ([DI)D
+	public static final fun getIndices-impl ([D)Lkotlin/ranges/IntRange;
+	public final fun getRaw ()[D
+	public static final fun getSize-impl ([D)I
+	public fun hashCode ()I
+	public static fun hashCode-impl ([D)I
+	public fun iterator ()Ljava/util/Iterator;
+	public static fun iterator-impl ([D)Ljava/util/Iterator;
+	public static final fun set-MSLl_eA ([DID)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl ([D)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()[D
+}
+
+public final class korlibs/number/Int53Array$Companion {
+	public final fun invoke--SpRqAM (ILkotlin/jvm/functions/Function1;)[D
+}
+
+public final class korlibs/number/Int53Kt {
+	public static final fun contentEquals-dCCa0ps ([D[D)Z
+	public static final fun contentHashCode-xaI1f6w ([D)I
+	public static final fun contentToString-xaI1f6w ([D)Ljava/lang/String;
+	public static final fun copyOf-V2QIJPE ([DI)[D
+	public static synthetic fun copyOf-V2QIJPE$default ([DIILjava/lang/Object;)[D
+	public static final fun copyOfRange-uE_IMlY ([DII)[D
+	public static final fun getOrElse-uE_IMlY ([DILkotlin/jvm/functions/Function1;)D
+	public static final fun getOrNull-V2QIJPE ([DI)Lkorlibs/number/Int53;
+	public static final fun int53ArrayOf ([I)[D
+	public static final fun int53ArrayOf ([J)[D
+	public static final fun int53ArrayOf ([Lkorlibs/number/Int53;)[D
+	public static final fun toInt53 (D)D
+	public static final fun toInt53 (I)D
+	public static final fun toInt53 (J)D
+	public static final fun toInt53 (Ljava/lang/Number;)D
+	public static final fun toInt53 (Ljava/lang/String;)D
+	public static final fun toInt53OrNull (Ljava/lang/String;)Lkorlibs/number/Int53;
+}
+

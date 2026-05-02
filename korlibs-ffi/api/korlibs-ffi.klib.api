@@ -1,0 +1,99 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: native => [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-ffi>
+open annotation class korlibs.ffi.api/FFI : kotlin/Annotation { // korlibs.ffi.api/FFI|null[0]
+    constructor <init>(kotlin/String = ..., kotlin/String = ..., kotlin/String = ..., kotlin/String = ...) // korlibs.ffi.api/FFI.<init>|<init>(kotlin.String;kotlin.String;kotlin.String;kotlin.String){}[0]
+
+    final val commonLib // korlibs.ffi.api/FFI.commonLib|{}commonLib[0]
+        final fun <get-commonLib>(): kotlin/String // korlibs.ffi.api/FFI.commonLib.<get-commonLib>|<get-commonLib>(){}[0]
+    final val linuxLib // korlibs.ffi.api/FFI.linuxLib|{}linuxLib[0]
+        final fun <get-linuxLib>(): kotlin/String // korlibs.ffi.api/FFI.linuxLib.<get-linuxLib>|<get-linuxLib>(){}[0]
+    final val macosLib // korlibs.ffi.api/FFI.macosLib|{}macosLib[0]
+        final fun <get-macosLib>(): kotlin/String // korlibs.ffi.api/FFI.macosLib.<get-macosLib>|<get-macosLib>(){}[0]
+    final val windowsLib // korlibs.ffi.api/FFI.windowsLib|{}windowsLib[0]
+        final fun <get-windowsLib>(): kotlin/String // korlibs.ffi.api/FFI.windowsLib.<get-windowsLib>|<get-windowsLib>(){}[0]
+}
+
+open annotation class korlibs.ffi.api/FFINativeInt : kotlin/Annotation { // korlibs.ffi.api/FFINativeInt|null[0]
+    constructor <init>() // korlibs.ffi.api/FFINativeInt.<init>|<init>(){}[0]
+}
+
+open annotation class korlibs.ffi.api/FFIWideString : kotlin/Annotation { // korlibs.ffi.api/FFIWideString|null[0]
+    constructor <init>() // korlibs.ffi.api/FFIWideString.<init>|<init>(){}[0]
+}
+
+final class <#A: kotlin/Function<*>> korlibs.ffi.api/FFIFunctionRef : kotlin/AutoCloseable { // korlibs.ffi.api/FFIFunctionRef|null[0]
+    constructor <init>(#A) // korlibs.ffi.api/FFIFunctionRef.<init>|<init>(1:0){}[0]
+
+    final val func // korlibs.ffi.api/FFIFunctionRef.func|{}func[0]
+        final fun <get-func>(): #A // korlibs.ffi.api/FFIFunctionRef.func.<get-func>|<get-func>(){}[0]
+
+    final var closer // korlibs.ffi.api/FFIFunctionRef.closer|{}closer[0]
+        final fun <get-closer>(): kotlin/Function0<kotlin/Unit>? // korlibs.ffi.api/FFIFunctionRef.closer.<get-closer>|<get-closer>(){}[0]
+        final fun <set-closer>(kotlin/Function0<kotlin/Unit>?) // korlibs.ffi.api/FFIFunctionRef.closer.<set-closer>|<set-closer>(kotlin.Function0<kotlin.Unit>?){}[0]
+    final var slot // korlibs.ffi.api/FFIFunctionRef.slot|{}slot[0]
+        final fun <get-slot>(): kotlin/Int // korlibs.ffi.api/FFIFunctionRef.slot.<get-slot>|<get-slot>(){}[0]
+        final fun <set-slot>(kotlin/Int) // korlibs.ffi.api/FFIFunctionRef.slot.<set-slot>|<set-slot>(kotlin.Int){}[0]
+    final var slots // korlibs.ffi.api/FFIFunctionRef.slots|{}slots[0]
+        final fun <get-slots>(): kotlin/Array<korlibs.ffi.api/FFIFunctionRef<#A>?>? // korlibs.ffi.api/FFIFunctionRef.slots.<get-slots>|<get-slots>(){}[0]
+        final fun <set-slots>(kotlin/Array<korlibs.ffi.api/FFIFunctionRef<#A>?>?) // korlibs.ffi.api/FFIFunctionRef.slots.<set-slots>|<set-slots>(kotlin.Array<korlibs.ffi.api.FFIFunctionRef<1:0>?>?){}[0]
+
+    final fun allocIn(kotlin/Array<korlibs.ffi.api/FFIFunctionRef<#A>?>): kotlin/Int // korlibs.ffi.api/FFIFunctionRef.allocIn|allocIn(kotlin.Array<korlibs.ffi.api.FFIFunctionRef<1:0>?>){}[0]
+    final fun close() // korlibs.ffi.api/FFIFunctionRef.close|close(){}[0]
+}
+
+final value class korlibs.ffi.api/FFIPointer { // korlibs.ffi.api/FFIPointer|null[0]
+    constructor <init>(kotlin/Long) // korlibs.ffi.api/FFIPointer.<init>|<init>(kotlin.Long){}[0]
+
+    final val address // korlibs.ffi.api/FFIPointer.address|{}address[0]
+        final fun <get-address>(): kotlin/Long // korlibs.ffi.api/FFIPointer.address.<get-address>|<get-address>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.ffi.api/FFIPointer.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.ffi.api/FFIPointer.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.ffi.api/FFIPointer.toString|toString(){}[0]
+
+    final object Companion { // korlibs.ffi.api/FFIPointer.Companion|null[0]
+        final val NULL // korlibs.ffi.api/FFIPointer.Companion.NULL|{}NULL[0]
+            final fun <get-NULL>(): korlibs.ffi.api/FFIPointer // korlibs.ffi.api/FFIPointer.Companion.NULL.<get-NULL>|<get-NULL>(){}[0]
+    }
+}
+
+final val korlibs.ffi.api/isSupportedFFI // korlibs.ffi.api/isSupportedFFI|{}isSupportedFFI[0]
+    final fun <get-isSupportedFFI>(): kotlin/Boolean // korlibs.ffi.api/isSupportedFFI.<get-isSupportedFFI>|<get-isSupportedFFI>(){}[0]
+
+final fun (korlibs.ffi.api/FFIPointer).korlibs.ffi.api/getF32(kotlin/Int = ...): kotlin/Float // korlibs.ffi.api/getF32|getF32@korlibs.ffi.api.FFIPointer(kotlin.Int){}[0]
+final fun (korlibs.ffi.api/FFIPointer).korlibs.ffi.api/getF64(kotlin/Int = ...): kotlin/Double // korlibs.ffi.api/getF64|getF64@korlibs.ffi.api.FFIPointer(kotlin.Int){}[0]
+final fun (korlibs.ffi.api/FFIPointer).korlibs.ffi.api/getI16(kotlin/Int = ...): kotlin/Short // korlibs.ffi.api/getI16|getI16@korlibs.ffi.api.FFIPointer(kotlin.Int){}[0]
+final fun (korlibs.ffi.api/FFIPointer).korlibs.ffi.api/getI32(kotlin/Int = ...): kotlin/Int // korlibs.ffi.api/getI32|getI32@korlibs.ffi.api.FFIPointer(kotlin.Int){}[0]
+final fun (korlibs.ffi.api/FFIPointer).korlibs.ffi.api/getI64(kotlin/Int = ...): kotlin/Long // korlibs.ffi.api/getI64|getI64@korlibs.ffi.api.FFIPointer(kotlin.Int){}[0]
+final fun (korlibs.ffi.api/FFIPointer).korlibs.ffi.api/getI8(kotlin/Int = ...): kotlin/Byte // korlibs.ffi.api/getI8|getI8@korlibs.ffi.api.FFIPointer(kotlin.Int){}[0]
+final fun (korlibs.ffi.api/FFIPointer).korlibs.ffi.api/setF32(kotlin/Int = ..., kotlin/Float) // korlibs.ffi.api/setF32|setF32@korlibs.ffi.api.FFIPointer(kotlin.Int;kotlin.Float){}[0]
+final fun (korlibs.ffi.api/FFIPointer).korlibs.ffi.api/setF64(kotlin/Int = ..., kotlin/Double) // korlibs.ffi.api/setF64|setF64@korlibs.ffi.api.FFIPointer(kotlin.Int;kotlin.Double){}[0]
+final fun (korlibs.ffi.api/FFIPointer).korlibs.ffi.api/setI16(kotlin/Int = ..., kotlin/Short) // korlibs.ffi.api/setI16|setI16@korlibs.ffi.api.FFIPointer(kotlin.Int;kotlin.Short){}[0]
+final fun (korlibs.ffi.api/FFIPointer).korlibs.ffi.api/setI32(kotlin/Int = ..., kotlin/Int) // korlibs.ffi.api/setI32|setI32@korlibs.ffi.api.FFIPointer(kotlin.Int;kotlin.Int){}[0]
+final fun (korlibs.ffi.api/FFIPointer).korlibs.ffi.api/setI64(kotlin/Int = ..., kotlin/Long) // korlibs.ffi.api/setI64|setI64@korlibs.ffi.api.FFIPointer(kotlin.Int;kotlin.Long){}[0]
+final fun (korlibs.ffi.api/FFIPointer).korlibs.ffi.api/setI8(kotlin/Int = ..., kotlin/Byte) // korlibs.ffi.api/setI8|setI8@korlibs.ffi.api.FFIPointer(kotlin.Int;kotlin.Byte){}[0]
+
+// Targets: [native]
+final fun (korlibs.ffi.api/FFIPointer).korlibs.ffi.api/toPointer(): kotlinx.cinterop/CPointer<out kotlinx.cinterop/CPointed>? // korlibs.ffi.api/toPointer|toPointer@korlibs.ffi.api.FFIPointer(){}[0]
+
+// Targets: [native]
+final fun (kotlinx.cinterop/CPointer<out kotlinx.cinterop/CPointed>?).korlibs.ffi.api/toFFIPointer(): korlibs.ffi.api/FFIPointer // korlibs.ffi.api/toFFIPointer|toFFIPointer@kotlinx.cinterop.CPointer<out|kotlinx.cinterop.CPointed>?(){}[0]
+
+// Targets: [native]
+final fun korlibs.ffi.api/FFIDLClose(kotlinx.cinterop/CPointer<out kotlinx.cinterop/CPointed>?) // korlibs.ffi.api/FFIDLClose|FFIDLClose(kotlinx.cinterop.CPointer<out|kotlinx.cinterop.CPointed>?){}[0]
+
+// Targets: [native]
+final fun korlibs.ffi.api/FFIDLOpen(kotlin/String): kotlinx.cinterop/CPointer<out kotlinx.cinterop/CPointed>? // korlibs.ffi.api/FFIDLOpen|FFIDLOpen(kotlin.String){}[0]
+
+// Targets: [native]
+final fun korlibs.ffi.api/FFIDLOpenPlatform(kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ...): kotlinx.cinterop/CPointer<out kotlinx.cinterop/CPointed>? // korlibs.ffi.api/FFIDLOpenPlatform|FFIDLOpenPlatform(kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?){}[0]
+
+// Targets: [native]
+final fun korlibs.ffi.api/FFIDLSym(kotlinx.cinterop/CPointer<out kotlinx.cinterop/CPointed>?, kotlin/String): kotlinx.cinterop/CPointer<out kotlinx.cinterop/CPointed>? // korlibs.ffi.api/FFIDLSym|FFIDLSym(kotlinx.cinterop.CPointer<out|kotlinx.cinterop.CPointed>?;kotlin.String){}[0]

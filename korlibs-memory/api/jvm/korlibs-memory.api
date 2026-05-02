@@ -1,0 +1,1412 @@
+public final class korlibs/io/stream/ByteArrayBitReader {
+	public fun <init> ([B)V
+	public final fun getData ()[B
+	public final fun getHasMoreBits ()Z
+	public final fun readIntBits (I)I
+}
+
+public final class korlibs/io/util/ArraysIndexOfExtKt {
+	public static final fun indexOf ([BBIII)I
+	public static final fun indexOf ([DDIII)I
+	public static final fun indexOf ([FFIII)I
+	public static final fun indexOf ([IIIII)I
+	public static final fun indexOf ([JJIII)I
+	public static final fun indexOf ([SSIII)I
+	public static final fun indexOf ([ZZIII)I
+	public static synthetic fun indexOf$default ([BBIIIILjava/lang/Object;)I
+	public static synthetic fun indexOf$default ([DDIIIILjava/lang/Object;)I
+	public static synthetic fun indexOf$default ([FFIIIILjava/lang/Object;)I
+	public static synthetic fun indexOf$default ([IIIIIILjava/lang/Object;)I
+	public static synthetic fun indexOf$default ([JJIIIILjava/lang/Object;)I
+	public static synthetic fun indexOf$default ([SSIIIILjava/lang/Object;)I
+	public static synthetic fun indexOf$default ([ZZIIIILjava/lang/Object;)I
+}
+
+public final class korlibs/io/util/ArraysJoinExtKt {
+	public static final fun join (Ljava/util/List;)[B
+	public static final fun join (Ljava/util/List;)[D
+	public static final fun join (Ljava/util/List;)[F
+	public static final fun join (Ljava/util/List;)[I
+	public static final fun join (Ljava/util/List;)[J
+	public static final fun join (Ljava/util/List;)[S
+	public static final fun join (Ljava/util/List;)[Z
+}
+
+public final class korlibs/io/util/ByteArraySetExtKt {
+	public static final fun set ([BII)V
+	public static final fun set ([BIJ)V
+}
+
+public final class korlibs/memory/ArraysKt {
+	public static final fun array_indexOf (IIILkotlin/jvm/functions/Function2;)I
+	public static final fun array_lastIndexOf (IIILkotlin/jvm/functions/Function2;)I
+	public static final fun arrayadd ([BBII)V
+	public static final fun arrayadd ([DDII)V
+	public static final fun arrayadd ([FFII)V
+	public static final fun arrayadd ([IIII)V
+	public static final fun arrayadd ([JJII)V
+	public static final fun arrayadd ([SSII)V
+	public static synthetic fun arrayadd$default ([BBIIILjava/lang/Object;)V
+	public static synthetic fun arrayadd$default ([DDIIILjava/lang/Object;)V
+	public static synthetic fun arrayadd$default ([FFIIILjava/lang/Object;)V
+	public static synthetic fun arrayadd$default ([IIIIILjava/lang/Object;)V
+	public static synthetic fun arrayadd$default ([JJIIILjava/lang/Object;)V
+	public static synthetic fun arrayadd$default ([SSIIILjava/lang/Object;)V
+	public static final fun arrayadd-DYysZWI (Lkorlibs/memory/Buffer;DII)V
+	public static synthetic fun arrayadd-DYysZWI$default (Lkorlibs/memory/Buffer;DIIILjava/lang/Object;)V
+	public static final fun arrayadd-G_oC64c (Lkorlibs/memory/Buffer;SII)V
+	public static synthetic fun arrayadd-G_oC64c$default (Lkorlibs/memory/Buffer;SIIILjava/lang/Object;)V
+	public static final fun arrayadd-TUglMBM (Lkorlibs/memory/Buffer;SII)V
+	public static synthetic fun arrayadd-TUglMBM$default (Lkorlibs/memory/Buffer;SIIILjava/lang/Object;)V
+	public static final fun arrayadd-WFv9gcY (Lkorlibs/memory/Buffer;BII)V
+	public static synthetic fun arrayadd-WFv9gcY$default (Lkorlibs/memory/Buffer;BIIILjava/lang/Object;)V
+	public static final fun arrayadd-hHqFnek (Lkorlibs/memory/Buffer;III)V
+	public static synthetic fun arrayadd-hHqFnek$default (Lkorlibs/memory/Buffer;IIIILjava/lang/Object;)V
+	public static final fun arrayadd-mZrdeT0 (Lkorlibs/memory/Buffer;FII)V
+	public static synthetic fun arrayadd-mZrdeT0$default (Lkorlibs/memory/Buffer;FIIILjava/lang/Object;)V
+	public static final fun arrayadd-x9kr7Ps (Lkorlibs/memory/Buffer;BII)V
+	public static synthetic fun arrayadd-x9kr7Ps$default (Lkorlibs/memory/Buffer;BIIILjava/lang/Object;)V
+	public static final fun arraycmp (Ljava/util/List;ILjava/util/List;II)I
+	public static final fun arraycmp (Lkorlibs/memory/Buffer;ILkorlibs/memory/Buffer;II)I
+	public static final fun arraycmp ([BI[BII)I
+	public static final fun arraycmp ([CI[CII)I
+	public static final fun arraycmp ([DI[DII)I
+	public static final fun arraycmp ([FI[FII)I
+	public static final fun arraycmp ([II[III)I
+	public static final fun arraycmp ([JI[JII)I
+	public static final fun arraycmp ([Ljava/lang/Comparable;I[Ljava/lang/Comparable;II)I
+	public static final fun arraycmp ([SI[SII)I
+	public static final fun arraycmp ([ZI[ZII)I
+	public static final fun arraycopy (ILjava/lang/Object;ILjava/lang/Object;ILkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;)V
+	public static final fun arraycopy (Ljava/util/List;ILjava/util/List;II)V
+	public static final fun arraycopy (Lkorlibs/memory/Buffer;ILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy (Lkorlibs/memory/Buffer;I[BII)V
+	public static final fun arraycopy ([BILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy ([BI[BII)V
+	public static final fun arraycopy ([CI[CII)V
+	public static final fun arraycopy ([DI[DII)V
+	public static final fun arraycopy ([FI[FII)V
+	public static final fun arraycopy ([II[III)V
+	public static final fun arraycopy ([JI[JII)V
+	public static final fun arraycopy ([Ljava/lang/Object;I[Ljava/lang/Object;II)V
+	public static final fun arraycopy ([SI[SII)V
+	public static final fun arraycopy ([ZI[ZII)V
+	public static final fun arraycopy-1CTYWI4 ([IILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy-22qULuE (Lkorlibs/memory/Buffer;I[III)V
+	public static final fun arraycopy-4Ar_XIo (Lkorlibs/memory/Buffer;ILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy-5RxIB28 (Lkorlibs/memory/Buffer;I[FII)V
+	public static final fun arraycopy-5TvuLPc (Lkorlibs/memory/Buffer;I[SII)V
+	public static final fun arraycopy-7chmEqc ([SILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy-9ZYe3n0 (Lkorlibs/memory/Buffer;I[BII)V
+	public static final fun arraycopy-CO55u1k ([DILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy-GYDlPGQ (Lkorlibs/memory/Buffer;ILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy-Nm-55HM (Lkorlibs/memory/Buffer;ILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy-Pfx2bGU ([SILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy-Q2LO90Q ([BI[BII)V
+	public static final fun arraycopy-ThdCspI (Lkorlibs/memory/Buffer;I[BII)V
+	public static final fun arraycopy-Tq652l0 ([JILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy-XMsClE8 ([BILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy-bwyi3H0 (Lkorlibs/memory/Buffer;I[DII)V
+	public static final fun arraycopy-eKF_hSA (Lkorlibs/memory/Buffer;ILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy-eN6We10 (Lkorlibs/memory/Buffer;ILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy-hjWKdvA ([FILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy-kQDsIng ([SI[SII)V
+	public static final fun arraycopy-lK0w0SU ([BILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy-n0VaJBc (Lkorlibs/memory/Buffer;ILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy-tkVU72o (Lkorlibs/memory/Buffer;ILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopy-udd1NGc (Lkorlibs/memory/Buffer;I[SII)V
+	public static final fun arraycopy-wH8ZlvM (Lkorlibs/memory/Buffer;I[JII)V
+	public static final fun arraycopy-wPvrjgw (Lkorlibs/memory/Buffer;ILkorlibs/memory/Buffer;II)V
+	public static final fun arraycopyStride (Lkotlin/jvm/functions/Function1;IILkotlin/jvm/functions/Function2;III)V
+	public static final fun arraycopyStride ([BII[BIII)V
+	public static final fun arraycopyStride ([FII[FIII)V
+	public static final fun arraycopyStride ([III[IIII)V
+	public static final fun arraycopyStride ([SII[SIII)V
+	public static final fun arrayequal (Ljava/util/List;ILjava/util/List;II)Z
+	public static final fun arrayequal (Lkorlibs/memory/Buffer;ILkorlibs/memory/Buffer;II)Z
+	public static final fun arrayequal ([BI[BII)Z
+	public static final fun arrayequal ([CI[CII)Z
+	public static final fun arrayequal ([DI[DII)Z
+	public static final fun arrayequal ([FI[FII)Z
+	public static final fun arrayequal ([II[III)Z
+	public static final fun arrayequal ([JI[JII)Z
+	public static final fun arrayequal ([Ljava/lang/Object;I[Ljava/lang/Object;II)Z
+	public static final fun arrayequal ([SI[SII)Z
+	public static final fun arrayequal ([ZI[ZII)Z
+	public static final fun arrayfill (Lkorlibs/memory/Buffer;III)V
+	public static final fun arrayfill ([BBII)V
+	public static final fun arrayfill ([DDII)V
+	public static final fun arrayfill ([FFII)V
+	public static final fun arrayfill ([IIII)V
+	public static final fun arrayfill ([JJII)V
+	public static final fun arrayfill ([Ljava/lang/Object;Ljava/lang/Object;II)V
+	public static final fun arrayfill ([SSII)V
+	public static final fun arrayfill ([ZZII)V
+	public static synthetic fun arrayfill$default (Lkorlibs/memory/Buffer;IIIILjava/lang/Object;)V
+	public static synthetic fun arrayfill$default ([BBIIILjava/lang/Object;)V
+	public static synthetic fun arrayfill$default ([DDIIILjava/lang/Object;)V
+	public static synthetic fun arrayfill$default ([FFIIILjava/lang/Object;)V
+	public static synthetic fun arrayfill$default ([IIIIILjava/lang/Object;)V
+	public static synthetic fun arrayfill$default ([JJIIILjava/lang/Object;)V
+	public static synthetic fun arrayfill$default ([Ljava/lang/Object;Ljava/lang/Object;IIILjava/lang/Object;)V
+	public static synthetic fun arrayfill$default ([SSIIILjava/lang/Object;)V
+	public static synthetic fun arrayfill$default ([ZZIIILjava/lang/Object;)V
+	public static final fun arrayinterleave ([BI[BI[BII)V
+	public static final fun arrayinterleave ([FI[FI[FII)V
+	public static final fun arrayinterleave ([II[II[III)V
+	public static final fun arrayinterleave ([SI[SI[SII)V
+	public static final fun asByteArray-Bs7sjYo ([B)[B
+	public static final fun asFloatArray ([I)[I
+	public static final fun asIntArray-W7UWe3o ([I)[I
+	public static final fun asShortArray-JY5OZX8 ([S)[S
+	public static final fun asUByteArrayInt ([B)[B
+	public static final fun asUShortArrayInt ([S)[S
+	public static final fun getSampled ([BF)B
+	public static final fun getSampled ([CF)C
+	public static final fun getSampled ([FF)F
+	public static final fun getSampled ([SF)S
+	public static final fun getSampled-T_ujwAU ([SF)S
+	public static final fun getSampled-rto03Yo ([BF)B
+	public static final fun getSampledGeneric (FLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/Unit;)Ljava/lang/Object;
+	public static synthetic fun getSampledGeneric$default (FLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/Unit;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun indexOf ([B[BI)I
+	public static final fun indexOf ([C[CI)I
+	public static final fun indexOf ([D[DI)I
+	public static final fun indexOf ([F[FI)I
+	public static final fun indexOf ([I[II)I
+	public static final fun indexOf ([J[JI)I
+	public static final fun indexOf ([Ljava/lang/Object;[Ljava/lang/Object;I)I
+	public static final fun indexOf ([S[SI)I
+	public static final fun indexOf ([Z[ZI)I
+	public static synthetic fun indexOf$default ([B[BIILjava/lang/Object;)I
+	public static synthetic fun indexOf$default ([C[CIILjava/lang/Object;)I
+	public static synthetic fun indexOf$default ([D[DIILjava/lang/Object;)I
+	public static synthetic fun indexOf$default ([F[FIILjava/lang/Object;)I
+	public static synthetic fun indexOf$default ([I[IIILjava/lang/Object;)I
+	public static synthetic fun indexOf$default ([J[JIILjava/lang/Object;)I
+	public static synthetic fun indexOf$default ([Ljava/lang/Object;[Ljava/lang/Object;IILjava/lang/Object;)I
+	public static synthetic fun indexOf$default ([S[SIILjava/lang/Object;)I
+	public static synthetic fun indexOf$default ([Z[ZIILjava/lang/Object;)I
+	public static final fun lastIndexOf ([B[BI)I
+	public static final fun lastIndexOf ([C[CI)I
+	public static final fun lastIndexOf ([D[DI)I
+	public static final fun lastIndexOf ([F[FI)I
+	public static final fun lastIndexOf ([I[II)I
+	public static final fun lastIndexOf ([J[JI)I
+	public static final fun lastIndexOf ([Ljava/lang/Object;[Ljava/lang/Object;I)I
+	public static final fun lastIndexOf ([S[SI)I
+	public static final fun lastIndexOf ([Z[ZI)I
+	public static synthetic fun lastIndexOf$default ([B[BIILjava/lang/Object;)I
+	public static synthetic fun lastIndexOf$default ([C[CIILjava/lang/Object;)I
+	public static synthetic fun lastIndexOf$default ([D[DIILjava/lang/Object;)I
+	public static synthetic fun lastIndexOf$default ([F[FIILjava/lang/Object;)I
+	public static synthetic fun lastIndexOf$default ([I[IIILjava/lang/Object;)I
+	public static synthetic fun lastIndexOf$default ([J[JIILjava/lang/Object;)I
+	public static synthetic fun lastIndexOf$default ([Ljava/lang/Object;[Ljava/lang/Object;IILjava/lang/Object;)I
+	public static synthetic fun lastIndexOf$default ([S[SIILjava/lang/Object;)I
+	public static synthetic fun lastIndexOf$default ([Z[ZIILjava/lang/Object;)I
+	public static final fun ubyteArrayIntOf ([I)[B
+	public static final fun ushortArrayIntOf ([I)[S
+}
+
+public abstract interface class korlibs/memory/BaseBuffer {
+	public abstract fun getSize ()I
+}
+
+public abstract interface class korlibs/memory/BaseFloatBuffer : korlibs/memory/BaseBuffer {
+	public abstract fun get (I)F
+	public abstract fun set (IF)V
+}
+
+public abstract interface class korlibs/memory/BaseIntBuffer : korlibs/memory/BaseBuffer {
+	public abstract fun get (I)I
+	public abstract fun set (II)V
+}
+
+public final class korlibs/memory/Buffer : java/lang/AutoCloseable {
+	public static final field Companion Lkorlibs/memory/Buffer$Companion;
+	public fun <init> (IZ)V
+	public synthetic fun <init> (IZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/nio/ByteBuffer;)V
+	public fun <init> ([BII)V
+	public synthetic fun <init> ([BIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBuffer ()Ljava/nio/ByteBuffer;
+	public final fun getBufferBE ()Ljava/nio/ByteBuffer;
+	public final fun getBufferLE ()Ljava/nio/ByteBuffer;
+	public final fun getByteOffset ()I
+	public final fun getF32BE (I)F
+	public final fun getF32LE (I)F
+	public final fun getF64BE (I)D
+	public final fun getF64LE (I)D
+	public final fun getS16BE (I)S
+	public final fun getS16LE (I)S
+	public final fun getS32BE (I)I
+	public final fun getS32LE (I)I
+	public final fun getS64BE (I)J
+	public final fun getS64LE (I)J
+	public final fun getS8 (I)B
+	public final fun getSizeInBytes ()I
+	public fun hashCode ()I
+	public final fun set16BE (IS)V
+	public final fun set16LE (IS)V
+	public final fun set32BE (II)V
+	public final fun set32LE (II)V
+	public final fun set64BE (IJ)V
+	public final fun set64LE (IJ)V
+	public final fun set8 (IB)V
+	public final fun setF32BE (IF)V
+	public final fun setF32LE (IF)V
+	public final fun setF64BE (ID)V
+	public final fun setF64LE (ID)V
+	public final fun sliceInternal (II)Lkorlibs/memory/Buffer;
+	public final fun slicedBuffer (II)Ljava/nio/ByteBuffer;
+	public static synthetic fun slicedBuffer$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Ljava/nio/ByteBuffer;
+	public fun toString ()Ljava/lang/String;
+	public final fun transferBytes (I[BIIZ)V
+}
+
+public final class korlibs/memory/Buffer$Companion {
+	public final fun copy (Lkorlibs/memory/Buffer;ILkorlibs/memory/Buffer;II)V
+	public final fun equals (Lkorlibs/memory/Buffer;ILkorlibs/memory/Buffer;II)Z
+	public final fun mmap (Ljava/lang/String;JJLkorlibs/memory/BufferMapMode;)Lkorlibs/memory/Buffer;
+	public static synthetic fun mmap$default (Lkorlibs/memory/Buffer$Companion;Ljava/lang/String;JJLkorlibs/memory/BufferMapMode;ILjava/lang/Object;)Lkorlibs/memory/Buffer;
+}
+
+public final class korlibs/memory/BufferKt {
+	public static final fun BufferTemp (ILkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static final fun allocDirect (Lkorlibs/memory/Buffer$Companion;I)Lkorlibs/memory/Buffer;
+	public static final fun allocNoDirect (Lkorlibs/memory/Buffer$Companion;I)Lkorlibs/memory/Buffer;
+	public static final fun asFloat32 (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static final fun asFloat32 (Lkorlibs/memory/TypedBuffer;)Lkorlibs/memory/Buffer;
+	public static final fun asFloat64 (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static final fun asFloat64 (Lkorlibs/memory/TypedBuffer;)Lkorlibs/memory/Buffer;
+	public static final fun asInt16 (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static final fun asInt16 (Lkorlibs/memory/TypedBuffer;)Lkorlibs/memory/Buffer;
+	public static final fun asInt32 (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static final fun asInt32 (Lkorlibs/memory/TypedBuffer;)Lkorlibs/memory/Buffer;
+	public static final fun asInt64 (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static final fun asInt64 (Lkorlibs/memory/TypedBuffer;)Lkorlibs/memory/Buffer;
+	public static final fun asInt8 (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static final fun asInt8 (Lkorlibs/memory/TypedBuffer;)Lkorlibs/memory/Buffer;
+	public static final fun asUInt16 (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static final fun asUInt16 (Lkorlibs/memory/TypedBuffer;)Lkorlibs/memory/Buffer;
+	public static final fun asUInt8 (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static final fun asUInt8 (Lkorlibs/memory/TypedBuffer;)Lkorlibs/memory/Buffer;
+	public static final fun clone (Lkorlibs/memory/Buffer;Z)Lkorlibs/memory/Buffer;
+	public static synthetic fun clone$default (Lkorlibs/memory/Buffer;ZILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public static final fun copyOf (Lkorlibs/memory/Buffer;I)Lkorlibs/memory/Buffer;
+	public static final fun getArrayFloat32 (Lkorlibs/memory/Buffer;I[FII)[F
+	public static synthetic fun getArrayFloat32$default (Lkorlibs/memory/Buffer;I[FIIILjava/lang/Object;)[F
+	public static final fun getArrayFloat64 (Lkorlibs/memory/Buffer;I[DII)[D
+	public static synthetic fun getArrayFloat64$default (Lkorlibs/memory/Buffer;I[DIIILjava/lang/Object;)[D
+	public static final fun getArrayInt16 (Lkorlibs/memory/Buffer;I[SII)[S
+	public static synthetic fun getArrayInt16$default (Lkorlibs/memory/Buffer;I[SIIILjava/lang/Object;)[S
+	public static final fun getArrayInt32 (Lkorlibs/memory/Buffer;I[III)[I
+	public static synthetic fun getArrayInt32$default (Lkorlibs/memory/Buffer;I[IIIILjava/lang/Object;)[I
+	public static final fun getArrayInt64 (Lkorlibs/memory/Buffer;I[JII)[J
+	public static synthetic fun getArrayInt64$default (Lkorlibs/memory/Buffer;I[JIIILjava/lang/Object;)[J
+	public static final fun getArrayInt8 (Lkorlibs/memory/Buffer;I[BII)[B
+	public static synthetic fun getArrayInt8$default (Lkorlibs/memory/Buffer;I[BIIILjava/lang/Object;)[B
+	public static final fun getArrayUInt16-WT_PfCA (Lkorlibs/memory/Buffer;I[SII)[S
+	public static synthetic fun getArrayUInt16-WT_PfCA$default (Lkorlibs/memory/Buffer;I[SIIILjava/lang/Object;)[S
+	public static final fun getArrayUInt8-nE-4Xbg (Lkorlibs/memory/Buffer;I[BII)[B
+	public static synthetic fun getArrayUInt8-nE-4Xbg$default (Lkorlibs/memory/Buffer;I[BIIILjava/lang/Object;)[B
+	public static final fun getF32 (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static final fun getF32 (Lkorlibs/memory/Buffer;IZ)F
+	public static synthetic fun getF32$default (Lkorlibs/memory/Buffer;IZILjava/lang/Object;)F
+	public static final fun getF32Array (Lkorlibs/memory/Buffer;IIZ)[F
+	public static final fun getF32Array (Lkorlibs/memory/Buffer;I[FIIZ)[F
+	public static synthetic fun getF32Array$default (Lkorlibs/memory/Buffer;IIZILjava/lang/Object;)[F
+	public static synthetic fun getF32Array$default (Lkorlibs/memory/Buffer;I[FIIZILjava/lang/Object;)[F
+	public static final fun getF32ArrayBE (Lkorlibs/memory/Buffer;II)[F
+	public static final fun getF32ArrayBE (Lkorlibs/memory/Buffer;I[FII)[F
+	public static synthetic fun getF32ArrayBE$default (Lkorlibs/memory/Buffer;I[FIIILjava/lang/Object;)[F
+	public static final fun getF32ArrayLE (Lkorlibs/memory/Buffer;II)[F
+	public static final fun getF32ArrayLE (Lkorlibs/memory/Buffer;I[FII)[F
+	public static synthetic fun getF32ArrayLE$default (Lkorlibs/memory/Buffer;I[FIIILjava/lang/Object;)[F
+	public static final fun getF64 (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static final fun getF64 (Lkorlibs/memory/Buffer;IZ)D
+	public static synthetic fun getF64$default (Lkorlibs/memory/Buffer;IZILjava/lang/Object;)D
+	public static final fun getF64Array (Lkorlibs/memory/Buffer;IIZ)[D
+	public static final fun getF64Array (Lkorlibs/memory/Buffer;I[DIIZ)[D
+	public static synthetic fun getF64Array$default (Lkorlibs/memory/Buffer;IIZILjava/lang/Object;)[D
+	public static synthetic fun getF64Array$default (Lkorlibs/memory/Buffer;I[DIIZILjava/lang/Object;)[D
+	public static final fun getF64ArrayBE (Lkorlibs/memory/Buffer;II)[D
+	public static final fun getF64ArrayBE (Lkorlibs/memory/Buffer;I[DII)[D
+	public static synthetic fun getF64ArrayBE$default (Lkorlibs/memory/Buffer;I[DIIILjava/lang/Object;)[D
+	public static final fun getF64ArrayLE (Lkorlibs/memory/Buffer;II)[D
+	public static final fun getF64ArrayLE (Lkorlibs/memory/Buffer;I[DII)[D
+	public static synthetic fun getF64ArrayLE$default (Lkorlibs/memory/Buffer;I[DIIILjava/lang/Object;)[D
+	public static final fun getFloat32 (Lkorlibs/memory/Buffer;I)F
+	public static final fun getFloat64 (Lkorlibs/memory/Buffer;I)D
+	public static final fun getI16 (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static final fun getI32 (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static final fun getI64 (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static final fun getI8 (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static final fun getInt16 (Lkorlibs/memory/Buffer;I)S
+	public static final fun getInt32 (Lkorlibs/memory/Buffer;I)I
+	public static final fun getInt64 (Lkorlibs/memory/Buffer;I)J
+	public static final fun getInt8 (Lkorlibs/memory/Buffer;I)B
+	public static final fun getS16 (Lkorlibs/memory/Buffer;IZ)S
+	public static synthetic fun getS16$default (Lkorlibs/memory/Buffer;IZILjava/lang/Object;)S
+	public static final fun getS16Array (Lkorlibs/memory/Buffer;IIZ)[S
+	public static final fun getS16Array (Lkorlibs/memory/Buffer;I[SIIZ)[S
+	public static synthetic fun getS16Array$default (Lkorlibs/memory/Buffer;IIZILjava/lang/Object;)[S
+	public static synthetic fun getS16Array$default (Lkorlibs/memory/Buffer;I[SIIZILjava/lang/Object;)[S
+	public static final fun getS16ArrayBE (Lkorlibs/memory/Buffer;II)[S
+	public static final fun getS16ArrayBE (Lkorlibs/memory/Buffer;I[SII)[S
+	public static synthetic fun getS16ArrayBE$default (Lkorlibs/memory/Buffer;I[SIIILjava/lang/Object;)[S
+	public static final fun getS16ArrayLE (Lkorlibs/memory/Buffer;II)[S
+	public static final fun getS16ArrayLE (Lkorlibs/memory/Buffer;I[SII)[S
+	public static synthetic fun getS16ArrayLE$default (Lkorlibs/memory/Buffer;I[SIIILjava/lang/Object;)[S
+	public static final fun getS32 (Lkorlibs/memory/Buffer;IZ)I
+	public static synthetic fun getS32$default (Lkorlibs/memory/Buffer;IZILjava/lang/Object;)I
+	public static final fun getS32Array (Lkorlibs/memory/Buffer;IIZ)[I
+	public static final fun getS32Array (Lkorlibs/memory/Buffer;I[IIIZ)[I
+	public static synthetic fun getS32Array$default (Lkorlibs/memory/Buffer;IIZILjava/lang/Object;)[I
+	public static synthetic fun getS32Array$default (Lkorlibs/memory/Buffer;I[IIIZILjava/lang/Object;)[I
+	public static final fun getS32ArrayBE (Lkorlibs/memory/Buffer;II)[I
+	public static final fun getS32ArrayBE (Lkorlibs/memory/Buffer;I[III)[I
+	public static synthetic fun getS32ArrayBE$default (Lkorlibs/memory/Buffer;I[IIIILjava/lang/Object;)[I
+	public static final fun getS32ArrayLE (Lkorlibs/memory/Buffer;II)[I
+	public static final fun getS32ArrayLE (Lkorlibs/memory/Buffer;I[III)[I
+	public static synthetic fun getS32ArrayLE$default (Lkorlibs/memory/Buffer;I[IIIILjava/lang/Object;)[I
+	public static final fun getS64 (Lkorlibs/memory/Buffer;IZ)J
+	public static synthetic fun getS64$default (Lkorlibs/memory/Buffer;IZILjava/lang/Object;)J
+	public static final fun getS64Array (Lkorlibs/memory/Buffer;IIZ)[J
+	public static final fun getS64Array (Lkorlibs/memory/Buffer;I[JIIZ)[J
+	public static synthetic fun getS64Array$default (Lkorlibs/memory/Buffer;IIZILjava/lang/Object;)[J
+	public static synthetic fun getS64Array$default (Lkorlibs/memory/Buffer;I[JIIZILjava/lang/Object;)[J
+	public static final fun getS64ArrayBE (Lkorlibs/memory/Buffer;II)[J
+	public static final fun getS64ArrayBE (Lkorlibs/memory/Buffer;I[JII)[J
+	public static synthetic fun getS64ArrayBE$default (Lkorlibs/memory/Buffer;I[JIIILjava/lang/Object;)[J
+	public static final fun getS64ArrayLE (Lkorlibs/memory/Buffer;II)[J
+	public static final fun getS64ArrayLE (Lkorlibs/memory/Buffer;I[JII)[J
+	public static synthetic fun getS64ArrayLE$default (Lkorlibs/memory/Buffer;I[JIIILjava/lang/Object;)[J
+	public static final fun getS8Array (Lkorlibs/memory/Buffer;II)[B
+	public static final fun getS8Array (Lkorlibs/memory/Buffer;I[BII)[B
+	public static synthetic fun getS8Array$default (Lkorlibs/memory/Buffer;I[BIIILjava/lang/Object;)[B
+	public static final fun getSize (Lkorlibs/memory/Buffer;)I
+	public static final fun getU16 (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static final fun getU16 (Lkorlibs/memory/Buffer;IZ)I
+	public static synthetic fun getU16$default (Lkorlibs/memory/Buffer;IZILjava/lang/Object;)I
+	public static final fun getU16BE (Lkorlibs/memory/Buffer;I)I
+	public static final fun getU16LE (Lkorlibs/memory/Buffer;I)I
+	public static final fun getU32 (Lkorlibs/memory/Buffer;IZ)J
+	public static synthetic fun getU32$default (Lkorlibs/memory/Buffer;IZILjava/lang/Object;)J
+	public static final fun getU32BE (Lkorlibs/memory/Buffer;I)J
+	public static final fun getU32LE (Lkorlibs/memory/Buffer;I)J
+	public static final fun getU8 (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static final fun getU8 (Lkorlibs/memory/Buffer;I)I
+	public static final fun getU8 (Lkorlibs/memory/Buffer;IZ)I
+	public static synthetic fun getU8$default (Lkorlibs/memory/Buffer;IZILjava/lang/Object;)I
+	public static final fun getUInt16 (Lkorlibs/memory/Buffer;I)I
+	public static final fun getUInt8 (Lkorlibs/memory/Buffer;I)I
+	public static final fun getUnalignedArrayFloat32 (Lkorlibs/memory/Buffer;I[FII)[F
+	public static synthetic fun getUnalignedArrayFloat32$default (Lkorlibs/memory/Buffer;I[FIIILjava/lang/Object;)[F
+	public static final fun getUnalignedArrayFloat64 (Lkorlibs/memory/Buffer;I[DII)[D
+	public static synthetic fun getUnalignedArrayFloat64$default (Lkorlibs/memory/Buffer;I[DIIILjava/lang/Object;)[D
+	public static final fun getUnalignedArrayInt16 (Lkorlibs/memory/Buffer;I[SII)[S
+	public static synthetic fun getUnalignedArrayInt16$default (Lkorlibs/memory/Buffer;I[SIIILjava/lang/Object;)[S
+	public static final fun getUnalignedArrayInt32 (Lkorlibs/memory/Buffer;I[III)[I
+	public static synthetic fun getUnalignedArrayInt32$default (Lkorlibs/memory/Buffer;I[IIIILjava/lang/Object;)[I
+	public static final fun getUnalignedArrayInt64 (Lkorlibs/memory/Buffer;I[JII)[J
+	public static synthetic fun getUnalignedArrayInt64$default (Lkorlibs/memory/Buffer;I[JIIILjava/lang/Object;)[J
+	public static final fun getUnalignedArrayInt8 (Lkorlibs/memory/Buffer;I[BII)[B
+	public static synthetic fun getUnalignedArrayInt8$default (Lkorlibs/memory/Buffer;I[BIIILjava/lang/Object;)[B
+	public static final fun getUnalignedFloat32 (Lkorlibs/memory/Buffer;I)F
+	public static final fun getUnalignedFloat64 (Lkorlibs/memory/Buffer;I)D
+	public static final fun getUnalignedInt16 (Lkorlibs/memory/Buffer;I)S
+	public static final fun getUnalignedInt32 (Lkorlibs/memory/Buffer;I)I
+	public static final fun getUnalignedInt64 (Lkorlibs/memory/Buffer;I)J
+	public static final fun getUnalignedInt8 (Lkorlibs/memory/Buffer;I)B
+	public static final fun getUnalignedUInt16 (Lkorlibs/memory/Buffer;I)I
+	public static final fun getUnalignedUInt8 (Lkorlibs/memory/Buffer;I)I
+	public static final fun hex (Lkorlibs/memory/Buffer;)Ljava/lang/String;
+	public static final fun set16 (Lkorlibs/memory/Buffer;ISZ)V
+	public static synthetic fun set16$default (Lkorlibs/memory/Buffer;ISZILjava/lang/Object;)V
+	public static final fun set16BEClamped (Lkorlibs/memory/Buffer;II)V
+	public static final fun set16Clamped (Lkorlibs/memory/Buffer;IIZ)V
+	public static synthetic fun set16Clamped$default (Lkorlibs/memory/Buffer;IIZILjava/lang/Object;)V
+	public static final fun set16LEClamped (Lkorlibs/memory/Buffer;II)V
+	public static final fun set32 (Lkorlibs/memory/Buffer;IIZ)V
+	public static synthetic fun set32$default (Lkorlibs/memory/Buffer;IIZILjava/lang/Object;)V
+	public static final fun set64 (Lkorlibs/memory/Buffer;IJZ)V
+	public static synthetic fun set64$default (Lkorlibs/memory/Buffer;IJZILjava/lang/Object;)V
+	public static final fun set8Clamped (Lkorlibs/memory/Buffer;II)V
+	public static final fun setArray (Lkorlibs/memory/Buffer;I[BII)V
+	public static final fun setArray (Lkorlibs/memory/Buffer;I[DIIZ)V
+	public static final fun setArray (Lkorlibs/memory/Buffer;I[FIIZ)V
+	public static final fun setArray (Lkorlibs/memory/Buffer;I[IIIZ)V
+	public static final fun setArray (Lkorlibs/memory/Buffer;I[JIIZ)V
+	public static final fun setArray (Lkorlibs/memory/Buffer;I[SIIZ)V
+	public static synthetic fun setArray$default (Lkorlibs/memory/Buffer;I[BIIILjava/lang/Object;)V
+	public static synthetic fun setArray$default (Lkorlibs/memory/Buffer;I[DIIZILjava/lang/Object;)V
+	public static synthetic fun setArray$default (Lkorlibs/memory/Buffer;I[FIIZILjava/lang/Object;)V
+	public static synthetic fun setArray$default (Lkorlibs/memory/Buffer;I[IIIZILjava/lang/Object;)V
+	public static synthetic fun setArray$default (Lkorlibs/memory/Buffer;I[JIIZILjava/lang/Object;)V
+	public static synthetic fun setArray$default (Lkorlibs/memory/Buffer;I[SIIZILjava/lang/Object;)V
+	public static final fun setArrayBE (Lkorlibs/memory/Buffer;I[DII)V
+	public static final fun setArrayBE (Lkorlibs/memory/Buffer;I[FII)V
+	public static final fun setArrayBE (Lkorlibs/memory/Buffer;I[III)V
+	public static final fun setArrayBE (Lkorlibs/memory/Buffer;I[JII)V
+	public static final fun setArrayBE (Lkorlibs/memory/Buffer;I[SII)V
+	public static synthetic fun setArrayBE$default (Lkorlibs/memory/Buffer;I[DIIILjava/lang/Object;)V
+	public static synthetic fun setArrayBE$default (Lkorlibs/memory/Buffer;I[FIIILjava/lang/Object;)V
+	public static synthetic fun setArrayBE$default (Lkorlibs/memory/Buffer;I[IIIILjava/lang/Object;)V
+	public static synthetic fun setArrayBE$default (Lkorlibs/memory/Buffer;I[JIIILjava/lang/Object;)V
+	public static synthetic fun setArrayBE$default (Lkorlibs/memory/Buffer;I[SIIILjava/lang/Object;)V
+	public static final fun setArrayFloat32 (Lkorlibs/memory/Buffer;I[FII)V
+	public static synthetic fun setArrayFloat32$default (Lkorlibs/memory/Buffer;I[FIIILjava/lang/Object;)V
+	public static final fun setArrayFloat64 (Lkorlibs/memory/Buffer;I[DII)V
+	public static synthetic fun setArrayFloat64$default (Lkorlibs/memory/Buffer;I[DIIILjava/lang/Object;)V
+	public static final fun setArrayInt16 (Lkorlibs/memory/Buffer;I[SII)V
+	public static synthetic fun setArrayInt16$default (Lkorlibs/memory/Buffer;I[SIIILjava/lang/Object;)V
+	public static final fun setArrayInt32 (Lkorlibs/memory/Buffer;I[III)V
+	public static synthetic fun setArrayInt32$default (Lkorlibs/memory/Buffer;I[IIIILjava/lang/Object;)V
+	public static final fun setArrayInt64 (Lkorlibs/memory/Buffer;I[JII)V
+	public static synthetic fun setArrayInt64$default (Lkorlibs/memory/Buffer;I[JIIILjava/lang/Object;)V
+	public static final fun setArrayInt8 (Lkorlibs/memory/Buffer;I[BII)V
+	public static synthetic fun setArrayInt8$default (Lkorlibs/memory/Buffer;I[BIIILjava/lang/Object;)V
+	public static final fun setArrayLE (Lkorlibs/memory/Buffer;I[DII)V
+	public static final fun setArrayLE (Lkorlibs/memory/Buffer;I[FII)V
+	public static final fun setArrayLE (Lkorlibs/memory/Buffer;I[III)V
+	public static final fun setArrayLE (Lkorlibs/memory/Buffer;I[JII)V
+	public static final fun setArrayLE (Lkorlibs/memory/Buffer;I[SII)V
+	public static synthetic fun setArrayLE$default (Lkorlibs/memory/Buffer;I[DIIILjava/lang/Object;)V
+	public static synthetic fun setArrayLE$default (Lkorlibs/memory/Buffer;I[FIIILjava/lang/Object;)V
+	public static synthetic fun setArrayLE$default (Lkorlibs/memory/Buffer;I[IIIILjava/lang/Object;)V
+	public static synthetic fun setArrayLE$default (Lkorlibs/memory/Buffer;I[JIIILjava/lang/Object;)V
+	public static synthetic fun setArrayLE$default (Lkorlibs/memory/Buffer;I[SIIILjava/lang/Object;)V
+	public static final fun setArrayUInt16-WT_PfCA (Lkorlibs/memory/Buffer;I[SII)V
+	public static synthetic fun setArrayUInt16-WT_PfCA$default (Lkorlibs/memory/Buffer;I[SIIILjava/lang/Object;)V
+	public static final fun setArrayUInt8-nE-4Xbg (Lkorlibs/memory/Buffer;I[BII)V
+	public static synthetic fun setArrayUInt8-nE-4Xbg$default (Lkorlibs/memory/Buffer;I[BIIILjava/lang/Object;)V
+	public static final fun setF32 (Lkorlibs/memory/Buffer;IFZ)V
+	public static synthetic fun setF32$default (Lkorlibs/memory/Buffer;IFZILjava/lang/Object;)V
+	public static final fun setF64 (Lkorlibs/memory/Buffer;IDZ)V
+	public static synthetic fun setF64$default (Lkorlibs/memory/Buffer;IDZILjava/lang/Object;)V
+	public static final fun setFloat32 (Lkorlibs/memory/Buffer;IF)V
+	public static final fun setFloat64 (Lkorlibs/memory/Buffer;ID)V
+	public static final fun setInt16 (Lkorlibs/memory/Buffer;IS)V
+	public static final fun setInt32 (Lkorlibs/memory/Buffer;II)V
+	public static final fun setInt64 (Lkorlibs/memory/Buffer;IJ)V
+	public static final fun setInt8 (Lkorlibs/memory/Buffer;IB)V
+	public static final fun setInt8 (Lkorlibs/memory/Buffer;II)V
+	public static final fun setUInt16 (Lkorlibs/memory/Buffer;II)V
+	public static final fun setUInt8 (Lkorlibs/memory/Buffer;II)V
+	public static final fun setUInt8Clamped (Lkorlibs/memory/Buffer;II)V
+	public static final fun setUnalignedArrayFloat32 (Lkorlibs/memory/Buffer;I[FII)V
+	public static synthetic fun setUnalignedArrayFloat32$default (Lkorlibs/memory/Buffer;I[FIIILjava/lang/Object;)V
+	public static final fun setUnalignedArrayFloat64 (Lkorlibs/memory/Buffer;I[DII)V
+	public static synthetic fun setUnalignedArrayFloat64$default (Lkorlibs/memory/Buffer;I[DIIILjava/lang/Object;)V
+	public static final fun setUnalignedArrayInt16 (Lkorlibs/memory/Buffer;I[SII)V
+	public static synthetic fun setUnalignedArrayInt16$default (Lkorlibs/memory/Buffer;I[SIIILjava/lang/Object;)V
+	public static final fun setUnalignedArrayInt32 (Lkorlibs/memory/Buffer;I[III)V
+	public static synthetic fun setUnalignedArrayInt32$default (Lkorlibs/memory/Buffer;I[IIIILjava/lang/Object;)V
+	public static final fun setUnalignedArrayInt64 (Lkorlibs/memory/Buffer;I[JII)V
+	public static synthetic fun setUnalignedArrayInt64$default (Lkorlibs/memory/Buffer;I[JIIILjava/lang/Object;)V
+	public static final fun setUnalignedArrayInt8 (Lkorlibs/memory/Buffer;I[BII)V
+	public static synthetic fun setUnalignedArrayInt8$default (Lkorlibs/memory/Buffer;I[BIIILjava/lang/Object;)V
+	public static final fun setUnalignedFloat32 (Lkorlibs/memory/Buffer;IF)V
+	public static final fun setUnalignedFloat64 (Lkorlibs/memory/Buffer;ID)V
+	public static final fun setUnalignedInt16 (Lkorlibs/memory/Buffer;IS)V
+	public static final fun setUnalignedInt32 (Lkorlibs/memory/Buffer;II)V
+	public static final fun setUnalignedInt64 (Lkorlibs/memory/Buffer;IJ)V
+	public static final fun setUnalignedInt8 (Lkorlibs/memory/Buffer;IB)V
+	public static final fun setUnalignedInt8 (Lkorlibs/memory/Buffer;II)V
+	public static final fun setUnalignedUInt16 (Lkorlibs/memory/Buffer;II)V
+	public static final fun setUnalignedUInt8 (Lkorlibs/memory/Buffer;II)V
+	public static final fun setUnalignedUInt8Clamped (Lkorlibs/memory/Buffer;II)V
+	public static final fun sliceBuffer (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun sliceBuffer$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public static final fun sliceWithSize (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static final fun toFloatArray (Lkorlibs/memory/BaseFloatBuffer;)[F
+	public static final fun toIntArray (Lkorlibs/memory/BaseIntBuffer;)[I
+	public static final fun toNBufferUInt8 ([B)Lkorlibs/memory/Buffer;
+}
+
+public final class korlibs/memory/BufferMapMode : java/lang/Enum {
+	public static final field PRIVATE Lkorlibs/memory/BufferMapMode;
+	public static final field READ_ONLY Lkorlibs/memory/BufferMapMode;
+	public static final field READ_WRITE Lkorlibs/memory/BufferMapMode;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/memory/BufferMapMode;
+	public static fun values ()[Lkorlibs/memory/BufferMapMode;
+}
+
+public final class korlibs/memory/Buffer_jvmKt {
+	public static final fun checkSliceBounds (Ljava/nio/Buffer;II)V
+	public static final fun clearSafe (Ljava/nio/Buffer;)V
+	public static final fun flipSafe (Ljava/nio/Buffer;)V
+	public static final fun getNioBuffer (Lkorlibs/memory/Buffer;)Ljava/nio/ByteBuffer;
+	public static final fun getNioFloatBuffer (Lkorlibs/memory/Buffer;)Ljava/nio/FloatBuffer;
+	public static final fun getNioIntBuffer (Lkorlibs/memory/Buffer;)Ljava/nio/IntBuffer;
+	public static final fun limitSafe (Ljava/nio/Buffer;I)V
+	public static final fun positionSafe (Ljava/nio/Buffer;I)V
+	public static final fun sliceBuffer (Ljava/nio/Buffer;IILkotlin/jvm/functions/Function1;)Ljava/nio/Buffer;
+	public static final fun sliceBuffer (Ljava/nio/ByteBuffer;II)Ljava/nio/ByteBuffer;
+	public static final fun sliceBuffer (Ljava/nio/DoubleBuffer;II)Ljava/nio/DoubleBuffer;
+	public static final fun sliceBuffer (Ljava/nio/FloatBuffer;II)Ljava/nio/FloatBuffer;
+	public static final fun sliceBuffer (Ljava/nio/IntBuffer;II)Ljava/nio/IntBuffer;
+	public static final fun sliceBuffer (Ljava/nio/ShortBuffer;II)Ljava/nio/ShortBuffer;
+}
+
+public final class korlibs/memory/ByteArrayGetSetKt {
+	public static final fun getF32 ([BIZ)F
+	public static final fun getF32Array ([BIIZ)[F
+	public static final fun getF32ArrayBE ([BII)[F
+	public static final fun getF32ArrayLE ([BII)[F
+	public static final fun getF32BE ([BI)F
+	public static final fun getF32LE ([BI)F
+	public static final fun getF64 ([BIZ)D
+	public static final fun getF64Array ([BIIZ)[D
+	public static final fun getF64ArrayBE ([BII)[D
+	public static final fun getF64ArrayLE ([BII)[D
+	public static final fun getF64BE ([BI)D
+	public static final fun getF64LE ([BI)D
+	public static final fun getS16 ([BIZ)I
+	public static final fun getS16Array ([BIIZ)[S
+	public static final fun getS16ArrayBE ([BII)[S
+	public static final fun getS16ArrayLE ([BII)[S
+	public static final fun getS16BE ([BI)I
+	public static final fun getS16LE ([BI)I
+	public static final fun getS24 ([BIZ)I
+	public static final fun getS24BE ([BI)I
+	public static final fun getS24LE ([BI)I
+	public static final fun getS32 ([BIZ)I
+	public static final fun getS32Array ([BIIZ)[I
+	public static final fun getS32ArrayBE ([BII)[I
+	public static final fun getS32ArrayLE ([BII)[I
+	public static final fun getS32BE ([BI)I
+	public static final fun getS32LE ([BI)I
+	public static final fun getS64 ([BIZ)J
+	public static final fun getS64Array ([BIIZ)[J
+	public static final fun getS64ArrayBE ([BII)[J
+	public static final fun getS64ArrayLE ([BII)[J
+	public static final fun getS64BE ([BI)J
+	public static final fun getS64LE ([BI)J
+	public static final fun getS8 ([BI)I
+	public static final fun getS8Array ([BII)[B
+	public static final fun getU16 ([BIZ)I
+	public static final fun getU16Array ([BIIZ)[C
+	public static final fun getU16ArrayBE ([BII)[C
+	public static final fun getU16ArrayLE ([BII)[C
+	public static final fun getU16BE ([BI)I
+	public static final fun getU16LE ([BI)I
+	public static final fun getU24 ([BIZ)I
+	public static final fun getU24BE ([BI)I
+	public static final fun getU24LE ([BI)I
+	public static final fun getU32 ([BIZ)J
+	public static final fun getU32BE ([BI)J
+	public static final fun getU32LE ([BI)J
+	public static final fun getU8 ([BI)I
+	public static final fun set16 ([BIIZ)V
+	public static final fun set16BE ([BII)V
+	public static final fun set16LE ([BII)V
+	public static final fun set24 ([BIIZ)V
+	public static final fun set24BE ([BII)V
+	public static final fun set24LE ([BII)V
+	public static final fun set32 ([BIIZ)V
+	public static final fun set32BE ([BII)V
+	public static final fun set32BE ([BIJ)V
+	public static final fun set32LE ([BII)V
+	public static final fun set32LE ([BIJ)V
+	public static final fun set64 ([BIJZ)V
+	public static final fun set64BE ([BIJ)V
+	public static final fun set64LE ([BIJ)V
+	public static final fun set8 ([BII)V
+	public static final fun set8 ([BIJ)V
+	public static final fun setArray ([BI[B)V
+	public static final fun setArrayBE ([BI[C)V
+	public static final fun setArrayBE ([BI[D)V
+	public static final fun setArrayBE ([BI[F)V
+	public static final fun setArrayBE ([BI[I)V
+	public static final fun setArrayBE ([BI[J)V
+	public static final fun setArrayBE ([BI[S)V
+	public static final fun setArrayLE ([BI[C)V
+	public static final fun setArrayLE ([BI[D)V
+	public static final fun setArrayLE ([BI[F)V
+	public static final fun setArrayLE ([BI[I)V
+	public static final fun setArrayLE ([BI[J)V
+	public static final fun setArrayLE ([BI[S)V
+	public static final fun setBytes ([BI[B)V
+	public static final fun setF32 ([BIFZ)V
+	public static final fun setF32BE ([BIF)V
+	public static final fun setF32LE ([BIF)V
+	public static final fun setF64 ([BIDZ)V
+	public static final fun setF64BE ([BID)V
+	public static final fun setF64LE ([BID)V
+}
+
+public final class korlibs/memory/ByteArrayReader {
+	public fun <init> ([BII)V
+	public synthetic fun <init> ([BIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun f32 (Z)F
+	public final fun f32BE ()F
+	public final fun f32LE ()F
+	public final fun f64 (Z)D
+	public final fun f64BE ()D
+	public final fun f64LE ()D
+	public final fun getData ()[B
+	public final fun getHasMore ()Z
+	public final fun getRemaining ()I
+	public final fun getSize ()I
+	public final fun getStart ()I
+	public final fun s16 (Z)I
+	public final fun s16BE ()I
+	public final fun s16LE ()I
+	public final fun s24 (Z)I
+	public final fun s24BE ()I
+	public final fun s24LE ()I
+	public final fun s32 (Z)I
+	public final fun s32BE ()I
+	public final fun s32LE ()I
+	public final fun s8 ()I
+	public final fun u16 (Z)I
+	public final fun u16BE ()I
+	public final fun u16LE ()I
+	public final fun u24 (Z)I
+	public final fun u24BE ()I
+	public final fun u24LE ()I
+	public final fun u32 (Z)J
+	public final fun u32BE ()J
+	public final fun u32LE ()J
+	public final fun u8 ()I
+}
+
+public final class korlibs/memory/ByteArrayReaderBE {
+	public static final synthetic fun box-impl (Lkorlibs/memory/ByteArrayReader;)Lkorlibs/memory/ByteArrayReaderBE;
+	public static fun constructor-impl (Lkorlibs/memory/ByteArrayReader;)Lkorlibs/memory/ByteArrayReader;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Lkorlibs/memory/ByteArrayReader;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Lkorlibs/memory/ByteArrayReader;Lkorlibs/memory/ByteArrayReader;)Z
+	public final fun getBar ()Lkorlibs/memory/ByteArrayReader;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Lkorlibs/memory/ByteArrayReader;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Lkorlibs/memory/ByteArrayReader;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Lkorlibs/memory/ByteArrayReader;
+}
+
+public final class korlibs/memory/ByteArrayReaderKt {
+	public static final fun f32-T-bRTHM (Lkorlibs/memory/ByteArrayReader;)F
+	public static final fun f32-vu_pW1Y (Lkorlibs/memory/ByteArrayReader;)F
+	public static final fun f64-T-bRTHM (Lkorlibs/memory/ByteArrayReader;)D
+	public static final fun f64-vu_pW1Y (Lkorlibs/memory/ByteArrayReader;)D
+	public static final fun getHasMore-T-bRTHM (Lkorlibs/memory/ByteArrayReader;)Z
+	public static final fun getHasMore-vu_pW1Y (Lkorlibs/memory/ByteArrayReader;)Z
+	public static final fun getRemaining-T-bRTHM (Lkorlibs/memory/ByteArrayReader;)I
+	public static final fun getRemaining-vu_pW1Y (Lkorlibs/memory/ByteArrayReader;)I
+	public static final fun getSize-T-bRTHM (Lkorlibs/memory/ByteArrayReader;)I
+	public static final fun getSize-vu_pW1Y (Lkorlibs/memory/ByteArrayReader;)I
+	public static final fun read ([BIILkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static synthetic fun read$default ([BIILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun readBE ([BIILkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static synthetic fun readBE$default ([BIILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun readLE ([BIILkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static synthetic fun readLE$default ([BIILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun reader ([BII)Lkorlibs/memory/ByteArrayReader;
+	public static synthetic fun reader$default ([BIIILjava/lang/Object;)Lkorlibs/memory/ByteArrayReader;
+	public static final fun readerBE ([BII)Lkorlibs/memory/ByteArrayReader;
+	public static synthetic fun readerBE$default ([BIIILjava/lang/Object;)Lkorlibs/memory/ByteArrayReader;
+	public static final fun readerLE ([BII)Lkorlibs/memory/ByteArrayReader;
+	public static synthetic fun readerLE$default ([BIIILjava/lang/Object;)Lkorlibs/memory/ByteArrayReader;
+	public static final fun s16-T-bRTHM (Lkorlibs/memory/ByteArrayReader;)I
+	public static final fun s16-vu_pW1Y (Lkorlibs/memory/ByteArrayReader;)I
+	public static final fun s24-T-bRTHM (Lkorlibs/memory/ByteArrayReader;)I
+	public static final fun s24-vu_pW1Y (Lkorlibs/memory/ByteArrayReader;)I
+	public static final fun s32-T-bRTHM (Lkorlibs/memory/ByteArrayReader;)I
+	public static final fun s32-vu_pW1Y (Lkorlibs/memory/ByteArrayReader;)I
+	public static final fun s8-T-bRTHM (Lkorlibs/memory/ByteArrayReader;)I
+	public static final fun s8-vu_pW1Y (Lkorlibs/memory/ByteArrayReader;)I
+	public static final fun u16-T-bRTHM (Lkorlibs/memory/ByteArrayReader;)I
+	public static final fun u16-vu_pW1Y (Lkorlibs/memory/ByteArrayReader;)I
+	public static final fun u24-T-bRTHM (Lkorlibs/memory/ByteArrayReader;)I
+	public static final fun u24-vu_pW1Y (Lkorlibs/memory/ByteArrayReader;)I
+	public static final fun u32-T-bRTHM (Lkorlibs/memory/ByteArrayReader;)J
+	public static final fun u32-vu_pW1Y (Lkorlibs/memory/ByteArrayReader;)J
+	public static final fun u8-T-bRTHM (Lkorlibs/memory/ByteArrayReader;)I
+	public static final fun u8-vu_pW1Y (Lkorlibs/memory/ByteArrayReader;)I
+}
+
+public final class korlibs/memory/ByteArrayReaderLE {
+	public static final synthetic fun box-impl (Lkorlibs/memory/ByteArrayReader;)Lkorlibs/memory/ByteArrayReaderLE;
+	public static fun constructor-impl (Lkorlibs/memory/ByteArrayReader;)Lkorlibs/memory/ByteArrayReader;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Lkorlibs/memory/ByteArrayReader;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Lkorlibs/memory/ByteArrayReader;Lkorlibs/memory/ByteArrayReader;)Z
+	public final fun getBar ()Lkorlibs/memory/ByteArrayReader;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Lkorlibs/memory/ByteArrayReader;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Lkorlibs/memory/ByteArrayReader;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Lkorlibs/memory/ByteArrayReader;
+}
+
+public final class korlibs/memory/FixedSizeByteArrayBuilder {
+	public fun <init> (I)V
+	public fun <init> ([B)V
+	public final fun append (B)Lkorlibs/memory/FixedSizeByteArrayBuilder;
+	public final fun append ([B)V
+	public final fun append ([BII)V
+	public final fun append ([I)V
+	public static synthetic fun append$default (Lkorlibs/memory/FixedSizeByteArrayBuilder;[BIIILjava/lang/Object;)V
+	public final fun appendFast (B)V
+	public final fun clear ()V
+	public final fun getCapacity ()I
+	public final fun getData ()[B
+	public final fun getSize ()I
+	public final fun toByteArray ()[B
+}
+
+public final class korlibs/memory/Float32Buffer : korlibs/memory/BaseFloatBuffer, korlibs/memory/TypedBuffer {
+	public static final field Companion Lkorlibs/memory/Float32Buffer$Companion;
+	public static final field ELEMENT_SIZE_IN_BYTES I
+	public static final synthetic fun box-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Float32Buffer;
+	public static fun constructor-impl (IZ)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl ([FII)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default (IZILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default ([FIIILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Lkorlibs/memory/Buffer;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Lkorlibs/memory/Buffer;Lkorlibs/memory/Buffer;)Z
+	public fun get (I)F
+	public static fun get-impl (Lkorlibs/memory/Buffer;I)F
+	public static final fun getArray-impl (Lkorlibs/memory/Buffer;II)[F
+	public static final fun getArray-impl (Lkorlibs/memory/Buffer;I[FII)[F
+	public static synthetic fun getArray-impl$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)[F
+	public static synthetic fun getArray-impl$default (Lkorlibs/memory/Buffer;I[FIIILjava/lang/Object;)[F
+	public fun getBuffer ()Lkorlibs/memory/Buffer;
+	public fun getElementSizeInBytes ()I
+	public static fun getElementSizeInBytes-impl (Lkorlibs/memory/Buffer;)I
+	public fun getSize ()I
+	public static fun getSize-impl (Lkorlibs/memory/Buffer;)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (Lkorlibs/memory/Buffer;)I
+	public fun set (IF)V
+	public static fun set-impl (Lkorlibs/memory/Buffer;IF)V
+	public static final fun setArray-impl (Lkorlibs/memory/Buffer;I[FII)V
+	public static synthetic fun setArray-impl$default (Lkorlibs/memory/Buffer;I[FIIILjava/lang/Object;)V
+	public static final fun slice-fol0Ye8 (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun slice-fol0Ye8$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public static final fun sliceWithSize-fol0Ye8 (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun sliceWithSize-fol0Ye8$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Lkorlibs/memory/Buffer;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Lkorlibs/memory/Buffer;
+}
+
+public final class korlibs/memory/Float32Buffer$Companion {
+}
+
+public final class korlibs/memory/Float64Buffer : korlibs/memory/TypedBuffer {
+	public static final field Companion Lkorlibs/memory/Float64Buffer$Companion;
+	public static final field ELEMENT_SIZE_IN_BYTES I
+	public static final synthetic fun box-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Float64Buffer;
+	public static fun constructor-impl (IZ)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl ([DII)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default (IZILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default ([DIIILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Lkorlibs/memory/Buffer;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Lkorlibs/memory/Buffer;Lkorlibs/memory/Buffer;)Z
+	public static final fun get-impl (Lkorlibs/memory/Buffer;I)D
+	public static final fun getArray-impl (Lkorlibs/memory/Buffer;II)[D
+	public static final fun getArray-impl (Lkorlibs/memory/Buffer;I[DII)[D
+	public static synthetic fun getArray-impl$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)[D
+	public static synthetic fun getArray-impl$default (Lkorlibs/memory/Buffer;I[DIIILjava/lang/Object;)[D
+	public fun getBuffer ()Lkorlibs/memory/Buffer;
+	public fun getElementSizeInBytes ()I
+	public static fun getElementSizeInBytes-impl (Lkorlibs/memory/Buffer;)I
+	public fun getSize ()I
+	public static fun getSize-impl (Lkorlibs/memory/Buffer;)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (Lkorlibs/memory/Buffer;)I
+	public static final fun set-impl (Lkorlibs/memory/Buffer;ID)V
+	public static final fun setArray-impl (Lkorlibs/memory/Buffer;I[DII)V
+	public static synthetic fun setArray-impl$default (Lkorlibs/memory/Buffer;I[DIIILjava/lang/Object;)V
+	public static final fun slice-b-6O3zY (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun slice-b-6O3zY$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public static final fun sliceWithSize-b-6O3zY (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun sliceWithSize-b-6O3zY$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Lkorlibs/memory/Buffer;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Lkorlibs/memory/Buffer;
+}
+
+public final class korlibs/memory/Float64Buffer$Companion {
+}
+
+public final class korlibs/memory/FloatArrayBuffer : korlibs/memory/BaseFloatBuffer {
+	public static final synthetic fun box-impl ([F)Lkorlibs/memory/FloatArrayBuffer;
+	public static fun constructor-impl ([F)[F
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl ([FLjava/lang/Object;)Z
+	public static final fun equals-impl0 ([F[F)Z
+	public fun get (I)F
+	public static fun get-impl ([FI)F
+	public final fun getArray ()[F
+	public fun getSize ()I
+	public static fun getSize-impl ([F)I
+	public fun hashCode ()I
+	public static fun hashCode-impl ([F)I
+	public fun set (IF)V
+	public static fun set-impl ([FIF)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl ([F)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()[F
+}
+
+public final class korlibs/memory/FloatArrayFromIntArray {
+	public static final synthetic fun box-impl ([I)Lkorlibs/memory/FloatArrayFromIntArray;
+	public static fun constructor-impl ([I)[I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl ([ILjava/lang/Object;)Z
+	public static final fun equals-impl0 ([I[I)Z
+	public static final fun get-impl ([II)F
+	public final fun getBase ()[I
+	public fun hashCode ()I
+	public static fun hashCode-impl ([I)I
+	public static final fun set-impl ([IIF)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl ([I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()[I
+}
+
+public final class korlibs/memory/Int16Buffer : korlibs/memory/TypedBuffer {
+	public static final field Companion Lkorlibs/memory/Int16Buffer$Companion;
+	public static final field ELEMENT_SIZE_IN_BYTES I
+	public static final synthetic fun box-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Int16Buffer;
+	public static fun constructor-impl (IZ)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl ([SII)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default (IZILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default ([SIIILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Lkorlibs/memory/Buffer;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Lkorlibs/memory/Buffer;Lkorlibs/memory/Buffer;)Z
+	public static final fun get-impl (Lkorlibs/memory/Buffer;I)S
+	public static final fun getArray-impl (Lkorlibs/memory/Buffer;II)[S
+	public static final fun getArray-impl (Lkorlibs/memory/Buffer;I[SII)[S
+	public static synthetic fun getArray-impl$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)[S
+	public static synthetic fun getArray-impl$default (Lkorlibs/memory/Buffer;I[SIIILjava/lang/Object;)[S
+	public fun getBuffer ()Lkorlibs/memory/Buffer;
+	public fun getElementSizeInBytes ()I
+	public static fun getElementSizeInBytes-impl (Lkorlibs/memory/Buffer;)I
+	public fun getSize ()I
+	public static fun getSize-impl (Lkorlibs/memory/Buffer;)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (Lkorlibs/memory/Buffer;)I
+	public static final fun set-impl (Lkorlibs/memory/Buffer;IS)V
+	public static final fun setArray-impl (Lkorlibs/memory/Buffer;I[SII)V
+	public static synthetic fun setArray-impl$default (Lkorlibs/memory/Buffer;I[SIIILjava/lang/Object;)V
+	public static final fun slice-nVlv00Y (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun slice-nVlv00Y$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public static final fun sliceWithSize-nVlv00Y (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun sliceWithSize-nVlv00Y$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Lkorlibs/memory/Buffer;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Lkorlibs/memory/Buffer;
+}
+
+public final class korlibs/memory/Int16Buffer$Companion {
+}
+
+public final class korlibs/memory/Int32Buffer : korlibs/memory/BaseIntBuffer, korlibs/memory/TypedBuffer {
+	public static final field Companion Lkorlibs/memory/Int32Buffer$Companion;
+	public static final field ELEMENT_SIZE_IN_BYTES I
+	public static final synthetic fun box-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Int32Buffer;
+	public static fun constructor-impl (IZ)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl ([III)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default (IZILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default ([IIIILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Lkorlibs/memory/Buffer;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Lkorlibs/memory/Buffer;Lkorlibs/memory/Buffer;)Z
+	public fun get (I)I
+	public static fun get-impl (Lkorlibs/memory/Buffer;I)I
+	public static final fun getArray-impl (Lkorlibs/memory/Buffer;II)[I
+	public static final fun getArray-impl (Lkorlibs/memory/Buffer;I[III)[I
+	public static synthetic fun getArray-impl$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)[I
+	public static synthetic fun getArray-impl$default (Lkorlibs/memory/Buffer;I[IIIILjava/lang/Object;)[I
+	public fun getBuffer ()Lkorlibs/memory/Buffer;
+	public fun getElementSizeInBytes ()I
+	public static fun getElementSizeInBytes-impl (Lkorlibs/memory/Buffer;)I
+	public fun getSize ()I
+	public static fun getSize-impl (Lkorlibs/memory/Buffer;)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (Lkorlibs/memory/Buffer;)I
+	public fun set (II)V
+	public static fun set-impl (Lkorlibs/memory/Buffer;II)V
+	public static final fun setArray-impl (Lkorlibs/memory/Buffer;I[III)V
+	public static synthetic fun setArray-impl$default (Lkorlibs/memory/Buffer;I[IIIILjava/lang/Object;)V
+	public static final fun slice-VwG1tOw (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun slice-VwG1tOw$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public static final fun sliceWithSize-VwG1tOw (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun sliceWithSize-VwG1tOw$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Lkorlibs/memory/Buffer;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Lkorlibs/memory/Buffer;
+}
+
+public final class korlibs/memory/Int32Buffer$Companion {
+}
+
+public final class korlibs/memory/Int64Buffer : korlibs/memory/TypedBuffer {
+	public static final field Companion Lkorlibs/memory/Int64Buffer$Companion;
+	public static final field ELEMENT_SIZE_IN_BYTES I
+	public static final synthetic fun box-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Int64Buffer;
+	public static fun constructor-impl (IZ)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl ([JII)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default (IZILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default ([JIIILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Lkorlibs/memory/Buffer;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Lkorlibs/memory/Buffer;Lkorlibs/memory/Buffer;)Z
+	public static final fun get-impl (Lkorlibs/memory/Buffer;I)J
+	public static final fun getArray-impl (Lkorlibs/memory/Buffer;II)[J
+	public static final fun getArray-impl (Lkorlibs/memory/Buffer;I[JII)[J
+	public static synthetic fun getArray-impl$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)[J
+	public static synthetic fun getArray-impl$default (Lkorlibs/memory/Buffer;I[JIIILjava/lang/Object;)[J
+	public fun getBuffer ()Lkorlibs/memory/Buffer;
+	public fun getElementSizeInBytes ()I
+	public static fun getElementSizeInBytes-impl (Lkorlibs/memory/Buffer;)I
+	public fun getSize ()I
+	public static fun getSize-impl (Lkorlibs/memory/Buffer;)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (Lkorlibs/memory/Buffer;)I
+	public static final fun set-impl (Lkorlibs/memory/Buffer;IJ)V
+	public static final fun setArray-impl (Lkorlibs/memory/Buffer;I[JII)V
+	public static synthetic fun setArray-impl$default (Lkorlibs/memory/Buffer;I[JIIILjava/lang/Object;)V
+	public static final fun slice-WnGlTsc (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun slice-WnGlTsc$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public static final fun sliceWithSize-WnGlTsc (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun sliceWithSize-WnGlTsc$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Lkorlibs/memory/Buffer;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Lkorlibs/memory/Buffer;
+}
+
+public final class korlibs/memory/Int64Buffer$Companion {
+}
+
+public final class korlibs/memory/Int8Buffer : korlibs/memory/TypedBuffer {
+	public static final field Companion Lkorlibs/memory/Int8Buffer$Companion;
+	public static final field ELEMENT_SIZE_IN_BYTES I
+	public static final synthetic fun box-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Int8Buffer;
+	public static fun constructor-impl (IZ)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl ([BII)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default (IZILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default ([BIIILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Lkorlibs/memory/Buffer;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Lkorlibs/memory/Buffer;Lkorlibs/memory/Buffer;)Z
+	public static final fun get-impl (Lkorlibs/memory/Buffer;I)B
+	public static final fun getArray-impl (Lkorlibs/memory/Buffer;II)[B
+	public static final fun getArray-impl (Lkorlibs/memory/Buffer;I[BII)[B
+	public static synthetic fun getArray-impl$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)[B
+	public static synthetic fun getArray-impl$default (Lkorlibs/memory/Buffer;I[BIIILjava/lang/Object;)[B
+	public fun getBuffer ()Lkorlibs/memory/Buffer;
+	public fun getElementSizeInBytes ()I
+	public static fun getElementSizeInBytes-impl (Lkorlibs/memory/Buffer;)I
+	public fun getSize ()I
+	public static fun getSize-impl (Lkorlibs/memory/Buffer;)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (Lkorlibs/memory/Buffer;)I
+	public static final fun set-impl (Lkorlibs/memory/Buffer;IB)V
+	public static final fun setArray-impl (Lkorlibs/memory/Buffer;I[BII)V
+	public static synthetic fun setArray-impl$default (Lkorlibs/memory/Buffer;I[BIIILjava/lang/Object;)V
+	public static final fun slice-oZkOoYA (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun slice-oZkOoYA$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public static final fun sliceWithSize-oZkOoYA (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun sliceWithSize-oZkOoYA$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Lkorlibs/memory/Buffer;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Lkorlibs/memory/Buffer;
+}
+
+public final class korlibs/memory/Int8Buffer$Companion {
+}
+
+public final class korlibs/memory/IntArrayBuffer : korlibs/memory/BaseIntBuffer {
+	public static final synthetic fun box-impl ([I)Lkorlibs/memory/IntArrayBuffer;
+	public static fun constructor-impl ([I)[I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl ([ILjava/lang/Object;)Z
+	public static final fun equals-impl0 ([I[I)Z
+	public fun get (I)I
+	public static fun get-impl ([II)I
+	public final fun getArray ()[I
+	public fun getSize ()I
+	public static fun getSize-impl ([I)I
+	public fun hashCode ()I
+	public static fun hashCode-impl ([I)I
+	public fun set (II)V
+	public static fun set-impl ([III)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl ([I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()[I
+}
+
+public class korlibs/memory/KmemGCImpl {
+	public fun <init> ()V
+	public fun collect ()V
+	public fun collectCyclic ()V
+	public fun getAutotune ()Z
+	public fun getCyclicCollectorEnabled ()Z
+	public fun getThreshold ()I
+	public fun getThresholdAllocations ()J
+	public fun resume ()V
+	public fun setAutotune (Z)V
+	public fun setCyclicCollectorEnabled (Z)V
+	public fun setThreshold (I)V
+	public fun setThresholdAllocations (J)V
+	public fun start ()V
+	public fun stop ()V
+	public fun suspend ()V
+}
+
+public final class korlibs/memory/KmemGCJvmKt {
+	public static final fun getKmemGC ()Lkorlibs/memory/KmemGCImpl;
+}
+
+public final class korlibs/memory/SimpleBytesDeque {
+	public fun <init> ()V
+	public fun <init> (IZ)V
+	public synthetic fun <init> (IZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun clear ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAllowGrow ()Z
+	public final fun getAvailableRead ()I
+	public final fun getAvailableWriteWithoutAllocating ()I
+	public final fun getBufferSize ()I
+	public final fun getHasMoreToRead ()Z
+	public final fun getHasMoreToWrite ()Z
+	public final fun getInitialBits ()I
+	public final fun getRead ()J
+	public final fun getTempBuffer ()[B
+	public final fun getWritten ()J
+	public fun hashCode ()I
+	public final fun peek ([BII)I
+	public static synthetic fun peek$default (Lkorlibs/memory/SimpleBytesDeque;[BIIILjava/lang/Object;)I
+	public final fun read ([BII)I
+	public static synthetic fun read$default (Lkorlibs/memory/SimpleBytesDeque;[BIIILjava/lang/Object;)I
+	public final fun readByte ()I
+	public final fun readOne ()B
+	public final fun skip (I)I
+	public final fun write ([BII)I
+	public static synthetic fun write$default (Lkorlibs/memory/SimpleBytesDeque;[BIIILjava/lang/Object;)I
+	public final fun writeByte (I)Z
+	public final fun writeHead ([BII)I
+	public static synthetic fun writeHead$default (Lkorlibs/memory/SimpleBytesDeque;[BIIILjava/lang/Object;)I
+	public final fun writeOne (B)V
+}
+
+public final class korlibs/memory/SimpleChunkedByteDeque {
+	public fun <init> ()V
+	public final fun getAvailableRead ()I
+	public final fun read ()I
+	public final fun read (I)[B
+	public final fun read ([BII)I
+	public static synthetic fun read$default (Lkorlibs/memory/SimpleChunkedByteDeque;[BIIILjava/lang/Object;)I
+	public final fun write (I)V
+	public final fun write ([BII)V
+	public static synthetic fun write$default (Lkorlibs/memory/SimpleChunkedByteDeque;[BIIILjava/lang/Object;)V
+}
+
+public final class korlibs/memory/SimpleRingBuffer {
+	public fun <init> (I)V
+	public final fun clear ()V
+	public final fun contentHashCode ()I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAvailableRead ()I
+	public final fun getAvailableReadBeforeWrap ()I
+	public final fun getAvailableWrite ()I
+	public final fun getAvailableWriteBeforeWrap ()I
+	public final fun getBits ()I
+	public final fun getInternalBuffer ()[B
+	public final fun getInternalReadPos ()I
+	public final fun getInternalWritePos ()I
+	public final fun getTotalSize ()I
+	public fun hashCode ()I
+	public final fun internalReadSkip (I)V
+	public final fun internalWriteSkip (I)V
+	public final fun peek (I)B
+	public final fun peek ([BII)I
+	public static synthetic fun peek$default (Lkorlibs/memory/SimpleRingBuffer;IILjava/lang/Object;)B
+	public static synthetic fun peek$default (Lkorlibs/memory/SimpleRingBuffer;[BIIILjava/lang/Object;)I
+	public final fun read ([BII)I
+	public static synthetic fun read$default (Lkorlibs/memory/SimpleRingBuffer;[BIIILjava/lang/Object;)I
+	public final fun readByte ()I
+	public final fun readBytes (I)[B
+	public final fun skip (I)I
+	public final fun write (Lkorlibs/memory/SimpleRingBuffer;)V
+	public final fun write ([BII)I
+	public static synthetic fun write$default (Lkorlibs/memory/SimpleRingBuffer;[BIIILjava/lang/Object;)I
+	public final fun writeByte (I)Z
+	public final fun writeHead ([BII)I
+	public static synthetic fun writeHead$default (Lkorlibs/memory/SimpleRingBuffer;[BIIILjava/lang/Object;)I
+}
+
+public abstract interface class korlibs/memory/TypedBuffer : korlibs/memory/BaseBuffer {
+	public abstract fun getBuffer ()Lkorlibs/memory/Buffer;
+	public abstract fun getElementSizeInBytes ()I
+	public fun getSize ()I
+}
+
+public final class korlibs/memory/TypedBuffer$DefaultImpls {
+	public static fun getSize (Lkorlibs/memory/TypedBuffer;)I
+}
+
+public final class korlibs/memory/UByteArrayInt {
+	public static final synthetic fun box-impl ([B)Lkorlibs/memory/UByteArrayInt;
+	public static fun constructor-impl (I)[B
+	public static fun constructor-impl (ILkotlin/jvm/functions/Function1;)[B
+	public static fun constructor-impl ([B)[B
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl ([BLjava/lang/Object;)Z
+	public static final fun equals-impl0 ([B[B)Z
+	public static final fun fill-impl ([BIII)V
+	public static synthetic fun fill-impl$default ([BIIIILjava/lang/Object;)V
+	public static final fun get-impl ([BI)I
+	public static final fun getBytes-impl ([B)[B
+	public final fun getData ()[B
+	public static final fun getOrElse-impl ([BII)I
+	public static final fun getSize-impl ([B)I
+	public fun hashCode ()I
+	public static fun hashCode-impl ([B)I
+	public static final fun set-EK-6454 ([BIB)V
+	public static final fun set-impl ([BII)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl ([B)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()[B
+}
+
+public final class korlibs/memory/UShortArrayInt {
+	public static final synthetic fun box-impl ([S)Lkorlibs/memory/UShortArrayInt;
+	public static fun constructor-impl (I)[S
+	public static fun constructor-impl (ILkotlin/jvm/functions/Function1;)[S
+	public static fun constructor-impl ([S)[S
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl ([SLjava/lang/Object;)Z
+	public static final fun equals-impl0 ([S[S)Z
+	public static final fun fill-impl ([SIII)V
+	public static synthetic fun fill-impl$default ([SIIIILjava/lang/Object;)V
+	public static final fun get-impl ([SI)I
+	public final fun getData ()[S
+	public static final fun getShorts-impl ([S)[S
+	public static final fun getSize-impl ([S)I
+	public fun hashCode ()I
+	public static fun hashCode-impl ([S)I
+	public static final fun set-i8woANY ([SIS)V
+	public static final fun set-impl ([SII)V
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl ([S)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()[S
+}
+
+public final class korlibs/memory/Uint16Buffer : korlibs/memory/BaseIntBuffer, korlibs/memory/TypedBuffer {
+	public static final field Companion Lkorlibs/memory/Uint16Buffer$Companion;
+	public static final field ELEMENT_SIZE_IN_BYTES I
+	public static final synthetic fun box-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Uint16Buffer;
+	public static fun constructor-impl (IZ)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl ([SII)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default (IZILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default ([SIIILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Lkorlibs/memory/Buffer;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Lkorlibs/memory/Buffer;Lkorlibs/memory/Buffer;)Z
+	public fun get (I)I
+	public static fun get-impl (Lkorlibs/memory/Buffer;I)I
+	public static final fun getArray-URaADUA (Lkorlibs/memory/Buffer;II)[S
+	public static synthetic fun getArray-URaADUA$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)[S
+	public static final fun getArray-e3nUFTA (Lkorlibs/memory/Buffer;I[SII)[S
+	public static synthetic fun getArray-e3nUFTA$default (Lkorlibs/memory/Buffer;I[SIIILjava/lang/Object;)[S
+	public fun getBuffer ()Lkorlibs/memory/Buffer;
+	public fun getElementSizeInBytes ()I
+	public static fun getElementSizeInBytes-impl (Lkorlibs/memory/Buffer;)I
+	public fun getSize ()I
+	public static fun getSize-impl (Lkorlibs/memory/Buffer;)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (Lkorlibs/memory/Buffer;)I
+	public fun set (II)V
+	public static fun set-impl (Lkorlibs/memory/Buffer;II)V
+	public static final fun setArray-43OFP64 (Lkorlibs/memory/Buffer;I[SII)V
+	public static synthetic fun setArray-43OFP64$default (Lkorlibs/memory/Buffer;I[SIIILjava/lang/Object;)V
+	public static final fun slice-D7sN0Bw (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun slice-D7sN0Bw$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public static final fun sliceWithSize-D7sN0Bw (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun sliceWithSize-D7sN0Bw$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Lkorlibs/memory/Buffer;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Lkorlibs/memory/Buffer;
+}
+
+public final class korlibs/memory/Uint16Buffer$Companion {
+	public final fun invoke-5H8Hwew ([B)Lkorlibs/memory/Buffer;
+}
+
+public final class korlibs/memory/Uint32Buffer : korlibs/memory/TypedBuffer {
+	public static final field Companion Lkorlibs/memory/Uint32Buffer$Companion;
+	public static final field ELEMENT_SIZE_IN_BYTES I
+	public static final synthetic fun box-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Uint32Buffer;
+	public static fun constructor-impl (IZ)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl ([III)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default (IZILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default ([IIIILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Lkorlibs/memory/Buffer;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Lkorlibs/memory/Buffer;Lkorlibs/memory/Buffer;)Z
+	public static final fun get-OGnWXxg (Lkorlibs/memory/Buffer;I)I
+	public static final fun getArray-g-PCqec (Lkorlibs/memory/Buffer;II)[I
+	public static synthetic fun getArray-g-PCqec$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)[I
+	public static final fun getArray-raH9_jQ (Lkorlibs/memory/Buffer;I[III)[I
+	public static synthetic fun getArray-raH9_jQ$default (Lkorlibs/memory/Buffer;I[IIIILjava/lang/Object;)[I
+	public fun getBuffer ()Lkorlibs/memory/Buffer;
+	public fun getElementSizeInBytes ()I
+	public static fun getElementSizeInBytes-impl (Lkorlibs/memory/Buffer;)I
+	public fun getSize ()I
+	public static fun getSize-impl (Lkorlibs/memory/Buffer;)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (Lkorlibs/memory/Buffer;)I
+	public static final fun set-Qn1smSk (Lkorlibs/memory/Buffer;II)V
+	public static final fun set-impl (Lkorlibs/memory/Buffer;II)V
+	public static final fun setArray-o2ZM2JE (Lkorlibs/memory/Buffer;I[III)V
+	public static synthetic fun setArray-o2ZM2JE$default (Lkorlibs/memory/Buffer;I[IIIILjava/lang/Object;)V
+	public static final fun slice-tgJ0l-E (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun slice-tgJ0l-E$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public static final fun sliceWithSize-tgJ0l-E (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun sliceWithSize-tgJ0l-E$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Lkorlibs/memory/Buffer;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Lkorlibs/memory/Buffer;
+}
+
+public final class korlibs/memory/Uint32Buffer$Companion {
+}
+
+public final class korlibs/memory/Uint8Buffer : korlibs/memory/BaseIntBuffer, korlibs/memory/TypedBuffer {
+	public static final field Companion Lkorlibs/memory/Uint8Buffer$Companion;
+	public static final field ELEMENT_SIZE_IN_BYTES I
+	public static final synthetic fun box-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Uint8Buffer;
+	public static fun constructor-impl (IZ)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl ([BII)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default (IZILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default ([BIIILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Lkorlibs/memory/Buffer;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Lkorlibs/memory/Buffer;Lkorlibs/memory/Buffer;)Z
+	public fun get (I)I
+	public static fun get-impl (Lkorlibs/memory/Buffer;I)I
+	public static final fun getArray-hrxjcLw (Lkorlibs/memory/Buffer;II)[B
+	public static synthetic fun getArray-hrxjcLw$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)[B
+	public static final fun getArray-pr7fePA (Lkorlibs/memory/Buffer;I[BII)[B
+	public static synthetic fun getArray-pr7fePA$default (Lkorlibs/memory/Buffer;I[BIIILjava/lang/Object;)[B
+	public fun getBuffer ()Lkorlibs/memory/Buffer;
+	public fun getElementSizeInBytes ()I
+	public static fun getElementSizeInBytes-impl (Lkorlibs/memory/Buffer;)I
+	public fun getSize ()I
+	public static fun getSize-impl (Lkorlibs/memory/Buffer;)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (Lkorlibs/memory/Buffer;)I
+	public fun set (II)V
+	public static fun set-impl (Lkorlibs/memory/Buffer;II)V
+	public static final fun setArray-2PK_0Jg (Lkorlibs/memory/Buffer;I[BII)V
+	public static synthetic fun setArray-2PK_0Jg$default (Lkorlibs/memory/Buffer;I[BIIILjava/lang/Object;)V
+	public static final fun slice-nklP_rA (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun slice-nklP_rA$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public static final fun sliceWithSize-nklP_rA (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun sliceWithSize-nklP_rA$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Lkorlibs/memory/Buffer;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Lkorlibs/memory/Buffer;
+}
+
+public final class korlibs/memory/Uint8Buffer$Companion {
+	public final fun invoke-kFHrFHI ([B)Lkorlibs/memory/Buffer;
+	public final fun invoke-vw-H1cQ ([B)Lkorlibs/memory/Buffer;
+}
+
+public final class korlibs/memory/Uint8ClampedBuffer : korlibs/memory/BaseIntBuffer, korlibs/memory/TypedBuffer {
+	public static final field Companion Lkorlibs/memory/Uint8ClampedBuffer$Companion;
+	public static final field ELEMENT_SIZE_IN_BYTES I
+	public static final synthetic fun box-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Uint8ClampedBuffer;
+	public static fun constructor-impl (IZ)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl (Lkorlibs/memory/Buffer;)Lkorlibs/memory/Buffer;
+	public static fun constructor-impl ([BII)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default (IZILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public static synthetic fun constructor-impl$default ([BIIILkotlin/jvm/internal/DefaultConstructorMarker;)Lkorlibs/memory/Buffer;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Lkorlibs/memory/Buffer;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Lkorlibs/memory/Buffer;Lkorlibs/memory/Buffer;)Z
+	public fun get (I)I
+	public static fun get-impl (Lkorlibs/memory/Buffer;I)I
+	public fun getBuffer ()Lkorlibs/memory/Buffer;
+	public fun getElementSizeInBytes ()I
+	public static fun getElementSizeInBytes-impl (Lkorlibs/memory/Buffer;)I
+	public fun getSize ()I
+	public static fun getSize-impl (Lkorlibs/memory/Buffer;)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (Lkorlibs/memory/Buffer;)I
+	public fun set (II)V
+	public static fun set-impl (Lkorlibs/memory/Buffer;II)V
+	public static final fun slice-RiZQ9so (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun slice-RiZQ9so$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public static final fun sliceWithSize-RiZQ9so (Lkorlibs/memory/Buffer;II)Lkorlibs/memory/Buffer;
+	public static synthetic fun sliceWithSize-RiZQ9so$default (Lkorlibs/memory/Buffer;IIILjava/lang/Object;)Lkorlibs/memory/Buffer;
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Lkorlibs/memory/Buffer;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Lkorlibs/memory/Buffer;
+}
+
+public final class korlibs/memory/Uint8ClampedBuffer$Companion {
+	public final fun invoke-5H8Hwew ([B)Lkorlibs/memory/Buffer;
+}
+
+public final class korlibs/memory/unit/ByteUnits {
+	public static final field Companion Lkorlibs/memory/unit/ByteUnits$Companion;
+	public static final synthetic fun box-impl (D)Lkorlibs/memory/unit/ByteUnits;
+	public static final fun div-r9KgFjA (DD)D
+	public static final fun div-rDZYvBM (DLjava/lang/Number;)D
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (DLjava/lang/Object;)Z
+	public static final fun equals-impl0 (DD)Z
+	public final fun getBytes ()D
+	public static final fun getBytesLong-impl (D)J
+	public static final fun getGigaBytes-impl (D)D
+	public static final fun getKiloBytes-impl (D)D
+	public static final fun getMegaBytes-impl (D)D
+	public fun hashCode ()I
+	public static fun hashCode-impl (D)I
+	public static final fun minus-ajgvYCw (DD)D
+	public static final fun plus-ajgvYCw (DD)D
+	public static final fun rem-ajgvYCw (DD)D
+	public static final fun times-rDZYvBM (DLjava/lang/Number;)D
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (D)Ljava/lang/String;
+	public static final fun unaryMinus-1QQjfvU (D)D
+	public final synthetic fun unbox-impl ()D
+}
+
+public final class korlibs/memory/unit/ByteUnits$Companion {
+	public final fun fromBytes-rDZYvBM (D)D
+	public final fun fromBytes-rDZYvBM (I)D
+	public final fun fromBytes-rDZYvBM (J)D
+	public final fun fromBytes-rDZYvBM (Ljava/lang/Number;)D
+	public final fun fromGigaBytes-rDZYvBM (Ljava/lang/Number;)D
+	public final fun fromKiloBytes-rDZYvBM (Ljava/lang/Number;)D
+	public final fun fromMegaBytes-rDZYvBM (Ljava/lang/Number;)D
+	public final fun getZERO-1QQjfvU ()D
+}
+

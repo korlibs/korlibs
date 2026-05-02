@@ -1,0 +1,414 @@
+public final class korlibs/io/lang/ASCII : korlibs/io/lang/SingleByteCharset {
+	public static final field INSTANCE Lkorlibs/io/lang/ASCII;
+}
+
+public abstract class korlibs/io/lang/BaseSingleByteCharset : korlibs/io/lang/Charset {
+	public fun <init> (Ljava/lang/String;)V
+	public fun estimateNumberOfBytesForCharacters (I)I
+	public fun estimateNumberOfCharactersForBytes (I)I
+}
+
+public abstract class korlibs/io/lang/Charset {
+	public static final field Companion Lkorlibs/io/lang/Charset$Companion;
+	public fun <init> (Ljava/lang/String;)V
+	public abstract fun decode (Ljava/lang/StringBuilder;[BII)I
+	public static synthetic fun decode$default (Lkorlibs/io/lang/Charset;Ljava/lang/StringBuilder;[BIIILjava/lang/Object;)I
+	public abstract fun encode (Lkorlibs/memory/ByteArrayBuilder;Ljava/lang/CharSequence;II)V
+	public static synthetic fun encode$default (Lkorlibs/io/lang/Charset;Lkorlibs/memory/ByteArrayBuilder;Ljava/lang/CharSequence;IIILjava/lang/Object;)V
+	public fun estimateNumberOfBytesForCharacters (I)I
+	public fun estimateNumberOfCharactersForBytes (I)I
+	public final fun getName ()Ljava/lang/String;
+}
+
+public final class korlibs/io/lang/Charset$Companion {
+	public final fun appendCodePointV (Ljava/lang/StringBuilder;I)V
+	public final fun decodeCodePoints (Ljava/lang/CharSequence;IILkotlin/jvm/functions/Function1;)V
+	public final fun forName (Ljava/lang/String;)Lkorlibs/io/lang/Charset;
+	public final fun registerProvider (Lkorlibs/io/lang/CharsetProvider;)V
+	public final fun registerProvider (Lkorlibs/io/lang/CharsetProvider;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public final fun unregisterProvider (Lkorlibs/io/lang/CharsetProvider;)V
+}
+
+public final class korlibs/io/lang/CharsetKt {
+	public static final fun decodeToString ([BLkorlibs/io/lang/Charset;IIZ)Ljava/lang/String;
+	public static synthetic fun decodeToString$default ([BLkorlibs/io/lang/Charset;IIZILjava/lang/Object;)Ljava/lang/String;
+	public static final fun encodeToByteArray (Ljava/lang/String;Lkorlibs/io/lang/Charset;IIZ)[B
+	public static synthetic fun encodeToByteArray$default (Ljava/lang/String;Lkorlibs/io/lang/Charset;IIZILjava/lang/Object;)[B
+	public static final fun getLATIN1 ()Lkorlibs/io/lang/ISO_8859_1;
+	public static final fun getUTF16_BE ()Lkorlibs/io/lang/UTF16Charset;
+	public static final fun getUTF16_LE ()Lkorlibs/io/lang/UTF16Charset;
+	public static final fun getUTF8 ()Lkorlibs/io/lang/Charset;
+	public static final fun readString ([BIILkorlibs/io/lang/Charset;)Ljava/lang/String;
+	public static synthetic fun readString$default ([BIILkorlibs/io/lang/Charset;ILjava/lang/Object;)Ljava/lang/String;
+	public static final fun readStringz ([BIILkorlibs/io/lang/Charset;)Ljava/lang/String;
+	public static final fun readStringz ([BILkorlibs/io/lang/Charset;)Ljava/lang/String;
+	public static synthetic fun readStringz$default ([BIILkorlibs/io/lang/Charset;ILjava/lang/Object;)Ljava/lang/String;
+	public static synthetic fun readStringz$default ([BILkorlibs/io/lang/Charset;ILjava/lang/Object;)Ljava/lang/String;
+	public static final fun toByteArray (Ljava/lang/String;Lkorlibs/io/lang/Charset;II)[B
+	public static synthetic fun toByteArray$default (Ljava/lang/String;Lkorlibs/io/lang/Charset;IIILjava/lang/Object;)[B
+	public static final fun toString ([BLkorlibs/io/lang/Charset;II)Ljava/lang/String;
+	public static synthetic fun toString$default ([BLkorlibs/io/lang/Charset;IIILjava/lang/Object;)Ljava/lang/String;
+}
+
+public abstract interface class korlibs/io/lang/CharsetProvider {
+	public static final field Companion Lkorlibs/io/lang/CharsetProvider$Companion;
+	public abstract fun invoke (Ljava/lang/String;Ljava/lang/String;)Lkorlibs/io/lang/Charset;
+}
+
+public final class korlibs/io/lang/CharsetProvider$Companion : korlibs/io/lang/CharsetProvider {
+	public fun invoke (Ljava/lang/String;Ljava/lang/String;)Lkorlibs/io/lang/Charset;
+}
+
+public final class korlibs/io/lang/Charsets {
+	public static final field INSTANCE Lkorlibs/io/lang/Charsets;
+	public final fun getLATIN1 ()Lkorlibs/io/lang/ISO_8859_1;
+	public final fun getUTF16_BE ()Lkorlibs/io/lang/UTF16Charset;
+	public final fun getUTF16_LE ()Lkorlibs/io/lang/UTF16Charset;
+	public final fun getUTF8 ()Lkorlibs/io/lang/Charset;
+}
+
+public final class korlibs/io/lang/ISO_8859_1 : korlibs/io/lang/SingleByteCharset {
+	public static final field INSTANCE Lkorlibs/io/lang/ISO_8859_1;
+}
+
+public final class korlibs/io/lang/JvmCharset : korlibs/io/lang/Charset {
+	public fun <init> (Ljava/nio/charset/Charset;)V
+	public fun decode (Ljava/lang/StringBuilder;[BII)I
+	public fun encode (Lkorlibs/memory/ByteArrayBuilder;Ljava/lang/CharSequence;II)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCharset ()Ljava/nio/charset/Charset;
+	public final fun getDecoder ()Ljava/nio/charset/CharsetDecoder;
+	public final fun getEncoder ()Ljava/nio/charset/CharsetEncoder;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public class korlibs/io/lang/SingleByteCharset : korlibs/io/lang/BaseSingleByteCharset {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public fun decode (Ljava/lang/StringBuilder;[BII)I
+	public fun encode (Lkorlibs/memory/ByteArrayBuilder;Ljava/lang/CharSequence;II)V
+	public final fun getConv ()Ljava/lang/String;
+	public final fun getV ()[B
+}
+
+public final class korlibs/io/lang/StringCase {
+	public static final field Companion Lkorlibs/io/lang/StringCase$Companion;
+	public static final synthetic fun box-impl (Ljava/util/List;)Lkorlibs/io/lang/StringCase;
+	public static fun constructor-impl (Ljava/util/List;)Ljava/util/List;
+	public static fun constructor-impl ([Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/util/List;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/util/List;Ljava/util/List;)Z
+	public static final fun getCamelCase-impl (Ljava/util/List;)Ljava/lang/String;
+	public static final fun getKebabCase-impl (Ljava/util/List;)Ljava/lang/String;
+	public static final fun getPascalCase-impl (Ljava/util/List;)Ljava/lang/String;
+	public static final fun getScreamingSnakeCase-impl (Ljava/util/List;)Ljava/lang/String;
+	public static final fun getSnakeCase-impl (Ljava/util/List;)Ljava/lang/String;
+	public static final fun getSpaceCase-impl (Ljava/util/List;)Ljava/lang/String;
+	public final fun getWords ()Ljava/util/List;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/util/List;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/util/List;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/util/List;
+}
+
+public final class korlibs/io/lang/StringCase$Companion {
+	public final fun autodetect-HCeWe28 (Ljava/lang/String;Z)Ljava/util/List;
+	public static synthetic fun autodetect-HCeWe28$default (Lkorlibs/io/lang/StringCase$Companion;Ljava/lang/String;ZILjava/lang/Object;)Ljava/util/List;
+}
+
+public final class korlibs/io/lang/StringCaseKt {
+	public static final fun getCase (Ljava/lang/String;)Ljava/util/List;
+	public static final fun stringCase (Ljava/lang/String;)Ljava/util/List;
+	public static final fun textCase (Ljava/lang/String;)Ljava/util/List;
+}
+
+public final class korlibs/io/lang/StringExtKt {
+	public static final fun eachBuilder (Ljava/lang/String;Lkotlin/jvm/functions/Function2;)Ljava/lang/String;
+	public static final fun fromCharArray (Lkotlin/jvm/internal/StringCompanionObject;[CII)Ljava/lang/String;
+	public static synthetic fun fromCharArray$default (Lkotlin/jvm/internal/StringCompanionObject;[CIIILjava/lang/Object;)Ljava/lang/String;
+	public static final fun fromIntArray (Lkotlin/jvm/internal/StringCompanionObject;[III)Ljava/lang/String;
+	public static synthetic fun fromIntArray$default (Lkotlin/jvm/internal/StringCompanionObject;[IIIILjava/lang/Object;)Ljava/lang/String;
+	public static final fun indexOfOrNull (Ljava/lang/String;CI)Ljava/lang/Integer;
+	public static synthetic fun indexOfOrNull$default (Ljava/lang/String;CIILjava/lang/Object;)Ljava/lang/Integer;
+	public static final fun invoke (Lkotlin/jvm/internal/StringCompanionObject;[III)Ljava/lang/String;
+	public static synthetic fun invoke$default (Lkotlin/jvm/internal/StringCompanionObject;[IIIILjava/lang/Object;)Ljava/lang/String;
+	public static final fun lastIndexOfOrNull (Ljava/lang/String;CI)Ljava/lang/Integer;
+	public static synthetic fun lastIndexOfOrNull$default (Ljava/lang/String;CIILjava/lang/Object;)Ljava/lang/Integer;
+	public static final fun parseInt (Ljava/lang/String;)I
+	public static final fun replaceNonPrintableCharacters (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun replaceNonPrintableCharacters$default (Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public static final fun splitInChunks (Ljava/lang/String;I)Ljava/util/List;
+	public static final fun splitKeep (Ljava/lang/String;Lkotlin/text/Regex;)Ljava/util/List;
+	public static final fun substr (Ljava/lang/String;I)Ljava/lang/String;
+	public static final fun substr (Ljava/lang/String;II)Ljava/lang/String;
+	public static final fun substringEquals (Lkotlin/jvm/internal/StringCompanionObject;Ljava/lang/String;ILjava/lang/String;II)Z
+	public static final fun toCharArray (Ljava/lang/String;)[C
+	public static final fun transform (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Ljava/lang/String;
+	public static final fun withInsertion (Ljava/lang/String;ILjava/lang/String;)Ljava/lang/String;
+	public static final fun withoutIndex (Ljava/lang/String;I)Ljava/lang/String;
+	public static final fun withoutRange (Ljava/lang/String;Lkotlin/ranges/IntRange;)Ljava/lang/String;
+}
+
+public class korlibs/io/lang/UTC8CharsetBase : korlibs/io/lang/Charset {
+	public fun <init> (Ljava/lang/String;)V
+	public fun decode (Ljava/lang/StringBuilder;[BII)I
+	public fun encode (Lkorlibs/memory/ByteArrayBuilder;Ljava/lang/CharSequence;II)V
+	public fun estimateNumberOfBytesForCharacters (I)I
+	public fun estimateNumberOfCharactersForBytes (I)I
+}
+
+public final class korlibs/io/lang/UTF16Charset : korlibs/io/lang/Charset {
+	public fun <init> (Z)V
+	public fun decode (Ljava/lang/StringBuilder;[BII)I
+	public fun encode (Lkorlibs/memory/ByteArrayBuilder;Ljava/lang/CharSequence;II)V
+	public fun estimateNumberOfBytesForCharacters (I)I
+	public fun estimateNumberOfCharactersForBytes (I)I
+	public final fun getLe ()Z
+}
+
+public final class korlibs/io/lang/WChar {
+	public static final synthetic fun box-impl (I)Lkorlibs/io/lang/WChar;
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public static final fun getCode-impl (I)I
+	public final fun getCodePoint ()I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun toChar-impl (I)C
+	public static final fun toInt-impl (I)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/io/lang/WString {
+	public static final field Companion Lkorlibs/io/lang/WString$Companion;
+	public synthetic fun <init> ([ILjava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun codePointAt (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun get-QMPSP58 (I)I
+	public final fun getLength ()I
+	public final fun getOrElse-f7cpIBc (ILkotlin/jvm/functions/Function1;)I
+	public fun hashCode ()I
+	public final fun substring (I)Lkorlibs/io/lang/WString;
+	public final fun substring (II)Lkorlibs/io/lang/WString;
+	public final fun toCodePointIntArray ()[I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/lang/WString$Companion {
+	public final fun fromCodePoints ([I)Lkorlibs/io/lang/WString;
+	public final fun fromString (Ljava/lang/String;)Lkorlibs/io/lang/WString;
+	public final fun invoke (Ljava/lang/String;)Lkorlibs/io/lang/WString;
+	public final fun invoke ([I)Lkorlibs/io/lang/WString;
+}
+
+public final class korlibs/io/lang/WStringKt {
+	public static final fun forEachCodePoint (Ljava/lang/String;Lkotlin/jvm/functions/Function3;)I
+	public static final fun forEachCodePoint (Lkorlibs/io/lang/WString;Lkotlin/jvm/functions/Function3;)I
+	public static final fun keep (Lkorlibs/io/lang/WStringReader;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun substr (Lkorlibs/io/lang/WString;II)Lkorlibs/io/lang/WString;
+	public static synthetic fun substr$default (Lkorlibs/io/lang/WString;IIILjava/lang/Object;)Lkorlibs/io/lang/WString;
+	public static final fun toWString (Ljava/lang/String;)Lkorlibs/io/lang/WString;
+}
+
+public final class korlibs/io/lang/WStringReader {
+	public fun <init> (Ljava/lang/String;I)V
+	public synthetic fun <init> (Ljava/lang/String;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lkorlibs/io/lang/WString;I)V
+	public synthetic fun <init> (Lkorlibs/io/lang/WString;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAvailable ()I
+	public final fun getEof ()Z
+	public final fun getHasMore ()Z
+	public final fun getLength ()I
+	public final fun getPosition ()I
+	public final fun getStr ()Lkorlibs/io/lang/WString;
+	public final fun peek-QMPSP58 (I)I
+	public static synthetic fun peek-QMPSP58$default (Lkorlibs/io/lang/WStringReader;IILjava/lang/Object;)I
+	public final fun read-7U946RQ ()I
+	public final fun setPosition (I)V
+	public final fun skip (I)V
+	public final fun substr (II)Lkorlibs/io/lang/WString;
+	public static synthetic fun substr$default (Lkorlibs/io/lang/WStringReader;IIILjava/lang/Object;)Lkorlibs/io/lang/WString;
+}
+
+public final class korlibs/io/lang/internal/_InternalKt {
+	public static final fun extract (III)I
+	public static final fun extractByte (II)B
+	public static final fun get16BE ([BI)I
+	public static final fun get16LE ([BI)I
+	public static final fun getS16 ([BIZ)I
+	public static final fun getS16BE ([BI)I
+	public static final fun getS16LE ([BI)I
+	public static final fun insert (IIII)I
+	public static final fun mask (I)I
+	public static final fun set16 ([BIIZ)V
+	public static final fun set16BE ([BII)V
+	public static final fun set16LE ([BII)V
+	public static final fun signExtend (II)I
+	public static final fun u8 ([BI)I
+}
+
+public abstract interface class korlibs/io/stream/CharReader {
+	public abstract fun clone ()Lkorlibs/io/stream/CharReader;
+	public abstract fun read (Ljava/lang/StringBuilder;I)I
+}
+
+public final class korlibs/io/stream/CharReaderKt {
+	public static final fun read (Lkorlibs/io/stream/CharReader;I)Ljava/lang/String;
+}
+
+public final class korlibs/io/util/CharExtKt {
+	public static final fun isDigit (C)Z
+	public static final fun isLetter (C)Z
+	public static final fun isLetterDigitOrUnderscore (C)Z
+	public static final fun isLetterOrDigit (C)Z
+	public static final fun isLetterOrDigitOrDollar (C)Z
+	public static final fun isLetterOrUnderscore (C)Z
+	public static final fun isNumeric (C)Z
+	public static final fun isPossibleFloatChar (C)Z
+	public static final fun isPrintable (C)Z
+	public static final fun isWhitespaceFast (C)Z
+}
+
+public final class korlibs/io/util/StringEscapeKt {
+	public static final fun escape (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun escape (Ljava/lang/String;Z)Ljava/lang/String;
+	public static final fun escapeUnicode (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getQuoted (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getUnquoted (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun isQuoted (Ljava/lang/String;)Z
+	public static final fun quote (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun quote (Ljava/lang/String;Z)Ljava/lang/String;
+	public static final fun quoteUnicode (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun uescape (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun unescape (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun unquote (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun uquote (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class korlibs/io/util/StringExtKt {
+	public static final fun substringAfterLastOrNull (Ljava/lang/String;C)Ljava/lang/String;
+	public static final fun substringAfterLastOrNull (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun substringAfterOrNull (Ljava/lang/String;C)Ljava/lang/String;
+	public static final fun substringAfterOrNull (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun substringBeforeLastOrNull (Ljava/lang/String;C)Ljava/lang/String;
+	public static final fun substringBeforeLastOrNull (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun substringBeforeOrNull (Ljava/lang/String;C)Ljava/lang/String;
+	public static final fun substringBeforeOrNull (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class korlibs/util/CharReaderStrReader : korlibs/util/SimpleStrReader {
+	public fun <init> (Lkorlibs/io/stream/CharReader;Ljava/lang/StringBuilder;I)V
+	public synthetic fun <init> (Lkorlibs/io/stream/CharReader;Ljava/lang/StringBuilder;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun clone ()Lkorlibs/util/SimpleStrReader;
+	public final fun getBuffer ()Ljava/lang/StringBuilder;
+	public final fun getBufferPos ()I
+	public fun getHasMore ()Z
+	public fun getPos ()I
+	public final fun getReader ()Lkorlibs/io/stream/CharReader;
+	public fun peekChar ()C
+	public fun readChar ()C
+	public final fun setBufferPos (I)V
+	public fun setPos (I)V
+	public fun skip (I)Lkorlibs/util/SimpleStrReader;
+	public fun toStringContext ()Ljava/lang/String;
+}
+
+public abstract interface class korlibs/util/SimpleIndenter {
+	public static final field Companion Lkorlibs/util/SimpleIndenter$Companion;
+	public abstract fun clear ()V
+	public abstract fun indent ()V
+	public abstract fun inline (Ljava/lang/String;)Lkorlibs/util/SimpleIndenter;
+	public abstract fun line (Ljava/lang/String;)Lkorlibs/util/SimpleIndenter;
+	public abstract fun toString ()Ljava/lang/String;
+	public abstract fun unindent ()V
+}
+
+public final class korlibs/util/SimpleIndenter$Companion {
+	public final fun invoke (Z)Lkorlibs/util/SimpleIndenter;
+	public static synthetic fun invoke$default (Lkorlibs/util/SimpleIndenter$Companion;ZILjava/lang/Object;)Lkorlibs/util/SimpleIndenter;
+}
+
+public final class korlibs/util/SimpleIndenter$Companion$Impl : korlibs/util/SimpleIndenter {
+	public fun <init> (Z)V
+	public fun clear ()V
+	public final fun flush ()V
+	public final fun getCurrentLine ()Ljava/lang/StringBuilder;
+	public final fun getIndentation ()I
+	public final fun getLines ()Ljava/util/ArrayList;
+	public final fun getTrailingLine ()Z
+	public fun indent ()V
+	public fun inline (Ljava/lang/String;)Lkorlibs/util/SimpleIndenter;
+	public fun line (Ljava/lang/String;)Lkorlibs/util/SimpleIndenter;
+	public final fun setCurrentLine (Ljava/lang/StringBuilder;)V
+	public final fun setIndentation (I)V
+	public fun toString ()Ljava/lang/String;
+	public fun unindent ()V
+}
+
+public final class korlibs/util/SimpleIndenter$INDENTS {
+	public static final field INSTANCE Lkorlibs/util/SimpleIndenter$INDENTS;
+	public final fun get (I)Ljava/lang/String;
+}
+
+public final class korlibs/util/SimpleIndenterKt {
+	public static final fun indent (Lkorlibs/util/SimpleIndenter;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/util/SimpleStrReader {
+	public static final field Companion Lkorlibs/util/SimpleStrReader$Companion;
+	public abstract fun clone ()Lkorlibs/util/SimpleStrReader;
+	public abstract fun getHasMore ()Z
+	public abstract fun getPos ()I
+	public abstract fun peekChar ()C
+	public abstract fun readChar ()C
+	public fun skip (I)Lkorlibs/util/SimpleStrReader;
+	public static synthetic fun skip$default (Lkorlibs/util/SimpleStrReader;IILjava/lang/Object;)Lkorlibs/util/SimpleStrReader;
+	public fun toStringContext ()Ljava/lang/String;
+}
+
+public final class korlibs/util/SimpleStrReader$Companion {
+	public final fun invoke (Ljava/lang/String;I)Lkorlibs/util/SimpleStrReader;
+	public static synthetic fun invoke$default (Lkorlibs/util/SimpleStrReader$Companion;Ljava/lang/String;IILjava/lang/Object;)Lkorlibs/util/SimpleStrReader;
+}
+
+public final class korlibs/util/SimpleStrReader$DefaultImpls {
+	public static fun skip (Lkorlibs/util/SimpleStrReader;I)Lkorlibs/util/SimpleStrReader;
+	public static synthetic fun skip$default (Lkorlibs/util/SimpleStrReader;IILjava/lang/Object;)Lkorlibs/util/SimpleStrReader;
+	public static fun toStringContext (Lkorlibs/util/SimpleStrReader;)Ljava/lang/String;
+}
+
+public final class korlibs/util/SimpleStrReader_extKt {
+	public static final fun getEof (Lkorlibs/util/SimpleStrReader;)Z
+	public static final fun matchIdentifier (Lkorlibs/util/SimpleStrReader;Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public static final fun matchSingleOrDoubleQuoteString (Lkorlibs/util/SimpleStrReader;Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
+	public static final fun read (Lkorlibs/util/SimpleStrReader;I)Ljava/lang/String;
+	public static final fun readUntilBuilder (Lkorlibs/util/SimpleStrReader;CLjava/lang/StringBuilder;Z)Ljava/lang/StringBuilder;
+	public static final fun readUntilBuilder (Lkorlibs/util/SimpleStrReader;ZLjava/lang/StringBuilder;Lkotlin/jvm/functions/Function1;)Ljava/lang/StringBuilder;
+	public static synthetic fun readUntilBuilder$default (Lkorlibs/util/SimpleStrReader;CLjava/lang/StringBuilder;ZILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public static synthetic fun readUntilBuilder$default (Lkorlibs/util/SimpleStrReader;ZLjava/lang/StringBuilder;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public static final fun readWhileBuilder (Lkorlibs/util/SimpleStrReader;ZLjava/lang/StringBuilder;Lkotlin/jvm/functions/Function1;)Ljava/lang/StringBuilder;
+	public static synthetic fun readWhileBuilder$default (Lkorlibs/util/SimpleStrReader;ZLjava/lang/StringBuilder;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/lang/StringBuilder;
+	public static final fun skipExpect (Lkorlibs/util/SimpleStrReader;C)V
+	public static final fun skipSpaces (Lkorlibs/util/SimpleStrReader;)Lkorlibs/util/SimpleStrReader;
+	public static final fun skipWhile (Lkorlibs/util/SimpleStrReader;Lkotlin/jvm/functions/Function1;)Lkorlibs/util/SimpleStrReader;
+	public static final fun tryExpect (Lkorlibs/util/SimpleStrReader;CZ)Z
+	public static synthetic fun tryExpect$default (Lkorlibs/util/SimpleStrReader;CZILjava/lang/Object;)Z
+}
+
+public final class korlibs/util/StrReaderCharReader : korlibs/io/stream/CharReader {
+	public fun <init> (Lkorlibs/util/SimpleStrReader;)V
+	public fun clone ()Lkorlibs/io/stream/CharReader;
+	public final fun getReader ()Lkorlibs/util/SimpleStrReader;
+	public fun read (Ljava/lang/StringBuilder;I)I
+}
+
+public final class korlibs/util/StringformatKt {
+	public static final fun format (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+}
+

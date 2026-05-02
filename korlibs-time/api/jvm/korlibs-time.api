@@ -1,0 +1,1940 @@
+public final class korlibs/time/ComputedTime {
+	public static final field Companion Lkorlibs/time/ComputedTime$Companion;
+	public fun <init> ()V
+	public fun <init> (IIIIII)V
+	public synthetic fun <init> (IIIIIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getDays ()I
+	public final fun getDaysIncludingWeeks ()I
+	public final fun getHours ()I
+	public final fun getHoursIncludingDaysAndWeeks ()I
+	public final fun getMilliseconds ()D
+	public final fun getMinutes ()I
+	public final fun getNanoseconds ()I
+	public final fun getSeconds ()I
+	public final fun getSecondsIncludingMilliseconds ()D
+	public final fun getWeeks ()I
+}
+
+public final class korlibs/time/ComputedTime$Companion {
+	public final fun invoke-LRDsOJo (J)Lkorlibs/time/ComputedTime;
+}
+
+public final class korlibs/time/Date : java/io/Serializable, java/lang/Comparable {
+	public static final field Companion Lkorlibs/time/Date$Companion;
+	public static final synthetic fun box-impl (I)Lkorlibs/time/Date;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-o-UHk2o (I)I
+	public static fun compareTo-o-UHk2o (II)I
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public static final fun format-impl (ILjava/lang/String;)Ljava/lang/String;
+	public static final fun format-impl (ILkorlibs/time/DateFormat;)Ljava/lang/String;
+	public static final fun getDateTimeDayStart-Wg0KzQs (I)D
+	public static final fun getDay-impl (I)I
+	public static final fun getDayOfWeek-impl (I)Lkorlibs/time/DayOfWeek;
+	public static final fun getDayOfWeekInt-impl (I)I
+	public static final fun getDayOfYear-impl (I)I
+	public final fun getEncoded ()I
+	public static final fun getMonth-impl (I)Lkorlibs/time/Month;
+	public static final fun getMonth1-impl (I)I
+	public static final fun getYear-impl (I)I
+	public static final fun getYearYear-qZVLhkI (I)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/time/Date$Companion {
+	public final fun fromDayOfYear-OAu-n2E (II)I
+	public final fun fromWeekAndDay-Sj9n4bg (III)I
+	public final fun invoke-9bxn9aU (II)I
+	public final fun invoke-Ivh55JI (ILkorlibs/time/Month;I)I
+	public final fun invoke-Sj9n4bg (III)I
+	public final fun invoke-Sj9n4bg (ILkorlibs/time/Month;I)I
+}
+
+public final class korlibs/time/DateComponents {
+	public synthetic fun <init> (Lkorlibs/time/DateComponents$Mode;IIIIIIILkotlin/time/Duration;IZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lkorlibs/time/DateComponents$Mode;IIIIIIILkotlin/time/Duration;IZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkorlibs/time/DateComponents$Mode;
+	public final fun component10 ()I
+	public final fun component11 ()Z
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun component4 ()I
+	public final fun component5 ()I
+	public final fun component6 ()I
+	public final fun component7 ()I
+	public final fun component8 ()I
+	public final fun component9-FghU774 ()Lkotlin/time/Duration;
+	public final fun copy-mLxPkkc (Lkorlibs/time/DateComponents$Mode;IIIIIIILkotlin/time/Duration;IZ)Lkorlibs/time/DateComponents;
+	public static synthetic fun copy-mLxPkkc$default (Lkorlibs/time/DateComponents;Lkorlibs/time/DateComponents$Mode;IIIIIIILkotlin/time/Duration;IZILjava/lang/Object;)Lkorlibs/time/DateComponents;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClampHours ()Z
+	public final fun getDate-1iQqF6g ()I
+	public final fun getDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public final fun getDayOfYear ()I
+	public final fun getDays ()I
+	public final fun getHours ()I
+	public final fun getMilliseconds ()I
+	public final fun getMillisecondsDouble ()D
+	public final fun getMinutes ()I
+	public final fun getMode ()Lkorlibs/time/DateComponents$Mode;
+	public final fun getMonths ()I
+	public final fun getNanoseconds ()I
+	public final fun getOffset-FghU774 ()Lkotlin/time/Duration;
+	public final fun getSeconds ()I
+	public final fun getSign ()I
+	public final fun getTimezoneOffset-qDrnzRU ()D
+	public final fun getYears ()I
+	public fun hashCode ()I
+	public final fun isTime ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/time/DateComponents$Mode : java/lang/Enum {
+	public static final field DATE Lkorlibs/time/DateComponents$Mode;
+	public static final field DATE_TIME_SPAN Lkorlibs/time/DateComponents$Mode;
+	public static final field TIME Lkorlibs/time/DateComponents$Mode;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/time/DateComponents$Mode;
+	public static fun values ()[Lkorlibs/time/DateComponents$Mode;
+}
+
+public abstract interface class korlibs/time/DateComponentsFormat : java/io/Serializable {
+	public static final field Companion Lkorlibs/time/DateComponentsFormat$Companion;
+	public abstract fun format (Lkorlibs/time/DateComponents;)Ljava/lang/String;
+	public abstract fun tryParse (Ljava/lang/String;Lkorlibs/time/DateComponents$Mode;Z)Lkorlibs/time/DateComponents;
+	public static synthetic fun tryParse$default (Lkorlibs/time/DateComponentsFormat;Ljava/lang/String;Lkorlibs/time/DateComponents$Mode;ZILjava/lang/Object;)Lkorlibs/time/DateComponents;
+}
+
+public final class korlibs/time/DateComponentsFormat$Companion {
+	public final fun invoke (Ljava/lang/String;Lkorlibs/time/KlockLocale;Lkorlibs/time/TimezoneNames;)Lkorlibs/time/PatternDateComponentsFormat;
+	public static synthetic fun invoke$default (Lkorlibs/time/DateComponentsFormat$Companion;Ljava/lang/String;Lkorlibs/time/KlockLocale;Lkorlibs/time/TimezoneNames;ILjava/lang/Object;)Lkorlibs/time/PatternDateComponentsFormat;
+}
+
+public final class korlibs/time/DateComponentsFormat$DefaultImpls {
+	public static synthetic fun tryParse$default (Lkorlibs/time/DateComponentsFormat;Ljava/lang/String;Lkorlibs/time/DateComponents$Mode;ZILjava/lang/Object;)Lkorlibs/time/DateComponents;
+}
+
+public final class korlibs/time/DateComponentsFormatKt {
+	public static final fun parse (Lkorlibs/time/DateComponentsFormat;Ljava/lang/String;Lkorlibs/time/DateComponents$Mode;)Lkorlibs/time/DateComponents;
+	public static synthetic fun parse$default (Lkorlibs/time/DateComponentsFormat;Ljava/lang/String;Lkorlibs/time/DateComponents$Mode;ILjava/lang/Object;)Lkorlibs/time/DateComponents;
+	public static final fun toDateFormat (Lkorlibs/time/DateComponentsFormat;)Lkorlibs/time/DateFormat;
+	public static final fun toDateTimeSpanFormat (Lkorlibs/time/DateComponentsFormat;)Lkorlibs/time/DateTimeSpanFormat;
+	public static final fun toTimeFormat (Lkorlibs/time/DateComponentsFormat;)Lkorlibs/time/TimeFormat;
+}
+
+public final class korlibs/time/DateComponentsKt {
+	public static final fun toDateComponents (Lkorlibs/time/DateTimeSpan;)Lkorlibs/time/DateComponents;
+	public static final fun toDateComponents (Lkorlibs/time/DateTimeTz;)Lkorlibs/time/DateComponents;
+	public static final fun toDateComponents-LRDsOJo (J)Lkorlibs/time/DateComponents;
+	public static final fun toDateTimeSpan (Lkorlibs/time/DateComponents;)Lkorlibs/time/DateTimeSpan;
+	public static final fun toDateTimeTz (Lkorlibs/time/DateComponents;ZZ)Lkorlibs/time/DateTimeTz;
+	public static synthetic fun toDateTimeTz$default (Lkorlibs/time/DateComponents;ZZILjava/lang/Object;)Lkorlibs/time/DateTimeTz;
+	public static final fun toDuration (Lkorlibs/time/DateComponents;)J
+}
+
+public abstract interface class korlibs/time/DateFormat : java/io/Serializable {
+	public static final field Companion Lkorlibs/time/DateFormat$Companion;
+	public abstract fun format (Lkorlibs/time/DateTimeTz;)Ljava/lang/String;
+	public abstract fun tryParse (Ljava/lang/String;ZZ)Lkorlibs/time/DateTimeTz;
+	public static synthetic fun tryParse$default (Lkorlibs/time/DateFormat;Ljava/lang/String;ZZILjava/lang/Object;)Lkorlibs/time/DateTimeTz;
+}
+
+public final class korlibs/time/DateFormat$Companion {
+	public final fun getDEFAULT_FORMAT ()Lkorlibs/time/PatternDateFormat;
+	public final fun getFORMAT1 ()Lkorlibs/time/PatternDateFormat;
+	public final fun getFORMAT2 ()Lkorlibs/time/PatternDateFormat;
+	public final fun getFORMATS ()Ljava/util/List;
+	public final fun getFORMAT_DATE ()Lkorlibs/time/PatternDateFormat;
+	public final fun getISO_DATE_TIME_OFFSET ()Lkorlibs/time/PatternDateFormat;
+	public final fun invoke (Ljava/lang/String;)Lkorlibs/time/PatternDateFormat;
+	public final fun parse (Ljava/lang/String;)Lkorlibs/time/DateTimeTz;
+}
+
+public final class korlibs/time/DateFormat$DefaultImpls {
+	public static synthetic fun tryParse$default (Lkorlibs/time/DateFormat;Ljava/lang/String;ZZILjava/lang/Object;)Lkorlibs/time/DateTimeTz;
+}
+
+public final class korlibs/time/DateFormatKt {
+	public static final fun format (Lkorlibs/time/DateFormat;D)Ljava/lang/String;
+	public static final fun format (Lkorlibs/time/DateFormat;J)Ljava/lang/String;
+	public static final fun format-eaVjxxc (Lkorlibs/time/DateFormat;D)Ljava/lang/String;
+	public static final fun format-iQUGq3A (Lkorlibs/time/DateFormat;I)Ljava/lang/String;
+	public static final fun parse (Lkorlibs/time/DateFormat;Ljava/lang/String;Z)Lkorlibs/time/DateTimeTz;
+	public static synthetic fun parse$default (Lkorlibs/time/DateFormat;Ljava/lang/String;ZILjava/lang/Object;)Lkorlibs/time/DateTimeTz;
+	public static final fun parseDate (Lkorlibs/time/DateFormat;Ljava/lang/String;)I
+	public static final fun parseLocal (Lkorlibs/time/DateFormat;Ljava/lang/String;)D
+	public static final fun parseUtc (Lkorlibs/time/DateFormat;Ljava/lang/String;)D
+}
+
+public final class korlibs/time/DateKt {
+	public static final fun getWeekOfYear0 (Lkorlibs/time/DateTimeTz;)I
+	public static final fun getWeekOfYear0-o-UHk2o (I)I
+	public static final fun getWeekOfYear0-wTNfQOg (D)I
+	public static final fun getWeekOfYear1 (Lkorlibs/time/DateTimeTz;)I
+	public static final fun getWeekOfYear1-o-UHk2o (I)I
+	public static final fun getWeekOfYear1-wTNfQOg (D)I
+	public static final fun inThisWeek-9qroEWc (ILkorlibs/time/DayOfWeekWithLocale;)I
+	public static final fun inThisWeek-c4jPE2Q (ILkorlibs/time/DayOfWeek;Lkorlibs/time/KlockLocale;)I
+	public static synthetic fun inThisWeek-c4jPE2Q$default (ILkorlibs/time/DayOfWeek;Lkorlibs/time/KlockLocale;ILjava/lang/Object;)I
+	public static final fun minus-27ur7gc (II)I
+	public static final fun minus-9qroEWc (ILkorlibs/time/DateTimeSpan;)I
+	public static final fun minus-SlLEApk (IJ)I
+	public static final fun minus-t6pmzrw (IJ)D
+	public static final fun plus-27ur7gc (II)I
+	public static final fun plus-9qroEWc (ILkorlibs/time/DateTimeSpan;)I
+	public static final fun plus-SlLEApk (IJ)I
+	public static final fun plus-t6pmzrw (IJ)D
+}
+
+public final class korlibs/time/DateTimeExtKt {
+	public static final fun add-DXGEvpU (DID)D
+	public static final fun add-FdJHsMc (DIJ)D
+	public static final fun copyDayOfMonth-h2RFSHc (DILkorlibs/time/Month;IIIII)D
+	public static synthetic fun copyDayOfMonth-h2RFSHc$default (DILkorlibs/time/Month;IIIIIILjava/lang/Object;)D
+	public static final fun endOfDayOfWeek-_ZtuoXs (DLkorlibs/time/DayOfWeek;)D
+	public static final fun format-_ZtuoXs (DLjava/lang/String;)Ljava/lang/String;
+	public static final fun format-_ZtuoXs (DLkorlibs/time/DateFormat;)Ljava/lang/String;
+	public static final fun fromString (Lkorlibs/time/DateTime$Companion;Ljava/lang/String;)Lkorlibs/time/DateTimeTz;
+	public static final fun getDate-wTNfQOg (D)I
+	public static final fun getDateDayEnd-wTNfQOg (D)D
+	public static final fun getDateDayStart-wTNfQOg (D)D
+	public static final fun getDayOfWeek-wTNfQOg (D)Lkorlibs/time/DayOfWeek;
+	public static final fun getEndOfDay-wTNfQOg (D)D
+	public static final fun getEndOfHour-wTNfQOg (D)D
+	public static final fun getEndOfIsoWeek-wTNfQOg (D)D
+	public static final fun getEndOfMinute-wTNfQOg (D)D
+	public static final fun getEndOfMonth-wTNfQOg (D)D
+	public static final fun getEndOfQuarter-wTNfQOg (D)D
+	public static final fun getEndOfSecond-wTNfQOg (D)D
+	public static final fun getEndOfWeek-wTNfQOg (D)D
+	public static final fun getEndOfYear-wTNfQOg (D)D
+	public static final fun getLocal-wTNfQOg (D)Lkorlibs/time/DateTimeTz;
+	public static final fun getLocalOffset-wTNfQOg (D)D
+	public static final fun getLocalUnadjusted-wTNfQOg (D)Lkorlibs/time/DateTimeTz;
+	public static final fun getMonth-wTNfQOg (D)Lkorlibs/time/Month;
+	public static final fun getStartOfDay-wTNfQOg (D)D
+	public static final fun getStartOfHour-wTNfQOg (D)D
+	public static final fun getStartOfIsoWeek-wTNfQOg (D)D
+	public static final fun getStartOfMinute-wTNfQOg (D)D
+	public static final fun getStartOfMonth-wTNfQOg (D)D
+	public static final fun getStartOfQuarter-wTNfQOg (D)D
+	public static final fun getStartOfSecond-wTNfQOg (D)D
+	public static final fun getStartOfWeek-wTNfQOg (D)D
+	public static final fun getStartOfYear-wTNfQOg (D)D
+	public static final fun getTime-wTNfQOg (D)J
+	public static final fun getUtc-wTNfQOg (D)Lkorlibs/time/DateTimeTz;
+	public static final fun getYear-wTNfQOg (D)I
+	public static final fun getYearMonth-wTNfQOg (D)I
+	public static final fun invoke (Lkorlibs/time/DateTime$Companion;ILkorlibs/time/Month;IIIII)D
+	public static synthetic fun invoke$default (Lkorlibs/time/DateTime$Companion;ILkorlibs/time/Month;IIIIIILjava/lang/Object;)D
+	public static final fun invoke-Db8465g (Lkorlibs/time/DateTime$Companion;ILkorlibs/time/Month;IIIII)D
+	public static synthetic fun invoke-Db8465g$default (Lkorlibs/time/DateTime$Companion;ILkorlibs/time/Month;IIIIIILjava/lang/Object;)D
+	public static final fun invoke-Zika5bw (Lkorlibs/time/DateTime$Companion;IJ)D
+	public static synthetic fun invoke-Zika5bw$default (Lkorlibs/time/DateTime$Companion;IJILjava/lang/Object;)D
+	public static final fun minus-69XZKiA (DI)D
+	public static final fun minus-_ZtuoXs (DLkorlibs/time/DateTimeSpan;)D
+	public static final fun nowLocal (Lkorlibs/time/DateTime$Companion;)Lkorlibs/time/DateTimeTz;
+	public static final fun parse (Lkorlibs/time/DateTime$Companion;Ljava/lang/String;)Lkorlibs/time/DateTimeTz;
+	public static final fun plus-69XZKiA (DI)D
+	public static final fun plus-_ZtuoXs (DLkorlibs/time/DateTimeSpan;)D
+	public static final fun startOfDayOfWeek-_ZtuoXs (DLkorlibs/time/DayOfWeek;)D
+	public static final fun toOffset-0ZLV3zs (DJ)Lkorlibs/time/DateTimeTz;
+	public static final fun toOffset-e40-6F0 (DD)Lkorlibs/time/DateTimeTz;
+	public static final fun toOffsetUnadjusted-0ZLV3zs (DJ)Lkorlibs/time/DateTimeTz;
+	public static final fun toOffsetUnadjusted-e40-6F0 (DD)Lkorlibs/time/DateTimeTz;
+	public static final fun toString-_ZtuoXs (DLjava/lang/String;)Ljava/lang/String;
+	public static final fun toString-_ZtuoXs (DLkorlibs/time/DateFormat;)Ljava/lang/String;
+	public static final fun toStringDefault-wTNfQOg (D)Ljava/lang/String;
+	public static final fun toTimezone-_ZtuoXs (DLkorlibs/time/Timezone;)Lkorlibs/time/DateTimeTz;
+}
+
+public final class korlibs/time/DateTimeRange : java/io/Serializable, java/lang/Comparable {
+	public static final field Companion Lkorlibs/time/DateTimeRange$Companion;
+	public synthetic fun <init> (DDLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-wTNfQOg (D)I
+	public final fun component1-Wg0KzQs ()D
+	public final fun component2-Wg0KzQs ()D
+	public final fun contains (Lkorlibs/time/DateTimeRange;)Z
+	public final fun contains-wTNfQOg (D)Z
+	public final fun copy-6eFNejw (DD)Lkorlibs/time/DateTimeRange;
+	public static synthetic fun copy-6eFNejw$default (Lkorlibs/time/DateTimeRange;DDILjava/lang/Object;)Lkorlibs/time/DateTimeRange;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDuration-UwyO8pc ()J
+	public final fun getFrom-Wg0KzQs ()D
+	public final fun getMax-Wg0KzQs ()D
+	public final fun getMin-Wg0KzQs ()D
+	public final fun getSize-UwyO8pc ()J
+	public final fun getSpan ()Lkorlibs/time/DateTimeSpan;
+	public final fun getTo-Wg0KzQs ()D
+	public final fun getValid ()Z
+	public fun hashCode ()I
+	public final fun intersectionWith (Lkorlibs/time/DateTimeRange;Z)Lkorlibs/time/DateTimeRange;
+	public static synthetic fun intersectionWith$default (Lkorlibs/time/DateTimeRange;Lkorlibs/time/DateTimeRange;ZILjava/lang/Object;)Lkorlibs/time/DateTimeRange;
+	public final fun intersectsOrInContactWith (Lkorlibs/time/DateTimeRange;)Z
+	public final fun intersectsWith (Lkorlibs/time/DateTimeRange;Z)Z
+	public static synthetic fun intersectsWith$default (Lkorlibs/time/DateTimeRange;Lkorlibs/time/DateTimeRange;ZILjava/lang/Object;)Z
+	public final fun mergeOnContactOrNull (Lkorlibs/time/DateTimeRange;)Lkorlibs/time/DateTimeRange;
+	public fun toString ()Ljava/lang/String;
+	public final fun toString (Lkorlibs/time/DateFormat;)Ljava/lang/String;
+	public final fun toStringDefault ()Ljava/lang/String;
+	public final fun toStringLongs ()Ljava/lang/String;
+	public final fun without (Lkorlibs/time/DateTimeRange;)Ljava/util/List;
+}
+
+public final class korlibs/time/DateTimeRange$Companion {
+	public final fun invoke-iFzHlpQ (IJJ)Lkorlibs/time/DateTimeRange;
+}
+
+public final class korlibs/time/DateTimeRangeKt {
+	public static final fun toStringLongs (Ljava/util/List;)Ljava/lang/String;
+	public static final fun until-6eFNejw (DD)Lkorlibs/time/DateTimeRange;
+}
+
+public final class korlibs/time/DateTimeRangeSet : java/io/Serializable {
+	public static final field Companion Lkorlibs/time/DateTimeRangeSet$Companion;
+	public fun <init> (Ljava/util/List;)V
+	public fun <init> (Lkorlibs/time/DateTimeRange;)V
+	public fun <init> ([Lkorlibs/time/DateTimeRange;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Ljava/util/List;
+	public final fun contains (Lkorlibs/time/DateTimeRange;)Z
+	public final fun contains-wTNfQOg (D)Z
+	public final fun copy (ZLjava/util/List;)Lkorlibs/time/DateTimeRangeSet;
+	public static synthetic fun copy$default (Lkorlibs/time/DateTimeRangeSet;ZLjava/util/List;ILjava/lang/Object;)Lkorlibs/time/DateTimeRangeSet;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBounds ()Lkorlibs/time/DateTimeRange;
+	public final fun getDummy ()Z
+	public final fun getRanges ()Ljava/util/List;
+	public final fun getSize-UwyO8pc ()J
+	public fun hashCode ()I
+	public final fun intersection (Lkorlibs/time/DateTimeRange;)Lkorlibs/time/DateTimeRangeSet;
+	public final fun intersection (Lkorlibs/time/DateTimeRangeSet;)Lkorlibs/time/DateTimeRangeSet;
+	public final fun intersection ([Lkorlibs/time/DateTimeRange;)Lkorlibs/time/DateTimeRangeSet;
+	public final fun minus (Lkorlibs/time/DateTimeRange;)Lkorlibs/time/DateTimeRangeSet;
+	public final fun minus (Lkorlibs/time/DateTimeRangeSet;)Lkorlibs/time/DateTimeRangeSet;
+	public final fun plus (Lkorlibs/time/DateTimeRange;)Lkorlibs/time/DateTimeRangeSet;
+	public final fun plus (Lkorlibs/time/DateTimeRangeSet;)Lkorlibs/time/DateTimeRangeSet;
+	public fun toString ()Ljava/lang/String;
+	public final fun toStringLongs ()Ljava/lang/String;
+}
+
+public final class korlibs/time/DateTimeRangeSet$Companion {
+	public final fun toStringLongs (Ljava/util/List;)Ljava/lang/String;
+}
+
+public final class korlibs/time/DateTimeRangeSet$Fast {
+	public static final field INSTANCE Lkorlibs/time/DateTimeRangeSet$Fast;
+	public final fun contains (Lkorlibs/time/DateTimeRange;Lkorlibs/time/DateTimeRangeSet;)Z
+	public final fun contains-_ZtuoXs (DLkorlibs/time/DateTimeRangeSet;)Z
+	public final fun intersection (Lkorlibs/time/DateTimeRangeSet;Lkorlibs/time/DateTimeRangeSet;)Lkorlibs/time/DateTimeRangeSet;
+}
+
+public final class korlibs/time/DateTimeRangeSet$Slow {
+	public static final field INSTANCE Lkorlibs/time/DateTimeRangeSet$Slow;
+	public final fun contains (Lkorlibs/time/DateTimeRange;Lkorlibs/time/DateTimeRangeSet;)Z
+	public final fun contains-_ZtuoXs (DLkorlibs/time/DateTimeRangeSet;)Z
+	public final fun intersection (Lkorlibs/time/DateTimeRangeSet;Lkorlibs/time/DateTimeRangeSet;)Lkorlibs/time/DateTimeRangeSet;
+}
+
+public final class korlibs/time/DateTimeRangeSetKt {
+	public static final fun toRangeSet (Ljava/lang/Iterable;)Lkorlibs/time/DateTimeRangeSet;
+}
+
+public final class korlibs/time/DateTimeSpan : java/io/Serializable, java/lang/Comparable {
+	public static final field Companion Lkorlibs/time/DateTimeSpan$Companion;
+	public fun <init> (IIIIIIID)V
+	public synthetic fun <init> (IIIIIIIDILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (IJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo (Lkorlibs/time/DateTimeSpan;)I
+	public final fun component1-Hb6NnLg ()I
+	public final fun component2-UwyO8pc ()J
+	public final fun copy-yHc8S_Q (IJ)Lkorlibs/time/DateTimeSpan;
+	public static synthetic fun copy-yHc8S_Q$default (Lkorlibs/time/DateTimeSpan;IJILjava/lang/Object;)Lkorlibs/time/DateTimeSpan;
+	public final fun div (D)Lkorlibs/time/DateTimeSpan;
+	public final fun div (F)Lkorlibs/time/DateTimeSpan;
+	public final fun div (I)Lkorlibs/time/DateTimeSpan;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDays ()I
+	public final fun getDaysIncludingWeeks ()I
+	public final fun getDaysNotIncludingWeeks ()I
+	public final fun getDuration-UwyO8pc ()J
+	public final fun getHours ()I
+	public final fun getHoursIncludingDaysAndWeeks ()I
+	public final fun getMilliseconds ()D
+	public final fun getMinutes ()I
+	public final fun getMonthSpan-Hb6NnLg ()I
+	public final fun getMonths ()I
+	public final fun getNanoseconds ()I
+	public final fun getSeconds ()I
+	public final fun getSecondsIncludingMilliseconds ()D
+	public final fun getTimeSpan-UwyO8pc ()J
+	public final fun getTotalMilliseconds ()D
+	public final fun getTotalMonths ()I
+	public final fun getTotalYears ()D
+	public final fun getWeeks ()I
+	public final fun getYears ()I
+	public fun hashCode ()I
+	public final fun minus (Lkorlibs/time/DateTimeSpan;)Lkorlibs/time/DateTimeSpan;
+	public final fun minus-KbNCm3A (I)Lkorlibs/time/DateTimeSpan;
+	public final fun minus-LRDsOJo (J)Lkorlibs/time/DateTimeSpan;
+	public final fun plus (Lkorlibs/time/DateTimeSpan;)Lkorlibs/time/DateTimeSpan;
+	public final fun plus-KbNCm3A (I)Lkorlibs/time/DateTimeSpan;
+	public final fun plus-LRDsOJo (J)Lkorlibs/time/DateTimeSpan;
+	public final fun times (D)Lkorlibs/time/DateTimeSpan;
+	public final fun times (F)Lkorlibs/time/DateTimeSpan;
+	public final fun times (I)Lkorlibs/time/DateTimeSpan;
+	public fun toString ()Ljava/lang/String;
+	public final fun toString (Z)Ljava/lang/String;
+	public final fun unaryMinus ()Lkorlibs/time/DateTimeSpan;
+	public final fun unaryPlus ()Lkorlibs/time/DateTimeSpan;
+}
+
+public final class korlibs/time/DateTimeSpan$Companion {
+}
+
+public abstract interface class korlibs/time/DateTimeSpanFormat : java/io/Serializable {
+	public static final field Companion Lkorlibs/time/DateTimeSpanFormat$Companion;
+	public abstract fun format (Lkorlibs/time/DateTimeSpan;)Ljava/lang/String;
+	public abstract fun tryParse (Ljava/lang/String;Z)Lkorlibs/time/DateTimeSpan;
+}
+
+public final class korlibs/time/DateTimeSpanFormat$Companion {
+	public final fun invoke (Ljava/lang/String;Lkorlibs/time/KlockLocale;)Lkorlibs/time/PatternDateTimeSpanFormat;
+	public static synthetic fun invoke$default (Lkorlibs/time/DateTimeSpanFormat$Companion;Ljava/lang/String;Lkorlibs/time/KlockLocale;ILjava/lang/Object;)Lkorlibs/time/PatternDateTimeSpanFormat;
+}
+
+public final class korlibs/time/DateTimeSpanFormatKt {
+	public static final fun format-HG0u8IE (Lkorlibs/time/DateTimeSpanFormat;J)Ljava/lang/String;
+	public static final fun format-P1bAMP0 (Lkorlibs/time/DateTimeSpanFormat;I)Ljava/lang/String;
+	public static final fun parse (Lkorlibs/time/DateTimeSpanFormat;Ljava/lang/String;)Lkorlibs/time/DateTimeSpan;
+}
+
+public final class korlibs/time/DateTimeTz : java/io/Serializable, java/lang/Comparable {
+	public static final field Companion Lkorlibs/time/DateTimeTz$Companion;
+	public synthetic fun <init> (DDLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun add-yHc8S_Q (IJ)Lkorlibs/time/DateTimeTz;
+	public final fun addOffset-LRDsOJo (J)Lkorlibs/time/DateTimeTz;
+	public final fun addOffset-t27um6E (D)Lkorlibs/time/DateTimeTz;
+	public final fun addOffsetUnadjusted-LRDsOJo (J)Lkorlibs/time/DateTimeTz;
+	public final fun addOffsetUnadjusted-t27um6E (D)Lkorlibs/time/DateTimeTz;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo (Lkorlibs/time/DateTimeTz;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun format (Ljava/lang/String;)Ljava/lang/String;
+	public final fun format (Lkorlibs/time/DateFormat;)Ljava/lang/String;
+	public final fun getDayOfMonth ()I
+	public final fun getDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public final fun getDayOfWeekInt ()I
+	public final fun getDayOfYear ()I
+	public final fun getHours ()I
+	public final fun getLocal-Wg0KzQs ()D
+	public final fun getMilliseconds ()I
+	public final fun getMinutes ()I
+	public final fun getMonth ()Lkorlibs/time/Month;
+	public final fun getMonth0 ()I
+	public final fun getMonth1 ()I
+	public final fun getOffset-qDrnzRU ()D
+	public final fun getSeconds ()I
+	public final fun getUtc-Wg0KzQs ()D
+	public final fun getYear-qZVLhkI ()I
+	public final fun getYearInt ()I
+	public final fun getYearMonth-FEEWfHU ()I
+	public fun hashCode ()I
+	public final fun minus (Lkorlibs/time/DateTimeSpan;)Lkorlibs/time/DateTimeTz;
+	public final fun minus-5sfh64U (Lkorlibs/time/DateTimeTz;)J
+	public final fun minus-KbNCm3A (I)Lkorlibs/time/DateTimeTz;
+	public final fun minus-LRDsOJo (J)Lkorlibs/time/DateTimeTz;
+	public final fun plus (Lkorlibs/time/DateTimeSpan;)Lkorlibs/time/DateTimeTz;
+	public final fun plus-KbNCm3A (I)Lkorlibs/time/DateTimeTz;
+	public final fun plus-LRDsOJo (J)Lkorlibs/time/DateTimeTz;
+	public final fun toOffset-LRDsOJo (J)Lkorlibs/time/DateTimeTz;
+	public final fun toOffset-t27um6E (D)Lkorlibs/time/DateTimeTz;
+	public final fun toOffsetUnadjusted-LRDsOJo (J)Lkorlibs/time/DateTimeTz;
+	public final fun toOffsetUnadjusted-t27um6E (D)Lkorlibs/time/DateTimeTz;
+	public fun toString ()Ljava/lang/String;
+	public final fun toString (Ljava/lang/String;)Ljava/lang/String;
+	public final fun toString (Lkorlibs/time/DateFormat;)Ljava/lang/String;
+	public final fun toStringDefault ()Ljava/lang/String;
+}
+
+public final class korlibs/time/DateTimeTz$Companion {
+	public final fun fromUnix (J)Lkorlibs/time/DateTimeTz;
+	public final fun fromUnixLocal (J)Lkorlibs/time/DateTimeTz;
+	public final fun local-e40-6F0 (DD)Lkorlibs/time/DateTimeTz;
+	public final fun nowLocal ()Lkorlibs/time/DateTimeTz;
+	public final fun utc-e40-6F0 (DD)Lkorlibs/time/DateTimeTz;
+}
+
+public final class korlibs/time/DayOfWeek : java/lang/Enum, java/io/Serializable {
+	public static final field Companion Lkorlibs/time/DayOfWeek$Companion;
+	public static final field Count I
+	public static final field Friday Lkorlibs/time/DayOfWeek;
+	public static final field Monday Lkorlibs/time/DayOfWeek;
+	public static final field Saturday Lkorlibs/time/DayOfWeek;
+	public static final field Sunday Lkorlibs/time/DayOfWeek;
+	public static final field Thursday Lkorlibs/time/DayOfWeek;
+	public static final field Tuesday Lkorlibs/time/DayOfWeek;
+	public static final field Wednesday Lkorlibs/time/DayOfWeek;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getIndex0 ()I
+	public final fun getIndex0Monday ()I
+	public final fun getIndex0Sunday ()I
+	public final fun getIndex1 ()I
+	public final fun getIndex1Monday ()I
+	public final fun getIndex1Sunday ()I
+	public final fun getLocalName ()Ljava/lang/String;
+	public final fun getLocalShortName ()Ljava/lang/String;
+	public final fun getNext ()Lkorlibs/time/DayOfWeek;
+	public final fun getPrev ()Lkorlibs/time/DayOfWeek;
+	public final fun index0Locale (Lkorlibs/time/KlockLocale;)I
+	public final fun index1Locale (Lkorlibs/time/KlockLocale;)I
+	public final fun isWeekend (Lkorlibs/time/KlockLocale;)Z
+	public static synthetic fun isWeekend$default (Lkorlibs/time/DayOfWeek;Lkorlibs/time/KlockLocale;ILjava/lang/Object;)Z
+	public final fun localName (Lkorlibs/time/KlockLocale;)Ljava/lang/String;
+	public final fun localShortName (Lkorlibs/time/KlockLocale;)Ljava/lang/String;
+	public final fun next (I)Lkorlibs/time/DayOfWeek;
+	public static synthetic fun next$default (Lkorlibs/time/DayOfWeek;IILjava/lang/Object;)Lkorlibs/time/DayOfWeek;
+	public final fun prev (I)Lkorlibs/time/DayOfWeek;
+	public static synthetic fun prev$default (Lkorlibs/time/DayOfWeek;IILjava/lang/Object;)Lkorlibs/time/DayOfWeek;
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/time/DayOfWeek;
+	public static fun values ()[Lkorlibs/time/DayOfWeek;
+}
+
+public final class korlibs/time/DayOfWeek$Companion {
+	public final fun comparator (Lkorlibs/time/KlockLocale;)Ljava/util/Comparator;
+	public static synthetic fun comparator$default (Lkorlibs/time/DayOfWeek$Companion;Lkorlibs/time/KlockLocale;ILjava/lang/Object;)Ljava/util/Comparator;
+	public final fun firstDayOfWeek (Lkorlibs/time/KlockLocale;)Lkorlibs/time/DayOfWeek;
+	public static synthetic fun firstDayOfWeek$default (Lkorlibs/time/DayOfWeek$Companion;Lkorlibs/time/KlockLocale;ILjava/lang/Object;)Lkorlibs/time/DayOfWeek;
+	public final fun get (I)Lkorlibs/time/DayOfWeek;
+	public final fun get0 (ILkorlibs/time/KlockLocale;)Lkorlibs/time/DayOfWeek;
+	public static synthetic fun get0$default (Lkorlibs/time/DayOfWeek$Companion;ILkorlibs/time/KlockLocale;ILjava/lang/Object;)Lkorlibs/time/DayOfWeek;
+	public final fun get1 (ILkorlibs/time/KlockLocale;)Lkorlibs/time/DayOfWeek;
+	public static synthetic fun get1$default (Lkorlibs/time/DayOfWeek$Companion;ILkorlibs/time/KlockLocale;ILjava/lang/Object;)Lkorlibs/time/DayOfWeek;
+}
+
+public final class korlibs/time/DayOfWeekKt {
+	public static final fun withLocale (Lkorlibs/time/DayOfWeek;Lkorlibs/time/KlockLocale;)Lkorlibs/time/DayOfWeekWithLocale;
+}
+
+public final class korlibs/time/DayOfWeekWithLocale : java/lang/Comparable {
+	public fun <init> (Lkorlibs/time/DayOfWeek;Lkorlibs/time/KlockLocale;)V
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo (Lkorlibs/time/DayOfWeekWithLocale;)I
+	public final fun component1 ()Lkorlibs/time/DayOfWeek;
+	public final fun component2 ()Lkorlibs/time/KlockLocale;
+	public final fun copy (Lkorlibs/time/DayOfWeek;Lkorlibs/time/KlockLocale;)Lkorlibs/time/DayOfWeekWithLocale;
+	public static synthetic fun copy$default (Lkorlibs/time/DayOfWeekWithLocale;Lkorlibs/time/DayOfWeek;Lkorlibs/time/KlockLocale;ILjava/lang/Object;)Lkorlibs/time/DayOfWeekWithLocale;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public final fun getIndex0 ()I
+	public final fun getIndex1 ()I
+	public final fun getLocale ()Lkorlibs/time/KlockLocale;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/time/FastTimedValue {
+	public synthetic fun <init> (Ljava/lang/Object;DLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun component2-8Hnv5yo ()D
+	public final fun copy-R4m-uyU (Ljava/lang/Object;D)Lkorlibs/time/FastTimedValue;
+	public static synthetic fun copy-R4m-uyU$default (Lkorlibs/time/FastTimedValue;Ljava/lang/Object;DILjava/lang/Object;)Lkorlibs/time/FastTimedValue;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDuration-8Hnv5yo ()D
+	public final fun getValue ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/time/Frequency : java/io/Serializable, java/lang/Comparable {
+	public static final field Companion Lkorlibs/time/Frequency$Companion;
+	public static final synthetic fun box-impl (D)Lkorlibs/time/Frequency;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-wxTNyw8 (D)I
+	public static fun compareTo-wxTNyw8 (DD)I
+	public static fun constructor-impl (D)D
+	public static final fun div-RD8Qtmo (DD)D
+	public static final fun div-RD8Qtmo (DF)D
+	public static final fun div-RD8Qtmo (DI)D
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (DLjava/lang/Object;)Z
+	public static final fun equals-impl0 (DD)Z
+	public static final fun getDuration-UwyO8pc (D)J
+	public static final fun getFastDuration-8Hnv5yo (D)D
+	public final fun getHertz ()D
+	public static final fun getTimeSpan-UwyO8pc (D)J
+	public fun hashCode ()I
+	public static fun hashCode-impl (D)I
+	public static final fun minus-J6RQagE (DD)D
+	public static final fun plus-J6RQagE (DD)D
+	public static final fun rem-J6RQagE (DD)D
+	public static final fun times-RD8Qtmo (DD)D
+	public static final fun times-RD8Qtmo (DF)D
+	public static final fun times-RD8Qtmo (DI)D
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (D)Ljava/lang/String;
+	public static final fun umod-J6RQagE (DD)D
+	public static final fun unaryMinus-Ud57vsA (D)D
+	public static final fun unaryPlus-Ud57vsA (D)D
+	public final synthetic fun unbox-impl ()D
+}
+
+public final class korlibs/time/Frequency$Companion {
+	public final fun from-B1RV56g (J)D
+}
+
+public final class korlibs/time/FrequencyKt {
+	public static final fun getHz (D)D
+	public static final fun getHz (I)D
+	public static final fun getHz-LRDsOJo (J)D
+	public static final fun getHz-WoYshz0 (D)D
+	public static final fun getTimesPerSecond (D)D
+	public static final fun getTimesPerSecond (I)D
+	public static final fun getTimesPerSecond-LRDsOJo (J)D
+	public static final fun getTimesPerSecond-WoYshz0 (D)D
+	public static final fun toFrequency-LRDsOJo (J)D
+	public static final fun toFrequency-WoYshz0 (D)D
+}
+
+public final class korlibs/time/ISO8601 : korlibs/time/DateComponentsFormat {
+	public static final field INSTANCE Lkorlibs/time/ISO8601;
+	public fun format (Lkorlibs/time/DateComponents;)Ljava/lang/String;
+	public final fun getDATE ()Lkorlibs/time/DateFormat;
+	public final fun getDATETIME_COMPLETE ()Lkorlibs/time/ISODateFormat;
+	public final fun getDATETIME_UTC_COMPLETE ()Lkorlibs/time/ISODateFormat;
+	public final fun getDATETIME_UTC_COMPLETE_FRACTION ()Lkorlibs/time/ISODateFormat;
+	public final fun getDATE_CALENDAR_COMPLETE ()Lkorlibs/time/ISODateFormat;
+	public final fun getDATE_CALENDAR_EXPANDED0 ()Lkorlibs/time/ISODateFormat;
+	public final fun getDATE_CALENDAR_EXPANDED1 ()Lkorlibs/time/ISODateFormat;
+	public final fun getDATE_CALENDAR_EXPANDED2 ()Lkorlibs/time/ISODateFormat;
+	public final fun getDATE_CALENDAR_EXPANDED3 ()Lkorlibs/time/ISODateFormat;
+	public final fun getDATE_CALENDAR_REDUCED0 ()Lkorlibs/time/ISODateFormat;
+	public final fun getDATE_CALENDAR_REDUCED1 ()Lkorlibs/time/ISODateFormat;
+	public final fun getDATE_CALENDAR_REDUCED2 ()Lkorlibs/time/ISODateFormat;
+	public final fun getDATE_ORDINAL_COMPLETE ()Lkorlibs/time/ISODateFormat;
+	public final fun getDATE_ORDINAL_EXPANDED ()Lkorlibs/time/ISODateFormat;
+	public final fun getDATE_WEEK_COMPLETE ()Lkorlibs/time/ISODateFormat;
+	public final fun getDATE_WEEK_EXPANDED0 ()Lkorlibs/time/ISODateFormat;
+	public final fun getDATE_WEEK_EXPANDED1 ()Lkorlibs/time/ISODateFormat;
+	public final fun getDATE_WEEK_REDUCED ()Lkorlibs/time/ISODateFormat;
+	public final fun getINTERVAL ()Lkorlibs/time/DateTimeSpanFormat;
+	public final fun getINTERVAL_COMPLETE0 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getINTERVAL_COMPLETE1 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getINTERVAL_DECIMAL0 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getINTERVAL_DECIMAL1 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getINTERVAL_DECIMAL2 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getINTERVAL_DECIMAL3 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getINTERVAL_DECIMAL4 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getINTERVAL_DECIMAL5 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getINTERVAL_DECIMAL6 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getINTERVAL_REDUCED0 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getINTERVAL_REDUCED1 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getINTERVAL_REDUCED2 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getINTERVAL_REDUCED3 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getINTERVAL_REDUCED4 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getINTERVAL_ZERO_OMIT0 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getINTERVAL_ZERO_OMIT1 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getINTERVAL_ZERO_OMIT2 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getINTERVAL_ZERO_OMIT3 ()Lkorlibs/time/ISODateTimeSpanFormat;
+	public final fun getTIME ()Lkorlibs/time/TimeFormat;
+	public final fun getTIME_LOCAL_COMPLETE ()Lkorlibs/time/ISOTimeFormat;
+	public final fun getTIME_LOCAL_FRACTION0 ()Lkorlibs/time/ISOTimeFormat;
+	public final fun getTIME_LOCAL_FRACTION1 ()Lkorlibs/time/ISOTimeFormat;
+	public final fun getTIME_LOCAL_FRACTION2 ()Lkorlibs/time/ISOTimeFormat;
+	public final fun getTIME_LOCAL_REDUCED0 ()Lkorlibs/time/ISOTimeFormat;
+	public final fun getTIME_LOCAL_REDUCED1 ()Lkorlibs/time/ISOTimeFormat;
+	public final fun getTIME_RELATIVE0 ()Lkorlibs/time/ISOTimeFormat;
+	public final fun getTIME_RELATIVE1 ()Lkorlibs/time/ISOTimeFormat;
+	public final fun getTIME_UTC_COMPLETE ()Lkorlibs/time/ISOTimeFormat;
+	public final fun getTIME_UTC_FRACTION0 ()Lkorlibs/time/ISOTimeFormat;
+	public final fun getTIME_UTC_FRACTION1 ()Lkorlibs/time/ISOTimeFormat;
+	public final fun getTIME_UTC_FRACTION2 ()Lkorlibs/time/ISOTimeFormat;
+	public final fun getTIME_UTC_REDUCED0 ()Lkorlibs/time/ISOTimeFormat;
+	public final fun getTIME_UTC_REDUCED1 ()Lkorlibs/time/ISOTimeFormat;
+	public fun tryParse (Ljava/lang/String;Lkorlibs/time/DateComponents$Mode;Z)Lkorlibs/time/DateComponents;
+}
+
+public final class korlibs/time/ISODateComponentsFormat : korlibs/time/DateComponentsFormat {
+	public static final field Companion Lkorlibs/time/ISODateComponentsFormat$Companion;
+	public fun <init> (Ljava/lang/String;I)V
+	public synthetic fun <init> (Ljava/lang/String;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun format (Lkorlibs/time/DateComponents;)Ljava/lang/String;
+	public final fun getFormat ()Ljava/lang/String;
+	public final fun getTwoDigitBaseYear ()I
+	public fun tryParse (Ljava/lang/String;Lkorlibs/time/DateComponents$Mode;Z)Lkorlibs/time/DateComponents;
+}
+
+public final class korlibs/time/ISODateComponentsFormat$Companion {
+	public final fun tryParseGeneric (Ljava/lang/String;Lkorlibs/time/DateComponents$Mode;Z)Lkorlibs/time/DateComponents;
+}
+
+public class korlibs/time/ISODateComponentsFormatEx : korlibs/time/DateComponentsFormat {
+	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public fun format (Lkorlibs/time/DateComponents;)Ljava/lang/String;
+	public final fun getBasic ()Lkorlibs/time/ISODateComponentsFormat;
+	public final fun getBasicFormat ()Ljava/lang/String;
+	public final fun getExtended ()Lkorlibs/time/ISODateComponentsFormat;
+	public final fun getExtendedFormat ()Ljava/lang/String;
+	public fun tryParse (Ljava/lang/String;Lkorlibs/time/DateComponents$Mode;Z)Lkorlibs/time/DateComponents;
+}
+
+public final class korlibs/time/ISODateFormat : korlibs/time/DateFormat {
+	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Lkorlibs/time/ISODateComponentsFormatEx;)V
+	public final fun component1 ()Lkorlibs/time/ISODateComponentsFormatEx;
+	public final fun copy (Lkorlibs/time/ISODateComponentsFormatEx;)Lkorlibs/time/ISODateFormat;
+	public static synthetic fun copy$default (Lkorlibs/time/ISODateFormat;Lkorlibs/time/ISODateComponentsFormatEx;ILjava/lang/Object;)Lkorlibs/time/ISODateFormat;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun format (Lkorlibs/time/DateTimeTz;)Ljava/lang/String;
+	public final fun getBasic ()Lkorlibs/time/DateFormat;
+	public final fun getExtended ()Lkorlibs/time/DateFormat;
+	public final fun getFormat ()Lkorlibs/time/ISODateComponentsFormatEx;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun tryParse (Ljava/lang/String;ZZ)Lkorlibs/time/DateTimeTz;
+}
+
+public final class korlibs/time/ISODateTimeSpanFormat : korlibs/time/DateTimeSpanFormat {
+	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Lkorlibs/time/ISODateComponentsFormatEx;)V
+	public final fun component1 ()Lkorlibs/time/ISODateComponentsFormatEx;
+	public final fun copy (Lkorlibs/time/ISODateComponentsFormatEx;)Lkorlibs/time/ISODateTimeSpanFormat;
+	public static synthetic fun copy$default (Lkorlibs/time/ISODateTimeSpanFormat;Lkorlibs/time/ISODateComponentsFormatEx;ILjava/lang/Object;)Lkorlibs/time/ISODateTimeSpanFormat;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun format (Lkorlibs/time/DateTimeSpan;)Ljava/lang/String;
+	public final fun getFormat ()Lkorlibs/time/ISODateComponentsFormatEx;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun tryParse (Ljava/lang/String;Z)Lkorlibs/time/DateTimeSpan;
+}
+
+public final class korlibs/time/ISOTimeFormat : korlibs/time/TimeFormat {
+	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Lkorlibs/time/ISODateComponentsFormatEx;)V
+	public final fun component1 ()Lkorlibs/time/ISODateComponentsFormatEx;
+	public final fun copy (Lkorlibs/time/ISODateComponentsFormatEx;)Lkorlibs/time/ISOTimeFormat;
+	public static synthetic fun copy$default (Lkorlibs/time/ISOTimeFormat;Lkorlibs/time/ISODateComponentsFormatEx;ILjava/lang/Object;)Lkorlibs/time/ISOTimeFormat;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun format-LRDsOJo (J)Ljava/lang/String;
+	public final fun getBasic ()Lkorlibs/time/TimeFormat;
+	public final fun getExtended ()Lkorlibs/time/TimeFormat;
+	public final fun getFormat ()Lkorlibs/time/ISODateComponentsFormatEx;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun tryParse-f829m1k (Ljava/lang/String;ZZ)Lkotlin/time/Duration;
+}
+
+public final class korlibs/time/IntTimedCache {
+	public synthetic fun <init> (JLkorlibs/time/TimeProvider;Lkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JLkorlibs/time/TimeProvider;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun get ()I
+	public final fun getCachedTime-Wg0KzQs ()D
+	public final fun getGen ()Lkotlin/jvm/functions/Function0;
+	public final fun getTimeProvider ()Lkorlibs/time/TimeProvider;
+	public final fun getTtl-UwyO8pc ()J
+	public final fun getValue ()I
+	public final fun getValue (Ljava/lang/Object;Lkotlin/reflect/KProperty;)I
+	public final fun get_value ()I
+	public final fun setCachedTime-wTNfQOg (D)V
+	public final fun setValue (I)V
+	public final fun set_value (I)V
+}
+
+public abstract class korlibs/time/KlockLocale {
+	public static final field Companion Lkorlibs/time/KlockLocale$Companion;
+	public fun <init> ()V
+	protected final fun format (Ljava/lang/String;)Lkorlibs/time/PatternDateFormat;
+	public fun getDayByOrdinal (Ljava/lang/String;)I
+	public abstract fun getDaysOfWeek ()Ljava/util/List;
+	public final fun getDaysOfWeekComparator ()Ljava/util/Comparator;
+	public fun getDaysOfWeekShort ()Ljava/util/List;
+	public abstract fun getFirstDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public fun getFormatDateFull ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateLong ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getH12Marker ()Ljava/util/List;
+	public abstract fun getISO639_1 ()Ljava/lang/String;
+	public abstract fun getMonths ()Ljava/util/List;
+	public fun getMonthsShort ()Ljava/util/List;
+	public fun getOrdinalByDay (ILkorlibs/time/KlockLocaleContext;)Ljava/lang/String;
+	public static synthetic fun getOrdinalByDay$default (Lkorlibs/time/KlockLocale;ILkorlibs/time/KlockLocaleContext;ILjava/lang/Object;)Ljava/lang/String;
+	public fun getOrdinals ()[Ljava/lang/String;
+	public fun intToString (I)Ljava/lang/String;
+	public fun isWeekend (Lkorlibs/time/DayOfWeek;)Z
+	public final fun localizedDayOfWeek (Lkorlibs/time/DayOfWeek;)Lkorlibs/time/DayOfWeekWithLocale;
+}
+
+public final class korlibs/time/KlockLocale$Companion {
+	public final fun getDefault ()Lkorlibs/time/KlockLocale;
+	public final fun getEnglish ()Lkorlibs/time/KlockLocale$English$Companion;
+	public final fun setDefault (Lkorlibs/time/KlockLocale;)V
+	public final fun setTemporarily (Lkorlibs/time/KlockLocale;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+}
+
+public class korlibs/time/KlockLocale$English : korlibs/time/KlockLocale {
+	public static final field Companion Lkorlibs/time/KlockLocale$English$Companion;
+	public fun <init> ()V
+	public fun getDaysOfWeek ()Ljava/util/List;
+	public fun getFirstDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public fun getFormatTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getISO639_1 ()Ljava/lang/String;
+	public fun getMonths ()Ljava/util/List;
+}
+
+public final class korlibs/time/KlockLocale$English$Companion : korlibs/time/KlockLocale$English {
+}
+
+public final class korlibs/time/KlockLocaleContext {
+	public static final field Companion Lkorlibs/time/KlockLocaleContext$Companion;
+	public fun <init> ()V
+	public fun <init> (Lkorlibs/time/KlockLocaleGender;)V
+	public synthetic fun <init> (Lkorlibs/time/KlockLocaleGender;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkorlibs/time/KlockLocaleGender;
+	public final fun copy (Lkorlibs/time/KlockLocaleGender;)Lkorlibs/time/KlockLocaleContext;
+	public static synthetic fun copy$default (Lkorlibs/time/KlockLocaleContext;Lkorlibs/time/KlockLocaleGender;ILjava/lang/Object;)Lkorlibs/time/KlockLocaleContext;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getGender ()Lkorlibs/time/KlockLocaleGender;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/time/KlockLocaleContext$Companion {
+	public final fun getDefault ()Lkorlibs/time/KlockLocaleContext;
+}
+
+public final class korlibs/time/KlockLocaleGender : java/lang/Enum {
+	public static final field Masculine Lkorlibs/time/KlockLocaleGender;
+	public static final field Neuter Lkorlibs/time/KlockLocaleGender;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/time/KlockLocaleGender;
+	public static fun values ()[Lkorlibs/time/KlockLocaleGender;
+}
+
+public final class korlibs/time/KlockLocaleKt {
+	public static final fun format (Lkorlibs/time/DateTimeTz;Ljava/lang/String;Lkorlibs/time/KlockLocale;)Ljava/lang/String;
+	public static final fun format-DXGEvpU (DLjava/lang/String;Lkorlibs/time/KlockLocale;)Ljava/lang/String;
+}
+
+public final class korlibs/time/MeasureKt {
+	public static final fun fastMeasureTime (Lkotlin/jvm/functions/Function0;)D
+	public static final fun fastMeasureTime (Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static final fun fastMeasureTimedValue (Lkotlin/jvm/functions/Function0;)Lkorlibs/time/FastTimedValue;
+	public static final fun getResult (Lkotlin/time/TimedValue;)Ljava/lang/Object;
+	public static final fun getTime (Lkotlin/time/TimedValue;)J
+	public static final fun measureTime (Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static final fun measureTimeWithResult (Lkotlin/jvm/functions/Function0;)Lkotlin/time/TimedValue;
+}
+
+public final class korlibs/time/Month : java/lang/Enum, java/io/Serializable {
+	public static final field April Lkorlibs/time/Month;
+	public static final field August Lkorlibs/time/Month;
+	public static final field Companion Lkorlibs/time/Month$Companion;
+	public static final field Count I
+	public static final field December Lkorlibs/time/Month;
+	public static final field February Lkorlibs/time/Month;
+	public static final field January Lkorlibs/time/Month;
+	public static final field July Lkorlibs/time/Month;
+	public static final field June Lkorlibs/time/Month;
+	public static final field March Lkorlibs/time/Month;
+	public static final field May Lkorlibs/time/Month;
+	public static final field November Lkorlibs/time/Month;
+	public static final field October Lkorlibs/time/Month;
+	public static final field September Lkorlibs/time/Month;
+	public final fun days (I)I
+	public final fun days (Z)I
+	public final fun days-lg8qmDM (I)I
+	public final fun daysToEnd (I)I
+	public final fun daysToEnd (Z)I
+	public final fun daysToEnd-lg8qmDM (I)I
+	public final fun daysToStart (I)I
+	public final fun daysToStart (Z)I
+	public final fun daysToStart-lg8qmDM (I)I
+	public final fun getDaysCommon ()I
+	public final fun getDaysLeap ()I
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getIndex0 ()I
+	public final fun getIndex1 ()I
+	public final fun getLocalName ()Ljava/lang/String;
+	public final fun getLocalShortName ()Ljava/lang/String;
+	public final fun getNext ()Lkorlibs/time/Month;
+	public final fun getPrevious ()Lkorlibs/time/Month;
+	public final fun localName (Lkorlibs/time/KlockLocale;)Ljava/lang/String;
+	public final fun localShortName (Lkorlibs/time/KlockLocale;)Ljava/lang/String;
+	public final fun minus (I)Lkorlibs/time/Month;
+	public final fun minus (Lkorlibs/time/Month;)I
+	public final fun plus (I)Lkorlibs/time/Month;
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/time/Month;
+	public static fun values ()[Lkorlibs/time/Month;
+}
+
+public final class korlibs/time/Month$Companion {
+	public final fun adjusted (I)Lkorlibs/time/Month;
+	public final fun checked (I)Lkorlibs/time/Month;
+	public final fun fromDayOfYear (IZ)Lkorlibs/time/Month;
+	public final fun fromDayOfYear-AwwLuf8 (II)Lkorlibs/time/Month;
+	public final fun get (I)Lkorlibs/time/Month;
+	public final fun invoke (I)Lkorlibs/time/Month;
+}
+
+public final class korlibs/time/MonthSpan : java/io/Serializable, java/lang/Comparable {
+	public static final field Companion Lkorlibs/time/MonthSpan$Companion;
+	public static final synthetic fun box-impl (I)Lkorlibs/time/MonthSpan;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-KbNCm3A (I)I
+	public static fun compareTo-KbNCm3A (II)I
+	public static fun constructor-impl (I)I
+	public static final fun div-oKg6dt0 (ID)I
+	public static final fun div-oKg6dt0 (IF)I
+	public static final fun div-oKg6dt0 (II)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getTotalMonths ()I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun minus-LIfWCVE (II)I
+	public static final fun minus-LRDsOJo (IJ)Lkorlibs/time/DateTimeSpan;
+	public static final fun minus-impl (ILkorlibs/time/DateTimeSpan;)Lkorlibs/time/DateTimeSpan;
+	public static final fun plus-LIfWCVE (II)I
+	public static final fun plus-LRDsOJo (IJ)Lkorlibs/time/DateTimeSpan;
+	public static final fun plus-impl (ILkorlibs/time/DateTimeSpan;)Lkorlibs/time/DateTimeSpan;
+	public static final fun times-oKg6dt0 (ID)I
+	public static final fun times-oKg6dt0 (IF)I
+	public static final fun times-oKg6dt0 (II)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public static final fun unaryMinus-Hb6NnLg (I)I
+	public static final fun unaryPlus-Hb6NnLg (I)I
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/time/MonthSpan$Companion {
+}
+
+public final class korlibs/time/MonthSpanKt {
+	public static final fun getMonths (I)I
+	public static final fun getMonths-KbNCm3A (I)I
+	public static final fun getTotalYears-KbNCm3A (I)D
+	public static final fun getYears (I)I
+	public static final fun getYears-KbNCm3A (I)I
+}
+
+public final class korlibs/time/NumberOfTimes {
+	public static final field Companion Lkorlibs/time/NumberOfTimes$Companion;
+	public static final synthetic fun box-impl (I)Lkorlibs/time/NumberOfTimes;
+	public static fun constructor-impl (I)I
+	public static final fun div-_VsqANM (II)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getCount ()I
+	public static final fun getHasMore-impl (I)Z
+	public static final fun getOneLess-V4K76lA (I)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun isFinite-impl (I)Z
+	public static final fun isInfinite-impl (I)Z
+	public static final fun minus-KBGDnYQ (II)I
+	public static final fun plus-KBGDnYQ (II)I
+	public static final fun times-_VsqANM (II)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/time/NumberOfTimes$Companion {
+	public final fun getINFINITE-V4K76lA ()I
+	public final fun getONE-V4K76lA ()I
+	public final fun getZERO-V4K76lA ()I
+}
+
+public final class korlibs/time/NumberOfTimesKt {
+	public static final fun getInfiniteTimes ()I
+	public static final fun getTimes (I)I
+}
+
+public final class korlibs/time/PatternDateComponentsFormat : korlibs/time/DateComponentsFormat {
+	public static final field Companion Lkorlibs/time/PatternDateComponentsFormat$Companion;
+	public fun <init> (Ljava/lang/String;Lkorlibs/time/KlockLocale;Lkorlibs/time/TimezoneNames;)V
+	public synthetic fun <init> (Ljava/lang/String;Lkorlibs/time/KlockLocale;Lkorlibs/time/TimezoneNames;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkorlibs/time/KlockLocale;
+	public final fun component3 ()Lkorlibs/time/TimezoneNames;
+	public final fun copy (Ljava/lang/String;Lkorlibs/time/KlockLocale;Lkorlibs/time/TimezoneNames;)Lkorlibs/time/PatternDateComponentsFormat;
+	public static synthetic fun copy$default (Lkorlibs/time/PatternDateComponentsFormat;Ljava/lang/String;Lkorlibs/time/KlockLocale;Lkorlibs/time/TimezoneNames;ILjava/lang/Object;)Lkorlibs/time/PatternDateComponentsFormat;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun format (Lkorlibs/time/DateComponents;)Ljava/lang/String;
+	public final fun getFormat ()Ljava/lang/String;
+	public final fun getLocale ()Lkorlibs/time/KlockLocale;
+	public final fun getRealLocale ()Lkorlibs/time/KlockLocale;
+	public final fun getTzNames ()Lkorlibs/time/TimezoneNames;
+	public fun hashCode ()I
+	public final fun matchingRegexString ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+	public fun tryParse (Ljava/lang/String;Lkorlibs/time/DateComponents$Mode;Z)Lkorlibs/time/DateComponents;
+}
+
+public final class korlibs/time/PatternDateComponentsFormat$Companion {
+}
+
+public final class korlibs/time/PatternDateFormat : korlibs/time/DateFormat {
+	public static final field Companion Lkorlibs/time/PatternDateFormat$Companion;
+	public fun <init> (Ljava/lang/String;Lkorlibs/time/KlockLocale;Lkorlibs/time/TimezoneNames;)V
+	public synthetic fun <init> (Ljava/lang/String;Lkorlibs/time/KlockLocale;Lkorlibs/time/TimezoneNames;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lkorlibs/time/PatternDateComponentsFormat;)V
+	public final fun component1 ()Lkorlibs/time/PatternDateComponentsFormat;
+	public final fun copy (Lkorlibs/time/PatternDateComponentsFormat;)Lkorlibs/time/PatternDateFormat;
+	public static synthetic fun copy$default (Lkorlibs/time/PatternDateFormat;Lkorlibs/time/PatternDateComponentsFormat;ILjava/lang/Object;)Lkorlibs/time/PatternDateFormat;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun format (Lkorlibs/time/DateTimeTz;)Ljava/lang/String;
+	public final fun getFormat ()Lkorlibs/time/PatternDateComponentsFormat;
+	public final fun getRealLocale ()Lkorlibs/time/KlockLocale;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun tryParse (Ljava/lang/String;ZZ)Lkorlibs/time/DateTimeTz;
+	public final fun withLocale (Lkorlibs/time/KlockLocale;)Lkorlibs/time/PatternDateFormat;
+	public final fun withTimezoneNames (Lkorlibs/time/TimezoneNames;)Lkorlibs/time/PatternDateFormat;
+}
+
+public final class korlibs/time/PatternDateFormat$Companion {
+}
+
+public final class korlibs/time/PatternDateTimeSpanFormat : korlibs/time/DateTimeSpanFormat {
+	public static final field Companion Lkorlibs/time/PatternDateTimeSpanFormat$Companion;
+	public fun <init> (Ljava/lang/String;Lkorlibs/time/KlockLocale;)V
+	public synthetic fun <init> (Ljava/lang/String;Lkorlibs/time/KlockLocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lkorlibs/time/PatternDateComponentsFormat;)V
+	public final fun component1 ()Lkorlibs/time/PatternDateComponentsFormat;
+	public final fun copy (Lkorlibs/time/PatternDateComponentsFormat;)Lkorlibs/time/PatternDateTimeSpanFormat;
+	public static synthetic fun copy$default (Lkorlibs/time/PatternDateTimeSpanFormat;Lkorlibs/time/PatternDateComponentsFormat;ILjava/lang/Object;)Lkorlibs/time/PatternDateTimeSpanFormat;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun format (Lkorlibs/time/DateTimeSpan;)Ljava/lang/String;
+	public final fun getFormat ()Lkorlibs/time/PatternDateComponentsFormat;
+	public final fun getRealLocale ()Lkorlibs/time/KlockLocale;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun tryParse (Ljava/lang/String;Z)Lkorlibs/time/DateTimeSpan;
+	public final fun withLocale (Lkorlibs/time/KlockLocale;)Lkorlibs/time/PatternDateTimeSpanFormat;
+}
+
+public final class korlibs/time/PatternDateTimeSpanFormat$Companion {
+}
+
+public final class korlibs/time/PatternTimeFormat : korlibs/time/TimeFormat {
+	public static final field Companion Lkorlibs/time/PatternTimeFormat$Companion;
+	public fun <init> (Ljava/lang/String;Lkorlibs/time/KlockLocale;)V
+	public synthetic fun <init> (Ljava/lang/String;Lkorlibs/time/KlockLocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lkorlibs/time/PatternDateComponentsFormat;)V
+	public final fun component1 ()Lkorlibs/time/PatternDateComponentsFormat;
+	public final fun copy (Lkorlibs/time/PatternDateComponentsFormat;)Lkorlibs/time/PatternTimeFormat;
+	public static synthetic fun copy$default (Lkorlibs/time/PatternTimeFormat;Lkorlibs/time/PatternDateComponentsFormat;ILjava/lang/Object;)Lkorlibs/time/PatternTimeFormat;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun format-LRDsOJo (J)Ljava/lang/String;
+	public final fun getFormat ()Lkorlibs/time/PatternDateComponentsFormat;
+	public final fun getRealLocale ()Lkorlibs/time/KlockLocale;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun tryParse-f829m1k (Ljava/lang/String;ZZ)Lkotlin/time/Duration;
+	public final fun withLocale (Lkorlibs/time/KlockLocale;)Lkorlibs/time/PatternTimeFormat;
+}
+
+public final class korlibs/time/PatternTimeFormat$Companion {
+}
+
+public final class korlibs/time/PerformanceCounter {
+	public static final field INSTANCE Lkorlibs/time/PerformanceCounter;
+	public final fun getFastReference-8Hnv5yo ()D
+	public final fun getMicroseconds ()D
+	public final fun getMilliseconds ()D
+	public final fun getNanoseconds ()D
+	public final fun getReference-UwyO8pc ()J
+}
+
+public final class korlibs/time/RangesExtKt {
+	public static final fun convertRange-1hEQT4k (DDDDD)D
+	public static final fun convertRange-ppdbICw (JJJJJ)J
+}
+
+public final class korlibs/time/Stopwatch {
+	public fun <init> ()V
+	public fun <init> (Lkorlibs/time/TimeProvider;)V
+	public fun <init> (Lkotlin/jvm/functions/Function0;)V
+	public synthetic fun <init> (Lkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getElapsed-UwyO8pc ()J
+	public final fun getElapsedAndRestart-UwyO8pc ()J
+	public final fun getElapsedMicroseconds ()D
+	public final fun getElapsedNanoseconds ()D
+	public final fun getFastElapsed-8Hnv5yo ()D
+	public final fun getFastElapsedAndRestart-8Hnv5yo ()D
+	public final fun getNanosecondProvider ()Lkotlin/jvm/functions/Function0;
+	public final fun getRunning ()Z
+	public final fun pause ()Lkorlibs/time/Stopwatch;
+	public final fun restart ()Lkorlibs/time/Stopwatch;
+	public final fun resume ()Lkorlibs/time/Stopwatch;
+	public final fun setElapsed-LRDsOJo (J)V
+	public final fun setElapsedMicroseconds (D)V
+	public final fun setElapsedNanoseconds (D)V
+	public final fun setFastElapsed-WoYshz0 (D)V
+	public final fun start ()Lkorlibs/time/Stopwatch;
+	public final fun stop ()Lkorlibs/time/Stopwatch;
+}
+
+public final class korlibs/time/Time : java/io/Serializable, java/lang/Comparable {
+	public static final field Companion Lkorlibs/time/Time$Companion;
+	public static final fun adjust-2AKpJN0 (J)J
+	public static final synthetic fun box-impl (J)Lkorlibs/time/Time;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-fvrCs5M (J)I
+	public static fun compareTo-fvrCs5M (JJ)I
+	public static fun constructor-impl (J)J
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (JLjava/lang/Object;)Z
+	public static final fun equals-impl0 (JJ)Z
+	public static final fun format-impl (JLjava/lang/String;)Ljava/lang/String;
+	public static final fun format-impl (JLkorlibs/time/TimeFormat;)Ljava/lang/String;
+	public final fun getEncoded-UwyO8pc ()J
+	public static final fun getHour-impl (J)I
+	public static final fun getHourAdjusted-impl (J)I
+	public static final fun getMillisecond-impl (J)I
+	public static final fun getMillisecondDouble-impl (J)D
+	public static final fun getMinute-impl (J)I
+	public static final fun getSecond-impl (J)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (J)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (J)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()J
+}
+
+public final class korlibs/time/Time$Companion {
+	public final fun invoke-74fQr6Q (IIII)J
+	public static synthetic fun invoke-74fQr6Q$default (Lkorlibs/time/Time$Companion;IIIIILjava/lang/Object;)J
+}
+
+public abstract interface class korlibs/time/TimeFormat : java/io/Serializable {
+	public static final field Companion Lkorlibs/time/TimeFormat$Companion;
+	public abstract fun format-LRDsOJo (J)Ljava/lang/String;
+	public abstract fun tryParse-f829m1k (Ljava/lang/String;ZZ)Lkotlin/time/Duration;
+	public static synthetic fun tryParse-f829m1k$default (Lkorlibs/time/TimeFormat;Ljava/lang/String;ZZILjava/lang/Object;)Lkotlin/time/Duration;
+}
+
+public final class korlibs/time/TimeFormat$Companion {
+	public final fun getDEFAULT_FORMAT ()Lkorlibs/time/PatternTimeFormat;
+	public final fun getFORMAT_TIME ()Lkorlibs/time/PatternTimeFormat;
+	public final fun invoke (Ljava/lang/String;)Lkorlibs/time/PatternTimeFormat;
+	public final fun parse-5sfh64U (Ljava/lang/String;)J
+}
+
+public final class korlibs/time/TimeFormat$DefaultImpls {
+	public static synthetic fun tryParse-f829m1k$default (Lkorlibs/time/TimeFormat;Ljava/lang/String;ZZILjava/lang/Object;)Lkotlin/time/Duration;
+}
+
+public final class korlibs/time/TimeFormatKt {
+	public static final fun format (Lkorlibs/time/TimeFormat;D)Ljava/lang/String;
+	public static final fun format (Lkorlibs/time/TimeFormat;J)Ljava/lang/String;
+	public static final fun format-F7vjBGc (Lkorlibs/time/TimeFormat;J)Ljava/lang/String;
+	public static final fun parse (Lkorlibs/time/TimeFormat;Ljava/lang/String;Z)J
+	public static synthetic fun parse$default (Lkorlibs/time/TimeFormat;Ljava/lang/String;ZILjava/lang/Object;)J
+	public static final fun parseTime (Lkorlibs/time/TimeFormat;Ljava/lang/String;)J
+}
+
+public final class korlibs/time/TimeKt {
+	public static final fun plus-C_r7DbA (JJ)J
+}
+
+public final class korlibs/time/TimeSampler {
+	public synthetic fun <init> (JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun add ()V
+	public final fun getCount ()I
+	public final fun getTimeWindow-UwyO8pc ()J
+	public final fun setTimeWindow-LRDsOJo (J)V
+}
+
+public final class korlibs/time/TimeSpanExtKt {
+	public static final fun minus-VtjQ1oo (JLkorlibs/time/DateTimeSpan;)Lkorlibs/time/DateTimeSpan;
+	public static final fun minus-hD9XaTk (JI)Lkorlibs/time/DateTimeSpan;
+	public static final fun plus-VtjQ1oo (JLkorlibs/time/DateTimeSpan;)Lkorlibs/time/DateTimeSpan;
+	public static final fun plus-hD9XaTk (JI)Lkorlibs/time/DateTimeSpan;
+	public static final fun toTimeString (DIZ)Ljava/lang/String;
+	public static synthetic fun toTimeString$default (DIZILjava/lang/Object;)Ljava/lang/String;
+	public static final fun toTimeString-KLykuaI (JIZ)Ljava/lang/String;
+	public static synthetic fun toTimeString-KLykuaI$default (JIZILjava/lang/Object;)Ljava/lang/String;
+}
+
+public final class korlibs/time/TimedCache {
+	public synthetic fun <init> (JLkorlibs/time/TimeProvider;Lkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JLkorlibs/time/TimeProvider;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getGen ()Lkotlin/jvm/functions/Function0;
+	public final fun getTimeProvider ()Lkorlibs/time/TimeProvider;
+	public final fun getTtl-UwyO8pc ()J
+	public final fun getValue ()Ljava/lang/Object;
+	public final fun getValue (Ljava/lang/Object;Lkotlin/reflect/KProperty;)Ljava/lang/Object;
+	public final fun setTtl-LRDsOJo (J)V
+	public final fun setValue (Ljava/lang/Object;)V
+	public final fun setValue (Ljava/lang/Object;Lkotlin/reflect/KProperty;Ljava/lang/Object;)V
+}
+
+public final class korlibs/time/Timezone : java/lang/Enum {
+	public static final field ACDT Lkorlibs/time/Timezone;
+	public static final field ACST Lkorlibs/time/Timezone;
+	public static final field ACT Lkorlibs/time/Timezone;
+	public static final field ACWST Lkorlibs/time/Timezone;
+	public static final field ADT Lkorlibs/time/Timezone;
+	public static final field AEDT Lkorlibs/time/Timezone;
+	public static final field AEST Lkorlibs/time/Timezone;
+	public static final field AFT Lkorlibs/time/Timezone;
+	public static final field AKDT Lkorlibs/time/Timezone;
+	public static final field AKST Lkorlibs/time/Timezone;
+	public static final field ALMT Lkorlibs/time/Timezone;
+	public static final field AMST Lkorlibs/time/Timezone;
+	public static final field AMT_ARMENIA Lkorlibs/time/Timezone;
+	public static final field AMT_BRAZIL Lkorlibs/time/Timezone;
+	public static final field ANAT Lkorlibs/time/Timezone;
+	public static final field AQTT Lkorlibs/time/Timezone;
+	public static final field ART Lkorlibs/time/Timezone;
+	public static final field AST_ARABIA Lkorlibs/time/Timezone;
+	public static final field AST_ATLANTIC Lkorlibs/time/Timezone;
+	public static final field AWST Lkorlibs/time/Timezone;
+	public static final field AZOST Lkorlibs/time/Timezone;
+	public static final field AZOT Lkorlibs/time/Timezone;
+	public static final field AZT Lkorlibs/time/Timezone;
+	public static final field BDT Lkorlibs/time/Timezone;
+	public static final field BIOT Lkorlibs/time/Timezone;
+	public static final field BIT Lkorlibs/time/Timezone;
+	public static final field BOT Lkorlibs/time/Timezone;
+	public static final field BRST Lkorlibs/time/Timezone;
+	public static final field BRT Lkorlibs/time/Timezone;
+	public static final field BST_BANGLADESH Lkorlibs/time/Timezone;
+	public static final field BST_BOUGAINVILLE Lkorlibs/time/Timezone;
+	public static final field BST_BRITISH Lkorlibs/time/Timezone;
+	public static final field BTT Lkorlibs/time/Timezone;
+	public static final field CAT Lkorlibs/time/Timezone;
+	public static final field CCT Lkorlibs/time/Timezone;
+	public static final field CDT_AMERICA Lkorlibs/time/Timezone;
+	public static final field CDT_CUBA Lkorlibs/time/Timezone;
+	public static final field CEST Lkorlibs/time/Timezone;
+	public static final field CET Lkorlibs/time/Timezone;
+	public static final field CHADT Lkorlibs/time/Timezone;
+	public static final field CHAST Lkorlibs/time/Timezone;
+	public static final field CHOST Lkorlibs/time/Timezone;
+	public static final field CHOT Lkorlibs/time/Timezone;
+	public static final field CHST Lkorlibs/time/Timezone;
+	public static final field CHUT Lkorlibs/time/Timezone;
+	public static final field CIST Lkorlibs/time/Timezone;
+	public static final field CIT Lkorlibs/time/Timezone;
+	public static final field CKT Lkorlibs/time/Timezone;
+	public static final field CLST Lkorlibs/time/Timezone;
+	public static final field CLT Lkorlibs/time/Timezone;
+	public static final field COST Lkorlibs/time/Timezone;
+	public static final field COT Lkorlibs/time/Timezone;
+	public static final field CST_AMERICA Lkorlibs/time/Timezone;
+	public static final field CST_CHINA Lkorlibs/time/Timezone;
+	public static final field CST_CUBA Lkorlibs/time/Timezone;
+	public static final field CT Lkorlibs/time/Timezone;
+	public static final field CVT Lkorlibs/time/Timezone;
+	public static final field CWST Lkorlibs/time/Timezone;
+	public static final field CXT Lkorlibs/time/Timezone;
+	public static final field DAVT Lkorlibs/time/Timezone;
+	public static final field DDUT Lkorlibs/time/Timezone;
+	public static final field DFT Lkorlibs/time/Timezone;
+	public static final field EASST Lkorlibs/time/Timezone;
+	public static final field EAST Lkorlibs/time/Timezone;
+	public static final field EAT Lkorlibs/time/Timezone;
+	public static final field ECT_CARIBBEAN Lkorlibs/time/Timezone;
+	public static final field ECT_ECUADOR Lkorlibs/time/Timezone;
+	public static final field EDT Lkorlibs/time/Timezone;
+	public static final field EEST Lkorlibs/time/Timezone;
+	public static final field EET Lkorlibs/time/Timezone;
+	public static final field EGST Lkorlibs/time/Timezone;
+	public static final field EGT Lkorlibs/time/Timezone;
+	public static final field EIT Lkorlibs/time/Timezone;
+	public static final field EST Lkorlibs/time/Timezone;
+	public static final field FET Lkorlibs/time/Timezone;
+	public static final field FJT Lkorlibs/time/Timezone;
+	public static final field FKST Lkorlibs/time/Timezone;
+	public static final field FKT Lkorlibs/time/Timezone;
+	public static final field FNT Lkorlibs/time/Timezone;
+	public static final field GALT Lkorlibs/time/Timezone;
+	public static final field GAMT Lkorlibs/time/Timezone;
+	public static final field GET Lkorlibs/time/Timezone;
+	public static final field GFT Lkorlibs/time/Timezone;
+	public static final field GILT Lkorlibs/time/Timezone;
+	public static final field GIT Lkorlibs/time/Timezone;
+	public static final field GMT Lkorlibs/time/Timezone;
+	public static final field GST_GEORGIA Lkorlibs/time/Timezone;
+	public static final field GST_GULF Lkorlibs/time/Timezone;
+	public static final field GYT Lkorlibs/time/Timezone;
+	public static final field HAEC Lkorlibs/time/Timezone;
+	public static final field HDT Lkorlibs/time/Timezone;
+	public static final field HKT Lkorlibs/time/Timezone;
+	public static final field HMT Lkorlibs/time/Timezone;
+	public static final field HOVST Lkorlibs/time/Timezone;
+	public static final field HOVT Lkorlibs/time/Timezone;
+	public static final field HST Lkorlibs/time/Timezone;
+	public static final field ICT Lkorlibs/time/Timezone;
+	public static final field IDLW Lkorlibs/time/Timezone;
+	public static final field IDT Lkorlibs/time/Timezone;
+	public static final field IOT Lkorlibs/time/Timezone;
+	public static final field IRDT Lkorlibs/time/Timezone;
+	public static final field IRKT Lkorlibs/time/Timezone;
+	public static final field IRST Lkorlibs/time/Timezone;
+	public static final field IST_INDIA Lkorlibs/time/Timezone;
+	public static final field IST_IRISH Lkorlibs/time/Timezone;
+	public static final field IST_ISRAEL Lkorlibs/time/Timezone;
+	public static final field JST Lkorlibs/time/Timezone;
+	public static final field KALT Lkorlibs/time/Timezone;
+	public static final field KGT Lkorlibs/time/Timezone;
+	public static final field KOST Lkorlibs/time/Timezone;
+	public static final field KRAT Lkorlibs/time/Timezone;
+	public static final field KST Lkorlibs/time/Timezone;
+	public static final field LHST_STD Lkorlibs/time/Timezone;
+	public static final field LHST_SUMMER Lkorlibs/time/Timezone;
+	public static final field LINT Lkorlibs/time/Timezone;
+	public static final field MAGT Lkorlibs/time/Timezone;
+	public static final field MART Lkorlibs/time/Timezone;
+	public static final field MAWT Lkorlibs/time/Timezone;
+	public static final field MDT Lkorlibs/time/Timezone;
+	public static final field MEST Lkorlibs/time/Timezone;
+	public static final field MET Lkorlibs/time/Timezone;
+	public static final field MHT Lkorlibs/time/Timezone;
+	public static final field MIST Lkorlibs/time/Timezone;
+	public static final field MIT Lkorlibs/time/Timezone;
+	public static final field MMT Lkorlibs/time/Timezone;
+	public static final field MSK Lkorlibs/time/Timezone;
+	public static final field MST_AMERICA Lkorlibs/time/Timezone;
+	public static final field MST_MALAYSIA Lkorlibs/time/Timezone;
+	public static final field MUT Lkorlibs/time/Timezone;
+	public static final field MVT Lkorlibs/time/Timezone;
+	public static final field MYT Lkorlibs/time/Timezone;
+	public static final field NCT Lkorlibs/time/Timezone;
+	public static final field NDT Lkorlibs/time/Timezone;
+	public static final field NFT Lkorlibs/time/Timezone;
+	public static final field NOVT Lkorlibs/time/Timezone;
+	public static final field NPT Lkorlibs/time/Timezone;
+	public static final field NST Lkorlibs/time/Timezone;
+	public static final field NT Lkorlibs/time/Timezone;
+	public static final field NUT Lkorlibs/time/Timezone;
+	public static final field NZDT Lkorlibs/time/Timezone;
+	public static final field NZST Lkorlibs/time/Timezone;
+	public static final field OMST Lkorlibs/time/Timezone;
+	public static final field ORAT Lkorlibs/time/Timezone;
+	public static final field PDT Lkorlibs/time/Timezone;
+	public static final field PET Lkorlibs/time/Timezone;
+	public static final field PETT Lkorlibs/time/Timezone;
+	public static final field PGT Lkorlibs/time/Timezone;
+	public static final field PHOT Lkorlibs/time/Timezone;
+	public static final field PHT Lkorlibs/time/Timezone;
+	public static final field PKT Lkorlibs/time/Timezone;
+	public static final field PMDT Lkorlibs/time/Timezone;
+	public static final field PMST Lkorlibs/time/Timezone;
+	public static final field PONT Lkorlibs/time/Timezone;
+	public static final field PST Lkorlibs/time/Timezone;
+	public static final field PYST Lkorlibs/time/Timezone;
+	public static final field PYT Lkorlibs/time/Timezone;
+	public static final field RET Lkorlibs/time/Timezone;
+	public static final field ROTT Lkorlibs/time/Timezone;
+	public static final field SAKT Lkorlibs/time/Timezone;
+	public static final field SAMT Lkorlibs/time/Timezone;
+	public static final field SAST Lkorlibs/time/Timezone;
+	public static final field SBT Lkorlibs/time/Timezone;
+	public static final field SCT Lkorlibs/time/Timezone;
+	public static final field SDT Lkorlibs/time/Timezone;
+	public static final field SGT Lkorlibs/time/Timezone;
+	public static final field SLST Lkorlibs/time/Timezone;
+	public static final field SRET Lkorlibs/time/Timezone;
+	public static final field SRT Lkorlibs/time/Timezone;
+	public static final field SST_SAMOA Lkorlibs/time/Timezone;
+	public static final field SST_SINGAPORE Lkorlibs/time/Timezone;
+	public static final field SYOT Lkorlibs/time/Timezone;
+	public static final field TAHT Lkorlibs/time/Timezone;
+	public static final field TFT Lkorlibs/time/Timezone;
+	public static final field THA Lkorlibs/time/Timezone;
+	public static final field TJT Lkorlibs/time/Timezone;
+	public static final field TKT Lkorlibs/time/Timezone;
+	public static final field TLT Lkorlibs/time/Timezone;
+	public static final field TMT Lkorlibs/time/Timezone;
+	public static final field TOT Lkorlibs/time/Timezone;
+	public static final field TRT Lkorlibs/time/Timezone;
+	public static final field TVT Lkorlibs/time/Timezone;
+	public static final field ULAST Lkorlibs/time/Timezone;
+	public static final field ULAT Lkorlibs/time/Timezone;
+	public static final field UTC Lkorlibs/time/Timezone;
+	public static final field UYST Lkorlibs/time/Timezone;
+	public static final field UYT Lkorlibs/time/Timezone;
+	public static final field UZT Lkorlibs/time/Timezone;
+	public static final field VET Lkorlibs/time/Timezone;
+	public static final field VLAT Lkorlibs/time/Timezone;
+	public static final field VOLT Lkorlibs/time/Timezone;
+	public static final field VOST Lkorlibs/time/Timezone;
+	public static final field VUT Lkorlibs/time/Timezone;
+	public static final field WAKT Lkorlibs/time/Timezone;
+	public static final field WAST Lkorlibs/time/Timezone;
+	public static final field WAT Lkorlibs/time/Timezone;
+	public static final field WEST Lkorlibs/time/Timezone;
+	public static final field WET Lkorlibs/time/Timezone;
+	public static final field WIT Lkorlibs/time/Timezone;
+	public static final field WST Lkorlibs/time/Timezone;
+	public static final field YAKT Lkorlibs/time/Timezone;
+	public static final field YEKT Lkorlibs/time/Timezone;
+	public final fun getAbbr ()Ljava/lang/String;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getLong ()Ljava/lang/String;
+	public final fun getOffset-qDrnzRU ()D
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/time/Timezone;
+	public static fun values ()[Lkorlibs/time/Timezone;
+}
+
+public final class korlibs/time/TimezoneNames : java/io/Serializable {
+	public static final field Companion Lkorlibs/time/TimezoneNames$Companion;
+	public fun <init> (Ljava/util/List;)V
+	public fun <init> ([Lkorlibs/time/Timezone;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lkorlibs/time/TimezoneNames;
+	public static synthetic fun copy$default (Lkorlibs/time/TimezoneNames;Ljava/util/List;ILjava/lang/Object;)Lkorlibs/time/TimezoneNames;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun get (Ljava/lang/String;)Lkorlibs/time/Timezone;
+	public final fun getAll (Ljava/lang/String;)Ljava/util/List;
+	public final fun getNamesToOffsets ()Ljava/util/Map;
+	public final fun getNamesToOffsetsList ()Ljava/util/Map;
+	public final fun getTimeZones ()Ljava/util/List;
+	public fun hashCode ()I
+	public final fun plus (Lkorlibs/time/TimezoneNames;)Lkorlibs/time/TimezoneNames;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/time/TimezoneNames$Companion {
+	public final fun getDEFAULT ()Lkorlibs/time/TimezoneNames;
+}
+
+public final class korlibs/time/TimezoneOffset : java/io/Serializable, java/lang/Comparable {
+	public static final field Companion Lkorlibs/time/TimezoneOffset$Companion;
+	public static final synthetic fun box-impl (D)Lkorlibs/time/TimezoneOffset;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-t27um6E (D)I
+	public static fun compareTo-t27um6E (DD)I
+	public static fun constructor-impl (D)D
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (DLjava/lang/Object;)Z
+	public static final fun equals-impl0 (DD)Z
+	public static final fun getPositive-impl (D)Z
+	public static final fun getTime-UwyO8pc (D)J
+	public static final fun getTimeZone-impl (D)Ljava/lang/String;
+	public final fun getTotalMilliseconds ()D
+	public static final fun getTotalMinutes-impl (D)D
+	public static final fun getTotalMinutesInt-impl (D)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (D)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (D)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()D
+}
+
+public final class korlibs/time/TimezoneOffset$Companion {
+	public final fun getUTC-qDrnzRU ()D
+	public final fun invoke-9JWLy8g (Lkotlin/time/Duration;)D
+	public final fun local-FfIzupw (D)D
+}
+
+public final class korlibs/time/TimezoneOffsetKt {
+	public static final fun getOffset-LRDsOJo (J)D
+}
+
+public final class korlibs/time/Year : java/io/Serializable, java/lang/Comparable {
+	public static final field Companion Lkorlibs/time/Year$Companion;
+	public static final field DAYS_COMMON I
+	public static final field DAYS_LEAP I
+	public static final synthetic fun box-impl (I)Lkorlibs/time/Year;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-lg8qmDM (I)I
+	public static fun compareTo-lg8qmDM (II)I
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public static final fun getDays-impl (I)I
+	public static final fun getDaysSinceOne-impl (I)I
+	public static final fun getLeapCountSinceOne-impl (I)I
+	public final fun getYear ()I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun isLeap-impl (I)Z
+	public static final fun isLeapChecked-impl (I)Z
+	public static final fun minus-_4hCwx4 (II)I
+	public static final fun minus-lg8qmDM (II)I
+	public static final fun plus-_4hCwx4 (II)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/time/Year$Companion {
+	public final fun checked (I)I
+	public final fun days (Z)I
+	public final fun daysSinceOne (I)I
+	public final fun fromDays-_4hCwx4 (I)I
+	public final fun isLeap (I)Z
+	public final fun isLeapChecked (I)Z
+	public final fun leapCountSinceOne (I)I
+}
+
+public final class korlibs/time/YearKt {
+	public static final fun first-V8OwBXg (ILkorlibs/time/DayOfWeek;)D
+	public static final fun firstDate-V8OwBXg (ILkorlibs/time/DayOfWeek;)I
+}
+
+public final class korlibs/time/YearMonth : java/io/Serializable {
+	public static final field Companion Lkorlibs/time/YearMonth$Companion;
+	public static final synthetic fun box-impl (I)Lkorlibs/time/YearMonth;
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public static final fun getDays-impl (I)I
+	public static final fun getDaysToEnd-impl (I)I
+	public static final fun getDaysToStart-impl (I)I
+	public static final fun getMonth-impl (I)Lkorlibs/time/Month;
+	public static final fun getMonth1-impl (I)I
+	public static final fun getYear-qZVLhkI (I)I
+	public static final fun getYearInt-impl (I)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun minus-2GH9WRk (II)I
+	public static final fun plus-2GH9WRk (II)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/time/YearMonth$Companion {
+	public final fun invoke-Uh1TcSM (II)I
+	public final fun invoke-Uh1TcSM (ILkorlibs/time/Month;)I
+	public final fun invoke-qknk7nA (ILkorlibs/time/Month;)I
+}
+
+public final class korlibs/time/YearMonthKt {
+	public static final fun withMonth-V8OwBXg (ILkorlibs/time/Month;)I
+	public static final fun withYear-AwwLuf8 (Lkorlibs/time/Month;I)I
+}
+
+public final class korlibs/time/benchmark/BenchmarkResult {
+	public fun <init> (JJLjava/util/List;D)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()D
+	public final fun copy (JJLjava/util/List;D)Lkorlibs/time/benchmark/BenchmarkResult;
+	public static synthetic fun copy$default (Lkorlibs/time/benchmark/BenchmarkResult;JJLjava/util/List;DILjava/lang/Object;)Lkorlibs/time/benchmark/BenchmarkResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDummyResult ()D
+	public final fun getMaxDeviation-UwyO8pc ()J
+	public final fun getMaxDeviationMicroseconds ()D
+	public final fun getMaxDeviationNanoseconds ()J
+	public final fun getPartialResults ()Ljava/util/List;
+	public final fun getTimePerCall-UwyO8pc ()J
+	public final fun getTimePerCallMicroseconds ()D
+	public final fun getTimePerCallNanoseconds ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/time/benchmark/BenchmarkResult$PartialResult {
+	public fun <init> (JJ)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun copy (JJ)Lkorlibs/time/benchmark/BenchmarkResult$PartialResult;
+	public static synthetic fun copy$default (Lkorlibs/time/benchmark/BenchmarkResult$PartialResult;JJILjava/lang/Object;)Lkorlibs/time/benchmark/BenchmarkResult$PartialResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIters ()J
+	public final fun getNanos ()J
+	public final fun getNanosPerIter ()D
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/time/benchmark/_TImeBenchmarkKt {
+	public static final fun benchmark (Lkotlin/jvm/functions/Function0;)Lkorlibs/time/benchmark/BenchmarkResult;
+	public static final fun printBenchmarks ([Lkotlin/Pair;Z)V
+	public static synthetic fun printBenchmarks$default ([Lkotlin/Pair;ZILjava/lang/Object;)V
+}
+
+public class korlibs/time/locale/ChineseKlockLocale : korlibs/time/KlockLocale {
+	public static final field Companion Lkorlibs/time/locale/ChineseKlockLocale$Companion;
+	public fun <init> ()V
+	public fun getDaysOfWeek ()Ljava/util/List;
+	public fun getDaysOfWeekShort ()Ljava/util/List;
+	public fun getFirstDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public fun getFormatDateFull ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateLong ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getH12Marker ()Ljava/util/List;
+	public fun getISO639_1 ()Ljava/lang/String;
+	public fun getMonths ()Ljava/util/List;
+	public fun getMonthsShort ()Ljava/util/List;
+}
+
+public final class korlibs/time/locale/ChineseKlockLocale$Companion : korlibs/time/locale/ChineseKlockLocale {
+}
+
+public final class korlibs/time/locale/DeKt {
+	public static final fun getGerman (Lkorlibs/time/KlockLocale$Companion;)Lkorlibs/time/locale/GermanKlockLocale$Companion;
+}
+
+public class korlibs/time/locale/DutchKlockLocale : korlibs/time/KlockLocale {
+	public static final field Companion Lkorlibs/time/locale/DutchKlockLocale$Companion;
+	public fun <init> ()V
+	public fun getDaysOfWeek ()Ljava/util/List;
+	public fun getFirstDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public fun getFormatDateFull ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateLong ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getH12Marker ()Ljava/util/List;
+	public fun getISO639_1 ()Ljava/lang/String;
+	public fun getMonths ()Ljava/util/List;
+}
+
+public final class korlibs/time/locale/DutchKlockLocale$Companion : korlibs/time/locale/DutchKlockLocale {
+}
+
+public final class korlibs/time/locale/EsKt {
+	public static final fun getSpanish (Lkorlibs/time/KlockLocale$Companion;)Lkorlibs/time/locale/SpanishKlockLocale$Companion;
+}
+
+public final class korlibs/time/locale/ExtendedTimezoneNamesKt {
+	public static final fun getExtendedTimezoneNames ()Lkorlibs/time/TimezoneNames;
+}
+
+public final class korlibs/time/locale/FrKt {
+	public static final fun getFrench (Lkorlibs/time/KlockLocale$Companion;)Lkorlibs/time/locale/FrenchKlockLocale$Companion;
+}
+
+public class korlibs/time/locale/FrenchKlockLocale : korlibs/time/KlockLocale {
+	public static final field Companion Lkorlibs/time/locale/FrenchKlockLocale$Companion;
+	public fun <init> ()V
+	public fun getDaysOfWeek ()Ljava/util/List;
+	public fun getFirstDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public fun getFormatDateFull ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateLong ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getH12Marker ()Ljava/util/List;
+	public fun getISO639_1 ()Ljava/lang/String;
+	public fun getMonths ()Ljava/util/List;
+}
+
+public final class korlibs/time/locale/FrenchKlockLocale$Companion : korlibs/time/locale/FrenchKlockLocale {
+}
+
+public class korlibs/time/locale/GermanKlockLocale : korlibs/time/KlockLocale {
+	public static final field Companion Lkorlibs/time/locale/GermanKlockLocale$Companion;
+	public fun <init> ()V
+	public fun getDayByOrdinal (Ljava/lang/String;)I
+	public fun getDaysOfWeek ()Ljava/util/List;
+	public fun getFirstDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public fun getFormatDateFull ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateLong ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getH12Marker ()Ljava/util/List;
+	public fun getISO639_1 ()Ljava/lang/String;
+	public fun getMonths ()Ljava/util/List;
+	public fun getOrdinalByDay (ILkorlibs/time/KlockLocaleContext;)Ljava/lang/String;
+}
+
+public final class korlibs/time/locale/GermanKlockLocale$Companion : korlibs/time/locale/GermanKlockLocale {
+}
+
+public final class korlibs/time/locale/ItKt {
+	public static final fun getItalian (Lkorlibs/time/KlockLocale$Companion;)Lkorlibs/time/locale/ItalianKlockLocale$Companion;
+}
+
+public class korlibs/time/locale/ItalianKlockLocale : korlibs/time/KlockLocale {
+	public static final field Companion Lkorlibs/time/locale/ItalianKlockLocale$Companion;
+	public fun <init> ()V
+	public fun getDaysOfWeek ()Ljava/util/List;
+	public fun getFirstDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public fun getFormatDateFull ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateLong ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getH12Marker ()Ljava/util/List;
+	public fun getISO639_1 ()Ljava/lang/String;
+	public fun getMonths ()Ljava/util/List;
+}
+
+public final class korlibs/time/locale/ItalianKlockLocale$Companion : korlibs/time/locale/ItalianKlockLocale {
+}
+
+public final class korlibs/time/locale/JaKt {
+	public static final fun getJapanese (Lkorlibs/time/KlockLocale$Companion;)Lkorlibs/time/locale/JapaneseKlockLocale$Companion;
+}
+
+public class korlibs/time/locale/JapaneseKlockLocale : korlibs/time/KlockLocale {
+	public static final field Companion Lkorlibs/time/locale/JapaneseKlockLocale$Companion;
+	public fun <init> ()V
+	public fun getDaysOfWeek ()Ljava/util/List;
+	public fun getDaysOfWeekShort ()Ljava/util/List;
+	public fun getFirstDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public fun getFormatDateFull ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateLong ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getH12Marker ()Ljava/util/List;
+	public fun getISO639_1 ()Ljava/lang/String;
+	public fun getMonths ()Ljava/util/List;
+	public fun getMonthsShort ()Ljava/util/List;
+}
+
+public final class korlibs/time/locale/JapaneseKlockLocale$Companion : korlibs/time/locale/JapaneseKlockLocale {
+}
+
+public final class korlibs/time/locale/KoKt {
+	public static final fun getKorean (Lkorlibs/time/KlockLocale$Companion;)Lkorlibs/time/locale/KoreanKlockLocale$Companion;
+}
+
+public class korlibs/time/locale/KoreanKlockLocale : korlibs/time/KlockLocale {
+	public static final field Companion Lkorlibs/time/locale/KoreanKlockLocale$Companion;
+	public fun <init> ()V
+	public fun getDaysOfWeek ()Ljava/util/List;
+	public fun getDaysOfWeekShort ()Ljava/util/List;
+	public fun getFirstDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public fun getFormatDateFull ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateLong ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getH12Marker ()Ljava/util/List;
+	public fun getISO639_1 ()Ljava/lang/String;
+	public fun getMonths ()Ljava/util/List;
+	public fun getMonthsShort ()Ljava/util/List;
+}
+
+public final class korlibs/time/locale/KoreanKlockLocale$Companion : korlibs/time/locale/KoreanKlockLocale {
+}
+
+public final class korlibs/time/locale/NbKt {
+	public static final fun getNorwegian (Lkorlibs/time/KlockLocale$Companion;)Lkorlibs/time/locale/NorwegianKlockLocale$Companion;
+}
+
+public final class korlibs/time/locale/NlKt {
+	public static final fun getDutch (Lkorlibs/time/KlockLocale$Companion;)Lkorlibs/time/locale/DutchKlockLocale$Companion;
+}
+
+public class korlibs/time/locale/NorwegianKlockLocale : korlibs/time/KlockLocale {
+	public static final field Companion Lkorlibs/time/locale/NorwegianKlockLocale$Companion;
+	public fun <init> ()V
+	public fun getDaysOfWeek ()Ljava/util/List;
+	public fun getFirstDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public fun getFormatDateFull ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateLong ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getISO639_1 ()Ljava/lang/String;
+	public fun getMonths ()Ljava/util/List;
+}
+
+public final class korlibs/time/locale/NorwegianKlockLocale$Companion : korlibs/time/locale/NorwegianKlockLocale {
+}
+
+public class korlibs/time/locale/PortugueseKlockLocale : korlibs/time/KlockLocale {
+	public static final field Companion Lkorlibs/time/locale/PortugueseKlockLocale$Companion;
+	public fun <init> ()V
+	public fun getDaysOfWeek ()Ljava/util/List;
+	public fun getFirstDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public fun getFormatDateFull ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateLong ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getH12Marker ()Ljava/util/List;
+	public fun getISO639_1 ()Ljava/lang/String;
+	public fun getMonths ()Ljava/util/List;
+}
+
+public final class korlibs/time/locale/PortugueseKlockLocale$Companion : korlibs/time/locale/PortugueseKlockLocale {
+}
+
+public final class korlibs/time/locale/PtKt {
+	public static final fun getPortuguese (Lkorlibs/time/KlockLocale$Companion;)Lkorlibs/time/locale/PortugueseKlockLocale$Companion;
+}
+
+public final class korlibs/time/locale/RuKt {
+	public static final fun getRussian (Lkorlibs/time/KlockLocale$Companion;)Lkorlibs/time/locale/RussianKlockLocale$Companion;
+}
+
+public class korlibs/time/locale/RussianKlockLocale : korlibs/time/KlockLocale {
+	public static final field Companion Lkorlibs/time/locale/RussianKlockLocale$Companion;
+	public fun <init> ()V
+	public fun getDayByOrdinal (Ljava/lang/String;)I
+	public fun getDaysOfWeek ()Ljava/util/List;
+	public fun getDaysOfWeekShort ()Ljava/util/List;
+	public fun getFirstDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public fun getFormatDateFull ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateLong ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getH12Marker ()Ljava/util/List;
+	public fun getISO639_1 ()Ljava/lang/String;
+	public fun getMonths ()Ljava/util/List;
+	public fun getOrdinalByDay (ILkorlibs/time/KlockLocaleContext;)Ljava/lang/String;
+}
+
+public final class korlibs/time/locale/RussianKlockLocale$Companion : korlibs/time/locale/RussianKlockLocale {
+}
+
+public class korlibs/time/locale/SpanishKlockLocale : korlibs/time/KlockLocale {
+	public static final field Companion Lkorlibs/time/locale/SpanishKlockLocale$Companion;
+	public fun <init> ()V
+	public fun getDaysOfWeek ()Ljava/util/List;
+	public fun getFirstDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public fun getFormatDateFull ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateLong ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getH12Marker ()Ljava/util/List;
+	public fun getISO639_1 ()Ljava/lang/String;
+	public fun getMonths ()Ljava/util/List;
+}
+
+public final class korlibs/time/locale/SpanishKlockLocale$Companion : korlibs/time/locale/SpanishKlockLocale {
+}
+
+public final class korlibs/time/locale/SvKt {
+	public static final fun getSwedish (Lkorlibs/time/KlockLocale$Companion;)Lkorlibs/time/locale/SwedishKlockLocale$Companion;
+}
+
+public class korlibs/time/locale/SwedishKlockLocale : korlibs/time/KlockLocale {
+	public static final field Companion Lkorlibs/time/locale/SwedishKlockLocale$Companion;
+	public fun <init> ()V
+	public fun getDaysOfWeek ()Ljava/util/List;
+	public fun getFirstDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public fun getFormatDateFull ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateLong ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getISO639_1 ()Ljava/lang/String;
+	public fun getMonths ()Ljava/util/List;
+}
+
+public final class korlibs/time/locale/SwedishKlockLocale$Companion : korlibs/time/locale/SwedishKlockLocale {
+}
+
+public final class korlibs/time/locale/TrKt {
+	public static final fun getTurkish (Lkorlibs/time/KlockLocale$Companion;)Lkorlibs/time/locale/TurkishKlockLocale$Companion;
+}
+
+public class korlibs/time/locale/TurkishKlockLocale : korlibs/time/KlockLocale {
+	public static final field Companion Lkorlibs/time/locale/TurkishKlockLocale$Companion;
+	public fun <init> ()V
+	public fun getDaysOfWeek ()Ljava/util/List;
+	public fun getDaysOfWeekShort ()Ljava/util/List;
+	public fun getFirstDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public fun getFormatDateFull ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateLong ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getH12Marker ()Ljava/util/List;
+	public fun getISO639_1 ()Ljava/lang/String;
+	public fun getMonths ()Ljava/util/List;
+	public fun getMonthsShort ()Ljava/util/List;
+}
+
+public final class korlibs/time/locale/TurkishKlockLocale$Companion : korlibs/time/locale/TurkishKlockLocale {
+}
+
+public final class korlibs/time/locale/UkKt {
+	public static final fun getUkrainian (Lkorlibs/time/KlockLocale$Companion;)Lkorlibs/time/locale/UkrainianKlockLocale$Companion;
+}
+
+public class korlibs/time/locale/UkrainianKlockLocale : korlibs/time/KlockLocale {
+	public static final field Companion Lkorlibs/time/locale/UkrainianKlockLocale$Companion;
+	public fun <init> ()V
+	public fun getDaysOfWeek ()Ljava/util/List;
+	public fun getDaysOfWeekShort ()Ljava/util/List;
+	public fun getFirstDayOfWeek ()Lkorlibs/time/DayOfWeek;
+	public fun getFormatDateFull ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateLong ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatDateTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeMedium ()Lkorlibs/time/PatternDateFormat;
+	public fun getFormatTimeShort ()Lkorlibs/time/PatternDateFormat;
+	public fun getH12Marker ()Ljava/util/List;
+	public fun getISO639_1 ()Ljava/lang/String;
+	public fun getMonths ()Ljava/util/List;
+}
+
+public final class korlibs/time/locale/UkrainianKlockLocale$Companion : korlibs/time/locale/UkrainianKlockLocale {
+}
+
+public final class korlibs/time/locale/ZhKt {
+	public static final fun getChinese (Lkorlibs/time/KlockLocale$Companion;)Lkorlibs/time/locale/ChineseKlockLocale$Companion;
+}
+

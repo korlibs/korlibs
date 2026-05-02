@@ -1,0 +1,618 @@
+public final class korlibs/io/file/FinalVfsFile {
+	public fun <init> (Lkorlibs/io/file/Vfs;Ljava/lang/String;)V
+	public fun <init> (Lkorlibs/io/file/VfsFile;)V
+	public final fun component1 ()Lkorlibs/io/file/VfsFile;
+	public final fun copy (Lkorlibs/io/file/VfsFile;)Lkorlibs/io/file/FinalVfsFile;
+	public static synthetic fun copy$default (Lkorlibs/io/file/FinalVfsFile;Lkorlibs/io/file/VfsFile;ILjava/lang/Object;)Lkorlibs/io/file/FinalVfsFile;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFile ()Lkorlibs/io/file/VfsFile;
+	public final fun getPath ()Ljava/lang/String;
+	public final fun getVfs ()Lkorlibs/io/file/Vfs;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/file/FinalVfsFileKt {
+	public static final fun getUnderlyingUnscapedFile (Lkorlibs/io/file/VfsFile;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun toFile (Lkorlibs/io/file/FinalVfsFile;)Lkorlibs/io/file/VfsFile;
+	public static final fun toUnscaped (Lkorlibs/io/file/VfsFile;)Lkorlibs/io/file/FinalVfsFile;
+}
+
+public abstract interface class korlibs/io/file/Path {
+	public abstract fun getPathInfo-WYC9u6I ()Ljava/lang/String;
+}
+
+public final class korlibs/io/file/PathInfo {
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lkorlibs/io/file/PathInfo;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getFullPath ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public final class korlibs/io/file/PathInfoKt {
+	public static final fun baseNameWithCompoundExtension (Lkorlibs/io/file/Path;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun baseNameWithCompoundExtension-JS8pDO4 (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun baseNameWithExtension (Lkorlibs/io/file/Path;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun baseNameWithExtension-JS8pDO4 (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun combine-nbBxnkU (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun fullPathWithExtension (Lkorlibs/io/file/Path;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun fullPathWithExtension-JS8pDO4 (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getBaseName (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getBaseName-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getBaseNameWithoutCompoundExtension (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getBaseNameWithoutCompoundExtension-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getBaseNameWithoutExtension (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getBaseNameWithoutExtension-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getCompoundExtension (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getCompoundExtension-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getCompoundExtensionLC (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getCompoundExtensionLC-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getExtension (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getExtension-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getExtensionLC (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getExtensionLC-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getFile_pathSeparatorChar ()C
+	public static final fun getFile_separatorChar ()C
+	public static final fun getFolder (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getFolder-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getFolderWithSlash (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getFolderWithSlash-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getFullName (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getFullName-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getFullNameWithoutCompoundExtension (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getFullNameWithoutCompoundExtension-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getFullNameWithoutExtension (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getFullNameWithoutExtension-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getFullPathNormalized (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getFullPathNormalized-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getFullPathWithoutExtension (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getFullPathWithoutExtension-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getParent-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getPathComponents (Lkorlibs/io/file/Path;)Ljava/util/List;
+	public static final fun getPathComponents-pnq4Q78 (Ljava/lang/String;)Ljava/util/List;
+	public static final fun getPathFullComponents (Lkorlibs/io/file/Path;)Ljava/util/List;
+	public static final fun getPathFullComponents-pnq4Q78 (Ljava/lang/String;)Ljava/util/List;
+	public static final fun getPathInfo (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun isAbsolute-pnq4Q78 (Ljava/lang/String;)Z
+	public static final fun lightCombine-nbBxnkU (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun normalize-JS8pDO4 (Ljava/lang/String;Z)Ljava/lang/String;
+	public static synthetic fun normalize-JS8pDO4$default (Ljava/lang/String;ZILjava/lang/Object;)Ljava/lang/String;
+	public static final fun normalizeAbsolute-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun parts-pnq4Q78 (Ljava/lang/String;)Ljava/util/List;
+	public static final fun relativePathTo-nbBxnkU (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+}
+
+public abstract class korlibs/io/file/Vfs : korlibs/io/async/AsyncCloseable {
+	public fun <init> ()V
+	protected final fun checkExecFolder (Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun chmod-zLW8Whw (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun createExistsStat-edZukhA (Ljava/lang/String;ZJJJILjava/lang/String;Ljava/lang/String;DDDLjava/lang/Object;Ljava/lang/String;Z)Lkorlibs/io/file/VfsStat;
+	public static synthetic fun createExistsStat-edZukhA$default (Lkorlibs/io/file/Vfs;Ljava/lang/String;ZJJJILjava/lang/String;Ljava/lang/String;DDDLjava/lang/Object;Ljava/lang/String;ZILjava/lang/Object;)Lkorlibs/io/file/VfsStat;
+	public final fun createNonExistsStat (Ljava/lang/String;Ljava/lang/Object;ZLjava/lang/Throwable;)Lkorlibs/io/file/VfsStat;
+	public static synthetic fun createNonExistsStat$default (Lkorlibs/io/file/Vfs;Ljava/lang/String;Ljava/lang/Object;ZLjava/lang/Throwable;ILjava/lang/Object;)Lkorlibs/io/file/VfsStat;
+	public fun delete (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun exec (Ljava/lang/String;Ljava/util/List;Ljava/util/Map;Lkorlibs/io/file/VfsProcessHandler;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun exec$default (Lkorlibs/io/file/Vfs;Ljava/lang/String;Ljava/util/List;Ljava/util/Map;Lkorlibs/io/file/VfsProcessHandler;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun file (Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public final fun get (Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	protected fun getAbsolutePath ()Ljava/lang/String;
+	public fun getAbsolutePath (Ljava/lang/String;)Ljava/lang/String;
+	public fun getAttributes (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	protected fun getDefaultEnvironments ()Ljava/util/Map;
+	public fun getKind (Ljava/lang/Object;)Lkorlibs/io/file/Vfs$FileKind;
+	public final fun getRoot ()Lkorlibs/io/file/VfsFile;
+	public fun getSupportedAttributeTypes ()Ljava/util/List;
+	public fun getUnderlyingUnscapedFile (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun isCaseSensitive (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun listFlow (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun listSimple (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun mkdir (Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun mkdirs (Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun open (Ljava/lang/String;Lkorlibs/io/file/VfsOpenMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun openInputStream (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun put (Ljava/lang/String;Lkorlibs/io/stream/AsyncInputStream;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun put (Ljava/lang/String;[BLjava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun put$default (Lkorlibs/io/file/Vfs;Ljava/lang/String;Lkorlibs/io/stream/AsyncInputStream;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun put$default (Lkorlibs/io/file/Vfs;Ljava/lang/String;[BLjava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun readChunk (Ljava/lang/String;JILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun readRange (Ljava/lang/String;Lkotlin/ranges/LongRange;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun rename (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun rmdir (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setAttributes (Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setSize (Ljava/lang/String;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun stat (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+	public fun touch-SuX47v0 (Ljava/lang/String;DDLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun watch (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun writeChunk (Ljava/lang/String;[BJZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/file/Vfs$Attribute {
+}
+
+public class korlibs/io/file/Vfs$Decorator : korlibs/io/file/Vfs$Proxy {
+	public fun <init> (Lkorlibs/io/file/VfsFile;)V
+	protected fun access (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getParent ()Lkorlibs/io/file/VfsFile;
+	public final fun getParentVfs ()Lkorlibs/io/file/Vfs;
+}
+
+public final class korlibs/io/file/Vfs$FileEvent {
+	public fun <init> (Lkorlibs/io/file/Vfs$FileEvent$Kind;Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/VfsFile;)V
+	public synthetic fun <init> (Lkorlibs/io/file/Vfs$FileEvent$Kind;Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/VfsFile;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkorlibs/io/file/Vfs$FileEvent$Kind;
+	public final fun component2 ()Lkorlibs/io/file/VfsFile;
+	public final fun component3 ()Lkorlibs/io/file/VfsFile;
+	public final fun copy (Lkorlibs/io/file/Vfs$FileEvent$Kind;Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/VfsFile;)Lkorlibs/io/file/Vfs$FileEvent;
+	public static synthetic fun copy$default (Lkorlibs/io/file/Vfs$FileEvent;Lkorlibs/io/file/Vfs$FileEvent$Kind;Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/VfsFile;ILjava/lang/Object;)Lkorlibs/io/file/Vfs$FileEvent;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFile ()Lkorlibs/io/file/VfsFile;
+	public final fun getKind ()Lkorlibs/io/file/Vfs$FileEvent$Kind;
+	public final fun getOther ()Lkorlibs/io/file/VfsFile;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/file/Vfs$FileEvent$Kind : java/lang/Enum {
+	public static final field CREATED Lkorlibs/io/file/Vfs$FileEvent$Kind;
+	public static final field DELETED Lkorlibs/io/file/Vfs$FileEvent$Kind;
+	public static final field MODIFIED Lkorlibs/io/file/Vfs$FileEvent$Kind;
+	public static final field RENAMED Lkorlibs/io/file/Vfs$FileEvent$Kind;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/io/file/Vfs$FileEvent$Kind;
+	public static fun values ()[Lkorlibs/io/file/Vfs$FileEvent$Kind;
+}
+
+public abstract interface class korlibs/io/file/Vfs$FileKind : korlibs/io/file/Vfs$Attribute {
+	public static final field Companion Lkorlibs/io/file/Vfs$FileKind$Companion;
+	public abstract fun getName ()Ljava/lang/String;
+}
+
+public final class korlibs/io/file/Vfs$FileKind$Companion {
+	public final fun getBINARY ()Lkorlibs/io/file/Vfs$FileKind$Standard;
+	public final fun getINT ()Lkorlibs/io/file/Vfs$FileKind$Standard;
+	public final fun getLONG ()Lkorlibs/io/file/Vfs$FileKind$Standard;
+	public final fun getSTRING ()Lkorlibs/io/file/Vfs$FileKind$Standard;
+}
+
+public final class korlibs/io/file/Vfs$FileKind$Standard : java/lang/Enum, korlibs/io/file/Vfs$FileKind {
+	public static final field BINARY Lkorlibs/io/file/Vfs$FileKind$Standard;
+	public static final field INT Lkorlibs/io/file/Vfs$FileKind$Standard;
+	public static final field LONG Lkorlibs/io/file/Vfs$FileKind$Standard;
+	public static final field STRING Lkorlibs/io/file/Vfs$FileKind$Standard;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public synthetic fun getName ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/io/file/Vfs$FileKind$Standard;
+	public static fun values ()[Lkorlibs/io/file/Vfs$FileKind$Standard;
+}
+
+public abstract class korlibs/io/file/Vfs$Proxy : korlibs/io/file/Vfs {
+	public fun <init> ()V
+	protected abstract fun access (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun chmod-zLW8Whw (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun delete (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun exec (Ljava/lang/String;Ljava/util/List;Ljava/util/Map;Lkorlibs/io/file/VfsProcessHandler;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getAttributes (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getUnderlyingUnscapedFile (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	protected fun init (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	protected final fun initOnce (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun isCaseSensitive (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun listFlow (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun mkdir (Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun open (Ljava/lang/String;Lkorlibs/io/file/VfsOpenMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun put (Ljava/lang/String;Lkorlibs/io/stream/AsyncInputStream;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun readRange (Ljava/lang/String;Lkotlin/ranges/LongRange;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun rename (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setAttributes (Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setSize (Ljava/lang/String;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun stat (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun touch-SuX47v0 (Ljava/lang/String;DDLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	protected fun transform (Lkorlibs/io/file/VfsFile;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun watch (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/file/Vfs$UnixPermission {
+	public static final synthetic fun box-impl (I)Lkorlibs/io/file/Vfs$UnixPermission;
+	public static fun constructor-impl (I)I
+	public static fun constructor-impl (ZZZ)I
+	public static synthetic fun constructor-impl$default (ZZZILkotlin/jvm/internal/DefaultConstructorMarker;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getBits ()I
+	public static final fun getExecutable-impl (I)Z
+	public static final fun getReadable-impl (I)Z
+	public static final fun getWritable-impl (I)Z
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/io/file/Vfs$UnixPermissions : korlibs/io/file/Vfs$Attribute {
+	public static final synthetic fun box-impl (I)Lkorlibs/io/file/Vfs$UnixPermissions;
+	public static fun constructor-impl (I)I
+	public static fun constructor-impl (IIII)I
+	public static synthetic fun constructor-impl$default (IIIIILkotlin/jvm/internal/DefaultConstructorMarker;)I
+	public static final fun copy--pozAUk (IIIII)I
+	public static synthetic fun copy--pozAUk$default (IIIIIILjava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getBits ()I
+	public static final fun getExtra-impl (I)I
+	public static final fun getGroup-O0sFDdA (I)I
+	public static final fun getOther-O0sFDdA (I)I
+	public static final fun getOwner-O0sFDdA (I)I
+	public static final fun getRbits-impl (I)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/io/file/VfsCachedStatContext : kotlin/coroutines/CoroutineContext$Element {
+	public static final field Companion Lkorlibs/io/file/VfsCachedStatContext$Companion;
+	public fun <init> (Lkorlibs/io/file/VfsStat;)V
+	public fun fold (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public fun get (Lkotlin/coroutines/CoroutineContext$Key;)Lkotlin/coroutines/CoroutineContext$Element;
+	public fun getKey ()Lkorlibs/io/file/VfsCachedStatContext$Companion;
+	public synthetic fun getKey ()Lkotlin/coroutines/CoroutineContext$Key;
+	public final fun getStat ()Lkorlibs/io/file/VfsStat;
+	public fun minusKey (Lkotlin/coroutines/CoroutineContext$Key;)Lkotlin/coroutines/CoroutineContext;
+	public fun plus (Lkotlin/coroutines/CoroutineContext;)Lkotlin/coroutines/CoroutineContext;
+}
+
+public final class korlibs/io/file/VfsCachedStatContext$Companion : kotlin/coroutines/CoroutineContext$Key {
+}
+
+public final class korlibs/io/file/VfsFile : korlibs/io/file/VfsNamed, korlibs/datastructure/Extra, korlibs/io/stream/AsyncInputOpenable {
+	public fun <init> (Lkorlibs/io/file/Vfs;Ljava/lang/String;)V
+	public final fun appendExtension (Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public final fun chmod-Eea4tX8 (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun component1 ()Lkorlibs/io/file/Vfs;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Lkorlibs/io/file/Vfs;Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun copy$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/Vfs;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public final fun copyTo (Lkorlibs/io/file/VfsFile;[Lkorlibs/io/file/Vfs$Attribute;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun copyTo (Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun copyToRecursively (Lkorlibs/io/file/VfsFile;[Lkorlibs/io/file/Vfs$Attribute;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun copyToRecursively$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/VfsFile;[Lkorlibs/io/file/Vfs$Attribute;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun delete (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun ensureParents (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun exec (Ljava/util/List;Ljava/util/Map;Lkorlibs/io/file/VfsProcessHandler;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun exec$default (Lkorlibs/io/file/VfsFile;Ljava/util/List;Ljava/util/Map;Lkorlibs/io/file/VfsProcessHandler;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun execProcess (Ljava/util/List;Ljava/util/Map;ZLkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun execProcess ([Ljava/lang/String;Ljava/util/Map;ZLkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun execProcess$default (Lkorlibs/io/file/VfsFile;Ljava/util/List;Ljava/util/Map;ZLkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun execProcess$default (Lkorlibs/io/file/VfsFile;[Ljava/lang/String;Ljava/util/Map;ZLkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun execToString (Ljava/util/List;Ljava/util/Map;Lkorlibs/io/lang/Charset;ZZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun execToString ([Ljava/lang/String;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun execToString$default (Lkorlibs/io/file/VfsFile;Ljava/util/List;Ljava/util/Map;Lkorlibs/io/lang/Charset;ZZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun execToString$default (Lkorlibs/io/file/VfsFile;[Ljava/lang/String;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun exists (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun get (Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public final fun getAbsolutePath ()Ljava/lang/String;
+	public final fun getAbsolutePathInfo-WYC9u6I ()Ljava/lang/String;
+	public final fun getAttributes (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getCachedStat ()Lkorlibs/io/file/VfsStat;
+	public fun getExtra ()Lkorlibs/datastructure/ExtraObject;
+	public final fun getParent ()Lkorlibs/io/file/VfsFile;
+	public final fun getPath ()Ljava/lang/String;
+	public final fun getRoot ()Lkorlibs/io/file/VfsFile;
+	public final fun getVfs ()Lkorlibs/io/file/Vfs;
+	public fun hashCode ()I
+	public final fun isCaseSensitive (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun isDirectory (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun isFile (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun jail ()Lkorlibs/io/file/VfsFile;
+	public final fun jailParent ()Lkorlibs/io/file/VfsFile;
+	public final fun list (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun listNames (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun listRecursive (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun listRecursive$default (Lkorlibs/io/file/VfsFile;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun listRecursiveSimple (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun listRecursiveSimple$default (Lkorlibs/io/file/VfsFile;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun listSimple (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun mkdir (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun mkdir ([Lkorlibs/io/file/Vfs$Attribute;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun mkdirs (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun mkdirs ([Lkorlibs/io/file/Vfs$Attribute;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun open (Lkorlibs/io/file/VfsOpenMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun open$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/VfsOpenMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun openInputStream (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun openRead (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun openUse (Lkorlibs/io/file/VfsOpenMode;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun openUse$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/VfsOpenMode;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun openUseIt (Lkorlibs/io/file/VfsOpenMode;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun openUseIt$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/VfsOpenMode;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun passthru (Ljava/util/List;Ljava/util/Map;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun passthru ([Ljava/lang/String;Ljava/util/Map;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun passthru$default (Lkorlibs/io/file/VfsFile;Ljava/util/List;Ljava/util/Map;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun passthru$default (Lkorlibs/io/file/VfsFile;[Ljava/lang/String;Ljava/util/Map;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun put (Lkorlibs/io/stream/AsyncInputStream;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun put (Lkorlibs/io/stream/AsyncInputStream;[Lkorlibs/io/file/Vfs$Attribute;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun put$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/stream/AsyncInputStream;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun read (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun readAll (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun readBytes (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun readChunk (JILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun readLines (Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readLines$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun readRangeBytes (Lkotlin/ranges/IntRange;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun readRangeBytes (Lkotlin/ranges/LongRange;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun readString (Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readString$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun redirected (Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun relativePathTo (Lkorlibs/io/file/VfsFile;)Ljava/lang/String;
+	public final fun rename (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun renameTo (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setAttributes (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setAttributes ([Lkorlibs/io/file/Vfs$Attribute;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setCachedStat (Lkorlibs/io/file/VfsStat;)V
+	public fun setExtra (Lkorlibs/datastructure/ExtraObject;)V
+	public final fun setSize (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun size (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun stat (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun takeIfExists (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+	public final fun touch-RtBw-Y8 (DDLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun touch-RtBw-Y8$default (Lkorlibs/io/file/VfsFile;DDLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun watch (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun withCompoundExtension (Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public final fun withExtension (Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public final fun write ([B[Lkorlibs/io/file/Vfs$Attribute;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun writeBytes ([B[Lkorlibs/io/file/Vfs$Attribute;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun writeChunk ([BJZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun writeChunk$default (Lkorlibs/io/file/VfsFile;[BJZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun writeFile (Lkorlibs/io/file/VfsFile;[Lkorlibs/io/file/Vfs$Attribute;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun writeLines (Ljava/lang/Iterable;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun writeLines$default (Lkorlibs/io/file/VfsFile;Ljava/lang/Iterable;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun writeStream (Lkorlibs/io/stream/AsyncInputStream;[Lkorlibs/io/file/Vfs$Attribute;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun writeStream$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/stream/AsyncInputStream;[Lkorlibs/io/file/Vfs$Attribute;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun writeString (Ljava/lang/String;[Lkorlibs/io/file/Vfs$Attribute;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun writeString$default (Lkorlibs/io/file/VfsFile;Ljava/lang/String;[Lkorlibs/io/file/Vfs$Attribute;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/file/VfsFile$ProcessResult {
+	public fun <init> (ILjava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (ILjava/lang/String;Ljava/lang/String;)Lkorlibs/io/file/VfsFile$ProcessResult;
+	public static synthetic fun copy$default (Lkorlibs/io/file/VfsFile$ProcessResult;ILjava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile$ProcessResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getExitCode ()I
+	public final fun getStderr ()Ljava/lang/String;
+	public final fun getStdout ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/file/VfsFileKt {
+	public static final fun deleteRecursively (Lkorlibs/io/file/VfsFile;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun deleteRecursively$default (Lkorlibs/io/file/VfsFile;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun getUnixPermission (Lkorlibs/io/file/VfsFile;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun jail (Lkorlibs/io/file/VfsFile;)Lkorlibs/io/file/VfsFile;
+	public static final fun jailParent (Lkorlibs/io/file/VfsFile;)Lkorlibs/io/file/VfsFile;
+	public static final fun proxied (Lkorlibs/io/file/VfsFile;Lkotlin/jvm/functions/Function2;)Lkorlibs/io/file/VfsFile;
+	public static final fun readAsSyncStream (Lkorlibs/io/file/VfsFile;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun setUnixPermission-zLW8Whw (Lkorlibs/io/file/VfsFile;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun useVfs (Lkorlibs/io/file/VfsFile;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun withOnce (Lkorlibs/io/file/VfsFile;Lkotlin/jvm/functions/Function2;)Lkorlibs/io/file/VfsFile;
+}
+
+public final class korlibs/io/file/VfsKt {
+	public static final fun getCreateDate (Lkorlibs/io/file/VfsStat;)D
+	public static final fun getLastAccessDate (Lkorlibs/io/file/VfsStat;)D
+	public static final fun getModifiedDate (Lkorlibs/io/file/VfsStat;)D
+}
+
+public class korlibs/io/file/VfsNamed : korlibs/io/file/Path {
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getPathInfo-WYC9u6I ()Ljava/lang/String;
+}
+
+public final class korlibs/io/file/VfsOpenMode : java/lang/Enum {
+	public static final field APPEND Lkorlibs/io/file/VfsOpenMode;
+	public static final field CREATE Lkorlibs/io/file/VfsOpenMode;
+	public static final field CREATE_NEW Lkorlibs/io/file/VfsOpenMode;
+	public static final field CREATE_OR_TRUNCATE Lkorlibs/io/file/VfsOpenMode;
+	public static final field READ Lkorlibs/io/file/VfsOpenMode;
+	public static final field WRITE Lkorlibs/io/file/VfsOpenMode;
+	public final fun getAppend ()Z
+	public final fun getCmode ()Ljava/lang/String;
+	public final fun getCreateIfNotExists ()Z
+	public final fun getCreateNew ()Z
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getRead ()Z
+	public final fun getTruncate ()Z
+	public final fun getWrite ()Z
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/io/file/VfsOpenMode;
+	public static fun values ()[Lkorlibs/io/file/VfsOpenMode;
+}
+
+public final class korlibs/io/file/VfsProcessException : java/io/IOException {
+	public fun <init> (Ljava/lang/String;)V
+}
+
+public class korlibs/io/file/VfsProcessHandler {
+	public fun <init> ()V
+	public fun onErr ([BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun onOut ([BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/file/VfsStat : korlibs/io/file/Path {
+	public synthetic fun <init> (Lkorlibs/io/file/VfsFile;ZZJJJILjava/lang/String;Ljava/lang/String;DDDLjava/lang/Object;Lkorlibs/io/file/Vfs$FileKind;Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lkorlibs/io/file/VfsFile;ZZJJJILjava/lang/String;Ljava/lang/String;DDDLjava/lang/Object;Lkorlibs/io/file/Vfs$FileKind;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkorlibs/io/file/VfsFile;
+	public final fun component10-Wg0KzQs ()D
+	public final fun component11-Wg0KzQs ()D
+	public final fun component12-Wg0KzQs ()D
+	public final fun component13 ()Ljava/lang/Object;
+	public final fun component14 ()Lkorlibs/io/file/Vfs$FileKind;
+	public final fun component15 ()Ljava/lang/String;
+	public final fun component16 ()Ljava/lang/Throwable;
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()J
+	public final fun component5 ()J
+	public final fun component6 ()J
+	public final fun component7 ()I
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()Ljava/lang/String;
+	public final fun copy-376zgGQ (Lkorlibs/io/file/VfsFile;ZZJJJILjava/lang/String;Ljava/lang/String;DDDLjava/lang/Object;Lkorlibs/io/file/Vfs$FileKind;Ljava/lang/String;Ljava/lang/Throwable;)Lkorlibs/io/file/VfsStat;
+	public static synthetic fun copy-376zgGQ$default (Lkorlibs/io/file/VfsStat;Lkorlibs/io/file/VfsFile;ZZJJJILjava/lang/String;Ljava/lang/String;DDDLjava/lang/Object;Lkorlibs/io/file/Vfs$FileKind;Ljava/lang/String;Ljava/lang/Throwable;ILjava/lang/Object;)Lkorlibs/io/file/VfsStat;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCreateTime-Wg0KzQs ()D
+	public final fun getDevice ()J
+	public final fun getEnrichedFile ()Lkorlibs/io/file/VfsFile;
+	public final fun getException ()Ljava/lang/Throwable;
+	public final fun getExists ()Z
+	public final fun getExtraInfo ()Ljava/lang/Object;
+	public final fun getFile ()Lkorlibs/io/file/VfsFile;
+	public final fun getGroup ()Ljava/lang/String;
+	public final fun getId ()Ljava/lang/String;
+	public final fun getInode ()J
+	public final fun getKind ()Lkorlibs/io/file/Vfs$FileKind;
+	public final fun getLastAccessTime-Wg0KzQs ()D
+	public final fun getMode ()I
+	public final fun getModifiedTime-Wg0KzQs ()D
+	public final fun getOwner ()Ljava/lang/String;
+	public fun getPathInfo-WYC9u6I ()Ljava/lang/String;
+	public final fun getPermissions-CQm_CSc ()I
+	public final fun getSize ()J
+	public fun hashCode ()I
+	public final fun isDirectory ()Z
+	public final fun isFile ()Z
+	public fun toString ()Ljava/lang/String;
+	public final fun toString (Z)Ljava/lang/String;
+}
+
+public final class korlibs/io/file/std/JailVfs : korlibs/io/file/Vfs$Proxy {
+	public static final field Companion Lkorlibs/io/file/std/JailVfs$Companion;
+	public synthetic fun <init> (Lkorlibs/io/file/VfsFile;Lkotlin/Unit;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getBaseJail ()Ljava/lang/String;
+	public final fun getJailRoot ()Lkorlibs/io/file/VfsFile;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/file/std/JailVfs$Companion {
+	public final fun invoke (Lkorlibs/io/file/VfsFile;)Lkorlibs/io/file/VfsFile;
+}
+
+public abstract class korlibs/io/file/std/LocalVfs : korlibs/io/file/Vfs {
+	public static final field Companion Lkorlibs/io/file/std/LocalVfs$Companion;
+	public fun <init> ()V
+	public fun <init> (Lkorlibs/io/core/SystemFS;)V
+	public synthetic fun <init> (Lkorlibs/io/core/SystemFS;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun exec (Ljava/lang/String;Ljava/util/List;Ljava/util/Map;Lkorlibs/io/file/VfsProcessHandler;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getAttributes (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getFs ()Lkorlibs/io/core/SystemFS;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/file/std/LocalVfs$Companion {
+}
+
+public final class korlibs/io/file/std/MemoryNodeTree {
+	public fun <init> ()V
+	public fun <init> (Z)V
+	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getCaseSensitive ()Z
+	public final fun getRootNode ()Lkorlibs/io/file/std/MemoryNodeTree$Node;
+}
+
+public class korlibs/io/file/std/MemoryNodeTree$Node : java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {
+	public fun <init> (Lkorlibs/io/file/std/MemoryNodeTree;Ljava/lang/String;ZLkorlibs/io/file/std/MemoryNodeTree$Node;)V
+	public synthetic fun <init> (Lkorlibs/io/file/std/MemoryNodeTree;Ljava/lang/String;ZLkorlibs/io/file/std/MemoryNodeTree$Node;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun access (Ljava/lang/String;Z)Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun accessOrNull (Ljava/lang/String;)Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun child (Ljava/lang/String;)Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun createChild (Ljava/lang/String;Z)Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public static synthetic fun createChild$default (Lkorlibs/io/file/std/MemoryNodeTree$Node;Ljava/lang/String;ZILjava/lang/Object;)Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun delete ()V
+	public final fun followLinks ()Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun get (Ljava/lang/String;)Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun getBytes ()[B
+	public final fun getChildren ()Ljava/util/LinkedHashMap;
+	public final fun getChildrenLC ()Ljava/util/LinkedHashMap;
+	public final fun getData ()Ljava/lang/Object;
+	public final fun getLink ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getNameLC ()Ljava/lang/String;
+	public final fun getOrNull (Ljava/lang/String;)Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun getParent ()Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun getPath ()Ljava/lang/String;
+	public final fun getRoot ()Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun getStream ()Lkorlibs/io/stream/AsyncStream;
+	public final fun isDirectory ()Z
+	public fun iterator ()Ljava/util/Iterator;
+	public final fun mkdir (Ljava/lang/String;)Z
+	public final fun setBytes ([B)V
+	public final fun setData (Ljava/lang/Object;)V
+	public final fun setLink (Ljava/lang/String;)V
+	public final fun setParent (Lkorlibs/io/file/std/MemoryNodeTree$Node;)V
+	public final fun setStream (Lkorlibs/io/stream/AsyncStream;)V
+}
+
+public final class korlibs/io/file/std/MemoryVfsKt {
+	public static final fun MemoryVfs (Ljava/util/Map;Z)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun MemoryVfs$default (Ljava/util/Map;ZILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static final fun MemoryVfsMix (Ljava/util/Map;ZLkorlibs/io/lang/Charset;)Lkorlibs/io/file/VfsFile;
+	public static final fun MemoryVfsMix ([Lkotlin/Pair;ZLkorlibs/io/lang/Charset;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun MemoryVfsMix$default (Ljava/util/Map;ZLkorlibs/io/lang/Charset;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun MemoryVfsMix$default ([Lkotlin/Pair;ZLkorlibs/io/lang/Charset;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static final fun SingleFileMemoryVfs (Ljava/lang/String;Ljava/lang/String;Lkorlibs/io/lang/Charset;Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public static final fun SingleFileMemoryVfs ([BLjava/lang/String;Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun SingleFileMemoryVfs$default (Ljava/lang/String;Ljava/lang/String;Lkorlibs/io/lang/Charset;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun SingleFileMemoryVfs$default ([BLjava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static final fun SingleFileMemoryVfsWithName (Ljava/lang/String;Ljava/lang/String;Lkorlibs/io/lang/Charset;)Lkorlibs/io/file/VfsFile;
+	public static final fun SingleFileMemoryVfsWithName ([BLjava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun SingleFileMemoryVfsWithName$default (Ljava/lang/String;Ljava/lang/String;Lkorlibs/io/lang/Charset;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static final fun VfsFileFromData (Ljava/lang/String;Ljava/lang/String;Lkorlibs/io/lang/Charset;Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public static final fun VfsFileFromData ([BLjava/lang/String;Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun VfsFileFromData$default (Ljava/lang/String;Ljava/lang/String;Lkorlibs/io/lang/Charset;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun VfsFileFromData$default ([BLjava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static final fun asMemoryVfsFile ([BLjava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun asMemoryVfsFile$default ([BLjava/lang/String;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static final fun cachedToMemory (Lkorlibs/io/file/VfsFile;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public class korlibs/io/file/std/NodeVfs : korlibs/io/file/Vfs {
+	public fun <init> ()V
+	public fun <init> (Z)V
+	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun delete (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getCaseSensitive ()Z
+	public final fun getNodeTree ()Lkorlibs/io/file/std/MemoryNodeTree;
+	public final fun getRootNode ()Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public fun listFlow (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun mkdir (Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun open (Ljava/lang/String;Lkorlibs/io/file/VfsOpenMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun rename (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun stat (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+	public fun watch (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract class korlibs/io/file/std/UrlVfs : korlibs/io/file/Vfs {
+	public fun <init> (Ljava/lang/String;Lkotlin/Unit;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/Unit;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	protected fun getAbsolutePath ()Ljava/lang/String;
+	public final fun getFailFromStatus ()Z
+	public final fun getFullUrl (Ljava/lang/String;)Ljava/lang/String;
+	public final fun getUrl ()Ljava/lang/String;
+}
+

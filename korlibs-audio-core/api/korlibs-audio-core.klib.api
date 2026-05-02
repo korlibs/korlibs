@@ -1,0 +1,715 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: native => [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: linux => [linuxArm64, linuxX64]
+// Alias: ios => [iosArm64, iosSimulatorArm64, iosX64]
+// Alias: tvos => [tvosArm64, tvosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-audio-core>
+abstract interface korlibs.audio.sound/ReadonlySoundProps { // korlibs.audio.sound/ReadonlySoundProps|null[0]
+    abstract val panning // korlibs.audio.sound/ReadonlySoundProps.panning|{}panning[0]
+        abstract fun <get-panning>(): kotlin/Double // korlibs.audio.sound/ReadonlySoundProps.panning.<get-panning>|<get-panning>(){}[0]
+    abstract val position // korlibs.audio.sound/ReadonlySoundProps.position|{}position[0]
+        abstract fun <get-position>(): korlibs.math.geom/Vector3F // korlibs.audio.sound/ReadonlySoundProps.position.<get-position>|<get-position>(){}[0]
+    abstract val volume // korlibs.audio.sound/ReadonlySoundProps.volume|{}volume[0]
+        abstract fun <get-volume>(): kotlin/Double // korlibs.audio.sound/ReadonlySoundProps.volume.<get-volume>|<get-volume>(){}[0]
+    open val pitch // korlibs.audio.sound/ReadonlySoundProps.pitch|{}pitch[0]
+        open fun <get-pitch>(): kotlin/Double // korlibs.audio.sound/ReadonlySoundProps.pitch.<get-pitch>|<get-pitch>(){}[0]
+}
+
+abstract interface korlibs.audio.sound/SoundListenerProps { // korlibs.audio.sound/SoundListenerProps|null[0]
+    open val listenerOrientationAt // korlibs.audio.sound/SoundListenerProps.listenerOrientationAt|{}listenerOrientationAt[0]
+        open fun <get-listenerOrientationAt>(): korlibs.math.geom/Vector3F // korlibs.audio.sound/SoundListenerProps.listenerOrientationAt.<get-listenerOrientationAt>|<get-listenerOrientationAt>(){}[0]
+    open val listenerOrientationUp // korlibs.audio.sound/SoundListenerProps.listenerOrientationUp|{}listenerOrientationUp[0]
+        open fun <get-listenerOrientationUp>(): korlibs.math.geom/Vector3F // korlibs.audio.sound/SoundListenerProps.listenerOrientationUp.<get-listenerOrientationUp>|<get-listenerOrientationUp>(){}[0]
+    open val listenerPosition // korlibs.audio.sound/SoundListenerProps.listenerPosition|{}listenerPosition[0]
+        open fun <get-listenerPosition>(): korlibs.math.geom/Vector3F // korlibs.audio.sound/SoundListenerProps.listenerPosition.<get-listenerPosition>|<get-listenerPosition>(){}[0]
+    open val listenerSpeed // korlibs.audio.sound/SoundListenerProps.listenerSpeed|{}listenerSpeed[0]
+        open fun <get-listenerSpeed>(): korlibs.math.geom/Vector3F // korlibs.audio.sound/SoundListenerProps.listenerSpeed.<get-listenerSpeed>|<get-listenerSpeed>(){}[0]
+}
+
+abstract interface korlibs.audio.sound/SoundProps : korlibs.audio.sound/ReadonlySoundProps, korlibs.datastructure/Extra { // korlibs.audio.sound/SoundProps|null[0]
+    abstract var panning // korlibs.audio.sound/SoundProps.panning|{}panning[0]
+        abstract fun <get-panning>(): kotlin/Double // korlibs.audio.sound/SoundProps.panning.<get-panning>|<get-panning>(){}[0]
+        abstract fun <set-panning>(kotlin/Double) // korlibs.audio.sound/SoundProps.panning.<set-panning>|<set-panning>(kotlin.Double){}[0]
+    abstract var position // korlibs.audio.sound/SoundProps.position|{}position[0]
+        abstract fun <get-position>(): korlibs.math.geom/Vector3F // korlibs.audio.sound/SoundProps.position.<get-position>|<get-position>(){}[0]
+        abstract fun <set-position>(korlibs.math.geom/Vector3F) // korlibs.audio.sound/SoundProps.position.<set-position>|<set-position>(korlibs.math.geom.Vector3F){}[0]
+    abstract var volume // korlibs.audio.sound/SoundProps.volume|{}volume[0]
+        abstract fun <get-volume>(): kotlin/Double // korlibs.audio.sound/SoundProps.volume.<get-volume>|<get-volume>(){}[0]
+        abstract fun <set-volume>(kotlin/Double) // korlibs.audio.sound/SoundProps.volume.<set-volume>|<set-volume>(kotlin.Double){}[0]
+    open var pitch // korlibs.audio.sound/SoundProps.pitch|{}pitch[0]
+        open fun <get-pitch>(): kotlin/Double // korlibs.audio.sound/SoundProps.pitch.<get-pitch>|<get-pitch>(){}[0]
+        open fun <set-pitch>(kotlin/Double) // korlibs.audio.sound/SoundProps.pitch.<set-pitch>|<set-pitch>(kotlin.Double){}[0]
+
+    final object Dummy : korlibs.audio.sound/SoundProps, korlibs.datastructure/Extra { // korlibs.audio.sound/SoundProps.Dummy|null[0]
+        final var extra // korlibs.audio.sound/SoundProps.Dummy.extra|{}extra[0]
+            final fun <get-extra>(): korlibs.datastructure/ExtraObject? // korlibs.audio.sound/SoundProps.Dummy.extra.<get-extra>|<get-extra>(){}[0]
+            final fun <set-extra>(korlibs.datastructure/ExtraObject?) // korlibs.audio.sound/SoundProps.Dummy.extra.<set-extra>|<set-extra>(korlibs.datastructure.ExtraObject?){}[0]
+        final var panning // korlibs.audio.sound/SoundProps.Dummy.panning|{}panning[0]
+            final fun <get-panning>(): kotlin/Double // korlibs.audio.sound/SoundProps.Dummy.panning.<get-panning>|<get-panning>(){}[0]
+            final fun <set-panning>(kotlin/Double) // korlibs.audio.sound/SoundProps.Dummy.panning.<set-panning>|<set-panning>(kotlin.Double){}[0]
+        final var pitch // korlibs.audio.sound/SoundProps.Dummy.pitch|{}pitch[0]
+            final fun <get-pitch>(): kotlin/Double // korlibs.audio.sound/SoundProps.Dummy.pitch.<get-pitch>|<get-pitch>(){}[0]
+            final fun <set-pitch>(kotlin/Double) // korlibs.audio.sound/SoundProps.Dummy.pitch.<set-pitch>|<set-pitch>(kotlin.Double){}[0]
+        final var position // korlibs.audio.sound/SoundProps.Dummy.position|{}position[0]
+            final fun <get-position>(): korlibs.math.geom/Vector3F // korlibs.audio.sound/SoundProps.Dummy.position.<get-position>|<get-position>(){}[0]
+            final fun <set-position>(korlibs.math.geom/Vector3F) // korlibs.audio.sound/SoundProps.Dummy.position.<set-position>|<set-position>(korlibs.math.geom.Vector3F){}[0]
+        final var volume // korlibs.audio.sound/SoundProps.Dummy.volume|{}volume[0]
+            final fun <get-volume>(): kotlin/Double // korlibs.audio.sound/SoundProps.Dummy.volume.<get-volume>|<get-volume>(){}[0]
+            final fun <set-volume>(kotlin/Double) // korlibs.audio.sound/SoundProps.Dummy.volume.<set-volume>|<set-volume>(kotlin.Double){}[0]
+    }
+}
+
+final class korlibs.audio.sound/AudioData : korlibs.datastructure/Extra { // korlibs.audio.sound/AudioData|null[0]
+    constructor <init>(kotlin/Int, korlibs.audio.sound/AudioSamples, kotlin/String? = ...) // korlibs.audio.sound/AudioData.<init>|<init>(kotlin.Int;korlibs.audio.sound.AudioSamples;kotlin.String?){}[0]
+
+    final val channels // korlibs.audio.sound/AudioData.channels|{}channels[0]
+        final fun <get-channels>(): kotlin/Int // korlibs.audio.sound/AudioData.channels.<get-channels>|<get-channels>(){}[0]
+    final val frequency // korlibs.audio.sound/AudioData.frequency|{}frequency[0]
+        final inline fun <get-frequency>(): kotlin/Int // korlibs.audio.sound/AudioData.frequency.<get-frequency>|<get-frequency>(){}[0]
+    final val name // korlibs.audio.sound/AudioData.name|{}name[0]
+        final fun <get-name>(): kotlin/String? // korlibs.audio.sound/AudioData.name.<get-name>|<get-name>(){}[0]
+    final val rate // korlibs.audio.sound/AudioData.rate|{}rate[0]
+        final fun <get-rate>(): kotlin/Int // korlibs.audio.sound/AudioData.rate.<get-rate>|<get-rate>(){}[0]
+    final val samples // korlibs.audio.sound/AudioData.samples|{}samples[0]
+        final fun <get-samples>(): korlibs.audio.sound/AudioSamples // korlibs.audio.sound/AudioData.samples.<get-samples>|<get-samples>(){}[0]
+    final val stereo // korlibs.audio.sound/AudioData.stereo|{}stereo[0]
+        final fun <get-stereo>(): kotlin/Boolean // korlibs.audio.sound/AudioData.stereo.<get-stereo>|<get-stereo>(){}[0]
+    final val totalSamples // korlibs.audio.sound/AudioData.totalSamples|{}totalSamples[0]
+        final fun <get-totalSamples>(): kotlin/Int // korlibs.audio.sound/AudioData.totalSamples.<get-totalSamples>|<get-totalSamples>(){}[0]
+    final val totalTime // korlibs.audio.sound/AudioData.totalTime|{}totalTime[0]
+        final fun <get-totalTime>(): kotlin.time/Duration // korlibs.audio.sound/AudioData.totalTime.<get-totalTime>|<get-totalTime>(){}[0]
+
+    final var extra // korlibs.audio.sound/AudioData.extra|{}extra[0]
+        final fun <get-extra>(): korlibs.datastructure/ExtraObject? // korlibs.audio.sound/AudioData.extra.<get-extra>|<get-extra>(){}[0]
+        final fun <set-extra>(korlibs.datastructure/ExtraObject?) // korlibs.audio.sound/AudioData.extra.<set-extra>|<set-extra>(korlibs.datastructure.ExtraObject?){}[0]
+
+    final fun get(kotlin/Int): korlibs.audio.sound/AudioSampleArray // korlibs.audio.sound/AudioData.get|get(kotlin.Int){}[0]
+    final fun get(kotlin/Int, kotlin/Int): korlibs.audio.sound/AudioSample // korlibs.audio.sound/AudioData.get|get(kotlin.Int;kotlin.Int){}[0]
+    final fun sampleAtTime(kotlin.time/Duration): kotlin/Int // korlibs.audio.sound/AudioData.sampleAtTime|sampleAtTime(kotlin.time.Duration){}[0]
+    final fun set(kotlin/Int, kotlin/Int, korlibs.audio.sound/AudioSample) // korlibs.audio.sound/AudioData.set|set(kotlin.Int;kotlin.Int;korlibs.audio.sound.AudioSample){}[0]
+    final fun timeAtSample(kotlin/Int): kotlin.time/Duration // korlibs.audio.sound/AudioData.timeAtSample|timeAtSample(kotlin.Int){}[0]
+    final fun toString(): kotlin/String // korlibs.audio.sound/AudioData.toString|toString(){}[0]
+
+    final object Companion { // korlibs.audio.sound/AudioData.Companion|null[0]
+        final val DUMMY // korlibs.audio.sound/AudioData.Companion.DUMMY|{}DUMMY[0]
+            final fun <get-DUMMY>(): korlibs.audio.sound/AudioData // korlibs.audio.sound/AudioData.Companion.DUMMY.<get-DUMMY>|<get-DUMMY>(){}[0]
+    }
+}
+
+final class korlibs.audio.sound/AudioPlatformOutput : korlibs.audio.sound/SoundProps, korlibs.datastructure/Extra, kotlin/AutoCloseable { // korlibs.audio.sound/AudioPlatformOutput|null[0]
+    constructor <init>(korlibs.audio.sound/SoundListenerProps, kotlin/Int, kotlin/Int, kotlin/Function1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit>, kotlinx.coroutines/CoroutineDispatcher = ..., kotlin.coroutines/SuspendFunction1<korlibs.audio.sound/AudioPlatformOutput, kotlin/Unit> = ...) // korlibs.audio.sound/AudioPlatformOutput.<init>|<init>(korlibs.audio.sound.SoundListenerProps;kotlin.Int;kotlin.Int;kotlin.Function1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>;kotlinx.coroutines.CoroutineDispatcher;kotlin.coroutines.SuspendFunction1<korlibs.audio.sound.AudioPlatformOutput,kotlin.Unit>){}[0]
+
+    final val block // korlibs.audio.sound/AudioPlatformOutput.block|{}block[0]
+        final fun <get-block>(): kotlin.coroutines/SuspendFunction1<korlibs.audio.sound/AudioPlatformOutput, kotlin/Unit> // korlibs.audio.sound/AudioPlatformOutput.block.<get-block>|<get-block>(){}[0]
+    final val channels // korlibs.audio.sound/AudioPlatformOutput.channels|{}channels[0]
+        final fun <get-channels>(): kotlin/Int // korlibs.audio.sound/AudioPlatformOutput.channels.<get-channels>|<get-channels>(){}[0]
+    final val dispatcher // korlibs.audio.sound/AudioPlatformOutput.dispatcher|{}dispatcher[0]
+        final fun <get-dispatcher>(): kotlinx.coroutines/CoroutineDispatcher // korlibs.audio.sound/AudioPlatformOutput.dispatcher.<get-dispatcher>|<get-dispatcher>(){}[0]
+    final val frequency // korlibs.audio.sound/AudioPlatformOutput.frequency|{}frequency[0]
+        final fun <get-frequency>(): kotlin/Int // korlibs.audio.sound/AudioPlatformOutput.frequency.<get-frequency>|<get-frequency>(){}[0]
+    final val listener // korlibs.audio.sound/AudioPlatformOutput.listener|{}listener[0]
+        final fun <get-listener>(): korlibs.audio.sound/SoundListenerProps // korlibs.audio.sound/AudioPlatformOutput.listener.<get-listener>|<get-listener>(){}[0]
+
+    final var extra // korlibs.audio.sound/AudioPlatformOutput.extra|{}extra[0]
+        final fun <get-extra>(): korlibs.datastructure/ExtraObject? // korlibs.audio.sound/AudioPlatformOutput.extra.<get-extra>|<get-extra>(){}[0]
+        final fun <set-extra>(korlibs.datastructure/ExtraObject?) // korlibs.audio.sound/AudioPlatformOutput.extra.<set-extra>|<set-extra>(korlibs.datastructure.ExtraObject?){}[0]
+    final var panning // korlibs.audio.sound/AudioPlatformOutput.panning|{}panning[0]
+        final fun <get-panning>(): kotlin/Double // korlibs.audio.sound/AudioPlatformOutput.panning.<get-panning>|<get-panning>(){}[0]
+        final fun <set-panning>(kotlin/Double) // korlibs.audio.sound/AudioPlatformOutput.panning.<set-panning>|<set-panning>(kotlin.Double){}[0]
+    final var paused // korlibs.audio.sound/AudioPlatformOutput.paused|{}paused[0]
+        final fun <get-paused>(): kotlin/Boolean // korlibs.audio.sound/AudioPlatformOutput.paused.<get-paused>|<get-paused>(){}[0]
+        final fun <set-paused>(kotlin/Boolean) // korlibs.audio.sound/AudioPlatformOutput.paused.<set-paused>|<set-paused>(kotlin.Boolean){}[0]
+    final var position // korlibs.audio.sound/AudioPlatformOutput.position|{}position[0]
+        final fun <get-position>(): korlibs.math.geom/Vector3F // korlibs.audio.sound/AudioPlatformOutput.position.<get-position>|<get-position>(){}[0]
+        final fun <set-position>(korlibs.math.geom/Vector3F) // korlibs.audio.sound/AudioPlatformOutput.position.<set-position>|<set-position>(korlibs.math.geom.Vector3F){}[0]
+    final var running // korlibs.audio.sound/AudioPlatformOutput.running|{}running[0]
+        final fun <get-running>(): kotlin/Boolean // korlibs.audio.sound/AudioPlatformOutput.running.<get-running>|<get-running>(){}[0]
+        final fun <set-running>(kotlin/Boolean) // korlibs.audio.sound/AudioPlatformOutput.running.<set-running>|<set-running>(kotlin.Boolean){}[0]
+    final var volume // korlibs.audio.sound/AudioPlatformOutput.volume|{}volume[0]
+        final fun <get-volume>(): kotlin/Double // korlibs.audio.sound/AudioPlatformOutput.volume.<get-volume>|<get-volume>(){}[0]
+        final fun <set-volume>(kotlin/Double) // korlibs.audio.sound/AudioPlatformOutput.volume.<set-volume>|<set-volume>(kotlin.Double){}[0]
+
+    final fun close() // korlibs.audio.sound/AudioPlatformOutput.close|close(){}[0]
+    final fun genSafe(korlibs.audio.sound/AudioSamplesInterleaved) // korlibs.audio.sound/AudioPlatformOutput.genSafe|genSafe(korlibs.audio.sound.AudioSamplesInterleaved){}[0]
+    final fun start() // korlibs.audio.sound/AudioPlatformOutput.start|start(){}[0]
+    final fun stop() // korlibs.audio.sound/AudioPlatformOutput.stop|stop(){}[0]
+    final suspend fun suspendWhileRunning() // korlibs.audio.sound/AudioPlatformOutput.suspendWhileRunning|suspendWhileRunning(){}[0]
+
+    final object Companion { // korlibs.audio.sound/AudioPlatformOutput.Companion|null[0]
+        final val DEFAULT_BLOCK_SIZE // korlibs.audio.sound/AudioPlatformOutput.Companion.DEFAULT_BLOCK_SIZE|{}DEFAULT_BLOCK_SIZE[0]
+            final fun <get-DEFAULT_BLOCK_SIZE>(): kotlin/Int // korlibs.audio.sound/AudioPlatformOutput.Companion.DEFAULT_BLOCK_SIZE.<get-DEFAULT_BLOCK_SIZE>|<get-DEFAULT_BLOCK_SIZE>(){}[0]
+
+        final fun simple(korlibs.audio.sound/SoundListenerProps, kotlin/Int, kotlin/Int, kotlin/Function1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit>, kotlinx.coroutines/CoroutineDispatcher = ..., kotlin/Function1<korlibs.audio.sound/AudioSamplesInterleaved, korlibs.audio.sound/AudioPlatformOutputSimple>): korlibs.audio.sound/AudioPlatformOutput // korlibs.audio.sound/AudioPlatformOutput.Companion.simple|simple(korlibs.audio.sound.SoundListenerProps;kotlin.Int;kotlin.Int;kotlin.Function1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>;kotlinx.coroutines.CoroutineDispatcher;kotlin.Function1<korlibs.audio.sound.AudioSamplesInterleaved,korlibs.audio.sound.AudioPlatformOutputSimple>){}[0]
+    }
+}
+
+final class korlibs.audio.sound/AudioPlatformOutputSimple { // korlibs.audio.sound/AudioPlatformOutputSimple|null[0]
+    constructor <init>(kotlin.coroutines/SuspendFunction1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit> = ..., kotlin.coroutines/SuspendFunction1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit> = ..., kotlin.coroutines/SuspendFunction1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit> = ..., kotlin/Function1<kotlin/Boolean, kotlin/Unit> = ..., kotlin/Unit = ...) // korlibs.audio.sound/AudioPlatformOutputSimple.<init>|<init>(kotlin.coroutines.SuspendFunction1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>;kotlin.coroutines.SuspendFunction1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>;kotlin.coroutines.SuspendFunction1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>;kotlin.Function1<kotlin.Boolean,kotlin.Unit>;kotlin.Unit){}[0]
+
+    final val close // korlibs.audio.sound/AudioPlatformOutputSimple.close|{}close[0]
+        final fun <get-close>(): kotlin.coroutines/SuspendFunction1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit> // korlibs.audio.sound/AudioPlatformOutputSimple.close.<get-close>|<get-close>(){}[0]
+    final val init // korlibs.audio.sound/AudioPlatformOutputSimple.init|{}init[0]
+        final fun <get-init>(): kotlin.coroutines/SuspendFunction1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit> // korlibs.audio.sound/AudioPlatformOutputSimple.init.<get-init>|<get-init>(){}[0]
+    final val output // korlibs.audio.sound/AudioPlatformOutputSimple.output|{}output[0]
+        final fun <get-output>(): kotlin.coroutines/SuspendFunction1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit> // korlibs.audio.sound/AudioPlatformOutputSimple.output.<get-output>|<get-output>(){}[0]
+    final val paused // korlibs.audio.sound/AudioPlatformOutputSimple.paused|{}paused[0]
+        final fun <get-paused>(): kotlin/Function1<kotlin/Boolean, kotlin/Unit> // korlibs.audio.sound/AudioPlatformOutputSimple.paused.<get-paused>|<get-paused>(){}[0]
+}
+
+final class korlibs.audio.sound/AudioSamples { // korlibs.audio.sound/AudioSamples|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int, kotlin/Array<korlibs.audio.sound/AudioSampleArray> = ...) // korlibs.audio.sound/AudioSamples.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.Array<korlibs.audio.sound.AudioSampleArray>){}[0]
+
+    final val channels // korlibs.audio.sound/AudioSamples.channels|{}channels[0]
+        final fun <get-channels>(): kotlin/Int // korlibs.audio.sound/AudioSamples.channels.<get-channels>|<get-channels>(){}[0]
+    final val data // korlibs.audio.sound/AudioSamples.data|{}data[0]
+        final fun <get-data>(): kotlin/Array<korlibs.audio.sound/AudioSampleArray> // korlibs.audio.sound/AudioSamples.data.<get-data>|<get-data>(){}[0]
+    final val totalSamples // korlibs.audio.sound/AudioSamples.totalSamples|{}totalSamples[0]
+        final fun <get-totalSamples>(): kotlin/Int // korlibs.audio.sound/AudioSamples.totalSamples.<get-totalSamples>|<get-totalSamples>(){}[0]
+
+    final fun clone(korlibs.audio.sound/AudioSamples = ...): korlibs.audio.sound/AudioSamples // korlibs.audio.sound/AudioSamples.clone|clone(korlibs.audio.sound.AudioSamples){}[0]
+    final fun copyOf(kotlin/Int = ...): korlibs.audio.sound/AudioSamples // korlibs.audio.sound/AudioSamples.copyOf|copyOf(kotlin.Int){}[0]
+    final fun copyOfRange(kotlin/Int, kotlin/Int): korlibs.audio.sound/AudioSamples // korlibs.audio.sound/AudioSamples.copyOfRange|copyOfRange(kotlin.Int;kotlin.Int){}[0]
+    final fun copyTo(korlibs.audio.sound/AudioSamples) // korlibs.audio.sound/AudioSamples.copyTo|copyTo(korlibs.audio.sound.AudioSamples){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.audio.sound/AudioSamples.equals|equals(kotlin.Any?){}[0]
+    final fun get(kotlin/Int): korlibs.audio.sound/AudioSampleArray // korlibs.audio.sound/AudioSamples.get|get(kotlin.Int){}[0]
+    final fun get(kotlin/Int, kotlin/Int): korlibs.audio.sound/AudioSample // korlibs.audio.sound/AudioSamples.get|get(kotlin.Int;kotlin.Int){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.audio.sound/AudioSamples.hashCode|hashCode(){}[0]
+    final fun scaleVolume(kotlin/Float): korlibs.audio.sound/AudioSamples // korlibs.audio.sound/AudioSamples.scaleVolume|scaleVolume(kotlin.Float){}[0]
+    final fun scaleVolume(kotlin/FloatArray): korlibs.audio.sound/AudioSamples // korlibs.audio.sound/AudioSamples.scaleVolume|scaleVolume(kotlin.FloatArray){}[0]
+    final fun set(kotlin/Int, kotlin/Int, korlibs.audio.sound/AudioSample) // korlibs.audio.sound/AudioSamples.set|set(kotlin.Int;kotlin.Int;korlibs.audio.sound.AudioSample){}[0]
+    final fun setStereo(kotlin/Int, korlibs.audio.sound/AudioSample, korlibs.audio.sound/AudioSample) // korlibs.audio.sound/AudioSamples.setStereo|setStereo(kotlin.Int;korlibs.audio.sound.AudioSample;korlibs.audio.sound.AudioSample){}[0]
+    final fun setTo(korlibs.audio.sound/AudioSamples): korlibs.audio.sound/AudioSamples // korlibs.audio.sound/AudioSamples.setTo|setTo(korlibs.audio.sound.AudioSamples){}[0]
+    final fun toString(): kotlin/String // korlibs.audio.sound/AudioSamples.toString|toString(){}[0]
+}
+
+final class korlibs.audio.sound/AudioSamplesInterleaved { // korlibs.audio.sound/AudioSamplesInterleaved|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int, korlibs.audio.sound/AudioSampleArray = ...) // korlibs.audio.sound/AudioSamplesInterleaved.<init>|<init>(kotlin.Int;kotlin.Int;korlibs.audio.sound.AudioSampleArray){}[0]
+
+    final val channels // korlibs.audio.sound/AudioSamplesInterleaved.channels|{}channels[0]
+        final fun <get-channels>(): kotlin/Int // korlibs.audio.sound/AudioSamplesInterleaved.channels.<get-channels>|<get-channels>(){}[0]
+    final val data // korlibs.audio.sound/AudioSamplesInterleaved.data|{}data[0]
+        final fun <get-data>(): korlibs.audio.sound/AudioSampleArray // korlibs.audio.sound/AudioSamplesInterleaved.data.<get-data>|<get-data>(){}[0]
+    final val totalSamples // korlibs.audio.sound/AudioSamplesInterleaved.totalSamples|{}totalSamples[0]
+        final fun <get-totalSamples>(): kotlin/Int // korlibs.audio.sound/AudioSamplesInterleaved.totalSamples.<get-totalSamples>|<get-totalSamples>(){}[0]
+
+    final fun copyOf(kotlin/Int = ...): korlibs.audio.sound/AudioSamplesInterleaved // korlibs.audio.sound/AudioSamplesInterleaved.copyOf|copyOf(kotlin.Int){}[0]
+    final fun copyOfRange(kotlin/Int, kotlin/Int): korlibs.audio.sound/AudioSamplesInterleaved // korlibs.audio.sound/AudioSamplesInterleaved.copyOfRange|copyOfRange(kotlin.Int;kotlin.Int){}[0]
+    final fun get(kotlin/Int, kotlin/Int): korlibs.audio.sound/AudioSample // korlibs.audio.sound/AudioSamplesInterleaved.get|get(kotlin.Int;kotlin.Int){}[0]
+    final fun scaleVolume(kotlin/Float): korlibs.audio.sound/AudioSamplesInterleaved // korlibs.audio.sound/AudioSamplesInterleaved.scaleVolume|scaleVolume(kotlin.Float){}[0]
+    final fun scaleVolume(kotlin/FloatArray): korlibs.audio.sound/AudioSamplesInterleaved // korlibs.audio.sound/AudioSamplesInterleaved.scaleVolume|scaleVolume(kotlin.FloatArray){}[0]
+    final fun set(kotlin/Int, kotlin/Int, korlibs.audio.sound/AudioSample) // korlibs.audio.sound/AudioSamplesInterleaved.set|set(kotlin.Int;kotlin.Int;korlibs.audio.sound.AudioSample){}[0]
+    final fun toString(): kotlin/String // korlibs.audio.sound/AudioSamplesInterleaved.toString|toString(){}[0]
+}
+
+final value class korlibs.audio.sound/AudioSample { // korlibs.audio.sound/AudioSample|null[0]
+    constructor <init>(kotlin/Float) // korlibs.audio.sound/AudioSample.<init>|<init>(kotlin.Float){}[0]
+    constructor <init>(kotlin/Int) // korlibs.audio.sound/AudioSample.<init>|<init>(kotlin.Int){}[0]
+    constructor <init>(kotlin/Short) // korlibs.audio.sound/AudioSample.<init>|<init>(kotlin.Short){}[0]
+
+    final val float // korlibs.audio.sound/AudioSample.float|{}float[0]
+        final fun <get-float>(): kotlin/Float // korlibs.audio.sound/AudioSample.float.<get-float>|<get-float>(){}[0]
+    final val short // korlibs.audio.sound/AudioSample.short|{}short[0]
+        final fun <get-short>(): kotlin/Short // korlibs.audio.sound/AudioSample.short.<get-short>|<get-short>(){}[0]
+    final val shortInt // korlibs.audio.sound/AudioSample.shortInt|{}shortInt[0]
+        final fun <get-shortInt>(): kotlin/Int // korlibs.audio.sound/AudioSample.shortInt.<get-shortInt>|<get-shortInt>(){}[0]
+
+    final fun div(kotlin/Double): korlibs.audio.sound/AudioSample // korlibs.audio.sound/AudioSample.div|div(kotlin.Double){}[0]
+    final fun div(kotlin/Float): korlibs.audio.sound/AudioSample // korlibs.audio.sound/AudioSample.div|div(kotlin.Float){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.audio.sound/AudioSample.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.audio.sound/AudioSample.hashCode|hashCode(){}[0]
+    final fun times(kotlin/Double): korlibs.audio.sound/AudioSample // korlibs.audio.sound/AudioSample.times|times(kotlin.Double){}[0]
+    final fun times(kotlin/Float): korlibs.audio.sound/AudioSample // korlibs.audio.sound/AudioSample.times|times(kotlin.Float){}[0]
+    final fun toFloat(): kotlin/Float // korlibs.audio.sound/AudioSample.toFloat|toFloat(){}[0]
+    final fun toInt(): kotlin/Int // korlibs.audio.sound/AudioSample.toInt|toInt(){}[0]
+    final fun toShort(): kotlin/Short // korlibs.audio.sound/AudioSample.toShort|toShort(){}[0]
+    final fun toString(): kotlin/String // korlibs.audio.sound/AudioSample.toString|toString(){}[0]
+
+    final object Companion { // korlibs.audio.sound/AudioSample.Companion|null[0]
+        final val ZERO // korlibs.audio.sound/AudioSample.Companion.ZERO|{}ZERO[0]
+            final fun <get-ZERO>(): korlibs.audio.sound/AudioSample // korlibs.audio.sound/AudioSample.Companion.ZERO.<get-ZERO>|<get-ZERO>(){}[0]
+
+        final fun fromFloat(kotlin/Float): korlibs.audio.sound/AudioSample // korlibs.audio.sound/AudioSample.Companion.fromFloat|fromFloat(kotlin.Float){}[0]
+        final fun fromShort(kotlin/Int): korlibs.audio.sound/AudioSample // korlibs.audio.sound/AudioSample.Companion.fromShort|fromShort(kotlin.Int){}[0]
+    }
+}
+
+final value class korlibs.audio.sound/AudioSampleArray : kotlin.collections/Collection<korlibs.audio.sound/AudioSample> { // korlibs.audio.sound/AudioSampleArray|null[0]
+    constructor <init>(kotlin/Int) // korlibs.audio.sound/AudioSampleArray.<init>|<init>(kotlin.Int){}[0]
+    constructor <init>(kotlin/Int, kotlin/Function1<kotlin/Int, korlibs.audio.sound/AudioSample>) // korlibs.audio.sound/AudioSampleArray.<init>|<init>(kotlin.Int;kotlin.Function1<kotlin.Int,korlibs.audio.sound.AudioSample>){}[0]
+    constructor <init>(kotlin/ShortArray) // korlibs.audio.sound/AudioSampleArray.<init>|<init>(kotlin.ShortArray){}[0]
+
+    final val size // korlibs.audio.sound/AudioSampleArray.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // korlibs.audio.sound/AudioSampleArray.size.<get-size>|<get-size>(){}[0]
+
+    final fun asShortArray(): kotlin/ShortArray // korlibs.audio.sound/AudioSampleArray.asShortArray|asShortArray(){}[0]
+    final fun contains(korlibs.audio.sound/AudioSample): kotlin/Boolean // korlibs.audio.sound/AudioSampleArray.contains|contains(korlibs.audio.sound.AudioSample){}[0]
+    final fun containsAll(kotlin.collections/Collection<korlibs.audio.sound/AudioSample>): kotlin/Boolean // korlibs.audio.sound/AudioSampleArray.containsAll|containsAll(kotlin.collections.Collection<korlibs.audio.sound.AudioSample>){}[0]
+    final fun contentEquals(korlibs.audio.sound/AudioSampleArray?): kotlin/Boolean // korlibs.audio.sound/AudioSampleArray.contentEquals|contentEquals(korlibs.audio.sound.AudioSampleArray?){}[0]
+    final fun contentHashCode(): kotlin/Int // korlibs.audio.sound/AudioSampleArray.contentHashCode|contentHashCode(){}[0]
+    final fun contentToString(): kotlin/String // korlibs.audio.sound/AudioSampleArray.contentToString|contentToString(){}[0]
+    final fun copyInto(korlibs.audio.sound/AudioSampleArray, kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ...): korlibs.audio.sound/AudioSampleArray // korlibs.audio.sound/AudioSampleArray.copyInto|copyInto(korlibs.audio.sound.AudioSampleArray;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    final fun copyOf(kotlin/Int = ...): korlibs.audio.sound/AudioSampleArray // korlibs.audio.sound/AudioSampleArray.copyOf|copyOf(kotlin.Int){}[0]
+    final fun copyOfRange(kotlin/Int, kotlin/Int): korlibs.audio.sound/AudioSampleArray // korlibs.audio.sound/AudioSampleArray.copyOfRange|copyOfRange(kotlin.Int;kotlin.Int){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.audio.sound/AudioSampleArray.equals|equals(kotlin.Any?){}[0]
+    final fun fill(korlibs.audio.sound/AudioSample, kotlin/Int = ..., kotlin/Int = ...) // korlibs.audio.sound/AudioSampleArray.fill|fill(korlibs.audio.sound.AudioSample;kotlin.Int;kotlin.Int){}[0]
+    final fun get(kotlin/Int): korlibs.audio.sound/AudioSample // korlibs.audio.sound/AudioSampleArray.get|get(kotlin.Int){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.audio.sound/AudioSampleArray.hashCode|hashCode(){}[0]
+    final fun isEmpty(): kotlin/Boolean // korlibs.audio.sound/AudioSampleArray.isEmpty|isEmpty(){}[0]
+    final fun iterator(): kotlin.collections/Iterator<korlibs.audio.sound/AudioSample> // korlibs.audio.sound/AudioSampleArray.iterator|iterator(){}[0]
+    final fun set(kotlin/Int, korlibs.audio.sound/AudioSample) // korlibs.audio.sound/AudioSampleArray.set|set(kotlin.Int;korlibs.audio.sound.AudioSample){}[0]
+    final fun toFloatArray(kotlin/FloatArray = ...): kotlin/FloatArray // korlibs.audio.sound/AudioSampleArray.toFloatArray|toFloatArray(kotlin.FloatArray){}[0]
+    final fun toList(): kotlin.collections/List<korlibs.audio.sound/AudioSample> // korlibs.audio.sound/AudioSampleArray.toList|toList(){}[0]
+    final fun toShortArray(kotlin/ShortArray = ...): kotlin/ShortArray // korlibs.audio.sound/AudioSampleArray.toShortArray|toShortArray(kotlin.ShortArray){}[0]
+    final fun toString(): kotlin/String // korlibs.audio.sound/AudioSampleArray.toString|toString(){}[0]
+}
+
+open class korlibs.audio.sound/DummyNativeSoundProvider : korlibs.audio.sound/NativeSoundProvider { // korlibs.audio.sound/DummyNativeSoundProvider|null[0]
+    constructor <init>() // korlibs.audio.sound/DummyNativeSoundProvider.<init>|<init>(){}[0]
+
+    final object Companion : korlibs.audio.sound/DummyNativeSoundProvider // korlibs.audio.sound/DummyNativeSoundProvider.Companion|null[0]
+}
+
+open class korlibs.audio.sound/NativeSoundProvider : korlibs.audio.sound/SoundListenerProps, korlibs.datastructure.pauseable/Pauseable, kotlin/AutoCloseable { // korlibs.audio.sound/NativeSoundProvider|null[0]
+    constructor <init>() // korlibs.audio.sound/NativeSoundProvider.<init>|<init>(){}[0]
+
+    open val target // korlibs.audio.sound/NativeSoundProvider.target|{}target[0]
+        open fun <get-target>(): kotlin/String // korlibs.audio.sound/NativeSoundProvider.target.<get-target>|<get-target>(){}[0]
+
+    open var listenerOrientationAt // korlibs.audio.sound/NativeSoundProvider.listenerOrientationAt|{}listenerOrientationAt[0]
+        open fun <get-listenerOrientationAt>(): korlibs.math.geom/Vector3F // korlibs.audio.sound/NativeSoundProvider.listenerOrientationAt.<get-listenerOrientationAt>|<get-listenerOrientationAt>(){}[0]
+        open fun <set-listenerOrientationAt>(korlibs.math.geom/Vector3F) // korlibs.audio.sound/NativeSoundProvider.listenerOrientationAt.<set-listenerOrientationAt>|<set-listenerOrientationAt>(korlibs.math.geom.Vector3F){}[0]
+    open var listenerOrientationUp // korlibs.audio.sound/NativeSoundProvider.listenerOrientationUp|{}listenerOrientationUp[0]
+        open fun <get-listenerOrientationUp>(): korlibs.math.geom/Vector3F // korlibs.audio.sound/NativeSoundProvider.listenerOrientationUp.<get-listenerOrientationUp>|<get-listenerOrientationUp>(){}[0]
+        open fun <set-listenerOrientationUp>(korlibs.math.geom/Vector3F) // korlibs.audio.sound/NativeSoundProvider.listenerOrientationUp.<set-listenerOrientationUp>|<set-listenerOrientationUp>(korlibs.math.geom.Vector3F){}[0]
+    open var listenerPosition // korlibs.audio.sound/NativeSoundProvider.listenerPosition|{}listenerPosition[0]
+        open fun <get-listenerPosition>(): korlibs.math.geom/Vector3F // korlibs.audio.sound/NativeSoundProvider.listenerPosition.<get-listenerPosition>|<get-listenerPosition>(){}[0]
+        open fun <set-listenerPosition>(korlibs.math.geom/Vector3F) // korlibs.audio.sound/NativeSoundProvider.listenerPosition.<set-listenerPosition>|<set-listenerPosition>(korlibs.math.geom.Vector3F){}[0]
+    open var listenerSpeed // korlibs.audio.sound/NativeSoundProvider.listenerSpeed|{}listenerSpeed[0]
+        open fun <get-listenerSpeed>(): korlibs.math.geom/Vector3F // korlibs.audio.sound/NativeSoundProvider.listenerSpeed.<get-listenerSpeed>|<get-listenerSpeed>(){}[0]
+        open fun <set-listenerSpeed>(korlibs.math.geom/Vector3F) // korlibs.audio.sound/NativeSoundProvider.listenerSpeed.<set-listenerSpeed>|<set-listenerSpeed>(korlibs.math.geom.Vector3F){}[0]
+    open var paused // korlibs.audio.sound/NativeSoundProvider.paused|{}paused[0]
+        open fun <get-paused>(): kotlin/Boolean // korlibs.audio.sound/NativeSoundProvider.paused.<get-paused>|<get-paused>(){}[0]
+        open fun <set-paused>(kotlin/Boolean) // korlibs.audio.sound/NativeSoundProvider.paused.<set-paused>|<set-paused>(kotlin.Boolean){}[0]
+
+    open fun close() // korlibs.audio.sound/NativeSoundProvider.close|close(){}[0]
+    open fun createNewPlatformAudioOutput(kotlin/Int, kotlin/Int = ..., kotlin/Function1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit>): korlibs.audio.sound/AudioPlatformOutput // korlibs.audio.sound/NativeSoundProvider.createNewPlatformAudioOutput|createNewPlatformAudioOutput(kotlin.Int;kotlin.Int;kotlin.Function1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>){}[0]
+}
+
+final object korlibs.audio.sound.backend/FFIALSANativeSoundProvider : korlibs.audio.sound/NativeSoundProvider { // korlibs.audio.sound.backend/FFIALSANativeSoundProvider|null[0]
+    final fun createNewPlatformAudioOutput(kotlin/Int, kotlin/Int, kotlin/Function1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit>): korlibs.audio.sound/AudioPlatformOutput // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.createNewPlatformAudioOutput|createNewPlatformAudioOutput(kotlin.Int;kotlin.Int;kotlin.Function1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>){}[0]
+
+    final object A2 : korlibs.ffi/FFILib { // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2|null[0]
+        final const val EPIPE // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.EPIPE|{}EPIPE[0]
+            final fun <get-EPIPE>(): kotlin/Int // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.EPIPE.<get-EPIPE>|<get-EPIPE>(){}[0]
+        final const val SND_PCM_ACCESS_RW_INTERLEAVED // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.SND_PCM_ACCESS_RW_INTERLEAVED|{}SND_PCM_ACCESS_RW_INTERLEAVED[0]
+            final fun <get-SND_PCM_ACCESS_RW_INTERLEAVED>(): kotlin/Int // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.SND_PCM_ACCESS_RW_INTERLEAVED.<get-SND_PCM_ACCESS_RW_INTERLEAVED>|<get-SND_PCM_ACCESS_RW_INTERLEAVED>(){}[0]
+        final const val SND_PCM_FORMAT_S16_LE // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.SND_PCM_FORMAT_S16_LE|{}SND_PCM_FORMAT_S16_LE[0]
+            final fun <get-SND_PCM_FORMAT_S16_LE>(): kotlin/Int // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.SND_PCM_FORMAT_S16_LE.<get-SND_PCM_FORMAT_S16_LE>|<get-SND_PCM_FORMAT_S16_LE>(){}[0]
+        final const val SND_PCM_STREAM_PLAYBACK // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.SND_PCM_STREAM_PLAYBACK|{}SND_PCM_STREAM_PLAYBACK[0]
+            final fun <get-SND_PCM_STREAM_PLAYBACK>(): kotlin/Int // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.SND_PCM_STREAM_PLAYBACK.<get-SND_PCM_STREAM_PLAYBACK>|<get-SND_PCM_STREAM_PLAYBACK>(){}[0]
+
+        final val snd_pcm_close // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_close|{}snd_pcm_close[0]
+            // Targets: [native, wasmJs]
+            final fun <get-snd_pcm_close>(): kotlin/Function1<korlibs.ffi/FFIPointer?, kotlin/Int> // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_close.<get-snd_pcm_close>|<get-snd_pcm_close>(){}[0]
+
+            // Targets: [js]
+            final fun <get-snd_pcm_close>(): kotlin/Function1<korlibs.js/DenoPointer?, kotlin/Int> // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_close.<get-snd_pcm_close>|<get-snd_pcm_close>(){}[0]
+        final val snd_pcm_drain // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_drain|{}snd_pcm_drain[0]
+            // Targets: [native, wasmJs]
+            final fun <get-snd_pcm_drain>(): kotlin/Function1<korlibs.ffi/FFIPointer?, kotlin/Int> // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_drain.<get-snd_pcm_drain>|<get-snd_pcm_drain>(){}[0]
+
+            // Targets: [js]
+            final fun <get-snd_pcm_drain>(): kotlin/Function1<korlibs.js/DenoPointer?, kotlin/Int> // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_drain.<get-snd_pcm_drain>|<get-snd_pcm_drain>(){}[0]
+        final val snd_pcm_open // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_open|{}snd_pcm_open[0]
+            final fun <get-snd_pcm_open>(): kotlin/Function4<korlibs.ffi/FFIPointerArray, kotlin/String?, kotlin/Int, kotlin/Int, kotlin/Int> // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_open.<get-snd_pcm_open>|<get-snd_pcm_open>(){}[0]
+        final val snd_pcm_recover // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_recover|{}snd_pcm_recover[0]
+            // Targets: [native, wasmJs]
+            final fun <get-snd_pcm_recover>(): kotlin/Function3<korlibs.ffi/FFIPointer?, kotlin/Int, kotlin/Int, kotlin/Int> // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_recover.<get-snd_pcm_recover>|<get-snd_pcm_recover>(){}[0]
+
+            // Targets: [js]
+            final fun <get-snd_pcm_recover>(): kotlin/Function3<korlibs.js/DenoPointer?, kotlin/Int, kotlin/Int, kotlin/Int> // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_recover.<get-snd_pcm_recover>|<get-snd_pcm_recover>(){}[0]
+        final val snd_pcm_set_params // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_set_params|{}snd_pcm_set_params[0]
+            // Targets: [native, wasmJs]
+            final fun <get-snd_pcm_set_params>(): kotlin/Function7<korlibs.ffi/FFIPointer?, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int> // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_set_params.<get-snd_pcm_set_params>|<get-snd_pcm_set_params>(){}[0]
+
+            // Targets: [js]
+            final fun <get-snd_pcm_set_params>(): kotlin/Function7<korlibs.js/DenoPointer?, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int> // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_set_params.<get-snd_pcm_set_params>|<get-snd_pcm_set_params>(){}[0]
+        final val snd_pcm_wait // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_wait|{}snd_pcm_wait[0]
+            // Targets: [native, wasmJs]
+            final fun <get-snd_pcm_wait>(): kotlin/Function2<korlibs.ffi/FFIPointer?, kotlin/Int, kotlin/Int> // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_wait.<get-snd_pcm_wait>|<get-snd_pcm_wait>(){}[0]
+
+            // Targets: [js]
+            final fun <get-snd_pcm_wait>(): kotlin/Function2<korlibs.js/DenoPointer?, kotlin/Int, kotlin/Int> // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_wait.<get-snd_pcm_wait>|<get-snd_pcm_wait>(){}[0]
+        final val snd_pcm_writei // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_writei|{}snd_pcm_writei[0]
+            // Targets: [native, wasmJs]
+            final fun <get-snd_pcm_writei>(): kotlin/Function3<korlibs.ffi/FFIPointer?, kotlin/ShortArray, kotlin/Int, kotlin/Int> // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_writei.<get-snd_pcm_writei>|<get-snd_pcm_writei>(){}[0]
+
+            // Targets: [js]
+            final fun <get-snd_pcm_writei>(): kotlin/Function3<korlibs.js/DenoPointer?, kotlin/ShortArray, kotlin/Int, kotlin/Int> // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_writei.<get-snd_pcm_writei>|<get-snd_pcm_writei>(){}[0]
+
+        // Targets: [native, wasmJs]
+        final fun snd_pcm_open(kotlin/String, kotlin/Int, kotlin/Int): korlibs.ffi/FFIPointer? // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_open|snd_pcm_open(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+
+        // Targets: [native, wasmJs]
+        final fun snd_pcm_writei(korlibs.ffi/FFIPointer?, kotlin/ShortArray, kotlin/Int, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_writei|snd_pcm_writei(korlibs.ffi.FFIPointer?;kotlin.ShortArray;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+
+        // Targets: [js]
+        final fun snd_pcm_open(kotlin/String, kotlin/Int, kotlin/Int): korlibs.js/DenoPointer? // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_open|snd_pcm_open(kotlin.String;kotlin.Int;kotlin.Int){}[0]
+
+        // Targets: [js]
+        final fun snd_pcm_writei(korlibs.js/DenoPointer?, kotlin/ShortArray, kotlin/Int, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.audio.sound.backend/FFIALSANativeSoundProvider.A2.snd_pcm_writei|snd_pcm_writei(korlibs.js.DenoPointer?;kotlin.ShortArray;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    }
+}
+
+final object korlibs.audio.sound.backend/FFIJVMWaveOutNativeSoundProvider : korlibs.audio.sound/NativeSoundProvider { // korlibs.audio.sound.backend/FFIJVMWaveOutNativeSoundProvider|null[0]
+    final fun createNewPlatformAudioOutput(kotlin/Int, kotlin/Int, kotlin/Function1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit>): korlibs.audio.sound/AudioPlatformOutput // korlibs.audio.sound.backend/FFIJVMWaveOutNativeSoundProvider.createNewPlatformAudioOutput|createNewPlatformAudioOutput(kotlin.Int;kotlin.Int;kotlin.Function1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>){}[0]
+}
+
+final val korlibs.audio.sound/AUDIO // korlibs.audio.sound/AUDIO|@kotlinx.coroutines.Dispatchers{}AUDIO[0]
+    final fun (kotlinx.coroutines/Dispatchers).<get-AUDIO>(): kotlinx.coroutines/CoroutineDispatcher // korlibs.audio.sound/AUDIO.<get-AUDIO>|<get-AUDIO>@kotlinx.coroutines.Dispatchers(){}[0]
+final val korlibs.audio.sound/nativeSoundProvider // korlibs.audio.sound/nativeSoundProvider|{}nativeSoundProvider[0]
+    final fun <get-nativeSoundProvider>(): korlibs.audio.sound/NativeSoundProvider // korlibs.audio.sound/nativeSoundProvider.<get-nativeSoundProvider>|<get-nativeSoundProvider>(){}[0]
+
+final fun (korlibs.audio.sound/AudioSampleArray).korlibs.audio.sound/getSampled(kotlin/Float): korlibs.audio.sound/AudioSample // korlibs.audio.sound/getSampled|getSampled@korlibs.audio.sound.AudioSampleArray(kotlin.Float){}[0]
+final fun (korlibs.audio.sound/AudioSamples).korlibs.audio.sound/getSampled(kotlin/Int, kotlin/Float): korlibs.audio.sound/AudioSample // korlibs.audio.sound/getSampled|getSampled@korlibs.audio.sound.AudioSamples(kotlin.Int;kotlin.Float){}[0]
+final fun (korlibs.audio.sound/AudioSamplesInterleaved).korlibs.audio.sound/getSampled(kotlin/Int, kotlin/Float): korlibs.audio.sound/AudioSample // korlibs.audio.sound/getSampled|getSampled@korlibs.audio.sound.AudioSamplesInterleaved(kotlin.Int;kotlin.Float){}[0]
+final fun (korlibs.audio.sound/ReadonlySoundProps).korlibs.audio.sound/applyPropsTo(korlibs.audio.sound/SoundListenerProps, korlibs.audio.sound/AudioSamplesInterleaved) // korlibs.audio.sound/applyPropsTo|applyPropsTo@korlibs.audio.sound.ReadonlySoundProps(korlibs.audio.sound.SoundListenerProps;korlibs.audio.sound.AudioSamplesInterleaved){}[0]
+final fun (korlibs.audio.sound/ReadonlySoundProps).korlibs.audio.sound/volumeForChannel(korlibs.audio.sound/SoundListenerProps, kotlin/Int): kotlin/Float // korlibs.audio.sound/volumeForChannel|volumeForChannel@korlibs.audio.sound.ReadonlySoundProps(korlibs.audio.sound.SoundListenerProps;kotlin.Int){}[0]
+final fun <#A: korlibs.audio.sound/AudioSample> korlibs.audio.sound/audioSampleArrayOf(kotlin/Array<out #A>...): korlibs.audio.sound/AudioSampleArray // korlibs.audio.sound/audioSampleArrayOf|audioSampleArrayOf(kotlin.Array<out|0:0>...){0§<korlibs.audio.sound.AudioSample>}[0]
+final fun korlibs.audio.sound/arraycopy(korlibs.audio.sound/AudioSampleArray, kotlin/Int, korlibs.audio.sound/AudioSampleArray, kotlin/Int, kotlin/Int) // korlibs.audio.sound/arraycopy|arraycopy(korlibs.audio.sound.AudioSampleArray;kotlin.Int;korlibs.audio.sound.AudioSampleArray;kotlin.Int;kotlin.Int){}[0]
+
+// Targets: [ios, macosArm64, tvos]
+final object korlibs.audio.sound/CoreAudioNativeSoundProvider : korlibs.audio.sound/NativeSoundProvider { // korlibs.audio.sound/CoreAudioNativeSoundProvider|null[0]
+    final fun createNewPlatformAudioOutput(kotlin/Int, kotlin/Int, kotlin/Function1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit>): korlibs.audio.sound/AudioPlatformOutput // korlibs.audio.sound/CoreAudioNativeSoundProvider.createNewPlatformAudioOutput|createNewPlatformAudioOutput(kotlin.Int;kotlin.Int;kotlin.Function1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>){}[0]
+    final fun osStatusToString(kotlin/Int): kotlin/String // korlibs.audio.sound/CoreAudioNativeSoundProvider.osStatusToString|osStatusToString(kotlin.Int){}[0]
+
+    abstract interface MyCoreAudioOutputCallback { // korlibs.audio.sound/CoreAudioNativeSoundProvider.MyCoreAudioOutputCallback|null[0]
+        abstract fun generateOutput(kotlinx.cinterop/CPointer<kotlinx.cinterop/ShortVarOf<kotlin/Short>>, kotlin/Int) // korlibs.audio.sound/CoreAudioNativeSoundProvider.MyCoreAudioOutputCallback.generateOutput|generateOutput(kotlinx.cinterop.CPointer<kotlinx.cinterop.ShortVarOf<kotlin.Short>>;kotlin.Int){}[0]
+    }
+
+    final class CoreAudioGenerator : korlibs.audio.sound/CoreAudioNativeSoundProvider.MyCoreAudioOutputCallback { // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator|null[0]
+        constructor <init>(kotlin/Int, kotlin/Int, kotlin/Int = ..., kotlin/Int = ..., kotlin.coroutines/CoroutineContext, kotlin/Function3<korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator, kotlinx.cinterop/CPointer<kotlinx.cinterop/ShortVarOf<kotlin/Short>>, kotlin/Int, kotlin/Unit>) // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.coroutines.CoroutineContext;kotlin.Function3<korlibs.audio.sound.CoreAudioNativeSoundProvider.CoreAudioGenerator,kotlinx.cinterop.CPointer<kotlinx.cinterop.ShortVarOf<kotlin.Short>>,kotlin.Int,kotlin.Unit>){}[0]
+
+        final val arena // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.arena|{}arena[0]
+            final fun <get-arena>(): kotlinx.cinterop/Arena // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.arena.<get-arena>|<get-arena>(){}[0]
+        final val bufferSize // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.bufferSize|{}bufferSize[0]
+            final fun <get-bufferSize>(): kotlin/Int // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.bufferSize.<get-bufferSize>|<get-bufferSize>(){}[0]
+        final val coroutineContext // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.coroutineContext|{}coroutineContext[0]
+            final fun <get-coroutineContext>(): kotlin.coroutines/CoroutineContext // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.coroutineContext.<get-coroutineContext>|<get-coroutineContext>(){}[0]
+        final val generatorCore // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.generatorCore|{}generatorCore[0]
+            final fun <get-generatorCore>(): kotlin/Function3<korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator, kotlinx.cinterop/CPointer<kotlinx.cinterop/ShortVarOf<kotlin/Short>>, kotlin/Int, kotlin/Unit> // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.generatorCore.<get-generatorCore>|<get-generatorCore>(){}[0]
+        final val nchannels // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.nchannels|{}nchannels[0]
+            final fun <get-nchannels>(): kotlin/Int // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.nchannels.<get-nchannels>|<get-nchannels>(){}[0]
+        final val numBuffers // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.numBuffers|{}numBuffers[0]
+            final fun <get-numBuffers>(): kotlin/Int // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.numBuffers.<get-numBuffers>|<get-numBuffers>(){}[0]
+        final val sampleRate // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.sampleRate|{}sampleRate[0]
+            final fun <get-sampleRate>(): kotlin/Int // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.sampleRate.<get-sampleRate>|<get-sampleRate>(){}[0]
+
+        final var buffers // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.buffers|{}buffers[0]
+            final fun <get-buffers>(): kotlinx.cinterop/CPointer<kotlinx.cinterop/CPointerVarOf<kotlinx.cinterop/CPointer<platform.AudioToolbox/AudioQueueBuffer>>>? // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.buffers.<get-buffers>|<get-buffers>(){}[0]
+            final fun <set-buffers>(kotlinx.cinterop/CPointer<kotlinx.cinterop/CPointerVarOf<kotlinx.cinterop/CPointer<platform.AudioToolbox/AudioQueueBuffer>>>?) // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.buffers.<set-buffers>|<set-buffers>(kotlinx.cinterop.CPointer<kotlinx.cinterop.CPointerVarOf<kotlinx.cinterop.CPointer<platform.AudioToolbox.AudioQueueBuffer>>>?){}[0]
+        final var queue // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.queue|{}queue[0]
+            final fun <get-queue>(): kotlinx.cinterop/CPointerVarOf<kotlinx.cinterop/CPointer<cnames.structs/OpaqueAudioQueue>>? // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.queue.<get-queue>|<get-queue>(){}[0]
+            final fun <set-queue>(kotlinx.cinterop/CPointerVarOf<kotlinx.cinterop/CPointer<cnames.structs/OpaqueAudioQueue>>?) // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.queue.<set-queue>|<set-queue>(kotlinx.cinterop.CPointerVarOf<kotlinx.cinterop.CPointer<cnames.structs.OpaqueAudioQueue>>?){}[0]
+        final var running // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.running|{}running[0]
+            final fun <get-running>(): kotlin/Boolean // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.running.<get-running>|<get-running>(){}[0]
+            final fun <set-running>(kotlin/Boolean) // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.running.<set-running>|<set-running>(kotlin.Boolean){}[0]
+        final var thisStableRef // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.thisStableRef|{}thisStableRef[0]
+            final fun <get-thisStableRef>(): kotlinx.cinterop/StableRef<korlibs.audio.sound/CoreAudioNativeSoundProvider.MyCoreAudioOutputCallback>? // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.thisStableRef.<get-thisStableRef>|<get-thisStableRef>(){}[0]
+            final fun <set-thisStableRef>(kotlinx.cinterop/StableRef<korlibs.audio.sound/CoreAudioNativeSoundProvider.MyCoreAudioOutputCallback>?) // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.thisStableRef.<set-thisStableRef>|<set-thisStableRef>(kotlinx.cinterop.StableRef<korlibs.audio.sound.CoreAudioNativeSoundProvider.MyCoreAudioOutputCallback>?){}[0]
+
+        final fun dispose() // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.dispose|dispose(){}[0]
+        final fun generateOutput(kotlinx.cinterop/CPointer<kotlinx.cinterop/ShortVarOf<kotlin/Short>>, kotlin/Int) // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.generateOutput|generateOutput(kotlinx.cinterop.CPointer<kotlinx.cinterop.ShortVarOf<kotlin.Short>>;kotlin.Int){}[0]
+        final fun start() // korlibs.audio.sound/CoreAudioNativeSoundProvider.CoreAudioGenerator.start|start(){}[0]
+    }
+}
+
+// Targets: [js, wasmJs]
+abstract interface org.w3c.dom/AudioBufferSourceNode : org.w3c.dom/AudioScheduledSourceNode { // org.w3c.dom/AudioBufferSourceNode|null[0]
+    abstract var buffer // org.w3c.dom/AudioBufferSourceNode.buffer|{}buffer[0]
+        abstract fun <get-buffer>(): org.w3c.dom/AudioBuffer? // org.w3c.dom/AudioBufferSourceNode.buffer.<get-buffer>|<get-buffer>(){}[0]
+        abstract fun <set-buffer>(org.w3c.dom/AudioBuffer?) // org.w3c.dom/AudioBufferSourceNode.buffer.<set-buffer>|<set-buffer>(org.w3c.dom.AudioBuffer?){}[0]
+    abstract var detune // org.w3c.dom/AudioBufferSourceNode.detune|{}detune[0]
+        abstract fun <get-detune>(): kotlin/Int // org.w3c.dom/AudioBufferSourceNode.detune.<get-detune>|<get-detune>(){}[0]
+        abstract fun <set-detune>(kotlin/Int) // org.w3c.dom/AudioBufferSourceNode.detune.<set-detune>|<set-detune>(kotlin.Int){}[0]
+    abstract var loop // org.w3c.dom/AudioBufferSourceNode.loop|{}loop[0]
+        abstract fun <get-loop>(): kotlin/Boolean // org.w3c.dom/AudioBufferSourceNode.loop.<get-loop>|<get-loop>(){}[0]
+        abstract fun <set-loop>(kotlin/Boolean) // org.w3c.dom/AudioBufferSourceNode.loop.<set-loop>|<set-loop>(kotlin.Boolean){}[0]
+    abstract var loopEnd // org.w3c.dom/AudioBufferSourceNode.loopEnd|{}loopEnd[0]
+        abstract fun <get-loopEnd>(): kotlin/Double // org.w3c.dom/AudioBufferSourceNode.loopEnd.<get-loopEnd>|<get-loopEnd>(){}[0]
+        abstract fun <set-loopEnd>(kotlin/Double) // org.w3c.dom/AudioBufferSourceNode.loopEnd.<set-loopEnd>|<set-loopEnd>(kotlin.Double){}[0]
+    abstract var loopStart // org.w3c.dom/AudioBufferSourceNode.loopStart|{}loopStart[0]
+        abstract fun <get-loopStart>(): kotlin/Double // org.w3c.dom/AudioBufferSourceNode.loopStart.<get-loopStart>|<get-loopStart>(){}[0]
+        abstract fun <set-loopStart>(kotlin/Double) // org.w3c.dom/AudioBufferSourceNode.loopStart.<set-loopStart>|<set-loopStart>(kotlin.Double){}[0]
+    abstract var playbackRate // org.w3c.dom/AudioBufferSourceNode.playbackRate|{}playbackRate[0]
+        abstract fun <get-playbackRate>(): kotlin/Double // org.w3c.dom/AudioBufferSourceNode.playbackRate.<get-playbackRate>|<get-playbackRate>(){}[0]
+        abstract fun <set-playbackRate>(kotlin/Double) // org.w3c.dom/AudioBufferSourceNode.playbackRate.<set-playbackRate>|<set-playbackRate>(kotlin.Double){}[0]
+}
+
+// Targets: [js, wasmJs]
+abstract interface org.w3c.dom/AudioDestinationNode : org.w3c.dom/AudioNode { // org.w3c.dom/AudioDestinationNode|null[0]
+    abstract val maxChannelCount // org.w3c.dom/AudioDestinationNode.maxChannelCount|{}maxChannelCount[0]
+        abstract fun <get-maxChannelCount>(): kotlin/Int // org.w3c.dom/AudioDestinationNode.maxChannelCount.<get-maxChannelCount>|<get-maxChannelCount>(){}[0]
+}
+
+// Targets: [js, wasmJs]
+abstract interface org.w3c.dom/AudioNode { // org.w3c.dom/AudioNode|null[0]
+    abstract val channelCount // org.w3c.dom/AudioNode.channelCount|{}channelCount[0]
+        abstract fun <get-channelCount>(): kotlin/Int // org.w3c.dom/AudioNode.channelCount.<get-channelCount>|<get-channelCount>(){}[0]
+    abstract val context // org.w3c.dom/AudioNode.context|{}context[0]
+        abstract fun <get-context>(): org.w3c.dom/AudioContext // org.w3c.dom/AudioNode.context.<get-context>|<get-context>(){}[0]
+    abstract val numberOfInputs // org.w3c.dom/AudioNode.numberOfInputs|{}numberOfInputs[0]
+        abstract fun <get-numberOfInputs>(): kotlin/Int // org.w3c.dom/AudioNode.numberOfInputs.<get-numberOfInputs>|<get-numberOfInputs>(){}[0]
+    abstract val numberOfOutputs // org.w3c.dom/AudioNode.numberOfOutputs|{}numberOfOutputs[0]
+        abstract fun <get-numberOfOutputs>(): kotlin/Int // org.w3c.dom/AudioNode.numberOfOutputs.<get-numberOfOutputs>|<get-numberOfOutputs>(){}[0]
+
+    abstract fun connect(org.w3c.dom/AudioNode, kotlin/Int? = ..., kotlin/Int? = ...): org.w3c.dom/AudioNode // org.w3c.dom/AudioNode.connect|connect(org.w3c.dom.AudioNode;kotlin.Int?;kotlin.Int?){}[0]
+    abstract fun disconnect(kotlin/Int? = ...) // org.w3c.dom/AudioNode.disconnect|disconnect(kotlin.Int?){}[0]
+    abstract fun disconnect(org.w3c.dom/AudioNode, kotlin/Int? = ..., kotlin/Int? = ...) // org.w3c.dom/AudioNode.disconnect|disconnect(org.w3c.dom.AudioNode;kotlin.Int?;kotlin.Int?){}[0]
+}
+
+// Targets: [js, wasmJs]
+abstract interface org.w3c.dom/AudioParam { // org.w3c.dom/AudioParam|null[0]
+    abstract val defaultValue // org.w3c.dom/AudioParam.defaultValue|{}defaultValue[0]
+        abstract fun <get-defaultValue>(): kotlin/Double // org.w3c.dom/AudioParam.defaultValue.<get-defaultValue>|<get-defaultValue>(){}[0]
+    abstract val maxValue // org.w3c.dom/AudioParam.maxValue|{}maxValue[0]
+        abstract fun <get-maxValue>(): kotlin/Double // org.w3c.dom/AudioParam.maxValue.<get-maxValue>|<get-maxValue>(){}[0]
+    abstract val minValue // org.w3c.dom/AudioParam.minValue|{}minValue[0]
+        abstract fun <get-minValue>(): kotlin/Double // org.w3c.dom/AudioParam.minValue.<get-minValue>|<get-minValue>(){}[0]
+
+    abstract var value // org.w3c.dom/AudioParam.value|{}value[0]
+        abstract fun <get-value>(): kotlin/Double // org.w3c.dom/AudioParam.value.<get-value>|<get-value>(){}[0]
+        abstract fun <set-value>(kotlin/Double) // org.w3c.dom/AudioParam.value.<set-value>|<set-value>(kotlin.Double){}[0]
+}
+
+// Targets: [js, wasmJs]
+abstract interface org.w3c.dom/AudioScheduledSourceNode : org.w3c.dom/AudioNode { // org.w3c.dom/AudioScheduledSourceNode|null[0]
+    abstract var onended // org.w3c.dom/AudioScheduledSourceNode.onended|{}onended[0]
+        abstract fun <get-onended>(): kotlin/Function0<kotlin/Unit> // org.w3c.dom/AudioScheduledSourceNode.onended.<get-onended>|<get-onended>(){}[0]
+        abstract fun <set-onended>(kotlin/Function0<kotlin/Unit>) // org.w3c.dom/AudioScheduledSourceNode.onended.<set-onended>|<set-onended>(kotlin.Function0<kotlin.Unit>){}[0]
+
+    abstract fun start(kotlin/Double = ..., kotlin/Double = ..., kotlin/Double = ...) // org.w3c.dom/AudioScheduledSourceNode.start|start(kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+    abstract fun stop(kotlin/Double = ...) // org.w3c.dom/AudioScheduledSourceNode.stop|stop(kotlin.Double){}[0]
+}
+
+// Targets: [js, wasmJs]
+abstract interface org.w3c.dom/GainNode : org.w3c.dom/AudioNode { // org.w3c.dom/GainNode|null[0]
+    abstract val gain // org.w3c.dom/GainNode.gain|{}gain[0]
+        abstract fun <get-gain>(): org.w3c.dom/AudioParam // org.w3c.dom/GainNode.gain.<get-gain>|<get-gain>(){}[0]
+}
+
+// Targets: [js, wasmJs]
+abstract interface org.w3c.dom/MediaElementAudioSourceNode : org.w3c.dom/AudioScheduledSourceNode { // org.w3c.dom/MediaElementAudioSourceNode|null[0]
+    abstract val mediaElement // org.w3c.dom/MediaElementAudioSourceNode.mediaElement|{}mediaElement[0]
+        abstract fun <get-mediaElement>(): org.w3c.dom/HTMLMediaElement // org.w3c.dom/MediaElementAudioSourceNode.mediaElement.<get-mediaElement>|<get-mediaElement>(){}[0]
+}
+
+// Targets: [js, wasmJs]
+abstract interface org.w3c.dom/PannerNode : org.w3c.dom/AudioNode { // org.w3c.dom/PannerNode|null[0]
+    abstract fun setOrientation(kotlin/Double, kotlin/Double, kotlin/Double) // org.w3c.dom/PannerNode.setOrientation|setOrientation(kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+    abstract fun setPosition(kotlin/Double, kotlin/Double, kotlin/Double) // org.w3c.dom/PannerNode.setPosition|setPosition(kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+}
+
+// Targets: [js, wasmJs]
+abstract interface org.w3c.dom/ScriptProcessorNode : org.w3c.dom/AudioNode { // org.w3c.dom/ScriptProcessorNode|null[0]
+    abstract var onaudioprocess // org.w3c.dom/ScriptProcessorNode.onaudioprocess|{}onaudioprocess[0]
+        abstract fun <get-onaudioprocess>(): kotlin/Function1<org.w3c.dom/AudioProcessingEvent, kotlin/Unit> // org.w3c.dom/ScriptProcessorNode.onaudioprocess.<get-onaudioprocess>|<get-onaudioprocess>(){}[0]
+        abstract fun <set-onaudioprocess>(kotlin/Function1<org.w3c.dom/AudioProcessingEvent, kotlin/Unit>) // org.w3c.dom/ScriptProcessorNode.onaudioprocess.<set-onaudioprocess>|<set-onaudioprocess>(kotlin.Function1<org.w3c.dom.AudioProcessingEvent,kotlin.Unit>){}[0]
+}
+
+// Targets: [js, wasmJs]
+abstract interface org.w3c.dom/StereoPannerNode : org.w3c.dom/AudioNode { // org.w3c.dom/StereoPannerNode|null[0]
+    abstract val pan // org.w3c.dom/StereoPannerNode.pan|{}pan[0]
+        abstract fun <get-pan>(): org.w3c.dom/AudioParam // org.w3c.dom/StereoPannerNode.pan.<get-pan>|<get-pan>(){}[0]
+}
+
+// Targets: [js, wasmJs]
+final class korlibs.audio.sound/AudioBufferOrHTMLMediaElement { // korlibs.audio.sound/AudioBufferOrHTMLMediaElement|null[0]
+    constructor <init>(org.w3c.dom/AudioBuffer?) // korlibs.audio.sound/AudioBufferOrHTMLMediaElement.<init>|<init>(org.w3c.dom.AudioBuffer?){}[0]
+    constructor <init>(org.w3c.dom/AudioBuffer?, org.w3c.dom/HTMLAudioElement?) // korlibs.audio.sound/AudioBufferOrHTMLMediaElement.<init>|<init>(org.w3c.dom.AudioBuffer?;org.w3c.dom.HTMLAudioElement?){}[0]
+    constructor <init>(org.w3c.dom/HTMLAudioElement?) // korlibs.audio.sound/AudioBufferOrHTMLMediaElement.<init>|<init>(org.w3c.dom.HTMLAudioElement?){}[0]
+
+    final val audioBuffer // korlibs.audio.sound/AudioBufferOrHTMLMediaElement.audioBuffer|{}audioBuffer[0]
+        final fun <get-audioBuffer>(): org.w3c.dom/AudioBuffer? // korlibs.audio.sound/AudioBufferOrHTMLMediaElement.audioBuffer.<get-audioBuffer>|<get-audioBuffer>(){}[0]
+    final val duration // korlibs.audio.sound/AudioBufferOrHTMLMediaElement.duration|{}duration[0]
+        final fun <get-duration>(): kotlin/Double? // korlibs.audio.sound/AudioBufferOrHTMLMediaElement.duration.<get-duration>|<get-duration>(){}[0]
+    final val htmlAudioElement // korlibs.audio.sound/AudioBufferOrHTMLMediaElement.htmlAudioElement|{}htmlAudioElement[0]
+        final fun <get-htmlAudioElement>(): org.w3c.dom/HTMLAudioElement? // korlibs.audio.sound/AudioBufferOrHTMLMediaElement.htmlAudioElement.<get-htmlAudioElement>|<get-htmlAudioElement>(){}[0]
+    final val isNotNull // korlibs.audio.sound/AudioBufferOrHTMLMediaElement.isNotNull|{}isNotNull[0]
+        final fun <get-isNotNull>(): kotlin/Boolean // korlibs.audio.sound/AudioBufferOrHTMLMediaElement.isNotNull.<get-isNotNull>|<get-isNotNull>(){}[0]
+    final val isNull // korlibs.audio.sound/AudioBufferOrHTMLMediaElement.isNull|{}isNull[0]
+        final fun <get-isNull>(): kotlin/Boolean // korlibs.audio.sound/AudioBufferOrHTMLMediaElement.isNull.<get-isNull>|<get-isNull>(){}[0]
+    final val numberOfChannels // korlibs.audio.sound/AudioBufferOrHTMLMediaElement.numberOfChannels|{}numberOfChannels[0]
+        final fun <get-numberOfChannels>(): kotlin/Int // korlibs.audio.sound/AudioBufferOrHTMLMediaElement.numberOfChannels.<get-numberOfChannels>|<get-numberOfChannels>(){}[0]
+}
+
+// Targets: [js, wasmJs]
+final class korlibs.audio.sound/HtmlNativeSoundProvider : korlibs.audio.sound/NativeSoundProvider { // korlibs.audio.sound/HtmlNativeSoundProvider|null[0]
+    constructor <init>() // korlibs.audio.sound/HtmlNativeSoundProvider.<init>|<init>(){}[0]
+
+    final fun createNewPlatformAudioOutput(kotlin/Int, kotlin/Int, kotlin/Function1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit>): korlibs.audio.sound/AudioPlatformOutput // korlibs.audio.sound/HtmlNativeSoundProvider.createNewPlatformAudioOutput|createNewPlatformAudioOutput(kotlin.Int;kotlin.Int;kotlin.Function1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>){}[0]
+}
+
+// Targets: [js, wasmJs]
+final class org.w3c.dom/AudioBuffer { // org.w3c.dom/AudioBuffer|null[0]
+    constructor <init>() // org.w3c.dom/AudioBuffer.<init>|<init>(){}[0]
+
+    final val duration // org.w3c.dom/AudioBuffer.duration|{}duration[0]
+        final fun <get-duration>(): kotlin/Double // org.w3c.dom/AudioBuffer.duration.<get-duration>|<get-duration>(){}[0]
+    final val length // org.w3c.dom/AudioBuffer.length|{}length[0]
+        final fun <get-length>(): kotlin/Int // org.w3c.dom/AudioBuffer.length.<get-length>|<get-length>(){}[0]
+    final val numberOfChannels // org.w3c.dom/AudioBuffer.numberOfChannels|{}numberOfChannels[0]
+        final fun <get-numberOfChannels>(): kotlin/Int // org.w3c.dom/AudioBuffer.numberOfChannels.<get-numberOfChannels>|<get-numberOfChannels>(){}[0]
+    final val sampleRate // org.w3c.dom/AudioBuffer.sampleRate|{}sampleRate[0]
+        final fun <get-sampleRate>(): kotlin/Int // org.w3c.dom/AudioBuffer.sampleRate.<get-sampleRate>|<get-sampleRate>(){}[0]
+
+    final fun copyFromChannel(org.khronos.webgl/Float32Array, kotlin/Int, kotlin/Double?) // org.w3c.dom/AudioBuffer.copyFromChannel|copyFromChannel(org.khronos.webgl.Float32Array;kotlin.Int;kotlin.Double?){}[0]
+    final fun copyToChannel(org.khronos.webgl/Float32Array, kotlin/Int, kotlin/Double?) // org.w3c.dom/AudioBuffer.copyToChannel|copyToChannel(org.khronos.webgl.Float32Array;kotlin.Int;kotlin.Double?){}[0]
+    final fun getChannelData(kotlin/Int): org.khronos.webgl/Float32Array // org.w3c.dom/AudioBuffer.getChannelData|getChannelData(kotlin.Int){}[0]
+}
+
+// Targets: [js, wasmJs]
+final class org.w3c.dom/AudioContext : org.w3c.dom/BaseAudioContext { // org.w3c.dom/AudioContext|null[0]
+    constructor <init>() // org.w3c.dom/AudioContext.<init>|<init>(){}[0]
+}
+
+// Targets: [js, wasmJs]
+final class org.w3c.dom/AudioProcessingEvent : org.w3c.dom.events/Event { // org.w3c.dom/AudioProcessingEvent|null[0]
+    constructor <init>() // org.w3c.dom/AudioProcessingEvent.<init>|<init>(){}[0]
+
+    final val inputBuffer // org.w3c.dom/AudioProcessingEvent.inputBuffer|{}inputBuffer[0]
+        final fun <get-inputBuffer>(): org.w3c.dom/AudioBuffer // org.w3c.dom/AudioProcessingEvent.inputBuffer.<get-inputBuffer>|<get-inputBuffer>(){}[0]
+    final val outputBuffer // org.w3c.dom/AudioProcessingEvent.outputBuffer|{}outputBuffer[0]
+        final fun <get-outputBuffer>(): org.w3c.dom/AudioBuffer // org.w3c.dom/AudioProcessingEvent.outputBuffer.<get-outputBuffer>|<get-outputBuffer>(){}[0]
+    final val playbackTime // org.w3c.dom/AudioProcessingEvent.playbackTime|{}playbackTime[0]
+        final fun <get-playbackTime>(): kotlin/Double // org.w3c.dom/AudioProcessingEvent.playbackTime.<get-playbackTime>|<get-playbackTime>(){}[0]
+}
+
+// Targets: [js, wasmJs]
+final class org.w3c.dom/webkitAudioContext : org.w3c.dom/BaseAudioContext { // org.w3c.dom/webkitAudioContext|null[0]
+    constructor <init>() // org.w3c.dom/webkitAudioContext.<init>|<init>(){}[0]
+}
+
+// Targets: [js, wasmJs]
+final object korlibs.audio.sound/HtmlSimpleSound { // korlibs.audio.sound/HtmlSimpleSound|null[0]
+    final val available // korlibs.audio.sound/HtmlSimpleSound.available|{}available[0]
+        final fun <get-available>(): kotlin/Boolean // korlibs.audio.sound/HtmlSimpleSound.available.<get-available>|<get-available>(){}[0]
+    final val ctx // korlibs.audio.sound/HtmlSimpleSound.ctx|{}ctx[0]
+        final fun <get-ctx>(): org.w3c.dom/BaseAudioContext? // korlibs.audio.sound/HtmlSimpleSound.ctx.<get-ctx>|<get-ctx>(){}[0]
+    final val unlock // korlibs.audio.sound/HtmlSimpleSound.unlock|{}unlock[0]
+        final fun <get-unlock>(): kotlinx.coroutines/Deferred<kotlin/Unit> // korlibs.audio.sound/HtmlSimpleSound.unlock.<get-unlock>|<get-unlock>(){}[0]
+
+    final var unlocked // korlibs.audio.sound/HtmlSimpleSound.unlocked|{}unlocked[0]
+        final fun <get-unlocked>(): kotlin/Boolean // korlibs.audio.sound/HtmlSimpleSound.unlocked.<get-unlocked>|<get-unlocked>(){}[0]
+        final fun <set-unlocked>(kotlin/Boolean) // korlibs.audio.sound/HtmlSimpleSound.unlocked.<set-unlocked>|<set-unlocked>(kotlin.Boolean){}[0]
+
+    final fun callOnUnlocked(kotlin/Function1<kotlin/Unit, kotlin/Unit>): korlibs.io.lang/Cancellable // korlibs.audio.sound/HtmlSimpleSound.callOnUnlocked|callOnUnlocked(kotlin.Function1<kotlin.Unit,kotlin.Unit>){}[0]
+    final fun ensureUnlockStart() // korlibs.audio.sound/HtmlSimpleSound.ensureUnlockStart|ensureUnlockStart(){}[0]
+    final fun loadSoundBuffer(kotlin/String): org.w3c.dom/HTMLAudioElement? // korlibs.audio.sound/HtmlSimpleSound.loadSoundBuffer|loadSoundBuffer(kotlin.String){}[0]
+    final suspend fun loadSound(kotlin/ByteArray): org.w3c.dom/AudioBuffer? // korlibs.audio.sound/HtmlSimpleSound.loadSound|loadSound(kotlin.ByteArray){}[0]
+    final suspend fun loadSound(kotlin/String): org.w3c.dom/AudioBuffer? // korlibs.audio.sound/HtmlSimpleSound.loadSound|loadSound(kotlin.String){}[0]
+    final suspend fun loadSound(org.khronos.webgl/ArrayBuffer, kotlin/String): org.w3c.dom/AudioBuffer? // korlibs.audio.sound/HtmlSimpleSound.loadSound|loadSound(org.khronos.webgl.ArrayBuffer;kotlin.String){}[0]
+    final suspend fun waitUnlocked(): org.w3c.dom/BaseAudioContext? // korlibs.audio.sound/HtmlSimpleSound.waitUnlocked|waitUnlocked(){}[0]
+
+    // Targets: [wasmJs]
+    final suspend fun getUnlockedContextOrThrow(): org.w3c.dom/BaseAudioContext // korlibs.audio.sound/HtmlSimpleSound.getUnlockedContextOrThrow|getUnlockedContextOrThrow(){}[0]
+}
+
+// Targets: [js, wasmJs]
+final fun (org.w3c.dom/HTMLAudioElement).korlibs.audio.sound/clone(): org.w3c.dom/Audio // korlibs.audio.sound/clone|clone@org.w3c.dom.HTMLAudioElement(){}[0]
+
+// Targets: [js, wasmJs]
+final fun korlibs.audio.sound/createAudioElement(kotlin/String, kotlin/Double = ..., kotlin/Boolean = ..., kotlin/String? = ...): org.w3c.dom/Audio // korlibs.audio.sound/createAudioElement|createAudioElement(kotlin.String;kotlin.Double;kotlin.Boolean;kotlin.String?){}[0]
+
+// Targets: [linux]
+final object korlibs.audio.sound/ALSANativeSoundProvider : korlibs.audio.sound/NativeSoundProvider { // korlibs.audio.sound/ALSANativeSoundProvider|null[0]
+    final fun createNewPlatformAudioOutput(kotlin/Int, kotlin/Int, kotlin/Function1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit>): korlibs.audio.sound/AudioPlatformOutput // korlibs.audio.sound/ALSANativeSoundProvider.createNewPlatformAudioOutput|createNewPlatformAudioOutput(kotlin.Int;kotlin.Int;kotlin.Function1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>){}[0]
+}
+
+// Targets: [js]
+open class org.w3c.dom/BaseAudioContext { // org.w3c.dom/BaseAudioContext|null[0]
+    constructor <init>() // org.w3c.dom/BaseAudioContext.<init>|<init>(){}[0]
+
+    final val destination // org.w3c.dom/BaseAudioContext.destination|{}destination[0]
+        final fun <get-destination>(): org.w3c.dom/AudioDestinationNode // org.w3c.dom/BaseAudioContext.destination.<get-destination>|<get-destination>(){}[0]
+
+    final var currentTime // org.w3c.dom/BaseAudioContext.currentTime|{}currentTime[0]
+        final fun <get-currentTime>(): kotlin/Double // org.w3c.dom/BaseAudioContext.currentTime.<get-currentTime>|<get-currentTime>(){}[0]
+        final fun <set-currentTime>(kotlin/Double) // org.w3c.dom/BaseAudioContext.currentTime.<set-currentTime>|<set-currentTime>(kotlin.Double){}[0]
+    final var sampleRate // org.w3c.dom/BaseAudioContext.sampleRate|{}sampleRate[0]
+        final fun <get-sampleRate>(): kotlin/Double // org.w3c.dom/BaseAudioContext.sampleRate.<get-sampleRate>|<get-sampleRate>(){}[0]
+        final fun <set-sampleRate>(kotlin/Double) // org.w3c.dom/BaseAudioContext.sampleRate.<set-sampleRate>|<set-sampleRate>(kotlin.Double){}[0]
+    final var state // org.w3c.dom/BaseAudioContext.state|{}state[0]
+        final fun <get-state>(): kotlin/String // org.w3c.dom/BaseAudioContext.state.<get-state>|<get-state>(){}[0]
+        final fun <set-state>(kotlin/String) // org.w3c.dom/BaseAudioContext.state.<set-state>|<set-state>(kotlin.String){}[0]
+
+    final fun createBuffer(kotlin/Int, kotlin/Int, kotlin/Int): org.w3c.dom/AudioBuffer // org.w3c.dom/BaseAudioContext.createBuffer|createBuffer(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    final fun createBufferSource(): org.w3c.dom/AudioBufferSourceNode // org.w3c.dom/BaseAudioContext.createBufferSource|createBufferSource(){}[0]
+    final fun createGain(): org.w3c.dom/GainNode // org.w3c.dom/BaseAudioContext.createGain|createGain(){}[0]
+    final fun createMediaElementSource(org.w3c.dom/HTMLAudioElement): org.w3c.dom/MediaElementAudioSourceNode // org.w3c.dom/BaseAudioContext.createMediaElementSource|createMediaElementSource(org.w3c.dom.HTMLAudioElement){}[0]
+    final fun createPanner(): org.w3c.dom/PannerNode // org.w3c.dom/BaseAudioContext.createPanner|createPanner(){}[0]
+    final fun createScriptProcessor(kotlin/Int, kotlin/Int, kotlin/Int): org.w3c.dom/ScriptProcessorNode // org.w3c.dom/BaseAudioContext.createScriptProcessor|createScriptProcessor(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    final fun createStereoPanner(): org.w3c.dom/StereoPannerNode // org.w3c.dom/BaseAudioContext.createStereoPanner|createStereoPanner(){}[0]
+    final fun decodeAudioData(org.khronos.webgl/ArrayBuffer, kotlin/Function1<org.w3c.dom/AudioBuffer, kotlin/Unit>, kotlin/Function0<kotlin/Unit>) // org.w3c.dom/BaseAudioContext.decodeAudioData|decodeAudioData(org.khronos.webgl.ArrayBuffer;kotlin.Function1<org.w3c.dom.AudioBuffer,kotlin.Unit>;kotlin.Function0<kotlin.Unit>){}[0]
+    final fun resume() // org.w3c.dom/BaseAudioContext.resume|resume(){}[0]
+    final fun suspend() // org.w3c.dom/BaseAudioContext.suspend|suspend(){}[0]
+}
+
+// Targets: [js]
+final val korlibs.audio.sound/durationOrNull // korlibs.audio.sound/durationOrNull|@org.w3c.dom.AudioBuffer{}durationOrNull[0]
+    final fun (org.w3c.dom/AudioBuffer).<get-durationOrNull>(): kotlin/Double? // korlibs.audio.sound/durationOrNull.<get-durationOrNull>|<get-durationOrNull>@org.w3c.dom.AudioBuffer(){}[0]
+
+// Targets: [js]
+final val korlibs.audio.sound/durationOrNull // korlibs.audio.sound/durationOrNull|@org.w3c.dom.HTMLMediaElement{}durationOrNull[0]
+    final fun (org.w3c.dom/HTMLMediaElement).<get-durationOrNull>(): kotlin/Double? // korlibs.audio.sound/durationOrNull.<get-durationOrNull>|<get-durationOrNull>@org.w3c.dom.HTMLMediaElement(){}[0]
+
+// Targets: [mingwX64]
+final object korlibs.audio.sound/Win32WaveOutNativeSoundProvider : korlibs.audio.sound/NativeSoundProvider { // korlibs.audio.sound/Win32WaveOutNativeSoundProvider|null[0]
+    final val isBeginLoop // korlibs.audio.sound/Win32WaveOutNativeSoundProvider.isBeginLoop|@platform.windows.wavehdr_tag{}isBeginLoop[0]
+        final fun (platform.windows/wavehdr_tag).<get-isBeginLoop>(): kotlin/Boolean // korlibs.audio.sound/Win32WaveOutNativeSoundProvider.isBeginLoop.<get-isBeginLoop>|<get-isBeginLoop>@platform.windows.wavehdr_tag(){}[0]
+    final val isDone // korlibs.audio.sound/Win32WaveOutNativeSoundProvider.isDone|@platform.windows.wavehdr_tag{}isDone[0]
+        final fun (platform.windows/wavehdr_tag).<get-isDone>(): kotlin/Boolean // korlibs.audio.sound/Win32WaveOutNativeSoundProvider.isDone.<get-isDone>|<get-isDone>@platform.windows.wavehdr_tag(){}[0]
+    final val isEndLoop // korlibs.audio.sound/Win32WaveOutNativeSoundProvider.isEndLoop|@platform.windows.wavehdr_tag{}isEndLoop[0]
+        final fun (platform.windows/wavehdr_tag).<get-isEndLoop>(): kotlin/Boolean // korlibs.audio.sound/Win32WaveOutNativeSoundProvider.isEndLoop.<get-isEndLoop>|<get-isEndLoop>@platform.windows.wavehdr_tag(){}[0]
+    final val isInQueue // korlibs.audio.sound/Win32WaveOutNativeSoundProvider.isInQueue|@platform.windows.wavehdr_tag{}isInQueue[0]
+        final fun (platform.windows/wavehdr_tag).<get-isInQueue>(): kotlin/Boolean // korlibs.audio.sound/Win32WaveOutNativeSoundProvider.isInQueue.<get-isInQueue>|<get-isInQueue>@platform.windows.wavehdr_tag(){}[0]
+    final val isPrepared // korlibs.audio.sound/Win32WaveOutNativeSoundProvider.isPrepared|@platform.windows.wavehdr_tag{}isPrepared[0]
+        final fun (platform.windows/wavehdr_tag).<get-isPrepared>(): kotlin/Boolean // korlibs.audio.sound/Win32WaveOutNativeSoundProvider.isPrepared.<get-isPrepared>|<get-isPrepared>@platform.windows.wavehdr_tag(){}[0]
+
+    final fun createNewPlatformAudioOutput(kotlin/Int, kotlin/Int, kotlin/Function1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit>): korlibs.audio.sound/AudioPlatformOutput // korlibs.audio.sound/Win32WaveOutNativeSoundProvider.createNewPlatformAudioOutput|createNewPlatformAudioOutput(kotlin.Int;kotlin.Int;kotlin.Function1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>){}[0]
+}
+
+// Targets: [wasmJs]
+open class org.w3c.dom/BaseAudioContext : kotlin.js/JsAny { // org.w3c.dom/BaseAudioContext|null[0]
+    constructor <init>() // org.w3c.dom/BaseAudioContext.<init>|<init>(){}[0]
+
+    final val destination // org.w3c.dom/BaseAudioContext.destination|{}destination[0]
+        final fun <get-destination>(): org.w3c.dom/AudioDestinationNode // org.w3c.dom/BaseAudioContext.destination.<get-destination>|<get-destination>(){}[0]
+
+    final var currentTime // org.w3c.dom/BaseAudioContext.currentTime|{}currentTime[0]
+        final fun <get-currentTime>(): kotlin/Double // org.w3c.dom/BaseAudioContext.currentTime.<get-currentTime>|<get-currentTime>(){}[0]
+        final fun <set-currentTime>(kotlin/Double) // org.w3c.dom/BaseAudioContext.currentTime.<set-currentTime>|<set-currentTime>(kotlin.Double){}[0]
+    final var sampleRate // org.w3c.dom/BaseAudioContext.sampleRate|{}sampleRate[0]
+        final fun <get-sampleRate>(): kotlin/Double // org.w3c.dom/BaseAudioContext.sampleRate.<get-sampleRate>|<get-sampleRate>(){}[0]
+        final fun <set-sampleRate>(kotlin/Double) // org.w3c.dom/BaseAudioContext.sampleRate.<set-sampleRate>|<set-sampleRate>(kotlin.Double){}[0]
+    final var state // org.w3c.dom/BaseAudioContext.state|{}state[0]
+        final fun <get-state>(): kotlin/String // org.w3c.dom/BaseAudioContext.state.<get-state>|<get-state>(){}[0]
+        final fun <set-state>(kotlin/String) // org.w3c.dom/BaseAudioContext.state.<set-state>|<set-state>(kotlin.String){}[0]
+
+    final fun createBuffer(kotlin/Int, kotlin/Int, kotlin/Int): org.w3c.dom/AudioBuffer // org.w3c.dom/BaseAudioContext.createBuffer|createBuffer(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    final fun createBufferSource(): org.w3c.dom/AudioBufferSourceNode // org.w3c.dom/BaseAudioContext.createBufferSource|createBufferSource(){}[0]
+    final fun createGain(): org.w3c.dom/GainNode // org.w3c.dom/BaseAudioContext.createGain|createGain(){}[0]
+    final fun createMediaElementSource(org.w3c.dom/HTMLAudioElement): org.w3c.dom/MediaElementAudioSourceNode // org.w3c.dom/BaseAudioContext.createMediaElementSource|createMediaElementSource(org.w3c.dom.HTMLAudioElement){}[0]
+    final fun createPanner(): org.w3c.dom/PannerNode // org.w3c.dom/BaseAudioContext.createPanner|createPanner(){}[0]
+    final fun createScriptProcessor(kotlin/Int, kotlin/Int, kotlin/Int): org.w3c.dom/ScriptProcessorNode // org.w3c.dom/BaseAudioContext.createScriptProcessor|createScriptProcessor(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    final fun createStereoPanner(): org.w3c.dom/StereoPannerNode // org.w3c.dom/BaseAudioContext.createStereoPanner|createStereoPanner(){}[0]
+    final fun decodeAudioData(org.khronos.webgl/ArrayBuffer, kotlin/Function1<org.w3c.dom/AudioBuffer, kotlin/Unit>, kotlin/Function0<kotlin/Unit>) // org.w3c.dom/BaseAudioContext.decodeAudioData|decodeAudioData(org.khronos.webgl.ArrayBuffer;kotlin.Function1<org.w3c.dom.AudioBuffer,kotlin.Unit>;kotlin.Function0<kotlin.Unit>){}[0]
+    final fun resume() // org.w3c.dom/BaseAudioContext.resume|resume(){}[0]
+    final fun suspend() // org.w3c.dom/BaseAudioContext.suspend|suspend(){}[0]
+}

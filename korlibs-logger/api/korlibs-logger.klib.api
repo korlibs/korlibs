@@ -1,0 +1,252 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.korge.korlibs:korlibs-logger>
+abstract interface korlibs.logger/AnsiEscape { // korlibs.logger/AnsiEscape|null[0]
+    open val bgBlack // korlibs.logger/AnsiEscape.bgBlack|@kotlin.String{}bgBlack[0]
+        open fun (kotlin/String).<get-bgBlack>(): kotlin/String // korlibs.logger/AnsiEscape.bgBlack.<get-bgBlack>|<get-bgBlack>@kotlin.String(){}[0]
+    open val bgBlue // korlibs.logger/AnsiEscape.bgBlue|@kotlin.String{}bgBlue[0]
+        open fun (kotlin/String).<get-bgBlue>(): kotlin/String // korlibs.logger/AnsiEscape.bgBlue.<get-bgBlue>|<get-bgBlue>@kotlin.String(){}[0]
+    open val bgCyan // korlibs.logger/AnsiEscape.bgCyan|@kotlin.String{}bgCyan[0]
+        open fun (kotlin/String).<get-bgCyan>(): kotlin/String // korlibs.logger/AnsiEscape.bgCyan.<get-bgCyan>|<get-bgCyan>@kotlin.String(){}[0]
+    open val bgGreen // korlibs.logger/AnsiEscape.bgGreen|@kotlin.String{}bgGreen[0]
+        open fun (kotlin/String).<get-bgGreen>(): kotlin/String // korlibs.logger/AnsiEscape.bgGreen.<get-bgGreen>|<get-bgGreen>@kotlin.String(){}[0]
+    open val bgPurple // korlibs.logger/AnsiEscape.bgPurple|@kotlin.String{}bgPurple[0]
+        open fun (kotlin/String).<get-bgPurple>(): kotlin/String // korlibs.logger/AnsiEscape.bgPurple.<get-bgPurple>|<get-bgPurple>@kotlin.String(){}[0]
+    open val bgRed // korlibs.logger/AnsiEscape.bgRed|@kotlin.String{}bgRed[0]
+        open fun (kotlin/String).<get-bgRed>(): kotlin/String // korlibs.logger/AnsiEscape.bgRed.<get-bgRed>|<get-bgRed>@kotlin.String(){}[0]
+    open val bgWhite // korlibs.logger/AnsiEscape.bgWhite|@kotlin.String{}bgWhite[0]
+        open fun (kotlin/String).<get-bgWhite>(): kotlin/String // korlibs.logger/AnsiEscape.bgWhite.<get-bgWhite>|<get-bgWhite>@kotlin.String(){}[0]
+    open val bgYellow // korlibs.logger/AnsiEscape.bgYellow|@kotlin.String{}bgYellow[0]
+        open fun (kotlin/String).<get-bgYellow>(): kotlin/String // korlibs.logger/AnsiEscape.bgYellow.<get-bgYellow>|<get-bgYellow>@kotlin.String(){}[0]
+    open val black // korlibs.logger/AnsiEscape.black|@kotlin.String{}black[0]
+        open fun (kotlin/String).<get-black>(): kotlin/String // korlibs.logger/AnsiEscape.black.<get-black>|<get-black>@kotlin.String(){}[0]
+    open val blue // korlibs.logger/AnsiEscape.blue|@kotlin.String{}blue[0]
+        open fun (kotlin/String).<get-blue>(): kotlin/String // korlibs.logger/AnsiEscape.blue.<get-blue>|<get-blue>@kotlin.String(){}[0]
+    open val bold // korlibs.logger/AnsiEscape.bold|@kotlin.String{}bold[0]
+        open fun (kotlin/String).<get-bold>(): kotlin/String // korlibs.logger/AnsiEscape.bold.<get-bold>|<get-bold>@kotlin.String(){}[0]
+    open val colorReversed // korlibs.logger/AnsiEscape.colorReversed|@kotlin.String{}colorReversed[0]
+        open fun (kotlin/String).<get-colorReversed>(): kotlin/String // korlibs.logger/AnsiEscape.colorReversed.<get-colorReversed>|<get-colorReversed>@kotlin.String(){}[0]
+    open val cyan // korlibs.logger/AnsiEscape.cyan|@kotlin.String{}cyan[0]
+        open fun (kotlin/String).<get-cyan>(): kotlin/String // korlibs.logger/AnsiEscape.cyan.<get-cyan>|<get-cyan>@kotlin.String(){}[0]
+    open val green // korlibs.logger/AnsiEscape.green|@kotlin.String{}green[0]
+        open fun (kotlin/String).<get-green>(): kotlin/String // korlibs.logger/AnsiEscape.green.<get-green>|<get-green>@kotlin.String(){}[0]
+    open val purple // korlibs.logger/AnsiEscape.purple|@kotlin.String{}purple[0]
+        open fun (kotlin/String).<get-purple>(): kotlin/String // korlibs.logger/AnsiEscape.purple.<get-purple>|<get-purple>@kotlin.String(){}[0]
+    open val red // korlibs.logger/AnsiEscape.red|@kotlin.String{}red[0]
+        open fun (kotlin/String).<get-red>(): kotlin/String // korlibs.logger/AnsiEscape.red.<get-red>|<get-red>@kotlin.String(){}[0]
+    open val underline // korlibs.logger/AnsiEscape.underline|@kotlin.String{}underline[0]
+        open fun (kotlin/String).<get-underline>(): kotlin/String // korlibs.logger/AnsiEscape.underline.<get-underline>|<get-underline>@kotlin.String(){}[0]
+    open val white // korlibs.logger/AnsiEscape.white|@kotlin.String{}white[0]
+        open fun (kotlin/String).<get-white>(): kotlin/String // korlibs.logger/AnsiEscape.white.<get-white>|<get-white>@kotlin.String(){}[0]
+    open val yellow // korlibs.logger/AnsiEscape.yellow|@kotlin.String{}yellow[0]
+        open fun (kotlin/String).<get-yellow>(): kotlin/String // korlibs.logger/AnsiEscape.yellow.<get-yellow>|<get-yellow>@kotlin.String(){}[0]
+
+    open fun (kotlin.text/StringBuilder).appendAnsiScape(kotlin/Int, kotlin/String? = ..., kotlin/Char = ...): kotlin.text/StringBuilder // korlibs.logger/AnsiEscape.appendAnsiScape|appendAnsiScape@kotlin.text.StringBuilder(kotlin.Int;kotlin.String?;kotlin.Char){}[0]
+    open fun (kotlin.text/StringBuilder).appendBgColor(korlibs.logger/AnsiEscape.Color, kotlin/Boolean = ...): kotlin.text/StringBuilder // korlibs.logger/AnsiEscape.appendBgColor|appendBgColor@kotlin.text.StringBuilder(korlibs.logger.AnsiEscape.Color;kotlin.Boolean){}[0]
+    open fun (kotlin.text/StringBuilder).appendBgColor256(kotlin/Int): kotlin.text/StringBuilder // korlibs.logger/AnsiEscape.appendBgColor256|appendBgColor256@kotlin.text.StringBuilder(kotlin.Int){}[0]
+    open fun (kotlin.text/StringBuilder).appendBold(): kotlin.text/StringBuilder // korlibs.logger/AnsiEscape.appendBold|appendBold@kotlin.text.StringBuilder(){}[0]
+    open fun (kotlin.text/StringBuilder).appendColorReversed(): kotlin.text/StringBuilder // korlibs.logger/AnsiEscape.appendColorReversed|appendColorReversed@kotlin.text.StringBuilder(){}[0]
+    open fun (kotlin.text/StringBuilder).appendFgColor(korlibs.logger/AnsiEscape.Color, kotlin/Boolean = ...): kotlin.text/StringBuilder // korlibs.logger/AnsiEscape.appendFgColor|appendFgColor@kotlin.text.StringBuilder(korlibs.logger.AnsiEscape.Color;kotlin.Boolean){}[0]
+    open fun (kotlin.text/StringBuilder).appendFgColor256(kotlin/Int): kotlin.text/StringBuilder // korlibs.logger/AnsiEscape.appendFgColor256|appendFgColor256@kotlin.text.StringBuilder(kotlin.Int){}[0]
+    open fun (kotlin.text/StringBuilder).appendMoveDown(kotlin/Int = ...): kotlin.text/StringBuilder // korlibs.logger/AnsiEscape.appendMoveDown|appendMoveDown@kotlin.text.StringBuilder(kotlin.Int){}[0]
+    open fun (kotlin.text/StringBuilder).appendMoveLeft(kotlin/Int = ...): kotlin.text/StringBuilder // korlibs.logger/AnsiEscape.appendMoveLeft|appendMoveLeft@kotlin.text.StringBuilder(kotlin.Int){}[0]
+    open fun (kotlin.text/StringBuilder).appendMoveRight(kotlin/Int = ...): kotlin.text/StringBuilder // korlibs.logger/AnsiEscape.appendMoveRight|appendMoveRight@kotlin.text.StringBuilder(kotlin.Int){}[0]
+    open fun (kotlin.text/StringBuilder).appendMoveUp(kotlin/Int = ...): kotlin.text/StringBuilder // korlibs.logger/AnsiEscape.appendMoveUp|appendMoveUp@kotlin.text.StringBuilder(kotlin.Int){}[0]
+    open fun (kotlin.text/StringBuilder).appendReset(): kotlin.text/StringBuilder // korlibs.logger/AnsiEscape.appendReset|appendReset@kotlin.text.StringBuilder(){}[0]
+    open fun (kotlin.text/StringBuilder).appendUnderline(): kotlin.text/StringBuilder // korlibs.logger/AnsiEscape.appendUnderline|appendUnderline@kotlin.text.StringBuilder(){}[0]
+    open fun (kotlin/String).ansiEscape(kotlin/Int, kotlin/String? = ..., kotlin/Char = ...): kotlin/String // korlibs.logger/AnsiEscape.ansiEscape|ansiEscape@kotlin.String(kotlin.Int;kotlin.String?;kotlin.Char){}[0]
+    open fun (kotlin/String).bgColor(korlibs.logger/AnsiEscape.Color, kotlin/Boolean = ...): kotlin/String // korlibs.logger/AnsiEscape.bgColor|bgColor@kotlin.String(korlibs.logger.AnsiEscape.Color;kotlin.Boolean){}[0]
+    open fun (kotlin/String).bgColor256(kotlin/Int): kotlin/String // korlibs.logger/AnsiEscape.bgColor256|bgColor256@kotlin.String(kotlin.Int){}[0]
+    open fun (kotlin/String).color(korlibs.logger/AnsiEscape.Color, kotlin/Boolean = ...): kotlin/String // korlibs.logger/AnsiEscape.color|color@kotlin.String(korlibs.logger.AnsiEscape.Color;kotlin.Boolean){}[0]
+    open fun (kotlin/String).color256(kotlin/Int): kotlin/String // korlibs.logger/AnsiEscape.color256|color256@kotlin.String(kotlin.Int){}[0]
+
+    final enum class Color : kotlin/Enum<korlibs.logger/AnsiEscape.Color> { // korlibs.logger/AnsiEscape.Color|null[0]
+        enum entry BLACK // korlibs.logger/AnsiEscape.Color.BLACK|null[0]
+        enum entry BLUE // korlibs.logger/AnsiEscape.Color.BLUE|null[0]
+        enum entry CYAN // korlibs.logger/AnsiEscape.Color.CYAN|null[0]
+        enum entry GREEN // korlibs.logger/AnsiEscape.Color.GREEN|null[0]
+        enum entry PURPLE // korlibs.logger/AnsiEscape.Color.PURPLE|null[0]
+        enum entry RED // korlibs.logger/AnsiEscape.Color.RED|null[0]
+        enum entry WHITE // korlibs.logger/AnsiEscape.Color.WHITE|null[0]
+        enum entry YELLOW // korlibs.logger/AnsiEscape.Color.YELLOW|null[0]
+
+        final val entries // korlibs.logger/AnsiEscape.Color.entries|#static{}entries[0]
+            final fun <get-entries>(): kotlin.enums/EnumEntries<korlibs.logger/AnsiEscape.Color> // korlibs.logger/AnsiEscape.Color.entries.<get-entries>|<get-entries>#static(){}[0]
+        final val index // korlibs.logger/AnsiEscape.Color.index|{}index[0]
+            final fun <get-index>(): kotlin/Int // korlibs.logger/AnsiEscape.Color.index.<get-index>|<get-index>(){}[0]
+
+        final fun valueOf(kotlin/String): korlibs.logger/AnsiEscape.Color // korlibs.logger/AnsiEscape.Color.valueOf|valueOf#static(kotlin.String){}[0]
+        final fun values(): kotlin/Array<korlibs.logger/AnsiEscape.Color> // korlibs.logger/AnsiEscape.Color.values|values#static(){}[0]
+    }
+
+    final object Companion : korlibs.logger/AnsiEscape { // korlibs.logger/AnsiEscape.Companion|null[0]
+        final inline fun <#A2: kotlin/Any?> invoke(kotlin/Function1<korlibs.logger/AnsiEscape, #A2>): #A2 // korlibs.logger/AnsiEscape.Companion.invoke|invoke(kotlin.Function1<korlibs.logger.AnsiEscape,0:0>){0§<kotlin.Any?>}[0]
+    }
+}
+
+final class korlibs.logger/Logger { // korlibs.logger/Logger|null[0]
+    final val dummy // korlibs.logger/Logger.dummy|{}dummy[0]
+        final fun <get-dummy>(): kotlin/Boolean // korlibs.logger/Logger.dummy.<get-dummy>|<get-dummy>(){}[0]
+    final val isDebugEnabled // korlibs.logger/Logger.isDebugEnabled|{}isDebugEnabled[0]
+        final inline fun <get-isDebugEnabled>(): kotlin/Boolean // korlibs.logger/Logger.isDebugEnabled.<get-isDebugEnabled>|<get-isDebugEnabled>(){}[0]
+    final val isErrorEnabled // korlibs.logger/Logger.isErrorEnabled|{}isErrorEnabled[0]
+        final inline fun <get-isErrorEnabled>(): kotlin/Boolean // korlibs.logger/Logger.isErrorEnabled.<get-isErrorEnabled>|<get-isErrorEnabled>(){}[0]
+    final val isFatalEnabled // korlibs.logger/Logger.isFatalEnabled|{}isFatalEnabled[0]
+        final inline fun <get-isFatalEnabled>(): kotlin/Boolean // korlibs.logger/Logger.isFatalEnabled.<get-isFatalEnabled>|<get-isFatalEnabled>(){}[0]
+    final val isInfoEnabled // korlibs.logger/Logger.isInfoEnabled|{}isInfoEnabled[0]
+        final inline fun <get-isInfoEnabled>(): kotlin/Boolean // korlibs.logger/Logger.isInfoEnabled.<get-isInfoEnabled>|<get-isInfoEnabled>(){}[0]
+    final val isLocalLevelSet // korlibs.logger/Logger.isLocalLevelSet|{}isLocalLevelSet[0]
+        final fun <get-isLocalLevelSet>(): kotlin/Boolean // korlibs.logger/Logger.isLocalLevelSet.<get-isLocalLevelSet>|<get-isLocalLevelSet>(){}[0]
+    final val isLocalOutputSet // korlibs.logger/Logger.isLocalOutputSet|{}isLocalOutputSet[0]
+        final fun <get-isLocalOutputSet>(): kotlin/Boolean // korlibs.logger/Logger.isLocalOutputSet.<get-isLocalOutputSet>|<get-isLocalOutputSet>(){}[0]
+    final val isTraceEnabled // korlibs.logger/Logger.isTraceEnabled|{}isTraceEnabled[0]
+        final inline fun <get-isTraceEnabled>(): kotlin/Boolean // korlibs.logger/Logger.isTraceEnabled.<get-isTraceEnabled>|<get-isTraceEnabled>(){}[0]
+    final val isWarnEnabled // korlibs.logger/Logger.isWarnEnabled|{}isWarnEnabled[0]
+        final inline fun <get-isWarnEnabled>(): kotlin/Boolean // korlibs.logger/Logger.isWarnEnabled.<get-isWarnEnabled>|<get-isWarnEnabled>(){}[0]
+    final val name // korlibs.logger/Logger.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.logger/Logger.name.<get-name>|<get-name>(){}[0]
+    final val normalizedName // korlibs.logger/Logger.normalizedName|{}normalizedName[0]
+        final fun <get-normalizedName>(): kotlin/String // korlibs.logger/Logger.normalizedName.<get-normalizedName>|<get-normalizedName>(){}[0]
+
+    final var level // korlibs.logger/Logger.level|{}level[0]
+        final fun <get-level>(): korlibs.logger/Logger.Level // korlibs.logger/Logger.level.<get-level>|<get-level>(){}[0]
+        final fun <set-level>(korlibs.logger/Logger.Level) // korlibs.logger/Logger.level.<set-level>|<set-level>(korlibs.logger.Logger.Level){}[0]
+    final var nativeLogger // korlibs.logger/Logger.nativeLogger|{}nativeLogger[0]
+        final fun <get-nativeLogger>(): kotlin/Any? // korlibs.logger/Logger.nativeLogger.<get-nativeLogger>|<get-nativeLogger>(){}[0]
+        final fun <set-nativeLogger>(kotlin/Any?) // korlibs.logger/Logger.nativeLogger.<set-nativeLogger>|<set-nativeLogger>(kotlin.Any?){}[0]
+    final var optLevel // korlibs.logger/Logger.optLevel|{}optLevel[0]
+        final fun <get-optLevel>(): korlibs.logger/Logger.Level? // korlibs.logger/Logger.optLevel.<get-optLevel>|<get-optLevel>(){}[0]
+        final fun <set-optLevel>(korlibs.logger/Logger.Level?) // korlibs.logger/Logger.optLevel.<set-optLevel>|<set-optLevel>(korlibs.logger.Logger.Level?){}[0]
+    final var optOutput // korlibs.logger/Logger.optOutput|{}optOutput[0]
+        final fun <get-optOutput>(): korlibs.logger/Logger.Output? // korlibs.logger/Logger.optOutput.<get-optOutput>|<get-optOutput>(){}[0]
+        final fun <set-optOutput>(korlibs.logger/Logger.Output?) // korlibs.logger/Logger.optOutput.<set-optOutput>|<set-optOutput>(korlibs.logger.Logger.Output?){}[0]
+    final var output // korlibs.logger/Logger.output|{}output[0]
+        final fun <get-output>(): korlibs.logger/Logger.Output // korlibs.logger/Logger.output.<get-output>|<get-output>(){}[0]
+        final fun <set-output>(korlibs.logger/Logger.Output) // korlibs.logger/Logger.output.<set-output>|<set-output>(korlibs.logger.Logger.Output){}[0]
+
+    final fun actualLog(korlibs.logger/Logger.Level, kotlin/Any?) // korlibs.logger/Logger.actualLog|actualLog(korlibs.logger.Logger.Level;kotlin.Any?){}[0]
+    final fun isEnabled(korlibs.logger/Logger.Level): kotlin/Boolean // korlibs.logger/Logger.isEnabled|isEnabled(korlibs.logger.Logger.Level){}[0]
+    final inline fun <#A1: kotlin/Any?> logTime(kotlin/String, korlibs.logger/Logger.Level = ..., kotlin/Function0<#A1>): #A1 // korlibs.logger/Logger.logTime|logTime(kotlin.String;korlibs.logger.Logger.Level;kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+    final inline fun debug(kotlin/Function0<kotlin/Any?>) // korlibs.logger/Logger.debug|debug(kotlin.Function0<kotlin.Any?>){}[0]
+    final inline fun error(kotlin/Function0<kotlin/Any?>) // korlibs.logger/Logger.error|error(kotlin.Function0<kotlin.Any?>){}[0]
+    final inline fun fatal(kotlin/Function0<kotlin/Any?>) // korlibs.logger/Logger.fatal|fatal(kotlin.Function0<kotlin.Any?>){}[0]
+    final inline fun info(kotlin/Function0<kotlin/Any?>) // korlibs.logger/Logger.info|info(kotlin.Function0<kotlin.Any?>){}[0]
+    final inline fun log(korlibs.logger/Logger.Level, kotlin/Function0<kotlin/Any?>) // korlibs.logger/Logger.log|log(korlibs.logger.Logger.Level;kotlin.Function0<kotlin.Any?>){}[0]
+    final inline fun trace(kotlin/Function0<kotlin/Any?>) // korlibs.logger/Logger.trace|trace(kotlin.Function0<kotlin.Any?>){}[0]
+    final inline fun warn(kotlin/Function0<kotlin/Any?>) // korlibs.logger/Logger.warn|warn(kotlin.Function0<kotlin.Any?>){}[0]
+
+    final enum class Level : kotlin/Enum<korlibs.logger/Logger.Level> { // korlibs.logger/Logger.Level|null[0]
+        enum entry DEBUG // korlibs.logger/Logger.Level.DEBUG|null[0]
+        enum entry ERROR // korlibs.logger/Logger.Level.ERROR|null[0]
+        enum entry FATAL // korlibs.logger/Logger.Level.FATAL|null[0]
+        enum entry INFO // korlibs.logger/Logger.Level.INFO|null[0]
+        enum entry NONE // korlibs.logger/Logger.Level.NONE|null[0]
+        enum entry TRACE // korlibs.logger/Logger.Level.TRACE|null[0]
+        enum entry WARN // korlibs.logger/Logger.Level.WARN|null[0]
+
+        final val entries // korlibs.logger/Logger.Level.entries|#static{}entries[0]
+            final fun <get-entries>(): kotlin.enums/EnumEntries<korlibs.logger/Logger.Level> // korlibs.logger/Logger.Level.entries.<get-entries>|<get-entries>#static(){}[0]
+        final val index // korlibs.logger/Logger.Level.index|{}index[0]
+            final fun <get-index>(): kotlin/Int // korlibs.logger/Logger.Level.index.<get-index>|<get-index>(){}[0]
+
+        final fun valueOf(kotlin/String): korlibs.logger/Logger.Level // korlibs.logger/Logger.Level.valueOf|valueOf#static(kotlin.String){}[0]
+        final fun values(): kotlin/Array<korlibs.logger/Logger.Level> // korlibs.logger/Logger.Level.values|values#static(){}[0]
+
+        final object Companion { // korlibs.logger/Logger.Level.Companion|null[0]
+            final val BY_NAME // korlibs.logger/Logger.Level.Companion.BY_NAME|{}BY_NAME[0]
+                final fun <get-BY_NAME>(): kotlin.collections/Map<kotlin/String, korlibs.logger/Logger.Level> // korlibs.logger/Logger.Level.Companion.BY_NAME.<get-BY_NAME>|<get-BY_NAME>(){}[0]
+
+            final fun get(kotlin/String): korlibs.logger/Logger.Level // korlibs.logger/Logger.Level.Companion.get|get(kotlin.String){}[0]
+        }
+    }
+
+    abstract interface Output { // korlibs.logger/Logger.Output|null[0]
+        abstract fun output(korlibs.logger/Logger, korlibs.logger/Logger.Level, kotlin/Any?) // korlibs.logger/Logger.Output.output|output(korlibs.logger.Logger;korlibs.logger.Logger.Level;kotlin.Any?){}[0]
+    }
+
+    final object Companion { // korlibs.logger/Logger.Companion|null[0]
+        final var defaultLevel // korlibs.logger/Logger.Companion.defaultLevel|{}defaultLevel[0]
+            final fun <get-defaultLevel>(): korlibs.logger/Logger.Level? // korlibs.logger/Logger.Companion.defaultLevel.<get-defaultLevel>|<get-defaultLevel>(){}[0]
+            final fun <set-defaultLevel>(korlibs.logger/Logger.Level?) // korlibs.logger/Logger.Companion.defaultLevel.<set-defaultLevel>|<set-defaultLevel>(korlibs.logger.Logger.Level?){}[0]
+        final var defaultOutput // korlibs.logger/Logger.Companion.defaultOutput|{}defaultOutput[0]
+            final fun <get-defaultOutput>(): korlibs.logger/Logger.Output // korlibs.logger/Logger.Companion.defaultOutput.<get-defaultOutput>|<get-defaultOutput>(){}[0]
+            final fun <set-defaultOutput>(korlibs.logger/Logger.Output) // korlibs.logger/Logger.Companion.defaultOutput.<set-defaultOutput>|<set-defaultOutput>(korlibs.logger.Logger.Output){}[0]
+
+        final fun invoke(kotlin/String): korlibs.logger/Logger // korlibs.logger/Logger.Companion.invoke|invoke(kotlin.String){}[0]
+        final inline fun <#A2: reified kotlin/Any> invoke(): korlibs.logger/Logger // korlibs.logger/Logger.Companion.invoke|invoke(){0§<kotlin.Any>}[0]
+    }
+
+    final object ConsoleLogOutput : korlibs.logger/Logger.Output { // korlibs.logger/Logger.ConsoleLogOutput|null[0]
+        final fun output(korlibs.logger/Logger, korlibs.logger/Logger.Level, kotlin/Any?) // korlibs.logger/Logger.ConsoleLogOutput.output|output(korlibs.logger.Logger;korlibs.logger.Logger.Level;kotlin.Any?){}[0]
+    }
+}
+
+open class korlibs.logger/BaseConsole : korlibs.logger/AnsiEscape { // korlibs.logger/BaseConsole|null[0]
+    constructor <init>() // korlibs.logger/BaseConsole.<init>|<init>(){}[0]
+
+    final fun debug(kotlin/Array<out kotlin/Any?>...) // korlibs.logger/BaseConsole.debug|debug(kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun error(kotlin/Array<out kotlin/Any?>...) // korlibs.logger/BaseConsole.error|error(kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun info(kotlin/Array<out kotlin/Any?>...) // korlibs.logger/BaseConsole.info|info(kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun log(korlibs.logger/BaseConsole.Kind, kotlin/Array<out kotlin/Any?>...) // korlibs.logger/BaseConsole.log|log(korlibs.logger.BaseConsole.Kind;kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun log(kotlin/Array<out kotlin/Any?>...) // korlibs.logger/BaseConsole.log|log(kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun trace(kotlin/Array<out kotlin/Any?>...) // korlibs.logger/BaseConsole.trace|trace(kotlin.Array<out|kotlin.Any?>...){}[0]
+    final fun warn(kotlin/Array<out kotlin/Any?>...) // korlibs.logger/BaseConsole.warn|warn(kotlin.Array<out|kotlin.Any?>...){}[0]
+    final inline fun <#A1: kotlin/Any?> hook(noinline kotlin/Function3<korlibs.logger/BaseConsole.Kind, kotlin/Array<out kotlin/Any?>, kotlin/Function2<korlibs.logger/BaseConsole.Kind, kotlin/Array<out kotlin/Any?>, kotlin/Unit>, kotlin/Unit>, kotlin/Function0<#A1>): #A1 // korlibs.logger/BaseConsole.hook|hook(kotlin.Function3<korlibs.logger.BaseConsole.Kind,kotlin.Array<out|kotlin.Any?>,kotlin.Function2<korlibs.logger.BaseConsole.Kind,kotlin.Array<out|kotlin.Any?>,kotlin.Unit>,kotlin.Unit>;kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
+    final inline fun capture(kotlin/Function0<kotlin/Unit>): kotlin.collections/List<korlibs.logger/BaseConsole.LogEntry> // korlibs.logger/BaseConsole.capture|capture(kotlin.Function0<kotlin.Unit>){}[0]
+    open fun logInternal(korlibs.logger/BaseConsole.Kind, kotlin/Array<out kotlin/Any?>...) // korlibs.logger/BaseConsole.logInternal|logInternal(korlibs.logger.BaseConsole.Kind;kotlin.Array<out|kotlin.Any?>...){}[0]
+    open fun logToString(korlibs.logger/BaseConsole.Kind, kotlin/Array<out kotlin/Any?>...): kotlin/String // korlibs.logger/BaseConsole.logToString|logToString(korlibs.logger.BaseConsole.Kind;kotlin.Array<out|kotlin.Any?>...){}[0]
+
+    final enum class Kind : kotlin/Enum<korlibs.logger/BaseConsole.Kind> { // korlibs.logger/BaseConsole.Kind|null[0]
+        enum entry DEBUG // korlibs.logger/BaseConsole.Kind.DEBUG|null[0]
+        enum entry ERROR // korlibs.logger/BaseConsole.Kind.ERROR|null[0]
+        enum entry INFO // korlibs.logger/BaseConsole.Kind.INFO|null[0]
+        enum entry LOG // korlibs.logger/BaseConsole.Kind.LOG|null[0]
+        enum entry TRACE // korlibs.logger/BaseConsole.Kind.TRACE|null[0]
+        enum entry WARN // korlibs.logger/BaseConsole.Kind.WARN|null[0]
+
+        final val color // korlibs.logger/BaseConsole.Kind.color|{}color[0]
+            final fun <get-color>(): korlibs.logger/AnsiEscape.Color? // korlibs.logger/BaseConsole.Kind.color.<get-color>|<get-color>(){}[0]
+        final val entries // korlibs.logger/BaseConsole.Kind.entries|#static{}entries[0]
+            final fun <get-entries>(): kotlin.enums/EnumEntries<korlibs.logger/BaseConsole.Kind> // korlibs.logger/BaseConsole.Kind.entries.<get-entries>|<get-entries>#static(){}[0]
+        final val level // korlibs.logger/BaseConsole.Kind.level|{}level[0]
+            final fun <get-level>(): kotlin/Int // korlibs.logger/BaseConsole.Kind.level.<get-level>|<get-level>(){}[0]
+
+        final fun valueOf(kotlin/String): korlibs.logger/BaseConsole.Kind // korlibs.logger/BaseConsole.Kind.valueOf|valueOf#static(kotlin.String){}[0]
+        final fun values(): kotlin/Array<korlibs.logger/BaseConsole.Kind> // korlibs.logger/BaseConsole.Kind.values|values#static(){}[0]
+    }
+
+    final class LogEntry { // korlibs.logger/BaseConsole.LogEntry|null[0]
+        constructor <init>(korlibs.logger/BaseConsole.Kind, kotlin.collections/List<kotlin/Any?>) // korlibs.logger/BaseConsole.LogEntry.<init>|<init>(korlibs.logger.BaseConsole.Kind;kotlin.collections.List<kotlin.Any?>){}[0]
+
+        final val kind // korlibs.logger/BaseConsole.LogEntry.kind|{}kind[0]
+            final fun <get-kind>(): korlibs.logger/BaseConsole.Kind // korlibs.logger/BaseConsole.LogEntry.kind.<get-kind>|<get-kind>(){}[0]
+        final val msg // korlibs.logger/BaseConsole.LogEntry.msg|{}msg[0]
+            final fun <get-msg>(): kotlin.collections/List<kotlin/Any?> // korlibs.logger/BaseConsole.LogEntry.msg.<get-msg>|<get-msg>(){}[0]
+
+        final fun component1(): korlibs.logger/BaseConsole.Kind // korlibs.logger/BaseConsole.LogEntry.component1|component1(){}[0]
+        final fun component2(): kotlin.collections/List<kotlin/Any?> // korlibs.logger/BaseConsole.LogEntry.component2|component2(){}[0]
+        final fun copy(korlibs.logger/BaseConsole.Kind = ..., kotlin.collections/List<kotlin/Any?> = ...): korlibs.logger/BaseConsole.LogEntry // korlibs.logger/BaseConsole.LogEntry.copy|copy(korlibs.logger.BaseConsole.Kind;kotlin.collections.List<kotlin.Any?>){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.logger/BaseConsole.LogEntry.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // korlibs.logger/BaseConsole.LogEntry.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // korlibs.logger/BaseConsole.LogEntry.toString|toString(){}[0]
+    }
+}
+
+final object korlibs.logger/Console : korlibs.logger/BaseConsole // korlibs.logger/Console|null[0]
+
+final object korlibs.logger/DefaultLogOutput : korlibs.logger/Logger.Output { // korlibs.logger/DefaultLogOutput|null[0]
+    final fun output(korlibs.logger/Logger, korlibs.logger/Logger.Level, kotlin/Any?) // korlibs.logger/DefaultLogOutput.output|output(korlibs.logger.Logger;korlibs.logger.Logger.Level;kotlin.Any?){}[0]
+}
+
+final var korlibs.logger/baseConsoleHook // korlibs.logger/baseConsoleHook|{}baseConsoleHook[0]
+    final fun <get-baseConsoleHook>(): kotlin/Function3<korlibs.logger/BaseConsole.Kind, kotlin/Array<out kotlin/Any?>, kotlin/Function2<korlibs.logger/BaseConsole.Kind, kotlin/Array<out kotlin/Any?>, kotlin/Unit>, kotlin/Unit>? // korlibs.logger/baseConsoleHook.<get-baseConsoleHook>|<get-baseConsoleHook>(){}[0]
+    final fun <set-baseConsoleHook>(kotlin/Function3<korlibs.logger/BaseConsole.Kind, kotlin/Array<out kotlin/Any?>, kotlin/Function2<korlibs.logger/BaseConsole.Kind, kotlin/Array<out kotlin/Any?>, kotlin/Unit>, kotlin/Unit>?) // korlibs.logger/baseConsoleHook.<set-baseConsoleHook>|<set-baseConsoleHook>(kotlin.Function3<korlibs.logger.BaseConsole.Kind,kotlin.Array<out|kotlin.Any?>,kotlin.Function2<korlibs.logger.BaseConsole.Kind,kotlin.Array<out|kotlin.Any?>,kotlin.Unit>,kotlin.Unit>?){}[0]
+
+final fun (korlibs.logger/Console).korlibs.logger/assert(kotlin/Boolean, kotlin/String) // korlibs.logger/assert|assert@korlibs.logger.Console(kotlin.Boolean;kotlin.String){}[0]
+final fun (korlibs.logger/Logger).korlibs.logger/setLevel(korlibs.logger/Logger.Level): korlibs.logger/Logger // korlibs.logger/setLevel|setLevel@korlibs.logger.Logger(korlibs.logger.Logger.Level){}[0]
+final fun (korlibs.logger/Logger).korlibs.logger/setOutput(korlibs.logger/Logger.Output): korlibs.logger/Logger // korlibs.logger/setOutput|setOutput@korlibs.logger.Logger(korlibs.logger.Logger.Output){}[0]
