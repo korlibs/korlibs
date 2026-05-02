@@ -1322,7 +1322,7 @@ class JPEGEncoder(quality: Int = 50) {
             data[dataOff] = tmp10 + tmp11 /* phase 3 */
             data[dataOff + 4] = tmp10 - tmp11
 
-            val z1 = (tmp12 + tmp13) * 0.707106781f /* c4 */
+            val z1 = (tmp12 + tmp13) * 0.70710677f /* c4 */
             data[dataOff + 2] = tmp13 + z1 /* phase 5 */
             data[dataOff + 6] = tmp13 - z1
 
@@ -1332,10 +1332,10 @@ class JPEGEncoder(quality: Int = 50) {
             tmp12 = tmp6 + tmp7
 
             /* The rotator is modified from fig 4-8 to avoid extra negations. */
-            val z5 = (tmp10 - tmp12) * 0.382683433f /* c6 */
+            val z5 = (tmp10 - tmp12) * 0.38268343f /* c6 */
             val z2 = 0.541196100f * tmp10 + z5 /* c2-c6 */
-            val z4 = 1.306562965f * tmp12 + z5 /* c2+c6 */
-            val z3 = tmp11 * 0.707106781f /* c4 */
+            val z4 = 1.306563f * tmp12 + z5 /* c2+c6 */
+            val z3 = tmp11 * 0.70710677f /* c4 */
 
             val z11 = tmp7 + z3    /* phase 5 */
             val z13 = tmp7 - z3
@@ -1378,7 +1378,7 @@ class JPEGEncoder(quality: Int = 50) {
             data[dataOff] = tmp10p2 + tmp11p2 /* phase 3 */
             data[dataOff + 32] = tmp10p2 - tmp11p2
 
-            val z1p2 = (tmp12p2 + tmp13p2) * 0.707106781f /* c4 */
+            val z1p2 = (tmp12p2 + tmp13p2) * 0.70710677f /* c4 */
             data[dataOff + 16] = tmp13p2 + z1p2 /* phase 5 */
             data[dataOff + 48] = tmp13p2 - z1p2
 
@@ -1388,10 +1388,10 @@ class JPEGEncoder(quality: Int = 50) {
             tmp12p2 = tmp6p2 + tmp7p2
 
             /* The rotator is modified from fig 4-8 to avoid extra negations. */
-            val z5p2 = (tmp10p2 - tmp12p2) * 0.382683433f /* c6 */
+            val z5p2 = (tmp10p2 - tmp12p2) * 0.38268343f /* c6 */
             val z2p2 = 0.541196100f * tmp10p2 + z5p2 /* c2-c6 */
-            val z4p2 = 1.306562965f * tmp12p2 + z5p2 /* c2+c6 */
-            val z3p2 = tmp11p2 * 0.707106781f /* c4 */
+            val z4p2 = 1.306563f * tmp12p2 + z5p2 /* c2+c6 */
+            val z3p2 = tmp11p2 * 0.70710677f /* c4 */
 
             val z11p2 = tmp7p2 + z3p2    /* phase 5 */
             val z13p2 = tmp7p2 - z3p2
@@ -1803,8 +1803,8 @@ class JPEGEncoder(quality: Int = 50) {
         )
 
         private val AASF_TABLE = floatArrayOf(
-            1.0f, 1.387039845f, 1.306562965f, 1.175875602f,
-            1.0f, 0.785694958f, 0.541196100f, 0.275899379f
+            1.0f, 1.3870399f, 1.306563f, 1.1758755f,
+            1.0f, 0.78569496f, 0.5411961f, 0.27589938f
         )
 
         fun encode(bmp: Bitmap32, quality: Int = 50): ByteArray {
