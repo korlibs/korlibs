@@ -96,7 +96,7 @@ open class CatalogVfs(val parent: VfsFile) : Vfs.Proxy() {
 
     suspend fun listSimpleStatsOrNull(path: String): Map<String, VfsStat>? {
         val catalogJsonString = try {
-            parent[path]["\$catalog.json"].readString()
+            parent[path][$$"$catalog.json"].readString()
         } catch (e: Throwable) {
             if (e !is FileNotFoundException) logger.error { e }
             return null

@@ -141,7 +141,13 @@ private class FFIBuilderProcessor(val environment: SymbolProcessorEnvironment) :
 
                                 for (func in sym.getDeclaredFunctions()) {
                                     val context = FuncContext(ffi, func)
-                                    it.appendLine("  val ${func.sname} by lazy { val funcName = \"${func.sname}\"; korlibs.ffi.api.FFIDLSym(__LIB__, funcName)?.reinterpret<CFunction<(${func.parameters.asTypeString(casts, context)}) -> ${func.returnType.asString(casts, context)}>>() ?: error(\"Can't find ${'$'}funcName\") }")
+                                    it.appendLine(
+                                        $$"  val $${func.sname} by lazy { val funcName = \"$${func.sname}\"; korlibs.ffi.api.FFIDLSym(__LIB__, funcName)?.reinterpret<CFunction<($${
+                                            func.parameters.asTypeString(casts, context)
+                                        }) -> $${
+                                            func.returnType.asString(casts, context)
+                                        }>>() ?: error(\"Can't find $funcName\") }"
+                                    )
                                 }
                                 it.appendLine("}")
 
