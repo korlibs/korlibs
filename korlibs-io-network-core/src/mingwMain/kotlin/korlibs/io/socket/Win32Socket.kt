@@ -2,6 +2,7 @@
 
 package korlibs.io.socket
 
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.cinterop.*
 import kotlinx.coroutines.*
 import platform.posix.*
@@ -415,7 +416,7 @@ suspend fun Win32Socket.suspendRecvUpTo(data: ByteArray, offset: Int = 0, count:
 				return -1
 			}
 			read == 0 -> {
-				delay(time)
+				delay(duration = time.milliseconds)
 				time = (time + 1).coerceAtMost(10L)
 				continue
 			}
@@ -456,7 +457,7 @@ suspend fun Win32Socket.accept(): Win32Socket {
 		val socket = tryAccept()
 		//println("suspendAccept: $socket")
 		if (socket != null) return socket
-		delay(time)
+		delay(duration = time.milliseconds)
 		time = (time + 1).coerceAtMost(10L)
 	}
 }

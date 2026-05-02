@@ -3,6 +3,7 @@
 package korlibs.io.socket
 
 import cnames.structs.SSLContext
+import korlibs.time.milliseconds
 import kotlinx.cinterop.*
 import kotlinx.cinterop.ByteVar
 import kotlinx.coroutines.*
@@ -156,7 +157,7 @@ class DarwinSSLSocket {
                             SSLWrite(ctx, data, 0.convert(), processed.ptr)
                         }
                         //SSLHandshake(ctx)
-                        kotlinx.coroutines.delay(1L)
+                        delay(duration = 1.milliseconds)
                     }
                     SSLSessionState.kSSLClosed -> return false
                     SSLSessionState.kSSLAborted -> return false
@@ -190,7 +191,7 @@ class DarwinSSLSocket {
                             return processed.value.toInt()
                         }
                         errSSLWouldBlock -> {
-                            kotlinx.coroutines.delay(1L)
+                            delay(duration = 1.milliseconds)
                             continue
                         }
                         errSSLClosedGraceful -> {

@@ -2,6 +2,7 @@
 
 package korlibs.io.socket
 
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.cinterop.*
 import kotlinx.coroutines.*
 import platform.posix.*
@@ -231,7 +232,7 @@ suspend fun NativeSocket.suspendRecvUpTo(data: ByteArray, offset: Int = 0, count
 	while (true) {
 		val read = tryRecv(data, offset, count)
 		if (read <= 0) {
-			delay(10L)
+			delay(duration = 10.milliseconds)
 			continue
 		}
 		return read
@@ -268,7 +269,7 @@ suspend fun NativeSocket.accept(): NativeSocket {
 		val socket = tryAccept()
 		//println("suspendAccept: $socket")
 		if (socket != null) return socket
-		delay(10L)
+		delay(duration = 10.milliseconds)
 	}
 }
 

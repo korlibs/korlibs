@@ -8,6 +8,7 @@ import kotlinx.coroutines.*
 import platform.windows.*
 import kotlin.coroutines.*
 import kotlin.reflect.*
+import kotlin.time.Duration.Companion.milliseconds
 
 actual val nativeSoundProvider: NativeSoundProvider = Win32WaveOutNativeSoundProvider
 
@@ -58,12 +59,12 @@ object Win32WaveOutNativeSoundProvider : NativeSoundProvider() {
                         if (position >= it.totalSamples) break
                     } else {
                         //println("ALL QUEUED")
-                        delay(1L)
+                        delay(duration = 1.milliseconds)
                     }
                 }
             },
             close = {
-                while (headers.any { it.hdr.isInQueue }) delay(1L)
+                while (headers.any { it.hdr.isInQueue }) delay(duration = 1.milliseconds)
                 //println("CLOSE")
                 for (header in headers) header.dispose(handlePtr.value)
                 //runBlockingNoJs {

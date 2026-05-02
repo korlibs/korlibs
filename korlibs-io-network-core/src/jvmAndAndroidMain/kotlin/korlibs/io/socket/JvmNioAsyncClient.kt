@@ -13,6 +13,7 @@ import java.nio.channels.AsynchronousServerSocketChannel
 import java.nio.channels.CompletionHandler
 import kotlin.coroutines.*
 import kotlin.coroutines.cancellation.CancellationException
+import kotlin.time.Duration.Companion.milliseconds
 
 class JvmNioAsyncClient(private var client: AsynchronousSocketChannel? = null) : AsyncSocket {
     private val readQueue = Mutex()
@@ -160,7 +161,7 @@ class JvmNioAsyncServer(override val requestPort: Int, override val host: String
         ssc.bind(InetSocketAddress(host, requestPort), backlog)
         for (n in 0 until 100) {
             if (ssc.isOpen) break
-            delay(50)
+            delay(duration = 50.milliseconds)
         }
     }
 
