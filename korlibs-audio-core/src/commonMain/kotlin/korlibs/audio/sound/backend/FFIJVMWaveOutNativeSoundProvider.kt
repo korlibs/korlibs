@@ -3,6 +3,7 @@ package korlibs.audio.sound.backend
 import korlibs.audio.sound.*
 import korlibs.ffi.*
 import korlibs.memory.*
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.*
 
 object FFIJVMWaveOutNativeSoundProvider : NativeSoundProvider() {
@@ -52,12 +53,12 @@ object FFIJVMWaveOutNativeSoundProvider : NativeSoundProvider() {
                         if (position >= it.totalSamples) break
                     } else {
                         //println("ALL QUEUED")
-                        delay(1L)
+                        delay(duration = 1.milliseconds)
                     }
                 }
             },
             close = {
-                while (headers.any { it.hdr.isInQueue }) delay(1L)
+                while (headers.any { it.hdr.isInQueue }) delay(duration = 1.milliseconds)
                 //println("CLOSE")
                 for (header in headers) header.dispose(handlePtr[0])
                 //runBlockingNoJs {

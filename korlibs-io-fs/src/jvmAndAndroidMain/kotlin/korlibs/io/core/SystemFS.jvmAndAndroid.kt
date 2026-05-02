@@ -15,6 +15,7 @@ import java.util.concurrent.CompletableFuture
 import kotlin.io.path.pathString
 import kotlin.io.path.readSymbolicLink
 import kotlin.reflect.*
+import kotlin.time.Duration.Companion.milliseconds
 
 actual val defaultSyncSystemFS: SyncSystemFS = JvmSyncSystemFS
 actual val defaultSystemFS: SystemFS by lazy { JvmSyncSystemFS.toAsync(Dispatchers.IO) }
@@ -72,7 +73,7 @@ object JvmSyncSystemFS : SyncSystemFS {
                 p.errorStream.copyAvailableChunk(stderr, temp, readRest = closing)
 
                 if (closing) break
-                delay(1L)
+                delay(duration = 1.milliseconds)
             }
             p.waitFor()
             //handler.onCompleted(p.exitValue())

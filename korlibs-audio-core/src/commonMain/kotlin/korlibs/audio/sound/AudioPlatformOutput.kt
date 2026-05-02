@@ -2,6 +2,7 @@ package korlibs.audio.sound
 
 import korlibs.datastructure.*
 import korlibs.math.geom.*
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.atomicfu.locks.*
 import kotlinx.coroutines.*
 
@@ -21,7 +22,7 @@ class AudioPlatformOutput(
         val buffer = AudioSamplesInterleaved(channels, DEFAULT_BLOCK_SIZE)
         while (running) {
             genSafe(buffer)
-            delay(1L)
+            delay(duration = 1.milliseconds)
         }
     }
 ) : AutoCloseable, SoundProps, Extra by Extra.Mixin() {
@@ -47,7 +48,8 @@ class AudioPlatformOutput(
     var running = false
 
     suspend fun suspendWhileRunning() {
-        while (running) delay(10L)
+
+        while (running) delay(duration = 10.milliseconds)
     }
 
     private var job: Job? = null
@@ -108,7 +110,7 @@ class AudioPlatformOutput(
                         gen.paused(paused)
                     }
                     if (paused) {
-                        delay(10L)
+                        delay(duration = 10.milliseconds)
                     } else {
                         genSafe(samples)
                         //println(samples.data.toList())
@@ -117,7 +119,7 @@ class AudioPlatformOutput(
                             gen.init(samples)
                         }
                         gen.output(samples)
-                        delay(1L)
+                        delay(duration = 1.milliseconds)
                     }
                 }
             } finally {

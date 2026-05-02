@@ -2,6 +2,7 @@ package korlibs.audio.sound.backend
 
 import korlibs.audio.sound.*
 import korlibs.ffi.*
+import korlibs.time.milliseconds
 import kotlinx.coroutines.*
 
 object FFIALSANativeSoundProvider : NativeSoundProvider() {
@@ -37,7 +38,7 @@ object FFIALSANativeSoundProvider : NativeSoundProvider() {
                             //blockingSleep(1.milliseconds)
                         } else if (written < 0) {
                             println("ALSA: OTHER error: $written")
-                            delay(1L)
+                            delay(duration = 1.milliseconds)
                         } else {
                             break
                         }
