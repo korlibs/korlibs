@@ -192,6 +192,16 @@ data class FFIPointerArray(val data: IntArray) : List<FFIPointer?> {
     }
     override fun containsAll(elements: Collection<FFIPointer?>): Boolean = vlist.containsAll(elements)
     override fun contains(element: FFIPointer?): Boolean = indexOf(element) >= 0
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as FFIPointerArray
+
+        return data.contentEquals(other.data)
+    }
+
+    override fun hashCode(): Int = data.contentHashCode()
 }
 
 fun FFIPointer.withOffset(offset: Int): FFIPointer? = FFIPointer(address + offset)

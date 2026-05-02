@@ -8,7 +8,10 @@ class FastIdentityMapTest {
 	fun test() {
 		class Demo {
 			override fun hashCode(): Int = 0
-		}
+            override fun equals(other: Any?): Boolean {
+				return this === other
+            }
+        }
 
 		val map = FastIdentityMap<Demo, String>()
 		val i1 = Demo()

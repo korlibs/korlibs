@@ -206,7 +206,53 @@ data class ZipEntry(
     val internalAttributes: Int,
     val externalAttributes: Int,
     val commentBytes: ByteArray
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as ZipEntry
+
+        if (versionMadeBy != other.versionMadeBy) return false
+        if (extractVersion != other.extractVersion) return false
+        if (headerOffset != other.headerOffset) return false
+        if (compressionMethod != other.compressionMethod) return false
+        if (flags != other.flags) return false
+        if (date != other.date) return false
+        if (time != other.time) return false
+        if (crc32 != other.crc32) return false
+        if (compressedSize != other.compressedSize) return false
+        if (uncompressedSize != other.uncompressedSize) return false
+        if (diskNumberStart != other.diskNumberStart) return false
+        if (internalAttributes != other.internalAttributes) return false
+        if (externalAttributes != other.externalAttributes) return false
+        if (!nameBytes.contentEquals(other.nameBytes)) return false
+        if (!extraBytes.contentEquals(other.extraBytes)) return false
+        if (!commentBytes.contentEquals(other.commentBytes)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = versionMadeBy
+        result = 31 * result + extractVersion
+        result = 31 * result + headerOffset.hashCode()
+        result = 31 * result + compressionMethod
+        result = 31 * result + flags
+        result = 31 * result + date
+        result = 31 * result + time
+        result = 31 * result + crc32
+        result = 31 * result + compressedSize
+        result = 31 * result + uncompressedSize
+        result = 31 * result + diskNumberStart
+        result = 31 * result + internalAttributes
+        result = 31 * result + externalAttributes
+        result = 31 * result + nameBytes.contentHashCode()
+        result = 31 * result + extraBytes.contentHashCode()
+        result = 31 * result + commentBytes.contentHashCode()
+        return result
+    }
+}
 
 data class ZipEntry2(
     val path: String,
