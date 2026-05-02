@@ -159,7 +159,7 @@ abstract class BaseTtfFont(
 
         fun getName(nameId: NameId): String? = getName(nameId.id)
 
-        fun toMap() = NameId.values().associateWith { getName(it) }
+        fun toMap() = NameId.entries.associateWith { getName(it) }
 
         override fun toString(): String = "NamesInfo(${toMap()})"
     }
@@ -348,7 +348,7 @@ abstract class BaseTtfFont(
 		DARK_BACKGROUND_PALETTE(24), VARIATIONS_POSTSCRIPT_NAME_PREFIX(25);
 
 		companion object {
-			val names = values()
+			val names = entries.toTypedArray()
 		}
 	}
 
@@ -1158,7 +1158,7 @@ abstract class BaseTtfFont(
         val format: Int = ordinal + 1
 
         companion object {
-            val BY_FORMAT = arrayOfNulls<Colrv1Paint>(1) + values()
+            val BY_FORMAT = arrayOfNulls<Colrv1Paint>(1) + entries.toTypedArray()
         }
     }
 

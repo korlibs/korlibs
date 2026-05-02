@@ -80,7 +80,7 @@ class Logger private constructor(val name: String, val normalizedName: String, v
         WARN(3), INFO(4), DEBUG(5), TRACE(6);
 
         companion object {
-            val BY_NAME = values().associateBy { it.name }
+            val BY_NAME = entries.associateBy { it.name }
             operator fun get(name: String): Level = BY_NAME[name.uppercase()] ?: NONE
         }
     }

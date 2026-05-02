@@ -310,7 +310,7 @@ object TtfCIDFont {
             FDSelect(0x0c25),
             FontName(0x0c26);
             companion object {
-                val VALUES_BY_ID = values().associateBy { it.id }.toIntMap()
+                val VALUES_BY_ID = entries.associateBy { it.id }.toIntMap()
                 operator fun get(id: Int): Op? = VALUES_BY_ID[id]
             }
         }
@@ -698,7 +698,7 @@ object TtfCIDFont {
             flex1(0x0c25);
 
             companion object {
-                val MAP = values().associateBy { it.id }.toIntMap()
+                val MAP = entries.associateBy { it.id }.toIntMap()
 
                 operator fun get(id: Int): Op = MAP[id] ?: error("Unknown CFF CS2 operator $id")
             }

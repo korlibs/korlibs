@@ -101,6 +101,6 @@ enum class Month(
          */
         fun fromDayOfYear(dayOfYear: Int, year: Year): Month? = fromDayOfYear(dayOfYear, year.isLeap)
 
-        private val BY_INDEX0 = values()
+        private val BY_INDEX0 = entries.toTypedArray()
     }
 }
