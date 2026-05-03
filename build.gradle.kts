@@ -25,7 +25,8 @@ plugins {
 
 // Relocated modules: old project name -> new artifact ID
 // This mapping can be removed once first release is published
-val relocatedModules = mapOf<String, String>(
+val relocatedModules = mapOf(
+    "korlibs-image-core" to "korlibs-image",
     // add more mappings here as needed
 )
 

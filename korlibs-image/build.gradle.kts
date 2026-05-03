@@ -5,6 +5,8 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.TestExecutable
+import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -66,6 +68,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.korlibsIo)
+            implementation(projects.korlibsAnnotations)
             implementation(projects.korlibsImageCore)
             api(projects.korlibsIoVfs)
             api(projects.korlibsMath)
@@ -80,7 +83,9 @@ kotlin {
             implementation(projects.korlibsWasm)
             implementation(projects.korlibsChecksum)
             api(libs.kotlinx.atomicfu)
+            implementation(libs.kotlinx.coroutines.core)
         }
+
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
@@ -96,6 +101,16 @@ kotlin {
 
         tvosMain {
             dependsOn(appleIosTvosMain)
+        }
+
+        jvmMain.dependencies {
+            api(libs.jna.jna)
+            api(libs.jna.platform)
+        }
+
+        webMain.dependencies {
+            implementation(projects.korlibsWasm)
+            implementation(projects.korlibsCompression)
         }
     }
 }
@@ -114,3 +129,16 @@ kotlin.targets
             }
     }
 
+afterEvaluate {
+    kotlin.targets.filter { it.platformType == KotlinPlatformType.native }.forEach { target ->
+        if (target.name.contains("linux") || target.name.contains("mingw")) {
+            target.compilations.getByName("main") {
+                (this as KotlinNativeCompilation).cinterops {
+                    create("stb_image") {
+                        defFile(project.file("nativeInterop/cinterop/stb_image.def"))
+                    }
+                }
+            }
+        }
+    }
+}
