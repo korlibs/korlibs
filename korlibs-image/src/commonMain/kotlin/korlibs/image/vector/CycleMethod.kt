@@ -18,7 +18,7 @@ enum class CycleMethod {
 
 //enum class CycleMethod(val value: Int) {
     companion object {
-        val VALUES_BY_ORDINAL = values()
+        val VALUES_BY_ORDINAL = entries.toTypedArray()
 
         //val NO_CYCLE = CycleMethod(0)
         //val NO_CYCLE_CLAMP = CycleMethod(1)

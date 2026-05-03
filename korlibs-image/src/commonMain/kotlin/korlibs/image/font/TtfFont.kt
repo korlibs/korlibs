@@ -1,23 +1,63 @@
 package korlibs.image.font
 
-import korlibs.datastructure.*
-import korlibs.datastructure.iterators.*
-import korlibs.logger.*
-import korlibs.memory.*
-import korlibs.image.annotation.*
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.image.format.*
-import korlibs.image.paint.*
-import korlibs.image.vector.*
-import korlibs.io.file.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
-import korlibs.encoding.*
+import korlibs.datastructure.DoubleArrayList
+import korlibs.datastructure.Extra
+import korlibs.datastructure.IntArrayList
+import korlibs.datastructure.IntIntMap
+import korlibs.datastructure.IntMap
+import korlibs.datastructure.getCyclic
+import korlibs.datastructure.iterators.fastForEach
+import korlibs.datastructure.mapInt
+import korlibs.datastructure.toIntArrayList
+import korlibs.encoding.hex
+import korlibs.image.annotation.KorimInternal
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.Bitmaps
+import korlibs.image.bitmap.Palette
+import korlibs.image.bitmap.bmp
+import korlibs.image.color.Colors
+import korlibs.image.color.RGBA
+import korlibs.image.color.RgbaArray
+import korlibs.image.format.PNG
+import korlibs.image.paint.GradientPaint
+import korlibs.image.paint.LinearGradientPaint
+import korlibs.image.paint.RadialGradientPaint
+import korlibs.image.vector.CompoundShape
+import korlibs.image.vector.Context2d
+import korlibs.image.vector.CycleMethod
+import korlibs.image.vector.FillShape
+import korlibs.image.vector.Shape
+import korlibs.image.vector.buildShape
+import korlibs.image.vector.toContext2dCommands
+import korlibs.image.vector.toSvgPathString
+import korlibs.io.file.VfsFile
+import korlibs.io.file.baseName
+import korlibs.io.lang.Charset
+import korlibs.io.lang.UTF16_BE
+import korlibs.io.lang.UTF8
+import korlibs.io.lang.WChar
+import korlibs.io.lang.WString
+import korlibs.io.lang.WStringReader
+import korlibs.io.lang.invalidOp
+import korlibs.io.stream.AsyncInputOpenable
+import korlibs.io.stream.AsyncStream
 import korlibs.io.stream.FastByteArrayInputStream
-import kotlin.collections.set
+import korlibs.io.stream.openFastStream
+import korlibs.io.stream.openUse
+import korlibs.io.stream.readBytesUpTo
+import korlibs.io.stream.toSyncStream
+import korlibs.logger.Logger
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Point
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.Scale
+import korlibs.math.geom.Vector2D
+import korlibs.math.geom.vector.IVectorPath
+import korlibs.math.geom.vector.VectorPath
+import korlibs.memory.extract
+import korlibs.memory.extract16Signed
+import korlibs.memory.extractSigned
+import korlibs.memory.insert16
 
 class TtfFont(
     d: ByteArray,
@@ -159,7 +199,7 @@ abstract class BaseTtfFont(
 
         fun getName(nameId: NameId): String? = getName(nameId.id)
 
-        fun toMap() = NameId.values().associateWith { getName(it) }
+        fun toMap() = NameId.entries.associateWith { getName(it) }
 
         override fun toString(): String = "NamesInfo(${toMap()})"
     }
@@ -348,7 +388,7 @@ abstract class BaseTtfFont(
 		DARK_BACKGROUND_PALETTE(24), VARIATIONS_POSTSCRIPT_NAME_PREFIX(25);
 
 		companion object {
-			val names = values()
+			val names = entries.toTypedArray()
 		}
 	}
 
@@ -1158,7 +1198,7 @@ abstract class BaseTtfFont(
         val format: Int = ordinal + 1
 
         companion object {
-            val BY_FORMAT = arrayOfNulls<Colrv1Paint>(1) + values()
+            val BY_FORMAT = arrayOfNulls<Colrv1Paint>(1) + entries.toTypedArray()
         }
     }
 
