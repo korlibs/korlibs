@@ -13,7 +13,7 @@ import kotlin.test.*
 
 class WastReaderTestJit : WastReaderTest() {
     override fun runModule(module: WasmModule, codeTrace: Boolean) {
-        WasmRunJVMOutputExt.build(module, codeTrace = codeTrace).invoke("run\$asserts")
+        WasmRunJVMOutputExt.build(module, codeTrace = codeTrace).invoke($$"run$asserts")
     }
 }
 
@@ -172,10 +172,11 @@ open class WastReaderTest {
     @Test fun testUtf8_invalid_encoding() = runAssetsWast("wasm/test-core/utf8-invalid-encoding.wast")
 
     @Ignore @Test fun testSimple() {
-        runAssetsWastCode("""
+        runAssetsWastCode(
+            $$"""
             (module
-                (func (export "8u_bad") (param ${'$'}i i32)
-                    (drop (i32.load8_u offset=4294967295 (local.get ${'$'}i)))
+                (func (export "8u_bad") (param $i i32)
+                    (drop (i32.load8_u offset=4294967295 (local.get $i)))
                 )
             )
             (assert_return (invoke "8u_bad" (i32.const 0)) (i32.const 0))

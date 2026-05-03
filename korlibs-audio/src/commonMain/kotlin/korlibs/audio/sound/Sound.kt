@@ -14,6 +14,7 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.*
 import kotlin.time.*
 import kotlin.coroutines.coroutineContext as coroutineContextKt
+import kotlin.time.Duration.Companion.milliseconds
 
 open class LogNativeSoundProvider(
     val onGen: (AudioData) -> Unit = { }
@@ -28,7 +29,7 @@ open class LogNativeSoundProvider(
             while (running) {
                 genSafe(buffer)
                 log += AudioData(frequency, buffer.copyOf().separated()).also(onGen)
-                delay(2L)
+                delay(duration = 2.milliseconds)
             }
         }
     }

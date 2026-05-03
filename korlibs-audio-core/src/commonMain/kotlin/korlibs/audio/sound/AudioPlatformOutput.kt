@@ -1,30 +1,62 @@
 package korlibs.audio.sound
 
-import korlibs.datastructure.*
-import korlibs.math.geom.*
-import kotlinx.atomicfu.locks.*
-import kotlinx.coroutines.*
+import korlibs.datastructure.Extra
+import korlibs.math.geom.Vector3
+import kotlin.time.Duration.Companion.milliseconds
+import kotlinx.atomicfu.locks.reentrantLock
+import kotlinx.atomicfu.locks.withLock
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /** Function might be called from different threads, so code must be thread-safe. */
 @ExperimentalStdlibApi
 typealias AudioPlatformOutputGen = (AudioSamplesInterleaved) -> Unit
 
 @ExperimentalStdlibApi
-class AudioPlatformOutput(
+class AudioPlatformOutput internal constructor(
     val listener: SoundListenerProps,
     //val coroutineContext: CoroutineContext,
     val channels: Int,
     val frequency: Int,
     private val gen: AudioPlatformOutputGen,
-    val dispatcher: CoroutineDispatcher = Dispatchers.AUDIO,
+    private val scope: CoroutineScope,
     val block: suspend AudioPlatformOutput.() -> Unit = {
         val buffer = AudioSamplesInterleaved(channels, DEFAULT_BLOCK_SIZE)
         while (running) {
             genSafe(buffer)
-            delay(1L)
+            delay(duration = 1.milliseconds)
         }
     }
 ) : AutoCloseable, SoundProps, Extra by Extra.Mixin() {
+
+    constructor(
+        listener: SoundListenerProps,
+        channels: Int,
+        frequency: Int,
+        gen: AudioPlatformOutputGen,
+        dispatcher: CoroutineDispatcher = Dispatchers.AUDIO,
+        block: suspend AudioPlatformOutput.() -> Unit = {
+            val buffer = AudioSamplesInterleaved(channels, DEFAULT_BLOCK_SIZE)
+            while (running) {
+                genSafe(buffer)
+                delay(duration = 1.milliseconds)
+            }
+        },
+    ): this(
+        listener = listener,
+        channels = channels,
+        frequency = frequency,
+        gen = gen,
+        scope = CoroutineScope(context = dispatcher + SupervisorJob()),
+        block = block,
+    )
+
     var paused: Boolean = false
 
     private val lock = reentrantLock()
@@ -47,7 +79,8 @@ class AudioPlatformOutput(
     var running = false
 
     suspend fun suspendWhileRunning() {
-        while (running) delay(10L)
+
+        while (running) delay(duration = 10.milliseconds)
     }
 
     private var job: Job? = null
@@ -58,11 +91,10 @@ class AudioPlatformOutput(
         stopping = false
         running = true
         job?.cancel()
-        job = CoroutineScope(dispatcher + SupervisorJob()).launch {
+        job = scope.launch {
             try {
                 block()
-            } catch (e: CancellationException) {
-                Unit
+            } catch (_: CancellationException) {
             } finally {
                 running = false
             }
@@ -80,7 +112,7 @@ class AudioPlatformOutput(
         }
     }
 
-    final override fun close() = stop()
+    override fun close() = stop()
 
     companion object {
         val DEFAULT_BLOCK_SIZE = 2048
@@ -108,7 +140,7 @@ class AudioPlatformOutput(
                         gen.paused(paused)
                     }
                     if (paused) {
-                        delay(10L)
+                        delay(duration = 10.milliseconds)
                     } else {
                         genSafe(samples)
                         //println(samples.data.toList())
@@ -117,7 +149,7 @@ class AudioPlatformOutput(
                             gen.init(samples)
                         }
                         gen.output(samples)
-                        delay(1L)
+                        delay(duration = 1.milliseconds)
                     }
                 }
             } finally {
@@ -132,5 +164,4 @@ class AudioPlatformOutputSimple(
     val output: suspend (AudioSamplesInterleaved) -> Unit = { },
     val close: suspend (AudioSamplesInterleaved) -> Unit = { },
     val paused: (paused: Boolean) -> Unit = { },
-    unit: Unit = Unit
 )
