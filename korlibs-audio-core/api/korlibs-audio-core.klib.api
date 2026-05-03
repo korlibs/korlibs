@@ -109,8 +109,6 @@ final class korlibs.audio.sound/AudioPlatformOutput : korlibs.audio.sound/SoundP
         final fun <get-block>(): kotlin.coroutines/SuspendFunction1<korlibs.audio.sound/AudioPlatformOutput, kotlin/Unit> // korlibs.audio.sound/AudioPlatformOutput.block.<get-block>|<get-block>(){}[0]
     final val channels // korlibs.audio.sound/AudioPlatformOutput.channels|{}channels[0]
         final fun <get-channels>(): kotlin/Int // korlibs.audio.sound/AudioPlatformOutput.channels.<get-channels>|<get-channels>(){}[0]
-    final val dispatcher // korlibs.audio.sound/AudioPlatformOutput.dispatcher|{}dispatcher[0]
-        final fun <get-dispatcher>(): kotlinx.coroutines/CoroutineDispatcher // korlibs.audio.sound/AudioPlatformOutput.dispatcher.<get-dispatcher>|<get-dispatcher>(){}[0]
     final val frequency // korlibs.audio.sound/AudioPlatformOutput.frequency|{}frequency[0]
         final fun <get-frequency>(): kotlin/Int // korlibs.audio.sound/AudioPlatformOutput.frequency.<get-frequency>|<get-frequency>(){}[0]
     final val listener // korlibs.audio.sound/AudioPlatformOutput.listener|{}listener[0]
@@ -150,7 +148,7 @@ final class korlibs.audio.sound/AudioPlatformOutput : korlibs.audio.sound/SoundP
 }
 
 final class korlibs.audio.sound/AudioPlatformOutputSimple { // korlibs.audio.sound/AudioPlatformOutputSimple|null[0]
-    constructor <init>(kotlin.coroutines/SuspendFunction1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit> = ..., kotlin.coroutines/SuspendFunction1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit> = ..., kotlin.coroutines/SuspendFunction1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit> = ..., kotlin/Function1<kotlin/Boolean, kotlin/Unit> = ..., kotlin/Unit = ...) // korlibs.audio.sound/AudioPlatformOutputSimple.<init>|<init>(kotlin.coroutines.SuspendFunction1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>;kotlin.coroutines.SuspendFunction1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>;kotlin.coroutines.SuspendFunction1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>;kotlin.Function1<kotlin.Boolean,kotlin.Unit>;kotlin.Unit){}[0]
+    constructor <init>(kotlin.coroutines/SuspendFunction1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit> = ..., kotlin.coroutines/SuspendFunction1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit> = ..., kotlin.coroutines/SuspendFunction1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit> = ..., kotlin/Function1<kotlin/Boolean, kotlin/Unit> = ...) // korlibs.audio.sound/AudioPlatformOutputSimple.<init>|<init>(kotlin.coroutines.SuspendFunction1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>;kotlin.coroutines.SuspendFunction1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>;kotlin.coroutines.SuspendFunction1<korlibs.audio.sound.AudioSamplesInterleaved,kotlin.Unit>;kotlin.Function1<kotlin.Boolean,kotlin.Unit>){}[0]
 
     final val close // korlibs.audio.sound/AudioPlatformOutputSimple.close|{}close[0]
         final fun <get-close>(): kotlin.coroutines/SuspendFunction1<korlibs.audio.sound/AudioSamplesInterleaved, kotlin/Unit> // korlibs.audio.sound/AudioPlatformOutputSimple.close.<get-close>|<get-close>(){}[0]
