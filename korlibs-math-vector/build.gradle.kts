@@ -63,5 +63,8 @@ kotlin {
             implementation(projects.korlibsPlatform)
             api(projects.korlibsMathCore)
         }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+        }
     }
 }
