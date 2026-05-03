@@ -23,6 +23,12 @@ plugins {
     alias(libs.plugins.vanniktech.mavenPublish)
 }
 
+// Relocated modules: old project name -> new artifact ID
+// This mapping can be removed once first release is published
+val relocatedModules = mapOf<String, String>(
+    // add more mappings here as needed
+)
+
 subprojects {
     // Apply maven publishing configuration to subprojects
     plugins.withType<MavenPublishPlugin> {
@@ -60,6 +66,19 @@ subprojects {
                     // TODO Consider below fields as well
                     // connection.set("scm:git:git://github.com/username/mylibrary.git")
                     // developerConnection.set("scm:git:ssh://git@github.com/username/mylibrary.git")
+                }
+
+                // Inject relocation block if this module has been moved
+                val newArtifactId = relocatedModules[project.name]
+                if (newArtifactId != null) {
+                    distributionManagement {
+                        relocation {
+                            groupId.set(group.toString())
+                            artifactId.set(newArtifactId)
+                            version.set(project.version.toString())
+                            message.set("${project.name} has been merged into $newArtifactId")
+                        }
+                    }
                 }
             }
         }
