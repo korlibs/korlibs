@@ -2,6 +2,7 @@
 // Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
 // Alias: native => [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
 // Alias: apple => [iosArm64, iosSimulatorArm64, iosX64, macosArm64, tvosArm64, tvosSimulatorArm64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Alias: linux => [linuxArm64, linuxX64]
 // Alias: ios => [iosArm64, iosSimulatorArm64, iosX64]
 // Alias: tvos => [tvosArm64, tvosSimulatorArm64]
 // Rendering settings:
@@ -362,6 +363,34 @@ abstract interface korlibs.image.color/ColorFormat { // korlibs.image.color/Colo
 }
 
 abstract interface korlibs.image.color/ColorFormat16 : korlibs.image.color/ColorFormat // korlibs.image.color/ColorFormat16|null[0]
+
+abstract interface korlibs.image.core/CoreImage { // korlibs.image.core/CoreImage|null[0]
+    abstract val bpp // korlibs.image.core/CoreImage.bpp|{}bpp[0]
+        abstract fun <get-bpp>(): kotlin/Int // korlibs.image.core/CoreImage.bpp.<get-bpp>|<get-bpp>(){}[0]
+    abstract val height // korlibs.image.core/CoreImage.height|{}height[0]
+        abstract fun <get-height>(): kotlin/Int // korlibs.image.core/CoreImage.height.<get-height>|<get-height>(){}[0]
+    abstract val native // korlibs.image.core/CoreImage.native|{}native[0]
+        abstract fun <get-native>(): kotlin/Any // korlibs.image.core/CoreImage.native.<get-native>|<get-native>(){}[0]
+    abstract val premultiplied // korlibs.image.core/CoreImage.premultiplied|{}premultiplied[0]
+        abstract fun <get-premultiplied>(): kotlin/Boolean // korlibs.image.core/CoreImage.premultiplied.<get-premultiplied>|<get-premultiplied>(){}[0]
+    abstract val width // korlibs.image.core/CoreImage.width|{}width[0]
+        abstract fun <get-width>(): kotlin/Int // korlibs.image.core/CoreImage.width.<get-width>|<get-width>(){}[0]
+
+    abstract fun to32(): korlibs.image.core/CoreImage32 // korlibs.image.core/CoreImage.to32|to32(){}[0]
+
+    final object Companion // korlibs.image.core/CoreImage.Companion|null[0]
+}
+
+abstract interface korlibs.image.core/CoreImageFormatProvider { // korlibs.image.core/CoreImageFormatProvider|null[0]
+    open val isSupported // korlibs.image.core/CoreImageFormatProvider.isSupported|{}isSupported[0]
+        open fun <get-isSupported>(): kotlin/Boolean // korlibs.image.core/CoreImageFormatProvider.isSupported.<get-isSupported>|<get-isSupported>(){}[0]
+
+    abstract suspend fun decode(kotlin/ByteArray): korlibs.image.core/CoreImage // korlibs.image.core/CoreImageFormatProvider.decode|decode(kotlin.ByteArray){}[0]
+    abstract suspend fun encode(korlibs.image.core/CoreImage, korlibs.image.core/CoreImageFormat, kotlin/Double = ...): kotlin/ByteArray // korlibs.image.core/CoreImageFormatProvider.encode|encode(korlibs.image.core.CoreImage;korlibs.image.core.CoreImageFormat;kotlin.Double){}[0]
+    open suspend fun info(kotlin/ByteArray): korlibs.image.core/CoreImageInfo // korlibs.image.core/CoreImageFormatProvider.info|info(kotlin.ByteArray){}[0]
+
+    final object Companion // korlibs.image.core/CoreImageFormatProvider.Companion|null[0]
+}
 
 abstract interface korlibs.image.font/BaseTextMetricsResult { // korlibs.image.font/BaseTextMetricsResult|null[0]
     abstract val fmetrics // korlibs.image.font/BaseTextMetricsResult.fmetrics|{}fmetrics[0]
@@ -3120,6 +3149,50 @@ final class korlibs.image.color/RGBAd { // korlibs.image.color/RGBAd|null[0]
     final fun set(korlibs.image.color/RGBAd) // korlibs.image.color/RGBAd.set|set(korlibs.image.color.RGBAd){}[0]
     final fun set(kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double) // korlibs.image.color/RGBAd.set|set(kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double){}[0]
     final fun toRGBA(): korlibs.image.color/RGBA // korlibs.image.color/RGBAd.toRGBA|toRGBA(){}[0]
+}
+
+final class korlibs.image.core/CoreImage32 : korlibs.image.core/CoreImage { // korlibs.image.core/CoreImage32|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int, kotlin/IntArray = ..., kotlin/Boolean = ...) // korlibs.image.core/CoreImage32.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.IntArray;kotlin.Boolean){}[0]
+
+    final val bpp // korlibs.image.core/CoreImage32.bpp|{}bpp[0]
+        final fun <get-bpp>(): kotlin/Int // korlibs.image.core/CoreImage32.bpp.<get-bpp>|<get-bpp>(){}[0]
+    final val data // korlibs.image.core/CoreImage32.data|{}data[0]
+        final fun <get-data>(): kotlin/IntArray // korlibs.image.core/CoreImage32.data.<get-data>|<get-data>(){}[0]
+    final val height // korlibs.image.core/CoreImage32.height|{}height[0]
+        final fun <get-height>(): kotlin/Int // korlibs.image.core/CoreImage32.height.<get-height>|<get-height>(){}[0]
+    final val native // korlibs.image.core/CoreImage32.native|{}native[0]
+        final fun <get-native>(): kotlin/IntArray // korlibs.image.core/CoreImage32.native.<get-native>|<get-native>(){}[0]
+    final val premultiplied // korlibs.image.core/CoreImage32.premultiplied|{}premultiplied[0]
+        final fun <get-premultiplied>(): kotlin/Boolean // korlibs.image.core/CoreImage32.premultiplied.<get-premultiplied>|<get-premultiplied>(){}[0]
+    final val width // korlibs.image.core/CoreImage32.width|{}width[0]
+        final fun <get-width>(): kotlin/Int // korlibs.image.core/CoreImage32.width.<get-width>|<get-width>(){}[0]
+
+    final fun to32(): korlibs.image.core/CoreImage32 // korlibs.image.core/CoreImage32.to32|to32(){}[0]
+}
+
+final class korlibs.image.core/CoreImageInfo { // korlibs.image.core/CoreImageInfo|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int, kotlin/Int = ..., korlibs.image.core/CoreImageFormat? = ..., kotlin/Boolean = ...) // korlibs.image.core/CoreImageInfo.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.Int;korlibs.image.core.CoreImageFormat?;kotlin.Boolean){}[0]
+
+    final val bpp // korlibs.image.core/CoreImageInfo.bpp|{}bpp[0]
+        final fun <get-bpp>(): kotlin/Int // korlibs.image.core/CoreImageInfo.bpp.<get-bpp>|<get-bpp>(){}[0]
+    final val format // korlibs.image.core/CoreImageInfo.format|{}format[0]
+        final fun <get-format>(): korlibs.image.core/CoreImageFormat? // korlibs.image.core/CoreImageInfo.format.<get-format>|<get-format>(){}[0]
+    final val height // korlibs.image.core/CoreImageInfo.height|{}height[0]
+        final fun <get-height>(): kotlin/Int // korlibs.image.core/CoreImageInfo.height.<get-height>|<get-height>(){}[0]
+    final val premultiplied // korlibs.image.core/CoreImageInfo.premultiplied|{}premultiplied[0]
+        final fun <get-premultiplied>(): kotlin/Boolean // korlibs.image.core/CoreImageInfo.premultiplied.<get-premultiplied>|<get-premultiplied>(){}[0]
+    final val width // korlibs.image.core/CoreImageInfo.width|{}width[0]
+        final fun <get-width>(): kotlin/Int // korlibs.image.core/CoreImageInfo.width.<get-width>|<get-width>(){}[0]
+
+    final fun component1(): kotlin/Int // korlibs.image.core/CoreImageInfo.component1|component1(){}[0]
+    final fun component2(): kotlin/Int // korlibs.image.core/CoreImageInfo.component2|component2(){}[0]
+    final fun component3(): kotlin/Int // korlibs.image.core/CoreImageInfo.component3|component3(){}[0]
+    final fun component4(): korlibs.image.core/CoreImageFormat? // korlibs.image.core/CoreImageInfo.component4|component4(){}[0]
+    final fun component5(): kotlin/Boolean // korlibs.image.core/CoreImageInfo.component5|component5(){}[0]
+    final fun copy(kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ..., korlibs.image.core/CoreImageFormat? = ..., kotlin/Boolean = ...): korlibs.image.core/CoreImageInfo // korlibs.image.core/CoreImageInfo.copy|copy(kotlin.Int;kotlin.Int;kotlin.Int;korlibs.image.core.CoreImageFormat?;kotlin.Boolean){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.image.core/CoreImageInfo.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.image.core/CoreImageInfo.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.image.core/CoreImageInfo.toString|toString(){}[0]
 }
 
 final class korlibs.image.font/BitmapFontImpl : korlibs.datastructure/Extra, korlibs.image.font/BitmapFont { // korlibs.image.font/BitmapFontImpl|null[0]
@@ -6386,6 +6459,68 @@ final value class korlibs.image.color/YuvaArray { // korlibs.image.color/YuvaArr
     final fun toString(): kotlin/String // korlibs.image.color/YuvaArray.toString|toString(){}[0]
 }
 
+final value class korlibs.image.core/CoreImage32Color { // korlibs.image.core/CoreImage32Color|null[0]
+    constructor <init>(kotlin/Int) // korlibs.image.core/CoreImage32Color.<init>|<init>(kotlin.Int){}[0]
+    constructor <init>(kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int = ...) // korlibs.image.core/CoreImage32Color.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    constructor <init>(kotlin/UByte, kotlin/UByte, kotlin/UByte, kotlin/UByte = ...) // korlibs.image.core/CoreImage32Color.<init>|<init>(kotlin.UByte;kotlin.UByte;kotlin.UByte;kotlin.UByte){}[0]
+
+    final val alpha // korlibs.image.core/CoreImage32Color.alpha|{}alpha[0]
+        final fun <get-alpha>(): kotlin/Int // korlibs.image.core/CoreImage32Color.alpha.<get-alpha>|<get-alpha>(){}[0]
+    final val blue // korlibs.image.core/CoreImage32Color.blue|{}blue[0]
+        final fun <get-blue>(): kotlin/Int // korlibs.image.core/CoreImage32Color.blue.<get-blue>|<get-blue>(){}[0]
+    final val green // korlibs.image.core/CoreImage32Color.green|{}green[0]
+        final fun <get-green>(): kotlin/Int // korlibs.image.core/CoreImage32Color.green.<get-green>|<get-green>(){}[0]
+    final val red // korlibs.image.core/CoreImage32Color.red|{}red[0]
+        final fun <get-red>(): kotlin/Int // korlibs.image.core/CoreImage32Color.red.<get-red>|<get-red>(){}[0]
+    final val value // korlibs.image.core/CoreImage32Color.value|{}value[0]
+        final fun <get-value>(): kotlin/Int // korlibs.image.core/CoreImage32Color.value.<get-value>|<get-value>(){}[0]
+
+    final fun depremultiplied(): korlibs.image.core/CoreImage32Color // korlibs.image.core/CoreImage32Color.depremultiplied|depremultiplied(){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.image.core/CoreImage32Color.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.image.core/CoreImage32Color.hashCode|hashCode(){}[0]
+    final fun premultiplied(): korlibs.image.core/CoreImage32Color // korlibs.image.core/CoreImage32Color.premultiplied|premultiplied(){}[0]
+    final fun toString(): kotlin/String // korlibs.image.core/CoreImage32Color.toString|toString(){}[0]
+
+    final object Companion { // korlibs.image.core/CoreImage32Color.Companion|null[0]
+        final const val ALPHA_OFFSET // korlibs.image.core/CoreImage32Color.Companion.ALPHA_OFFSET|{}ALPHA_OFFSET[0]
+            final fun <get-ALPHA_OFFSET>(): kotlin/Int // korlibs.image.core/CoreImage32Color.Companion.ALPHA_OFFSET.<get-ALPHA_OFFSET>|<get-ALPHA_OFFSET>(){}[0]
+        final const val BLUE_OFFSET // korlibs.image.core/CoreImage32Color.Companion.BLUE_OFFSET|{}BLUE_OFFSET[0]
+            final fun <get-BLUE_OFFSET>(): kotlin/Int // korlibs.image.core/CoreImage32Color.Companion.BLUE_OFFSET.<get-BLUE_OFFSET>|<get-BLUE_OFFSET>(){}[0]
+        final const val GREEN_OFFSET // korlibs.image.core/CoreImage32Color.Companion.GREEN_OFFSET|{}GREEN_OFFSET[0]
+            final fun <get-GREEN_OFFSET>(): kotlin/Int // korlibs.image.core/CoreImage32Color.Companion.GREEN_OFFSET.<get-GREEN_OFFSET>|<get-GREEN_OFFSET>(){}[0]
+        final const val RED_OFFSET // korlibs.image.core/CoreImage32Color.Companion.RED_OFFSET|{}RED_OFFSET[0]
+            final fun <get-RED_OFFSET>(): kotlin/Int // korlibs.image.core/CoreImage32Color.Companion.RED_OFFSET.<get-RED_OFFSET>|<get-RED_OFFSET>(){}[0]
+    }
+}
+
+final value class korlibs.image.core/CoreImageFormat { // korlibs.image.core/CoreImageFormat|null[0]
+    constructor <init>(kotlin/String) // korlibs.image.core/CoreImageFormat.<init>|<init>(kotlin.String){}[0]
+
+    final val name // korlibs.image.core/CoreImageFormat.name|{}name[0]
+        final fun <get-name>(): kotlin/String // korlibs.image.core/CoreImageFormat.name.<get-name>|<get-name>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.image.core/CoreImageFormat.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.image.core/CoreImageFormat.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // korlibs.image.core/CoreImageFormat.toString|toString(){}[0]
+
+    final object Companion { // korlibs.image.core/CoreImageFormat.Companion|null[0]
+        final val AVIF // korlibs.image.core/CoreImageFormat.Companion.AVIF|{}AVIF[0]
+            final fun <get-AVIF>(): korlibs.image.core/CoreImageFormat // korlibs.image.core/CoreImageFormat.Companion.AVIF.<get-AVIF>|<get-AVIF>(){}[0]
+        final val GIF // korlibs.image.core/CoreImageFormat.Companion.GIF|{}GIF[0]
+            final fun <get-GIF>(): korlibs.image.core/CoreImageFormat // korlibs.image.core/CoreImageFormat.Companion.GIF.<get-GIF>|<get-GIF>(){}[0]
+        final val JPEG // korlibs.image.core/CoreImageFormat.Companion.JPEG|{}JPEG[0]
+            final fun <get-JPEG>(): korlibs.image.core/CoreImageFormat // korlibs.image.core/CoreImageFormat.Companion.JPEG.<get-JPEG>|<get-JPEG>(){}[0]
+        final val PNG // korlibs.image.core/CoreImageFormat.Companion.PNG|{}PNG[0]
+            final fun <get-PNG>(): korlibs.image.core/CoreImageFormat // korlibs.image.core/CoreImageFormat.Companion.PNG.<get-PNG>|<get-PNG>(){}[0]
+        final val TGA // korlibs.image.core/CoreImageFormat.Companion.TGA|{}TGA[0]
+            final fun <get-TGA>(): korlibs.image.core/CoreImageFormat // korlibs.image.core/CoreImageFormat.Companion.TGA.<get-TGA>|<get-TGA>(){}[0]
+        final val WEBP // korlibs.image.core/CoreImageFormat.Companion.WEBP|{}WEBP[0]
+            final fun <get-WEBP>(): korlibs.image.core/CoreImageFormat // korlibs.image.core/CoreImageFormat.Companion.WEBP.<get-WEBP>|<get-WEBP>(){}[0]
+
+        final fun fromMimeType(kotlin/String): korlibs.image.core/CoreImageFormat // korlibs.image.core/CoreImageFormat.Companion.fromMimeType|fromMimeType(kotlin.String){}[0]
+    }
+}
+
 final value class korlibs.image.text/HorizontalAlign : korlibs.io.lang/EnumLike<korlibs.image.text/HorizontalAlign> { // korlibs.image.text/HorizontalAlign|null[0]
     constructor <init>(kotlin/Double) // korlibs.image.text/HorizontalAlign.<init>|<init>(kotlin.Double){}[0]
 
@@ -8604,6 +8739,14 @@ final object korlibs.image.color/RGB_565 : korlibs.image.color/ColorFormat, korl
     final fun pack(kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int): kotlin/Int // korlibs.image.color/RGB_565.pack|pack(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
 }
 
+final object korlibs.image.core/DummyCoreImageFormatProvider : korlibs.image.core/CoreImageFormatProvider { // korlibs.image.core/DummyCoreImageFormatProvider|null[0]
+    final val isSupported // korlibs.image.core/DummyCoreImageFormatProvider.isSupported|{}isSupported[0]
+        final fun <get-isSupported>(): kotlin/Boolean // korlibs.image.core/DummyCoreImageFormatProvider.isSupported.<get-isSupported>|<get-isSupported>(){}[0]
+
+    final suspend fun decode(kotlin/ByteArray): korlibs.image.core/CoreImage // korlibs.image.core/DummyCoreImageFormatProvider.decode|decode(kotlin.ByteArray){}[0]
+    final suspend fun encode(korlibs.image.core/CoreImage, korlibs.image.core/CoreImageFormat, kotlin/Double): kotlin/ByteArray // korlibs.image.core/DummyCoreImageFormatProvider.encode|encode(korlibs.image.core.CoreImage;korlibs.image.core.CoreImageFormat;kotlin.Double){}[0]
+}
+
 final object korlibs.image.font/TtfCIDFont { // korlibs.image.font/TtfCIDFont|null[0]
     final val logger // korlibs.image.font/TtfCIDFont.logger|{}logger[0]
         final fun <get-logger>(): korlibs.logger/Logger // korlibs.image.font/TtfCIDFont.logger.<get-logger>|<get-logger>(){}[0]
@@ -9852,6 +9995,10 @@ final val korlibs.image.color/ColorAdd_NEUTRAL // korlibs.image.color/ColorAdd_N
     final fun <get-ColorAdd_NEUTRAL>(): korlibs.image.color/ColorAdd // korlibs.image.color/ColorAdd_NEUTRAL.<get-ColorAdd_NEUTRAL>|<get-ColorAdd_NEUTRAL>(){}[0]
 final val korlibs.image.color/bytesPerPixel // korlibs.image.color/bytesPerPixel|@korlibs.image.color.ColorFormat{}bytesPerPixel[0]
     final fun (korlibs.image.color/ColorFormat).<get-bytesPerPixel>(): kotlin/Double // korlibs.image.color/bytesPerPixel.<get-bytesPerPixel>|<get-bytesPerPixel>@korlibs.image.color.ColorFormat(){}[0]
+final val korlibs.image.core/CoreImageFormatProvider_default // korlibs.image.core/CoreImageFormatProvider_default|{}CoreImageFormatProvider_default[0]
+    final fun <get-CoreImageFormatProvider_default>(): korlibs.image.core/CoreImageFormatProvider // korlibs.image.core/CoreImageFormatProvider_default.<get-CoreImageFormatProvider_default>|<get-CoreImageFormatProvider_default>(){}[0]
+final val korlibs.image.core/isSupported // korlibs.image.core/isSupported|@korlibs.image.core.CoreImage.Companion{}isSupported[0]
+    final fun (korlibs.image.core/CoreImage.Companion).<get-isSupported>(): kotlin/Boolean // korlibs.image.core/isSupported.<get-isSupported>|<get-isSupported>@korlibs.image.core.CoreImage.Companion(){}[0]
 final val korlibs.image.font/DefaultTtfFont // korlibs.image.font/DefaultTtfFont|{}DefaultTtfFont[0]
     final fun <get-DefaultTtfFont>(): korlibs.image.font/TtfFont // korlibs.image.font/DefaultTtfFont.<get-DefaultTtfFont>|<get-DefaultTtfFont>(){}[0]
 final val korlibs.image.font/DefaultTtfFontAsBitmap // korlibs.image.font/DefaultTtfFontAsBitmap|{}DefaultTtfFontAsBitmap[0]
@@ -9973,6 +10120,9 @@ final var korlibs.image.bitmap/baseMipmapLevel // korlibs.image.bitmap/baseMipma
 final var korlibs.image.bitmap/maxMipmapLevel // korlibs.image.bitmap/maxMipmapLevel|@korlibs.image.bitmap.Bitmap{}maxMipmapLevel[0]
     final fun (korlibs.image.bitmap/Bitmap).<get-maxMipmapLevel>(): kotlin/Int? // korlibs.image.bitmap/maxMipmapLevel.<get-maxMipmapLevel>|<get-maxMipmapLevel>@korlibs.image.bitmap.Bitmap(){}[0]
     final fun (korlibs.image.bitmap/Bitmap).<set-maxMipmapLevel>(kotlin/Int?) // korlibs.image.bitmap/maxMipmapLevel.<set-maxMipmapLevel>|<set-maxMipmapLevel>@korlibs.image.bitmap.Bitmap(kotlin.Int?){}[0]
+final var korlibs.image.core/CURRENT // korlibs.image.core/CURRENT|@korlibs.image.core.CoreImageFormatProvider.Companion{}CURRENT[0]
+    final fun (korlibs.image.core/CoreImageFormatProvider.Companion).<get-CURRENT>(): korlibs.image.core/CoreImageFormatProvider // korlibs.image.core/CURRENT.<get-CURRENT>|<get-CURRENT>@korlibs.image.core.CoreImageFormatProvider.Companion(){}[0]
+    final fun (korlibs.image.core/CoreImageFormatProvider.Companion).<set-CURRENT>(korlibs.image.core/CoreImageFormatProvider) // korlibs.image.core/CURRENT.<set-CURRENT>|<set-CURRENT>@korlibs.image.core.CoreImageFormatProvider.Companion(korlibs.image.core.CoreImageFormatProvider){}[0]
 final var korlibs.image.font/_nativeSystemFontProvider // korlibs.image.font/_nativeSystemFontProvider|{}_nativeSystemFontProvider[0]
     final fun <get-_nativeSystemFontProvider>(): korlibs.image.font/NativeSystemFontProvider? // korlibs.image.font/_nativeSystemFontProvider.<get-_nativeSystemFontProvider>|<get-_nativeSystemFontProvider>(){}[0]
     final fun <set-_nativeSystemFontProvider>(korlibs.image.font/NativeSystemFontProvider?) // korlibs.image.font/_nativeSystemFontProvider.<set-_nativeSystemFontProvider>|<set-_nativeSystemFontProvider>(korlibs.image.font.NativeSystemFontProvider?){}[0]
@@ -10094,6 +10244,9 @@ final fun (korlibs.image.color/RgbaPremultipliedArray).korlibs.image.color/asNon
 final fun (korlibs.image.color/RgbaPremultipliedArray).korlibs.image.color/asStraight(): korlibs.image.color/RgbaArray // korlibs.image.color/asStraight|asStraight@korlibs.image.color.RgbaPremultipliedArray(){}[0]
 final fun (korlibs.image.color/YCbCr).korlibs.image.color/toRGBA(): korlibs.image.color/RGBA // korlibs.image.color/toRGBA|toRGBA@korlibs.image.color.YCbCr(){}[0]
 final fun (korlibs.image.color/YUVA).korlibs.image.color/toRGBA(): korlibs.image.color/RGBA // korlibs.image.color/toRGBA|toRGBA@korlibs.image.color.YUVA(){}[0]
+final fun (korlibs.image.core/CoreImage).korlibs.image.core/info(): korlibs.image.core/CoreImageInfo // korlibs.image.core/info|info@korlibs.image.core.CoreImage(){}[0]
+final fun (korlibs.image.core/CoreImage32).korlibs.image.core/depremultiplied(): korlibs.image.core/CoreImage32 // korlibs.image.core/depremultiplied|depremultiplied@korlibs.image.core.CoreImage32(){}[0]
+final fun (korlibs.image.core/CoreImage32).korlibs.image.core/premultiplied(): korlibs.image.core/CoreImage32 // korlibs.image.core/premultiplied|premultiplied@korlibs.image.core.CoreImage32(){}[0]
 final fun (korlibs.image.core/CoreImageInfo).korlibs.image.format/toImageInfo(): korlibs.image.format/ImageInfo // korlibs.image.format/toImageInfo|toImageInfo@korlibs.image.core.CoreImageInfo(){}[0]
 final fun (korlibs.image.font/Font).korlibs.image.font/renderGlyphToBitmap(kotlin/Double, kotlin/Int, korlibs.image.paint/Paint = ..., kotlin/Boolean = ..., korlibs.image.bitmap.effect/BitmapEffect? = ..., kotlin/Int = ..., kotlin/Boolean = ..., korlibs.io.lang/WStringReader? = ...): korlibs.image.font/TextToBitmapResult // korlibs.image.font/renderGlyphToBitmap|renderGlyphToBitmap@korlibs.image.font.Font(kotlin.Double;kotlin.Int;korlibs.image.paint.Paint;kotlin.Boolean;korlibs.image.bitmap.effect.BitmapEffect?;kotlin.Int;kotlin.Boolean;korlibs.io.lang.WStringReader?){}[0]
 final fun (korlibs.image.font/VectorFont).korlibs.image.font/asFallbackOf(korlibs.image.font/VectorFont): korlibs.image.font/VectorFontList // korlibs.image.font/asFallbackOf|asFallbackOf@korlibs.image.font.VectorFont(korlibs.image.font.VectorFont){}[0]
@@ -10299,6 +10452,10 @@ final suspend fun (korlibs.image.bitmap/Bitmap).korlibs.image.format/encodeNativ
 final suspend fun (korlibs.image.bitmap/Bitmap).korlibs.image.format/showImageAndWait(kotlin/Int = ...) // korlibs.image.format/showImageAndWait|showImageAndWait@korlibs.image.bitmap.Bitmap(kotlin.Int){}[0]
 final suspend fun (korlibs.image.bitmap/Bitmap).korlibs.image.format/writeTo(korlibs.io.file/VfsFile, korlibs.image.format/ImageFormat = ..., korlibs.image.format/ImageEncodingProps = ...): kotlin/Long // korlibs.image.format/writeTo|writeTo@korlibs.image.bitmap.Bitmap(korlibs.io.file.VfsFile;korlibs.image.format.ImageFormat;korlibs.image.format.ImageEncodingProps){}[0]
 final suspend fun (korlibs.image.bitmap/Bitmap).korlibs.image.format/writeToNative(korlibs.io.file/VfsFile, korlibs.image.format/ImageEncodingProps = ...): kotlin/Long // korlibs.image.format/writeToNative|writeToNative@korlibs.image.bitmap.Bitmap(korlibs.io.file.VfsFile;korlibs.image.format.ImageEncodingProps){}[0]
+final suspend fun (korlibs.image.core/CoreImage).korlibs.image.core/encodeBytes(korlibs.image.core/CoreImageFormat, kotlin/Double = ...): kotlin/ByteArray // korlibs.image.core/encodeBytes|encodeBytes@korlibs.image.core.CoreImage(korlibs.image.core.CoreImageFormat;kotlin.Double){}[0]
+final suspend fun (korlibs.image.core/CoreImage.Companion).korlibs.image.core/decodeBytes(kotlin/ByteArray): korlibs.image.core/CoreImage // korlibs.image.core/decodeBytes|decodeBytes@korlibs.image.core.CoreImage.Companion(kotlin.ByteArray){}[0]
+final suspend fun (korlibs.image.core/CoreImage.Companion).korlibs.image.core/encode(korlibs.image.core/CoreImage, korlibs.image.core/CoreImageFormat, kotlin/Double): kotlin/ByteArray // korlibs.image.core/encode|encode@korlibs.image.core.CoreImage.Companion(korlibs.image.core.CoreImage;korlibs.image.core.CoreImageFormat;kotlin.Double){}[0]
+final suspend fun (korlibs.image.core/CoreImage.Companion).korlibs.image.core/info(kotlin/ByteArray): korlibs.image.core/CoreImageInfo // korlibs.image.core/info|info@korlibs.image.core.CoreImage.Companion(kotlin.ByteArray){}[0]
 final suspend fun (korlibs.image.font/BitmapFont).korlibs.image.font/writeToFile(korlibs.io.file/VfsFile, kotlin/Boolean = ...) // korlibs.image.font/writeToFile|writeToFile@korlibs.image.font.BitmapFont(korlibs.io.file.VfsFile;kotlin.Boolean){}[0]
 final suspend fun (korlibs.image.format/ImageData).korlibs.image.format/showImagesAndWait(kotlin/Int = ...) // korlibs.image.format/showImagesAndWait|showImagesAndWait@korlibs.image.format.ImageData(kotlin.Int){}[0]
 final suspend fun (korlibs.image.format/ImageFormatEncoder).korlibs.image.format/encodeSuspend(korlibs.image.bitmap/Bitmap, korlibs.image.format/ImageEncodingProps = ...): kotlin/ByteArray // korlibs.image.format/encodeSuspend|encodeSuspend@korlibs.image.format.ImageFormatEncoder(korlibs.image.bitmap.Bitmap;korlibs.image.format.ImageEncodingProps){}[0]
@@ -10372,6 +10529,18 @@ final class korlibs.image.format.cg/CoreGraphicsRenderer : korlibs.image.vector.
 }
 
 // Targets: [apple]
+final object korlibs.image.core/AppleCoreImageFormatProvider : korlibs.image.core/CoreImageFormatProvider { // korlibs.image.core/AppleCoreImageFormatProvider|null[0]
+    final fun CGRectMakeExt(kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double): kotlinx.cinterop/CValue<platform.CoreGraphics/CGRect> // korlibs.image.core/AppleCoreImageFormatProvider.CGRectMakeExt|CGRectMakeExt(kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+    final fun CGRectMakeExt(kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int): kotlinx.cinterop/CValue<platform.CoreGraphics/CGRect> // korlibs.image.core/AppleCoreImageFormatProvider.CGRectMakeExt|CGRectMakeExt(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    final fun swapRB(kotlinx.cinterop/CPointer<kotlinx.cinterop/IntVarOf<kotlin/Int>>?, kotlin/Int) // korlibs.image.core/AppleCoreImageFormatProvider.swapRB|swapRB(kotlinx.cinterop.CPointer<kotlinx.cinterop.IntVarOf<kotlin.Int>>?;kotlin.Int){}[0]
+    final fun transferBitmap32CGContext(korlibs.image.core/CoreImage32, kotlinx.cinterop/CPointer<cnames.structs/CGContext>?, kotlin/Boolean) // korlibs.image.core/AppleCoreImageFormatProvider.transferBitmap32CGContext|transferBitmap32CGContext(korlibs.image.core.CoreImage32;kotlinx.cinterop.CPointer<cnames.structs.CGContext>?;kotlin.Boolean){}[0]
+    final fun transferBitmap32ToCGImage(korlibs.image.core/CoreImage32, kotlinx.cinterop/CPointer<cnames.structs/CGColorSpace>? = ...): kotlinx.cinterop/CPointer<cnames.structs/CGImage>? // korlibs.image.core/AppleCoreImageFormatProvider.transferBitmap32ToCGImage|transferBitmap32ToCGImage(korlibs.image.core.CoreImage32;kotlinx.cinterop.CPointer<cnames.structs.CGColorSpace>?){}[0]
+    final suspend fun decode(kotlin/ByteArray): korlibs.image.core/CoreImage // korlibs.image.core/AppleCoreImageFormatProvider.decode|decode(kotlin.ByteArray){}[0]
+    final suspend fun encode(korlibs.image.core/CoreImage, korlibs.image.core/CoreImageFormat, kotlin/Double): kotlin/ByteArray // korlibs.image.core/AppleCoreImageFormatProvider.encode|encode(korlibs.image.core.CoreImage;korlibs.image.core.CoreImageFormat;kotlin.Double){}[0]
+    final suspend fun info(kotlin/ByteArray): korlibs.image.core/CoreImageInfo // korlibs.image.core/AppleCoreImageFormatProvider.info|info(kotlin.ByteArray){}[0]
+}
+
+// Targets: [apple]
 final object korlibs.image.format.cg/CGNativeImageFormatProvider : korlibs.image.format/BaseNativeImageFormatProvider // korlibs.image.format.cg/CGNativeImageFormatProvider|null[0]
 
 // Targets: [apple]
@@ -10402,10 +10571,16 @@ final val korlibs.image.format.cg/cg // korlibs.image.format.cg/cg|@kotlin.Int{}
 final fun (korlibs.image.bitmap/Bitmap32).korlibs.image.format.cg/toCGImage(): kotlinx.cinterop/CPointer<cnames.structs/CGImage>? // korlibs.image.format.cg/toCGImage|toCGImage@korlibs.image.bitmap.Bitmap32(){}[0]
 
 // Targets: [apple]
+final fun (korlibs.image.core/CoreImage32).korlibs.image.core/toCGImage(): kotlinx.cinterop/CPointer<cnames.structs/CGImage>? // korlibs.image.core/toCGImage|toCGImage@korlibs.image.core.CoreImage32(){}[0]
+
+// Targets: [apple]
 final fun (korlibs.math.geom/MRectangle).korlibs.image.format.cg/toCG(): kotlinx.cinterop/CValue<platform.CoreGraphics/CGRect> // korlibs.image.format.cg/toCG|toCG@korlibs.math.geom.MRectangle(){}[0]
 
 // Targets: [apple]
 final fun (korlibs.math.geom/Rectangle).korlibs.image.format.cg/toCG(): kotlinx.cinterop/CValue<platform.CoreGraphics/CGRect> // korlibs.image.format.cg/toCG|toCG@korlibs.math.geom.Rectangle(){}[0]
+
+// Targets: [apple]
+final fun (kotlinx.cinterop/CPointer<cnames.structs/CGImage>).korlibs.image.core/toBitmap32(): korlibs.image.core/CoreImage32 // korlibs.image.core/toBitmap32|toBitmap32@kotlinx.cinterop.CPointer<cnames.structs.CGImage>(){}[0]
 
 // Targets: [apple]
 final fun (kotlinx.cinterop/CPointer<cnames.structs/CGImage>).korlibs.image.format.cg/toBitmap32(): korlibs.image.bitmap/Bitmap32 // korlibs.image.format.cg/toBitmap32|toBitmap32@kotlinx.cinterop.CPointer<cnames.structs.CGImage>(){}[0]
@@ -10452,6 +10627,13 @@ final fun (korlibs.image.bitmap/Bitmap).korlibs.image.format.ui/toUIImage(): pla
 // Targets: [ios, tvos]
 final fun (platform.UIKit/UIImage).korlibs.image.format.ui/toBitmap32(): korlibs.image.bitmap/Bitmap32 // korlibs.image.format.ui/toBitmap32|toBitmap32@platform.UIKit.UIImage(){}[0]
 
+// Targets: [js, linux, mingwX64]
+final object korlibs.image.core/StbiCoreImageFormatProvider : korlibs.image.core/CoreImageFormatProvider { // korlibs.image.core/StbiCoreImageFormatProvider|null[0]
+    final suspend fun decode(kotlin/ByteArray): korlibs.image.core/CoreImage // korlibs.image.core/StbiCoreImageFormatProvider.decode|decode(kotlin.ByteArray){}[0]
+    final suspend fun encode(korlibs.image.core/CoreImage, korlibs.image.core/CoreImageFormat, kotlin/Double): kotlin/ByteArray // korlibs.image.core/StbiCoreImageFormatProvider.encode|encode(korlibs.image.core.CoreImage;korlibs.image.core.CoreImageFormat;kotlin.Double){}[0]
+    final suspend fun info(kotlin/ByteArray): korlibs.image.core/CoreImageInfo // korlibs.image.core/StbiCoreImageFormatProvider.info|info(kotlin.ByteArray){}[0]
+}
+
 // Targets: [js, wasmJs]
 abstract class korlibs.image.format/CanvasRenderingContext2DEx : org.w3c.dom/CanvasRenderingContext2D { // korlibs.image.format/CanvasRenderingContext2DEx|null[0]
     constructor <init>() // korlibs.image.format/CanvasRenderingContext2DEx.<init>|<init>(){}[0]
@@ -10462,6 +10644,26 @@ abstract class korlibs.image.format/CanvasRenderingContext2DEx : org.w3c.dom/Can
 
         // Targets: [wasmJs]
         final fun <get-createConicGradient>(): kotlin/Function3<kotlin/Double, kotlin/Double, kotlin/Double, org.w3c.dom/CanvasGradient>? // korlibs.image.format/CanvasRenderingContext2DEx.createConicGradient.<get-createConicGradient>|<get-createConicGradient>(){}[0]
+}
+
+// Targets: [js, wasmJs]
+final class korlibs.image.core/HtmlCanvasCoreImage : korlibs.image.core/CoreImage { // korlibs.image.core/HtmlCanvasCoreImage|null[0]
+    constructor <init>(org.w3c.dom/HTMLCanvasElement) // korlibs.image.core/HtmlCanvasCoreImage.<init>|<init>(org.w3c.dom.HTMLCanvasElement){}[0]
+
+    final val bpp // korlibs.image.core/HtmlCanvasCoreImage.bpp|{}bpp[0]
+        final fun <get-bpp>(): kotlin/Int // korlibs.image.core/HtmlCanvasCoreImage.bpp.<get-bpp>|<get-bpp>(){}[0]
+    final val canvas // korlibs.image.core/HtmlCanvasCoreImage.canvas|{}canvas[0]
+        final fun <get-canvas>(): org.w3c.dom/HTMLCanvasElement // korlibs.image.core/HtmlCanvasCoreImage.canvas.<get-canvas>|<get-canvas>(){}[0]
+    final val height // korlibs.image.core/HtmlCanvasCoreImage.height|{}height[0]
+        final fun <get-height>(): kotlin/Int // korlibs.image.core/HtmlCanvasCoreImage.height.<get-height>|<get-height>(){}[0]
+    final val native // korlibs.image.core/HtmlCanvasCoreImage.native|{}native[0]
+        final fun <get-native>(): kotlin/Any // korlibs.image.core/HtmlCanvasCoreImage.native.<get-native>|<get-native>(){}[0]
+    final val premultiplied // korlibs.image.core/HtmlCanvasCoreImage.premultiplied|{}premultiplied[0]
+        final fun <get-premultiplied>(): kotlin/Boolean // korlibs.image.core/HtmlCanvasCoreImage.premultiplied.<get-premultiplied>|<get-premultiplied>(){}[0]
+    final val width // korlibs.image.core/HtmlCanvasCoreImage.width|{}width[0]
+        final fun <get-width>(): kotlin/Int // korlibs.image.core/HtmlCanvasCoreImage.width.<get-width>|<get-width>(){}[0]
+
+    final fun to32(): korlibs.image.core/CoreImage32 // korlibs.image.core/HtmlCanvasCoreImage.to32|to32(){}[0]
 }
 
 // Targets: [js, wasmJs]
@@ -10489,6 +10691,21 @@ final class korlibs.image.format/CanvasContext2dRenderer : korlibs.image.vector.
 
     // Targets: [wasmJs]
     final fun (korlibs.image.paint/Paint).toJsStr(): kotlin.js/JsAny? // korlibs.image.format/CanvasContext2dRenderer.toJsStr|toJsStr@korlibs.image.paint.Paint(){}[0]
+}
+
+// Targets: [js, wasmJs]
+final object korlibs.image.core/HtmlCoreImageFormatProvider : korlibs.image.core/CoreImageFormatProvider { // korlibs.image.core/HtmlCoreImageFormatProvider|null[0]
+    final fun createCanvas(kotlin/Int, kotlin/Int): org.w3c.dom/HTMLCanvasElement // korlibs.image.core/HtmlCoreImageFormatProvider.createCanvas|createCanvas(kotlin.Int;kotlin.Int){}[0]
+    final fun imageToCanvas(org.w3c.dom/HTMLImageElement): org.w3c.dom/HTMLCanvasElement // korlibs.image.core/HtmlCoreImageFormatProvider.imageToCanvas|imageToCanvas(org.w3c.dom.HTMLImageElement){}[0]
+    final fun imageToCanvas(org.w3c.dom/HTMLImageElement, kotlin/Int, kotlin/Int): org.w3c.dom/HTMLCanvasElement // korlibs.image.core/HtmlCoreImageFormatProvider.imageToCanvas|imageToCanvas(org.w3c.dom.HTMLImageElement;kotlin.Int;kotlin.Int){}[0]
+    final inline fun <#A1: kotlin/Any?> generateTemporalURLForBytes(kotlin/ByteArray, kotlin/String = ..., kotlin/Function1<kotlin/String, #A1>): #A1 // korlibs.image.core/HtmlCoreImageFormatProvider.generateTemporalURLForBytes|generateTemporalURLForBytes(kotlin.ByteArray;kotlin.String;kotlin.Function1<kotlin.String,0:0>){0§<kotlin.Any?>}[0]
+    final suspend fun decode(kotlin/ByteArray): korlibs.image.core/CoreImage // korlibs.image.core/HtmlCoreImageFormatProvider.decode|decode(kotlin.ByteArray){}[0]
+    final suspend fun decodeToCanvas(kotlin/ByteArray): org.w3c.dom/HTMLCanvasElement // korlibs.image.core/HtmlCoreImageFormatProvider.decodeToCanvas|decodeToCanvas(kotlin.ByteArray){}[0]
+    final suspend fun decodeURL(kotlin/String): korlibs.image.core/CoreImage // korlibs.image.core/HtmlCoreImageFormatProvider.decodeURL|decodeURL(kotlin.String){}[0]
+    final suspend fun encode(korlibs.image.core/CoreImage, korlibs.image.core/CoreImageFormat, kotlin/Double): kotlin/ByteArray // korlibs.image.core/HtmlCoreImageFormatProvider.encode|encode(korlibs.image.core.CoreImage;korlibs.image.core.CoreImageFormat;kotlin.Double){}[0]
+    final suspend fun info(kotlin/ByteArray): korlibs.image.core/CoreImageInfo // korlibs.image.core/HtmlCoreImageFormatProvider.info|info(kotlin.ByteArray){}[0]
+    final suspend fun loadCanvas(kotlin/String): org.w3c.dom/HTMLCanvasElement // korlibs.image.core/HtmlCoreImageFormatProvider.loadCanvas|loadCanvas(kotlin.String){}[0]
+    final suspend fun loadImage(kotlin/String): org.w3c.dom/HTMLImageElement // korlibs.image.core/HtmlCoreImageFormatProvider.loadImage|loadImage(kotlin.String){}[0]
 }
 
 // Targets: [js, wasmJs]
@@ -10528,7 +10745,20 @@ final object korlibs.image.format/HtmlNativeImageFormatProvider : korlibs.image.
 }
 
 // Targets: [js, wasmJs]
+final fun (korlibs.image.core/CoreImage).korlibs.image.core/toCanvas(): korlibs.image.core/HtmlCanvasCoreImage // korlibs.image.core/toCanvas|toCanvas@korlibs.image.core.CoreImage(){}[0]
+
+// Targets: [js, wasmJs]
+final fun (org.w3c.dom/HTMLCanvasElement).korlibs.image.core/getContext2d(): org.w3c.dom/CanvasRenderingContext2D // korlibs.image.core/getContext2d|getContext2d@org.w3c.dom.HTMLCanvasElement(){}[0]
+
+// Targets: [js, wasmJs]
 final fun (org.w3c.dom/HTMLCanvasElement).korlibs.image.format/toLike(): korlibs.image.format/HTMLCanvasElementLike // korlibs.image.format/toLike|toLike@org.w3c.dom.HTMLCanvasElement(){}[0]
+
+// Targets: [linux]
+final object korlibs.image.core/LinuxCoreImageFormatProvider : korlibs.image.core/CoreImageFormatProvider { // korlibs.image.core/LinuxCoreImageFormatProvider|null[0]
+    final suspend fun decode(kotlin/ByteArray): korlibs.image.core/CoreImage // korlibs.image.core/LinuxCoreImageFormatProvider.decode|decode(kotlin.ByteArray){}[0]
+    final suspend fun encode(korlibs.image.core/CoreImage, korlibs.image.core/CoreImageFormat, kotlin/Double): kotlin/ByteArray // korlibs.image.core/LinuxCoreImageFormatProvider.encode|encode(korlibs.image.core.CoreImage;korlibs.image.core.CoreImageFormat;kotlin.Double){}[0]
+    final suspend fun info(kotlin/ByteArray): korlibs.image.core/CoreImageInfo // korlibs.image.core/LinuxCoreImageFormatProvider.info|info(kotlin.ByteArray){}[0]
+}
 
 // Targets: [watchosArm32, watchosArm64]
 final fun (kotlin/Double).korlibs.image.format.cg/toCgFloat(): kotlin/Float // korlibs.image.format.cg/toCgFloat|toCgFloat@kotlin.Double(){}[0]
@@ -10582,6 +10812,22 @@ open class korlibs.image.format/HtmlNativeImage : korlibs.image.bitmap/NativeIma
     open fun getContext2d(kotlin/Boolean): korlibs.image.vector/Context2d // korlibs.image.format/HtmlNativeImage.getContext2d|getContext2d(kotlin.Boolean){}[0]
     open fun readPixelsUnsafe(kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/IntArray, kotlin/Int) // korlibs.image.format/HtmlNativeImage.readPixelsUnsafe|readPixelsUnsafe(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.IntArray;kotlin.Int){}[0]
     open fun writePixelsUnsafe(kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/IntArray, kotlin/Int) // korlibs.image.format/HtmlNativeImage.writePixelsUnsafe|writePixelsUnsafe(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.IntArray;kotlin.Int){}[0]
+}
+
+// Targets: [js]
+final object korlibs.image.core/StbiWASM : korlibs.wasm/Base64DeflateWASMLib { // korlibs.image.core/StbiWASM|null[0]
+    final const val FORMAT_BMP // korlibs.image.core/StbiWASM.FORMAT_BMP|{}FORMAT_BMP[0]
+        final fun <get-FORMAT_BMP>(): kotlin/Int // korlibs.image.core/StbiWASM.FORMAT_BMP.<get-FORMAT_BMP>|<get-FORMAT_BMP>(){}[0]
+    final const val FORMAT_JPEG // korlibs.image.core/StbiWASM.FORMAT_JPEG|{}FORMAT_JPEG[0]
+        final fun <get-FORMAT_JPEG>(): kotlin/Int // korlibs.image.core/StbiWASM.FORMAT_JPEG.<get-FORMAT_JPEG>|<get-FORMAT_JPEG>(){}[0]
+    final const val FORMAT_PNG // korlibs.image.core/StbiWASM.FORMAT_PNG|{}FORMAT_PNG[0]
+        final fun <get-FORMAT_PNG>(): kotlin/Int // korlibs.image.core/StbiWASM.FORMAT_PNG.<get-FORMAT_PNG>|<get-FORMAT_PNG>(){}[0]
+    final const val FORMAT_TGA // korlibs.image.core/StbiWASM.FORMAT_TGA|{}FORMAT_TGA[0]
+        final fun <get-FORMAT_TGA>(): kotlin/Int // korlibs.image.core/StbiWASM.FORMAT_TGA.<get-FORMAT_TGA>|<get-FORMAT_TGA>(){}[0]
+
+    final fun stbi_info_from_memory(kotlin/ByteArray): korlibs.image.core/CoreImageInfo // korlibs.image.core/StbiWASM.stbi_info_from_memory|stbi_info_from_memory(kotlin.ByteArray){}[0]
+    final fun stbi_load_from_memory(kotlin/ByteArray): korlibs.image.core/CoreImage32 // korlibs.image.core/StbiWASM.stbi_load_from_memory|stbi_load_from_memory(kotlin.ByteArray){}[0]
+    final fun stbi_write_to_memory(korlibs.image.core/CoreImage32, kotlin/Int, kotlin/Int): kotlin/ByteArray // korlibs.image.core/StbiWASM.stbi_write_to_memory|stbi_write_to_memory(korlibs.image.core.CoreImage32;kotlin.Int;kotlin.Int){}[0]
 }
 
 // Targets: [js]
@@ -10642,6 +10888,14 @@ final class korlibs.image.format/GdiRenderer : korlibs.image.vector.renderer/Buf
         final val FLIP_POINTS // korlibs.image.format/GdiRenderer.Companion.FLIP_POINTS|{}FLIP_POINTS[0]
             final fun <get-FLIP_POINTS>(): kotlin/Boolean // korlibs.image.format/GdiRenderer.Companion.FLIP_POINTS.<get-FLIP_POINTS>|<get-FLIP_POINTS>(){}[0]
     }
+}
+
+// Targets: [mingwX64]
+final object korlibs.image.core/Win32CoreImageFormatProvider : korlibs.image.core/CoreImageFormatProvider { // korlibs.image.core/Win32CoreImageFormatProvider|null[0]
+    final fun argbToAbgr(kotlin/Int): kotlin/Int // korlibs.image.core/Win32CoreImageFormatProvider.argbToAbgr|argbToAbgr(kotlin.Int){}[0]
+    final fun initGdiPlusOnce() // korlibs.image.core/Win32CoreImageFormatProvider.initGdiPlusOnce|initGdiPlusOnce(){}[0]
+    final suspend fun decode(kotlin/ByteArray): korlibs.image.core/CoreImage // korlibs.image.core/Win32CoreImageFormatProvider.decode|decode(kotlin.ByteArray){}[0]
+    final suspend fun encode(korlibs.image.core/CoreImage, korlibs.image.core/CoreImageFormat, kotlin/Double): kotlin/ByteArray // korlibs.image.core/Win32CoreImageFormatProvider.encode|encode(korlibs.image.core.CoreImage;korlibs.image.core.CoreImageFormat;kotlin.Double){}[0]
 }
 
 // Targets: [wasmJs]
