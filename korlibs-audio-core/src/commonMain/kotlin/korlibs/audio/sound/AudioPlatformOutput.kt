@@ -18,13 +18,13 @@ import kotlinx.coroutines.launch
 typealias AudioPlatformOutputGen = (AudioSamplesInterleaved) -> Unit
 
 @ExperimentalStdlibApi
-class AudioPlatformOutput(
+class AudioPlatformOutput internal constructor(
     val listener: SoundListenerProps,
     //val coroutineContext: CoroutineContext,
     val channels: Int,
     val frequency: Int,
     private val gen: AudioPlatformOutputGen,
-    val dispatcher: CoroutineDispatcher = Dispatchers.AUDIO,
+    private val scope: CoroutineScope,
     val block: suspend AudioPlatformOutput.() -> Unit = {
         val buffer = AudioSamplesInterleaved(channels, DEFAULT_BLOCK_SIZE)
         while (running) {
@@ -33,6 +33,29 @@ class AudioPlatformOutput(
         }
     }
 ) : AutoCloseable, SoundProps, Extra by Extra.Mixin() {
+
+    constructor(
+        listener: SoundListenerProps,
+        channels: Int,
+        frequency: Int,
+        gen: AudioPlatformOutputGen,
+        dispatcher: CoroutineDispatcher = Dispatchers.AUDIO,
+        block: suspend AudioPlatformOutput.() -> Unit = {
+            val buffer = AudioSamplesInterleaved(channels, DEFAULT_BLOCK_SIZE)
+            while (running) {
+                genSafe(buffer)
+                delay(timeMillis = 1)
+            }
+        },
+    ): this(
+        listener = listener,
+        channels = channels,
+        frequency = frequency,
+        gen = gen,
+        scope = CoroutineScope(context = dispatcher + SupervisorJob()),
+        block = block,
+    )
+
     var paused: Boolean = false
 
     private val lock = reentrantLock()
@@ -67,11 +90,10 @@ class AudioPlatformOutput(
         stopping = false
         running = true
         job?.cancel()
-        job = CoroutineScope(dispatcher + SupervisorJob()).launch {
+        job = scope.launch {
             try {
                 block()
-            } catch (e: CancellationException) {
-                Unit
+            } catch (_: CancellationException) {
             } finally {
                 running = false
             }
@@ -89,7 +111,7 @@ class AudioPlatformOutput(
         }
     }
 
-    final override fun close() = stop()
+    override fun close() = stop()
 
     companion object {
         val DEFAULT_BLOCK_SIZE = 2048
@@ -141,5 +163,4 @@ class AudioPlatformOutputSimple(
     val output: suspend (AudioSamplesInterleaved) -> Unit = { },
     val close: suspend (AudioSamplesInterleaved) -> Unit = { },
     val paused: (paused: Boolean) -> Unit = { },
-    unit: Unit = Unit
 )
