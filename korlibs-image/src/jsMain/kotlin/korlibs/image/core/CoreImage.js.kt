@@ -105,4 +105,3 @@ class HtmlCanvasCoreImage(val canvas: HTMLCanvasElement) : CoreImage {
         return CoreImage32(width, height, out, false).premultiplied()
     }
 }
-
