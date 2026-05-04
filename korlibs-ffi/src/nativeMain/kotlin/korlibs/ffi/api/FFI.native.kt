@@ -2,8 +2,18 @@
 
 package korlibs.ffi.api
 
-import kotlinx.cinterop.*
-import kotlin.experimental.*
+import kotlin.experimental.ExperimentalNativeApi
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.COpaquePointer
+import kotlinx.cinterop.DoubleVar
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.FloatVar
+import kotlinx.cinterop.IntVar
+import kotlinx.cinterop.LongVar
+import kotlinx.cinterop.ShortVar
+import kotlinx.cinterop.get
+import kotlinx.cinterop.set
+import kotlinx.cinterop.toCPointer
 
 actual val isSupportedFFI: Boolean = true
 
@@ -25,6 +35,7 @@ expect fun FFIDLOpen(name: String): COpaquePointer?
 expect fun FFIDLClose(lib: COpaquePointer?): Unit
 expect fun FFIDLSym(lib: COpaquePointer?, name: String): COpaquePointer?
 @OptIn(ExperimentalNativeApi::class)
+@Deprecated("This function will be removed in the future.")
 fun FFIDLOpenPlatform(
     common: String? = null,
     linux: String? = null,
