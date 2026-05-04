@@ -1,6 +1,7 @@
 package korlibs.ffi.api
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class FFIGenerationTest {
     @Test
