@@ -329,8 +329,8 @@ class WasmReaderText {
                             }
                             "type" -> {
                                 val typeName = param.valueParams.first().value
-                                val type = builder.typesByName[typeName] ?: error("Can't find type '$typeName'")
-                                val ftype = type as? WasmType.Function? ?: error("Type $type is not a function")
+                                val namedType = builder.typesByName[typeName] ?: error("Can't find type '$typeName'")
+                                val ftype = namedType.type as? WasmType.Function? ?: error("Type ${namedType.type} is not a function")
                                 for (arg in ftype.args) funcBuilder.addVar(arg, isParam = true)
                                 funcBuilder.addResult(ftype.retType)
                             }
