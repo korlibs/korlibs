@@ -64,7 +64,7 @@ enum class DayOfWeek(
          */
         const val Count = 7
 
-        private val BY_INDEX0 = values()
+        private val BY_INDEX0 = entries.toTypedArray()
 
         /**
          * 0: [Sunday], 1: [Monday], 2: [Tuesday], 3: [Wednesday], 4: [Thursday], 5: [Friday], 6: [Saturday]

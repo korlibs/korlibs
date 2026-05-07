@@ -40,7 +40,7 @@ inline class EulerRotation private constructor(val data: Vector4F) : IsAlmostEqu
         override fun toString(): String = "$name [$x, $y, $z, $w]"
 
         companion object {
-            val VALUES = values()
+            val VALUES = entries.toTypedArray()
             val DEFAULT = XYZ
         }
     }

@@ -63,7 +63,7 @@ class DistanceBitmap(
 
     companion object {
         private const val d1 = 1f
-        private const val d2 = 1.4142135623730951f // kotlin.math.hypot(1f, 1f)
+        private const val d2 = 1.4142135f // kotlin.math.hypot(1f, 1f)
     }
 
     fun setFromBitmap(bmp: Bitmap, thresold: Double = 0.5) {

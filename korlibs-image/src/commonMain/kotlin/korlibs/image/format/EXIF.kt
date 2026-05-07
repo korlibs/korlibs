@@ -159,7 +159,7 @@ object EXIF {
         UNKNOWN(-1, { 0 });
 
         companion object {
-            val BY_ID = values().associateBy { it.id }
+            val BY_ID = entries.associateBy { it.id }
             operator fun get(index: Int): DataFormat =
                 BY_ID[index] ?: UNKNOWN
         }

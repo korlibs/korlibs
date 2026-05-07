@@ -64,7 +64,7 @@ object PNG : ImageFormat("png") {
 		RGBA(6, 4);
 
 		companion object {
-			val BY_ID = values().associateBy { it.id }
+			val BY_ID = entries.associateBy { it.id }
 		}
 	}
 

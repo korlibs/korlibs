@@ -37,7 +37,7 @@ class BezierCurveTest {
         assertEqualsFloat(Point(51.25, -3.75), curve.compute(0.5f.toRatio()))
         assertEqualsFloat(Point(110, 120), curve.compute(1.0f.toRatio()))
 
-        assertEqualsFloat(292.8273626504729f, curve.length, 0.1)
+        assertEqualsFloat(292.82736f, curve.length, 0.1)
         assertEqualsFloat(
             listOf(listOf(0.11f, 0.51f, 0.91f), listOf(0.22f, 0.59f, 0.96f)),
             listOf(
@@ -125,7 +125,7 @@ class BezierCurveTest {
         val curve = Bezier(Point(100, 25), Point(10, 90), Point(110, 100), Point(150, 195))
 
         assertEqualsFloat(
-            listOf(0.6300168840449997f),
+            listOf(0.63001686f),
             curve.inflections().toList(),
             absoluteTolerance = 0.01
         )

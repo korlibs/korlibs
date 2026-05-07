@@ -14,7 +14,7 @@ enum class BitmapChannel(val index: Int) {
 	fun insert(rgba: RGBA, value: Int): RGBA = RGBA((rgba.value and clearMask) or ((value and 0xFF) shl shift))
 
 	companion object {
-		val ALL = values()
+		val ALL = entries.toTypedArray()
 		operator fun get(index: Int) = ALL[index]
 	}
 }

@@ -363,7 +363,7 @@ enum class SliceRotation {
     internal fun _comp2(): SliceRotation = SliceRotation[(-ordinal + 2) umod 4]
 
     companion object {
-        val VALUES = values()
+        val VALUES = entries.toTypedArray()
         operator fun get(index: Int): SliceRotation = VALUES[index umod 4]
     }
 }

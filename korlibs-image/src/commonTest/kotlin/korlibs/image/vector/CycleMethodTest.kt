@@ -17,7 +17,7 @@ class CycleMethodTest {
                 REPEAT: [0.9, 0.5, 0, 0.1, 0.9, 0, 0.9, 0, 0.1, 0, 0.1, 0.9, 0, 0.5, 0.1]
                 REFLECT: [0.9, 0.5, 0, 0.1, 0.9, 1, 0.1, 0, 0.1, 1, 0.9, 0.1, 0, 0.5, 0.9]
             """.trimIndent(),
-            CycleMethod.values().joinToString("\n") { method ->
+            CycleMethod.entries.joinToString("\n") { method ->
                 "$method: ${values.map { method.apply(it).roundDecimalPlaces(3).niceStr }}"
             }
         )

@@ -207,7 +207,7 @@ open class MP3Base : AudioFormat("mp3") {
                 SINGLE_CHANNEL(0b11, 1);
 
                 companion object {
-                    val BY_ID = values().map { it.id to it }.toMap()
+                    val BY_ID = entries.map { it.id to it }.toMap()
                 }
             }
 
