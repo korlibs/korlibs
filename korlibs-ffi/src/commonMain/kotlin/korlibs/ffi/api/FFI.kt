@@ -1,19 +1,5 @@
 package korlibs.ffi.api
 
-@Deprecated("This annotation will be removed in next major release.")
-annotation class FFI(
-    val commonLib: String = "",
-    val windowsLib: String = "",
-    val linuxLib: String = "",
-    val macosLib: String = "",
-)
-
-@Deprecated("This annotation will be removed in next major release.")
-annotation class FFINativeInt
-
-@Deprecated("This annotation will be removed in next major release.")
-annotation class FFIWideString
-
 inline class FFIPointer(val address: Long) {
     companion object {
         val NULL = FFIPointer(0L)
