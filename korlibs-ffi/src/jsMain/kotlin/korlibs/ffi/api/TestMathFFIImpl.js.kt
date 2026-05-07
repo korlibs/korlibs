@@ -37,7 +37,7 @@ internal actual class TestMathFFIImpl actual constructor() : TestMathFFI {
     actual override fun remove(file: String): Unit = testMathFFIImplSymbols.remove(stringToDenoPointer(file))
 
     actual override fun close() {
-        allTestMathFFIImplFunctions.close()
+        if (isSupportedFFI) allTestMathFFIImplFunctions.close()
     }
 }
 
