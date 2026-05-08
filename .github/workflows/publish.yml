@@ -34,7 +34,7 @@ jobs:
           - os: ubuntu-latest
             publishTask: "publishMingwX64PublicationToMavenCentral"
           - os: ubuntu-latest
-            publishTask: "publishAndroidReleasePublicationToMavenCentral"
+            publishTask: "publishAndroidPublicationToMavenCentral"
           - os: ubuntu-latest
             publishTask: "publishKotlinMultiplatformPublicationToMavenCentral publishJvmPublicationToMavenCentral"
           - os: ubuntu-latest
