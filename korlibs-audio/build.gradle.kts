@@ -68,7 +68,7 @@ kotlin {
             api(projects.korlibsAudioCore)
             api(projects.korlibsConcurrent)
             api(projects.korlibsIoVfs)
-            api(projects.korlibsTimeCore)
+            api(projects.korlibsTime)
             api(projects.korlibsMathCore)
             api(projects.korlibsMathVector)
             api(projects.korlibsFfiLegacy)
