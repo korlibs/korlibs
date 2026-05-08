@@ -73,7 +73,6 @@ kotlin {
             dependencies {
                 api(libs.jna.platform)
                 api(libs.jna.jna)
-
             }
         }
 

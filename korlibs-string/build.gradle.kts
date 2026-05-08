@@ -60,8 +60,8 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.korlibsPlatform)
-            implementation(libs.kotlinx.atomicfu)
+            api(projects.korlibsPlatform)
+            api(libs.kotlinx.atomicfu)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

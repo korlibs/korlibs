@@ -59,10 +59,6 @@ kotlin {
     // TODO Add android native targets as well
 
     sourceSets {
-        commonMain.dependencies {
-            implementation(projects.korlibsPlatform)
-            implementation(libs.kotlinx.atomicfu)
-        }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }

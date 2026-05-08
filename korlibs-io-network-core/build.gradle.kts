@@ -69,11 +69,10 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.korlibsAnnotations)
-            api(projects.korlibsIoStream)
             implementation(projects.korlibsDatastructure)
+            implementation(projects.korlibsLogger)
             api(projects.korlibsPlatform)
             api(projects.korlibsIoStream)
-            implementation(projects.korlibsLogger)
             api(libs.kotlinx.coroutines.core)
         }
         commonTest.dependencies {

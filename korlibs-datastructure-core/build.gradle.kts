@@ -62,7 +62,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.kotlinx.atomicfu)
+            api(libs.kotlinx.atomicfu)
         }
 
         val nonJsMain by creating {

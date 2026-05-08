@@ -61,14 +61,10 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.korlibsMathCore)
-            implementation(projects.korlibsConcurrent)
             api(projects.korlibsMathVector)
             implementation(projects.korlibsFfiLegacy)
             implementation(projects.korlibsPlatform)
             implementation(projects.korlibsIoFs)
-            implementation(projects.korlibsTime)
-            implementation(projects.korlibsDatastructure)
-            implementation(libs.jna.jna)
         }
 
         val appleIosTvosMain by creating {

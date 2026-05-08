@@ -74,7 +74,6 @@ kotlin {
             api(projects.korlibsFfiLegacy)
             api(projects.korlibsLogger)
             api(projects.korlibsAnnotations)
-            implementation(projects.korlibsDatastructure)
         }
         commonTest.dependencies {
             implementation(projects.korlibsIo)

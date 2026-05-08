@@ -60,13 +60,18 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.korlibsPlatform)
-            implementation(projects.korlibsDatastructure)
-            implementation(projects.korlibsMemory)
+            api(projects.korlibsIoFs)
+            api(projects.korlibsPlatform)
+            api(projects.korlibsDatastructure)
+            api(projects.korlibsMemory)
+            api(projects.korlibsAnnotations)
+            api(projects.korlibsConcurrent)
+            api(libs.kotlinx.coroutines.core)
         }
         jvmMain.dependencies {
-            implementation(libs.ksp.symbolProcessingApi)
-            implementation(libs.jna.jna)
+            api(libs.ksp.symbolProcessingApi)
+            api(libs.jna.jna)
+            api(libs.jna.platform)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
