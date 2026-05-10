@@ -75,8 +75,5 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
-        webMain.dependencies {
-            implementation(libs.kotlinx.browser)
-        }
     }
 }

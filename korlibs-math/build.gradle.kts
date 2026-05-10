@@ -67,7 +67,6 @@ kotlin {
             api(projects.korlibsNumber)
         }
         commonTest.dependencies {
-            implementation(projects.korlibsPlatform)
             implementation(libs.kotlin.test)
         }
     }

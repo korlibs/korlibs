@@ -86,7 +86,6 @@ kotlin {
             api(projects.korlibsSerialization)
             api(projects.korlibsIoFs)
             api(libs.kotlinx.atomicfu)
-            implementation(libs.jna.jna)
         }
 
         val concurrentMain by creating {

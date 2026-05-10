@@ -70,9 +70,12 @@ kotlin {
             api(libs.jna.jna)
             api(libs.jna.platform)
         }
-        webMain.dependencies {
+        jsMain.dependencies {
             implementation(projects.korlibsWasm)
             implementation(projects.korlibsCompression)
+        }
+        wasmJsMain.dependencies {
+            implementation(libs.kotlinx.browser)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
