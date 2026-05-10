@@ -4,7 +4,7 @@ import korlibs.io.dynamic.*
 import java.io.*
 
 /**
- * Checks that a string matches a file in `src/jvmTest/resources`.
+ * Checks that a string matches a file in `src/jvmTest/resources` or `src/commonTest/resources`.
  * When environment variable UPDATE_TEST_REF=true, instead of checking,
  * this functions updates the file with the expected content.
  *
@@ -32,6 +32,7 @@ import java.io.*
 fun assertEqualsJvmFileReference(path: String, content: String, trim: Boolean = true) {
     val folders = listOf(
         File("src/jvmTest/resources"),
+        File("src/commonTest/resources"),
         File("testresources")
     )
     val folder = folders.firstOrNull { it.exists() } ?: error("Can't find folder $folders")
