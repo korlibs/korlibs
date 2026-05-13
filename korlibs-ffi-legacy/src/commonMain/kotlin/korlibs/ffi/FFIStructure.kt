@@ -1,5 +1,6 @@
 package korlibs.ffi
 
+import kotlin.jvm.JvmInline
 import kotlin.math.*
 import kotlin.reflect.*
 
@@ -60,7 +61,8 @@ open class FFIMemLayoutBuilder {
 }
 
 
-inline class FFIDelegateByteProperty(val offset: Int) {
+@JvmInline
+value class FFIDelegateByteProperty(val offset: Int) {
     operator fun getValue(obj: FFIStructure, property: KProperty<*>): Byte = obj.ptrSure.getS8(offset)
     operator fun setValue(obj: FFIStructure, property: KProperty<*>, i: Byte) { obj.ptrSure.set8(i, offset) }
 }
@@ -76,37 +78,44 @@ class FFIDelegateFixedBytesProperty(val offset: Int, val size: Int) {
     }
 }
 
-inline class FFIDelegateBoolProperty(val offset: Int) {
+@JvmInline
+value class FFIDelegateBoolProperty(val offset: Int) {
     operator fun getValue(obj: FFIStructure, property: KProperty<*>): Boolean = obj.ptrSure.getS32(offset) != 0
     operator fun setValue(obj: FFIStructure, property: KProperty<*>, i: Boolean) { obj.ptrSure.set32(if (i) 1 else 0, offset) }
 }
 
-inline class FFIDelegateShortProperty(val offset: Int) {
+@JvmInline
+value class FFIDelegateShortProperty(val offset: Int) {
     operator fun getValue(obj: FFIStructure, property: KProperty<*>): Short = obj.ptrSure.getS16(offset)
     operator fun setValue(obj: FFIStructure, property: KProperty<*>, i: Short): Unit = obj.ptrSure.set16(i, offset)
 }
 
-inline class FFIDelegateIntProperty(val offset: Int) {
+@JvmInline
+value class FFIDelegateIntProperty(val offset: Int) {
     operator fun getValue(obj: FFIStructure, property: KProperty<*>): Int = obj.ptrSure.getS32(offset)
     operator fun setValue(obj: FFIStructure, property: KProperty<*>, i: Int): Unit = obj.ptrSure.set32(i, offset)
 }
 
-inline class FFIDelegateFloatProperty(val offset: Int) {
+@JvmInline
+value class FFIDelegateFloatProperty(val offset: Int) {
     operator fun getValue(obj: FFIStructure, property: KProperty<*>): Float = obj.ptrSure.getF32(offset)
     operator fun setValue(obj: FFIStructure, property: KProperty<*>, i: Float): Unit = obj.ptrSure.setF32(i, offset)
 }
 
-inline class FFIDelegateDoubleProperty(val offset: Int) {
+@JvmInline
+value class FFIDelegateDoubleProperty(val offset: Int) {
     operator fun getValue(obj: FFIStructure, property: KProperty<*>): Double = obj.ptrSure.getF64(offset)
     operator fun setValue(obj: FFIStructure, property: KProperty<*>, i: Double): Unit = obj.ptrSure.setF64(i, offset)
 }
 
-inline class FFIDelegateLongProperty(val offset: Int) {
+@JvmInline
+value class FFIDelegateLongProperty(val offset: Int) {
     operator fun getValue(obj: FFIStructure, property: KProperty<*>): Long = obj.ptrSure.getS64(offset)
     operator fun setValue(obj: FFIStructure, property: KProperty<*>, i: Long): Unit = obj.ptrSure.set64(i, offset)
 }
 
-inline class FFIDelegateNativeDoubleProperty(val offset: Int) {
+@JvmInline
+value class FFIDelegateNativeDoubleProperty(val offset: Int) {
     fun get(pointer: FFIPointer): Double = when (FFI_POINTER_SIZE) {
         4 -> pointer.getF32(offset).toDouble()
         else -> pointer.getF64(offset)
@@ -121,17 +130,20 @@ inline class FFIDelegateNativeDoubleProperty(val offset: Int) {
     operator fun setValue(obj: FFIStructure, property: KProperty<*>, i: Double): Unit = set(obj.ptrSure, i)
 }
 
-inline class FFIDelegateNativeLongProperty(val offset: Int) {
+@JvmInline
+value class FFIDelegateNativeLongProperty(val offset: Int) {
     operator fun getValue(obj: FFIStructure, property: KProperty<*>): Long = obj.ptrSure.getFFIPointer(offset).address
     operator fun setValue(obj: FFIStructure, property: KProperty<*>, i: Long): Unit = obj.ptrSure.setFFIPointer(FFIPointer(i), offset)
 }
 
-inline class FFIDelegateFFIPointerProperty(val offset: Int) {
+@JvmInline
+value class FFIDelegateFFIPointerProperty(val offset: Int) {
     operator fun getValue(obj: FFIStructure, property: KProperty<*>): FFIPointer? = obj.ptrSure.getFFIPointer(offset)
     operator fun setValue(obj: FFIStructure, property: KProperty<*>, i: FFIPointer?) = obj.ptrSure.setFFIPointer(i, offset)
 }
 
-inline class FFIDelegateFFIPointerPropertyT<T>(val offset: Int) {
+@JvmInline
+value class FFIDelegateFFIPointerPropertyT<T>(val offset: Int) {
     operator fun getValue(obj: FFIStructure, property: KProperty<*>): FFITypedPointer<T>? = obj.ptrSure.getFFIPointer(offset)?.let { FFITypedPointer<T>(it) }
     operator fun setValue(obj: FFIStructure, property: KProperty<*>, i: FFITypedPointer<T>?) = obj.ptrSure.setFFIPointer(i?.pointer, offset)
 }

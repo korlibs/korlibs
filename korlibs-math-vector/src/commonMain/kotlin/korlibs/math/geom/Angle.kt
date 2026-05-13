@@ -4,6 +4,7 @@ import korlibs.math.*
 import korlibs.math.interpolation.*
 import korlibs.math.range.*
 import korlibs.number.*
+import kotlin.jvm.JvmInline
 import kotlin.math.*
 
 @PublishedApi internal const val PI2 = PI * 2.0
@@ -53,7 +54,8 @@ import kotlin.math.*
  * 270.degrees represents down:    up=Vector2.UP: cos = 0, sin=-1 || up=Vector2.UP_SCREEN: cos = 0, sin=+1
  */
 //@KormaValueApi
-inline class Angle @PublishedApi internal constructor(
+@JvmInline
+value class Angle @PublishedApi internal constructor(
     /** [0..1] ratio -> [0..360] degrees */
     val radians: Double
 ) : Comparable<Angle>, IsAlmostEquals<Angle> {

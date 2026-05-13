@@ -1,6 +1,7 @@
 package korlibs.memory
 
 import korlibs.math.*
+import kotlin.jvm.JvmInline
 import kotlin.rotateLeft as rotateLeftKotlin
 import kotlin.rotateRight as rotateRightKotlin
 
@@ -92,7 +93,8 @@ public fun Int.mask(offset: Int): Int = mask() shl offset
 /** Creates a [Long] with [this] bits set to 1, displaced [offset] bits */
 public fun Long.mask(offset: Int): Long = mask() shl offset
 
-inline class IntMaskRange private constructor(val raw: Int) {
+@JvmInline
+value class IntMaskRange private constructor(val raw: Int) {
     val offset: Int get() = raw.extract8(0)
     val size: Int get() = raw.extract8(8)
     fun toMask(): Int = size.mask(offset)

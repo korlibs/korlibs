@@ -1,5 +1,6 @@
 package korlibs.memory
 
+import kotlin.jvm.JvmInline
 import kotlin.math.max
 
 /**
@@ -153,7 +154,8 @@ public class ByteArrayBuilder(public var data: ByteArray, size: Int = data.size,
 }
 
 /** [ByteArrayBuilder] variant that writes little-endian values */
-public inline class ByteArrayBuilderLE(public val bab: ByteArrayBuilder) {
+@JvmInline
+public value class ByteArrayBuilderLE(public val bab: ByteArrayBuilder) {
     /** Current size of the buffer */
     public val size: Int get() = bab.size
     /** Appends a byte [array] slice ([offset] and [len]) to the current buffer */
@@ -185,7 +187,8 @@ public inline class ByteArrayBuilderLE(public val bab: ByteArrayBuilder) {
 }
 
 /** [ByteArrayBuilder] variant that writes big-endian values */
-public inline class ByteArrayBuilderBE(public val bab: ByteArrayBuilder) {
+@JvmInline
+public value class ByteArrayBuilderBE(public val bab: ByteArrayBuilder) {
     /** Current size of the buffer */
     public val size: Int get() = bab.size
     /** Appends a byte [array] slice ([offset] and [len]) to the current buffer */

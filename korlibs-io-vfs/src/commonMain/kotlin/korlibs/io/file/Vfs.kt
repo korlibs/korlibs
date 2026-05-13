@@ -10,6 +10,7 @@ import korlibs.time.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlin.coroutines.*
+import kotlin.jvm.JvmInline
 import kotlin.math.min
 import kotlin.reflect.*
 import kotlinx.coroutines.async
@@ -85,7 +86,8 @@ abstract class Vfs : AsyncCloseable {
 
     inline fun <reified T : Attribute> List<Attribute>.getOrNull(): T? = filterIsInstance<T>().firstOrNull()
 
-    inline class UnixPermission(val bits: Int) {
+	@JvmInline
+	value class UnixPermission(val bits: Int) {
         constructor(readable: Boolean = true, writable: Boolean = true, executable: Boolean = false) : this(
             0.insert(readable, 2).insert(writable, 1).insert(executable, 0)
         )
@@ -94,7 +96,8 @@ abstract class Vfs : AsyncCloseable {
         val readable: Boolean get() = bits.extract(2)
     }
 
-    inline class UnixPermissions(val bits: Int) : Attribute {
+	@JvmInline
+	value class UnixPermissions(val bits: Int) : Attribute {
         override fun toString(): String = bits.toString(8).padStart(4, '0')
 
         constructor(owner: UnixPermission, group: UnixPermission = owner, other: UnixPermission = UnixPermission(0), extra: Int = 0) : this(

@@ -3,6 +3,7 @@
 package korlibs.number
 
 import korlibs.number.internal.*
+import kotlin.jvm.JvmInline
 
 /**
  * Represents a floating point value of 16 bits. Also known as Half-precision floating-point format (IEEE 754-2008).
@@ -22,7 +23,8 @@ import korlibs.number.internal.*
  */
 
 @OptIn(ExperimentalUnsignedTypes::class)
-public inline class Half(public val rawBits: UShort) {
+@JvmInline
+public value class Half(public val rawBits: UShort) {
     @PublishedApi internal constructor(value: Float) : this(floatToIntBits(value))
     @PublishedApi internal constructor(value: Double) : this(value.toFloat())
 

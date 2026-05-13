@@ -25,6 +25,7 @@ import korlibs.encoding.hex
 import korlibs.image.tiles.*
 import korlibs.math.geom.*
 import korlibs.memory.*
+import kotlin.jvm.JvmInline
 
 // If this is true, only processes visible layers from the ASE file.
 // Otherwise, will process invisible layers as well.
@@ -756,7 +757,8 @@ object ASE : ImageFormat("ase") {
 }
 
 // https://github.com/aseprite/aseprite/blob/50d4f9d8028dc56686b7f0720ef4775db7b2f782/src/fixmath/fixmath.h
-internal inline class Fixed32 private constructor(val raw: Int) {
+@JvmInline
+internal value class Fixed32 private constructor(val raw: Int) {
     val double: Double get() = raw.toDouble() / 65536.0
 
     companion object {

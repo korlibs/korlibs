@@ -1,6 +1,9 @@
 package korlibs.io.net.ws
 
-inline class WsOpcode(val id: Int) {
+import kotlin.jvm.JvmInline
+
+@JvmInline
+value class WsOpcode(val id: Int) {
     companion object {
         val Continuation = WsOpcode(0x00)
         val Text = WsOpcode(0x01)

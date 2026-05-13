@@ -1,8 +1,10 @@
 package korlibs.audio.sound
 
 import korlibs.memory.*
+import kotlin.jvm.JvmInline
 
-inline class AudioSample(private val raw: Short) {
+@JvmInline
+value class AudioSample(private val raw: Short) {
     companion object {
         val ZERO: AudioSample = AudioSample(0)
 
@@ -59,7 +61,8 @@ class AudioSamples(
 //val PerChannelAudioSamples.nchannels get() = this.size
 //val PerChannelAudioSamples.nsamples get() = this[0].size
 
-inline class AudioSampleArray(private val data: ShortArray) : Collection<AudioSample> {
+@JvmInline
+value class AudioSampleArray(private val data: ShortArray) : Collection<AudioSample> {
     constructor(size: Int) : this(ShortArray(size))
     constructor(size: Int, gen: (Int) -> AudioSample) : this(ShortArray(size) { gen(it).short })
     override val size: Int get() = data.size

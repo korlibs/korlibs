@@ -20,12 +20,14 @@ import kotlin.collections.toIntArray
 import kotlin.collections.toList
 import kotlin.collections.toLongArray
 import kotlin.collections.toMap
+import kotlin.jvm.JvmInline
 import kotlin.math.pow
 
 val Any?.dyn: Dyn get() = Dyn(this)
 
 @Suppress("DEPRECATION")
-inline class Dyn(val value: Any?) : Comparable<Dyn> {
+@JvmInline
+value class Dyn(val value: Any?) : Comparable<Dyn> {
     val dyn get() = this
     val isNull get() = value == null
     val isNotNull get() = value != null

@@ -2,10 +2,12 @@ package korlibs.time
 
 import korlibs.time.*
 import korlibs.time.core.*
+import kotlin.jvm.JvmInline
 import kotlin.time.*
 
 /** Analogous to [Duration] but doesn't allocate on the JS target. Important when used intensively in JS code. For example in KorGE. */
-inline class FastDuration(private val ms: Double) : Comparable<FastDuration> {
+@JvmInline
+value class FastDuration(private val ms: Double) : Comparable<FastDuration> {
     companion object {
         val ZERO get() = FastDuration(0.0)
         val POSITIVE_INFINITY get() = FastDuration(Double.POSITIVE_INFINITY)

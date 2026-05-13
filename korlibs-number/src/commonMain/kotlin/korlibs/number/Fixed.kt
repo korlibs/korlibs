@@ -1,6 +1,7 @@
 package korlibs.number
 
 import korlibs.number.internal.*
+import kotlin.jvm.JvmInline
 import kotlin.math.*
 
 /**
@@ -18,7 +19,8 @@ import kotlin.math.*
  * 23~24 bits of integer
  * 6~7 bits of decimal
  */
-inline class Fixed private constructor(val raw: Int) : Comparable<Fixed> {
+@JvmInline
+value class Fixed private constructor(val raw: Int) : Comparable<Fixed> {
     companion object {
         const val SCALE_DIGITS = 2
         const val SCALE = 100

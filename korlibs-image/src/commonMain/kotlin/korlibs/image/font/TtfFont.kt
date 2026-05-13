@@ -58,6 +58,7 @@ import korlibs.memory.extract
 import korlibs.memory.extract16Signed
 import korlibs.memory.extractSigned
 import korlibs.memory.insert16
+import kotlin.jvm.JvmInline
 
 class TtfFont(
     d: ByteArray,
@@ -2227,11 +2228,13 @@ abstract class BaseTtfFont(
 // unitsPerEm	Specifies the em square size for the font.
 // PointSize	Specifies size of the font, in points. (One point equals 1/72 of an inch.)
 // DeviceResolution	Specifies number of device units (pixels) per inch. Typical values might be 300 for a laser printer or 96 for a VGA screen.
-internal inline class FWord(val data: Int) {
+@JvmInline
+internal value class FWord(val data: Int) {
     fun toDouble(): Double = data.toDouble()
 }
 
-internal inline class Fixed(val data: Int) {
+@JvmInline
+internal value class Fixed(val data: Int) {
     val num: Int get() = data.extract16Signed(0)
     val den: Int get() = data.extract16Signed(16)
     val value: Double get() = num.toDouble() + den.toDouble() / 65536.0

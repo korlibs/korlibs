@@ -1,8 +1,10 @@
 package korlibs.memory
 
 import kotlin.contracts.*
+import kotlin.jvm.JvmInline
 
-inline class Int64Array(val raw: DoubleArray) : Iterable<Int64> {
+@JvmInline
+value class Int64Array(val raw: DoubleArray) : Iterable<Int64> {
     inline val indices: IntRange get() = raw.indices
 
     constructor(size: Int, value: Int64 = Int64.ZERO) : this(DoubleArray(size) { value.raw })
@@ -49,7 +51,8 @@ fun Int64Array?.contentToString(): String = if (this == null) "null" else "[" + 
  * Equality fails in some cases where Int64 represents a NaN or an Infinity.
  * For comparing Int64, use [Int64.equalsSafe] instead.
  */
-inline class Int64(val raw: Double) : Comparable<Int64> {
+@JvmInline
+value class Int64(val raw: Double) : Comparable<Int64> {
     companion object {
         val ZERO = Int64(0, 0)
 

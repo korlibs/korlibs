@@ -1,6 +1,9 @@
 package korlibs.ffi.api
 
-inline class FFIPointer(val address: Long) {
+import kotlin.jvm.JvmInline
+
+@JvmInline
+value class FFIPointer(val address: Long) {
     companion object {
         val NULL = FFIPointer(0L)
     }

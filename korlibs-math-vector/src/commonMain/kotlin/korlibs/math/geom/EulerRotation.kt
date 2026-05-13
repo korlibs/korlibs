@@ -1,12 +1,14 @@
 package korlibs.math.geom
 
 import korlibs.math.*
+import kotlin.jvm.JvmInline
 import kotlin.math.*
 
 /**
  * Rotations around Z axis, then X axis, then Y axis in that order.
  */
-inline class EulerRotation private constructor(val data: Vector4F) : IsAlmostEqualsF<EulerRotation> {
+@JvmInline
+value class EulerRotation private constructor(val data: Vector4F) : IsAlmostEqualsF<EulerRotation> {
     val config: Config get() = Config(data.w.toInt())
     val order: Order get() = config.order
     val coordinateSystem: CoordinateSystem get() = config.coordinateSystem
@@ -45,7 +47,8 @@ inline class EulerRotation private constructor(val data: Vector4F) : IsAlmostEqu
         }
     }
     //enum class Normalized { NO, FULL_ANGLE, HALF_ANGLE }
-    inline class Config(val id: Int) {
+    @JvmInline
+    value class Config(val id: Int) {
         //constructor(order: Order, coordinateSystem: CoordinateSystem) : this(order.ordinal * coordinateSystem.sign)
         constructor(order: Order, coordinateSystem: CoordinateSystem) : this(order.withCoordinateSystem(coordinateSystem).ordinal)
 

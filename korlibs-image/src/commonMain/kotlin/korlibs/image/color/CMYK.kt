@@ -2,10 +2,12 @@ package korlibs.image.color
 
 import korlibs.math.clampUByte
 import korlibs.memory.extract8
+import kotlin.jvm.JvmInline
 import kotlin.math.max
 
 // https://en.wikipedia.org/wiki/CMYK_color_model
-inline class CMYK(val value: Int) {
+@JvmInline
+value class CMYK(val value: Int) {
     val c: Int get() = value.extract8(0)
     val m: Int get() = value.extract8(8)
     val y: Int get() = value.extract8(16)

@@ -4,6 +4,7 @@ import korlibs.image.font.*
 import korlibs.io.lang.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
+import kotlin.jvm.JvmInline
 
 data class TextAlignment(
     val horizontal: HorizontalAlign,
@@ -73,7 +74,8 @@ data class TextAlignment(
     override fun toString(): String = "${vertical}_$horizontal"
 }
 
-inline class VerticalAlign(val ratio: Double) : EnumLike<VerticalAlign> {
+@JvmInline
+value class VerticalAlign(val ratio: Double) : EnumLike<VerticalAlign> {
     val ratioFake: Double get() = if (this == BASELINE) 1.0 else ratio
     val ratioFake0: Double get() = if (this == BASELINE) 0.0 else ratio
 
@@ -128,7 +130,8 @@ inline class VerticalAlign(val ratio: Double) : EnumLike<VerticalAlign> {
     }
 }
 
-inline class HorizontalAlign(val ratio: Double) : EnumLike<HorizontalAlign> {
+@JvmInline
+value class HorizontalAlign(val ratio: Double) : EnumLike<HorizontalAlign> {
     val ratioFake: Double get() = if (this == JUSTIFY) 0.0 else ratio
 
     companion object {

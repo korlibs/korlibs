@@ -4,7 +4,7 @@ package korlibs.memory
 
 import kotlinx.cinterop.*
 
-public inline class NInt(public val data: CPointer<IntVar>?) {
+public value class NInt(public val data: CPointer<IntVar>?) {
     public constructor(value: Int) : this(value.toLong().toCPointer<IntVar>())
     public constructor(value: Long) : this(value.toCPointer<IntVar>())
 

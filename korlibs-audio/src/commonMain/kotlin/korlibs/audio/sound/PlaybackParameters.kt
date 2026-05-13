@@ -2,6 +2,7 @@ package korlibs.audio.sound
 
 import korlibs.math.geom.*
 import korlibs.time.*
+import kotlin.jvm.JvmInline
 import kotlin.time.*
 
 data class PlaybackParameters(
@@ -23,7 +24,8 @@ data class PlaybackParameters(
 val infinitePlaybackTimes get() = PlaybackTimes.INFINITE
 inline val Int.playbackTimes get() = PlaybackTimes(this)
 
-inline class PlaybackTimes(val count: Int) {
+@JvmInline
+value class PlaybackTimes(val count: Int) {
     companion object {
         val ZERO = PlaybackTimes(0)
         val ONE = PlaybackTimes(1)

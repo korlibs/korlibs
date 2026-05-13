@@ -4,6 +4,7 @@ import korlibs.math.clamp
 import korlibs.math.interpolation.*
 import korlibs.encoding.shex
 import korlibs.number.*
+import kotlin.jvm.JvmInline
 
 data class ColorTransformMul(
     private var _r: Float = 1f,
@@ -309,7 +310,8 @@ data class ColorTransform(
     fun applyToRGBA(color: RGBA): RGBA = RGBA(applyToColor(color.value))
 }
 
-inline class ColorAdd(val value: Int) {
+@JvmInline
+value class ColorAdd(val value: Int) {
     // Alias
     val rgba: Int get() = value
 

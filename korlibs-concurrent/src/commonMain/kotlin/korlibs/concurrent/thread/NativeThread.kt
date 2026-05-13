@@ -6,7 +6,8 @@ import kotlin.time.*
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-inline class NativeThreadPriority(val ratio: Double) {
+@JvmInline
+value class NativeThreadPriority(val ratio: Double) {
     companion object {
         val LOWEST = NativeThreadPriority(0.0)
         val LOW = NativeThreadPriority(0.25)

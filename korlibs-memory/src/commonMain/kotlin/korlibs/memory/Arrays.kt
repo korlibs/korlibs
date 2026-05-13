@@ -1,6 +1,7 @@
 package korlibs.memory
 
 import korlibs.memory.internal.*
+import kotlin.jvm.JvmInline
 
 private inline fun _arraycmp(srcPos: Int, dstPos: Int, size: Int, cmp: (Int, Int) -> Int): Int {
     for (n in 0 until size) {
@@ -312,7 +313,8 @@ public fun arrayinterleave(
 }
 
 /** View of [bytes] [ByteArray] reinterpreted as [Int] */
-public inline class UByteArrayInt(public val data: ByteArray) {
+@JvmInline
+public value class UByteArrayInt(public val data: ByteArray) {
     val bytes: ByteArray get() = data
 
     /** Creates a new [UByteArrayInt] view of [size] bytes */
@@ -337,7 +339,8 @@ fun ubyteArrayIntOf(vararg values: Int): UByteArrayInt = UByteArrayInt(values.si
 
 
 /** View of [shorts] [ShortArray] reinterpreted as [Int] */
-public inline class UShortArrayInt(public val data: ShortArray) {
+@JvmInline
+public value class UShortArrayInt(public val data: ShortArray) {
     val shorts: ShortArray get() = data
 
     /** Creates a new [UShortArrayInt] view of [size] bytes */
@@ -362,7 +365,8 @@ fun ushortArrayIntOf(vararg values: Int): UShortArrayInt = UShortArrayInt(values
 
 
 /** View of [base] [IntArray] reinterpreted as [Float] */
-public inline class FloatArrayFromIntArray(public val base: IntArray) {
+@JvmInline
+public value class FloatArrayFromIntArray(public val base: IntArray) {
     public operator fun get(i: Int): Float = base[i].reinterpretAsFloat()
     public operator fun set(i: Int, v: Float) { base[i] = v.reinterpretAsInt() }
 }

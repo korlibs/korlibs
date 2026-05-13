@@ -3,6 +3,7 @@
 package korlibs.datastructure
 
 import korlibs.datastructure.annotations.Template
+import kotlin.jvm.JvmInline
 
 typealias Stack<TGen> = TGenStack<TGen>
 
@@ -12,7 +13,8 @@ typealias Stack<TGen> = TGenStack<TGen>
 // GENERIC TEMPLATE //////////////////////////////////////////
 
 @Template
-inline class TGenStack<TGen>(private val items: FastArrayList<TGen> = FastArrayList<TGen>()) : Collection<TGen> {
+@JvmInline
+value class TGenStack<TGen>(private val items: FastArrayList<TGen> = FastArrayList<TGen>()) : Collection<TGen> {
     override val size: Int get() = items.size
     override fun isEmpty() = size == 0
 
@@ -48,7 +50,8 @@ inline class TGenStack<TGen>(private val items: FastArrayList<TGen> = FastArrayL
 
 
 @Template
-inline class IntStack(private val items: IntArrayList = IntArrayList()) : Collection<Int> {
+@JvmInline
+value class IntStack(private val items: IntArrayList = IntArrayList()) : Collection<Int> {
     override val size: Int get() = items.size
     override fun isEmpty() = size == 0
 
@@ -82,7 +85,8 @@ inline class IntStack(private val items: IntArrayList = IntArrayList()) : Collec
 
 
 @Template
-inline class DoubleStack(private val items: DoubleArrayList = DoubleArrayList()) : Collection<Double> {
+@JvmInline
+value class DoubleStack(private val items: DoubleArrayList = DoubleArrayList()) : Collection<Double> {
     override val size: Int get() = items.size
     override fun isEmpty() = size == 0
 
@@ -116,7 +120,8 @@ inline class DoubleStack(private val items: DoubleArrayList = DoubleArrayList())
 
 
 @Template
-inline class FloatStack(private val items: FloatArrayList = FloatArrayList()) : Collection<Float> {
+@JvmInline
+value class FloatStack(private val items: FloatArrayList = FloatArrayList()) : Collection<Float> {
     override val size: Int get() = items.size
     override fun isEmpty() = size == 0
 

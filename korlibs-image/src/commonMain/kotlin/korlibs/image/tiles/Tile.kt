@@ -2,8 +2,10 @@ package korlibs.image.tiles
 
 import korlibs.memory.*
 import korlibs.number.*
+import kotlin.jvm.JvmInline
 
-inline class Tile(val raw: Int53) {
+@JvmInline
+value class Tile(val raw: Int53) {
     val rawHigh get() = raw.high
     val rawLow get() = raw.low
 
