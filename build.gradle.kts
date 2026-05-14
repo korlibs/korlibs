@@ -1,5 +1,7 @@
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.MavenPublishPlugin
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
 
 group = "org.korge.korlibs"
 version = libs.versions.korlibs.get()
@@ -61,6 +63,17 @@ subprojects {
                     // connection.set("scm:git:git://github.com/username/mylibrary.git")
                     // developerConnection.set("scm:git:ssh://git@github.com/username/mylibrary.git")
                 }
+            }
+        }
+    }
+
+    // TODO Re-enable warnings once we address most of the reported ones
+    val isCi = System.getenv("CI") != null
+    plugins.withType<KotlinMultiplatformPluginWrapper> {
+        extensions.configure<KotlinMultiplatformExtension> {
+            compilerOptions {
+                allWarningsAsErrors.set(false)
+                suppressWarnings.set(isCi)
             }
         }
     }
