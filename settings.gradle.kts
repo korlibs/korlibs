@@ -27,7 +27,6 @@ include(
     ":korlibs-dyn",
     ":korlibs-encoding",
     ":korlibs-ffi",
-    ":korlibs-ffi-ksp",
     ":korlibs-ffi-legacy",
     ":korlibs-image",
     ":korlibs-image-core",

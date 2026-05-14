@@ -1,10 +1,3 @@
-public abstract interface annotation class korlibs/ffi/api/FFI : java/lang/annotation/Annotation {
-	public abstract fun commonLib ()Ljava/lang/String;
-	public abstract fun linuxLib ()Ljava/lang/String;
-	public abstract fun macosLib ()Ljava/lang/String;
-	public abstract fun windowsLib ()Ljava/lang/String;
-}
-
 public final class korlibs/ffi/api/FFIFunctionRef : java/lang/AutoCloseable {
 	public fun <init> (Lkotlin/Function;)V
 	public final fun allocIn ([Lkorlibs/ffi/api/FFIFunctionRef;)I
@@ -16,9 +9,6 @@ public final class korlibs/ffi/api/FFIFunctionRef : java/lang/AutoCloseable {
 	public final fun setCloser (Lkotlin/jvm/functions/Function0;)V
 	public final fun setSlot (I)V
 	public final fun setSlots ([Lkorlibs/ffi/api/FFIFunctionRef;)V
-}
-
-public abstract interface annotation class korlibs/ffi/api/FFINativeInt : java/lang/annotation/Annotation {
 }
 
 public final class korlibs/ffi/api/FFIPointer {
@@ -38,9 +28,6 @@ public final class korlibs/ffi/api/FFIPointer {
 
 public final class korlibs/ffi/api/FFIPointer$Companion {
 	public final fun getNULL-_sC9wO4 ()J
-}
-
-public abstract interface annotation class korlibs/ffi/api/FFIWideString : java/lang/annotation/Annotation {
 }
 
 public final class korlibs/ffi/api/FFI_jvmKt {

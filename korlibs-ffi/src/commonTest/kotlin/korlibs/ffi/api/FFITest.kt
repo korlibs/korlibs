@@ -1,6 +1,9 @@
 package korlibs.ffi.api
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class FFITest {
     @Test
