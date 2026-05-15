@@ -3,9 +3,11 @@ package korlibs.image.color
 import korlibs.math.clampUByte
 import korlibs.memory.extract8
 import korlibs.image.internal.packIntClamped
+import kotlin.jvm.JvmInline
 
 // https://en.wikipedia.org/wiki/YCbCr
-inline class YCbCr(val value: Int) {
+@JvmInline
+value class YCbCr(val value: Int) {
     constructor(y: Int, cb: Int, cr: Int, a: Int = 0xFF) : this(packIntClamped(y, cb, cr, a))
 
     val y: Int get() = value.extract8(0) // Luma
@@ -34,7 +36,8 @@ inline class YCbCr(val value: Int) {
     }
 }
 
-inline class YCbCrArray(val ints: IntArray) {
+@JvmInline
+value class YCbCrArray(val ints: IntArray) {
     val size get() = ints.size
     operator fun get(index: Int): YCbCr = YCbCr(ints[index])
     operator fun set(index: Int, color: YCbCr) { ints[index] = color.value }

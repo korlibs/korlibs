@@ -3,9 +3,11 @@ package korlibs.image.color
 import korlibs.math.*
 import korlibs.math.geom.*
 import korlibs.number.*
+import kotlin.jvm.JvmInline
 
 //inline class RGBAf private constructor(
-inline class RGBAf(val data: FloatArray) {
+@JvmInline
+value class RGBAf(val data: FloatArray) {
 //data class RGBAf(val r: Float, val g: Float, val b: Float, val a: Float)
     constructor(r: Float = 1f, g: Float = 1f, b: Float = 1f, a: Float = 1f) : this(floatArrayOf(r, g, b, a))
     constructor(color: RGBA) : this(color.rf, color.gf, color.bf, color.af)

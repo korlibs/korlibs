@@ -2,9 +2,11 @@
 
 package korlibs.memory.unit
 
+import kotlin.jvm.JvmInline
 import kotlin.math.*
 
-inline class ByteUnits private constructor(val bytes: Double) {
+@JvmInline
+value class ByteUnits private constructor(val bytes: Double) {
     val bytesLong: Long get() = bytes.toLong()
     val kiloBytes: Double get() = bytes / 1024.0
     val megaBytes: Double get() = bytes / (1024.0 * 1024.0)

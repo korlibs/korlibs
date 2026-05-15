@@ -1,5 +1,6 @@
 package korlibs.image.core
 
+import kotlin.jvm.JvmInline
 import kotlin.math.*
 
 /**
@@ -51,7 +52,8 @@ fun CoreImage32.depremultiplied(): CoreImage32 {
 /**
  * 32-bit RGBA color format. Used in [CoreImage32]
  */
-inline class CoreImage32Color(val value: Int) {
+@JvmInline
+value class CoreImage32Color(val value: Int) {
     constructor(red: UByte, green: UByte, blue: UByte, alpha: UByte = 255u) : this((red.toInt() shl RED_OFFSET) or (green.toInt() shl GREEN_OFFSET) or (blue.toInt() shl BLUE_OFFSET) or (alpha.toInt() shl ALPHA_OFFSET))
     constructor(red: Int, green: Int, blue: Int, alpha: Int = 255) : this(red.coerceIn(0, 255).toUByte(), green.coerceIn(0, 255).toUByte(), blue.coerceIn(0, 255).toUByte(), alpha.coerceIn(0, 255).toUByte())
 
@@ -124,7 +126,8 @@ fun CoreImage.info(): CoreImageInfo = CoreImageInfo(width, height, bpp, format =
 /**
  * Image format: [PNG], [JPEG], [WEBP], [AVIF], etc.
  */
-inline class CoreImageFormat(val name: String) {
+@JvmInline
+value class CoreImageFormat(val name: String) {
     companion object {
         val PNG = CoreImageFormat("png")
         val JPEG = CoreImageFormat("jpeg")

@@ -2,9 +2,11 @@ package korlibs.number
 
 import korlibs.number.internal.*
 import kotlin.contracts.*
+import kotlin.jvm.JvmInline
 import kotlin.math.*
 
-inline class Int53Array(val raw: DoubleArray) : Iterable<Int53> {
+@JvmInline
+value class Int53Array(val raw: DoubleArray) : Iterable<Int53> {
     inline val indices: IntRange get() = raw.indices
 
     constructor(size: Int, value: Int53 = Int53.ZERO) : this(DoubleArray(size) { value.value })
@@ -47,7 +49,8 @@ fun Int53Array?.contentToString(): String = if (this == null) "null" else "[" + 
  * Trying to avoid allocations on the JS target by not using [Long] when 53 bits is enough.
  */
 //@Deprecated("")
-public inline class Int53(public val value: Double) : Comparable<Int53> {
+@JvmInline
+public value class Int53(public val value: Double) : Comparable<Int53> {
     public companion object {
         // Double.fromBits(0x000FFFFFFFFFFFFFL)
         //val MAX_VALUE = Int53(Double.fromBits(0x000FFFFFFFFFFFFFL)) // 2**52 - 1

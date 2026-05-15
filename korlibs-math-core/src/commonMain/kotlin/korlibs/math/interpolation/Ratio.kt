@@ -1,13 +1,15 @@
 package korlibs.math.interpolation
 
 import korlibs.math.*
+import kotlin.jvm.JvmInline
 import kotlin.math.*
 
 //inline class Ratio(val valueD: Double) : Comparable<Ratio> {
 //    constructor(ratio: Float) : this(ratio.toDouble())
 //    val value: Double get() = valueD
 //    val valueF: Float get() = value.toFloat()
-inline class Ratio(val value: Double) : Comparable<Ratio> {
+@JvmInline
+value class Ratio(val value: Double) : Comparable<Ratio> {
     constructor(ratio: Float) : this(ratio.toDouble())
 
     fun toFloat(): Float = value.toFloat()

@@ -567,7 +567,8 @@ class FTrianglesInt {
     //fun addStrip(x0: Int, y0: Int, x1: Int, y1: Int, x2: Int, y2: Int, x3: Int, y3: Int): Item {
     //}
 
-    inline class Item(val index: Int) {
+    @JvmInline
+    value class Item(val index: Int) {
         inline fun <T> use(triangles: FTrianglesInt, block: FTrianglesInt.(Item) -> T): T = block(triangles, this)
     }
 }
@@ -759,7 +760,8 @@ class FSegmentsInt(capacity: Int = 5) {
     }
     fun toSegmentIntList(): List<MSegmentInt> = map { it.toSegmentInt() }
 
-    inline class Item(val index: Int) {
+    @JvmInline
+    value class Item(val index: Int) {
         inline fun <T> use(segments: FSegmentsInt, block: FSegmentsInt.(Item) -> T): T = block(segments, this)
     }
 

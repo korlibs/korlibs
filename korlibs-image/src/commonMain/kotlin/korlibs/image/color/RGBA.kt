@@ -12,7 +12,8 @@ import korlibs.number.*
 import kotlin.jvm.*
 import kotlin.math.*
 
-inline class RGBA(val value: Int) : Comparable<RGBA>, Interpolable<RGBA>, Paint {
+@JvmInline
+value class RGBA(val value: Int) : Comparable<RGBA>, Interpolable<RGBA>, Paint {
     override fun clone(): Paint = this
     val color: RGBA get() = this
 
@@ -222,7 +223,8 @@ inline class RGBA(val value: Int) : Comparable<RGBA>, Interpolable<RGBA>, Paint 
 fun Double.interpolate(a: RGBA, b: RGBA): RGBA = this.toRatio().interpolate(a, b)
 fun Ratio.interpolate(a: RGBA, b: RGBA): RGBA = RGBA.interpolate(a, b, this)
 
-inline class RGBAPremultiplied(val value: Int) {
+@JvmInline
+value class RGBAPremultiplied(val value: Int) {
     constructor(rgb: Int, a: Int) : this((rgb and 0xFFFFFF) or (a shl 24))
     constructor(r: Int, g: Int, b: Int, a: Int) : this(packIntClamped(r, g, b, a))
 
@@ -343,7 +345,8 @@ fun RgbaArray.asPremultiplied() = RgbaPremultipliedArray(ints)
 fun RgbaPremultipliedArray.asNonPremultiplied() = RgbaArray(ints)
 fun RgbaPremultipliedArray.asStraight() = RgbaArray(ints)
 
-inline class RgbaPremultipliedArray(val ints: IntArray) {
+@JvmInline
+value class RgbaPremultipliedArray(val ints: IntArray) {
     companion object {
         operator fun invoke(colors: Array<RGBAPremultiplied>): RgbaPremultipliedArray = RgbaPremultipliedArray(colors.map { it.value }.toIntArray())
         operator fun invoke(size: Int): RgbaPremultipliedArray = RgbaPremultipliedArray(IntArray(size))
@@ -416,7 +419,8 @@ infix fun RGBAPremultiplied.mix(src: RGBAPremultiplied): RGBAPremultiplied {
     //return RGBAPremultiplied(RB or G, A)
 }
 
-inline class RgbaArray(val ints: IntArray) : List<RGBA> {
+@JvmInline
+value class RgbaArray(val ints: IntArray) : List<RGBA> {
     companion object {
         @JvmName("invokeRgba")
         inline operator fun <T : RGBA> invoke(vararg colors: T): RgbaArray = RgbaArray(colors.size) { colors[it] }

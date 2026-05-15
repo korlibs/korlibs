@@ -34,6 +34,7 @@ import korlibs.datastructure.*
 import korlibs.math.*
 import korlibs.number.*
 import kotlin.collections.set
+import kotlin.jvm.JvmInline
 import kotlin.math.*
 
 /**
@@ -932,7 +933,8 @@ private fun checkDimensions(actual: Int, expected: Int) {
 
 }
 
-inline class BVHRay(val intervals: BVHIntervals) {
+@JvmInline
+value class BVHRay(val intervals: BVHIntervals) {
 
     fun checkDimensions(dimensions: Int) {
         checkDimensions(this.dimensions, dimensions)
@@ -953,7 +955,8 @@ inline class BVHRay(val intervals: BVHIntervals) {
     override fun toString(): String = "BVHRay(pos=$pos, dir=$dir)"
 }
 
-inline class BVHRect(val intervals: BVHIntervals) {
+@JvmInline
+value class BVHRect(val intervals: BVHIntervals) {
     constructor(dimensions: Int) : this(BVHIntervals(dimensions))
 
     constructor(n: Double, len: Double) : this(BVHIntervals(n, len))

@@ -4,6 +4,7 @@ package korlibs.ffi.osx
 import korlibs.annotations.*
 import korlibs.concurrent.lock.*
 import korlibs.ffi.*
+import kotlin.jvm.JvmInline
 import kotlin.properties.*
 import kotlin.reflect.*
 
@@ -472,7 +473,8 @@ open class NSObject(val id: Long) {
     override fun toString(): String = "NSObject(${objcClass})"
 }
 
-inline class ObjcRef(val id: Long) {
+@JvmInline
+value class ObjcRef(val id: Long) {
     constructor(ref: ObjcRef, unit: Unit = Unit) : this(ref.id)
 
     fun msgSend(sel: ObjcSel, vararg args: Any?): Long = FFIObjc.objc_msgSend(FFIVarargs(id, (sel.id), *args))
@@ -493,7 +495,8 @@ inline class ObjcRef(val id: Long) {
     //fun msgSend_stret(sel: String, vararg args: Any?): Unit = FFIObjc.objc_msgSend_stret(id, sel(sel), *args)
 }
 
-inline class ObjcSel(val id: Long) {
+@JvmInline
+value class ObjcSel(val id: Long) {
     companion object {
         private val lock = Lock()
         private val selectors = HashMap<String, ObjcSel>()

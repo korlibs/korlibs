@@ -1,6 +1,9 @@
 package korlibs.number
 
-internal inline class BFloat @PublishedApi internal constructor(val rawBits: Int) {
+import kotlin.jvm.JvmInline
+
+@JvmInline
+internal value class BFloat @PublishedApi internal constructor(val rawBits: Int) {
     companion object {
         const val BITS = 21
         const val MASK = (1 shl BITS) - 1

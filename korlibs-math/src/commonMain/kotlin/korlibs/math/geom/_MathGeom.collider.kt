@@ -5,12 +5,14 @@ package korlibs.math.geom.collider
 import korlibs.datastructure.iterators.*
 import korlibs.math.geom.*
 import korlibs.math.geom.vector.*
+import kotlin.jvm.JvmInline
 
 fun interface HitTestable {
     fun hitTestAny(p: Point, direction: HitTestDirection): Boolean
 }
 
-inline class HitTestDirectionFlags(val value: Int) {
+@JvmInline
+value class HitTestDirectionFlags(val value: Int) {
     operator fun plus(that: HitTestDirectionFlags): HitTestDirectionFlags = HitTestDirectionFlags(this.value or that.value)
 
     constructor(up: Boolean, right: Boolean, down: Boolean, left: Boolean) : this(

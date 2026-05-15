@@ -6,6 +6,7 @@ import korlibs.datastructure.*
 import korlibs.math.*
 import korlibs.math.geom.*
 import korlibs.memory.*
+import kotlin.jvm.JvmInline
 
 data class RectCoords(
     override val tlX: Float, override val tlY: Float,
@@ -372,7 +373,8 @@ enum class SliceRotation {
  * Represents an orientation where:
  * [flipX] and [flipY] is applied first, and then [rotation].
  */
-inline class SliceOrientation(
+@JvmInline
+value class SliceOrientation(
     val raw: Int,
 ) {
     val rotation: SliceRotation get() = SliceRotation[raw.extract(0, 2)]

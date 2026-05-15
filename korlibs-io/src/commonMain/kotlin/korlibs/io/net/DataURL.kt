@@ -5,9 +5,11 @@ import korlibs.encoding.*
 import korlibs.io.async.*
 import korlibs.io.lang.*
 import korlibs.platform.*
+import kotlin.jvm.JvmInline
 import kotlinx.coroutines.*
 
-inline class DataURL(val url: String) : AutoCloseable {
+@JvmInline
+value class DataURL(val url: String) : AutoCloseable {
     companion object {
         operator fun invoke(data: ByteArray, contentType: String): DataURL = when {
             Platform.isInsideBrowser -> DataURL(JSEval.expr("URL.createObjectURL(new Blob([data], { type: type }))", "data" to data, "type" to contentType).toString())

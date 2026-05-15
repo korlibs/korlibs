@@ -10,6 +10,7 @@ import korlibs.math.roundDecimalPlaces
 import korlibs.math.annotations.*
 import korlibs.math.interpolation.*
 import korlibs.number.*
+import kotlin.jvm.JvmInline
 import kotlin.math.*
 
 @Deprecated("Use immutable BoundsBuilder instead")
@@ -2282,7 +2283,8 @@ val Vector2I.mutable: MPointInt get() = MPointInt(x, y)
 
 @KormaMutableApi
 @Deprecated("Use PointInt instead")
-inline class MPointInt(val p: MPoint) : Comparable<MPointInt>, MutableInterpolable<MPointInt> {
+@JvmInline
+value class MPointInt(val p: MPoint) : Comparable<MPointInt>, MutableInterpolable<MPointInt> {
     override fun compareTo(other: MPointInt): Int = compare(this.x, this.y, other.x, other.y)
 
     val point: Vector2I get() = Vector2I(x, y)
@@ -2673,7 +2675,8 @@ fun Iterable<MRectangle>.bounds(target: MRectangle = MRectangle()): MRectangle {
 
 @KormaMutableApi
 @Deprecated("Use RectangleInt instead")
-inline class MRectangleInt(val rect: MRectangle) {
+@JvmInline
+value class MRectangleInt(val rect: MRectangle) {
     val immutable: RectangleInt get() = RectangleInt(x, y, width, height)
 
     companion object {
@@ -2853,7 +2856,8 @@ val RectangleInt.mutable: MRectangleInt get() = MRectangleInt(x, y, width, heigh
 
 @KormaMutableApi
 @Deprecated("Use Size instead")
-inline class MSize(val p: MPoint) : MutableInterpolable<MSize>, Interpolable<MSize>, Sizeable, MSizeable {
+@JvmInline
+value class MSize(val p: MPoint) : MutableInterpolable<MSize>, Interpolable<MSize>, Sizeable, MSizeable {
     companion object {
         operator fun invoke(): MSize = MSize(MPoint(0, 0))
         operator fun invoke(width: Double, height: Double): MSize = MSize(MPoint(width, height))
@@ -2906,7 +2910,8 @@ inline class MSize(val p: MPoint) : MutableInterpolable<MSize>, Interpolable<MSi
 
 @KormaMutableApi
 @Deprecated("Use SizeInt instead")
-inline class MSizeInt(val float: MSize) {
+@JvmInline
+value class MSizeInt(val float: MSize) {
     companion object {
         operator fun invoke(): MSizeInt = MSizeInt(MSize(0, 0))
         operator fun invoke(width: Int, height: Int): MSizeInt = MSizeInt(MSize(width, height))
@@ -3188,7 +3193,8 @@ typealias MPosition3D = MVector4
 typealias MScale3D = MVector4
 
 @KormaMutableApi
-inline class MVector4Int(val v: MVector4) {
+@JvmInline
+value class MVector4Int(val v: MVector4) {
     var x: Int get() = v.x.toInt(); set(value) { v.x = value.toFloat() }
     var y: Int get() = v.y.toInt(); set(value) { v.y = value.toFloat() }
     var z: Int get() = v.z.toInt(); set(value) { v.z = value.toFloat() }

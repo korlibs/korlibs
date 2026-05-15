@@ -1,6 +1,7 @@
 package korlibs.datastructure
 
 import korlibs.math.*
+import kotlin.jvm.JvmInline
 import kotlin.math.*
 
 inline fun count(cond: (index: Int) -> Boolean): Int {
@@ -111,7 +112,8 @@ inline fun genericBinarySearch(
     return invalid(fromIndex, toIndex, low, high)
 }
 
-inline class BSearchResult(val raw: Int) {
+@JvmInline
+value class BSearchResult(val raw: Int) {
     val found: Boolean get() = raw >= 0
     val index: Int get() = if (found) raw else -1
     val nearIndex: Int get() = if (found) raw else -raw - 1

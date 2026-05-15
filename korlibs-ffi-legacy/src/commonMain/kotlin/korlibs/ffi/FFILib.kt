@@ -313,7 +313,8 @@ object LibC : FFILib("/System/Library/Frameworks/CoreFoundation.framework/CoreFo
  */
 
 
-inline class FFITypedPointer<T>(val pointer: FFIPointer)
+@JvmInline
+value class FFITypedPointer<T>(val pointer: FFIPointer)
 
 fun <T> FFIPointer.typed(): FFITypedPointer<T> = FFITypedPointer<T>(this)
 fun <T> FFITypedPointer<*>.reinterpret(): FFITypedPointer<T> = FFITypedPointer<T>(this.pointer)

@@ -3,8 +3,10 @@ package korlibs.image.vector
 import korlibs.math.*
 import korlibs.memory.*
 import korlibs.math.geom.*
+import kotlin.jvm.JvmInline
 
-inline class CycleMethodPair(val data: Int) {
+@JvmInline
+value class CycleMethodPair(val data: Int) {
     constructor(x: CycleMethod, y: CycleMethod) : this(0.insert8(x.ordinal, 0).insert8(y.ordinal, 8))
     val x: CycleMethod get() = CycleMethod.VALUES_BY_ORDINAL[data.extract8(0)]
     val y: CycleMethod get() = CycleMethod.VALUES_BY_ORDINAL[data.extract8(8)]

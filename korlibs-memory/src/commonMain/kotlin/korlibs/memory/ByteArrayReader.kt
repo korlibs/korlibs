@@ -1,5 +1,7 @@
 package korlibs.memory
 
+import kotlin.jvm.JvmInline
+
 public class ByteArrayReader(public val data: ByteArray, public val start: Int, public val size: Int = 0) {
     private var offset = start
     public val remaining: Int get() = size - offset
@@ -42,7 +44,8 @@ public class ByteArrayReader(public val data: ByteArray, public val start: Int, 
     public fun f64BE(): Double = move(8) { getF64BE(it) }
 }
 
-public inline class ByteArrayReaderLE(public val bar: ByteArrayReader)
+@JvmInline
+public value class ByteArrayReaderLE(public val bar: ByteArrayReader)
 
 public val ByteArrayReaderLE.size: Int get() = bar.size
 public val ByteArrayReaderLE.remaining: Int get() = bar.remaining
@@ -58,7 +61,8 @@ public fun ByteArrayReaderLE.s32(): Int = bar.s32LE()
 public fun ByteArrayReaderLE.f32(): Float = bar.f32LE()
 public fun ByteArrayReaderLE.f64(): Double = bar.f64LE()
 
-public inline class ByteArrayReaderBE(public val bar: ByteArrayReader)
+@JvmInline
+public value class ByteArrayReaderBE(public val bar: ByteArrayReader)
 
 public val ByteArrayReaderBE.size: Int get() = bar.size
 public val ByteArrayReaderBE.remaining: Int get() = bar.remaining
