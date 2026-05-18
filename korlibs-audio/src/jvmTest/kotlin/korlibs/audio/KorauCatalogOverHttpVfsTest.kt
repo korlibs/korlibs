@@ -25,7 +25,7 @@ class KorauCatalogOverHttpVfsTest {
                 }
                 static("/", MemoryVfsMix(buildMap {
                     if (catalog) {
-                        this["/\$catalog.json"] = """[
+                        this[$$"/$catalog.json"] = """[
                             {"name": "placeholder.mp3", "size": 36072, "modifiedTime": 0, "createTime": 0, "isDirectory": false},
                         ]"""
                     }
@@ -41,8 +41,9 @@ class KorauCatalogOverHttpVfsTest {
         create(catalog = true)
         val info = vfs["placeholder.mp3"].readSoundInfo()
         assertEquals(2507.712.milliseconds, info!!.duration)
-        assertEquals("""
-            GET /${'$'}catalog.json Headers()
+        assertEquals(
+            $$"""
+            GET /$catalog.json Headers()
             GET /placeholder.mp3 Headers((range, [bytes=0-32767]))
             GET /placeholder.mp3 Headers((range, [bytes=32768-36071]))
         """.trimIndent(), log.joinToString("\n"))
@@ -53,8 +54,9 @@ class KorauCatalogOverHttpVfsTest {
         create(catalog = true, readFullFileMaxSize = 2L * 1024 * 1024)
         val info = vfs["placeholder.mp3"].readSoundInfo()
         assertEquals(2507.712.milliseconds, info!!.duration)
-        assertEquals("""
-            GET /${'$'}catalog.json Headers()
+        assertEquals(
+            $$"""
+            GET /$catalog.json Headers()
             GET /placeholder.mp3 Headers()
         """.trimIndent(), log.joinToString("\n"))
     }
@@ -64,8 +66,9 @@ class KorauCatalogOverHttpVfsTest {
         create(catalog = false)
         val info = vfs["placeholder.mp3"].readSoundInfo()
         assertEquals(2507.712.milliseconds, info!!.duration)
-        assertEquals("""
-            GET /${'$'}catalog.json Headers()
+        assertEquals(
+            $$"""
+            GET /$catalog.json Headers()
             HEAD /placeholder.mp3 Headers()
             GET /placeholder.mp3 Headers((range, [bytes=0-32767]))
             GET /placeholder.mp3 Headers((range, [bytes=32768-36071]))
@@ -77,8 +80,9 @@ class KorauCatalogOverHttpVfsTest {
         create(catalog = false, readFullFileMaxSize = 2L * 1024 * 1024)
         val info = vfs["placeholder.mp3"].readSoundInfo()
         assertEquals(2507.712.milliseconds, info!!.duration)
-        assertEquals("""
-            GET /${'$'}catalog.json Headers()
+        assertEquals(
+            $$"""
+            GET /$catalog.json Headers()
             HEAD /placeholder.mp3 Headers()
             GET /placeholder.mp3 Headers()
         """.trimIndent(), log.joinToString("\n"))

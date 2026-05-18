@@ -7,6 +7,7 @@ import platform.posix.dlopen
 import platform.posix.dlsym
 import kotlin.coroutines.CoroutineContext
 import kotlin.reflect.KProperty
+import kotlin.time.Duration.Companion.milliseconds
 
 actual val nativeSoundProvider: NativeSoundProvider by lazy {
     try {
@@ -47,7 +48,7 @@ object ALSANativeSoundProvider : NativeSoundProvider() {
                             //blockingSleep(1.milliseconds)
                         } else if (written < 0) {
                             println("ALSA: OTHER error: $written")
-                            delay(1L)
+                            delay(duration = 1.milliseconds)
                         } else {
                             break
                         }

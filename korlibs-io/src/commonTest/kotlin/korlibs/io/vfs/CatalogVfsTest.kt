@@ -12,12 +12,12 @@ class CatalogVfsTest {
     @Test
     fun testOldCatalog() = suspendTest {
         testCatalog(MemoryVfsMix(
-            "/\$catalog.json" to """[
+            $$"/$catalog.json" to """[
                 {"name": "demo", "size": 96, "modifiedTime": 0, "createTime": 0, "isDirectory": true},
                 {"name": "korge.png", "size": 14015, "modifiedTime": 1, "createTime": 1, "isDirectory": false},
                 {"name": "test.txt", "size": 11, "modifiedTime": 2, "createTime": 2, "isDirectory": false},
             ]""",
-            "/demo/\$catalog.json" to """[
+            $$"/demo/$catalog.json" to """[
                 {"name": "test.txt", "size": 12, "modifiedTime": 2, "createTime": 2, "isDirectory": false},
             ]""",
         ).withCatalog())
@@ -26,12 +26,12 @@ class CatalogVfsTest {
     @Test
     fun testNewCompactCatalog() = suspendTest {
         testCatalog(MemoryVfsMix(
-            "/\$catalog.json" to """{
+            $$"/$catalog.json" to """{
                 "demo/": [96, 0],
                 "korge.png": [14015, 1],
                 "test.txt": [11, 2],
             }""",
-            "/demo/\$catalog.json" to """{
+            $$"/demo/$catalog.json" to """{
                 "test.txt": [12, 2],
             }""",
         ).withCatalog())
