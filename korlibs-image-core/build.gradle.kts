@@ -1,7 +1,5 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
-import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -59,41 +57,4 @@ kotlin {
     linuxArm64()
     macosArm64()
     // TODO Add android native targets as well
-
-    sourceSets {
-        commonMain.dependencies {
-            implementation(projects.korlibsAnnotations)
-            implementation(libs.kotlinx.coroutines.core)
-            api(libs.kotlinx.atomicfu)
-        }
-        jvmMain.dependencies {
-            api(libs.jna.jna)
-            api(libs.jna.platform)
-        }
-        jsMain.dependencies {
-            implementation(projects.korlibsWasm)
-            implementation(projects.korlibsCompression)
-        }
-        wasmJsMain.dependencies {
-            implementation(libs.kotlinx.browser)
-        }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
-            implementation(libs.kotlinx.coroutines.test)
-        }
-    }
-}
-
-afterEvaluate {
-    kotlin.targets.filter { it.platformType == KotlinPlatformType.native }.forEach { target ->
-        if (target.name.contains("linux") || target.name.contains("mingw")) {
-            target.compilations.getByName("main") {
-                (this as KotlinNativeCompilation).cinterops {
-                    create("stb_image") {
-                        defFile(project.file("nativeInterop/cinterop/stb_image.def"))
-                    }
-                }
-            }
-        }
-    }
 }
