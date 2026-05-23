@@ -1,5 +1,7 @@
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.MavenPublishPlugin
+import org.gradle.api.publish.PublishingExtension
+import org.gradle.api.publish.maven.MavenPublication
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
 
@@ -25,15 +27,37 @@ plugins {
     alias(libs.plugins.vanniktech.mavenPublish)
 }
 
-// Relocated modules: old project name -> new artifact ID
-// This mapping can be removed once first release is published
+// Relocated modules: old project name -> new artifact ID (root/kotlinMultiplatform artifact).
+// Each platform artifact is derived automatically, e.g. korlibs-image-jvm, korlibs-image-android, etc.
 val relocatedModules = mapOf(
     "korlibs-image-core" to "korlibs-image",
     // add more mappings here as needed
 )
 
+// Maps KMP publication name -> artifact ID suffix used by vanniktech.
+// kotlinMultiplatform is the root POM and gets no suffix.
+val publicationSuffixes = mapOf(
+    "kotlinMultiplatform"    to "",
+    "android"                to "-android",
+    "jvm"                    to "-jvm",
+    "js"                     to "-js",
+    "wasmJs"                 to "-wasm-js",
+    "iosArm64"               to "-iosarm64",
+    "iosSimulatorArm64"      to "-iossimulatorarm64",
+    "iosX64"                 to "-iosx64",
+    "tvosArm64"              to "-tvosarm64",
+    "tvosSimulatorArm64"     to "-tvossimulatorarm64",
+    "watchosArm32"           to "-watchosarm32",
+    "watchosArm64"           to "-watchosarm64",
+    "watchosDeviceArm64"     to "-watchosdevicearm64",
+    "watchosSimulatorArm64"  to "-watchossimulatorarm64",
+    "linuxArm64"             to "-linuxarm64",
+    "linuxX64"               to "-linuxx64",
+    "macosArm64"             to "-macosarm64",
+    "mingwX64"               to "-mingwx64",
+)
+
 subprojects {
-    // Apply maven publishing configuration to subprojects
     plugins.withType<MavenPublishPlugin> {
         extensions.configure<MavenPublishBaseExtension> {
             publishToMavenCentral()
@@ -70,19 +94,6 @@ subprojects {
                     // connection.set("scm:git:git://github.com/username/mylibrary.git")
                     // developerConnection.set("scm:git:ssh://git@github.com/username/mylibrary.git")
                 }
-
-                // Inject relocation block if this module has been moved
-                val newArtifactId = relocatedModules[project.name]
-                if (newArtifactId != null) {
-                    distributionManagement {
-                        relocation {
-                            groupId.set(group.toString())
-                            artifactId.set(newArtifactId)
-                            version.set(project.version.toString())
-                            message.set("${project.name} has been merged into $newArtifactId")
-                        }
-                    }
-                }
             }
         }
     }
@@ -99,6 +110,34 @@ subprojects {
     }
 }
 
+// Inject relocation POMs after all subprojects have fully configured,
+// so vanniktech + KMP have registered every MavenPublication by this point.
+gradle.projectsEvaluated {
+    subprojects {
+        val newBaseArtifactId = relocatedModules[name] ?: return@subprojects
+        val publishingExt = extensions.findByType<PublishingExtension>() ?: return@subprojects
+
+        publishingExt.publications.withType<MavenPublication>().configureEach {
+            val suffix = publicationSuffixes[name] ?: run {
+                logger.warn("WARNING: Unknown publication '${name}' in project '${project.name}' — skipping relocation POM")
+                return@configureEach
+            }
+            val targetArtifactId = newBaseArtifactId + suffix
+            logger.lifecycle("Relocating ${project.name} publication '$name': ${artifactId} -> $targetArtifactId")
+            pom {
+                distributionManagement {
+                    relocation {
+                        groupId.set(project.group.toString())
+                        artifactId.set(targetArtifactId)
+                        version.set(project.version.toString())
+                        message.set("${project.name} has been merged into $newBaseArtifactId")
+                    }
+                }
+            }
+        }
+    }
+}
+
 dependencies {
     // Aggregate all korlibs-* prefixed subprojects to root dokka documentation
     subprojects.forEach { project ->
@@ -107,30 +146,3 @@ dependencies {
         }
     }
 }
-
-// TODO Evaluate and apply previous configurations
-//afterEvaluate {
-//    kotlin.targets.filter { it.platformType == KotlinPlatformType.native }.forEach { target ->
-//        if (target.name.contains("linux") || target.name.contains("mingw")) {
-//            target.compilations.getByName("main") {
-//                (this as KotlinNativeCompilation).cinterops {
-//                    val stb_image by creating {
-//                        defFile(project.file("../korlibs-image-core/nativeInterop/cinterop/stb_image.def"))
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
-
-//afterEvaluate {
-//    kotlin.targets.filter { it.platformType == KotlinPlatformType.native && it.name == "mingwX64" }.forEach { target ->
-//        target.compilations.getByName("main") {
-//            (this as KotlinNativeCompilation).cinterops {
-//                val win32ssl by creating {
-//                    defFile(project.file("../korlibs-io-network-core/nativeInterop/cinterop/win32ssl.def"))
-//                }
-//            }
-//        }
-//    }
-//}
