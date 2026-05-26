@@ -64,7 +64,7 @@ kotlin {
             implementation(projects.korlibsConcurrent)
             api(projects.korlibsPlatform)
             api(projects.korlibsIoStream)
-            api(projects.korlibsTimeCore)
+            api(projects.korlibsTime)
             api(projects.korlibsString)
             api(libs.kotlinx.coroutines.core)
         }

@@ -60,7 +60,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.korlibsTimeCore)
+            implementation(projects.korlibsTime)
             api(projects.korlibsPlatform)
             implementation(projects.korlibsDatastructureCore)
             api(libs.kotlinx.atomicfu)
