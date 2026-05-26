@@ -1,12 +1,19 @@
 package korlibs.io.runtime.node
 
-import korlibs.time.*
-import korlibs.logger.Logger
-import korlibs.io.*
-import korlibs.io.async.*
-import korlibs.io.file.*
+import korlibs.io.async.AsyncQueue
+import korlibs.io.async.AsyncRingBuffer
+import korlibs.io.async.launchImmediately
+import korlibs.io.async.withContext
+import korlibs.io.file.VfsFile
+import korlibs.io.file.VfsOpenMode
+import korlibs.io.file.VfsProcessHandler
+import korlibs.io.file.VfsStat
+import korlibs.io.file.normalize
+import korlibs.io.file.pathInfo
 import korlibs.io.file.std.LocalVfs
 import korlibs.io.file.std.ShellArgs
+import korlibs.io.jsGlobal
+import korlibs.io.jsRuntime
 import korlibs.io.lang.FileAlreadyExistsException
 import korlibs.io.lang.FileNotFoundException
 import korlibs.io.lang.IOException
@@ -16,23 +23,34 @@ import korlibs.io.net.http.Http
 import korlibs.io.net.http.HttpClient
 import korlibs.io.net.http.HttpServer
 import korlibs.io.runtime.JsRuntime
-import korlibs.io.stream.*
-import korlibs.js.*
-import kotlinx.coroutines.*
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.AsyncStreamBase
+import korlibs.io.stream.toAsyncStream
+import korlibs.js.jsEnsureInt
+import korlibs.js.jsEnsureString
+import korlibs.js.jsObject
+import korlibs.js.jsToArray
+import korlibs.js.toJsObject
+import korlibs.logger.Logger
+import korlibs.time.DateTime
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
+import kotlin.coroutines.coroutineContext
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
-import org.khronos.webgl.ArrayBuffer
+import kotlinx.coroutines.completeWith
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.suspendCancellableCoroutine
 import org.khronos.webgl.Int8Array
 import org.khronos.webgl.Uint8Array
-import org.khronos.webgl.get
-import kotlin.coroutines.*
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 typealias NodeJsBuffer = Uint8Array
 
 fun Uint8Array.toByteArray() = Int8Array(this.unsafeCast<Int8Array>()).unsafeCast<ByteArray>()
-//fun ByteArray.toNodeJsBufferU8(): NodeBuffer = Uint8Array(this.unsafeCast<ArrayBuffer>()).asDynamic()
 
 fun ByteArray.asInt8Array(): Int8Array = this.unsafeCast<Int8Array>()
 fun ByteArray.asUint8Array(): Uint8Array {
@@ -44,11 +62,7 @@ fun ByteArray.toNodeJsBuffer(): NodeJsBuffer = this.asUint8Array().unsafeCast<No
 fun ByteArray.toNodeJsBuffer(offset: Int, size: Int): NodeJsBuffer =
     jsGlobal.asDynamic().Buffer.from(this, offset, size).unsafeCast<NodeJsBuffer>()
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 private external val process: dynamic // node.js
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 internal object JsRuntimeNode : JsRuntime() {
     val nodeProcess get() = process
@@ -84,8 +98,6 @@ internal object JsRuntimeNode : JsRuntime() {
     override fun createHttpClient(): HttpClient = HttpClient
     override fun createHttpServer(): HttpServer = HttpSeverNodeJs()
 }
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 private class NodeJsAsyncClient(val coroutineContext: CoroutineContext) : AsyncClient {
     private val net = NodeNet.asDynamic()
@@ -205,8 +217,6 @@ private class NodeJsAsyncServer : AsyncServer {
         clientFlow.cancel()
     }
 }
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 private class NodeJsLocalVfs : LocalVfs() {
     private fun getFullPath(path: String): String {
@@ -466,8 +476,6 @@ private class NodeFDStream(val file: VfsFile, var fd: NodeFD?) : AsyncStreamBase
     }
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 private class HttpSeverNodeJs : HttpServer() {
     private var context: CoroutineContext = EmptyCoroutineContext
     private var handler: suspend (req: dynamic, res: dynamic) -> Unit = { req, res -> }
@@ -569,5 +577,3 @@ private class HttpSeverNodeJs : HttpServer() {
         }
     }
 }
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

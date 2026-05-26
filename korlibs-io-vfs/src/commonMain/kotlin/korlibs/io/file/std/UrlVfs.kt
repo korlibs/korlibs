@@ -1,6 +1,6 @@
 package korlibs.io.file.std
 
-import korlibs.io.file.*
+import korlibs.io.file.Vfs
 
 abstract class UrlVfs(
     val url: String,

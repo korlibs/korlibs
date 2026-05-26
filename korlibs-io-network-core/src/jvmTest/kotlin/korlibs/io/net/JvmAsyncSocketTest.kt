@@ -1,11 +1,15 @@
 package korlibs.io.net
 
-import korlibs.io.async.*
-import korlibs.io.socket.*
-import korlibs.platform.*
-import kotlinx.coroutines.*
-import java.io.*
-import kotlin.test.*
+import java.io.File
+import korlibs.io.async.use
+import korlibs.io.socket.AsyncServerSocket
+import korlibs.io.socket.AsyncSocket
+import korlibs.io.socket.unix
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 
 class JvmAsyncSocketTest {
     @Test

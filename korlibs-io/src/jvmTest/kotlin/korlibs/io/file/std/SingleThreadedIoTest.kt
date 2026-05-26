@@ -1,11 +1,9 @@
 package korlibs.io.file.std
 
-import korlibs.concurrent.thread.*
-import korlibs.io.async.*
-import korlibs.io.lang.*
-import org.junit.*
+import korlibs.concurrent.thread.NativeThread
+import korlibs.io.async.suspendTest
+import kotlin.test.assertEquals
 import org.junit.Test
-import kotlin.test.*
 
 class SingleThreadedIoTest {
 	@Test

@@ -1,12 +1,14 @@
 package korlibs.io.concurrent
 
-import korlibs.concurrent.thread.*
+import korlibs.concurrent.thread.NativeThread
 import korlibs.datastructure.algo.Historiogram
 import korlibs.io.async.suspendTest
+import kotlin.test.Ignore
+import kotlin.test.Test
+import kotlin.test.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
-import kotlin.test.*
 
 class DispatchersExtTest {
     @Test

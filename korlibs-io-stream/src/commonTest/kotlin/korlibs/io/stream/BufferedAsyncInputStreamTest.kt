@@ -1,7 +1,8 @@
 package korlibs.io.stream
 
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.coroutines.test.runTest
 
 class BufferedAsyncInputStreamTest {
     @Test

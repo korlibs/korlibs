@@ -1,12 +1,14 @@
 package korlibs.io.vfs
 
-import korlibs.io.async.*
 import korlibs.io.async.async
-import korlibs.io.file.*
-import korlibs.io.file.std.*
-import korlibs.time.*
-import kotlinx.coroutines.*
-import kotlin.test.*
+import korlibs.io.async.suspendTest
+import korlibs.io.file.Vfs
+import korlibs.io.file.VfsFile
+import korlibs.io.file.std.MemoryVfsMix
+import korlibs.time.milliseconds
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.coroutines.delay
 
 class VfsProxyTest {
     val log = arrayListOf<String>()

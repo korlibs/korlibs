@@ -1,8 +1,8 @@
 package korlibs.io.file
 
-import korlibs.io.core.*
+import korlibs.io.core.SyncSystemFS
 import kotlin.jvm.JvmInline
-import kotlin.math.*
+import kotlin.math.min
 
 val File_pathSeparatorChar: Char get() = SyncSystemFS.pathSeparatorChar
 val File_separatorChar: Char get() = SyncSystemFS.fileSeparatorChar

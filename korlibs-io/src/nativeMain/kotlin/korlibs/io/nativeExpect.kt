@@ -2,8 +2,8 @@
 
 package korlibs.io
 
-import korlibs.io.core.*
-import kotlin.experimental.*
+import korlibs.io.core.SyncSystemFS
+import kotlin.experimental.ExperimentalNativeApi
 
 fun nativeCwd(): String = SyncSystemFS.getcwd()
 

@@ -1,5 +1,9 @@
 package korlibs.io.compression.zip
 
+import korlibs.encoding.hex
+import korlibs.io.file.PathInfo
+import korlibs.io.file.baseName
+import korlibs.io.file.getPathFullComponents
 import korlibs.io.stream.AsyncStream
 import korlibs.io.stream.EMPTY_BYTE_ARRAY
 import korlibs.io.stream.openAsync
@@ -14,11 +18,11 @@ import korlibs.io.stream.readU16LE
 import korlibs.io.stream.readU32LE
 import korlibs.io.stream.sliceStart
 import korlibs.io.stream.sliceWithSize
-import korlibs.encoding.hex
-import korlibs.io.file.*
-import korlibs.math.*
-import korlibs.memory.*
-import korlibs.time.*
+import korlibs.math.toIntClamp
+import korlibs.math.unsigned
+import korlibs.memory.extract
+import korlibs.memory.indexOf
+import korlibs.time.DateTime
 import kotlin.math.max
 
 class ZipFile private constructor(

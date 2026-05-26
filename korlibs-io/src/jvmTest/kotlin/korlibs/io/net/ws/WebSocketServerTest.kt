@@ -1,16 +1,18 @@
 package korlibs.io.net.ws
 
-import korlibs.logger.*
-import korlibs.io.async.*
-import korlibs.io.lang.*
-import korlibs.io.net.http.*
-import kotlin.test.*
+import korlibs.io.async.Signal
+import korlibs.io.async.suspendTest
+import korlibs.io.async.waitOne
+import korlibs.io.lang.portableSimpleName
+import korlibs.io.net.http.createHttpServer
+import korlibs.logger.Logger
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class WebSocketServerTest {
     val logger = Logger(this::class.portableSimpleName)
 
     @Test
-    //@Ignore // @TODO: Somehow this runs forever / until timeout?
     fun test() = suspendTest {
         val server = createHttpServer()
         val log = arrayListOf<String>()

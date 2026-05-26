@@ -1,78 +1,37 @@
 package korlibs.io.runtime
 
-import korlibs.io.file.*
-import korlibs.io.file.std.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import korlibs.js.*
-import korlibs.platform.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
-import org.khronos.webgl.*
-import org.w3c.dom.url.*
+import korlibs.io.file.VfsFile
+import korlibs.io.file.VfsOpenMode
+import korlibs.io.file.VfsProcessHandler
+import korlibs.io.file.VfsStat
+import korlibs.io.file.normalize
+import korlibs.io.file.pathInfo
+import korlibs.io.file.std.LocalVfs
+import korlibs.io.file.std.localVfs
+import korlibs.io.lang.Environment
+import korlibs.io.lang.FileNotFoundException
+import korlibs.io.lang.tempPath
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.AsyncStreamBase
+import korlibs.io.stream.toAsyncStream
+import korlibs.js.Deno
+import korlibs.js.DenoFsFile
+import korlibs.js.JSAsyncIterable
+import korlibs.js.JSIterableResult
+import korlibs.js.Symbol_asyncIterator
+import korlibs.js.jsObject
+import korlibs.platform.Platform
 import kotlin.js.Promise
+import kotlinx.coroutines.await
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import org.khronos.webgl.Int8Array
+import org.khronos.webgl.Uint8Array
+import org.w3c.dom.url.URL
 
 fun def(result: dynamic, vararg params: dynamic, nonblocking: Boolean = false): dynamic =
     jsObject("parameters" to params, "result" to result, "nonblocking" to nonblocking)
-
-/*
-val denoBase = Deno.dlopen<dynamic>(
-    "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
-    jsObject(
-        "memcpy" to def("pointer", "buffer", "pointer", "usize"),
-        "strlen" to def("i32", "pointer"),
-        "malloc" to def("pointer", "usize"),
-        "free" to def("void", "pointer"),
-    )
-).symbols
-val denoBase2 = Deno.dlopen<dynamic>(
-    "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
-    jsObject(
-        "memcpy" to def("pointer", "pointer", "buffer", "usize"),
-    )
-).symbols
-
-val denoBaseSize = Deno.dlopen<dynamic>(
-    "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
-    jsObject(
-        "memcpy" to def("usize", "usize", "usize", "usize"),
-        "strlen" to def("i32", "usize"),
-        "malloc" to def("usize", "usize"),
-        "free" to def("void", "usize"),
-    )
-).symbols
-
-fun DenoPointer.view() {
-    Deno.UnsafePointer.create()
-}
-
-fun Deno_allocBytes(bytes: ByteArray): DenoPointer {
-    val ptr = denoBase.malloc(bytes.size)
-    denoBase2.memcpy(ptr, bytes, bytes.size)
-    return ptr
-}
-
-fun Deno_free(ptr: DenoPointer) {
-    denoBase.free(ptr)
-}
-
-fun DenoPointer.readStringz(): String {
-    val len = strlen()
-    return readBytes(len).decodeToString()
-}
-
-fun DenoPointer.strlen(): Int = denoBase.strlen(this)
-
-fun DenoPointer.readBytes(size: Int): ByteArray {
-    val data = ByteArray(size)
-    denoBase.memcpy(data, this, size)
-    return data
-}
-
-fun DenoPointer.writeBytes(data: ByteArray) {
-    denoBase2.memcpy(this, data, data.size)
-}
-*/
 
 external private val import: dynamic
 

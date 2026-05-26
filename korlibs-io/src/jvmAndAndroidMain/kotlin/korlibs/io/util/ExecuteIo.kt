@@ -1,8 +1,10 @@
 package korlibs.io.util
 
-import korlibs.io.async.*
-import kotlinx.coroutines.*
-import kotlin.coroutines.*
+import korlibs.io.async.CIO
+import korlibs.io.async.preferSyncIo
+import kotlin.coroutines.coroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 suspend fun <T> jvmExecuteIo(callback: suspend () -> T): T = when {
     coroutineContext.preferSyncIo -> callback()

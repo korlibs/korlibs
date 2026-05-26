@@ -2,8 +2,10 @@
 
 package korlibs.io.stream
 
-import korlibs.memory.*
-import kotlin.math.*
+import korlibs.memory.ByteArrayBuilder
+import korlibs.memory.arraycopy
+import kotlin.math.max
+import kotlin.math.min
 
 fun MemoryAsyncStream(data: korlibs.memory.ByteArrayBuilder): AsyncStream = MemoryAsyncStreamBase(data).toAsyncStream()
 fun MemoryAsyncStream(initialCapacity: Int = 4096): AsyncStream = MemoryAsyncStreamBase(initialCapacity).toAsyncStream()

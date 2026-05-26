@@ -1,12 +1,24 @@
 package korlibs.io.async
 
-import korlibs.io.lang.*
-import korlibs.logger.*
-import korlibs.platform.*
-import korlibs.time.*
-import kotlinx.coroutines.*
-import kotlin.coroutines.*
-import kotlin.time.*
+import korlibs.io.lang.Environment
+import korlibs.logger.Logger
+import korlibs.platform.Platform
+import korlibs.time.seconds
+import kotlin.coroutines.Continuation
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.startCoroutine
+import kotlin.time.Duration
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.completeWith
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 private val logger = Logger("AsyncExt")
 
@@ -91,9 +103,3 @@ private fun <T> CoroutineScope._async(start: CoroutineStart, callback: suspend (
 		throw e
 	}
 }
-
-// @TODO: Kotlin.JS bug!
-//fun suspendTestExceptJs(callback: suspend () -> Unit) = suspendTest {
-//	if (OS.isJs) return@suspendTest
-//	callback()
-//}

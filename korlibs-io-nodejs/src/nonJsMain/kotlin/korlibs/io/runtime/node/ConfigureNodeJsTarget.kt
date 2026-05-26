@@ -1,5 +1,3 @@
 package korlibs.io.runtime.node
 
-actual fun configureNodeJsTarget() {
-
-}
+actual fun configureNodeJsTarget() {}

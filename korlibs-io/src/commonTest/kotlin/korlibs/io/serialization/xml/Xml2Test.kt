@@ -2,8 +2,10 @@ package korlibs.io.serialization.xml
 
 import korlibs.io.async.suspendTestNoBrowser
 import korlibs.io.file.std.resourcesVfs
-import korlibs.io.lang.*
-import korlibs.io.stream.*
+import korlibs.io.lang.UTF8
+import korlibs.io.lang.toByteArray
+import korlibs.io.stream.sequenceSyncStream
+import korlibs.io.stream.toCharReader
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

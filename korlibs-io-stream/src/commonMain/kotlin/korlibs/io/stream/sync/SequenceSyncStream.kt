@@ -1,7 +1,7 @@
 @file:Suppress("PackageDirectoryMismatch")
 package korlibs.io.stream
 
-import korlibs.memory.*
+import korlibs.memory.SimpleBytesDeque
 
 fun sequenceSyncStream(block: suspend SequenceScope<ByteArray>.() -> Unit): SyncStream {
     return object : SyncStreamBase() {

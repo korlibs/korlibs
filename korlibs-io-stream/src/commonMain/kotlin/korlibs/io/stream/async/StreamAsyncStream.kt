@@ -1,14 +1,16 @@
 @file:Suppress("PackageDirectoryMismatch")
 package korlibs.io.stream
 
-import korlibs.datastructure.*
-import korlibs.io.async.*
-import korlibs.io.lang.*
-import korlibs.io.stream.internal.*
-import korlibs.math.*
-import korlibs.memory.*
-import kotlinx.coroutines.sync.*
-import kotlin.math.*
+import korlibs.datastructure.Extra
+import korlibs.io.async.AsyncCloseable
+import korlibs.io.async.use
+import korlibs.io.lang.EOFException
+import korlibs.math.toIntClamp
+import korlibs.memory.ByteArrayBuilder
+import korlibs.memory.SimpleBytesDeque
+import kotlin.math.min
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 interface AsyncBaseStream : AsyncCloseable {
 }
@@ -128,14 +130,6 @@ class AsyncStream(val base: AsyncStreamBase, var position: Long = 0L, val queue:
     fun duplicate(): AsyncStream = AsyncStream(base, position)
 }
 
-
-//fun SyncStream._toAsync(dispatcher: CoroutineDispatcher? = Dispatchers.Unconfined): AsyncStream = this.base._toAsync(dispatcher).toAsyncStream(this.position)
-//fun SyncStreamBase._toAsync(dispatcher: CoroutineDispatcher? = Dispatchers.Unconfined): AsyncStreamBase = when (this) {
-//    //is MemorySyncStreamBase -> MemoryAsyncStreamBase(this.data)
-//    else -> SyncAsyncStreamBase(this, dispatcher)
-//}
-
-//suspend fun AsyncInputStream.copyTo(target: AsyncOutputStream, chunkSize: Int = 256 * 1024): Long {
 suspend fun AsyncInputStream.copyTo(target: AsyncOutputStream, chunkSize: Int = 8 * 1024 * 1024): Long {
     // Optimization to reduce suspensions
     if (this is AsyncStream && base is MemoryAsyncStreamBase) {

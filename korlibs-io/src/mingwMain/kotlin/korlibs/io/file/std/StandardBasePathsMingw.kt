@@ -2,7 +2,11 @@
 
 package korlibs.io.file.std
 
-import kotlinx.cinterop.*
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
 
 actual object StandardPaths : StandardBasePathsNative(), StandardPathsBase {
     override val executableFile: String get() = kotlinx.cinterop.memScoped {

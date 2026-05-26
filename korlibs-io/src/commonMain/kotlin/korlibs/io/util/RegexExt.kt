@@ -2,8 +2,6 @@ package korlibs.io.util
 
 import korlibs.io.lang.eachBuilder
 
-//fun Regex.Companion.quote(str: String): String = str.replace(Regex("[.?*+^\$\\[\\]\\\\(){}|\\-]")) { "\\${it.value}" }
-
 fun Regex.Companion.isSpecial(c: Char): Boolean = when (c) {
     '.', '?', '*', '+', '^', '\\', '$', '[', ']', '(', ')', '{', '}', '|', '-' -> true
     else -> false

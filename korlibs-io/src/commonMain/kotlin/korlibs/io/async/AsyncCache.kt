@@ -1,7 +1,7 @@
 package korlibs.io.async
 
-import kotlinx.coroutines.Deferred
 import kotlin.coroutines.coroutineContext
+import kotlinx.coroutines.Deferred
 
 class AsyncCache {
 	@PublishedApi

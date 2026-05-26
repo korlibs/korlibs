@@ -2,11 +2,45 @@
 
 package korlibs.io.stream
 
-import korlibs.io.lang.*
-import korlibs.io.stream.internal.*
+import korlibs.io.lang.Charset
+import korlibs.io.lang.UTF8
+import korlibs.io.lang.toString
 import korlibs.io.util.*
-import korlibs.math.*
-import korlibs.memory.*
+import korlibs.math.nextAlignedTo
+import korlibs.memory.arraycopy
+import korlibs.memory.getF32ArrayBE
+import korlibs.memory.getF32ArrayLE
+import korlibs.memory.getF32BE
+import korlibs.memory.getF32LE
+import korlibs.memory.getF64ArrayBE
+import korlibs.memory.getF64ArrayLE
+import korlibs.memory.getF64BE
+import korlibs.memory.getF64LE
+import korlibs.memory.getS16ArrayBE
+import korlibs.memory.getS16ArrayLE
+import korlibs.memory.getS16BE
+import korlibs.memory.getS16LE
+import korlibs.memory.getS24BE
+import korlibs.memory.getS24LE
+import korlibs.memory.getS32ArrayBE
+import korlibs.memory.getS32ArrayLE
+import korlibs.memory.getS32BE
+import korlibs.memory.getS32LE
+import korlibs.memory.getS64ArrayBE
+import korlibs.memory.getS64ArrayLE
+import korlibs.memory.getS64BE
+import korlibs.memory.getS64LE
+import korlibs.memory.getS8
+import korlibs.memory.getS8Array
+import korlibs.memory.getU16ArrayBE
+import korlibs.memory.getU16ArrayLE
+import korlibs.memory.getU16BE
+import korlibs.memory.getU16LE
+import korlibs.memory.getU24BE
+import korlibs.memory.getU24LE
+import korlibs.memory.getU32BE
+import korlibs.memory.getU32LE
+import korlibs.memory.getU8
 import kotlin.collections.indexOf
 
 @OptIn(ExperimentalStdlibApi::class)

@@ -1,7 +1,8 @@
 package korlibs.io.util.i18n
 
-import korlibs.platform.*
-import kotlinx.atomicfu.*
+import korlibs.platform.Platform
+import kotlinx.atomicfu.AtomicRef
+import kotlinx.atomicfu.atomic
 
 internal val systemLanguageStrings: List<String> get() = Platform.languagesRaw
 

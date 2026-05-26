@@ -1,7 +1,10 @@
 package korlibs.io.stream
 
-import kotlinx.coroutines.*
-import kotlin.coroutines.*
+import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 val EMPTY_BYTE_ARRAY = ByteArray(0)
 

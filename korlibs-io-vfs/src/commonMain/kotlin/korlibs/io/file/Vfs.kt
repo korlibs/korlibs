@@ -2,18 +2,35 @@
 
 package korlibs.io.file
 
-import korlibs.io.async.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import korlibs.memory.*
-import korlibs.time.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
-import kotlin.coroutines.*
+import korlibs.io.async.AsyncCloseable
+import korlibs.io.async.useIt
+import korlibs.io.async.useThis
+import korlibs.io.lang.DummyAutoCloseable
+import korlibs.io.lang.FileNotFoundException
+import korlibs.io.lang.IOException
+import korlibs.io.lang.portableSimpleName
+import korlibs.io.stream.AsyncInputStream
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.copyTo
+import korlibs.io.stream.openAsync
+import korlibs.io.stream.readBytesUpTo
+import korlibs.memory.extract
+import korlibs.memory.insert
+import korlibs.time.DateTime
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.coroutineContext
 import kotlin.jvm.JvmInline
 import kotlin.math.min
-import kotlin.reflect.*
+import kotlin.reflect.KClass
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
 
 abstract class Vfs : AsyncCloseable {
 	open suspend fun isCaseSensitive(path: String): Boolean = true
@@ -398,12 +415,6 @@ class VfsCachedStatContext(val stat: VfsStat?) : CoroutineContext.Element {
 
     override val key get() = VfsCachedStatContext
 }
-
-//val VfsStat.createLocalDate: LocalDateTime get() = LocalDateTime.ofEpochSecond(createTime / 1000L, ((createTime % 1_000L) * 1_000_000L).toInt(), ZoneOffset.UTC)
-//val VfsStat.modifiedLocalDate: LocalDateTime get() = LocalDateTime.ofEpochSecond(modifiedTime / 1000L, ((modifiedTime % 1_000L) * 1_000_000L).toInt(), ZoneOffset.UTC)
-//val VfsStat.lastAccessLocalDate: LocalDateTime get() = LocalDateTime.ofEpochSecond(lastAccessTime / 1000L, ((lastAccessTime % 1_000L) * 1_000_000L).toInt(), ZoneOffset.UTC)
-
-//val INIT = Unit.apply { println("UTC_OFFSET: $UTC_OFFSET")  }
 
 val VfsStat.createDate: DateTime get() = createTime
 val VfsStat.modifiedDate: DateTime get() = modifiedTime

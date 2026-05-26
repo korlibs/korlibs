@@ -1,7 +1,6 @@
 package korlibs.io.util
 
-import korlibs.memory.*
-import korlibs.platform.*
+import korlibs.platform.Platform
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

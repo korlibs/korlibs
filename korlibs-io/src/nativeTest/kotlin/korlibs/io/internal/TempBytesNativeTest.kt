@@ -1,12 +1,19 @@
 package korlibs.io.internal
 
-import korlibs.io.async.*
-import korlibs.io.compression.*
-import korlibs.io.compression.deflate.*
-import korlibs.io.stream.*
-import kotlinx.coroutines.*
-import kotlin.native.concurrent.*
-import kotlin.test.*
+import korlibs.io.async.suspendTest
+import korlibs.io.compression.compress
+import korlibs.io.compression.deflate.ZLib
+import korlibs.io.compression.uncompress
+import korlibs.io.stream.MemorySyncStream
+import korlibs.io.stream.readS16LE
+import korlibs.io.stream.toAsync
+import korlibs.io.stream.write16LE
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 class TempBytesNativeTest {
     @Test

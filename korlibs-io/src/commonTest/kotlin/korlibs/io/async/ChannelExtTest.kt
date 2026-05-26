@@ -1,8 +1,8 @@
 package korlibs.io.async
 
-import kotlinx.coroutines.channels.toList
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.coroutines.channels.toList
 
 class ChannelExtTest {
 	@Test

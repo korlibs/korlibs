@@ -1,9 +1,21 @@
 package korlibs.io.file.registry
 
-import korlibs.annotations.*
-import korlibs.ffi.*
-import korlibs.io.lang.*
-import korlibs.platform.*
+import korlibs.annotations.KeepNames
+import korlibs.ffi.FFIFuncConfig
+import korlibs.ffi.FFILib
+import korlibs.ffi.FFIPointer
+import korlibs.ffi.allocBytes
+import korlibs.ffi.ffiScoped
+import korlibs.ffi.getByteArray
+import korlibs.ffi.getS32
+import korlibs.ffi.getS64
+import korlibs.ffi.getWideStringz
+import korlibs.ffi.set32
+import korlibs.ffi.set64
+import korlibs.io.lang.Charsets
+import korlibs.io.lang.toByteArray
+import korlibs.io.lang.toString
+import korlibs.platform.Platform
 
 private typealias HKEY = Int
 

@@ -1,12 +1,12 @@
 package korlibs.io.file.std
 
 import korlibs.datastructure.iterators.fastForEach
-import korlibs.logger.Logger
 import korlibs.io.file.Vfs
 import korlibs.io.file.VfsFile
 import korlibs.io.file.VfsStat
 import korlibs.io.file.baseName
 import korlibs.io.lang.runIgnoringExceptions
+import korlibs.logger.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

@@ -6,4 +6,3 @@ import kotlinx.cinterop.*
 import platform.posix.*
 
 internal expect fun ioctlSocketFionRead(sockfd: Int): Int
-

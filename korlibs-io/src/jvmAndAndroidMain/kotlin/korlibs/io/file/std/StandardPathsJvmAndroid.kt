@@ -1,6 +1,7 @@
 package korlibs.io.file.std
 
-import korlibs.io.lang.*
+import korlibs.io.lang.Environment
+import korlibs.io.lang.tempPath
 
 open class StandardPathsJvmAndroid : StandardPathsBase {
     // File(".").absolutePath

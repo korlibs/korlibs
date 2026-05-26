@@ -1,5 +1,6 @@
 package korlibs.io.compression
 
+import korlibs.encoding.fromBase64
 import korlibs.io.compression.deflate.Deflate
 import korlibs.io.compression.deflate.DeflatePortable
 import korlibs.io.compression.deflate.GZIP
@@ -8,8 +9,7 @@ import korlibs.io.compression.deflate.ZLib
 import korlibs.io.lang.UTF8
 import korlibs.io.lang.toByteArray
 import korlibs.io.lang.toString
-import korlibs.encoding.fromBase64
-import korlibs.memory.*
+import korlibs.memory.getS32ArrayLE
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

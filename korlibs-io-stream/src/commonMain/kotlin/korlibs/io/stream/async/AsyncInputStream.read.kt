@@ -1,15 +1,41 @@
 @file:Suppress("PackageDirectoryMismatch")
 package korlibs.io.stream
 
-import korlibs.io.lang.*
-import korlibs.io.util.*
-import korlibs.memory.*
-import korlibs.platform.*
-import kotlin.collections.indexOf
-
-//val READ_SMALL_TEMP by threadLocal { ByteArray(8) }
-//suspend private fun AsyncInputStream.readSmallTempExact(len: Int, temp: ByteArray): ByteArray = temp.apply { readExact(temp, 0, len) }
-//suspend private fun AsyncInputStream.readSmallTempExact(len: Int): ByteArray = readSmallTempExact(len, READ_SMALL_TEMP)
+import korlibs.io.lang.Charset
+import korlibs.io.lang.EOFException
+import korlibs.io.lang.UTF8
+import korlibs.io.lang.toString
+import korlibs.memory.ByteArrayBuilder
+import korlibs.memory.getF32ArrayBE
+import korlibs.memory.getF32ArrayLE
+import korlibs.memory.getF32BE
+import korlibs.memory.getF32LE
+import korlibs.memory.getF64ArrayBE
+import korlibs.memory.getF64ArrayLE
+import korlibs.memory.getF64BE
+import korlibs.memory.getF64LE
+import korlibs.memory.getS16ArrayBE
+import korlibs.memory.getS16ArrayLE
+import korlibs.memory.getS16BE
+import korlibs.memory.getS16LE
+import korlibs.memory.getS24BE
+import korlibs.memory.getS24LE
+import korlibs.memory.getS32ArrayBE
+import korlibs.memory.getS32ArrayLE
+import korlibs.memory.getS32BE
+import korlibs.memory.getS32LE
+import korlibs.memory.getS64ArrayLE
+import korlibs.memory.getS64BE
+import korlibs.memory.getS64LE
+import korlibs.memory.getU16ArrayBE
+import korlibs.memory.getU16ArrayLE
+import korlibs.memory.getU16BE
+import korlibs.memory.getU16LE
+import korlibs.memory.getU24BE
+import korlibs.memory.getU24LE
+import korlibs.memory.getU32BE
+import korlibs.memory.getU32LE
+import korlibs.platform.Endian
 
 @PublishedApi
 internal suspend inline fun <R> AsyncInputStream.readSmallTempExact(size: Int, callback: ByteArray.() -> R): R {

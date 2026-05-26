@@ -1,7 +1,6 @@
 package korlibs.memory
 
-import korlibs.number.*
-
+import korlibs.number.Half
 
 fun ByteArrayReader.f16(little: Boolean): Half = Half.fromBits(s16(little))
 fun ByteArrayReader.f16LE(): Half = Half.fromBits(s16LE())

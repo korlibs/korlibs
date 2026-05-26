@@ -1,12 +1,12 @@
 package korlibs.io.util
 
-import korlibs.io.lang.*
-import korlibs.platform.*
-import java.io.*
+import java.io.File
 import java.net.URL
-import java.nio.file.*
-import kotlin.io.NoSuchFileException
-import kotlin.io.path.*
+import java.nio.file.Path
+import korlibs.io.lang.Environment
+import korlibs.platform.Platform
+import kotlin.io.path.exists
+import kotlin.io.path.toPath
 
 private val LOGGER = korlibs.logger.Logger("JvmFsCaseSensitive")
 

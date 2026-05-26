@@ -1,16 +1,22 @@
 package korlibs.io.worker
 
-import korlibs.io.async.*
-import korlibs.io.lang.*
-import korlibs.js.*
-import korlibs.platform.*
-import kotlinx.coroutines.*
-import org.w3c.dom.events.*
-import org.w3c.workers.*
-import kotlin.coroutines.*
-import kotlin.js.Promise
-import kotlin.reflect.*
+import korlibs.io.async.launchImmediately
 import korlibs.io.isDenoJs
+import korlibs.io.lang.Environment
+import korlibs.js.Deno
+import korlibs.js.JSStackTrace
+import korlibs.js.jsNew
+import korlibs.platform.JsObject
+import korlibs.platform.Platform
+import korlibs.platform.jsGlobalThis
+import korlibs.platform.jsImport
+import kotlin.coroutines.EmptyCoroutineContext
+import kotlin.js.Promise
+import kotlin.reflect.KClass
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Deferred
+import org.w3c.dom.events.Event
+import org.w3c.workers.ServiceWorkerMessageEvent
 
 actual typealias WorkerExport = JsExport
 
@@ -136,4 +142,3 @@ internal actual val workerImpl: _WorkerImpl = object : _WorkerImpl() {
         return deferred.await()
     }
 }
-

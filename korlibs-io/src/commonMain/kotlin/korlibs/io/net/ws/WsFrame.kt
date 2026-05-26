@@ -1,6 +1,5 @@
 package korlibs.io.net.ws
 
-import korlibs.memory.extract
 import korlibs.io.stream.AsyncInputStream
 import korlibs.io.stream.MemorySyncStreamToByteArray
 import korlibs.io.stream.readBytesExact
@@ -11,6 +10,7 @@ import korlibs.io.stream.write16BE
 import korlibs.io.stream.write32BE
 import korlibs.io.stream.write8
 import korlibs.io.stream.writeBytes
+import korlibs.memory.extract
 import kotlin.random.Random
 
 open class WsFrame(val data: ByteArray, val type: WsOpcode, val isFinal: Boolean = true, val masked: Boolean = true) {

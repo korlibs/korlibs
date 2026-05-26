@@ -1,10 +1,15 @@
 package korlibs.io.file
 
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.io.async.CIO
+import korlibs.io.file.std.MemoryVfsMix
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withContext
 
 class VfsProxyTest {
     @Test

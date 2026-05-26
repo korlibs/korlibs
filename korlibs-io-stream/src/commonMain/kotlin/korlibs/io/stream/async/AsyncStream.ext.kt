@@ -1,9 +1,7 @@
 @file:Suppress("PackageDirectoryMismatch")
 package korlibs.io.stream
 
-import korlibs.io.stream.internal.*
-import korlibs.math.*
-import korlibs.memory.*
+import korlibs.math.nextAlignedTo
 
 fun AsyncStream.skip(count: Int): AsyncStream {
     position += count

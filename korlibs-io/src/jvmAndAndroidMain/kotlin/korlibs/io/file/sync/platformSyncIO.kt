@@ -1,10 +1,13 @@
 package korlibs.io.file.sync
 
-import korlibs.io.stream.*
-import korlibs.io.util.*
-import java.io.*
-import java.nio.file.*
-import kotlin.io.path.*
+import java.io.File
+import java.io.RandomAccessFile
+import java.nio.file.Files
+import korlibs.io.stream.openSync
+import korlibs.io.stream.toSyncInputStream
+import korlibs.io.stream.toSyncOutputStream
+import korlibs.io.util.caseSensitiveOrThrow
+import kotlin.io.path.absolutePathString
 
 actual fun platformSyncIO(caseSensitive: Boolean): SyncIO = object : SyncIO {
     override fun realpath(path: String): String = File(path).canonicalPath

@@ -1,8 +1,9 @@
 package korlibs.io.net
 
-import korlibs.encoding.*
-import korlibs.io.async.*
-import kotlin.test.*
+import korlibs.encoding.hex
+import korlibs.io.async.suspendTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class DataURLTest {
     @Test

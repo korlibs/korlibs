@@ -1,14 +1,26 @@
 package korlibs.io.vfs
 
-import korlibs.io.async.*
-import korlibs.io.file.*
-import korlibs.io.file.std.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import korlibs.io.util.*
-import korlibs.platform.*
-import kotlinx.coroutines.flow.*
-import kotlin.test.*
+import korlibs.io.async.suspendTest
+import korlibs.io.async.suspendTestNoBrowser
+import korlibs.io.file.Vfs
+import korlibs.io.file.VfsOpenMode
+import korlibs.io.file.std.StandardPaths
+import korlibs.io.file.std.localCurrentDirVfs
+import korlibs.io.file.std.resourcesVfs
+import korlibs.io.file.std.tempVfs
+import korlibs.io.lang.FileNotFoundException
+import korlibs.io.lang.UTF8
+import korlibs.io.lang.toString
+import korlibs.io.stream.readAll
+import korlibs.io.stream.slice
+import korlibs.io.util.expectException
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
+import kotlinx.coroutines.flow.toList
 
 class LocalVfsTest {
 	val temp by lazy { tempVfs }

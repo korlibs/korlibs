@@ -2,8 +2,34 @@
 
 package korlibs.io.core
 
-import kotlinx.cinterop.*
-import platform.posix.*
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.Pinned
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.pin
+import kotlinx.cinterop.plus
+import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.toKStringFromUtf8
+import kotlinx.cinterop.usePinned
+import platform.posix.FILE
+import platform.posix.SEEK_END
+import platform.posix.SEEK_SET
+import platform.posix.S_IFDIR
+import platform.posix.S_IFMT
+import platform.posix.closedir
+import platform.posix.fclose
+import platform.posix.fileno
+import platform.posix.fopen
+import platform.posix.fread
+import platform.posix.fwrite
+import platform.posix.readdir
+import platform.posix.stat
 
 @OptIn(ExperimentalForeignApi::class)
 abstract class SyncSystemFSNativeBase : SyncSystemFS {

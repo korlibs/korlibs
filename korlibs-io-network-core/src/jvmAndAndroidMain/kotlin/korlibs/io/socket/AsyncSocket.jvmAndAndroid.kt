@@ -1,6 +1,7 @@
 package korlibs.io.socket
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 actual suspend operator fun AsyncSocket.Companion.invoke(secure: Boolean): AsyncSocket {
     return JvmNioAsyncClient().let { if (secure) AsyncClientSSLProcessor(it) else it }

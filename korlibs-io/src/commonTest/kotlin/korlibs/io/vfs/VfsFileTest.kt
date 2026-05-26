@@ -1,16 +1,37 @@
 package korlibs.io.vfs
 
-import korlibs.time.*
-import korlibs.memory.*
-import korlibs.io.async.*
-import korlibs.io.file.*
-import korlibs.io.file.std.*
-import korlibs.io.lang.*
-import korlibs.io.util.*
-import korlibs.platform.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
-import kotlin.test.*
+import korlibs.io.async.launchImmediately
+import korlibs.io.async.suspendTest
+import korlibs.io.file.PathInfo
+import korlibs.io.file.Vfs
+import korlibs.io.file.VfsFile
+import korlibs.io.file.VfsStat
+import korlibs.io.file.baseName
+import korlibs.io.file.deleteRecursively
+import korlibs.io.file.fullName
+import korlibs.io.file.fullPathWithExtension
+import korlibs.io.file.getUnderlyingUnscapedFile
+import korlibs.io.file.std.JailVfs
+import korlibs.io.file.std.LogVfs
+import korlibs.io.file.std.MemoryVfs
+import korlibs.io.file.std.MemoryVfsMix
+import korlibs.io.file.std.UrlVfs
+import korlibs.io.file.std.localCurrentDirVfs
+import korlibs.io.file.toFile
+import korlibs.io.file.withOnce
+import korlibs.io.lang.UTF8
+import korlibs.io.lang.portableSimpleName
+import korlibs.io.lang.toString
+import korlibs.platform.Platform
+import korlibs.time.milliseconds
+import korlibs.time.seconds
+import kotlin.test.Ignore
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.toList
 
 class VfsFileTest {
     @Test

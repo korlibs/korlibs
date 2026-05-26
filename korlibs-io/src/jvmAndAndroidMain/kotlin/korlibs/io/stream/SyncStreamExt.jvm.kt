@@ -1,6 +1,8 @@
 package korlibs.io.stream
 
-import java.io.*
+import java.io.File
+import java.io.InputStream
+import java.io.RandomAccessFile
 
 class FileSyncStreamBase(val file: java.io.File, val mode: String = "r") : SyncStreamBase() {
 	val ra = RandomAccessFile(file, mode)

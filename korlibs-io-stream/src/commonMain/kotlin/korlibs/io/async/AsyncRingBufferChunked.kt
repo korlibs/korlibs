@@ -1,9 +1,9 @@
 package korlibs.io.async
 
-import korlibs.io.lang.*
-import korlibs.memory.*
-import kotlinx.coroutines.*
+import korlibs.io.lang.OutOfBoundsException
+import korlibs.memory.SimpleChunkedByteDeque
 import kotlin.time.Duration.Companion.milliseconds
+import kotlinx.coroutines.delay
 
 class AsyncRingBufferChunked(val maxSize: Int = DEFAULT_MAX_SIZE) : IAsyncRingBuffer {
     companion object {

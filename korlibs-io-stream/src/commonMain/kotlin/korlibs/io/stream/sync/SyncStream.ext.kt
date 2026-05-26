@@ -1,8 +1,7 @@
 @file:Suppress("PackageDirectoryMismatch")
 package korlibs.io.stream
 
-import korlibs.io.stream.internal.*
-import korlibs.math.*
+import korlibs.math.nextAlignedTo
 
 val SyncStream.hasLength: Boolean get() = kotlin.runCatching { length }.isSuccess
 val SyncStream.hasAvailable: Boolean get() = kotlin.runCatching { available }.isSuccess

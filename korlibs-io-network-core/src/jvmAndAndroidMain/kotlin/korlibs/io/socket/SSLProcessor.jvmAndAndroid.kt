@@ -1,8 +1,9 @@
 package korlibs.io.socket
 
-import korlibs.datastructure.*
-import java.nio.*
-import javax.net.ssl.*
+import java.nio.ByteBuffer
+import javax.net.ssl.SSLContext
+import javax.net.ssl.SSLEngineResult
+import korlibs.datastructure.ByteArrayDeque
 
 actual fun DefaultSSLProcessor(): SSLProcessor = SSLProcessorJvm()
 
@@ -104,14 +105,6 @@ class SSLProcessorJvm : SSLProcessor {
                 }
             }
         }
-
-        /*
-        println("engine.handshakeStatus=${engine.handshakeStatus}, encryptedS2C=${encryptedS2C.availableRead}, encryptedC2S=${encryptedC2S.availableRead}, plainS2C=${plainS2C.availableRead}, plainC2S=${plainC2S.availableRead}")
-        sync(plainC2S, encryptedC2S, wrap = true)
-        sync(encryptedS2C, plainS2C, wrap = false)
-
-        println("engine.handshakeStatus=${engine.handshakeStatus}, encryptedS2C=${encryptedS2C.availableRead}, encryptedC2S=${encryptedC2S.availableRead}, plainS2C=${plainS2C.availableRead}, plainC2S=${plainC2S.availableRead}")
-         */
     }
 
     private fun sync(input: ByteArrayDeque, output: ByteArrayDeque, wrap: Boolean): SSLEngineResult.Status {

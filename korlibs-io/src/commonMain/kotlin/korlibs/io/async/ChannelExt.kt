@@ -1,15 +1,15 @@
 package korlibs.io.async
 
-import korlibs.memory.arraycopy
 import korlibs.io.stream.AsyncInputStream
+import korlibs.memory.arraycopy
+import kotlin.coroutines.coroutineContext
+import kotlin.experimental.ExperimentalTypeInference
+import kotlin.math.min
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.ProducerScope
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.produce
 import kotlinx.coroutines.flow.Flow
-import kotlin.coroutines.coroutineContext
-import kotlin.experimental.ExperimentalTypeInference
-import kotlin.math.min
 
 suspend fun <T> ReceiveChannel<T>.chunks(count: Int) = produce {
 	val chunk = arrayListOf<T>()

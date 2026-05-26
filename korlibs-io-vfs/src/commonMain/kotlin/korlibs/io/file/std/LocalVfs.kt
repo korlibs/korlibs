@@ -1,15 +1,13 @@
 package korlibs.io.file.std
 
 import korlibs.io.core.SystemFS
-import korlibs.io.file.*
+import korlibs.io.file.Vfs
+import korlibs.io.file.VfsProcessHandler
 import korlibs.io.stream.AsyncInputStream
+import kotlin.coroutines.coroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.coroutines.coroutineContext
-
-//@Deprecated("Replace with localVfs")
-//fun nativeLocalVfs(path: String): VfsFile = LocalVfs()[path]
 
 abstract class LocalVfs(val fs: SystemFS = SystemFS) : Vfs() {
     companion object {}

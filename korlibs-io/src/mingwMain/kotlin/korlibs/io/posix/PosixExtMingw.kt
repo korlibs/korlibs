@@ -2,11 +2,20 @@
 
 package korlibs.io.posix
 
-import kotlinx.cinterop.*
-import platform.posix.*
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.refTo
+import kotlinx.cinterop.toKString
+import kotlinx.cinterop.wcstr
+import platform.posix.FILE
 import platform.posix.FIONREAD
+import platform.posix.PATH_MAX
+import platform.posix.getcwd
 import platform.posix.ioctlsocket
-import platform.windows.*
 
 actual val POSIX: BasePosix = PosixMingw
 
@@ -23,24 +32,6 @@ object PosixMingw : BasePosix() {
     override fun posixReadlink(path: String): String? = null
 
     override fun posixRealpath(path: String): String = path
-    //override fun posixRealpath(path: String): String = memScoped {
-    //    val temp = allocArray<WCHARVar>(PATH_MAX + 1)
-    //    val temp2 = alloc<WIN32_FIND_DATAW>()
-    //    val temp3 = alloc<BY_HANDLE_FILE_INFORMATION>()
-    //    temp3.name
-    //    val res = FindFirstFileW(path, temp2.ptr)
-    //    if (res != null) {
-    //        println("RES: $res" + temp2.cFileName.toKString())
-    //    } else {
-    //        println("RES: null")
-    //    }
-    //    CloseHandle(res)
-    //    val len = GetFullPathNameW(path, PATH_MAX.convert(), temp.reinterpret(), null)
-    //    if (len == 0u) return@memScoped path
-    //    temp.toKString().also {
-    //        println("posixRealpath: path='$path' -> '$it'")
-    //    }
-    //}
 
     override fun posixGetcwd(): String = memScoped {
         val temp = allocArray<ByteVar>(PATH_MAX + 1)
@@ -58,4 +49,3 @@ object PosixMingw : BasePosix() {
         return v[0].toInt()
     }
 }
-

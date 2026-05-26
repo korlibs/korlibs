@@ -3,7 +3,6 @@
 package korlibs.io.async
 
 import korlibs.io.lang.Cancellable
-import korlibs.io.lang.Closeable
 import korlibs.io.lang.cancel
 import korlibs.io.lang.cancellable
 import kotlinx.coroutines.CancellationException

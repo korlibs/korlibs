@@ -3,17 +3,28 @@
 
 package korlibs.io.file
 
-import korlibs.datastructure.*
-import korlibs.time.*
-import korlibs.memory.*
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import korlibs.io.util.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
-import kotlin.coroutines.*
+import korlibs.datastructure.Extra
+import korlibs.io.async.use
+import korlibs.io.file.std.JailVfs
+import korlibs.io.lang.Charset
+import korlibs.io.lang.UTF8
+import korlibs.io.lang.runIgnoringExceptions
+import korlibs.io.lang.toByteArray
+import korlibs.io.lang.toString
+import korlibs.io.stream.AsyncInputOpenable
+import korlibs.io.stream.AsyncInputStream
+import korlibs.io.stream.AsyncOutputStream
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.SyncStream
+import korlibs.io.stream.copyTo
+import korlibs.io.stream.openSync
+import korlibs.memory.ByteArrayBuilder
+import korlibs.time.DateTime
+import kotlin.coroutines.coroutineContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 
 data class VfsFile(
 	val vfs: Vfs,

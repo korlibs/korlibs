@@ -2,8 +2,9 @@
 
 package korlibs.io.core
 
-import kotlinx.cinterop.*
-import kotlinx.coroutines.*
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 
 actual val defaultSyncSystemFS: SyncSystemFS = AppleSyncSystemFS
 actual val defaultSystemFS: SystemFS by lazy { SyncSystemFS.toAsync(Dispatchers.IO) }

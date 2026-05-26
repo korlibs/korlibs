@@ -1,8 +1,10 @@
 @file:Suppress("PackageDirectoryMismatch")
 package korlibs.io.stream
 
-import korlibs.memory.*
-import kotlin.math.*
+import korlibs.memory.ByteArrayBuilder
+import korlibs.memory.arraycopy
+import kotlin.math.max
+import kotlin.math.min
 
 fun String.openSync(): SyncStream = encodeToByteArray().openSync("r")
 fun ByteArray.openSync(mode: String = "r"): SyncStream = MemorySyncStreamBase(ByteArrayBuilder(this)).toSyncStream(0L)

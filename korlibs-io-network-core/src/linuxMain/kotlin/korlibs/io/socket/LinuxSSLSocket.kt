@@ -2,15 +2,43 @@
 
 package korlibs.io.socket
 
-import korlibs.logger.*
-import kotlinx.cinterop.*
-import kotlinx.coroutines.*
-import platform.linux.*
-import platform.posix.*
+import korlibs.logger.Logger
 import kotlin.concurrent.AtomicInt
 import kotlin.concurrent.AtomicReference
-import kotlin.native.concurrent.*
-import kotlin.reflect.*
+import kotlin.reflect.KProperty
+import kotlinx.cinterop.CFunction
+import kotlinx.cinterop.COpaquePointer
+import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.cstr
+import kotlinx.cinterop.get
+import kotlinx.cinterop.invoke
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.sizeOf
+import kotlinx.cinterop.usePinned
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.withContext
+import platform.linux.inet_addr
+import platform.posix.AF_INET
+import platform.posix.RTLD_LAZY
+import platform.posix.SOCK_STREAM
+import platform.posix.close
+import platform.posix.connect
+import platform.posix.dlclose
+import platform.posix.dlopen
+import platform.posix.dlsym
+import platform.posix.gethostbyname
+import platform.posix.htons
+import platform.posix.sockaddr_in
+import platform.posix.socket
 
 private object OSSL {
     private val logger = Logger("OSSL")
@@ -159,12 +187,3 @@ class LinuxSSLSocket {
     }
 
 }
-
-/*
-fun main() {
-    val socket = LinuxSSLSocket()
-    socket.connect("google.es", 443)
-    println("write: " + socket.write("GET / HTTP/1.0\r\nHost: google.es\r\n\r\n".encodeToByteArray()))
-    println("read: " + socket.read(1024).decodeToString())
-}
-*/

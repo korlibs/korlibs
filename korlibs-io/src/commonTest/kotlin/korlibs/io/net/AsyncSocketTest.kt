@@ -1,14 +1,13 @@
 package korlibs.io.net
 
-import korlibs.memory.*
 import korlibs.io.async.launchImmediately
 import korlibs.io.async.suspendTestNoBrowser
 import korlibs.io.stream.readBytesExact
 import korlibs.io.stream.writeBytes
-import korlibs.platform.*
-import kotlinx.coroutines.CompletableDeferred
+import korlibs.platform.Platform
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.coroutines.CompletableDeferred
 
 class AsyncSocketTest {
 	@Test

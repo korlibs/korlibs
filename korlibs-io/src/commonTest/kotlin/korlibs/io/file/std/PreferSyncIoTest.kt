@@ -1,7 +1,9 @@
 package korlibs.io.file.std
 
-import korlibs.platform.*
-import kotlin.test.*
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertFails
+import kotlin.test.assertTrue
 
 class PreferSyncIoTest {
     @Test

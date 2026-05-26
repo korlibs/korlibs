@@ -1,13 +1,20 @@
 package korlibs.io.compression.zip
 
-import korlibs.io.async.*
-import korlibs.io.compression.*
-import korlibs.io.compression.deflate.*
-import korlibs.io.compression.lzma.*
-import korlibs.io.file.*
-import korlibs.io.file.std.*
 import java.io.File
-import kotlin.test.*
+import korlibs.io.async.suspendTest
+import korlibs.io.compression.CompressionMethod
+import korlibs.io.compression.deflate.Deflate
+import korlibs.io.compression.lzma.Lzma
+import korlibs.io.compression.withLevel
+import korlibs.io.file.VfsFile
+import korlibs.io.file.std.MemoryVfs
+import korlibs.io.file.std.MemoryVfsMix
+import korlibs.io.file.std.SingleFileMemoryVfs
+import korlibs.io.file.std.createZipFromTree
+import korlibs.io.file.std.createZipFromTreeTo
+import korlibs.io.file.std.openAsZip
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ZipBuilderTest {
     suspend fun VfsFile.dumpZip() = openAsZip().listRecursiveSimple().joinToString(", ") { it.path }

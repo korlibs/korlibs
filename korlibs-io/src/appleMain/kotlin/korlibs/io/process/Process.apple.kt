@@ -2,14 +2,23 @@
 
 package korlibs.io.process
 
-import korlibs.datastructure.concurrent.*
-import korlibs.time.*
-import korlibs.io.async.*
-import korlibs.io.file.*
-import korlibs.io.file.std.*
-import kotlinx.cinterop.*
-import kotlinx.coroutines.*
-import platform.posix.*
+import korlibs.datastructure.concurrent.ConcurrentDeque
+import korlibs.io.async.CIO
+import korlibs.io.file.VfsProcessHandler
+import korlibs.io.file.std.ShellArgs
+import korlibs.time.milliseconds
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.usePinned
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
+import platform.posix.fread
+import platform.posix.pclose
+import platform.posix.popen
 
 // @TODO: Use a separate thread
 @OptIn(ExperimentalForeignApi::class)

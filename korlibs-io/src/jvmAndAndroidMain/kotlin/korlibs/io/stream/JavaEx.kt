@@ -1,6 +1,7 @@
 package korlibs.io.stream
 
-import java.io.*
+import java.io.InputStream
+import java.io.OutputStream
 
 fun InputStream.toSyncInputStream(): SyncInputStream {
     return object : SyncInputStream {

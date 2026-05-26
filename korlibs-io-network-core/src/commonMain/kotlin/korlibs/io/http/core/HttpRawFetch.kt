@@ -1,6 +1,6 @@
 package korlibs.io.http.core
 
-import korlibs.io.stream.*
+import korlibs.io.stream.AsyncInputStream
 
 data class HttpFetchResult(
     val status: Int,

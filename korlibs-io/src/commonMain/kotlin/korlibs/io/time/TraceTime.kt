@@ -1,8 +1,8 @@
 package korlibs.io.time
 
-import korlibs.logger.Logger
 import korlibs.io.lang.Environment
-import kotlin.time.*
+import korlibs.logger.Logger
+import kotlin.time.measureTime
 
 @PublishedApi
 internal val logger = Logger("TraceTime")

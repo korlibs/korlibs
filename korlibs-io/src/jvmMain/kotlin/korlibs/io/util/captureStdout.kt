@@ -1,7 +1,8 @@
 package korlibs.io.util
 
-import korlibs.io.async.*
-import java.io.*
+import java.io.ByteArrayOutputStream
+import java.io.OutputStream
+import java.io.PrintStream
 
 object StdoutRouterStream : OutputStream() {
 	val defaultRoute = System.out

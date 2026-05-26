@@ -1,20 +1,20 @@
 package korlibs.io.core
 
+import java.io.File
+import java.io.InputStream
+import java.io.RandomAccessFile
+import java.net.URL
+import java.util.concurrent.CompletableFuture
 import korlibs.io.core.internal.InternalSystemFSShellArgs
 import korlibs.io.stream.DequeSyncStream
 import korlibs.io.stream.SyncOutputStream
+import kotlin.io.path.pathString
+import kotlin.io.path.readSymbolicLink
+import kotlin.reflect.KClass
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.io.File
-import java.io.InputStream
-import java.io.RandomAccessFile
-import java.net.*
-import java.util.concurrent.CompletableFuture
-import kotlin.io.path.pathString
-import kotlin.io.path.readSymbolicLink
-import kotlin.reflect.*
 
 actual val defaultSyncSystemFS: SyncSystemFS = JvmSyncSystemFS
 actual val defaultSystemFS: SystemFS by lazy { JvmSyncSystemFS.toAsync(Dispatchers.IO) }

@@ -3,7 +3,10 @@ package korlibs.io.util.checksum
 import korlibs.io.async.suspendTest
 import korlibs.io.lang.UTF8
 import korlibs.io.lang.toByteArray
-import korlibs.io.stream.*
+import korlibs.io.stream.MemoryAsyncStream
+import korlibs.io.stream.openAsync
+import korlibs.io.stream.openSync
+import korlibs.io.stream.writeString
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

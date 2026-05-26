@@ -1,7 +1,7 @@
 package korlibs.io.stream
 
-import korlibs.memory.ByteArrayBuilder
 import korlibs.io.async.suspendTest
+import korlibs.memory.ByteArrayBuilder
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

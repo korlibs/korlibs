@@ -1,8 +1,7 @@
 package korlibs.io.dynamic
 
-import org.junit.*
+import kotlin.test.assertEquals
 import org.junit.Test
-import kotlin.test.*
 
 class DynTest {
     @Test

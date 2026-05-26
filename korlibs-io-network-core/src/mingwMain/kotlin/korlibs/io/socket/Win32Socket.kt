@@ -2,15 +2,72 @@
 
 package korlibs.io.socket
 
-import kotlinx.cinterop.*
-import kotlinx.coroutines.*
-import platform.posix.*
+import kotlinx.cinterop.Arena
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.CPointerVar
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.cstr
+import kotlinx.cinterop.get
+import kotlinx.cinterop.getBytes
+import kotlinx.cinterop.invoke
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.plus
+import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.readValue
+import kotlinx.cinterop.refTo
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.set
+import kotlinx.cinterop.sizeOf
+import kotlinx.cinterop.toKString
+import kotlinx.cinterop.value
+import kotlinx.coroutines.delay
 import platform.posix.AF_INET
+import platform.posix.EWOULDBLOCK
+import platform.posix.SOCKET
 import platform.posix.SOCK_STREAM
-import platform.windows.*
+import platform.posix.WSAConnect
+import platform.posix.WSAData
+import platform.posix.WSASocket
+import platform.posix.init_sockets
+import platform.posix.posix_errno
+import platform.posix.send
+import platform.posix.sockaddr
+import platform.posix.sockaddr_in
+import platform.posix.u_longVar
+import platform.posix.wchar_tVar
+import platform.windows.AI_PASSIVE
+import platform.windows.CHARVar
+import platform.windows.DWORD
+import platform.windows.FORMAT_MESSAGE_ALLOCATE_BUFFER
+import platform.windows.FORMAT_MESSAGE_FROM_SYSTEM
+import platform.windows.FORMAT_MESSAGE_IGNORE_INSERTS
+import platform.windows.FormatMessageA
+import platform.windows.GetLastError
+import platform.windows.InitCommonControls
+import platform.windows.LANG_NEUTRAL
+import platform.windows.LPADDRINFOVar
+import platform.windows.LocalFree
+import platform.windows.SUBLANG_DEFAULT
 import platform.windows.WSAGetLastError
 import platform.windows.WSAStartup
-import win32ssl.*
+import platform.windows.addrinfo
+import platform.windows.getaddrinfo
+import win32ssl.SSL_SOCKET
+import win32ssl.SSL_alloc
+import win32ssl.SSL_close
+import win32ssl.SSL_free
+import win32ssl.SSL_inDequeue
+import win32ssl.SSL_outDequeue
+import win32ssl.SSL_process
+import win32ssl.SSL_setDebug
+import win32ssl.SSL_setDestinationName
+import win32ssl.SSL_writeReceived
+import win32ssl.SSL_writeToSend
 
 @OptIn(ExperimentalForeignApi::class)
 class Win32Socket private constructor(
@@ -218,17 +275,6 @@ class Win32Socket private constructor(
 			checkErrors("ioctlsocket")
 			return bytes_available[0].toInt()
 		}
-
-	//val connected: Boolean
-	//    get() {
-	//        memScoped {
-	//            if (!_connected) return false
-	//            val errorPtr = allocArray<IntVar>(1)
-	//            val lenPtr = longArrayOf(IntVar.size.convert())
-	//            val retval = getsockopt(sockfd, SOL_SOCKET, SO_ERROR, errorPtr, lenPtr.refTo(0).uncheckedCast())
-	//            return (retval == 0 || errorPtr[0] == 0)
-	//        }
-	//    }
 
 	private var _connected = false
 	private fun doClose() {

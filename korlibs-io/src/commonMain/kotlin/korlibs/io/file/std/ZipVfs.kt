@@ -1,8 +1,9 @@
 package korlibs.io.file.std
 
-import korlibs.io.compression.*
+import korlibs.io.compression.CompressionMethod
 import korlibs.io.compression.deflate.Deflate
 import korlibs.io.compression.deflate.DeflatePortable
+import korlibs.io.compression.uncompressed
 import korlibs.io.compression.zip.ZipBuilder
 import korlibs.io.compression.zip.ZipEntry2
 import korlibs.io.compression.zip.ZipFile
@@ -25,7 +26,6 @@ import korlibs.io.stream.toAsyncStream
 import korlibs.io.stream.withLength
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlin.collections.*
 
 suspend fun ZipVfs(
     s: AsyncStream,
@@ -41,7 +41,6 @@ suspend fun ZipVfs(
 
     val algoIdToName = mapOf(0 to "STORE", 8 to "DEFLATE", 14 to "LZMA")
 
-    //val s = zipFile.open(VfsOpenMode.READ)
     val zipFile = ZipFile(s, caseSensitive, fullName ?: vfsFile?.fullName)
 
     class Impl : Vfs() {

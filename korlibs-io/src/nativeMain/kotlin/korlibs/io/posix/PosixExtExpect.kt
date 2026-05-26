@@ -2,12 +2,26 @@
 
 package korlibs.io.posix
 
-import korlibs.time.*
-import kotlinx.cinterop.*
-import platform.posix.*
-import kotlin.time.*
+import korlibs.time.DateTime
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.CValuesRef
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
+import platform.posix.FILE
+import platform.posix.S_IFDIR
+import platform.posix.fclose
+import platform.posix.fread
+import platform.posix.fseek
+import platform.posix.ftell
+import platform.posix.fwrite
+import platform.posix.stat
+import platform.posix.truncate
 
 data class PosixStatInfo(
     val size: Long,

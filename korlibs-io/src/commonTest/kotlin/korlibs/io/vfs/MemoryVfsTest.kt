@@ -4,9 +4,9 @@ package korlibs.io.vfs
 
 import korlibs.io.async.suspendTest
 import korlibs.io.file.std.MemoryVfs
-import kotlinx.coroutines.delay
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.coroutines.delay
 
 class MemoryVfsTest {
 	@Test

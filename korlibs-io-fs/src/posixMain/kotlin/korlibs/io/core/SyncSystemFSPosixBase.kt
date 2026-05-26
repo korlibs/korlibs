@@ -2,8 +2,21 @@
 
 package korlibs.io.core
 
-import kotlinx.cinterop.*
-import platform.posix.*
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.toKString
+import platform.posix.FILE
+import platform.posix.PATH_MAX
+import platform.posix.fseek
+import platform.posix.ftell
+import platform.posix.ftruncate
+import platform.posix.readlink
+import platform.posix.realpath
 
 @OptIn(ExperimentalForeignApi::class)
 open class SyncSystemFSPosixBase : SyncSystemFSNativeBase() {

@@ -1,6 +1,9 @@
 package korlibs.io.util
 
-import org.khronos.webgl.*
+import org.khronos.webgl.ArrayBuffer
+import org.khronos.webgl.Int8Array
+import org.khronos.webgl.get
+import org.khronos.webgl.set
 
 fun ArrayBuffer.toByteArray(): ByteArray = Int8Array(this).toByteArray()
 fun Int8Array.toByteArray(): ByteArray {

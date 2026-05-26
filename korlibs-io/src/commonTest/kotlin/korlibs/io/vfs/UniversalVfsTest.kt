@@ -13,7 +13,7 @@ import korlibs.io.file.std.uniVfs
 import korlibs.io.lang.InvalidOperationException
 import korlibs.io.net.http.LogHttpClient
 import korlibs.io.util.expectException
-import korlibs.platform.*
+import korlibs.platform.Platform
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

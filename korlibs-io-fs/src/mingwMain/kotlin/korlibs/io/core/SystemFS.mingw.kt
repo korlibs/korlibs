@@ -2,9 +2,18 @@
 
 package korlibs.io.core
 
-import kotlinx.cinterop.*
-import kotlinx.coroutines.*
-import platform.posix.*
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKString
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import platform.posix.FILE
+import platform.posix._fseeki64
+import platform.posix._ftelli64
+import platform.posix.ftruncate64
 
 actual val defaultSyncSystemFS: SyncSystemFS = MingwSyncSystemFS
 actual val defaultSystemFS: SystemFS by lazy { SyncSystemFS.toAsync(Dispatchers.IO) }

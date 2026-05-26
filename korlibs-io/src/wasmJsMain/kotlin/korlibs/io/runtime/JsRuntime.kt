@@ -1,17 +1,20 @@
 package korlibs.io.runtime
 
-import korlibs.logger.*
-import korlibs.io.*
 import korlibs.io.file.VfsFile
 import korlibs.io.file.std.MemoryVfs
 import korlibs.io.file.std.localVfs
+import korlibs.io.isDenoJs
+import korlibs.io.isNodeJs
+import korlibs.io.isShell
+import korlibs.io.isWeb
+import korlibs.io.isWorker
 import korlibs.io.lang.Environment
 import korlibs.io.lang.tempPath
 import korlibs.io.net.AsyncClient
 import korlibs.io.net.AsyncServer
 import korlibs.io.net.http.HttpClient
 import korlibs.io.net.http.HttpServer
-import korlibs.platform.*
+import korlibs.logger.Logger
 
 abstract class JsRuntime {
     companion object {

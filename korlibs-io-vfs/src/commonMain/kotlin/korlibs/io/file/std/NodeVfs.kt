@@ -2,11 +2,22 @@
 
 package korlibs.io.file.std
 
-import korlibs.io.async.*
-import korlibs.io.file.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import kotlinx.coroutines.flow.*
+import korlibs.io.async.Signal
+import korlibs.io.file.PathInfo
+import korlibs.io.file.Vfs
+import korlibs.io.file.VfsFile
+import korlibs.io.file.VfsOpenMode
+import korlibs.io.file.VfsStat
+import korlibs.io.file.baseName
+import korlibs.io.file.folder
+import korlibs.io.lang.FileNotFoundException
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.AsyncStreamBase
+import korlibs.io.stream.MemorySyncStream
+import korlibs.io.stream.SyncStreamBase
+import korlibs.io.stream.toAsyncStream
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 open class NodeVfs(val caseSensitive: Boolean = true) : Vfs() {
 	private val events = Signal<FileEvent>()

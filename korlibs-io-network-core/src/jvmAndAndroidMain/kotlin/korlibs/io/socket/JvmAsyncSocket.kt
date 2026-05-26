@@ -1,13 +1,24 @@
 package korlibs.io.socket
 
-import kotlinx.coroutines.*
-import kotlinx.coroutines.sync.*
-import java.net.*
-import java.nio.*
+import java.net.InetSocketAddress
+import java.net.ProtocolFamily
+import java.net.ServerSocket
+import java.net.Socket
+import java.net.SocketAddress
+import java.net.SocketTimeoutException
+import java.net.StandardProtocolFamily
+import java.nio.ByteBuffer
 import java.nio.channels.ByteChannel
 import java.nio.channels.ServerSocketChannel
 import java.nio.channels.SocketChannel
-import javax.net.ssl.*
+import javax.net.ssl.SSLServerSocketFactory
+import javax.net.ssl.SSLSocketFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 
 class JvmAsyncSocket private constructor(val secure: Boolean = false, unit: Unit) : AsyncSocket {
     private val connectionQueue = Mutex()

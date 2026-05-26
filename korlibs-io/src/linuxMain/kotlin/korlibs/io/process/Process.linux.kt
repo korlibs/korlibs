@@ -2,16 +2,48 @@
 
 package korlibs.io.process
 
-import korlibs.time.*
-import korlibs.memory.*
-import korlibs.io.async.*
-import korlibs.io.file.*
-import korlibs.io.file.std.*
-import kotlinx.cinterop.*
-import kotlinx.coroutines.*
-import platform.posix.*
-import kotlin.collections.*
-import kotlin.*
+import korlibs.io.file.VfsProcessHandler
+import korlibs.io.file.std.ShellArgs
+import korlibs.memory.startAddressOf
+import korlibs.time.milliseconds
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.CPointerVar
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.IntVar
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.cstr
+import kotlinx.cinterop.get
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.set
+import kotlinx.cinterop.usePinned
+import kotlinx.cinterop.value
+import kotlinx.coroutines.delay
+import platform.posix.AF_UNIX
+import platform.posix.FILE
+import platform.posix.SOCK_STREAM
+import platform.posix.STDIN_FILENO
+import platform.posix.STDOUT_FILENO
+import platform.posix._exit
+import platform.posix.chdir
+import platform.posix.close
+import platform.posix.dup2
+import platform.posix.execv
+import platform.posix.fd_set
+import platform.posix.fdopen
+import platform.posix.fileno
+import platform.posix.fork
+import platform.posix.posix_FD_ISSET
+import platform.posix.posix_FD_SET
+import platform.posix.putenv
+import platform.posix.read
+import platform.posix.select
+import platform.posix.socketpair
+import platform.posix.timeval
+import platform.posix.waitpid
 
 actual suspend fun posixExec(
     path: String, cmdAndArgs: List<String>, env: Map<String, String>, handler: VfsProcessHandler

@@ -1,6 +1,6 @@
 package korlibs.io.compression
 
-import korlibs.platform.Platform
+import korlibs.encoding.unhexIgnoreSpaces
 import korlibs.io.async.suspendTest
 import korlibs.io.compression.deflate.Deflate
 import korlibs.io.compression.deflate.DeflatePortable
@@ -8,7 +8,7 @@ import korlibs.io.lang.UTF8
 import korlibs.io.lang.toString
 import korlibs.io.stream.openAsync
 import korlibs.io.stream.readAll
-import korlibs.encoding.unhexIgnoreSpaces
+import korlibs.platform.Platform
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

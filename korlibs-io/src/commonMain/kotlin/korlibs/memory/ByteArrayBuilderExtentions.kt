@@ -1,6 +1,6 @@
 package korlibs.memory
 
-import korlibs.number.*
+import korlibs.number.Half
 
 /**
  * Analogous to [StringBuilder] but for [ByteArray]. Allows to [append] values to end calling [toByteArray].

@@ -2,11 +2,14 @@
 
 package korlibs.io.worker
 
-import korlibs.io.async.*
-import korlibs.io.lang.*
-import kotlinx.coroutines.*
-import kotlin.coroutines.*
-import kotlin.reflect.*
+import korlibs.io.async.launchImmediately
+import korlibs.io.lang.Environment
+import korlibs.io.lang.currentStackTrace
+import kotlin.coroutines.EmptyCoroutineContext
+import kotlin.reflect.KClass
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.completeWith
 
 @PublishedApi
 internal expect val workerImpl: _WorkerImpl
@@ -99,10 +102,6 @@ class Worker : AutoCloseable {
             }
             block()
         }
-
-        //fun register(kClass: KClass<out WorkerTask>) {
-        //    println("REGISTER: $kClass")
-        //}
     }
 
     override fun close() {

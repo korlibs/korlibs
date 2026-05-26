@@ -1,14 +1,14 @@
 package korlibs.io.compression
 
+import korlibs.crypto.md5
+import korlibs.crypto.sha1
+import korlibs.crypto.sha256
+import korlibs.encoding.fromBase64
+import korlibs.encoding.unhex
 import korlibs.io.compression.lzo.LZO
 import korlibs.io.lang.UTF8
 import korlibs.io.lang.toByteArray
 import korlibs.io.lang.toString
-import korlibs.encoding.fromBase64
-import korlibs.encoding.unhex
-import korlibs.crypto.md5
-import korlibs.crypto.sha1
-import korlibs.crypto.sha256
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

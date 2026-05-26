@@ -1,9 +1,10 @@
 package korlibs.io.async
 
-import korlibs.io.stream.*
-import korlibs.math.*
-import korlibs.memory.*
-import kotlinx.coroutines.channels.*
+import korlibs.io.stream.AsyncInputStream
+import korlibs.io.stream.AsyncOutputStream
+import korlibs.math.ilog2
+import korlibs.memory.SimpleBytesDeque
+import kotlinx.coroutines.channels.Channel
 
 interface IAsyncRingBuffer : AsyncOutputStream, AsyncInputStream
 

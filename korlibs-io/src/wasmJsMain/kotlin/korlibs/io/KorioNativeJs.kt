@@ -1,8 +1,10 @@
 package korlibs.io
 
-import korlibs.io.runtime.*
-import korlibs.platform.*
-import org.w3c.dom.*
+import korlibs.io.runtime.JsRuntimeBrowser
+import korlibs.platform.Platform
+import org.w3c.dom.Element
+import org.w3c.dom.HTMLCollection
+import org.w3c.dom.get
 
 val isDenoJs get() = Platform.isJsDenoJs
 val isWeb get() = Platform.isJsBrowser

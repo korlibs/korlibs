@@ -1,8 +1,9 @@
 package korlibs.io.file.std
 
-import korlibs.io.file.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
+import korlibs.io.file.parts
+import korlibs.io.file.pathInfo
+import korlibs.io.lang.FileNotFoundException
+import korlibs.io.stream.AsyncStream
 
 class MemoryNodeTree(val caseSensitive: Boolean = true) {
     val rootNode = Node("", isDirectory = true)

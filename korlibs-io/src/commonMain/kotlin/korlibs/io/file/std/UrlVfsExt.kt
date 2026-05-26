@@ -21,8 +21,8 @@ import korlibs.io.stream.openAsync
 import korlibs.io.stream.readAll
 import korlibs.io.stream.toAsyncStream
 import korlibs.io.util.LONG_ZERO_TO_MAX_RANGE
-import kotlinx.coroutines.flow.Flow
 import kotlin.coroutines.coroutineContext
+import kotlinx.coroutines.flow.Flow
 
 fun UrlVfs(url: String, client: HttpClient = createHttpClient(), failFromStatus: Boolean = true): VfsFile =
     UrlVfs(URL(url), client, failFromStatus)
@@ -46,14 +46,6 @@ class FinalUrlVfs(
     failFromStatus: Boolean = true,
 ) : UrlVfs(url, dummy, failFromStatus) {
 	override val absolutePath: String = url
-
-	//suspend override fun open(path: String, mode: VfsOpenMode): AsyncStream {
-	//	return if (mode.write) {
-	//		TODO()
-	//	} else {
-	//		client.request(HttpClient.Method.GET, getFullUrl(path)).content.toAsyncStream()
-	//	}
-	//}
 
 	override suspend fun open(path: String, mode: VfsOpenMode): AsyncStream {
 		try {

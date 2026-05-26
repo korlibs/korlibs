@@ -2,10 +2,12 @@
 
 package korlibs.io.stream
 
-import korlibs.io.stream.*
-import korlibs.memory.*
-import kotlinx.coroutines.sync.*
-import kotlin.math.*
+import korlibs.memory.ByteArrayBuilder
+import korlibs.memory.SimpleBytesDeque
+import korlibs.memory.arraycopy
+import kotlin.math.min
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 fun AsyncStream.buffered(blockSize: Int = 2048, blocksToRead: Int = 0x10): AsyncStream = BufferedStreamBase(this.base, blockSize, blocksToRead).toAsyncStream(this.position)
 

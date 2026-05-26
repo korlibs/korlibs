@@ -1,9 +1,8 @@
 package korlibs.io.lang
 
-import korlibs.memory.*
 import korlibs.io.async.suspendTest
 import korlibs.io.file.std.MemoryVfsMix
-import korlibs.platform.*
+import korlibs.platform.Platform
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull

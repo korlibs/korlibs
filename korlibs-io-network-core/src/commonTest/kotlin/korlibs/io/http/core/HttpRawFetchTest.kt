@@ -1,10 +1,12 @@
 package korlibs.io.http.core
 
-import korlibs.io.socket.*
-import korlibs.io.stream.*
+import korlibs.io.socket.PairAsyncSocket
+import korlibs.io.stream.readAll
 import korlibs.platform.Platform
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import kotlin.test.Ignore
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.coroutines.test.runTest
 
 class HttpRawFetchTest {
     @Test

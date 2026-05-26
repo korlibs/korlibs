@@ -1,9 +1,24 @@
 @file:Suppress("PackageDirectoryMismatch")
 package korlibs.io.stream
 
-import korlibs.io.lang.*
-import korlibs.io.stream.internal.*
-import korlibs.memory.*
+import korlibs.io.lang.Charset
+import korlibs.io.lang.UTF8
+import korlibs.io.lang.toByteArray
+import korlibs.io.stream.internal.toBytez
+import korlibs.memory.set16BE
+import korlibs.memory.set16LE
+import korlibs.memory.set24BE
+import korlibs.memory.set24LE
+import korlibs.memory.set32BE
+import korlibs.memory.set32LE
+import korlibs.memory.set64BE
+import korlibs.memory.set64LE
+import korlibs.memory.setArrayBE
+import korlibs.memory.setArrayLE
+import korlibs.memory.setF32BE
+import korlibs.memory.setF32LE
+import korlibs.memory.setF64BE
+import korlibs.memory.setF64LE
 
 private inline fun <T> smallBytesAlloc(size: Int = 16, block: (ByteArray) -> T): T = ByteArray(size).let(block)
 

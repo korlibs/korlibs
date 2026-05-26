@@ -2,7 +2,7 @@
 
 package korlibs.io.stream
 
-import korlibs.memory.*
+import korlibs.memory.SimpleBytesDeque
 
 open class MarkableSyncStream(val inp: SyncInputStream) : MarkableSyncInputStream {
     private var markTemp = SimpleBytesDeque(8)

@@ -1,7 +1,7 @@
 package korlibs.io.net.http
 
-import korlibs.io.file.*
-import korlibs.io.stream.*
+import korlibs.io.file.VfsFile
+import korlibs.io.stream.slice
 
 suspend fun HttpServer.Request.end(file: VfsFile) {
     file.openUse { end(this) }

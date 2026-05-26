@@ -28,7 +28,7 @@ import korlibs.io.stream.readU16LE
 import korlibs.io.stream.readU8
 import korlibs.io.stream.skipToAlign
 import korlibs.io.stream.sliceWithSize
-import korlibs.util.*
+import korlibs.util.format
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.flow
 

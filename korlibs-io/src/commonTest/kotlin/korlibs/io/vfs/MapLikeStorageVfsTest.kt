@@ -1,16 +1,16 @@
 package korlibs.io.vfs
 
-import korlibs.time.DateTime
-import korlibs.time.TimeProvider
 import korlibs.io.async.suspendTest
 import korlibs.io.file.SimpleStorage
 import korlibs.io.file.fullName
 import korlibs.io.file.std.toVfs
 import korlibs.io.lang.toByteArray
 import korlibs.io.serialization.json.toJson
-import kotlinx.coroutines.flow.toList
+import korlibs.time.DateTime
+import korlibs.time.TimeProvider
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.coroutines.flow.toList
 
 class MapLikeStorageVfsTest {
     @Test

@@ -2,23 +2,19 @@ package korlibs.io.runtime.node
 
 @JsModule("node:http")
 @JsNonModule
-internal external object NodeHTTP {
-}
+internal external object NodeHTTP
 
 @JsModule("node:url")
 @JsNonModule
-internal external object NodeURL {
-}
+internal external object NodeURL
 
 @JsModule("node:net")
 @JsNonModule
-internal external object NodeNet {
-}
+internal external object NodeNet
 
 @JsModule("node:child_process")
 @JsNonModule
-internal external object NodeChildProcess {
-}
+internal external object NodeChildProcess
 
 @JsModule("node:path")
 @JsNonModule

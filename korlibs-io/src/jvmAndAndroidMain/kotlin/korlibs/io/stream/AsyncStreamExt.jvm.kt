@@ -1,10 +1,10 @@
 package korlibs.io.stream
 
-import korlibs.io.async.*
-import korlibs.io.lang.*
-import kotlinx.coroutines.*
-import java.io.*
-import kotlin.coroutines.*
+import java.io.InputStream
+import korlibs.io.async.withContextNullable
+import korlibs.io.lang.unsupported
+import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.Dispatchers
 
 fun InputStream.toAsync(context: CoroutineContext? = Dispatchers.IO, length: Long? = null): AsyncInputStream {
 	val syncIS = this

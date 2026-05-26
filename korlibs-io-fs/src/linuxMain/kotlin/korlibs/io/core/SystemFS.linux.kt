@@ -1,6 +1,7 @@
 package korlibs.io.core
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 
 actual val defaultSyncSystemFS: SyncSystemFS = LinuxSyncSystemFS
 actual val defaultSystemFS: SystemFS by lazy { SyncSystemFS.toAsync(Dispatchers.IO) }

@@ -1,7 +1,7 @@
 @file:Suppress("PackageDirectoryMismatch")
 package korlibs.io.stream
 
-import korlibs.datastructure.*
+import korlibs.datastructure.Extra
 
 interface SyncInputStream : AutoCloseable {
     fun read(buffer: ByteArray, offset: Int = 0, len: Int = buffer.size - offset): Int
@@ -135,26 +135,3 @@ class SyncStream(
 
     override fun toString(): String = "SyncStream($base, $position)"
 }
-
-
-//fun SyncStream(base: SyncStreamBase, position: Long = 0L): SyncStream = SyncStreamWithBase(base, position)
-//abstract class SyncStream : Extra by Extra.Mixin(), AutoCloseable, SyncInputStream, SyncPositionStream, SyncOutputStream, SyncLengthStream, MarkableSyncInputStream {
-//    abstract override fun write(buffer: ByteArray, offset: Int, len: Int)
-//    abstract override fun read(buffer: ByteArray, offset: Int, len: Int): Int
-//
-//    override fun close() = Unit
-//    override fun mark(readlimit: Int): Unit = TODO("Not yet implemented")
-//    override fun reset(): Unit = TODO("Not yet implemented")
-//
-//    abstract override var position: Long
-//    abstract override var length: Long
-//
-//    open var positionRead: Long by ::position
-//    open var positionWrite: Long by ::position
-//
-//    val availableRead: Long get() = length - positionRead
-//    val availableWrite: Long get() = length - positionWrite
-//    val available: Long get() = availableRead
-//
-//    abstract fun clone(): SyncStream
-//}

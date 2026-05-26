@@ -1,9 +1,13 @@
 package korlibs.io.file.std
 
-import korlibs.io.async.*
-import korlibs.io.file.*
-import korlibs.platform.*
-import kotlin.test.*
+import korlibs.io.async.runBlockingNoJs
+import korlibs.io.async.suspendTest
+import korlibs.io.file.baseName
+import korlibs.io.file.deleteRecursively
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFails
 
 class CaseSensitiveTest {
     private val cond: () -> Boolean = { !Platform.isJsOrWasm }

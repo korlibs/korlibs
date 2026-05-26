@@ -1,9 +1,11 @@
 @file:Suppress("PackageDirectoryMismatch")
 package korlibs.io.stream
 
-import korlibs.io.lang.*
-import korlibs.memory.*
-import kotlin.math.*
+import korlibs.io.lang.invalidOp
+import korlibs.io.lang.unsupported
+import korlibs.memory.arraycopy
+import kotlin.math.max
+import kotlin.math.min
 
 fun FastByteArrayInputStream.toSyncStream(): SyncStream = ReadonlySyncStreamBase(ba, start, end - start).open()
 fun FastByteArrayInputStream.toAsyncStream(): AsyncStream = toSyncStream().toAsync()

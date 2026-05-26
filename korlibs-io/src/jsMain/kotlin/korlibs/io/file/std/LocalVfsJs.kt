@@ -1,9 +1,7 @@
 package korlibs.io.file.std
 
-import korlibs.io.*
-import korlibs.io.file.*
-import korlibs.io.lang.Environment
-import korlibs.io.lang.tempPath
+import korlibs.io.file.VfsFile
+import korlibs.io.jsRuntime
 
 actual val standardVfs: StandardVfs = object : StandardVfs() {
     override val resourcesVfs: VfsFile by lazy { applicationVfs.jail() }

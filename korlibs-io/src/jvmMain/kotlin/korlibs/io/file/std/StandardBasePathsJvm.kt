@@ -1,4 +1,3 @@
 package korlibs.io.file.std
 
-actual object StandardPaths : StandardPathsJvmAndroid(), StandardPathsBase {
-}
+actual object StandardPaths : StandardPathsJvmAndroid(), StandardPathsBase

@@ -1,13 +1,22 @@
 package korlibs.io.core
 
-import korlibs.io.async.*
+import korlibs.io.async.AsyncCloseable
 import korlibs.io.lang.FileNotFoundException
-import korlibs.io.stream.*
-import korlibs.math.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
-import kotlin.coroutines.*
-import kotlin.reflect.*
+import korlibs.io.stream.AsyncInputStream
+import korlibs.io.stream.AsyncOutputStream
+import korlibs.io.stream.SyncInputStream
+import korlibs.io.stream.SyncOutputStream
+import korlibs.io.stream.toAsync
+import korlibs.math.toIntSafe
+import kotlin.coroutines.coroutineContext
+import kotlin.reflect.KClass
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 internal expect val defaultSyncSystemFS: SyncSystemFS
 internal expect val defaultSystemFS: SystemFS
@@ -28,25 +37,21 @@ val NullSystemFS: SystemFS = NullSyncSystemFS.toAsync(Dispatchers.Unconfined)
 interface SyncSystemFS {
     companion object : SyncSystemFS by defaultSyncSystemFS
 
-    open val fileSeparatorChar: Char get() = '/'
-    open val pathSeparatorChar: Char get() = ':'
+    val fileSeparatorChar: Char get() = '/'
+    val pathSeparatorChar: Char get() = ':'
 
-    open fun getcwd(): String = "."
+    fun getcwd(): String = "."
 
-    abstract fun open(path: String, write: Boolean = false): SyncFileSystemFS?
-    abstract fun listdir(path: String): Sequence<String>
-    abstract fun mkdir(path: String): Boolean
-    abstract fun rmdir(path: String): Boolean
-    abstract fun unlink(path: String): Boolean
-    abstract fun stat(path: String): FileSystemFSStat?
+    fun open(path: String, write: Boolean = false): SyncFileSystemFS?
+    fun listdir(path: String): Sequence<String>
+    fun mkdir(path: String): Boolean
+    fun rmdir(path: String): Boolean
+    fun unlink(path: String): Boolean
+    fun stat(path: String): FileSystemFSStat?
 
     fun exists(path: String): Boolean = stat(path) != null
     fun isFile(path: String): Boolean = stat(path)?.isDirectory == false
     fun isDirectory(path: String): Boolean = stat(path)?.isDirectory == true
-
-    //abstract fun realpath(path: String): String
-    //abstract fun readlink(path: String): String?
-    //abstract fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SyncSystemFSProcess
 
     fun realpath(path: String): String = TODO()
     fun readlink(path: String): String? = TODO()
@@ -86,20 +91,20 @@ open class SyncSystemFSProcess(
 interface SystemFS {
     companion object : SystemFS by defaultSystemFS
 
-    abstract suspend fun open(path: String, write: Boolean = false): FileSystemFS?
-    abstract suspend fun listdir(path: String): Flow<String>
-    abstract suspend fun mkdir(path: String): Boolean
-    abstract suspend fun rmdir(path: String): Boolean
-    abstract suspend fun unlink(path: String): Boolean
-    abstract suspend fun stat(path: String): FileSystemFSStat?
+    suspend fun open(path: String, write: Boolean = false): FileSystemFS?
+    suspend fun listdir(path: String): Flow<String>
+    suspend fun mkdir(path: String): Boolean
+    suspend fun rmdir(path: String): Boolean
+    suspend fun unlink(path: String): Boolean
+    suspend fun stat(path: String): FileSystemFSStat?
 
     suspend fun exists(path: String): Boolean = stat(path) != null
     suspend fun isFile(path: String): Boolean = stat(path)?.isDirectory == false
     suspend fun isDirectory(path: String): Boolean = stat(path)?.isDirectory == true
 
-    abstract suspend fun realpath(path: String): String
-    abstract suspend fun readlink(path: String): String?
-    abstract suspend fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SystemFSProcess
+    suspend fun realpath(path: String): String
+    suspend fun readlink(path: String): String?
+    suspend fun exec(commands: List<String>, envs: Map<String, String>, cwd: String): SystemFSProcess
 
     suspend fun getResourceLength(path: String, clazz: KClass<*>? = null): Long = TODO()
     suspend fun getResourceBytes(path: String, clazz: KClass<*>? = null): ByteArray = TODO()

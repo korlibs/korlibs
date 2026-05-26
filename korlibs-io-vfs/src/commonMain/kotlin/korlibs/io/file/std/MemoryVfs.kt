@@ -2,9 +2,19 @@
 
 package korlibs.io.file.std
 
-import korlibs.io.file.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
+import korlibs.io.file.PathInfo
+import korlibs.io.file.VfsFile
+import korlibs.io.file.baseName
+import korlibs.io.file.folder
+import korlibs.io.file.fullName
+import korlibs.io.lang.Charset
+import korlibs.io.lang.Charsets
+import korlibs.io.lang.UTF8
+import korlibs.io.lang.toByteArray
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.SyncStream
+import korlibs.io.stream.openAsync
+import korlibs.io.stream.toAsync
 
 fun SingleFileMemoryVfsWithName(data: ByteArray, name: String) = MemoryVfsMix(mapOf(name to data))[name]
 fun SingleFileMemoryVfsWithName(data: String, name: String, charset: Charset = Charsets.UTF8) = MemoryVfsMix(mapOf(name to data), charset = charset)[name]

@@ -1,14 +1,14 @@
 package korlibs.io.vfs
 
 import korlibs.io.async.suspendTest
-import korlibs.io.file.*
+import korlibs.io.file.fullName
 import korlibs.io.file.std.MemoryVfsMix
 import korlibs.io.lang.FileNotFoundException
 import korlibs.io.util.expectException
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.toList
 
 class JailVfsTest {
 	@Test

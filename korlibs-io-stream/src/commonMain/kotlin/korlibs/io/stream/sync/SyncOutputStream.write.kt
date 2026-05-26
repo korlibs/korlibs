@@ -1,9 +1,14 @@
 @file:Suppress("PackageDirectoryMismatch")
 package korlibs.io.stream
 
-import korlibs.io.lang.*
-import korlibs.io.stream.internal.*
-import korlibs.memory.*
+import korlibs.io.lang.Charset
+import korlibs.io.lang.UTF8
+import korlibs.io.lang.toByteArray
+import korlibs.io.stream.internal.toBytez
+import korlibs.memory.reinterpretAsInt
+import korlibs.memory.reinterpretAsLong
+import korlibs.memory.setArrayBE
+import korlibs.memory.setArrayLE
 
 fun SyncOutputStream.writeBytes(data: ByteArray): Unit = write(data, 0, data.size)
 fun SyncOutputStream.writeBytes(data: ByteArray, position: Int, length: Int): Unit = write(data, position, length)
