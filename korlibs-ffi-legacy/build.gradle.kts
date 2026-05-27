@@ -60,7 +60,6 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.korlibsIoFs)
             api(projects.korlibsPlatform)
             api(projects.korlibsDatastructure)
             api(projects.korlibsMemory)

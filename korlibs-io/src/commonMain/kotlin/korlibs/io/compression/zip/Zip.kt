@@ -21,7 +21,6 @@ import korlibs.io.stream.sliceWithSize
 import korlibs.math.toIntClamp
 import korlibs.math.unsigned
 import korlibs.memory.extract
-import korlibs.memory.indexOf
 import korlibs.time.DateTime
 import kotlin.math.max
 

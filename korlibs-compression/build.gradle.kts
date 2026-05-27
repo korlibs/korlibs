@@ -60,7 +60,6 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.korlibsIoStream)
             api(projects.korlibsConcurrent)
             implementation(projects.korlibsChecksum)
             implementation(projects.korlibsMathCore)

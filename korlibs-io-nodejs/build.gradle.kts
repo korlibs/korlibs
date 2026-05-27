@@ -1,7 +1,5 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
-import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinMetadataTarget
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -59,26 +57,4 @@ kotlin {
     linuxArm64()
     macosArm64()
     // TODO Add android native targets as well
-
-    sourceSets {
-        commonMain.dependencies {
-            implementation(projects.korlibsPlatform)
-            implementation(projects.korlibsIo)
-        }
-        commonTest.dependencies {
-            implementation(projects.korlibsTime)
-            implementation(libs.kotlin.test)
-            implementation(libs.kotlinx.coroutines.test)
-        }
-
-        val nonJsMain by creating {
-            dependsOn(commonMain.get())
-        }
-
-        targets
-            .filter { it.platformType != KotlinPlatformType.js && it !is KotlinMetadataTarget }
-            .forEach { target ->
-                getByName("${target.name}Main").dependsOn(nonJsMain)
-            }
-    }
 }

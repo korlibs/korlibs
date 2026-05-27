@@ -3,6 +3,8 @@ import org.gradle.internal.extensions.stdlib.capitalized
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
+import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinMetadataTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.TestExecutable
 
@@ -57,7 +59,15 @@ kotlin {
     watchosArm32()
     watchosDeviceArm64()
     watchosSimulatorArm64()
-    mingwX64()
+    mingwX64 {
+        compilations.getByName("main") {
+            cinterops {
+                create("win32ssl") {
+                    defFile(project.file("nativeInterop/cinterop/win32ssl.def"))
+                }
+            }
+        }
+    }
     linuxX64()
     linuxArm64()
     macosArm64()
@@ -65,15 +75,12 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(projects.korlibsAnnotations)
             api(projects.korlibsChecksum)
             api(projects.korlibsCompression)
             api(projects.korlibsJseval)
-            api(projects.korlibsIoVfs)
-            api(projects.korlibsIoStream)
-            api(projects.korlibsIoNetworkCore)
             api(projects.korlibsMathCore)
             api(projects.korlibsMemory)
-            api(projects.korlibsFfiLegacy)
             api(projects.korlibsCrypto)
             api(projects.korlibsEncoding)
             api(projects.korlibsPlatform)
@@ -84,8 +91,10 @@ kotlin {
             api(projects.korlibsDyn)
             api(projects.korlibsString)
             api(projects.korlibsSerialization)
-            api(projects.korlibsIoFs)
+            implementation(projects.korlibsConcurrent)
+
             api(libs.kotlinx.atomicfu)
+            api(libs.kotlinx.coroutines.core)
         }
 
         val concurrentMain by creating {
@@ -121,6 +130,16 @@ kotlin {
             dependsOn(jvmAndAndroidMain)
             dependsOn(concurrentMain)
         }
+
+        val nonJsMain by creating {
+            dependsOn(commonMain.get())
+        }
+
+        targets
+            .filter { it.platformType != KotlinPlatformType.js && it !is KotlinMetadataTarget }
+            .forEach { target ->
+                getByName("${target.name}Main").dependsOn(nonJsMain)
+            }
 
         commonTest.dependencies {
             implementation(projects.korlibsTime)

@@ -52,66 +52,9 @@ kotlin {
     watchosArm32()
     watchosDeviceArm64()
     watchosSimulatorArm64()
-    mingwX64 {
-        compilations.getByName("main") {
-            cinterops {
-                create("win32ssl") {
-                    defFile(project.file("nativeInterop/cinterop/win32ssl.def"))
-                }
-            }
-        }
-    }
+    mingwX64()
     linuxX64()
     linuxArm64()
     macosArm64()
     // TODO Add android native targets as well
-
-    sourceSets {
-        commonMain.dependencies {
-            api(projects.korlibsAnnotations)
-            implementation(projects.korlibsDatastructure)
-            implementation(projects.korlibsLogger)
-            api(projects.korlibsPlatform)
-            api(projects.korlibsIoStream)
-            api(libs.kotlinx.coroutines.core)
-        }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
-            implementation(libs.kotlinx.coroutines.test)
-        }
-
-        val concurrentMain by creating {
-            dependsOn(commonMain.get())
-        }
-
-        val posixMain by creating {
-            dependsOn(nativeMain.get())
-        }
-
-        val jvmAndAndroidMain by creating {
-            dependsOn(commonMain.get())
-        }
-
-        linuxMain {
-            dependsOn(posixMain)
-        }
-
-        appleMain {
-            dependsOn(posixMain)
-        }
-
-        jvmMain {
-            dependsOn(concurrentMain)
-            dependsOn(jvmAndAndroidMain)
-        }
-
-        androidMain {
-            dependsOn(concurrentMain)
-            dependsOn(jvmAndAndroidMain)
-        }
-
-        nativeMain {
-            dependsOn(concurrentMain)
-        }
-    }
 }

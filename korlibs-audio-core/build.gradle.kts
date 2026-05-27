@@ -64,7 +64,7 @@ kotlin {
             api(projects.korlibsMathVector)
             implementation(projects.korlibsFfiLegacy)
             implementation(projects.korlibsPlatform)
-            implementation(projects.korlibsIoFs)
+            implementation(projects.korlibsIo)
         }
 
         val appleIosTvosMain by creating {

@@ -57,40 +57,4 @@ kotlin {
     linuxArm64()
     macosArm64()
     // TODO Add android native targets as well
-
-    sourceSets {
-        commonMain.dependencies {
-            api(projects.korlibsPlatform)
-            api(projects.korlibsIoStream)
-            api(libs.kotlinx.coroutines.core)
-        }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
-            implementation(libs.kotlinx.coroutines.test)
-        }
-
-        val posixMain by creating {
-            dependsOn(nativeMain.get())
-        }
-
-        val jvmAndAndroidMain by creating {
-            dependsOn(commonMain.get())
-        }
-
-        linuxMain {
-            dependsOn(posixMain)
-        }
-
-        appleMain {
-            dependsOn(posixMain)
-        }
-
-        jvmMain {
-            dependsOn(jvmAndAndroidMain)
-        }
-
-        androidMain {
-            dependsOn(jvmAndAndroidMain)
-        }
-    }
 }

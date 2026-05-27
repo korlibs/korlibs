@@ -57,21 +57,4 @@ kotlin {
     linuxArm64()
     macosArm64()
     // TODO Add android native targets as well
-
-    sourceSets {
-        commonMain.dependencies {
-            implementation(projects.korlibsIoFs)
-            implementation(projects.korlibsConcurrent)
-            api(projects.korlibsPlatform)
-            api(projects.korlibsIoStream)
-            api(projects.korlibsTime)
-            api(projects.korlibsString)
-            api(libs.kotlinx.coroutines.core)
-        }
-        commonTest.dependencies {
-            implementation(projects.korlibsTime)
-            implementation(libs.kotlin.test)
-            implementation(libs.kotlinx.coroutines.test)
-        }
-    }
 }

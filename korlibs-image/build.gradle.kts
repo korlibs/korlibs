@@ -69,7 +69,6 @@ kotlin {
         commonMain.dependencies {
             api(projects.korlibsIo)
             implementation(projects.korlibsAnnotations)
-            api(projects.korlibsIoVfs)
             api(projects.korlibsMath)
             api(projects.korlibsFfiLegacy)
             api(projects.korlibsString)
