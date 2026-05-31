@@ -7,6 +7,7 @@ import korlibs.io.file.std.MemoryVfs
 import kotlinx.coroutines.delay
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.time.Duration.Companion.milliseconds
 
 class MemoryVfsTest {
 	@Test
@@ -21,7 +22,7 @@ class MemoryVfsTest {
 		mem["item.txt"].writeString("test")
 		mem["test"].mkdir()
 		mem["test"].delete()
-		delay(100)
+		delay(duration = 100.milliseconds)
 		assertEquals(
 			"[MODIFIED(NodeVfs[/item.txt]), CREATED(NodeVfs[/test]), DELETED(NodeVfs[/test])]",
 			log.toString()

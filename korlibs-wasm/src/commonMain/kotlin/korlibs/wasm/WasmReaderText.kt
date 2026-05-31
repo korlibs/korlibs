@@ -228,10 +228,10 @@ class WasmReaderText {
                 builder.addType(NamedWasmType(builder.types.size, typeName, type))
             }
             "table" -> {
-                var name = "\$"
+                var name = "$"
                 var type = ""
                 for (vtype in block.valueParams) {
-                    if (vtype.value.startsWith("\$")) {
+                    if (vtype.value.startsWith("$")) {
                         name = vtype.value
                     } else {
                         type = vtype.value
@@ -277,7 +277,7 @@ class WasmReaderText {
                 var expr: WasmExpr? = null
                 for (param in block.params) {
                     when {
-                        param is WastValue && param.value.startsWith("\$") -> {
+                        param is WastValue && param.value.startsWith("$") -> {
                             gname = param.value
                         }
                         type == null -> {
@@ -309,7 +309,7 @@ class WasmReaderText {
                         when (param.name) {
                             "param", "local" -> {
                                 for (pp in param.params) {
-                                    if (pp is WastValue && pp.value.startsWith("\$")) {
+                                    if (pp is WastValue && pp.value.startsWith("$")) {
                                         vname = pp.value
                                     } else {
                                         funcBuilder.addVar(vname, readType(pp), isParam = param.name == "param")
@@ -329,8 +329,8 @@ class WasmReaderText {
                             }
                             "type" -> {
                                 val typeName = param.valueParams.first().value
-                                val type = builder.typesByName[typeName] ?: error("Can't find type '$typeName'")
-                                val ftype = type as? WasmType.Function? ?: error("Type $type is not a function")
+                                val namedType = builder.typesByName[typeName] ?: error("Can't find type '$typeName'")
+                                val ftype = namedType.type as? WasmType.Function? ?: error("Type ${namedType.type} is not a function")
                                 for (arg in ftype.args) funcBuilder.addVar(arg, isParam = true)
                                 funcBuilder.addResult(ftype.retType)
                             }

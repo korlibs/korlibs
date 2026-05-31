@@ -5,6 +5,7 @@ import korlibs.io.file.std.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import kotlin.test.*
+import kotlin.time.Duration.Companion.milliseconds
 
 class VfsProxyTest {
     @Test
@@ -18,13 +19,13 @@ class VfsProxyTest {
             }
             override suspend fun init() {
                 withContext(Dispatchers.CIO) {
-                    delay(100L)
+                    delay(duration = 100.milliseconds)
                     initialized = true
                 }
             }
         }
         val job = CoroutineScope(coroutineContext).launch { vfs["hello"].readString() }
-        delay(1L)
+        delay(duration = 1.milliseconds)
         job.cancel()
         assertEquals("demo", vfs["hello"].readString())
     }
