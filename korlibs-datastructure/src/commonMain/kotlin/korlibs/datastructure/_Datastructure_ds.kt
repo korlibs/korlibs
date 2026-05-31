@@ -926,6 +926,7 @@ data class BVHVector(val data: DoubleArray) {
     override fun equals(other: Any?): Boolean = other is BVHVector && data.contentEquals(other.data)
 
     override fun toString(): String = "BVHVector(${data.joinToString(", ") { it.niceStr }})"
+    override fun hashCode(): Int = data.contentHashCode()
 }
 
 private fun checkDimensions(actual: Int, expected: Int) {
