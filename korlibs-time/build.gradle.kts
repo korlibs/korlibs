@@ -60,10 +60,22 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.korlibsTimeCore)
+            api(projects.korlibsAnnotations)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+
+        val jvmAndAndroidMain by creating {
+            dependsOn(commonMain.get())
+        }
+
+        jvmMain {
+            dependsOn(jvmAndAndroidMain)
+        }
+
+        androidMain {
+            dependsOn(jvmAndAndroidMain)
         }
     }
 }
