@@ -31,6 +31,7 @@ plugins {
 // Each platform artifact is derived automatically, e.g. korlibs-image-jvm, korlibs-image-android, etc.
 val relocatedModules = mapOf(
     "korlibs-image-core" to "korlibs-image",
+    "korlibs-time-core" to "korlibs-time",
     // add more mappings here as needed
 )
 

@@ -61,7 +61,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.korlibsConcurrent)
-            api(projects.korlibsTimeCore)
+            api(projects.korlibsTime)
             api(projects.korlibsMathVector)
             api(projects.korlibsDatastructureCore)
         }
