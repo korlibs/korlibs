@@ -77,7 +77,6 @@ kotlin {
         commonMain.dependencies {
             api(projects.korlibsAnnotations)
             api(projects.korlibsChecksum)
-            api(projects.korlibsCompression)
             api(projects.korlibsJseval)
             api(projects.korlibsMathCore)
             api(projects.korlibsMemory)
@@ -91,7 +90,8 @@ kotlin {
             api(projects.korlibsDyn)
             api(projects.korlibsString)
             api(projects.korlibsSerialization)
-            implementation(projects.korlibsConcurrent)
+            api(projects.korlibsConcurrent)
+            api(projects.korlibsFfiLegacy)
 
             api(libs.kotlinx.atomicfu)
             api(libs.kotlinx.coroutines.core)

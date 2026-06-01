@@ -2,11 +2,37 @@
 
 package korlibs.compression.deflate
 
-import kotlinx.cinterop.*
-import platform.posix.*
-import platform.zlib.*
-import kotlin.time.*
 import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.measureTime
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.sizeOf
+import kotlinx.cinterop.toKString
+import kotlinx.cinterop.toKStringFromUtf8
+import kotlinx.cinterop.usePinned
+import platform.posix.getenv
+import platform.posix.memset
+import platform.zlib.Z_DATA_ERROR
+import platform.zlib.Z_FINISH
+import platform.zlib.Z_MEM_ERROR
+import platform.zlib.Z_NEED_DICT
+import platform.zlib.Z_NO_FLUSH
+import platform.zlib.Z_OK
+import platform.zlib.Z_STREAM_END
+import platform.zlib.Z_STREAM_ERROR
+import platform.zlib.deflate
+import platform.zlib.deflateEnd
+import platform.zlib.deflateInit2_
+import platform.zlib.inflateEnd
+import platform.zlib.inflateInit2_
+import platform.zlib.z_stream
+import platform.zlib.zlibVersion
 
 private const val CHUNK = 8 * 1024 * 1024
 

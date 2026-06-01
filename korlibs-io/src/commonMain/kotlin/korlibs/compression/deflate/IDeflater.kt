@@ -1,7 +1,9 @@
 package korlibs.compression.deflate
 
-import korlibs.io.compression.*
-import korlibs.io.stream.*
+import korlibs.io.compression.CompressionContext
+import korlibs.io.compression.CompressionMethod
+import korlibs.io.stream.AsyncInputStream
+import korlibs.io.stream.AsyncOutputStream
 
 internal interface IDeflaterInternal : IDeflater {
     suspend fun uncompress(i: DeflaterBitReader, o: DeflaterAsyncOutputStream)

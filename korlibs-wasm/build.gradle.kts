@@ -70,7 +70,7 @@ kotlin {
             api(projects.korlibsLogger)
             api(projects.korlibsMathCore)
             api(projects.korlibsDatastructure)
-            implementation(projects.korlibsCompression)
+            implementation(projects.korlibsIo)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

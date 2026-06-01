@@ -1,6 +1,7 @@
 package korlibs.compression.deflate
 
-import java.util.zip.*
+import java.util.zip.Deflater
+import java.util.zip.Inflater
 
 actual fun DeflaterNative(windowBits: Int): IDeflater = object : IDeflaterInternal {
     override suspend fun uncompress(i: DeflaterBitReader, o: DeflaterAsyncOutputStream) {

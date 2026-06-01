@@ -1,6 +1,13 @@
 package korlibs.compression.lzo
 
-import korlibs.compression.lzo.internal.*
+import korlibs.compression.lzo.internal.arraycopy
+import korlibs.compression.lzo.internal.getS64LE
+import korlibs.compression.lzo.internal.getU16LE
+import korlibs.compression.lzo.internal.getU32LE
+import korlibs.compression.lzo.internal.getU8
+import korlibs.compression.lzo.internal.set32LE
+import korlibs.compression.lzo.internal.set64LE
+import korlibs.compression.lzo.internal.set8
 
 @ExperimentalStdlibApi
 object LzoRawDecompressor {

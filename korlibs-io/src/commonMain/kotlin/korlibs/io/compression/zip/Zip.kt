@@ -4,6 +4,7 @@ import korlibs.encoding.hex
 import korlibs.io.file.PathInfo
 import korlibs.io.file.baseName
 import korlibs.io.file.getPathFullComponents
+import korlibs.io.internal.indexOf
 import korlibs.io.stream.AsyncStream
 import korlibs.io.stream.EMPTY_BYTE_ARRAY
 import korlibs.io.stream.openAsync

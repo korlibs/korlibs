@@ -6,6 +6,7 @@ import korlibs.io.file.VfsFile
 import korlibs.io.file.VfsOpenMode
 import korlibs.io.file.fullName
 import korlibs.io.lang.UTF8
+import korlibs.io.lang.toByteArray
 import korlibs.io.stream.AsyncInputOpenable
 import korlibs.io.stream.AsyncInputStream
 import korlibs.io.stream.AsyncOutputStream

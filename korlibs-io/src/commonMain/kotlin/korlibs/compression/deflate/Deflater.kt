@@ -1,6 +1,6 @@
 package korlibs.compression.deflate
 
-import kotlin.math.*
+import kotlin.math.min
 
 // @TODO: Use sync API, suspend but do not use asynchronous stuff. Simplify interface for input and output
 // @TODO: Act like a sequence of status (waiting for filling input, waiting for filling output, etc.)

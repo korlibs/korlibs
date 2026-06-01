@@ -37,6 +37,7 @@ val relocatedModules = mapOf(
     "korlibs-io-nodejs" to "korlibs-io",
     "korlibs-io-stream" to "korlibs-io",
     "korlibs-io-vfs" to "korlibs-io",
+    "korlibs-compression" to "korlibs-io",
     // add more mappings here as needed
 )
 

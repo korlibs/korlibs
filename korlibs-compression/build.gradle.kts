@@ -57,25 +57,4 @@ kotlin {
     linuxArm64()
     macosArm64()
     // TODO Add android native targets as well
-
-    sourceSets {
-        commonMain.dependencies {
-            api(projects.korlibsConcurrent)
-            implementation(projects.korlibsChecksum)
-            implementation(projects.korlibsMathCore)
-            implementation(projects.korlibsDatastructureCore)
-        }
-
-        val jvmAndAndroidMain by creating {
-            dependsOn(commonMain.get())
-        }
-
-        jvmMain {
-            dependsOn(jvmAndAndroidMain)
-        }
-
-        androidMain {
-            dependsOn(jvmAndAndroidMain)
-        }
-    }
 }

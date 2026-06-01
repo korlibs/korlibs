@@ -1,10 +1,24 @@
 package korlibs.compression.deflate
 
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import korlibs.memory.*
-import kotlin.math.*
-
+import korlibs.io.lang.ASCII
+import korlibs.io.lang.toString
+import korlibs.io.stream.AsyncGetLengthStream
+import korlibs.io.stream.AsyncInputStream
+import korlibs.io.stream.AsyncInputStreamWithLength
+import korlibs.io.stream.AsyncOutputStream
+import korlibs.io.stream.MemorySyncStreamToByteArray
+import korlibs.io.stream.getAvailable
+import korlibs.io.stream.hasAvailable
+import korlibs.io.stream.readBytesExact
+import korlibs.io.stream.write16LE
+import korlibs.io.stream.write8
+import korlibs.io.stream.writeBytes
+import korlibs.memory.SimpleRingBuffer
+import korlibs.memory.getS32BE
+import korlibs.memory.getS32LE
+import korlibs.memory.getU16LE
+import kotlin.math.max
+import kotlin.math.min
 
 // @TODO: This interface is not good
 internal interface DeflaterBitReader {

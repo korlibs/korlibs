@@ -1,6 +1,7 @@
 package korlibs.compression.lzma
 
-import kotlin.math.*
+import kotlin.math.max
+import kotlin.math.min
 
 @ExperimentalStdlibApi
 object SevenZip {
