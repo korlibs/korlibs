@@ -27,8 +27,8 @@ plugins {
     alias(libs.plugins.vanniktech.mavenPublish)
 }
 
-// Relocated modules: old project name -> new artifact ID (root/kotlinMultiplatform artifact).
-// Each platform artifact is derived automatically, e.g. korlibs-image-jvm, korlibs-image-android, etc.
+// Relocated modules: old project name -> new base artifact ID.
+// Each platform artifact is derived automatically using the suffixes below.
 val relocatedModules = mapOf(
     "korlibs-image-core" to "korlibs-image",
     "korlibs-time-core" to "korlibs-time",
@@ -41,27 +41,26 @@ val relocatedModules = mapOf(
     // add more mappings here as needed
 )
 
-// Maps KMP publication name -> artifact ID suffix used by vanniktech.
-// kotlinMultiplatform is the root POM and gets no suffix.
-val publicationSuffixes = mapOf(
-    "kotlinMultiplatform"    to "",
-    "android"                to "-android",
-    "jvm"                    to "-jvm",
-    "js"                     to "-js",
-    "wasmJs"                 to "-wasm-js",
-    "iosArm64"               to "-iosarm64",
-    "iosSimulatorArm64"      to "-iossimulatorarm64",
-    "iosX64"                 to "-iosx64",
-    "tvosArm64"              to "-tvosarm64",
-    "tvosSimulatorArm64"     to "-tvossimulatorarm64",
-    "watchosArm32"           to "-watchosarm32",
-    "watchosArm64"           to "-watchosarm64",
-    "watchosDeviceArm64"     to "-watchosdevicearm64",
-    "watchosSimulatorArm64"  to "-watchossimulatorarm64",
-    "linuxArm64"             to "-linuxarm64",
-    "linuxX64"               to "-linuxx64",
-    "macosArm64"             to "-macosarm64",
-    "mingwX64"               to "-mingwx64",
+// Suffix for each KMP platform. Empty string = root/kotlinMultiplatform POM.
+val platformSuffixes = listOf(
+    "",
+    "-android",
+    "-jvm",
+    "-js",
+    "-wasm-js",
+    "-iosarm64",
+    "-iossimulatorarm64",
+    "-iosx64",
+    "-tvosarm64",
+    "-tvossimulatorarm64",
+    "-watchosarm32",
+    "-watchosarm64",
+    "-watchosdevicearm64",
+    "-watchossimulatorarm64",
+    "-linuxarm64",
+    "-linuxx64",
+    "-macosarm64",
+    "-mingwx64",
 )
 
 subprojects {
@@ -117,27 +116,57 @@ subprojects {
     }
 }
 
-// Inject relocation POMs after all subprojects have fully configured,
-// so vanniktech + KMP have registered every MavenPublication by this point.
-gradle.projectsEvaluated {
-    subprojects {
-        val newBaseArtifactId = relocatedModules[name] ?: return@subprojects
-        val publishingExt = extensions.findByType<PublishingExtension>() ?: return@subprojects
+// For each relocated module, generate a stub subproject that publishes
+// one redirect-only POM per platform — no sources, no compilation.
+relocatedModules.forEach { (oldName, newBaseName) ->
+    project(":$oldName").run {
+        apply(plugin = "com.vanniktech.maven.publish")
 
-        publishingExt.publications.withType<MavenPublication>().configureEach {
-            val suffix = publicationSuffixes[name] ?: run {
-                logger.warn("WARNING: Unknown publication '${name}' in project '${project.name}' — skipping relocation POM")
-                return@configureEach
-            }
-            val targetArtifactId = newBaseArtifactId + suffix
-            logger.lifecycle("Relocating ${project.name} publication '$name': ${artifactId} -> $targetArtifactId")
-            pom {
-                distributionManagement {
-                    relocation {
-                        groupId.set(project.group.toString())
-                        artifactId.set(targetArtifactId)
-                        version.set(project.version.toString())
-                        message.set("${project.name} has been merged into $newBaseArtifactId")
+        configure<PublishingExtension> {
+            publications {
+                platformSuffixes.forEach { suffix ->
+                    val oldArtifactId = "$oldName$suffix"
+                    val newArtifactId = "$newBaseName$suffix"
+                    // Derive a valid Gradle publication name from the suffix
+                    val publicationName = suffix
+                        .removePrefix("-")
+                        .replace("-", "")
+                        .ifEmpty { "root" }
+
+                    create<MavenPublication>(publicationName) {
+                        groupId = group.toString()
+                        artifactId = oldArtifactId
+                        version = version.toString()
+
+                        pom {
+                            val projectUrl = "https://github.com/korlibs/korlibs"
+                            name.set(oldArtifactId)
+                            description.set("Relocated to $newArtifactId")
+                            url.set(projectUrl)
+                            inceptionYear.set("2020")
+                            licenses {
+                                license {
+                                    name.set("MIT")
+                                    url.set("https://raw.githubusercontent.com/korlibs/korlibs/refs/heads/main/LICENSE")
+                                }
+                            }
+                            developers {
+                                developer {
+                                    id.set("korge")
+                                    name.set("Korge Team")
+                                    email.set("info@korge.org")
+                                }
+                            }
+                            scm { url.set(projectUrl) }
+                            distributionManagement {
+                                relocation {
+                                    groupId.set(rootProject.group.toString())
+                                    artifactId.set(newArtifactId)
+                                    version.set(rootProject.version.toString())
+                                    message.set("$oldArtifactId has been relocated to $newArtifactId")
+                                }
+                            }
+                        }
                     }
                 }
             }
