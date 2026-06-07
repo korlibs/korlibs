@@ -1,7 +1,5 @@
 package korlibs.io.vfs
 
-import korlibs.time.DateFormat
-import korlibs.time.format
 import korlibs.io.async.suspendTestNoBrowser
 import korlibs.io.file.fullName
 import korlibs.io.file.std.MemoryVfs
@@ -16,12 +14,14 @@ import korlibs.io.serialization.xml.readXml
 import korlibs.io.stream.SeekNotSupportedException
 import korlibs.io.stream.openAsync
 import korlibs.io.stream.readAvailable
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
+import korlibs.time.DateFormat
+import korlibs.time.format
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNotEquals
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.toList
 
 @Suppress("EXPERIMENTAL_FEATURE_WARNING")
 class ZipVfsTest {

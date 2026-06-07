@@ -1,17 +1,5 @@
 package korlibs.io.internal
 
-
-
-
-
-
-
-
-
-
-
-
-
 internal infix fun Int.divCeil(other: Int): Int {
     val res = this / other
     if (this % other != 0) return res + 1

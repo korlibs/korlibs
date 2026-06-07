@@ -2,12 +2,15 @@
 
 package korlibs.io.worker
 
-import korlibs.concurrent.thread.*
-import korlibs.io.lang.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.*
-import kotlin.concurrent.*
-import kotlin.reflect.*
+import korlibs.concurrent.thread.NativeThread
+import korlibs.concurrent.thread.nativeThread
+import kotlin.concurrent.AtomicInt
+import kotlin.reflect.KClass
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.completeWith
+import kotlinx.coroutines.runBlocking
 
 actual annotation class WorkerExport()
 

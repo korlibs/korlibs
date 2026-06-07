@@ -1,14 +1,19 @@
 package korlibs.io.net
 
-import korlibs.memory.ByteArrayBuilder
+import korlibs.encoding.Hex
+import korlibs.encoding.toBase64
 import korlibs.io.file.normalize
 import korlibs.io.file.pathInfo
+import korlibs.io.lang.Charset
+import korlibs.io.lang.MalformedInputException
+import korlibs.io.lang.UTF8
+import korlibs.io.lang.substr
+import korlibs.io.lang.toByteArray
+import korlibs.io.lang.toString
 import korlibs.io.util.StrReader
 import korlibs.io.util.substringAfterOrNull
 import korlibs.io.util.substringBeforeOrNull
-import korlibs.encoding.Hex
-import korlibs.encoding.toBase64
-import korlibs.io.lang.*
+import korlibs.memory.ByteArrayBuilder
 
 data class URL private constructor(
 	val isOpaque: Boolean,

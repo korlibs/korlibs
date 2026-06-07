@@ -1,8 +1,7 @@
 package korlibs.io.net
 
 import korlibs.datastructure.iterators.fastForEach
-import korlibs.io.file.*
-import kotlin.collections.set
+import korlibs.io.file.Vfs
 
 private val MimeType_byExtensions by lazy { LinkedHashMap<String, MimeType>() }
 

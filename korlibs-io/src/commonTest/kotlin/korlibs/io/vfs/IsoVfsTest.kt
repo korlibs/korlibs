@@ -4,10 +4,10 @@ import korlibs.io.async.suspendTestNoBrowser
 import korlibs.io.file.fullName
 import korlibs.io.file.std.openAsIso
 import korlibs.io.file.std.resourcesVfs
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.toList
 
 class IsoVfsTest {
 	@Test

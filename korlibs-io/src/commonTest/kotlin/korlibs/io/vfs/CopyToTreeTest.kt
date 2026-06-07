@@ -2,13 +2,13 @@ package korlibs.io.vfs
 
 import korlibs.io.async.suspendTest
 import korlibs.io.file.fullName
-import korlibs.io.file.std.*
+import korlibs.io.file.std.MemoryVfs
 import korlibs.io.lang.toByteArray
 import korlibs.io.stream.openAsync
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.toList
 
 class CopyToTreeTest {
 	@Test

@@ -1,8 +1,8 @@
 package korlibs.io.i18n
 
-import korlibs.logger.*
 import korlibs.io.util.i18n.Language
-import kotlin.test.*
+import korlibs.logger.Logger
+import kotlin.test.Test
 
 class LanguageTest {
     val logger = Logger("LanguageTest")

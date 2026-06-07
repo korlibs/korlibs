@@ -1,12 +1,13 @@
 package korlibs.io.vfs
 
 import korlibs.io.async.suspendTest
-import korlibs.io.file.*
+import korlibs.io.file.VfsFile
+import korlibs.io.file.fullPathNormalized
 import korlibs.io.file.std.MemoryVfsMix
 import korlibs.io.file.std.withCatalog
-import kotlinx.coroutines.flow.toList
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.coroutines.flow.toList
 
 class CatalogVfsTest {
     @Test

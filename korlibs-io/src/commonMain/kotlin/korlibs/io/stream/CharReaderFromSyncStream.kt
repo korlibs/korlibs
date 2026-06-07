@@ -1,7 +1,7 @@
 package korlibs.io.stream
 
-import korlibs.datastructure.*
-import korlibs.io.lang.*
+import korlibs.datastructure.ByteArrayDeque
+import korlibs.io.lang.Charset
 
 fun ByteArray.toCharReader(charset: Charset, chunkSize: Int = 1024): CharReader = openSync().toCharReader(charset, chunkSize)
 fun SyncStream.toCharReader(charset: Charset, chunkSize: Int = 1024): CharReader =

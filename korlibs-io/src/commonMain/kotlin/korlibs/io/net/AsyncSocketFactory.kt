@@ -4,20 +4,23 @@ package korlibs.io.net
 
 import korlibs.io.async.AsyncCloseable
 import korlibs.io.async.Signal
-import korlibs.io.async.launchImmediately
 import korlibs.io.lang.Closeable
 import korlibs.io.lang.IOException
-import korlibs.io.lang.printStackTraceWithExtraMessage
-import korlibs.io.socket.*
+import korlibs.io.socket.AsyncServerSocket
+import korlibs.io.socket.AsyncSocket
+import korlibs.io.socket.invoke
 import korlibs.io.stream.AsyncInputStream
 import korlibs.io.stream.AsyncOutputStream
 import korlibs.io.stream.DequeSyncStream
 import korlibs.io.stream.SyncStream
-import kotlinx.atomicfu.*
-import kotlinx.coroutines.*
+import kotlin.coroutines.coroutineContext
+import kotlinx.atomicfu.atomic
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlin.coroutines.coroutineContext
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.supervisorScope
 
 abstract class AsyncSocketFactory {
     open suspend fun createClient(secure: Boolean = false): AsyncClient = TODO()
@@ -25,8 +28,6 @@ abstract class AsyncSocketFactory {
     open suspend fun createServerUnix(path: String, backlog: Int, secure: Boolean): AsyncServer =
         TODO("Unsupported")
 }
-
-//internal expect val asyncSocketFactory: AsyncSocketFactory
 
 class SocketAsyncClient(val socket: AsyncSocket) : AsyncClient {
     override suspend fun connect(host: String, port: Int) = socket.connect(host, port)

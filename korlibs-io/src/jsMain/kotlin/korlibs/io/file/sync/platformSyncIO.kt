@@ -1,9 +1,12 @@
 package korlibs.io.file.sync
 
-import korlibs.io.lang.*
-import korlibs.js.*
-import korlibs.platform.*
-import org.khronos.webgl.*
+import korlibs.io.lang.unsupported
+import korlibs.js.Deno
+import korlibs.js.JSIterable
+import korlibs.js.jsObject
+import korlibs.js.toArray
+import korlibs.platform.Platform
+import org.khronos.webgl.Uint8Array
 
 open class DenoSyncIO(val caseSensitive: Boolean) : SyncIO {
     companion object : DenoSyncIO(caseSensitive = true)

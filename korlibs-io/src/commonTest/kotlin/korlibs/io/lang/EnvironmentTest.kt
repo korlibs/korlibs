@@ -1,9 +1,9 @@
 package korlibs.io.lang
 
-import korlibs.memory.*
-import korlibs.io.util.*
-import korlibs.platform.*
-import kotlin.test.*
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class EnvironmentTest {
 	//@Test

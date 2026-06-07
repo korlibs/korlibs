@@ -1,11 +1,11 @@
 package korlibs.io.lang
 
-import korlibs.concurrent.thread.*
+import korlibs.concurrent.thread.NativeThread
 import korlibs.io.async.suspendTest
-import kotlinx.coroutines.CompletableDeferred
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
+import kotlinx.coroutines.CompletableDeferred
 
 class ThreadIdJvmTest {
     @Test

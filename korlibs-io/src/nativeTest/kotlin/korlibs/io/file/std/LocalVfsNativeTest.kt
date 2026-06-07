@@ -1,7 +1,9 @@
 package korlibs.io.file.std
 
-import korlibs.io.lang.*
-import kotlin.test.*
+import korlibs.io.lang.Environment
+import korlibs.io.lang.tempPath
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class LocalVfsNativeTest {
 
@@ -16,5 +18,4 @@ class LocalVfsNativeTest {
             userHomeVfs.absolutePath.replace("\\", "/").trimEnd('/')
         )
     }
-
 }

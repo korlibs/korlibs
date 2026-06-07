@@ -1,13 +1,14 @@
 package korlibs.io.file.std
 
+import java.io.File
 import korlibs.io.async.suspendTest
-import korlibs.io.file.*
-import korlibs.io.lang.*
+import korlibs.io.file.baseName
+import korlibs.io.lang.Environment
+import korlibs.io.lang.tempPath
+import kotlin.test.assertEquals
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import org.junit.Test
-import java.io.File
-import kotlin.test.assertEquals
 
 class JvmLocalFileTest {
 	@Test

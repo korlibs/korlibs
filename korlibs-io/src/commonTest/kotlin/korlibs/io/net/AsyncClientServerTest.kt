@@ -1,22 +1,21 @@
 package korlibs.io.net
 
 import korlibs.datastructure.Deque
-import korlibs.logger.*
-import korlibs.memory.*
 import korlibs.io.async.asyncImmediately
 import korlibs.io.async.launchImmediately
 import korlibs.io.async.suspendTest
-import korlibs.io.lang.*
+import korlibs.io.lang.portableSimpleName
 import korlibs.io.stream.readString
 import korlibs.io.stream.writeString
 import korlibs.io.util.UUID
-import korlibs.platform.*
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.flow.take
+import korlibs.logger.Logger
+import korlibs.platform.Platform
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.flow.take
 
 @ExperimentalCoroutinesApi
 class AsyncClientServerTest {

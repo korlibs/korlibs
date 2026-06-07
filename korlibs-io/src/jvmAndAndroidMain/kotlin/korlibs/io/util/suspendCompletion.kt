@@ -1,8 +1,10 @@
 package korlibs.io.util
 
-import kotlinx.coroutines.*
 import java.nio.channels.CompletionHandler
-import kotlin.coroutines.*
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlinx.coroutines.CancellableContinuation
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 fun <T> CancellableContinuation<T>.getCompletionHandler(): CompletionHandler<T, Unit> {
     val continuation = this

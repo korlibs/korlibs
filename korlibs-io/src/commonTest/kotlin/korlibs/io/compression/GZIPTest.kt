@@ -1,11 +1,17 @@
 package korlibs.io.compression
 
-import korlibs.crypto.*
-import korlibs.io.async.*
-import korlibs.io.compression.deflate.*
-import korlibs.io.file.std.*
-import korlibs.io.stream.*
-import kotlin.test.*
+import korlibs.crypto.sha256
+import korlibs.io.async.suspendTest
+import korlibs.io.async.useIt
+import korlibs.io.compression.deflate.GZIP
+import korlibs.io.compression.deflate.GZIPNoCrc
+import korlibs.io.file.std.resourcesVfs
+import korlibs.io.stream.MemorySyncStream
+import korlibs.io.stream.MemorySyncStreamToByteArray
+import korlibs.io.stream.openAsync
+import korlibs.io.stream.toAsync
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class GZIPTest {
     @Test

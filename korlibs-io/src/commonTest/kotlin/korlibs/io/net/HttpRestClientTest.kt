@@ -1,9 +1,11 @@
 package korlibs.io.net
 
-import korlibs.io.async.*
-import korlibs.io.net.http.*
-import korlibs.io.serialization.json.*
-import kotlin.test.*
+import korlibs.io.async.suspendTest
+import korlibs.io.net.http.FakeHttpClient
+import korlibs.io.net.http.rest
+import korlibs.io.serialization.json.Json
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class HttpRestClientTest {
     @Test

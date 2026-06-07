@@ -1,10 +1,10 @@
 package korlibs.io.util
 
+import korlibs.encoding.Hex
+import korlibs.io.lang.invalidArg
 import korlibs.memory.UByteArrayInt
 import korlibs.memory.asByteArray
 import korlibs.memory.asUByteArrayInt
-import korlibs.io.lang.invalidArg
-import korlibs.encoding.Hex
 import kotlin.random.Random
 
 @Suppress("EXPERIMENTAL_API_USAGE")

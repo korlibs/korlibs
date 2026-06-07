@@ -19,16 +19,3 @@ suspend inline fun <reified T : Throwable> expectException(noinline callback: su
 
 class ExpectedException(val expectedClass: KClass<*>, val found: Throwable?)
 	: Exception(if (found != null) "Expected ${expectedClass.portableSimpleName} but found $found" else "Expected ${expectedClass.portableSimpleName} no exception was thrown")
-
-// @TODO: Kotlin.JS BUG!
-//inline fun <reified T : Throwable> expectException(callback: () -> Unit) {
-//	var thrown: Throwable? = null
-//	try {
-//		callback()
-//	} catch (e: Throwable) {
-//		thrown = e
-//	}
-//	if (thrown == null || thrown !is T) {
-//		throw ExpectedException(T::class, thrown)
-//	}
-//}

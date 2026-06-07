@@ -2,11 +2,18 @@
 
 package korlibs.io.file.std
 
-import korlibs.io.*
-import korlibs.io.file.*
-import korlibs.platform.*
-import kotlinx.cinterop.*
-import platform.Foundation.*
+import korlibs.io.file.PathInfo
+import korlibs.io.file.parent
+import korlibs.io.nativeCwd
+import korlibs.platform.Platform
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.convert
+import platform.Foundation.NSDocumentDirectory
+import platform.Foundation.NSFileManager
+import platform.Foundation.NSLibraryDirectory
+import platform.Foundation.NSSearchPathForDirectoriesInDomains
+import platform.Foundation.NSUserDomainMask
 
 open class StandardBasePathsDarwin : StandardBasePathsNative() {
     override val executableFile: String get() = kotlinx.cinterop.autoreleasepool { platform.Foundation.NSBundle.mainBundle.executablePath ?: "./a.out" }

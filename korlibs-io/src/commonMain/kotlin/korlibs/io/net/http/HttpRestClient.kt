@@ -1,8 +1,8 @@
 package korlibs.io.net.http
 
-import korlibs.io.lang.*
-import korlibs.io.serialization.json.*
-import korlibs.io.stream.*
+import korlibs.io.lang.IOException
+import korlibs.io.serialization.json.Json
+import korlibs.io.stream.openAsync
 
 class HttpRestClient(val endpoint: HttpClientEndpoint) {
 	suspend fun request(method: Http.Method, path: String, contentJsonString: String?): Any {

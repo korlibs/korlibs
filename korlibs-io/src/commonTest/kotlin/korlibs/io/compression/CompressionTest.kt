@@ -2,10 +2,11 @@
 
 package korlibs.io.compression
 
-import korlibs.encoding.*
+import korlibs.encoding.fromBase64
+import korlibs.encoding.hex
 import korlibs.io.async.suspendTest
 import korlibs.io.compression.deflate.GZIP
-import korlibs.memory.*
+import korlibs.memory.getS32ArrayLE
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

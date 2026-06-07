@@ -1,11 +1,18 @@
 package korlibs.io.util
 
-import korlibs.datastructure.*
+import korlibs.datastructure.CharDeque
+import korlibs.datastructure.FloatArrayList
+import korlibs.datastructure.IntArrayList
 import korlibs.datastructure.iterators.fastForEach
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import korlibs.util.*
-import kotlin.collections.*
+import korlibs.io.lang.IOException
+import korlibs.io.lang.fromCharArray
+import korlibs.io.lang.invalidOp
+import korlibs.io.lang.substr
+import korlibs.io.lang.substringEquals
+import korlibs.io.lang.toCharArray
+import korlibs.io.stream.CharReader
+import korlibs.io.stream.read
+import korlibs.util.SimpleStrReader
 import kotlin.math.max
 import kotlin.math.min
 

@@ -1,12 +1,16 @@
 package korlibs.io.net
 
-import korlibs.datastructure.*
-import korlibs.encoding.*
-import korlibs.io.async.*
-import korlibs.io.lang.*
-import korlibs.platform.*
+import korlibs.datastructure.fastCastTo
+import korlibs.encoding.base64Url
+import korlibs.encoding.fromBase64
+import korlibs.io.async.CIO
+import korlibs.io.lang.JSEval
+import korlibs.io.lang.expr
+import korlibs.io.lang.exprSuspend
+import korlibs.platform.Platform
 import kotlin.jvm.JvmInline
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @JvmInline
 value class DataURL(val url: String) : AutoCloseable {

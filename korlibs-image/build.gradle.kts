@@ -69,12 +69,10 @@ kotlin {
         commonMain.dependencies {
             api(projects.korlibsIo)
             implementation(projects.korlibsAnnotations)
-            api(projects.korlibsIoVfs)
             api(projects.korlibsMath)
             api(projects.korlibsFfiLegacy)
             api(projects.korlibsString)
             api(projects.korlibsPlatform)
-            implementation(projects.korlibsCompression)
             implementation(projects.korlibsDyn)
             implementation(projects.korlibsMathCore)
             implementation(projects.korlibsEncoding)
@@ -105,11 +103,6 @@ kotlin {
         jvmMain.dependencies {
             api(libs.jna.jna)
             api(libs.jna.platform)
-        }
-
-        webMain.dependencies {
-            implementation(projects.korlibsWasm)
-            implementation(projects.korlibsCompression)
         }
     }
 }

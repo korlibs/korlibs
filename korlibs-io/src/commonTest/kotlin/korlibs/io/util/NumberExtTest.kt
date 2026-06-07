@@ -1,9 +1,9 @@
 package korlibs.io.util
 
-import korlibs.memory.insert
 import korlibs.math.nextAlignedTo
 import korlibs.math.prevAlignedTo
-import korlibs.util.*
+import korlibs.memory.insert
+import korlibs.util.format
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

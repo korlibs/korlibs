@@ -10,16 +10,6 @@ class Props(private val props: LinkedHashMap<String, String> = LinkedHashMap<Str
 		fun load(str: String) = Props().apply { deserializeNew(str) }
 	}
 
-	/*
-	operator fun contains(key: String): Boolean = key in props
-	operator fun get(key: String): String? = props[key]
-	operator fun set(key: String, value: String) = run { props[key] = value }
-
-	fun clear() {
-		props.clear()
-	}
-	*/
-
 	fun deserializeAdd(str: String) {
 		str.split("\n").fastForEach { line ->
 			if (line.startsWith('#')) return@fastForEach

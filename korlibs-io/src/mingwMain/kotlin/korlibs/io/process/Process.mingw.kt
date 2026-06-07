@@ -2,15 +2,22 @@
 
 package korlibs.io.process
 
-import korlibs.datastructure.concurrent.*
-import korlibs.time.*
-import korlibs.io.async.*
-import korlibs.io.file.*
-import korlibs.io.file.std.*
-import kotlinx.cinterop.*
-import kotlinx.coroutines.*
-import platform.posix.*
-import kotlin.native.concurrent.*
+import korlibs.datastructure.concurrent.ConcurrentDeque
+import korlibs.io.async.CIO
+import korlibs.io.file.VfsProcessHandler
+import korlibs.io.file.std.ShellArgs
+import korlibs.time.milliseconds
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.usePinned
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
+import platform.posix._pclose
+import platform.posix._popen
+import platform.posix.fread
 
 actual suspend fun posixExec(
     path: String, cmdAndArgs: List<String>, env: Map<String, String>, handler: VfsProcessHandler

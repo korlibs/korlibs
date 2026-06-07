@@ -1,9 +1,11 @@
 package korlibs.io.stream
 
-import korlibs.concurrent.thread.*
-import korlibs.datastructure.*
-import korlibs.time.*
-import kotlinx.atomicfu.locks.*
+import korlibs.concurrent.thread.NativeThread
+import korlibs.concurrent.thread.sleep
+import korlibs.datastructure.ByteArrayDeque
+import korlibs.time.milliseconds
+import kotlinx.atomicfu.locks.reentrantLock
+import kotlinx.atomicfu.locks.withLock
 
 class ByteArrayDequeSyncStream(val deque: ByteArrayDeque) : SyncStreamBase() {
     override val separateReadWrite: Boolean get() = true

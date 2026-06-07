@@ -67,7 +67,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.korlibsAudioCore)
             api(projects.korlibsConcurrent)
-            api(projects.korlibsIoVfs)
+            api(projects.korlibsIo)
             api(projects.korlibsTime)
             api(projects.korlibsMathCore)
             api(projects.korlibsMathVector)
@@ -76,7 +76,6 @@ kotlin {
             api(projects.korlibsAnnotations)
         }
         commonTest.dependencies {
-            implementation(projects.korlibsIo)
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
         }

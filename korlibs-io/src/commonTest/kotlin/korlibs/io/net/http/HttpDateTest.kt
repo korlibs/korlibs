@@ -1,6 +1,8 @@
 package korlibs.io.net.http
 
-import korlibs.time.*
+import korlibs.time.DateFormat
+import korlibs.time.format
+import korlibs.time.parse
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

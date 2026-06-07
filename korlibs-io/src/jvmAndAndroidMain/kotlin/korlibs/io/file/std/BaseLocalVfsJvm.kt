@@ -1,5 +1,16 @@
 package korlibs.io.file.std
 
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.RandomAccessFile
+import java.nio.file.FileSystems
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.StandardWatchEventKinds
+import java.nio.file.WatchEvent
+import java.nio.file.attribute.PosixFilePermission
 import korlibs.io.async.CIO
 import korlibs.io.file.Vfs
 import korlibs.io.file.VfsFile
@@ -18,9 +29,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.*
-import java.nio.file.*
-import java.nio.file.attribute.PosixFilePermission
 
 internal open class BaseLocalVfsJvm : LocalVfs() {
     val that = this
@@ -35,19 +43,6 @@ internal open class BaseLocalVfsJvm : LocalVfs() {
     fun resolvePath(path: String): Path = resolveFile(path).toPath()
     fun resolveFile(path: String): File = File(resolve(path))
     fun resolveFileCaseSensitive(path: String): File = resolveFile(path).caseSensitiveOrThrow()
-
-    //override suspend fun readRange(path: String, range: LongRange): ByteArray = executeIo {
-    //    RandomAccessFile(resolveFile(path), "r").use { raf ->
-    //        val fileLength = raf.length()
-    //        val start = min(range.start, fileLength)
-    //        val end = min(range.endInclusive, fileLength - 1) + 1
-    //        val totalRead = (end - start).toInt()
-    //        val out = ByteArray(totalRead)
-    //        raf.seek(start)
-    //        val read = raf.read(out)
-    //        if (read != totalRead) out.copyOf(read) else out
-    //    }
-    //}
 
     @Suppress("BlockingMethodInNonBlockingContext")
     override suspend fun open(path: String, mode: VfsOpenMode): AsyncStream =

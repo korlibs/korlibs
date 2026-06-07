@@ -1,7 +1,10 @@
 package korlibs.io.util.checksum
 
 import korlibs.io.async.use
-import korlibs.io.stream.*
+import korlibs.io.stream.AsyncInputOpenable
+import korlibs.io.stream.AsyncInputStream
+import korlibs.io.stream.AsyncOutputStream
+import korlibs.io.stream.SyncInputStream
 
 suspend fun AsyncInputOpenable.checksum(checksum: SimpleChecksum) = this.openRead().use { it.checksum(checksum) }
 

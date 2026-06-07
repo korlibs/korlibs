@@ -1,9 +1,28 @@
 package korlibs.io.file.sync
 
-import korlibs.io.posix.*
-import korlibs.memory.*
-import kotlinx.cinterop.*
-import platform.posix.*
+import korlibs.io.posix.posixFclose
+import korlibs.io.posix.posixFopen
+import korlibs.io.posix.posixFread
+import korlibs.io.posix.posixFseek
+import korlibs.io.posix.posixFtell
+import korlibs.io.posix.posixFwrite
+import korlibs.io.posix.posixMkdir
+import korlibs.io.posix.posixReadlink
+import korlibs.io.posix.posixRealpath
+import korlibs.io.posix.posixStat
+import korlibs.io.posix.posixTruncate
+import korlibs.memory.startAddressOf
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.plus
+import kotlinx.cinterop.pointed
+import kotlinx.cinterop.toKString
+import kotlinx.cinterop.usePinned
+import platform.posix.SEEK_END
+import platform.posix.SEEK_SET
+import platform.posix.closedir
+import platform.posix.opendir
+import platform.posix.readdir
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun platformSyncIO(caseSensitive: Boolean): SyncIO = object : SyncIO {

@@ -5,7 +5,7 @@ import korlibs.io.async.AsyncThread
 import korlibs.io.compression.deflate.Deflate
 import korlibs.io.compression.deflate.GZIP
 import korlibs.io.compression.uncompressed
-import korlibs.io.http.core.*
+import korlibs.io.http.core.HttpFetch
 import korlibs.io.lang.Charset
 import korlibs.io.lang.UTF8
 import korlibs.io.lang.toByteArray
@@ -20,7 +20,7 @@ import korlibs.io.stream.openAsync
 import korlibs.io.stream.readAll
 import korlibs.io.stream.readBytesExact
 import korlibs.io.stream.readLine
-import kotlinx.atomicfu.*
+import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.delay
 
 private fun createHttpClientFromFetch(fetch: HttpFetch = HttpFetch): HttpClient = object : HttpClient {

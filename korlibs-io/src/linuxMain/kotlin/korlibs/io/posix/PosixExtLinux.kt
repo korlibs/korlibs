@@ -2,8 +2,24 @@
 
 package korlibs.io.posix
 
-import kotlinx.cinterop.*
-import platform.posix.*
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.refTo
+import kotlinx.cinterop.toKString
+import platform.posix.FILE
+import platform.posix.FIONREAD
+import platform.posix.PATH_MAX
+import platform.posix.chmod
+import platform.posix.fopen
+import platform.posix.getcwd
+import platform.posix.ioctl
+import platform.posix.readlink
+import platform.posix.realpath
 
 actual val POSIX: BasePosix = PosixExtLinux()
 

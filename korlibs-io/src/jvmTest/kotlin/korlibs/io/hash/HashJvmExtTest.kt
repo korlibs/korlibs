@@ -1,7 +1,11 @@
 package korlibs.io.hash
 
-import korlibs.crypto.*
-import kotlin.test.*
+import korlibs.crypto.MD5
+import korlibs.crypto.SHA1
+import korlibs.crypto.md5
+import korlibs.crypto.sha1
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class HashJvmExtTest {
     @Test

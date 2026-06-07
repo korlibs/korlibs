@@ -1,6 +1,6 @@
 package korlibs.io.lang
 
-import korlibs.logger.*
+import korlibs.logger.Console
 
 fun currentStackTrace(msg: String = "printStackTrace"): String = Exception(msg).stackTraceToString()
 

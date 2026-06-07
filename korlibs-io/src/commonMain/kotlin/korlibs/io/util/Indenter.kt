@@ -1,7 +1,7 @@
 package korlibs.io.util
 
 import korlibs.datastructure.iterators.fastForEach
-import korlibs.util.*
+import korlibs.util.SimpleIndenter
 
 @OptIn(ExperimentalStdlibApi::class)
 class Indenter(internal val actions: ArrayList<Action> = arrayListOf()) : SimpleIndenter {
@@ -218,11 +218,6 @@ class XmlIndenter(val indenter: Indenter) {
 		}
 		indenter.line("</$tagName>")
 	}
-
-	// @TODO: FIX!
-	//fun linedeferred(init: XmlIndenter.() -> Unit): Indenter {
-	//    return indenter.linedeferred { XmlIndenter(this).apply(init) }
-	//}
 }
 
 fun Indenter.xml(callback: XmlIndenter.() -> Unit) {

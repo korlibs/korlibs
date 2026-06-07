@@ -1,11 +1,14 @@
 package korlibs.io.vfs
 
-import korlibs.io.async.*
-import korlibs.io.file.*
-import korlibs.io.file.std.*
-import korlibs.platform.*
-import kotlinx.coroutines.flow.*
-import kotlin.test.*
+import korlibs.io.async.suspendTest
+import korlibs.io.file.baseName
+import korlibs.io.file.extensionLC
+import korlibs.io.file.std.resourcesVfs
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.toList
 
 class ResourcesVfsTest {
     @Test

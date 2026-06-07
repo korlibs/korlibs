@@ -1,8 +1,8 @@
 package korlibs.io.util
 
 import korlibs.io.async.asyncImmediately
-import kotlinx.coroutines.Deferred
 import kotlin.coroutines.coroutineContext
+import kotlinx.coroutines.Deferred
 
 class Once {
 	var completed = false

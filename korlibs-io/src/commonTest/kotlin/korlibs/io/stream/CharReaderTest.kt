@@ -1,7 +1,12 @@
 package korlibs.io.stream
 
-import korlibs.io.lang.*
-import kotlin.test.*
+import korlibs.io.lang.Charsets
+import korlibs.io.lang.UTF8
+import korlibs.io.lang.splitInChunks
+import korlibs.io.lang.toByteArray
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 class CharReaderTest {
     @Test

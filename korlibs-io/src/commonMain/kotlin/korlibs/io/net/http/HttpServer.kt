@@ -1,16 +1,29 @@
 package korlibs.io.net.http
 
-import korlibs.datastructure.*
-import korlibs.io.async.*
-import korlibs.io.lang.*
-import korlibs.io.net.*
+import korlibs.datastructure.Extra
+import korlibs.io.async.AsyncCloseable
+import korlibs.io.lang.Charset
+import korlibs.io.lang.IOException
+import korlibs.io.lang.UTF8
+import korlibs.io.lang.invalidOp
+import korlibs.io.lang.toByteArray
+import korlibs.io.lang.toString
 import korlibs.io.net.AsyncAddress
-import korlibs.io.net.ws.*
-import korlibs.io.stream.*
-import korlibs.memory.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.*
-import kotlin.coroutines.*
+import korlibs.io.net.QueryString
+import korlibs.io.net.ws.WsCloseInfo
+import korlibs.io.stream.AsyncGetLengthStream
+import korlibs.io.stream.AsyncInputStream
+import korlibs.io.stream.AsyncOutputStream
+import korlibs.io.stream.EMPTY_BYTE_ARRAY
+import korlibs.io.stream.copyTo
+import korlibs.memory.ByteArrayBuilder
+import kotlin.coroutines.resume
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.produce
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 open class HttpServer protected constructor() : AsyncCloseable {
 	companion object {
@@ -60,13 +73,6 @@ open class HttpServer protected constructor() : AsyncCloseable {
 				e.printStackTrace()
 			}
 		}
-
-		//suspend fun stringMessageStream(): SuspendingSequence<String> {
-		//	val emitter = AsyncSequenceEmitter<String>()
-		//	onStringMessage { emitter.emit(it) }
-		//	onClose { emitter.close() }
-		//	return emitter.toSequence()
-		//}
 
 		fun stringMessageStream() = scope.produce<String> {
 			onStringMessage { send(it) }

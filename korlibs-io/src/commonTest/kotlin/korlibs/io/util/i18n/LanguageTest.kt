@@ -1,6 +1,6 @@
 package korlibs.io.util.i18n
 
-import korlibs.logger.*
+import korlibs.logger.Logger
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

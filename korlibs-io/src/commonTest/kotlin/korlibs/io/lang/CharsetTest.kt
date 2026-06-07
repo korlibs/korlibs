@@ -1,7 +1,7 @@
 package korlibs.io.lang
 
-import korlibs.memory.ByteArrayBuilder
 import korlibs.encoding.unhex
+import korlibs.memory.ByteArrayBuilder
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith

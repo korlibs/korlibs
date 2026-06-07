@@ -1,12 +1,29 @@
 package korlibs.io.compression.zip
 
-import korlibs.io.async.*
-import korlibs.io.compression.*
-import korlibs.io.file.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import korlibs.io.util.checksum.*
-import korlibs.memory.*
+import korlibs.io.async.use
+import korlibs.io.compression.CompressionMethod
+import korlibs.io.file.VfsFile
+import korlibs.io.file.VfsOpenMode
+import korlibs.io.file.fullName
+import korlibs.io.lang.UTF8
+import korlibs.io.lang.toByteArray
+import korlibs.io.stream.AsyncInputOpenable
+import korlibs.io.stream.AsyncInputStream
+import korlibs.io.stream.AsyncOutputStream
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.MemorySyncStream
+import korlibs.io.stream.sliceWithSize
+import korlibs.io.stream.toAsync
+import korlibs.io.stream.write16LE
+import korlibs.io.stream.write32LE
+import korlibs.io.stream.writeBytes
+import korlibs.io.stream.writeStream
+import korlibs.io.stream.writeString
+import korlibs.io.stream.writeSync
+import korlibs.io.util.checksum.CRC32
+import korlibs.io.util.checksum.SimpleChecksum
+import korlibs.io.util.checksum.computeWithRead
+import korlibs.memory.buildByteArray
 import korlibs.time.DateTimeTz
 
 class ZipBuilder {

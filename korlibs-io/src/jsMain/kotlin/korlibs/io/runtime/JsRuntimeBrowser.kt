@@ -1,15 +1,15 @@
 package korlibs.io.runtime
 
-import korlibs.io.file.*
-import korlibs.io.file.std.*
-import korlibs.io.net.http.*
-import korlibs.io.stream.*
-import kotlinx.browser.*
-import kotlinx.coroutines.*
-import org.khronos.webgl.*
+import korlibs.io.file.SimpleStorage
+import korlibs.io.file.VfsFile
+import korlibs.io.file.std.MapLikeStorageVfs
+import korlibs.io.file.std.MemoryVfs
+import korlibs.io.file.std.UrlVfs
+import korlibs.io.file.std.withCatalogJail
+import korlibs.io.net.http.HttpClient
+import kotlinx.browser.document
 import org.w3c.dom.get
 import org.w3c.dom.set
-import org.w3c.xhr.*
 
 private external val navigator: dynamic // browser
 

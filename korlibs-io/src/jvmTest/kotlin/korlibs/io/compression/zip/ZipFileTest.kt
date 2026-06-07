@@ -1,9 +1,13 @@
 package korlibs.io.compression.zip
 
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import korlibs.io.stream.*
-import kotlin.test.*
+import korlibs.io.async.suspendTest
+import korlibs.io.async.useIt
+import korlibs.io.file.std.openAsZip
+import korlibs.io.file.std.resourcesVfs
+import korlibs.io.stream.openAsync
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 class ZipFileTest {
     @Test

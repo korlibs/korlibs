@@ -1,8 +1,13 @@
 package korlibs.io.net
 
-import korlibs.io.file.*
-import korlibs.io.lang.*
-import kotlin.test.*
+import korlibs.io.file.normalize
+import korlibs.io.file.pathInfo
+import korlibs.io.lang.MalformedInputException
+import korlibs.io.lang.toByteArray
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertNull
 
 class URLTest {
 	data class UrlInfo(val url: String, val componentString: String, val isAbsolute: Boolean, val isOpaque: Boolean)

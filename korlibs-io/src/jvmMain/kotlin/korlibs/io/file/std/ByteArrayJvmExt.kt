@@ -1,5 +1,5 @@
 package korlibs.io.file.std
 
-import java.io.*
+import java.io.File
 
 suspend fun ByteArray.writeToFile(file: File) = localVfs(file).write(this)

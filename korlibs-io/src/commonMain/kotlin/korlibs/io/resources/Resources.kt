@@ -4,9 +4,9 @@ import korlibs.io.async.asyncImmediately
 import korlibs.io.experimental.KorioExperimentalApi
 import korlibs.io.file.VfsFile
 import korlibs.io.file.std.resourcesVfs
-import kotlinx.coroutines.Deferred
 import kotlin.coroutines.CoroutineContext
 import kotlin.reflect.KProperty
+import kotlinx.coroutines.Deferred
 
 open class Resource<T : Any>(
     val resources: Resources,

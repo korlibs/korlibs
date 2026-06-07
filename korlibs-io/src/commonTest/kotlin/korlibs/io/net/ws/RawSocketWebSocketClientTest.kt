@@ -2,6 +2,7 @@
 
 package korlibs.io.net.ws
 
+import korlibs.encoding.hex
 import korlibs.io.async.suspendTestNoJs
 import korlibs.io.lang.toByteArray
 import korlibs.io.net.FakeAsyncClient
@@ -15,8 +16,9 @@ import korlibs.io.stream.toAsync
 import korlibs.io.stream.write16BE
 import korlibs.io.stream.writeBytes
 import korlibs.io.stream.writeString
-import korlibs.encoding.hex
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 class RawRawSocketWebSocketClient {
     @Test

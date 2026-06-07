@@ -1,7 +1,7 @@
 package korlibs.io.file.std
 
-import korlibs.logger.*
-import korlibs.io.lang.*
+import korlibs.io.lang.portableSimpleName
+import korlibs.logger.Logger
 import kotlin.test.Test
 
 class StandardPathsTest {

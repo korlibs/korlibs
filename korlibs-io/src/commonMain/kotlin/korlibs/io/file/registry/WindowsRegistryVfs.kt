@@ -1,11 +1,20 @@
 package korlibs.io.file.registry
 
-import korlibs.io.file.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import korlibs.math.*
-import kotlinx.coroutines.flow.*
-import kotlin.reflect.*
+import korlibs.io.file.Vfs
+import korlibs.io.file.VfsFile
+import korlibs.io.file.VfsOpenMode
+import korlibs.io.file.VfsStat
+import korlibs.io.lang.UTF8
+import korlibs.io.lang.toByteArray
+import korlibs.io.lang.toString
+import korlibs.io.stream.AsyncInputStream
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.openAsync
+import korlibs.io.stream.readAll
+import korlibs.math.toIntClamp
+import kotlin.reflect.KClass
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 
 object WindowsRegistryVfs : Vfs() {
     val HKEY_CURRENT_USER: VfsFile get() = WindowsRegistryVfs["HKEY_CURRENT_USER"]

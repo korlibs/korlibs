@@ -1,6 +1,6 @@
 package korlibs.io.util
 
-import java.nio.*
+import java.nio.ByteBuffer
 
 fun ByteBuffer.toByteArray(): ByteArray {
 	val out = ByteArray(this.limit())

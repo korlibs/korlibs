@@ -1,8 +1,9 @@
 package korlibs.io.file.std
 
-import korlibs.io.file.*
-import korlibs.io.stream.*
-import kotlin.test.*
+import korlibs.io.file.VfsFile
+import korlibs.io.file.VfsOpenMode
+import korlibs.io.stream.writeString
+import kotlin.test.assertEquals
 
 class AppendBaseTest {
     companion object {

@@ -2,11 +2,14 @@
 
 package korlibs.io.file.sync
 
-import korlibs.memory.*
-import korlibs.io.file.*
-import korlibs.io.file.std.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
+import korlibs.io.file.PathInfo
+import korlibs.io.file.baseName
+import korlibs.io.file.fullPathNormalized
+import korlibs.io.file.parent
+import korlibs.io.file.std.MemoryNodeTree
+import korlibs.io.stream.SyncInputStream
+import korlibs.io.stream.SyncOutputStream
+import korlibs.memory.arraycopy
 
 @RequiresOptIn(level = RequiresOptIn.Level.ERROR)
 annotation class SyncIOAPI
@@ -67,15 +70,15 @@ interface SyncIO {
     @SyncIOAPI
     companion object : SyncIO by platformSyncIO
 
-    open fun realpath(path: String): String = path
-    open fun readlink(path: String): String? = null
-    open fun writelink(path: String, link: String?): Unit = TODO()
-    open fun open(path: String, mode: String): SyncIOFD = TODO()
-    open fun stat(path: String): SyncIOStat? = TODO()
-    open fun mkdir(path: String): Boolean = TODO()
-    open fun rmdir(path: String): Boolean = TODO()
-    open fun delete(path: String): Boolean = TODO()
-    open fun list(path: String): List<String> = TODO()
+    fun realpath(path: String): String = path
+    fun readlink(path: String): String? = null
+    fun writelink(path: String, link: String?): Unit = TODO()
+    fun open(path: String, mode: String): SyncIOFD = TODO()
+    fun stat(path: String): SyncIOStat? = TODO()
+    fun mkdir(path: String): Boolean = TODO()
+    fun rmdir(path: String): Boolean = TODO()
+    fun delete(path: String): Boolean = TODO()
+    fun list(path: String): List<String> = TODO()
 
     fun readString(path: String): String = readAllBytes(path).decodeToString()
     fun writeString(path: String, data: String) {

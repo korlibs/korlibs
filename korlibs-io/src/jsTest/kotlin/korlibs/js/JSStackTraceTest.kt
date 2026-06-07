@@ -1,6 +1,7 @@
 package korlibs.js
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class JSStackTraceTest {
     @Test

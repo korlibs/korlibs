@@ -1,5 +1,8 @@
 package korlibs.io.compression
 
+import korlibs.encoding.fromBase64
+import korlibs.encoding.fromBase64IgnoreSpaces
+import korlibs.encoding.unhexIgnoreSpaces
 import korlibs.io.compression.deflate.Deflate
 import korlibs.io.compression.deflate.DeflatePortable
 import korlibs.io.compression.deflate.GZIP
@@ -9,10 +12,7 @@ import korlibs.io.lang.UTF8
 import korlibs.io.lang.toString
 import korlibs.io.util.checksum.CRC32
 import korlibs.io.util.checksum.compute
-import korlibs.encoding.fromBase64
-import korlibs.encoding.fromBase64IgnoreSpaces
-import korlibs.encoding.unhexIgnoreSpaces
-import korlibs.platform.*
+import korlibs.platform.Platform
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

@@ -1,8 +1,9 @@
 package korlibs.io.serialization.json
 
-import korlibs.datastructure.*
-import korlibs.io.dynamic.*
-import korlibs.io.serialization.json.*
+import korlibs.datastructure.DoubleArrayList
+import korlibs.datastructure.FastArrayList
+import korlibs.io.dynamic.Dyn
+import korlibs.io.dynamic.dyn
 
 val Json.Context: JsonContext get() = JsonContext
 val Json.Companion.Context: JsonContext get() = JsonContext

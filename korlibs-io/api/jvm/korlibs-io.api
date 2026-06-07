@@ -1,3 +1,255 @@
+public final class korlibs/compression/deflate/DeflaterNative_jvmKt {
+	public static final fun DeflaterNative (I)Lkorlibs/compression/deflate/IDeflater;
+}
+
+public abstract interface class korlibs/compression/deflate/IDeflater : korlibs/io/compression/CompressionMethod {
+	public fun getName ()Ljava/lang/String;
+}
+
+public final class korlibs/compression/deflate/IDeflater$DefaultImpls {
+	public static fun compress (Lkorlibs/compression/deflate/IDeflater;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getLevel (Lkorlibs/compression/deflate/IDeflater;)I
+	public static fun getName (Lkorlibs/compression/deflate/IDeflater;)Ljava/lang/String;
+	public static fun uncompress (Lkorlibs/compression/deflate/IDeflater;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/compression/lzma/SevenZip {
+	public static final field INSTANCE Lkorlibs/compression/lzma/SevenZip;
+}
+
+public final class korlibs/compression/lzma/SevenZip$BitTreeDecoder {
+	public static final field Companion Lkorlibs/compression/lzma/SevenZip$BitTreeDecoder$Companion;
+	public fun <init> (I)V
+	public final fun decode (Lkorlibs/compression/lzma/SevenZip$RangeDecoder;)I
+	public final fun init ()V
+	public final fun reverseDecode (Lkorlibs/compression/lzma/SevenZip$RangeDecoder;)I
+}
+
+public final class korlibs/compression/lzma/SevenZip$BitTreeDecoder$Companion {
+	public final fun reverseDecode ([SILkorlibs/compression/lzma/SevenZip$RangeDecoder;I)I
+}
+
+public final class korlibs/compression/lzma/SevenZip$BitTreeEncoder {
+	public static final field Companion Lkorlibs/compression/lzma/SevenZip$BitTreeEncoder$Companion;
+	public fun <init> (I)V
+	public final fun encode (Lkorlibs/compression/lzma/SevenZip$RangeEncoder;I)V
+	public final fun getPrice (I)I
+	public final fun init ()V
+	public final fun reverseEncode (Lkorlibs/compression/lzma/SevenZip$RangeEncoder;I)V
+	public final fun reverseGetPrice (I)I
+}
+
+public final class korlibs/compression/lzma/SevenZip$BitTreeEncoder$Companion {
+	public final fun reverseEncode ([SILkorlibs/compression/lzma/SevenZip$RangeEncoder;II)V
+	public final fun reverseGetPrice ([SIII)I
+}
+
+public abstract interface class korlibs/compression/lzma/SevenZip$ICodeProgress {
+	public abstract fun setProgress (JJ)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$LzBinTree : korlibs/compression/lzma/SevenZip$LzInWindow {
+	public static final field Companion Lkorlibs/compression/lzma/SevenZip$LzBinTree$Companion;
+	public fun <init> ()V
+	public final fun create (IIII)Z
+	public final fun getMatches ([I)I
+	public fun init ()V
+	public fun movePos ()V
+	public final fun setType (I)V
+	public final fun skip (I)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$LzBinTree$Companion {
+}
+
+public class korlibs/compression/lzma/SevenZip$LzInWindow {
+	public fun <init> ()V
+	public final fun create (III)V
+	public final fun getIndexByte (I)B
+	public final fun getMatchLen (III)I
+	public final fun getNumAvailableBytes ()I
+	public final fun get_bufferBase ()[B
+	public final fun get_bufferOffset ()I
+	public final fun get_pos ()I
+	public final fun get_streamPos ()I
+	public fun init ()V
+	public fun movePos ()V
+	public final fun reduceOffsets (I)V
+	public final fun releaseStream ()V
+	public final fun setStream (Lkorlibs/compression/lzma/SevenZip$LzmaInputStream;)V
+	public final fun set_bufferBase ([B)V
+	public final fun set_bufferOffset (I)V
+	public final fun set_pos (I)V
+	public final fun set_streamPos (I)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$LzOutWindow {
+	public fun <init> ()V
+	public final fun copyBlock (II)V
+	public final fun create (I)V
+	public final fun flush ()V
+	public final fun getByte (I)B
+	public final fun init (Z)V
+	public final fun putByte (B)V
+	public final fun releaseStream ()V
+	public final fun setStream (Lkorlibs/compression/lzma/SevenZip$LzmaOutputStream;)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$LzmaBase {
+	public static final field INSTANCE Lkorlibs/compression/lzma/SevenZip$LzmaBase;
+	public static final field kAlignMask I
+	public static final field kAlignTableSize I
+	public static final field kDicLogSizeMin I
+	public static final field kEndPosModelIndex I
+	public static final field kMatchMaxLen I
+	public static final field kMatchMinLen I
+	public static final field kNumAlignBits I
+	public static final field kNumFullDistances I
+	public static final field kNumHighLenBits I
+	public static final field kNumLenSymbols I
+	public static final field kNumLenToPosStates I
+	public static final field kNumLenToPosStatesBits I
+	public static final field kNumLitContextBitsMax I
+	public static final field kNumLitPosStatesBitsEncodingMax I
+	public static final field kNumLowLenBits I
+	public static final field kNumLowLenSymbols I
+	public static final field kNumMidLenBits I
+	public static final field kNumMidLenSymbols I
+	public static final field kNumPosSlotBits I
+	public static final field kNumPosStatesBitsEncodingMax I
+	public static final field kNumPosStatesBitsMax I
+	public static final field kNumPosStatesEncodingMax I
+	public static final field kNumPosStatesMax I
+	public static final field kNumRepDistances I
+	public static final field kNumStates I
+	public static final field kStartPosModelIndex I
+	public final fun getLenToPosState (I)I
+	public final fun stateInit ()I
+	public final fun stateIsCharState (I)Z
+	public final fun stateUpdateChar (I)I
+	public final fun stateUpdateMatch (I)I
+	public final fun stateUpdateRep (I)I
+	public final fun stateUpdateShortRep (I)I
+}
+
+public final class korlibs/compression/lzma/SevenZip$LzmaDecoder {
+	public fun <init> ()V
+	public final fun code (Lkorlibs/compression/lzma/SevenZip$LzmaInputStream;Lkorlibs/compression/lzma/SevenZip$LzmaOutputStream;J)Z
+	public final fun setDecoderProperties ([B)Z
+}
+
+public final class korlibs/compression/lzma/SevenZip$LzmaEncoder {
+	public static final field Companion Lkorlibs/compression/lzma/SevenZip$LzmaEncoder$Companion;
+	public static final field EMatchFinderTypeBT2 I
+	public static final field EMatchFinderTypeBT4 I
+	public static final field kPropSize I
+	public fun <init> ()V
+	public final fun code (Lkorlibs/compression/lzma/SevenZip$LzmaInputStream;Lkorlibs/compression/lzma/SevenZip$LzmaOutputStream;JJLkorlibs/compression/lzma/SevenZip$ICodeProgress;)V
+	public final fun setAlgorithm (I)Z
+	public final fun setDictionarySize (I)Z
+	public final fun setEndMarkerMode (Z)V
+	public final fun setLcLpPb (III)Z
+	public final fun setMatchFinder (I)Z
+	public final fun setNumFastBytes (I)Z
+	public final fun writeCoderProperties (Lkorlibs/compression/lzma/SevenZip$LzmaOutputStream;)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$LzmaEncoder$Companion {
+}
+
+public abstract interface class korlibs/compression/lzma/SevenZip$LzmaInputStream {
+	public abstract fun read ()I
+	public abstract fun read ([BII)I
+}
+
+public abstract interface class korlibs/compression/lzma/SevenZip$LzmaOutputStream {
+	public abstract fun flush ()V
+	public abstract fun write ([BII)V
+	public abstract fun write8 (I)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$RangeDecoder {
+	public static final field Companion Lkorlibs/compression/lzma/SevenZip$RangeDecoder$Companion;
+	public fun <init> ()V
+	public final fun decodeBit ([SI)I
+	public final fun decodeDirectBits (I)I
+	public final fun init ()V
+	public final fun releaseStream ()V
+	public final fun setStream (Lkorlibs/compression/lzma/SevenZip$LzmaInputStream;)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$RangeDecoder$Companion {
+	public final fun initBitModels ([S)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$RangeEncoder {
+	public static final field Companion Lkorlibs/compression/lzma/SevenZip$RangeEncoder$Companion;
+	public static final field kNumBitPriceShiftBits I
+	public fun <init> ()V
+	public final fun encode ([SII)V
+	public final fun encodeDirectBits (II)V
+	public final fun flushData ()V
+	public final fun flushStream ()V
+	public final fun getProcessedSizeAdd ()J
+	public final fun init ()V
+	public final fun releaseStream ()V
+	public final fun setStream (Lkorlibs/compression/lzma/SevenZip$LzmaOutputStream;)V
+}
+
+public final class korlibs/compression/lzma/SevenZip$RangeEncoder$Companion {
+	public final fun getPrice (II)I
+	public final fun getPrice0 (I)I
+	public final fun getPrice1 (I)I
+	public final fun initBitModels ([S)V
+}
+
+public final class korlibs/compression/lzo/LzoConstants {
+	public static final field F_ADLER32_C I
+	public static final field F_ADLER32_D I
+	public static final field F_CRC32_C I
+	public static final field F_CRC32_D I
+	public static final field F_DOSISH I
+	public static final field F_H_CRC32 I
+	public static final field F_H_EXTRA_FIELD I
+	public static final field F_H_FILTER I
+	public static final field F_H_GMTDIFF I
+	public static final field F_H_PATH I
+	public static final field F_MASK I
+	public static final field F_MULTIPART I
+	public static final field F_NAME_DEFAULT I
+	public static final field F_STDIN I
+	public static final field F_STDOUT I
+	public static final field INSTANCE Lkorlibs/compression/lzo/LzoConstants;
+	public static final field SIZE_OF_INT I
+	public static final field SIZE_OF_LONG I
+	public static final field SIZE_OF_SHORT I
+}
+
+public final class korlibs/compression/lzo/LzoRawCompressor {
+	public static final field INSTANCE Lkorlibs/compression/lzo/LzoRawCompressor;
+	public static final field LAST_LITERAL_SIZE I
+	public static final field MAX_TABLE_SIZE I
+	public static final field MIN_MATCH I
+	public final fun compress ([BII[BII[I)I
+	public static synthetic fun compress$default (Lkorlibs/compression/lzo/LzoRawCompressor;[BII[BII[IILjava/lang/Object;)I
+	public final fun maxCompressedLength (I)I
+}
+
+public final class korlibs/compression/lzo/LzoRawDecompressor {
+	public static final field INSTANCE Lkorlibs/compression/lzo/LzoRawDecompressor;
+	public final fun decompress ([BII[BII)I
+}
+
+public final class korlibs/compression/lzo/LzoRawDecompressor$MalformedInputException : java/lang/Exception {
+	public fun <init> (ILjava/lang/String;)V
+	public synthetic fun <init> (ILjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getIndex ()I
+}
+
+public final class korlibs/compression/lzo/internal/LzoInternalKt {
+	public static final fun set32LE ([BIJ)V
+}
+
 public final class korlibs/io/KorioKt {
 	public static final fun Korio (Lkotlin/jvm/functions/Function2;)V
 }
@@ -74,6 +326,40 @@ public final class korlibs/io/async/AsyncInmemoryEntry {
 	public final fun getTtl-UwyO8pc ()J
 }
 
+public final class korlibs/io/async/AsyncRingBuffer : korlibs/io/async/IAsyncRingBuffer {
+	public fun <init> ()V
+	public fun <init> (I)V
+	public synthetic fun <init> (IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getName ()Ljava/lang/String;
+	public fun read (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun read ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setName (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+	public fun write (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/async/AsyncRingBufferChunked : korlibs/io/async/IAsyncRingBuffer {
+	public static final field Companion Lkorlibs/io/async/AsyncRingBufferChunked$Companion;
+	public static final field DEFAULT_MAX_SIZE I
+	public fun <init> ()V
+	public fun <init> (I)V
+	public synthetic fun <init> (IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getMaxSize ()I
+	public final fun getName ()Ljava/lang/String;
+	public fun read (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun read ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setName (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+	public fun write (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/async/AsyncRingBufferChunked$Companion {
+}
+
 public final class korlibs/io/async/ChannelExtKt {
 	public static final fun chunks (Lkotlinx/coroutines/channels/ReceiveChannel;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun produce (ILkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -91,6 +377,14 @@ public class korlibs/io/async/EmptyContinuation : kotlin/coroutines/Continuation
 }
 
 public final class korlibs/io/async/EmptyContinuation$Companion : korlibs/io/async/EmptyContinuation {
+}
+
+public abstract interface class korlibs/io/async/IAsyncRingBuffer : korlibs/io/stream/AsyncInputStream, korlibs/io/stream/AsyncOutputStream {
+}
+
+public final class korlibs/io/async/IAsyncRingBuffer$DefaultImpls {
+	public static fun read (Lkorlibs/io/async/IAsyncRingBuffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun write (Lkorlibs/io/async/IAsyncRingBuffer;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class korlibs/io/async/KlockExtKt {
@@ -125,6 +419,236 @@ public final class korlibs/io/async/ObservablePropertyKt {
 public final class korlibs/io/async/WaitSubscriberKt {
 	public static final fun waitSubscriber (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun waitSubscriberCloseable (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public class korlibs/io/compression/CompressionContext {
+	public fun <init> ()V
+	public fun <init> (I)V
+	public synthetic fun <init> (IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getCustom ()Ljava/lang/Object;
+	public final fun getLevel ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun setCustom (Ljava/lang/Object;)V
+	public final fun setLevel (I)V
+	public final fun setName (Ljava/lang/String;)V
+}
+
+public abstract interface class korlibs/io/compression/CompressionMethod {
+	public fun compress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun compress$default (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun getLevel ()I
+	public fun getName ()Ljava/lang/String;
+	public fun uncompress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/compression/CompressionMethod$DefaultImpls {
+	public static fun compress (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun compress$default (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static fun getLevel (Lkorlibs/io/compression/CompressionMethod;)I
+	public static fun getName (Lkorlibs/io/compression/CompressionMethod;)Ljava/lang/String;
+	public static fun uncompress (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/compression/CompressionMethod$Uncompressed : korlibs/io/compression/CompressionMethod {
+	public static final field INSTANCE Lkorlibs/io/compression/CompressionMethod$Uncompressed;
+	public fun compress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getLevel ()I
+	public fun getName ()Ljava/lang/String;
+	public fun uncompress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/compression/CompressionMethodKt {
+	public static final fun compress (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/SyncInputStream;Lkorlibs/io/stream/SyncOutputStream;Lkorlibs/io/compression/CompressionContext;)V
+	public static final fun compress (Lkorlibs/io/compression/CompressionMethod;[BLkorlibs/io/compression/CompressionContext;I)[B
+	public static final fun compress ([BLkorlibs/io/compression/CompressionMethod;Lkorlibs/io/compression/CompressionContext;I)[B
+	public static synthetic fun compress$default (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/SyncInputStream;Lkorlibs/io/stream/SyncOutputStream;Lkorlibs/io/compression/CompressionContext;ILjava/lang/Object;)V
+	public static synthetic fun compress$default (Lkorlibs/io/compression/CompressionMethod;[BLkorlibs/io/compression/CompressionContext;IILjava/lang/Object;)[B
+	public static synthetic fun compress$default ([BLkorlibs/io/compression/CompressionMethod;Lkorlibs/io/compression/CompressionContext;IILjava/lang/Object;)[B
+	public static final fun compressStream (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/compression/CompressionContext;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun compressStream$default (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/compression/CompressionContext;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun compressed (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/compression/CompressionContext;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun compressed$default (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/compression/CompressionContext;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun uncompress (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/SyncInputStream;Lkorlibs/io/stream/SyncOutputStream;)V
+	public static final fun uncompress (Lkorlibs/io/compression/CompressionMethod;[BI)[B
+	public static final fun uncompress ([BLkorlibs/io/compression/CompressionMethod;I)[B
+	public static synthetic fun uncompress$default (Lkorlibs/io/compression/CompressionMethod;[BIILjava/lang/Object;)[B
+	public static synthetic fun uncompress$default ([BLkorlibs/io/compression/CompressionMethod;IILjava/lang/Object;)[B
+	public static final fun uncompressStream (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun uncompressStream$default (Lkorlibs/io/compression/CompressionMethod;Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun uncompressed (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/compression/CompressionMethod;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun uncompressed$default (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/compression/CompressionMethod;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun withLevel (Lkorlibs/io/compression/CompressionMethod;I)Lkorlibs/io/compression/CompressionMethodWithConfig;
+}
+
+public final class korlibs/io/compression/CompressionMethodWithConfig : korlibs/datastructure/Extra, korlibs/io/compression/CompressionMethod {
+	public fun <init> (Lkorlibs/io/compression/CompressionMethod;I)V
+	public final fun component1 ()Lkorlibs/io/compression/CompressionMethod;
+	public final fun component2 ()I
+	public fun compress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun copy (Lkorlibs/io/compression/CompressionMethod;I)Lkorlibs/io/compression/CompressionMethodWithConfig;
+	public static synthetic fun copy$default (Lkorlibs/io/compression/CompressionMethodWithConfig;Lkorlibs/io/compression/CompressionMethod;IILjava/lang/Object;)Lkorlibs/io/compression/CompressionMethodWithConfig;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getExtra ()Lkorlibs/datastructure/ExtraObject;
+	public fun getLevel ()I
+	public final fun getMethod ()Lkorlibs/io/compression/CompressionMethod;
+	public fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setExtra (Lkorlibs/datastructure/ExtraObject;)V
+	public fun toString ()Ljava/lang/String;
+	public fun uncompress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/compression/deflate/DeflateKt {
+	public static final fun Deflate (I)Lkorlibs/compression/deflate/IDeflater;
+	public static final fun DeflatePortable (I)Lkorlibs/compression/deflate/IDeflater;
+	public static final fun getDeflate ()Lkorlibs/compression/deflate/IDeflater;
+	public static final fun getDeflatePortable ()Lkorlibs/compression/deflate/IDeflater;
+}
+
+public class korlibs/io/compression/deflate/GZIP : korlibs/io/compression/deflate/GZIPBase {
+	public static final field Companion Lkorlibs/io/compression/deflate/GZIP$Companion;
+	public fun <init> (Lkotlin/jvm/functions/Function0;)V
+}
+
+public final class korlibs/io/compression/deflate/GZIP$Companion : korlibs/io/compression/deflate/GZIP {
+	public fun toString ()Ljava/lang/String;
+}
+
+public class korlibs/io/compression/deflate/GZIPBase : korlibs/io/compression/CompressionMethod {
+	public fun <init> (ZLkotlin/jvm/functions/Function0;)V
+	public fun compress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getCheckCrc ()Z
+	public final fun getDeflater ()Lkotlin/jvm/functions/Function0;
+	public fun getLevel ()I
+	public fun getName ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+	public fun uncompress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public class korlibs/io/compression/deflate/GZIPNoCrc : korlibs/io/compression/deflate/GZIPBase {
+	public static final field Companion Lkorlibs/io/compression/deflate/GZIPNoCrc$Companion;
+	public fun <init> (Lkotlin/jvm/functions/Function0;)V
+}
+
+public final class korlibs/io/compression/deflate/GZIPNoCrc$Companion : korlibs/io/compression/deflate/GZIPNoCrc {
+	public fun toString ()Ljava/lang/String;
+}
+
+public class korlibs/io/compression/deflate/ZLib : korlibs/io/compression/CompressionMethod {
+	public static final field Companion Lkorlibs/io/compression/deflate/ZLib$Companion;
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	public fun compress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getDeflater ()Lkotlin/jvm/functions/Function1;
+	public fun getLevel ()I
+	public fun getName ()Ljava/lang/String;
+	public fun uncompress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/compression/deflate/ZLib$Companion : korlibs/io/compression/deflate/ZLib {
+}
+
+public final class korlibs/io/compression/deflate/ZLib$Portable : korlibs/io/compression/deflate/ZLib {
+	public static final field INSTANCE Lkorlibs/io/compression/deflate/ZLib$Portable;
+}
+
+public final class korlibs/io/compression/lzma/Lzma : korlibs/io/compression/CompressionMethod {
+	public static final field INSTANCE Lkorlibs/io/compression/lzma/Lzma;
+	public fun compress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getLevel ()I
+	public fun getName ()Ljava/lang/String;
+	public final fun toLzmaInput (Lkorlibs/io/stream/SyncInputStream;)Lkorlibs/compression/lzma/SevenZip$LzmaInputStream;
+	public final fun toLzmaOutput (Lkorlibs/io/stream/SyncOutputStream;)Lkorlibs/compression/lzma/SevenZip$LzmaOutputStream;
+	public fun uncompress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public class korlibs/io/compression/lzo/LZO : korlibs/io/compression/CompressionMethod {
+	public static final field Companion Lkorlibs/io/compression/lzo/LZO$Companion;
+	public fun <init> ()V
+	public fun <init> (Lkorlibs/io/compression/lzo/LZO$HeaderType;)V
+	public synthetic fun <init> (Lkorlibs/io/compression/lzo/LZO$HeaderType;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun compress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/compression/CompressionContext;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getHeaderType ()Lkorlibs/io/compression/lzo/LZO$HeaderType;
+	public fun getLevel ()I
+	public fun getName ()Ljava/lang/String;
+	public fun uncompress (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/compression/lzo/LZO$Companion : korlibs/io/compression/lzo/LZO {
+}
+
+public final class korlibs/io/compression/lzo/LZO$HeaderLong {
+	public static final field Companion Lkorlibs/io/compression/lzo/LZO$HeaderLong$Companion;
+	public fun <init> ()V
+	public fun <init> (IIIIIIIIIILjava/lang/String;IIIII)V
+	public synthetic fun <init> (IIIIIIIIIILjava/lang/String;IIIIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component10 ()I
+	public final fun component11 ()Ljava/lang/String;
+	public final fun component12 ()I
+	public final fun component13 ()I
+	public final fun component14 ()I
+	public final fun component15 ()I
+	public final fun component16 ()I
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun component4 ()I
+	public final fun component5 ()I
+	public final fun component6 ()I
+	public final fun component7 ()I
+	public final fun component8 ()I
+	public final fun component9 ()I
+	public final fun copy (IIIIIIIIIILjava/lang/String;IIIII)Lkorlibs/io/compression/lzo/LZO$HeaderLong;
+	public static synthetic fun copy$default (Lkorlibs/io/compression/lzo/LZO$HeaderLong;IIIIIIIIIILjava/lang/String;IIIIIILjava/lang/Object;)Lkorlibs/io/compression/lzo/LZO$HeaderLong;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChecksum ()I
+	public final fun getChecksumCompressed ()I
+	public final fun getChecksumUncompressed ()I
+	public final fun getCompressedSize ()I
+	public final fun getFilter ()I
+	public final fun getFlags ()I
+	public final fun getGMTdiff ()I
+	public final fun getLevel ()I
+	public final fun getLibVersion ()I
+	public final fun getMethod ()I
+	public final fun getMode ()I
+	public final fun getMtime ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun getUncompressedSize ()I
+	public final fun getVersion ()I
+	public final fun getVersionNeeded ()I
+	public fun hashCode ()I
+	public final fun read (Lkorlibs/io/stream/AsyncInputStream;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setChecksum (I)V
+	public final fun setChecksumCompressed (I)V
+	public final fun setChecksumUncompressed (I)V
+	public final fun setCompressedSize (I)V
+	public final fun setFilter (I)V
+	public final fun setFlags (I)V
+	public final fun setGMTdiff (I)V
+	public final fun setLevel (I)V
+	public final fun setLibVersion (I)V
+	public final fun setMethod (I)V
+	public final fun setMode (I)V
+	public final fun setMtime (I)V
+	public final fun setName (Ljava/lang/String;)V
+	public final fun setUncompressedSize (I)V
+	public final fun setVersion (I)V
+	public final fun setVersionNeeded (I)V
+	public fun toString ()Ljava/lang/String;
+	public final fun write (Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/compression/lzo/LZO$HeaderLong$Companion {
+	public final fun getMAGIC ()[B
+}
+
+public final class korlibs/io/compression/lzo/LZO$HeaderType : java/lang/Enum {
+	public static final field LONG Lkorlibs/io/compression/lzo/LZO$HeaderType;
+	public static final field NONE Lkorlibs/io/compression/lzo/LZO$HeaderType;
+	public static final field SHORT Lkorlibs/io/compression/lzo/LZO$HeaderType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/io/compression/lzo/LZO$HeaderType;
+	public static fun values ()[Lkorlibs/io/compression/lzo/LZO$HeaderType;
 }
 
 public final class korlibs/io/compression/zip/DosFileDateTime {
@@ -255,6 +779,286 @@ public final class korlibs/io/compression/zip/ZipFile$Companion {
 	public static synthetic fun invoke$default (Lkorlibs/io/compression/zip/ZipFile$Companion;Lkorlibs/io/stream/AsyncStream;ZLjava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
+public abstract class korlibs/io/core/FileSystemFS : korlibs/io/async/AsyncCloseable, korlibs/io/stream/AsyncInputStream, korlibs/io/stream/AsyncOutputStream {
+	public fun <init> ()V
+	public abstract fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getLength (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getPosition (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun read (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun read ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun setLength (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun setPosition (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun write ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/core/FileSystemFSStat {
+	public fun <init> (Ljava/lang/String;JIZJJJJ)V
+	public synthetic fun <init> (Ljava/lang/String;JIZJJJJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()J
+	public final fun component3 ()I
+	public final fun component4 ()Z
+	public final fun component5 ()J
+	public final fun component6 ()J
+	public final fun component7 ()J
+	public final fun component8 ()J
+	public final fun copy (Ljava/lang/String;JIZJJJJ)Lkorlibs/io/core/FileSystemFSStat;
+	public static synthetic fun copy$default (Lkorlibs/io/core/FileSystemFSStat;Ljava/lang/String;JIZJJJJILjava/lang/Object;)Lkorlibs/io/core/FileSystemFSStat;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getInode ()J
+	public final fun getMode ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun getSize ()J
+	public final fun getTimeCreation ()J
+	public final fun getTimeLastAccess ()J
+	public final fun getTimeLastModification ()J
+	public fun hashCode ()I
+	public final fun isDirectory ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/core/JvmSyncSystemFS : korlibs/io/core/SyncSystemFS {
+	public static final field INSTANCE Lkorlibs/io/core/JvmSyncSystemFS;
+	public fun exec (Ljava/util/List;Ljava/util/Map;Ljava/lang/String;)Lkorlibs/io/core/SyncSystemFSProcess;
+	public fun exists (Ljava/lang/String;)Z
+	public fun getFileSeparatorChar ()C
+	public fun getPathSeparatorChar ()C
+	public fun getResourceBytes (Ljava/lang/String;Lkotlin/reflect/KClass;)[B
+	public fun getResourceLength (Ljava/lang/String;Lkotlin/reflect/KClass;)J
+	public fun getcwd ()Ljava/lang/String;
+	public fun isDirectory (Ljava/lang/String;)Z
+	public fun isFile (Ljava/lang/String;)Z
+	public fun listdir (Ljava/lang/String;)Lkotlin/sequences/Sequence;
+	public fun mkdir (Ljava/lang/String;)Z
+	public fun open (Ljava/lang/String;Z)Lkorlibs/io/core/SyncFileSystemFS;
+	public fun readlink (Ljava/lang/String;)Ljava/lang/String;
+	public fun realpath (Ljava/lang/String;)Ljava/lang/String;
+	public fun rmdir (Ljava/lang/String;)Z
+	public fun stat (Ljava/lang/String;)Lkorlibs/io/core/FileSystemFSStat;
+	public fun unlink (Ljava/lang/String;)Z
+}
+
+public final class korlibs/io/core/NullSyncSystemFS : korlibs/io/core/SyncSystemFS {
+	public static final field INSTANCE Lkorlibs/io/core/NullSyncSystemFS;
+	public fun exec (Ljava/util/List;Ljava/util/Map;Ljava/lang/String;)Lkorlibs/io/core/SyncSystemFSProcess;
+	public fun exists (Ljava/lang/String;)Z
+	public fun getFileSeparatorChar ()C
+	public fun getPathSeparatorChar ()C
+	public fun getResourceBytes (Ljava/lang/String;Lkotlin/reflect/KClass;)[B
+	public fun getResourceLength (Ljava/lang/String;Lkotlin/reflect/KClass;)J
+	public fun getcwd ()Ljava/lang/String;
+	public fun isDirectory (Ljava/lang/String;)Z
+	public fun isFile (Ljava/lang/String;)Z
+	public fun listdir (Ljava/lang/String;)Lkotlin/sequences/Sequence;
+	public fun mkdir (Ljava/lang/String;)Z
+	public fun open (Ljava/lang/String;Z)Lkorlibs/io/core/SyncFileSystemFS;
+	public fun readlink (Ljava/lang/String;)Ljava/lang/String;
+	public fun realpath (Ljava/lang/String;)Ljava/lang/String;
+	public fun rmdir (Ljava/lang/String;)Z
+	public fun stat (Ljava/lang/String;)Lkorlibs/io/core/FileSystemFSStat;
+	public fun unlink (Ljava/lang/String;)Z
+}
+
+public abstract class korlibs/io/core/SyncFileSystemFS : java/lang/AutoCloseable, korlibs/io/stream/SyncInputStream, korlibs/io/stream/SyncOutputStream {
+	public fun <init> ()V
+	public abstract fun close ()V
+	public fun flush ()V
+	public abstract fun getLength ()J
+	public abstract fun getPosition ()J
+	public fun read ()I
+	public abstract fun read ([BII)I
+	public abstract fun setLength (J)V
+	public abstract fun setPosition (J)V
+	public fun skip (I)V
+	public fun write (I)V
+	public abstract fun write ([BII)V
+}
+
+public abstract interface class korlibs/io/core/SyncSystemFS {
+	public static final field Companion Lkorlibs/io/core/SyncSystemFS$Companion;
+	public fun exec (Ljava/util/List;Ljava/util/Map;Ljava/lang/String;)Lkorlibs/io/core/SyncSystemFSProcess;
+	public fun exists (Ljava/lang/String;)Z
+	public fun getFileSeparatorChar ()C
+	public fun getPathSeparatorChar ()C
+	public fun getResourceBytes (Ljava/lang/String;Lkotlin/reflect/KClass;)[B
+	public static synthetic fun getResourceBytes$default (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;ILjava/lang/Object;)[B
+	public fun getResourceLength (Ljava/lang/String;Lkotlin/reflect/KClass;)J
+	public static synthetic fun getResourceLength$default (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;ILjava/lang/Object;)J
+	public fun getcwd ()Ljava/lang/String;
+	public fun isDirectory (Ljava/lang/String;)Z
+	public fun isFile (Ljava/lang/String;)Z
+	public abstract fun listdir (Ljava/lang/String;)Lkotlin/sequences/Sequence;
+	public abstract fun mkdir (Ljava/lang/String;)Z
+	public abstract fun open (Ljava/lang/String;Z)Lkorlibs/io/core/SyncFileSystemFS;
+	public static synthetic fun open$default (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;ZILjava/lang/Object;)Lkorlibs/io/core/SyncFileSystemFS;
+	public fun readlink (Ljava/lang/String;)Ljava/lang/String;
+	public fun realpath (Ljava/lang/String;)Ljava/lang/String;
+	public abstract fun rmdir (Ljava/lang/String;)Z
+	public abstract fun stat (Ljava/lang/String;)Lkorlibs/io/core/FileSystemFSStat;
+	public abstract fun unlink (Ljava/lang/String;)Z
+}
+
+public final class korlibs/io/core/SyncSystemFS$Companion : korlibs/io/core/SyncSystemFS {
+	public fun exec (Ljava/util/List;Ljava/util/Map;Ljava/lang/String;)Lkorlibs/io/core/SyncSystemFSProcess;
+	public fun exists (Ljava/lang/String;)Z
+	public fun getFileSeparatorChar ()C
+	public fun getPathSeparatorChar ()C
+	public fun getResourceBytes (Ljava/lang/String;Lkotlin/reflect/KClass;)[B
+	public fun getResourceLength (Ljava/lang/String;Lkotlin/reflect/KClass;)J
+	public fun getcwd ()Ljava/lang/String;
+	public fun isDirectory (Ljava/lang/String;)Z
+	public fun isFile (Ljava/lang/String;)Z
+	public fun listdir (Ljava/lang/String;)Lkotlin/sequences/Sequence;
+	public fun mkdir (Ljava/lang/String;)Z
+	public fun open (Ljava/lang/String;Z)Lkorlibs/io/core/SyncFileSystemFS;
+	public fun readlink (Ljava/lang/String;)Ljava/lang/String;
+	public fun realpath (Ljava/lang/String;)Ljava/lang/String;
+	public fun rmdir (Ljava/lang/String;)Z
+	public fun stat (Ljava/lang/String;)Lkorlibs/io/core/FileSystemFSStat;
+	public fun unlink (Ljava/lang/String;)Z
+}
+
+public final class korlibs/io/core/SyncSystemFS$DefaultImpls {
+	public static fun exec (Lkorlibs/io/core/SyncSystemFS;Ljava/util/List;Ljava/util/Map;Ljava/lang/String;)Lkorlibs/io/core/SyncSystemFSProcess;
+	public static fun exists (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;)Z
+	public static fun getFileSeparatorChar (Lkorlibs/io/core/SyncSystemFS;)C
+	public static fun getPathSeparatorChar (Lkorlibs/io/core/SyncSystemFS;)C
+	public static fun getResourceBytes (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;)[B
+	public static synthetic fun getResourceBytes$default (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;ILjava/lang/Object;)[B
+	public static fun getResourceLength (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;)J
+	public static synthetic fun getResourceLength$default (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;ILjava/lang/Object;)J
+	public static fun getcwd (Lkorlibs/io/core/SyncSystemFS;)Ljava/lang/String;
+	public static fun isDirectory (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;)Z
+	public static fun isFile (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;)Z
+	public static synthetic fun open$default (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;ZILjava/lang/Object;)Lkorlibs/io/core/SyncFileSystemFS;
+	public static fun readlink (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;)Ljava/lang/String;
+	public static fun realpath (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;)Ljava/lang/String;
+}
+
+public class korlibs/io/core/SyncSystemFSProcess : java/lang/AutoCloseable {
+	public fun <init> (Lkorlibs/io/stream/SyncOutputStream;Lkorlibs/io/stream/SyncInputStream;Lkorlibs/io/stream/SyncInputStream;)V
+	public fun close ()V
+	public fun destroy ()V
+	public fun getExitCode ()I
+	public final fun getStderr ()Lkorlibs/io/stream/SyncInputStream;
+	public final fun getStdin ()Lkorlibs/io/stream/SyncOutputStream;
+	public final fun getStdout ()Lkorlibs/io/stream/SyncInputStream;
+}
+
+public abstract interface class korlibs/io/core/SystemFS {
+	public static final field Companion Lkorlibs/io/core/SystemFS$Companion;
+	public abstract fun exec (Ljava/util/List;Ljava/util/Map;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun exists (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getResourceBytes (Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getResourceBytes$default (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun getResourceLength (Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getResourceLength$default (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public fun isDirectory (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun isFile (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun listdir (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun mkdir (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun open (Ljava/lang/String;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun open$default (Lkorlibs/io/core/SystemFS;Ljava/lang/String;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public abstract fun readlink (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun realpath (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun rmdir (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun stat (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun unlink (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/core/SystemFS$Companion : korlibs/io/core/SystemFS {
+	public fun exec (Ljava/util/List;Ljava/util/Map;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun exists (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getResourceBytes (Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getResourceLength (Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun isDirectory (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun isFile (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun listdir (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun mkdir (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun open (Ljava/lang/String;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun readlink (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun realpath (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun rmdir (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun stat (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun unlink (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/core/SystemFS$DefaultImpls {
+	public static fun exists (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getResourceBytes (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getResourceBytes$default (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static fun getResourceLength (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getResourceLength$default (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/reflect/KClass;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static fun isDirectory (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun isFile (Lkorlibs/io/core/SystemFS;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun open$default (Lkorlibs/io/core/SystemFS;Ljava/lang/String;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/core/SystemFSKt {
+	public static final fun checkExecFolder (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;Ljava/util/List;)V
+	public static final fun getNullSystemFS ()Lkorlibs/io/core/SystemFS;
+	public static final fun readBytes (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;)[B
+	public static final fun size (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;)Ljava/lang/Long;
+	public static final fun toAsync (Lkorlibs/io/core/SyncSystemFS;Lkotlinx/coroutines/CoroutineDispatcher;)Lkorlibs/io/core/SystemFS;
+	public static final fun writeBytes (Lkorlibs/io/core/SyncSystemFS;Ljava/lang/String;[B)V
+}
+
+public class korlibs/io/core/SystemFSProcess : korlibs/io/async/AsyncCloseable {
+	public fun <init> (Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncInputStream;)V
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun destroy (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun exitCode (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getStderr ()Lkorlibs/io/stream/AsyncInputStream;
+	public final fun getStdin ()Lkorlibs/io/stream/AsyncOutputStream;
+	public final fun getStdout ()Lkorlibs/io/stream/AsyncInputStream;
+}
+
+public final class korlibs/io/core/SystemFS_jvmAndAndroidKt {
+	public static final fun getDefaultSyncSystemFS ()Lkorlibs/io/core/SyncSystemFS;
+	public static final fun getDefaultSystemFS ()Lkorlibs/io/core/SystemFS;
+}
+
+public abstract interface class korlibs/io/core/internal/InternalSystemFSShellArgs {
+	public static final field Companion Lkorlibs/io/core/internal/InternalSystemFSShellArgs$Companion;
+	public fun buildShellExecCommandLine (Ljava/util/List;)Ljava/lang/String;
+	public fun buildShellExecCommandLineArray (Ljava/util/List;)Ljava/util/List;
+	public fun buildShellExecCommandLineArrayForExecl (Ljava/util/List;)Ljava/util/List;
+	public fun buildShellExecCommandLineArrayForNodeSpawn (Ljava/util/List;)Ljava/util/List;
+	public fun buildShellExecCommandLineArrayForProcessBuilder (Ljava/util/List;)Ljava/util/List;
+	public fun buildShellExecCommandLineForPopen (Ljava/util/List;)Ljava/lang/String;
+	public fun escapeshellCommandUnix (Ljava/util/List;)Ljava/lang/String;
+	public fun escapeshellCommandWin (Ljava/util/List;)Ljava/lang/String;
+	public fun escapeshellargUnix (Ljava/lang/String;)Ljava/lang/String;
+	public fun escapeshellargWin (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class korlibs/io/core/internal/InternalSystemFSShellArgs$Companion : korlibs/io/core/internal/InternalSystemFSShellArgs {
+	public fun buildShellExecCommandLine (Ljava/util/List;)Ljava/lang/String;
+	public fun buildShellExecCommandLineArray (Ljava/util/List;)Ljava/util/List;
+	public fun buildShellExecCommandLineArrayForExecl (Ljava/util/List;)Ljava/util/List;
+	public fun buildShellExecCommandLineArrayForNodeSpawn (Ljava/util/List;)Ljava/util/List;
+	public fun buildShellExecCommandLineArrayForProcessBuilder (Ljava/util/List;)Ljava/util/List;
+	public fun buildShellExecCommandLineForPopen (Ljava/util/List;)Ljava/lang/String;
+	public fun escapeshellCommandUnix (Ljava/util/List;)Ljava/lang/String;
+	public fun escapeshellCommandWin (Ljava/util/List;)Ljava/lang/String;
+	public fun escapeshellargUnix (Ljava/lang/String;)Ljava/lang/String;
+	public fun escapeshellargWin (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class korlibs/io/core/internal/InternalSystemFSShellArgs$DefaultImpls {
+	public static fun buildShellExecCommandLine (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/util/List;)Ljava/lang/String;
+	public static fun buildShellExecCommandLineArray (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/util/List;)Ljava/util/List;
+	public static fun buildShellExecCommandLineArrayForExecl (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/util/List;)Ljava/util/List;
+	public static fun buildShellExecCommandLineArrayForNodeSpawn (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/util/List;)Ljava/util/List;
+	public static fun buildShellExecCommandLineArrayForProcessBuilder (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/util/List;)Ljava/util/List;
+	public static fun buildShellExecCommandLineForPopen (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/util/List;)Ljava/lang/String;
+	public static fun escapeshellCommandUnix (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/util/List;)Ljava/lang/String;
+	public static fun escapeshellCommandWin (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/util/List;)Ljava/lang/String;
+	public static fun escapeshellargUnix (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/lang/String;)Ljava/lang/String;
+	public static fun escapeshellargWin (Lkorlibs/io/core/internal/InternalSystemFSShellArgs;Ljava/lang/String;)Ljava/lang/String;
+}
+
 public abstract interface annotation class korlibs/io/experimental/KorioExperimentalApi : java/lang/annotation/Annotation {
 }
 
@@ -264,9 +1068,100 @@ public abstract interface annotation class korlibs/io/experimental/KorioInternal
 public abstract interface annotation class korlibs/io/experimental/SuppressIfAnnotated : java/lang/annotation/Annotation {
 }
 
+public final class korlibs/io/file/FinalVfsFile {
+	public fun <init> (Lkorlibs/io/file/Vfs;Ljava/lang/String;)V
+	public fun <init> (Lkorlibs/io/file/VfsFile;)V
+	public final fun component1 ()Lkorlibs/io/file/VfsFile;
+	public final fun copy (Lkorlibs/io/file/VfsFile;)Lkorlibs/io/file/FinalVfsFile;
+	public static synthetic fun copy$default (Lkorlibs/io/file/FinalVfsFile;Lkorlibs/io/file/VfsFile;ILjava/lang/Object;)Lkorlibs/io/file/FinalVfsFile;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFile ()Lkorlibs/io/file/VfsFile;
+	public final fun getPath ()Ljava/lang/String;
+	public final fun getVfs ()Lkorlibs/io/file/Vfs;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/file/FinalVfsFileKt {
+	public static final fun getUnderlyingUnscapedFile (Lkorlibs/io/file/VfsFile;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun toFile (Lkorlibs/io/file/FinalVfsFile;)Lkorlibs/io/file/VfsFile;
+	public static final fun toUnscaped (Lkorlibs/io/file/VfsFile;)Lkorlibs/io/file/FinalVfsFile;
+}
+
+public abstract interface class korlibs/io/file/Path {
+	public abstract fun getPathInfo-WYC9u6I ()Ljava/lang/String;
+}
+
+public final class korlibs/io/file/PathInfo {
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lkorlibs/io/file/PathInfo;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getFullPath ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
 public final class korlibs/io/file/PathInfoExtKt {
 	public static final fun getMimeTypeByExtension (Lkorlibs/io/file/Path;)Lkorlibs/io/net/MimeType;
 	public static final fun getMimeTypeByExtension-pnq4Q78 (Ljava/lang/String;)Lkorlibs/io/net/MimeType;
+}
+
+public final class korlibs/io/file/PathInfoKt {
+	public static final fun baseNameWithCompoundExtension (Lkorlibs/io/file/Path;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun baseNameWithCompoundExtension-JS8pDO4 (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun baseNameWithExtension (Lkorlibs/io/file/Path;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun baseNameWithExtension-JS8pDO4 (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun combine-nbBxnkU (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun fullPathWithExtension (Lkorlibs/io/file/Path;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun fullPathWithExtension-JS8pDO4 (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getBaseName (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getBaseName-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getBaseNameWithoutCompoundExtension (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getBaseNameWithoutCompoundExtension-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getBaseNameWithoutExtension (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getBaseNameWithoutExtension-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getCompoundExtension (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getCompoundExtension-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getCompoundExtensionLC (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getCompoundExtensionLC-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getExtension (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getExtension-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getExtensionLC (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getExtensionLC-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getFile_pathSeparatorChar ()C
+	public static final fun getFile_separatorChar ()C
+	public static final fun getFolder (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getFolder-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getFolderWithSlash (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getFolderWithSlash-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getFullName (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getFullName-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getFullNameWithoutCompoundExtension (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getFullNameWithoutCompoundExtension-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getFullNameWithoutExtension (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getFullNameWithoutExtension-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getFullPathNormalized (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getFullPathNormalized-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getFullPathWithoutExtension (Lkorlibs/io/file/Path;)Ljava/lang/String;
+	public static final fun getFullPathWithoutExtension-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getParent-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getPathComponents (Lkorlibs/io/file/Path;)Ljava/util/List;
+	public static final fun getPathComponents-pnq4Q78 (Ljava/lang/String;)Ljava/util/List;
+	public static final fun getPathFullComponents (Lkorlibs/io/file/Path;)Ljava/util/List;
+	public static final fun getPathFullComponents-pnq4Q78 (Ljava/lang/String;)Ljava/util/List;
+	public static final fun getPathInfo (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun isAbsolute-pnq4Q78 (Ljava/lang/String;)Z
+	public static final fun lightCombine-nbBxnkU (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun normalize-JS8pDO4 (Ljava/lang/String;Z)Ljava/lang/String;
+	public static synthetic fun normalize-JS8pDO4$default (Ljava/lang/String;ZILjava/lang/Object;)Ljava/lang/String;
+	public static final fun normalizeAbsolute-pnq4Q78 (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun parts-pnq4Q78 (Ljava/lang/String;)Ljava/util/List;
+	public static final fun relativePathTo-nbBxnkU (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 }
 
 public abstract interface class korlibs/io/file/SimpleStorage {
@@ -275,9 +1170,420 @@ public abstract interface class korlibs/io/file/SimpleStorage {
 	public abstract fun set (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
+public abstract class korlibs/io/file/Vfs : korlibs/io/async/AsyncCloseable {
+	public fun <init> ()V
+	protected final fun checkExecFolder (Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun chmod-zLW8Whw (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun createExistsStat-edZukhA (Ljava/lang/String;ZJJJILjava/lang/String;Ljava/lang/String;DDDLjava/lang/Object;Ljava/lang/String;Z)Lkorlibs/io/file/VfsStat;
+	public static synthetic fun createExistsStat-edZukhA$default (Lkorlibs/io/file/Vfs;Ljava/lang/String;ZJJJILjava/lang/String;Ljava/lang/String;DDDLjava/lang/Object;Ljava/lang/String;ZILjava/lang/Object;)Lkorlibs/io/file/VfsStat;
+	public final fun createNonExistsStat (Ljava/lang/String;Ljava/lang/Object;ZLjava/lang/Throwable;)Lkorlibs/io/file/VfsStat;
+	public static synthetic fun createNonExistsStat$default (Lkorlibs/io/file/Vfs;Ljava/lang/String;Ljava/lang/Object;ZLjava/lang/Throwable;ILjava/lang/Object;)Lkorlibs/io/file/VfsStat;
+	public fun delete (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun exec (Ljava/lang/String;Ljava/util/List;Ljava/util/Map;Lkorlibs/io/file/VfsProcessHandler;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun exec$default (Lkorlibs/io/file/Vfs;Ljava/lang/String;Ljava/util/List;Ljava/util/Map;Lkorlibs/io/file/VfsProcessHandler;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun file (Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public final fun get (Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	protected fun getAbsolutePath ()Ljava/lang/String;
+	public fun getAbsolutePath (Ljava/lang/String;)Ljava/lang/String;
+	public fun getAttributes (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	protected fun getDefaultEnvironments ()Ljava/util/Map;
+	public fun getKind (Ljava/lang/Object;)Lkorlibs/io/file/Vfs$FileKind;
+	public final fun getRoot ()Lkorlibs/io/file/VfsFile;
+	public fun getSupportedAttributeTypes ()Ljava/util/List;
+	public fun getUnderlyingUnscapedFile (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun isCaseSensitive (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun listFlow (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun listSimple (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun mkdir (Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun mkdirs (Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun open (Ljava/lang/String;Lkorlibs/io/file/VfsOpenMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun openInputStream (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun put (Ljava/lang/String;Lkorlibs/io/stream/AsyncInputStream;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun put (Ljava/lang/String;[BLjava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun put$default (Lkorlibs/io/file/Vfs;Ljava/lang/String;Lkorlibs/io/stream/AsyncInputStream;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun put$default (Lkorlibs/io/file/Vfs;Ljava/lang/String;[BLjava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun readChunk (Ljava/lang/String;JILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun readRange (Ljava/lang/String;Lkotlin/ranges/LongRange;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun rename (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun rmdir (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setAttributes (Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setSize (Ljava/lang/String;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun stat (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+	public fun touch-SuX47v0 (Ljava/lang/String;DDLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun watch (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun writeChunk (Ljava/lang/String;[BJZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/file/Vfs$Attribute {
+}
+
+public class korlibs/io/file/Vfs$Decorator : korlibs/io/file/Vfs$Proxy {
+	public fun <init> (Lkorlibs/io/file/VfsFile;)V
+	protected fun access (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getParent ()Lkorlibs/io/file/VfsFile;
+	public final fun getParentVfs ()Lkorlibs/io/file/Vfs;
+}
+
+public final class korlibs/io/file/Vfs$FileEvent {
+	public fun <init> (Lkorlibs/io/file/Vfs$FileEvent$Kind;Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/VfsFile;)V
+	public synthetic fun <init> (Lkorlibs/io/file/Vfs$FileEvent$Kind;Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/VfsFile;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkorlibs/io/file/Vfs$FileEvent$Kind;
+	public final fun component2 ()Lkorlibs/io/file/VfsFile;
+	public final fun component3 ()Lkorlibs/io/file/VfsFile;
+	public final fun copy (Lkorlibs/io/file/Vfs$FileEvent$Kind;Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/VfsFile;)Lkorlibs/io/file/Vfs$FileEvent;
+	public static synthetic fun copy$default (Lkorlibs/io/file/Vfs$FileEvent;Lkorlibs/io/file/Vfs$FileEvent$Kind;Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/VfsFile;ILjava/lang/Object;)Lkorlibs/io/file/Vfs$FileEvent;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFile ()Lkorlibs/io/file/VfsFile;
+	public final fun getKind ()Lkorlibs/io/file/Vfs$FileEvent$Kind;
+	public final fun getOther ()Lkorlibs/io/file/VfsFile;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/file/Vfs$FileEvent$Kind : java/lang/Enum {
+	public static final field CREATED Lkorlibs/io/file/Vfs$FileEvent$Kind;
+	public static final field DELETED Lkorlibs/io/file/Vfs$FileEvent$Kind;
+	public static final field MODIFIED Lkorlibs/io/file/Vfs$FileEvent$Kind;
+	public static final field RENAMED Lkorlibs/io/file/Vfs$FileEvent$Kind;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/io/file/Vfs$FileEvent$Kind;
+	public static fun values ()[Lkorlibs/io/file/Vfs$FileEvent$Kind;
+}
+
+public abstract interface class korlibs/io/file/Vfs$FileKind : korlibs/io/file/Vfs$Attribute {
+	public static final field Companion Lkorlibs/io/file/Vfs$FileKind$Companion;
+	public abstract fun getName ()Ljava/lang/String;
+}
+
+public final class korlibs/io/file/Vfs$FileKind$Companion {
+	public final fun getBINARY ()Lkorlibs/io/file/Vfs$FileKind$Standard;
+	public final fun getINT ()Lkorlibs/io/file/Vfs$FileKind$Standard;
+	public final fun getLONG ()Lkorlibs/io/file/Vfs$FileKind$Standard;
+	public final fun getSTRING ()Lkorlibs/io/file/Vfs$FileKind$Standard;
+}
+
+public final class korlibs/io/file/Vfs$FileKind$Standard : java/lang/Enum, korlibs/io/file/Vfs$FileKind {
+	public static final field BINARY Lkorlibs/io/file/Vfs$FileKind$Standard;
+	public static final field INT Lkorlibs/io/file/Vfs$FileKind$Standard;
+	public static final field LONG Lkorlibs/io/file/Vfs$FileKind$Standard;
+	public static final field STRING Lkorlibs/io/file/Vfs$FileKind$Standard;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public synthetic fun getName ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/io/file/Vfs$FileKind$Standard;
+	public static fun values ()[Lkorlibs/io/file/Vfs$FileKind$Standard;
+}
+
+public abstract class korlibs/io/file/Vfs$Proxy : korlibs/io/file/Vfs {
+	public fun <init> ()V
+	protected abstract fun access (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun chmod-zLW8Whw (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun delete (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun exec (Ljava/lang/String;Ljava/util/List;Ljava/util/Map;Lkorlibs/io/file/VfsProcessHandler;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getAttributes (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getUnderlyingUnscapedFile (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	protected fun init (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	protected final fun initOnce (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun isCaseSensitive (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun listFlow (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun mkdir (Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun open (Ljava/lang/String;Lkorlibs/io/file/VfsOpenMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun put (Ljava/lang/String;Lkorlibs/io/stream/AsyncInputStream;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun readRange (Ljava/lang/String;Lkotlin/ranges/LongRange;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun rename (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setAttributes (Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setSize (Ljava/lang/String;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun stat (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun touch-SuX47v0 (Ljava/lang/String;DDLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	protected fun transform (Lkorlibs/io/file/VfsFile;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun watch (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/file/Vfs$UnixPermission {
+	public static final synthetic fun box-impl (I)Lkorlibs/io/file/Vfs$UnixPermission;
+	public static fun constructor-impl (I)I
+	public static fun constructor-impl (ZZZ)I
+	public static synthetic fun constructor-impl$default (ZZZILkotlin/jvm/internal/DefaultConstructorMarker;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getBits ()I
+	public static final fun getExecutable-impl (I)Z
+	public static final fun getReadable-impl (I)Z
+	public static final fun getWritable-impl (I)Z
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/io/file/Vfs$UnixPermissions : korlibs/io/file/Vfs$Attribute {
+	public static final synthetic fun box-impl (I)Lkorlibs/io/file/Vfs$UnixPermissions;
+	public static fun constructor-impl (I)I
+	public static fun constructor-impl (IIII)I
+	public static synthetic fun constructor-impl$default (IIIIILkotlin/jvm/internal/DefaultConstructorMarker;)I
+	public static final fun copy--pozAUk (IIIII)I
+	public static synthetic fun copy--pozAUk$default (IIIIIILjava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getBits ()I
+	public static final fun getExtra-impl (I)I
+	public static final fun getGroup-O0sFDdA (I)I
+	public static final fun getOther-O0sFDdA (I)I
+	public static final fun getOwner-O0sFDdA (I)I
+	public static final fun getRbits-impl (I)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class korlibs/io/file/VfsCachedStatContext : kotlin/coroutines/CoroutineContext$Element {
+	public static final field Companion Lkorlibs/io/file/VfsCachedStatContext$Companion;
+	public fun <init> (Lkorlibs/io/file/VfsStat;)V
+	public fun fold (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public fun get (Lkotlin/coroutines/CoroutineContext$Key;)Lkotlin/coroutines/CoroutineContext$Element;
+	public fun getKey ()Lkorlibs/io/file/VfsCachedStatContext$Companion;
+	public synthetic fun getKey ()Lkotlin/coroutines/CoroutineContext$Key;
+	public final fun getStat ()Lkorlibs/io/file/VfsStat;
+	public fun minusKey (Lkotlin/coroutines/CoroutineContext$Key;)Lkotlin/coroutines/CoroutineContext;
+	public fun plus (Lkotlin/coroutines/CoroutineContext;)Lkotlin/coroutines/CoroutineContext;
+}
+
+public final class korlibs/io/file/VfsCachedStatContext$Companion : kotlin/coroutines/CoroutineContext$Key {
+}
+
 public final class korlibs/io/file/VfsExtKt {
 	public static final fun writeToFile ([BLjava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun writeToFile ([BLkorlibs/io/file/VfsFile;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/file/VfsFile : korlibs/io/file/VfsNamed, korlibs/datastructure/Extra, korlibs/io/stream/AsyncInputOpenable {
+	public fun <init> (Lkorlibs/io/file/Vfs;Ljava/lang/String;)V
+	public final fun appendExtension (Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public final fun chmod-Eea4tX8 (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun component1 ()Lkorlibs/io/file/Vfs;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Lkorlibs/io/file/Vfs;Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun copy$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/Vfs;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public final fun copyTo (Lkorlibs/io/file/VfsFile;[Lkorlibs/io/file/Vfs$Attribute;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun copyTo (Lkorlibs/io/stream/AsyncOutputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun copyToRecursively (Lkorlibs/io/file/VfsFile;[Lkorlibs/io/file/Vfs$Attribute;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun copyToRecursively$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/VfsFile;[Lkorlibs/io/file/Vfs$Attribute;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun delete (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun ensureParents (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun exec (Ljava/util/List;Ljava/util/Map;Lkorlibs/io/file/VfsProcessHandler;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun exec$default (Lkorlibs/io/file/VfsFile;Ljava/util/List;Ljava/util/Map;Lkorlibs/io/file/VfsProcessHandler;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun execProcess (Ljava/util/List;Ljava/util/Map;ZLkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun execProcess ([Ljava/lang/String;Ljava/util/Map;ZLkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun execProcess$default (Lkorlibs/io/file/VfsFile;Ljava/util/List;Ljava/util/Map;ZLkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun execProcess$default (Lkorlibs/io/file/VfsFile;[Ljava/lang/String;Ljava/util/Map;ZLkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun execToString (Ljava/util/List;Ljava/util/Map;Lkorlibs/io/lang/Charset;ZZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun execToString ([Ljava/lang/String;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun execToString$default (Lkorlibs/io/file/VfsFile;Ljava/util/List;Ljava/util/Map;Lkorlibs/io/lang/Charset;ZZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun execToString$default (Lkorlibs/io/file/VfsFile;[Ljava/lang/String;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun exists (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun get (Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public final fun getAbsolutePath ()Ljava/lang/String;
+	public final fun getAbsolutePathInfo-WYC9u6I ()Ljava/lang/String;
+	public final fun getAttributes (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getCachedStat ()Lkorlibs/io/file/VfsStat;
+	public fun getExtra ()Lkorlibs/datastructure/ExtraObject;
+	public final fun getParent ()Lkorlibs/io/file/VfsFile;
+	public final fun getPath ()Ljava/lang/String;
+	public final fun getRoot ()Lkorlibs/io/file/VfsFile;
+	public final fun getVfs ()Lkorlibs/io/file/Vfs;
+	public fun hashCode ()I
+	public final fun isCaseSensitive (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun isDirectory (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun isFile (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun jail ()Lkorlibs/io/file/VfsFile;
+	public final fun jailParent ()Lkorlibs/io/file/VfsFile;
+	public final fun list (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun listNames (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun listRecursive (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun listRecursive$default (Lkorlibs/io/file/VfsFile;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun listRecursiveSimple (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun listRecursiveSimple$default (Lkorlibs/io/file/VfsFile;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun listSimple (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun mkdir (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun mkdir ([Lkorlibs/io/file/Vfs$Attribute;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun mkdirs (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun mkdirs ([Lkorlibs/io/file/Vfs$Attribute;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun open (Lkorlibs/io/file/VfsOpenMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun open$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/VfsOpenMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun openInputStream (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun openRead (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun openUse (Lkorlibs/io/file/VfsOpenMode;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun openUse$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/VfsOpenMode;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun openUseIt (Lkorlibs/io/file/VfsOpenMode;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun openUseIt$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/file/VfsOpenMode;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun passthru (Ljava/util/List;Ljava/util/Map;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun passthru ([Ljava/lang/String;Ljava/util/Map;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun passthru$default (Lkorlibs/io/file/VfsFile;Ljava/util/List;Ljava/util/Map;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun passthru$default (Lkorlibs/io/file/VfsFile;[Ljava/lang/String;Ljava/util/Map;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun put (Lkorlibs/io/stream/AsyncInputStream;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun put (Lkorlibs/io/stream/AsyncInputStream;[Lkorlibs/io/file/Vfs$Attribute;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun put$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/stream/AsyncInputStream;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun read (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun readAll (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun readBytes (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun readChunk (JILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun readLines (Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readLines$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun readRangeBytes (Lkotlin/ranges/IntRange;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun readRangeBytes (Lkotlin/ranges/LongRange;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun readString (Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readString$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun redirected (Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun relativePathTo (Lkorlibs/io/file/VfsFile;)Ljava/lang/String;
+	public final fun rename (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun renameTo (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setAttributes (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setAttributes ([Lkorlibs/io/file/Vfs$Attribute;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setCachedStat (Lkorlibs/io/file/VfsStat;)V
+	public fun setExtra (Lkorlibs/datastructure/ExtraObject;)V
+	public final fun setSize (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun size (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun stat (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun takeIfExists (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+	public final fun touch-RtBw-Y8 (DDLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun touch-RtBw-Y8$default (Lkorlibs/io/file/VfsFile;DDLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun watch (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun withCompoundExtension (Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public final fun withExtension (Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public final fun write ([B[Lkorlibs/io/file/Vfs$Attribute;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun writeBytes ([B[Lkorlibs/io/file/Vfs$Attribute;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun writeChunk ([BJZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun writeChunk$default (Lkorlibs/io/file/VfsFile;[BJZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun writeFile (Lkorlibs/io/file/VfsFile;[Lkorlibs/io/file/Vfs$Attribute;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun writeLines (Ljava/lang/Iterable;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun writeLines$default (Lkorlibs/io/file/VfsFile;Ljava/lang/Iterable;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun writeStream (Lkorlibs/io/stream/AsyncInputStream;[Lkorlibs/io/file/Vfs$Attribute;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun writeStream$default (Lkorlibs/io/file/VfsFile;Lkorlibs/io/stream/AsyncInputStream;[Lkorlibs/io/file/Vfs$Attribute;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun writeString (Ljava/lang/String;[Lkorlibs/io/file/Vfs$Attribute;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun writeString$default (Lkorlibs/io/file/VfsFile;Ljava/lang/String;[Lkorlibs/io/file/Vfs$Attribute;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/file/VfsFile$ProcessResult {
+	public fun <init> (ILjava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (ILjava/lang/String;Ljava/lang/String;)Lkorlibs/io/file/VfsFile$ProcessResult;
+	public static synthetic fun copy$default (Lkorlibs/io/file/VfsFile$ProcessResult;ILjava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile$ProcessResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getExitCode ()I
+	public final fun getStderr ()Ljava/lang/String;
+	public final fun getStdout ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/file/VfsFileKt {
+	public static final fun deleteRecursively (Lkorlibs/io/file/VfsFile;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun deleteRecursively$default (Lkorlibs/io/file/VfsFile;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun getUnixPermission (Lkorlibs/io/file/VfsFile;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun jail (Lkorlibs/io/file/VfsFile;)Lkorlibs/io/file/VfsFile;
+	public static final fun jailParent (Lkorlibs/io/file/VfsFile;)Lkorlibs/io/file/VfsFile;
+	public static final fun proxied (Lkorlibs/io/file/VfsFile;Lkotlin/jvm/functions/Function2;)Lkorlibs/io/file/VfsFile;
+	public static final fun readAsSyncStream (Lkorlibs/io/file/VfsFile;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun setUnixPermission-zLW8Whw (Lkorlibs/io/file/VfsFile;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun useVfs (Lkorlibs/io/file/VfsFile;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun withOnce (Lkorlibs/io/file/VfsFile;Lkotlin/jvm/functions/Function2;)Lkorlibs/io/file/VfsFile;
+}
+
+public final class korlibs/io/file/VfsKt {
+	public static final fun getCreateDate (Lkorlibs/io/file/VfsStat;)D
+	public static final fun getLastAccessDate (Lkorlibs/io/file/VfsStat;)D
+	public static final fun getModifiedDate (Lkorlibs/io/file/VfsStat;)D
+}
+
+public class korlibs/io/file/VfsNamed : korlibs/io/file/Path {
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getPathInfo-WYC9u6I ()Ljava/lang/String;
+}
+
+public final class korlibs/io/file/VfsOpenMode : java/lang/Enum {
+	public static final field APPEND Lkorlibs/io/file/VfsOpenMode;
+	public static final field CREATE Lkorlibs/io/file/VfsOpenMode;
+	public static final field CREATE_NEW Lkorlibs/io/file/VfsOpenMode;
+	public static final field CREATE_OR_TRUNCATE Lkorlibs/io/file/VfsOpenMode;
+	public static final field READ Lkorlibs/io/file/VfsOpenMode;
+	public static final field WRITE Lkorlibs/io/file/VfsOpenMode;
+	public final fun getAppend ()Z
+	public final fun getCmode ()Ljava/lang/String;
+	public final fun getCreateIfNotExists ()Z
+	public final fun getCreateNew ()Z
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getRead ()Z
+	public final fun getTruncate ()Z
+	public final fun getWrite ()Z
+	public static fun valueOf (Ljava/lang/String;)Lkorlibs/io/file/VfsOpenMode;
+	public static fun values ()[Lkorlibs/io/file/VfsOpenMode;
+}
+
+public final class korlibs/io/file/VfsProcessException : java/io/IOException {
+	public fun <init> (Ljava/lang/String;)V
+}
+
+public class korlibs/io/file/VfsProcessHandler {
+	public fun <init> ()V
+	public fun onErr ([BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun onOut ([BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/file/VfsStat : korlibs/io/file/Path {
+	public synthetic fun <init> (Lkorlibs/io/file/VfsFile;ZZJJJILjava/lang/String;Ljava/lang/String;DDDLjava/lang/Object;Lkorlibs/io/file/Vfs$FileKind;Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lkorlibs/io/file/VfsFile;ZZJJJILjava/lang/String;Ljava/lang/String;DDDLjava/lang/Object;Lkorlibs/io/file/Vfs$FileKind;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkorlibs/io/file/VfsFile;
+	public final fun component10-Wg0KzQs ()D
+	public final fun component11-Wg0KzQs ()D
+	public final fun component12-Wg0KzQs ()D
+	public final fun component13 ()Ljava/lang/Object;
+	public final fun component14 ()Lkorlibs/io/file/Vfs$FileKind;
+	public final fun component15 ()Ljava/lang/String;
+	public final fun component16 ()Ljava/lang/Throwable;
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()J
+	public final fun component5 ()J
+	public final fun component6 ()J
+	public final fun component7 ()I
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()Ljava/lang/String;
+	public final fun copy-376zgGQ (Lkorlibs/io/file/VfsFile;ZZJJJILjava/lang/String;Ljava/lang/String;DDDLjava/lang/Object;Lkorlibs/io/file/Vfs$FileKind;Ljava/lang/String;Ljava/lang/Throwable;)Lkorlibs/io/file/VfsStat;
+	public static synthetic fun copy-376zgGQ$default (Lkorlibs/io/file/VfsStat;Lkorlibs/io/file/VfsFile;ZZJJJILjava/lang/String;Ljava/lang/String;DDDLjava/lang/Object;Lkorlibs/io/file/Vfs$FileKind;Ljava/lang/String;Ljava/lang/Throwable;ILjava/lang/Object;)Lkorlibs/io/file/VfsStat;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCreateTime-Wg0KzQs ()D
+	public final fun getDevice ()J
+	public final fun getEnrichedFile ()Lkorlibs/io/file/VfsFile;
+	public final fun getException ()Ljava/lang/Throwable;
+	public final fun getExists ()Z
+	public final fun getExtraInfo ()Ljava/lang/Object;
+	public final fun getFile ()Lkorlibs/io/file/VfsFile;
+	public final fun getGroup ()Ljava/lang/String;
+	public final fun getId ()Ljava/lang/String;
+	public final fun getInode ()J
+	public final fun getKind ()Lkorlibs/io/file/Vfs$FileKind;
+	public final fun getLastAccessTime-Wg0KzQs ()D
+	public final fun getMode ()I
+	public final fun getModifiedTime-Wg0KzQs ()D
+	public final fun getOwner ()Ljava/lang/String;
+	public fun getPathInfo-WYC9u6I ()Ljava/lang/String;
+	public final fun getPermissions-CQm_CSc ()I
+	public final fun getSize ()J
+	public fun hashCode ()I
+	public final fun isDirectory ()Z
+	public final fun isFile ()Z
+	public fun toString ()Ljava/lang/String;
+	public final fun toString (Z)Ljava/lang/String;
 }
 
 public final class korlibs/io/file/registry/WindowsRegistry {
@@ -862,11 +2168,37 @@ public final class korlibs/io/file/std/IsoVfsKt {
 	public static final fun openAsIso (Lkorlibs/io/stream/AsyncStream;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
+public final class korlibs/io/file/std/JailVfs : korlibs/io/file/Vfs$Proxy {
+	public static final field Companion Lkorlibs/io/file/std/JailVfs$Companion;
+	public synthetic fun <init> (Lkorlibs/io/file/VfsFile;Lkotlin/Unit;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getBaseJail ()Ljava/lang/String;
+	public final fun getJailRoot ()Lkorlibs/io/file/VfsFile;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/file/std/JailVfs$Companion {
+	public final fun invoke (Lkorlibs/io/file/VfsFile;)Lkorlibs/io/file/VfsFile;
+}
+
 public final class korlibs/io/file/std/JvmClassLoaderResourcesVfs : korlibs/io/file/std/MergedVfs {
 	public fun <init> (Ljava/lang/ClassLoader;)V
 	public final fun findSrcs (Ljava/io/File;Ljava/io/File;)Ljava/util/List;
 	public final fun getClassLoader ()Ljava/lang/ClassLoader;
 	public fun toString ()Ljava/lang/String;
+}
+
+public abstract class korlibs/io/file/std/LocalVfs : korlibs/io/file/Vfs {
+	public static final field Companion Lkorlibs/io/file/std/LocalVfs$Companion;
+	public fun <init> ()V
+	public fun <init> (Lkorlibs/io/core/SystemFS;)V
+	public synthetic fun <init> (Lkorlibs/io/core/SystemFS;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun exec (Ljava/lang/String;Ljava/util/List;Ljava/util/Map;Lkorlibs/io/file/VfsProcessHandler;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getAttributes (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getFs ()Lkorlibs/io/core/SystemFS;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/file/std/LocalVfs$Companion {
 }
 
 public final class korlibs/io/file/std/LocalVfsExtKt {
@@ -952,6 +2284,70 @@ public final class korlibs/io/file/std/MapLikeStorageVfsKt {
 	public static final fun toVfs (Lkorlibs/io/file/SimpleStorage;Lkorlibs/time/TimeProvider;)Lkorlibs/io/file/VfsFile;
 }
 
+public final class korlibs/io/file/std/MemoryNodeTree {
+	public fun <init> ()V
+	public fun <init> (Z)V
+	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getCaseSensitive ()Z
+	public final fun getRootNode ()Lkorlibs/io/file/std/MemoryNodeTree$Node;
+}
+
+public class korlibs/io/file/std/MemoryNodeTree$Node : java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {
+	public fun <init> (Lkorlibs/io/file/std/MemoryNodeTree;Ljava/lang/String;ZLkorlibs/io/file/std/MemoryNodeTree$Node;)V
+	public synthetic fun <init> (Lkorlibs/io/file/std/MemoryNodeTree;Ljava/lang/String;ZLkorlibs/io/file/std/MemoryNodeTree$Node;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun access (Ljava/lang/String;Z)Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun accessOrNull (Ljava/lang/String;)Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun child (Ljava/lang/String;)Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun createChild (Ljava/lang/String;Z)Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public static synthetic fun createChild$default (Lkorlibs/io/file/std/MemoryNodeTree$Node;Ljava/lang/String;ZILjava/lang/Object;)Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun delete ()V
+	public final fun followLinks ()Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun get (Ljava/lang/String;)Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun getBytes ()[B
+	public final fun getChildren ()Ljava/util/LinkedHashMap;
+	public final fun getChildrenLC ()Ljava/util/LinkedHashMap;
+	public final fun getData ()Ljava/lang/Object;
+	public final fun getLink ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getNameLC ()Ljava/lang/String;
+	public final fun getOrNull (Ljava/lang/String;)Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun getParent ()Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun getPath ()Ljava/lang/String;
+	public final fun getRoot ()Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public final fun getStream ()Lkorlibs/io/stream/AsyncStream;
+	public final fun isDirectory ()Z
+	public fun iterator ()Ljava/util/Iterator;
+	public final fun mkdir (Ljava/lang/String;)Z
+	public final fun setBytes ([B)V
+	public final fun setData (Ljava/lang/Object;)V
+	public final fun setLink (Ljava/lang/String;)V
+	public final fun setParent (Lkorlibs/io/file/std/MemoryNodeTree$Node;)V
+	public final fun setStream (Lkorlibs/io/stream/AsyncStream;)V
+}
+
+public final class korlibs/io/file/std/MemoryVfsKt {
+	public static final fun MemoryVfs (Ljava/util/Map;Z)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun MemoryVfs$default (Ljava/util/Map;ZILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static final fun MemoryVfsMix (Ljava/util/Map;ZLkorlibs/io/lang/Charset;)Lkorlibs/io/file/VfsFile;
+	public static final fun MemoryVfsMix ([Lkotlin/Pair;ZLkorlibs/io/lang/Charset;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun MemoryVfsMix$default (Ljava/util/Map;ZLkorlibs/io/lang/Charset;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun MemoryVfsMix$default ([Lkotlin/Pair;ZLkorlibs/io/lang/Charset;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static final fun SingleFileMemoryVfs (Ljava/lang/String;Ljava/lang/String;Lkorlibs/io/lang/Charset;Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public static final fun SingleFileMemoryVfs ([BLjava/lang/String;Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun SingleFileMemoryVfs$default (Ljava/lang/String;Ljava/lang/String;Lkorlibs/io/lang/Charset;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun SingleFileMemoryVfs$default ([BLjava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static final fun SingleFileMemoryVfsWithName (Ljava/lang/String;Ljava/lang/String;Lkorlibs/io/lang/Charset;)Lkorlibs/io/file/VfsFile;
+	public static final fun SingleFileMemoryVfsWithName ([BLjava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun SingleFileMemoryVfsWithName$default (Ljava/lang/String;Ljava/lang/String;Lkorlibs/io/lang/Charset;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static final fun VfsFileFromData (Ljava/lang/String;Ljava/lang/String;Lkorlibs/io/lang/Charset;Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public static final fun VfsFileFromData ([BLjava/lang/String;Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun VfsFileFromData$default (Ljava/lang/String;Ljava/lang/String;Lkorlibs/io/lang/Charset;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun VfsFileFromData$default ([BLjava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static final fun asMemoryVfsFile ([BLjava/lang/String;)Lkorlibs/io/file/VfsFile;
+	public static synthetic fun asMemoryVfsFile$default ([BLjava/lang/String;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+	public static final fun cachedToMemory (Lkorlibs/io/file/VfsFile;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
 public class korlibs/io/file/std/MergedVfs : korlibs/io/file/Vfs$Proxy {
 	public fun <init> ()V
 	public fun <init> (Ljava/util/List;Ljava/lang/String;)V
@@ -987,6 +2383,23 @@ public final class korlibs/io/file/std/MountableVfsKt {
 	public static final fun MountableVfsSync (ZLkotlin/jvm/functions/Function1;)Lkorlibs/io/file/VfsFile;
 	public static synthetic fun MountableVfsSync$default (ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
 	public static final fun mount (Lkorlibs/io/file/std/Mountable;Ljava/lang/String;Lkorlibs/io/file/Vfs;)Lkorlibs/io/file/std/Mountable;
+}
+
+public class korlibs/io/file/std/NodeVfs : korlibs/io/file/Vfs {
+	public fun <init> ()V
+	public fun <init> (Z)V
+	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun delete (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getCaseSensitive ()Z
+	public final fun getNodeTree ()Lkorlibs/io/file/std/MemoryNodeTree;
+	public final fun getRootNode ()Lkorlibs/io/file/std/MemoryNodeTree$Node;
+	public fun listFlow (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun mkdir (Ljava/lang/String;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun open (Ljava/lang/String;Lkorlibs/io/file/VfsOpenMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun rename (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun stat (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+	public fun watch (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class korlibs/io/file/std/ShellArgs : korlibs/io/core/internal/InternalSystemFSShellArgs {
@@ -1077,6 +2490,15 @@ public final class korlibs/io/file/std/UniversalVfsKt {
 	public static final fun setDefaultUniSchema (Lkorlibs/io/file/std/UniSchemaProviders;)V
 	public static final fun uniVfs (Ljava/lang/String;Lkorlibs/io/file/std/UniSchemaProviders;Lkorlibs/io/file/VfsFile;)Lkorlibs/io/file/VfsFile;
 	public static synthetic fun uniVfs$default (Ljava/lang/String;Lkorlibs/io/file/std/UniSchemaProviders;Lkorlibs/io/file/VfsFile;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
+}
+
+public abstract class korlibs/io/file/std/UrlVfs : korlibs/io/file/Vfs {
+	public fun <init> (Ljava/lang/String;Lkotlin/Unit;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/Unit;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	protected fun getAbsolutePath ()Ljava/lang/String;
+	public final fun getFailFromStatus ()Z
+	public final fun getFullUrl (Ljava/lang/String;)Ljava/lang/String;
+	public final fun getUrl ()Ljava/lang/String;
 }
 
 public final class korlibs/io/file/std/UrlVfsExtKt {
@@ -1304,6 +2726,37 @@ public final class korlibs/io/hash/HashExtKt {
 
 public final class korlibs/io/hash/Hash_jvmKt {
 	public static final fun hash (Ljava/io/InputStream;Lkorlibs/crypto/HasherFactory;)Lkorlibs/crypto/Hash;
+}
+
+public abstract interface class korlibs/io/http/core/HttpFetch {
+	public static final field Companion Lkorlibs/io/http/core/HttpFetch$Companion;
+	public abstract fun fetch (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;ZLjava/util/List;Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun fetch$default (Lkorlibs/io/http/core/HttpFetch;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;ZLjava/util/List;Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/http/core/HttpFetch$Companion : korlibs/io/http/core/HttpFetch {
+	public fun fetch (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;ZLjava/util/List;Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/http/core/HttpFetch$DefaultImpls {
+	public static synthetic fun fetch$default (Lkorlibs/io/http/core/HttpFetch;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;ZLjava/util/List;Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/http/core/HttpFetchResult {
+	public fun <init> (ILjava/lang/String;Ljava/util/List;Lkorlibs/io/stream/AsyncInputStream;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Lkorlibs/io/stream/AsyncInputStream;
+	public final fun copy (ILjava/lang/String;Ljava/util/List;Lkorlibs/io/stream/AsyncInputStream;)Lkorlibs/io/http/core/HttpFetchResult;
+	public static synthetic fun copy$default (Lkorlibs/io/http/core/HttpFetchResult;ILjava/lang/String;Ljava/util/List;Lkorlibs/io/stream/AsyncInputStream;ILjava/lang/Object;)Lkorlibs/io/http/core/HttpFetchResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBodyRaw ()Lkorlibs/io/stream/AsyncInputStream;
+	public final fun getHeaders ()Ljava/util/List;
+	public final fun getStatus ()I
+	public final fun getStatusText ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class korlibs/io/internal/TempBytesKt {
@@ -2587,6 +4040,10 @@ public final class korlibs/io/resources/ResourcesKt {
 	public static final fun resourceUncached (Lkotlin/jvm/functions/Function2;)Lkorlibs/io/resources/ResourceRef;
 }
 
+public final class korlibs/io/runtime/node/ConfigureNodeJsTargetKt {
+	public static final fun configureNodeJsTarget ()V
+}
+
 public final class korlibs/io/serialization/json/JsonContext {
 	public static final field INSTANCE Lkorlibs/io/serialization/json/JsonContext;
 	public final fun getDEFAULT ()Lkorlibs/io/serialization/json/Json;
@@ -2610,15 +4067,593 @@ public final class korlibs/io/serialization/xml/XmlExtKt {
 	public static final fun readXml (Lkorlibs/io/file/VfsFile;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
+public final class korlibs/io/socket/AsyncClientSSLProcessor : korlibs/io/socket/AsyncSocket {
+	public fun <init> (Lkorlibs/io/socket/AsyncSocket;Lkorlibs/io/socket/SSLProcessor;)V
+	public synthetic fun <init> (Lkorlibs/io/socket/AsyncSocket;Lkorlibs/io/socket/SSLProcessor;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun connect (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getAddress ()Lkorlibs/io/socket/AsyncSocketAddress;
+	public final fun getClient ()Lkorlibs/io/socket/AsyncSocket;
+	public fun getConnected ()Z
+	public final fun getProcessor ()Lkorlibs/io/socket/SSLProcessor;
+	public fun read (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun read ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/socket/AsyncServerSocket : korlibs/io/async/AsyncCloseable {
+	public static final field Companion Lkorlibs/io/socket/AsyncServerSocket$Companion;
+	public abstract fun accept (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getBacklog ()I
+	public abstract fun getHost ()Ljava/lang/String;
+	public abstract fun getPort ()I
+	public abstract fun getRequestPort ()I
+	public fun listen (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun listenFlow (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/socket/AsyncServerSocket$Companion {
+	public final fun getANY_PORT ()I
+}
+
+public final class korlibs/io/socket/AsyncServerSocket$DefaultImpls {
+	public static fun close (Lkorlibs/io/socket/AsyncServerSocket;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun listen (Lkorlibs/io/socket/AsyncServerSocket;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun listenFlow (Lkorlibs/io/socket/AsyncServerSocket;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/socket/AsyncSocket : korlibs/io/stream/AsyncInputStream, korlibs/io/stream/AsyncOutputStream {
+	public static final field Companion Lkorlibs/io/socket/AsyncSocket$Companion;
+	public abstract fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun connect (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getAddress ()Lkorlibs/io/socket/AsyncSocketAddress;
+	public abstract fun getConnected ()Z
+	public abstract fun read ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun write ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/socket/AsyncSocket$Companion {
+}
+
+public final class korlibs/io/socket/AsyncSocket$DefaultImpls {
+	public static fun getAddress (Lkorlibs/io/socket/AsyncSocket;)Lkorlibs/io/socket/AsyncSocketAddress;
+	public static fun read (Lkorlibs/io/socket/AsyncSocket;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun write (Lkorlibs/io/socket/AsyncSocket;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/socket/AsyncSocket$Stats {
+	public static final field INSTANCE Lkorlibs/io/socket/AsyncSocket$Stats;
+	public final fun getWriteCountEnd ()Lkotlinx/atomicfu/AtomicLong;
+	public final fun getWriteCountError ()Lkotlinx/atomicfu/AtomicLong;
+	public final fun getWriteCountStart ()Lkotlinx/atomicfu/AtomicLong;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/socket/AsyncSocketAddress {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;I)V
+	public synthetic fun <init> (Ljava/lang/String;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()I
+	public final fun copy (Ljava/lang/String;I)Lkorlibs/io/socket/AsyncSocketAddress;
+	public static synthetic fun copy$default (Lkorlibs/io/socket/AsyncSocketAddress;Ljava/lang/String;IILjava/lang/Object;)Lkorlibs/io/socket/AsyncSocketAddress;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAddress ()Ljava/lang/String;
+	public final fun getPort ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class korlibs/io/socket/AsyncSocket_jvmAndAndroidKt {
+	public static final fun invoke (Lkorlibs/io/socket/AsyncServerSocket$Companion;ILjava/lang/String;IZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun invoke (Lkorlibs/io/socket/AsyncSocket$Companion;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun invoke$default (Lkorlibs/io/socket/AsyncServerSocket$Companion;ILjava/lang/String;IZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun invoke$default (Lkorlibs/io/socket/AsyncSocket$Companion;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun unix (Lkorlibs/io/socket/AsyncServerSocket$Companion;Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun unix (Lkorlibs/io/socket/AsyncSocket$Companion;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun unix$default (Lkorlibs/io/socket/AsyncServerSocket$Companion;Ljava/lang/String;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/socket/JvmAsyncServerSocket : korlibs/io/socket/AsyncServerSocket {
+	public fun <init> (ILjava/lang/String;IZ)V
+	public synthetic fun <init> (ILjava/lang/String;IZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun accept (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getBacklog ()I
+	public fun getHost ()Ljava/lang/String;
+	public fun getPort ()I
+	public fun getRequestPort ()I
+	public final fun getSecure ()Z
+	public final fun getSsc ()Ljava/net/ServerSocket;
+	public final fun init (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun listen (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun listenFlow (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/socket/JvmAsyncSocket : korlibs/io/socket/AsyncSocket {
+	public fun <init> (Ljava/net/Socket;Z)V
+	public synthetic fun <init> (Ljava/net/Socket;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/nio/channels/SocketChannel;Z)V
+	public synthetic fun <init> (Ljava/nio/channels/SocketChannel;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun connect (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getAddress ()Lkorlibs/io/socket/AsyncSocketAddress;
+	public fun getConnected ()Z
+	public final fun getSecure ()Z
+	public fun read (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun read ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/socket/JvmAsyncSocketKt {
+	public static final fun ServerSocketChannel_open (Ljava/net/ProtocolFamily;)Ljava/nio/channels/ServerSocketChannel;
+	public static final fun SocketChannel_open (Ljava/net/ProtocolFamily;)Ljava/nio/channels/SocketChannel;
+	public static final fun UnixDomainSocketAddress_of (Ljava/lang/String;)Ljava/net/SocketAddress;
+	public static final fun getStandardProtocolFamily_UNIX ()Ljava/net/ProtocolFamily;
+	public static final fun toAsyncAddress (Ljava/net/SocketAddress;)Lkorlibs/io/socket/AsyncSocketAddress;
+}
+
+public final class korlibs/io/socket/JvmNioAsyncClient : korlibs/io/socket/AsyncSocket {
+	public fun <init> ()V
+	public fun <init> (Ljava/nio/channels/AsynchronousSocketChannel;)V
+	public synthetic fun <init> (Ljava/nio/channels/AsynchronousSocketChannel;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun connect (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getAddress ()Lkorlibs/io/socket/AsyncSocketAddress;
+	public fun getConnected ()Z
+	public fun read (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun read ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/socket/JvmNioAsyncServer : korlibs/io/socket/AsyncServerSocket {
+	public fun <init> (ILjava/lang/String;I)V
+	public synthetic fun <init> (ILjava/lang/String;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun accept (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getBacklog ()I
+	public fun getHost ()Ljava/lang/String;
+	public fun getPort ()I
+	public fun getRequestPort ()I
+	public final fun getSsc ()Ljava/nio/channels/AsynchronousServerSocketChannel;
+	public final fun init (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun listen (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun listenFlow (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/socket/PairAsyncSocket : korlibs/io/socket/AsyncSocket {
+	public fun <init> ()V
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun connect (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getAddress ()Lkorlibs/io/socket/AsyncSocketAddress;
+	public fun getConnected ()Z
+	public final fun getReadDeque ()Lkorlibs/io/stream/SyncStream;
+	public final fun getWriteDeque ()Lkorlibs/io/stream/SyncStream;
+	public fun read (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun read ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/socket/SSLProcessor {
+	public abstract fun addDecryptedClientData ([BII)V
+	public abstract fun addEncryptedServerData ([BII)V
+	public abstract fun clientClose ()V
+	public abstract fun getDecryptedServerData ([BII)I
+	public static synthetic fun getDecryptedServerData$default (Lkorlibs/io/socket/SSLProcessor;[BIIILjava/lang/Object;)I
+	public abstract fun getEncryptedClientData ([BII)I
+	public static synthetic fun getEncryptedClientData$default (Lkorlibs/io/socket/SSLProcessor;[BIIILjava/lang/Object;)I
+	public abstract fun getNeedInput ()Z
+	public abstract fun getNeedSync ()Z
+	public abstract fun getStatus ()Ljava/lang/Object;
+	public abstract fun isAlive ()Z
+	public abstract fun setEndPoint (Ljava/lang/String;I)V
+}
+
+public final class korlibs/io/socket/SSLProcessor$DefaultImpls {
+	public static synthetic fun getDecryptedServerData$default (Lkorlibs/io/socket/SSLProcessor;[BIIILjava/lang/Object;)I
+	public static synthetic fun getEncryptedClientData$default (Lkorlibs/io/socket/SSLProcessor;[BIIILjava/lang/Object;)I
+}
+
+public final class korlibs/io/socket/SSLProcessorJvm : korlibs/io/socket/SSLProcessor {
+	public fun <init> ()V
+	public fun addDecryptedClientData ([BII)V
+	public fun addEncryptedServerData ([BII)V
+	public fun clientClose ()V
+	public fun getDecryptedServerData ([BII)I
+	public fun getEncryptedClientData ([BII)I
+	public final fun getEngine ()Ljavax/net/ssl/SSLEngine;
+	public fun getNeedInput ()Z
+	public fun getNeedSync ()Z
+	public final fun getSslContext ()Ljavax/net/ssl/SSLContext;
+	public fun getStatus ()Ljava/lang/Object;
+	public fun isAlive ()Z
+	public fun setAlive (Z)V
+	public fun setEndPoint (Ljava/lang/String;I)V
+	public final fun setEngine (Ljavax/net/ssl/SSLEngine;)V
+}
+
+public final class korlibs/io/socket/SSLProcessorKt {
+	public static final fun getAllDecryptedServerData (Lkorlibs/io/socket/SSLProcessor;)Ljava/util/List;
+	public static final fun getAllEncryptedClientData (Lkorlibs/io/socket/SSLProcessor;)Ljava/util/List;
+	public static final fun getDecryptedServerData (Lkorlibs/io/socket/SSLProcessor;)[B
+	public static final fun getEncryptedClientData (Lkorlibs/io/socket/SSLProcessor;)[B
+}
+
+public final class korlibs/io/socket/SSLProcessor_jvmAndAndroidKt {
+	public static final fun DefaultSSLProcessor ()Lkorlibs/io/socket/SSLProcessor;
+}
+
+public final class korlibs/io/socket/UnixServerSocket : korlibs/io/socket/AsyncServerSocket {
+	public field ssc Ljava/nio/channels/ServerSocketChannel;
+	public fun <init> (Ljava/lang/String;IZ)V
+	public synthetic fun <init> (Ljava/lang/String;IZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun accept (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getBacklog ()I
+	public fun getHost ()Ljava/lang/String;
+	public final fun getPath ()Ljava/lang/String;
+	public fun getPort ()I
+	public fun getRequestPort ()I
+	public final fun getSecure ()Z
+	public final fun getSsc ()Ljava/nio/channels/ServerSocketChannel;
+	public final fun init (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun listen (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun listenFlow (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setSsc (Ljava/nio/channels/ServerSocketChannel;)V
+}
+
+public abstract interface class korlibs/io/stream/AsyncBaseStream : korlibs/io/async/AsyncCloseable {
+}
+
+public final class korlibs/io/stream/AsyncBufferedInputStream : korlibs/io/stream/AsyncInputStream {
+	public fun <init> (Lkorlibs/io/stream/AsyncInputStream;I)V
+	public synthetic fun <init> (Lkorlibs/io/stream/AsyncInputStream;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getBase ()Lkorlibs/io/stream/AsyncInputStream;
+	public final fun getInitialBits ()I
+	public fun read (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun read ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun readUntil (BZILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readUntil$default (Lkorlibs/io/stream/AsyncBufferedInputStream;BZILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun require (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun require$default (Lkorlibs/io/stream/AsyncBufferedInputStream;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/stream/AsyncGetLengthStream : korlibs/io/stream/AsyncBaseStream {
+	public fun getLength (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun hasLength (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/AsyncGetLengthStream$DefaultImpls {
+	public static fun getLength (Lkorlibs/io/stream/AsyncGetLengthStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun hasLength (Lkorlibs/io/stream/AsyncGetLengthStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/stream/AsyncGetPositionStream : korlibs/io/stream/AsyncBaseStream {
+	public fun getPosition (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/AsyncGetPositionStream$DefaultImpls {
+	public static fun getPosition (Lkorlibs/io/stream/AsyncGetPositionStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/stream/AsyncInputOpenable {
+	public abstract fun openRead (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/stream/AsyncInputStream : korlibs/io/stream/AsyncBaseStream {
+	public fun read (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun read ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun read$default (Lkorlibs/io/stream/AsyncInputStream;[BIILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/AsyncInputStream$DefaultImpls {
+	public static fun read (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun read$default (Lkorlibs/io/stream/AsyncInputStream;[BIILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/stream/AsyncInputStreamWithLength : korlibs/io/stream/AsyncGetLengthStream, korlibs/io/stream/AsyncGetPositionStream, korlibs/io/stream/AsyncInputStream {
+}
+
+public final class korlibs/io/stream/AsyncInputStreamWithLength$DefaultImpls {
+	public static fun getLength (Lkorlibs/io/stream/AsyncInputStreamWithLength;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getPosition (Lkorlibs/io/stream/AsyncInputStreamWithLength;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun hasLength (Lkorlibs/io/stream/AsyncInputStreamWithLength;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun read (Lkorlibs/io/stream/AsyncInputStreamWithLength;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/AsyncInputStreamWithLengthKt {
+	public static final fun combine (Ljava/util/List;)Lkorlibs/io/stream/AsyncInputStreamWithLength;
+	public static final fun getAvailable (Lkorlibs/io/stream/AsyncInputStreamWithLength;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun hasAvailable (Lkorlibs/io/stream/AsyncInputStreamWithLength;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun plus (Lkorlibs/io/stream/AsyncInputStreamWithLength;Lkorlibs/io/stream/AsyncInputStreamWithLength;)Lkorlibs/io/stream/AsyncInputStreamWithLength;
+	public static final fun supportsAvailable (Lkorlibs/io/stream/AsyncInputStreamWithLength;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun withLength (Lkorlibs/io/stream/AsyncInputStream;J)Lkorlibs/io/stream/AsyncInputStream;
+}
+
+public final class korlibs/io/stream/AsyncInputStream_readKt {
+	public static final fun read (Lkorlibs/io/stream/AsyncInputStream;[BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun read-Coi6ktg (Lkorlibs/io/stream/AsyncInputStream;[BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readBufferedLine (Lkorlibs/io/stream/AsyncBufferedInputStream;ILkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readBufferedLine$default (Lkorlibs/io/stream/AsyncBufferedInputStream;ILkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun readBytesUpToFirst (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readCharArray (Lkorlibs/io/stream/AsyncInputStream;ILkorlibs/platform/Endian;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readCharArrayBE (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readCharArrayLE (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readDoubleArray (Lkorlibs/io/stream/AsyncInputStream;ILkorlibs/platform/Endian;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readDoubleArrayBE (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readDoubleArrayLE (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readF32 (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/platform/Endian;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readF32BE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readF32LE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readF64 (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/platform/Endian;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readF64BE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readF64LE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readFloatArray (Lkorlibs/io/stream/AsyncInputStream;ILkorlibs/platform/Endian;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readFloatArrayBE (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readFloatArrayLE (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readIntArray (Lkorlibs/io/stream/AsyncInputStream;ILkorlibs/platform/Endian;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readIntArrayBE (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readIntArrayLE (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readLine (Lkorlibs/io/stream/AsyncInputStream;CLkorlibs/io/lang/Charset;IIZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readLine$default (Lkorlibs/io/stream/AsyncInputStream;CLkorlibs/io/lang/Charset;IIZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun readLongArray (Lkorlibs/io/stream/AsyncInputStream;ILkorlibs/platform/Endian;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readLongArrayBE (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readLongArrayLE (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readS16 (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/platform/Endian;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readS16BE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readS16LE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readS24 (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/platform/Endian;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readS24BE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readS24LE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readS32 (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/platform/Endian;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readS32BE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readS32LE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readS64 (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/platform/Endian;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readS64BE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readS64LE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readS8 (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readShortArray (Lkorlibs/io/stream/AsyncInputStream;ILkorlibs/platform/Endian;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readShortArrayBE (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readShortArrayLE (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readSmallTempExact (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readString (Lkorlibs/io/stream/AsyncInputStream;ILkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readString$default (Lkorlibs/io/stream/AsyncInputStream;ILkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun readStringz (Lkorlibs/io/stream/AsyncInputStream;ILkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readStringz (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readStringz$default (Lkorlibs/io/stream/AsyncInputStream;ILkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun readStringz$default (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun readU16 (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/platform/Endian;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readU16BE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readU16LE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readU24 (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/platform/Endian;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readU24BE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readU24LE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readU32 (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/platform/Endian;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readU32BE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readU32LE (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readU8 (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readUByteArray (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readUntil (Lkorlibs/io/stream/AsyncInputStream;BIIZ[BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readUntil$default (Lkorlibs/io/stream/AsyncInputStream;BIIZ[BLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/stream/AsyncLengthStream : korlibs/io/stream/AsyncGetLengthStream {
+	public fun setLength (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/AsyncLengthStream$DefaultImpls {
+	public static fun getLength (Lkorlibs/io/stream/AsyncLengthStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun hasLength (Lkorlibs/io/stream/AsyncLengthStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun setLength (Lkorlibs/io/stream/AsyncLengthStream;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/stream/AsyncOutputStream : korlibs/io/stream/AsyncBaseStream {
+	public fun write (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun write ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun write$default (Lkorlibs/io/stream/AsyncOutputStream;[BIILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/AsyncOutputStream$DefaultImpls {
+	public static fun write (Lkorlibs/io/stream/AsyncOutputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun write$default (Lkorlibs/io/stream/AsyncOutputStream;[BIILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/AsyncOutputStream_writeKt {
+	public static final fun write16BE (Lkorlibs/io/stream/AsyncOutputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun write16LE (Lkorlibs/io/stream/AsyncOutputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun write24BE (Lkorlibs/io/stream/AsyncOutputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun write24LE (Lkorlibs/io/stream/AsyncOutputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun write32BE (Lkorlibs/io/stream/AsyncOutputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun write32BE (Lkorlibs/io/stream/AsyncOutputStream;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun write32LE (Lkorlibs/io/stream/AsyncOutputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun write32LE (Lkorlibs/io/stream/AsyncOutputStream;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun write64BE (Lkorlibs/io/stream/AsyncOutputStream;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun write64LE (Lkorlibs/io/stream/AsyncOutputStream;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun write8 (Lkorlibs/io/stream/AsyncOutputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeBytes (Lkorlibs/io/stream/AsyncOutputStream;[BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeBytes (Lkorlibs/io/stream/AsyncOutputStream;[BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeCharArrayBE (Lkorlibs/io/stream/AsyncOutputStream;[CLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeCharArrayLE (Lkorlibs/io/stream/AsyncOutputStream;[CLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeDoubleArrayBE (Lkorlibs/io/stream/AsyncOutputStream;[DLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeDoubleArrayLE (Lkorlibs/io/stream/AsyncOutputStream;[DLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeF32BE (Lkorlibs/io/stream/AsyncOutputStream;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeF32LE (Lkorlibs/io/stream/AsyncOutputStream;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeF64BE (Lkorlibs/io/stream/AsyncOutputStream;DLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeF64LE (Lkorlibs/io/stream/AsyncOutputStream;DLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeFloatArrayBE (Lkorlibs/io/stream/AsyncOutputStream;[FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeFloatArrayLE (Lkorlibs/io/stream/AsyncOutputStream;[FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeIntArrayBE (Lkorlibs/io/stream/AsyncOutputStream;[ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeIntArrayLE (Lkorlibs/io/stream/AsyncOutputStream;[ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeLongArrayBE (Lkorlibs/io/stream/AsyncOutputStream;[JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeLongArrayLE (Lkorlibs/io/stream/AsyncOutputStream;[JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeShortArrayBE (Lkorlibs/io/stream/AsyncOutputStream;[SLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeShortArrayLE (Lkorlibs/io/stream/AsyncOutputStream;[SLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeStream (Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeString (Lkorlibs/io/stream/AsyncOutputStream;Ljava/lang/String;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun writeString$default (Lkorlibs/io/stream/AsyncOutputStream;Ljava/lang/String;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun writeStringVL (Lkorlibs/io/stream/AsyncOutputStream;Ljava/lang/String;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun writeStringVL$default (Lkorlibs/io/stream/AsyncOutputStream;Ljava/lang/String;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun writeStringz (Lkorlibs/io/stream/AsyncOutputStream;Ljava/lang/String;ILkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeStringz (Lkorlibs/io/stream/AsyncOutputStream;Ljava/lang/String;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun writeStringz$default (Lkorlibs/io/stream/AsyncOutputStream;Ljava/lang/String;ILkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun writeStringz$default (Lkorlibs/io/stream/AsyncOutputStream;Ljava/lang/String;Lkorlibs/io/lang/Charset;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun writeTempBytes (Lkorlibs/io/stream/AsyncOutputStream;ILkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeU_VL (Lkorlibs/io/stream/AsyncOutputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/stream/AsyncPositionLengthStream : korlibs/io/stream/AsyncLengthStream, korlibs/io/stream/AsyncPositionStream {
+	public fun eof (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getAvailable (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun hasAvailable (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/AsyncPositionLengthStream$DefaultImpls {
+	public static fun eof (Lkorlibs/io/stream/AsyncPositionLengthStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getAvailable (Lkorlibs/io/stream/AsyncPositionLengthStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getLength (Lkorlibs/io/stream/AsyncPositionLengthStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getPosition (Lkorlibs/io/stream/AsyncPositionLengthStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun hasAvailable (Lkorlibs/io/stream/AsyncPositionLengthStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun hasLength (Lkorlibs/io/stream/AsyncPositionLengthStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun setLength (Lkorlibs/io/stream/AsyncPositionLengthStream;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun setPosition (Lkorlibs/io/stream/AsyncPositionLengthStream;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/stream/AsyncPositionStream : korlibs/io/stream/AsyncGetPositionStream {
+	public fun setPosition (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/AsyncPositionStream$DefaultImpls {
+	public static fun getPosition (Lkorlibs/io/stream/AsyncPositionStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun setPosition (Lkorlibs/io/stream/AsyncPositionStream;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/stream/AsyncRAInputStream {
+	public abstract fun read (J[BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/stream/AsyncRAOutputStream {
+	public abstract fun write (J[BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/AsyncStream : korlibs/datastructure/Extra, korlibs/io/async/AsyncCloseable, korlibs/io/stream/AsyncInputStream, korlibs/io/stream/AsyncInputStreamWithLength, korlibs/io/stream/AsyncOutputStream, korlibs/io/stream/AsyncPositionLengthStream {
+	public fun <init> (Lkorlibs/io/stream/AsyncStreamBase;JZ)V
+	public synthetic fun <init> (Lkorlibs/io/stream/AsyncStreamBase;JZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun duplicate ()Lkorlibs/io/stream/AsyncStream;
+	public fun eof (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getAvailable (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getBase ()Lkorlibs/io/stream/AsyncStreamBase;
+	public fun getExtra ()Lkorlibs/datastructure/ExtraObject;
+	public fun getLength (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getPosition ()J
+	public fun getPosition (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getQueue ()Z
+	public fun hasAvailable (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun hasLength (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun read (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun read ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setExtra (Lkorlibs/datastructure/ExtraObject;)V
+	public fun setLength (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setPosition (J)V
+	public fun setPosition (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun size (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+	public fun write (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public class korlibs/io/stream/AsyncStreamBase : korlibs/io/async/AsyncCloseable, korlibs/io/stream/AsyncLengthStream, korlibs/io/stream/AsyncRAInputStream, korlibs/io/stream/AsyncRAOutputStream {
+	public fun <init> ()V
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getLength (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun hasLength (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun read (J[BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setLength (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write (J[BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
 public final class korlibs/io/stream/AsyncStreamExt_jvmKt {
 	public static final fun toAsync (Ljava/io/InputStream;Lkotlin/coroutines/CoroutineContext;Ljava/lang/Long;)Lkorlibs/io/stream/AsyncInputStream;
 	public static synthetic fun toAsync$default (Ljava/io/InputStream;Lkotlin/coroutines/CoroutineContext;Ljava/lang/Long;ILjava/lang/Object;)Lkorlibs/io/stream/AsyncInputStream;
+}
+
+public final class korlibs/io/stream/AsyncStreamWriterKt {
+	public static final fun asyncStreamWriter (ILjava/lang/String;ZLkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun asyncStreamWriter$default (ILjava/lang/String;ZLkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/AsyncStream_extKt {
+	public static final fun getWrittenRange (Lkorlibs/io/stream/AsyncStream;Lkotlin/jvm/functions/Function0;)Lkotlin/ranges/LongRange;
+	public static final fun keepPosition (Lkorlibs/io/stream/AsyncStream;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun readAllAsFastStream (Lkorlibs/io/stream/AsyncStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readAllAsFastStream$default (Lkorlibs/io/stream/AsyncStream;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun readBytes (Lkorlibs/io/stream/AsyncStreamBase;JILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun skip (Lkorlibs/io/stream/AsyncStream;I)Lkorlibs/io/stream/AsyncStream;
+	public static final fun skipToAlign (Lkorlibs/io/stream/AsyncStream;I)V
+	public static final fun skipToAlign (Lkorlibs/io/stream/AsyncStream;II)V
+	public static final fun truncate (Lkorlibs/io/stream/AsyncStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun writeToAlign (Lkorlibs/io/stream/AsyncStream;IILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun writeToAlign$default (Lkorlibs/io/stream/AsyncStream;IILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
 public final class korlibs/io/stream/AsyncStream_fileKt {
 	public static final fun asVfsFile (Lkorlibs/io/stream/AsyncStream;Ljava/lang/String;)Lkorlibs/io/file/VfsFile;
 	public static synthetic fun asVfsFile$default (Lkorlibs/io/stream/AsyncStream;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/file/VfsFile;
 	public static final fun writeFile (Lkorlibs/io/stream/AsyncOutputStream;Lkorlibs/io/file/VfsFile;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/AsyncStream_sliceKt {
+	public static final fun readSlice (Lkorlibs/io/stream/AsyncStream;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readStream (Lkorlibs/io/stream/AsyncStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readStream (Lkorlibs/io/stream/AsyncStream;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun slice (Lkorlibs/io/stream/AsyncStream;Lkotlin/ranges/IntRange;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun slice (Lkorlibs/io/stream/AsyncStream;Lkotlin/ranges/LongRange;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun slice$default (Lkorlibs/io/stream/AsyncStream;Lkotlin/ranges/IntRange;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun slice$default (Lkorlibs/io/stream/AsyncStream;Lkotlin/ranges/LongRange;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun sliceHere (Lkorlibs/io/stream/AsyncStream;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun sliceHere$default (Lkorlibs/io/stream/AsyncStream;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun sliceStart (Lkorlibs/io/stream/AsyncStream;JZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun sliceStart$default (Lkorlibs/io/stream/AsyncStream;JZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun sliceWithBounds (Lkorlibs/io/stream/AsyncStream;JJZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun sliceWithBounds$default (Lkorlibs/io/stream/AsyncStream;JJZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun sliceWithSize (Lkorlibs/io/stream/AsyncStream;IIZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun sliceWithSize (Lkorlibs/io/stream/AsyncStream;JJZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun sliceWithSize$default (Lkorlibs/io/stream/AsyncStream;IIZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun sliceWithSize$default (Lkorlibs/io/stream/AsyncStream;JJZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/BufferedAsyncInputStream : korlibs/io/stream/AsyncInputStreamWithLength {
+	public fun <init> (Lkorlibs/io/stream/AsyncInputStream;I)V
+	public synthetic fun <init> (Lkorlibs/io/stream/AsyncInputStream;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun buffer (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun ensure (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getBufferedData ()Lkorlibs/memory/SimpleBytesDeque;
+	public fun getLength (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getPosition (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getStream ()Lkorlibs/io/stream/AsyncInputStream;
+	public fun hasLength (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun read (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun read ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun readBytesUntil (BZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readBytesUntil$default (Lkorlibs/io/stream/BufferedAsyncInputStream;BZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun readLine (ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readLine$default (Lkorlibs/io/stream/BufferedAsyncInputStream;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/BufferedAsyncStreamKt {
+	public static final fun buffered (Lkorlibs/io/stream/AsyncStream;II)Lkorlibs/io/stream/AsyncStream;
+	public static synthetic fun buffered$default (Lkorlibs/io/stream/AsyncStream;IIILjava/lang/Object;)Lkorlibs/io/stream/AsyncStream;
+	public static final fun bufferedInput (Lkorlibs/io/stream/AsyncInputStream;I)Lkorlibs/io/stream/AsyncBufferedInputStream;
+	public static synthetic fun bufferedInput$default (Lkorlibs/io/stream/AsyncInputStream;IILjava/lang/Object;)Lkorlibs/io/stream/AsyncBufferedInputStream;
+	public static final fun readBufferedLine (Lkorlibs/io/stream/AsyncBufferedInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readBufferedLine$default (Lkorlibs/io/stream/AsyncBufferedInputStream;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
 public final class korlibs/io/stream/ByteArrayDequeSyncStream : korlibs/io/stream/SyncStreamBase {
@@ -2662,6 +4697,110 @@ public final class korlibs/io/stream/CharReaderFromSyncStreamKt {
 	public static synthetic fun toCharReader$default ([BLkorlibs/io/lang/Charset;IILjava/lang/Object;)Lkorlibs/io/stream/CharReader;
 }
 
+public final class korlibs/io/stream/DequeSyncStreamKt {
+	public static final fun DequeSyncStream ()Lkorlibs/io/stream/SyncStream;
+}
+
+public class korlibs/io/stream/DummyAsyncOutputStream : korlibs/io/stream/AsyncOutputStream {
+	public static final field Companion Lkorlibs/io/stream/DummyAsyncOutputStream$Companion;
+	public fun <init> ()V
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/DummyAsyncOutputStream$Companion : korlibs/io/stream/DummyAsyncOutputStream {
+}
+
+public final class korlibs/io/stream/FastByteArrayInputStream {
+	public fun <init> ([BIII)V
+	public synthetic fun <init> ([BIIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun clone ()Lkorlibs/io/stream/FastByteArrayInputStream;
+	public final fun coerceRange (I)I
+	public final fun extractBytes (II)[B
+	public final fun extractString (II)Ljava/lang/String;
+	public final fun extractString (IILkorlibs/io/lang/Charset;)Ljava/lang/String;
+	public static synthetic fun extractString$default (Lkorlibs/io/stream/FastByteArrayInputStream;IILkorlibs/io/lang/Charset;ILjava/lang/Object;)Ljava/lang/String;
+	public final fun getAllBytes ()[B
+	public final fun getAvailable ()I
+	public final fun getBa ()[B
+	public final fun getBackingArrayUnsafe ()[B
+	public final fun getEnd ()I
+	public final fun getEof ()Z
+	public final fun getHasMore ()Z
+	public final fun getLength ()I
+	public final fun getOffset ()I
+	public final fun getPosition ()I
+	public final fun getStart ()I
+	public final fun read ([BII)I
+	public static synthetic fun read$default (Lkorlibs/io/stream/FastByteArrayInputStream;[BIIILjava/lang/Object;)I
+	public final fun readAll ()[B
+	public final fun readBytes (I)[B
+	public final fun readBytesExact (I)[B
+	public final fun readCharArrayBE (I)[C
+	public final fun readCharArrayLE (I)[C
+	public final fun readDoubleArrayBE (I)[D
+	public final fun readDoubleArrayLE (I)[D
+	public final fun readF32BE ()F
+	public final fun readF32LE ()F
+	public final fun readF64BE ()D
+	public final fun readF64LE ()D
+	public final fun readFloatArrayBE (I)[F
+	public final fun readFloatArrayLE (I)[F
+	public final fun readIntArrayBE (I)[I
+	public final fun readIntArrayLE (I)[I
+	public final fun readLongArrayBE (I)[J
+	public final fun readLongArrayLE (I)[J
+	public final fun readS16BE ()I
+	public final fun readS16LE ()I
+	public final fun readS24BE ()I
+	public final fun readS24LE ()I
+	public final fun readS32BE ()I
+	public final fun readS32LE ()I
+	public final fun readS64BE ()J
+	public final fun readS64LE ()J
+	public final fun readS8 ()I
+	public final fun readS_VL ()I
+	public final fun readShortArrayBE (I)[S
+	public final fun readShortArrayLE (I)[S
+	public final fun readSlice (I)Lkorlibs/io/stream/FastByteArrayInputStream;
+	public final fun readString (ILkorlibs/io/lang/Charset;)Ljava/lang/String;
+	public static synthetic fun readString$default (Lkorlibs/io/stream/FastByteArrayInputStream;ILkorlibs/io/lang/Charset;ILjava/lang/Object;)Ljava/lang/String;
+	public final fun readStringVL (Lkorlibs/io/lang/Charset;)Ljava/lang/String;
+	public static synthetic fun readStringVL$default (Lkorlibs/io/stream/FastByteArrayInputStream;Lkorlibs/io/lang/Charset;ILjava/lang/Object;)Ljava/lang/String;
+	public final fun readStringz (ILkorlibs/io/lang/Charset;)Ljava/lang/String;
+	public final fun readStringz (Lkorlibs/io/lang/Charset;)Ljava/lang/String;
+	public static synthetic fun readStringz$default (Lkorlibs/io/stream/FastByteArrayInputStream;ILkorlibs/io/lang/Charset;ILjava/lang/Object;)Ljava/lang/String;
+	public static synthetic fun readStringz$default (Lkorlibs/io/stream/FastByteArrayInputStream;Lkorlibs/io/lang/Charset;ILjava/lang/Object;)Ljava/lang/String;
+	public final fun readU16BE ()I
+	public final fun readU16LE ()I
+	public final fun readU24BE ()I
+	public final fun readU24LE ()I
+	public final fun readU32BE ()J
+	public final fun readU32LE ()J
+	public final fun readU8 ()I
+	public final fun readU_VL ()I
+	public final fun setOffset (I)V
+	public final fun setPosition (I)V
+	public final fun skip (I)V
+	public final fun skipToAlign (I)V
+	public final fun sliceStart (I)Lkorlibs/io/stream/FastByteArrayInputStream;
+	public static synthetic fun sliceStart$default (Lkorlibs/io/stream/FastByteArrayInputStream;IILjava/lang/Object;)Lkorlibs/io/stream/FastByteArrayInputStream;
+	public final fun sliceWithSize (II)Lkorlibs/io/stream/FastByteArrayInputStream;
+	public final fun unread (I)V
+}
+
+public final class korlibs/io/stream/FastByteArrayInputStreamKt {
+	public static final fun openFastStream ([BI)Lkorlibs/io/stream/FastByteArrayInputStream;
+	public static synthetic fun openFastStream$default ([BIILjava/lang/Object;)Lkorlibs/io/stream/FastByteArrayInputStream;
+}
+
+public final class korlibs/io/stream/FastByteArrayInputStream_extKt {
+	public static final fun readFastByteArrayInputStream (Lkorlibs/io/stream/SyncStream;I)Lkorlibs/io/stream/FastByteArrayInputStream;
+	public static final fun toAsyncStream (Lkorlibs/io/stream/FastByteArrayInputStream;)Lkorlibs/io/stream/AsyncStream;
+	public static final fun toSyncStream (Lkorlibs/io/stream/FastByteArrayInputStream;)Lkorlibs/io/stream/SyncStream;
+}
+
 public final class korlibs/io/stream/FileSyncStreamBase : korlibs/io/stream/SyncStreamBase {
 	public fun <init> (Ljava/io/File;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/io/File;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -2675,9 +4814,385 @@ public final class korlibs/io/stream/FileSyncStreamBase : korlibs/io/stream/Sync
 	public fun write (J[BII)V
 }
 
+public final class korlibs/io/stream/FillSyncStreamBase : korlibs/io/stream/SyncStreamBase {
+	public fun <init> (BJ)V
+	public fun close ()V
+	public final fun getFill ()B
+	public fun getLength ()J
+	public fun read (J[BII)I
+	public fun setLength (J)V
+	public fun write (J[BII)V
+}
+
+public final class korlibs/io/stream/FillSyncStreamKt {
+	public static final fun FillSyncStream (IJ)Lkorlibs/io/stream/SyncStream;
+	public static synthetic fun FillSyncStream$default (IJILjava/lang/Object;)Lkorlibs/io/stream/SyncStream;
+}
+
 public final class korlibs/io/stream/JavaExKt {
 	public static final fun toSyncInputStream (Ljava/io/InputStream;)Lkorlibs/io/stream/SyncInputStream;
 	public static final fun toSyncOutputStream (Ljava/io/OutputStream;)Lkorlibs/io/stream/SyncOutputStream;
+}
+
+public abstract interface class korlibs/io/stream/MarkableSyncInputStream : korlibs/io/stream/SyncInputStream {
+	public abstract fun mark (I)V
+	public abstract fun reset ()V
+}
+
+public final class korlibs/io/stream/MarkableSyncInputStream$DefaultImpls {
+	public static fun close (Lkorlibs/io/stream/MarkableSyncInputStream;)V
+	public static fun read (Lkorlibs/io/stream/MarkableSyncInputStream;)I
+	public static fun skip (Lkorlibs/io/stream/MarkableSyncInputStream;I)V
+}
+
+public class korlibs/io/stream/MarkableSyncStream : korlibs/io/stream/MarkableSyncInputStream {
+	public fun <init> (Lkorlibs/io/stream/SyncInputStream;)V
+	public fun close ()V
+	public final fun getInp ()Lkorlibs/io/stream/SyncInputStream;
+	public fun mark (I)V
+	public fun read ()I
+	public fun read ([BII)I
+	public fun reset ()V
+	public fun skip (I)V
+}
+
+public final class korlibs/io/stream/MemoryAsyncStreamBase : korlibs/io/stream/AsyncStreamBase {
+	public fun <init> (I)V
+	public synthetic fun <init> (IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lkorlibs/memory/ByteArrayBuilder;)V
+	public final fun checkPosition (J)V
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getData ()Lkorlibs/memory/ByteArrayBuilder;
+	public final fun getIlength ()I
+	public fun getLength (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun read (J[BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setData (Lkorlibs/memory/ByteArrayBuilder;)V
+	public final fun setIlength (I)V
+	public fun setLength (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+	public fun write (J[BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/MemoryAsyncStreamKt {
+	public static final fun MemoryAsyncStream (I)Lkorlibs/io/stream/AsyncStream;
+	public static final fun MemoryAsyncStream (Lkorlibs/memory/ByteArrayBuilder;)Lkorlibs/io/stream/AsyncStream;
+	public static synthetic fun MemoryAsyncStream$default (IILjava/lang/Object;)Lkorlibs/io/stream/AsyncStream;
+	public static final fun openAsync (Ljava/lang/String;)Lkorlibs/io/stream/AsyncStream;
+	public static final fun openAsync ([BLjava/lang/String;)Lkorlibs/io/stream/AsyncStream;
+	public static synthetic fun openAsync$default ([BLjava/lang/String;ILjava/lang/Object;)Lkorlibs/io/stream/AsyncStream;
+}
+
+public final class korlibs/io/stream/MemorySyncStreamBase : korlibs/io/stream/SyncStreamBase {
+	public fun <init> (I)V
+	public synthetic fun <init> (IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lkorlibs/memory/ByteArrayBuilder;)V
+	public final fun checkPosition (J)V
+	public fun close ()V
+	public final fun getData ()Lkorlibs/memory/ByteArrayBuilder;
+	public final fun getIlength ()I
+	public fun getLength ()J
+	public fun read (J[BII)I
+	public final fun setData (Lkorlibs/memory/ByteArrayBuilder;)V
+	public final fun setIlength (I)V
+	public fun setLength (J)V
+	public fun toString ()Ljava/lang/String;
+	public fun write (J[BII)V
+}
+
+public final class korlibs/io/stream/MemorySyncStreamKt {
+	public static final fun MemorySyncStream (Lkorlibs/memory/ByteArrayBuilder;)Lkorlibs/io/stream/SyncStream;
+	public static final fun MemorySyncStream ([B)Lkorlibs/io/stream/SyncStream;
+	public static synthetic fun MemorySyncStream$default ([BILjava/lang/Object;)Lkorlibs/io/stream/SyncStream;
+	public static final fun MemorySyncStreamToByteArray (ILkotlin/jvm/functions/Function1;)[B
+	public static synthetic fun MemorySyncStreamToByteArray$default (ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)[B
+	public static final fun openSync (Ljava/lang/String;)Lkorlibs/io/stream/SyncStream;
+	public static final fun openSync ([BLjava/lang/String;)Lkorlibs/io/stream/SyncStream;
+	public static synthetic fun openSync$default ([BLjava/lang/String;ILjava/lang/Object;)Lkorlibs/io/stream/SyncStream;
+}
+
+public class korlibs/io/stream/SeekNotSupportedException : java/lang/UnsupportedOperationException {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class korlibs/io/stream/SequenceSyncStreamKt {
+	public static final fun sequenceSyncStream (Lkotlin/jvm/functions/Function2;)Lkorlibs/io/stream/SyncStream;
+}
+
+public final class korlibs/io/stream/SliceAsyncStreamBase : korlibs/io/stream/AsyncStreamBase {
+	public fun <init> (Lkorlibs/io/stream/AsyncStreamBase;JJZ)V
+	public fun close (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getLength (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun read (J[BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+	public fun write (J[BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/SliceSyncStreamBase : korlibs/io/stream/SyncStreamBase {
+	public fun <init> (Lkorlibs/io/stream/SyncStreamBase;JJ)V
+	public fun close ()V
+	public fun getLength ()J
+	public fun getSeparateReadWrite ()Z
+	public fun read (J[BII)I
+	public fun setLength (J)V
+	public fun toString ()Ljava/lang/String;
+	public fun write (J[BII)V
+}
+
+public final class korlibs/io/stream/StreamAsyncStreamKt {
+	public static final fun consume (Lkorlibs/io/stream/AsyncInputStream;Z[BLkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun consume$default (Lkorlibs/io/stream/AsyncInputStream;Z[BLkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun copyTo (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun copyTo$default (Lkorlibs/io/stream/AsyncInputStream;Lkorlibs/io/stream/AsyncOutputStream;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun openUse (Lkorlibs/io/stream/AsyncInputOpenable;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readAll (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readAvailable (Lkorlibs/io/stream/AsyncInputStream;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readBytesExact (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readBytesUpTo (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readBytesUpTo (Lkorlibs/io/stream/AsyncInputStream;[BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readBytesUpToCopy (Lkorlibs/io/stream/AsyncInputStream;[BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun readChunks (Lkorlibs/io/stream/AsyncInputStream;[BLkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readChunks$default (Lkorlibs/io/stream/AsyncInputStream;[BLkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun readExact (Lkorlibs/io/stream/AsyncInputStream;[BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun skip (Lkorlibs/io/stream/AsyncInputStream;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun toAsyncStream (Lkorlibs/io/stream/AsyncBaseStream;)Lkorlibs/io/stream/AsyncStream;
+	public static final fun toAsyncStream (Lkorlibs/io/stream/AsyncStreamBase;J)Lkorlibs/io/stream/AsyncStream;
+	public static synthetic fun toAsyncStream$default (Lkorlibs/io/stream/AsyncStreamBase;JILjava/lang/Object;)Lkorlibs/io/stream/AsyncStream;
+}
+
+public final class korlibs/io/stream/SyncAsyncStreamBase : korlibs/io/stream/AsyncStreamBase {
+	public fun <init> (Lkorlibs/io/stream/SyncStreamBase;Lkotlinx/coroutines/CoroutineDispatcher;)V
+	public synthetic fun <init> (Lkorlibs/io/stream/SyncStreamBase;Lkotlinx/coroutines/CoroutineDispatcher;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public fun getLength (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getSync ()Lkorlibs/io/stream/SyncStreamBase;
+	public fun read (J[BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setLength (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun write (J[BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class korlibs/io/stream/SyncAsync_extKt {
+	public static final fun getEMPTY_BYTE_ARRAY ()[B
+	public static final fun toAsync (Lkorlibs/io/stream/SyncInputStream;Lkotlinx/coroutines/CoroutineDispatcher;)Lkorlibs/io/stream/AsyncInputStream;
+	public static final fun toAsync (Lkorlibs/io/stream/SyncOutputStream;Lkotlinx/coroutines/CoroutineDispatcher;)Lkorlibs/io/stream/AsyncOutputStream;
+	public static final fun toAsync (Lkorlibs/io/stream/SyncStream;Lkotlinx/coroutines/CoroutineDispatcher;)Lkorlibs/io/stream/AsyncStream;
+	public static final fun toAsync (Lkorlibs/io/stream/SyncStreamBase;Lkotlinx/coroutines/CoroutineDispatcher;)Lkorlibs/io/stream/AsyncStreamBase;
+	public static synthetic fun toAsync$default (Lkorlibs/io/stream/SyncInputStream;Lkotlinx/coroutines/CoroutineDispatcher;ILjava/lang/Object;)Lkorlibs/io/stream/AsyncInputStream;
+	public static synthetic fun toAsync$default (Lkorlibs/io/stream/SyncOutputStream;Lkotlinx/coroutines/CoroutineDispatcher;ILjava/lang/Object;)Lkorlibs/io/stream/AsyncOutputStream;
+	public static synthetic fun toAsync$default (Lkorlibs/io/stream/SyncStream;Lkotlinx/coroutines/CoroutineDispatcher;ILjava/lang/Object;)Lkorlibs/io/stream/AsyncStream;
+	public static synthetic fun toAsync$default (Lkorlibs/io/stream/SyncStreamBase;Lkotlinx/coroutines/CoroutineDispatcher;ILjava/lang/Object;)Lkorlibs/io/stream/AsyncStreamBase;
+	public static final fun toSyncOrNull (Lkorlibs/io/stream/AsyncStream;)Lkorlibs/io/stream/SyncStream;
+	public static final fun toSyncOrNull (Lkorlibs/io/stream/AsyncStreamBase;)Lkorlibs/io/stream/SyncStreamBase;
+	public static final fun writeSync (Lkorlibs/io/stream/AsyncOutputStream;ILkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun writeSync$default (Lkorlibs/io/stream/AsyncOutputStream;ILkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public abstract interface class korlibs/io/stream/SyncInputStream : java/lang/AutoCloseable {
+	public fun close ()V
+	public fun read ()I
+	public abstract fun read ([BII)I
+	public static synthetic fun read$default (Lkorlibs/io/stream/SyncInputStream;[BIIILjava/lang/Object;)I
+	public fun skip (I)V
+}
+
+public final class korlibs/io/stream/SyncInputStream$DefaultImpls {
+	public static fun close (Lkorlibs/io/stream/SyncInputStream;)V
+	public static fun read (Lkorlibs/io/stream/SyncInputStream;)I
+	public static synthetic fun read$default (Lkorlibs/io/stream/SyncInputStream;[BIIILjava/lang/Object;)I
+	public static fun skip (Lkorlibs/io/stream/SyncInputStream;I)V
+}
+
+public final class korlibs/io/stream/SyncInputStream_readKt {
+	public static final fun copyTo (Lkorlibs/io/stream/SyncInputStream;Lkorlibs/io/stream/SyncOutputStream;)V
+	public static final fun markable (Lkorlibs/io/stream/SyncInputStream;)Lkorlibs/io/stream/MarkableSyncInputStream;
+	public static final fun openAsync (Ljava/lang/String;Lkorlibs/io/lang/Charset;)Lkorlibs/io/stream/AsyncStream;
+	public static synthetic fun openAsync$default (Ljava/lang/String;Lkorlibs/io/lang/Charset;ILjava/lang/Object;)Lkorlibs/io/stream/AsyncStream;
+	public static final fun openSync (Ljava/lang/String;Lkorlibs/io/lang/Charset;)Lkorlibs/io/stream/SyncStream;
+	public static synthetic fun openSync$default (Ljava/lang/String;Lkorlibs/io/lang/Charset;ILjava/lang/Object;)Lkorlibs/io/stream/SyncStream;
+	public static final fun read (Lkorlibs/io/stream/SyncInputStream;[B)I
+	public static final fun read-VU-fvBY (Lkorlibs/io/stream/SyncInputStream;[B)I
+	public static final fun readBytes (Lkorlibs/io/stream/SyncInputStream;I)[B
+	public static final fun readBytesExact (Lkorlibs/io/stream/SyncInputStream;I)[B
+	public static final fun readCharArrayBE (Lkorlibs/io/stream/SyncInputStream;I)[C
+	public static final fun readCharArrayLE (Lkorlibs/io/stream/SyncInputStream;I)[C
+	public static final fun readDoubleArrayBE (Lkorlibs/io/stream/SyncInputStream;I)[D
+	public static final fun readDoubleArrayLE (Lkorlibs/io/stream/SyncInputStream;I)[D
+	public static final fun readExact (Lkorlibs/io/stream/SyncInputStream;[BII)V
+	public static final fun readExactTo (Lkorlibs/io/stream/SyncInputStream;[BII)I
+	public static synthetic fun readExactTo$default (Lkorlibs/io/stream/SyncInputStream;[BIIILjava/lang/Object;)I
+	public static final fun readF32BE (Lkorlibs/io/stream/SyncInputStream;)F
+	public static final fun readF32LE (Lkorlibs/io/stream/SyncInputStream;)F
+	public static final fun readF64BE (Lkorlibs/io/stream/SyncInputStream;)D
+	public static final fun readF64LE (Lkorlibs/io/stream/SyncInputStream;)D
+	public static final fun readFloatArrayBE (Lkorlibs/io/stream/SyncInputStream;I)[F
+	public static final fun readFloatArrayLE (Lkorlibs/io/stream/SyncInputStream;I)[F
+	public static final fun readIntArrayBE (Lkorlibs/io/stream/SyncInputStream;I)[I
+	public static final fun readIntArrayLE (Lkorlibs/io/stream/SyncInputStream;I)[I
+	public static final fun readLongArrayBE (Lkorlibs/io/stream/SyncInputStream;I)[J
+	public static final fun readLongArrayLE (Lkorlibs/io/stream/SyncInputStream;I)[J
+	public static final fun readS16BE (Lkorlibs/io/stream/SyncInputStream;)I
+	public static final fun readS16LE (Lkorlibs/io/stream/SyncInputStream;)I
+	public static final fun readS24BE (Lkorlibs/io/stream/SyncInputStream;)I
+	public static final fun readS24LE (Lkorlibs/io/stream/SyncInputStream;)I
+	public static final fun readS32BE (Lkorlibs/io/stream/SyncInputStream;)I
+	public static final fun readS32LE (Lkorlibs/io/stream/SyncInputStream;)I
+	public static final fun readS64BE (Lkorlibs/io/stream/SyncInputStream;)J
+	public static final fun readS64LE (Lkorlibs/io/stream/SyncInputStream;)J
+	public static final fun readS8 (Lkorlibs/io/stream/SyncInputStream;)I
+	public static final fun readS_VL (Lkorlibs/io/stream/SyncInputStream;)I
+	public static final fun readShortArrayBE (Lkorlibs/io/stream/SyncInputStream;I)[S
+	public static final fun readShortArrayLE (Lkorlibs/io/stream/SyncInputStream;I)[S
+	public static final fun readString (Lkorlibs/io/stream/SyncInputStream;I)Ljava/lang/String;
+	public static final fun readString (Lkorlibs/io/stream/SyncInputStream;ILkorlibs/io/lang/Charset;)Ljava/lang/String;
+	public static synthetic fun readString$default (Lkorlibs/io/stream/SyncInputStream;ILkorlibs/io/lang/Charset;ILjava/lang/Object;)Ljava/lang/String;
+	public static final fun readStringVL (Lkorlibs/io/stream/SyncStream;Lkorlibs/io/lang/Charset;)Ljava/lang/String;
+	public static synthetic fun readStringVL$default (Lkorlibs/io/stream/SyncStream;Lkorlibs/io/lang/Charset;ILjava/lang/Object;)Ljava/lang/String;
+	public static final fun readStringz (Lkorlibs/io/stream/SyncInputStream;I)Ljava/lang/String;
+	public static final fun readStringz (Lkorlibs/io/stream/SyncInputStream;ILkorlibs/io/lang/Charset;)Ljava/lang/String;
+	public static final fun readStringz (Lkorlibs/io/stream/SyncInputStream;Lkorlibs/io/lang/Charset;B)Ljava/lang/String;
+	public static synthetic fun readStringz$default (Lkorlibs/io/stream/SyncInputStream;ILkorlibs/io/lang/Charset;ILjava/lang/Object;)Ljava/lang/String;
+	public static synthetic fun readStringz$default (Lkorlibs/io/stream/SyncInputStream;Lkorlibs/io/lang/Charset;BILjava/lang/Object;)Ljava/lang/String;
+	public static final fun readU16BE (Lkorlibs/io/stream/SyncInputStream;)I
+	public static final fun readU16LE (Lkorlibs/io/stream/SyncInputStream;)I
+	public static final fun readU24BE (Lkorlibs/io/stream/SyncInputStream;)I
+	public static final fun readU24LE (Lkorlibs/io/stream/SyncInputStream;)I
+	public static final fun readU32BE (Lkorlibs/io/stream/SyncInputStream;)J
+	public static final fun readU32LE (Lkorlibs/io/stream/SyncInputStream;)J
+	public static final fun readU8 (Lkorlibs/io/stream/SyncInputStream;)I
+	public static final fun readUByteArray (Lkorlibs/io/stream/SyncInputStream;I)[B
+	public static final fun readU_VL (Lkorlibs/io/stream/SyncInputStream;)I
+}
+
+public abstract interface class korlibs/io/stream/SyncLengthStream {
+	public abstract fun getLength ()J
+	public abstract fun setLength (J)V
+}
+
+public abstract interface class korlibs/io/stream/SyncOutputStream : java/lang/AutoCloseable {
+	public fun close ()V
+	public fun flush ()V
+	public fun write (I)V
+	public abstract fun write ([BII)V
+	public static synthetic fun write$default (Lkorlibs/io/stream/SyncOutputStream;[BIIILjava/lang/Object;)V
+}
+
+public final class korlibs/io/stream/SyncOutputStream$DefaultImpls {
+	public static fun close (Lkorlibs/io/stream/SyncOutputStream;)V
+	public static fun flush (Lkorlibs/io/stream/SyncOutputStream;)V
+	public static fun write (Lkorlibs/io/stream/SyncOutputStream;I)V
+	public static synthetic fun write$default (Lkorlibs/io/stream/SyncOutputStream;[BIIILjava/lang/Object;)V
+}
+
+public final class korlibs/io/stream/SyncOutputStream_writeKt {
+	public static final fun write16BE (Lkorlibs/io/stream/SyncOutputStream;I)V
+	public static final fun write16LE (Lkorlibs/io/stream/SyncOutputStream;I)V
+	public static final fun write24BE (Lkorlibs/io/stream/SyncOutputStream;I)V
+	public static final fun write24LE (Lkorlibs/io/stream/SyncOutputStream;I)V
+	public static final fun write32BE (Lkorlibs/io/stream/SyncOutputStream;I)V
+	public static final fun write32BE (Lkorlibs/io/stream/SyncOutputStream;J)V
+	public static final fun write32LE (Lkorlibs/io/stream/SyncOutputStream;I)V
+	public static final fun write32LE (Lkorlibs/io/stream/SyncOutputStream;J)V
+	public static final fun write64BE (Lkorlibs/io/stream/SyncOutputStream;J)V
+	public static final fun write64LE (Lkorlibs/io/stream/SyncOutputStream;J)V
+	public static final fun write8 (Lkorlibs/io/stream/SyncOutputStream;I)V
+	public static final fun writeBytes (Lkorlibs/io/stream/SyncOutputStream;[B)V
+	public static final fun writeBytes (Lkorlibs/io/stream/SyncOutputStream;[BII)V
+	public static final fun writeCharArrayBE (Lkorlibs/io/stream/SyncOutputStream;[C)V
+	public static final fun writeCharArrayLE (Lkorlibs/io/stream/SyncOutputStream;[C)V
+	public static final fun writeDoubleArrayBE (Lkorlibs/io/stream/SyncOutputStream;[D)V
+	public static final fun writeDoubleArrayLE (Lkorlibs/io/stream/SyncOutputStream;[D)V
+	public static final fun writeF32BE (Lkorlibs/io/stream/SyncOutputStream;F)V
+	public static final fun writeF32LE (Lkorlibs/io/stream/SyncOutputStream;F)V
+	public static final fun writeF64BE (Lkorlibs/io/stream/SyncOutputStream;D)V
+	public static final fun writeF64LE (Lkorlibs/io/stream/SyncOutputStream;D)V
+	public static final fun writeFloatArrayBE (Lkorlibs/io/stream/SyncOutputStream;[F)V
+	public static final fun writeFloatArrayLE (Lkorlibs/io/stream/SyncOutputStream;[F)V
+	public static final fun writeIntArrayBE (Lkorlibs/io/stream/SyncOutputStream;[I)V
+	public static final fun writeIntArrayLE (Lkorlibs/io/stream/SyncOutputStream;[I)V
+	public static final fun writeLongArrayBE (Lkorlibs/io/stream/SyncOutputStream;[J)V
+	public static final fun writeLongArrayLE (Lkorlibs/io/stream/SyncOutputStream;[J)V
+	public static final fun writeS_VL (Lkorlibs/io/stream/SyncOutputStream;I)V
+	public static final fun writeShortArrayBE (Lkorlibs/io/stream/SyncOutputStream;[S)V
+	public static final fun writeShortArrayLE (Lkorlibs/io/stream/SyncOutputStream;[S)V
+	public static final fun writeStream (Lkorlibs/io/stream/SyncOutputStream;Lkorlibs/io/stream/SyncInputStream;)V
+	public static final fun writeString (Lkorlibs/io/stream/SyncOutputStream;Ljava/lang/String;Lkorlibs/io/lang/Charset;)V
+	public static synthetic fun writeString$default (Lkorlibs/io/stream/SyncOutputStream;Ljava/lang/String;Lkorlibs/io/lang/Charset;ILjava/lang/Object;)V
+	public static final fun writeStringVL (Lkorlibs/io/stream/SyncOutputStream;Ljava/lang/String;Lkorlibs/io/lang/Charset;)V
+	public static synthetic fun writeStringVL$default (Lkorlibs/io/stream/SyncOutputStream;Ljava/lang/String;Lkorlibs/io/lang/Charset;ILjava/lang/Object;)V
+	public static final fun writeStringz (Lkorlibs/io/stream/SyncOutputStream;Ljava/lang/String;ILkorlibs/io/lang/Charset;)V
+	public static final fun writeStringz (Lkorlibs/io/stream/SyncOutputStream;Ljava/lang/String;Lkorlibs/io/lang/Charset;)V
+	public static synthetic fun writeStringz$default (Lkorlibs/io/stream/SyncOutputStream;Ljava/lang/String;ILkorlibs/io/lang/Charset;ILjava/lang/Object;)V
+	public static synthetic fun writeStringz$default (Lkorlibs/io/stream/SyncOutputStream;Ljava/lang/String;Lkorlibs/io/lang/Charset;ILjava/lang/Object;)V
+	public static final fun writeU_VL (Lkorlibs/io/stream/SyncOutputStream;I)V
+}
+
+public abstract interface class korlibs/io/stream/SyncPositionStream {
+	public abstract fun getPosition ()J
+	public abstract fun setPosition (J)V
+}
+
+public abstract interface class korlibs/io/stream/SyncRAInputStream {
+	public abstract fun read (J[BII)I
+}
+
+public abstract interface class korlibs/io/stream/SyncRAOutputStream {
+	public fun flush ()V
+	public abstract fun write (J[BII)V
+}
+
+public final class korlibs/io/stream/SyncRAOutputStream$DefaultImpls {
+	public static fun flush (Lkorlibs/io/stream/SyncRAOutputStream;)V
+}
+
+public final class korlibs/io/stream/SyncStream : java/lang/AutoCloseable, korlibs/datastructure/Extra, korlibs/io/stream/MarkableSyncInputStream, korlibs/io/stream/SyncInputStream, korlibs/io/stream/SyncLengthStream, korlibs/io/stream/SyncOutputStream, korlibs/io/stream/SyncPositionStream {
+	public fun <init> (Lkorlibs/io/stream/SyncStreamBase;J)V
+	public synthetic fun <init> (Lkorlibs/io/stream/SyncStreamBase;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun clone ()Lkorlibs/io/stream/SyncStream;
+	public fun close ()V
+	public fun flush ()V
+	public final fun getAvailable ()J
+	public final fun getAvailableRead ()J
+	public final fun getAvailableWrite ()J
+	public final fun getBase ()Lkorlibs/io/stream/SyncStreamBase;
+	public fun getExtra ()Lkorlibs/datastructure/ExtraObject;
+	public fun getLength ()J
+	public final fun getMarkPos ()J
+	public fun getPosition ()J
+	public final fun getPositionRead ()J
+	public final fun getPositionWrite ()J
+	public fun mark (I)V
+	public fun read ()I
+	public fun read ([BII)I
+	public fun reset ()V
+	public fun setExtra (Lkorlibs/datastructure/ExtraObject;)V
+	public fun setLength (J)V
+	public final fun setMarkPos (J)V
+	public fun setPosition (J)V
+	public final fun setPositionRead (J)V
+	public final fun setPositionWrite (J)V
+	public fun skip (I)V
+	public fun toString ()Ljava/lang/String;
+	public fun write (I)V
+	public fun write ([BII)V
+}
+
+public class korlibs/io/stream/SyncStreamBase : java/lang/AutoCloseable, korlibs/io/stream/SyncLengthStream, korlibs/io/stream/SyncRAInputStream, korlibs/io/stream/SyncRAOutputStream {
+	public fun <init> ()V
+	public fun close ()V
+	public fun flush ()V
+	public fun getLength ()J
+	public fun getSeekable ()Z
+	public fun getSeparateReadWrite ()Z
+	public final fun getSmallTemp ()[B
+	public final fun open (J)Lkorlibs/io/stream/SyncStream;
+	public static synthetic fun open$default (Lkorlibs/io/stream/SyncStreamBase;JILjava/lang/Object;)Lkorlibs/io/stream/SyncStream;
+	public final fun read (J)I
+	public fun read (J[BII)I
+	public fun setLength (J)V
+	public final fun toSyncStream (J)Lkorlibs/io/stream/SyncStream;
+	public static synthetic fun toSyncStream$default (Lkorlibs/io/stream/SyncStreamBase;JILjava/lang/Object;)Lkorlibs/io/stream/SyncStream;
+	public fun write (J[BII)V
 }
 
 public final class korlibs/io/stream/SyncStreamExt_jvmKt {
@@ -2685,6 +5200,37 @@ public final class korlibs/io/stream/SyncStreamExt_jvmKt {
 	public static synthetic fun openSync$default (Ljava/io/File;Ljava/lang/String;ILjava/lang/Object;)Lkorlibs/io/stream/SyncStream;
 	public static final fun toInputStream (Lkorlibs/io/stream/SyncStream;)Ljava/io/InputStream;
 	public static final fun toSyncStream (Ljava/io/InputStream;)Lkorlibs/io/stream/SyncInputStream;
+}
+
+public final class korlibs/io/stream/SyncStream_extKt {
+	public static final fun getEof (Lkorlibs/io/stream/SyncStream;)Z
+	public static final fun getHasAvailable (Lkorlibs/io/stream/SyncStream;)Z
+	public static final fun getHasLength (Lkorlibs/io/stream/SyncStream;)Z
+	public static final fun getHasMore (Lkorlibs/io/stream/SyncStream;)Z
+	public static final fun keepPosition (Lkorlibs/io/stream/SyncStream;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun readAll (Lkorlibs/io/stream/SyncStream;)[B
+	public static final fun readAvailable (Lkorlibs/io/stream/SyncStream;)[B
+	public static final fun readStringVL (Lkorlibs/io/stream/SyncStream;)Ljava/lang/String;
+	public static final fun skip (Lkorlibs/io/stream/SyncStream;I)Lkorlibs/io/stream/SyncStream;
+	public static final fun skipToAlign (Lkorlibs/io/stream/SyncStream;I)V
+	public static final fun toByteArray (Lkorlibs/io/stream/SyncStream;)[B
+	public static final fun truncate (Lkorlibs/io/stream/SyncStream;)V
+	public static final fun writeToAlign (Lkorlibs/io/stream/SyncStream;II)V
+	public static synthetic fun writeToAlign$default (Lkorlibs/io/stream/SyncStream;IIILjava/lang/Object;)V
+}
+
+public final class korlibs/io/stream/SyncStream_sliceKt {
+	public static final fun readSlice (Lkorlibs/io/stream/SyncStream;J)Lkorlibs/io/stream/SyncStream;
+	public static final fun readStream (Lkorlibs/io/stream/SyncStream;I)Lkorlibs/io/stream/SyncStream;
+	public static final fun readStream (Lkorlibs/io/stream/SyncStream;J)Lkorlibs/io/stream/SyncStream;
+	public static final fun slice (Lkorlibs/io/stream/SyncStream;Lkotlin/ranges/IntRange;)Lkorlibs/io/stream/SyncStream;
+	public static final fun slice (Lkorlibs/io/stream/SyncStream;Lkotlin/ranges/LongRange;)Lkorlibs/io/stream/SyncStream;
+	public static final fun sliceHere (Lkorlibs/io/stream/SyncStream;)Lkorlibs/io/stream/SyncStream;
+	public static final fun sliceStart (Lkorlibs/io/stream/SyncStream;J)Lkorlibs/io/stream/SyncStream;
+	public static synthetic fun sliceStart$default (Lkorlibs/io/stream/SyncStream;JILjava/lang/Object;)Lkorlibs/io/stream/SyncStream;
+	public static final fun sliceWithBounds (Lkorlibs/io/stream/SyncStream;JJ)Lkorlibs/io/stream/SyncStream;
+	public static final fun sliceWithSize (Lkorlibs/io/stream/SyncStream;II)Lkorlibs/io/stream/SyncStream;
+	public static final fun sliceWithSize (Lkorlibs/io/stream/SyncStream;JJ)Lkorlibs/io/stream/SyncStream;
 }
 
 public final class korlibs/io/test/AssertEqualsJvmFileReferenceKt {

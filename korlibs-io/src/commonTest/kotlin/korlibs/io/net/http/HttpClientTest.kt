@@ -1,7 +1,7 @@
 package korlibs.io.net.http
 
-import korlibs.io.async.suspendTest
 import korlibs.encoding.fromBase64
+import korlibs.io.async.suspendTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

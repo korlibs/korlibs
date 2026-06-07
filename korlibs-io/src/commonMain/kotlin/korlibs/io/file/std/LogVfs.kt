@@ -2,17 +2,16 @@
 
 package korlibs.io.file.std
 
-import korlibs.time.DateTime
 import korlibs.io.file.Vfs
 import korlibs.io.file.VfsFile
 import korlibs.io.file.VfsOpenMode
 import korlibs.io.file.VfsProcessHandler
 import korlibs.io.file.VfsStat
-import korlibs.io.lang.Closeable
 import korlibs.io.stream.AsyncInputStream
 import korlibs.io.stream.AsyncStream
 import korlibs.io.stream.AsyncStreamBase
 import korlibs.io.stream.toAsyncStream
+import korlibs.time.DateTime
 import kotlinx.coroutines.flow.Flow
 
 @Suppress("RemoveToStringInStringTemplate")

@@ -1,8 +1,8 @@
 package korlibs.io.file.std
 
-import korlibs.io.async.*
-import korlibs.platform.*
-import kotlin.test.*
+import korlibs.io.async.suspendTest
+import korlibs.platform.Platform
+import kotlin.test.Test
 
 class LocalVfsAppendTest {
     @Test

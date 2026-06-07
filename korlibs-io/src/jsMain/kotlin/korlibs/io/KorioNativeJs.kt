@@ -1,10 +1,14 @@
 package korlibs.io
 
-import korlibs.io.runtime.*
-import org.w3c.dom.*
-import org.w3c.dom.events.*
-import org.w3c.performance.*
-import kotlin.collections.set
+import korlibs.io.runtime.JsRuntime
+import korlibs.io.runtime.JsRuntimeBrowser
+import korlibs.io.runtime.JsRuntimeDeno
+import org.w3c.dom.Element
+import org.w3c.dom.HTMLCollection
+import org.w3c.dom.WindowOrWorkerGlobalScope
+import org.w3c.dom.events.EventTarget
+import org.w3c.dom.get
+import org.w3c.performance.GlobalPerformance
 
 abstract external class GlobalScope : EventTarget, WindowOrWorkerGlobalScope, GlobalPerformance {
 	fun postMessage(message: dynamic, targetOrigin: dynamic = definedExternally, transfer: dynamic = definedExternally)

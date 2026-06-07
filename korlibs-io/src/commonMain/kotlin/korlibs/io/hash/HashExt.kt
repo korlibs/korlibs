@@ -1,15 +1,14 @@
 package korlibs.io.hash
 
-import korlibs.io.internal.bytesTempPool
-import korlibs.io.stream.AsyncInputOpenable
-import korlibs.io.stream.AsyncInputStream
-import korlibs.io.stream.SyncInputStream
-import korlibs.io.stream.read
 import korlibs.crypto.Hash
 import korlibs.crypto.HasherFactory
 import korlibs.crypto.MD5
 import korlibs.crypto.SHA1
-import korlibs.io.async.*
+import korlibs.io.async.use
+import korlibs.io.internal.bytesTempPool
+import korlibs.io.stream.AsyncInputOpenable
+import korlibs.io.stream.AsyncInputStream
+import korlibs.io.stream.SyncInputStream
 
 suspend fun AsyncInputOpenable.hash(algo: HasherFactory) = openRead().use { it.hash(algo) }
 suspend fun AsyncInputStream.hash(algo: HasherFactory): Hash = bytesTempPool.alloc { temp -> algo.digest(temp) { read(it) } }

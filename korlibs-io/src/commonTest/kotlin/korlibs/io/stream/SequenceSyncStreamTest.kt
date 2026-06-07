@@ -1,7 +1,10 @@
 package korlibs.io.stream
 
-import korlibs.io.lang.*
-import kotlin.test.*
+import korlibs.io.lang.UTF8
+import korlibs.io.lang.toByteArray
+import korlibs.io.lang.toString
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class SequenceSyncStreamTest {
     @Test

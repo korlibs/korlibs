@@ -1,6 +1,7 @@
 package korlibs.io.stream
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ByteArrayBitReaderTest {
     @Test

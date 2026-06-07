@@ -1,15 +1,27 @@
 package korlibs.io.file.std
 
-import com.sun.nio.file.*
-import korlibs.io.dynamic.*
-import korlibs.io.file.*
-import korlibs.io.lang.*
+import com.sun.nio.file.SensitivityWatchEventModifier
+import java.io.File
+import java.net.URL
+import java.net.URLClassLoader
+import java.nio.file.WatchEvent
+import korlibs.io.dynamic.dyn
+import korlibs.io.file.Vfs
+import korlibs.io.file.VfsFile
+import korlibs.io.file.VfsOpenMode
+import korlibs.io.file.VfsStat
+import korlibs.io.file.extension
+import korlibs.io.lang.Environment
 import korlibs.io.lang.IOException
-import korlibs.io.stream.*
-import korlibs.io.util.*
-import java.io.*
-import java.net.*
-import java.nio.file.*
+import korlibs.io.lang.invalidOp
+import korlibs.io.lang.tempPath
+import korlibs.io.lang.userHome
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.MemorySyncStream
+import korlibs.io.stream.toAsync
+import korlibs.io.util.caseSensitiveOrNull
+import korlibs.io.util.jvmExecuteIo
+import korlibs.io.util.toFileOrNull
 
 private val absoluteCwd by lazy { File(".").absolutePath }
 val tmpdir: String by lazy { Environment.tempPath }
@@ -212,11 +224,3 @@ internal class LocalVfsJvm : AsynchronousFileChannelVfs() {
         return arrayOf(SensitivityWatchEventModifier.HIGH)
     }
 }
-
-/*
-internal class LocalVfsJvm : BaseLocalVfsJvm() {
-    override fun watchModifiers(path: String): Array<WatchEvent.Modifier> {
-        return arrayOf(SensitivityWatchEventModifier.HIGH)
-    }
-}
-*/

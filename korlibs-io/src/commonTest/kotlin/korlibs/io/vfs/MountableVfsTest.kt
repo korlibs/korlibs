@@ -14,7 +14,7 @@ import korlibs.io.file.std.openAsZip
 import korlibs.io.file.std.resourcesVfs
 import korlibs.io.lang.FileNotFoundException
 import korlibs.io.util.expectException
-import korlibs.platform.*
+import korlibs.platform.Platform
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
