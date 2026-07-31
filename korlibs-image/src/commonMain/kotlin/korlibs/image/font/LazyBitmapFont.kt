@@ -105,14 +105,17 @@ class LazyBitmapFont(
                         fontSize, codePoint, slice,
                         //-border,
                         //(border - m.height - m.top + fm.ascent).toIntRound(), xadvance.toIntRound()
-                        -g.pos.x.toIntRound(),
+
+                        // The texture here is the slice, where sliceWithBounds() above trims the padding off every edge of the slice.
+                        // However, g.pos is in the untrimmed bitmap's coordinate space so we, must remove the padding again here, else
+                        // every glyph is placed the border width pixels away from where it should be.
+                        // The error is the same for every glyph so doesn't represent as misaligned, but the amount shifted varies
+                        // depending on atlas size
+                        -(g.pos.x - border).toIntRound(),
                         // The renderer draws the bottom of the glyph at (yoffset + texHeight).
-                        // As texHeight is derived using toIntCeil(), using toIntRound() here causes
-                        // a disagreement in the glyph's position.
-                        // This is most noticeable with flat-bottomed letters where
-                        // ceil(h) - round(h) can flip which side of 0 or 1 the .5 of its height
-                        // falls on
-                        -g.pos.y.toIntCeil(),
+                        // As texHeight is derived using toIntCeil(), using toIntRound() here causes a disagreement in the glyph's position.
+                        // This is most noticeable with flat-bottomed letters where ceil(h) - round(h) can flip which side of 0 or 1 the .5 of its height lands on
+                        -(g.pos.y - border).toIntCeil(),
                         xadvance.toIntRound(),
                     )
                 }

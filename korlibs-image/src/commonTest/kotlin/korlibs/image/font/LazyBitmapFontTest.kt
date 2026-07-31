@@ -50,6 +50,26 @@ class LazyBitmapFontTest {
         }
     }
 
+    /**
+     * Asserts that no borders/padding/etc shift fonts from their baseline.
+     */
+    @Test
+    fun `Glyphs should sit on their baseline regardless of atlasSize`() {
+        val distanceFields = listOf(null, "sdf")
+        atlasSizes.forEach { atlasSize ->
+            distanceFields.forEach { distanceField ->
+                val misplaced = baselineOffsets(atlasSize, distanceField).filterValues { it != 0 }
+
+                assertEquals(
+                    expected = emptyMap(),
+                    actual = misplaced,
+                    message = "glyphs were placed off their own baseline " +
+                        "(atlasSize=$atlasSize, distanceField=$distanceField)",
+                )
+            }
+        }
+    }
+
     /** Distance from the baseline to the drawn bottom edge, per flat-bottomed glyph. */
     private fun baselineOffsets(atlasSize: Double, distanceField: String?): Map<Char, Int> {
         val font = DefaultTtfFont.toLazyBitmapFont(atlasSize, distanceField)
