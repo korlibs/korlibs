@@ -106,7 +106,13 @@ class LazyBitmapFont(
                         //-border,
                         //(border - m.height - m.top + fm.ascent).toIntRound(), xadvance.toIntRound()
                         -g.pos.x.toIntRound(),
-                        -g.pos.y.toIntRound(),
+                        // The renderer draws the bottom of the glyph at (yoffset + texHeight).
+                        // As texHeight is derived using toIntCeil(), using toIntRound() here causes
+                        // a disagreement in the glyph's position.
+                        // This is most noticeable with flat-bottomed letters where
+                        // ceil(h) - round(h) can flip which side of 0 or 1 the .5 of its height
+                        // falls on
+                        -g.pos.y.toIntCeil(),
                         xadvance.toIntRound(),
                     )
                 }
