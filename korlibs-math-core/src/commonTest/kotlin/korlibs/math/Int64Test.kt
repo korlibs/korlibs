@@ -23,7 +23,7 @@ class Int64Test {
     @Test fun testDiv() = forEachPair { a, b -> if (b != 0L) assertEquals(a / b, (a.toInt64() / b.toInt64()).toLong(), "$a / $b") }
     @Test fun testRem() = forEachPair { a, b -> if (b != 0L) assertEquals(a % b, (a.toInt64() % b.toInt64()).toLong(), "$a % $b") }
 
-    @Test fun testCompare() = forEachPair { a, b -> assertEquals(a compareTo b, (a.toInt64() compareTo b.toInt64()), "$a compareTo $b") }
+    @Test fun testCompare() = forEachPair { a, b -> assertEquals(a compareTo b, (a.toInt64().compareTo(b.toInt64())), "$a compareTo $b") }
 
     @Test fun testOr() = forEachPair { a, b -> assertEquals(a and b, (a.toInt64() and b.toInt64()).toLong(), "$a or $b") }
     @Test fun testXor() = forEachPair { a, b -> assertEquals(a xor b, (a.toInt64() xor b.toInt64()).toLong(), "$a xor $b") }
