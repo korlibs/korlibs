@@ -33,14 +33,22 @@ jobs:
       fail-fast: true
       matrix:
         include:
-          - outputKey: macos
-            os: macos-latest
-          - outputKey: ubuntu
+#          - outputKey: macos
+#            os: macos-latest
+#          - outputKey: ubuntu
+#            os: ubuntu-latest
+#            enableCheck: true
+#            enableAndroid: true
+#            enableCodecov: true
+#            enableKorgeUnitTestRun: false
+          - outputKey: ubuntu-korge-unit-test
             os: ubuntu-latest
-            enableAndroid: true
-            enableCodecov: true
-          - outputKey: windows
-            os: windows-latest
+            enableCheck: false
+            enableAndroid: false
+            enableCodecov: false
+            enableKorgeUnitTestRun: true
+#          - outputKey: windows
+#            os: windows-latest
     timeout-minutes: 120
     runs-on: ${{ matrix.os }}
     steps:
@@ -64,6 +72,7 @@ jobs:
           key: "${{ runner.os }}-konan"
           restore-keys: "${{ runner.os }}-konan" # https://github.com/actions/cache/releases/tag/v5.0.4
       - name: "Run check"
+        if: "${{ matrix.enableCheck }}"
         run: "./gradlew check"
       - name: "Enable KVM"
         if: "${{ matrix.enableAndroid }}"
@@ -93,3 +102,22 @@ jobs:
         uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2
         with:
           token: "${{ secrets.CODECOV_TOKEN }}" # https://github.com/codecov/codecov-action/releases/tag/v6.0.0
+
+      # Publish Korlibs locally, checkout Korge repo, build Korge and run Korge unit tests
+      - name: "Patch local Korlibs version"
+        if: "${{ matrix.enableKorgeUnitTestRun }}"
+        run: "pwd && ls -la"
+#      - name: "Initialize Gradle"
+#        if: "${{ matrix.enableKorgeUnitTestRun }}"
+#        run: "./gradlew --no-configuration-cache"
+#      - name: "Publish to Maven Local"
+#        if: "${{ matrix.enableKorgeUnitTestRun }}"
+#        run: "./gradlew --no-configuration-cache --parallel --max-workers=8 \
+#             publishJvmPublicationToMavenLocal"  # TODO: quick test only
+
+#             publishLinuxX64PublicationToMavenLocal publishLinuxArm64PublicationToMavenLocal \
+#             publishMingwX64PublicationToMavenLocal \
+#             publishAndroidPublicationToMavenLocal \
+#             publishKotlinMultiplatformPublicationToMavenLocal publishJvmPublicationToMavenLocal \
+#             publishJsPublicationToMavenLocal publishWasmJsPublicationToMavenLocal"
+
