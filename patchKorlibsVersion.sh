@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # This script is used on CI (ubuntu-korge-unit-test) to patch the version string for local releasing
 
 echo "${{ github.event.pull_request.body }}"

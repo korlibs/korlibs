@@ -107,7 +107,7 @@ jobs:
       # Publish Korlibs locally, checkout Korge repo, build Korge and run Korge unit tests
       - name: "Clone Korge repo and patch local Korlibs version"
         if: "${{ matrix.enableKorgeUnitTestRun }}"
-        run: "./.ci/patchKorlibsVersion.sh"
+        run: "./patchKorlibsVersion.sh"
 #      - name: "Initialize Gradle"
 #        if: "${{ matrix.enableKorgeUnitTestRun }}"
 #        run: "./gradlew --no-configuration-cache"
