@@ -1,7 +1,7 @@
 #!/bin/sh
 # This script is used on CI (ubuntu-korge-unit-test) to patch the version string for local releasing
 
-echo "${{ github.event.pull_request.body }}"
+#echo "${{ github.event.pull_request.body }}"
 
 # Clone locally Korge repo for running linux unit tests with locally released Korlibs version
 rm -rf dep-korge

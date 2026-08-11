@@ -27,6 +27,8 @@ env:
   JAVA_VERSION: 21
   JAVA_DISTRIBUTION: zulu
 
+# KORGE_BRANCH: ${{ github.event.pull_request.body }}  #| grep -oP 'branch:\K[^\s]+' || echo "main")
+
 jobs:
   test:
     strategy:
@@ -107,7 +109,8 @@ jobs:
       # Publish Korlibs locally, checkout Korge repo, build Korge and run Korge unit tests
       - name: "Clone Korge repo and patch local Korlibs version"
         if: "${{ matrix.enableKorgeUnitTestRun }}"
-        run: "./patchKorlibsVersion.sh"
+#        run: "./patchKorlibsVersion.sh"
+        run: echo "${{ github.event.pull_request.body }}"
 #      - name: "Initialize Gradle"
 #        if: "${{ matrix.enableKorgeUnitTestRun }}"
 #        run: "./gradlew --no-configuration-cache"
