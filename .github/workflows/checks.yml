@@ -110,7 +110,7 @@ jobs:
       - name: "Clone Korge repo and patch local Korlibs version"
         if: "${{ matrix.enableKorgeUnitTestRun }}"
 #        run: "./patchKorlibsVersion.sh"
-        run: echo "${{ github.event.pull_request.body }}"
+        run: echo $(echo "${{ github.event.pull_request.body }}" | grep -oP 'branch:\K[^\s]+' || echo "main")
 #      - name: "Initialize Gradle"
 #        if: "${{ matrix.enableKorgeUnitTestRun }}"
 #        run: "./gradlew --no-configuration-cache"
