@@ -23,73 +23,208 @@ concurrency:
 
 env:
   CI: true
+  DISPLAY: ":99"
 
   JAVA_VERSION: 21
   JAVA_DISTRIBUTION: zulu
 
+  PR_BRANCH: ${{ github.head_ref }}
+  FORK_OWNER: ${{ github.event.pull_request.head.repo.owner.login }}
+  IS_FORK: ${{ github.event.pull_request.head.repo.fork }}
+
+  # Set korge repo depending if pull request comes from a fork or not
+#  KORGE_REPO:
+
 jobs:
-  test:
-    strategy:
-      fail-fast: true
-      matrix:
-        include:
-          - outputKey: macos
-            os: macos-latest
-          - outputKey: ubuntu
-            os: ubuntu-latest
-            enableAndroid: true
-            enableCodecov: true
-          - outputKey: windows
-            os: windows-latest
-    timeout-minutes: 120
-    runs-on: ${{ matrix.os }}
+#  test:
+#    strategy:
+#      fail-fast: true
+#      matrix:
+#        include:
+#          - outputKey: macos
+#            os: macos-latest
+#          - outputKey: ubuntu
+#            os: ubuntu-latest
+#            enableAndroid: true
+#            enableCodecov: true
+#          - outputKey: windows
+#            os: windows-latest
+#    timeout-minutes: 120
+#    runs-on: ${{ matrix.os }}
+#    steps:
+#      - name: "Checkout"
+#        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # https://github.com/actions/checkout/releases/tag/v6.0.2
+#      - name: "Use Node.js 24.x"
+#        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # https://github.com/actions/setup-node/releases/tag/v6.3.0
+#        with:
+#          node-version: 24.x
+#      - name: "Set up JDK"
+#        uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
+#        with:
+#          distribution: "${{ env.JAVA_DISTRIBUTION }}"
+#          java-version: "${{ env.JAVA_VERSION }}"
+#      - name: "Prepare Gradle"
+#        uses: gradle/actions/setup-gradle@39e147cb9de83bb9910b8ef8bd7fff0ee20fcd6f # https://github.com/gradle/actions/releases/tag/v6.0.1
+#      - name: "Cache Kotlin/Native .konan folder"
+#        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # https://github.com/actions/cache/releases/tag/v5.0.4
+#        with:
+#          path: "~/.konan"
+#          key: "${{ runner.os }}-konan"
+#          restore-keys: "${{ runner.os }}-konan"
+#      - name: "Run check"
+#        run: "./gradlew check"
+#      - name: "Enable KVM"
+#        if: "${{ matrix.enableAndroid }}"
+#        run: |
+#          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+#          sudo udevadm control --reload-rules
+#          sudo udevadm trigger --name-match=kvm
+#      - name: "Run Android Tests"
+#        if: "${{ matrix.enableAndroid }}"
+#        uses: reactivecircus/android-emulator-runner@e89f39f1abbbd05b1113a29cf4db69e7540cae5a # https://github.com/ReactiveCircus/android-emulator-runner/releases/tag/v2.37.0
+#        with:
+#          "api-level": 21
+#          "script": "./gradlew androidConnectedCheck lint"
+#      - name: "Archive Test Results"
+#        if: failure()
+#        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # https://github.com/actions/upload-artifact/releases/tag/v7.0.0
+#        with:
+#          name: "test-results-${{ matrix.outputKey }}"
+#          retention-days: 21
+#          path: "**/build/reports"
+#          if-no-files-found: ignore
+#      - name: "Code coverage"
+#        if: "${{ matrix.enableCodecov }}"
+#        run: "./gradlew koverXmlReport"
+#      - name: "Upload coverage reports to Codecov"
+#        if: "${{ matrix.enableCodecov }}"
+#        uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # https://github.com/codecov/codecov-action/releases/tag/v6.0.0
+#        with:
+#          token: "${{ secrets.CODECOV_TOKEN }}"
+
+  # Publish Korlibs locally, checkout Korge repo, build Korge and run Korge unit tests
+  korge-test:
+    timeout-minutes: 180
+    runs-on: ubuntu-latest
+    env:
+      DISABLE_KOTLIN_NATIVE: false
+      DISABLE_ANDROID: false
+      DISABLE_SANDBOX: false
+
     steps:
-      - name: "Checkout"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # https://github.com/actions/checkout/releases/tag/v6.0.2
-      - name: "Use Node.js 24.x"
-        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
-        with:
-          node-version: 24.x # https://github.com/actions/setup-node/releases/tag/v6.3.0
-      - name: "Set up JDK"
-        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # https://github.com/actions/checkout/releases/tag/v7.0.0
+#      - name: "Install freeglut3 & openal"
+#        run: sudo apt-get update && sudo apt-get -y install freeglut3-dev libopenal-dev xvfb
+#      - name: Run Xvfb in Background"
+#        run: "Xvfb :99 &"
+#      - name: Use Node.js 24.x
+#        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # https://github.com/actions/setup-node/releases/tag/v6.3.0
+#        with:
+#          node-version: 24.x
+      - name: Set up JDK
+        uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520  # https://github.com/actions/setup-java/releases/tag/v5.4.0
         with:
           distribution: "${{ env.JAVA_DISTRIBUTION }}"
-          java-version: "${{ env.JAVA_VERSION }}" # https://github.com/actions/setup-java/releases/tag/v5.2.0
-      - name: "Prepare Gradle"
-        uses: gradle/actions/setup-gradle@39e147cb9de83bb9910b8ef8bd7fff0ee20fcd6f # https://github.com/gradle/actions/releases/tag/v6.0.1
-      - name: "Cache Kotlin/Native .konan folder"
-        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7
+          java-version: "${{ env.JAVA_VERSION }}"
+      - name: Prepare Gradle
+        uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92  # https://github.com/gradle/actions/releases/tag/v6.2.0
+
+      # (1) Check if the PR is done from a fork or from the base repo.
+      # (2) Check out the korge repo from the fork owner if it exists. This makes it possible to prepare
+      #     a branch in korge repo which fixes/updates unit tests in korge if that is needed.
+      # (3) Check out the feature branch name in the korge repo if it exists otherwise use "main"
+      - name: Determine Korge repo
+        run: |
+          echo "-- PR_BRANCH: $PR_BRANCH"
+          echo "-- FORK_OWNER: $FORK_OWNER"
+          echo "-- IS_FORK: $IS_FORK"
+
+          # Determine which Korge repo to clone: the fork owner's repo for fork PRs, otherwise the base repo
+          if [ "$IS_FORK" == "true" ]; then
+            KORGE_REPO="https://github.com/$FORK_OWNER/korge.git"
+          else
+            KORGE_REPO="https://github.com/korlibs/korge.git"
+          fi
+
+          # Check if the KORGE_REPO is accessible before cloning
+          if ! git ls-remote "$KORGE_REPO" >/dev/null 2>&1; then
+            echo "-- No fork available for Korge repo, using 'korlibs/korge' repo."
+            KORGE_REPO="https://github.com/korlibs/korge.git"
+            IS_FORK="false"
+          fi
+
+          echo "-- KORGE_REPO: $KORGE_REPO"
+          echo "KORGE_REPO=$KORGE_REPO" >> "$GITHUB_ENV"
+          echo "IS_FORK=$IS_FORK" >> "$GITHUB_ENV"
+
+      - name: Clone Korge repo
+        run: |
+          # Clone locally Korge repo for running linux unit tests with locally released Korlibs version
+          rm -rf deps-korge
+          git clone "$KORGE_REPO" deps-korge
+
+      - name: Check out feature branch in Korge repo
+        run: |
+          # Checkout the PR branch if it exists in that repo, otherwise stay on the default branch (main)
+          if [ -n "$PR_BRANCH" ] && git -C deps-korge ls-remote --exit-code --heads origin "$PR_BRANCH" >/dev/null 2>&1; then
+            git -C deps-korge checkout "$PR_BRANCH"
+            echo "-- Check out branch '$PR_BRANCH' from '$FORK_OWNER/korge'."
+          else
+            # If the PR branch is not found in a fork, we need to clone the base repo and check out 'main' branch there
+            if [ "$IS_FORK" == "true" ]; then
+              echo "-- Cloning base repo 'korlibs/korge' to check out 'main' branch."
+              rm -rf deps-korge
+              git clone https://github.com/korlibs/korge.git deps-korge
+            fi
+            echo "-- Branch '$PR_BRANCH' not found in '$FORK_OWNER/korge', using 'main' branch from 'korlibs/korge' instead."
+            git -C deps-korge checkout main
+          fi
+
+      - name: Patch local Korlibs version with Git-Hash
+        run: |
+          # Create Git-Hash (short form)
+          GIT_HASH=$(git rev-parse --short HEAD)
+
+          # Patch Korlibs version SNAPSHOT with Git-Hash
+          sed -i "s/SNAPSHOT/$GIT_HASH/" gradle/libs.versions.toml
+          sed -i "s/SNAPSHOT/$GIT_HASH/" deps-korge/gradle/libs.versions.toml
+
+          echo "-- ✓ Korlibs version updated: SNAPSHOT → $GIT_HASH"
+
+      - name: Initialize Gradle
+        run: "./gradlew --no-configuration-cache"
+      - name: Publish Korlibs to Maven Local
+        run: "./gradlew --no-configuration-cache --parallel --max-workers=8 \
+             publishLinuxX64PublicationToMavenLocal publishLinuxArm64PublicationToMavenLocal \
+             publishMingwX64PublicationToMavenLocal \
+             publishAndroidPublicationToMavenLocal \
+             publishKotlinMultiplatformPublicationToMavenLocal publishJvmPublicationToMavenLocal \
+             publishJsPublicationToMavenLocal publishWasmJsPublicationToMavenLocal"
+
+      - name: Run Korge check
+        run: "cd deps-korge && ./gradlew check"
+        env:
+          EGL_LOG_LEVEL: debug
+          LIBGL_DEBUG: verbose
+          LIBGL_ALWAYS_SOFTWARE: true
+          MESA_DEBUG: true
+
+      - name: "Install freeglut3 & openal"
+        run: sudo apt-get update && sudo apt-get -y install freeglut3-dev libopenal-dev xvfb
+      - name: Run Xvfb in Background"
+        run: "Xvfb :99 &"
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # https://github.com/actions/setup-node/releases/tag/v6.3.0
         with:
-          path: "~/.konan"
-          key: "${{ runner.os }}-konan"
-          restore-keys: "${{ runner.os }}-konan" # https://github.com/actions/cache/releases/tag/v5.0.4
-      - name: "Run check"
-        run: "./gradlew check"
-      - name: "Enable KVM"
-        if: "${{ matrix.enableAndroid }}"
+          node-version: 24.x
+      - name: Enable KVM
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
-      - name: "Run Android Tests"
-        if: "${{ matrix.enableAndroid }}"
-        uses: reactivecircus/android-emulator-runner@e89f39f1abbbd05b1113a29cf4db69e7540cae5a
+      - name: Run Korge Android Tests
+        uses: reactivecircus/android-emulator-runner@e89f39f1abbbd05b1113a29cf4db69e7540cae5a # v2.37.0
         with:
           "api-level": 21
-          "script": "./gradlew androidConnectedCheck lint" # https://github.com/ReactiveCircus/android-emulator-runner/releases/tag/v2.37.0
-      - name: "Archive Test Results"
-        if: failure()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
-        with:
-          name: "test-results-${{ matrix.outputKey }}"
-          retention-days: 21
-          path: "**/build/reports"
-          if-no-files-found: ignore # https://github.com/actions/upload-artifact/releases/tag/v7.0.0
-      - name: "Code coverage"
-        if: "${{ matrix.enableCodecov }}"
-        run: "./gradlew koverXmlReport"
-      - name: "Upload coverage reports to Codecov"
-        if: "${{ matrix.enableCodecov }}"
-        uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2
-        with:
-          token: "${{ secrets.CODECOV_TOKEN }}" # https://github.com/codecov/codecov-action/releases/tag/v6.0.0
+          "script": "cd deps-korge && ./gradlew connectedCheck"

@@ -67,7 +67,12 @@ subprojects {
     plugins.withType<MavenPublishPlugin> {
         extensions.configure<MavenPublishBaseExtension> {
             publishToMavenCentral()
-            signAllPublications()
+            // Only sign when a key is available (e.g. not for publishToMavenLocal on CI)
+            val hasSigningKey = project.providers.gradleProperty("signingInMemoryKey").isPresent ||
+                System.getenv("ORG_GRADLE_PROJECT_signingInMemoryKey") != null
+            if (hasSigningKey) {
+                signAllPublications()
+            }
 
             coordinates(
                 groupId = group.toString(),
