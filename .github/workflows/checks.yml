@@ -27,7 +27,7 @@ env:
   JAVA_VERSION: 21
   JAVA_DISTRIBUTION: zulu
 
-  KORGE_BRANCH: $(echo "${{ github.event.pull_request.body }}" | grep -oP 'branch:\K[^\s]+' || echo "main")
+  KORGE_BRANCH: ${{ github.head_ref }}
 
 jobs:
   test:
@@ -39,16 +39,8 @@ jobs:
 #            os: macos-latest
 #          - outputKey: ubuntu
 #            os: ubuntu-latest
-#            enableCheck: true
 #            enableAndroid: true
 #            enableCodecov: true
-#            enableKorgeUnitTestRun: false
-          - outputKey: ubuntu-korge-unit-test
-            os: ubuntu-latest
-            enableCheck: false
-            enableAndroid: false
-            enableCodecov: false
-            enableKorgeUnitTestRun: true
 #          - outputKey: windows
 #            os: windows-latest
     timeout-minutes: 120
@@ -68,14 +60,12 @@ jobs:
       - name: "Prepare Gradle"
         uses: gradle/actions/setup-gradle@39e147cb9de83bb9910b8ef8bd7fff0ee20fcd6f # https://github.com/gradle/actions/releases/tag/v6.0.1
       - name: "Cache Kotlin/Native .konan folder"
-        if: "${{ matrix.enableCheck }}"
         uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # https://github.com/actions/cache/releases/tag/v5.0.4
         with:
           path: "~/.konan"
           key: "${{ runner.os }}-konan"
           restore-keys: "${{ runner.os }}-konan"
       - name: "Run check"
-        if: "${{ matrix.enableCheck }}"
         run: "./gradlew check"
       - name: "Enable KVM"
         if: "${{ matrix.enableAndroid }}"
@@ -106,9 +96,26 @@ jobs:
         with:
           token: "${{ secrets.CODECOV_TOKEN }}"
 
-      # Publish Korlibs locally, checkout Korge repo, build Korge and run Korge unit tests
+  # Publish Korlibs locally, checkout Korge repo, build Korge and run Korge unit tests
+  korge-test:
+    timeout-minutes: 180
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # https://github.com/actions/checkout/releases/tag/v6.0.2
+      - name: "Use Node.js 24.x"
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # https://github.com/actions/setup-node/releases/tag/v6.3.0
+        with:
+          node-version: 24.x
+      - name: "Set up JDK"
+        uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
+        with:
+          distribution: "${{ env.JAVA_DISTRIBUTION }}"
+          java-version: "${{ env.JAVA_VERSION }}"
+      - name: "Prepare Gradle"
+        uses: gradle/actions/setup-gradle@39e147cb9de83bb9910b8ef8bd7fff0ee20fcd6f # https://github.com/gradle/actions/releases/tag/v6.0.1
+
       - name: "Clone Korge repo and patch local Korlibs version"
-        if: "${{ matrix.enableKorgeUnitTestRun }}"
 #        run: "./patchKorlibsVersion.sh"
         run: echo "${{ env.KORGE_BRANCH }}"
 #      - name: "Initialize Gradle"
@@ -124,7 +131,6 @@ jobs:
 #             publishAndroidPublicationToMavenLocal \
 #             publishKotlinMultiplatformPublicationToMavenLocal publishJvmPublicationToMavenLocal \
 #             publishJsPublicationToMavenLocal publishWasmJsPublicationToMavenLocal"
-
 
 #      - name: "Install freeglut3 & openal"
 #        if: "${{ matrix.enableKorgeUnitTestRun }}"
