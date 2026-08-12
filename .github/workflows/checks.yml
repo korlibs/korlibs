@@ -28,6 +28,9 @@ env:
   JAVA_DISTRIBUTION: zulu
 
   KORGE_BRANCH: ${{ github.head_ref }}
+  KORLIBS_FORK: ${{ github.event.pull_request.head.repo.full_name }}  # e.g. someuser/korlibs (the fork, or the base repo if the branch is local)
+  KORLIBS_OWNER: ${{ github.event.pull_request.head.repo.owner.login }}  # just the repo owner
+  IS_KORLIBS_FORK: ${{ github.event.pull_request.head.repo.fork }}
 
 jobs:
 #  test:
