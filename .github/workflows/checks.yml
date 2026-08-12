@@ -105,18 +105,18 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # https://github.com/actions/checkout/releases/tag/v6.0.2
-        with:
-          repository: ${{ env.IS_KORLIBS_FORK == 'true' && env.KORLIBS_FORK || github.repository }}
-          ref: ${{ github.head_ref || github.ref_name }}
+#        with:
+#          repository: ${{ env.IS_KORLIBS_FORK == 'true' && env.KORLIBS_FORK || github.repository }}
+#          ref: ${{ github.head_ref || github.ref_name }}
       - name: "Use Node.js 24.x"
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # https://github.com/actions/setup-node/releases/tag/v6.3.0
         with:
           node-version: 24.x
-      - name: "Set up JDK"
-        uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
-        with:
-          distribution: "${{ env.JAVA_DISTRIBUTION }}"
-          java-version: "${{ env.JAVA_VERSION }}"
+#      - name: "Set up JDK"
+#        uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
+#        with:
+#          distribution: "${{ env.JAVA_DISTRIBUTION }}"
+#          java-version: "${{ env.JAVA_VERSION }}"
 #      - name: "Prepare Gradle"
 #        uses: gradle/actions/setup-gradle@39e147cb9de83bb9910b8ef8bd7fff0ee20fcd6f # https://github.com/gradle/actions/releases/tag/v6.0.1
 
