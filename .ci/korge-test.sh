@@ -1,5 +1,16 @@
 #!/bin/sh
-# This script is used on CI (ubuntu-korge-unit-test) to patch the version string for local releasing
+
+# This script is used on CI (korge-test job)
+#
+# (1) Check if the PR is done from a fork or from the base branch
+# (2) Check out the korge repo from the fork owner if it exist. This makes it possible to prepare
+#     a branch in korge repo which fixes/updates unit tests in korge if that is needed
+# (3) Check out the feature branch name in the korge repo if it exists otherwise use "main"
+
+# If envnironment variables are not set, set them to default values for local testing
+if [ -z "$PR_BRANCH" ]; then PR_BRANCH="feat/text-alignment-fixes"; fi
+if [ -z "$FORK_OWNER" ]; then FORK_OWNER="jobe-m"; fi
+if [ -z "$IS_FORK" ]; then IS_FORK="true"; fi
 
 echo "PR_BRANCH: $PR_BRANCH"
 echo "FORK_OWNER: $FORK_OWNER"
@@ -13,16 +24,23 @@ else
 fi
 echo "KORGE_REPO: $KORGE_REPO"
 
-exit 0
-
 # Clone locally Korge repo for running linux unit tests with locally released Korlibs version
 rm -rf dep-korge
+
+# Check if the KORGE_REPO is accessible before cloning
+if ! git ls-remote "$KORGE_REPO" >/dev/null 2>&1; then
+  echo "No fork available for Korge repo, using the base korge repo."
+  KORGE_REPO="https://github.com/korlibs/korge.git"
+fi
+
 git clone "$KORGE_REPO" dep-korge
 
 # Checkout the PR branch if it exists in that repo, otherwise stay on the default branch (main)
 if [ -n "$PR_BRANCH" ] && git -C dep-korge ls-remote --exit-code --heads origin "$PR_BRANCH" >/dev/null 2>&1; then
   git -C dep-korge checkout "$PR_BRANCH"
+  echo "Check out branch '$PR_BRANCH' from $KORGE_REPO"
 else
+  git -C dep-korge checkout main
   echo "Branch '$PR_BRANCH' not found in $KORGE_REPO, using default branch"
 fi
 
