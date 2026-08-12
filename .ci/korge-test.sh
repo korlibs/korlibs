@@ -1,7 +1,11 @@
 #!/bin/sh
 # This script is used on CI (ubuntu-korge-unit-test) to patch the version string for local releasing
 
-#echo "${{ github.event.pull_request.body }}"
+echo "KORGE_BRANCH: $KORGE_BRANCH"
+echo "KORLIBS_FORK: $KORLIBS_FORK"
+echo "IS_KORLIBS_FORK: $IS_KORLIBS_FORK"
+
+exit 0
 
 # Clone locally Korge repo for running linux unit tests with locally released Korlibs version
 rm -rf dep-korge

@@ -119,8 +119,8 @@ jobs:
         uses: gradle/actions/setup-gradle@39e147cb9de83bb9910b8ef8bd7fff0ee20fcd6f # https://github.com/gradle/actions/releases/tag/v6.0.1
 
       - name: "Clone Korge repo and patch local Korlibs version"
-#        run: "./patchKorlibsVersion.sh"
-        run: echo "${{ env.KORGE_BRANCH }}"
+        run: "source .ci/korge-test.sh"
+#        run: echo "${{ env.KORGE_BRANCH }}"
         # test
 #      - name: "Initialize Gradle"
 #        if: "${{ matrix.enableKorgeUnitTestRun }}"
