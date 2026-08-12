@@ -127,10 +127,8 @@ jobs:
         run: "source .ci/korge-test.sh"
 
       - name: Initialize Gradle
-        if: "${{ matrix.enableKorgeUnitTestRun }}"
         run: "./gradlew --no-configuration-cache"
       - name: Publish Korlibs to Maven Local
-        if: "${{ matrix.enableKorgeUnitTestRun }}"
         run: "./gradlew --no-configuration-cache --parallel --max-workers=8 \
              publishKotlinMultiplatformPublicationToMavenLocal publishJvmPublicationToMavenLocal"  # TODO: quick test only
 #             publishLinuxX64PublicationToMavenLocal publishLinuxArm64PublicationToMavenLocal \
