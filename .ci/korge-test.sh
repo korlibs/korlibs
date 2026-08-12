@@ -25,7 +25,7 @@ fi
 echo "KORGE_REPO: $KORGE_REPO"
 
 # Clone locally Korge repo for running linux unit tests with locally released Korlibs version
-rm -rf dep-korge
+rm -rf deps-korge
 
 # Check if the KORGE_REPO is accessible before cloning
 if ! git ls-remote "$KORGE_REPO" >/dev/null 2>&1; then
@@ -33,14 +33,14 @@ if ! git ls-remote "$KORGE_REPO" >/dev/null 2>&1; then
   KORGE_REPO="https://github.com/korlibs/korge.git"
 fi
 
-git clone "$KORGE_REPO" dep-korge
+git clone "$KORGE_REPO" deps-korge
 
 # Checkout the PR branch if it exists in that repo, otherwise stay on the default branch (main)
-if [ -n "$PR_BRANCH" ] && git -C dep-korge ls-remote --exit-code --heads origin "$PR_BRANCH" >/dev/null 2>&1; then
-  git -C dep-korge checkout "$PR_BRANCH"
+if [ -n "$PR_BRANCH" ] && git -C deps-korge ls-remote --exit-code --heads origin "$PR_BRANCH" >/dev/null 2>&1; then
+  git -C deps-korge checkout "$PR_BRANCH"
   echo "Check out branch '$PR_BRANCH' from $KORGE_REPO"
 else
-  git -C dep-korge checkout main
+  git -C deps-korge checkout main
   echo "Branch '$PR_BRANCH' not found in $KORGE_REPO, using 'main' branch"
 fi
 
@@ -49,7 +49,7 @@ GIT_HASH=$(git rev-parse --short HEAD)
 
 # Patch Korlibs version SNAPSHOT with Git-Hash
 sed -i "s/SNAPSHOT/$GIT_HASH/" gradle/libs.versions.toml
-sed -i "s/SNAPSHOT/$GIT_HASH/" dep-korge/gradle/libs.versions.toml
+sed -i "s/SNAPSHOT/$GIT_HASH/" deps-korge/gradle/libs.versions.toml
 
 echo "✓ Korlibs version updated: SNAPSHOT → $GIT_HASH"
 
