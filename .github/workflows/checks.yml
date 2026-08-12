@@ -141,8 +141,9 @@ jobs:
         run: "./gradlew --no-configuration-cache"
       - name: Publish Korlibs to Maven Local
         run: "./gradlew --no-configuration-cache --parallel --max-workers=8 \
-             publishKotlinMultiplatformPublicationToMavenLocal publishJvmPublicationToMavenLocal
-             publishAndroidPublicationToMavenLocal"  # TODO: quick test only
+              publishToMavenLocal"  # TODO: check if this works
+#             publishKotlinMultiplatformPublicationToMavenLocal publishJvmPublicationToMavenLocal
+#             publishAndroidPublicationToMavenLocal"  # TODO: quick test only
 #             publishLinuxX64PublicationToMavenLocal publishLinuxArm64PublicationToMavenLocal \
 #             publishMingwX64PublicationToMavenLocal \
 #             publishAndroidPublicationToMavenLocal \
