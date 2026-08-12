@@ -41,7 +41,7 @@ if [ -n "$PR_BRANCH" ] && git -C dep-korge ls-remote --exit-code --heads origin 
   echo "Check out branch '$PR_BRANCH' from $KORGE_REPO"
 else
   git -C dep-korge checkout main
-  echo "Branch '$PR_BRANCH' not found in $KORGE_REPO, using default branch"
+  echo "Branch '$PR_BRANCH' not found in $KORGE_REPO, using 'main' branch"
 fi
 
 # Create Git-Hash (short form)
