@@ -29,11 +29,11 @@ env:
   JAVA_DISTRIBUTION: zulu
 
   # Vanniktech maven-publish plugin reads these exact Gradle project property names for signing
-  ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
-  ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
+#  ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
+#  ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
   # Vanniktech maven-publish plugin reads these for Central Portal auth
-  ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.ORG_KORGE_SONATYPE_USERNAME }}
-  ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.ORG_KORGE_SONATYPE_PASSWORD }}
+#  ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.ORG_KORGE_SONATYPE_USERNAME }}
+#  ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.ORG_KORGE_SONATYPE_PASSWORD }}
 
   PR_BRANCH: ${{ github.head_ref }}
   FORK_OWNER: ${{ github.event.pull_request.head.repo.owner.login }}
