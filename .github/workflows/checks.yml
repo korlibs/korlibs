@@ -32,9 +32,6 @@ env:
   FORK_OWNER: ${{ github.event.pull_request.head.repo.owner.login }}
   IS_FORK: ${{ github.event.pull_request.head.repo.fork }}
 
-  # Set korge repo depending if pull request comes from a fork or not
-#  KORGE_REPO:
-
 jobs:
 #  test:
 #    strategy:
@@ -114,6 +111,7 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # https://github.com/actions/checkout/releases/tag/v7.0.0
+# TODO: Check if we need to run the setup steps early here or if it is ok to run it later in the workflow
 #      - name: "Install freeglut3 & openal"
 #        run: sudo apt-get update && sudo apt-get -y install freeglut3-dev libopenal-dev xvfb
 #      - name: "Run Xvfb in Background"
