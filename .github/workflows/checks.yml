@@ -112,29 +112,29 @@ jobs:
       DISABLE_SANDBOX: false
 
     steps:
-      - name: Checkout
+      - name: "Checkout"
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # https://github.com/actions/checkout/releases/tag/v7.0.0
 #      - name: "Install freeglut3 & openal"
 #        run: sudo apt-get update && sudo apt-get -y install freeglut3-dev libopenal-dev xvfb
-#      - name: Run Xvfb in Background"
-#        run: "Xvfb :99 &"
-#      - name: Use Node.js 24.x
+#      - name: "Run Xvfb in Background"
+#        run: Xvfb :99 &
+#      - name: "Use Node.js 24.x"
 #        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # https://github.com/actions/setup-node/releases/tag/v6.3.0
 #        with:
 #          node-version: 24.x
-      - name: Set up JDK
+      - name: "Set up JDK"
         uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520  # https://github.com/actions/setup-java/releases/tag/v5.4.0
         with:
           distribution: "${{ env.JAVA_DISTRIBUTION }}"
           java-version: "${{ env.JAVA_VERSION }}"
-      - name: Prepare Gradle
+      - name: "Prepare Gradle"
         uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92  # https://github.com/gradle/actions/releases/tag/v6.2.0
 
       # (1) Check if the PR is done from a fork or from the base repo.
       # (2) Check out the korge repo from the fork owner if it exists. This makes it possible to prepare
       #     a branch in korge repo which fixes/updates unit tests in korge if that is needed.
       # (3) Check out the feature branch name in the korge repo if it exists otherwise use "main"
-      - name: Determine Korge repo
+      - name: "Determine Korge repo"
         run: |
           echo "-- PR_BRANCH: $PR_BRANCH"
           echo "-- FORK_OWNER: $FORK_OWNER"
@@ -158,13 +158,13 @@ jobs:
           echo "KORGE_REPO=$KORGE_REPO" >> "$GITHUB_ENV"
           echo "IS_FORK=$IS_FORK" >> "$GITHUB_ENV"
 
-      - name: Clone Korge repo
+      - name: "Clone Korge repo"
         run: |
           # Clone locally Korge repo for running linux unit tests with locally released Korlibs version
           rm -rf deps-korge
           git clone "$KORGE_REPO" deps-korge
 
-      - name: Check out feature branch in Korge repo
+      - name: "Check out feature branch in Korge repo"
         run: |
           # Checkout the PR branch if it exists in that repo, otherwise stay on the default branch (main)
           if [ -n "$PR_BRANCH" ] && git -C deps-korge ls-remote --exit-code --heads origin "$PR_BRANCH" >/dev/null 2>&1; then
@@ -181,7 +181,7 @@ jobs:
             git -C deps-korge checkout main
           fi
 
-      - name: Patch local Korlibs version with Git-Hash
+      - name: "Patch local Korlibs version with Git-Hash"
         run: |
           # Create Git-Hash (short form)
           GIT_HASH=$(git rev-parse --short HEAD)
@@ -192,18 +192,19 @@ jobs:
 
           echo "-- ✓ Korlibs version updated: SNAPSHOT → $GIT_HASH"
 
-      - name: Initialize Gradle
-        run: "./gradlew --no-configuration-cache"
-      - name: Publish Korlibs to Maven Local
-        run: "./gradlew --no-configuration-cache --parallel --max-workers=8 \
-             publishLinuxX64PublicationToMavenLocal publishLinuxArm64PublicationToMavenLocal \
-             publishMingwX64PublicationToMavenLocal \
-             publishAndroidPublicationToMavenLocal \
-             publishKotlinMultiplatformPublicationToMavenLocal publishJvmPublicationToMavenLocal \
-             publishJsPublicationToMavenLocal publishWasmJsPublicationToMavenLocal"
+      - name: "Initialize Gradle"
+        run: ./gradlew --no-configuration-cache
+      - name: "Publish Korlibs to Maven Local"
+        run: |
+          ./gradlew --no-configuration-cache --parallel --max-workers=8 \
+          publishLinuxX64PublicationToMavenLocal publishLinuxArm64PublicationToMavenLocal \
+          publishMingwX64PublicationToMavenLocal \
+          publishAndroidPublicationToMavenLocal \
+          publishKotlinMultiplatformPublicationToMavenLocal publishJvmPublicationToMavenLocal \
+          publishJsPublicationToMavenLocal publishWasmJsPublicationToMavenLocal
 
-      - name: Run Korge check
-        run: "cd deps-korge && ./gradlew check"
+      - name: "Run Korge check"
+        run: cd deps-korge && ./gradlew check
         env:
           EGL_LOG_LEVEL: debug
           LIBGL_DEBUG: verbose
@@ -212,19 +213,19 @@ jobs:
 
       - name: "Install freeglut3 & openal"
         run: sudo apt-get update && sudo apt-get -y install freeglut3-dev libopenal-dev xvfb
-      - name: Run Xvfb in Background"
-        run: "Xvfb :99 &"
-      - name: Use Node.js 24.x
+      - name: "Run Xvfb in Background"
+        run: Xvfb :99 &
+      - name: "Use Node.js 24.x"
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # https://github.com/actions/setup-node/releases/tag/v6.3.0
         with:
           node-version: 24.x
-      - name: Enable KVM
+      - name: "Enable KVM"
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
-      - name: Run Korge Android Tests
+      - name: "Run Korge Android Tests"
         uses: reactivecircus/android-emulator-runner@e89f39f1abbbd05b1113a29cf4db69e7540cae5a # v2.37.0
         with:
           "api-level": 21
-          "script": "cd deps-korge && ./gradlew connectedCheck"
+          "script": cd deps-korge && ./gradlew connectedCheck
