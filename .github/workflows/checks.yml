@@ -111,15 +111,16 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # https://github.com/actions/checkout/releases/tag/v7.0.0
-# TODO: Check if we need to run the setup steps early here or if it is ok to run it later in the workflow
-#      - name: "Install freeglut3 & openal"
-#        run: sudo apt-get update && sudo apt-get -y install freeglut3-dev libopenal-dev xvfb
-#      - name: "Run Xvfb in Background"
-#        run: Xvfb :99 &
-#      - name: "Use Node.js 24.x"
-#        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # https://github.com/actions/setup-node/releases/tag/v6.3.0
-#        with:
-#          node-version: 24.x
+
+      - name: "Install freeglut3 & openal"
+        run: sudo apt-get update && sudo apt-get -y install freeglut3-dev libopenal-dev xvfb
+      - name: "Run Xvfb in Background"
+        run: Xvfb :99 &
+      - name: "Use Node.js 24.x"
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # https://github.com/actions/setup-node/releases/tag/v6.3.0
+        with:
+          node-version: 24.x
+
       - name: "Set up JDK"
         uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520  # https://github.com/actions/setup-java/releases/tag/v5.4.0
         with:
@@ -209,14 +210,16 @@ jobs:
           LIBGL_ALWAYS_SOFTWARE: true
           MESA_DEBUG: true
 
-      - name: "Install freeglut3 & openal"
-        run: sudo apt-get update && sudo apt-get -y install freeglut3-dev libopenal-dev xvfb
-      - name: "Run Xvfb in Background"
-        run: Xvfb :99 &
-      - name: "Use Node.js 24.x"
-        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # https://github.com/actions/setup-node/releases/tag/v6.3.0
-        with:
-          node-version: 24.x
+# TODO: Check if we need to run the setup steps early or if it is ok to run it here in the workflow
+#      - name: "Install freeglut3 & openal"
+#        run: sudo apt-get update && sudo apt-get -y install freeglut3-dev libopenal-dev xvfb
+#      - name: "Run Xvfb in Background"
+#        run: Xvfb :99 &
+#      - name: "Use Node.js 24.x"
+#        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # https://github.com/actions/setup-node/releases/tag/v6.3.0
+#        with:
+#          node-version: 24.x
+
       - name: "Enable KVM"
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
