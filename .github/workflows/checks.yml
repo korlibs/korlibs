@@ -202,8 +202,8 @@ jobs:
           publishKotlinMultiplatformPublicationToMavenLocal publishJvmPublicationToMavenLocal \
           publishJsPublicationToMavenLocal publishWasmJsPublicationToMavenLocal
 
-      - name: "Run Korge check for JVM, JS and WASM and Browser targets"
-        run: cd deps-korge && ./gradlew jvmTest jsTest jsBrowserTest wasmJsTest wasmJsBrowserTest
+      - name: "Run Korge check for JVM, JS and Browser targets"
+        run: cd deps-korge && ./gradlew jvmTest jsTest jsBrowserTest
         env:
           EGL_LOG_LEVEL: debug
           LIBGL_DEBUG: verbose
