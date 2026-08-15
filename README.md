@@ -11,6 +11,8 @@ Each library is designed to be modular and can be used independently. The levels
 most fundamental libraries that have no dependencies on other `korlibs`, and higher levels building upon the lower ones. This structure allows
 you to easily pick and choose the libraries you need for your project without having to include unnecessary dependencies.
 
+_TODO: List below needs to be updated to reflect the current state of the repo. Some libraries may have been merged with others._
+
 ### Level 1
 - [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/korlibs-annotations)](https://central.sonatype.com/artifact/org.korge/korlibs-annotations) [korlibs-annotations](https://github.com/korlibs/korlibs-annotations) — Common annotations (`@Serializable`, `@Keep`, `@KeepNames`, `@DeprecatedParameter`)
 - [![Maven Central Version](https://img.shields.io/maven-central/v/org.korge/korlibs-bignumber)](https://central.sonatype.com/artifact/org.korge/korlibs-bignumber) [korlibs-bignumber](https://github.com/korlibs/korlibs-bignumber) — BigInteger and BigDecimal library for Kotlin Multiplatform
@@ -84,3 +86,10 @@ For example, you can use `korlibs-crypto` as follows (replacing `X.X.X` with the
 ```kotlin
 implementation("org.korge:korlibs-crypto:X.X.X")
 ```
+
+## Contributing
+
+If your pull request breaks the Korge unit tests run by CI (the `korge-test` job), see
+[Contributing changes that affect both Korlibs and Korge](docs/contributing-cross-repo-changes.md)
+for how to provide a companion Korge branch so both repos can be updated together.
+
