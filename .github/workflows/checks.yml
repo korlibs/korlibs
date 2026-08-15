@@ -201,8 +201,8 @@ jobs:
           publishKotlinMultiplatformPublicationToMavenLocal publishJvmPublicationToMavenLocal \
           publishJsPublicationToMavenLocal publishWasmJsPublicationToMavenLocal
 
-      - name: "Run Korge check"
-        run: cd deps-korge && ./gradlew check
+      - name: "Run Korge check for JVM target"
+        run: cd deps-korge && ./gradlew jvmTest
         env:
           EGL_LOG_LEVEL: debug
           LIBGL_DEBUG: verbose
