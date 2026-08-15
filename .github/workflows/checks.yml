@@ -130,55 +130,30 @@ jobs:
       - name: "Prepare Gradle"
         uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92  # https://github.com/gradle/actions/releases/tag/v6.2.0
 
-      # (1) Check if the PR is done from a fork or from the base repo.
-      # (2) Check out the korge repo from the fork owner if it exists. This makes it possible to prepare
-      #     a branch in korge repo which fixes/updates unit tests in korge if that is needed.
-      # (3) Check out the feature branch name in the korge repo if it exists otherwise use "main"
-      - name: "Determine Korge repo"
-        run: |
-          echo "-- PR_BRANCH: $PR_BRANCH"
-          echo "-- FORK_OWNER: $FORK_OWNER"
-          echo "-- IS_FORK: $IS_FORK"
+      - name: "Attempt checkout of feature branch in fork's Korge repo"
+        if: env.PR_BRANCH != ''
+        id: fork-checkout
+        continue-on-error: true
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          repository: ${{ env.FORK_OWNER }}/korge
+          ref: ${{ env.PR_BRANCH }}
+          path: deps-korge
 
-          # Determine which Korge repo to clone: the fork owner's repo for fork PRs, otherwise the base repo
-          if [ "$IS_FORK" == "true" ]; then
-            KORGE_REPO="https://github.com/$FORK_OWNER/korge.git"
+      - name: "Fallback: checkout korlibs/korge main"
+        if: steps.fork-checkout.outcome != 'success'
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          repository: korlibs/korge
+          ref: main
+          path: deps-korge
+
+      - name: "Report which Korge sources are used"
+        run: |
+          if [ "${{ steps.fork-checkout.outcome }}" == "success" ]; then
+            echo "-- ✓ Using branch '$PR_BRANCH' from '$FORK_OWNER/korge'."
           else
-            KORGE_REPO="https://github.com/korlibs/korge.git"
-          fi
-
-          # Check if the KORGE_REPO is accessible before cloning
-          if ! git ls-remote "$KORGE_REPO" >/dev/null 2>&1; then
-            echo "-- No fork available for Korge repo, using 'korlibs/korge' repo."
-            KORGE_REPO="https://github.com/korlibs/korge.git"
-            IS_FORK="false"
-          fi
-
-          echo "-- ✓ Using KORGE_REPO: $KORGE_REPO"
-          echo "KORGE_REPO=$KORGE_REPO" >> "$GITHUB_ENV"
-          echo "IS_FORK=$IS_FORK" >> "$GITHUB_ENV"
-
-      - name: "Clone Korge repo"
-        run: |
-          # Clone locally Korge repo for running linux unit tests with locally released Korlibs version
-          rm -rf deps-korge
-          git clone "$KORGE_REPO" deps-korge
-
-      - name: "Check out feature branch in Korge repo"
-        run: |
-          # Checkout the PR branch if it exists in that repo, otherwise stay on the default branch (main)
-          if [ -n "$PR_BRANCH" ] && git -C deps-korge ls-remote --exit-code --heads origin "$PR_BRANCH" >/dev/null 2>&1; then
-            git -C deps-korge checkout "$PR_BRANCH"
-            echo "-- ✓ Check out branch '$PR_BRANCH' from '$FORK_OWNER/korge'."
-          else
-            # If the PR branch is not found in a fork, we need to clone the base repo and check out 'main' branch there
-            if [ "$IS_FORK" == "true" ]; then
-              # Cloning base repo 'korlibs/korge' to check out 'main' branch there
-              rm -rf deps-korge
-              git clone https://github.com/korlibs/korge.git deps-korge
-            fi
-            echo "-- ✓ Branch '$PR_BRANCH' not found in '$FORK_OWNER/korge', using 'main' branch from 'korlibs/korge' instead."
-            git -C deps-korge checkout main
+            echo "-- ✓ Using 'main' branch from 'korlibs/korge'."
           fi
 
       - name: "Patch local Korlibs version with Git-Hash"
@@ -190,7 +165,7 @@ jobs:
           sed -i "s/SNAPSHOT/$GIT_HASH/" gradle/libs.versions.toml
           sed -i "s/SNAPSHOT/$GIT_HASH/" deps-korge/gradle/libs.versions.toml
 
-          echo "-- ✓ Korlibs version updated: SNAPSHOT → $GIT_HASH"
+          echo "-- ✓ Korlibs version updated locally: SNAPSHOT → $GIT_HASH"
 
       - name: "Initialize Gradle"
         run: ./gradlew --no-configuration-cache

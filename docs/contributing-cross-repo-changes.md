@@ -40,16 +40,17 @@ repo (`korlibs/korge`).
 ## How the CI picks the Korge sources
 
 When the `korge-test` job runs for your pull request, it decides where to get the Korge
-sources from, in this order:
+sources from in two checkout steps:
 
-1. **Is the PR coming from a fork?**
-   If yes, the job looks for a Korge fork under the *same GitHub account* that owns the
-   Korlibs fork, i.e. `https://github.com/<your-user>/korge`.
-   If that repository does not exist (or is not accessible), it falls back to
-   `korlibs/korge`.
-2. **Does a branch with the same name as your PR branch exist in that Korge repo?**
-   If yes, that branch is checked out and used for the Korge test run.
-   If no, the job falls back to the `main` branch of `korlibs/korge`.
+1. **Attempt checkout of the companion branch.**
+   The job tries to check out a branch with the *same name as your PR branch* from a Korge
+   repository owned by the *same GitHub account* that owns the Korlibs fork, i.e.
+   `https://github.com/<your-user>/korge`. This step is allowed to fail
+   (`continue-on-error`), so a red ❌ on it is expected and harmless when no companion
+   branch exists.
+2. **Fallback.**
+   If that repository does not exist (or is not accessible), or the branch is not found,
+   the job checks out the `main` branch of `korlibs/korge` instead.
 
 In short: **fork + identical branch name = your Korge fixes are picked up automatically.**
 There is no extra configuration, no label, and no magic comment needed — the matching is
@@ -153,15 +154,17 @@ git commit --allow-empty -m "ci: re-run with korge companion branch"
 git push origin feat/my-feature
 ```
 
-In the `korge-test` job log you should now see a line like:
+In the `korge-test` job, check the step **"Report which Korge sources are used"**. It prints
+which sources were picked up:
 
 ```
--- Check out branch 'feat/my-feature' from 'your-user/korge'.
+-- ✓ Using branch 'feat/my-feature' from 'your-user/korge'.
 ```
 
 confirming that your Korge branch was picked up. If instead you see the fallback message
-(`... using 'main' branch from 'korlibs/korge' instead.`), double-check the fork owner and
-the branch name spelling.
+(`-- ✓ Using 'main' branch from 'korlibs/korge'.`), the step
+*"Attempt checkout of feature branch in fork's Korge repo"* failed — double-check the fork
+owner and the branch name spelling in its log.
 
 **Why:** The Korge branch is resolved at CI run time. The run that failed before your
 Korge fixes existed will not update itself — a fresh run is needed.
@@ -201,9 +204,9 @@ containing your change exists. Until then it stays open as a companion PR.
 
 ## Troubleshooting
 
-| Symptom                                                                                                     | Likely cause / fix |
-|-------------------------------------------------------------------------------------------------------------| --- |
-| Log says `No fork available for Korge repo, using 'korlibs/korge' repo.`                                    | Your account has no (public) `korge` fork, or it is inaccessible. Fork `korlibs/korge` (Step 3). |
-| Log says `Branch '...' not found in '<your-user>/korge', using 'main' branch from 'korlibs/korge' instead.` | Branch name mismatch or branch not pushed. Check spelling and `git push` (Steps 4–5). |
-| Korge tests still fail with your branch checked out                                                         | Your Korge fixes are incomplete, or the failure is unrelated. Reproduce locally with `publishToMavenLocal` (Step 5). |
-| Korge build can't resolve the Korlibs version                                                               | The CI patches `SNAPSHOT` in both `libs.versions.toml` files with the PR's git hash. Make sure your Korge branch doesn't pin a different, hardcoded Korlibs version. |
+| Symptom                                                                                            | Likely cause / fix |
+|----------------------------------------------------------------------------------------------------| --- |
+| Step "Report which Korge sources are used" prints `-- ✓ Using 'main' branch from 'korlibs/korge'.` | Your account has no (public/accessible) `korge` fork, the branch name doesn't match, or the branch was not pushed. Check the log of the failed *"Attempt checkout ..."* step, then see Steps 3–5. |
+| Step "Attempt checkout of feature branch in fork's Korge repo" shows a red ❌                       | Expected whenever no matching companion branch exists — the job continues with the fallback. Only relevant if you *did* create a companion branch: then check fork owner and branch name spelling. |
+| Korge tests still fail with your branch checked out                                                | Your Korge fixes are incomplete, or the failure is unrelated. Reproduce locally with `publishToMavenLocal` (Step 5). |
+| Korge build can't resolve the Korlibs version                                                      | The CI patches `SNAPSHOT` in both `libs.versions.toml` files with the PR's git hash. Make sure your Korge branch doesn't pin a different, hardcoded Korlibs version. |
