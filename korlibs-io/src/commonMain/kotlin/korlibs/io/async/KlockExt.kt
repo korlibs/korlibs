@@ -11,6 +11,6 @@ suspend fun <T> withTimeoutNullable(time: Duration?, block: suspend CoroutineSco
 	return if (time == null || time.isNil) {
 		block(CoroutineScope(coroutineContext))
 	} else {
-		withTimeout(time.millisecondsLong, block)
+		withTimeout(time, block)
 	}
 }

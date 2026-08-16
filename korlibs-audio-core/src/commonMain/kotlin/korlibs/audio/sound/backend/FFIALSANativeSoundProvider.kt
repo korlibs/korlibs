@@ -1,8 +1,14 @@
 package korlibs.audio.sound.backend
 
-import korlibs.audio.sound.*
-import korlibs.ffi.*
-import kotlinx.coroutines.*
+import korlibs.audio.sound.AudioPlatformOutput
+import korlibs.audio.sound.AudioPlatformOutputGen
+import korlibs.audio.sound.AudioPlatformOutputSimple
+import korlibs.audio.sound.NativeSoundProvider
+import korlibs.ffi.FFILib
+import korlibs.ffi.FFIPointer
+import korlibs.ffi.FFIPointerArray
+import korlibs.ffi.address
+import kotlinx.coroutines.delay
 
 object FFIALSANativeSoundProvider : NativeSoundProvider() {
     @ExperimentalStdlibApi
@@ -37,7 +43,7 @@ object FFIALSANativeSoundProvider : NativeSoundProvider() {
                             //blockingSleep(1.milliseconds)
                         } else if (written < 0) {
                             println("ALSA: OTHER error: $written")
-                            delay(1L)
+                            delay(timeMillis = 1)
                         } else {
                             break
                         }

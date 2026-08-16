@@ -1,12 +1,27 @@
 package korlibs.audio.sound
 
-import kotlinx.cinterop.*
+import kotlin.reflect.KProperty
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CFunction
+import kotlinx.cinterop.COpaquePointer
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.CPointerVar
+import kotlinx.cinterop.CValues
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.ShortVar
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.cstr
+import kotlinx.cinterop.invoke
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.usePinned
+import kotlinx.cinterop.value
 import kotlinx.coroutines.delay
 import platform.posix.RTLD_LAZY
 import platform.posix.dlopen
 import platform.posix.dlsym
-import kotlin.coroutines.CoroutineContext
-import kotlin.reflect.KProperty
 
 actual val nativeSoundProvider: NativeSoundProvider by lazy {
     try {
@@ -47,7 +62,7 @@ object ALSANativeSoundProvider : NativeSoundProvider() {
                             //blockingSleep(1.milliseconds)
                         } else if (written < 0) {
                             println("ALSA: OTHER error: $written")
-                            delay(1L)
+                            delay(timeMillis = 1)
                         } else {
                             break
                         }

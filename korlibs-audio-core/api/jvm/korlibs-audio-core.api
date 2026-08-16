@@ -28,11 +28,10 @@ public final class korlibs/audio/sound/AudioPlatformOutput : java/lang/AutoClose
 	public static final field Companion Lkorlibs/audio/sound/AudioPlatformOutput$Companion;
 	public fun <init> (Lkorlibs/audio/sound/SoundListenerProps;IILkotlin/jvm/functions/Function1;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlin/jvm/functions/Function2;)V
 	public synthetic fun <init> (Lkorlibs/audio/sound/SoundListenerProps;IILkotlin/jvm/functions/Function1;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlin/jvm/functions/Function2;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun close ()V
+	public fun close ()V
 	public final fun genSafe (Lkorlibs/audio/sound/AudioSamplesInterleaved;)V
 	public final fun getBlock ()Lkotlin/jvm/functions/Function2;
 	public final fun getChannels ()I
-	public final fun getDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
 	public fun getExtra ()Lkorlibs/datastructure/ExtraObject;
 	public final fun getFrequency ()I
 	public final fun getListener ()Lkorlibs/audio/sound/SoundListenerProps;
@@ -62,8 +61,8 @@ public final class korlibs/audio/sound/AudioPlatformOutput$Companion {
 
 public final class korlibs/audio/sound/AudioPlatformOutputSimple {
 	public fun <init> ()V
-	public fun <init> (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/Unit;)V
-	public synthetic fun <init> (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/Unit;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;)V
+	public synthetic fun <init> (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getClose ()Lkotlin/jvm/functions/Function2;
 	public final fun getInit ()Lkotlin/jvm/functions/Function2;
 	public final fun getOutput ()Lkotlin/jvm/functions/Function2;

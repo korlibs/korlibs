@@ -269,7 +269,7 @@ open class DelayedHttpClient(val delayMs: Long, val parent: HttpClient) : HttpCl
 		content: AsyncInputStreamWithLength?
 	): HttpClient.Response = queue {
 		println("Waiting $delayMs milliseconds for $url...")
-		delay(delayMs)
+		delay(timeMillis = delayMs)
 		parent.request(method, url, headers, content)
 	}
 }

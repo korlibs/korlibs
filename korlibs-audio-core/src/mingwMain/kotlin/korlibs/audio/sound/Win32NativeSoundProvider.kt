@@ -2,12 +2,45 @@
 
 package korlibs.audio.sound
 
-import korlibs.memory.*
-import kotlinx.cinterop.*
-import kotlinx.coroutines.*
-import platform.windows.*
-import kotlin.coroutines.*
-import kotlin.reflect.*
+import korlibs.memory.hasFlags
+import kotlin.reflect.KProperty
+import kotlinx.cinterop.Arena
+import kotlinx.cinterop.ArenaBase
+import kotlinx.cinterop.CFunction
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.ShortVar
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.invoke
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.set
+import kotlinx.cinterop.sizeOf
+import kotlinx.cinterop.value
+import kotlinx.coroutines.delay
+import platform.windows.DWORD
+import platform.windows.DWORD_PTR
+import platform.windows.GetProcAddress
+import platform.windows.HWAVEOUT
+import platform.windows.HWAVEOUTVar
+import platform.windows.LPCWAVEFORMATEX
+import platform.windows.LPHWAVEOUT
+import platform.windows.LPWAVEHDR
+import platform.windows.LoadLibraryA
+import platform.windows.MMRESULT
+import platform.windows.UINT
+import platform.windows.WAVEFORMATEX
+import platform.windows.WAVEHDR
+import platform.windows.WAVE_FORMAT_PCM
+import platform.windows.WAVE_MAPPER
+import platform.windows.WHDR_BEGINLOOP
+import platform.windows.WHDR_DONE
+import platform.windows.WHDR_ENDLOOP
+import platform.windows.WHDR_INQUEUE
+import platform.windows.WHDR_PREPARED
+import platform.windows.wavehdr_tag
 
 actual val nativeSoundProvider: NativeSoundProvider = Win32WaveOutNativeSoundProvider
 
@@ -58,12 +91,12 @@ object Win32WaveOutNativeSoundProvider : NativeSoundProvider() {
                         if (position >= it.totalSamples) break
                     } else {
                         //println("ALL QUEUED")
-                        delay(1L)
+                        delay(timeMillis = 1)
                     }
                 }
             },
             close = {
-                while (headers.any { it.hdr.isInQueue }) delay(1L)
+                while (headers.any { it.hdr.isInQueue }) delay(timeMillis = 1)
                 //println("CLOSE")
                 for (header in headers) header.dispose(handlePtr.value)
                 //runBlockingNoJs {

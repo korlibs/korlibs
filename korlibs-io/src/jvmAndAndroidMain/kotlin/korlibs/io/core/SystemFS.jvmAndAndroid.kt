@@ -72,7 +72,7 @@ object JvmSyncSystemFS : SyncSystemFS {
                 p.errorStream.copyAvailableChunk(stderr, temp, readRest = closing)
 
                 if (closing) break
-                delay(1L)
+                delay(timeMillis = 1)
             }
             p.waitFor()
             //handler.onCompleted(p.exitValue())

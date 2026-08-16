@@ -1,13 +1,17 @@
 package korlibs.audio.sound
 
-import korlibs.concurrent.lock.*
-import korlibs.datastructure.*
-import korlibs.math.*
-import korlibs.time.*
-import kotlinx.coroutines.*
-import kotlin.coroutines.*
+import korlibs.concurrent.lock.Lock
+import korlibs.datastructure.ConcurrentPool
+import korlibs.math.nextMultipleOf
+import korlibs.time.seconds
+import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.cancellation.CancellationException
-import kotlin.time.*
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.yield
 
 class SoundAudioStream(
     coroutineContext: CoroutineContext,
@@ -69,7 +73,7 @@ class SoundAudioStream(
                     while (true) {
                         //println("STREAM")
                         while (nas.paused) {
-                            delay(2.milliseconds)
+                            delay(timeMillis = 2)
                             //println("PAUSED")
                         }
                         if (currentPositionRequest != null) {
@@ -95,7 +99,7 @@ class SoundAudioStream(
                 }
                 flushing = true
                 var n = 0
-                while (nas.running && deque.availableRead > 0 && n++ < 8) delay(10L)
+                while (nas.running && deque.availableRead > 0 && n++ < 8) delay(duration = 10.milliseconds)
             } catch (e: CancellationException) {
                 // Do nothing
                 params.onCancel?.invoke()

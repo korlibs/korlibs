@@ -67,6 +67,11 @@ kotlin {
             implementation(projects.korlibsIo)
         }
 
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+        }
+
         val appleIosTvosMain by creating {
             dependsOn(appleMain.get())
         }

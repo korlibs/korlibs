@@ -7,7 +7,7 @@ class RegexExtTest {
 	@Test
 	fun test() {
 		assertEquals("""\*\+""", Regex.quote("*+"))
-		assertEquals("""\.\?\*\+\^\\\[\]\(\)\{\}\|\-\${'$'}""", Regex.quote(""".?*+^\[](){}|-${'$'}"""))
+		assertEquals("""\.\?\*\+\^\\\[\]\(\)\{\}\|\-\$""", Regex.quote(""".?*+^\[](){}|-$"""))
 
 		assertEquals("""abc\[a\]""", Regex.quote("abc[a]"))
 

@@ -21,7 +21,7 @@ class MemoryVfsTest {
 		mem["item.txt"].writeString("test")
 		mem["test"].mkdir()
 		mem["test"].delete()
-		delay(100)
+		delay(timeMillis = 100)
 		assertEquals(
 			"[MODIFIED(NodeVfs[/item.txt]), CREATED(NodeVfs[/test]), DELETED(NodeVfs[/test])]",
 			log.toString()
