@@ -1191,6 +1191,10 @@ final class korlibs.wasm/WasmExpr { // korlibs.wasm/WasmExpr|null[0]
         final fun <get-interpreterCode>(): korlibs.wasm/WasmInterpreterCode? // korlibs.wasm/WasmExpr.interpreterCode.<get-interpreterCode>|<get-interpreterCode>(){}[0]
         final fun <set-interpreterCode>(korlibs.wasm/WasmInterpreterCode?) // korlibs.wasm/WasmExpr.interpreterCode.<set-interpreterCode>|<set-interpreterCode>(korlibs.wasm.WasmInterpreterCode?){}[0]
 
+    final fun component1(): kotlin.collections/List<korlibs.wasm/WasmInstruction> // korlibs.wasm/WasmExpr.component1|component1(){}[0]
+    final fun copy(kotlin.collections/List<korlibs.wasm/WasmInstruction> = ...): korlibs.wasm/WasmExpr // korlibs.wasm/WasmExpr.copy|copy(kotlin.collections.List<korlibs.wasm.WasmInstruction>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // korlibs.wasm/WasmExpr.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // korlibs.wasm/WasmExpr.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // korlibs.wasm/WasmExpr.toString|toString(){}[0]
 }
 

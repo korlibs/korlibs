@@ -189,7 +189,7 @@ class BigNumTest {
     @Test
     fun testNegativeBigNum() {
         val neg = "-1.5".bn
-        assertEquals(-1.bi, neg.toBigInt())
+        assertEquals((-1).bi, neg.toBigInt())
         assertTrue(neg.int.isNegative)
     }
 

@@ -2644,6 +2644,13 @@ data class MRectangle(
     @KormaMutableApi val int: MRectangleInt get() = MRectangleInt(x, y, width, height)
     val value: Rectangle get() = Rectangle(x, y, width, height)
 
+    override fun hashCode(): Int {
+        var result = x.hashCode()
+        result = 31 * result + y.hashCode()
+        result = 31 * result + width.hashCode()
+        result = 31 * result + height.hashCode()
+        return result
+    }
 }
 
 fun Rectangle.copyTo(out: MRectangle = MRectangle()): MRectangle = out.copyFrom(this)
