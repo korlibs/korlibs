@@ -21,7 +21,7 @@ class JvmAsyncSocketTest {
         if (getJavaVersion() < 17) return
 
         runBlocking {
-            val sockPath = "/tmp/test.sock"
+            val sockPath = File.createTempFile("test", ".sock").absolutePath
             File(sockPath).delete()
             try {
                 AsyncServerSocket.unix(sockPath).use { unixServer ->
