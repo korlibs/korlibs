@@ -14,8 +14,10 @@ import kotlinx.coroutines.runBlocking
 class JvmAsyncSocketTest {
     @Test
     fun test() {
-        // Skip in CI on windows --     java.net.SocketException: Network is down: bind
-        if (System.getenv("CI") != null && Platform.isWindows) return
+        // Unix domain sockets rely on AF_UNIX provider availability, which is
+        // unreliable/unavailable on many Windows environments (CI, sandboxes,
+        // machines without an active network provider bound to Winsock).
+        if (Platform.isWindows) return
         if (getJavaVersion() < 17) return
 
         runBlocking {
