@@ -95,7 +95,7 @@ class AsyncInjectorTest {
 		//@Singleton
 		class Demo(
 			//@Path("path/to/font") val font: BitmapFont
-		) : InjectorAsyncDependency {
+		) : InjectorDependency {
 			lateinit var font: BitmapFont
 
 			override fun init(injector: Injector) {

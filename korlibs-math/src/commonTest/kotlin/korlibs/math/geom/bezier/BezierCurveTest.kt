@@ -1,11 +1,16 @@
 package korlibs.math.geom.bezier
 
-import korlibs.datastructure.*
-import korlibs.math.*
-import korlibs.math.geom.*
-import korlibs.math.interpolation.*
-import korlibs.platform.*
-import kotlin.test.*
+import korlibs.datastructure.doubleArrayListOf
+import korlibs.math.geom.Line
+import korlibs.math.geom.Point
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.assertEqualsFloat
+import korlibs.math.geom.pointArrayListOf
+import korlibs.math.interpolation.toRatio
+import korlibs.math.roundDecimalPlaces
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class BezierCurveTest {
     @Test
@@ -91,18 +96,28 @@ class BezierCurveTest {
     @Test
     fun testBezierBoundingBox() {
         assertEquals(
-            Rectangle(x=-4.044654662829129, y=-62.06241698807055, width=2.6127315550921892, height=0.6955056507112474).clone().roundDecimalPlaces(2),
+            Rectangle(
+                x = -4.044654662829129,
+                y = -62.06241698807055,
+                width = 2.6127315550921892,
+                height = 0.6955056507112474
+            ).roundDecimalPlaces(2),
             Bezier(
                 Point(-4.044654662829129, -61.366911337359305),
                 Point(-3.2722813703417932, -61.83588230138613),
                 Point(-2.398578099496581, -62.06241698807055),
                 Point(-1.4319231077369396, -62.06241698807055),
-            ).boundingBox.clone().roundDecimalPlaces(2)
+            ).boundingBox.roundDecimalPlaces(2)
         )
 
         assertEquals(
             Rectangle(65.0, 25.0, 37.2, 116.6),
-            Bezier(Point(100, 25), Point(10, 180), Point(170, 165), Point(65, 70)).boundingBox.clone().roundDecimalPlaces(1)
+            Bezier(
+                Point(100, 25),
+                Point(10, 180),
+                Point(170, 165),
+                Point(65, 70)
+            ).boundingBox.roundDecimalPlaces(1)
         )
     }
 

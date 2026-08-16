@@ -1,5 +1,6 @@
 package korlibs.memory
 
+import korlibs.memory.asFloat32
 import korlibs.platform.*
 import kotlin.test.*
 
@@ -19,9 +20,9 @@ class BufferTest {
     @Test
     fun testSlice() {
         val data = Buffer(16 * 4)
-        val sliceAll = data.f32.sliceWithSize(0, 16)
-        val slice1 = data.f32.sliceWithSize(0, 8)
-        val slice2 = data.f32.sliceWithSize(8, 8)
+        val sliceAll = data.asFloat32().sliceWithSize(0, 16)
+        val slice1 = data.asFloat32().sliceWithSize(0, 8)
+        val slice2 = data.asFloat32().sliceWithSize(8, 8)
         for (n in 0 until 16) sliceAll[n] = n.toFloat()
         assertEquals(FloatArray(16) { it.toFloat() }.toList(), (0 until sliceAll.size).map { sliceAll[it] })
         assertEquals(FloatArray(8) { it.toFloat() }.toList(), (0 until slice1.size).map { slice1[it] })

@@ -104,7 +104,7 @@ class JPEGEncoder(quality: Int = 50) {
     private fun computeHuffmanTbl(nrCodes: IntArray, std_table: IntArray): Array<IntArray> {
         var codeValue = 0
         var posInTable = 0
-        val ht = Array((std_table.max() ?: 0) + 1) { IntArray(2) }
+        val ht = Array(std_table.max() + 1) { IntArray(2) }
         for (k in 1..16) {
             for (j in 1..nrCodes[k]) {
                 ht[std_table[posInTable]] = IntArray(2)

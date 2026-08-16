@@ -109,18 +109,16 @@ class WASMRunner {
         evaluateScript("""
           new Uint8Array(globalThis.wasmInstance.exports.memory.buffer).set(tempBytes, $ptr);
           globalThis.tempBytes = undefined;
-        """.trimIndent()).also {
-            //println("eval=$it")
-        }
+        """.trimIndent())
     }
 
     fun readBytes(ptr: Int, len: Int): ByteArray {
         return evaluateScript("""
           new Uint8Array(globalThis.wasmInstance.exports.memory.buffer, $ptr, $len)
-        """)?.toByteArray() ?: error("Can't extract bytes")
+        """).toByteArray() ?: error("Can't extract bytes")
     }
 
-    fun invokeFunction(name: String, vararg values: Any?): JSValue? {
+    fun invokeFunction(name: String, vararg values: Any?): JSValue {
         return evaluateScript("wasmInstance.exports.$name(${values.joinToString(", ")})")
     }
 

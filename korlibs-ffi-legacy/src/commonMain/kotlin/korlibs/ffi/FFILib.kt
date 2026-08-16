@@ -207,10 +207,21 @@ data class FFIPointerArray(val data: IntArray) : List<FFIPointer?> {
 fun FFIPointer.withOffset(offset: Int): FFIPointer? = FFIPointer(address + offset)
 
 fun Buffer.getFFIPointer(offset: Int): FFIPointer? {
-    return FFIPointer(if (FFI_POINTER_SIZE == 8) getInt64(offset) else getInt32(offset).toLong())
+    return FFIPointer(
+        if (FFI_POINTER_SIZE == 8) {
+            getS64LE(offset * Long.SIZE_BYTES)
+        } else {
+            getS32LE(offset * Int.SIZE_BYTES).toLong()
+        }
+    )
 }
+
 fun Buffer.setFFIPointer(offset: Int, value: FFIPointer?) {
-    if (FFI_POINTER_SIZE == 8) setInt64(offset, value.address) else setInt32(offset, value.address.toInt())
+    if (FFI_POINTER_SIZE == 8) {
+        set64LE(offset * Long.SIZE_BYTES, value.address)
+    } else {
+        set32LE(offset * Int.SIZE_BYTES, value.address.toInt())
+    }
 }
 
 fun Buffer.getUnalignedFFIPointer(offset: Int): FFIPointer? {

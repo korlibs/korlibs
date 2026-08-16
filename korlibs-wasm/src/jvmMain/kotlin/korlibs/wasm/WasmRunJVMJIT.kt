@@ -1128,7 +1128,7 @@ open class WasmRunJVMOutput(
                                     val returnType = genMethodContext.typeStack.lastOrNull()
                                     if (assert.expect != null) {
                                         generateExpr(
-                                            assert.expect!!,
+                                            assert.expect,
                                             genMethodContext,
                                             indent = 0,
                                             implicitReturn = false

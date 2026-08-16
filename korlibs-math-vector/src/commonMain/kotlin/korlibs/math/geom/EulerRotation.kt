@@ -94,7 +94,7 @@ value class EulerRotation private constructor(val data: Vector4F) : IsAlmostEqua
     fun normalizedHalf(): EulerRotation = EulerRotation(roll.normalizedHalf, pitch.normalizedHalf, yaw.normalizedHalf)
 
     fun toMatrix(): Matrix4 = toQuaternion().toMatrix()
-    fun toQuaternion(): Quaternion = _toQuaternion(x, y, z, config)
+    fun toQuaternion(): Quaternion = _toQuaternion(roll, pitch, yaw, config)
     override fun isAlmostEquals(other: EulerRotation, epsilon: Float): Boolean =
         this.data.isAlmostEquals(other.data, epsilon)
 

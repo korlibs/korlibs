@@ -20,10 +20,10 @@ fun KType.funcToDenoDef(): dynamic {
 }
 
 fun KType.toDenoFFI(ret: Boolean): dynamic {
-    if (this.classifier == Deferred::class) {
-        return this.arguments.first().type?.classifier?.toDenoFFI(ret)
+    return if (this.classifier == Deferred::class) {
+        this.arguments.first().type?.classifier?.toDenoFFI(ret)
     } else {
-        return this?.classifier?.toDenoFFI(ret)
+        this.classifier?.toDenoFFI(ret)
     }
 }
 
@@ -70,7 +70,6 @@ class FFILibSymJS(val lib: FFILib) : FFILibSym {
     val symbolsByName: Map<String, FFILib.FuncDelegate<*>> by lazy { lib.functions.associateBy { it.bname } }
 
     val dylib: dynamic by lazy {
-        lib as FFILib
         (listOfNotNull(lib.resolvedPath) + lib.paths).firstNotNullOfOrNull { path ->
             try {
                 Deno.dlopen<dynamic>(
@@ -95,7 +94,7 @@ class FFILibSymJS(val lib: FFILib) : FFILibSym {
     }
 
     override fun <T> get(name: String, type: KType): T {
-        if (syms == null) error("Can't get symbol '$name' for ${lib::class} : '${(lib as FFILib).paths}'")
+        if (syms == null) error("Can't get symbol '$name' for ${lib::class} : '${lib.paths}'")
         //return syms[name]
         val sym = symbolsByName[name]!!
         return preprocessFunc(sym.type, syms[name], name, sym.config)

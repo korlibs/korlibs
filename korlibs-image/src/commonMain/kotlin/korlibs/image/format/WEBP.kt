@@ -4,6 +4,7 @@ import korlibs.image.bitmap.*
 import korlibs.io.stream.*
 import korlibs.math.geom.*
 import korlibs.memory.*
+import korlibs.memory.getS32Array
 import kotlin.coroutines.*
 
 object WEBP : ImageFormat("webp") {
@@ -52,14 +53,19 @@ private class WebpWASM : korlibs.wasm.Base64ZlibWASMLib(WEBP_WASM_BASE64_ZLIB) {
         //println("${bytes.md5()}, dataPtr=$dataPtr, bytes.size=${bytes.size}, memTemp=$memTemp")
         val decodedPtr = decode(dataPtr, bytes.size, memTemp, memTemp + 4)
         val buffer = Buffer(readBytes(memTemp, 8))
-        val width = buffer.getInt32(0)
-        val height = buffer.getInt32(1)
+        val width = buffer.getS32LE(0 * Int.SIZE_BYTES)
+        val height = buffer.getS32LE(1 * Int.SIZE_BYTES)
 
         //println("WEBP: memTemp=$memTemp, dataPtr=$dataPtr, width=$width, height=$height")
 
         val pixels = when {
             decodedPtr != 0 -> IntArray(width * height).also {
-                Buffer(readBytes(decodedPtr, width * height * 4)).getArrayInt32(0, it)
+                Buffer(readBytes(decodedPtr, width * height * 4)).getS32Array(
+                    byteOffset = 0 * Int.SIZE_BYTES,
+                    out = it,
+                    start = 0,
+                    size = it.size - 0,
+                )
             }
             else -> null
         }

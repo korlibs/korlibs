@@ -114,7 +114,7 @@ object GifDec {
     }
 
     fun ByteArray.eqbytes(str: String): Boolean {
-        for (n in str.indices) if (this[n] != str[n].toByte()) return false
+        for (n in str.indices) if (this[n] != str[n].code.toByte()) return false
         return true
     }
 

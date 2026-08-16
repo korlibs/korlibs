@@ -1,5 +1,13 @@
 package korlibs.memory
 
+import korlibs.memory.asFloat32
+import korlibs.memory.asFloat64
+import korlibs.memory.asInt16
+import korlibs.memory.asInt32
+import korlibs.memory.asInt64
+import korlibs.memory.asInt8
+import korlibs.memory.asUInt16
+import korlibs.memory.asUInt8
 import korlibs.platform.*
 import kotlin.byteArrayOf
 import kotlin.test.*
@@ -196,7 +204,7 @@ open class NBufferTestBase {
 
     @Test
     fun testWrap() {
-        val data = Buffer(byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7), 2, 6).i16
+        val data = Buffer(byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7), 2, 6).asInt16()
         val farray = data.getArray(1, size = 2).map { it.asLittle() }.toShortArray()
         assertEquals("1284,1798", farray.joinToString(","))
         assertEquals("3,4", data.asInt8().getArray(1, size = 2).map { it.asLittle() }.toByteArray().joinToString(","))
@@ -204,7 +212,7 @@ open class NBufferTestBase {
 
     @Test
     fun testWrapUnsigned() {
-        val data = Buffer(byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7), 2, 6).u16
+        val data = Buffer(byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7), 2, 6).asUInt16()
         assertEquals("1284,1798", data.getArray(1, size = 2).data.map { it.asLittle() }.toShortArray().joinToString(","))
         assertEquals("3,4", data.asUInt8().getArray(1, size = 2).data.map { it.asLittle() }.toByteArray().joinToString(","))
     }
@@ -353,8 +361,8 @@ open class NBufferTestBase {
     @Test
     fun testUnalignedVariants() {
         val i = Buffer(4, direct)
-        val u8 = i.u8
-        val u16 = i.u16
+        val u8 = i.asUInt8()
+        val u16 = i.asUInt16()
         assertEquals(4, u8.size)
         assertEquals(2, u16.size)
         for (n in 0 until 4) u8[n] = n * 16 + n
@@ -370,19 +378,19 @@ open class NBufferTestBase {
     @Test
     fun testAsTyped() {
         val i = Buffer(8, direct)
-        assertEquals(i, i.u8.buffer)
-        assertEquals(i, i.u16.buffer)
-        assertEquals(i, i.i8.buffer)
-        assertEquals(i, i.i16.buffer)
-        assertEquals(i, i.i32.buffer)
-        assertEquals(i, i.i64.buffer)
-        assertEquals(i, i.f32.buffer)
-        assertEquals(i, i.f64.buffer)
+        assertEquals(i, i.asUInt8().buffer)
+        assertEquals(i, i.asUInt16().buffer)
+        assertEquals(i, i.asInt8().buffer)
+        assertEquals(i, i.asInt16().buffer)
+        assertEquals(i, i.asInt32().buffer)
+        assertEquals(i, i.asInt64().buffer)
+        assertEquals(i, i.asFloat32().buffer)
+        assertEquals(i, i.asFloat64().buffer)
     }
 
     @Test
     fun testTypedAsTyped() {
-        val i = Buffer(8, direct).u8
+        val i = Buffer(8, direct).asUInt8()
         assertEquals(i.buffer, i.asUInt8().buffer)
         assertEquals(i.buffer, i.asUInt16().buffer)
         assertEquals(i.buffer, i.asInt8().buffer)
@@ -439,7 +447,9 @@ open class NBufferTestBase {
         for (direct1 in listOf(false, true)) {
             for (direct2 in listOf(false, true)) {
                 val bufferBase = Buffer(16, direct1)
-                for (n in 0 until 16) bufferBase.setUnalignedUInt8(n, n)
+                for (n in 0 until 16) {
+                    bufferBase.set8(n, n.toByte())
+                }
                 val buffer = bufferBase.sliceBuffer(1)
                 val buffer2 = Buffer(14, direct2)
                 Buffer.copy(buffer, 2, buffer2, 5, 7)
@@ -453,7 +463,9 @@ open class NBufferTestBase {
         for (direct1 in listOf(false, true)) {
             for (direct2 in listOf(false, true)) {
                 val bufferBase = Buffer(16, direct1)
-                for (n in 0 until 16) bufferBase.setUnalignedUInt8(n, n)
+                for (n in 0 until 16) {
+                    bufferBase.set8(n, n.toByte())
+                }
                 val buffer = bufferBase.sliceBuffer(1)
                 val buffer2 = buffer.sliceBuffer(2)
                 Buffer.copy(buffer.sliceBuffer(1), 2, buffer2, 5, 7)

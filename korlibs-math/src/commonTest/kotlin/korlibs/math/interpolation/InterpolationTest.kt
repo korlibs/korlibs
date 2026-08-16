@@ -81,8 +81,8 @@ class InterpolationTest {
         val a1 = Anchor2D(0.0, 0.0)
         val a2 = Anchor2D(1.0, 1.0)
         val result = 0.5.toRatio().interpolate(a1 as Interpolable<Anchor>, a2 as Interpolable<Anchor>)
-        assertEquals(0.5, (result as Anchor2D).sx, 0.01)
-        assertEquals(0.5, (result as Anchor2D).sy, 0.01)
+        assertEquals(0.5, result.sx, 0.01)
+        assertEquals(0.5, result.sy, 0.01)
     }
 
     @Test

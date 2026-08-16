@@ -28,7 +28,7 @@ class AsyncStreamTest {
 		data.position = bytes.size.toLong()
 		assertEquals(listOf(), data.readBytesUpTo(20).toList())
 		data.position = bytes.size.toLong() - 1
-		assertEquals(listOf('T'.toByte()), data.readBytesUpTo(20).toList())
+		assertEquals(listOf('T'.code.toByte()), data.readBytesUpTo(20).toList())
 	}
 
 	@Test

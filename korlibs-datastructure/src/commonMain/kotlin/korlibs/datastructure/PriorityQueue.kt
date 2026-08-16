@@ -203,10 +203,10 @@ class IntPriorityQueue
 @PublishedApi internal constructor(private var data: IntArray, val comparator: IntComparator) : MutableCollection<Int> {
     companion object {
         operator fun invoke(initialCapacity: Int, comparator: IntComparator, reversed: Boolean = false): IntPriorityQueue =
-            IntPriorityQueue(IntArray(initialCapacity) as IntArray, if (reversed) comparator.reversed() else comparator)
+            IntPriorityQueue(IntArray(initialCapacity), if (reversed) comparator.reversed() else comparator)
 
         operator fun invoke(comparator: IntComparator, reversed: Boolean = false): IntPriorityQueue =
-            IntPriorityQueue(IntArray(16) as IntArray, if (reversed) comparator.reversed() else comparator)
+            IntPriorityQueue(IntArray(16), if (reversed) comparator.reversed() else comparator)
 
         operator fun invoke(reversed: Boolean = false, comparator: (left: Int, right: Int) -> Int): IntPriorityQueue =
             IntPriorityQueue(Comparator(comparator), reversed)
@@ -293,7 +293,7 @@ class IntPriorityQueue
 
     private fun ensure(index: Int) {
         if (index >= capacity) {
-            data = data.copyOf(2 + capacity * 2) as IntArray
+            data = data.copyOf(2 + capacity * 2)
         }
     }
 
@@ -362,7 +362,7 @@ class IntPriorityQueue
     }
 
     fun toArraySorted(): IntArray {
-        val out = IntArray(size) as IntArray
+        val out = IntArray(size)
         for (n in 0 until size) out[n] = removeHead()
         for (v in out) add(v)
         return out
@@ -384,10 +384,10 @@ class DoublePriorityQueue
 @PublishedApi internal constructor(private var data: DoubleArray, val comparator: DoubleComparator) : MutableCollection<Double> {
     companion object {
         operator fun invoke(initialCapacity: Int, comparator: DoubleComparator, reversed: Boolean = false): DoublePriorityQueue =
-            DoublePriorityQueue(DoubleArray(initialCapacity) as DoubleArray, if (reversed) comparator.reversed() else comparator)
+            DoublePriorityQueue(DoubleArray(initialCapacity), if (reversed) comparator.reversed() else comparator)
 
         operator fun invoke(comparator: DoubleComparator, reversed: Boolean = false): DoublePriorityQueue =
-            DoublePriorityQueue(DoubleArray(16) as DoubleArray, if (reversed) comparator.reversed() else comparator)
+            DoublePriorityQueue(DoubleArray(16), if (reversed) comparator.reversed() else comparator)
 
         operator fun invoke(reversed: Boolean = false, comparator: (left: Double, right: Double) -> Int): DoublePriorityQueue =
             DoublePriorityQueue(Comparator(comparator), reversed)
@@ -474,7 +474,7 @@ class DoublePriorityQueue
 
     private fun ensure(index: Int) {
         if (index >= capacity) {
-            data = data.copyOf(2 + capacity * 2) as DoubleArray
+            data = data.copyOf(2 + capacity * 2)
         }
     }
 
@@ -543,7 +543,7 @@ class DoublePriorityQueue
     }
 
     fun toArraySorted(): DoubleArray {
-        val out = DoubleArray(size) as DoubleArray
+        val out = DoubleArray(size)
         for (n in 0 until size) out[n] = removeHead()
         for (v in out) add(v)
         return out
@@ -565,10 +565,10 @@ class FloatPriorityQueue
 @PublishedApi internal constructor(private var data: FloatArray, val comparator: FloatComparator) : MutableCollection<Float> {
     companion object {
         operator fun invoke(initialCapacity: Int, comparator: FloatComparator, reversed: Boolean = false): FloatPriorityQueue =
-            FloatPriorityQueue(FloatArray(initialCapacity) as FloatArray, if (reversed) comparator.reversed() else comparator)
+            FloatPriorityQueue(FloatArray(initialCapacity), if (reversed) comparator.reversed() else comparator)
 
         operator fun invoke(comparator: FloatComparator, reversed: Boolean = false): FloatPriorityQueue =
-            FloatPriorityQueue(FloatArray(16) as FloatArray, if (reversed) comparator.reversed() else comparator)
+            FloatPriorityQueue(FloatArray(16), if (reversed) comparator.reversed() else comparator)
 
         operator fun invoke(reversed: Boolean = false, comparator: (left: Float, right: Float) -> Int): FloatPriorityQueue =
             FloatPriorityQueue(Comparator(comparator), reversed)
@@ -655,7 +655,7 @@ class FloatPriorityQueue
 
     private fun ensure(index: Int) {
         if (index >= capacity) {
-            data = data.copyOf(2 + capacity * 2) as FloatArray
+            data = data.copyOf(2 + capacity * 2)
         }
     }
 
@@ -724,7 +724,7 @@ class FloatPriorityQueue
     }
 
     fun toArraySorted(): FloatArray {
-        val out = FloatArray(size) as FloatArray
+        val out = FloatArray(size)
         for (n in 0 until size) out[n] = removeHead()
         for (v in out) add(v)
         return out

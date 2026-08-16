@@ -32,7 +32,7 @@ class HtmlNativeSoundProvider : NativeSoundProvider() {
                     val samples = AudioSamplesInterleaved(channels, (bufferSize * scale).toInt())
                     node = ctx.createScriptProcessor(bufferSize, channels, channels)
                     //Console.log("sampleRate", ctx.sampleRate, "bufferSize", bufferSize, "totalSamples", samples.totalSamples, "scale", scale)
-                    node?.onaudioprocess = { e ->
+                    node.onaudioprocess = { e ->
                         genSafe(samples)
                         for (ch in 0 until channels) {
                             val outCh = e.outputBuffer.getChannelData(ch)
@@ -42,14 +42,14 @@ class HtmlNativeSoundProvider : NativeSoundProvider() {
                         }
 
                     }
-                    node?.connect(ctx.destination)
+                    node.connect(ctx.destination)
                 }
             }
 
             try {
                 suspendWhileRunning()
             } finally {
-                startPromise?.cancel()
+                startPromise.cancel()
                 node?.disconnect()
             }
         }

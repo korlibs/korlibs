@@ -95,7 +95,7 @@ class Signal<T>(onRegister: () -> Unit = {}) : BaseSignal<T, (T) -> Unit>(onRegi
             c.resume(it)
         }
         c.invokeOnCancellation {
-            close?.close()
+            close.close()
         }
     }
 }

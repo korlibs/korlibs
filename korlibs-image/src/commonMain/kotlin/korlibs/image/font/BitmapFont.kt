@@ -284,7 +284,7 @@ private suspend fun readBitmapFontJson(
         BitmapFont.Glyph(
             fontSize = fontSize,
             id = it["id"].int,
-            texture = atlas?.add(texture.sliceWithSize(it["x"].int, it["y"].int, it["width"].int, it["height"].int) as BmpSlice, Unit)?.slice
+            texture = atlas?.add(texture.sliceWithSize(it["x"].int, it["y"].int, it["width"].int, it["height"].int), Unit)?.slice
                 ?: texture.sliceWithSize(it["x"].int, it["y"].int, it["width"].int, it["height"].int),
             xoffset = it["xoffset"].int,
             yoffset = it["yoffset"].int,
@@ -361,7 +361,7 @@ private suspend fun readBitmapFontTxt(
                     xoffset = dmap["xoffset"].int,
                     yoffset = dmap["yoffset"].int,
                     xadvance = dmap["xadvance"].int,
-                    texture = atlas?.add(texture.sliceWithSize(dmap["x"].int, dmap["y"].int, dmap["width"].int, dmap["height"].int, "glyph-${id.toChar()}") as BmpSlice, Unit)?.slice
+                    texture = atlas?.add(texture.sliceWithSize(dmap["x"].int, dmap["y"].int, dmap["width"].int, dmap["height"].int, "glyph-${id.toChar()}"), Unit)?.slice
                         ?: texture.sliceWithSize(dmap["x"].int, dmap["y"].int, dmap["width"].int, dmap["height"].int, "glyph-${id.toChar()}")
                 )
 			}
@@ -414,7 +414,7 @@ private suspend fun readBitmapFontXml(
         BitmapFont.Glyph(
             fontSize = fontSize,
             id = it.int("id"),
-            texture = atlas?.add(texture.sliceWithSize(it.int("x"), it.int("y"), it.int("width"), it.int("height")) as BmpSlice, Unit)?.slice
+            texture = atlas?.add(texture.sliceWithSize(it.int("x"), it.int("y"), it.int("width"), it.int("height")), Unit)?.slice
                 ?: texture.sliceWithSize(it.int("x"), it.int("y"), it.int("width"), it.int("height")),
             xoffset = it.int("xoffset"),
             yoffset = it.int("yoffset"),

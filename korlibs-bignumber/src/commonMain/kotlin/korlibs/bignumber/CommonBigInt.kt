@@ -278,12 +278,9 @@ class CommonBigInt private constructor(val data: UInt16ArrayZeroPad, override va
 				DivRem(-it.div, it.rem)
 			}
 			other == ONE -> DivRem(this, ZERO)
-			other == TWO -> DivRem(this shr 1, CommonBigInt(this.getBitInt(0)) as CommonBigInt)
+			other == TWO -> DivRem(this shr 1, CommonBigInt(this.getBitInt(0)))
 			other <= SMALL -> UnsignedBigInt.divRemSmall(this.data, other.toInt()).let {
-				DivRem(
-					CommonBigInt(it.div, signum),
-					CommonBigInt(it.rem) as CommonBigInt
-				)
+				DivRem(CommonBigInt(it.div, signum), CommonBigInt(it.rem))
 			}
 			other.countBits() == 1 -> {
 				val bits = other.trailingZeros()

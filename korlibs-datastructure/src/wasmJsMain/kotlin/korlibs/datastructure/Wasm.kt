@@ -30,22 +30,21 @@ actual inline fun <T> Any?.fastCastTo(): T = this as T
 actual typealias FastIntMap<T> = IntMap<T>
 
 actual inline fun <T> FastIntMap(): FastIntMap<T> = IntMap()
-actual val <T> FastIntMap<T>.size: Int get() = (this as IntMap<T>).size
-actual fun <T> FastIntMap<T>.keys(): List<Int> = (this as IntMap<T>).keys.toList()
-actual inline operator fun <T> FastIntMap<T>.get(key: Int): T? = (this as IntMap<T>).get(key)
-actual inline operator fun <T> FastIntMap<T>.set(key: Int, value: T) { (this as IntMap<T>).set(key, value) }
-actual inline operator fun <T> FastIntMap<T>.contains(key: Int): Boolean = (this as IntMap<T>).contains(key)
-actual inline fun <T> FastIntMap<T>.remove(key: Int) { (this as IntMap<T>).remove(key) }
-actual inline fun <T> FastIntMap<T>.removeRange(src: Int, dst: Int) = (this as IntMap<T>).removeRange(src, dst)
-actual inline fun <T> FastIntMap<T>.clear() = (this as IntMap<T>).clear()
+actual val <T> FastIntMap<T>.size: Int get() = size
+actual fun <T> FastIntMap<T>.keys(): List<Int> = keys.toList()
+actual inline operator fun <T> FastIntMap<T>.get(key: Int): T? = get(key)
+actual inline operator fun <T> FastIntMap<T>.set(key: Int, value: T) { set(key, value) }
+actual inline operator fun <T> FastIntMap<T>.contains(key: Int): Boolean = contains(key)
+actual inline fun <T> FastIntMap<T>.remove(key: Int) { remove(key) }
+actual inline fun <T> FastIntMap<T>.removeRange(src: Int, dst: Int) = removeRange(src, dst)
+actual inline fun <T> FastIntMap<T>.clear() = clear()
 actual inline fun <T> FastIntMap<T>.fastKeyForEach(callback: (key: Int) -> Unit) {
-    (this as IntMap<T>).fastKeyForEach(callback)
+    fastKeyForEach(callback)
 }
 
 ///////////
 
 actual class FastStringMap<T>(val dummy: Boolean) {
-    //val map = LinkedHashMap<String, T>()
     val map = HashMap<String, T>()
 }
 

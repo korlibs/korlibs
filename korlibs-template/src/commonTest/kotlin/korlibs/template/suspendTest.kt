@@ -37,7 +37,7 @@ fun <T : Any> runBlockingNoSuspensions(callback: suspend () -> T): T {
         }
     })
     if (!completed) throw RuntimeException("runBlockingNoSuspensions was not completed synchronously! suspendCount=$suspendCount")
-    if (resultEx != null) throw resultEx!!
+    if (resultEx != null) throw resultEx
     return rresult
 }
 
