@@ -3,23 +3,90 @@
 package korlibs.io.socket
 
 import cnames.structs.SSLContext
-import kotlinx.cinterop.*
+import kotlinx.cinterop.Arena
 import kotlinx.cinterop.ByteVar
-import kotlinx.coroutines.*
-import platform.CoreFoundation.*
-import platform.Security.*
-import platform.darwin.*
-import platform.posix.*
+import kotlinx.cinterop.COpaquePointer
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.IntVar
+import kotlinx.cinterop.LongVar
+import kotlinx.cinterop.UByteVarOf
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.get
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.plus
+import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.set
+import kotlinx.cinterop.sizeOf
+import kotlinx.cinterop.staticCFunction
+import kotlinx.cinterop.usePinned
+import kotlinx.cinterop.value
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
+import platform.CoreFoundation.CFStringGetCString
+import platform.CoreFoundation.CFStringGetLength
+import platform.CoreFoundation.CFStringGetMaximumSizeForEncoding
+import platform.CoreFoundation.CFStringRef
+import platform.CoreFoundation.kCFStringEncodingUTF8
+import platform.Security.SSLClose
+import platform.Security.SSLConnectionRef
+import platform.Security.SSLConnectionType
+import platform.Security.SSLContextRef
+import platform.Security.SSLCreateContext
+import platform.Security.SSLGetSessionState
+import platform.Security.SSLHandshake
+import platform.Security.SSLProtocolSide
+import platform.Security.SSLRead
+import platform.Security.SSLSessionState
+import platform.Security.SSLSetConnection
+import platform.Security.SSLSetIOFuncs
+import platform.Security.SSLSetPeerDomainName
+import platform.Security.SSLSetSessionOption
+import platform.Security.SSLWrite
+import platform.Security.SecCopyErrorMessageString
+import platform.Security.errSSLClosedGraceful
+import platform.Security.errSSLServerAuthCompleted
+import platform.Security.errSSLWouldBlock
+import platform.Security.kSSLSessionOptionBreakOnServerAuth
+import platform.darwin.OSStatus
+import platform.darwin.inet_addr
+import platform.darwin.noErr
+import platform.posix.AF_INET
+import platform.posix.EAGAIN
+import platform.posix.EINPROGRESS
+import platform.posix.EWOULDBLOCK
+import platform.posix.F_SETFL
+import platform.posix.O_NONBLOCK
+import platform.posix.POLLOUT
+import platform.posix.SOCK_STREAM
+import platform.posix.SOL_SOCKET
+import platform.posix.SO_ERROR
+import platform.posix.SO_RCVTIMEO
+import platform.posix.SO_SNDTIMEO
+import platform.posix.close
+import platform.posix.connect
+import platform.posix.errno
+import platform.posix.fcntl
+import platform.posix.gethostbyname
+import platform.posix.getsockopt
+import platform.posix.poll
+import platform.posix.pollfd
+import platform.posix.recv
+import platform.posix.send
+import platform.posix.setsockopt
+import platform.posix.size_tVar
 import platform.posix.sockaddr_in
-import kotlin.ByteArray
-import kotlin.Int
-import kotlin.String
-import kotlin.TODO
-import kotlin.UByte
-import kotlin.UShort
-import kotlin.error
-import kotlin.native.concurrent.*
-import kotlin.toUShort
+import platform.posix.socket
+import platform.posix.socklen_tVar
+import platform.posix.timeval
 
 class DarwinSSLSocket {
     val arena = Arena()
@@ -27,7 +94,7 @@ class DarwinSSLSocket {
     var ctx: CPointer<SSLContext>? = null
     var endpoint: NativeSocket.Endpoint = NativeSocket.Endpoint(NativeSocket.IP(0, 0, 0, 0), 0); private set
 
-    suspend fun connect(host: String, port: Int) {
+    suspend fun connect(host: String, port: Int, timeoutMs: Int = 10_000) {
         close()
         val socketVar = arena.alloc<LongVar>()
         ctx = SSLCreateContext(null, SSLProtocolSide.kSSLClientSide, SSLConnectionType.kSSLStreamType)
@@ -40,7 +107,7 @@ class DarwinSSLSocket {
                 timeout.tv_usec = 500000 // micro seconds ( 0.5 seconds)
                 setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, timeout.ptr, sizeOf<timeval>().convert())
                 setsockopt(sockfd, SOL_SOCKET, SO_SNDTIMEO, timeout.ptr, sizeOf<timeval>().convert())
-                //fcntl(sockfd, F_SETFL, O_NONBLOCK)
+                fcntl(sockfd, F_SETFL, O_NONBLOCK)
 
                 socketVar.value = sockfd.convert()
                 SSLSetConnection(ctx, socketVar.ptr)
@@ -64,35 +131,30 @@ class DarwinSSLSocket {
                 servaddr.sin_addr.s_addr = inet_addr(endpoint.ip.str)
                 servaddr.sin_port = swapBytes(endpoint.port.toUShort()).convert()
 
-                //println("Connecting...")
                 val result = connect(sockfd, servaddr.ptr.reinterpret(), sizeOf<sockaddr_in>().convert())
 
-                /*
-                if (errno != EINPROGRESS) {
-                    error("Error connecting to socket errno=$errno, EINPROGRESS=$EINPROGRESS")
-                } else {
-                    loop@while (true) {
-                        val rc = memScoped {
-                            val timeout = alloc<timeval>()
-                            val writeFDs = alloc<fd_set>()
-                            timeout.tv_sec = 0
-                            timeout.tv_usec = 1000
-                            __darwin_fd_set(sockfd, writeFDs.ptr)
-                            select(1, writeFDs.ptr, writeFDs.ptr, writeFDs.ptr, timeout.ptr)
+                if (result != 0) {
+                    if (errno != EINPROGRESS) {
+                        error("Error connecting to socket errno=$errno, sockfd=$sockfd")
+                    }
+                    memScoped {
+                        val pfd = alloc<pollfd>()
+                        pfd.fd = sockfd
+                        pfd.events = POLLOUT.convert()
+                        val pollResult = poll(pfd.ptr, 1u, timeoutMs)
+                        if (pollResult <= 0) {
+                            error("Timed out connecting to socket, sockfd=$sockfd")
                         }
-                        if (rc == 0 || rc == -1) {
-                            println(" Timed out -- Not connected even after 3 secs wait")
-                        } else {
-                            println(" connected and written")
-                            break@loop
+                        val soError = alloc<IntVar>()
+                        val len = alloc<socklen_tVar>()
+                        len.value = sizeOf<IntVar>().convert()
+                        getsockopt(sockfd, SOL_SOCKET, SO_ERROR, soError.ptr, len.ptr)
+                        if (soError.value != 0) {
+                            error("Error connecting to socket, SO_ERROR=${soError.value}, sockfd=$sockfd")
                         }
                     }
                 }
-                */
 
-                //println("connected: $result, sockfd=$sockfd, errno=$errno")
-
-                if (result != 0) error("Error connecting to socket result=$result, sockfd=$sockfd, errno=$errno")
                 this@DarwinSSLSocket.sockfd = sockfd
                 this@DarwinSSLSocket.endpoint = endpoint
             }
@@ -140,23 +202,33 @@ class DarwinSSLSocket {
             state.value
         }
 
-        private fun swapBytes(v: UShort): UShort =
+        internal fun swapBytes(v: UShort): UShort =
             (((v.toInt() and 0xFF) shl 8) or ((v.toInt() ushr 8) and 0xFF)).toUShort()
 
         private suspend fun SSLEnsure(ctx: SSLContextRef?): Boolean {
             while (true) {
                 val state = SSLGetSessionState(ctx)
-                //println("state=$state")
                 when (state) {
-                    SSLSessionState.kSSLIdle -> SSLHandshake(ctx)
-                    SSLSessionState.kSSLHandshake -> {
+                    SSLSessionState.kSSLIdle, SSLSessionState.kSSLHandshake -> {
                         memScoped {
                             val data = allocArray<ByteVar>(0)
                             val processed = alloc<size_tVar>()
                             SSLWrite(ctx, data, 0.convert(), processed.ptr)
                         }
-                        //SSLHandshake(ctx)
-                        kotlinx.coroutines.delay(1L)
+                        val status = SSLHandshake(ctx)
+                        println("client: SSLHandshake status=$status")
+                        when (status) {
+                            0 -> Unit // progressed or just completed; re-check state next loop
+                            errSSLWouldBlock -> delay(timeMillis = 1)
+                            errSSLServerAuthCompleted -> {
+                                // We're not evaluating the peer cert ourselves (test-only, via
+                                // kSSLSessionOptionBreakOnServerAuth). Turn the break option back
+                                // off so the *next* SSLHandshake call proceeds past this point
+                                // instead of pausing here again.
+                                SSLSetSessionOption(ctx, kSSLSessionOptionBreakOnServerAuth, false)
+                            }
+                            else -> error("SSLHandshake failed: $status")
+                        }
                     }
                     SSLSessionState.kSSLClosed -> return false
                     SSLSessionState.kSSLAborted -> return false
@@ -165,7 +237,6 @@ class DarwinSSLSocket {
                 }
             }
             return true
-            //println("state=${SSLGetSessionState(ctx)}")
         }
 
         private suspend fun SSLRead(
@@ -185,30 +256,26 @@ class DarwinSSLSocket {
                         SSLRead(ctx, dataPin.addressOf(offset), size.convert(), processed.ptr)
                     }
 
-                    when (result) {
+                    return when (result) {
                         0 -> {
-                            return processed.value.toInt()
+                            processed.value.toInt()
                         }
+
                         errSSLWouldBlock -> {
-                            kotlinx.coroutines.delay(1L)
+                            delay(timeMillis = 1)
                             continue
                         }
+
                         errSSLClosedGraceful -> {
-                            return 0
+                            0
                         }
+
                         else -> {
                             error("SSLRead: ${SecCopyErrorMessageString(result, null)?.toKString()}")
                         }
                     }
-
-                    //val resultString = SecCopyErrorMessageString(result, null)?.toKString()
-
-                    //println("SSLRead.result=$result, resultString=$resultString")
-                    //println("SSLRead.processed=${processed.value}")
                 }
             }
-
-            TODO()
         }
 
         private suspend fun SSLWrite(
@@ -232,13 +299,18 @@ class DarwinSSLSocket {
             }
         }
 
-        private fun CFStringRef.toKString(): String {
-            val len = CFStringGetLength(this).toInt()
-            val data = ByteArray(len + 1)
-            data.usePinned {
-                CFStringGetCString(this@toKString, it.addressOf(0), (len + 1).convert(), kCFStringEncodingUTF8)
+        internal fun CFStringRef.toKString(): String {
+            val length = CFStringGetLength(this)
+            // CFStringGetLength returns UTF-16 code units, not UTF-8 bytes — a single
+            // character can expand to up to 4 bytes in UTF-8, so size the buffer properly
+            val maxBytes = CFStringGetMaximumSizeForEncoding(length, kCFStringEncodingUTF8) + 1
+            val data = ByteArray(maxBytes.toInt())
+            val ok = data.usePinned {
+                CFStringGetCString(this@toKString, it.addressOf(0), maxBytes, kCFStringEncodingUTF8)
             }
-            return data.sliceArray(0 until len).decodeToString()
+            check(ok) { "CFStringGetCString failed to convert CFString to UTF-8" }
+            val nullTerminatorIndex = data.indexOf(0.toByte()).let { if (it < 0) data.size else it }
+            return data.decodeToString(0, nullTerminatorIndex)
         }
     }
 }
@@ -282,13 +354,13 @@ private fun SSL_recv_callback(
     while (pendingSize > 0) {
         val recvBytes = recv(sockfd.convert(), currentPtr, pendingSize.convert(), 0).toInt()
         if (recvBytes < 0) {
-            error = ioErr.convert()
-            break
+            // EAGAIN/EWOULDBLOCK means genuinely nothing available yet — anything else is a real error
+            return if (errno == EAGAIN || errno == EWOULDBLOCK) errSSLWouldBlock else ioErr.convert()
         }
         if (recvBytes == 0) {
-            error = errSSLClosedGraceful
-            break
+            return errSSLClosedGraceful
         }
+
         currentPtr += recvBytes
         pendingSize -= recvBytes
         totalReadSize += recvBytes
@@ -304,10 +376,22 @@ private fun SSL_send_callback(
     size: CPointer<size_tVar>?
 ): OSStatus {
     val sockfd = connection?.reinterpret<LongVar>()?.get(0) ?: error("No socket provided")
-    //println("SSL_send_callback: sockfd=$sockfd, size=${size?.get(0)}")
-    val writeBytes: size_t = size?.get(0) ?: 0.convert()
-    val sentBytes = send(sockfd.convert(), ptr, writeBytes, 0)
-    size?.set(0, sentBytes.convert())
-    //println("  --> $sentBytes")
-    return if (sentBytes.toInt() != writeBytes.toInt()) ioErr.convert() else noErr.convert()
+    val requested = (size?.get(0) ?: 0.convert()).toInt()
+    var currentPtr = ptr?.reinterpret<ByteVar>()
+    var pendingSize = requested
+    var totalSent = 0
+    size?.set(0, 0.convert())
+
+    while (pendingSize > 0) {
+        val sentBytes = send(sockfd.convert(), currentPtr, pendingSize.convert(), 0).toInt()
+        if (sentBytes < 0) {
+            size?.set(0, totalSent.convert())
+            return if (errno == EAGAIN || errno == EWOULDBLOCK) errSSLWouldBlock else ioErr.convert()
+        }
+        currentPtr = currentPtr?.plus(sentBytes)
+        pendingSize -= sentBytes
+        totalSent += sentBytes
+    }
+    size?.set(0, totalSent.convert())
+    return noErr.convert()
 }

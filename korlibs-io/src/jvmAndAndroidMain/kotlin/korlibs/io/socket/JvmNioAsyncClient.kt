@@ -82,7 +82,7 @@ class JvmNioAsyncServer(override val requestPort: Int, override val host: String
         ssc.bind(InetSocketAddress(host, requestPort), backlog)
         for (n in 0 until 100) {
             if (ssc.isOpen) break
-            delay(50)
+            delay(timeMillis = 50)
         }
     }
 
