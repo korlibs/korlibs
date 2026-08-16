@@ -6489,7 +6489,7 @@ final class korlibs.io.socket/DarwinSSLSocket { // korlibs.io.socket/DarwinSSLSo
         final fun <set-sockfd>(kotlin/Int) // korlibs.io.socket/DarwinSSLSocket.sockfd.<set-sockfd>|<set-sockfd>(kotlin.Int){}[0]
 
     final fun close() // korlibs.io.socket/DarwinSSLSocket.close|close(){}[0]
-    final suspend fun connect(kotlin/String, kotlin/Int) // korlibs.io.socket/DarwinSSLSocket.connect|connect(kotlin.String;kotlin.Int){}[0]
+    final suspend fun connect(kotlin/String, kotlin/Int, kotlin/Int = ...) // korlibs.io.socket/DarwinSSLSocket.connect|connect(kotlin.String;kotlin.Int;kotlin.Int){}[0]
     final suspend fun read(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.io.socket/DarwinSSLSocket.read|read(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
     final suspend fun read(kotlin/Int): kotlin/ByteArray // korlibs.io.socket/DarwinSSLSocket.read|read(kotlin.Int){}[0]
     final suspend fun write(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...) // korlibs.io.socket/DarwinSSLSocket.write|write(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
