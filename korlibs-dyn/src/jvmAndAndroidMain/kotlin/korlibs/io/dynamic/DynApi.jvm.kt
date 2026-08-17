@@ -1,6 +1,7 @@
 package korlibs.io.dynamic
 
 import java.lang.reflect.*
+import java.util.Locale
 
 internal actual object DynamicInternal : DynApi {
     class JavaPackage(val name: String)
@@ -48,9 +49,13 @@ internal actual object DynamicInternal : DynApi {
         if (instance == null) return
 
         val static = instance is Class<*>
-        val clazz: Class<*> = if (static) instance as Class<*> else instance.javaClass
+        val clazz: Class<*> = if (static) instance else instance.javaClass
 
-        val method = tryGetMethod(clazz, "set${key.capitalize()}", null)
+        val method = tryGetMethod(clazz, "set${
+            key.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase() else it.toString()
+            }
+        }", null)
         if (method != null) {
             method.invoke(if (static) null else instance, value)
             return
@@ -81,17 +86,21 @@ internal actual object DynamicInternal : DynApi {
         }
 
         val static = instance is Class<*>
-        val clazz: Class<*> = if (static) instance as Class<*> else instance.javaClass
+        val clazz: Class<*> = if (static) instance else instance.javaClass
 
         if (instance is JavaPackage) {
             val path = "${instance.name}.$key".trim('.')
             return try {
-                java.lang.Class.forName(path)
+                Class.forName(path)
             } catch (e: ClassNotFoundException) {
                 JavaPackage(path)
             }
         }
-        val method = tryGetMethod(clazz, "get${key.capitalize()}", null)
+        val method = tryGetMethod(clazz, "get${
+            key.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase() else it.toString()
+            }
+        }", null)
         if (method != null) {
             return method.invoke(if (static) null else instance)
         }

@@ -111,7 +111,7 @@ class LocalVfsTest {
             val newPermission = file.getAttribute<Vfs.UnixPermissions>()
             //println("testUnixPermissions[after]:attribute=${file.getAttribute<Vfs.UnixPermissions>()}")
             assertNotEquals(oldPermission!!.rbits, newPermission!!.rbits)
-            assertEquals(chmod, newPermission!!.rbits)
+            assertEquals(chmod, newPermission.rbits)
             assertEquals(chmod, file.stat().permissions.rbits)
         } finally {
             file.delete()

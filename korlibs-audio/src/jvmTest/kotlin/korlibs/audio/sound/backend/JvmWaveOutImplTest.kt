@@ -9,7 +9,7 @@ class JvmWaveOutImplTest {
         @JvmStatic
         fun main(args: Array<String>) = runBlocking {
             val audioData = resourcesVfs["Snowland.mp3"].readMusic().toAudioData()
-            FFIJVMWaveOutNativeSoundProvider!!.playAndWait(audioData.toStream())
+            FFIJVMWaveOutNativeSoundProvider.playAndWait(audioData.toStream())
         }
     }
 }

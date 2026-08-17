@@ -202,7 +202,7 @@ class WasmReaderText {
             }
             "assert_return", "invoke" -> {
                 val actual = readCodeLevel(block.blockParams[0], WasmFuncBuilder(WasmModuleBuilder()))
-                val expected = block.blockParams?.getOrNull(1)?.let { readCodeLevel(it, WasmFuncBuilder(WasmModuleBuilder())) }
+                val expected = block.blockParams.getOrNull(1)?.let { readCodeLevel(it, WasmFuncBuilder(WasmModuleBuilder())) }
                 currentModule.asserts += WasmAssertReturn(actual, expected, "$block")
                 //println("assert_return: actual=$actual, expected=$expected")
             }
@@ -852,7 +852,7 @@ class WasmReaderText {
             if (consume) this.pos += lit.length
             return lit
         }
-        inline fun readWhile(filter: (Char) -> Boolean) = this.slice { skipWhile(filter) } ?: ""
+        inline fun readWhile(filter: (Char) -> Boolean) = this.slice { skipWhile(filter) }
         inline fun skipWhile(filter: (Char) -> Boolean) {
             while (hasMore && filter(this.peekChar())) {
                 this.readChar()

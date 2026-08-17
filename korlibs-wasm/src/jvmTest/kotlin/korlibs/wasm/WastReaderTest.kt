@@ -1,9 +1,10 @@
 package korlibs.wasm
 
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import java.io.*
-import kotlin.test.*
+import java.io.File
+import korlibs.io.async.suspendTest
+import korlibs.io.file.std.resourcesVfs
+import kotlin.test.Ignore
+import kotlin.test.Test
 
 //class WastReaderTestInterpreter : WastReaderTest() {
 //    override fun runModule(module: WasmModule, codeTrace: Boolean) {
@@ -206,7 +207,8 @@ open class WastReaderTest {
     fun genNames() {
         for (file in File("src/test/resources/test-core").walkTopDown().sorted()) {
             if (file.name.endsWith(".wast")) {
-                val capital = file.nameWithoutExtension.replace("-", "_").capitalize()
+                val capital = file.nameWithoutExtension.replace("-", "_")
+                    .replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
                 //println(file)
                 println("@Test fun test$capital() = runAssetsWast(\"${file.path.removePrefix("src/test/resources/")}\")")
             }

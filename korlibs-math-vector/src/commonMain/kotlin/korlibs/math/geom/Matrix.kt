@@ -69,17 +69,29 @@ data class Matrix(
         )
     }
 
-    @Deprecated("", ReplaceWith("transform(p).x")) fun transformX(p: Point): Double = transformX(p.x, p.y)
-    @Deprecated("", ReplaceWith("transform(p).y")) fun transformY(p: Point): Double = transformY(p.x, p.y)
+    @Deprecated("", ReplaceWith("transform(p).x"))
+    fun transformX(p: Point): Double = transformX(p.x, p.y)
 
-    @Deprecated("", ReplaceWith("transform(p).x")) fun transformX(x: Float, y: Float): Float = transformX(x.toDouble(), y.toDouble()).toFloat()
-    @Deprecated("", ReplaceWith("transform(p).y")) fun transformY(x: Float, y: Float): Float = transformY(x.toDouble(), y.toDouble()).toFloat()
+    @Deprecated("", ReplaceWith("transform(p).y"))
+    fun transformY(p: Point): Double = transformY(p.x, p.y)
 
-    @Deprecated("", ReplaceWith("transform(p).x")) fun transformX(x: Double, y: Double): Double = this.a * x + this.c * y + this.tx
-    @Deprecated("", ReplaceWith("transform(p).y")) fun transformY(x: Double, y: Double): Double = this.d * y + this.b * x + this.ty
+    @Deprecated("", ReplaceWith("transform(p).x"))
+    fun transformX(x: Float, y: Float): Float = transformX(x.toDouble(), y.toDouble()).toFloat()
 
-    @Deprecated("", ReplaceWith("transform(p).x")) fun transformX(x: Int, y: Int): Double = transformX(x.toDouble(), y.toDouble())
-    @Deprecated("", ReplaceWith("transform(p).y")) fun transformY(x: Int, y: Int): Double = transformY(x.toDouble(), y.toDouble())
+    @Deprecated("", ReplaceWith("transform(p).y"))
+    fun transformY(x: Float, y: Float): Float = transformY(x.toDouble(), y.toDouble()).toFloat()
+
+    @Deprecated("", ReplaceWith("transform(p).x"))
+    fun transformX(x: Double, y: Double): Double = this.a * x + this.c * y + this.tx
+
+    @Deprecated("", ReplaceWith("transform(p).y"))
+    fun transformY(x: Double, y: Double): Double = this.d * y + this.b * x + this.ty
+
+    @Deprecated("", ReplaceWith("transform(p).x"))
+    fun transformX(x: Int, y: Int): Double = transformX(x.toDouble(), y.toDouble())
+
+    @Deprecated("", ReplaceWith("transform(p).y"))
+    fun transformY(x: Int, y: Int): Double = transformY(x.toDouble(), y.toDouble())
 
     fun deltaTransform(p: Vector2F): Vector2F = Vector2F((p.x * a) + (p.y * c), (p.x * b) + (p.y * d))
     fun deltaTransform(p: Vector2D): Vector2D = Vector2D((p.x * a) + (p.y * c), (p.x * b) + (p.y * d))
@@ -361,13 +373,13 @@ data class MatrixTransform(
         }
 
         fun interpolated(l: MatrixTransform, r: MatrixTransform, ratio: Ratio): MatrixTransform = MatrixTransform(
-            ratio.toRatio().interpolate(l.x, r.x),
-            ratio.toRatio().interpolate(l.y, r.y),
-            ratio.toRatio().interpolate(l.scaleX, r.scaleX),
-            ratio.toRatio().interpolate(l.scaleY, r.scaleY),
-            ratio.toRatio().interpolateAngleDenormalized(l.skewX, r.skewX),
-            ratio.toRatio().interpolateAngleDenormalized(l.skewY, r.skewY),
-            ratio.toRatio().interpolateAngleDenormalized(l.rotation, r.rotation),
+            ratio.interpolate(l.x, r.x),
+            ratio.interpolate(l.y, r.y),
+            ratio.interpolate(l.scaleX, r.scaleX),
+            ratio.interpolate(l.scaleY, r.scaleY),
+            ratio.interpolateAngleDenormalized(l.skewX, r.skewX),
+            ratio.interpolateAngleDenormalized(l.skewY, r.skewY),
+            ratio.interpolateAngleDenormalized(l.rotation, r.rotation),
         )
 
         fun isAlmostEquals(a: MatrixTransform, b: MatrixTransform, epsilon: Double = 0.000001): Boolean =

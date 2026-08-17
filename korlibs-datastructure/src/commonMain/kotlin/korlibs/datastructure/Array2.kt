@@ -275,14 +275,14 @@ open class IntArray2(override val width: Int, override val height: Int, val data
     }
     companion object {
         inline operator fun  invoke(width: Int, height: Int, fill: Int): IntArray2 =
-            IntArray2(width, height, IntArray(width * height) { fill } as IntArray)
+            IntArray2(width, height, IntArray(width * height) { fill })
 
         inline operator fun  invoke(
             width: Int,
             height: Int,
             gen: (n: Int) -> Int
         ): IntArray2 =
-            IntArray2(width, height, IntArray(width * height) { gen(it) } as IntArray)
+            IntArray2(width, height, IntArray(width * height) { gen(it) })
 
         inline fun  withGen(
             width: Int,
@@ -292,7 +292,7 @@ open class IntArray2(override val width: Int, override val height: Int, val data
             IntArray2(
                 width,
                 height,
-                IntArray(width * height) { gen(it % width, it / width) } as IntArray)
+                IntArray(width * height) { gen(it % width, it / width) })
 
         inline operator fun  invoke(rows: List<List<Int>>): IntArray2 {
             val width = rows[0].size
@@ -345,7 +345,7 @@ open class IntArray2(override val width: Int, override val height: Int, val data
     }
 
     override fun printAt(idx: Int) = print(this.data[idx])
-    override fun equalsAt(idx: Int, value: Int): Boolean = this.data[idx]?.equals(value) ?: false
+    override fun equalsAt(idx: Int, value: Int): Boolean = this.data[idx] == value
 
     override fun equals(other: Any?): Boolean = (other is IntArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(other.data)
 
@@ -373,14 +373,14 @@ open class DoubleArray2(override val width: Int, override val height: Int, val d
     }
     companion object {
         inline operator fun  invoke(width: Int, height: Int, fill: Double): DoubleArray2 =
-            DoubleArray2(width, height, DoubleArray(width * height) { fill } as DoubleArray)
+            DoubleArray2(width, height, DoubleArray(width * height) { fill })
 
         inline operator fun  invoke(
             width: Int,
             height: Int,
             gen: (n: Int) -> Double
         ): DoubleArray2 =
-            DoubleArray2(width, height, DoubleArray(width * height) { gen(it) } as DoubleArray)
+            DoubleArray2(width, height, DoubleArray(width * height) { gen(it) })
 
         inline fun  withGen(
             width: Int,
@@ -390,7 +390,7 @@ open class DoubleArray2(override val width: Int, override val height: Int, val d
             DoubleArray2(
                 width,
                 height,
-                DoubleArray(width * height) { gen(it % width, it / width) } as DoubleArray)
+                DoubleArray(width * height) { gen(it % width, it / width) })
 
         inline operator fun  invoke(rows: List<List<Double>>): DoubleArray2 {
             val width = rows[0].size
@@ -466,14 +466,14 @@ open class Int64Array2(override val width: Int, override val height: Int, val da
     }
     companion object {
         inline operator fun  invoke(width: Int, height: Int, fill: Int64): Int64Array2 =
-            Int64Array2(width, height, Int64Array(width * height) { fill } as Int64Array)
+            Int64Array2(width, height, Int64Array(width * height) { fill })
 
         inline operator fun  invoke(
             width: Int,
             height: Int,
             gen: (n: Int) -> Int64
         ): Int64Array2 =
-            Int64Array2(width, height, Int64Array(width * height) { gen(it) } as Int64Array)
+            Int64Array2(width, height, Int64Array(width * height) { gen(it) })
 
         inline fun  withGen(
             width: Int,
@@ -483,7 +483,7 @@ open class Int64Array2(override val width: Int, override val height: Int, val da
             Int64Array2(
                 width,
                 height,
-                Int64Array(width * height) { gen(it % width, it / width) } as Int64Array)
+                Int64Array(width * height) { gen(it % width, it / width) })
 
         inline operator fun  invoke(rows: List<List<Int64>>): Int64Array2 {
             val width = rows[0].size
@@ -559,14 +559,14 @@ open class Int53Array2(override val width: Int, override val height: Int, val da
     }
     companion object {
         inline operator fun  invoke(width: Int, height: Int, fill: Int53): Int53Array2 =
-            Int53Array2(width, height, Int53Array(width * height) { fill } as Int53Array)
+            Int53Array2(width, height, Int53Array(width * height) { fill })
 
         inline operator fun  invoke(
             width: Int,
             height: Int,
             gen: (n: Int) -> Int53
         ): Int53Array2 =
-            Int53Array2(width, height, Int53Array(width * height) { gen(it) } as Int53Array)
+            Int53Array2(width, height, Int53Array(width * height) { gen(it) })
 
         inline fun  withGen(
             width: Int,
@@ -576,7 +576,7 @@ open class Int53Array2(override val width: Int, override val height: Int, val da
             Int53Array2(
                 width,
                 height,
-                Int53Array(width * height) { gen(it % width, it / width) } as Int53Array)
+                Int53Array(width * height) { gen(it % width, it / width) })
 
         inline operator fun  invoke(rows: List<List<Int53>>): Int53Array2 {
             val width = rows[0].size
@@ -652,14 +652,14 @@ open class FloatArray2(override val width: Int, override val height: Int, val da
     }
     companion object {
         inline operator fun  invoke(width: Int, height: Int, fill: Float): FloatArray2 =
-            FloatArray2(width, height, FloatArray(width * height) { fill } as FloatArray)
+            FloatArray2(width, height, FloatArray(width * height) { fill })
 
         inline operator fun  invoke(
             width: Int,
             height: Int,
             gen: (n: Int) -> Float
         ): FloatArray2 =
-            FloatArray2(width, height, FloatArray(width * height) { gen(it) } as FloatArray)
+            FloatArray2(width, height, FloatArray(width * height) { gen(it) })
 
         inline fun  withGen(
             width: Int,
@@ -669,7 +669,7 @@ open class FloatArray2(override val width: Int, override val height: Int, val da
             FloatArray2(
                 width,
                 height,
-                FloatArray(width * height) { gen(it % width, it / width) } as FloatArray)
+                FloatArray(width * height) { gen(it % width, it / width) })
 
         inline operator fun  invoke(rows: List<List<Float>>): FloatArray2 {
             val width = rows[0].size
@@ -743,14 +743,14 @@ open class ByteArray2(override val width: Int, override val height: Int, val dat
     }
     companion object {
         inline operator fun  invoke(width: Int, height: Int, fill: Byte): ByteArray2 =
-            ByteArray2(width, height, ByteArray(width * height) { fill } as ByteArray)
+            ByteArray2(width, height, ByteArray(width * height) { fill })
 
         inline operator fun  invoke(
             width: Int,
             height: Int,
             gen: (n: Int) -> Byte
         ): ByteArray2 =
-            ByteArray2(width, height, ByteArray(width * height) { gen(it) } as ByteArray)
+            ByteArray2(width, height, ByteArray(width * height) { gen(it) })
 
         inline fun  withGen(
             width: Int,
@@ -760,7 +760,7 @@ open class ByteArray2(override val width: Int, override val height: Int, val dat
             ByteArray2(
                 width,
                 height,
-                ByteArray(width * height) { gen(it % width, it / width) } as ByteArray)
+                ByteArray(width * height) { gen(it % width, it / width) })
 
         inline operator fun  invoke(rows: List<List<Byte>>): ByteArray2 {
             val width = rows[0].size
@@ -813,7 +813,7 @@ open class ByteArray2(override val width: Int, override val height: Int, val dat
     }
 
     override fun printAt(idx: Int) = print(this.data[idx])
-    override fun equalsAt(idx: Int, value: Byte): Boolean = this.data[idx]?.equals(value) ?: false
+    override fun equalsAt(idx: Int, value: Byte): Boolean = this.data[idx] == value
     override fun equals(other: Any?): Boolean = (other is ByteArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(other.data)
 
     override fun getFast(idx: Int): Byte = data.getOrElse(idx) { 0 }
@@ -840,14 +840,14 @@ open class CharArray2(override val width: Int, override val height: Int, val dat
     }
     companion object {
         inline operator fun  invoke(width: Int, height: Int, fill: Char): CharArray2 =
-            CharArray2(width, height, CharArray(width * height) { fill } as CharArray)
+            CharArray2(width, height, CharArray(width * height) { fill })
 
         inline operator fun  invoke(
             width: Int,
             height: Int,
             gen: (n: Int) -> Char
         ): CharArray2 =
-            CharArray2(width, height, CharArray(width * height) { gen(it) } as CharArray)
+            CharArray2(width, height, CharArray(width * height) { gen(it) })
 
         inline fun  withGen(
             width: Int,
@@ -857,7 +857,7 @@ open class CharArray2(override val width: Int, override val height: Int, val dat
             CharArray2(
                 width,
                 height,
-                CharArray(width * height) { gen(it % width, it / width) } as CharArray)
+                CharArray(width * height) { gen(it % width, it / width) })
 
         inline operator fun  invoke(rows: List<List<Char>>): CharArray2 {
             val width = rows[0].size
@@ -911,7 +911,7 @@ open class CharArray2(override val width: Int, override val height: Int, val dat
 
     override fun printAt(idx: Int) = print(this.data[idx])
 
-    override fun equalsAt(idx: Int, value: Char): Boolean = (this.data[idx] == value) ?: false
+    override fun equalsAt(idx: Int, value: Char): Boolean = this.data[idx] == value
 
     override fun equals(other: Any?): Boolean = (other is CharArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(other.data)
 
@@ -939,14 +939,14 @@ open class ShortArray2(override val width: Int, override val height: Int, val da
     }
     companion object {
         inline operator fun  invoke(width: Int, height: Int, fill: Short): ShortArray2 =
-            ShortArray2(width, height, ShortArray(width * height) { fill } as ShortArray)
+            ShortArray2(width, height, ShortArray(width * height) { fill })
 
         inline operator fun  invoke(
             width: Int,
             height: Int,
             gen: (n: Int) -> Short
         ): ShortArray2 =
-            ShortArray2(width, height, ShortArray(width * height) { gen(it) } as ShortArray)
+            ShortArray2(width, height, ShortArray(width * height) { gen(it) })
 
         inline fun  withGen(
             width: Int,
@@ -956,7 +956,7 @@ open class ShortArray2(override val width: Int, override val height: Int, val da
             ShortArray2(
                 width,
                 height,
-                ShortArray(width * height) { gen(it % width, it / width) } as ShortArray)
+                ShortArray(width * height) { gen(it % width, it / width) })
 
         inline operator fun  invoke(rows: List<List<Short>>): ShortArray2 {
             val width = rows[0].size
@@ -1009,7 +1009,7 @@ open class ShortArray2(override val width: Int, override val height: Int, val da
     }
 
     override fun printAt(idx: Int) = print(this.data[idx])
-    override fun equalsAt(idx: Int, value: Short): Boolean = this.data[idx]?.equals(value) ?: false
+    override fun equalsAt(idx: Int, value: Short): Boolean = this.data[idx] == value
 
     override fun equals(other: Any?): Boolean {
         return (other is ShortArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(
@@ -1041,14 +1041,14 @@ open class LongArray2(override val width: Int, override val height: Int, val dat
     }
     companion object {
         inline operator fun  invoke(width: Int, height: Int, fill: Long): LongArray2 =
-            LongArray2(width, height, LongArray(width * height) { fill } as LongArray)
+            LongArray2(width, height, LongArray(width * height) { fill })
 
         inline operator fun  invoke(
             width: Int,
             height: Int,
             gen: (n: Int) -> Long
         ): LongArray2 =
-            LongArray2(width, height, LongArray(width * height) { gen(it) } as LongArray)
+            LongArray2(width, height, LongArray(width * height) { gen(it) })
 
         inline fun  withGen(
             width: Int,
@@ -1058,7 +1058,7 @@ open class LongArray2(override val width: Int, override val height: Int, val dat
             LongArray2(
                 width,
                 height,
-                LongArray(width * height) { gen(it % width, it / width) } as LongArray)
+                LongArray(width * height) { gen(it % width, it / width) })
 
         inline operator fun  invoke(rows: List<List<Long>>): LongArray2 {
             val width = rows[0].size
@@ -1136,14 +1136,14 @@ open class BooleanArray2(override val width: Int, override val height: Int, val 
     }
     companion object {
         inline operator fun  invoke(width: Int, height: Int, fill: Boolean): BooleanArray2 =
-            BooleanArray2(width, height, BooleanArray(width * height) { fill } as BooleanArray)
+            BooleanArray2(width, height, BooleanArray(width * height) { fill })
 
         inline operator fun  invoke(
             width: Int,
             height: Int,
             gen: (n: Int) -> Boolean
         ): BooleanArray2 =
-            BooleanArray2(width, height, BooleanArray(width * height) { gen(it) } as BooleanArray)
+            BooleanArray2(width, height, BooleanArray(width * height) { gen(it) })
 
         inline fun  withGen(
             width: Int,
@@ -1153,7 +1153,7 @@ open class BooleanArray2(override val width: Int, override val height: Int, val 
             BooleanArray2(
                 width,
                 height,
-                BooleanArray(width * height) { gen(it % width, it / width) } as BooleanArray)
+                BooleanArray(width * height) { gen(it % width, it / width) })
 
         inline operator fun  invoke(rows: List<List<Boolean>>): BooleanArray2 {
             val width = rows[0].size
@@ -1206,7 +1206,7 @@ open class BooleanArray2(override val width: Int, override val height: Int, val 
     }
 
     override fun printAt(idx: Int) = print(this.data[idx])
-    override fun equalsAt(idx: Int, value: Boolean): Boolean = this.data[idx]?.equals(value) ?: false
+    override fun equalsAt(idx: Int, value: Boolean): Boolean = this.data[idx] == value
     override fun equals(other: Any?): Boolean = (other is BooleanArray2) && this.width == other.width && this.height == other.height && this.data.contentEquals(other.data)
 
     override fun getFast(idx: Int): Boolean = data.getOrElse(idx) { false }

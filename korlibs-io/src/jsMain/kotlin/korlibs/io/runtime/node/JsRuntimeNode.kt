@@ -364,7 +364,7 @@ private class NodeJsLocalVfs : LocalVfs() {
                     cc.resumeWithException(FileNotFoundException("Can't open '$path' with mode '$cmode': err=$err"))
                 } else {
                     NodeFS.fstat(fd) { _, stats ->
-                        cc.resume(NodeFDStream(file, fd).toAsyncStream(if (cmode == "a+") stats?.size?.toLong() ?: 0L else 0L))
+                        cc.resume(NodeFDStream(file, fd).toAsyncStream(if (cmode == "a+") stats.size.toLong() else 0L))
                     }
                 }
                 Unit

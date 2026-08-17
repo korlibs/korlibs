@@ -146,7 +146,7 @@ class StrokePointsBuilder(
             val angle2 = (angle umod 180.degrees).absoluteValue
             val angle3 = if (angle2 >= 90.degrees) 180.degrees - angle2 else angle2
             val ratio = (angle3.ratio.absoluteValue * 4.0).toRatioClamped()
-            val p5 = ratio.toRatio().interpolate(p4, p3!!)
+            val p5 = ratio.interpolate(p4, p3)
 
             //val p5 = p3
 

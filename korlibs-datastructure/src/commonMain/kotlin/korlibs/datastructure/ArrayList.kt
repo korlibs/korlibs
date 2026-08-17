@@ -21,7 +21,7 @@ typealias IDoubleArrayList = DoubleList
 class IntArrayList(capacity: Int = 7) : IntList {
     companion object {}
 
-    var data: IntArray = IntArray(capacity) as IntArray; private set
+    var data: IntArray = IntArray(capacity); private set
     internal val capacity: Int get() = data.size
     private var length: Int = 0
     override var size: Int
@@ -41,7 +41,7 @@ class IntArrayList(capacity: Int = 7) : IntList {
 
     fun ensure(count: Int) {
         if (length + count > data.size) {
-            data = data.copyOf(max(length + count, data.size * 3)) as IntArray
+            data = data.copyOf(max(length + count, data.size * 3))
         }
     }
 
@@ -101,7 +101,7 @@ class IntArrayList(capacity: Int = 7) : IntList {
 
     fun add(values: IntArray, offset: Int = 0, length: Int = values.size) {
         ensure(length)
-        arraycopy(values as IntArray, offset, data, this.size, length)
+        arraycopy(values, offset, data, this.size, length)
         this.size += length
     }
 
@@ -233,7 +233,7 @@ fun IntArray.toIntArrayList(): IntArrayList = IntArrayList(*this)
 class DoubleArrayList(capacity: Int = 7) : DoubleList {
     companion object
 
-    var data: DoubleArray = DoubleArray(capacity) as DoubleArray; private set
+    var data: DoubleArray = DoubleArray(capacity); private set
     internal val capacity: Int get() = data.size
     private var length: Int = 0
     override var size: Int
@@ -253,7 +253,7 @@ class DoubleArrayList(capacity: Int = 7) : DoubleList {
 
     private fun ensure(count: Int) {
         if (length + count > data.size) {
-            data = data.copyOf(max(length + count, data.size * 3)) as DoubleArray
+            data = data.copyOf(max(length + count, data.size * 3))
         }
     }
 
@@ -313,7 +313,7 @@ class DoubleArrayList(capacity: Int = 7) : DoubleList {
 
     fun add(values: DoubleArray, offset: Int = 0, length: Int = values.size) {
         ensure(length)
-        arraycopy(values as DoubleArray, offset, data, this.size, length)
+        arraycopy(values, offset, data, this.size, length)
         this.size += length
     }
 
@@ -446,7 +446,7 @@ class FloatArrayList(capacity: Int = 7) : FloatList {
 
     override fun clone(): FloatArrayList = FloatArrayList(this)
 
-    var data: FloatArray = FloatArray(capacity) as FloatArray; private set
+    var data: FloatArray = FloatArray(capacity); private set
     internal val capacity: Int get() = data.size
     private var length: Int = 0
     override var size: Int
@@ -466,7 +466,7 @@ class FloatArrayList(capacity: Int = 7) : FloatList {
 
     private fun ensure(count: Int) {
         if (length + count > data.size) {
-            data = data.copyOf(max(length + count, data.size * 3)) as FloatArray
+            data = data.copyOf(max(length + count, data.size * 3))
         }
     }
 
@@ -507,7 +507,7 @@ class FloatArrayList(capacity: Int = 7) : FloatList {
 
     fun add(values: FloatArray, offset: Int = 0, length: Int = values.size) {
         ensure(length)
-        arraycopy(values as FloatArray, offset, data, this.size, length)
+        arraycopy(values, offset, data, this.size, length)
         this.size += length
     }
 

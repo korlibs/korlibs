@@ -5,5 +5,5 @@ import korlibs.io.posix.posixRealpath
 
 actual object StandardPaths : StandardBasePathsNative(), StandardPathsBase {
     override val executableFile: String get() = LinuxSyncSystemFS.getCurrentExe() ?: "./a.out"
-    override val executableFolder: String get() = LinuxSyncSystemFS.getCurrentExeFolder() ?: posixRealpath(".") ?: "."
+    override val executableFolder: String get() = LinuxSyncSystemFS.getCurrentExeFolder() ?: posixRealpath(".")
 }

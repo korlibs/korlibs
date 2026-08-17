@@ -133,7 +133,6 @@ class AsyncStream(val base: AsyncStreamBase, var position: Long = 0L, val queue:
 suspend fun AsyncInputStream.copyTo(target: AsyncOutputStream, chunkSize: Int = 8 * 1024 * 1024): Long {
     // Optimization to reduce suspensions
     if (this is AsyncStream && base is MemoryAsyncStreamBase) {
-        val base = base as MemoryAsyncStreamBase
         target.write(base.data.data, position.toInt(), base.ilength - position.toInt())
         return base.ilength.toLong()
     }

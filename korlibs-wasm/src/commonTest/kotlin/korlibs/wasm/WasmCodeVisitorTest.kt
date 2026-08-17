@@ -1,11 +1,13 @@
 package korlibs.wasm
 
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import korlibs.io.stream.*
-import korlibs.memory.*
-import korlibs.platform.*
-import kotlin.test.*
+import korlibs.io.async.suspendTest
+import korlibs.io.file.std.resourcesVfs
+import korlibs.io.stream.openSync
+import korlibs.memory.getS32
+import korlibs.memory.setArray
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class WasmCodeVisitorTest {
     @Test
@@ -29,7 +31,7 @@ class WasmCodeVisitorTest {
         //val module = createJIT("webp.wasm", codeTrace = false)
         val webpBytes = resourcesVfs["wasm/webp.webp"].readBytes()
         val ptr = newInterpreter.invoke("malloc", webpBytes.size) as Int
-        newInterpreter.memory.setArrayInt8(ptr, webpBytes)
+        newInterpreter.memory.setArray(ptr * Byte.SIZE_BYTES, webpBytes, 0, webpBytes.size - 0)
 
         //repeat(100) {
         run {

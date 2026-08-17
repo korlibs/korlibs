@@ -1,10 +1,14 @@
 package korlibs.wasm
 
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import korlibs.io.stream.*
-import korlibs.memory.*
-import kotlin.test.*
+import korlibs.io.async.suspendTest
+import korlibs.io.file.std.resourcesVfs
+import korlibs.io.stream.openSync
+import korlibs.memory.getS32
+import korlibs.memory.getS32ArrayLE
+import korlibs.memory.setArray
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 
 class WasmJVMTest : WasmTest() {
     override val interpreter: Boolean = false
@@ -66,15 +70,15 @@ open class WasmTest {
         //val module = createJIT("webp.wasm", codeTrace = false)
         val webpBytes = resourcesVfs["wasm/webp.webp"].readBytes()
         val ptr = module.invoke("malloc", webpBytes.size) as Int
-        module.memory.setArrayInt8(ptr, webpBytes)
+        module.memory.setArray(ptr * Byte.SIZE_BYTES, webpBytes, 0, webpBytes.size - 0)
 
         if (interpreter) {
             println("SKIPPING Webp decoding with WASM interpreter")
         } else {
             val memTemp = module.allocAndWrite(ByteArray(16))
             val output = module.invoke("decode", ptr, webpBytes.size, memTemp, memTemp + 4) as Int
-            val width = module.memory.getUnalignedInt32(memTemp + 0)
-            val height = module.memory.getUnalignedInt32(memTemp + 4)
+            val width = module.memory.getS32(memTemp + 0)
+            val height = module.memory.getS32(memTemp + 4)
             assertNotEquals(0, output)
             assertEquals(100792, output)
             assertEquals("32x32", "${width}x${height}")
@@ -85,9 +89,9 @@ open class WasmTest {
         //repeat(100) {
         run {
             val infoPtr = module.invoke("get_info", ptr, webpBytes.size) as Int
-            val success = module.memory.getUnalignedInt32(infoPtr + 0)
-            val width = module.memory.getUnalignedInt32(infoPtr + 4)
-            val height = module.memory.getUnalignedInt32(infoPtr + 8)
+            val success = module.memory.getS32(infoPtr + 0)
+            val width = module.memory.getS32(infoPtr + 4)
+            val height = module.memory.getS32(infoPtr + 8)
             assertEquals("1,32x32", "$success,${width}x${height}")
         }
 
@@ -209,7 +213,7 @@ open class WasmTest {
             .also { it.trace = codeTrace }.initGlobals().also { int ->
                 int.register("env", "abort") {
                     val (msg, file, line, column) = it.map { it as Int }
-                    error("abort: msg='${int.readStringz16(msg)}', file='${int.readStringz16(file as Int)}', line=$line, column=$column")
+                    error("abort: msg='${int.readStringz16(msg)}', file='${int.readStringz16(file)}', line=$line, column=$column")
                 }
                 int.register("wasi_snapshot_preview1", "proc_exit") { TODO("proc_exit: ${it.toList()}") }
                 int.register("wasi_snapshot_preview1", "fd_close") { TODO("fd_close: ${it.toList()}") }

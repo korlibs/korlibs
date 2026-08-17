@@ -10,13 +10,13 @@ import kotlinx.coroutines.CompletableDeferred
 class ThreadIdJvmTest {
     @Test
     fun testDifferentThreadIdInDifferentThread() = suspendTest {
-        val initialCurrentThreadId = NativeThread.currentThreadId
+        val initialCurrentThreadId = NativeThread.current.id
         val threadCurrentThreadIdDeferred = CompletableDeferred<Long>()
         Thread {
-            threadCurrentThreadIdDeferred.complete(NativeThread.currentThreadId)
+            threadCurrentThreadIdDeferred.complete(NativeThread.current.id)
         }.also { it.start() }
         assertNotEquals(initialCurrentThreadId, threadCurrentThreadIdDeferred.await())
-        val laterCurrentThreadId = NativeThread.currentThreadId
+        val laterCurrentThreadId = NativeThread.current.id
         assertEquals(initialCurrentThreadId, laterCurrentThreadId)
     }
 }

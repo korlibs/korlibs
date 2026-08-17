@@ -26,7 +26,9 @@ open class JvmObjectMapper2 : KorteObjectMapper2 {
         val fieldsByName = jclass.allDeclaredFields.associateBy { it.name }
         val potentialPropertyNamesFields = jclass.allDeclaredFields.map { it.name }
         val potentialPropertyNamesGetters =
-            jclass.allDeclaredMethods.filter { it.name.startsWith("get") }.map { it.name.substring(3).decapitalize() }
+            jclass.allDeclaredMethods.filter { it.name.startsWith("get") }.map {
+                it.name.substring(3).replaceFirstChar { char -> char.lowercase() }
+            }
         val potentialPropertyNames = (potentialPropertyNamesFields + potentialPropertyNamesGetters).toSet()
 
         //Matches Strings that start with "is" followed by a capital letter
@@ -47,8 +49,16 @@ open class JvmObjectMapper2 : KorteObjectMapper2 {
             } else {
                 MyProperty(
                     propName,
-                    methodsByName["get${propName.capitalize()}"],
-                    methodsByName["set${propName.capitalize()}"],
+                    methodsByName["get${
+                        propName.replaceFirstChar {
+                            if (it.isLowerCase()) it.titlecase() else it.toString()
+                        }
+                    }"],
+                    methodsByName["set${
+                        propName.replaceFirstChar {
+                            if (it.isLowerCase()) it.titlecase() else it.toString()
+                        }
+                    }"],
                     fieldsByName[propName]
                 )
             }

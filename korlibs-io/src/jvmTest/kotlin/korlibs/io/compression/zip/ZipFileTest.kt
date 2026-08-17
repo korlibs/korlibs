@@ -1,7 +1,7 @@
 package korlibs.io.compression.zip
 
 import korlibs.io.async.suspendTest
-import korlibs.io.async.useIt
+import korlibs.io.async.use
 import korlibs.io.file.std.openAsZip
 import korlibs.io.file.std.resourcesVfs
 import korlibs.io.stream.openAsync
@@ -12,7 +12,7 @@ import kotlin.test.assertFailsWith
 class ZipFileTest {
     @Test
     fun test() = suspendTest {
-        resourcesVfs["krita1.kra"].open().useIt { stream ->
+        resourcesVfs["krita1.kra"].open().use { stream ->
             val zip = ZipFile(stream)
             //println(zip.files)
             val vfs = stream.openAsZip()

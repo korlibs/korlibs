@@ -1,5 +1,10 @@
 package korlibs.memory
 
+import korlibs.memory.asInt32
+import korlibs.memory.asInt8
+import korlibs.memory.getS16Array
+import korlibs.memory.getS8Array
+import korlibs.memory.setArray
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -8,7 +13,7 @@ class NBufferTest2 {
 	fun testBasicUsage() {
 		val data = Buffer(16)
 
-		val i8 = data.i8
+		val i8 = data.asInt8()
 		i8[0] = 0
 		i8[1] = 1
 		i8[2] = 2
@@ -19,7 +24,7 @@ class NBufferTest2 {
 		i8[6] = 6
 		i8[7] = 7
 
-		val i32 = data.i32
+		val i32 = data.asInt32()
 		assertEquals(0x03020100, i32[0])
 		assertEquals(0x07060504, i32[1])
 
@@ -44,20 +49,20 @@ class NBufferTest2 {
 
 		val fast = i32.buffer
 
-		assertEquals(listOf(4, 3, 2, 1, 4, 3, 2, 1, 8, 7, 6, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0 until (10 * 4)).map { fast.i8[it].toInt() }.toList())
+		assertEquals(listOf(4, 3, 2, 1, 4, 3, 2, 1, 8, 7, 6, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), (0 until (10 * 4)).map { fast.asInt8()[it].toInt() }.toList())
 
 		val out = ByteArray(10)
-		fast.getArrayInt8(1, out, 1, 5)
+		fast.getS8Array(1 * Byte.SIZE_BYTES, out, 1, 5)
 
 		assertEquals(listOf(0, 3, 2, 1, 4, 3, 0, 0, 0, 0), out.toList().map { it.toInt() })
 
 		val outS = ShortArray(10)
-		fast.getArrayInt16(1, outS, 1, 5)
+		fast.getS16Array(1 * Short.SIZE_BYTES, outS, 1, 5)
 
 		assertEquals(listOf(0, 258, 772, 258, 1800, 1286, 0, 0, 0, 0), outS.toList().map { it.toInt() })
 
-		fast.setArrayInt16(1, shortArrayOf(1, 2, 3, 4, 5, 6), 1, 4)
-		fast.getArrayInt16(1, outS, 1, 5)
+		fast.setArray(1 * Short.SIZE_BYTES, shortArrayOf(1, 2, 3, 4, 5, 6), 1, 4)
+		fast.getS16Array(1 * Short.SIZE_BYTES, outS, 1, 5)
 
 		assertEquals(listOf(0, 2, 3, 4, 5, 1286, 0, 0, 0, 0), outS.toList().map { it.toInt() })
 	}
@@ -65,9 +70,11 @@ class NBufferTest2 {
 	@Test
 	fun testNBuffer() {
 		val mem = Buffer.allocDirect(10)
-		for (n in 0 until 8) mem.setUInt8(n, n)
-		assertEquals(0x03020100, mem.getInt32(0))
-		assertEquals(0x07060504, mem.getInt32(1))
+		for (n in 0 until 8) {
+			mem.set8(n, n.toByte())
+		}
+		assertEquals(0x03020100, mem.getS32LE(0 * Int.SIZE_BYTES))
+		assertEquals(0x07060504, mem.getS32LE(1 * Int.SIZE_BYTES))
 
 		assertEquals(0x03020100, mem.getS32(0))
 		assertEquals(0x04030201, mem.getS32(1))

@@ -3,7 +3,7 @@
 package korlibs.io.file
 
 import korlibs.io.async.AsyncCloseable
-import korlibs.io.async.useIt
+import korlibs.io.async.use
 import korlibs.io.async.useThis
 import korlibs.io.lang.DummyAutoCloseable
 import korlibs.io.lang.FileNotFoundException
@@ -94,10 +94,16 @@ abstract class Vfs : AsyncCloseable {
 
 	open suspend fun openInputStream(path: String): AsyncInputStream = open(path, VfsOpenMode.READ)
 
-	open suspend fun readRange(path: String, range: LongRange): ByteArray = open(path, VfsOpenMode.READ).useIt { s ->
-        s.position = range.start
-        s.readBytesUpTo(min(Int.MAX_VALUE.toLong() - 1, (range.endInclusive - range.start)).toInt() + 1)
-    }
+	open suspend fun readRange(path: String, range: LongRange): ByteArray =
+		open(path, VfsOpenMode.READ).use { s ->
+			s.position = range.start
+			s.readBytesUpTo(
+				min(
+					Int.MAX_VALUE.toLong() - 1,
+					(range.endInclusive - range.start)
+				).toInt() + 1
+			)
+		}
 
 	interface Attribute
 

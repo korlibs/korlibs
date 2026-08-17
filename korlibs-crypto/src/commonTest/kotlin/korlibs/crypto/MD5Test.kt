@@ -20,7 +20,7 @@ class MD5Test {
 
     @Test
     fun test2() {
-        assertEquals("014842d480b571495a4a0363793f7367", MD5.digest(ByteArray(64) { 'a'.toByte() }).hex)
+        assertEquals("014842d480b571495a4a0363793f7367", MD5.digest(ByteArray(64) { 'a'.code.toByte() }).hex)
     }
 
     @Test

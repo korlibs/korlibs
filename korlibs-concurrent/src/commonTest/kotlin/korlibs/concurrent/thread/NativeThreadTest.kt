@@ -26,11 +26,11 @@ class NativeThreadTest {
         assertEquals(obtainedThreadId, reportedThreadId)
         assertNotEquals(NativeThread.current.id, obtainedThreadId)
 
-        val savedCurrentThreadId = NativeThread.currentThreadId
-        val workerThreadId = runBlockingNoJs { withContext(Dispatchers.CIO) { NativeThread.currentThreadId } }
+        val savedCurrentThreadId = NativeThread.current.id
+        val workerThreadId = runBlockingNoJs { withContext(Dispatchers.CIO) { NativeThread.current.id } }
         val workerCurrentThreadId = workerThreadId
-        assertEquals(savedCurrentThreadId, NativeThread.currentThreadId)
-        assertNotEquals(workerCurrentThreadId, NativeThread.currentThreadId)
+        assertEquals(savedCurrentThreadId, NativeThread.current.id)
+        assertNotEquals(workerCurrentThreadId, NativeThread.current.id)
     }
 
     @Test

@@ -202,8 +202,8 @@ class SVG(val root: Xml, val warningProcessor: ((message: String) -> Unit)? = nu
         fun draw(c: Context2d): Unit {
             c.keepApply {
                 //svg.drawElement(xml, c, render)
-                transform?.let {
-                    c.state.transform = c.state.transform.premultiplied(it.immutable)
+                transform.let {
+                    c.state.transform = c.state.transform.premultiplied(it)
                     //c.state.transform.postmultiply(it)
                 }
                 setCommonStyles(c)

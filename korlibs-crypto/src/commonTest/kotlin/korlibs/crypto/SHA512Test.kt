@@ -36,9 +36,9 @@ class SHA512Test {
 
     @Test
     fun test2() {
-        assertEquals("01d35c10c6c38c2dcf48f7eebb3235fb5ad74a65ec4cd016e2354c637a8fb49b695ef3c1d6f7ae4cd74d78cc9c9bcac9d4f23a73019998a7f73038a5c9b2dbde", SHA512.digest(ByteArray(64) { 'a'.toByte() }).hex)
-        assertEquals("01d35c10c6c38c2dcf48f7eebb3235fb5ad74a65ec4cd016e2354c637a8fb49b695ef3c1d6f7ae4cd74d78cc9c9bcac9d4f23a73019998a7f73038a5c9b2dbde", ByteArray(64) { 'a'.toByte() }.hash(SHA512).hex)
-        assertEquals("01d35c10c6c38c2dcf48f7eebb3235fb5ad74a65ec4cd016e2354c637a8fb49b695ef3c1d6f7ae4cd74d78cc9c9bcac9d4f23a73019998a7f73038a5c9b2dbde", ByteArray(64) { 'a'.toByte() }.sha512().hex)
+        assertEquals("01d35c10c6c38c2dcf48f7eebb3235fb5ad74a65ec4cd016e2354c637a8fb49b695ef3c1d6f7ae4cd74d78cc9c9bcac9d4f23a73019998a7f73038a5c9b2dbde", SHA512.digest(ByteArray(64) { 'a'.code.toByte() }).hex)
+        assertEquals("01d35c10c6c38c2dcf48f7eebb3235fb5ad74a65ec4cd016e2354c637a8fb49b695ef3c1d6f7ae4cd74d78cc9c9bcac9d4f23a73019998a7f73038a5c9b2dbde", ByteArray(64) { 'a'.code.toByte() }.hash(SHA512).hex)
+        assertEquals("01d35c10c6c38c2dcf48f7eebb3235fb5ad74a65ec4cd016e2354c637a8fb49b695ef3c1d6f7ae4cd74d78cc9c9bcac9d4f23a73019998a7f73038a5c9b2dbde", ByteArray(64) { 'a'.code.toByte() }.sha512().hex)
     }
 
     @Test

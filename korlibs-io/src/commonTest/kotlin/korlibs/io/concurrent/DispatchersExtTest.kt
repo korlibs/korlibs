@@ -19,7 +19,7 @@ class DispatchersExtTest {
         try {
             withContext(dispatcher) {
                 for (n in 0 until 8192) {
-                    historiogram.add(NativeThread.currentThreadId.toInt())
+                    historiogram.add(NativeThread.current.id.toInt())
                     yield()
                 }
             }

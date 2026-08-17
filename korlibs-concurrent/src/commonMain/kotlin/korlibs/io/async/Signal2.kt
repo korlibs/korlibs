@@ -19,7 +19,7 @@ class Signal2<T1, T2>(onRegister: () -> Unit = {}) : BaseSignal2<T1, T2>(onRegis
             c.resume(Pair(i1, i2))
         }
         c.invokeOnCancellation {
-            close?.close()
+            close.close()
         }
     }
 }

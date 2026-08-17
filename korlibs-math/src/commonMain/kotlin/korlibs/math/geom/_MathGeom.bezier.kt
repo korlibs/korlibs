@@ -663,7 +663,7 @@ class Bezier private constructor(val points: PointList, dummy: Unit) : Curve, Is
         while (p.size > 1) {
             val next = PointArrayList()
             for (i in 0 until p.size - 1) {
-                val p = t.toRatio().interpolate(p[i], p[i + 1])
+                val p = t.interpolate(p[i], p[i + 1])
                 out.add(p)
                 next.add(p)
             }
@@ -1716,7 +1716,7 @@ data class Curves(val beziers: List<Bezier>, val closed: Boolean) : Curve, Extra
     }
 
     override fun calc(t: Ratio): Point =
-        findTInCurve(t) { info, ratioInCurve -> info.curve.calc(ratioInCurve.toRatio()) }
+        findTInCurve(t) { info, ratioInCurve -> info.curve.calc(ratioInCurve) }
 
     override fun normal(t: Ratio): Point =
         findTInCurve(t) { info, ratioInCurve -> info.curve.normal(ratioInCurve) }

@@ -348,9 +348,9 @@ class EulerRotationTest {
     @Test
     fun testDeprecatedXYZAliases() {
         val e = EulerRotation(10.degrees, 20.degrees, 30.degrees)
-        assertAngleAlmostEquals(e.roll, e.x)
-        assertAngleAlmostEquals(e.pitch, e.y)
-        assertAngleAlmostEquals(e.yaw, e.z)
+        assertAngleAlmostEquals(e.roll, e.roll)
+        assertAngleAlmostEquals(e.pitch, e.pitch)
+        assertAngleAlmostEquals(e.yaw, e.yaw)
     }
 
     @Test

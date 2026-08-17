@@ -151,9 +151,7 @@ fun <T : kotlin.Function<*>> createJNAFunctionToPlainFunc(func: Function?, type:
                 Int::class -> func.invokeInt(targs)
                 Float::class -> func.invokeFloat(targs)
                 Double::class -> func.invokeDouble(targs)
-                else -> func.invoke((ftype.retClass as KClass<*>).java, targs)
-            }.also {
-                //println("  -> ret=$it [${ret.simpleName}]")
+                else -> func.invoke(ftype.retClass.java, targs)
             }
         }
 

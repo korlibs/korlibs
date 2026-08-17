@@ -339,7 +339,7 @@ enum class WasmOp(
 
 sealed interface WasmInstruction {
     val op: WasmOp
-    val itype: WasmSType get() = op.itype ?: WasmSType.VOID
+    val itype: WasmSType get() = op.itype
 
     data object End : WasmInstruction {
         override val op: WasmOp = WasmOp.Op_end
