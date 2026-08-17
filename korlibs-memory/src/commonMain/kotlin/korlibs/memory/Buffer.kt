@@ -168,7 +168,7 @@ private fun Int.hexChar(): Char = when (this) {
 }
 fun Buffer.hex(): String = buildString(sizeInBytes * 2) {
     for (n in 0 until this@hex.sizeInBytes) {
-        val value = this@hex.getUInt8(n)
+        val value = this@hex.getU8(n)
         append(value.extract4(4).hexChar())
         append(value.extract4(0).hexChar())
     }
@@ -685,4 +685,4 @@ fun TypedBuffer.asFloat64(): Float64Buffer = this.buffer.asFloat64()
 
 inline fun <T> BufferTemp(size: Int, callback: (Buffer) -> T): T = Buffer.allocDirect(size).run(callback)
 
-fun ByteArray.toNBufferUInt8(): Uint8Buffer = Buffer(this).u8
+fun ByteArray.toNBufferUInt8(): Uint8Buffer = Buffer(this).asUInt8()

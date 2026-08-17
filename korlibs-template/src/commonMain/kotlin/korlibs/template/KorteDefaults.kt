@@ -8,7 +8,10 @@ import kotlin.math.*
 
 //@Suppress("unused")
 object KorteDefaultFilters {
-    val Capitalize = KorteFilter("capitalize") { subject.toDynamicString().lowercase().capitalize() }
+    val Capitalize = KorteFilter("capitalize") {
+        subject.toDynamicString().lowercase()
+            .replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+    }
     val Join = KorteFilter("join") {
         subject.toDynamicList().joinToString(args[0].toDynamicString()) { it.toDynamicString() }
     }

@@ -339,7 +339,9 @@ inline fun VectorPath.emitEdges(
 
 fun PointList.toPolygon(out: VectorPath = VectorPath()): VectorPath = buildVectorPath(out) { polygon(this@toPolygon) }
 
-@Deprecated("", ReplaceWith("toShape2D(closed)")) fun PointList.toShape2d(closed: Boolean = true): Shape2D = toShape2D(closed)
+@Deprecated("", ReplaceWith("toShape2D(closed)"))
+fun PointList.toShape2d(closed: Boolean = true): Shape2D = toShape2D(closed)
+
 fun PointList.toShape2D(closed: Boolean = true): Shape2D {
     if (closed && this.size == 4) {
         val x0 = this.getX(0)
@@ -363,7 +365,7 @@ fun VectorPath.toShape2D(closed: Boolean = true): Shape2D = toShape2DOld(closed)
 
 @Deprecated("", ReplaceWith("toShape2DOld(closed)")) fun VectorPath.toShape2dOld(closed: Boolean = true): Shape2D = toShape2DOld(closed)
 fun VectorPath.toShape2DOld(closed: Boolean = true): Shape2D {
-    val items = toPathPointList().map { it.toShape2d(closed) }
+    val items = toPathPointList().map { it.toShape2D(closed) }
     return when (items.size) {
         0 -> EmptyShape2D
         1 -> items.first()

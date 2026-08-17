@@ -1,14 +1,25 @@
-@file:OptIn(kotlin.ExperimentalStdlibApi::class)
-
 package korlibs.wasm
 
 import korlibs.logger.AnsiEscape.Companion.green
 import korlibs.logger.AnsiEscape.Companion.red
-import korlibs.math.*
-import korlibs.memory.*
-import kotlin.jvm.*
-import kotlin.rotateLeft
-import kotlin.rotateRight
+import korlibs.memory.Buffer
+import korlibs.memory.allocDirect
+import korlibs.memory.arraycopy
+import korlibs.memory.getF32
+import korlibs.memory.getF64
+import korlibs.memory.getS16
+import korlibs.memory.getS32
+import korlibs.memory.getS64
+import korlibs.memory.getS8Array
+import korlibs.memory.getU16
+import korlibs.memory.getU8
+import korlibs.memory.set16
+import korlibs.memory.set32
+import korlibs.memory.set64
+import korlibs.memory.setArray
+import korlibs.memory.setF32
+import korlibs.memory.setF64
+import kotlin.jvm.JvmStatic
 
 open class WasmRuntime(module: WasmModule, val memSize: Int, val memMax: Int) {
     var usedClassMemory = 0
@@ -46,8 +57,11 @@ open class WasmRuntime(module: WasmModule, val memSize: Int, val memMax: Int) {
     open operator fun invoke(funcName: String, vararg params: Any?): Any? = TODO()
     open fun invokeIndirect(index: Int, vararg params: Any?): Any? = TODO()
 
-    fun writeBytes(ptr: Int, data: ByteArray) { memory.setArrayInt8(ptr, data) }
-    fun readBytes(ptr: Int, out: ByteArray): ByteArray = memory.getArrayInt8(ptr, out)
+    fun writeBytes(ptr: Int, data: ByteArray) {
+        memory.setArray(ptr * Byte.SIZE_BYTES, data, 0, data.size - 0)
+    }
+    fun readBytes(ptr: Int, out: ByteArray): ByteArray =
+        memory.getS8Array(ptr * Byte.SIZE_BYTES, out, 0, out.size - 0)
     fun readBytes(ptr: Int, size: Int): ByteArray = readBytes(ptr, ByteArray(size))
     fun stackSave(): Int = this("stackSave") as Int
     fun stackRestore(stack: Int) { this("stackRestore", stack) }
@@ -73,7 +87,8 @@ open class WasmRuntime(module: WasmModule, val memSize: Int, val memMax: Int) {
 
     fun readStringz(ptr: Int): String {
         if (ptr == 0) return "<null>"
-        return memory.getArrayInt8(ptr, ByteArray(strlen(ptr))).decodeToString()
+        val out = ByteArray(strlen(ptr))
+        return memory.getS8Array(ptr * Byte.SIZE_BYTES, out, 0, out.size - 0).decodeToString()
     }
     fun readStringz16(ptr: Int): String {
         if (ptr == 0) return "<null>"
@@ -128,10 +143,10 @@ open class WasmRuntime(module: WasmModule, val memSize: Int, val memMax: Int) {
             for (n in data.indices) {
                 val c = data[n]
                 if (isOdd && n == data.length - 1) {
-                    mem.setUnalignedUInt8(ptr, c.code)
+                    mem.set8(ptr, c.code.toByte())
                     ptr++
                 } else {
-                    mem.setUnalignedUInt16(ptr, c.code)
+                    mem.set16(ptr, c.code.toShort())
                     ptr += 2
                 }
             }
@@ -142,7 +157,7 @@ open class WasmRuntime(module: WasmModule, val memSize: Int, val memMax: Int) {
             var out = ""
             var n = 0
             while (true) {
-                val v = runtime.memory.getUnalignedUInt16(ptr + n)
+                val v = runtime.memory.getU16(ptr + n)
                 if (v == 0) break
                 out += v.toChar()
                 n += 2
@@ -346,7 +361,7 @@ open class WasmRuntime(module: WasmModule, val memSize: Int, val memMax: Int) {
         @JvmStatic fun Op_memory_fill(dst: Int, value: Int, count: Int, runtime: WasmRuntime) {
             val mem = runtime.memory
             for (n in 0 until count) {
-                mem.setUnalignedInt8(dst + n, value)
+                mem.set8(dst + n, value.toByte())
             }
         }
     }

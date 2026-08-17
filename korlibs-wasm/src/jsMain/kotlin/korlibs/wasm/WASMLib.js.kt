@@ -15,7 +15,7 @@ class JSWASMLib(content: ByteArray) : IWASMLib, BaseWASMLib(content) {
         get() {
             if (_wasmExports == null) {
                 _wasmExports = try {
-                    val module = WebAssembly.Module(content!!)
+                    val module = WebAssembly.Module(content)
                     val dummyFunc = { console.log("proc_exit", js("(arguments)")) }
                     val imports = jsObject(
                         "env" to jsObject(

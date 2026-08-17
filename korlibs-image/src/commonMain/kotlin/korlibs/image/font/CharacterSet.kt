@@ -1,7 +1,7 @@
 package korlibs.image.font
 
 class CharacterSet(val codePoints: IntArray) {
-    constructor(chars: String) : this(chars.map { it.toInt() }.toIntArray())
+    constructor(chars: String) : this(chars.map { it.code }.toIntArray())
     operator fun plus(other: CharacterSet) = CharacterSet(this.codePoints + other.codePoints)
 
     companion object {

@@ -1,7 +1,10 @@
 package korlibs.wasm
 
-import korlibs.datastructure.*
-import korlibs.memory.*
+import korlibs.datastructure.doubleArrayListOf
+import korlibs.datastructure.flip
+import korlibs.datastructure.floatArrayListOf
+import korlibs.datastructure.intArrayListOf
+import korlibs.memory.setArray
 
 // @TODO: Change stack-based to register based operations:
 // example:
@@ -51,7 +54,7 @@ class WasmRunInterpreter(val module: WasmModule, memPages: Int = 10, maxMemPages
             eval(e, WasmType.Function(listOf(), listOf(WasmSType.I32)), WasmDebugContext("data", data.index))
             val index = popI32()
             //println("DATA[index=$index] = bytes:${data.data.size}, stack=$stackPos")
-            memory.setArrayInt8(index, data.data)
+            memory.setArray(index * Byte.SIZE_BYTES, data.data, 0, data.data.size - 0)
         }
         for (global in module.globals) {
             if (global.expr != null) {

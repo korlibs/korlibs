@@ -22,7 +22,7 @@ class Bitmap8(
     override fun copyUnchecked(srcX: Int, srcY: Int, dst: Bitmap, dstX: Int, dstY: Int, width: Int, height: Int) {
         if (dst !is Bitmap8) return super.copyUnchecked(srcX, srcY, dst, dstX, dstY, width, height)
         for (y in 0 until height) {
-            korlibs.memory.arraycopy(this.data, this.index(srcX, srcY + y), (dst as Bitmap8).data, dst.index(dstX, dstY + y), width)
+            korlibs.memory.arraycopy(this.data, this.index(srcX, srcY + y), dst.data, dst.index(dstX, dstY + y), width)
         }
     }
 

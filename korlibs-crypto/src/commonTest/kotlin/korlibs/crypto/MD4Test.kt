@@ -20,7 +20,7 @@ class MD4Test {
 
     @Test
     fun test2() {
-        assertEquals("52f5076fabd22680234a3fa9f9dc5732", MD4.digest(ByteArray(64) { 'a'.toByte() }).hex)
+        assertEquals("52f5076fabd22680234a3fa9f9dc5732", MD4.digest(ByteArray(64) { 'a'.code.toByte() }).hex)
     }
 
     @Test

@@ -248,8 +248,8 @@ class StrReader(val str: String, val file: String = "file", override var pos: In
     //inline fun skipWhile(check: (Char) -> Boolean) = run { while (check(this.peekChar())) this.skip(1) }
     override fun readUntil(char: Char) = this.slice { skipUntil(char) }
     fun readUntilIncluded(char: Char) = this.slice { skipUntilIncluded(char) }
-    inline fun readWhile(filter: (Char) -> Boolean) = this.slice { skipWhile(filter) } ?: ""
-    inline fun readUntil(filter: (Char) -> Boolean) = this.slice { skipUntil(filter) } ?: ""
+    inline fun readWhile(filter: (Char) -> Boolean) = this.slice { skipWhile(filter) }
+    inline fun readUntil(filter: (Char) -> Boolean) = this.slice { skipUntil(filter) }
     fun unread(count: Int = 1): StrReader {
         this.pos -= count
         return this

@@ -418,7 +418,7 @@ class CSSReader(val tokens: ListReader<CSS.Companion.Token>) {
 val CSS.Expression.color: RGBA by extraPropertyThis { CSS.parseColor(exprStr) }
 val CSS.Expression.ratio: Ratio by extraPropertyThis { CSS.parseRatio(exprStr) }
 val CSS.Expression.matrix: Matrix by extraPropertyThis { CSS.parseTransform(exprStr) }
-val CSS.Expression.transform: MatrixTransform by extraPropertyThis { matrix.immutable.decompose() }
+val CSS.Expression.transform: MatrixTransform by extraPropertyThis { matrix.decompose() }
 val CSS.Expression.easing: Easing by extraPropertyThis { CSS.parseEasing(exprStr) }
 val CSS.Declarations.animation: CSS.Animation? by extraPropertyThis {
     this["animation"]?.let { CSS.parseAnimation(it.exprStr) }

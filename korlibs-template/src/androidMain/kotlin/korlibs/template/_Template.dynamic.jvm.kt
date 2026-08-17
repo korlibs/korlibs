@@ -2,10 +2,11 @@
 
 package korlibs.template.dynamic
 
-import korlibs.template.util.KorteDeferred
 import java.lang.reflect.Field
 import java.lang.reflect.Method
-import java.util.*
+import java.util.Locale.getDefault
+import java.util.WeakHashMap
+import korlibs.template.util.KorteDeferred
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.coroutineContext
 import kotlin.coroutines.intrinsics.COROUTINE_SUSPENDED
@@ -26,13 +27,23 @@ open class JvmObjectMapper2 : KorteObjectMapper2 {
         val fieldsByName = jclass.allDeclaredFields.associateBy { it.name }
         val potentialPropertyNamesFields = jclass.allDeclaredFields.map { it.name }
         val potentialPropertyNamesGetters =
-            jclass.allDeclaredMethods.filter { it.name.startsWith("get") }.map { it.name.substring(3).decapitalize() }
+            jclass.allDeclaredMethods.filter { it.name.startsWith("get") }.map {
+                it.name.substring(3).replaceFirstChar { char -> char.lowercase() }
+            }
         val potentialPropertyNames = (potentialPropertyNamesFields + potentialPropertyNamesGetters).toSet()
         val propByName = potentialPropertyNames.map { propName ->
             MyProperty(
                 propName,
-                methodsByName["get${propName.capitalize()}"],
-                methodsByName["set${propName.capitalize()}"],
+                methodsByName["get${
+                    propName.replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase(getDefault()) else it.toString()
+                    }
+                }"],
+                methodsByName["set${
+                    propName.replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase(getDefault()) else it.toString()
+                    }
+                }"],
                 fieldsByName[propName]
             )
         }.associateBy { it.name }

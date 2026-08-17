@@ -11,6 +11,6 @@ class Bitmap16Test {
         val bmp2 = bmp.clone()
         assertEquals(bmp.width, bmp2.width)
         assertEquals(bmp.height, bmp2.height)
-        assertTrue { (bmp2 as Bitmap16).data.contentEquals(bmp.data) }
+        assertTrue { bmp2.data.contentEquals(bmp.data) }
     }
 }

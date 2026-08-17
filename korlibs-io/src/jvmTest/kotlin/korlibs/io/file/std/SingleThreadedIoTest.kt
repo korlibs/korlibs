@@ -8,9 +8,9 @@ import org.junit.Test
 class SingleThreadedIoTest {
 	@Test
 	fun test() = suspendTest {
-		val thread1 = NativeThread.currentThreadId
+        val thread1 = NativeThread.current.id
 		localCurrentDirVfs["temp.txt"].writeString("temp")
-		val thread2 = NativeThread.currentThreadId
+        val thread2 = NativeThread.current.id
 		assertEquals(thread1, thread2)
 		localCurrentDirVfs["temp.txt"].delete()
 	}

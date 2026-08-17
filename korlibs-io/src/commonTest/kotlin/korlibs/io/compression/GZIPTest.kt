@@ -2,7 +2,7 @@ package korlibs.io.compression
 
 import korlibs.crypto.sha256
 import korlibs.io.async.suspendTest
-import korlibs.io.async.useIt
+import korlibs.io.async.use
 import korlibs.io.compression.deflate.GZIP
 import korlibs.io.compression.deflate.GZIPNoCrc
 import korlibs.io.file.std.resourcesVfs
@@ -30,7 +30,7 @@ class GZIPTest {
         //val output = AsyncByteArrayDeque();
         assertEquals("0D645D95D9BFCEB973AA53D89D9D82A1C108CC9B2C15BC57B8DD658FF51F8331", MemorySyncStreamToByteArray {
             val output = this
-            resource.openAsync().useIt { input ->
+            resource.openAsync().use { input ->
                 GZIPNoCrc.uncompress(input, output.toAsync())
             }
         }.sha256().hexUpper)

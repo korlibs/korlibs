@@ -1619,10 +1619,10 @@ abstract class BaseTtfFont(
                             //println("$language")
 
                             for (n in 0 until segCount) {
-                                val ec = endCount[n].toInt()
-                                val sc = startCount[n].toInt()
+                                val ec = endCount[n].code
+                                val sc = startCount[n].code
                                 val delta = idDelta[n].toInt()
-                                val iro = idRangeOffset[n].toInt()
+                                val iro = idRangeOffset[n].code
                                 //println("%04X-%04X : %d : %d".format(sc, ec, delta, iro))
                                 for (c in sc..ec) {
                                     if (iro != 0) {

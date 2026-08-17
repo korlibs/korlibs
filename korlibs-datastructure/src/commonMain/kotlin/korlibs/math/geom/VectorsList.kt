@@ -58,8 +58,8 @@ sealed interface PointList : DoubleVectorList, IPointList, Extra {
     }
 
     operator fun plus(other: PointList): PointArrayList = PointArrayList(size + other.size).also {
-        it.add(this)
-        it.add(other)
+        it.addAll(this)
+        it.addAll(other)
     }
 }
 
@@ -176,10 +176,10 @@ open class PointArrayList(capacity: Int = 7) : PointList, Extra by Extra.Mixin()
 
     fun copyFrom(other: PointList): PointArrayList {
         clear()
-        add(other)
+        addAll(other)
         return this
     }
-    override fun clone(out: PointArrayList): PointArrayList = out.clear().add(this)
+    override fun clone(out: PointArrayList): PointArrayList = out.clear().addAll(this)
 
     private fun index(index: Int, offset: Int): Int = index * 2 + offset
 
@@ -411,7 +411,7 @@ inline fun PointIntList.fastForEachReverse(block: (x: Int, y: Int) -> Unit) {
 }
 
 fun List<PointList>.flatten(): PointList =
-    PointArrayList(this.sumOf { it.size }).also { out -> this.fastForEach { out.add(it) } }
+    PointArrayList(this.sumOf { it.size }).also { out -> this.fastForEach { out.addAll(it) } }
 
 sealed interface DoubleVectorList : IDoubleVectorList, Extra {
     val closed: Boolean

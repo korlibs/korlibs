@@ -45,7 +45,7 @@ object FFIGdiNativeImageFormatProvider : BaseNativeImageFormatProvider() {
 
     override suspend fun decodeInternal(data: ByteArray, props: ImageDecodingProps): NativeImageResult {
         initializeOnce
-        val pstream = shlwapi.SHCreateMemStream(data, data.size) ?: error("Internal error")
+        val pstream = shlwapi.SHCreateMemStream(data, data.size)
         //println("SHCreateMemStream: ${pstream.str}")
         //FFIMemory
         val pimage = FFIPointerArray(1)

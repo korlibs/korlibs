@@ -20,7 +20,7 @@ private inline fun _arrayequal(srcPos: Int, dstPos: Int, size: Int, cmp: (Int, I
 }
 
 public fun arrayfill(array: Buffer, value: Int, start: Int = 0, end: Int = array.size): Unit {
-    for (n in start until end) array.setUInt8(n, value)
+    for (n in start until end) array.set8(n, value.toByte())
 }
 
 fun <T> arrayequal(src: Array<T>, srcPos: Int, dst: Array<T>, dstPos: Int, size: Int): Boolean = _arrayequal(srcPos, dstPos, size) { s, d -> src[s] == dst[d]}
@@ -37,7 +37,7 @@ fun arrayequal(src: DoubleArray, srcPos: Int, dst: DoubleArray, dstPos: Int, siz
 
 fun <T : Comparable<T>> arraycmp(src: Array<T>, srcPos: Int, dst: Array<T>, dstPos: Int, size: Int): Int = _arraycmp(srcPos, dstPos, size) { s, d -> src[s] compareTo dst[d]}
 fun <T : Comparable<T>> arraycmp(src: List<T>, srcPos: Int, dst: List<T>, dstPos: Int, size: Int): Int = _arraycmp(srcPos, dstPos, size) { s, d -> src[s] compareTo dst[d]}
-fun arraycmp(src: Buffer, srcPos: Int, dst: Buffer, dstPos: Int, size: Int): Int = _arraycmp(srcPos, dstPos, size) { s, d -> src.getInt8(s) compareTo dst.getInt8(d) }
+fun arraycmp(src: Buffer, srcPos: Int, dst: Buffer, dstPos: Int, size: Int): Int = _arraycmp(srcPos, dstPos, size) { s, d -> src.getS8(s) compareTo dst.getS8(d) }
 fun arraycmp(src: BooleanArray, srcPos: Int, dst: BooleanArray, dstPos: Int, size: Int): Int = _arraycmp(srcPos, dstPos, size) { s, d -> src[s] compareTo dst[d]}
 fun arraycmp(src: ByteArray, srcPos: Int, dst: ByteArray, dstPos: Int, size: Int): Int = _arraycmp(srcPos, dstPos, size) { s, d -> src[s] compareTo dst[d]}
 fun arraycmp(src: ShortArray, srcPos: Int, dst: ShortArray, dstPos: Int, size: Int): Int = _arraycmp(srcPos, dstPos, size) { s, d -> src[s] compareTo dst[d]}
@@ -392,5 +392,5 @@ fun ByteArray.getSampled(index: Float): Byte = getSampledGeneric(index, get = { 
 fun UByteArray.getSampled(index: Float): UByte = getSampledGeneric(index, get = { this[it] }, scale = { value, scale -> value.toInt() * scale }, convert = { it.toInt().toUByte() })
 fun ShortArray.getSampled(index: Float): Short = getSampledGeneric(index, get = { this[it] }, scale = { value, scale -> value * scale }, convert = { it.toInt().toShort() })
 fun UShortArray.getSampled(index: Float): UShort = getSampledGeneric(index, get = { this[it] }, scale = { value, scale -> value.toInt() * scale }, convert = { it.toInt().toUShort() })
-fun CharArray.getSampled(index: Float): Char = getSampledGeneric(index, get = { this[it] }, scale = { value, scale -> value.toInt() * scale }, convert = { it.toInt().toChar() })
+fun CharArray.getSampled(index: Float): Char = getSampledGeneric(index, get = { this[it] }, scale = { value, scale -> value.code * scale }, convert = { it.toInt().toChar() })
 fun FloatArray.getSampled(index: Float): Float = getSampledGeneric(index, get = { this[it] }, scale = { value, scale -> value * scale }, convert = { it })

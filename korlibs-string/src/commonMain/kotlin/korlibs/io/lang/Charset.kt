@@ -90,7 +90,7 @@ abstract class Charset(val name: String) {
         inline fun decodeCodePoints(src: CharSequence, start: Int, end: Int, block: (codePoint: Int) -> Unit) {
             var highSurrogate = 0
             loop@for (n in start until end) {
-                val char = src[n].toInt()
+                val char = src[n].code
                 val codePoint = if (char in 0xD800..0xDFFF) {
                     when (char.extract(10, 6)) {
                         0b110110 -> {

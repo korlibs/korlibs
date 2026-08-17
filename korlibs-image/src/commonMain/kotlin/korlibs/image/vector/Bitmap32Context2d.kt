@@ -94,7 +94,7 @@ class Bitmap32Context2d(val bmp: Bitmap32, val antialiasing: Boolean) : korlibs.
             })
         }
 
-        rasterizer.path.winding = winding ?: state.path!!.winding
+        rasterizer.path.winding = winding ?: state.path.winding
         //rasterizer.path.winding = Winding.NON_ZERO
         //println("------------- $bmp : ${state.path!!.winding}")
         fillPath.emitPoints2(flush = {
