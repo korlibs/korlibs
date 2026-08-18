@@ -10,7 +10,7 @@ on:
     inputs:
       forced_version:
         description: 'FORCED_VERSION to use'
-        required: true
+#        required: true
         type: string
 
 env:
