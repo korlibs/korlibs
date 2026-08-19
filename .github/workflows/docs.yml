@@ -46,7 +46,7 @@ jobs:
       - name: "Prepare Gradle"
         uses: gradle/actions/setup-gradle@39e147cb9de83bb9910b8ef8bd7fff0ee20fcd6f # https://github.com/gradle/actions/releases/tag/v6.0.1
       - name: "Build Documentation"
-        run: "./gradlew --no-configuration-cache dokkaGenerate"
+        run: "./gradlew --no-configuration-cache :dokkaGenerateHtml"
       - name: "Upload artifact"
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b
         with:
