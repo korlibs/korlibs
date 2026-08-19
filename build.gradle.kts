@@ -6,7 +6,19 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
 
 group = "org.korge.korlibs"
-version = libs.versions.korlibs.get()
+
+// Resolve version: FORCED_VERSION env (from CI) takes precedence over version catalog.
+// FORCED_VERSION can be: "refs/tags/v1.2.3" (tag push), "refs/heads/main" (branch push), or "1.2.3" (manual).
+val resolvedVersion: String = System.getenv("FORCED_VERSION").let { forced ->
+    when {
+        forced.isNullOrBlank() -> libs.versions.korlibs.get()
+        forced.startsWith("refs/tags/v") -> forced.removePrefix("refs/tags/v")
+        forced.startsWith("refs/tags/") -> forced.removePrefix("refs/tags/")
+        forced.startsWith("refs/heads/") -> libs.versions.korlibs.get() // branch push, use catalog
+        else -> forced // direct version string from manual dispatch
+    }
+}
+version = resolvedVersion
 
 allprojects {
     repositories {
@@ -16,7 +28,7 @@ allprojects {
     }
 
     group = "org.korge.korlibs"
-    version = rootProject.libs.versions.korlibs.get()
+    version = rootProject.version
 }
 
 plugins {

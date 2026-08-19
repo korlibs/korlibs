@@ -2,6 +2,8 @@ name: Publish to Maven Central
 
 on:
   push:
+    branches:
+      - main
     tags:
       - 'v*'
   workflow_dispatch:
@@ -65,5 +67,20 @@ jobs:
         uses: gradle/actions/setup-gradle@39e147cb9de83bb9910b8ef8bd7fff0ee20fcd6f # https://github.com/gradle/actions/releases/tag/v6.0.1
       - name: "Initialize Gradle"
         run: "./gradlew --no-configuration-cache"
+      - name: "Report release version"
+        run: |
+          CATALOG_VERSION=$(grep '^korlibs' gradle/libs.versions.toml | cut -d'"' -f2)
+          if [[ "$FORCED_VERSION" == refs/tags/v* ]]; then
+            VERSION="${FORCED_VERSION#refs/tags/v}"
+          elif [[ "$FORCED_VERSION" == refs/tags/* ]]; then
+            VERSION="${FORCED_VERSION#refs/tags/}"
+          elif [[ "$FORCED_VERSION" == refs/heads/* ]]; then
+            VERSION="$CATALOG_VERSION"
+          elif [[ -n "$FORCED_VERSION" ]]; then
+            VERSION="$FORCED_VERSION"
+          else
+            VERSION="$CATALOG_VERSION"
+          fi
+          echo "-- Releasing version: $VERSION"
       - name: "Publish to Maven Central"
         run: "./gradlew --no-configuration-cache --parallel --max-workers=8 ${{ matrix.publishTask }}"
