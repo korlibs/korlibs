@@ -1307,6 +1307,9 @@ final fun <#A: kotlin/Any?> (korlibs.ffi/FFIPointer).korlibs.ffi/typed(): korlib
 final fun korlibs.ffi/CreateFFIPointer(kotlin/Long): korlibs.ffi/FFIPointer? // korlibs.ffi/CreateFFIPointer|CreateFFIPointer(kotlin.Long){}[0]
 
 // Targets: [native, wasmJs]
+final fun korlibs.ffi/FFIPointer(kotlin/Long, kotlin/Unit = ...): korlibs.ffi/FFIPointer? // korlibs.ffi/FFIPointer|FFIPointer(kotlin.Long;kotlin.Unit){}[0]
+
+// Targets: [native, wasmJs]
 final fun korlibs.ffi/arraycopy(korlibs.ffi/FFIPointer, kotlin/Int, korlibs.ffi/FFIPointer, kotlin/Int, kotlin/Int) // korlibs.ffi/arraycopy|arraycopy(korlibs.ffi.FFIPointer;kotlin.Int;korlibs.ffi.FFIPointer;kotlin.Int;kotlin.Int){}[0]
 
 // Targets: [native, wasmJs]
@@ -1327,9 +1330,6 @@ final inline fun <#A: kotlin/Any?> (korlibs.memory/Buffer).korlibs.ffi/usePointe
 // Targets: [native, wasmJs]
 final inline fun <#A: reified kotlin/Any?> (korlibs.ffi/FFIPointer).korlibs.ffi/castToFunc(): #A // korlibs.ffi/castToFunc|castToFunc@korlibs.ffi.FFIPointer(){0§<kotlin.Any?>}[0]
 
-// Targets: [native, wasmJs]
-final inline fun korlibs.ffi/FFIPointer(kotlin/Long, kotlin/Unit = ...): korlibs.ffi/FFIPointer? // korlibs.ffi/FFIPointer|FFIPointer(kotlin.Long;kotlin.Unit){}[0]
-
 // Targets: [native]
 final val korlibs.ffi/pointer // korlibs.ffi/pointer|@kotlin.ByteArray{}pointer[0]
     final fun (kotlin/ByteArray).<get-pointer>(): korlibs.ffi/FFIPointer // korlibs.ffi/pointer.<get-pointer>|<get-pointer>@kotlin.ByteArray(){}[0]
@@ -1341,13 +1341,13 @@ final fun korlibs.ffi/CreateFFIMemory(kotlin/ByteArray): kotlin/ByteArray // kor
 final fun korlibs.ffi/CreateFFIMemory(kotlin/Int): kotlin/ByteArray // korlibs.ffi/CreateFFIMemory|CreateFFIMemory(kotlin.Int){}[0]
 
 // Targets: [native]
+final fun korlibs.ffi/FFIMemory(kotlin/ByteArray, kotlin/Unit = ...): kotlin/ByteArray // korlibs.ffi/FFIMemory|FFIMemory(kotlin.ByteArray;kotlin.Unit){}[0]
+
+// Targets: [native]
+final fun korlibs.ffi/FFIMemory(kotlin/Int, kotlin/Unit = ...): kotlin/ByteArray // korlibs.ffi/FFIMemory|FFIMemory(kotlin.Int;kotlin.Unit){}[0]
+
+// Targets: [native]
 final inline fun <#A: kotlin/Any?> (kotlin/ByteArray).korlibs.ffi/usePointer(kotlin/Function1<korlibs.ffi/FFIPointer, #A>): #A // korlibs.ffi/usePointer|usePointer@kotlin.ByteArray(kotlin.Function1<korlibs.ffi.FFIPointer,0:0>){0§<kotlin.Any?>}[0]
-
-// Targets: [native]
-final inline fun korlibs.ffi/FFIMemory(kotlin/ByteArray, kotlin/Unit = ...): kotlin/ByteArray // korlibs.ffi/FFIMemory|FFIMemory(kotlin.ByteArray;kotlin.Unit){}[0]
-
-// Targets: [native]
-final inline fun korlibs.ffi/FFIMemory(kotlin/Int, kotlin/Unit = ...): kotlin/ByteArray // korlibs.ffi/FFIMemory|FFIMemory(kotlin.Int;kotlin.Unit){}[0]
 
 // Targets: [js]
 final class korlibs.ffi/FFILibSymJS : korlibs.ffi/FFILibSym { // korlibs.ffi/FFILibSymJS|null[0]
@@ -1572,6 +1572,15 @@ final fun korlibs.ffi/CreateFFIMemory(kotlin/Int): org.khronos.webgl/Uint8Array 
 final fun korlibs.ffi/CreateFFIPointer(kotlin/Long): korlibs.js/DenoPointer? // korlibs.ffi/CreateFFIPointer|CreateFFIPointer(kotlin.Long){}[0]
 
 // Targets: [js]
+final fun korlibs.ffi/FFIMemory(kotlin/ByteArray, kotlin/Unit = ...): org.khronos.webgl/Uint8Array // korlibs.ffi/FFIMemory|FFIMemory(kotlin.ByteArray;kotlin.Unit){}[0]
+
+// Targets: [js]
+final fun korlibs.ffi/FFIMemory(kotlin/Int, kotlin/Unit = ...): org.khronos.webgl/Uint8Array // korlibs.ffi/FFIMemory|FFIMemory(kotlin.Int;kotlin.Unit){}[0]
+
+// Targets: [js]
+final fun korlibs.ffi/FFIPointer(kotlin/Long, kotlin/Unit = ...): korlibs.js/DenoPointer? // korlibs.ffi/FFIPointer|FFIPointer(kotlin.Long;kotlin.Unit){}[0]
+
+// Targets: [js]
 final fun korlibs.ffi/arraycopy(korlibs.js/DenoPointer, kotlin/Int, korlibs.js/DenoPointer, kotlin/Int, kotlin/Int) // korlibs.ffi/arraycopy|arraycopy(korlibs.js.DenoPointer;kotlin.Int;korlibs.js.DenoPointer;kotlin.Int;kotlin.Int){}[0]
 
 // Targets: [js]
@@ -1598,15 +1607,6 @@ final inline fun <#A: kotlin/Any?> (org.khronos.webgl/Uint8Array).korlibs.ffi/us
 // Targets: [js]
 final inline fun <#A: reified kotlin/Any?> (korlibs.js/DenoPointer).korlibs.ffi/castToFunc(): #A // korlibs.ffi/castToFunc|castToFunc@korlibs.js.DenoPointer(){0§<kotlin.Any?>}[0]
 
-// Targets: [js]
-final inline fun korlibs.ffi/FFIMemory(kotlin/ByteArray, kotlin/Unit = ...): org.khronos.webgl/Uint8Array // korlibs.ffi/FFIMemory|FFIMemory(kotlin.ByteArray;kotlin.Unit){}[0]
-
-// Targets: [js]
-final inline fun korlibs.ffi/FFIMemory(kotlin/Int, kotlin/Unit = ...): org.khronos.webgl/Uint8Array // korlibs.ffi/FFIMemory|FFIMemory(kotlin.Int;kotlin.Unit){}[0]
-
-// Targets: [js]
-final inline fun korlibs.ffi/FFIPointer(kotlin/Long, kotlin/Unit = ...): korlibs.js/DenoPointer? // korlibs.ffi/FFIPointer|FFIPointer(kotlin.Long;kotlin.Unit){}[0]
-
 // Targets: [wasmJs]
 final class korlibs.ffi/FFIMemory { // korlibs.ffi/FFIMemory|null[0]
     constructor <init>() // korlibs.ffi/FFIMemory.<init>|<init>(){}[0]
@@ -1623,10 +1623,10 @@ final fun korlibs.ffi/CreateFFIMemory(kotlin/ByteArray): korlibs.ffi/FFIMemory /
 final fun korlibs.ffi/CreateFFIMemory(kotlin/Int): korlibs.ffi/FFIMemory // korlibs.ffi/CreateFFIMemory|CreateFFIMemory(kotlin.Int){}[0]
 
 // Targets: [wasmJs]
+final fun korlibs.ffi/FFIMemory(kotlin/ByteArray, kotlin/Unit = ...): korlibs.ffi/FFIMemory // korlibs.ffi/FFIMemory|FFIMemory(kotlin.ByteArray;kotlin.Unit){}[0]
+
+// Targets: [wasmJs]
+final fun korlibs.ffi/FFIMemory(kotlin/Int, kotlin/Unit = ...): korlibs.ffi/FFIMemory // korlibs.ffi/FFIMemory|FFIMemory(kotlin.Int;kotlin.Unit){}[0]
+
+// Targets: [wasmJs]
 final inline fun <#A: kotlin/Any?> (korlibs.ffi/FFIMemory).korlibs.ffi/usePointer(kotlin/Function1<korlibs.ffi/FFIPointer, #A>): #A // korlibs.ffi/usePointer|usePointer@korlibs.ffi.FFIMemory(kotlin.Function1<korlibs.ffi.FFIPointer,0:0>){0§<kotlin.Any?>}[0]
-
-// Targets: [wasmJs]
-final inline fun korlibs.ffi/FFIMemory(kotlin/ByteArray, kotlin/Unit = ...): korlibs.ffi/FFIMemory // korlibs.ffi/FFIMemory|FFIMemory(kotlin.ByteArray;kotlin.Unit){}[0]
-
-// Targets: [wasmJs]
-final inline fun korlibs.ffi/FFIMemory(kotlin/Int, kotlin/Unit = ...): korlibs.ffi/FFIMemory // korlibs.ffi/FFIMemory|FFIMemory(kotlin.Int;kotlin.Unit){}[0]

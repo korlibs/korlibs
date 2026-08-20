@@ -2,19 +2,19 @@ package korlibs.math.geom
 
 import korlibs.math.interpolation.*
 
-inline fun Vector2F.deltaTransformed(m: Matrix): Vector2F = m.deltaTransform(this)
-inline fun Vector2F.transformed(m: Matrix): Vector2F = m.transform(this)
+fun Vector2F.deltaTransformed(m: Matrix): Vector2F = m.deltaTransform(this)
+fun Vector2F.transformed(m: Matrix): Vector2F = m.transform(this)
 fun Vector2F.transformX(m: Matrix): Float = m.transform(this).x
 fun Vector2F.transformY(m: Matrix): Float = m.transform(this).y
-inline fun Vector2F.transformedNullable(m: Matrix?): Vector2F = if (m != null && m.isNotNIL) m.transform(this) else this
+fun Vector2F.transformedNullable(m: Matrix?): Vector2F = if (m != null && m.isNotNIL) m.transform(this) else this
 fun Vector2F.transformNullableX(m: Matrix?): Float = if (m != null && m.isNotNIL) m.transform(this).x else x
 fun Vector2F.transformNullableY(m: Matrix?): Float = if (m != null && m.isNotNIL) m.transform(this).y else y
 
-inline fun Vector2D.deltaTransformed(m: Matrix): Vector2D = m.deltaTransform(this)
-inline fun Vector2D.transformed(m: Matrix): Vector2D = m.transform(this)
+fun Vector2D.deltaTransformed(m: Matrix): Vector2D = m.deltaTransform(this)
+fun Vector2D.transformed(m: Matrix): Vector2D = m.transform(this)
 fun Vector2D.transformX(m: Matrix): Double = m.transform(this).x
 fun Vector2D.transformY(m: Matrix): Double = m.transform(this).y
-inline fun Vector2D.transformedNullable(m: Matrix?): Vector2D = if (m != null && m.isNotNIL) m.transform(this) else this
+fun Vector2D.transformedNullable(m: Matrix?): Vector2D = if (m != null && m.isNotNIL) m.transform(this) else this
 fun Vector2D.transformNullableX(m: Matrix?): Double = if (m != null && m.isNotNIL) m.transform(this).x else x
 fun Vector2D.transformNullableY(m: Matrix?): Double = if (m != null && m.isNotNIL) m.transform(this).y else y
 

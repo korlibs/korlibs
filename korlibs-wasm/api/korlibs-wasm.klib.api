@@ -2848,12 +2848,12 @@ open class korlibs.wasm/WasmRuntime { // korlibs.wasm/WasmRuntime|null[0]
         final fun assert_return_void(kotlin/String): kotlin/Int // korlibs.wasm/WasmRuntime.Companion.assert_return_void|assert_return_void(kotlin.String){}[0]
         final fun assert_summary(kotlin/Int, kotlin/Int) // korlibs.wasm/WasmRuntime.Companion.assert_summary|assert_summary(kotlin.Int;kotlin.Int){}[0]
         final fun call_indirect(kotlin/Int, kotlin/Int, kotlin/Array<kotlin/Any?>, korlibs.wasm/WasmRuntime): kotlin/Any? // korlibs.wasm/WasmRuntime.Companion.call_indirect|call_indirect(kotlin.Int;kotlin.Int;kotlin.Array<kotlin.Any?>;korlibs.wasm.WasmRuntime){}[0]
+        final fun checkAddr(kotlin/Int, kotlin/Int, korlibs.wasm/WasmRuntime): kotlin/Int // korlibs.wasm/WasmRuntime.Companion.checkAddr|checkAddr(kotlin.Int;kotlin.Int;korlibs.wasm.WasmRuntime){}[0]
         final fun create_todo_exception_instance(): kotlin/Throwable // korlibs.wasm/WasmRuntime.Companion.create_todo_exception_instance|create_todo_exception_instance(){}[0]
         final fun create_unknown_indirect_function(kotlin/Int, kotlin/String): kotlin/Throwable // korlibs.wasm/WasmRuntime.Companion.create_unknown_indirect_function|create_unknown_indirect_function(kotlin.Int;kotlin.String){}[0]
         final fun create_unreachable_exception_instance(kotlin/String): kotlin/Throwable // korlibs.wasm/WasmRuntime.Companion.create_unreachable_exception_instance|create_unreachable_exception_instance(kotlin.String){}[0]
         final fun read_string(kotlin/Int, korlibs.wasm/WasmRuntime): kotlin/String // korlibs.wasm/WasmRuntime.Companion.read_string|read_string(kotlin.Int;korlibs.wasm.WasmRuntime){}[0]
         final fun set_memory(kotlin/Int, kotlin/String, kotlin/Int, korlibs.wasm/WasmRuntime) // korlibs.wasm/WasmRuntime.Companion.set_memory|set_memory(kotlin.Int;kotlin.String;kotlin.Int;korlibs.wasm.WasmRuntime){}[0]
-        final inline fun checkAddr(kotlin/Int, kotlin/Int, korlibs.wasm/WasmRuntime): kotlin/Int // korlibs.wasm/WasmRuntime.Companion.checkAddr|checkAddr(kotlin.Int;kotlin.Int;korlibs.wasm.WasmRuntime){}[0]
     }
 }
 

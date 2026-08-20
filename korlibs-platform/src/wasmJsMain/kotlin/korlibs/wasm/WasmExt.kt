@@ -55,7 +55,7 @@ internal external fun JsAny_invokeApply(obj: JsAny, key: JsAny?, params: JsArray
 
 //inline class JsDynamic(val value: JsAny?) {
 class JsDynamic(val value: JsAny?) {
-    inline fun <T : JsAny> unsafeCast(): T? = value?.unsafeCast<T>()
+    fun <T : JsAny> unsafeCast(): T? = value?.unsafeCast<T>()
 
     override fun toString(): String = value.toString()
     fun toInt(default: Int = 0): Int = unsafeCast<JsNumber>()?.toInt() ?: default

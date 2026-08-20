@@ -15,8 +15,8 @@ value class Int53Array(val raw: DoubleArray) : Iterable<Int53> {
     }
 
     inline val size: Int get() = raw.size
-    inline operator fun get(index: Int): Int53 = Int53(raw[index])
-    inline operator fun set(index: Int, value: Int53) { raw[index] = value.value }
+    operator fun get(index: Int): Int53 = Int53(raw[index])
+    operator fun set(index: Int, value: Int53) { raw[index] = value.value }
     override fun iterator(): Iterator<Int53> = object : Iterator<Int53> {
         var index = 0
         override fun hasNext(): Boolean = index < raw.size
@@ -26,16 +26,16 @@ value class Int53Array(val raw: DoubleArray) : Iterable<Int53> {
     override fun toString(): String = "IntArray64($size)"
 }
 
-inline fun <T : Int53> int53ArrayOf(vararg values: T): Int53Array = Int53Array(values.size) { values[it] }
-inline fun int53ArrayOf(vararg values: Int): Int53Array = Int53Array(values.size) { values[it].toInt53() }
-inline fun int53ArrayOf(vararg values: Long): Int53Array = Int53Array(values.size) { values[it].toInt53() }
+fun <T : Int53> int53ArrayOf(vararg values: T): Int53Array = Int53Array(values.size) { values[it] }
+fun int53ArrayOf(vararg values: Int): Int53Array = Int53Array(values.size) { values[it].toInt53() }
+fun int53ArrayOf(vararg values: Long): Int53Array = Int53Array(values.size) { values[it].toInt53() }
 
 fun Int53Array.copyOf(newSize: Int = this.size): Int53Array = Int53Array(raw.copyOf(newSize))
 fun Int53Array.copyOfRange(fromIndex: Int, toIndex: Int): Int53Array = Int53Array(raw.copyOfRange(fromIndex, toIndex))
-public fun Int53Array.getOrNull(index: Int): Int53? = if (index in indices) get(index) else null
+fun Int53Array.getOrNull(index: Int): Int53? = if (index in indices) get(index) else null
 //@kotlin.internal.InlineOnly
 @OptIn(ExperimentalContracts::class)
-public inline fun Int53Array.getOrElse(index: Int, defaultValue: (Int) -> Int53): Int53 {
+inline fun Int53Array.getOrElse(index: Int, defaultValue: (Int) -> Int53): Int53 {
     contract { callsInPlace(defaultValue, InvocationKind.AT_MOST_ONCE) }
     return if (index in indices) get(index) else defaultValue(index)
 }
@@ -82,7 +82,7 @@ public value class Int53(public val value: Double) : Comparable<Int53> {
 
         @PublishedApi internal val POWS = DoubleArray(64) { 2.0.pow(it) }
 
-        inline fun pot(index: Int): Double = POWS[index and 0x3F]
+        fun pot(index: Int): Double = POWS[index and 0x3F]
         //inline fun pot(index: Int): Double = 2.0.pow(index)
     }
 
@@ -178,9 +178,9 @@ public value class Int53(public val value: Double) : Comparable<Int53> {
     override fun toString(): String = value.toLong().toString().removeSuffix(".0")
 }
 
-public inline fun String.toInt53(): Int53 = this.toDouble().toInt53()
-public inline fun String.toInt53OrNull(): Int53? = this.toDoubleOrNull()?.toInt53()
-public inline fun Int.toInt53(): Int53 = Int53.fromDoubleClamped(this.toDouble())
-public inline fun Double.toInt53(): Int53 = Int53.fromDoubleClamped(this)
-public inline fun Long.toInt53(): Int53 = Int53.fromDoubleClamped(this.toDouble())
-public inline fun Number.toInt53(): Int53 = Int53.fromDoubleClamped(this.toDouble())
+fun String.toInt53(): Int53 = this.toDouble().toInt53()
+fun String.toInt53OrNull(): Int53? = this.toDoubleOrNull()?.toInt53()
+fun Int.toInt53(): Int53 = Int53.fromDoubleClamped(this.toDouble())
+fun Double.toInt53(): Int53 = Int53.fromDoubleClamped(this)
+fun Long.toInt53(): Int53 = Int53.fromDoubleClamped(this.toDouble())
+fun Number.toInt53(): Int53 = Int53.fromDoubleClamped(this.toDouble())

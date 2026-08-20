@@ -13,4 +13,4 @@ internal infix fun Long.divCeil(other: Long): Long {
 }
 
 // @TODO: Move to KDS?
-internal inline fun <T> List<T>.without(element: T): List<T> = this - element
+internal fun <T> List<T>.without(element: T): List<T> = this - element

@@ -49,10 +49,10 @@ value class Ratio(val value: Double) : Comparable<Ratio> {
         val ONE = Ratio(1.0)
         val NaN = Ratio(Float.NaN)
 
-        inline fun fromValueInRange(value: Number, min: Number, max: Number): Ratio =
+        fun fromValueInRange(value: Number, min: Number, max: Number): Ratio =
             value.toDouble().convertRange(min.toDouble(), max.toDouble(), 0.0, 1.0).toRatio()
 
-        inline fun fromValueInRangeClamped(value: Number, min: Number, max: Number): Ratio =
+        fun fromValueInRangeClamped(value: Number, min: Number, max: Number): Ratio =
             value.toDouble().convertRangeClamped(min.toDouble(), max.toDouble(), 0.0, 1.0).toRatio()
 
         inline fun forEachRatio(steps: Int, include0: Boolean = true, include1: Boolean = true, block: (ratio: Ratio) -> Unit) {
@@ -68,27 +68,27 @@ value class Ratio(val value: Double) : Comparable<Ratio> {
     }
 }
 
-inline operator fun Float.times(ratio: Ratio): Float = (this * ratio.value).toFloat()
-inline operator fun Double.times(ratio: Ratio): Double = this * ratio.value
-inline operator fun Int.times(ratio: Ratio): Double = this.toDouble() * ratio.value
-inline operator fun Float.div(ratio: Ratio): Float = (this / ratio.value).toFloat()
-inline operator fun Double.div(ratio: Ratio): Double = this / ratio.value
-inline operator fun Int.div(ratio: Ratio): Double = this.toDouble() / ratio.value
+operator fun Float.times(ratio: Ratio): Float = (this * ratio.value).toFloat()
+operator fun Double.times(ratio: Ratio): Double = this * ratio.value
+operator fun Int.times(ratio: Ratio): Double = this.toDouble() * ratio.value
+operator fun Float.div(ratio: Ratio): Float = (this / ratio.value).toFloat()
+operator fun Double.div(ratio: Ratio): Double = this / ratio.value
+operator fun Int.div(ratio: Ratio): Double = this.toDouble() / ratio.value
 
-inline operator fun Ratio.times(value: Ratio): Ratio = Ratio(this.value * value.value)
+operator fun Ratio.times(value: Ratio): Ratio = Ratio(this.value * value.value)
 
-inline operator fun Ratio.times(value: Float): Float = (this.value * value).toFloat()
-inline operator fun Ratio.times(value: Double): Double = this.value * value
-inline operator fun Ratio.div(value: Float): Float = (this.value / value).toFloat()
-inline operator fun Ratio.div(value: Double): Double = this.value / value
+operator fun Ratio.times(value: Float): Float = (this.value * value).toFloat()
+operator fun Ratio.times(value: Double): Double = this.value * value
+operator fun Ratio.div(value: Float): Float = (this.value / value).toFloat()
+operator fun Ratio.div(value: Double): Double = this.value / value
 
 @Deprecated("", ReplaceWith("this")) fun Ratio.toRatio(): Ratio = this
 
-inline fun Number.toRatio(): Ratio = Ratio(this.toDouble())
+fun Number.toRatio(): Ratio = Ratio(this.toDouble())
 fun Float.toRatio(): Ratio = Ratio(this)
 fun Double.toRatio(): Ratio = Ratio(this)
 
-inline fun Number.toRatio(max: Number): Ratio = Ratio(this.toDouble(), max.toDouble())
+fun Number.toRatio(max: Number): Ratio = Ratio(this.toDouble(), max.toDouble())
 fun Float.toRatio(max: Float): Ratio = Ratio(this, max)
 fun Double.toRatio(max: Double): Ratio = Ratio(this, max)
 

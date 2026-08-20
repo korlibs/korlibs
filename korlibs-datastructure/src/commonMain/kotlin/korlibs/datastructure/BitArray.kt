@@ -25,8 +25,8 @@ class BitArray private constructor(val data: ByteArray, size: Int) : AbstractLis
         //if (index !in indices) throw IndexOutOfBoundsException()
     }
 
-    private inline fun wordIndex(index: Int): Int = index ushr BITS_PER_WORD_SHIFT
-    private inline fun indexInWord(index: Int): Int = index and BITS_MASK
+    private fun wordIndex(index: Int): Int = index ushr BITS_PER_WORD_SHIFT
+    private fun indexInWord(index: Int): Int = index and BITS_MASK
 
     operator fun set(index: Int, value: Boolean) {
         checkIndexBounds(index)

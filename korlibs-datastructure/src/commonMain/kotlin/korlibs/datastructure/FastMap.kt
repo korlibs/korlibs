@@ -40,7 +40,7 @@ inline fun <T : Any> FastIntMap<T>.fastForEach(callback: (key: Int, value: T) ->
     fastKeyForEach { callback(it, this[it]!!) }
 }
 
-inline fun <T> FastIntMap<T>.getNull(key: Int?): T? = if (key == null) null else get(key)
+fun <T> FastIntMap<T>.getNull(key: Int?): T? = if (key == null) null else get(key)
 
 inline fun <T> FastIntMap<T>.getOrPut(key: Int, callback: () -> T): T {
     val res = get(key)
@@ -88,7 +88,7 @@ inline fun <T : Any> FastStringMap<T>.fastForEach(callback: (key: String, value:
     fastKeyForEach { callback(it, this[it]!!) }
 }
 
-inline fun <T> FastStringMap<T>.getNull(key: String?): T? = if (key == null) null else get(key)
+fun <T> FastStringMap<T>.getNull(key: String?): T? = if (key == null) null else get(key)
 
 inline fun <T> FastStringMap<T>.getOrPut(key: String, callback: () -> T): T {
     val res = get(key)
@@ -132,7 +132,7 @@ inline fun <K, V : Any> FastIdentityMap<K, V>.fastForEach(callback: (key: K, val
     fastKeyForEach { callback(it, this[it]!!) }
 }
 
-inline fun <K, V> FastIdentityMap<K, V>.getNull(key: K?): V? = if (key == null) null else get(key)
+fun <K, V> FastIdentityMap<K, V>.getNull(key: K?): V? = if (key == null) null else get(key)
 
 inline fun <K, V> FastIdentityMap<K, V>.getOrPut(key: K, callback: (K) -> V): V {
     val res = get(key)

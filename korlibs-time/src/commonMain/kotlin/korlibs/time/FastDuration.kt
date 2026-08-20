@@ -40,8 +40,8 @@ value class FastDuration(private val ms: Double) : Comparable<FastDuration> {
 
     operator fun times(scale: Double): FastDuration = FastDuration(this.ms * scale)
     operator fun div(scale: Double): FastDuration = FastDuration(this.ms / scale)
-    inline operator fun times(scale: Number): FastDuration = times(scale.toDouble())
-    inline operator fun div(scale: Number): FastDuration = div(scale.toDouble())
+    operator fun times(scale: Number): FastDuration = times(scale.toDouble())
+    operator fun div(scale: Number): FastDuration = div(scale.toDouble())
 
     operator fun plus(other: Duration): FastDuration = FastDuration(this.milliseconds + other.milliseconds)
     operator fun minus(other: Duration): FastDuration = FastDuration(this.milliseconds - other.milliseconds)

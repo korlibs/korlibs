@@ -1394,8 +1394,8 @@ final class korlibs.datastructure.algo/RLE { // korlibs.datastructure.algo/RLE|n
     final inline fun fastForEach(kotlin/Function4<kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Unit>) // korlibs.datastructure.algo/RLE.fastForEach|fastForEach(kotlin.Function4<kotlin.Int,kotlin.Int,kotlin.Int,kotlin.Int,kotlin.Unit>){}[0]
 
     final object Companion { // korlibs.datastructure.algo/RLE.Companion|null[0]
+        final fun compute(kotlin/IntArray, kotlin/Int = ..., kotlin/Int = ..., korlibs.datastructure.algo/RLE = ...): korlibs.datastructure.algo/RLE // korlibs.datastructure.algo/RLE.Companion.compute|compute(kotlin.IntArray;kotlin.Int;kotlin.Int;korlibs.datastructure.algo.RLE){}[0]
         final inline fun compute(kotlin/Int, korlibs.datastructure.algo/RLE = ..., kotlin/Function1<kotlin/Int, kotlin/Boolean> = ..., kotlin/Function1<kotlin/Int, kotlin/Int>): korlibs.datastructure.algo/RLE // korlibs.datastructure.algo/RLE.Companion.compute|compute(kotlin.Int;korlibs.datastructure.algo.RLE;kotlin.Function1<kotlin.Int,kotlin.Boolean>;kotlin.Function1<kotlin.Int,kotlin.Int>){}[0]
-        final inline fun compute(kotlin/IntArray, kotlin/Int = ..., kotlin/Int = ..., korlibs.datastructure.algo/RLE = ...): korlibs.datastructure.algo/RLE // korlibs.datastructure.algo/RLE.Companion.compute|compute(kotlin.IntArray;kotlin.Int;kotlin.Int;korlibs.datastructure.algo.RLE){}[0]
         final inline fun emit(kotlin/Int, kotlin/Function4<kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Unit>, kotlin/Function1<kotlin/Int, kotlin/Int>) // korlibs.datastructure.algo/RLE.Companion.emit|emit(kotlin.Int;kotlin.Function4<kotlin.Int,kotlin.Int,kotlin.Int,kotlin.Int,kotlin.Unit>;kotlin.Function1<kotlin.Int,kotlin.Int>){}[0]
     }
 }
@@ -2955,12 +2955,12 @@ final value class korlibs.datastructure.ds/BVHRect { // korlibs.datastructure.ds
         final fun fromBounds(kotlin/Double, kotlin/Double): korlibs.datastructure.ds/BVHRect // korlibs.datastructure.ds/BVHRect.Companion.fromBounds|fromBounds(kotlin.Double;kotlin.Double){}[0]
         final fun fromBounds(kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double): korlibs.datastructure.ds/BVHRect // korlibs.datastructure.ds/BVHRect.Companion.fromBounds|fromBounds(kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double){}[0]
         final fun fromBounds(kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double): korlibs.datastructure.ds/BVHRect // korlibs.datastructure.ds/BVHRect.Companion.fromBounds|fromBounds(kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double){}[0]
-        final inline fun fromBounds(kotlin/Number, kotlin/Number): korlibs.datastructure.ds/BVHRect // korlibs.datastructure.ds/BVHRect.Companion.fromBounds|fromBounds(kotlin.Number;kotlin.Number){}[0]
-        final inline fun fromBounds(kotlin/Number, kotlin/Number, kotlin/Number, kotlin/Number): korlibs.datastructure.ds/BVHRect // korlibs.datastructure.ds/BVHRect.Companion.fromBounds|fromBounds(kotlin.Number;kotlin.Number;kotlin.Number;kotlin.Number){}[0]
-        final inline fun fromBounds(kotlin/Number, kotlin/Number, kotlin/Number, kotlin/Number, kotlin/Number, kotlin/Number): korlibs.datastructure.ds/BVHRect // korlibs.datastructure.ds/BVHRect.Companion.fromBounds|fromBounds(kotlin.Number;kotlin.Number;kotlin.Number;kotlin.Number;kotlin.Number;kotlin.Number){}[0]
-        final inline fun invoke(kotlin/Number, kotlin/Number): korlibs.datastructure.ds/BVHRect // korlibs.datastructure.ds/BVHRect.Companion.invoke|invoke(kotlin.Number;kotlin.Number){}[0]
-        final inline fun invoke(kotlin/Number, kotlin/Number, kotlin/Number, kotlin/Number): korlibs.datastructure.ds/BVHRect // korlibs.datastructure.ds/BVHRect.Companion.invoke|invoke(kotlin.Number;kotlin.Number;kotlin.Number;kotlin.Number){}[0]
-        final inline fun invoke(kotlin/Number, kotlin/Number, kotlin/Number, kotlin/Number, kotlin/Number, kotlin/Number): korlibs.datastructure.ds/BVHRect // korlibs.datastructure.ds/BVHRect.Companion.invoke|invoke(kotlin.Number;kotlin.Number;kotlin.Number;kotlin.Number;kotlin.Number;kotlin.Number){}[0]
+        final fun fromBounds(kotlin/Number, kotlin/Number): korlibs.datastructure.ds/BVHRect // korlibs.datastructure.ds/BVHRect.Companion.fromBounds|fromBounds(kotlin.Number;kotlin.Number){}[0]
+        final fun fromBounds(kotlin/Number, kotlin/Number, kotlin/Number, kotlin/Number): korlibs.datastructure.ds/BVHRect // korlibs.datastructure.ds/BVHRect.Companion.fromBounds|fromBounds(kotlin.Number;kotlin.Number;kotlin.Number;kotlin.Number){}[0]
+        final fun fromBounds(kotlin/Number, kotlin/Number, kotlin/Number, kotlin/Number, kotlin/Number, kotlin/Number): korlibs.datastructure.ds/BVHRect // korlibs.datastructure.ds/BVHRect.Companion.fromBounds|fromBounds(kotlin.Number;kotlin.Number;kotlin.Number;kotlin.Number;kotlin.Number;kotlin.Number){}[0]
+        final fun invoke(kotlin/Number, kotlin/Number): korlibs.datastructure.ds/BVHRect // korlibs.datastructure.ds/BVHRect.Companion.invoke|invoke(kotlin.Number;kotlin.Number){}[0]
+        final fun invoke(kotlin/Number, kotlin/Number, kotlin/Number, kotlin/Number): korlibs.datastructure.ds/BVHRect // korlibs.datastructure.ds/BVHRect.Companion.invoke|invoke(kotlin.Number;kotlin.Number;kotlin.Number;kotlin.Number){}[0]
+        final fun invoke(kotlin/Number, kotlin/Number, kotlin/Number, kotlin/Number, kotlin/Number, kotlin/Number): korlibs.datastructure.ds/BVHRect // korlibs.datastructure.ds/BVHRect.Companion.invoke|invoke(kotlin.Number;kotlin.Number;kotlin.Number;kotlin.Number;kotlin.Number;kotlin.Number){}[0]
     }
 }
 
@@ -3275,7 +3275,7 @@ open class <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.datastructure/SortedMap : 
     open fun remove(#A): #B? // korlibs.datastructure/SortedMap.remove|remove(1:0){}[0]
 
     final object Companion { // korlibs.datastructure/SortedMap.Companion|null[0]
-        final inline fun <#A2: kotlin/Comparable<#A2>, #B2: kotlin/Any?> invoke(): korlibs.datastructure/SortedMap<#A2, #B2> // korlibs.datastructure/SortedMap.Companion.invoke|invoke(){0§<kotlin.Comparable<0:0>>;1§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Comparable<#A2>, #B2: kotlin/Any?> invoke(): korlibs.datastructure/SortedMap<#A2, #B2> // korlibs.datastructure/SortedMap.Companion.invoke|invoke(){0§<kotlin.Comparable<0:0>>;1§<kotlin.Any?>}[0]
     }
 
     final object Sorting : korlibs.datastructure/SortOps<korlibs.datastructure/SortedMap<kotlin/Any, kotlin/Any>> { // korlibs.datastructure/SortedMap.Sorting|null[0]
@@ -4398,6 +4398,7 @@ open class korlibs.math.geom/PointArrayList : korlibs.datastructure/Extra, korli
     open fun toString(): kotlin/String // korlibs.math.geom/PointArrayList.toString|toString(){}[0]
 
     final object Companion { // korlibs.math.geom/PointArrayList.Companion|null[0]
+        final fun <#A2: korlibs.math.geom/Vector2D> invoke(kotlin/Array<out #A2>...): korlibs.math.geom/PointArrayList // korlibs.math.geom/PointArrayList.Companion.invoke|invoke(kotlin.Array<out|0:0>...){0§<korlibs.math.geom.Vector2D>}[0]
         final fun invoke(korlibs.math.geom/Vector2D): korlibs.math.geom/PointArrayList // korlibs.math.geom/PointArrayList.Companion.invoke|invoke(korlibs.math.geom.Vector2D){}[0]
         final fun invoke(korlibs.math.geom/Vector2D, korlibs.math.geom/Vector2D): korlibs.math.geom/PointArrayList // korlibs.math.geom/PointArrayList.Companion.invoke|invoke(korlibs.math.geom.Vector2D;korlibs.math.geom.Vector2D){}[0]
         final fun invoke(korlibs.math.geom/Vector2D, korlibs.math.geom/Vector2D, korlibs.math.geom/Vector2D): korlibs.math.geom/PointArrayList // korlibs.math.geom/PointArrayList.Companion.invoke|invoke(korlibs.math.geom.Vector2D;korlibs.math.geom.Vector2D;korlibs.math.geom.Vector2D){}[0]
@@ -4408,7 +4409,6 @@ open class korlibs.math.geom/PointArrayList : korlibs.datastructure/Extra, korli
         final fun invoke(kotlin/Int = ...): korlibs.math.geom/PointArrayList // korlibs.math.geom/PointArrayList.Companion.invoke|invoke(kotlin.Int){}[0]
         final fun invoke(kotlin/Int = ..., kotlin/Function1<korlibs.math.geom/PointArrayList, kotlin/Unit>): korlibs.math.geom/PointArrayList // korlibs.math.geom/PointArrayList.Companion.invoke|invoke(kotlin.Int;kotlin.Function1<korlibs.math.geom.PointArrayList,kotlin.Unit>){}[0]
         final fun invoke(kotlin/IntArray...): korlibs.math.geom/PointArrayList // korlibs.math.geom/PointArrayList.Companion.invoke|invoke(kotlin.IntArray...){}[0]
-        final inline fun <#A2: korlibs.math.geom/Vector2D> invoke(kotlin/Array<out #A2>...): korlibs.math.geom/PointArrayList // korlibs.math.geom/PointArrayList.Companion.invoke|invoke(kotlin.Array<out|0:0>...){0§<korlibs.math.geom.Vector2D>}[0]
         final inline fun fromGen(kotlin/Int, kotlin/Function1<kotlin/Int, kotlin/Float>): korlibs.math.geom/PointArrayList // korlibs.math.geom/PointArrayList.Companion.fromGen|fromGen(kotlin.Int;kotlin.Function1<kotlin.Int,kotlin.Float>){}[0]
     }
 
@@ -4604,6 +4604,7 @@ final fun (korlibs.datastructure/IntArrayList).korlibs.datastructure/toIntArrayL
 final fun (korlibs.datastructure/IntIArray2).korlibs.datastructure/observe(kotlin/Function2<korlibs.datastructure/ObservableIntArray2, korlibs.math.geom/RectangleInt, kotlin/Unit>): korlibs.datastructure/ObservableIntArray2 // korlibs.datastructure/observe|observe@korlibs.datastructure.IntIArray2(kotlin.Function2<korlibs.datastructure.ObservableIntArray2,korlibs.math.geom.RectangleInt,kotlin.Unit>){}[0]
 final fun (korlibs.datastructure/LongArray2).korlibs.datastructure/toStacked(): korlibs.datastructure/StackedLongArray2 // korlibs.datastructure/toStacked|toStacked@korlibs.datastructure.LongArray2(){}[0]
 final fun (korlibs.datastructure/LongIArray2).korlibs.datastructure/observe(kotlin/Function2<korlibs.datastructure/ObservableLongArray2, korlibs.math.geom/RectangleInt, kotlin/Unit>): korlibs.datastructure/ObservableLongArray2 // korlibs.datastructure/observe|observe@korlibs.datastructure.LongIArray2(kotlin.Function2<korlibs.datastructure.ObservableLongArray2,korlibs.math.geom.RectangleInt,kotlin.Unit>){}[0]
+final fun (korlibs.math.geom/DoubleVectorList).korlibs.math.geom/getOrElse(kotlin/Int, kotlin/Int, kotlin/Double = ...): kotlin/Double // korlibs.math.geom/getOrElse|getOrElse@korlibs.math.geom.DoubleVectorList(kotlin.Int;kotlin.Int;kotlin.Double){}[0]
 final fun (korlibs.math.geom/DoubleVectorList).korlibs.math.geom/getX(kotlin/Int): kotlin/Double // korlibs.math.geom/getX|getX@korlibs.math.geom.DoubleVectorList(kotlin.Int){}[0]
 final fun (korlibs.math.geom/DoubleVectorList).korlibs.math.geom/getY(kotlin/Int): kotlin/Double // korlibs.math.geom/getY|getY@korlibs.math.geom.DoubleVectorList(kotlin.Int){}[0]
 final fun (korlibs.math.geom/DoubleVectorList).korlibs.math.geom/getZ(kotlin/Int): kotlin/Double // korlibs.math.geom/getZ|getZ@korlibs.math.geom.DoubleVectorList(kotlin.Int){}[0]
@@ -4612,10 +4613,15 @@ final fun (korlibs.math.geom/PointArrayList).korlibs.math.geom/setToRoundDecimal
 final fun (korlibs.math.geom/PointIntList).korlibs.math.geom/contains(kotlin/Int, kotlin/Int): kotlin/Boolean // korlibs.math.geom/contains|contains@korlibs.math.geom.PointIntList(kotlin.Int;kotlin.Int){}[0]
 final fun (korlibs.math.geom/PointIntList).korlibs.math.geom/toPoints(): kotlin.collections/List<korlibs.math.geom/Vector2I> // korlibs.math.geom/toPoints|toPoints@korlibs.math.geom.PointIntList(){}[0]
 final fun (korlibs.math.geom/PointList).korlibs.math.geom/mapPoints(kotlin/Function1<korlibs.math.geom/Vector2D, korlibs.math.geom/Vector2D>): korlibs.math.geom/PointList // korlibs.math.geom/mapPoints|mapPoints@korlibs.math.geom.PointList(kotlin.Function1<korlibs.math.geom.Vector2D,korlibs.math.geom.Vector2D>){}[0]
+final fun (kotlin.collections/Iterable<kotlin/Double>).korlibs.datastructure/toDoubleList(): korlibs.datastructure/DoubleArrayList // korlibs.datastructure/toDoubleList|toDoubleList@kotlin.collections.Iterable<kotlin.Double>(){}[0]
+final fun (kotlin.collections/Iterable<kotlin/Float>).korlibs.datastructure/toFloatList(): korlibs.datastructure/FloatArrayList // korlibs.datastructure/toFloatList|toFloatList@kotlin.collections.Iterable<kotlin.Float>(){}[0]
+final fun (kotlin.collections/Iterable<kotlin/Int>).korlibs.datastructure/toIntList(): korlibs.datastructure/IntArrayList // korlibs.datastructure/toIntList|toIntList@kotlin.collections.Iterable<kotlin.Int>(){}[0]
 final fun (kotlin.collections/List<korlibs.math.geom/PointList>).korlibs.math.geom/flatten(): korlibs.math.geom/PointList // korlibs.math.geom/flatten|flatten@kotlin.collections.List<korlibs.math.geom.PointList>(){}[0]
 final fun (kotlin.collections/List<korlibs.math.geom/Vector2D>).korlibs.math.geom/toPointArrayList(): korlibs.math.geom/PointArrayList // korlibs.math.geom/toPointArrayList|toPointArrayList@kotlin.collections.List<korlibs.math.geom.Vector2D>(){}[0]
+final fun (kotlin.ranges/IntRange).korlibs.datastructure/toIntList(): korlibs.datastructure/IntArrayList // korlibs.datastructure/toIntList|toIntList@kotlin.ranges.IntRange(){}[0]
 final fun (kotlin/Any?).korlibs.datastructure/identityHashCode(): kotlin/Int // korlibs.datastructure/identityHashCode|identityHashCode@kotlin.Any?(){}[0]
 final fun (kotlin/Array<out korlibs.math.geom/Vector2D>).korlibs.math.geom/toPointArrayList(): korlibs.math.geom/PointArrayList // korlibs.math.geom/toPointArrayList|toPointArrayList@kotlin.Array<out|korlibs.math.geom.Vector2D>(){}[0]
+final fun (kotlin/BooleanArray).korlibs.datastructure.random/fastRandom(): kotlin/Boolean // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.BooleanArray(){}[0]
 final fun (kotlin/BooleanArray).korlibs.datastructure/rotateLeft(kotlin/Int = ...) // korlibs.datastructure/rotateLeft|rotateLeft@kotlin.BooleanArray(kotlin.Int){}[0]
 final fun (kotlin/BooleanArray).korlibs.datastructure/rotateRight(kotlin/Int = ...) // korlibs.datastructure/rotateRight|rotateRight@kotlin.BooleanArray(kotlin.Int){}[0]
 final fun (kotlin/BooleanArray).korlibs.datastructure/rotatedLeft(kotlin/Int = ...): kotlin/BooleanArray // korlibs.datastructure/rotatedLeft|rotatedLeft@kotlin.BooleanArray(kotlin.Int){}[0]
@@ -4626,11 +4632,13 @@ final fun (kotlin/ByteArray).korlibs.datastructure/rotateRight(kotlin/Int = ...)
 final fun (kotlin/ByteArray).korlibs.datastructure/rotatedLeft(kotlin/Int = ...): kotlin/ByteArray // korlibs.datastructure/rotatedLeft|rotatedLeft@kotlin.ByteArray(kotlin.Int){}[0]
 final fun (kotlin/ByteArray).korlibs.datastructure/rotatedRight(kotlin/Int = ...): kotlin/ByteArray // korlibs.datastructure/rotatedRight|rotatedRight@kotlin.ByteArray(kotlin.Int){}[0]
 final fun (kotlin/ByteArray).korlibs.datastructure/swap(kotlin/Int, kotlin/Int) // korlibs.datastructure/swap|swap@kotlin.ByteArray(kotlin.Int;kotlin.Int){}[0]
+final fun (kotlin/CharArray).korlibs.datastructure.random/fastRandom(): kotlin/Char // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.CharArray(){}[0]
 final fun (kotlin/CharArray).korlibs.datastructure/rotateLeft(kotlin/Int = ...) // korlibs.datastructure/rotateLeft|rotateLeft@kotlin.CharArray(kotlin.Int){}[0]
 final fun (kotlin/CharArray).korlibs.datastructure/rotateRight(kotlin/Int = ...) // korlibs.datastructure/rotateRight|rotateRight@kotlin.CharArray(kotlin.Int){}[0]
 final fun (kotlin/CharArray).korlibs.datastructure/rotatedLeft(kotlin/Int = ...): kotlin/CharArray // korlibs.datastructure/rotatedLeft|rotatedLeft@kotlin.CharArray(kotlin.Int){}[0]
 final fun (kotlin/CharArray).korlibs.datastructure/rotatedRight(kotlin/Int = ...): kotlin/CharArray // korlibs.datastructure/rotatedRight|rotatedRight@kotlin.CharArray(kotlin.Int){}[0]
 final fun (kotlin/CharArray).korlibs.datastructure/swap(kotlin/Int, kotlin/Int) // korlibs.datastructure/swap|swap@kotlin.CharArray(kotlin.Int;kotlin.Int){}[0]
+final fun (kotlin/DoubleArray).korlibs.datastructure.random/fastRandom(): kotlin/Double // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.DoubleArray(){}[0]
 final fun (kotlin/DoubleArray).korlibs.datastructure/binarySearch(kotlin/Double, kotlin/Int = ..., kotlin/Int = ...): korlibs.datastructure/BSearchResult // korlibs.datastructure/binarySearch|binarySearch@kotlin.DoubleArray(kotlin.Double;kotlin.Int;kotlin.Int){}[0]
 final fun (kotlin/DoubleArray).korlibs.datastructure/binarySearchLeft(kotlin/Double, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.datastructure/binarySearchLeft|binarySearchLeft@kotlin.DoubleArray(kotlin.Double;kotlin.Int;kotlin.Int){}[0]
 final fun (kotlin/DoubleArray).korlibs.datastructure/binarySearchRight(kotlin/Double, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.datastructure/binarySearchRight|binarySearchRight@kotlin.DoubleArray(kotlin.Double;kotlin.Int;kotlin.Int){}[0]
@@ -4640,6 +4648,7 @@ final fun (kotlin/DoubleArray).korlibs.datastructure/rotateRight(kotlin/Int = ..
 final fun (kotlin/DoubleArray).korlibs.datastructure/rotatedLeft(kotlin/Int = ...): kotlin/DoubleArray // korlibs.datastructure/rotatedLeft|rotatedLeft@kotlin.DoubleArray(kotlin.Int){}[0]
 final fun (kotlin/DoubleArray).korlibs.datastructure/rotatedRight(kotlin/Int = ...): kotlin/DoubleArray // korlibs.datastructure/rotatedRight|rotatedRight@kotlin.DoubleArray(kotlin.Int){}[0]
 final fun (kotlin/DoubleArray).korlibs.datastructure/swap(kotlin/Int, kotlin/Int) // korlibs.datastructure/swap|swap@kotlin.DoubleArray(kotlin.Int;kotlin.Int){}[0]
+final fun (kotlin/FloatArray).korlibs.datastructure.random/fastRandom(): kotlin/Float // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.FloatArray(){}[0]
 final fun (kotlin/FloatArray).korlibs.datastructure/binarySearch(kotlin/Float, kotlin/Int = ..., kotlin/Int = ...): korlibs.datastructure/BSearchResult // korlibs.datastructure/binarySearch|binarySearch@kotlin.FloatArray(kotlin.Float;kotlin.Int;kotlin.Int){}[0]
 final fun (kotlin/FloatArray).korlibs.datastructure/binarySearchLeft(kotlin/Float, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.datastructure/binarySearchLeft|binarySearchLeft@kotlin.FloatArray(kotlin.Float;kotlin.Int;kotlin.Int){}[0]
 final fun (kotlin/FloatArray).korlibs.datastructure/binarySearchRight(kotlin/Float, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.datastructure/binarySearchRight|binarySearchRight@kotlin.FloatArray(kotlin.Float;kotlin.Int;kotlin.Int){}[0]
@@ -4651,6 +4660,7 @@ final fun (kotlin/FloatArray).korlibs.datastructure/rotatedRight(kotlin/Int = ..
 final fun (kotlin/FloatArray).korlibs.datastructure/swap(kotlin/Int, kotlin/Int) // korlibs.datastructure/swap|swap@kotlin.FloatArray(kotlin.Int;kotlin.Int){}[0]
 final fun (kotlin/FloatArray).korlibs.datastructure/toFloatArrayList(): korlibs.datastructure/FloatArrayList // korlibs.datastructure/toFloatArrayList|toFloatArrayList@kotlin.FloatArray(){}[0]
 final fun (kotlin/IntArray).korlibs.datastructure.internal/fill(kotlin/Int) // korlibs.datastructure.internal/fill|fill@kotlin.IntArray(kotlin.Int){}[0]
+final fun (kotlin/IntArray).korlibs.datastructure.random/fastRandom(): kotlin/Int // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.IntArray(){}[0]
 final fun (kotlin/IntArray).korlibs.datastructure/binarySearch(kotlin/Int, kotlin/Int = ..., kotlin/Int = ...): korlibs.datastructure/BSearchResult // korlibs.datastructure/binarySearch|binarySearch@kotlin.IntArray(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
 final fun (kotlin/IntArray).korlibs.datastructure/binarySearchLeft(kotlin/Int, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.datastructure/binarySearchLeft|binarySearchLeft@kotlin.IntArray(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
 final fun (kotlin/IntArray).korlibs.datastructure/binarySearchRight(kotlin/Int, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // korlibs.datastructure/binarySearchRight|binarySearchRight@kotlin.IntArray(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
@@ -4664,26 +4674,34 @@ final fun (kotlin/IntArray).korlibs.datastructure/sortRadix(kotlin/Int = ..., ko
 final fun (kotlin/IntArray).korlibs.datastructure/sortedArrayRadix(kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ...): kotlin/IntArray // korlibs.datastructure/sortedArrayRadix|sortedArrayRadix@kotlin.IntArray(kotlin.Int;kotlin.Int;kotlin.Int){}[0]
 final fun (kotlin/IntArray).korlibs.datastructure/swap(kotlin/Int, kotlin/Int) // korlibs.datastructure/swap|swap@kotlin.IntArray(kotlin.Int;kotlin.Int){}[0]
 final fun (kotlin/IntArray).korlibs.datastructure/toIntArrayList(): korlibs.datastructure/IntArrayList // korlibs.datastructure/toIntArrayList|toIntArrayList@kotlin.IntArray(){}[0]
+final fun (kotlin/LongArray).korlibs.datastructure.random/fastRandom(): kotlin/Long // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.LongArray(){}[0]
 final fun (kotlin/LongArray).korlibs.datastructure/rotateLeft(kotlin/Int = ...) // korlibs.datastructure/rotateLeft|rotateLeft@kotlin.LongArray(kotlin.Int){}[0]
 final fun (kotlin/LongArray).korlibs.datastructure/rotateRight(kotlin/Int = ...) // korlibs.datastructure/rotateRight|rotateRight@kotlin.LongArray(kotlin.Int){}[0]
 final fun (kotlin/LongArray).korlibs.datastructure/rotatedLeft(kotlin/Int = ...): kotlin/LongArray // korlibs.datastructure/rotatedLeft|rotatedLeft@kotlin.LongArray(kotlin.Int){}[0]
 final fun (kotlin/LongArray).korlibs.datastructure/rotatedRight(kotlin/Int = ...): kotlin/LongArray // korlibs.datastructure/rotatedRight|rotatedRight@kotlin.LongArray(kotlin.Int){}[0]
 final fun (kotlin/LongArray).korlibs.datastructure/swap(kotlin/Int, kotlin/Int) // korlibs.datastructure/swap|swap@kotlin.LongArray(kotlin.Int;kotlin.Int){}[0]
+final fun (kotlin/ShortArray).korlibs.datastructure.random/fastRandom(): kotlin/Short // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.ShortArray(){}[0]
 final fun (kotlin/ShortArray).korlibs.datastructure/rotateLeft(kotlin/Int = ...) // korlibs.datastructure/rotateLeft|rotateLeft@kotlin.ShortArray(kotlin.Int){}[0]
 final fun (kotlin/ShortArray).korlibs.datastructure/rotateRight(kotlin/Int = ...) // korlibs.datastructure/rotateRight|rotateRight@kotlin.ShortArray(kotlin.Int){}[0]
 final fun (kotlin/ShortArray).korlibs.datastructure/rotatedLeft(kotlin/Int = ...): kotlin/ShortArray // korlibs.datastructure/rotatedLeft|rotatedLeft@kotlin.ShortArray(kotlin.Int){}[0]
 final fun (kotlin/ShortArray).korlibs.datastructure/rotatedRight(kotlin/Int = ...): kotlin/ShortArray // korlibs.datastructure/rotatedRight|rotatedRight@kotlin.ShortArray(kotlin.Int){}[0]
 final fun (kotlin/ShortArray).korlibs.datastructure/swap(kotlin/Int, kotlin/Int) // korlibs.datastructure/swap|swap@kotlin.ShortArray(kotlin.Int;kotlin.Int){}[0]
+final fun <#A: korlibs.math.geom/Vector2D> korlibs.math.geom/pointArrayListOf(kotlin/Array<out #A>...): korlibs.math.geom/PointArrayList // korlibs.math.geom/pointArrayListOf|pointArrayListOf(kotlin.Array<out|0:0>...){0§<korlibs.math.geom.Vector2D>}[0]
 final fun <#A: kotlin/Any> (kotlin.collections/Map<kotlin/String, #A>).korlibs.datastructure/toFast(): korlibs.datastructure/FastStringMap<#A> // korlibs.datastructure/toFast|toFast@kotlin.collections.Map<kotlin.String,0:0>(){0§<kotlin.Any>}[0]
 final fun <#A: kotlin/Any> (kotlin.reflect/KMutableProperty0<#A>).korlibs.datastructure/toRef(): korlibs.datastructure/Ref<#A> // korlibs.datastructure/toRef|toRef@kotlin.reflect.KMutableProperty0<0:0>(){0§<kotlin.Any>}[0]
 final fun <#A: kotlin/Any> (kotlin/Function0<#A>).korlibs.datastructure/memoize(): kotlin/Function0<#A> // korlibs.datastructure/memoize|memoize@kotlin.Function0<0:0>(){0§<kotlin.Any>}[0]
 final fun <#A: kotlin/Any> korlibs.datastructure/Ref(#A): korlibs.datastructure/Ref<#A> // korlibs.datastructure/Ref|Ref(0:0){0§<kotlin.Any>}[0]
 final fun <#A: kotlin/Any> korlibs.datastructure/Ref(): korlibs.datastructure/Ref<#A> // korlibs.datastructure/Ref|Ref(){0§<kotlin.Any>}[0]
 final fun <#A: kotlin/Any> korlibs.datastructure/Ref(kotlin.reflect/KMutableProperty0<#A>): korlibs.datastructure/Ref<#A> // korlibs.datastructure/Ref|Ref(kotlin.reflect.KMutableProperty0<0:0>){0§<kotlin.Any>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?, #D: kotlin/Any?, #E: kotlin/Any?, #F: kotlin/Any?> korlibs.datastructure/hashCode(#A, #B, #C, #D, #E, #F): kotlin/Int // korlibs.datastructure/hashCode|hashCode(0:0;0:1;0:2;0:3;0:4;0:5){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>;3§<kotlin.Any?>;4§<kotlin.Any?>;5§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?, #D: kotlin/Any?, #E: kotlin/Any?> korlibs.datastructure/hashCode(#A, #B, #C, #D, #E): kotlin/Int // korlibs.datastructure/hashCode|hashCode(0:0;0:1;0:2;0:3;0:4){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>;3§<kotlin.Any?>;4§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?, #D: kotlin/Any?> korlibs.datastructure/hashCode(#A, #B, #C, #D): kotlin/Int // korlibs.datastructure/hashCode|hashCode(0:0;0:1;0:2;0:3){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>;3§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?> korlibs.datastructure/hashCode(#A, #B, #C): kotlin/Int // korlibs.datastructure/hashCode|hashCode(0:0;0:1;0:2){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?, #B: kotlin/Any?> (korlibs.datastructure/FastIdentityMap<#A, #B>).korlibs.datastructure/clear() // korlibs.datastructure/clear|clear@korlibs.datastructure.FastIdentityMap<0:0,0:1>(){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?, #B: kotlin/Any?> (korlibs.datastructure/FastIdentityMap<#A, #B>).korlibs.datastructure/contains(#A): kotlin/Boolean // korlibs.datastructure/contains|contains@korlibs.datastructure.FastIdentityMap<0:0,0:1>(0:0){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?, #B: kotlin/Any?> (korlibs.datastructure/FastIdentityMap<#A, #B>).korlibs.datastructure/get(#A): #B? // korlibs.datastructure/get|get@korlibs.datastructure.FastIdentityMap<0:0,0:1>(0:0){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?, #B: kotlin/Any?> (korlibs.datastructure/FastIdentityMap<#A, #B>).korlibs.datastructure/getAndRemove(#A): #B? // korlibs.datastructure/getAndRemove|getAndRemove@korlibs.datastructure.FastIdentityMap<0:0,0:1>(0:0){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> (korlibs.datastructure/FastIdentityMap<#A, #B>).korlibs.datastructure/getNull(#A?): #B? // korlibs.datastructure/getNull|getNull@korlibs.datastructure.FastIdentityMap<0:0,0:1>(0:0?){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?, #B: kotlin/Any?> (korlibs.datastructure/FastIdentityMap<#A, #B>).korlibs.datastructure/keys(): kotlin.collections/List<#A> // korlibs.datastructure/keys|keys@korlibs.datastructure.FastIdentityMap<0:0,0:1>(){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?, #B: kotlin/Any?> (korlibs.datastructure/FastIdentityMap<#A, #B>).korlibs.datastructure/remove(#A) // korlibs.datastructure/remove|remove@korlibs.datastructure.FastIdentityMap<0:0,0:1>(0:0){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?, #B: kotlin/Any?> (korlibs.datastructure/FastIdentityMap<#A, #B>).korlibs.datastructure/set(#A, #B) // korlibs.datastructure/set|set@korlibs.datastructure.FastIdentityMap<0:0,0:1>(0:0;0:1){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
@@ -4704,10 +4722,12 @@ final fun <#A: kotlin/Any?, #B: kotlin/Any?> (kotlin.collections/Set<kotlin.coll
 final fun <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.datastructure/FastIdentityMap(): korlibs.datastructure/FastIdentityMap<#A, #B> // korlibs.datastructure/FastIdentityMap|FastIdentityMap(){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.datastructure/LinkedHashMapList(kotlin.collections/List<kotlin/Pair<#A, #B>>): kotlin.collections/MutableMap<#A, kotlin.collections/ArrayList<#B>> // korlibs.datastructure/LinkedHashMapList|LinkedHashMapList(kotlin.collections.List<kotlin.Pair<0:0,0:1>>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.datastructure/LinkedHashMapList(kotlin.collections/Map<#A, kotlin.collections/List<#B>>): kotlin.collections/MutableMap<#A, kotlin.collections/ArrayList<#B>> // korlibs.datastructure/LinkedHashMapList|LinkedHashMapList(kotlin.collections.Map<0:0,kotlin.collections.List<0:1>>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.datastructure/hashCode(#A, #B): kotlin/Int // korlibs.datastructure/hashCode|hashCode(0:0;0:1){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.datastructure/linkedHashMapListOf(kotlin/Array<out kotlin/Pair<#A, #B>>...): kotlin.collections/MutableMap<#A, kotlin.collections/ArrayList<#B>> // korlibs.datastructure/linkedHashMapListOf|linkedHashMapListOf(kotlin.Array<out|kotlin.Pair<0:0,0:1>>...){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.datastructure/slowIdentityHashMapOf(kotlin/Array<out kotlin/Pair<#A, #B>>...): korlibs.datastructure/SlowIdentityHashMap<#A, #B> // korlibs.datastructure/slowIdentityHashMapOf|slowIdentityHashMapOf(kotlin.Array<out|kotlin.Pair<0:0,0:1>>...){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.datastructure/sortedMapOf(kotlin/Comparator<#A>, kotlin/Array<out kotlin/Pair<#A, #B>>...): korlibs.datastructure/SortedMap<#A, #B> // korlibs.datastructure/sortedMapOf|sortedMapOf(kotlin.Comparator<0:0>;kotlin.Array<out|kotlin.Pair<0:0,0:1>>...){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (korlibs.datastructure/Array2<#A>).korlibs.datastructure/getCyclic(kotlin/Int, kotlin/Int): #A // korlibs.datastructure/getCyclic|getCyclic@korlibs.datastructure.Array2<0:0>(kotlin.Int;kotlin.Int){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/getNull(kotlin/String?): #A? // korlibs.datastructure/getNull|getNull@korlibs.datastructure.FastStringMap<0:0>(kotlin.String?){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/keys(): kotlin.collections/List<kotlin/String> // korlibs.datastructure/keys|keys@korlibs.datastructure.FastStringMap<0:0>(){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/putAll(korlibs.datastructure/FastStringMap<#A>) // korlibs.datastructure/putAll|putAll@korlibs.datastructure.FastStringMap<0:0>(korlibs.datastructure.FastStringMap<0:0>){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/toMap(): kotlin.collections/Map<kotlin/String, #A> // korlibs.datastructure/toMap|toMap@korlibs.datastructure.FastStringMap<0:0>(){0§<kotlin.Any?>}[0]
@@ -4727,6 +4747,7 @@ final fun <#A: kotlin/Any?> (korlibs.math.geom/DoubleVectorList).korlibs.math.ge
 final fun <#A: kotlin/Any?> (korlibs.math.geom/PointList).korlibs.math.geom/map(kotlin/Function2<kotlin/Double, kotlin/Double, #A>): kotlin.collections/List<#A> // korlibs.math.geom/map|map@korlibs.math.geom.PointList(kotlin.Function2<kotlin.Double,kotlin.Double,0:0>){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (kotlin.collections/ArrayList<#A>).korlibs.datastructure/removeSortedDuplicates(): kotlin.collections/ArrayList<#A> // korlibs.datastructure/removeSortedDuplicates|removeSortedDuplicates@kotlin.collections.ArrayList<0:0>(){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (kotlin.collections/Collection<#A>).korlibs.datastructure.fakemutable/asFakeMutable(): korlibs.datastructure.fakemutable/FakeMutableCollection<#A> // korlibs.datastructure.fakemutable/asFakeMutable|asFakeMutable@kotlin.collections.Collection<0:0>(){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (kotlin.collections/Collection<#A>).korlibs.datastructure.random/fastRandom(): #A // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.collections.Collection<0:0>(){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (kotlin.collections/Collection<#A>).korlibs.datastructure/toDeque(): korlibs.datastructure/TGenDeque<#A> // korlibs.datastructure/toDeque|toDeque@kotlin.collections.Collection<0:0>(){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (kotlin.collections/Collection<kotlin/Pair<kotlin/Int, #A>>).korlibs.datastructure/toIntMap(): korlibs.datastructure/IntMap<#A> // korlibs.datastructure/toIntMap|toIntMap@kotlin.collections.Collection<kotlin.Pair<kotlin.Int,0:0>>(){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (kotlin.collections/Iterable<#A>).korlibs.datastructure/associateByInt(kotlin/Function2<kotlin/Int, #A, kotlin/Int>): korlibs.datastructure/IntMap<#A> // korlibs.datastructure/associateByInt|associateByInt@kotlin.collections.Iterable<0:0>(kotlin.Function2<kotlin.Int,0:0,kotlin.Int>){0§<kotlin.Any?>}[0]
@@ -4751,6 +4772,7 @@ final fun <#A: kotlin/Any?> (kotlin.collections/MutableList<#A>).korlibs.datastr
 final fun <#A: kotlin/Any?> (kotlin.collections/MutableMap<#A, kotlin/Int>).korlibs.datastructure/incr(#A, kotlin/Int = ...): kotlin/Int // korlibs.datastructure/incr|incr@kotlin.collections.MutableMap<0:0,kotlin.Int>(0:0;kotlin.Int){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (kotlin.collections/Set<#A>).korlibs.datastructure.fakemutable/asFakeMutable(): korlibs.datastructure.fakemutable/FakeMutableSet<#A> // korlibs.datastructure.fakemutable/asFakeMutable|asFakeMutable@kotlin.collections.Set<0:0>(){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (kotlin/Array<#A>).korlibs.datastructure.internal/fill(#A) // korlibs.datastructure.internal/fill|fill@kotlin.Array<0:0>(0:0){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (kotlin/Array<#A>).korlibs.datastructure.random/fastRandom(): #A // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.Array<0:0>(){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (kotlin/Array<#A>).korlibs.datastructure/getCyclic(kotlin/Int): #A // korlibs.datastructure/getCyclic|getCyclic@kotlin.Array<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (kotlin/Array<#A>).korlibs.datastructure/observe(kotlin/Function2<korlibs.datastructure/ObservableArray<#A>, kotlin.ranges/IntRange, kotlin/Unit>): korlibs.datastructure/ObservableArray<#A> // korlibs.datastructure/observe|observe@kotlin.Array<0:0>(kotlin.Function2<korlibs.datastructure.ObservableArray<0:0>,kotlin.ranges.IntRange,kotlin.Unit>){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (kotlin/Array<#A>).korlibs.datastructure/rotateLeft(kotlin/Int = ...) // korlibs.datastructure/rotateLeft|rotateLeft@kotlin.Array<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
@@ -4762,6 +4784,7 @@ final fun <#A: kotlin/Any?> korlibs.datastructure/Deque(kotlin.collections/Colle
 final fun <#A: kotlin/Any?> korlibs.datastructure/Iterator(kotlin/Function0<kotlin/Boolean>, kotlin/Function0<#A>): kotlin.collections/Iterator<#A> // korlibs.datastructure/Iterator|Iterator(kotlin.Function0<kotlin.Boolean>;kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> korlibs.datastructure/genericSort(#A, kotlin/Int, kotlin/Int, korlibs.datastructure/SortOps<#A>): #A // korlibs.datastructure/genericSort|genericSort(0:0;kotlin.Int;kotlin.Int;korlibs.datastructure.SortOps<0:0>){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> korlibs.datastructure/genericSort(#A, kotlin/Int, kotlin/Int, korlibs.datastructure/SortOps<#A>, kotlin/Boolean): #A // korlibs.datastructure/genericSort|genericSort(0:0;kotlin.Int;kotlin.Int;korlibs.datastructure.SortOps<0:0>;kotlin.Boolean){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> korlibs.datastructure/hashCode(#A): kotlin/Int // korlibs.datastructure/hashCode|hashCode(0:0){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> korlibs.datastructure/intMapOf(kotlin/Array<out kotlin/Pair<kotlin/Int, #A>>...): korlibs.datastructure/IntMap<#A> // korlibs.datastructure/intMapOf|intMapOf(kotlin.Array<out|kotlin.Pair<kotlin.Int,0:0>>...){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/CharSequence> (kotlin/Array<#A>).korlibs.datastructure/sortRadix(kotlin/Int = ..., kotlin/Int = ..., kotlin/Char = ..., kotlin/Function1<kotlin/Char, kotlin/Char> = ...) // korlibs.datastructure/sortRadix|sortRadix@kotlin.Array<0:0>(kotlin.Int;kotlin.Int;kotlin.Char;kotlin.Function1<kotlin.Char,kotlin.Char>){0§<kotlin.CharSequence>}[0]
 final fun <#A: kotlin/CharSequence> (kotlin/Array<#A>).korlibs.datastructure/sortedRadix(kotlin/Int = ..., kotlin/Int = ..., kotlin/Char = ..., kotlin/Function1<kotlin/Char, kotlin/Char> = ...): kotlin/Array<#A> // korlibs.datastructure/sortedRadix|sortedRadix@kotlin.Array<0:0>(kotlin.Int;kotlin.Int;kotlin.Char;kotlin.Function1<kotlin.Char,kotlin.Char>){0§<kotlin.CharSequence>}[0]
@@ -4807,85 +4830,59 @@ final inline fun (korlibs.datastructure/IntArrayList).korlibs.datastructure.iter
 final inline fun (korlibs.datastructure/IntArrayList).korlibs.datastructure.iterators/parallelMapInt(crossinline kotlin/Function1<kotlin/Int, kotlin/Int>): kotlin/IntArray // korlibs.datastructure.iterators/parallelMapInt|parallelMapInt@korlibs.datastructure.IntArrayList(kotlin.Function1<kotlin.Int,kotlin.Int>){}[0]
 final inline fun (korlibs.datastructure/IntArrayList).korlibs.datastructure/filter(kotlin/Function1<kotlin/Int, kotlin/Boolean>): korlibs.datastructure/IntArrayList // korlibs.datastructure/filter|filter@korlibs.datastructure.IntArrayList(kotlin.Function1<kotlin.Int,kotlin.Boolean>){}[0]
 final inline fun (korlibs.datastructure/IntArrayList).korlibs.datastructure/mapInt(kotlin/Function1<kotlin/Int, kotlin/Int>): korlibs.datastructure/IntArrayList // korlibs.datastructure/mapInt|mapInt@korlibs.datastructure.IntArrayList(kotlin.Function1<kotlin.Int,kotlin.Int>){}[0]
-final inline fun (korlibs.math.geom/DoubleVectorList).korlibs.math.geom/getOrElse(kotlin/Int, kotlin/Int, kotlin/Double = ...): kotlin/Double // korlibs.math.geom/getOrElse|getOrElse@korlibs.math.geom.DoubleVectorList(kotlin.Int;kotlin.Int;kotlin.Double){}[0]
 final inline fun (korlibs.math.geom/PointIntList).korlibs.math.geom/fastForEach(kotlin/Function2<kotlin/Int, kotlin/Int, kotlin/Unit>) // korlibs.math.geom/fastForEach|fastForEach@korlibs.math.geom.PointIntList(kotlin.Function2<kotlin.Int,kotlin.Int,kotlin.Unit>){}[0]
 final inline fun (korlibs.math.geom/PointIntList).korlibs.math.geom/fastForEachReverse(kotlin/Function2<kotlin/Int, kotlin/Int, kotlin/Unit>) // korlibs.math.geom/fastForEachReverse|fastForEachReverse@korlibs.math.geom.PointIntList(kotlin.Function2<kotlin.Int,kotlin.Int,kotlin.Unit>){}[0]
 final inline fun (korlibs.math.geom/PointList).korlibs.math.geom/fastForEach(kotlin/Function1<korlibs.math.geom/Vector2D, kotlin/Unit>) // korlibs.math.geom/fastForEach|fastForEach@korlibs.math.geom.PointList(kotlin.Function1<korlibs.math.geom.Vector2D,kotlin.Unit>){}[0]
 final inline fun (korlibs.math.geom/PointList).korlibs.math.geom/fastForEachIndexed(kotlin/Function2<kotlin/Int, korlibs.math.geom/Vector2D, kotlin/Unit>) // korlibs.math.geom/fastForEachIndexed|fastForEachIndexed@korlibs.math.geom.PointList(kotlin.Function2<kotlin.Int,korlibs.math.geom.Vector2D,kotlin.Unit>){}[0]
 final inline fun (korlibs.math.geom/PointList).korlibs.math.geom/fastForEachReverse(kotlin/Function1<korlibs.math.geom/Vector2D, kotlin/Unit>) // korlibs.math.geom/fastForEachReverse|fastForEachReverse@korlibs.math.geom.PointList(kotlin.Function1<korlibs.math.geom.Vector2D,kotlin.Unit>){}[0]
 final inline fun (korlibs.math.geom/PointList).korlibs.math.geom/fastForEachReverseIndexed(kotlin/Function2<kotlin/Int, korlibs.math.geom/Vector2D, kotlin/Unit>) // korlibs.math.geom/fastForEachReverseIndexed|fastForEachReverseIndexed@korlibs.math.geom.PointList(kotlin.Function2<kotlin.Int,korlibs.math.geom.Vector2D,kotlin.Unit>){}[0]
-final inline fun (kotlin.collections/Iterable<kotlin/Double>).korlibs.datastructure/toDoubleList(): korlibs.datastructure/DoubleArrayList // korlibs.datastructure/toDoubleList|toDoubleList@kotlin.collections.Iterable<kotlin.Double>(){}[0]
-final inline fun (kotlin.collections/Iterable<kotlin/Float>).korlibs.datastructure/toFloatList(): korlibs.datastructure/FloatArrayList // korlibs.datastructure/toFloatList|toFloatList@kotlin.collections.Iterable<kotlin.Float>(){}[0]
-final inline fun (kotlin.collections/Iterable<kotlin/Int>).korlibs.datastructure/toIntList(): korlibs.datastructure/IntArrayList // korlibs.datastructure/toIntList|toIntList@kotlin.collections.Iterable<kotlin.Int>(){}[0]
 final inline fun (kotlin.ranges/IntRange).korlibs.datastructure.iterators/parallelMapInt(crossinline kotlin/Function1<kotlin/Int, kotlin/Int>): kotlin/IntArray // korlibs.datastructure.iterators/parallelMapInt|parallelMapInt@kotlin.ranges.IntRange(kotlin.Function1<kotlin.Int,kotlin.Int>){}[0]
 final inline fun (kotlin.ranges/IntRange).korlibs.datastructure/mapInt(kotlin/Function1<kotlin/Int, kotlin/Int>): korlibs.datastructure/IntArrayList // korlibs.datastructure/mapInt|mapInt@kotlin.ranges.IntRange(kotlin.Function1<kotlin.Int,kotlin.Int>){}[0]
-final inline fun (kotlin.ranges/IntRange).korlibs.datastructure/toIntList(): korlibs.datastructure/IntArrayList // korlibs.datastructure/toIntList|toIntList@kotlin.ranges.IntRange(){}[0]
-final inline fun (kotlin/BooleanArray).korlibs.datastructure.random/fastRandom(): kotlin/Boolean // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.BooleanArray(){}[0]
 final inline fun (kotlin/BooleanArray).korlibs.datastructure/mapDouble(kotlin/Function1<kotlin/Boolean, kotlin/Double>): kotlin/DoubleArray // korlibs.datastructure/mapDouble|mapDouble@kotlin.BooleanArray(kotlin.Function1<kotlin.Boolean,kotlin.Double>){}[0]
 final inline fun (kotlin/BooleanArray).korlibs.datastructure/mapFloat(kotlin/Function1<kotlin/Boolean, kotlin/Float>): kotlin/FloatArray // korlibs.datastructure/mapFloat|mapFloat@kotlin.BooleanArray(kotlin.Function1<kotlin.Boolean,kotlin.Float>){}[0]
 final inline fun (kotlin/BooleanArray).korlibs.datastructure/mapInt(kotlin/Function1<kotlin/Boolean, kotlin/Int>): kotlin/IntArray // korlibs.datastructure/mapInt|mapInt@kotlin.BooleanArray(kotlin.Function1<kotlin.Boolean,kotlin.Int>){}[0]
 final inline fun (kotlin/ByteArray).korlibs.datastructure/mapDouble(kotlin/Function1<kotlin/Byte, kotlin/Double>): kotlin/DoubleArray // korlibs.datastructure/mapDouble|mapDouble@kotlin.ByteArray(kotlin.Function1<kotlin.Byte,kotlin.Double>){}[0]
 final inline fun (kotlin/ByteArray).korlibs.datastructure/mapFloat(kotlin/Function1<kotlin/Byte, kotlin/Float>): kotlin/FloatArray // korlibs.datastructure/mapFloat|mapFloat@kotlin.ByteArray(kotlin.Function1<kotlin.Byte,kotlin.Float>){}[0]
 final inline fun (kotlin/ByteArray).korlibs.datastructure/mapInt(kotlin/Function1<kotlin/Byte, kotlin/Int>): kotlin/IntArray // korlibs.datastructure/mapInt|mapInt@kotlin.ByteArray(kotlin.Function1<kotlin.Byte,kotlin.Int>){}[0]
-final inline fun (kotlin/CharArray).korlibs.datastructure.random/fastRandom(): kotlin/Char // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.CharArray(){}[0]
 final inline fun (kotlin/CharArray).korlibs.datastructure/mapDouble(kotlin/Function1<kotlin/Char, kotlin/Double>): kotlin/DoubleArray // korlibs.datastructure/mapDouble|mapDouble@kotlin.CharArray(kotlin.Function1<kotlin.Char,kotlin.Double>){}[0]
 final inline fun (kotlin/CharArray).korlibs.datastructure/mapFloat(kotlin/Function1<kotlin/Char, kotlin/Float>): kotlin/FloatArray // korlibs.datastructure/mapFloat|mapFloat@kotlin.CharArray(kotlin.Function1<kotlin.Char,kotlin.Float>){}[0]
 final inline fun (kotlin/CharArray).korlibs.datastructure/mapInt(kotlin/Function1<kotlin/Char, kotlin/Int>): kotlin/IntArray // korlibs.datastructure/mapInt|mapInt@kotlin.CharArray(kotlin.Function1<kotlin.Char,kotlin.Int>){}[0]
 final inline fun (kotlin/DoubleArray).korlibs.datastructure.iterators/fastForEach(kotlin/Function1<kotlin/Double, kotlin/Unit>) // korlibs.datastructure.iterators/fastForEach|fastForEach@kotlin.DoubleArray(kotlin.Function1<kotlin.Double,kotlin.Unit>){}[0]
-final inline fun (kotlin/DoubleArray).korlibs.datastructure.random/fastRandom(): kotlin/Double // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.DoubleArray(){}[0]
 final inline fun (kotlin/DoubleArray).korlibs.datastructure/mapDouble(kotlin/Function1<kotlin/Double, kotlin/Double>): kotlin/DoubleArray // korlibs.datastructure/mapDouble|mapDouble@kotlin.DoubleArray(kotlin.Function1<kotlin.Double,kotlin.Double>){}[0]
 final inline fun (kotlin/DoubleArray).korlibs.datastructure/mapFloat(kotlin/Function1<kotlin/Double, kotlin/Float>): kotlin/FloatArray // korlibs.datastructure/mapFloat|mapFloat@kotlin.DoubleArray(kotlin.Function1<kotlin.Double,kotlin.Float>){}[0]
 final inline fun (kotlin/DoubleArray).korlibs.datastructure/mapInt(kotlin/Function1<kotlin/Double, kotlin/Int>): kotlin/IntArray // korlibs.datastructure/mapInt|mapInt@kotlin.DoubleArray(kotlin.Function1<kotlin.Double,kotlin.Int>){}[0]
 final inline fun (kotlin/FloatArray).korlibs.datastructure.iterators/fastForEach(kotlin/Function1<kotlin/Float, kotlin/Unit>) // korlibs.datastructure.iterators/fastForEach|fastForEach@kotlin.FloatArray(kotlin.Function1<kotlin.Float,kotlin.Unit>){}[0]
-final inline fun (kotlin/FloatArray).korlibs.datastructure.random/fastRandom(): kotlin/Float // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.FloatArray(){}[0]
 final inline fun (kotlin/FloatArray).korlibs.datastructure/mapDouble(kotlin/Function1<kotlin/Float, kotlin/Double>): kotlin/DoubleArray // korlibs.datastructure/mapDouble|mapDouble@kotlin.FloatArray(kotlin.Function1<kotlin.Float,kotlin.Double>){}[0]
 final inline fun (kotlin/FloatArray).korlibs.datastructure/mapFloat(kotlin/Function1<kotlin/Float, kotlin/Float>): kotlin/FloatArray // korlibs.datastructure/mapFloat|mapFloat@kotlin.FloatArray(kotlin.Function1<kotlin.Float,kotlin.Float>){}[0]
 final inline fun (kotlin/FloatArray).korlibs.datastructure/mapInt(kotlin/Function1<kotlin/Float, kotlin/Int>): kotlin/IntArray // korlibs.datastructure/mapInt|mapInt@kotlin.FloatArray(kotlin.Function1<kotlin.Float,kotlin.Int>){}[0]
 final inline fun (kotlin/IntArray).korlibs.datastructure.iterators/fastForEach(kotlin/Function1<kotlin/Int, kotlin/Unit>) // korlibs.datastructure.iterators/fastForEach|fastForEach@kotlin.IntArray(kotlin.Function1<kotlin.Int,kotlin.Unit>){}[0]
 final inline fun (kotlin/IntArray).korlibs.datastructure.iterators/parallelMapInt(crossinline kotlin/Function1<kotlin/Int, kotlin/Int>): kotlin/IntArray // korlibs.datastructure.iterators/parallelMapInt|parallelMapInt@kotlin.IntArray(kotlin.Function1<kotlin.Int,kotlin.Int>){}[0]
-final inline fun (kotlin/IntArray).korlibs.datastructure.random/fastRandom(): kotlin/Int // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.IntArray(){}[0]
 final inline fun (kotlin/IntArray).korlibs.datastructure/mapDouble(kotlin/Function1<kotlin/Int, kotlin/Double>): kotlin/DoubleArray // korlibs.datastructure/mapDouble|mapDouble@kotlin.IntArray(kotlin.Function1<kotlin.Int,kotlin.Double>){}[0]
 final inline fun (kotlin/IntArray).korlibs.datastructure/mapFloat(kotlin/Function1<kotlin/Int, kotlin/Float>): kotlin/FloatArray // korlibs.datastructure/mapFloat|mapFloat@kotlin.IntArray(kotlin.Function1<kotlin.Int,kotlin.Float>){}[0]
 final inline fun (kotlin/IntArray).korlibs.datastructure/mapInt(kotlin/Function1<kotlin/Int, kotlin/Int>): kotlin/IntArray // korlibs.datastructure/mapInt|mapInt@kotlin.IntArray(kotlin.Function1<kotlin.Int,kotlin.Int>){}[0]
-final inline fun (kotlin/LongArray).korlibs.datastructure.random/fastRandom(): kotlin/Long // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.LongArray(){}[0]
-final inline fun (kotlin/ShortArray).korlibs.datastructure.random/fastRandom(): kotlin/Short // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.ShortArray(){}[0]
 final inline fun (kotlin/ShortArray).korlibs.datastructure/mapDouble(kotlin/Function1<kotlin/Short, kotlin/Double>): kotlin/DoubleArray // korlibs.datastructure/mapDouble|mapDouble@kotlin.ShortArray(kotlin.Function1<kotlin.Short,kotlin.Double>){}[0]
 final inline fun (kotlin/ShortArray).korlibs.datastructure/mapFloat(kotlin/Function1<kotlin/Short, kotlin/Float>): kotlin/FloatArray // korlibs.datastructure/mapFloat|mapFloat@kotlin.ShortArray(kotlin.Function1<kotlin.Short,kotlin.Float>){}[0]
 final inline fun (kotlin/ShortArray).korlibs.datastructure/mapInt(kotlin/Function1<kotlin/Short, kotlin/Int>): kotlin/IntArray // korlibs.datastructure/mapInt|mapInt@kotlin.ShortArray(kotlin.Function1<kotlin.Short,kotlin.Int>){}[0]
 final inline fun <#A: korlibs.math.geom/DoubleVectorList> (#A).korlibs.math.geom/fastForEachGeneric(kotlin/Function2<#A, kotlin/Int, kotlin/Unit>) // korlibs.math.geom/fastForEachGeneric|fastForEachGeneric@0:0(kotlin.Function2<0:0,kotlin.Int,kotlin.Unit>){0§<korlibs.math.geom.DoubleVectorList>}[0]
-final inline fun <#A: korlibs.math.geom/Vector2D> korlibs.math.geom/pointArrayListOf(kotlin/Array<out #A>...): korlibs.math.geom/PointArrayList // korlibs.math.geom/pointArrayListOf|pointArrayListOf(kotlin.Array<out|0:0>...){0§<korlibs.math.geom.Vector2D>}[0]
 final inline fun <#A: kotlin/Any, #B: kotlin/Any> (korlibs.datastructure/IArray2<#A>).korlibs.datastructure/map2(kotlin/Function3<kotlin/Int, kotlin/Int, #A, #B>): korlibs.datastructure/Array2<#B> // korlibs.datastructure/map2|map2@korlibs.datastructure.IArray2<0:0>(kotlin.Function3<kotlin.Int,kotlin.Int,0:0,0:1>){0§<kotlin.Any>;1§<kotlin.Any>}[0]
 final inline fun <#A: kotlin/Any, #B: kotlin/Any?> (korlibs.datastructure/WeakMap<#A, #B>).korlibs.datastructure/getOrPut(#A, kotlin/Function1<#A, #B>): #B // korlibs.datastructure/getOrPut|getOrPut@korlibs.datastructure.WeakMap<0:0,0:1>(0:0;kotlin.Function1<0:0,0:1>){0§<kotlin.Any>;1§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/fastForEach(kotlin/Function2<kotlin/String, #A, kotlin/Unit>) // korlibs.datastructure/fastForEach|fastForEach@korlibs.datastructure.FastStringMap<0:0>(kotlin.Function2<kotlin.String,0:0,kotlin.Unit>){0§<kotlin.Any>}[0]
 final inline fun <#A: kotlin/Any> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/fastValueForEach(kotlin/Function1<#A, kotlin/Unit>) // korlibs.datastructure/fastValueForEach|fastValueForEach@korlibs.datastructure.FastStringMap<0:0>(kotlin.Function1<0:0,kotlin.Unit>){0§<kotlin.Any>}[0]
 final inline fun <#A: kotlin/Any?, #B: kotlin/Any> (korlibs.datastructure/FastIdentityMap<#A, #B>).korlibs.datastructure/fastForEach(kotlin/Function2<#A, #B, kotlin/Unit>) // korlibs.datastructure/fastForEach|fastForEach@korlibs.datastructure.FastIdentityMap<0:0,0:1>(kotlin.Function2<0:0,0:1,kotlin.Unit>){0§<kotlin.Any?>;1§<kotlin.Any>}[0]
 final inline fun <#A: kotlin/Any?, #B: kotlin/Any> (korlibs.datastructure/FastIdentityMap<#A, #B>).korlibs.datastructure/fastValueForEach(kotlin/Function1<#B, kotlin/Unit>) // korlibs.datastructure/fastValueForEach|fastValueForEach@korlibs.datastructure.FastIdentityMap<0:0,0:1>(kotlin.Function1<0:1,kotlin.Unit>){0§<kotlin.Any?>;1§<kotlin.Any>}[0]
-final inline fun <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?, #D: kotlin/Any?, #E: kotlin/Any?, #F: kotlin/Any?> korlibs.datastructure/hashCode(#A, #B, #C, #D, #E, #F): kotlin/Int // korlibs.datastructure/hashCode|hashCode(0:0;0:1;0:2;0:3;0:4;0:5){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>;3§<kotlin.Any?>;4§<kotlin.Any?>;5§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?, #D: kotlin/Any?, #E: kotlin/Any?> korlibs.datastructure/hashCode(#A, #B, #C, #D, #E): kotlin/Int // korlibs.datastructure/hashCode|hashCode(0:0;0:1;0:2;0:3;0:4){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>;3§<kotlin.Any?>;4§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?, #D: kotlin/Any?> korlibs.datastructure/hashCode(#A, #B, #C, #D): kotlin/Int // korlibs.datastructure/hashCode|hashCode(0:0;0:1;0:2;0:3){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>;3§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?> korlibs.datastructure/hashCode(#A, #B, #C): kotlin/Int // korlibs.datastructure/hashCode|hashCode(0:0;0:1;0:2){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?, #B: kotlin/Any?> (korlibs.datastructure/FastIdentityMap<#A, #B>).korlibs.datastructure/fastForEachNullable(kotlin/Function2<#A, #B?, kotlin/Unit>) // korlibs.datastructure/fastForEachNullable|fastForEachNullable@korlibs.datastructure.FastIdentityMap<0:0,0:1>(kotlin.Function2<0:0,0:1?,kotlin.Unit>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?, #B: kotlin/Any?> (korlibs.datastructure/FastIdentityMap<#A, #B>).korlibs.datastructure/fastKeyForEach(kotlin/Function1<#A, kotlin/Unit>) // korlibs.datastructure/fastKeyForEach|fastKeyForEach@korlibs.datastructure.FastIdentityMap<0:0,0:1>(kotlin.Function1<0:0,kotlin.Unit>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?, #B: kotlin/Any?> (korlibs.datastructure/FastIdentityMap<#A, #B>).korlibs.datastructure/fastValueForEachNullable(kotlin/Function1<#B?, kotlin/Unit>) // korlibs.datastructure/fastValueForEachNullable|fastValueForEachNullable@korlibs.datastructure.FastIdentityMap<0:0,0:1>(kotlin.Function1<0:1?,kotlin.Unit>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?, #B: kotlin/Any?> (korlibs.datastructure/FastIdentityMap<#A, #B>).korlibs.datastructure/getNull(#A?): #B? // korlibs.datastructure/getNull|getNull@korlibs.datastructure.FastIdentityMap<0:0,0:1>(0:0?){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?, #B: kotlin/Any?> (korlibs.datastructure/FastIdentityMap<#A, #B>).korlibs.datastructure/getOrPut(#A, kotlin/Function1<#A, #B>): #B // korlibs.datastructure/getOrPut|getOrPut@korlibs.datastructure.FastIdentityMap<0:0,0:1>(0:0;kotlin.Function1<0:0,0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.datastructure/hashCode(#A, #B): kotlin/Int // korlibs.datastructure/hashCode|hashCode(0:0;0:1){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.datastructure/keep(kotlin.reflect/KMutableProperty0<#A>, kotlin/Function0<#B>): #B // korlibs.datastructure/keep|keep(kotlin.reflect.KMutableProperty0<0:0>;kotlin.Function0<0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?, #B: reified kotlin/Any?> (kotlin.collections/List<#A>).korlibs.datastructure.iterators/parallelMap(crossinline kotlin/Function1<#A, #B>): kotlin.collections/List<#B> // korlibs.datastructure.iterators/parallelMap|parallelMap@kotlin.collections.List<0:0>(kotlin.Function1<0:0,0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastArrayList<#A>).korlibs.datastructure.iterators/fastForEachWithTemp(korlibs.datastructure/FastArrayList<#A>, kotlin/Function1<#A, kotlin/Unit>) // korlibs.datastructure.iterators/fastForEachWithTemp|fastForEachWithTemp@korlibs.datastructure.FastArrayList<0:0>(korlibs.datastructure.FastArrayList<0:0>;kotlin.Function1<0:0,kotlin.Unit>){0§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/clear() // korlibs.datastructure/clear|clear@korlibs.datastructure.FastStringMap<0:0>(){0§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/contains(kotlin/String): kotlin/Boolean // korlibs.datastructure/contains|contains@korlibs.datastructure.FastStringMap<0:0>(kotlin.String){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/fastForEachNullable(kotlin/Function2<kotlin/String, #A?, kotlin/Unit>) // korlibs.datastructure/fastForEachNullable|fastForEachNullable@korlibs.datastructure.FastStringMap<0:0>(kotlin.Function2<kotlin.String,0:0?,kotlin.Unit>){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/fastKeyForEach(kotlin/Function1<kotlin/String, kotlin/Unit>) // korlibs.datastructure/fastKeyForEach|fastKeyForEach@korlibs.datastructure.FastStringMap<0:0>(kotlin.Function1<kotlin.String,kotlin.Unit>){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/fastValueForEachNullable(kotlin/Function1<#A?, kotlin/Unit>) // korlibs.datastructure/fastValueForEachNullable|fastValueForEachNullable@korlibs.datastructure.FastStringMap<0:0>(kotlin.Function1<0:0?,kotlin.Unit>){0§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/get(kotlin/String): #A? // korlibs.datastructure/get|get@korlibs.datastructure.FastStringMap<0:0>(kotlin.String){0§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/getNull(kotlin/String?): #A? // korlibs.datastructure/getNull|getNull@korlibs.datastructure.FastStringMap<0:0>(kotlin.String?){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/getOrPut(kotlin/String, kotlin/Function0<#A>): #A // korlibs.datastructure/getOrPut|getOrPut@korlibs.datastructure.FastStringMap<0:0>(kotlin.String;kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/remove(kotlin/String) // korlibs.datastructure/remove|remove@korlibs.datastructure.FastStringMap<0:0>(kotlin.String){0§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/set(kotlin/String, #A) // korlibs.datastructure/set|set@korlibs.datastructure.FastStringMap<0:0>(kotlin.String;0:0){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IArray2<#A>).korlibs.datastructure/each(kotlin/Function3<kotlin/Int, kotlin/Int, #A, kotlin/Unit>) // korlibs.datastructure/each|each@korlibs.datastructure.IArray2<0:0>(kotlin.Function3<kotlin.Int,kotlin.Int,0:0,kotlin.Unit>){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IArray2<#A>).korlibs.datastructure/fill(kotlin/Function1<#A, #A>) // korlibs.datastructure/fill|fill@korlibs.datastructure.IArray2<0:0>(kotlin.Function1<0:0,0:0>){0§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?> (kotlin.collections/Collection<#A>).korlibs.datastructure.random/fastRandom(): #A // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.collections.Collection<0:0>(){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (kotlin.collections/Iterable<#A>).korlibs.datastructure/mapDouble(kotlin/Function1<#A, kotlin/Double>): korlibs.datastructure/DoubleArrayList // korlibs.datastructure/mapDouble|mapDouble@kotlin.collections.Iterable<0:0>(kotlin.Function1<0:0,kotlin.Double>){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (kotlin.collections/Iterable<#A>).korlibs.datastructure/mapFloat(kotlin/Function1<#A, kotlin/Float>): korlibs.datastructure/FloatArrayList // korlibs.datastructure/mapFloat|mapFloat@kotlin.collections.Iterable<0:0>(kotlin.Function1<0:0,kotlin.Float>){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (kotlin.collections/Iterable<#A>).korlibs.datastructure/mapInt(kotlin/Function1<#A, kotlin/Int>): korlibs.datastructure/IntArrayList // korlibs.datastructure/mapInt|mapInt@kotlin.collections.Iterable<0:0>(kotlin.Function1<0:0,kotlin.Int>){0§<kotlin.Any?>}[0]
@@ -4897,17 +4894,14 @@ final inline fun <#A: kotlin/Any?> (kotlin.collections/List<#A>).korlibs.datastr
 final inline fun <#A: kotlin/Any?> (kotlin.collections/List<#A>).korlibs.datastructure.iterators/fastForEachWithTemp(korlibs.datastructure/FastArrayList<#A>, kotlin/Function1<#A, kotlin/Unit>) // korlibs.datastructure.iterators/fastForEachWithTemp|fastForEachWithTemp@kotlin.collections.List<0:0>(korlibs.datastructure.FastArrayList<0:0>;kotlin.Function1<0:0,kotlin.Unit>){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (kotlin.collections/List<#A>).korlibs.datastructure.iterators/parallelMapInt(crossinline kotlin/Function1<#A, kotlin/Int>): kotlin/IntArray // korlibs.datastructure.iterators/parallelMapInt|parallelMapInt@kotlin.collections.List<0:0>(kotlin.Function1<0:0,kotlin.Int>){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (kotlin.collections/MutableList<#A>).korlibs.datastructure.iterators/fastIterateRemove(kotlin/Function1<#A, kotlin/Boolean>): kotlin.collections/MutableList<#A> // korlibs.datastructure.iterators/fastIterateRemove|fastIterateRemove@kotlin.collections.MutableList<0:0>(kotlin.Function1<0:0,kotlin.Boolean>){0§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?> (kotlin/Any?).korlibs.datastructure/fastCastTo(): #A // korlibs.datastructure/fastCastTo|fastCastTo@kotlin.Any?(){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (kotlin/Array<#A>).korlibs.datastructure.iterators/fastForEach(kotlin/Function1<#A, kotlin/Unit>) // korlibs.datastructure.iterators/fastForEach|fastForEach@kotlin.Array<0:0>(kotlin.Function1<0:0,kotlin.Unit>){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (kotlin/Array<#A>).korlibs.datastructure.iterators/fastForEachWithIndex(kotlin/Function2<kotlin/Int, #A, kotlin/Unit>) // korlibs.datastructure.iterators/fastForEachWithIndex|fastForEachWithIndex@kotlin.Array<0:0>(kotlin.Function2<kotlin.Int,0:0,kotlin.Unit>){0§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?> (kotlin/Array<#A>).korlibs.datastructure.random/fastRandom(): #A // korlibs.datastructure.random/fastRandom|fastRandom@kotlin.Array<0:0>(){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (kotlin/Array<#A>).korlibs.datastructure/mapDouble(kotlin/Function1<#A, kotlin/Double>): kotlin/DoubleArray // korlibs.datastructure/mapDouble|mapDouble@kotlin.Array<0:0>(kotlin.Function1<0:0,kotlin.Double>){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (kotlin/Array<#A>).korlibs.datastructure/mapFloat(kotlin/Function1<#A, kotlin/Float>): kotlin/FloatArray // korlibs.datastructure/mapFloat|mapFloat@kotlin.Array<0:0>(kotlin.Function1<0:0,kotlin.Float>){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (kotlin/Array<#A>).korlibs.datastructure/mapInt(kotlin/Function1<#A, kotlin/Int>): kotlin/IntArray // korlibs.datastructure/mapInt|mapInt@kotlin.Array<0:0>(kotlin.Function1<0:0,kotlin.Int>){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> korlibs.datastructure.internal/contentHashCode(kotlin/Int, kotlin/Function1<kotlin/Int, #A>): kotlin/Int // korlibs.datastructure.internal/contentHashCode|contentHashCode(kotlin.Int;kotlin.Function1<kotlin.Int,0:0>){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> korlibs.datastructure/_radixSortStep(kotlin/Int, kotlin/Int, kotlin/Function1<kotlin/Int, #A>, kotlin/Function2<kotlin/Int, #A, kotlin/Unit>, kotlin/Function1<#A, kotlin/Int>, kotlin/IntArray) // korlibs.datastructure/_radixSortStep|_radixSortStep(kotlin.Int;kotlin.Int;kotlin.Function1<kotlin.Int,0:0>;kotlin.Function2<kotlin.Int,0:0,kotlin.Unit>;kotlin.Function1<0:0,kotlin.Int>;kotlin.IntArray){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> korlibs.datastructure/cacheLazyNullable(kotlin.reflect/KMutableProperty0<#A?>, kotlin/Function0<#A>): #A // korlibs.datastructure/cacheLazyNullable|cacheLazyNullable(kotlin.reflect.KMutableProperty0<0:0?>;kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?> korlibs.datastructure/hashCode(#A): kotlin/Int // korlibs.datastructure/hashCode|hashCode(0:0){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> korlibs.datastructure/radixSortGeneric(kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Function1<kotlin/Int, #A>, kotlin/Function2<kotlin/Int, #A, kotlin/Unit>, kotlin/Function0<kotlin/Unit>, kotlin/Function2<kotlin/Int, #A, kotlin/Int>, kotlin/Int) // korlibs.datastructure/radixSortGeneric|radixSortGeneric(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Function1<kotlin.Int,0:0>;kotlin.Function2<kotlin.Int,0:0,kotlin.Unit>;kotlin.Function0<kotlin.Unit>;kotlin.Function2<kotlin.Int,0:0,kotlin.Int>;kotlin.Int){0§<kotlin.Any?>}[0]
 final inline fun <#A: reified kotlin/Any?> korlibs.datastructure/mapWhile(kotlin/Function1<kotlin/Int, kotlin/Boolean>, kotlin/Function1<kotlin/Int, #A>): kotlin.collections/List<#A> // korlibs.datastructure/mapWhile|mapWhile(kotlin.Function1<kotlin.Int,kotlin.Boolean>;kotlin.Function1<kotlin.Int,0:0>){0§<kotlin.Any?>}[0]
 final inline fun <#A: reified kotlin/Any?> korlibs.datastructure/mapWhileArray(kotlin/Function1<kotlin/Int, kotlin/Boolean>, kotlin/Function1<kotlin/Int, #A>): kotlin/Array<#A> // korlibs.datastructure/mapWhileArray|mapWhileArray(kotlin.Function1<kotlin.Int,kotlin.Boolean>;kotlin.Function1<kotlin.Int,0:0>){0§<kotlin.Any?>}[0]
@@ -4923,6 +4917,9 @@ final inline fun korlibs.datastructure/genericRemoveSortedDuplicates(kotlin/Int,
 final inline fun korlibs.datastructure/mapWhileDouble(kotlin/Function1<kotlin/Int, kotlin/Boolean>, kotlin/Function1<kotlin/Int, kotlin/Double>): kotlin/DoubleArray // korlibs.datastructure/mapWhileDouble|mapWhileDouble(kotlin.Function1<kotlin.Int,kotlin.Boolean>;kotlin.Function1<kotlin.Int,kotlin.Double>){}[0]
 final inline fun korlibs.datastructure/mapWhileFloat(kotlin/Function1<kotlin/Int, kotlin/Boolean>, kotlin/Function1<kotlin/Int, kotlin/Float>): kotlin/FloatArray // korlibs.datastructure/mapWhileFloat|mapWhileFloat(kotlin.Function1<kotlin.Int,kotlin.Boolean>;kotlin.Function1<kotlin.Int,kotlin.Float>){}[0]
 final inline fun korlibs.datastructure/mapWhileInt(kotlin/Function1<kotlin/Int, kotlin/Boolean>, kotlin/Function1<kotlin/Int, kotlin/Int>): kotlin/IntArray // korlibs.datastructure/mapWhileInt|mapWhileInt(kotlin.Function1<kotlin.Int,kotlin.Boolean>;kotlin.Function1<kotlin.Int,kotlin.Int>){}[0]
+
+// Targets: [js, native]
+final fun <#A: kotlin/Any?> korlibs.datastructure/FastStringMap(): korlibs.datastructure/FastStringMap<#A> // korlibs.datastructure/FastStringMap|FastStringMap(){0§<kotlin.Any?>}[0]
 
 // Targets: [native, wasmJs]
 final val korlibs.datastructure/keys // korlibs.datastructure/keys|@korlibs.datastructure.IntMap<0:0>{0§<kotlin.Any?>}keys[0]
@@ -4943,6 +4940,9 @@ final fun <#A: kotlin/Any?, #B: kotlin/Any?> (kotlin.collections/Iterable<kotlin
 final fun <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.datastructure/linkedHashMapOf(kotlin/Array<out kotlin/Pair<#A, #B>>...): kotlin.collections/HashMap<#A, #B> // korlibs.datastructure/linkedHashMapOf|linkedHashMapOf(kotlin.Array<out|kotlin.Pair<0:0,0:1>>...){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 
 // Targets: [native, wasmJs]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/getNull(kotlin/Int?): #A? // korlibs.datastructure/getNull|getNull@korlibs.datastructure.IntMap<0:0>(kotlin.Int?){0§<kotlin.Any?>}[0]
+
+// Targets: [native, wasmJs]
 final fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/keys(): kotlin.collections/List<kotlin/Int> // korlibs.datastructure/keys|keys@korlibs.datastructure.IntMap<0:0>(){0§<kotlin.Any?>}[0]
 
 // Targets: [native, wasmJs]
@@ -4958,12 +4958,6 @@ final inline fun <#A: kotlin/Any> (korlibs.datastructure/IntMap<#A>).korlibs.dat
 final inline fun <#A: kotlin/Any> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/fastValueForEach(kotlin/Function1<#A, kotlin/Unit>) // korlibs.datastructure/fastValueForEach|fastValueForEach@korlibs.datastructure.IntMap<0:0>(kotlin.Function1<0:0,kotlin.Unit>){0§<kotlin.Any>}[0]
 
 // Targets: [native, wasmJs]
-final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/clear() // korlibs.datastructure/clear|clear@korlibs.datastructure.IntMap<0:0>(){0§<kotlin.Any?>}[0]
-
-// Targets: [native, wasmJs]
-final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/contains(kotlin/Int): kotlin/Boolean // korlibs.datastructure/contains|contains@korlibs.datastructure.IntMap<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
-
-// Targets: [native, wasmJs]
 final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/fastForEachNullable(kotlin/Function2<kotlin/Int, #A?, kotlin/Unit>) // korlibs.datastructure/fastForEachNullable|fastForEachNullable@korlibs.datastructure.IntMap<0:0>(kotlin.Function2<kotlin.Int,0:0?,kotlin.Unit>){0§<kotlin.Any?>}[0]
 
 // Targets: [native, wasmJs]
@@ -4973,28 +4967,7 @@ final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.da
 final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/fastValueForEachNullable(kotlin/Function1<#A?, kotlin/Unit>) // korlibs.datastructure/fastValueForEachNullable|fastValueForEachNullable@korlibs.datastructure.IntMap<0:0>(kotlin.Function1<0:0?,kotlin.Unit>){0§<kotlin.Any?>}[0]
 
 // Targets: [native, wasmJs]
-final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/get(kotlin/Int): #A? // korlibs.datastructure/get|get@korlibs.datastructure.IntMap<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
-
-// Targets: [native, wasmJs]
-final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/getNull(kotlin/Int?): #A? // korlibs.datastructure/getNull|getNull@korlibs.datastructure.IntMap<0:0>(kotlin.Int?){0§<kotlin.Any?>}[0]
-
-// Targets: [native, wasmJs]
 final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/getOrPut(kotlin/Int, kotlin/Function0<#A>): #A // korlibs.datastructure/getOrPut|getOrPut@korlibs.datastructure.IntMap<0:0>(kotlin.Int;kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
-
-// Targets: [native, wasmJs]
-final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/remove(kotlin/Int) // korlibs.datastructure/remove|remove@korlibs.datastructure.IntMap<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
-
-// Targets: [native, wasmJs]
-final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/removeRange(kotlin/Int, kotlin/Int) // korlibs.datastructure/removeRange|removeRange@korlibs.datastructure.IntMap<0:0>(kotlin.Int;kotlin.Int){0§<kotlin.Any?>}[0]
-
-// Targets: [native, wasmJs]
-final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/set(kotlin/Int, #A) // korlibs.datastructure/set|set@korlibs.datastructure.IntMap<0:0>(kotlin.Int;0:0){0§<kotlin.Any?>}[0]
-
-// Targets: [native, wasmJs]
-final inline fun <#A: kotlin/Any?> korlibs.datastructure/FastIntMap(): korlibs.datastructure/IntMap<#A> // korlibs.datastructure/FastIntMap|FastIntMap(){0§<kotlin.Any?>}[0]
-
-// Targets: [native, wasmJs]
-final inline fun <#A: kotlin/Any?> korlibs.datastructure/FastStringMap(): korlibs.datastructure/FastStringMap<#A> // korlibs.datastructure/FastStringMap|FastStringMap(){0§<kotlin.Any?>}[0]
 
 // Targets: [native]
 final class <#A: kotlin/Any> korlibs.datastructure.concurrent/ConcurrentDeque { // korlibs.datastructure.concurrent/ConcurrentDeque|null[0]
@@ -5006,6 +4979,63 @@ final class <#A: kotlin/Any> korlibs.datastructure.concurrent/ConcurrentDeque { 
     final fun add(#A) // korlibs.datastructure.concurrent/ConcurrentDeque.add|add(1:0){}[0]
     final fun consume(): #A? // korlibs.datastructure.concurrent/ConcurrentDeque.consume|consume(){}[0]
 }
+
+// Targets: [native]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/clear() // korlibs.datastructure/clear|clear@korlibs.datastructure.FastStringMap<0:0>(){0§<kotlin.Any?>}[0]
+
+// Targets: [native]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/contains(kotlin/String): kotlin/Boolean // korlibs.datastructure/contains|contains@korlibs.datastructure.FastStringMap<0:0>(kotlin.String){0§<kotlin.Any?>}[0]
+
+// Targets: [native]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/get(kotlin/String): #A? // korlibs.datastructure/get|get@korlibs.datastructure.FastStringMap<0:0>(kotlin.String){0§<kotlin.Any?>}[0]
+
+// Targets: [native]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/remove(kotlin/String) // korlibs.datastructure/remove|remove@korlibs.datastructure.FastStringMap<0:0>(kotlin.String){0§<kotlin.Any?>}[0]
+
+// Targets: [native]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/set(kotlin/String, #A) // korlibs.datastructure/set|set@korlibs.datastructure.FastStringMap<0:0>(kotlin.String;0:0){0§<kotlin.Any?>}[0]
+
+// Targets: [native]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/clear() // korlibs.datastructure/clear|clear@korlibs.datastructure.IntMap<0:0>(){0§<kotlin.Any?>}[0]
+
+// Targets: [native]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/contains(kotlin/Int): kotlin/Boolean // korlibs.datastructure/contains|contains@korlibs.datastructure.IntMap<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
+
+// Targets: [native]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/get(kotlin/Int): #A? // korlibs.datastructure/get|get@korlibs.datastructure.IntMap<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
+
+// Targets: [native]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/remove(kotlin/Int) // korlibs.datastructure/remove|remove@korlibs.datastructure.IntMap<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
+
+// Targets: [native]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/removeRange(kotlin/Int, kotlin/Int) // korlibs.datastructure/removeRange|removeRange@korlibs.datastructure.IntMap<0:0>(kotlin.Int;kotlin.Int){0§<kotlin.Any?>}[0]
+
+// Targets: [native]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/set(kotlin/Int, #A) // korlibs.datastructure/set|set@korlibs.datastructure.IntMap<0:0>(kotlin.Int;0:0){0§<kotlin.Any?>}[0]
+
+// Targets: [native]
+final fun <#A: kotlin/Any?> (kotlin/Any?).korlibs.datastructure/fastCastTo(): #A // korlibs.datastructure/fastCastTo|fastCastTo@kotlin.Any?(){0§<kotlin.Any?>}[0]
+
+// Targets: [native]
+final fun <#A: kotlin/Any?> korlibs.datastructure/FastIntMap(): korlibs.datastructure/IntMap<#A> // korlibs.datastructure/FastIntMap|FastIntMap(){0§<kotlin.Any?>}[0]
+
+// Targets: [js, wasmJs]
+final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/clear() // korlibs.datastructure/clear|clear@korlibs.datastructure.FastStringMap<0:0>(){0§<kotlin.Any?>}[0]
+
+// Targets: [js, wasmJs]
+final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/contains(kotlin/String): kotlin/Boolean // korlibs.datastructure/contains|contains@korlibs.datastructure.FastStringMap<0:0>(kotlin.String){0§<kotlin.Any?>}[0]
+
+// Targets: [js, wasmJs]
+final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/get(kotlin/String): #A? // korlibs.datastructure/get|get@korlibs.datastructure.FastStringMap<0:0>(kotlin.String){0§<kotlin.Any?>}[0]
+
+// Targets: [js, wasmJs]
+final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/remove(kotlin/String) // korlibs.datastructure/remove|remove@korlibs.datastructure.FastStringMap<0:0>(kotlin.String){0§<kotlin.Any?>}[0]
+
+// Targets: [js, wasmJs]
+final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastStringMap<#A>).korlibs.datastructure/set(kotlin/String, #A) // korlibs.datastructure/set|set@korlibs.datastructure.FastStringMap<0:0>(kotlin.String;0:0){0§<kotlin.Any?>}[0]
+
+// Targets: [js, wasmJs]
+final inline fun <#A: kotlin/Any?> (kotlin/Any?).korlibs.datastructure/fastCastTo(): #A // korlibs.datastructure/fastCastTo|fastCastTo@kotlin.Any?(){0§<kotlin.Any?>}[0]
 
 // Targets: [js]
 final class /JsMap { // /JsMap|null[0]
@@ -5067,6 +5097,15 @@ final fun <#A: kotlin/Any?, #B: kotlin/Any?> (kotlin.collections/Iterable<kotlin
 final fun <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.datastructure/linkedHashMapOf(kotlin/Array<out kotlin/Pair<#A, #B>>...): kotlin.collections/LinkedHashMap<#A, #B> // korlibs.datastructure/linkedHashMapOf|linkedHashMapOf(kotlin.Array<out|kotlin.Pair<0:0,0:1>>...){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 
 // Targets: [js]
+final fun <#A: kotlin/Any?> (/JsArray<#A>)./get(kotlin/Int): #A // /get|get@JsArray<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+final fun <#A: kotlin/Any?> (/JsArray<#A>)./set(kotlin/Int, #A) // /set|set@JsArray<0:0>(kotlin.Int;0:0){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/FastIntMap<#A>).korlibs.datastructure/getNull(kotlin/Int?): #A? // korlibs.datastructure/getNull|getNull@korlibs.datastructure.FastIntMap<0:0>(kotlin.Int?){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
 final fun <#A: kotlin/Any?> (korlibs.datastructure/FastIntMap<#A>).korlibs.datastructure/keys(): kotlin.collections/List<kotlin/Int> // korlibs.datastructure/keys|keys@korlibs.datastructure.FastIntMap<0:0>(){0§<kotlin.Any?>}[0]
 
 // Targets: [js]
@@ -5079,9 +5118,6 @@ final fun <#A: kotlin/Any?> (korlibs.datastructure/FastIntMap<#A>).korlibs.datas
 final fun <#A: kotlin/Any?> korlibs.datastructure/FastIntMap(): korlibs.datastructure/FastIntMap<#A> // korlibs.datastructure/FastIntMap|FastIntMap(){0§<kotlin.Any?>}[0]
 
 // Targets: [js]
-final fun <#A: kotlin/Any?> korlibs.datastructure/FastStringMap(): korlibs.datastructure/FastStringMap<#A> // korlibs.datastructure/FastStringMap|FastStringMap(){0§<kotlin.Any?>}[0]
-
-// Targets: [js]
 final fun korlibs.datastructure.internal/Symbol(kotlin/String): dynamic // korlibs.datastructure.internal/Symbol|Symbol(kotlin.String){}[0]
 
 // Targets: [js]
@@ -5089,12 +5125,6 @@ final inline fun <#A: kotlin/Any> (korlibs.datastructure/FastIntMap<#A>).korlibs
 
 // Targets: [js]
 final inline fun <#A: kotlin/Any> (korlibs.datastructure/FastIntMap<#A>).korlibs.datastructure/fastValueForEach(kotlin/Function1<#A, kotlin/Unit>) // korlibs.datastructure/fastValueForEach|fastValueForEach@korlibs.datastructure.FastIntMap<0:0>(kotlin.Function1<0:0,kotlin.Unit>){0§<kotlin.Any>}[0]
-
-// Targets: [js]
-final inline fun <#A: kotlin/Any?> (/JsArray<#A>)./get(kotlin/Int): #A // /get|get@JsArray<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
-
-// Targets: [js]
-final inline fun <#A: kotlin/Any?> (/JsArray<#A>)./set(kotlin/Int, #A) // /set|set@JsArray<0:0>(kotlin.Int;0:0){0§<kotlin.Any?>}[0]
 
 // Targets: [js]
 final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastIntMap<#A>).korlibs.datastructure/clear() // korlibs.datastructure/clear|clear@korlibs.datastructure.FastIntMap<0:0>(){0§<kotlin.Any?>}[0]
@@ -5115,9 +5145,6 @@ final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastIntMap<#A>).korlib
 final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastIntMap<#A>).korlibs.datastructure/get(kotlin/Int): #A? // korlibs.datastructure/get|get@korlibs.datastructure.FastIntMap<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
 
 // Targets: [js]
-final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastIntMap<#A>).korlibs.datastructure/getNull(kotlin/Int?): #A? // korlibs.datastructure/getNull|getNull@korlibs.datastructure.FastIntMap<0:0>(kotlin.Int?){0§<kotlin.Any?>}[0]
-
-// Targets: [js]
 final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastIntMap<#A>).korlibs.datastructure/getOrPut(kotlin/Int, kotlin/Function0<#A>): #A // korlibs.datastructure/getOrPut|getOrPut@korlibs.datastructure.FastIntMap<0:0>(kotlin.Int;kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
 
 // Targets: [js]
@@ -5128,3 +5155,27 @@ final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastIntMap<#A>).korlib
 
 // Targets: [js]
 final inline fun <#A: kotlin/Any?> (korlibs.datastructure/FastIntMap<#A>).korlibs.datastructure/set(kotlin/Int, #A) // korlibs.datastructure/set|set@korlibs.datastructure.FastIntMap<0:0>(kotlin.Int;0:0){0§<kotlin.Any?>}[0]
+
+// Targets: [wasmJs]
+final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/clear() // korlibs.datastructure/clear|clear@korlibs.datastructure.IntMap<0:0>(){0§<kotlin.Any?>}[0]
+
+// Targets: [wasmJs]
+final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/contains(kotlin/Int): kotlin/Boolean // korlibs.datastructure/contains|contains@korlibs.datastructure.IntMap<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
+
+// Targets: [wasmJs]
+final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/get(kotlin/Int): #A? // korlibs.datastructure/get|get@korlibs.datastructure.IntMap<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
+
+// Targets: [wasmJs]
+final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/remove(kotlin/Int) // korlibs.datastructure/remove|remove@korlibs.datastructure.IntMap<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
+
+// Targets: [wasmJs]
+final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/removeRange(kotlin/Int, kotlin/Int) // korlibs.datastructure/removeRange|removeRange@korlibs.datastructure.IntMap<0:0>(kotlin.Int;kotlin.Int){0§<kotlin.Any?>}[0]
+
+// Targets: [wasmJs]
+final inline fun <#A: kotlin/Any?> (korlibs.datastructure/IntMap<#A>).korlibs.datastructure/set(kotlin/Int, #A) // korlibs.datastructure/set|set@korlibs.datastructure.IntMap<0:0>(kotlin.Int;0:0){0§<kotlin.Any?>}[0]
+
+// Targets: [wasmJs]
+final inline fun <#A: kotlin/Any?> korlibs.datastructure/FastIntMap(): korlibs.datastructure/IntMap<#A> // korlibs.datastructure/FastIntMap|FastIntMap(){0§<kotlin.Any?>}[0]
+
+// Targets: [wasmJs]
+final inline fun <#A: kotlin/Any?> korlibs.datastructure/FastStringMap(): korlibs.datastructure/FastStringMap<#A> // korlibs.datastructure/FastStringMap|FastStringMap(){0§<kotlin.Any?>}[0]

@@ -62,7 +62,7 @@ public class ByteArrayBuilder(public var data: ByteArray, size: Int = data.size,
     }
 
     /** Appends a byte [v] to the buffer */
-    public inline fun append(v: Byte): ByteArrayBuilder {
+    public fun append(v: Byte): ByteArrayBuilder {
         appendFast(v)
         return this
     }

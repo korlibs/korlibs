@@ -76,10 +76,10 @@ abstract interface korlibs.datastructure/Extra { // korlibs.datastructure/Extra|
             final fun <get-transform>(): kotlin/Function2<#A1, #B1, #B1> // korlibs.datastructure/Extra.PropertyThis.transform.<get-transform>|<get-transform>(){}[0]
             final fun <set-transform>(kotlin/Function2<#A1, #B1, #B1>) // korlibs.datastructure/Extra.PropertyThis.transform.<set-transform>|<set-transform>(kotlin.Function2<1:0,1:1,1:1>){}[0]
 
-        final inline fun getValue(#A1, kotlin.reflect/KProperty<*>): #B1 // korlibs.datastructure/Extra.PropertyThis.getValue|getValue(1:0;kotlin.reflect.KProperty<*>){}[0]
-        final inline fun setValue(#A1, kotlin.reflect/KProperty<*>, #B1) // korlibs.datastructure/Extra.PropertyThis.setValue|setValue(1:0;kotlin.reflect.KProperty<*>;1:1){}[0]
-        final inline fun setValueUntransformed(#A1, kotlin.reflect/KProperty<*>, #B1) // korlibs.datastructure/Extra.PropertyThis.setValueUntransformed|setValueUntransformed(1:0;kotlin.reflect.KProperty<*>;1:1){}[0]
-        final inline fun withTransform(noinline kotlin/Function2<#A1, #B1, #B1>): korlibs.datastructure/Extra.PropertyThis<#A1, #B1> // korlibs.datastructure/Extra.PropertyThis.withTransform|withTransform(kotlin.Function2<1:0,1:1,1:1>){}[0]
+        final fun getValue(#A1, kotlin.reflect/KProperty<*>): #B1 // korlibs.datastructure/Extra.PropertyThis.getValue|getValue(1:0;kotlin.reflect.KProperty<*>){}[0]
+        final fun setValue(#A1, kotlin.reflect/KProperty<*>, #B1) // korlibs.datastructure/Extra.PropertyThis.setValue|setValue(1:0;kotlin.reflect.KProperty<*>;1:1){}[0]
+        final fun setValueUntransformed(#A1, kotlin.reflect/KProperty<*>, #B1) // korlibs.datastructure/Extra.PropertyThis.setValueUntransformed|setValueUntransformed(1:0;kotlin.reflect.KProperty<*>;1:1){}[0]
+        final fun withTransform(kotlin/Function2<#A1, #B1, #B1>): korlibs.datastructure/Extra.PropertyThis<#A1, #B1> // korlibs.datastructure/Extra.PropertyThis.withTransform|withTransform(kotlin.Function2<1:0,1:1,1:1>){}[0]
     }
 
     final class <#A1: kotlin/Any?> Property { // korlibs.datastructure/Extra.Property|null[0]
@@ -90,8 +90,8 @@ abstract interface korlibs.datastructure/Extra { // korlibs.datastructure/Extra|
         final val name // korlibs.datastructure/Extra.Property.name|{}name[0]
             final fun <get-name>(): kotlin/String? // korlibs.datastructure/Extra.Property.name.<get-name>|<get-name>(){}[0]
 
-        final inline fun getValue(korlibs.datastructure/Extra, kotlin.reflect/KProperty<*>): #A1 // korlibs.datastructure/Extra.Property.getValue|getValue(korlibs.datastructure.Extra;kotlin.reflect.KProperty<*>){}[0]
-        final inline fun setValue(korlibs.datastructure/Extra, kotlin.reflect/KProperty<*>, #A1) // korlibs.datastructure/Extra.Property.setValue|setValue(korlibs.datastructure.Extra;kotlin.reflect.KProperty<*>;1:0){}[0]
+        final fun getValue(korlibs.datastructure/Extra, kotlin.reflect/KProperty<*>): #A1 // korlibs.datastructure/Extra.Property.getValue|getValue(korlibs.datastructure.Extra;kotlin.reflect.KProperty<*>){}[0]
+        final fun setValue(korlibs.datastructure/Extra, kotlin.reflect/KProperty<*>, #A1) // korlibs.datastructure/Extra.Property.setValue|setValue(korlibs.datastructure.Extra;kotlin.reflect.KProperty<*>;1:0){}[0]
     }
 
     open class Mixin : korlibs.datastructure/Extra { // korlibs.datastructure/Extra.Mixin|null[0]
@@ -241,6 +241,7 @@ final fun (korlibs.datastructure/Extra).korlibs.datastructure/setExtra(kotlin/St
 final fun (kotlin/DoubleArray).korlibs.datastructure/toImmutableDoubleList(): korlibs.datastructure/DoubleList // korlibs.datastructure/toImmutableDoubleList|toImmutableDoubleList@kotlin.DoubleArray(){}[0]
 final fun (kotlin/FloatArray).korlibs.datastructure/toImmutableFloatList(): korlibs.datastructure/FloatList // korlibs.datastructure/toImmutableFloatList|toImmutableFloatList@kotlin.FloatArray(){}[0]
 final fun (kotlin/IntArray).korlibs.datastructure/toImmutableIntList(): korlibs.datastructure/IntList // korlibs.datastructure/toImmutableIntList|toImmutableIntList@kotlin.IntArray(){}[0]
+final fun <#A: korlibs.datastructure/Extra, #B: kotlin/Any?> korlibs.datastructure/extraPropertyThis(kotlin/String? = ..., kotlin/Function2<#A, #B, #B> = ..., kotlin/Function1<#A, #B>): korlibs.datastructure/Extra.PropertyThis<#A, #B> // korlibs.datastructure/extraPropertyThis|extraPropertyThis(kotlin.String?;kotlin.Function2<0:0,0:1,0:1>;kotlin.Function1<0:0,0:1>){0§<korlibs.datastructure.Extra>;1§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any> korlibs.io.resources/Resourceable(#A): korlibs.io.resources/Resourceable.Fixed<#A> // korlibs.io.resources/Resourceable|Resourceable(0:0){0§<kotlin.Any>}[0]
 final fun <#A: kotlin/Any?> (korlibs.datastructure/Extra).korlibs.datastructure/extraCache(kotlin/String, kotlin/Function0<#A>): #A // korlibs.datastructure/extraCache|extraCache@korlibs.datastructure.Extra(kotlin.String;kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (korlibs.datastructure/Extra).korlibs.datastructure/getExtraTyped(kotlin/String): #A? // korlibs.datastructure/getExtraTyped|getExtraTyped@korlibs.datastructure.Extra(kotlin.String){0§<kotlin.Any?>}[0]
@@ -251,11 +252,10 @@ final fun <#A: kotlin/Any?> (kotlin.collections/List<#A>).korlibs.datastructure/
 final fun <#A: kotlin/Any?> (kotlin/Array<#A>).korlibs.datastructure/toFastList(): kotlin.collections/List<#A> // korlibs.datastructure/toFastList|toFastList@kotlin.Array<0:0>(){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> korlibs.datastructure/SimpleListIterator(kotlin/Int, kotlin/Int, kotlin/Function1<kotlin/Int, #A>): kotlin.collections/ListIterator<#A> // korlibs.datastructure/SimpleListIterator|SimpleListIterator(kotlin.Int;kotlin.Int;kotlin.Function1<kotlin.Int,0:0>){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> korlibs.datastructure/SimpleSubList(kotlin/Int, kotlin/Int, kotlin/Function1<kotlin/Int, #A>): kotlin.collections/List<#A> // korlibs.datastructure/SimpleSubList|SimpleSubList(kotlin.Int;kotlin.Int;kotlin.Function1<kotlin.Int,0:0>){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> korlibs.datastructure/extraProperty(kotlin/String? = ..., kotlin/Function0<#A>): korlibs.datastructure/Extra.Property<#A> // korlibs.datastructure/extraProperty|extraProperty(kotlin.String?;kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> korlibs.datastructure/fastArrayListOf(kotlin/Array<out #A>...): korlibs.datastructure/FastArrayList<#A> // korlibs.datastructure/fastArrayListOf|fastArrayListOf(kotlin.Array<out|0:0>...){0§<kotlin.Any?>}[0]
 final fun korlibs.datastructure/ExtraTypeCreate(): korlibs.datastructure/ExtraObject // korlibs.datastructure/ExtraTypeCreate|ExtraTypeCreate(){}[0]
-final inline fun <#A: korlibs.datastructure/Extra, #B: kotlin/Any?> korlibs.datastructure/extraPropertyThis(kotlin/String? = ..., noinline kotlin/Function2<#A, #B, #B> = ..., noinline kotlin/Function1<#A, #B>): korlibs.datastructure/Extra.PropertyThis<#A, #B> // korlibs.datastructure/extraPropertyThis|extraPropertyThis(kotlin.String?;kotlin.Function2<0:0,0:1,0:1>;kotlin.Function1<0:0,0:1>){0§<korlibs.datastructure.Extra>;1§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> korlibs.datastructure/buildFastList(kotlin/Function1<korlibs.datastructure/FastArrayList<#A>, kotlin/Unit>): korlibs.datastructure/FastArrayList<#A> // korlibs.datastructure/buildFastList|buildFastList(kotlin.Function1<korlibs.datastructure.FastArrayList<0:0>,kotlin.Unit>){0§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?> korlibs.datastructure/extraProperty(kotlin/String? = ..., noinline kotlin/Function0<#A>): korlibs.datastructure/Extra.Property<#A> // korlibs.datastructure/extraProperty|extraProperty(kotlin.String?;kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
 
 // Targets: [js]
 final class <#A: kotlin/Any?> korlibs.datastructure/JsArray { // korlibs.datastructure/JsArray|null[0]
@@ -279,10 +279,10 @@ final class <#A: kotlin/Any?> korlibs.datastructure/JsArray { // korlibs.datastr
 }
 
 // Targets: [js]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/JsArray<#A>).korlibs.datastructure/get(kotlin/Int): #A // korlibs.datastructure/get|get@korlibs.datastructure.JsArray<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+final fun <#A: kotlin/Any?> (korlibs.datastructure/JsArray<#A>).korlibs.datastructure/set(kotlin/Int, #A) // korlibs.datastructure/set|set@korlibs.datastructure.JsArray<0:0>(kotlin.Int;0:0){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
 final fun korlibs.datastructure/Array_from(dynamic): kotlin/Array<dynamic> // korlibs.datastructure/Array_from|Array_from(<dynamic>){}[0]
-
-// Targets: [js]
-final inline fun <#A: kotlin/Any?> (korlibs.datastructure/JsArray<#A>).korlibs.datastructure/get(kotlin/Int): #A // korlibs.datastructure/get|get@korlibs.datastructure.JsArray<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
-
-// Targets: [js]
-final inline fun <#A: kotlin/Any?> (korlibs.datastructure/JsArray<#A>).korlibs.datastructure/set(kotlin/Int, #A) // korlibs.datastructure/set|set@korlibs.datastructure.JsArray<0:0>(kotlin.Int;0:0){0§<kotlin.Any?>}[0]

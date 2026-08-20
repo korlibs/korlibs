@@ -54,7 +54,7 @@ actual fun <T> FFIPointer.castToFunc(type: KType, config: FFIFuncConfig): T {
     TODO("castToFunc not implemented yet")
 }
 
-private inline fun <T : CPointed> FFIPointer.offset(byteOffset: Int): CPointer<T> = (this.long.toCPointer<ByteVar>() + byteOffset)!!.reinterpret<T>()
+private fun <T : CPointed> FFIPointer.offset(byteOffset: Int): CPointer<T> = (this.long.toCPointer<ByteVar>() + byteOffset)!!.reinterpret<T>()
 
 actual fun FFIPointer.getS8(byteOffset: Int): Byte = this.offset<ByteVar>(byteOffset)[0]
 actual fun FFIPointer.getS16(byteOffset: Int): Short = this.offset<ShortVar>(byteOffset)[0]

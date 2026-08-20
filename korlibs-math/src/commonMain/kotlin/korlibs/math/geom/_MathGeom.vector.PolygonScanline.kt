@@ -374,7 +374,7 @@ class MEdge {
         }
 
         // https://www.geeksforgeeks.org/program-for-point-of-intersection-of-two-lines/
-        inline fun _getIntersectXY(a: MEdge, b: MEdge): Vector2I? {
+        fun _getIntersectXY(a: MEdge, b: MEdge): Vector2I? {
             val Ax: Double = a.ax.toDouble()
             val Ay: Double = a.ay.toDouble()
             val Bx: Double = a.bx.toDouble()

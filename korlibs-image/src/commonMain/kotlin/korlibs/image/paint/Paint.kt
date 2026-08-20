@@ -146,7 +146,7 @@ data class GradientPaint(
 
     fun addColorStop(stop: Ratio, color: RGBA): GradientPaint = addColorStop(stop.toDouble(), color)
     fun addColorStop(stop: Double, color: RGBA): GradientPaint = add(stop, color)
-    inline fun addColorStop(stop: Number, color: RGBA): GradientPaint = add(stop.toDouble(), color)
+    fun addColorStop(stop: Number, color: RGBA): GradientPaint = add(stop.toDouble(), color)
 
     fun add(stop: Double, color: RGBA): GradientPaint {
         stops += stop
@@ -244,7 +244,7 @@ fun GradientPaint.add(c0: RGBA, c1: RGBA, c2: RGBA) = add(0.0, c0).add(0.5, c1).
 /** Adds colors [c0], [c1], [c2] and [c3] to the gradient equidistantly */
 fun GradientPaint.add(c0: RGBA, c1: RGBA, c2: RGBA, c3: RGBA) = add(0.0, c0).add(1.0 / 3.0, c1).add(2.0 / 3.0, c2).add(1.0, c3)
 /** Adds [colors] to the gradient equidistantly */
-inline fun <T : RGBA> GradientPaint.add(vararg colors: T): GradientPaint = add(RgbaArray(colors.size) { colors[it] })
+fun <T : RGBA> GradientPaint.add(vararg colors: T): GradientPaint = add(RgbaArray(colors.size) { colors[it] })
 /** Adds [colors] to the gradient equidistantly */
 fun GradientPaint.add(colors: RgbaArray): GradientPaint {
     val size = (colors.size - 1).coerceAtLeast(1).toDouble()

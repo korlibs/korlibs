@@ -62,7 +62,7 @@ object Hex {
         }
     }
 
-    inline private fun encode(src: ByteArray, dst: Appendable, digits: (Int) -> Char) {
+    private inline fun encode(src: ByteArray, dst: Appendable, digits: (Int) -> Char) {
         for (n in src.indices) {
             val v = src[n].toInt() and 0xFF
             dst.append(digits((v ushr 4) and 0xF))
@@ -70,7 +70,7 @@ object Hex {
         }
     }
 
-    inline private fun encodeBase(data: ByteArray, digits: (Int) -> Char): String = buildString(data.size * 2) {
+    private inline fun encodeBase(data: ByteArray, digits: (Int) -> Char): String = buildString(data.size * 2) {
         encode(data, this, digits)
     }
 }

@@ -160,8 +160,8 @@ final class <#A: kotlin/Any?> korlibs.io.lang/threadLocal { // korlibs.io.lang/t
         final fun <get-value>(): #A // korlibs.io.lang/threadLocal.value.<get-value>|<get-value>(){}[0]
         final fun <set-value>(#A) // korlibs.io.lang/threadLocal.value.<set-value>|<set-value>(1:0){}[0]
 
-    final inline fun getValue(kotlin/Any?, kotlin.reflect/KProperty<*>?): #A // korlibs.io.lang/threadLocal.getValue|getValue(kotlin.Any?;kotlin.reflect.KProperty<*>?){}[0]
-    final inline fun setValue(kotlin/Any?, kotlin.reflect/KProperty<*>?, #A) // korlibs.io.lang/threadLocal.setValue|setValue(kotlin.Any?;kotlin.reflect.KProperty<*>?;1:0){}[0]
+    final fun getValue(kotlin/Any?, kotlin.reflect/KProperty<*>?): #A // korlibs.io.lang/threadLocal.getValue|getValue(kotlin.Any?;kotlin.reflect.KProperty<*>?){}[0]
+    final fun setValue(kotlin/Any?, kotlin.reflect/KProperty<*>?, #A) // korlibs.io.lang/threadLocal.setValue|setValue(kotlin.Any?;kotlin.reflect.KProperty<*>?;1:0){}[0]
 }
 
 final class korlibs.concurrent.lock/NonRecursiveLock : korlibs.concurrent.lock/BaseLock { // korlibs.concurrent.lock/NonRecursiveLock|null[0]

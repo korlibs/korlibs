@@ -205,7 +205,7 @@ class AES(val keyWords: IntArray) : Cipher {
 }
 
 private fun ByteArray.getu(offset: Int): Int = (this[offset].toInt() and 0xFF)
-private inline fun Int.ext8(offset: Int): Int = (this ushr offset) and 0xFF
+private fun Int.ext8(offset: Int): Int = (this ushr offset) and 0xFF
 private fun ByteArray.toIntArray(): IntArray = IntArray(size / 4).also { for (n in it.indices) it[n] = getInt(n * 4) }
 private fun ByteArray.getInt(offset: Int): Int = (getu(offset + 0) shl 24) or (getu(offset + 1) shl 16) or (getu(offset + 2) shl 8) or (getu(offset + 3) shl 0)
 private fun ByteArray.setInt(offset: Int, value: Int) {

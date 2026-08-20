@@ -19,7 +19,7 @@ public class FixedSizeByteArrayBuilder(public val data: ByteArray) {
         data[size++] = v
     }
 
-    public inline fun append(v: Byte): FixedSizeByteArrayBuilder {
+    public fun append(v: Byte): FixedSizeByteArrayBuilder {
         appendFast(v)
         return this
     }

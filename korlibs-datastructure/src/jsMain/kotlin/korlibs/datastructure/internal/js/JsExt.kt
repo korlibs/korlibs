@@ -8,8 +8,8 @@ external class JsWeakMap {
 }
 
 internal fun Array_from(value: dynamic): Array<dynamic> = JsArray.from(value)
-inline operator fun <T> JsArray<T>.get(index: Int): T = asDynamic()[index]
-inline operator fun <T> JsArray<T>.set(index: Int, value: T) {
+operator fun <T> JsArray<T>.get(index: Int): T = asDynamic()[index]
+operator fun <T> JsArray<T>.set(index: Int, value: T) {
     asDynamic()[index] = value
 }
 @JsName("Map")

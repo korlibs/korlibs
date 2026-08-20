@@ -3,8 +3,8 @@ package korlibs.memory
 import korlibs.number.Half
 
 private fun ByteArray.u8(offset: Int): Int = this[offset].toInt() and 0xFF
-private inline fun ByteArray.get16LE(offset: Int): Int = (u8(offset + 0) shl 0) or (u8(offset + 1) shl 8)
-private inline fun ByteArray.get16BE(offset: Int): Int = (u8(offset + 1) shl 0) or (u8(offset + 0) shl 8)
+private fun ByteArray.get16LE(offset: Int): Int = (u8(offset + 0) shl 0) or (u8(offset + 1) shl 8)
+private fun ByteArray.get16BE(offset: Int): Int = (u8(offset + 1) shl 0) or (u8(offset + 0) shl 8)
 
 // Signed
 fun ByteArray.getF16LE(offset: Int): Half = Half.fromBits(get16LE(offset))

@@ -175,7 +175,7 @@ class Indenter(internal val actions: ArrayList<Action> = arrayListOf()) : Simple
 	inline operator fun String.invoke(suffix: String = "", expressionSuffix: String = "", callback: () -> Unit) =
 		line(this, after = suffix, after2 = expressionSuffix, callback = callback)
 
-	inline operator fun String.unaryPlus() = line(this)
+	operator fun String.unaryPlus() = line(this)
 
 	inline fun String.xml(callback: () -> Unit) {
 		val tagName = Regex("<(\\w+)").find(this)?.groupValues?.getOrNull(1) ?: error("Invalid XML tag")

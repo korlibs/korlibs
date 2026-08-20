@@ -101,7 +101,7 @@ internal open class BitReader constructor(
     var bitdata = 0
     var bitsavailable = 0
 
-    inline fun discardBits(): BitReader {
+    fun discardBits(): BitReader {
         //if (bitsavailable > 0) println("discardBits: $bitsavailable")
         this.bitdata = 0
         this.bitsavailable = 0
@@ -168,7 +168,7 @@ internal open class BitReader constructor(
 
     //var lastReadByte = 0
 
-    private inline fun _su8(): Int {
+    private fun _su8(): Int {
         sbuffersReadPos++
         return sbuffers.readByte()
         //val byte = sbuffers.readByte()

@@ -38,7 +38,7 @@ interface Extra {
 
     @Suppress("UNCHECKED_CAST")
     class Property<T : Any?>(val name: String? = null, val defaultGen: () -> T) {
-        inline operator fun getValue(thisRef: Extra, property: KProperty<*>): T {
+        operator fun getValue(thisRef: Extra, property: KProperty<*>): T {
             //val res = (thisRef.extra?.get(name ?: property.name).fastCastTo<T?>())
             val res = (thisRef.extra as? MutableMap<String, T?>)?.get(name ?: property.name)
             if (res == null) {
@@ -51,7 +51,7 @@ interface Extra {
             return res
         }
 
-        inline operator fun setValue(thisRef: Extra, property: KProperty<*>, value: T) {
+         operator fun setValue(thisRef: Extra, property: KProperty<*>, value: T) {
             //beforeSet(value)
             thisRef.setExtra(name ?: property.name, value)
             //afterSet(value)
@@ -61,9 +61,9 @@ interface Extra {
     class PropertyThis<T2 : Extra, T : Any?>(val name: String? = null, val defaultGen: T2.() -> T) {
         @PublishedApi internal var transform: (T2.(value: T) -> T) = { it }
 
-        inline fun withTransform(noinline block: T2.(T) -> T): PropertyThis<T2, T> { transform = block; return this }
+        fun withTransform(block: T2.(T) -> T): PropertyThis<T2, T> { transform = block; return this }
 
-        inline operator fun getValue(thisRef: T2, property: KProperty<*>): T {
+        operator fun getValue(thisRef: T2, property: KProperty<*>): T {
             val res = thisRef.getExtraTyped<T>(name ?: property.name)
             if (res == null) {
                 val r = defaultGen(thisRef)
@@ -73,11 +73,11 @@ interface Extra {
             return res
         }
 
-        inline fun setValueUntransformed(thisRef: T2, property: KProperty<*>, value: T) {
+        fun setValueUntransformed(thisRef: T2, property: KProperty<*>, value: T) {
             thisRef.setExtra(name ?: property.name, value)
         }
 
-        inline operator fun setValue(thisRef: T2, property: KProperty<*>, value: T) {
+        operator fun setValue(thisRef: T2, property: KProperty<*>, value: T) {
             setValueUntransformed(thisRef, property, transform(thisRef, value))
         }
     }
@@ -97,9 +97,9 @@ fun Extra.setExtra(name: String, value: Any?) {
     extra?.set(name, value)
 }
 
-inline fun <T> extraProperty(name: String? = null, noinline default: () -> T) = Extra.Property(name, default)
-inline fun <T2 : Extra, T> extraPropertyThis(
+fun <T> extraProperty(name: String? = null, default: () -> T) = Extra.Property(name, default)
+fun <T2 : Extra, T> extraPropertyThis(
     name: String? = null,
-    noinline transform: T2.(T) -> T = { it },
-    noinline default: T2.() -> T
+    transform: T2.(T) -> T = { it },
+    default: T2.() -> T
 ): Extra.PropertyThis<T2, T> = Extra.PropertyThis(name, default).withTransform(transform)

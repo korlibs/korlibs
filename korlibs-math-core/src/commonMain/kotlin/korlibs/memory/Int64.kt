@@ -13,8 +13,8 @@ value class Int64Array(val raw: DoubleArray) : Iterable<Int64> {
     }
 
     inline val size: Int get() = raw.size
-    inline operator fun get(index: Int): Int64 = Int64.fromRaw(raw[index])
-    inline operator fun set(index: Int, value: Int64) { raw[index] = value.raw }
+    operator fun get(index: Int): Int64 = Int64.fromRaw(raw[index])
+    operator fun set(index: Int, value: Int64) { raw[index] = value.raw }
     override fun iterator(): Iterator<Int64> = object : Iterator<Int64> {
         var index = 0
         override fun hasNext(): Boolean = index < raw.size
@@ -24,9 +24,9 @@ value class Int64Array(val raw: DoubleArray) : Iterable<Int64> {
     override fun toString(): String = "IntArray64($size)"
 }
 
-inline fun <T : Int64> int64ArrayOf(vararg values: T): Int64Array = Int64Array(values.size) { values[it] }
-inline fun int64ArrayOf(vararg values: Int): Int64Array = Int64Array(values.size) { values[it].toInt64() }
-inline fun int64ArrayOf(vararg values: Long): Int64Array = Int64Array(values.size) { values[it].toInt64() }
+fun <T : Int64> int64ArrayOf(vararg values: T): Int64Array = Int64Array(values.size) { values[it] }
+fun int64ArrayOf(vararg values: Int): Int64Array = Int64Array(values.size) { values[it].toInt64() }
+fun int64ArrayOf(vararg values: Long): Int64Array = Int64Array(values.size) { values[it].toInt64() }
 
 fun Int64Array.copyOf(newSize: Int = this.size): Int64Array = Int64Array(raw.copyOf(newSize))
 fun Int64Array.copyOfRange(fromIndex: Int, toIndex: Int): Int64Array = Int64Array(raw.copyOfRange(fromIndex, toIndex))
@@ -58,17 +58,17 @@ value class Int64(val raw: Double) : Comparable<Int64> {
 
         fun equals(a: Int64, b: Int64): Boolean = a.raw.equalsRaw(b.raw)
 
-        inline operator fun invoke(value: Long): Int64 = Int64(value.reinterpretAsDouble())
-        inline operator fun invoke(low: Int, high: Int): Int64 = Int64(Double.fromLowHigh(low, high))
-        inline operator fun invoke(value: Int64): Int64 = Int64(value.raw)
-        inline operator fun invoke(value: UInt): Int64 = Int64(Double.fromLowHigh(value.toInt(), 0))
-        inline operator fun invoke(value: Int): Int64 = when {
+        operator fun invoke(value: Long): Int64 = Int64(value.reinterpretAsDouble())
+        operator fun invoke(low: Int, high: Int): Int64 = Int64(Double.fromLowHigh(low, high))
+        operator fun invoke(value: Int64): Int64 = Int64(value.raw)
+        operator fun invoke(value: UInt): Int64 = Int64(Double.fromLowHigh(value.toInt(), 0))
+        operator fun invoke(value: Int): Int64 = when {
             value < 0 -> Int64(Double.fromLowHigh(value and (1 shl 31), 1 shl 31))
             else -> Int64(Double.fromLowHigh(value, 0))
         }
 
-        inline fun fromRaw(value: Double) = Int64(value)
-        inline fun fromInt52(values: Double) = Int64(Double.fromParts(0, 0, values))
+        fun fromRaw(value: Double) = Int64(value)
+        fun fromInt52(values: Double) = Int64(Double.fromParts(0, 0, values))
 
         fun add(low1: UInt, high1: Int, low2: UInt, high2: Int): Int64 {
             val low = low1 + low2
@@ -185,7 +185,7 @@ value class Int64(val raw: Double) : Comparable<Int64> {
     fun equalsSafe(other: Int64): Boolean = equals(this, other)
 
     fun toInt(): Int = if (isPositive) low and 0x7FFFFFFF else -(low and 0x7FFFFFFF)
-    inline fun toLong(): Long = raw.reinterpretAsLong()
+    fun toLong(): Long = raw.reinterpretAsLong()
 
     override fun toString(): String = "${toLong()}"
 }

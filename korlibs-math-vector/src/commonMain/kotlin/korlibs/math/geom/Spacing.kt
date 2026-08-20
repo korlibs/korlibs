@@ -18,8 +18,8 @@ data class Spacing(
     companion object {
         val ZERO = Spacing(0.0, 0.0)
 
-        inline operator fun invoke(spacing: Number): Spacing = Spacing(spacing.toDouble(), spacing.toDouble())
-        inline operator fun invoke(vertical: Number, horizontal: Number): Spacing = Spacing(vertical.toDouble(), horizontal.toDouble())
+        operator fun invoke(spacing: Number): Spacing = Spacing(spacing.toDouble(), spacing.toDouble())
+        operator fun invoke(vertical: Number, horizontal: Number): Spacing = Spacing(vertical.toDouble(), horizontal.toDouble())
     }
 
     constructor(spacing: Double) : this(spacing, spacing)

@@ -3,11 +3,11 @@ package korlibs.datastructure
 import korlibs.datastructure.iterators.*
 import kotlin.reflect.*
 
-inline fun IntRange.toIntList(): IntArrayList = IntArrayList((this.endInclusive - this.start).coerceAtLeast(0)).also { for (v in this.start .. this.endInclusive) it.add(v) }
+fun IntRange.toIntList(): IntArrayList = IntArrayList((this.endInclusive - this.start).coerceAtLeast(0)).also { for (v in this.start .. this.endInclusive) it.add(v) }
 
-inline fun Iterable<Int>.toIntList(): IntArrayList = IntArrayList().also { for (v in this) it.add(v) }
-inline fun Iterable<Float>.toFloatList(): FloatArrayList = FloatArrayList().also { for (v in this) it.add(v) }
-inline fun Iterable<Double>.toDoubleList(): DoubleArrayList = DoubleArrayList().also { for (v in this) it.add(v) }
+fun Iterable<Int>.toIntList(): IntArrayList = IntArrayList().also { for (v in this) it.add(v) }
+fun Iterable<Float>.toFloatList(): FloatArrayList = FloatArrayList().also { for (v in this) it.add(v) }
+fun Iterable<Double>.toDoubleList(): DoubleArrayList = DoubleArrayList().also { for (v in this) it.add(v) }
 
 fun <T> Iterator<T>.toList(): List<T> = asSequence().toList()
 

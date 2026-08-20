@@ -201,7 +201,7 @@ public actual open class FastArrayList<E> internal constructor(
         }
     }
 
-    private inline fun rangeCheck(index: Int): Int {
+    private fun rangeCheck(index: Int): Int {
         if (index < 0 || index >= size) {
             throwIndexOtOfBounds(index)
         }

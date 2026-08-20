@@ -193,7 +193,7 @@ class WasmReaderBinary {
         this.doTrace = value
         return this
     }
-    inline private fun trace(str: () -> String) {
+    private inline fun trace(str: () -> String) {
         if (doTrace) println(str())
     }
 

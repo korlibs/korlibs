@@ -494,6 +494,7 @@ final class korlibs.memory/ByteArrayBuilder { // korlibs.memory/ByteArrayBuilder
         final fun <get-size>(): kotlin/Int // korlibs.memory/ByteArrayBuilder.size.<get-size>|<get-size>(){}[0]
         final fun <set-size>(kotlin/Int) // korlibs.memory/ByteArrayBuilder.size.<set-size>|<set-size>(kotlin.Int){}[0]
 
+    final fun append(kotlin/Byte): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.append|append(kotlin.Byte){}[0]
     final fun append(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...) // korlibs.memory/ByteArrayBuilder.append|append(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
     final fun append(kotlin/ByteArray...) // korlibs.memory/ByteArrayBuilder.append|append(kotlin.ByteArray...){}[0]
     final fun append(kotlin/IntArray...): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.append|append(kotlin.IntArray...){}[0]
@@ -517,7 +518,6 @@ final class korlibs.memory/ByteArrayBuilder { // korlibs.memory/ByteArrayBuilder
     final fun s32LE(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.s32LE|s32LE(kotlin.Int){}[0]
     final fun s8(kotlin/Int): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.s8|s8(kotlin.Int){}[0]
     final fun toByteArray(): kotlin/ByteArray // korlibs.memory/ByteArrayBuilder.toByteArray|toByteArray(){}[0]
-    final inline fun append(kotlin/Byte): korlibs.memory/ByteArrayBuilder // korlibs.memory/ByteArrayBuilder.append|append(kotlin.Byte){}[0]
 }
 
 final value class korlibs.memory/ByteArrayBuilderBE { // korlibs.memory/ByteArrayBuilderBE|null[0]
@@ -1003,6 +1003,12 @@ final fun (kotlin/Long).korlibs.js/toJsBigInt(): korlibs.js/JsBigInt // korlibs.
 final fun <#A: kotlin/Any?> (korlibs.js/JSArray.Companion).korlibs.js/createEmpty(): korlibs.js/JSArray<#A> // korlibs.js/createEmpty|createEmpty@korlibs.js.JSArray.Companion(){0§<kotlin.Any?>}[0]
 
 // Targets: [js]
+final fun <#A: kotlin/Any?> (korlibs.js/JSArray<#A>).korlibs.js/get(kotlin/Int): #A // korlibs.js/get|get@korlibs.js.JSArray<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
+final fun <#A: kotlin/Any?> (korlibs.js/JSArray<#A>).korlibs.js/set(kotlin/Int, #A) // korlibs.js/set|set@korlibs.js.JSArray<0:0>(kotlin.Int;0:0){0§<kotlin.Any?>}[0]
+
+// Targets: [js]
 final fun <#A: kotlin/Any?> (korlibs.js/JSIterable<#A>).korlibs.js/toArray(): kotlin/Array<#A> // korlibs.js/toArray|toArray@korlibs.js.JSIterable<0:0>(){0§<kotlin.Any?>}[0]
 
 // Targets: [js]
@@ -1069,12 +1075,6 @@ final fun korlibs.js/jsToObjectMap(dynamic): kotlin.collections/Map<kotlin/Strin
 final fun korlibs.platform/jsImport(kotlin/String): dynamic // korlibs.platform/jsImport|jsImport(kotlin.String){}[0]
 
 // Targets: [js]
-final inline fun <#A: kotlin/Any?> (korlibs.js/JSArray<#A>).korlibs.js/get(kotlin/Int): #A // korlibs.js/get|get@korlibs.js.JSArray<0:0>(kotlin.Int){0§<kotlin.Any?>}[0]
-
-// Targets: [js]
-final inline fun <#A: kotlin/Any?> (korlibs.js/JSArray<#A>).korlibs.js/set(kotlin/Int, #A) // korlibs.js/set|set@korlibs.js.JSArray<0:0>(kotlin.Int;0:0){0§<kotlin.Any?>}[0]
-
-// Targets: [js]
 final inline fun <#A: reified kotlin/Any?> korlibs.js/jsToArrayT(dynamic): kotlin/Array<#A> // korlibs.js/jsToArrayT|jsToArrayT(<dynamic>){0§<kotlin.Any?>}[0]
 
 // Targets: [wasmJs]
@@ -1093,6 +1093,7 @@ final class korlibs.wasm/JsDynamic { // korlibs.wasm/JsDynamic|null[0]
     final val value // korlibs.wasm/JsDynamic.value|{}value[0]
         final fun <get-value>(): kotlin.js/JsAny? // korlibs.wasm/JsDynamic.value.<get-value>|<get-value>(){}[0]
 
+    final fun <#A1: kotlin.js/JsAny> unsafeCast(): #A1? // korlibs.wasm/JsDynamic.unsafeCast|unsafeCast(){0§<kotlin.js.JsAny>}[0]
     final fun contains(korlibs.wasm/JsDynamic): kotlin/Boolean // korlibs.wasm/JsDynamic.contains|contains(korlibs.wasm.JsDynamic){}[0]
     final fun contains(kotlin.js/JsAny?): kotlin/Boolean // korlibs.wasm/JsDynamic.contains|contains(kotlin.js.JsAny?){}[0]
     final fun contains(kotlin/Int): kotlin/Boolean // korlibs.wasm/JsDynamic.contains|contains(kotlin.Int){}[0]
@@ -1114,7 +1115,6 @@ final class korlibs.wasm/JsDynamic { // korlibs.wasm/JsDynamic|null[0]
     final fun toInt(kotlin/Int = ...): kotlin/Int // korlibs.wasm/JsDynamic.toInt|toInt(kotlin.Int){}[0]
     final fun toLong(kotlin/Long = ...): kotlin/Long // korlibs.wasm/JsDynamic.toLong|toLong(kotlin.Long){}[0]
     final fun toString(): kotlin/String // korlibs.wasm/JsDynamic.toString|toString(){}[0]
-    final inline fun <#A1: kotlin.js/JsAny> unsafeCast(): #A1? // korlibs.wasm/JsDynamic.unsafeCast|unsafeCast(){0§<kotlin.js.JsAny>}[0]
 }
 
 // Targets: [wasmJs]

@@ -67,6 +67,7 @@ final value class korlibs.io.dynamic/Dyn : kotlin/Comparable<korlibs.io.dynamic/
         final fun <get-value>(): kotlin/Any? // korlibs.io.dynamic/Dyn.value.<get-value>|<get-value>(){}[0]
 
     final fun (kotlin/String).toNumber(): kotlin/Number // korlibs.io.dynamic/Dyn.toNumber|toNumber@kotlin.String(){}[0]
+    final fun <#A1: kotlin/Any?> casted(): #A1 // korlibs.io.dynamic/Dyn.casted|casted(){0§<kotlin.Any?>}[0]
     final fun and(korlibs.io.dynamic/Dyn): kotlin/Boolean // korlibs.io.dynamic/Dyn.and|and(korlibs.io.dynamic.Dyn){}[0]
     final fun bitAnd(korlibs.io.dynamic/Dyn): korlibs.io.dynamic/Dyn // korlibs.io.dynamic/Dyn.bitAnd|bitAnd(korlibs.io.dynamic.Dyn){}[0]
     final fun bitOr(korlibs.io.dynamic/Dyn): korlibs.io.dynamic/Dyn // korlibs.io.dynamic/Dyn.bitOr|bitOr(korlibs.io.dynamic.Dyn){}[0]
@@ -131,7 +132,6 @@ final value class korlibs.io.dynamic/Dyn : kotlin/Comparable<korlibs.io.dynamic/
     final fun toStringOrNull(): kotlin/String? // korlibs.io.dynamic/Dyn.toStringOrNull|toStringOrNull(){}[0]
     final fun unaryMinus(): korlibs.io.dynamic/Dyn // korlibs.io.dynamic/Dyn.unaryMinus|unaryMinus(){}[0]
     final fun unaryPlus(): korlibs.io.dynamic/Dyn // korlibs.io.dynamic/Dyn.unaryPlus|unaryPlus(){}[0]
-    final inline fun <#A1: kotlin/Any?> casted(): #A1 // korlibs.io.dynamic/Dyn.casted|casted(){0§<kotlin.Any?>}[0]
     final suspend fun suspendDynamicInvoke(kotlin/String, kotlin/Array<out kotlin/Any?>...): korlibs.io.dynamic/Dyn // korlibs.io.dynamic/Dyn.suspendDynamicInvoke|suspendDynamicInvoke(kotlin.String;kotlin.Array<out|kotlin.Any?>...){}[0]
     final suspend fun suspendGet(korlibs.io.dynamic/Dyn): korlibs.io.dynamic/Dyn // korlibs.io.dynamic/Dyn.suspendGet|suspendGet(korlibs.io.dynamic.Dyn){}[0]
     final suspend fun suspendGet(kotlin/Any?): korlibs.io.dynamic/Dyn // korlibs.io.dynamic/Dyn.suspendGet|suspendGet(kotlin.Any?){}[0]

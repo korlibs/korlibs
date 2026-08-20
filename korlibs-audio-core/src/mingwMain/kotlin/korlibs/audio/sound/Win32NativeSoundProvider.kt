@@ -159,7 +159,7 @@ object Win32WaveOutNativeSoundProvider : NativeSoundProvider() {
         private val LIB = LoadLibraryA("winmm.dll")
 
         private class func<T : Function<*>> {
-            inline operator fun getValue(obj: Any?, property: KProperty<*>): CPointer<CFunction<T>> {
+            operator fun getValue(obj: Any?, property: KProperty<*>): CPointer<CFunction<T>> {
                 return GetProcAddress(LIB, property.name)!!.reinterpret()
             }
         }

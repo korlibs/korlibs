@@ -8,16 +8,16 @@ import korlibs.math.geom.*
 import korlibs.math.geom.shape.*
 import korlibs.math.geom.vector.*
 
-inline fun Bitmap.trace() = toBMP32().trace()
+fun Bitmap.trace() = toBMP32().trace()
 inline fun Bitmap.trace(func: (RGBA) -> Boolean): VectorPath = toBMP32().trace(func)
 
-inline fun Bitmap32.trace() = trace { it.a >= 0x3F }
+fun Bitmap32.trace() = trace { it.a >= 0x3F }
 inline fun Bitmap32.trace(func: (RGBA) -> Boolean): VectorPath = this.toBitmap1(func).trace()
 
 //inline fun Bitmap1.trace(): VectorPath = VectorTracer(this).trace()
 
 // @TODO: Combine broken shapes
-inline fun Bitmap1.trace(): VectorPath = VectorTracer(this).simpleTrace()
+fun Bitmap1.trace(): VectorPath = VectorTracer(this).simpleTrace()
 
 // @TODO: Could we use it to merge several VectorPaths ? with a scanline on each available Y?
 class VectorTracer(

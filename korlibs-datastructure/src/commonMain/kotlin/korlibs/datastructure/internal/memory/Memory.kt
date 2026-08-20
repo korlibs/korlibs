@@ -75,5 +75,5 @@ internal object Memory {
 
 
     /** Returns the number of leading zeros of the bits of [this] integer */
-    inline fun Int.countLeadingZeros(): Int = this.countLeadingZeroBits()
+    fun Int.countLeadingZeros(): Int = this.countLeadingZeroBits()
 }

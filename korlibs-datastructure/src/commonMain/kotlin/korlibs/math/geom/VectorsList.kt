@@ -136,7 +136,7 @@ open class PointArrayList(capacity: Int = 7) : PointList, Extra by Extra.Mixin()
         @Deprecated("Use pointArrayListOf")
         operator fun invoke(p0: Point, p1: Point, p2: Point, p3: Point): PointArrayList = PointArrayList(4).add(p0).add(p1).add(p2).add(p3)
         @Deprecated("Use pointArrayListOf")
-        inline operator fun <T : Point> invoke(vararg points: T): PointArrayList = pointArrayListOf(*points)
+        operator fun <T : Point> invoke(vararg points: T): PointArrayList = pointArrayListOf(*points)
     }
 
     /**
@@ -272,7 +272,7 @@ fun pointArrayListOf(p0: Point, p1: Point): PointArrayList = PointArrayList(2).a
 fun pointArrayListOf(p0: Point, p1: Point, p2: Point): PointArrayList = PointArrayList(3).add(p0).add(p1).add(p2)
 fun pointArrayListOf(p0: Point, p1: Point, p2: Point, p3: Point): PointArrayList = PointArrayList(4).add(p0).add(p1).add(p2).add(p3)
 @KormaExperimental("allocates and boxes all Point")
-inline fun <T : Point> pointArrayListOf(vararg points: T): PointArrayList =
+fun <T : Point> pointArrayListOf(vararg points: T): PointArrayList =
     PointArrayList(points.size).also { list -> for (element in points) list.add(element) }
 //PointArrayList(points.size).also { list -> points.fastForEach { list.add(Point.fromRaw(Float2Pack.fromRaw(it as Long))) } }
 
@@ -315,7 +315,7 @@ open class PointIntArrayList(capacity: Int = 7) : PointIntList, Extra by Extra.M
         operator fun invoke(points: List<PointInt>): PointIntArrayList = PointIntArrayList(points.size) {
             for (n in points.indices) add(points[n].x, points[n].y)
         }
-        operator inline fun <reified T : PointInt> invoke(vararg points: T): PointIntArrayList =
+        inline operator fun <reified T : PointInt> invoke(vararg points: T): PointIntArrayList =
             PointIntArrayList(points.size) {
                 for (n in points.indices) add(points[n].x, points[n].y)
             }
@@ -418,7 +418,7 @@ sealed interface DoubleVectorList : IDoubleVectorList, Extra {
     fun getGeneric(index: Int): GenericDoubleVector = GenericDoubleVector(dimensions, DoubleArray(dimensions) { get(index, it) })
 }
 
-inline fun DoubleVectorList.getOrElse(index: Int, dim: Int, default: Double = 0.0): Double {
+fun DoubleVectorList.getOrElse(index: Int, dim: Int, default: Double = 0.0): Double {
     if (index < 0 || index >= size) return default
     if (dim < 0 || dim >= dimensions) return default
     return this[index, dim]

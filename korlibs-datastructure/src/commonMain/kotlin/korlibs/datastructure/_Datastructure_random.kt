@@ -57,16 +57,16 @@ open class FastRandom private constructor(
         require(until > from) { boundsErrorMessage(from, until) }
         return (nextLong() and 0x7FFFFFFFFFFFFFFFL % (until - from)) + from
     }
-    private inline fun Int.takeUpperBits(bitCount: Int): Int = this ushr (32 - bitCount)
+    private fun Int.takeUpperBits(bitCount: Int): Int = this ushr (32 - bitCount)
     private fun boundsErrorMessage(from: Any, until: Any) = "Random range is empty: [$from, $until)."
 }
 
-inline fun <T> Collection<T>.fastRandom() = this.random(FastRandom)
-inline fun <T> Array<T>.fastRandom() = this.random(FastRandom)
-inline fun BooleanArray.fastRandom() = this.random(FastRandom)
-inline fun CharArray.fastRandom() = this.random(FastRandom)
-inline fun ShortArray.fastRandom() = this.random(FastRandom)
-inline fun IntArray.fastRandom() = this.random(FastRandom)
-inline fun LongArray.fastRandom() = this.random(FastRandom)
-inline fun FloatArray.fastRandom() = this.random(FastRandom)
-inline fun DoubleArray.fastRandom() = this.random(FastRandom)
+fun <T> Collection<T>.fastRandom() = this.random(FastRandom)
+fun <T> Array<T>.fastRandom() = this.random(FastRandom)
+fun BooleanArray.fastRandom() = this.random(FastRandom)
+fun CharArray.fastRandom() = this.random(FastRandom)
+fun ShortArray.fastRandom() = this.random(FastRandom)
+fun IntArray.fastRandom() = this.random(FastRandom)
+fun LongArray.fastRandom() = this.random(FastRandom)
+fun FloatArray.fastRandom() = this.random(FastRandom)
+fun DoubleArray.fastRandom() = this.random(FastRandom)
