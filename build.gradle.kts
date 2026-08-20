@@ -193,7 +193,10 @@ relocatedModules.forEach { (oldName, newBaseName) ->
 
 dependencies {
     // Aggregate all korlibs-* prefixed subprojects to root dokka documentation
-    subprojects.forEach { project ->
+    subprojects.filter { project ->
+        // Do not include relocated modules as dokka dependencies
+        project.name !in relocatedModules.keys
+    }.forEach { project ->
         if (project.name.startsWith("korlibs-")) {
             dokka(project)
         }
