@@ -15,9 +15,9 @@ data class Margin(
     companion object {
         val ZERO = Margin(0.0, 0.0, 0.0, 0.0)
 
-        inline operator fun invoke(margin: Number): Margin = Margin(margin.toDouble(), margin.toDouble(), margin.toDouble(), margin.toDouble())
-        inline operator fun invoke(vertical: Number, horizontal: Number): Margin = Margin(vertical.toDouble(), horizontal.toDouble(), vertical.toDouble(), horizontal.toDouble())
-        inline operator fun invoke(top: Number, right: Number, bottom: Number, left: Number): Margin = Margin(top.toDouble(), right.toDouble(), bottom.toDouble(), left.toDouble())
+        operator fun invoke(margin: Number): Margin = Margin(margin.toDouble(), margin.toDouble(), margin.toDouble(), margin.toDouble())
+        operator fun invoke(vertical: Number, horizontal: Number): Margin = Margin(vertical.toDouble(), horizontal.toDouble(), vertical.toDouble(), horizontal.toDouble())
+        operator fun invoke(top: Number, right: Number, bottom: Number, left: Number): Margin = Margin(top.toDouble(), right.toDouble(), bottom.toDouble(), left.toDouble())
     }
 
     constructor(vertical: Double, horizontal: Double) : this(vertical, horizontal, vertical, horizontal)

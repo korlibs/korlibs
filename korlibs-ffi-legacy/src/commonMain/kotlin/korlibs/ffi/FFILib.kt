@@ -21,8 +21,8 @@ expect fun CreateFFIMemory(size: Int): FFIMemory
 @Deprecated("Use FFIMemory instead")
 expect fun CreateFFIMemory(bytes: ByteArray): FFIMemory
 
-inline fun FFIMemory(size: Int, unit: Unit = Unit): FFIMemory = CreateFFIMemory(size)
-inline fun FFIMemory(bytes: ByteArray, unit: Unit = Unit): FFIMemory = CreateFFIMemory(bytes)
+fun FFIMemory(size: Int, unit: Unit = Unit): FFIMemory = CreateFFIMemory(size)
+fun FFIMemory(bytes: ByteArray, unit: Unit = Unit): FFIMemory = CreateFFIMemory(bytes)
 
 expect inline fun <T> FFIMemory.usePointer(block: (pointer: FFIPointer) -> T): T
 expect inline fun <T> Buffer.usePointer(block: (pointer: FFIPointer) -> T): T
@@ -67,7 +67,7 @@ internal fun FFIPointer._getIntArray(size: Int, byteOffset: Int): IntArray = Int
 @Deprecated("Use FFIPointer instead")
 expect fun CreateFFIPointer(ptr: Long): FFIPointer?
 
-inline fun FFIPointer(ptr: Long, unit: Unit = Unit): FFIPointer? = CreateFFIPointer(ptr)
+fun FFIPointer(ptr: Long, unit: Unit = Unit): FFIPointer? = CreateFFIPointer(ptr)
 
 operator fun FFIPointer.plus(offset: Int): FFIPointer = FFIPointer(address + offset)!!
 

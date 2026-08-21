@@ -91,23 +91,23 @@ inline val Double.days: Duration get() = toDuration(DurationUnit.DAYS)
 /** [Duration] representing this number as [weeks] or 604_800 [seconds]. */
 inline val Double.weeks: Duration get() = (this * 7).days
 
-inline fun Duration.Companion.fromNanoseconds(value: Double): Duration = value.nanoseconds
-inline fun Duration.Companion.fromMicroseconds(value: Double): Duration = value.microseconds
-inline fun Duration.Companion.fromMilliseconds(value: Double): Duration = value.milliseconds
-inline fun Duration.Companion.fromSeconds(value: Double): Duration = value.seconds
-inline fun Duration.Companion.fromMinutes(value: Double): Duration = value.minutes
-inline fun Duration.Companion.fromHours(value: Double): Duration = value.hours
-inline fun Duration.Companion.fromDays(value: Double): Duration = value.days
-inline fun Duration.Companion.fromWeeks(value: Double): Duration = value.weeks
+fun Duration.Companion.fromNanoseconds(value: Double): Duration = value.nanoseconds
+fun Duration.Companion.fromMicroseconds(value: Double): Duration = value.microseconds
+fun Duration.Companion.fromMilliseconds(value: Double): Duration = value.milliseconds
+fun Duration.Companion.fromSeconds(value: Double): Duration = value.seconds
+fun Duration.Companion.fromMinutes(value: Double): Duration = value.minutes
+fun Duration.Companion.fromHours(value: Double): Duration = value.hours
+fun Duration.Companion.fromDays(value: Double): Duration = value.days
+fun Duration.Companion.fromWeeks(value: Double): Duration = value.weeks
 
-inline fun Duration.Companion.fromNanoseconds(value: Number): Duration = fromNanoseconds(value.toDouble())
-inline fun Duration.Companion.fromMicroseconds(value: Number): Duration = fromMicroseconds(value.toDouble())
-inline fun Duration.Companion.fromMilliseconds(value: Number): Duration = fromMilliseconds(value.toDouble())
-inline fun Duration.Companion.fromSeconds(value: Number): Duration = fromSeconds(value.toDouble())
-inline fun Duration.Companion.fromMinutes(value: Number): Duration = fromMinutes(value.toDouble())
-inline fun Duration.Companion.fromHours(value: Number): Duration = fromHours(value.toDouble())
-inline fun Duration.Companion.fromDays(value: Number): Duration = fromDays(value.toDouble())
-inline fun Duration.Companion.fromWeeks(value: Number): Duration = fromWeeks(value.toDouble())
+fun Duration.Companion.fromNanoseconds(value: Number): Duration = fromNanoseconds(value.toDouble())
+fun Duration.Companion.fromMicroseconds(value: Number): Duration = fromMicroseconds(value.toDouble())
+fun Duration.Companion.fromMilliseconds(value: Number): Duration = fromMilliseconds(value.toDouble())
+fun Duration.Companion.fromSeconds(value: Number): Duration = fromSeconds(value.toDouble())
+fun Duration.Companion.fromMinutes(value: Number): Duration = fromMinutes(value.toDouble())
+fun Duration.Companion.fromHours(value: Number): Duration = fromHours(value.toDouble())
+fun Duration.Companion.fromDays(value: Number): Duration = fromDays(value.toDouble())
+fun Duration.Companion.fromWeeks(value: Number): Duration = fromWeeks(value.toDouble())
 
 /**
  * Represents a span of time, with [milliseconds] precision.
@@ -117,7 +117,7 @@ inline fun Duration.Companion.fromWeeks(value: Number): Duration = fromWeeks(val
 @Deprecated("", replaceWith = ReplaceWith("kotlin.time.Duration"))
 typealias TimeSpan = Duration
 
-inline operator fun Duration.unaryPlus(): Duration = this
+operator fun Duration.unaryPlus(): Duration = this
 
 val Duration.milliseconds: Double get() = this.inWholeNanoseconds.toDouble() / 1_000_000.0
 
@@ -150,14 +150,14 @@ inline val Duration.millisecondsLong: Long get() = inWholeMilliseconds
 inline val Duration.millisecondsInt: Int get() = inWholeMilliseconds.toInt()
 
 @Deprecated("", ReplaceWith("milliseconds.milliseconds", "kotlin.time.Duration.Companion.milliseconds"))
-inline fun TimeSpan(milliseconds: Double): Duration = milliseconds.milliseconds
+fun TimeSpan(milliseconds: Double): Duration = milliseconds.milliseconds
 
-inline operator fun Duration.times(scale: Float): Duration = this * scale.toDouble()
-inline operator fun Duration.div(scale: Float): Duration = this / scale.toDouble()
+operator fun Duration.times(scale: Float): Duration = this * scale.toDouble()
+operator fun Duration.div(scale: Float): Duration = this / scale.toDouble()
 
-inline infix fun Duration.divFloat(other: Duration): Float = (this.milliseconds / other.milliseconds).toFloat()
-inline operator fun Duration.rem(other: Duration): Duration = (this.milliseconds % other.milliseconds).milliseconds
-inline infix fun Duration.umod(other: Duration): Duration = (this.milliseconds umod other.milliseconds).milliseconds
+infix fun Duration.divFloat(other: Duration): Float = (this.milliseconds / other.milliseconds).toFloat()
+operator fun Duration.rem(other: Duration): Duration = (this.milliseconds % other.milliseconds).milliseconds
+infix fun Duration.umod(other: Duration): Duration = (this.milliseconds umod other.milliseconds).milliseconds
 
 /** Return true if [Duration.NIL] */
 inline val Duration.isNil: Boolean get() = this == DURATION_NIL

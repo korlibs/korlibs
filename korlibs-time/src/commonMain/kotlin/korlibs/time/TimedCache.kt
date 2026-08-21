@@ -33,7 +33,7 @@ class IntTimedCache(val ttl: Duration, val timeProvider: TimeProvider = TimeProv
         get() = get()
         set(value) { _value = value }
 
-    inline fun get(): Int {
+    fun get(): Int {
         val now = timeProvider.now()
         if (cachedTime == DateTime.EPOCH || (now - cachedTime >= ttl)) {
             cachedTime = now

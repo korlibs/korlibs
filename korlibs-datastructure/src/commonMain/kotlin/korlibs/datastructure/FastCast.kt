@@ -1,3 +1,3 @@
 package korlibs.datastructure
 
-expect inline fun <T> Any?.fastCastTo(): T
+expect fun <T> Any?.fastCastTo(): T

@@ -36,9 +36,9 @@ internal actual class TestMathFFIImpl actual constructor() : TestMathFFI {
   actual override fun close() = Unit
 }
 
-private inline fun Pointer.toFFIPointer() = FFIPointer(nativeValue(this))
+private fun Pointer.toFFIPointer() = FFIPointer(nativeValue(this))
 
-private inline fun FFIPointer.toPointer() = createConstant(this.address)
+private fun FFIPointer.toPointer() = createConstant(this.address)
 
 private object TestMathFFIImplFunctions : Library {
   external fun cosf(v: Float): Float

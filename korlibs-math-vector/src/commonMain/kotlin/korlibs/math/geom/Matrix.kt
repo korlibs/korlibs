@@ -54,14 +54,14 @@ data class Matrix(
         }
     }
 
-    inline fun transform(p: Vector2F): Vector2F {
+    fun transform(p: Vector2F): Vector2F {
         if (this.isNIL) return p
         return Vector2F(
             this.a * p.x + this.c * p.y + this.tx,
             this.d * p.y + this.b * p.x + this.ty
         )
     }
-    inline fun transform(p: Vector2D): Vector2D {
+    fun transform(p: Vector2D): Vector2D {
         if (this.isNIL) return p
         return Vector2D(
             transformX(p.x, p.y),

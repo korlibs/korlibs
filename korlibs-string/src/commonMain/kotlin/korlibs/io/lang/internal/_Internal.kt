@@ -11,10 +11,10 @@ package korlibs.io.lang.internal
 }
 @PublishedApi internal fun ByteArray.getS16(offset: Int, littleEndian: Boolean): Int = if (littleEndian) getS16LE(offset) else getS16BE(offset)
 @PublishedApi internal fun ByteArray.getS16LE(offset: Int): Int = get16LE(offset).signExtend(16)
-@PublishedApi internal inline fun ByteArray.get16LE(offset: Int): Int = (u8(offset + 0) shl 0) or (u8(offset + 1) shl 8)
+@PublishedApi internal fun ByteArray.get16LE(offset: Int): Int = (u8(offset + 0) shl 0) or (u8(offset + 1) shl 8)
 @PublishedApi internal fun ByteArray.set16(offset: Int, value: Int, littleEndian: Boolean) { if (littleEndian) set16LE(offset, value) else set16BE(offset, value) }
 @PublishedApi internal fun ByteArray.set16LE(offset: Int, value: Int) { this[offset + 0] = value.extractByte(0); this[offset + 1] = value.extractByte(8) }
 @PublishedApi internal fun ByteArray.set16BE(offset: Int, value: Int) { this[offset + 1] = value.extractByte(0); this[offset + 0] = value.extractByte(8) }
 @PublishedApi internal fun ByteArray.getS16BE(offset: Int): Int = get16BE(offset).signExtend(16)
-@PublishedApi internal inline fun ByteArray.get16BE(offset: Int): Int = (u8(offset + 1) shl 0) or (u8(offset + 0) shl 8)
+@PublishedApi internal fun ByteArray.get16BE(offset: Int): Int = (u8(offset + 1) shl 0) or (u8(offset + 0) shl 8)
 @PublishedApi internal fun ByteArray.u8(offset: Int): Int = this[offset].toInt() and 0xFF

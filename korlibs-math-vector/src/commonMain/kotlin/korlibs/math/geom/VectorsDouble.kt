@@ -32,26 +32,26 @@ data class Vector2D(val x: Double, val y: Double) : IsAlmostEquals<Vector2D> {
 
     fun copy(x: Float = this.x.toFloat(), y: Float = this.y.toFloat()): Vector2D = Vector2D(x, y)
 
-    inline operator fun unaryMinus(): Vector2D = Vector2D(-x, -y)
-    inline operator fun unaryPlus(): Vector2D = this
+    operator fun unaryMinus(): Vector2D = Vector2D(-x, -y)
+    operator fun unaryPlus(): Vector2D = this
 
-    inline operator fun plus(that: Vector2D): Vector2D = Vector2D(x + that.x, y + that.y)
-    inline operator fun minus(that: Vector2D): Vector2D = Vector2D(x - that.x, y - that.y)
-    inline operator fun times(that: Vector2D): Vector2D = Vector2D(x * that.x, y * that.y)
-    inline operator fun div(that: Vector2D): Vector2D = Vector2D(x / that.x, y / that.y)
-    inline operator fun rem(that: Vector2D): Vector2D = Vector2D(x % that.x, y % that.y)
+    operator fun plus(that: Vector2D): Vector2D = Vector2D(x + that.x, y + that.y)
+    operator fun minus(that: Vector2D): Vector2D = Vector2D(x - that.x, y - that.y)
+    operator fun times(that: Vector2D): Vector2D = Vector2D(x * that.x, y * that.y)
+    operator fun div(that: Vector2D): Vector2D = Vector2D(x / that.x, y / that.y)
+    operator fun rem(that: Vector2D): Vector2D = Vector2D(x % that.x, y % that.y)
 
-    inline operator fun times(scale: Double): Vector2D = Vector2D(x * scale, y * scale)
-    inline operator fun times(scale: Float): Vector2D = this * scale.toDouble()
-    inline operator fun times(scale: Int): Vector2D = this * scale.toDouble()
+    operator fun times(scale: Double): Vector2D = Vector2D(x * scale, y * scale)
+    operator fun times(scale: Float): Vector2D = this * scale.toDouble()
+    operator fun times(scale: Int): Vector2D = this * scale.toDouble()
 
-    inline operator fun div(scale: Double): Vector2D = Vector2D(x / scale, y / scale)
-    inline operator fun div(scale: Float): Vector2D = this / scale.toDouble()
-    inline operator fun div(scale: Int): Vector2D = this / scale.toDouble()
+    operator fun div(scale: Double): Vector2D = Vector2D(x / scale, y / scale)
+    operator fun div(scale: Float): Vector2D = this / scale.toDouble()
+    operator fun div(scale: Int): Vector2D = this / scale.toDouble()
 
-    inline operator fun rem(scale: Double): Vector2D = Vector2D(x % scale, y % scale)
-    inline operator fun rem(scale: Float): Vector2D = this % scale.toDouble()
-    inline operator fun rem(scale: Int): Vector2D = this % scale.toDouble()
+    operator fun rem(scale: Double): Vector2D = Vector2D(x % scale, y % scale)
+    operator fun rem(scale: Float): Vector2D = this % scale.toDouble()
+    operator fun rem(scale: Int): Vector2D = this % scale.toDouble()
 
     fun avgComponent(): Double = x * 0.5 + y * 0.5
     fun minComponent(): Double = min(x, y)
@@ -137,18 +137,18 @@ data class Vector2D(val x: Double, val y: Double) : IsAlmostEquals<Vector2D> {
         val DOWN_SCREEN = Vector2D(0.0, +1.0)
 
 
-        inline operator fun invoke(x: Number, y: Number): Vector2D = Vector2D(x.toDouble(), y.toDouble())
+        operator fun invoke(x: Number, y: Number): Vector2D = Vector2D(x.toDouble(), y.toDouble())
         //inline operator fun invoke(x: Float, y: Float): Vector2D = Vector2D(x.toDouble(), y.toDouble())
 
         //fun fromRaw(raw: Float2Pack) = Vector2D(raw)
 
         /** Constructs a point from polar coordinates determined by an [angle] and a [length]. Angle 0 is pointing to the right, and the direction is counter-clock-wise for up=UP and clock-wise for up=UP_SCREEN */
-        inline fun polar(x: Float, y: Float, angle: Angle, length: Float = 1f, up: Vector2D = UP): Vector2D = Vector2D(x + angle.cosine(up) * length, y + angle.sine(up) * length)
-        inline fun polar(x: Double, y: Double, angle: Angle, length: Double = 1.0, up: Vector2D = UP): Vector2D = Vector2D(x + angle.cosine(up) * length, y + angle.sine(up) * length)
-        inline fun polar(base: Vector2D, angle: Angle, length: Double = 1.0, up: Vector2D = UP): Vector2D = polar(base.x, base.y, angle, length, up)
-        inline fun polar(angle: Angle, length: Double = 1.0, up: Vector2D = UP): Vector2D = polar(0.0, 0.0, angle, length, up)
+        fun polar(x: Float, y: Float, angle: Angle, length: Float = 1f, up: Vector2D = UP): Vector2D = Vector2D(x + angle.cosine(up) * length, y + angle.sine(up) * length)
+        fun polar(x: Double, y: Double, angle: Angle, length: Double = 1.0, up: Vector2D = UP): Vector2D = Vector2D(x + angle.cosine(up) * length, y + angle.sine(up) * length)
+        fun polar(base: Vector2D, angle: Angle, length: Double = 1.0, up: Vector2D = UP): Vector2D = polar(base.x, base.y, angle, length, up)
+        fun polar(angle: Angle, length: Double = 1.0, up: Vector2D = UP): Vector2D = polar(0.0, 0.0, angle, length, up)
 
-        inline fun middle(a: Vector2D, b: Vector2D): Vector2D = (a + b) * 0.5
+        fun middle(a: Vector2D, b: Vector2D): Vector2D = (a + b) * 0.5
 
         fun angle(ax: Double, ay: Double, bx: Double, by: Double, up: Vector2D = UP): Angle = Angle.between(ax, ay, bx, by, up)
         fun angle(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double, up: Vector2D = UP): Angle = Angle.between(x1 - x2, y1 - y2, x1 - x3, y1 - y3, up)
@@ -173,7 +173,7 @@ data class Vector2D(val x: Double, val y: Double) : IsAlmostEquals<Vector2D> {
         fun distanceSquared(x1: Int, y1: Int, x2: Int, y2: Int): Int = square(x1 - x2) + square(y1 - y2)
 
         @Deprecated("Likely searching for orientation")
-        inline fun direction(a: Vector2D, b: Vector2D): Vector2D = b - a
+        fun direction(a: Vector2D, b: Vector2D): Vector2D = b - a
 
         fun compare(l: Vector2D, r: Vector2D): Int = compare(l.x, l.y, r.x, r.y)
         fun compare(lx: Float, ly: Float, rx: Float, ry: Float): Int = ly.compareTo(ry).let { ret -> if (ret == 0) lx.compareTo(rx) else ret }

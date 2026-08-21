@@ -77,7 +77,7 @@ data class Line2D(val a: Vector2D, val b: Vector2D) : SimpleShape2D {
     constructor(x0: Float, y0: Float, x1: Float, y1: Float) : this(Point(x0, y0), Point(x1, y1))
     constructor(x0: Int, y0: Int, x1: Int, y1: Int) : this(Point(x0, y0), Point(x1, y1))
 
-    inline fun flipped(): Line = Line(b, a)
+    fun flipped(): Line = Line(b, a)
 
     val x0: Double get() = a.x
     val y0: Double get() = a.y
@@ -154,7 +154,7 @@ data class Line2D(val a: Vector2D, val b: Vector2D) : SimpleShape2D {
 
         fun length(Ax: Double, Ay: Double, Bx: Double, By: Double): Double = kotlin.math.hypot(Bx - Ax, By - Ay)
 
-        inline fun getIntersectXY(Ax: Double, Ay: Double, Bx: Double, By: Double, Cx: Double, Cy: Double, Dx: Double, Dy: Double): Point? {
+        fun getIntersectXY(Ax: Double, Ay: Double, Bx: Double, By: Double, Cx: Double, Cy: Double, Dx: Double, Dy: Double): Point? {
             val a1 = By - Ay
             val b1 = Ax - Bx
             val c1 = a1 * (Ax) + b1 * (Ay)

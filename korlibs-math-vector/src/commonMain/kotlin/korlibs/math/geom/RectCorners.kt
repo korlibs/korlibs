@@ -20,9 +20,9 @@ data class RectCorners(
         val MINUS_ONE = RectCorners(-1.0)
         val NaN = RectCorners(Double.NaN)
 
-        inline operator fun invoke(corner: Number): RectCorners = RectCorners(corner.toDouble(), corner.toDouble(), corner.toDouble(), corner.toDouble())
-        inline operator fun invoke(topLeftBottomRight: Number, topRightAndBottomLeft: Number): RectCorners = RectCorners(topLeftBottomRight.toDouble(), topRightAndBottomLeft.toDouble(), topLeftBottomRight.toDouble(), topRightAndBottomLeft.toDouble())
-        inline operator fun invoke(topLeft: Number, topRightAndBottomLeft: Number, bottomRight: Number): RectCorners = RectCorners(topLeft.toDouble(), topRightAndBottomLeft.toDouble(), bottomRight.toDouble(), topRightAndBottomLeft.toDouble())
-        inline operator fun invoke(topLeft: Number, topRight: Number, bottomRight: Number, bottomLeft: Number): RectCorners = RectCorners(topLeft.toDouble(), topRight.toDouble(), bottomRight.toDouble(), bottomLeft.toDouble())
+        operator fun invoke(corner: Number): RectCorners = RectCorners(corner.toDouble(), corner.toDouble(), corner.toDouble(), corner.toDouble())
+        operator fun invoke(topLeftBottomRight: Number, topRightAndBottomLeft: Number): RectCorners = RectCorners(topLeftBottomRight.toDouble(), topRightAndBottomLeft.toDouble(), topLeftBottomRight.toDouble(), topRightAndBottomLeft.toDouble())
+        operator fun invoke(topLeft: Number, topRightAndBottomLeft: Number, bottomRight: Number): RectCorners = RectCorners(topLeft.toDouble(), topRightAndBottomLeft.toDouble(), bottomRight.toDouble(), topRightAndBottomLeft.toDouble())
+        operator fun invoke(topLeft: Number, topRight: Number, bottomRight: Number, bottomLeft: Number): RectCorners = RectCorners(topLeft.toDouble(), topRight.toDouble(), bottomRight.toDouble(), bottomLeft.toDouble())
     }
 }

@@ -19,7 +19,7 @@ fun interface Easing {
         }
         fun cubic(f: (t: Float, b: Float, c: Float, d: Float) -> Float): Easing = Easing { f(it, 0f, 1f, 1f) }
         fun combine(start: Easing, end: Easing): Easing = Easing { combine(it, start, end) }
-        inline fun combine(it: Float, start: Easing, end: Easing): Float =
+        fun combine(it: Float, start: Easing, end: Easing): Float =
             if (it < .5f) .5f * start(it * 2f) else .5f * end((it - .5f) * 2f) + .5f
 
         val LINEAR = Easing { it }

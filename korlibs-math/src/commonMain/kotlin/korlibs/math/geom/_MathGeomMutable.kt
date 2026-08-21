@@ -107,7 +107,7 @@ class MBoundsBuilder {
         return this
     }
 
-    inline fun add(rect: MRectangle?): MBoundsBuilder {
+    fun add(rect: MRectangle?): MBoundsBuilder {
         rect?.let { addNonEmpty(rect) }
         return this
     }
@@ -398,10 +398,10 @@ data class MMatrix(
     companion object {
         val POOL: ConcurrentPool<MMatrix> = ConcurrentPool<MMatrix>({ it.identity() }) { MMatrix() }
 
-        inline operator fun invoke(a: Float, b: Float = 0f, c: Float = 0f, d: Float = 1f, tx: Float = 0f, ty: Float = 0f) =
+        operator fun invoke(a: Float, b: Float = 0f, c: Float = 0f, d: Float = 1f, tx: Float = 0f, ty: Float = 0f) =
             MMatrix(a.toDouble(), b.toDouble(), c.toDouble(), d.toDouble(), tx.toDouble(), ty.toDouble())
 
-        inline operator fun invoke(a: Int, b: Int = 0, c: Int = 0, d: Int = 1, tx: Int = 0, ty: Int = 0) =
+        operator fun invoke(a: Int, b: Int = 0, c: Int = 0, d: Int = 1, tx: Int = 0, ty: Int = 0) =
             MMatrix(a.toDouble(), b.toDouble(), c.toDouble(), d.toDouble(), tx.toDouble(), ty.toDouble())
 
         operator fun invoke(m: MMatrix, out: MMatrix = MMatrix()): MMatrix = out.copyFrom(m)
@@ -1853,9 +1853,9 @@ class MMatrix4 {
         )
     }
 
-    inline fun translate(v: MVector4, temp: MMatrix4 = MMatrix4()) = translate(v.x, v.y, v.z, v.w, temp)
-    inline fun rotate(angle: Angle, v: MVector4, temp: MMatrix4 = MMatrix4()) = rotate(angle, v.x, v.y, v.z, temp)
-    inline fun scale(v: MVector4, temp: MMatrix4 = MMatrix4()) = scale(v.x, v.y, v.z, v.w, temp)
+    fun translate(v: MVector4, temp: MMatrix4 = MMatrix4()) = translate(v.x, v.y, v.z, v.w, temp)
+    fun rotate(angle: Angle, v: MVector4, temp: MMatrix4 = MMatrix4()) = rotate(angle, v.x, v.y, v.z, temp)
+    fun scale(v: MVector4, temp: MMatrix4 = MMatrix4()) = scale(v.x, v.y, v.z, v.w, temp)
 
     fun setTRS(translation: MPosition3D, rotation: Quaternion, scale: MScale3D): MMatrix4 {
         val rx = rotation.x.toFloat()
@@ -2192,10 +2192,10 @@ data class MPoint(
         operator fun invoke(xy: Int): MPoint = MPoint(xy.toDouble(), xy.toDouble())
         operator fun invoke(xy: Float): MPoint = MPoint(xy.toDouble(), xy.toDouble())
         operator fun invoke(xy: Double): MPoint = MPoint(xy, xy)
-        inline operator fun invoke(x: Number, y: Number): MPoint = MPoint(x.toDouble(), y.toDouble())
+        operator fun invoke(x: Number, y: Number): MPoint = MPoint(x.toDouble(), y.toDouble())
 
         /** Constructs a point from polar coordinates determined by an [angle] and a [length]. Angle 0 is pointing to the right, and the direction is counter-clock-wise */
-        inline operator fun invoke(angle: Angle, length: Double = 1.0): MPoint = fromPolar(angle, length)
+        operator fun invoke(angle: Angle, length: Double = 1.0): MPoint = fromPolar(angle, length)
 
         fun angleArc(a: Point, b: Point): Angle = Angle.fromRadians(acos((a.dot(b)) / (a.length * b.length)))
         fun angleArc(a: MPoint, b: MPoint): Angle = Angle.fromRadians(acos((a.dot(b)) / (a.length * b.length)))
@@ -2630,7 +2630,7 @@ data class MRectangle(
     fun expand(left: Double, top: Double, right: Double, bottom: Double): MRectangle =
         this.setToBounds(this.left - left, this.top - top, this.right + right, this.bottom + bottom)
 
-    inline fun expand(left: Number, top: Number, right: Number, bottom: Number): MRectangle =
+    fun expand(left: Number, top: Number, right: Number, bottom: Number): MRectangle =
         expand(left.toDouble(), top.toDouble(), right.toDouble(), bottom.toDouble())
 
     fun expand(margin: Margin): MRectangle =
@@ -2787,7 +2787,7 @@ value class MRectangleInt(val rect: MRectangle) {
         out.setTo((x + width * anchor.sx).toInt(), (y + height * anchor.sy).toInt())
 
     val center: MPoint get() = anchor(0.5, 0.5).double
-    inline fun anchor(ax: Number, ay: Number): MPointInt = anchor(ax.toDouble(), ay.toDouble())
+    fun anchor(ax: Number, ay: Number): MPointInt = anchor(ax.toDouble(), ay.toDouble())
     fun anchor(ax: Double, ay: Double): MPointInt = MPointInt((x + width * ax).toInt(), (y + height * ay).toInt())
 
     fun setTo(that: MRectangleInt) = setTo(that.x, that.y, that.width, that.height)

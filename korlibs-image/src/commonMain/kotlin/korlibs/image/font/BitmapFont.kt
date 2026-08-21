@@ -109,7 +109,7 @@ interface BitmapFont : Font {
         getTextScale(size) * (getKerning(leftCodePoint, rightCodePoint)?.amount?.toDouble() ?: 0.0)
 
     companion object {
-        inline operator fun invoke(
+        operator fun invoke(
             fontSize: Number,
             lineHeight: Number,
             base: Number,
@@ -460,7 +460,7 @@ fun Bitmap32.drawText(
     this.fillText(str, pos)
 }
 
-inline fun Font.toBitmapFont(
+fun Font.toBitmapFont(
     fontSize: Number,
     chars: CharacterSet = CharacterSet.LATIN_ALL,
     fontName: String = this.name,

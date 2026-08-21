@@ -270,12 +270,12 @@ open class Context2d(
         state = stack.pop()
     }
 
-    inline fun scale(sx: Number, sy: Number = sx) = scale(sx.toDouble(), sy.toDouble())
-    inline fun translate(tx: Number, ty: Number) = translate(tx.toDouble(), ty.toDouble())
-    inline fun translate(pos: Point) = translate(pos.x.toDouble(), pos.y.toDouble())
+    fun scale(sx: Number, sy: Number = sx) = scale(sx.toDouble(), sy.toDouble())
+    fun translate(tx: Number, ty: Number) = translate(tx.toDouble(), ty.toDouble())
+    fun translate(pos: Point) = translate(pos.x.toDouble(), pos.y.toDouble())
 
-    inline fun scale(sx: Int, sy: Int = sx) = scale(sx.toDouble(), sy.toDouble())
-    inline fun translate(tx: Int, ty: Int) = translate(tx.toDouble(), ty.toDouble())
+    fun scale(sx: Int, sy: Int = sx) = scale(sx.toDouble(), sy.toDouble())
+    fun translate(tx: Int, ty: Int) = translate(tx.toDouble(), ty.toDouble())
 
     inline fun skew(skewX: Angle = Angle.ZERO, skewY: Angle = Angle.ZERO, block: () -> Unit) =
         keep { skew(skewX, skewY).also { block() } }
@@ -355,13 +355,13 @@ open class Context2d(
         lastPos = a
     }
 
-    inline fun strokeRect(x: Number, y: Number, width: Number, height: Number) =
+    fun strokeRect(x: Number, y: Number, width: Number, height: Number) =
         strokeRect(x.toDouble(), y.toDouble(), width.toDouble(), height.toDouble())
 
-    inline fun fillRect(x: Number, y: Number, width: Number, height: Number) =
+    fun fillRect(x: Number, y: Number, width: Number, height: Number) =
         fillRect(x.toDouble(), y.toDouble(), width.toDouble(), height.toDouble())
 
-    inline fun fillRoundRect(x: Number, y: Number, width: Number, height: Number, rx: Number, ry: Number = rx) {
+    fun fillRoundRect(x: Number, y: Number, width: Number, height: Number, rx: Number, ry: Number = rx) {
         beginPath()
         roundRect(x.toDouble(), y.toDouble(), width.toDouble(), height.toDouble(), rx.toDouble(), ry.toDouble())
         fill()

@@ -5,8 +5,8 @@ import kotlin.math.*
 
 data class Circle(override val center: Point, val radius: Double) : SimpleShape2D {
     companion object {
-        inline operator fun invoke(center: Point, radius: Number) = Circle(center, radius.toDouble())
-        inline operator fun invoke(x: Number, y: Number, radius: Number) = Circle(Point(x.toDouble(), y.toDouble()), radius.toDouble())
+        operator fun invoke(center: Point, radius: Number) = Circle(center, radius.toDouble())
+        operator fun invoke(x: Number, y: Number, radius: Number) = Circle(Point(x.toDouble(), y.toDouble()), radius.toDouble())
     }
 
     override val closed: Boolean get() = true

@@ -180,7 +180,7 @@ open class WasmRuntime(module: WasmModule, val memSize: Int, val memMax: Int) {
             return func.invoke(runtime, args)
         }
 
-        inline fun checkAddr(addr: Int, offset: Int, runtime: WasmRuntime): Int {
+        fun checkAddr(addr: Int, offset: Int, runtime: WasmRuntime): Int {
             return (addr + offset).also { 
                 if (it < 0 || it >= runtime.memory.sizeInBytes) error("Out of bounds addr=$addr, offset=$offset, memorySize=${runtime.memory.sizeInBytes}")
             }
@@ -367,4 +367,4 @@ open class WasmRuntime(module: WasmModule, val memSize: Int, val memMax: Int) {
     }
 }
 
-private inline fun Boolean.toInt(): Int = if (this) 1 else 0
+private fun Boolean.toInt(): Int = if (this) 1 else 0

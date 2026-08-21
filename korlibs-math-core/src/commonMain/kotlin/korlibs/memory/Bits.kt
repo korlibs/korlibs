@@ -6,14 +6,14 @@ import kotlin.rotateLeft as rotateLeftKotlin
 import kotlin.rotateRight as rotateRightKotlin
 
 /** Returns the bits in memory of [this] float */
-public inline fun Float.reinterpretAsInt(): Int = this.toRawBits()
+public fun Float.reinterpretAsInt(): Int = this.toRawBits()
 /** Returns the bits in memory of [this] float */
-public inline fun Double.reinterpretAsLong(): Long = this.toRawBits()
+public fun Double.reinterpretAsLong(): Long = this.toRawBits()
 
 /** Returns the float representation of [this] memory bits */
-public inline fun Int.reinterpretAsFloat(): Float = Float.fromBits(this)
+public fun Int.reinterpretAsFloat(): Float = Float.fromBits(this)
 /** Returns the float representation of [this] memory bits */
-public inline fun Long.reinterpretAsDouble(): Double = Double.fromBits(this)
+public fun Long.reinterpretAsDouble(): Double = Double.fromBits(this)
 
 /** Rotates [this]  [bits] bits to the left */
 public fun UInt.rotateLeft(bits: Int): UInt = this.rotateLeftKotlin(bits)
@@ -67,7 +67,7 @@ public fun Int.reverseBits(): Int {
 }
 
 /** Returns the number of leading zeros of the bits of [this] integer */
-public inline fun Int.countLeadingZeros(): Int = this.countLeadingZeroBits()
+public fun Int.countLeadingZeros(): Int = this.countLeadingZeroBits()
 
 /** Returns the number of trailing zeros of the bits of [this] integer */
 public fun Int.countTrailingZeros(): Int = this.countTrailingZeroBits()
@@ -125,73 +125,73 @@ fun Int.extractMaskRange(): IntMaskRange = IntMaskRange.fromMask(this)
 /** Extracts [count] bits at [offset] from [this] [Int] */
 public fun Int.extract(offset: Int, count: Int): Int = (this ushr offset) and count.mask()
 /** Extracts a bits at [offset] from [this] [Int] (returning a [Boolean]) */
-inline fun Int.extract(offset: Int): Boolean = extract1(offset) != 0
+fun Int.extract(offset: Int): Boolean = extract1(offset) != 0
 /** Extracts a bits at [offset] from [this] [Int] (returning a [Boolean]) */
-inline fun Int.extractBool(offset: Int): Boolean = extract1(offset) != 0
+fun Int.extractBool(offset: Int): Boolean = extract1(offset) != 0
 /** Extracts 1 bit at [offset] from [this] [Int] */
-inline fun Int.extract1(offset: Int): Int = (this ushr offset) and 0b1
+fun Int.extract1(offset: Int): Int = (this ushr offset) and 0b1
 /** Extracts 2 bits at [offset] from [this] [Int] */
-inline fun Int.extract2(offset: Int): Int = (this ushr offset) and 0b11
+fun Int.extract2(offset: Int): Int = (this ushr offset) and 0b11
 /** Extracts 3 bits at [offset] from [this] [Int] */
-inline fun Int.extract3(offset: Int): Int = (this ushr offset) and 0b111
+fun Int.extract3(offset: Int): Int = (this ushr offset) and 0b111
 /** Extracts 4 bits at [offset] from [this] [Int] */
-inline fun Int.extract4(offset: Int): Int = (this ushr offset) and 0b1111
+fun Int.extract4(offset: Int): Int = (this ushr offset) and 0b1111
 /** Extracts 5 bits at [offset] from [this] [Int] */
-inline fun Int.extract5(offset: Int): Int = (this ushr offset) and 0b11111
+fun Int.extract5(offset: Int): Int = (this ushr offset) and 0b11111
 /** Extracts 6 bits at [offset] from [this] [Int] */
-inline fun Int.extract6(offset: Int): Int = (this ushr offset) and 0b111111
+fun Int.extract6(offset: Int): Int = (this ushr offset) and 0b111111
 /** Extracts 7 bits at [offset] from [this] [Int] */
-inline fun Int.extract7(offset: Int): Int = (this ushr offset) and 0b1111111
+fun Int.extract7(offset: Int): Int = (this ushr offset) and 0b1111111
 /** Extracts 8 bits at [offset] from [this] [Int] */
-inline fun Int.extract8(offset: Int): Int = (this ushr offset) and 0b11111111
+fun Int.extract8(offset: Int): Int = (this ushr offset) and 0b11111111
 /** Extracts 9 bits at [offset] from [this] [Int] */
-inline fun Int.extract9(offset: Int): Int = (this ushr offset) and 0b111111111
+fun Int.extract9(offset: Int): Int = (this ushr offset) and 0b111111111
 /** Extracts 10 bits at [offset] from [this] [Int] */
-inline fun Int.extract10(offset: Int): Int = (this ushr offset) and 0b1111111111
+fun Int.extract10(offset: Int): Int = (this ushr offset) and 0b1111111111
 /** Extracts 11 bits at [offset] from [this] [Int] */
-inline fun Int.extract11(offset: Int): Int = (this ushr offset) and 0b11111111111
+fun Int.extract11(offset: Int): Int = (this ushr offset) and 0b11111111111
 /** Extracts 12 bits at [offset] from [this] [Int] */
-inline fun Int.extract12(offset: Int): Int = (this ushr offset) and 0b111111111111
+fun Int.extract12(offset: Int): Int = (this ushr offset) and 0b111111111111
 /** Extracts 13 bits at [offset] from [this] [Int] */
-inline fun Int.extract13(offset: Int): Int = (this ushr offset) and 0b1111111111111
+fun Int.extract13(offset: Int): Int = (this ushr offset) and 0b1111111111111
 /** Extracts 14 bits at [offset] from [this] [Int] */
-inline fun Int.extract14(offset: Int): Int = (this ushr offset) and 0b11111111111111
+fun Int.extract14(offset: Int): Int = (this ushr offset) and 0b11111111111111
 /** Extracts 15 bits at [offset] from [this] [Int] */
-inline fun Int.extract15(offset: Int): Int = (this ushr offset) and 0b111111111111111
+fun Int.extract15(offset: Int): Int = (this ushr offset) and 0b111111111111111
 /** Extracts 16 bits at [offset] from [this] [Int] */
-inline fun Int.extract16(offset: Int): Int = (this ushr offset) and 0b1111111111111111
+fun Int.extract16(offset: Int): Int = (this ushr offset) and 0b1111111111111111
 /** Extracts 17 bits at [offset] from [this] [Int] */
-inline fun Int.extract17(offset: Int): Int = (this ushr offset) and 0b11111111111111111
+fun Int.extract17(offset: Int): Int = (this ushr offset) and 0b11111111111111111
 /** Extracts 18 bits at [offset] from [this] [Int] */
-inline fun Int.extract18(offset: Int): Int = (this ushr offset) and 0b111111111111111111
+fun Int.extract18(offset: Int): Int = (this ushr offset) and 0b111111111111111111
 /** Extracts 19 bits at [offset] from [this] [Int] */
-inline fun Int.extract19(offset: Int): Int = (this ushr offset) and 0b1111111111111111111
+fun Int.extract19(offset: Int): Int = (this ushr offset) and 0b1111111111111111111
 /** Extracts 20 bits at [offset] from [this] [Int] */
-inline fun Int.extract20(offset: Int): Int = (this ushr offset) and 0b11111111111111111111
+fun Int.extract20(offset: Int): Int = (this ushr offset) and 0b11111111111111111111
 /** Extracts 21 bits at [offset] from [this] [Int] */
-inline fun Int.extract21(offset: Int): Int = (this ushr offset) and 0b111111111111111111111
+fun Int.extract21(offset: Int): Int = (this ushr offset) and 0b111111111111111111111
 /** Extracts 22 bits at [offset] from [this] [Int] */
-inline fun Int.extract22(offset: Int): Int = (this ushr offset) and 0b1111111111111111111111
+fun Int.extract22(offset: Int): Int = (this ushr offset) and 0b1111111111111111111111
 /** Extracts 23 bits at [offset] from [this] [Int] */
-inline fun Int.extract23(offset: Int): Int = (this ushr offset) and 0b11111111111111111111111
+fun Int.extract23(offset: Int): Int = (this ushr offset) and 0b11111111111111111111111
 /** Extracts 24 bits at [offset] from [this] [Int] */
-inline fun Int.extract24(offset: Int): Int = (this ushr offset) and 0xFFFFFF
+fun Int.extract24(offset: Int): Int = (this ushr offset) and 0xFFFFFF
 /** Extracts 25 bits at [offset] from [this] [Int] */
-inline fun Int.extract25(offset: Int): Int = (this ushr offset) and 0b1111111111111111111111111
+fun Int.extract25(offset: Int): Int = (this ushr offset) and 0b1111111111111111111111111
 /** Extracts 26 bits at [offset] from [this] [Int] */
-inline fun Int.extract26(offset: Int): Int = (this ushr offset) and 0b11111111111111111111111111
+fun Int.extract26(offset: Int): Int = (this ushr offset) and 0b11111111111111111111111111
 /** Extracts 27 bits at [offset] from [this] [Int] */
-inline fun Int.extract27(offset: Int): Int = (this ushr offset) and 0b111111111111111111111111111
+fun Int.extract27(offset: Int): Int = (this ushr offset) and 0b111111111111111111111111111
 /** Extracts 28 bits at [offset] from [this] [Int] */
-inline fun Int.extract28(offset: Int): Int = (this ushr offset) and 0b1111111111111111111111111111
+fun Int.extract28(offset: Int): Int = (this ushr offset) and 0b1111111111111111111111111111
 /** Extracts 29 bits at [offset] from [this] [Int] */
-inline fun Int.extract29(offset: Int): Int = (this ushr offset) and 0b11111111111111111111111111111
+fun Int.extract29(offset: Int): Int = (this ushr offset) and 0b11111111111111111111111111111
 /** Extracts 30 bits at [offset] from [this] [Int] */
-inline fun Int.extract30(offset: Int): Int = (this ushr offset) and 0b111111111111111111111111111111
+fun Int.extract30(offset: Int): Int = (this ushr offset) and 0b111111111111111111111111111111
 /** Extracts 31 bits at [offset] from [this] [Int] */
-inline fun Int.extract31(offset: Int): Int = (this ushr offset) and 0b1111111111111111111111111111111
+fun Int.extract31(offset: Int): Int = (this ushr offset) and 0b1111111111111111111111111111111
 /** Extracts 32 bits at [offset] from [this] [Int] */
-inline fun Int.extract32(offset: Int): Int = (this ushr offset) and -1
+fun Int.extract32(offset: Int): Int = (this ushr offset) and -1
 
 
 /** Extracts [count] bits at [offset] from [this] [Int] sign-extending its result if [signed] is set to true */
@@ -283,7 +283,7 @@ public fun Int.finsert2(value: Int, offset: Int): Int = this or ((value and 0b11
 public fun Int.finsert1(value: Int, offset: Int): Int = this or ((value and 0b1) shl offset)
 public fun Int.finsert(value: Boolean, offset: Int): Int = finsert(value.toInt(), offset)
 
-inline fun Int.insertMask(value: Int, offset: Int, mask: Int): Int {
+fun Int.insertMask(value: Int, offset: Int, mask: Int): Int {
     return (this and (mask shl offset).inv()) or ((value and mask) shl offset)
 }
 /** Replaces 1 bit at [offset] with [value] and returns the result of doing such replacement */
@@ -336,7 +336,7 @@ val Long._high: Int get() = (this ushr 32).toInt()
 /** Get low 32-bits of this Long */
 val Long._low: Int get() = this.toInt()
 
-inline fun Long.Companion.fromLowHigh(low: Int, high: Int): Long = (low.toLong() and 0xFFFFFFFFL) or (high.toLong() shl 32)
+fun Long.Companion.fromLowHigh(low: Int, high: Int): Long = (low.toLong() and 0xFFFFFFFFL) or (high.toLong() shl 32)
 
 inline fun Int.fastForEachOneBits(block: (Int) -> Unit) {
     var value = this

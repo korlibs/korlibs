@@ -201,28 +201,28 @@ fun Buffer.getU32LE(byteOffset: Int): Long = getS32LE(byteOffset).unsigned
 fun Buffer.getU16BE(byteOffset: Int): Int = getS16BE(byteOffset).unsigned
 fun Buffer.getU32BE(byteOffset: Int): Long = getS32BE(byteOffset).unsigned
 
-inline fun Buffer.getU8(byteOffset: Int, littleEndian: Boolean = true): Int = getU8(byteOffset)
-inline fun Buffer.getU16(byteOffset: Int, littleEndian: Boolean = true): Int = if (littleEndian) getU16LE(byteOffset) else getU16BE(byteOffset)
-inline fun Buffer.getU32(byteOffset: Int, littleEndian: Boolean = true): Long = if (littleEndian) getU32LE(byteOffset) else getU32BE(byteOffset)
+fun Buffer.getU8(byteOffset: Int, littleEndian: Boolean = true): Int = getU8(byteOffset)
+fun Buffer.getU16(byteOffset: Int, littleEndian: Boolean = true): Int = if (littleEndian) getU16LE(byteOffset) else getU16BE(byteOffset)
+fun Buffer.getU32(byteOffset: Int, littleEndian: Boolean = true): Long = if (littleEndian) getU32LE(byteOffset) else getU32BE(byteOffset)
 
-inline fun Buffer.getS16(byteOffset: Int, littleEndian: Boolean = true): Short = if (littleEndian) getS16LE(byteOffset) else getS16BE(byteOffset)
-inline fun Buffer.getS32(byteOffset: Int, littleEndian: Boolean = true): Int = if (littleEndian) getS32LE(byteOffset) else getS32BE(byteOffset)
-inline fun Buffer.getS64(byteOffset: Int, littleEndian: Boolean = true): Long = if (littleEndian) getS64LE(byteOffset) else getS64BE(byteOffset)
-inline fun Buffer.getF32(byteOffset: Int, littleEndian: Boolean = true): Float = if (littleEndian) getF32LE(byteOffset) else getF32BE(byteOffset)
-inline fun Buffer.getF64(byteOffset: Int, littleEndian: Boolean = true): Double = if (littleEndian) getF64LE(byteOffset) else getF64BE(byteOffset)
+fun Buffer.getS16(byteOffset: Int, littleEndian: Boolean = true): Short = if (littleEndian) getS16LE(byteOffset) else getS16BE(byteOffset)
+fun Buffer.getS32(byteOffset: Int, littleEndian: Boolean = true): Int = if (littleEndian) getS32LE(byteOffset) else getS32BE(byteOffset)
+fun Buffer.getS64(byteOffset: Int, littleEndian: Boolean = true): Long = if (littleEndian) getS64LE(byteOffset) else getS64BE(byteOffset)
+fun Buffer.getF32(byteOffset: Int, littleEndian: Boolean = true): Float = if (littleEndian) getF32LE(byteOffset) else getF32BE(byteOffset)
+fun Buffer.getF64(byteOffset: Int, littleEndian: Boolean = true): Double = if (littleEndian) getF64LE(byteOffset) else getF64BE(byteOffset)
 
-inline fun Buffer.set16(byteOffset: Int, value: Short, littleEndian: Boolean = true): Unit = if (littleEndian) set16LE(byteOffset, value) else set16BE(byteOffset, value)
-inline fun Buffer.set32(byteOffset: Int, value: Int, littleEndian: Boolean = true): Unit = if (littleEndian) set32LE(byteOffset, value) else set32BE(byteOffset, value)
-inline fun Buffer.set64(byteOffset: Int, value: Long, littleEndian: Boolean = true): Unit = if (littleEndian) set64LE(byteOffset, value) else set64BE(byteOffset, value)
-inline fun Buffer.setF32(byteOffset: Int, value: Float, littleEndian: Boolean = true): Unit = if (littleEndian) setF32LE(byteOffset, value) else setF32BE(byteOffset, value)
-inline fun Buffer.setF64(byteOffset: Int, value: Double, littleEndian: Boolean = true): Unit = if (littleEndian) setF64LE(byteOffset, value) else setF64BE(byteOffset, value)
+fun Buffer.set16(byteOffset: Int, value: Short, littleEndian: Boolean = true): Unit = if (littleEndian) set16LE(byteOffset, value) else set16BE(byteOffset, value)
+fun Buffer.set32(byteOffset: Int, value: Int, littleEndian: Boolean = true): Unit = if (littleEndian) set32LE(byteOffset, value) else set32BE(byteOffset, value)
+fun Buffer.set64(byteOffset: Int, value: Long, littleEndian: Boolean = true): Unit = if (littleEndian) set64LE(byteOffset, value) else set64BE(byteOffset, value)
+fun Buffer.setF32(byteOffset: Int, value: Float, littleEndian: Boolean = true): Unit = if (littleEndian) setF32LE(byteOffset, value) else setF32BE(byteOffset, value)
+fun Buffer.setF64(byteOffset: Int, value: Double, littleEndian: Boolean = true): Unit = if (littleEndian) setF64LE(byteOffset, value) else setF64BE(byteOffset, value)
 
 fun Buffer.set8Clamped(byteOffset: Int, value: Int): Unit = set8(byteOffset, value.clampUByte().toByte())
 fun Buffer.set16LEClamped(byteOffset: Int, value: Int): Unit = set16LE(byteOffset, value.clampUShort().toShort())
 fun Buffer.set16BEClamped(byteOffset: Int, value: Int): Unit = set16BE(byteOffset, value.clampUShort().toShort())
-inline fun Buffer.set16Clamped(byteOffset: Int, value: Int, littleEndian: Boolean = true): Unit = if (littleEndian) set16LEClamped(byteOffset, value) else set16BEClamped(byteOffset, value)
+fun Buffer.set16Clamped(byteOffset: Int, value: Int, littleEndian: Boolean = true): Unit = if (littleEndian) set16LEClamped(byteOffset, value) else set16BEClamped(byteOffset, value)
 
-inline private fun <T> _getArray(byteOffset: Int, out: T, start: Int, size: Int, elementBytes: Int, set: (Int, Int) -> Unit): T {
+private inline fun <T> _getArray(byteOffset: Int, out: T, start: Int, size: Int, elementBytes: Int, set: (Int, Int) -> Unit): T {
     for (n in 0 until size) set(start + n, byteOffset + n * elementBytes)
     return out
 }

@@ -30,8 +30,8 @@ abstract class BitmapIndexed(
     private val n8_dbppLog2 = ilog2(n8_dbpp)
     private val n8_dbppMask = (n8_dbpp - 1)
 
-	inline operator fun get(x: Int, y: Int): Int = getInt(x, y)
-	inline operator fun set(x: Int, y: Int, color: Int): Unit = setInt(x, y, color)
+	operator fun get(x: Int, y: Int): Int = getInt(x, y)
+	operator fun set(x: Int, y: Int, color: Int): Unit = setInt(x, y, color)
 
 	override fun getInt(x: Int, y: Int): Int = getIntIndex(index(x, y))
 	override fun setInt(x: Int, y: Int, color: Int) = setIntIndex(index(x, y), color)

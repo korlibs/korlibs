@@ -286,8 +286,10 @@ interface VectorBuilder {
     fun <T> transformed(m: Matrix, block: VectorBuilder.() -> T): T = block(this.transformed(m))
 }
 
-inline fun VectorBuilder.circle(center: Point, radius: Number): Unit = circle(center, radius.toDouble())
-inline fun VectorBuilder.circleHole(center: Point, radius: Number) = circleHole(center, radius.toDouble())
+
+fun VectorBuilder.circle(center: Point, radius: Number): Unit = circle(center, radius.toDouble())
+
+fun VectorBuilder.circleHole(center: Point, radius: Number) = circleHole(center, radius.toDouble())
 
 private fun VectorBuilder._regularPolygonStar(
     points: Int,

@@ -75,8 +75,8 @@ data class ColorTransform(
     private var _aA: Int
 ) : MutableInterpolable<ColorTransform>, Interpolable<ColorTransform> {
     companion object {
-        inline fun Multiply(r: Double, g: Double, b: Double, a: Double) = ColorTransform(r, g, b, a, 0, 0, 0, 0)
-        inline fun Add(r: Int, g: Int, b: Int, a: Int) = ColorTransform(1, 1, 1, 1, r, g, b, a)
+        fun Multiply(r: Double, g: Double, b: Double, a: Double) = ColorTransform(r, g, b, a, 0, 0, 0, 0)
+        fun Add(r: Int, g: Int, b: Int, a: Int) = ColorTransform(1, 1, 1, 1, r, g, b, a)
     }
 
     override fun setToInterpolated(ratio: Ratio, l: ColorTransform, r: ColorTransform): ColorTransform = setTo(
@@ -351,7 +351,7 @@ value class ColorAdd(val value: Int) {
 
     companion object {
         inline val NEUTRAL get() = ColorAdd_NEUTRAL
-        inline operator fun invoke(r: Int, g: Int, b: Int, a: Int): ColorAdd = ColorAdd(ColorAdd_pack(r, g, b, a))
+        operator fun invoke(r: Int, g: Int, b: Int, a: Int): ColorAdd = ColorAdd(ColorAdd_pack(r, g, b, a))
         fun fromFloat(array: FloatArray, index: Int = 0): ColorAdd = fromFloat(
             array[index + 0],
             array[index + 1],
@@ -374,7 +374,7 @@ value class ColorAdd(val value: Int) {
 
 fun RGBA.toColorAdd() = ColorAdd(r, g, b, a)
 
-inline fun ColorTransform(multiply: RGBA = Colors.WHITE, add: ColorAdd = ColorAdd(0, 0, 0, 0)) =
+fun ColorTransform(multiply: RGBA = Colors.WHITE, add: ColorAdd = ColorAdd(0, 0, 0, 0)) =
     ColorTransform(multiply.rf, multiply.gf, multiply.bf, multiply.af, add.r, add.g, add.b, add.a)
 
 @Suppress("NOTHING_TO_INLINE")

@@ -423,7 +423,7 @@ infix fun RGBAPremultiplied.mix(src: RGBAPremultiplied): RGBAPremultiplied {
 value class RgbaArray(val ints: IntArray) : List<RGBA> {
     companion object {
         @JvmName("invokeRgba")
-        inline operator fun <T : RGBA> invoke(vararg colors: T): RgbaArray = RgbaArray(colors.size) { colors[it] }
+        operator fun <T : RGBA> invoke(vararg colors: T): RgbaArray = RgbaArray(colors.size) { colors[it] }
         operator fun invoke(colors: Array<RGBA>): RgbaArray = RgbaArray(colors.map { it.value }.toIntArray())
         operator fun invoke(size: Int): RgbaArray = RgbaArray(IntArray(size))
         inline operator fun invoke(size: Int, callback: (index: Int) -> RGBA): RgbaArray = RgbaArray(IntArray(size)).apply { for (n in 0 until size) this[n] = callback(n) }

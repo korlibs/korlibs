@@ -2,7 +2,7 @@ package korlibs.datastructure
 
 public actual open class FastArrayList<E> internal constructor(@PublishedApi internal val __array: Array<E>) : AbstractMutableList<E>(),
     MutableListEx<E>, RandomAccess {
-    @PublishedApi inline internal val jsArray: JsArray<E> get() = __array.unsafeCast<JsArray<E>>()
+    @PublishedApi internal inline val jsArray: JsArray<E> get() = __array.unsafeCast<JsArray<E>>()
     public actual constructor() : this(emptyArray())
     @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
     public actual constructor(initialCapacity: Int) : this(emptyArray())
@@ -153,7 +153,7 @@ public actual open class FastArrayList<E> internal constructor(@PublishedApi int
 }
 
 @PublishedApi internal fun Array_from(value: dynamic): Array<dynamic> = JsArray.from(value)
-@PublishedApi internal inline operator fun <T> JsArray<T>.get(index: Int): T = asDynamic()[index]
-@PublishedApi internal inline operator fun <T> JsArray<T>.set(index: Int, value: T) {
+@PublishedApi internal operator fun <T> JsArray<T>.get(index: Int): T = asDynamic()[index]
+@PublishedApi internal operator fun <T> JsArray<T>.set(index: Int, value: T) {
     asDynamic()[index] = value
 }

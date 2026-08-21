@@ -1306,7 +1306,7 @@ final class <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.io.util/TransformedField 
     final val transform // korlibs.io.util/TransformedField.transform|{}transform[0]
         final fun <get-transform>(): kotlin/Function1<#A, #B> // korlibs.io.util/TransformedField.transform.<get-transform>|<get-transform>(){}[0]
 
-    final inline fun getValue(kotlin/Any?, kotlin.reflect/KProperty<*>): #B // korlibs.io.util/TransformedField.getValue|getValue(kotlin.Any?;kotlin.reflect.KProperty<*>){}[0]
+    final fun getValue(kotlin/Any?, kotlin.reflect/KProperty<*>): #B // korlibs.io.util/TransformedField.getValue|getValue(kotlin.Any?;kotlin.reflect.KProperty<*>){}[0]
 }
 
 final class <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.io.util/TransformedMutableField { // korlibs.io.util/TransformedMutableField|null[0]
@@ -1319,8 +1319,8 @@ final class <#A: kotlin/Any?, #B: kotlin/Any?> korlibs.io.util/TransformedMutabl
     final val transform // korlibs.io.util/TransformedMutableField.transform|{}transform[0]
         final fun <get-transform>(): kotlin/Function1<#A, #B> // korlibs.io.util/TransformedMutableField.transform.<get-transform>|<get-transform>(){}[0]
 
-    final inline fun getValue(kotlin/Any?, kotlin.reflect/KProperty<*>): #B // korlibs.io.util/TransformedMutableField.getValue|getValue(kotlin.Any?;kotlin.reflect.KProperty<*>){}[0]
-    final inline fun setValue(kotlin/Any?, kotlin.reflect/KProperty<*>, #B) // korlibs.io.util/TransformedMutableField.setValue|setValue(kotlin.Any?;kotlin.reflect.KProperty<*>;1:1){}[0]
+    final fun getValue(kotlin/Any?, kotlin.reflect/KProperty<*>): #B // korlibs.io.util/TransformedMutableField.getValue|getValue(kotlin.Any?;kotlin.reflect.KProperty<*>){}[0]
+    final fun setValue(kotlin/Any?, kotlin.reflect/KProperty<*>, #B) // korlibs.io.util/TransformedMutableField.setValue|setValue(kotlin.Any?;kotlin.reflect.KProperty<*>;1:1){}[0]
 }
 
 final class <#A: kotlin/Any?> korlibs.io.async/AsyncCacheGen { // korlibs.io.async/AsyncCacheGen|null[0]
@@ -1377,7 +1377,7 @@ final class <#A: kotlin/Any?> korlibs.io.util/RedirectField { // korlibs.io.util
     final val redirect // korlibs.io.util/RedirectField.redirect|{}redirect[0]
         final fun <get-redirect>(): kotlin.reflect/KProperty0<#A> // korlibs.io.util/RedirectField.redirect.<get-redirect>|<get-redirect>(){}[0]
 
-    final inline fun getValue(kotlin/Any?, kotlin.reflect/KProperty<*>): #A // korlibs.io.util/RedirectField.getValue|getValue(kotlin.Any?;kotlin.reflect.KProperty<*>){}[0]
+    final fun getValue(kotlin/Any?, kotlin.reflect/KProperty<*>): #A // korlibs.io.util/RedirectField.getValue|getValue(kotlin.Any?;kotlin.reflect.KProperty<*>){}[0]
 }
 
 final class <#A: kotlin/Any?> korlibs.io.util/RedirectFieldGen { // korlibs.io.util/RedirectFieldGen|null[0]
@@ -1386,7 +1386,7 @@ final class <#A: kotlin/Any?> korlibs.io.util/RedirectFieldGen { // korlibs.io.u
     final val redirect // korlibs.io.util/RedirectFieldGen.redirect|{}redirect[0]
         final fun <get-redirect>(): kotlin/Function0<kotlin.reflect/KProperty0<#A>> // korlibs.io.util/RedirectFieldGen.redirect.<get-redirect>|<get-redirect>(){}[0]
 
-    final inline fun getValue(kotlin/Any?, kotlin.reflect/KProperty<*>): #A // korlibs.io.util/RedirectFieldGen.getValue|getValue(kotlin.Any?;kotlin.reflect.KProperty<*>){}[0]
+    final fun getValue(kotlin/Any?, kotlin.reflect/KProperty<*>): #A // korlibs.io.util/RedirectFieldGen.getValue|getValue(kotlin.Any?;kotlin.reflect.KProperty<*>){}[0]
 }
 
 final class <#A: kotlin/Any?> korlibs.io.util/RedirectMutableField { // korlibs.io.util/RedirectMutableField|null[0]
@@ -1395,8 +1395,8 @@ final class <#A: kotlin/Any?> korlibs.io.util/RedirectMutableField { // korlibs.
     final val redirect // korlibs.io.util/RedirectMutableField.redirect|{}redirect[0]
         final fun <get-redirect>(): kotlin.reflect/KMutableProperty0<#A> // korlibs.io.util/RedirectMutableField.redirect.<get-redirect>|<get-redirect>(){}[0]
 
-    final inline fun getValue(kotlin/Any?, kotlin.reflect/KProperty<*>): #A // korlibs.io.util/RedirectMutableField.getValue|getValue(kotlin.Any?;kotlin.reflect.KProperty<*>){}[0]
-    final inline fun setValue(kotlin/Any?, kotlin.reflect/KProperty<*>, #A) // korlibs.io.util/RedirectMutableField.setValue|setValue(kotlin.Any?;kotlin.reflect.KProperty<*>;1:0){}[0]
+    final fun getValue(kotlin/Any?, kotlin.reflect/KProperty<*>): #A // korlibs.io.util/RedirectMutableField.getValue|getValue(kotlin.Any?;kotlin.reflect.KProperty<*>){}[0]
+    final fun setValue(kotlin/Any?, kotlin.reflect/KProperty<*>, #A) // korlibs.io.util/RedirectMutableField.setValue|setValue(kotlin.Any?;kotlin.reflect.KProperty<*>;1:0){}[0]
 }
 
 final class <#A: kotlin/Any?> korlibs.io.util/RedirectMutableFieldGen { // korlibs.io.util/RedirectMutableFieldGen|null[0]
@@ -1405,8 +1405,8 @@ final class <#A: kotlin/Any?> korlibs.io.util/RedirectMutableFieldGen { // korli
     final val redirect // korlibs.io.util/RedirectMutableFieldGen.redirect|{}redirect[0]
         final fun <get-redirect>(): kotlin/Function0<kotlin.reflect/KMutableProperty0<#A>> // korlibs.io.util/RedirectMutableFieldGen.redirect.<get-redirect>|<get-redirect>(){}[0]
 
-    final inline fun getValue(kotlin/Any?, kotlin.reflect/KProperty<*>): #A // korlibs.io.util/RedirectMutableFieldGen.getValue|getValue(kotlin.Any?;kotlin.reflect.KProperty<*>){}[0]
-    final inline fun setValue(kotlin/Any?, kotlin.reflect/KProperty<*>, #A) // korlibs.io.util/RedirectMutableFieldGen.setValue|setValue(kotlin.Any?;kotlin.reflect.KProperty<*>;1:0){}[0]
+    final fun getValue(kotlin/Any?, kotlin.reflect/KProperty<*>): #A // korlibs.io.util/RedirectMutableFieldGen.getValue|getValue(kotlin.Any?;kotlin.reflect.KProperty<*>){}[0]
+    final fun setValue(kotlin/Any?, kotlin.reflect/KProperty<*>, #A) // korlibs.io.util/RedirectMutableFieldGen.setValue|setValue(kotlin.Any?;kotlin.reflect.KProperty<*>;1:0){}[0]
 }
 
 final class <#A: kotlin/Any?> korlibs.io.util/SyncOnce { // korlibs.io.util/SyncOnce|null[0]
@@ -3151,6 +3151,7 @@ final class korlibs.io.util/Indenter : korlibs.util/SimpleIndenter { // korlibs.
         final fun <get-out>(): kotlin/String // korlibs.io.util/Indenter.out.<get-out>|<get-out>(){}[0]
         final fun <set-out>(kotlin/String) // korlibs.io.util/Indenter.out.<set-out>|<set-out>(kotlin.String){}[0]
 
+    final fun (kotlin/String).unaryPlus(): korlibs.io.util/Indenter // korlibs.io.util/Indenter.unaryPlus|unaryPlus@kotlin.String(){}[0]
     final fun clear() // korlibs.io.util/Indenter.clear|clear(){}[0]
     final fun indent() // korlibs.io.util/Indenter.indent|indent(){}[0]
     final fun inline(kotlin/String): korlibs.io.util/Indenter // korlibs.io.util/Indenter.inline|inline(kotlin.String){}[0]
@@ -3165,7 +3166,6 @@ final class korlibs.io.util/Indenter : korlibs.util/SimpleIndenter { // korlibs.
     final fun toString(kotlin/Function3<kotlin.text/StringBuilder, kotlin/Int, kotlin/Any, kotlin/Unit>?, kotlin/Boolean): kotlin/String // korlibs.io.util/Indenter.toString|toString(kotlin.Function3<kotlin.text.StringBuilder,kotlin.Int,kotlin.Any,kotlin.Unit>?;kotlin.Boolean){}[0]
     final fun unindent() // korlibs.io.util/Indenter.unindent|unindent(){}[0]
     final inline fun (kotlin/String).invoke(kotlin/String = ..., kotlin/String = ..., kotlin/Function0<kotlin/Unit>): korlibs.io.util/Indenter // korlibs.io.util/Indenter.invoke|invoke@kotlin.String(kotlin.String;kotlin.String;kotlin.Function0<kotlin.Unit>){}[0]
-    final inline fun (kotlin/String).unaryPlus(): korlibs.io.util/Indenter // korlibs.io.util/Indenter.unaryPlus|unaryPlus@kotlin.String(){}[0]
     final inline fun (kotlin/String).xml(kotlin/Function0<kotlin/Unit>) // korlibs.io.util/Indenter.xml|xml@kotlin.String(kotlin.Function0<kotlin.Unit>){}[0]
     final inline fun indent(kotlin/Function0<kotlin/Unit>): korlibs.io.util/Indenter // korlibs.io.util/Indenter.indent|indent(kotlin.Function0<kotlin.Unit>){}[0]
     final inline fun line(kotlin/String, kotlin/Function0<kotlin/Unit>): korlibs.io.util/Indenter // korlibs.io.util/Indenter.line|line(kotlin.String;kotlin.Function0<kotlin.Unit>){}[0]
@@ -5734,6 +5734,9 @@ final fun <#A: kotlin/Any> korlibs.io.resources/resourceLocal(kotlin.coroutines/
 final fun <#A: kotlin/Any> korlibs.io.resources/resourceUncached(kotlin.coroutines/SuspendFunction1<korlibs.io.resources/Resources, #A>): korlibs.io.resources/ResourceRef<#A> // korlibs.io.resources/resourceUncached|resourceUncached(kotlin.coroutines.SuspendFunction1<korlibs.io.resources.Resources,0:0>){0§<kotlin.Any>}[0]
 final fun <#A: kotlin/Any?, #B: kotlin/Any?> (kotlin.reflect/KMutableProperty0<#A>).korlibs.io.util/transformed(kotlin/Function1<#A, #B>, kotlin/Function1<#B, #A>): korlibs.io.util/TransformedMutableField<#A, #B> // korlibs.io.util/transformed|transformed@kotlin.reflect.KMutableProperty0<0:0>(kotlin.Function1<0:0,0:1>;kotlin.Function1<0:1,0:0>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?, #B: kotlin/Any?> (kotlin.reflect/KProperty0<#A>).korlibs.io.util/transformed(kotlin/Function1<#A, #B>): korlibs.io.util/TransformedField<#A, #B> // korlibs.io.util/transformed|transformed@kotlin.reflect.KProperty0<0:0>(kotlin.Function1<0:0,0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (kotlin/Function0<kotlin.reflect/KMutableProperty0<#A>>).korlibs.io.util/redirected(): korlibs.io.util/RedirectMutableFieldGen<#A> // korlibs.io.util/redirected|redirected@kotlin.Function0<kotlin.reflect.KMutableProperty0<0:0>>(){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (kotlin/Function0<kotlin.reflect/KProperty0<#A>>).korlibs.io.util/redirected(): korlibs.io.util/RedirectFieldGen<#A> // korlibs.io.util/redirected|redirected@kotlin.Function0<kotlin.reflect.KProperty0<0:0>>(){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (kotlin/Result<#A>).korlibs.io.util/getOrNullLoggingError(): #A? // korlibs.io.util/getOrNullLoggingError|getOrNullLoggingError@kotlin.Result<0:0>(){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (kotlinx.coroutines/CoroutineScope).korlibs.io.async/async(kotlin.coroutines/SuspendFunction0<#A>): kotlinx.coroutines/Deferred<#A> // korlibs.io.async/async|async@kotlinx.coroutines.CoroutineScope(kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (kotlinx.coroutines/CoroutineScope).korlibs.io.async/asyncAsap(kotlin.coroutines/SuspendFunction0<#A>): kotlinx.coroutines/Deferred<#A> // korlibs.io.async/asyncAsap|asyncAsap@kotlinx.coroutines.CoroutineScope(kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any?>}[0]
 final fun <#A: kotlin/Any?> (kotlinx.coroutines/CoroutineScope).korlibs.io.async/asyncImmediately(kotlin.coroutines/SuspendFunction0<#A>): kotlinx.coroutines/Deferred<#A> // korlibs.io.async/asyncImmediately|asyncImmediately@kotlinx.coroutines.CoroutineScope(kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any?>}[0]
@@ -5792,9 +5795,6 @@ final inline fun (kotlin/Int).korlibs.io.util/compareToChain(kotlin/Function0<ko
 final inline fun <#A: kotlin/Any> korlibs.io.time/traceTime(kotlin/String, kotlin/Function0<#A>): #A // korlibs.io.time/traceTime|traceTime(kotlin.String;kotlin.Function0<0:0>){0§<kotlin.Any>}[0]
 final inline fun <#A: kotlin/Any?> (korlibs.io.stream/AsyncStream).korlibs.io.stream/keepPosition(kotlin/Function0<#A>): #A // korlibs.io.stream/keepPosition|keepPosition@korlibs.io.stream.AsyncStream(kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> (korlibs.io.stream/SyncStream).korlibs.io.stream/keepPosition(kotlin/Function0<#A>): #A // korlibs.io.stream/keepPosition|keepPosition@korlibs.io.stream.SyncStream(kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?> (kotlin/Function0<kotlin.reflect/KMutableProperty0<#A>>).korlibs.io.util/redirected(): korlibs.io.util/RedirectMutableFieldGen<#A> // korlibs.io.util/redirected|redirected@kotlin.Function0<kotlin.reflect.KMutableProperty0<0:0>>(){0§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?> (kotlin/Function0<kotlin.reflect/KProperty0<#A>>).korlibs.io.util/redirected(): korlibs.io.util/RedirectFieldGen<#A> // korlibs.io.util/redirected|redirected@kotlin.Function0<kotlin.reflect.KProperty0<0:0>>(){0§<kotlin.Any?>}[0]
-final inline fun <#A: kotlin/Any?> (kotlin/Result<#A>).korlibs.io.util/getOrNullLoggingError(): #A? // korlibs.io.util/getOrNullLoggingError|getOrNullLoggingError@kotlin.Result<0:0>(){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> korlibs.io.file.std/registerUniSchemaTemporarily(korlibs.io.file.std/UniSchema, kotlin/Function0<#A>): #A // korlibs.io.file.std/registerUniSchemaTemporarily|registerUniSchemaTemporarily(korlibs.io.file.std.UniSchema;kotlin.Function0<0:0>){0§<kotlin.Any?>}[0]
 final inline fun <#A: kotlin/Any?> korlibs.io.util/buildList(kotlin/Function1<korlibs.datastructure/FastArrayList<#A>, kotlin/Unit>): kotlin.collections/List<#A> // korlibs.io.util/buildList|buildList(kotlin.Function1<korlibs.datastructure.FastArrayList<0:0>,kotlin.Unit>){0§<kotlin.Any?>}[0]
 final inline fun <#A: reified kotlin/Any?, #B: kotlin/Any?> (kotlin.reflect/KMutableProperty0<#A>).korlibs.io.lang/keep(kotlin/Function0<#B>): #B // korlibs.io.lang/keep|keep@kotlin.reflect.KMutableProperty0<0:0>(kotlin.Function0<0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]

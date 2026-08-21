@@ -84,7 +84,7 @@ object ALSANativeSoundProvider : NativeSoundProvider() {
         private val LIB = dlopen("libasound.so.2", RTLD_LAZY)
         //private val LIB = dlopen("/usr/lib/x86_64-linux-gnu/libasound.so.2", RTLD_LAZY)
         private class func<T : Function<*>> {
-            inline operator fun getValue(obj: Any?, property: KProperty<*>): CPointer<CFunction<T>> {
+            operator fun getValue(obj: Any?, property: KProperty<*>): CPointer<CFunction<T>> {
                 val symbol = dlsym(LIB, property.name)
                     ?: dlsym(LIB, "_${property.name}")
                     ?: dlsym(LIB, "__${property.name}")

@@ -10,14 +10,14 @@ data class ColorMatrix(
     companion object {
         val IDENTITY by lazy { ColorMatrix() }
 
-        inline operator fun invoke() = ColorMatrix(
+        operator fun invoke() = ColorMatrix(
             1f, 0f, 0f, 0f, 0f,
             0f, 1f, 0f, 0f, 0f,
             0f, 0f, 1f, 0f, 0f,
             0f, 0f, 0f, 1f, 0f
         )
 
-        inline operator fun invoke(
+        operator fun invoke(
             rr: Number, rb: Number, rg: Number, ra: Number, r1: Number,
             gr: Number, gb: Number, gg: Number, ga: Number, g1: Number,
             br: Number, bb: Number, bg: Number, ba: Number, b1: Number,
@@ -60,28 +60,28 @@ data class ColorMatrix(
 
     operator fun plus(that: ColorMatrix): ColorMatrix = concat(this, that)
 
-    inline fun copyR(rr: Number, rb: Number, rg: Number, ra: Number, r1: Number) = ColorMatrix(
+    fun copyR(rr: Number, rb: Number, rg: Number, ra: Number, r1: Number) = ColorMatrix(
         rr, rb, rg, ra, r1,
         gr, gb, gg, ga, g1,
         br, bb, bg, ba, b1,
         ar, ab, ag, aa, a1
     )
 
-    inline fun copyG(gr: Number, gb: Number, gg: Number, ga: Number, g1: Number) = ColorMatrix(
+    fun copyG(gr: Number, gb: Number, gg: Number, ga: Number, g1: Number) = ColorMatrix(
         rr, rb, rg, ra, r1,
         gr, gb, gg, ga, g1,
         br, bb, bg, ba, b1,
         ar, ab, ag, aa, a1
     )
 
-    inline fun copyB(br: Number, bb: Number, bg: Number, ba: Number, b1: Number) = ColorMatrix(
+    fun copyB(br: Number, bb: Number, bg: Number, ba: Number, b1: Number) = ColorMatrix(
         rr, rb, rg, ra, r1,
         gr, gb, gg, ga, g1,
         br, bb, bg, ba, b1,
         ar, ab, ag, aa, a1
     )
 
-    inline fun copyA(ar: Number, ab: Number, ag: Number, aa: Number, a1: Number) = ColorMatrix(
+    fun copyA(ar: Number, ab: Number, ag: Number, aa: Number, a1: Number) = ColorMatrix(
         rr, rb, rg, ra, r1,
         gr, gb, gg, ga, g1,
         br, bb, bg, ba, b1,

@@ -21,8 +21,8 @@ external class JSArray<T> {
     }
 }
 
-inline operator fun <T> JSArray<T>.get(index: Int): T = asDynamic()[index]
-inline operator fun <T> JSArray<T>.set(index: Int, value: T): Unit { asDynamic()[index] = value }
+operator fun <T> JSArray<T>.get(index: Int): T = asDynamic()[index]
+operator fun <T> JSArray<T>.set(index: Int, value: T): Unit { asDynamic()[index] = value }
 fun <T> JSArray.Companion.createEmpty(): JSArray<T> = js("([])").unsafeCast<JSArray<T>>()
 
 val Symbol_asyncIterator get() = Symbol.asyncIterator

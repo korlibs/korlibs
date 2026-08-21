@@ -89,7 +89,7 @@ value class RGBAf(val data: FloatArray) {
     //override fun toString(): String = rgba.hexString
 }
 
-inline fun RGBAf(r: Number, g: Number, b: Number, a: Number): RGBAf = RGBAf(r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat())
+fun RGBAf(r: Number, g: Number, b: Number, a: Number): RGBAf = RGBAf(r.toFloat(), g.toFloat(), b.toFloat(), a.toFloat())
 
 fun RGBA.writeFloat(out: FloatArray, index: Int = 0) {
     out[index + 0] = rf

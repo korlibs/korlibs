@@ -49,7 +49,7 @@ open class SortedMap<K, V>(val comparator: Comparator<K>) : MutableMapExt<K, V> 
     }
 
     companion object {
-        inline operator fun <K : Comparable<K>, V> invoke() = SortedMap<K, V>(ComparatorComparable())
+        operator fun <K : Comparable<K>, V> invoke() = SortedMap<K, V>(ComparatorComparable())
     }
 
     fun swap(indexL: Int, indexR: Int) {

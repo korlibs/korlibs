@@ -121,7 +121,7 @@ internal open class DeflaterPortable(val windowBits: Int) : IDeflaterInternal {
         //println("uncompress[5]")
     }
 
-    private inline fun DeflaterBitReader.read(tree: HuffmanTree): Int = tree.read(this)
+    private fun DeflaterBitReader.read(tree: HuffmanTree): Int = tree.read(this)
 
     internal class SlidingWindowWithOutput(
         val sliding: SlidingWindow,
@@ -456,7 +456,7 @@ internal open class DeflaterPortable(val windowBits: Int) : IDeflaterInternal {
             data[size++] = v
         }
 
-        public inline fun append(v: Byte): FixedSizeByteArrayBuilder {
+        public fun append(v: Byte): FixedSizeByteArrayBuilder {
             appendFast(v)
             return this
         }
@@ -471,8 +471,8 @@ internal open class DeflaterPortable(val windowBits: Int) : IDeflaterInternal {
     }
 }
 
-private inline fun Int.extractBool(offset: Int): Boolean = extract1(offset) != 0
-private inline fun Int.extract1(offset: Int): Int = (this ushr offset) and 0b1
+private fun Int.extractBool(offset: Int): Boolean = extract1(offset) != 0
+private fun Int.extract1(offset: Int): Int = (this ushr offset) and 0b1
 private val Byte.unsigned: Int get() = this.toInt() and 0xFF
 private fun Int.signExtend(bits: Int): Int = (this shl (32 - bits)) shr (32 - bits) // Int.SIZE_BITS
 private inline val Int.unsigned: Long get() = this.toLong() and 0xFFFFFFFFL
