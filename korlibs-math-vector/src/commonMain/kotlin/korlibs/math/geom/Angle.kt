@@ -1,11 +1,19 @@
 package korlibs.math.geom
 
-import korlibs.math.*
-import korlibs.math.interpolation.*
-import korlibs.math.range.*
-import korlibs.number.*
+import korlibs.math.IsAlmostEquals
+import korlibs.math.interpolation.Ratio
+import korlibs.math.interpolation.interpolate
+import korlibs.math.interpolation.toRatio
+import korlibs.math.isAlmostEquals
+import korlibs.math.range.OpenRange
+import korlibs.math.roundDecimalPlaces
+import korlibs.math.umod
+import korlibs.number.niceStr
 import kotlin.jvm.JvmInline
-import kotlin.math.*
+import kotlin.math.PI
+import kotlin.math.absoluteValue
+import kotlin.math.max
+import kotlin.math.min
 
 @PublishedApi internal const val PI2 = PI * 2.0
 @PublishedApi internal const val DEG2RAD = PI / 180.0
