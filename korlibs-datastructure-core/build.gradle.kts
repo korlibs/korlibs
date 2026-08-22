@@ -9,6 +9,8 @@ plugins {
     alias(libs.plugins.kotlinx.kover)
     alias(libs.plugins.dokka)
     alias(libs.plugins.vanniktech.mavenPublish)
+
+    id("korlibs.convention.spotless")
 }
 
 kotlin {
