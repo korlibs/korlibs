@@ -5,18 +5,18 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class DayOfWeekTest {
-	@Test
-	fun testFirstDayOfWeek() {
-		assertEquals(DayOfWeek.Sunday, DayOfWeek.firstDayOfWeek(KlockLocale.english))
-	}
+    @Test
+    fun testFirstDayOfWeek() {
+        assertEquals(DayOfWeek.Sunday, DayOfWeek.firstDayOfWeek(KlockLocale.english))
+    }
 
-	@Test
-	fun testIsWeekend() {
-		assertEquals(
-			listOf(true, false, false, false, false, false, true),
-			DayOfWeek.entries.map { it.isWeekend(KlockLocale.english) }
-		)
-	}
+    @Test
+    fun testIsWeekend() {
+        assertEquals(
+            listOf(true, false, false, false, false, false, true),
+            DayOfWeek.entries.map { it.isWeekend(KlockLocale.english) }
+        )
+    }
 
     @Test
     fun testNext() {

@@ -9,20 +9,20 @@ import korlibs.platform.*
 import kotlin.test.assertEquals
 
 class AudioFormatTest {
-	val formats = standardAudioFormats() + OGG
+    val formats = standardAudioFormats() + OGG
     val logger = Logger("AudioFormatTest")
 
-	@kotlin.test.Test
-	fun wav() = suspendTest({ doIOTest }) {
+    @kotlin.test.Test
+    fun wav() = suspendTest({ doIOTest }) {
         assertEquals(
-			"Info(duration=500ms, channels=1)",
-			resourcesVfs["wav1.wav"].readSoundInfo(formats).toString()
-		)
-		assertEquals(
-			"Info(duration=500ms, channels=1)",
-			resourcesVfs["wav2.wav"].readSoundInfo(formats).toString()
-		)
-	}
+            "Info(duration=500ms, channels=1)",
+            resourcesVfs["wav1.wav"].readSoundInfo(formats).toString()
+        )
+        assertEquals(
+            "Info(duration=500ms, channels=1)",
+            resourcesVfs["wav2.wav"].readSoundInfo(formats).toString()
+        )
+    }
 
     @kotlin.test.Test
     fun wavCorrupted() = suspendTest({ doIOTest }) {
@@ -33,23 +33,23 @@ class AudioFormatTest {
         )
     }
 
-	@kotlin.test.Test
-	fun ogg() = suspendTest({ doIOTest }) {
+    @kotlin.test.Test
+    fun ogg() = suspendTest({ doIOTest }) {
         assertEquals(
-			"Info(duration=500ms, channels=1)",
-			resourcesVfs["ogg1.ogg"].readSoundInfo(formats).toString()
-		)
-	}
+            "Info(duration=500ms, channels=1)",
+            resourcesVfs["ogg1.ogg"].readSoundInfo(formats).toString()
+        )
+    }
 
-	@kotlin.test.Test
-	fun mp3() = suspendTest({ doIOTest }) {
+    @kotlin.test.Test
+    fun mp3() = suspendTest({ doIOTest }) {
         assertEquals(
-			"Info(duration=546.625ms, channels=1)",
-			resourcesVfs["mp31.mp3"].readSoundInfo(formats, AudioDecodingProps(exactTimings = false)).toString()
-		)
+            "Info(duration=546.625ms, channels=1)",
+            resourcesVfs["mp31.mp3"].readSoundInfo(formats, AudioDecodingProps(exactTimings = false)).toString()
+        )
         assertEquals(
             "Info(duration=574.684ms, channels=1)",
             resourcesVfs["mp31.mp3"].readSoundInfo(formats, AudioDecodingProps(exactTimings = true)).toString()
         )
-	}
+    }
 }

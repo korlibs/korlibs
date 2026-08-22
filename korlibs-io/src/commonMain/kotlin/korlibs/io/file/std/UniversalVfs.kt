@@ -5,48 +5,48 @@ import korlibs.io.lang.invalidOp
 import korlibs.io.net.URL
 
 object UniversalVfs {
-	operator fun invoke(uri: String, providers: UniSchemaProviders, base: VfsFile? = null): VfsFile {
-		return when {
-			URL.isAbsolute(uri) -> {
-				val uriUri = URL(uri)
-				val builder = providers.providers[uriUri.scheme]
-				if (builder != null) {
-					builder.provider(uriUri)
-				} else {
-					invalidOp("Unsupported scheme '${uriUri.scheme}'")
-				}
-			}
-			(base != null) -> base[uri]
-			else -> localCurrentDirVfs[uri]
-		}
-	}
+    operator fun invoke(uri: String, providers: UniSchemaProviders, base: VfsFile? = null): VfsFile {
+        return when {
+            URL.isAbsolute(uri) -> {
+                val uriUri = URL(uri)
+                val builder = providers.providers[uriUri.scheme]
+                if (builder != null) {
+                    builder.provider(uriUri)
+                } else {
+                    invalidOp("Unsupported scheme '${uriUri.scheme}'")
+                }
+            }
+            (base != null) -> base[uri]
+            else -> localCurrentDirVfs[uri]
+        }
+    }
 }
 
 class UniSchema(val name: String, val provider: (URL) -> VfsFile)
 
 class UniSchemaProviders(val providers: Map<String, UniSchema>) {
-	constructor(providers: Iterable<UniSchema>) : this(providers.associateBy { it.name })
-	constructor(vararg providers: UniSchema) : this(providers.associateBy { it.name })
+    constructor(providers: Iterable<UniSchema>) : this(providers.associateBy { it.name })
+    constructor(vararg providers: UniSchema) : this(providers.associateBy { it.name })
 }
 
 var defaultUniSchema = UniSchemaProviders(
-	UniSchema("http") { UrlVfs(it) },
-	UniSchema("https") { UrlVfs(it) },
-	UniSchema("file") { rootLocalVfs[it.path] }
+    UniSchema("http") { UrlVfs(it) },
+    UniSchema("https") { UrlVfs(it) },
+    UniSchema("file") { rootLocalVfs[it.path] }
 )
 
 fun registerUniSchema(schema: UniSchema) {
-	defaultUniSchema += schema
+    defaultUniSchema += schema
 }
 
 inline fun <T> registerUniSchemaTemporarily(schema: UniSchema, callback: () -> T): T {
-	val old = defaultUniSchema
-	defaultUniSchema += schema
-	try {
-		return callback()
-	} finally {
-		defaultUniSchema -= schema
-	}
+    val old = defaultUniSchema
+    defaultUniSchema += schema
+    try {
+        return callback()
+    } finally {
+        defaultUniSchema -= schema
+    }
 }
 
 operator fun UniSchemaProviders.plus(other: UniSchemaProviders) = UniSchemaProviders(this.providers + other.providers)
@@ -59,4 +59,4 @@ operator fun UniSchemaProviders.minus(other: UniSchema) = UniSchemaProviders(thi
 val String.uniVfs get() = UniversalVfs(this, defaultUniSchema)
 
 fun String.uniVfs(providers: UniSchemaProviders, base: VfsFile? = null): VfsFile =
-	UniversalVfs(this, providers, base)
+    UniversalVfs(this, providers, base)

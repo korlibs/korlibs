@@ -3,9 +3,9 @@ package korlibs.io.util.checksum
 /** Represents a 32-bit checksum interface, for checksums like [CRC32] or [Adler32] */
 interface SimpleChecksum {
     /** Initial value for the checksum. */
-	val initialValue: Int
+    val initialValue: Int
     /** Returns an updated checksum starting with an [old] checksum, and then updating with a [data] ByteArray in the range [offset] and [len] */
-	fun update(old: Int, data: ByteArray, offset: Int = 0, len: Int = data.size - offset): Int
+    fun update(old: Int, data: ByteArray, offset: Int = 0, len: Int = data.size - offset): Int
 }
 
 /** Computes the checksum of the [data] determined in the range [offset] and [len]. */

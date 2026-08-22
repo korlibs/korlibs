@@ -10,19 +10,19 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class Xml2Test {
-	@Test
-	fun name2() = suspendTestNoBrowser {
-		val xml = resourcesVfs["test.xml"].readXml()
-		assertEquals("test", xml.name)
-		assertEquals("hello", xml.text)
-	}
+    @Test
+    fun name2() = suspendTestNoBrowser {
+        val xml = resourcesVfs["test.xml"].readXml()
+        assertEquals("test", xml.name)
+        assertEquals("hello", xml.text)
+    }
 
-	@Test
-	fun testNamedDescendantStream() {
-		val xml = Xml.Stream.parse("<xml><a><b/><b/></a><c><b/><b/></c></xml>".toByteArray(UTF8).toCharReader(UTF8))
-		//val xml = Xml.Stream.parse("<xml><a><b/><b/></a><c><b/><b/></c></xml>")
-		assertEquals(
-			"""
+    @Test
+    fun testNamedDescendantStream() {
+        val xml = Xml.Stream.parse("<xml><a><b/><b/></a><c><b/><b/></c></xml>".toByteArray(UTF8).toCharReader(UTF8))
+        //val xml = Xml.Stream.parse("<xml><a><b/><b/></a><c><b/><b/></c></xml>")
+        assertEquals(
+            """
                 OpenTag(name=xml, attributes={})
                 OpenTag(name=a, attributes={})
                 OpenCloseTag(name=b, attributes={})
@@ -34,19 +34,19 @@ class Xml2Test {
                 CloseTag(name=c)
                 CloseTag(name=xml)
             """.trimIndent(),
-			xml.toList().joinToString("\n")
-		)
-	}
+            xml.toList().joinToString("\n")
+        )
+    }
 
-	@Test
-	fun testNamedDescendantStreamInfinite() {
-		val xml = Xml.Stream.parse(sequenceSyncStream {
-			while (true) {
-				yield("<xml>".toByteArray())
-			}
-		}.toCharReader(UTF8))
-		assertEquals(
-			"""
+    @Test
+    fun testNamedDescendantStreamInfinite() {
+        val xml = Xml.Stream.parse(sequenceSyncStream {
+            while (true) {
+                yield("<xml>".toByteArray())
+            }
+        }.toCharReader(UTF8))
+        assertEquals(
+            """
                 OpenTag(name=xml, attributes={})
                 OpenTag(name=xml, attributes={})
                 OpenTag(name=xml, attributes={})
@@ -58,8 +58,8 @@ class Xml2Test {
                 OpenTag(name=xml, attributes={})
                 OpenTag(name=xml, attributes={})
             """.trimIndent(),
-			xml.take(10).toList().joinToString("\n")
-		)
-	}
+            xml.take(10).toList().joinToString("\n")
+        )
+    }
 
 }

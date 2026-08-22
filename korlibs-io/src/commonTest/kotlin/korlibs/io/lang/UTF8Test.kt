@@ -5,9 +5,9 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class UTF8Test {
-	@Test
-	fun test() {
-		assertEquals(
+    @Test
+    fun test() {
+        assertEquals(
             expected = byteArrayOf(
                 'h'.code.toByte(),
                 'e'.code.toByte(),
@@ -16,7 +16,7 @@ class UTF8Test {
                 'o'.code.toByte()).hex,
             actual = "hello".toByteArray(UTF8).hex,
         )
-		assertEquals(
+        assertEquals(
             expected = "hello",
             actual = byteArrayOf(
                 'h'.code.toByte(),
@@ -26,5 +26,5 @@ class UTF8Test {
                 'o'.code.toByte(),
             ).toString(UTF8),
         )
-	}
+    }
 }

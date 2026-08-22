@@ -146,12 +146,12 @@ class TemplateInheritanceTest {
                 KorteTemplateProvider(
                     "mylayout" to """Hello {{ content }}.""",
                     "main" to """
-					---
-					layout: mylayout
-					name: Carlos
-					---
-					{{ name }}
-				""".trimIndent()
+                    ---
+                    layout: mylayout
+                    name: Carlos
+                    ---
+                    {{ name }}
+                """.trimIndent()
                 )
             ).get("main")()
         )
@@ -164,21 +164,21 @@ class TemplateInheritanceTest {
             KorteTemplates(
                 KorteNewTemplateProvider(
                     "root" to KorteTemplateContent("""
-					<html>{{ content }}</html>
+                    <html>{{ content }}</html>
                 """.trimIndent()),
                     "twocolumns" to KorteTemplateContent("""
-					---
-					layout: root
-					---
-					<div>side</div><div>{{ content }}</div>
+                    ---
+                    layout: root
+                    ---
+                    <div>side</div><div>{{ content }}</div>
                 """.trimIndent()),
                     "main" to KorteTemplateContent("""
-					---
-					layout: twocolumns
-					mycontent: Content
-					---
-					<h1>{{ mycontent }}</h1>
-				""".trimIndent())
+                    ---
+                    layout: twocolumns
+                    mycontent: Content
+                    ---
+                    <h1>{{ mycontent }}</h1>
+                """.trimIndent())
                 )
             ).get("main")()
         )

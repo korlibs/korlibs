@@ -72,36 +72,36 @@ object AndroidNativeImageFormatProvider : NativeImageFormatProvider() {
     }
 
     override fun create(width: Int, height: Int, premultiplied: Boolean?): NativeImage {
-		val bmp = android.graphics.Bitmap.createBitmap(
+        val bmp = android.graphics.Bitmap.createBitmap(
             width.coerceAtLeast(1),
             height.coerceAtLeast(1),
             android.graphics.Bitmap.Config.ARGB_8888,
         )
-		//bmp.setPixels()
-		return AndroidNativeImage(bmp)
-	}
+        //bmp.setPixels()
+        return AndroidNativeImage(bmp)
+    }
 
-	override fun copy(bmp: Bitmap): NativeImage = AndroidNativeImage(bmp.toAndroidBitmap())
+    override fun copy(bmp: Bitmap): NativeImage = AndroidNativeImage(bmp.toAndroidBitmap())
 }
 
 /*
 suspend fun androidQuestionAlert(message: String, title: String = "Warning"): Boolean = korioSuspendCoroutine { c ->
-	KorioAndroidContext.runOnUiThread {
-		val dialog = AlertDialog.Builder(KorioAndroidContext)
-			.setTitle(title)
-			.setMessage(message)
-			.setPositiveButton(android.R.string.yes) { dialog, which ->
-				c.resume(true)
-			}
-			.setNegativeButton(android.R.string.no, android.content.DialogInterface.OnClickListener { dialog, which ->
-				c.resume(false)
-			})
-			.setIcon(android.R.drawable.ic_dialog_alert)
-			.setCancelable(false)
-			.show()
+    KorioAndroidContext.runOnUiThread {
+        val dialog = AlertDialog.Builder(KorioAndroidContext)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton(android.R.string.yes) { dialog, which ->
+                c.resume(true)
+            }
+            .setNegativeButton(android.R.string.no, android.content.DialogInterface.OnClickListener { dialog, which ->
+                c.resume(false)
+            })
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setCancelable(false)
+            .show()
 
-		dialog.show()
-	}
+        dialog.show()
+    }
 
  */
 

@@ -88,10 +88,10 @@ fun malformedInput(msg: String): Nothing = throw MalformedInputException(msg)
  * There is an optional [show] parameter to also print a stacktrace in the case there is an exception, while still returning null.
  */
 inline fun <R> runIgnoringExceptions(show: Boolean = false, action: () -> R): R? = try {
-	action()
+    action()
 } catch (e: Throwable) {
-	if (show) e.printStackTrace()
-	null
+    if (show) e.printStackTrace()
+    null
 }
 
 /** Triggers an enter debugger. In JS it is debugger; in other places serves as a placeholder to put a breakpoint. */

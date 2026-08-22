@@ -6,10 +6,10 @@ import korlibs.image.color.RgbaArray
 import korlibs.math.*
 
 class Bitmap1(
-	width: Int,
-	height: Int,
-	data: ByteArray = ByteArray((width * height) divCeil 8),
-	palette: RgbaArray = RgbaArray(intArrayOf(Colors.TRANSPARENT.value, Colors.WHITE.value))
+    width: Int,
+    height: Int,
+    data: ByteArray = ByteArray((width * height) divCeil 8),
+    palette: RgbaArray = RgbaArray(intArrayOf(Colors.TRANSPARENT.value, Colors.WHITE.value))
 ) : BitmapIndexed(1, width, height, data, palette) {
     companion object {
         fun fromString(str: String, transform: (Char) -> Boolean = { it != '.' && it != ' ' }): Bitmap1 {
@@ -25,7 +25,7 @@ class Bitmap1(
             return bitmap
         }
     }
-	override fun createWithThisFormat(width: Int, height: Int): Bitmap = Bitmap1(width, height, palette = palette)
+    override fun createWithThisFormat(width: Int, height: Int): Bitmap = Bitmap1(width, height, palette = palette)
 }
 
 fun Bitmap32.toBitmap1(): Bitmap1 = toBitmap1 { it.a >= 0x3F }

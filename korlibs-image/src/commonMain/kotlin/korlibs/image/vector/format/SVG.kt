@@ -24,29 +24,29 @@ import kotlin.time.*
 suspend fun VfsFile.readSVG() = SVG(this.readString())
 
 class SVG(val root: Xml, val warningProcessor: ((message: String) -> Unit)? = null) : SizedDrawable {
-	//constructor(@Language("xml") str: String) : this(Xml(str))
-	constructor(str: String) : this(Xml(str))
+    //constructor(@Language("xml") str: String) : this(Xml(str))
+    constructor(str: String) : this(Xml(str))
 
     override fun toString(): String = "SVG($width, $height)"
 
     val x = root.int("x", 0)
-	val y = root.int("y", 0)
+    val y = root.int("y", 0)
 
-	val dwidth = root.double("width", 128.0)
-	val dheight = root.double("height", 128.0)
-	val viewBox = root.getString("viewBox") ?: "0 0 $dwidth $dheight"
-	val viewBoxNumbers = viewBox.split(' ').map { it.trim().toDoubleOrNull() ?: 0.0 }
-	val viewBoxRectangle = Rectangle(
-		viewBoxNumbers.getOrElse(0) { 0.0 },
-		viewBoxNumbers.getOrElse(1) { 0.0 },
-		viewBoxNumbers.getOrElse(2) { dwidth },
-		viewBoxNumbers.getOrElse(3) { dheight }
-	)
+    val dwidth = root.double("width", 128.0)
+    val dheight = root.double("height", 128.0)
+    val viewBox = root.getString("viewBox") ?: "0 0 $dwidth $dheight"
+    val viewBoxNumbers = viewBox.split(' ').map { it.trim().toDoubleOrNull() ?: 0.0 }
+    val viewBoxRectangle = Rectangle(
+        viewBoxNumbers.getOrElse(0) { 0.0 },
+        viewBoxNumbers.getOrElse(1) { 0.0 },
+        viewBoxNumbers.getOrElse(2) { dwidth },
+        viewBoxNumbers.getOrElse(3) { dheight }
+    )
 
-	override val width get() = viewBoxRectangle.width.toInt()
-	override val height get() = viewBoxRectangle.height.toInt()
+    override val width get() = viewBoxRectangle.width.toInt()
+    override val height get() = viewBoxRectangle.height.toInt()
 
-	val defs by lazy {
+    val defs by lazy {
         hashMapOf<String, SvgDef>().also { _defs ->
             for (defs in root.children("defs")) {
                 for (def in defs.allNodeChildren) {
@@ -436,13 +436,13 @@ class SVG(val root: Xml, val warningProcessor: ((message: String) -> Unit)? = nu
 
     //interface Def
 
-	override fun draw(c: Context2d) {
-		c.keep {
+    override fun draw(c: Context2d) {
+        c.keep {
             c.strokeStyle = NonePaint
             c.fillStyle = Colors.BLACK
             renderElement.draw(c)
-		}
-	}
+        }
+    }
 
 
     class CSSDeclarations {
@@ -479,7 +479,7 @@ class SVG(val root: Xml, val warningProcessor: ((message: String) -> Unit)? = nu
         fun SimpleStrReader.readCssId(): String = readWhileBuilder(out = StringBuilder()) { it.isLetterOrDigit() || it == '-' }.toString()
     }
 
-	companion object {
+    companion object {
         val logger = Logger("SVG")
 
         val ColorDefaultBlack = Colors.WithDefault(Colors.BLACK)
@@ -489,15 +489,15 @@ class SVG(val root: Xml, val warningProcessor: ((message: String) -> Unit)? = nu
             node.getString("style")?.let { out.putAll(CSSDeclarations.parseToMap(it)) }
             return out
         }
-	}
+    }
 
-	interface PathToken {
+    interface PathToken {
         val anyValue: Any
     }
-	data class PathTokenNumber(val value: Double) : PathToken {
+    data class PathTokenNumber(val value: Double) : PathToken {
         override val anyValue: Any get() = value
     }
-	data class PathTokenCmd(val id: Char) : PathToken {
+    data class PathTokenCmd(val id: Char) : PathToken {
         override val anyValue: Any get() = id
     }
 }

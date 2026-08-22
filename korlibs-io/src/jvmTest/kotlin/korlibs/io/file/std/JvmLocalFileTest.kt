@@ -11,11 +11,11 @@ import kotlinx.coroutines.flow.toList
 import org.junit.Test
 
 class JvmLocalFileTest {
-	@Test
-	fun test() = suspendTest {
-		val tmpVfs = File(Environment.tempPath).toVfs().jail()
-		tmpVfs["korio-test"].mkdir()
-		tmpVfs["korio-test"]["demo.txt"].writeString("HELLO")
-		assertEquals(listOf("demo.txt"), tmpVfs["korio-test"].listRecursive().map { it.baseName }.toList())
-	}
+    @Test
+    fun test() = suspendTest {
+        val tmpVfs = File(Environment.tempPath).toVfs().jail()
+        tmpVfs["korio-test"].mkdir()
+        tmpVfs["korio-test"]["demo.txt"].writeString("HELLO")
+        assertEquals(listOf("demo.txt"), tmpVfs["korio-test"].listRecursive().map { it.baseName }.toList())
+    }
 }

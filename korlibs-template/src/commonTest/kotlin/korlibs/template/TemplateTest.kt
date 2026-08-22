@@ -92,10 +92,10 @@ class TemplateTest : BaseTest() {
             KorteTemplate("{% for n in numbers %}{{ n }}:{{ loop.index0 }}:{{ loop.index }}:{{ loop.revindex }}:{{ loop.revindex0 }}:{{ loop.first }}:{{ loop.last }}:{{ loop.length }}{{ '\\n' }}{% end %}")
         assertEquals(
             """
-				a:0:1:2:3:true:false:3
-				b:1:2:1:2:false:false:3
-				c:2:3:0:1:false:true:3
-			""".trimIndent().trim(),
+                a:0:1:2:3:true:false:3
+                b:1:2:1:2:false:false:3
+                c:2:3:0:1:false:true:3
+            """.trimIndent().trim(),
             tpl("numbers" to listOf("a", "b", "c")).trim()
         )
     }
@@ -422,11 +422,11 @@ class TemplateTest : BaseTest() {
             """hello""",
             KorteTemplate(
                 """
-					---
-					title: hello
-					---
-					{{ title }}
-				""".trimIndent()
+                    ---
+                    title: hello
+                    ---
+                    {{ title }}
+                """.trimIndent()
             )()
         )
     }

@@ -11,9 +11,9 @@ import org.w3c.dom.get
 import org.w3c.performance.GlobalPerformance
 
 abstract external class GlobalScope : EventTarget, WindowOrWorkerGlobalScope, GlobalPerformance {
-	fun postMessage(message: dynamic, targetOrigin: dynamic = definedExternally, transfer: dynamic = definedExternally)
-	fun requestAnimationFrame(callback: (Double) -> Unit): Int
-	fun cancelAnimationFrame(handle: Int): Unit
+    fun postMessage(message: dynamic, targetOrigin: dynamic = definedExternally, transfer: dynamic = definedExternally)
+    fun requestAnimationFrame(callback: (Double) -> Unit): Int
+    fun cancelAnimationFrame(handle: Int): Unit
 }
 
 val jsGlobalDynamic: dynamic = js("((typeof globalThis !== 'undefined') ? globalThis : ((typeof global !== 'undefined') ? global : self))")
@@ -28,12 +28,12 @@ val isShell get() = !isWeb && !isNodeJs && !isWorker
 var _jsRuntime: JsRuntime? = null
 
 val jsRuntime: JsRuntime get() {
-	_jsRuntime = _jsRuntime ?: when {
+    _jsRuntime = _jsRuntime ?: when {
         isDenoJs -> JsRuntimeDeno
         //isNodeJs -> JsRuntimeNode
         else -> JsRuntimeBrowser
     }
-	return _jsRuntime!!
+    return _jsRuntime!!
 }
 
 fun HTMLCollection.toList(): List<Element?> = (0 until length).map { this[it] }

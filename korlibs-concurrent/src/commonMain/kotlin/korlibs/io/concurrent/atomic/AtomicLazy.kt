@@ -3,39 +3,39 @@ package korlibs.io.concurrent.atomic
 import kotlinx.atomicfu.*
 
 internal class AtomicLazyImpl<out T>(initializer: () -> T) : Lazy<T> {
-	private object UNINITIALIZED
-	private object INITIALIZING
+    private object UNINITIALIZED
+    private object INITIALIZING
 
-	private val initializer_ = atomic<Function0<T>?>(initializer)
-	private val value_ = atomic<Any?>(UNINITIALIZED)
+    private val initializer_ = atomic<Function0<T>?>(initializer)
+    private val value_ = atomic<Any?>(UNINITIALIZED)
 
-	override val value: T
-		get() {
-			if (value_.compareAndSet(UNINITIALIZED, INITIALIZING)) {
-				// We execute exclusively here.
-				val ctor = initializer_.value
-				if (ctor != null && initializer_.compareAndSet(ctor, null)) {
-					value_.compareAndSet(INITIALIZING, ctor())
-				} else {
-					// Something wrong.
-					check(false)
-				}
-			}
-			var result: Any?
-			do {
-				result = value_.value
-			} while (result === INITIALIZING)
+    override val value: T
+        get() {
+            if (value_.compareAndSet(UNINITIALIZED, INITIALIZING)) {
+                // We execute exclusively here.
+                val ctor = initializer_.value
+                if (ctor != null && initializer_.compareAndSet(ctor, null)) {
+                    value_.compareAndSet(INITIALIZING, ctor())
+                } else {
+                    // Something wrong.
+                    check(false)
+                }
+            }
+            var result: Any?
+            do {
+                result = value_.value
+            } while (result === INITIALIZING)
 
-			check(result !== UNINITIALIZED && result != INITIALIZING)
-			@Suppress("UNCHECKED_CAST")
-			return result as T
-		}
+            check(result !== UNINITIALIZED && result != INITIALIZING)
+            @Suppress("UNCHECKED_CAST")
+            return result as T
+        }
 
-	// Racy!
-	override fun isInitialized(): Boolean = value_.value !== UNINITIALIZED
+    // Racy!
+    override fun isInitialized(): Boolean = value_.value !== UNINITIALIZED
 
-	override fun toString(): String = if (isInitialized())
-		value_.value.toString() else "Lazy value not initialized yet."
+    override fun toString(): String = if (isInitialized())
+        value_.value.toString() else "Lazy value not initialized yet."
 }
 
 // Until in Konan. Temporarily From: https://github.com/JetBrains/kotlin-native/pull/1769

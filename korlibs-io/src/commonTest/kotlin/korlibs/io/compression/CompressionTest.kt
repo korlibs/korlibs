@@ -11,8 +11,8 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class CompressionTest {
-	@Test
-	fun name() = suspendTest {
+    @Test
+    fun name() = suspendTest {
         val data =
             "H4sIAAAAAAAAA+3SsREAEBSD4WcFm2ACTID9dxGFxgDcub/4mjQpEmdmDuYPKwsSJT3qz1KkXu7fWZMu4/IGr78AAAAAAD+a6ywcnAAQAAA=".fromBase64()
         val res = data.uncompress(GZIP)

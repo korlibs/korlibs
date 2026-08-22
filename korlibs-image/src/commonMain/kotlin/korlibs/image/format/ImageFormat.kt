@@ -30,14 +30,14 @@ interface ImageFormatEncoderDecoder : ImageFormatEncoder, ImageFormatDecoder
 
 abstract class ImageFormat(vararg exts: String, val mimeType: String = "image/${exts.first()}") : BaseImageDecodingProps, ImageFormatEncoderDecoder {
     final override val decodingProps: ImageDecodingProps by lazy { this.toProps() }
-	val extensions = exts.map { it.lowercase().trim() }.toSet()
+    val extensions = exts.map { it.lowercase().trim() }.toSet()
 
     // Basic interface to implement
     abstract fun readImageContainer(s: SyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): ImageDataContainer
     open fun writeImageContainer(image: ImageDataContainer, s: SyncStream, props: ImageEncodingProps): Unit = throw UnsupportedOperationException()
 
-	fun readImage(s: SyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): ImageData = readImageContainer(s, props).default
-	fun writeImage(image: ImageData, s: SyncStream, props: ImageEncodingProps): Unit = writeImageContainer(ImageDataContainer(image), s, props)
+    fun readImage(s: SyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): ImageData = readImageContainer(s, props).default
+    fun writeImage(image: ImageData, s: SyncStream, props: ImageEncodingProps): Unit = writeImageContainer(ImageDataContainer(image), s, props)
 
     final override suspend fun encodeSuspend(image: ImageDataContainer, props: ImageEncodingProps): ByteArray = MemorySyncStreamToByteArray { writeImage(image.default, this, props) }
     suspend fun decodeHeaderSuspend(file: VfsFile, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): ImageInfo? {
@@ -48,63 +48,63 @@ abstract class ImageFormat(vararg exts: String, val mimeType: String = "image/${
         return decodeHeader(s.toSyncOrNull() ?: s.readAll().openSync(), props)
     }
 
-	open fun decodeHeader(s: SyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): ImageInfo? =
-		runIgnoringExceptions(show = true) {
-			val bmp = read(s, props)
-			ImageInfo().apply {
-				this.width = bmp.width
-				this.height = bmp.height
-				this.bitsPerPixel = bmp.bpp
-			}
-		}
+    open fun decodeHeader(s: SyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): ImageInfo? =
+        runIgnoringExceptions(show = true) {
+            val bmp = read(s, props)
+            ImageInfo().apply {
+                this.width = bmp.width
+                this.height = bmp.height
+                this.bitsPerPixel = bmp.bpp
+            }
+        }
 
-	fun read(s: SyncStream, filename: String = "unknown"): Bitmap =
-		readImage(s, ImageDecodingProps.DEFAULT.withFileName(filename)).mainBitmap
+    fun read(s: SyncStream, filename: String = "unknown"): Bitmap =
+        readImage(s, ImageDecodingProps.DEFAULT.withFileName(filename)).mainBitmap
 
-	suspend fun read(file: VfsFile) = this.read(file.readAsSyncStream(), file.baseName)
-	//fun read(file: File) = this.read(file.openSync(), file.name)
-	fun read(s: ByteArray, filename: String): Bitmap = read(s.openSync(), filename)
+    suspend fun read(file: VfsFile) = this.read(file.readAsSyncStream(), file.baseName)
+    //fun read(file: File) = this.read(file.openSync(), file.name)
+    fun read(s: ByteArray, filename: String): Bitmap = read(s.openSync(), filename)
 
-	fun read(s: SyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): Bitmap = readImage(s, props).mainBitmap
-	//fun read(file: File, props: ImageDecodingProps = ImageDecodingProps()) = this.read(file.openSync(), props.copy(filename = file.name))
-	fun read(s: ByteArray, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): Bitmap = read(s.openSync(), props)
+    fun read(s: SyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): Bitmap = readImage(s, props).mainBitmap
+    //fun read(file: File, props: ImageDecodingProps = ImageDecodingProps()) = this.read(file.openSync(), props.copy(filename = file.name))
+    fun read(s: ByteArray, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): Bitmap = read(s.openSync(), props)
 
-	fun check(s: SyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): Boolean =
+    fun check(s: SyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): Boolean =
         runIgnoringExceptions(show = true) { decodeHeader(s, props) != null } ?: false
 
-	fun decode(s: SyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): Bitmap = this.read(s, props)
-	//fun decode(file: File, props: ImageDecodingProps = ImageDecodingProps()) = this.read(file.openSync("r"), props.copy(filename = file.name))
+    fun decode(s: SyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): Bitmap = this.read(s, props)
+    //fun decode(file: File, props: ImageDecodingProps = ImageDecodingProps()) = this.read(file.openSync("r"), props.copy(filename = file.name))
 
     /** Decodes a given [data] byte array to a bitmap based on the image format with optional extra [prop] properties. */
     fun decode(data: ByteArray, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): Bitmap = read(data.openSync(), props)
 
-	final override suspend fun decodeSuspend(data: ByteArray, props: ImageDecodingProps): Bitmap = decode(data, props)
+    final override suspend fun decodeSuspend(data: ByteArray, props: ImageDecodingProps): Bitmap = decode(data, props)
     final override suspend fun decode(file: VfsFile, props: ImageDecodingProps): Bitmap =
         this.read(file.readAsSyncStream(), props.withFile(file))
 
     //fun decode(s: SyncStream, filename: String = "unknown") = this.read(s, filename)
-	suspend fun decode(file: VfsFile) = this.read(file.readAsSyncStream(), file.baseName)
-	//fun decode(file: File) = this.read(file.openSync("r"), file.name)
-	//fun decode(s: ByteArray, filename: String = "unknown"): Bitmap = read(s.openSync(), filename)
+    suspend fun decode(file: VfsFile) = this.read(file.readAsSyncStream(), file.baseName)
+    //fun decode(file: File) = this.read(file.openSync("r"), file.name)
+    //fun decode(s: ByteArray, filename: String = "unknown"): Bitmap = read(s.openSync(), filename)
 
     suspend fun decode(s: AsyncStream, filename: String) = this.read(s.readAll(), ImageDecodingProps(filename))
     suspend fun decode(s: AsyncStream, props: ImageDecodingProps = ImageDecodingProps.DEFAULT) =
         this.read(s.readAll(), props)
 
 
-	fun encode(image: ImageData, props: ImageEncodingProps = ImageEncodingProps("unknown")): ByteArray =
-		MemorySyncStreamToByteArray(image.area * 4) { writeImage(image, this, props) }
+    fun encode(image: ImageData, props: ImageEncodingProps = ImageEncodingProps("unknown")): ByteArray =
+        MemorySyncStreamToByteArray(image.area * 4) { writeImage(image, this, props) }
 
     fun encode(frames: List<ImageFrame>, props: ImageEncodingProps = ImageEncodingProps("unknown")): ByteArray =
         encode(ImageData(frames), props)
 
     fun encode(bitmap: Bitmap, props: ImageEncodingProps = ImageEncodingProps("unknown")): ByteArray =
-		encode(ImageData(bitmap), props)
+        encode(ImageData(bitmap), props)
 
-	suspend fun read(file: VfsFile, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): ImageData =
-		this.readImage(file.readAll().openSync(), props.withFile(file))
+    suspend fun read(file: VfsFile, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): ImageData =
+        this.readImage(file.readAll().openSync(), props.withFile(file))
 
-	override fun toString(): String = "ImageFormat($extensions)"
+    override fun toString(): String = "ImageFormat($extensions)"
 }
 
 open class ImageFormatSuspend(vararg exts: String, mimeType: String = "image/${exts.first()}") : ImageFormat(*exts, mimeType = mimeType) {

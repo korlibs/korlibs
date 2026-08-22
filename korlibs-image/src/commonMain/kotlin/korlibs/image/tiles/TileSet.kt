@@ -39,7 +39,7 @@ data class TileSetTileInfo(
  */
 class TileSet private constructor(
     val tilesMap: IntMap<TileSetTileInfo>,
-	//val textures: List<BmpSlice?>,
+    //val textures: List<BmpSlice?>,
 
     /** [width] of each tile */
     val width: Int = if (tilesMap.size == 0) 0 else tilesMap.firstValue().slice.width,
@@ -55,7 +55,7 @@ class TileSet private constructor(
     val hasMultipleBaseBitmaps by lazy { tilesMap.values.any { it !== null && it.slice.bmp !== base } }
     val infos by lazy { Array<TileSetTileInfo?>(tilesMap.keys.maxOrNull()?.plus(1) ?: 0) { tilesMap[it] } }
     val textures by lazy { Array<BitmapCoords?>(tilesMap.keys.maxOrNull()?.plus(1) ?: 0) { tilesMap[it]?.slice } }
-	//init { if (hasMultipleBaseBitmaps) throw RuntimeException("All tiles in the set must have the same base texture") }
+    //init { if (hasMultipleBaseBitmaps) throw RuntimeException("All tiles in the set must have the same base texture") }
 
     //init {
     //    println("texturesMap: ${texturesMap.toMap()}")
@@ -64,11 +64,11 @@ class TileSet private constructor(
 
     fun getInfo(index: Int): TileSetTileInfo? = infos.getOrNull(index)
     fun getSlice(index: Int): BmpSlice? = getInfo(index)?.slice
-	operator fun get(index: Int): BmpSlice? = getSlice(index)
+    operator fun get(index: Int): BmpSlice? = getSlice(index)
 
     fun clone(): TileSet = TileSet(this.tilesMap.clone(), this.width, this.height, Unit)
 
-	companion object {
+    companion object {
         val EMPTY = TileSet(IntMap(), unit = Unit)
 
         operator fun invoke(
@@ -109,7 +109,7 @@ class TileSet private constructor(
             mipmaps: Boolean = false,
         ): TileSet = invoke(base.slice(), tileWidth, tileHeight, columns, totalTiles, idOffset, border, mipmaps)
 
-		operator fun invoke(
+        operator fun invoke(
             base: BmpSlice,
             tileWidth: Int = base.width,
             tileHeight: Int = base.height,
@@ -118,21 +118,21 @@ class TileSet private constructor(
             idOffset: Int = 0,
             border: Int = 1,
             mipmaps: Boolean = false,
-		): TileSet {
-			val out = arrayListOf<TileSetTileInfo>()
-			val rows = base.height / tileHeight
-			val actualColumns = if (columns < 0) base.width / tileWidth else columns
-			val actualTotalTiles = if (totalTiles < 0) rows * actualColumns else totalTiles
+        ): TileSet {
+            val out = arrayListOf<TileSetTileInfo>()
+            val rows = base.height / tileHeight
+            val actualColumns = if (columns < 0) base.width / tileWidth else columns
+            val actualTotalTiles = if (totalTiles < 0) rows * actualColumns else totalTiles
 
-			complete@ for (y in 0 until rows) {
-				for (x in 0 until actualColumns) {
-					out += TileSetTileInfo(out.size + idOffset, base.sliceWithSize(x * tileWidth, y * tileHeight, tileWidth, tileHeight))
-					if (out.size >= actualTotalTiles) break@complete
-				}
-			}
+            complete@ for (y in 0 until rows) {
+                for (x in 0 until actualColumns) {
+                    out += TileSetTileInfo(out.size + idOffset, base.sliceWithSize(x * tileWidth, y * tileHeight, tileWidth, tileHeight))
+                    if (out.size >= actualTotalTiles) break@complete
+                }
+            }
 
-			return fromTileSetTileInfo(tileWidth, tileHeight, out, border = border, mipmaps = mipmaps)
-		}
+            return fromTileSetTileInfo(tileWidth, tileHeight, out, border = border, mipmaps = mipmaps)
+        }
 
         fun fromBitmaps(
             tilewidth: Int,
@@ -154,16 +154,16 @@ class TileSet private constructor(
             idOffset: Int = 0,
         ): TileSet = fromTileSetTileInfo(tilewidth, tileheight, bmpSlices.withIndex().map { (index, it) -> TileSetTileInfo(index + idOffset, it) }, border, mipmaps)
 
-		fun fromTileSetTileInfo(
+        fun fromTileSetTileInfo(
             tilewidth: Int,
             tileheight: Int,
             bmpSlices: List<TileSetTileInfo>,
             border: Int = 1,
             mipmaps: Boolean = false,
         ): TileSet {
-			//check(bmpSlices.all { it.width == tilewidth && it.height == tileheight })
+            //check(bmpSlices.all { it.width == tilewidth && it.height == tileheight })
 
-			if (bmpSlices.isEmpty()) return TileSet(IntMap(), tilewidth, tileheight, unit = Unit)
+            if (bmpSlices.isEmpty()) return TileSet(IntMap(), tilewidth, tileheight, unit = Unit)
 
             // NO-Border
             if (border == 0) {
@@ -175,11 +175,11 @@ class TileSet private constructor(
                 )
             }
 
-			//sqrt(bitmaps.size.toDouble()).toIntCeil() * tilewidth
+            //sqrt(bitmaps.size.toDouble()).toIntCeil() * tilewidth
 
-			val border2 = border * 2
-			val btilewidth = tilewidth + border2
-			val btileheight = tileheight + border2
+            val border2 = border * 2
+            val btilewidth = tilewidth + border2
+            val btileheight = tileheight + border2
             val columns = sqrt(bmpSlices.size.toDouble()).toIntCeil()
             val rows = (bmpSlices.size.toDouble() / columns).toIntCeil()
             val minWidth = columns * (tilewidth + border) + border
@@ -188,8 +188,8 @@ class TileSet private constructor(
 
             val premultiplied = bmpSlices.any { it.slice.base.premultiplied }
 
-			val out = Bitmap32(potSize, potSize, premultiplied = premultiplied).mipmaps(mipmaps)
-			val texs = IntMap<TileSetTileInfo>()
+            val out = Bitmap32(potSize, potSize, premultiplied = premultiplied).mipmaps(mipmaps)
+            val texs = IntMap<TileSetTileInfo>()
 
             val bmps = FastIdentityMap<Bitmap, Bitmap32>()
 
@@ -199,7 +199,7 @@ class TileSet private constructor(
                 return BitmapSlice(base2, this.rect, orientation, padding, name)
             }
 
-			//val tex = views.texture(out, mipmaps = mipmaps)
+            //val tex = views.texture(out, mipmaps = mipmaps)
             for (n in bmpSlices.indices) {
                 val y = n / columns
                 val x = n % columns
@@ -232,8 +232,8 @@ class TileSet private constructor(
                 }
             }
 
-			return TileSet(texs, tilewidth, tileheight, unit = Unit)
-		}
+            return TileSet(texs, tilewidth, tileheight, unit = Unit)
+        }
 
         // EXTRACT
 

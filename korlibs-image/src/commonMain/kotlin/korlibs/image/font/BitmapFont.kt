@@ -232,7 +232,7 @@ internal class BitmapFontImpl constructor(
     }
     override val naturalNonExistantGlyphMetrics: GlyphMetrics = GlyphMetrics(fontSize, false, 0, Rectangle(), 0.0)
 
-	override fun getKerning(first: Int, second: Int): BitmapFont.Kerning? = kernings[BitmapFont.Kerning.buildKey(first, second)]
+    override fun getKerning(first: Int, second: Int): BitmapFont.Kerning? = kernings[BitmapFont.Kerning.buildKey(first, second)]
     override fun getOrNull(codePoint: Int): BitmapFont.Glyph? = glyphs[codePoint]
 
     override val anyGlyph: BitmapFont.Glyph by lazy { glyphs[glyphs.keys.iterator().next()] ?: invalidGlyph }
@@ -244,9 +244,9 @@ suspend fun VfsFile.readBitmapFont(
     mipmaps: Boolean = true,
     atlas: MutableAtlasUnit? = null
 ) : BitmapFont {
-	val fntFile = this
-	val content = fntFile.readString().trim()
-	val textures = hashMapOf<Int, BmpSlice>()
+    val fntFile = this
+    val content = fntFile.readString().trim()
+    val textures = hashMapOf<Int, BmpSlice>()
 
     return when {
         content.startsWith('<') -> readBitmapFontXml(content, fntFile, textures, props, mipmaps, atlas)
@@ -317,45 +317,45 @@ private suspend fun readBitmapFontJson(
 }
 
 private suspend fun readBitmapFontTxt(
-	content: String,
-	fntFile: VfsFile,
-	textures: HashMap<Int, BmpSlice>,
-	props: ImageDecodingProps = ImageDecodingProps.DEFAULT,
+    content: String,
+    fntFile: VfsFile,
+    textures: HashMap<Int, BmpSlice>,
+    props: ImageDecodingProps = ImageDecodingProps.DEFAULT,
     mipmaps: Boolean = true,
     atlas: MutableAtlasUnit? = null
 ): BitmapFont {
     val kernings = arrayListOf<BitmapFont.Kerning>()
-	val glyphs = arrayListOf<BitmapFont.Glyph>()
-	var lineHeight = 16.0
-	var fontSize = 16.0
-	var base: Double? = null
-	for (rline in content.lines()) {
-		val line = rline.trim()
-		val map = LinkedHashMap<String, String>()
-		for (part in line.split(' ')) {
-			val (key, value) = part.split('=') + listOf("", "")
-			map[key] = value
-		}
-		when {
-			line.startsWith("info") -> {
-				fontSize = (map["size"]?.toDouble() ?: 16.0).absoluteValue
-			}
-			line.startsWith("page") -> {
-				val id = map["id"]?.toInt() ?: 0
-				val file = map["file"]?.unquote() ?: error("page without file")
-				textures[id] = fntFile.parent[file].readBitmap(props).mipmaps(mipmaps).slice()
-			}
-			line.startsWith("common ") -> {
-				lineHeight = map["lineHeight"]?.toDoubleOrNull() ?: 16.0
-				base = map["base"]?.toDoubleOrNull()
-			}
-			line.startsWith("char ") -> {
-				//id=54 x=158 y=88 width=28 height=42 xoffset=2 yoffset=8 xadvance=28 page=0 chnl=0
-				val page = map["page"]?.toIntOrNull() ?: 0
-				val texture = textures[page] ?: textures.values.first()
+    val glyphs = arrayListOf<BitmapFont.Glyph>()
+    var lineHeight = 16.0
+    var fontSize = 16.0
+    var base: Double? = null
+    for (rline in content.lines()) {
+        val line = rline.trim()
+        val map = LinkedHashMap<String, String>()
+        for (part in line.split(' ')) {
+            val (key, value) = part.split('=') + listOf("", "")
+            map[key] = value
+        }
+        when {
+            line.startsWith("info") -> {
+                fontSize = (map["size"]?.toDouble() ?: 16.0).absoluteValue
+            }
+            line.startsWith("page") -> {
+                val id = map["id"]?.toInt() ?: 0
+                val file = map["file"]?.unquote() ?: error("page without file")
+                textures[id] = fntFile.parent[file].readBitmap(props).mipmaps(mipmaps).slice()
+            }
+            line.startsWith("common ") -> {
+                lineHeight = map["lineHeight"]?.toDoubleOrNull() ?: 16.0
+                base = map["base"]?.toDoubleOrNull()
+            }
+            line.startsWith("char ") -> {
+                //id=54 x=158 y=88 width=28 height=42 xoffset=2 yoffset=8 xadvance=28 page=0 chnl=0
+                val page = map["page"]?.toIntOrNull() ?: 0
+                val texture = textures[page] ?: textures.values.first()
                 val dmap = map.dyn
                 val id = dmap["id"].int
-				glyphs += BitmapFont.Glyph(
+                glyphs += BitmapFont.Glyph(
                     fontSize = fontSize,
                     id = id,
                     xoffset = dmap["xoffset"].int,
@@ -364,17 +364,17 @@ private suspend fun readBitmapFontTxt(
                     texture = atlas?.add(texture.sliceWithSize(dmap["x"].int, dmap["y"].int, dmap["width"].int, dmap["height"].int, "glyph-${id.toChar()}"), Unit)?.slice
                         ?: texture.sliceWithSize(dmap["x"].int, dmap["y"].int, dmap["width"].int, dmap["height"].int, "glyph-${id.toChar()}")
                 )
-			}
-			line.startsWith("kerning ") -> {
-				kernings += BitmapFont.Kerning(
+            }
+            line.startsWith("kerning ") -> {
+                kernings += BitmapFont.Kerning(
                     first = map["first"]?.toIntOrNull() ?: 0,
                     second = map["second"]?.toIntOrNull() ?: 0,
                     amount = map["amount"]?.toIntOrNull() ?: 0
                 )
-			}
-		}
-	}
-	return BitmapFont(
+            }
+        }
+    }
+    return BitmapFont(
         fontSize = fontSize,
         lineHeight = lineHeight,
         base = base ?: lineHeight,
@@ -386,31 +386,31 @@ private suspend fun readBitmapFontTxt(
 }
 
 private suspend fun readBitmapFontXml(
-	content: String,
-	fntFile: VfsFile,
-	textures: MutableMap<Int, BmpSlice>,
+    content: String,
+    fntFile: VfsFile,
+    textures: MutableMap<Int, BmpSlice>,
     props: ImageDecodingProps = ImageDecodingProps.DEFAULT,
     mipmaps: Boolean = true,
     atlas: MutableAtlasUnit? = null
 ): BitmapFont {
-	val xml = Xml(content)
+    val xml = Xml(content)
 
-	val fontSize = xml["info"].firstOrNull()?.doubleNull("size") ?: 16.0
-	val lineHeight = xml["common"].firstOrNull()?.doubleNull("lineHeight") ?: 16.0
-	val base = xml["common"].firstOrNull()?.doubleNull("base") ?: 16.0
+    val fontSize = xml["info"].firstOrNull()?.doubleNull("size") ?: 16.0
+    val lineHeight = xml["common"].firstOrNull()?.doubleNull("lineHeight") ?: 16.0
+    val base = xml["common"].firstOrNull()?.doubleNull("base") ?: 16.0
     val distanceField = xml["distanceField"].firstOrNull()?.strNull("fieldType")
 
-	for (page in xml["pages"]["page"]) {
-		val id = page.int("id")
-		val file = page.str("file")
-		val texFile = fntFile.parent[file]
-		val tex = texFile.readBitmap(props).mipmaps(mipmaps).slice()
-		textures[id] = tex
-	}
+    for (page in xml["pages"]["page"]) {
+        val id = page.int("id")
+        val file = page.str("file")
+        val texFile = fntFile.parent[file]
+        val tex = texFile.readBitmap(props).mipmaps(mipmaps).slice()
+        textures[id] = tex
+    }
 
-	val glyphs = xml["chars"]["char"].map {
-		val page = it.int("page")
-		val texture = textures[page] ?: textures.values.first()
+    val glyphs = xml["chars"]["char"].map {
+        val page = it.int("page")
+        val texture = textures[page] ?: textures.values.first()
         BitmapFont.Glyph(
             fontSize = fontSize,
             id = it.int("id"),
@@ -420,17 +420,17 @@ private suspend fun readBitmapFontXml(
             yoffset = it.int("yoffset"),
             xadvance = it.int("xadvance")
         )
-	}
+    }
 
-	val kernings = xml["kernings"]["kerning"].map {
+    val kernings = xml["kernings"]["kerning"].map {
         BitmapFont.Kerning(
             first = it.int("first"),
             second = it.int("second"),
             amount = it.int("amount")
         )
-	}
+    }
 
-	return BitmapFont(
+    return BitmapFont(
         fontSize = fontSize,
         lineHeight = lineHeight,
         base = base,

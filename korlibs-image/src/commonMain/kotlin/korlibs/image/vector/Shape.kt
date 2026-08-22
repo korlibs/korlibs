@@ -35,34 +35,34 @@ class SvgBuilder(
     val scale: Double,
     val roundDecimalPlaces: Int = -1
 ) {
-	val defs = arrayListOf<Xml>()
-	val nodes = arrayListOf<Xml>()
+    val defs = arrayListOf<Xml>()
+    val nodes = arrayListOf<Xml>()
 
-	//val tx = -bounds.x
-	//val ty = -bounds.y
+    //val tx = -bounds.x
+    //val ty = -bounds.y
 
     val Double.nice: String get() = niceStr(roundDecimalPlaces)
 
-	fun toXml(): Xml {
-		return Xml.Tag(
-			"svg",
-			linkedMapOf(
-				"width" to "${(bounds.width * scale).nice}px",
-				"height" to "${(bounds.height * scale).nice}px",
-				"viewBox" to "0 0 ${(bounds.width * scale).nice} ${(bounds.height * scale).nice}",
-				"xmlns" to "http://www.w3.org/2000/svg",
-				"xmlns:xlink" to "http://www.w3.org/1999/xlink"
-			),
-			listOf(
-				Xml.Tag("defs", mapOf(), defs),
-				Xml.Tag(
-					"g",
-					mapOf("transform" to Matrix().translated(-bounds.x, -bounds.y).scaled(scale, scale).toSvg(roundDecimalPlaces)),
-					nodes
-				)
-			) //+ nodes
-		)
-	}
+    fun toXml(): Xml {
+        return Xml.Tag(
+            "svg",
+            linkedMapOf(
+                "width" to "${(bounds.width * scale).nice}px",
+                "height" to "${(bounds.height * scale).nice}px",
+                "viewBox" to "0 0 ${(bounds.width * scale).nice} ${(bounds.height * scale).nice}",
+                "xmlns" to "http://www.w3.org/2000/svg",
+                "xmlns:xlink" to "http://www.w3.org/1999/xlink"
+            ),
+            listOf(
+                Xml.Tag("defs", mapOf(), defs),
+                Xml.Tag(
+                    "g",
+                    mapOf("transform" to Matrix().translated(-bounds.x, -bounds.y).scaled(scale, scale).toSvg(roundDecimalPlaces)),
+                    nodes
+                )
+            ) //+ nodes
+        )
+    }
 }
 
 fun buildSvgXml(width: Int? = null, height: Int? = null, block: ShapeBuilder.() -> Unit): Xml = buildShape(width, height) { block() }.toSvg()
@@ -71,13 +71,13 @@ private fun Matrix.toSvg(roundDecimalPlaces: Int = -1): String = this.mutable.to
 
 private fun MMatrix.toSvg(roundDecimalPlaces: Int = -1): String {
     val places = roundDecimalPlaces
-	return when (getType()) {
-		MatrixType.IDENTITY -> "translate()"
-		MatrixType.TRANSLATE -> "translate(${tx.niceStr(places)}, ${ty.niceStr(places)})"
-		MatrixType.SCALE -> "scale(${a.niceStr(places)}, ${d.niceStr(places)})"
-		MatrixType.SCALE_TRANSLATE -> "translate(${tx.niceStr(places)}, ${ty.niceStr(places)}) scale(${a.niceStr(places)}, ${d.niceStr(places)})"
-		else -> "matrix(${a.niceStr(places)}, ${b.niceStr(places)}, ${c.niceStr(places)}, ${d.niceStr(places)}, ${tx.niceStr(places)}, ${ty.niceStr(places)})"
-	}
+    return when (getType()) {
+        MatrixType.IDENTITY -> "translate()"
+        MatrixType.TRANSLATE -> "translate(${tx.niceStr(places)}, ${ty.niceStr(places)})"
+        MatrixType.SCALE -> "scale(${a.niceStr(places)}, ${d.niceStr(places)})"
+        MatrixType.SCALE_TRANSLATE -> "translate(${tx.niceStr(places)}, ${ty.niceStr(places)}) scale(${a.niceStr(places)}, ${d.niceStr(places)})"
+        else -> "matrix(${a.niceStr(places)}, ${b.niceStr(places)}, ${c.niceStr(places)}, ${d.niceStr(places)}, ${tx.niceStr(places)}, ${ty.niceStr(places)})"
+    }
 }
 
 fun VectorPath.toSvgPathString(separator: String = " ", decimalPlaces: Int = 1): String =
@@ -113,13 +113,13 @@ fun VectorPath.toContext2dCommands(prefix: String = "ctx.", suffix: String = ";"
 //}
 
 sealed interface Shape : BoundsDrawable {
-	fun buildSvg(svg: SvgBuilder): Unit = Unit
+    fun buildSvg(svg: SvgBuilder): Unit = Unit
     fun getPath(path: VectorPath = VectorPath()): VectorPath = path
 
     // Unoptimized version
     fun getBounds(includeStrokes: Boolean = true): Rectangle
     override val bounds: Rectangle get() = getBounds(includeStrokes = true)
-	fun containsPoint(x: Double, y: Double): Boolean = bounds.contains(x, y)
+    fun containsPoint(x: Double, y: Double): Boolean = bounds.contains(x, y)
 }
 
 fun Shape.optimize(): Shape {
@@ -146,83 +146,83 @@ interface StyledShape : Shape {
      *
      * @TODO: Probably it shouldn't have the transform applied
      */
-	val path: VectorPath? get() = null
-	val clip: VectorPath?
-	val paint: Paint
-	val transform: Matrix
+    val path: VectorPath? get() = null
+    val clip: VectorPath?
+    val paint: Paint
+    val transform: Matrix
     val globalAlpha: Double
 
     fun getUntransformedPath(): VectorPath? {
         return path?.clone()?.applyTransform(transform.inverted())
     }
 
-	override fun getBounds(includeStrokes: Boolean): Rectangle {
+    override fun getBounds(includeStrokes: Boolean): Rectangle {
         return path?.let { path ->
             (BoundsBuilder() + path).bounds
             // path is already transformed, so using `transform` is not required
         } ?: Rectangle.NIL
-	}
+    }
 
-	override fun buildSvg(svg: SvgBuilder) {
-		svg.nodes += Xml.Tag(
-			"path", mapOf(
-				"d" to (getUntransformedPath()?.toSvgPathString() ?: ""),
+    override fun buildSvg(svg: SvgBuilder) {
+        svg.nodes += Xml.Tag(
+            "path", mapOf(
+                "d" to (getUntransformedPath()?.toSvgPathString() ?: ""),
                 "transform" to transform.toSvg()
             ) + getSvgXmlAttributes(svg), listOf()
-		)
-	}
+        )
+    }
 
     override fun getPath(path: VectorPath): VectorPath = path.also {
         this.path?.let { path.write(it) }
     }
 
     fun getSvgXmlAttributes(svg: SvgBuilder): Map<String, String> = mapOf(
-		//"transform" to transform.toSvg()
-	)
+        //"transform" to transform.toSvg()
+    )
 
-	override fun draw(c: Context2d) {
-		c.keepTransform {
-			c.beginPath()
-			path?.draw(c)
-			if (clip != null) {
-				clip!!.draw(c)
-				c.clip()
-			}
+    override fun draw(c: Context2d) {
+        c.keepTransform {
+            c.beginPath()
+            path?.draw(c)
+            if (clip != null) {
+                clip!!.draw(c)
+                c.clip()
+            }
             c.transform(transform.immutable)
-			drawInternal(c)
-		}
-	}
+            drawInternal(c)
+        }
+    }
 
-	fun drawInternal(c: Context2d) {
-	}
+    fun drawInternal(c: Context2d) {
+    }
 }
 
 private fun colorToSvg(color: RGBA): String {
-	val r = color.r
-	val g = color.g
-	val b = color.b
-	val af = color.af
-	return "rgba($r,$g,$b,${af.smallNiceStr})"
+    val r = color.r
+    val g = color.g
+    val b = color.b
+    val af = color.af
+    return "rgba($r,$g,$b,${af.smallNiceStr})"
 }
 
 private val Float.smallNiceStr: String get() = if (round(this) == this) "${this.toInt()}" else "$this"
 
 fun Paint.toSvg(svg: SvgBuilder): String {
-	val id = svg.defs.size
-	/*
-	svg.defs += when (this) {
-		is Paint.
-		Xml.Tag("")
-	}
-	return "url(#def$id)"
-	*/
-	when (this) {
-		is GradientPaint -> {
-			val stops = (0 until numberOfStops).map {
-				val ratio = this.stops[it]
-				val color = RGBA(this.colors.getAt(it))
-				Xml.Tag("stop", mapOf("offset" to "${ratio * 100}%", "stop-color" to colorToSvg(color)), listOf())
-			}
+    val id = svg.defs.size
+    /*
+    svg.defs += when (this) {
+        is Paint.
+        Xml.Tag("")
+    }
+    return "url(#def$id)"
+    */
+    when (this) {
+        is GradientPaint -> {
+            val stops = (0 until numberOfStops).map {
+                val ratio = this.stops[it]
+                val color = RGBA(this.colors.getAt(it))
+                Xml.Tag("stop", mapOf("offset" to "${ratio * 100}%", "stop-color" to colorToSvg(color)), listOf())
+            }
 
             when (this.kind) {
                 GradientKind.LINEAR -> {
@@ -253,40 +253,40 @@ fun Paint.toSvg(svg: SvgBuilder): String {
                 else -> Unit
             }
 
-			return "url(#def$id)"
-		}
-		is BitmapPaint -> {
-			//<pattern id="img1" patternUnits="userSpaceOnUse" width="100" height="100">
-			//<image xlink:href="wall.jpg" x="0" y="0" width="100" height="100" />
-			//</pattern>
+            return "url(#def$id)"
+        }
+        is BitmapPaint -> {
+            //<pattern id="img1" patternUnits="userSpaceOnUse" width="100" height="100">
+            //<image xlink:href="wall.jpg" x="0" y="0" width="100" height="100" />
+            //</pattern>
 
 
-			svg.defs += Xml.Tag(
-				"pattern", mapOf(
-					"id" to "def$id",
-					"patternUnits" to "userSpaceOnUse",
-					"width" to "${bitmap.width}",
-					"height" to "${bitmap.height}",
-					"patternTransform" to transform.toSvg()
-				), listOf(
-					Xml.Tag(
-						"image",
-						mapOf(
-							"xlink:href" to bitmap.toUri(),
-							"width" to "${bitmap.width}",
-							"height" to "${bitmap.height}"
-						),
-						listOf<Xml>()
-					)
-				)
-			)
-			return "url(#def$id)"
-		}
-		is ColorPaint -> {
-			return colorToSvg(color)
-		}
-		else -> return "red"
-	}
+            svg.defs += Xml.Tag(
+                "pattern", mapOf(
+                    "id" to "def$id",
+                    "patternUnits" to "userSpaceOnUse",
+                    "width" to "${bitmap.width}",
+                    "height" to "${bitmap.height}",
+                    "patternTransform" to transform.toSvg()
+                ), listOf(
+                    Xml.Tag(
+                        "image",
+                        mapOf(
+                            "xlink:href" to bitmap.toUri(),
+                            "width" to "${bitmap.width}",
+                            "height" to "${bitmap.height}"
+                        ),
+                        listOf<Xml>()
+                    )
+                )
+            )
+            return "url(#def$id)"
+        }
+        is ColorPaint -> {
+            return colorToSvg(color)
+        }
+        else -> return "red"
+    }
 }
 
 object EmptyShape : Shape {
@@ -308,20 +308,20 @@ data class FillShape(
     val clipCurvesList: List<Curves>? by lazy { clip?.toCurvesList() }
     val isConvex: Boolean get() = pathCurvesList.size == 1 && pathCurvesList.first().isConvex && (clipCurvesList == null)
 
-	override fun drawInternal(c: Context2d) {
-		c.fill(paint, path.winding)
-	}
+    override fun drawInternal(c: Context2d) {
+        c.fill(paint, path.winding)
+    }
 
-	override fun getSvgXmlAttributes(svg: SvgBuilder) = super.getSvgXmlAttributes(svg) + mapOf(
-		"fill" to paint.toSvg(svg)
-	)
+    override fun getSvgXmlAttributes(svg: SvgBuilder) = super.getSvgXmlAttributes(svg) + mapOf(
+        "fill" to paint.toSvg(svg)
+    )
 
-	override fun containsPoint(x: Double, y: Double): Boolean {
-		val tx = transform.transformX(x, y)
-		val ty = transform.transformY(x, y)
-		if (clip != null) return clip.containsPoint(tx, ty)
-		return path.containsPoint(tx, ty)
-	}
+    override fun containsPoint(x: Double, y: Double): Boolean {
+        val tx = transform.transformX(x, y)
+        val ty = transform.transformY(x, y)
+        if (clip != null) return clip.containsPoint(tx, ty)
+        return path.containsPoint(tx, ty)
+    }
 }
 
 data class PolylineShape constructor(
@@ -376,37 +376,37 @@ data class PolylineShape constructor(
 
     override fun drawInternal(c: Context2d) {
         setState(c)
-		c.stroke(paint)
-	}
+        c.stroke(paint)
+    }
 
-	override fun containsPoint(x: Double, y: Double): Boolean {
-		val tx = transform.transformX(x, y)
-		val ty = transform.transformY(x, y)
-		if (clip != null) return clip.containsPoint(tx, ty)
-		return path.containsPoint(tx, ty)
-	}
+    override fun containsPoint(x: Double, y: Double): Boolean {
+        val tx = transform.transformX(x, y)
+        val ty = transform.transformY(x, y)
+        if (clip != null) return clip.containsPoint(tx, ty)
+        return path.containsPoint(tx, ty)
+    }
 
-	override fun getSvgXmlAttributes(svg: SvgBuilder) = super.getSvgXmlAttributes(svg) + mapOf(
+    override fun getSvgXmlAttributes(svg: SvgBuilder) = super.getSvgXmlAttributes(svg) + mapOf(
         "fill" to "none",
-		"stroke-width" to strokeInfo.thickness.niceStr(svg.roundDecimalPlaces),
-		"stroke" to paint.toSvg(svg)
-	)
+        "stroke-width" to strokeInfo.thickness.niceStr(svg.roundDecimalPlaces),
+        "stroke" to paint.toSvg(svg)
+    )
 }
 
 open class CompoundShape(
-	val components: List<Shape>
+    val components: List<Shape>
 ) : Shape {
-	override fun getBounds(includeStrokes: Boolean): Rectangle {
+    override fun getBounds(includeStrokes: Boolean): Rectangle {
         var bb = BoundsBuilder()
         components.fastForEach { bb += it.getBounds(includeStrokes) }
         return bb.bounds
     }
-	override fun draw(c: Context2d) = c.buffering { components.fastForEach { it.draw(c) } }
-	override fun buildSvg(svg: SvgBuilder) { components.fastForEach { it.buildSvg(svg) } }
+    override fun draw(c: Context2d) = c.buffering { components.fastForEach { it.draw(c) } }
+    override fun buildSvg(svg: SvgBuilder) { components.fastForEach { it.buildSvg(svg) } }
     override fun getPath(path: VectorPath): VectorPath = path.also { components.fastForEach { it.getPath(path) } }
-	override fun containsPoint(x: Double, y: Double): Boolean {
-		return components.any { it.containsPoint(x, y) }
-	}
+    override fun containsPoint(x: Double, y: Double): Boolean {
+        return components.any { it.containsPoint(x, y) }
+    }
 
     override fun toString(): String {
         return "CompoundShape(\n  " + components.joinToString(",\n  ") + "\n)"

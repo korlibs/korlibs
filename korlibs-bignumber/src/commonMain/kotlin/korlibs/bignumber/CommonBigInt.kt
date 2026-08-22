@@ -8,35 +8,35 @@ import kotlin.time.*
  */
 class CommonBigInt private constructor(val data: UInt16ArrayZeroPad, override val signum: Int, var dummy: Boolean) : BigInt, BigIntConstructor by CommonBigInt {
     val isOne get() = isSmall && this == ONE
-	val isSmall get() = data.size <= 1
-	val maxBits get() = data.size * CHUNK_BITS
-	val significantBits get() = maxBits - leadingZeros()
+    val isSmall get() = data.size <= 1
+    val maxBits get() = data.size * CHUNK_BITS
+    val significantBits get() = maxBits - leadingZeros()
 
-	companion object : BigIntCompanion {
+    companion object : BigIntCompanion {
         internal const val CHUNK_BITS = Short.SIZE_BITS // UInt16ArrayZeroPad
 
-		val ZERO = CommonBigInt(uint16ArrayZeroPadOf(), 0, true)
-		val MINUS_ONE = CommonBigInt(uint16ArrayZeroPadOf(1), -1, true)
-		val ONE = CommonBigInt(uint16ArrayZeroPadOf(1), 1, true)
-		val TWO = CommonBigInt(uint16ArrayZeroPadOf(2), 1, true)
-		val TEN = CommonBigInt(uint16ArrayZeroPadOf(10), 1, true)
-		val SMALL = CommonBigInt(uint16ArrayZeroPadOf(UINT16_MASK), 1, true)
+        val ZERO = CommonBigInt(uint16ArrayZeroPadOf(), 0, true)
+        val MINUS_ONE = CommonBigInt(uint16ArrayZeroPadOf(1), -1, true)
+        val ONE = CommonBigInt(uint16ArrayZeroPadOf(1), 1, true)
+        val TWO = CommonBigInt(uint16ArrayZeroPadOf(2), 1, true)
+        val TEN = CommonBigInt(uint16ArrayZeroPadOf(10), 1, true)
+        val SMALL = CommonBigInt(uint16ArrayZeroPadOf(UINT16_MASK), 1, true)
 
-		operator fun invoke(data: UInt16ArrayZeroPad, signum: Int): CommonBigInt {
-			// Trim leading zeros
-			var maxN = 0
-			for (n in data.size - 1 downTo 0) {
-				if (data[n] != 0) {
-					maxN = n + 1
-					break
-				}
-			}
+        operator fun invoke(data: UInt16ArrayZeroPad, signum: Int): CommonBigInt {
+            // Trim leading zeros
+            var maxN = 0
+            for (n in data.size - 1 downTo 0) {
+                if (data[n] != 0) {
+                    maxN = n + 1
+                    break
+                }
+            }
 
-			if (maxN == 0) return ZERO
-			return CommonBigInt(data.copyOf(maxN), signum, false)
-		}
+            if (maxN == 0) return ZERO
+            return CommonBigInt(data.copyOf(maxN), signum, false)
+        }
 
-		override fun create(value: Int): CommonBigInt = when (value) {
+        override fun create(value: Int): CommonBigInt = when (value) {
             -1 -> MINUS_ONE
             0 -> ZERO
             1 -> ONE
@@ -59,14 +59,14 @@ class CommonBigInt private constructor(val data: UInt16ArrayZeroPad, override va
         override operator fun invoke(value: String, radix: Int): CommonBigInt = super.invoke(value, radix) as CommonBigInt
     }
 
-	fun countBits(): Int {
-		var count = 0
+    fun countBits(): Int {
+        var count = 0
         for (n in 0 until data.size) count += data[n].countOneBits()
-		return count
-	}
+        return count
+    }
 
     /** Number of leadingZeros with the size of [maxBits] */
-	fun leadingZeros(): Int {
+    fun leadingZeros(): Int {
         if (isZero) return maxBits
         for (n in 0 until data.size) {
             val dataN = data[data.size - n - 1]
@@ -76,53 +76,53 @@ class CommonBigInt private constructor(val data: UInt16ArrayZeroPad, override va
             }
         }
         return maxBits
-	}
+    }
 
     /** Number of trailingZeros with the size of [maxBits] */
-	fun trailingZeros(): Int {
-		if (isZero) return maxBits
+    fun trailingZeros(): Int {
+        if (isZero) return maxBits
         for (n in 0 until data.size) {
             val dataN = data[n]
             if (dataN != 0) {
                 return 16 * n + dataN.countTrailingZeroBits()
             }
         }
-		return maxBits
-	}
+        return maxBits
+    }
 
-	override operator fun plus(other: BigInt): CommonBigInt {
+    override operator fun plus(other: BigInt): CommonBigInt {
         other as CommonBigInt
-		val l = this
-		val r = other
-		return when {
-			l.isZero -> r
-			r.isZero -> l
-			l.isNegative && r.isPositive -> r - l.absoluteValue
-			l.isPositive && r.isNegative -> l - r.absoluteValue
-			l.isNegative && r.isNegative -> -(l.absoluteValue + r.absoluteValue)
-			else -> CommonBigInt(UnsignedBigInt.add(this.data, other.data), signum)
-		}
-	}
+        val l = this
+        val r = other
+        return when {
+            l.isZero -> r
+            r.isZero -> l
+            l.isNegative && r.isPositive -> r - l.absoluteValue
+            l.isPositive && r.isNegative -> l - r.absoluteValue
+            l.isNegative && r.isNegative -> -(l.absoluteValue + r.absoluteValue)
+            else -> CommonBigInt(UnsignedBigInt.add(this.data, other.data), signum)
+        }
+    }
 
-	override operator fun minus(other: BigInt): CommonBigInt {
+    override operator fun minus(other: BigInt): CommonBigInt {
         other as CommonBigInt
-		val l = this
-		val r = other
-		return when {
-			r.isZero -> l
-			l.isZero -> -r
-			l.isNegative && r.isNegative -> r.abs() - l.abs() // (-l) - (-r) == (-l) + (r) == (r - l)
-			l.isNegative && r.isPositive -> -(l.absoluteValue + r) // -l - r == -(l + r)
-			l.isPositive && r.isNegative -> l + r.absoluteValue // l - (-r) == l + r
-			l.isPositive && r.isPositive && l < r -> -(r - l)
-			else -> CommonBigInt(UnsignedBigInt.sub(l.data, r.data), 1)
-		}
-	}
+        val l = this
+        val r = other
+        return when {
+            r.isZero -> l
+            l.isZero -> -r
+            l.isNegative && r.isNegative -> r.abs() - l.abs() // (-l) - (-r) == (-l) + (r) == (r - l)
+            l.isNegative && r.isPositive -> -(l.absoluteValue + r) // -l - r == -(l + r)
+            l.isPositive && r.isNegative -> l + r.absoluteValue // l - (-r) == l + r
+            l.isPositive && r.isPositive && l < r -> -(r - l)
+            else -> CommonBigInt(UnsignedBigInt.sub(l.data, r.data), 1)
+        }
+    }
 
-	@OptIn(ExperimentalTime::class)
+    @OptIn(ExperimentalTime::class)
     override infix fun pow(exponent: BigInt): CommonBigInt {
         exponent as CommonBigInt
-		if (exponent.isNegative) throw BigIntNegativeExponentException()
+        if (exponent.isNegative) throw BigIntNegativeExponentException()
         if (exponent.isZero) return ONE
         if (exponent == ONE) return this
         var base = this
@@ -130,14 +130,14 @@ class CommonBigInt private constructor(val data: UInt16ArrayZeroPad, override va
         val expMaxBits = exponent.significantBits
         //println("$exponent -> maxBits=${exponent.maxBits}, leadingZeros=${exponent.leadingZeros()}, trailingZeros=${exponent.trailingZeros()}, expMaxBits=$expMaxBits")
         if (expMaxBits < 32) return pow(exponent.toInt())
-		var result = ONE
+        var result = ONE
         while (expBit < expMaxBits) {
             if (exponent.getBit(expBit)) result *= base
             base *= base
             expBit++
         }
-		return result
-	}
+        return result
+    }
 
     override infix fun pow(exponent: Int): CommonBigInt = powWithStats(exponent, null)
 
@@ -165,7 +165,7 @@ class CommonBigInt private constructor(val data: UInt16ArrayZeroPad, override va
         }
     }
 
-	fun powWithStats(exponent: Int, stats: OpStats?): CommonBigInt {
+    fun powWithStats(exponent: Int, stats: OpStats?): CommonBigInt {
         //return this pow exponent.bi
         if (exponent < 0) throw BigIntNegativeExponentException()
         if (exponent == 0) return ONE
@@ -245,7 +245,7 @@ class CommonBigInt private constructor(val data: UInt16ArrayZeroPad, override va
         }
     }
     override operator fun div(other: BigInt): CommonBigInt = divRem(other as CommonBigInt).div
-	override operator fun rem(other: BigInt): CommonBigInt = divRem(other as CommonBigInt).rem
+    override operator fun rem(other: BigInt): CommonBigInt = divRem(other as CommonBigInt).rem
 
     fun withBit(bit: Int, set: Boolean = true): CommonBigInt {
         // return if (set) this or (ONE shl bit) else this and (ONE shl bit).inv()
@@ -258,116 +258,116 @@ class CommonBigInt private constructor(val data: UInt16ArrayZeroPad, override va
         return out
     }
 
-	// Assumes positive non-zero values this > 0 && other > 0
-	data class DivRem(val div: CommonBigInt, val rem: CommonBigInt)
+    // Assumes positive non-zero values this > 0 && other > 0
+    data class DivRem(val div: CommonBigInt, val rem: CommonBigInt)
 
-	fun divRem(other: CommonBigInt): DivRem {
-		return when {
-			this.isZero -> DivRem(
-				ZERO,
-				ZERO
-			)
-			other.isZero -> throw BigIntDivisionByZeroException()
-			this.isNegative && other.isNegative -> this.absoluteValue.divRem(other.absoluteValue).let {
-				DivRem(it.div, -it.rem)
-			}
-			this.isNegative && other.isPositive -> this.absoluteValue.divRem(other.absoluteValue).let {
-				DivRem(-it.div, -it.rem)
-			}
-			this.isPositive && other.isNegative -> this.absoluteValue.divRem(other.absoluteValue).let {
-				DivRem(-it.div, it.rem)
-			}
-			other == ONE -> DivRem(this, ZERO)
-			other == TWO -> DivRem(this shr 1, CommonBigInt(this.getBitInt(0)))
-			other <= SMALL -> UnsignedBigInt.divRemSmall(this.data, other.toInt()).let {
-				DivRem(CommonBigInt(it.div, signum), CommonBigInt(it.rem))
-			}
-			other.countBits() == 1 -> {
-				val bits = other.trailingZeros()
-				DivRem(this shr bits, this and ((ONE shl bits) - ONE))
-			}
-			else -> this.divRemBig(other)
-		}
-	}
+    fun divRem(other: CommonBigInt): DivRem {
+        return when {
+            this.isZero -> DivRem(
+                ZERO,
+                ZERO
+            )
+            other.isZero -> throw BigIntDivisionByZeroException()
+            this.isNegative && other.isNegative -> this.absoluteValue.divRem(other.absoluteValue).let {
+                DivRem(it.div, -it.rem)
+            }
+            this.isNegative && other.isPositive -> this.absoluteValue.divRem(other.absoluteValue).let {
+                DivRem(-it.div, -it.rem)
+            }
+            this.isPositive && other.isNegative -> this.absoluteValue.divRem(other.absoluteValue).let {
+                DivRem(-it.div, it.rem)
+            }
+            other == ONE -> DivRem(this, ZERO)
+            other == TWO -> DivRem(this shr 1, CommonBigInt(this.getBitInt(0)))
+            other <= SMALL -> UnsignedBigInt.divRemSmall(this.data, other.toInt()).let {
+                DivRem(CommonBigInt(it.div, signum), CommonBigInt(it.rem))
+            }
+            other.countBits() == 1 -> {
+                val bits = other.trailingZeros()
+                DivRem(this shr bits, this and ((ONE shl bits) - ONE))
+            }
+            else -> this.divRemBig(other)
+        }
+    }
 
-	// Simple euclidean division
-	private fun divRemBig(other: CommonBigInt): DivRem {
-		if (this.isZero) return DivRem(ZERO, ZERO)
-		if (other.isZero) throw BigIntDivisionByZeroException()
-		if (this.isNegative || other.isNegative) throw BigIntException("Non positive numbers")
-		val lbits = this.significantBits
-		val rbits = other.significantBits
-		var rem = this
-		var divisor = other
-		var divisorShift = 0
-		var res = ZERO
-		val initialShiftBits = lbits - rbits + 1
-		divisorShift += initialShiftBits
-		divisor = divisor shl initialShiftBits
+    // Simple euclidean division
+    private fun divRemBig(other: CommonBigInt): DivRem {
+        if (this.isZero) return DivRem(ZERO, ZERO)
+        if (other.isZero) throw BigIntDivisionByZeroException()
+        if (this.isNegative || other.isNegative) throw BigIntException("Non positive numbers")
+        val lbits = this.significantBits
+        val rbits = other.significantBits
+        var rem = this
+        var divisor = other
+        var divisorShift = 0
+        var res = ZERO
+        val initialShiftBits = lbits - rbits + 1
+        divisorShift += initialShiftBits
+        divisor = divisor shl initialShiftBits
 
-		while (divisorShift >= 0) {
-			if (divisor.isZero) throw BigIntDivisionByZeroException()
+        while (divisorShift >= 0) {
+            if (divisor.isZero) throw BigIntDivisionByZeroException()
 
-			if (divisor <= rem) {
+            if (divisor <= rem) {
                 res = res.withBit(divisorShift)
-				rem -= divisor
-			}
-			divisorShift--
-			divisor = divisor shr 1
-		}
+                rem -= divisor
+            }
+            divisorShift--
+            divisor = divisor shr 1
+        }
 
-		return DivRem(res, rem)
-	}
+        return DivRem(res, rem)
+    }
 
     fun getBitInt(n: Int): Int = ((data[n / 16] ushr (n % 16)) and 1)
-	fun getBit(n: Int): Boolean = getBitInt(n) != 0
+    fun getBit(n: Int): Boolean = getBitInt(n) != 0
 
-	override infix fun shl(count: Int): CommonBigInt {
+    override infix fun shl(count: Int): CommonBigInt {
         if (count == 0) return this
-		if (count < 0) return this shr (-count)
-		val blockShift = count / 16
-		val smallShift = count % 16
-		val out = UInt16ArrayZeroPad(data.size + blockShift + 1)
-		var carry = 0
-		val count_rcp = 16 - smallShift
-		for (n in 0 until data.size + 1) {
-			val v = data[n]
-			out[n + blockShift] = ((carry) or (v shl smallShift))
-			carry = v ushr count_rcp
-		}
-		if (carry != 0) throw BigIntException("ERROR!")
-		return CommonBigInt(out, signum)
-	}
+        if (count < 0) return this shr (-count)
+        val blockShift = count / 16
+        val smallShift = count % 16
+        val out = UInt16ArrayZeroPad(data.size + blockShift + 1)
+        var carry = 0
+        val count_rcp = 16 - smallShift
+        for (n in 0 until data.size + 1) {
+            val v = data[n]
+            out[n + blockShift] = ((carry) or (v shl smallShift))
+            carry = v ushr count_rcp
+        }
+        if (carry != 0) throw BigIntException("ERROR!")
+        return CommonBigInt(out, signum)
+    }
 
     override infix fun shr(count: Int): CommonBigInt {
-		//if (this.isNegative) return -(this.absoluteValue shr count) - 1
-		if (count < 0) return this shl (-count)
-		val blockShift = count / 16
-		val smallShift = count % 16
-		val out = UInt16ArrayZeroPad(data.size - blockShift)
-		var carry = 0
-		val count_rcp = 16 - smallShift
-		val LOW_MASK = (1 shl smallShift) - 1
-		for (n in data.size - 1 downTo blockShift) {
-			val v = data[n]
-			out[n - blockShift] = ((carry shl count_rcp) or (v ushr smallShift))
-			carry = v and LOW_MASK
-		}
-		return CommonBigInt(out, signum)
-	}
+        //if (this.isNegative) return -(this.absoluteValue shr count) - 1
+        if (count < 0) return this shl (-count)
+        val blockShift = count / 16
+        val smallShift = count % 16
+        val out = UInt16ArrayZeroPad(data.size - blockShift)
+        var carry = 0
+        val count_rcp = 16 - smallShift
+        val LOW_MASK = (1 shl smallShift) - 1
+        for (n in data.size - 1 downTo blockShift) {
+            val v = data[n]
+            out[n - blockShift] = ((carry shl count_rcp) or (v ushr smallShift))
+            carry = v and LOW_MASK
+        }
+        return CommonBigInt(out, signum)
+    }
 
-	override operator fun compareTo(that: BigInt): Int {
+    override operator fun compareTo(that: BigInt): Int {
         that as CommonBigInt
-		if (this.isNegative && that.isPositiveOrZero) return -1
-		if (this.isPositiveOrZero && that.isNegative) return +1
-		val resUnsigned = UnsignedBigInt.compare(this.data, that.data)
-		return if (this.isNegative && that.isNegative) -resUnsigned else resUnsigned
-	}
+        if (this.isNegative && that.isPositiveOrZero) return -1
+        if (this.isPositiveOrZero && that.isNegative) return +1
+        val resUnsigned = UnsignedBigInt.compare(this.data, that.data)
+        return if (this.isNegative && that.isNegative) -resUnsigned else resUnsigned
+    }
 
-	override fun hashCode(): Int = this.data.contentHashCode() * this.signum
+    override fun hashCode(): Int = this.data.contentHashCode() * this.signum
     override fun equals(other: Any?): Boolean = (other is CommonBigInt) && this.signum == other.signum && this.data.contentEquals(other.data)
 
-	val absoluteValue get() = abs()
+    val absoluteValue get() = abs()
     override fun abs() = if (this.isZero) ZERO else if (this.isPositive) this else CommonBigInt(this.data, 1)
 
     override operator fun unaryPlus(): CommonBigInt = this
@@ -383,7 +383,7 @@ class CommonBigInt private constructor(val data: UInt16ArrayZeroPad, override va
         return if (add == 0) out else out + CommonBigInt(add)
     }
 
-	override operator fun plus(other: Int): CommonBigInt = plus(CommonBigInt(other))
+    override operator fun plus(other: Int): CommonBigInt = plus(CommonBigInt(other))
     override operator fun minus(other: Int): CommonBigInt = minus(CommonBigInt(other))
     override operator fun times(other: Int): CommonBigInt = mulAddSmall(other, 0)
     override operator fun times(other: Long): CommonBigInt = times(CommonBigInt(other))
@@ -392,19 +392,19 @@ class CommonBigInt private constructor(val data: UInt16ArrayZeroPad, override va
 
     override infix fun and(other: BigInt): CommonBigInt = bitwise(other as CommonBigInt, Int::and)
     override infix fun or(other: BigInt): CommonBigInt = bitwise(other as CommonBigInt, Int::or)
-	override infix fun xor(other: BigInt): CommonBigInt = bitwise(other as CommonBigInt, Int::xor)
+    override infix fun xor(other: BigInt): CommonBigInt = bitwise(other as CommonBigInt, Int::xor)
 
     override fun inv(): CommonBigInt = -(this + 1)
 
-	private inline fun bitwise(other: CommonBigInt, op: (a: Int, b: Int) -> Int): CommonBigInt {
-		return CommonBigInt(
+    private inline fun bitwise(other: CommonBigInt, op: (a: Int, b: Int) -> Int): CommonBigInt {
+        return CommonBigInt(
             UInt16ArrayZeroPad(max(this.data.size, other.data.size)).also {
-				for (n in 0 until it.size) it[n] = op(this.data[n], other.data[n])
-			}, 1
-		)
-	}
+                for (n in 0 until it.size) it[n] = op(this.data[n], other.data[n])
+            }, 1
+        )
+    }
 
-	override fun toString() = toString(10)
+    override fun toString() = toString(10)
 
     override fun toString(radix: Int): String {
         // @TODO: Estimate digits
@@ -429,7 +429,7 @@ class CommonBigInt private constructor(val data: UInt16ArrayZeroPad, override va
         }
     }
 
-	private fun toUnsignedString2(sb: StringBuilder) {
+    private fun toUnsignedString2(sb: StringBuilder) {
         val mb = maxBits
         var started = false
         for (n in 0 until mb) {
@@ -454,75 +454,75 @@ class CommonBigInt private constructor(val data: UInt16ArrayZeroPad, override va
         }
     }
 
-	private fun toUnsignedStringGeneric(sb: StringBuilder, radix: Int) {
-		if (radix !in 2..26) throw BigIntInvalidFormatException("Invalid radix $radix!")
+    private fun toUnsignedStringGeneric(sb: StringBuilder, radix: Int) {
+        if (radix !in 2..26) throw BigIntInvalidFormatException("Invalid radix $radix!")
 
         // Divide and conquer
         //if (this.data.size > 20) return
 
         val out = StringBuilder()
-		var num = this
+        var num = this
 
-		// Optimize with mutable data
-		while (num != ZERO) {
-			val result = UnsignedBigInt.divRemSmall(num.data, radix)
-			out.append(digit(result.rem))
-			num = CommonBigInt(result.div, 1)
-		}
-		sb.append(out.reversed().toString())
-	}
+        // Optimize with mutable data
+        while (num != ZERO) {
+            val result = UnsignedBigInt.divRemSmall(num.data, radix)
+            out.append(digit(result.rem))
+            num = CommonBigInt(result.div, 1)
+        }
+        sb.append(out.reversed().toString())
+    }
 
     override fun toInt(): Int {
-		if (significantBits > 31) throw BigIntOverflowException("Can't represent CommonBigInt($this) as integer: maxBits=$maxBits, significantBits=$significantBits, trailingZeros=${trailingZeros()}")
-		val magnitude = (this.data[0].toLong() or (this.data[1].toLong() shl 16)) * signum
-		return magnitude.toInt()
-	}
+        if (significantBits > 31) throw BigIntOverflowException("Can't represent CommonBigInt($this) as integer: maxBits=$maxBits, significantBits=$significantBits, trailingZeros=${trailingZeros()}")
+        val magnitude = (this.data[0].toLong() or (this.data[1].toLong() shl 16)) * signum
+        return magnitude.toInt()
+    }
 
-	fun toBigNum(): BigNum = BigNum(this, 0)
+    fun toBigNum(): BigNum = BigNum(this, 0)
 }
 
 class UInt16ArrayZeroPad internal constructor(val data: IntArray) {
     val isAllZero: Boolean get() = data.all { it == 0 }
     val size get() = data.size
 
-	constructor(size: Int) : this(IntArray(max(1, size)))
+    constructor(size: Int) : this(IntArray(max(1, size)))
 
-	operator fun get(index: Int): Int {
+    operator fun get(index: Int): Int {
         if (index !in data.indices) return 0
         return data[index]
     }
-	operator fun set(index: Int, value: Int) {
-		if (index !in data.indices) {
+    operator fun set(index: Int, value: Int) {
+        if (index !in data.indices) {
             if (value != 0) error("Trying to set a value different to 0 to index $index in UInt16ArrayZeroPad")
             return
         }
-		data[index] = value and UINT16_MASK
-	}
+        data[index] = value and UINT16_MASK
+    }
 
     fun contentHashCode(): Int = data.contentHashCode()
-	fun contentEquals(other: UInt16ArrayZeroPad) = this.data.contentEquals(other.data)
-	fun copyOf(size: Int = this.size): UInt16ArrayZeroPad = UInt16ArrayZeroPad(data.copyOf(size))
+    fun contentEquals(other: UInt16ArrayZeroPad) = this.data.contentEquals(other.data)
+    fun copyOf(size: Int = this.size): UInt16ArrayZeroPad = UInt16ArrayZeroPad(data.copyOf(size))
     fun copyOfRange(fromIndex: Int = 0, toIndex: Int = this.size): UInt16ArrayZeroPad = UInt16ArrayZeroPad(data.copyOfRange(fromIndex, toIndex))
 
     override fun toString(): String = "${data.toList()}"
 }
 
 internal fun uint16ArrayZeroPadOf(vararg values: Int) =
-	UInt16ArrayZeroPad(values.size).apply { for (n in 0 until values.size) this[n] = values[n] }
+    UInt16ArrayZeroPad(values.size).apply { for (n in 0 until values.size) this[n] = values[n] }
 
 private fun digit(v: Int): Char {
-	if (v in 0..9) return '0' + v
-	if (v in 10..26) return 'a' + (v - 10)
+    if (v in 0..9) return '0' + v
+    if (v in 10..26) return 'a' + (v - 10)
     throw BigIntInvalidFormatException("Invalid digit $v")
 }
 
 internal fun digit(c: Char): Int {
-	return when (c) {
-		in '0'..'9' -> c - '0'
-		in 'a'..'z' -> c - 'a' + 10
-		in 'A'..'Z' -> c - 'A' + 10
-		else -> throw BigIntInvalidFormatException("Invalid digit '$c'")
-	}
+    return when (c) {
+        in '0'..'9' -> c - '0'
+        in 'a'..'z' -> c - 'a' + 10
+        in 'A'..'Z' -> c - 'A' + 10
+        else -> throw BigIntInvalidFormatException("Invalid digit '$c'")
+    }
 }
 
 internal fun digit(c: Char, radix: Int): Int {
@@ -552,18 +552,18 @@ internal object UnsignedBigInt {
         carriedOp(v, signedCarry = false) { v[it] + (vv[it] * mul) }
     }
 
-	fun add(l: UInt16ArrayZeroPad, r: UInt16ArrayZeroPad): UInt16ArrayZeroPad {
-		val out = UInt16ArrayZeroPad(max(l.size, r.size) + 1)
+    fun add(l: UInt16ArrayZeroPad, r: UInt16ArrayZeroPad): UInt16ArrayZeroPad {
+        val out = UInt16ArrayZeroPad(max(l.size, r.size) + 1)
         carriedOp(out, signedCarry = false) { l[it] + r[it] }
-		return out
-	}
+        return out
+    }
 
-	// l >= 0 && r >= 0 && l >= r
-	fun sub(l: UInt16ArrayZeroPad, r: UInt16ArrayZeroPad): UInt16ArrayZeroPad {
+    // l >= 0 && r >= 0 && l >= r
+    fun sub(l: UInt16ArrayZeroPad, r: UInt16ArrayZeroPad): UInt16ArrayZeroPad {
         val out = UInt16ArrayZeroPad(max(l.size, r.size) + 1)
         carriedOp(out, signedCarry = true) { l[it] - r[it] }
         return out
-	}
+    }
 
     fun squareToLen(x: UInt16ArrayZeroPad, len: Int = x.size, zlen: Int = len * 2, z: UInt16ArrayZeroPad = UInt16ArrayZeroPad(zlen)): UInt16ArrayZeroPad {
         // Store the squares, right shifted one bit (i.e., divided by 2)
@@ -642,52 +642,52 @@ internal object UnsignedBigInt {
         return carry
     }
 
-	// l >= 0 && r >= 0
-	// TODO optimize using the Karatsuba algorithm:
-	// TODO: - https://en.wikipedia.org/wiki/Multiplication_algorithm#Karatsuba_multiplication
-	fun mul(l: UInt16ArrayZeroPad, r: UInt16ArrayZeroPad, stats: CommonBigInt.OpStats?): UInt16ArrayZeroPad {
+    // l >= 0 && r >= 0
+    // TODO optimize using the Karatsuba algorithm:
+    // TODO: - https://en.wikipedia.org/wiki/Multiplication_algorithm#Karatsuba_multiplication
+    fun mul(l: UInt16ArrayZeroPad, r: UInt16ArrayZeroPad, stats: CommonBigInt.OpStats?): UInt16ArrayZeroPad {
         var its = 0
-		val out = UInt16ArrayZeroPad(l.size + r.size + 1)
-		for (rn in 0 until r.size) {
-			var carry = 0
-			for (ln in 0 until l.size + 1) {
-				val n = ln + rn
-				val res = out[n] + (l[ln] * r[rn]) + carry
-				out[n] = res
-				carry = res ushr 16
+        val out = UInt16ArrayZeroPad(l.size + r.size + 1)
+        for (rn in 0 until r.size) {
+            var carry = 0
+            for (ln in 0 until l.size + 1) {
+                val n = ln + rn
+                val res = out[n] + (l[ln] * r[rn]) + carry
+                out[n] = res
+                carry = res ushr 16
                 its++
-			}
-			if (carry != 0) throw BigIntOverflowException("carry expected to be zero at this point")
-		}
+            }
+            if (carry != 0) throw BigIntOverflowException("carry expected to be zero at this point")
+        }
         stats?.iterations = its
-		return out
-	}
+        return out
+    }
 
-	class DivRemSmall(val div: UInt16ArrayZeroPad, val rem: Int)
+    class DivRemSmall(val div: UInt16ArrayZeroPad, val rem: Int)
 
-	fun divRemSmall(value: UInt16ArrayZeroPad, r: Int): DivRemSmall {
-		val length = value.size
-		var rem = 0
-		val qq = UInt16ArrayZeroPad(value.size)
+    fun divRemSmall(value: UInt16ArrayZeroPad, r: Int): DivRemSmall {
+        val length = value.size
+        var rem = 0
+        val qq = UInt16ArrayZeroPad(value.size)
         for (n in 0 until length) {
             val i = length - 1 - n
-			val dd = (rem shl 16) + value[i]
-			val q = dd / r
-			rem = dd - q * r
-			qq[i] = q
-		}
-		return DivRemSmall(qq, rem)
-	}
+            val dd = (rem shl 16) + value[i]
+            val q = dd / r
+            rem = dd - q * r
+            qq[i] = q
+        }
+        return DivRemSmall(qq, rem)
+    }
 
-	fun compare(l: UInt16ArrayZeroPad, r: UInt16ArrayZeroPad): Int {
-		for (n in max(l.size, r.size) - 1 downTo 0) {
-			val vl = l[n]
-			val vr = r[n]
-			if (vl < vr) return -1
-			if (vl > vr) return +1
-		}
-		return 0
-	}
+    fun compare(l: UInt16ArrayZeroPad, r: UInt16ArrayZeroPad): Int {
+        for (n in max(l.size, r.size) - 1 downTo 0) {
+            val vl = l[n]
+            val vr = r[n]
+            if (vl < vr) return -1
+            if (vl > vr) return +1
+        }
+        return 0
+    }
 }
 
 internal const val UINT16_MASK = 0xFFFF

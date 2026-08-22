@@ -18,21 +18,21 @@ class Bitmap16(
     init {
         check(data.size >= width * height)
     }
-	override fun createWithThisFormat(width: Int, height: Int): Bitmap =
-		Bitmap16(width, height, format = format, premultiplied = premultiplied)
+    override fun createWithThisFormat(width: Int, height: Int): Bitmap =
+        Bitmap16(width, height, format = format, premultiplied = premultiplied)
 
     override fun clone() = Bitmap16(width, height, data.copyOf(), format, premultiplied)
 
     operator fun set(x: Int, y: Int, color: Int) = setInt(x, y, color)
-	operator fun get(x: Int, y: Int): Int = getInt(x, y)
+    operator fun get(x: Int, y: Int): Int = getInt(x, y)
 
-	override fun setInt(x: Int, y: Int, color: Int) = Unit.apply { data[index(x, y)] = color.toShort() }
-	override fun getInt(x: Int, y: Int): Int = data[index(x, y)].toInt() and 0xFFFF
+    override fun setInt(x: Int, y: Int, color: Int) = Unit.apply { data[index(x, y)] = color.toShort() }
+    override fun getInt(x: Int, y: Int): Int = data[index(x, y)].toInt() and 0xFFFF
 
-	override fun setRgbaRaw(x: Int, y: Int, v: RGBA) = setInt(x, y, format.packRGBA(v))
-	override fun getRgbaRaw(x: Int, y: Int): RGBA = format.unpackToRGBA(data[index(x, y)].toInt())
+    override fun setRgbaRaw(x: Int, y: Int, v: RGBA) = setInt(x, y, format.packRGBA(v))
+    override fun getRgbaRaw(x: Int, y: Int): RGBA = format.unpackToRGBA(data[index(x, y)].toInt())
 
-	override fun copyUnchecked(srcX: Int, srcY: Int, dst: Bitmap, dstX: Int, dstY: Int, width: Int, height: Int) {
+    override fun copyUnchecked(srcX: Int, srcY: Int, dst: Bitmap, dstX: Int, dstY: Int, width: Int, height: Int) {
         if (dst !is Bitmap16) return super.copyUnchecked(srcX, srcY, dst, dstX, dstY, width, height)
         val src = this
         val srcArray = src.data
@@ -40,7 +40,7 @@ class Bitmap16(
         for (y in 0 until height) {
             arraycopy(srcArray, src.index(srcX, srcY + y), dstArray, dst.index(dstX, dstY + y), width)
         }
-	}
+    }
 
     override fun contentEquals(other: Bitmap): Boolean = (other is Bitmap16) && (this.width == other.width) && (this.height == other.height) && data.contentEquals(other.data)
     override fun contentHashCode(): Int = (width * 31 + height) + data.contentHashCode() + premultiplied.toInt()

@@ -9,14 +9,14 @@ import kotlin.time.*
 data class DateTimeRange(val from: DateTime, val to: DateTime) : Comparable<DateTime>, Serializable {
     val valid get() = from <= to
 
-	companion object {
+    companion object {
         @Suppress("MayBeConstant", "unused")
         private const val serialVersionUID = 1L
 
-		operator fun invoke(base: Date, from: Time, to: Time): DateTimeRange = DateTimeRange(base + from, base + to)
-	}
+        operator fun invoke(base: Date, from: Time, to: Time): DateTimeRange = DateTimeRange(base + from, base + to)
+    }
 
-	val size: Duration get() = to - from
+    val size: Duration get() = to - from
 
     val min get() = from
     val max get() = to
@@ -58,7 +58,7 @@ data class DateTimeRange(val from: DateTime, val to: DateTime) : Comparable<Date
             }
         }
 
-		val out = DateTimeSpan(years.years + months.months, rto - pivot)
+        val out = DateTimeSpan(years.years + months.months, rto - pivot)
         if (reverse) -out else out
     }
 
@@ -69,12 +69,12 @@ data class DateTimeRange(val from: DateTime, val to: DateTime) : Comparable<Date
         val unix = date.unixMillisDouble
         val from = from.unixMillisDouble
         val to = to.unixMillisDouble
-		return if (unix < from) false else unix < to
+        return if (unix < from) false else unix < to
     }
 
-	operator fun contains(other: DateTimeRange): Boolean {
-		return other.min >= this.min && other.max <= this.max
-	}
+    operator fun contains(other: DateTimeRange): Boolean {
+        return other.min >= this.min && other.max <= this.max
+    }
 
     private inline fun <T> _intersectionWith(that: DateTimeRange, rightOpen: Boolean, handler: (from: DateTime, to: DateTime, matches: Boolean) -> T): T {
         val from = max(this.from, that.from)
@@ -97,7 +97,7 @@ data class DateTimeRange(val from: DateTime, val to: DateTime) : Comparable<Date
     /**
      * Returns true if this and [that] DateTimeRanges have intersection otherwise false.
      */
-	fun intersectsWith(that: DateTimeRange, rightOpen: Boolean = true): Boolean = _intersectionWith(that, rightOpen) { _, _, matches -> matches }
+    fun intersectsWith(that: DateTimeRange, rightOpen: Boolean = true): Boolean = _intersectionWith(that, rightOpen) { _, _, matches -> matches }
 
     /**
      * Returns true if this and [that] DateTimeRanges have intersection or at least a common end otherwise false.
@@ -121,7 +121,7 @@ data class DateTimeRange(val from: DateTime, val to: DateTime) : Comparable<Date
         // Full remove
         (that.min <= this.min) && (that.max >= this.max) -> listOf()
         // To the right or left, nothing to remove
-		(that.min >= this.max) || (that.max <= this.min) -> listOf(this)
+        (that.min >= this.max) || (that.max <= this.min) -> listOf(this)
         // In the middle
         else -> {
             val p0 = this.min

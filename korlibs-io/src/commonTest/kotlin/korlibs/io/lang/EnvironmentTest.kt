@@ -6,8 +6,8 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class EnvironmentTest {
-	//@Test
-	//fun testCaseInsensitive() {
+    //@Test
+    //fun testCaseInsensitive() {
     //    if (OS.isJsBrowserOrWorker) return
     //    val path1 = Environment["pAth"]
     //    val path2 = Environment["PATH"]
@@ -18,7 +18,7 @@ class EnvironmentTest {
     //        assertNull(path1)
     //        assertNotNull(path2)
     //    }
-	//}
+    //}
 
     @Test
     fun testGetAllWorks() {

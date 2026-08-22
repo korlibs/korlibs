@@ -21,10 +21,10 @@ class YamlTest {
             listOf(1, 2, 3),
             Yaml.read(
                 """
-			- 1
-			- 2
-			- 3
-			""".trimIndent()
+            - 1
+            - 2
+            - 3
+            """.trimIndent()
             )
         )
     }
@@ -35,10 +35,10 @@ class YamlTest {
             linkedMapOf("hr" to 65, "avg" to 0.278, "rbi" to 147),
             Yaml.read(
                 """
-				hr:  65    # Home runs
-				avg: 0.278 # Batting average
-				rbi: 147   # Runs Batted In
-			""".trimIndent()
+                hr:  65    # Home runs
+                avg: 0.278 # Batting average
+                rbi: 147   # Runs Batted In
+            """.trimIndent()
             )
         )
     }
@@ -57,11 +57,11 @@ class YamlTest {
             listOf(linkedMapOf("a" to 1), linkedMapOf("a" to 2)),
             Yaml.read(
                 """
-				|-
-				|	a: 1
-				|-
-				|	a: 2
-			""".trimMargin()
+                |-
+                |	a: 1
+                |-
+                |	a: 2
+            """.trimMargin()
             )
         )
     }
@@ -83,15 +83,15 @@ class YamlTest {
             ),
             Yaml.read(
                 """
-				|-
-				|  name: Mark McGwire
-				|  hr:   65
-				|  avg:  0.278
-				|-
-				| name: Sammy Sosa
-				| hr:   63
-				| avg:  0.288
-			""".trimMargin()
+                |-
+                |  name: Mark McGwire
+                |  hr:   65
+                |  avg:  0.278
+                |-
+                | name: Sammy Sosa
+                | hr:   63
+                | avg:  0.288
+            """.trimMargin()
             )
         )
     }
@@ -105,14 +105,14 @@ class YamlTest {
             ),
             Yaml.read(
                 """
-				|hr: # 1998 hr ranking
-				|  - Mark McGwire
-				|  - Sammy Sosa
-				|rbi:
-				|  # 1998 rbi ranking
-				|  - Sammy Sosa
-				|  - Ken Griffey
-			""".trimMargin()
+                |hr: # 1998 hr ranking
+                |  - Mark McGwire
+                |  - Sammy Sosa
+                |rbi:
+                |  # 1998 rbi ranking
+                |  - Sammy Sosa
+                |  - Ken Griffey
+            """.trimMargin()
             )
         )
     }
@@ -127,11 +127,11 @@ class YamlTest {
             ),
             Yaml.read(
                 """
-				|null:
-				|booleans: [ true, false ]
-				|string: '012345'
+                |null:
+                |booleans: [ true, false ]
+                |string: '012345'
 
-			""".trimMargin()
+            """.trimMargin()
             )
         )
     }

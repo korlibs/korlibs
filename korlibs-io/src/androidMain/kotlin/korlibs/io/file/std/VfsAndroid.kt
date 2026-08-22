@@ -61,7 +61,7 @@ fun File.toVfs() = localVfs(this)
 fun UrlVfs(url: URL): VfsFile = UrlVfs(url.toString())
 
 class AndroidResourcesVfs : Vfs() {
-	override suspend fun open(path: String, mode: VfsOpenMode): AsyncStream =
+    override suspend fun open(path: String, mode: VfsOpenMode): AsyncStream =
         readRange(path, LONG_ZERO_TO_MAX_RANGE).openAsync(mode.cmode)
 
     override suspend fun listFlow(path: String): Flow<VfsFile> {

@@ -21,12 +21,12 @@ import kotlinx.coroutines.flow.take
 class AsyncClientServerTest {
     val logger = Logger(this::class.portableSimpleName)
 
-	companion object {
-		val UUIDLength = 36
-	}
+    companion object {
+        val UUIDLength = 36
+    }
 
     @Test
-	fun testClientServer() = suspendTest({ Platform.isJvm || Platform.isNativeDesktop || Platform.isJsNodeJs }) {
+    fun testClientServer() = suspendTest({ Platform.isJvm || Platform.isNativeDesktop || Platform.isJsNodeJs }) {
         val server = AsyncServer(port = 0)
         //val server = AsyncServer(port = 29_999)
 
@@ -77,5 +77,5 @@ class AsyncClientServerTest {
         assertTrue(correctEchoes.all { it })
         logger.debug { "[c]" }
         server.close()
-	}
+    }
 }

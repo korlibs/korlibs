@@ -4,21 +4,21 @@ import kotlin.coroutines.coroutineContext
 import kotlinx.coroutines.Deferred
 
 class AsyncCache {
-	@PublishedApi
-	internal val promises = LinkedHashMap<String, Deferred<*>>()
+    @PublishedApi
+    internal val promises = LinkedHashMap<String, Deferred<*>>()
 
-	@Suppress("UNCHECKED_CAST")
-	suspend operator fun <T> invoke(key: String, gen: suspend () -> T): T {
-		return (promises.getOrPut(key) { asyncImmediately(coroutineContext) { gen() } } as Deferred<T>).await()
-	}
+    @Suppress("UNCHECKED_CAST")
+    suspend operator fun <T> invoke(key: String, gen: suspend () -> T): T {
+        return (promises.getOrPut(key) { asyncImmediately(coroutineContext) { gen() } } as Deferred<T>).await()
+    }
 }
 
 class AsyncCacheGen<T>(private val gen: suspend (key: String) -> T) {
-	@PublishedApi
-	internal val promises = LinkedHashMap<String, Deferred<*>>()
+    @PublishedApi
+    internal val promises = LinkedHashMap<String, Deferred<*>>()
 
-	@Suppress("UNCHECKED_CAST")
-	suspend operator fun invoke(key: String): T {
-		return (promises.getOrPut(key) { asyncImmediately(coroutineContext) { gen(key) } } as Deferred<T>).await()
-	}
+    @Suppress("UNCHECKED_CAST")
+    suspend operator fun invoke(key: String): T {
+        return (promises.getOrPut(key) { asyncImmediately(coroutineContext) { gen(key) } } as Deferred<T>).await()
+    }
 }

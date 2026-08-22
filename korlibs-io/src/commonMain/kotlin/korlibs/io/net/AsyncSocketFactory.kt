@@ -24,7 +24,7 @@ import kotlinx.coroutines.supervisorScope
 
 abstract class AsyncSocketFactory {
     open suspend fun createClient(secure: Boolean = false): AsyncClient = TODO()
-	open suspend fun createServer(port: Int, host: String = "127.0.0.1", backlog: Int = 511, secure: Boolean = false): AsyncServer = TODO()
+    open suspend fun createServer(port: Int, host: String = "127.0.0.1", backlog: Int = 511, secure: Boolean = false): AsyncServer = TODO()
     open suspend fun createServerUnix(path: String, backlog: Int, secure: Boolean): AsyncServer =
         TODO("Unsupported")
 }
@@ -59,29 +59,29 @@ suspend fun createTcpServer(port: Int = AsyncServer.ANY_PORT, host: String = "12
 suspend fun createTcpClient(host: String, port: Int, secure: Boolean = false): AsyncClient = asyncSocketFactory.createClient(host, port, secure)
 
 interface AsyncClient : AsyncInputStream, AsyncOutputStream, AsyncCloseable {
-	suspend fun connect(host: String, port: Int)
+    suspend fun connect(host: String, port: Int)
     val address: AsyncAddress get() = AsyncAddress()
 
-	val connected: Boolean
-	override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int
-	override suspend fun write(buffer: ByteArray, offset: Int, len: Int)
-	override suspend fun close()
-	//suspend open fun reconnect() = Unit
+    val connected: Boolean
+    override suspend fun read(buffer: ByteArray, offset: Int, len: Int): Int
+    override suspend fun write(buffer: ByteArray, offset: Int, len: Int)
+    override suspend fun close()
+    //suspend open fun reconnect() = Unit
 
-	object Stats {
-		val writeCountStart = atomic(0L)
-		val writeCountEnd = atomic(0L)
-		val writeCountError = atomic(0L)
+    object Stats {
+        val writeCountStart = atomic(0L)
+        val writeCountEnd = atomic(0L)
+        val writeCountError = atomic(0L)
 
-		override fun toString(): String = "AsyncClient.Stats($writeCountStart/$writeCountEnd/$writeCountError)"
-	}
+        override fun toString(): String = "AsyncClient.Stats($writeCountStart/$writeCountEnd/$writeCountError)"
+    }
 
-	companion object {
-		suspend operator fun invoke(host: String, port: Int, secure: Boolean = false, connect: Boolean = true): AsyncClient =
+    companion object {
+        suspend operator fun invoke(host: String, port: Int, secure: Boolean = false, connect: Boolean = true): AsyncClient =
             asyncSocketFactory.createClient(secure).also { if (connect) it.connect(host, port)  }
-		suspend fun create(secure: Boolean = false): AsyncClient = asyncSocketFactory.createClient(secure)
-		suspend fun createAndConnect(host: String, port: Int, secure: Boolean = false): AsyncClient = invoke(host, port, secure)
-	}
+        suspend fun create(secure: Boolean = false): AsyncClient = asyncSocketFactory.createClient(secure)
+        suspend fun createAndConnect(host: String, port: Int, secure: Boolean = false): AsyncClient = invoke(host, port, secure)
+    }
 }
 
 class FakeAsyncClient(
@@ -109,22 +109,22 @@ class FakeAsyncClient(
 }
 
 interface AsyncServer : AsyncCloseable {
-	val requestPort: Int
-	val host: String
-	val backlog: Int
-	val port: Int
+    val requestPort: Int
+    val host: String
+    val backlog: Int
+    val port: Int
 
-	companion object {
-		val ANY_PORT = 0
+    companion object {
+        val ANY_PORT = 0
 
-		suspend operator fun invoke(port: Int, host: String = "127.0.0.1", backlog: Int = -1) =
-			asyncSocketFactory.createServer(port, host, backlog)
-	}
+        suspend operator fun invoke(port: Int, host: String = "127.0.0.1", backlog: Int = -1) =
+            asyncSocketFactory.createServer(port, host, backlog)
+    }
 
-	suspend fun accept(): AsyncClient
+    suspend fun accept(): AsyncClient
 
-	suspend fun listen(handler: suspend (AsyncClient) -> Unit): AutoCloseable {
-		val job = CoroutineScope(coroutineContext).launch {
+    suspend fun listen(handler: suspend (AsyncClient) -> Unit): AutoCloseable {
+        val job = CoroutineScope(coroutineContext).launch {
             try {
                 while (true) {
                     try {
@@ -156,12 +156,12 @@ interface AsyncServer : AsyncCloseable {
             } finally {
                 //Console.error("AsyncServer.listen.finally")
             }
-		}
-		return Closeable {
+        }
+        return Closeable {
             //Console.error("AsyncServer.listen: Closing server...")
             job.cancel()
         }
-	}
+    }
 
     suspend fun listenFlow(): Flow<AsyncClient> = flow { while (true) emit(accept()) }
 

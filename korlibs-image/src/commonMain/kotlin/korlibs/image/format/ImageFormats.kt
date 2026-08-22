@@ -15,7 +15,7 @@ open class ImageFormats(formats: Iterable<ImageFormat>) : ImageFormat("") {
 
     @PublishedApi
     internal var _formats: Set<ImageFormat> by atomic(formats.listFormats() - this)
-	val formats: Set<ImageFormat> get() = _formats
+    val formats: Set<ImageFormat> get() = _formats
 
     fun formatByExtOrNull(ext: String): ImageFormat? = formats.firstOrNull { ext in it.extensions }
 
@@ -41,15 +41,15 @@ open class ImageFormats(formats: Iterable<ImageFormat>) : ImageFormat("") {
     override fun decodeHeader(s: SyncStream, props: ImageDecodingProps): ImageInfo? {
         if (formats.isEmpty()) return null
         //println("ImageFormats.decodeHeader:" + formats.size + ": " + formats)
-		for (format in formats) return try {
+        for (format in formats) return try {
             format.decodeHeader(s.sliceStart(), props) ?: continue
-		} catch (e: Throwable) {
+        } catch (e: Throwable) {
             //e.printStackTrace()
             if (e is CancellationException) throw e
-			continue
-		}
-		return null
-	}
+            continue
+        }
+        return null
+    }
 
     private inline fun <T> readImageTyped(s: SyncStream, props: ImageDecodingProps, block: (format: ImageFormat, s: SyncStream, props: ImageDecodingProps) -> T): T {
         //val format = formats.firstOrNull { it.check(s.sliceStart(), props) }
@@ -68,16 +68,16 @@ open class ImageFormats(formats: Iterable<ImageFormat>) : ImageFormat("") {
         )
     }
 
-	override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
+    override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
         return readImageTyped(s, props) { format, s, props ->
             format.readImageContainer(s.sliceStart(), props)
         }
-	}
+    }
 
-	override fun writeImageContainer(image: ImageDataContainer, s: SyncStream, props: ImageEncodingProps) {
-		//println("filename: $filename")
+    override fun writeImageContainer(image: ImageDataContainer, s: SyncStream, props: ImageEncodingProps) {
+        //println("filename: $filename")
         formatByExt(PathInfo(props.filename).extensionLC).writeImageContainer(image, s, props)
-	}
+    }
 }
 
 
@@ -104,9 +104,9 @@ operator fun ImageFormat.plus(formats: List<ImageFormat>): ImageFormat {
 
 @Suppress("unused")
 suspend fun Bitmap.writeTo(
-	file: VfsFile,
-	formats: ImageFormat = RegisteredImageFormats,
-	props: ImageEncodingProps = ImageEncodingProps()
+    file: VfsFile,
+    formats: ImageFormat = RegisteredImageFormats,
+    props: ImageEncodingProps = ImageEncodingProps()
 ) = file.writeBytes(formats.encode(this, props.withFile(file)))
 
 @Suppress("unused")

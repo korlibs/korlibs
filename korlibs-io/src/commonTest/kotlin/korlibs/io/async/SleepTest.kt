@@ -7,15 +7,15 @@ import kotlin.test.assertTrue
 import kotlinx.coroutines.delay
 
 class SleepTest {
-	// @TODO: Change once we don't wait all the delay time
-	val time get() = DateTime.now()
+    // @TODO: Change once we don't wait all the delay time
+    val time get() = DateTime.now()
 
-	@Test
-	fun name() = suspendTest {
-		val start = time
-		delay(timeMillis = 10)
-		delay(timeMillis = 20)
-		val end = time
-		assertTrue((end - start) > 25.milliseconds)
-	}
+    @Test
+    fun name() = suspendTest {
+        val start = time
+        delay(timeMillis = 10)
+        delay(timeMillis = 20)
+        val end = time
+        assertTrue((end - start) > 25.milliseconds)
+    }
 }

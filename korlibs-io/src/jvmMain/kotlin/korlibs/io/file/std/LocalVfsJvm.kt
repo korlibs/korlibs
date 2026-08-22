@@ -59,14 +59,14 @@ fun ClassLoader.tryGetURLs(): List<URL> = try {
         else -> this.dyn["ucp"]["path"] as List<URL>
     }
 } catch (e: Throwable) {
-	//System.err.println("Error trying to get URLs from classloader $this")
-	//e.printStackTrace()
-	listOf()
+    //System.err.println("Error trying to get URLs from classloader $this")
+    //e.printStackTrace()
+    listOf()
 }
 
 private class ResourcesVfsProviderJvm {
-	operator fun invoke(): Vfs = invoke(ClassLoader.getSystemClassLoader())
-	operator fun invoke(classLoader: ClassLoader): Vfs = JvmClassLoaderResourcesVfs(classLoader)
+    operator fun invoke(): Vfs = invoke(ClassLoader.getSystemClassLoader())
+    operator fun invoke(classLoader: ClassLoader): Vfs = JvmClassLoaderResourcesVfs(classLoader)
 }
 
 class JvmClassLoaderResourcesVfs(val classLoader: ClassLoader) : MergedVfs(name = "MergedVfsDecorator") {

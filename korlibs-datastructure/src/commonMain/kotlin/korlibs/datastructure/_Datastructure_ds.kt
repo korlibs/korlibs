@@ -127,9 +127,9 @@ class BVH<T>(
     }
 
     /* expands intervals A to include intervals B, intervals B is untouched
-	 * [ rectangle a ] = expand_rectangle(rectangle a, rectangle b)
-	 * @static function
-	 */
+     * [ rectangle a ] = expand_rectangle(rectangle a, rectangle b)
+     * @static function
+     */
     private fun _expand_intervals(a: BVHRect, b: BVHRect): BVHRect {
         for (i in 0 until this.dimensions) {
             val a_a = a.min(i)
@@ -144,11 +144,11 @@ class BVH<T>(
     }
 
     /* generates a minimally bounding intervals for all intervals in
-	 * array "nodes". If intervals is set, it is modified into the MBV. Otherwise,
-	 * a new set of intervals is generated and returned.
-	 * [ rectangle a ] = make_MBR(rectangle array nodes, rectangle rect)
-	 * @static function
-	 */
+     * array "nodes". If intervals is set, it is modified into the MBV. Otherwise,
+     * a new set of intervals is generated and returned.
+     * [ rectangle a ] = make_MBR(rectangle array nodes, rectangle rect)
+     * @static function
+     */
     private fun _make_MBV(
         nodes: List<Node<T>>,
         intervals: BVHRect?
@@ -250,7 +250,7 @@ class BVH<T>(
                             break
                         }
                         /*	else if("load" in ltree) { // A load
-				  	    }*/
+                          }*/
                         else if (ltree.nodes != null) { // Not a Leaf
                             current_depth += 1
                             count_stack.add(i)
@@ -307,9 +307,9 @@ class BVH<T>(
     }
 
     /* choose the best damn node for rectangle to be inserted into
-	 * [ leaf node parent ] = _choose_leaf_subtree(rectangle, root to start search at)
-	 * @private
-	 */
+     * [ leaf node parent ] = _choose_leaf_subtree(rectangle, root to start search at)
+     * @private
+     */
     private fun _choose_leaf_subtree(
         intervals: BVHRect,
         root: Node<T>,
@@ -356,9 +356,9 @@ class BVH<T>(
     }
 
     /* split a set of nodes into two roughly equally-filled nodes
-	 * [ an array of two new arrays of nodes ] = linear_split(array of nodes)
-	 * @private
-	 */
+     * [ an array of two new arrays of nodes ] = linear_split(array of nodes)
+     * @private
+     */
     private fun _linear_split(nodes: FastArrayList<Node<T>>): FastArrayList<Node<T>> {
         val n = _pick_linear(nodes)
         while (nodes.isNotEmpty()) {
@@ -368,9 +368,9 @@ class BVH<T>(
     }
 
     /* insert the best source rectangle into the best fitting parent node: a or b
-	 * [] = pick_next(array of source nodes, target node array a, target node array b)
-	 * @private
-	 */
+     * [] = pick_next(array of source nodes, target node array a, target node array b)
+     * @private
+     */
     private fun _pick_next(nodes: FastArrayList<Node<T>>, a: Node<T>, b: Node<T>) {
         // Area of new enlarged rectangle
         val area_a = _jons_ratio(a.d, a.nodes!!.size + 1)
@@ -411,9 +411,9 @@ class BVH<T>(
     }
 
     /* pick the "best" two starter nodes to use as seeds using the "linear" criteria
-	 * [ an array of two new arrays of nodes ] = pick_linear(array of source nodes)
-	 * @private
-	 */
+     * [ an array of two new arrays of nodes ] = pick_linear(array of source nodes)
+     * @private
+     */
     private fun _pick_linear(nodes: FastArrayList<Node<T>>): FastArrayList<Node<T>> {
         val lowest_high = Array(this.dimensions) { nodes.size - 1 }
         val highest_low = Array(this.dimensions) { 0 }
@@ -470,9 +470,9 @@ class BVH<T>(
     //}
 
     /* non-recursive internal insert function
-	 * [] = _insert_subtree(rectangle, object to insert, root to begin insertion at)
-	 * @private
-	 */
+     * [] = _insert_subtree(rectangle, object to insert, root to begin insertion at)
+     * @private
+     */
     private fun _insert_subtree(
         root: Node<T>,
         node: Node<T>,
@@ -617,9 +617,9 @@ class BVH<T>(
     }
 
     /* non-recursive internal search function
-	 * [ nodes | objects ] = _search_subtree(intervals, [return node data], [array to fill], root to begin search at)
-	 * @private
-	 */
+     * [ nodes | objects ] = _search_subtree(intervals, [return node data], [array to fill], root to begin search at)
+     * @private
+     */
     private fun _intersect_subtree(
         ray: BVHRay,
         return_array: FastArrayList<IntersectResult<T>> = fastArrayListOf(),
@@ -667,9 +667,9 @@ class BVH<T>(
     }
 
     /* non-recursive internal search function
-	 * [ nodes | objects ] = _search_subtree(intervals, [return node data], [array to fill], root to begin search at)
-	 * @private
-	 */
+     * [ nodes | objects ] = _search_subtree(intervals, [return node data], [array to fill], root to begin search at)
+     * @private
+     */
     private fun _search_subtree(
         intervals: BVHRect,
         comparators: Comparators,
@@ -703,9 +703,9 @@ class BVH<T>(
     }
 
     /* non-recursive internal yield_to function
-	 * [ nodes | objects ] = _yield( options )
-	 * @private
-	 */
+     * [ nodes | objects ] = _yield( options )
+     * @private
+     */
     @Suppress("unused")
     fun yieldTo(
         intervals: BVHRect,
@@ -742,9 +742,9 @@ class BVH<T>(
     fun intersectRay(ray: BVHRay, intervals: BVHRect?): BVHRect? = _intersect_Intervals(ray, intervals)
 
     /* non-recursive intersect function
-	 * [ nodes | objects ] = NTree.intersect( options )
-	 * @public
-	 */
+     * [ nodes | objects ] = NTree.intersect( options )
+     * @public
+     */
     fun intersect(
         ray: BVHIntervals,
         return_array: FastArrayList<IntersectResult<T>> = fastArrayListOf(),
@@ -757,9 +757,9 @@ class BVH<T>(
 
 
     /* non-recursive search function
-	 * [ nodes | objects ] = NTree.search(intervals, [return node data], [array to fill])
-	 * @public
-	 */
+     * [ nodes | objects ] = NTree.search(intervals, [return node data], [array to fill])
+     * @public
+     */
     @Deprecated("USe BVHRect signature")
     fun search(
         intervals: BVHIntervals,
@@ -822,8 +822,8 @@ class BVH<T>(
     ) = insertOrUpdate(BVHRect(intervals), obj)
 
     /* non-recursive insert function
-	 * [] = NTree.insert(intervals, object to insert)
-	 */
+     * [] = NTree.insert(intervals, object to insert)
+     */
     fun insertOrUpdate(
         rect: BVHRect,
         obj: T,
@@ -862,8 +862,8 @@ class BVH<T>(
     ): FastArrayList<Node<T>> = remove(BVHRect(intervals), obj, comparators)
 
     /* non-recursive function that deletes a specific
-	 * [ number ] = NTree.remove(intervals, obj)
-	 */
+     * [ number ] = NTree.remove(intervals, obj)
+     */
     fun remove(
         rect: BVHRect,
         obj: T? = null,

@@ -6,31 +6,31 @@ import korlibs.memory.*
 interface ColorFormat {
     val bpp: Int
 
-	fun getR(v: Int): Int
-	fun getG(v: Int): Int
-	fun getB(v: Int): Int
-	fun getA(v: Int): Int
-	fun pack(r: Int, g: Int, b: Int, a: Int): Int
+    fun getR(v: Int): Int
+    fun getG(v: Int): Int
+    fun getB(v: Int): Int
+    fun getA(v: Int): Int
+    fun pack(r: Int, g: Int, b: Int, a: Int): Int
 
-	class Mixin(
+    class Mixin(
         override val bpp: Int,
-		val rOffset: Int, val rSize: Int,
-		val gOffset: Int, val gSize: Int,
-		val bOffset: Int, val bSize: Int,
-		val aOffset: Int, val aSize: Int
-	) : ColorFormat {
-		override fun getR(v: Int): Int = v.extractScaledFF(rOffset, rSize)
-		override fun getG(v: Int): Int = v.extractScaledFF(gOffset, gSize)
-		override fun getB(v: Int): Int = v.extractScaledFF(bOffset, bSize)
-		override fun getA(v: Int): Int = v.extractScaledFFDefault(aOffset, aSize, default = 0xFF)
-		override fun pack(r: Int, g: Int, b: Int, a: Int): Int {
-			return 0
-				.insertScaledFF(r, rOffset, rSize)
-				.insertScaledFF(g, gOffset, gSize)
-				.insertScaledFF(b, bOffset, bSize)
-				.insertScaledFF(a, aOffset, aSize)
-		}
-	}
+        val rOffset: Int, val rSize: Int,
+        val gOffset: Int, val gSize: Int,
+        val bOffset: Int, val bSize: Int,
+        val aOffset: Int, val aSize: Int
+    ) : ColorFormat {
+        override fun getR(v: Int): Int = v.extractScaledFF(rOffset, rSize)
+        override fun getG(v: Int): Int = v.extractScaledFF(gOffset, gSize)
+        override fun getB(v: Int): Int = v.extractScaledFF(bOffset, bSize)
+        override fun getA(v: Int): Int = v.extractScaledFFDefault(aOffset, aSize, default = 0xFF)
+        override fun pack(r: Int, g: Int, b: Int, a: Int): Int {
+            return 0
+                .insertScaledFF(r, rOffset, rSize)
+                .insertScaledFF(g, gOffset, gSize)
+                .insertScaledFF(b, bOffset, bSize)
+                .insertScaledFF(a, aOffset, aSize)
+        }
+    }
 }
 
 interface ColorFormat16 : ColorFormat

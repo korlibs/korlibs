@@ -5,14 +5,14 @@ import kotlin.coroutines.coroutineContext
 import kotlinx.coroutines.Deferred
 
 class Once {
-	var completed = false
+    var completed = false
 
-	inline operator fun invoke(callback: () -> Unit) {
-		if (!completed) {
-			completed = true
-			callback()
-		}
-	}
+    inline operator fun invoke(callback: () -> Unit) {
+        if (!completed) {
+            completed = true
+            callback()
+        }
+    }
 }
 
 class SyncOnce<T> {
@@ -27,12 +27,12 @@ class SyncOnce<T> {
 }
 
 class AsyncOnce<T> {
-	var promise: Deferred<T>? = null
+    var promise: Deferred<T>? = null
 
-	suspend operator fun invoke(callback: suspend () -> T): T {
+    suspend operator fun invoke(callback: suspend () -> T): T {
         if (promise == null) {
             promise = asyncImmediately(coroutineContext) { callback() }
         }
-		return promise!!.await()
-	}
+        return promise!!.await()
+    }
 }

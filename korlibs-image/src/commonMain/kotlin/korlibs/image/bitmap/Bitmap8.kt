@@ -6,16 +6,16 @@ import korlibs.image.color.*
 fun BitmapIndexed.toBitmap8(): Bitmap8 = Bitmap8(width, height, data, palette)
 
 class Bitmap8(
-	width: Int,
-	height: Int,
-	data: ByteArray = ByteArray(width * height),
-	palette: RgbaArray = RgbaArray(0x100)
+    width: Int,
+    height: Int,
+    data: ByteArray = ByteArray(width * height),
+    palette: RgbaArray = RgbaArray(0x100)
 ) : BitmapIndexed(8, width, height, data, palette) {
-	override fun createWithThisFormat(width: Int, height: Int): Bitmap = Bitmap8(width, height, palette = palette)
+    override fun createWithThisFormat(width: Int, height: Int): Bitmap = Bitmap8(width, height, palette = palette)
 
-	override fun setInt(x: Int, y: Int, color: Int) = setIntIndex(index(x, y), color)
-	override fun getInt(x: Int, y: Int): Int = datau[index(x, y)]
-	override fun getRgbaRaw(x: Int, y: Int): RGBA = palette[get(x, y)]
+    override fun setInt(x: Int, y: Int, color: Int) = setIntIndex(index(x, y), color)
+    override fun getInt(x: Int, y: Int): Int = datau[index(x, y)]
+    override fun getRgbaRaw(x: Int, y: Int): RGBA = palette[get(x, y)]
     override fun getIntIndex(n: Int): Int = datau[n]
     override fun setIntIndex(n: Int, color: Int) { datau[n] = color }
 
@@ -28,7 +28,7 @@ class Bitmap8(
 
     override fun clone() = Bitmap8(width, height, data.copyOf(), RgbaArray(palette.ints.copyOf()))
 
-	override fun toString(): String = "Bitmap8($width, $height, palette=${palette.size})"
+    override fun toString(): String = "Bitmap8($width, $height, palette=${palette.size})"
 
     companion object {
         inline operator fun invoke(width: Int, height: Int, palette: RgbaArray = RgbaArray(0x100), pixelProvider: (x: Int, y: Int) -> Byte): Bitmap8 {

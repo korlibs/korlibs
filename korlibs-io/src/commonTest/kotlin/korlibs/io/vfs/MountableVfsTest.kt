@@ -19,34 +19,34 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class MountableVfsTest {
-	@Test
-	fun testMountable() = suspendTestNoBrowser {
-		if (Platform.isJsDenoJs) {
-			println("Skipping deno for now... Reenable after we fix: A file was opened during the test, but not closed during the test. Close the file handle by calling `file.close()`.")
-			return@suspendTestNoBrowser
-		}
+    @Test
+    fun testMountable() = suspendTestNoBrowser {
+        if (Platform.isJsDenoJs) {
+            println("Skipping deno for now... Reenable after we fix: A file was opened during the test, but not closed during the test. Close the file handle by calling `file.close()`.")
+            return@suspendTestNoBrowser
+        }
 
-		val root = MountableVfs(closeMounts = true) {
-			mount("/zip/demo2", resourcesVfs["hello.zip"].openAsZip())
-			mount("/zip", resourcesVfs["hello.zip"].openAsZip())
-			mount("/zip/demo", resourcesVfs["hello.zip"].openAsZip())
-			mount("/iso", resourcesVfs["isotest.iso"].openAsIso())
-		}
-		try {
-			assertEquals("HELLO WORLD!", root["/zip/hello/world.txt"].readString())
-			assertEquals("HELLO WORLD!", root["/zip/demo/hello/world.txt"].readString())
-			assertEquals("HELLO WORLD!", root["/zip/demo2/hello/world.txt"].readString())
-			assertEquals("WORLD!", root["iso"]["hello/world.txt"].readString())
+        val root = MountableVfs(closeMounts = true) {
+            mount("/zip/demo2", resourcesVfs["hello.zip"].openAsZip())
+            mount("/zip", resourcesVfs["hello.zip"].openAsZip())
+            mount("/zip/demo", resourcesVfs["hello.zip"].openAsZip())
+            mount("/iso", resourcesVfs["isotest.iso"].openAsIso())
+        }
+        try {
+            assertEquals("HELLO WORLD!", root["/zip/hello/world.txt"].readString())
+            assertEquals("HELLO WORLD!", root["/zip/demo/hello/world.txt"].readString())
+            assertEquals("HELLO WORLD!", root["/zip/demo2/hello/world.txt"].readString())
+            assertEquals("WORLD!", root["iso"]["hello/world.txt"].readString())
 
-			(root.vfs as Mountable).unmount("/zip")
+            (root.vfs as Mountable).unmount("/zip")
 
-			expectException<FileNotFoundException> {
-				root["/zip/hello/world.txt"].readString()
-			}
-		} finally {
-			root.vfs.close()
-		}
-	}
+            expectException<FileNotFoundException> {
+                root["/zip/hello/world.txt"].readString()
+            }
+        } finally {
+            root.vfs.close()
+        }
+    }
 
     @Test
     fun testMountable2() = suspendTest {

@@ -30,23 +30,23 @@ class DateTimeRangeTest {
         assertEquals("[0..100]", DateTimeRangeSet.toStringLongs(range(0, 100).without(range(120, 200))))
     }
 
-	@Test
-	fun testContainsRange() {
-		assertEquals(true, range(0, 100) in range(0, 100))
-		assertEquals(true, range(20, 80) in range(0, 100))
-		assertEquals(true, range(80, 100) in range(0, 100))
+    @Test
+    fun testContainsRange() {
+        assertEquals(true, range(0, 100) in range(0, 100))
+        assertEquals(true, range(20, 80) in range(0, 100))
+        assertEquals(true, range(80, 100) in range(0, 100))
 
-		assertEquals(false, range(-50, -20) in range(0, 100))
-		assertEquals(false, range(-10, 110) in range(0, 100))
-		assertEquals(false, range(80, 101) in range(0, 100))
-		assertEquals(false, range(-50, 0) in range(0, 100))
-	}
+        assertEquals(false, range(-50, -20) in range(0, 100))
+        assertEquals(false, range(-10, 110) in range(0, 100))
+        assertEquals(false, range(80, 101) in range(0, 100))
+        assertEquals(false, range(-50, 0) in range(0, 100))
+    }
 
-	@Test
-	fun testTest() {
-		val range = DateTimeRange(Date(2019, Month.September, 18), Time(8), Time(13))
-		assertEquals("2019-09-18T08:00:00..2019-09-18T13:00:00", range.toString(ISO8601.DATETIME_COMPLETE.extended))
-	}
+    @Test
+    fun testTest() {
+        val range = DateTimeRange(Date(2019, Month.September, 18), Time(8), Time(13))
+        assertEquals("2019-09-18T08:00:00..2019-09-18T13:00:00", range.toString(ISO8601.DATETIME_COMPLETE.extended))
+    }
 
     @Test
     fun testOptionalPatterns() {

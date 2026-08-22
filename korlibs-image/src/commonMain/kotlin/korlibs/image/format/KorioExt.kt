@@ -35,7 +35,7 @@ suspend fun AsyncInputStream.readBitmap(props: BaseImageDecodingProps = ImageDec
 suspend fun AsyncInputStream.readImageData(props: BaseImageDecodingProps = ImageDecodingProps.DEFAULT): ImageData =
     props.decodingProps.formatSure.readImage(this.readAll().openSync(), ImageDecodingProps(props.decodingProps.filename))
 suspend fun AsyncInputStream.readBitmapListNoNative(props: ImageDecodingProps = ImageDecodingProps.DEFAULT): List<Bitmap> =
-	readImageData(props).frames.map { it.bitmap }
+    readImageData(props).frames.map { it.bitmap }
 suspend fun VfsFile.readBitmapInfo(props: BaseImageDecodingProps = ImageDecodingProps.DEFAULT): ImageInfo? =
     props.decodingProps.formatSure.decodeHeader(this.read().openSync(), props.decodingProps)
 suspend fun VfsFile.readImageInfo(props: BaseImageDecodingProps = ImageDecodingProps.DEFAULT): ImageInfo? =
@@ -49,7 +49,7 @@ suspend fun VfsFile.readImageDataContainer(props: BaseImageDecodingProps = Image
 }
 
 suspend fun VfsFile.readBitmapListNoNative(props: BaseImageDecodingProps = ImageDecodingProps.DEFAULT): List<Bitmap> =
-	readImageData(props).frames.map { it.bitmap }
+    readImageData(props).frames.map { it.bitmap }
 
 suspend fun VfsFile.readBitmapImageData(props: BaseImageDecodingProps = ImageDecodingProps.DEFAULT): ImageData =
     readImageData(props)
@@ -80,11 +80,11 @@ fun List<BmpSlice>.toAtlas(atlas: MutableAtlasUnit): List<BmpSlice32> = this.map
 suspend fun VfsFile.readVectorImage(): SizedDrawable = readSVG()
 
 suspend fun VfsFile.writeBitmap(
-	bitmap: Bitmap,
-	format: ImageFormat,
-	props: ImageEncodingProps = ImageEncodingProps()
+    bitmap: Bitmap,
+    format: ImageFormat,
+    props: ImageEncodingProps = ImageEncodingProps()
 ) {
-	this.write(format.encode(bitmap, props.withFile(this)))
+    this.write(format.encode(bitmap, props.withFile(this)))
 }
 
 //////////////////////////

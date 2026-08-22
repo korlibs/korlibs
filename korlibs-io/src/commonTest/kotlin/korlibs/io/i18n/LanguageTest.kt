@@ -6,9 +6,9 @@ import kotlin.test.Test
 
 class LanguageTest {
     val logger = Logger("LanguageTest")
-	@Test
-	fun testThatLanguageCurrentDoNotThrowExceptions() {
+    @Test
+    fun testThatLanguageCurrentDoNotThrowExceptions() {
         val string = "Language.CURRENT: ${Language.CURRENT}" // Ensure Language.CURRENT is called by putting it outside logger
         logger.debug { string }
-	}
+    }
 }
