@@ -1,7 +1,6 @@
 package korlibs.audio.sound
 
 import korlibs.concurrent.thread.*
-import korlibs.io.concurrent.*
 import korlibs.platform.*
 import kotlinx.coroutines.*
 
