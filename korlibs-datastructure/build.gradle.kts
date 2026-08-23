@@ -1,5 +1,7 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
+import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinMetadataTarget
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -65,7 +67,6 @@ kotlin {
             api(projects.korlibsConcurrent)
             api(projects.korlibsTime)
             api(projects.korlibsMathVector)
-            api(projects.korlibsDatastructureCore)
         }
         commonTest.dependencies {
             implementation(projects.korlibsPlatform)
@@ -101,5 +102,15 @@ kotlin {
         mingwTest {
             dependsOn(concurrentTest)
         }
+
+        val nonJsMain by creating {
+            dependsOn(commonMain.get())
+        }
+
+        targets
+            .filter { it.platformType != KotlinPlatformType.js && it !is KotlinMetadataTarget }
+            .forEach { target ->
+                getByName("${target.name}Main").dependsOn(nonJsMain)
+            }
     }
 }

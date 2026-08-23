@@ -64,7 +64,6 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.korlibsTime)
             api(projects.korlibsPlatform)
-            implementation(projects.korlibsDatastructureCore)
             api(libs.kotlinx.atomicfu)
             api(libs.kotlinx.coroutines.core)
         }

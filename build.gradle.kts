@@ -45,6 +45,7 @@ plugins {
 val relocatedModules = mapOf(
     "korlibs-audio-core" to "korlibs-audio",
     "korlibs-image-core" to "korlibs-image",
+    "korlibs-datastructure-core" to "korlibs-datastructure",
     "korlibs-time-core" to "korlibs-time",
     "korlibs-io-fs" to "korlibs-io",
     "korlibs-io-network-core" to "korlibs-io",

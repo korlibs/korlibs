@@ -36,7 +36,6 @@ kotlin {
             }
         }
     }
-    @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser {
             compilerOptions {
@@ -62,7 +61,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.korlibsDatastructureCore)
+            api(projects.korlibsDatastructure)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

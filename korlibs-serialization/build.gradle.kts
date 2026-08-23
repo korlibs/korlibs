@@ -64,7 +64,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.korlibsString)
             implementation(projects.korlibsMathCore)
-            implementation(projects.korlibsDatastructureCore)
+            implementation(projects.korlibsDatastructure)
             implementation(projects.korlibsPlatform)
         }
         commonTest.dependencies {
