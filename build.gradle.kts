@@ -43,6 +43,7 @@ plugins {
 // Relocated modules: old project name -> new base artifact ID.
 // Each platform artifact is derived automatically using the suffixes below.
 val relocatedModules = mapOf(
+    "korlibs-audio-core" to "korlibs-audio",
     "korlibs-image-core" to "korlibs-image",
     "korlibs-time-core" to "korlibs-time",
     "korlibs-io-fs" to "korlibs-io",

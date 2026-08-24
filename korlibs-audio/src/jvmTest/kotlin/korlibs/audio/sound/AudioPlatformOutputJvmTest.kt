@@ -1,8 +1,5 @@
-package korlis.audio.sound
+package korlibs.audio.sound
 
-import korlibs.audio.sound.AudioPlatformOutput
-import korlibs.audio.sound.AudioSamplesInterleaved
-import korlibs.audio.sound.SoundListenerProps
 import kotlin.test.Test
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -10,7 +7,7 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 
 @OptIn(ExperimentalStdlibApi::class, ExperimentalCoroutinesApi::class)
-class AudioPlatformOutputTest {
+class AudioPlatformOutputJvmTest {
 
     @Test
     fun testGenSafeIsThreadSafe() = runTest {

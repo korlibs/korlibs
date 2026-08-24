@@ -67,7 +67,6 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(projects.korlibsAudioCore)
             api(projects.korlibsConcurrent)
             api(projects.korlibsIo)
             api(projects.korlibsTime)
@@ -76,11 +75,40 @@ kotlin {
             api(projects.korlibsFfiLegacy)
             api(projects.korlibsLogger)
             api(projects.korlibsAnnotations)
+            implementation(projects.korlibsPlatform)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
         }
+
+        val appleIosTvosMain by creating {
+            dependsOn(appleMain.get())
+        }
+
+        val appleIosTvosWatchosMain by creating {
+            dependsOn(appleMain.get())
+        }
+
+        val appleNonWatchosMain by creating {
+            dependsOn(appleMain.get())
+        }
+
+        macosMain.get().dependsOn(appleNonWatchosMain)
+
+        iosMain {
+            dependsOn(appleIosTvosMain)
+            dependsOn(appleIosTvosWatchosMain)
+            dependsOn(appleNonWatchosMain)
+        }
+
+        tvosMain {
+            dependsOn(appleIosTvosMain)
+            dependsOn(appleIosTvosWatchosMain)
+            dependsOn(appleNonWatchosMain)
+        }
+
+        watchosMain.get().dependsOn(appleIosTvosWatchosMain)
     }
 }
 
