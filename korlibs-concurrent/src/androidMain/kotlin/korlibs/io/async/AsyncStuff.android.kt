@@ -10,9 +10,9 @@ import kotlin.coroutines.*
 actual typealias AsyncEntryPointResult = Unit
 
 actual fun asyncEntryPoint(callback: suspend () -> Unit) {
-	CoroutineScope(Dispatchers.Main).launch {
-		callback()
-	}
+    CoroutineScope(Dispatchers.Main).launch {
+        callback()
+    }
 }
 
 actual fun asyncTestEntryPoint(callback: suspend () -> Unit) {

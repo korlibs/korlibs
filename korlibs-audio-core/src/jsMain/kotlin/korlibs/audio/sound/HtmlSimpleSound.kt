@@ -65,22 +65,22 @@ fun HTMLAudioElement.clone(): Audio =
 object HtmlSimpleSound {
     //private val logger = Logger("HtmlSimpleSound")
 
-	val ctx: BaseAudioContext? = try {
-		when {
-			jsTypeOf(window.asDynamic().AudioContext) != "undefined" -> AudioContext()
-			jsTypeOf(window.asDynamic().webkitAudioContext) != "undefined" -> webkitAudioContext()
-			else -> null
-		}.also {
+    val ctx: BaseAudioContext? = try {
+        when {
+            jsTypeOf(window.asDynamic().AudioContext) != "undefined" -> AudioContext()
+            jsTypeOf(window.asDynamic().webkitAudioContext) != "undefined" -> webkitAudioContext()
+            else -> null
+        }.also {
             (window.asDynamic()).globalAudioContext = it
         }
-	} catch (e: Throwable) {
+    } catch (e: Throwable) {
         console.error(e)
-		null
-	}
+        null
+    }
 
-	val available get() = ctx != null
-	var unlocked = false
-	private val unlockDeferred = CompletableDeferred<Unit>().also { unlockDeferred ->
+    val available get() = ctx != null
+    var unlocked = false
+    private val unlockDeferred = CompletableDeferred<Unit>().also { unlockDeferred ->
         val buf = ctx!!.createBuffer(1, 1, 22050)
         lateinit var unlock: (e: Event) -> Unit
         val events = arrayOf("keydown", "touchstart", "touchend", "mousedown")
@@ -101,15 +101,15 @@ object HtmlSimpleSound {
         }
         for (e in events) document.addEventListener(e, unlock, true)
     }
-	val unlock = unlockDeferred as Deferred<Unit>
+    val unlock = unlockDeferred as Deferred<Unit>
 
     /*
-	class SimpleSoundChannel(
-		val buffer: AudioBufferOrHTMLMediaElement,
-		val ctx: BaseAudioContext?,
+    class SimpleSoundChannel(
+        val buffer: AudioBufferOrHTMLMediaElement,
+        val ctx: BaseAudioContext?,
         val params: PlaybackParameters,
         val coroutineContext: CoroutineContext
-	) {
+    ) {
         var gainNode: GainNode? = null
         var pannerNode: PannerNode? = null
         var sourceNode: AudioScheduledSourceNode? = null
@@ -287,21 +287,21 @@ object HtmlSimpleSound {
         var job: Job? = null
     }
 
-	fun AudioNode.panner(callback: PannerNode.() -> Unit = {}): PannerNode? {
-		val ctx = ctx ?: return null
-		val node = kotlin.runCatching { ctx.createPanner() }.getOrNull() ?: return null
-		callback(node)
-		node.connect(this)
-		return node
-	}
+    fun AudioNode.panner(callback: PannerNode.() -> Unit = {}): PannerNode? {
+        val ctx = ctx ?: return null
+        val node = kotlin.runCatching { ctx.createPanner() }.getOrNull() ?: return null
+        callback(node)
+        node.connect(this)
+        return node
+    }
 
-	fun AudioNode.gain(callback: GainNode.() -> Unit = {}): GainNode? {
-		val ctx = ctx ?: return null
-		val node = ctx.createGain()
-		callback(node)
-		node.connect(this)
-		return node
-	}
+    fun AudioNode.gain(callback: GainNode.() -> Unit = {}): GainNode? {
+        val ctx = ctx ?: return null
+        val node = ctx.createGain()
+        callback(node)
+        node.connect(this)
+        return node
+    }
 
     fun AudioNode.sourceAny(buffer: AudioBufferOrHTMLMediaElement, callback: AudioScheduledSourceNode.() -> Unit = {}): AudioScheduledSourceNode? {
         val audioBuffer = buffer.audioBuffer
@@ -313,14 +313,14 @@ object HtmlSimpleSound {
         }
     }
 
-	fun AudioNode.source(buffer: AudioBuffer, callback: AudioBufferSourceNode.() -> Unit = {}): AudioBufferSourceNode? {
-		val ctx = ctx ?: return null
-		val node = ctx.createBufferSource()
-		node.buffer = buffer
-		callback(node)
-		node.connect(this)
-		return node
-	}
+    fun AudioNode.source(buffer: AudioBuffer, callback: AudioBufferSourceNode.() -> Unit = {}): AudioBufferSourceNode? {
+        val ctx = ctx ?: return null
+        val node = ctx.createBufferSource()
+        node.buffer = buffer
+        callback(node)
+        node.connect(this)
+        return node
+    }
 
     fun AudioNode.source(buffer: HTMLAudioElement, callback: MediaElementAudioSourceNode.() -> Unit = {}): MediaElementAudioSourceNode? {
         val ctx = ctx ?: return null
@@ -335,48 +335,48 @@ object HtmlSimpleSound {
     }
 
     fun stopSound(channel: AudioBufferSourceNode?) {
-		channel?.disconnect(0)
-		channel?.stop(0.0)
-	}
+        channel?.disconnect(0)
+        channel?.stop(0.0)
+    }
     */
 
     fun ensureUnlockStart() {
         unlock
     }
 
-	suspend fun waitUnlocked(): BaseAudioContext? {
+    suspend fun waitUnlocked(): BaseAudioContext? {
         if (!unlock.isCompleted) {
             console.warn("Waiting for key or mouse down to start sound...")
         }
-		unlock.await()
-		return ctx
-	}
+        unlock.await()
+        return ctx
+    }
 
-	fun callOnUnlocked(callback: (Unit) -> Unit): Cancellable {
-		var cancelled = false
-		unlock.invokeOnCompletion { if (!cancelled) callback(Unit) }
-		return Cancellable { cancelled = true }
-	}
+    fun callOnUnlocked(callback: (Unit) -> Unit): Cancellable {
+        var cancelled = false
+        unlock.invokeOnCompletion { if (!cancelled) callback(Unit) }
+        return Cancellable { cancelled = true }
+    }
 
-	suspend fun loadSound(data: ArrayBuffer, url: String): AudioBuffer? {
-		if (ctx == null) return null
-		return suspendCoroutine<AudioBuffer> { c ->
-			ctx.decodeAudioData(
-				data,
-				{ data -> c.resume(data) },
-				{ c.resumeWithException(Exception("error decoding $url")) }
-			)
-		}
-	}
+    suspend fun loadSound(data: ArrayBuffer, url: String): AudioBuffer? {
+        if (ctx == null) return null
+        return suspendCoroutine<AudioBuffer> { c ->
+            ctx.decodeAudioData(
+                data,
+                { data -> c.resume(data) },
+                { c.resumeWithException(Exception("error decoding $url")) }
+            )
+        }
+    }
 
-	fun loadSoundBuffer(url: String): HTMLAudioElement? {
-		if (ctx == null) return null
-		return createAudioElement(url)
-	}
+    fun loadSoundBuffer(url: String): HTMLAudioElement? {
+        if (ctx == null) return null
+        return createAudioElement(url)
+    }
 
-	suspend fun loadSound(data: ByteArray): AudioBuffer? = loadSound(data.unsafeCast<Int8Array>().buffer, "ByteArray")
+    suspend fun loadSound(data: ByteArray): AudioBuffer? = loadSound(data.unsafeCast<Int8Array>().buffer, "ByteArray")
 
-	suspend fun loadSound(url: String): AudioBuffer? {
+    suspend fun loadSound(url: String): AudioBuffer? {
         val response = window.asDynamic().fetch(url).unsafeCast<kotlin.js.Promise<*>>().await()
         val arrayBuffer = response.asDynamic().arrayBuffer().unsafeCast<kotlin.js.Promise<ArrayBuffer>>().await()
         return loadSound(data = arrayBuffer.asByteArray())

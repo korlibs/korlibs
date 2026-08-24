@@ -4,20 +4,20 @@ import kotlin.contracts.*
 
 /** An interface that allows to close resources asynchronously. */
 interface AsyncCloseable {
-	/** Closes this resource. */
-	suspend fun close()
+    /** Closes this resource. */
+    suspend fun close()
 
-	companion object {
-		/** A dummy [AsyncCloseable] that does nothing. */
-		val DUMMY = object : AsyncCloseable {
-			override suspend fun close() = Unit
-		}
-	}
+    companion object {
+        /** A dummy [AsyncCloseable] that does nothing. */
+        val DUMMY = object : AsyncCloseable {
+            override suspend fun close() = Unit
+        }
+    }
 }
 
 /** An base [AsyncCloseable] that provides a default implementation for the close, so it is not mandatory overriding it. */
 interface OptionalAsyncCloseable : AsyncCloseable {
-	override suspend fun close(): Unit = Unit
+    override suspend fun close(): Unit = Unit
 }
 
 // @TODO: Bug in Kotlin.JS related to inline
@@ -35,17 +35,17 @@ interface OptionalAsyncCloseable : AsyncCloseable {
  */
 @OptIn(ExperimentalContracts::class)
 suspend inline fun <T : AsyncCloseable?, TR> T.use(block: (T) -> TR): TR {
-	contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
-	var error: Throwable? = null
-	val result = try {
-		block(this)
-	} catch (e: Throwable) {
-		error = e
-		null
-	}
-	this?.close()
-	if (error != null) throw error
-	return result as TR
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    var error: Throwable? = null
+    val result = try {
+        block(this)
+    } catch (e: Throwable) {
+        error = e
+        null
+    }
+    this?.close()
+    if (error != null) throw error
+    return result as TR
 }
 
 /**
@@ -54,8 +54,8 @@ suspend inline fun <T : AsyncCloseable?, TR> T.use(block: (T) -> TR): TR {
 @OptIn(ExperimentalContracts::class)
 @Deprecated("", ReplaceWith("use(block)"))
 suspend inline fun <T : AsyncCloseable?, TR> T.useIt(block: (T) -> TR): TR {
-	contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
-	return use(block)
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    return use(block)
 }
 
 /**
@@ -63,6 +63,6 @@ suspend inline fun <T : AsyncCloseable?, TR> T.useIt(block: (T) -> TR): TR {
  */
 @OptIn(ExperimentalContracts::class)
 suspend inline fun <T : AsyncCloseable?, TR> T.useThis(block: T.() -> TR): TR {
-	contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
-	return use(block)
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    return use(block)
 }

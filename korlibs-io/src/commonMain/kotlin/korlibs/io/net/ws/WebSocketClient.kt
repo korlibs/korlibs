@@ -8,13 +8,13 @@ import korlibs.io.net.http.Http
 import kotlinx.coroutines.channels.Channel
 
 abstract class WebSocketClient protected constructor(val url: String, val protocols: List<String>?, debug: Boolean) {
-	val onOpen = Signal<Unit>()
-	val onError = Signal<Throwable>()
-	val onClose = Signal<CloseInfo>()
+    val onOpen = Signal<Unit>()
+    val onError = Signal<Throwable>()
+    val onClose = Signal<CloseInfo>()
 
-	val onBinaryMessage = Signal<ByteArray>()
-	val onStringMessage = Signal<String>()
-	val onAnyMessage = Signal<Any>()
+    val onBinaryMessage = Signal<ByteArray>()
+    val onStringMessage = Signal<String>()
+    val onAnyMessage = Signal<Any>()
 
     data class CloseInfo(val code: Int, val message: String?, val wasClean: Boolean)
 
@@ -36,8 +36,8 @@ abstract class WebSocketClient protected constructor(val url: String, val protoc
 
     open fun close(code: Int = 1000, reason: String = "OK"): Unit = Unit
     fun close(info: WsCloseInfo) = close(info.code, info.reason)
-	open suspend fun send(message: String): Unit = Unit
-	open suspend fun send(message: ByteArray): Unit = Unit
+    open suspend fun send(message: String): Unit = Unit
+    open suspend fun send(message: ByteArray): Unit = Unit
 
     fun messageChannel(limit: Int = Channel.UNLIMITED): Channel<Any> =
         Channel<Any>(limit).also { messages -> onAnyMessage.add { messages.trySend(it) } }

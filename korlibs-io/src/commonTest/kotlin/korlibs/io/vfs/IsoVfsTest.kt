@@ -10,19 +10,19 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 
 class IsoVfsTest {
-	@Test
-	fun testIso() = suspendTestNoBrowser {
-		resourcesVfs["isotest.iso"].openAsIso { isotestIso ->
-			assertEquals(
-				listOf("/HELLO", "/HELLO/WORLD.TXT"),
-				isotestIso.listRecursive().map { it.fullName }.toList()
-			)
+    @Test
+    fun testIso() = suspendTestNoBrowser {
+        resourcesVfs["isotest.iso"].openAsIso { isotestIso ->
+            assertEquals(
+                listOf("/HELLO", "/HELLO/WORLD.TXT"),
+                isotestIso.listRecursive().map { it.fullName }.toList()
+            )
 
-			// Case insensitive!
-			assertEquals(
-				"WORLD!",
-				isotestIso["hello"]["world.txt"].readString()
-			)
-		}
-	}
+            // Case insensitive!
+            assertEquals(
+                "WORLD!",
+                isotestIso["hello"]["world.txt"].readString()
+            )
+        }
+    }
 }

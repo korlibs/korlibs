@@ -19,43 +19,43 @@ import javax.swing.*
 import kotlin.coroutines.*
 
 fun Bitmap32.toAwt(
-	out: BufferedImage = BufferedImage(
-		width.coerceAtLeast(1),
-		height.coerceAtLeast(1),
-		if (this.premultiplied) BufferedImage.TYPE_INT_ARGB_PRE else BufferedImage.TYPE_INT_ARGB
-	)
+    out: BufferedImage = BufferedImage(
+        width.coerceAtLeast(1),
+        height.coerceAtLeast(1),
+        if (this.premultiplied) BufferedImage.TYPE_INT_ARGB_PRE else BufferedImage.TYPE_INT_ARGB
+    )
 ): BufferedImage {
-	transferTo(out)
-	return out
+    transferTo(out)
+    return out
 }
 
 @Suppress("unused")
 fun MPoint.toAwt(): Point = Point(x.toIntRound(), y.toIntRound())
 
 fun Bitmap.toAwt(
-	out: BufferedImage = BufferedImage(
-		width.coerceAtLeast(1),
-		height.coerceAtLeast(1),
-		if (this.premultiplied) BufferedImage.TYPE_INT_ARGB_PRE else BufferedImage.TYPE_INT_ARGB
-	)
+    out: BufferedImage = BufferedImage(
+        width.coerceAtLeast(1),
+        height.coerceAtLeast(1),
+        if (this.premultiplied) BufferedImage.TYPE_INT_ARGB_PRE else BufferedImage.TYPE_INT_ARGB
+    )
 ): BufferedImage = this.toBMP32().toAwt(out)
 
 suspend fun awtShowImageAndWait(image: Bitmap): Unit = awtShowImageAndWait(image.toBMP32().toAwt())
 
 suspend fun awtShowImageAndWait(image: BufferedImage): Unit = suspendCancellableCoroutine { c ->
-	awtShowImage(image).addWindowListener(object : WindowAdapter() {
-		override fun windowClosing(e: WindowEvent) {
-			c.resume(Unit)
-		}
-	})
+    awtShowImage(image).addWindowListener(object : WindowAdapter() {
+        override fun windowClosing(e: WindowEvent) {
+            c.resume(Unit)
+        }
+    })
 }
 
 fun awtShowImage(image: BufferedImage): JFrame {
-	//println("Showing: $image")
+    //println("Showing: $image")
     if (GraphicsEnvironment.isHeadless()) {
         throw HeadlessException("If on tests, try NON_HEADLESS_TESTS=true")
     }
-	val frame = object : JFrame("Image (${image.width}x${image.height})") {
+    val frame = object : JFrame("Image (${image.width}x${image.height})") {
         override fun paint(g: Graphics) {
             //super.paint(g)
             paintComponents(g)
@@ -73,21 +73,21 @@ fun awtShowImage(image: BufferedImage): JFrame {
             g.drawImage(image, out.x, out.y, out.width, out.height, null)
         }
     }
-	//val label = JLabel()
+    //val label = JLabel()
 
     //label.icon = ImageIcon(image)
-	//label.setSize(image.width, image.height)
-	//frame.add(label, BorderLayout.CENTER)
+    //label.setSize(image.width, image.height)
+    //frame.add(label, BorderLayout.CENTER)
 
-	//frame.setSize(bitmap.width, bitmap.height)
+    //frame.setSize(bitmap.width, bitmap.height)
 
-	frame.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
+    frame.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
     frame.contentPane.minimumSize = Dimension(128, 128)
     frame.contentPane.preferredSize = Dimension(image.width, image.height)
-	frame.pack()
-	frame.setLocationRelativeTo(null)
-	frame.isVisible = true
-	return frame
+    frame.pack()
+    frame.setLocationRelativeTo(null)
+    frame.isVisible = true
+    return frame
 }
 
 
@@ -116,8 +116,8 @@ fun Bitmap32.transferTo(out: BufferedImage): BufferedImage {
     val ints = (out.raster.dataBuffer as DataBufferInt).data
     arraycopy(this.ints, 0, ints, 0, this.width * this.height)
     BGRA.rgbaToBgra(ints, 0, area)
-	out.flush()
-	return out
+    out.flush()
+    return out
 }
 
 val BufferedImage.premultiplied: Boolean get() = this.isAlphaPremultiplied

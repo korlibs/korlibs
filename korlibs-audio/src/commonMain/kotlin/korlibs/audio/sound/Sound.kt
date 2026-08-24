@@ -258,15 +258,15 @@ abstract class SoundChannel(val sound: Sound) : SoundChannelBase, Extra by Extra
 
 @OptIn(ExperimentalStdlibApi::class)
 suspend fun SoundChannel.await(progress: SoundChannel.(current: Duration, total: Duration) -> Unit = { current, total -> }) {
-	try {
-		while (playingOrPaused) {
-			if (!paused) progress(current, total)
-			delay(4.milliseconds)
-		}
-		progress(total, total)
-	} catch (e: CancellationException) {
-		stop()
-	}
+    try {
+        while (playingOrPaused) {
+            if (!paused) progress(current, total)
+            delay(4.milliseconds)
+        }
+        progress(total, total)
+    } catch (e: CancellationException) {
+        stop()
+    }
 }
 
 interface SoundChannelPlay {
@@ -304,7 +304,7 @@ abstract class Sound(val creationCoroutineContext: CoroutineContext) : SoundProp
     override var panning: Double = 0.0
     override var pitch: Double = 1.0
     override var position: Vector3 = Vector3.ZERO
-	open val length: Duration = 0.seconds
+    open val length: Duration = 0.seconds
     open val nchannels: Int get() = 1
 
     fun playNoCancel(times: PlaybackTimes = PlaybackTimes.ONE, startTime: Duration = 0.seconds): SoundChannel = play(creationCoroutineContext + SupervisorJob(), times, startTime)

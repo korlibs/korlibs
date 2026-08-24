@@ -25,61 +25,61 @@ abstract class AbstractBigIntTest {
     }
 
     @Test
-	fun testMultiplyPowerOfTwo() {
-		assertEquals("1", (1.bi * 1.bi).toString(2))
-		assertEquals("10", (1.bi * 2.bi).toString(2))
-		assertEquals("100", (1.bi * 4.bi).toString(2))
-		assertEquals("1000", (1.bi * 8.bi).toString(2))
-		assertEquals("1000000000000000", (1.bi * (1 shl 15)).toString(2))
-		assertEquals("10000000000000000", (1.bi * (1 shl 16)).toString(2))
-		assertEquals("100000000000000000", (1.bi * (1 shl 17)).toString(2))
-		assertEquals(
-			"100000000000000000000000000000000000000000000000000000000000000",
-			(1.bi * (1L shl 62)).toString(2)
-		)
-		assertEquals("1${"0".repeat(128)}", (1.bi * (1.bi shl 128)).toString(2))
-	}
+    fun testMultiplyPowerOfTwo() {
+        assertEquals("1", (1.bi * 1.bi).toString(2))
+        assertEquals("10", (1.bi * 2.bi).toString(2))
+        assertEquals("100", (1.bi * 4.bi).toString(2))
+        assertEquals("1000", (1.bi * 8.bi).toString(2))
+        assertEquals("1000000000000000", (1.bi * (1 shl 15)).toString(2))
+        assertEquals("10000000000000000", (1.bi * (1 shl 16)).toString(2))
+        assertEquals("100000000000000000", (1.bi * (1 shl 17)).toString(2))
+        assertEquals(
+            "100000000000000000000000000000000000000000000000000000000000000",
+            (1.bi * (1L shl 62)).toString(2)
+        )
+        assertEquals("1${"0".repeat(128)}", (1.bi * (1.bi shl 128)).toString(2))
+    }
 
-	@Test
-	fun testAddSmall() {
-		assertEquals("10", (1.bi + 1.bi).toString(2))
-		assertEquals("11", (1.bi + 1.bi + 1.bi).toString(2))
-		assertEquals(108888887.bi, 99999999.bi + 8888888.bi)
-		assertEquals("108888887", (99999999.bi + 8888888.bi).toString())
-	}
+    @Test
+    fun testAddSmall() {
+        assertEquals("10", (1.bi + 1.bi).toString(2))
+        assertEquals("11", (1.bi + 1.bi + 1.bi).toString(2))
+        assertEquals(108888887.bi, 99999999.bi + 8888888.bi)
+        assertEquals("108888887", (99999999.bi + 8888888.bi).toString())
+    }
 
-	@Test
-	fun testSub() {
-		assertEquals("25", "${100.bi - 75.bi}")
-		assertEquals("-25", "${75.bi - 100.bi}")
-		assertEquals("0", "${100.bi - 100.bi}")
-		assertEquals("0", "${(-100).bi - (-100).bi}")
-		assertEquals("-50", "${(-100).bi - (-50).bi}")
-		assertEquals("-150", "${(-100).bi - (50).bi}")
-		assertEquals("150", "${(100).bi - (-50).bi}")
-	}
+    @Test
+    fun testSub() {
+        assertEquals("25", "${100.bi - 75.bi}")
+        assertEquals("-25", "${75.bi - 100.bi}")
+        assertEquals("0", "${100.bi - 100.bi}")
+        assertEquals("0", "${(-100).bi - (-100).bi}")
+        assertEquals("-50", "${(-100).bi - (-50).bi}")
+        assertEquals("-150", "${(-100).bi - (50).bi}")
+        assertEquals("150", "${(100).bi - (-50).bi}")
+    }
 
-	@Test
-	fun testSubInt() {
-		val res = (-9999999).bi - (-8888888).bi
+    @Test
+    fun testSubInt() {
+        val res = (-9999999).bi - (-8888888).bi
             //println("$res")
 
-		val items = listOf(-9999999, -8888888, -100, -50, 0, +50, +100, +8888888, +9999999)
-		for (l in items) for (r in items) {
-			//println("$l - $r = ${l - r}")
-			//println("${l.n} - ${r.n} = ${(l - r).n}")
-			//println("${l.n} - ${r.n} = ${(l.n - r.n)}")
-			assertEquals((l - r).bi, l.bi - r.bi)
-		}
-	}
+        val items = listOf(-9999999, -8888888, -100, -50, 0, +50, +100, +8888888, +9999999)
+        for (l in items) for (r in items) {
+            //println("$l - $r = ${l - r}")
+            //println("${l.n} - ${r.n} = ${(l - r).n}")
+            //println("${l.n} - ${r.n} = ${(l.n - r.n)}")
+            assertEquals((l - r).bi, l.bi - r.bi)
+        }
+    }
 
-	@Test
-	fun testToString2() {
-		assertEquals("0", "0".bi(2).toString(2))
-		assertEquals("101011", "101011".bi(2).toString(2))
-		assertEquals("1000000010000001", "1000000010000001".bi(2).toString(2))
-		assertEquals("1000000000000000", "1000000000000000".bi(2).toString(2))
-	}
+    @Test
+    fun testToString2() {
+        assertEquals("0", "0".bi(2).toString(2))
+        assertEquals("101011", "101011".bi(2).toString(2))
+        assertEquals("1000000010000001", "1000000010000001".bi(2).toString(2))
+        assertEquals("1000000000000000", "1000000000000000".bi(2).toString(2))
+    }
 
     @Test
     fun testParseRadix() {
@@ -92,53 +92,53 @@ abstract class AbstractBigIntTest {
     }
 
     @Test
-	fun testToString10() {
-		assertEquals("0", "${0.bi}")
-		assertEquals("1", "${1.bi}")
-		assertEquals("10", "${10.bi}")
-		assertEquals("100", "${100.bi}")
-		assertEquals("999", "${999.bi}")
-	}
+    fun testToString10() {
+        assertEquals("0", "${0.bi}")
+        assertEquals("1", "${1.bi}")
+        assertEquals("10", "${10.bi}")
+        assertEquals("100", "${100.bi}")
+        assertEquals("999", "${999.bi}")
+    }
 
-	@Test
-	fun testCompare() {
-		assertTrue(1.bi == 1.bi)
-		assertTrue(0.bi < 1.bi)
-		assertTrue(1.bi > 0.bi)
-		assertTrue(0.bi >= 0.bi)
-		assertTrue(1.bi >= 0.bi)
-		assertTrue(0.bi <= 0.bi)
-		assertTrue(0.bi <= 1.bi)
+    @Test
+    fun testCompare() {
+        assertTrue(1.bi == 1.bi)
+        assertTrue(0.bi < 1.bi)
+        assertTrue(1.bi > 0.bi)
+        assertTrue(0.bi >= 0.bi)
+        assertTrue(1.bi >= 0.bi)
+        assertTrue(0.bi <= 0.bi)
+        assertTrue(0.bi <= 1.bi)
 
-		assertTrue((-1).bi < 1.bi)
-		assertTrue((1).bi > (-1).bi)
+        assertTrue((-1).bi < 1.bi)
+        assertTrue((1).bi > (-1).bi)
 
-		assertTrue((-2).bi < (-1).bi)
-	}
+        assertTrue((-2).bi < (-1).bi)
+    }
 
-	@Test
-	fun testBitwise() {
-		assertEquals("${0b101 xor 0b110}", "${0b101.bi xor 0b110.bi}")
-		assertEquals("${0b101 and 0b110}", "${0b101.bi and 0b110.bi}")
-		assertEquals("${0b101 or 0b110}", "${0b101.bi or 0b110.bi}")
-	}
+    @Test
+    fun testBitwise() {
+        assertEquals("${0b101 xor 0b110}", "${0b101.bi xor 0b110.bi}")
+        assertEquals("${0b101 and 0b110}", "${0b101.bi and 0b110.bi}")
+        assertEquals("${0b101 or 0b110}", "${0b101.bi or 0b110.bi}")
+    }
 
-	@Test
-	fun testTrailingZeros() {
+    @Test
+    fun testTrailingZeros() {
         assertEquals(32, 0.countTrailingZeroBits())
         assertEquals(0, 1.countTrailingZeroBits())
         assertEquals(1, 2.countTrailingZeroBits())
         assertEquals(16, CommonBigInt("000000000000000000000000000000", 2).trailingZeros())
-		assertEquals(0,  CommonBigInt("000000000000000000000000000001", 2).trailingZeros())
-		assertEquals(7,  CommonBigInt("100000000000000000000010000000", 2).trailingZeros())
-		assertEquals(5,  CommonBigInt("100000000000000000000010100000", 2).trailingZeros())
-		assertEquals(29, CommonBigInt("100000000000000000000000000000", 2).trailingZeros())
-		assertEquals(30, CommonBigInt("1000000000000000000000000000000", 2).trailingZeros())
-		assertEquals(31, CommonBigInt("10000000000000000000000000000000", 2).trailingZeros())
-		assertEquals(32, CommonBigInt("100000000000000000000000000000000", 2).trailingZeros())
-		assertEquals(33, CommonBigInt("1000000000000000000000000000000000", 2).trailingZeros())
-		assertEquals(40, CommonBigInt("10000000000000000000000000000000000000000", 2).trailingZeros())
-	}
+        assertEquals(0,  CommonBigInt("000000000000000000000000000001", 2).trailingZeros())
+        assertEquals(7,  CommonBigInt("100000000000000000000010000000", 2).trailingZeros())
+        assertEquals(5,  CommonBigInt("100000000000000000000010100000", 2).trailingZeros())
+        assertEquals(29, CommonBigInt("100000000000000000000000000000", 2).trailingZeros())
+        assertEquals(30, CommonBigInt("1000000000000000000000000000000", 2).trailingZeros())
+        assertEquals(31, CommonBigInt("10000000000000000000000000000000", 2).trailingZeros())
+        assertEquals(32, CommonBigInt("100000000000000000000000000000000", 2).trailingZeros())
+        assertEquals(33, CommonBigInt("1000000000000000000000000000000000", 2).trailingZeros())
+        assertEquals(40, CommonBigInt("10000000000000000000000000000000000000000", 2).trailingZeros())
+    }
 
     @Test
     fun testLeadingZeros() {
@@ -156,14 +156,14 @@ abstract class AbstractBigIntTest {
         assertEquals(7,  CommonBigInt("10000000000000000000000000000000000000000", 2).leadingZeros())
     }
 
-	@Test
-	fun testBitCount() {
-		assertEquals(0, CommonBigInt("00000000000000000000000000000000000000000", 2).countBits())
-		assertEquals(1, CommonBigInt("00000000000000000000000000000000000000001", 2).countBits())
-		assertEquals(1, CommonBigInt("10000000000000000000000000000000000000000", 2).countBits())
-		assertEquals(2, CommonBigInt("10000000000000000000000000000000000000001", 2).countBits())
-		assertEquals(7, CommonBigInt("10000000001000001000000010000100001000001", 2).countBits())
-	}
+    @Test
+    fun testBitCount() {
+        assertEquals(0, CommonBigInt("00000000000000000000000000000000000000000", 2).countBits())
+        assertEquals(1, CommonBigInt("00000000000000000000000000000000000000001", 2).countBits())
+        assertEquals(1, CommonBigInt("10000000000000000000000000000000000000000", 2).countBits())
+        assertEquals(2, CommonBigInt("10000000000000000000000000000000000000001", 2).countBits())
+        assertEquals(7, CommonBigInt("10000000001000001000000010000100001000001", 2).countBits())
+    }
 
     @Test
     fun testSignificantBits() {

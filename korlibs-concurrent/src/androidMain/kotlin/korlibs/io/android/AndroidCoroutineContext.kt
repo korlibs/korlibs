@@ -6,17 +6,17 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.*
 
 class AndroidCoroutineContext(val context: Context) : CoroutineContext.Element {
-	object Key : CoroutineContext.Key<AndroidCoroutineContext>
+    object Key : CoroutineContext.Key<AndroidCoroutineContext>
 
     init {
         vfsInitWithAndroidContextOnce(context)
     }
 
-	override val key: CoroutineContext.Key<*> = Key
+    override val key: CoroutineContext.Key<*> = Key
 }
 
 suspend fun <T> withAndroidContext(context: Context, callback: suspend CoroutineScope.() -> T): T {
-	return withContext(coroutineContext + AndroidCoroutineContext(context), callback)
+    return withContext(coroutineContext + AndroidCoroutineContext(context), callback)
 }
 
 fun CoroutineContext.androidContextOrNull(): Context? = this[AndroidCoroutineContext.Key]?.context

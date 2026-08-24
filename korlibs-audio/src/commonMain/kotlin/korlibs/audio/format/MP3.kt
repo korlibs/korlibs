@@ -20,11 +20,11 @@ import kotlin.time.*
 
 @Keep
 open class MP3 : MP3Base() {
-	companion object : MP3()
+    companion object : MP3()
 }
 
 open class MP3Base : AudioFormat("mp3") {
-	override suspend fun tryReadInfo(data: AsyncStream, props: AudioDecodingProps): Info? {
+    override suspend fun tryReadInfo(data: AsyncStream, props: AudioDecodingProps): Info? {
         try {
             val header = data.readBytesExact(4)
             val h0 = header.toUByteArray()[0].toInt()
@@ -73,7 +73,7 @@ open class MP3Base : AudioFormat("mp3") {
         }
     }
 
-	class Parser(val data: AsyncStream, val dataLength: Long) {
+    class Parser(val data: AsyncStream, val dataLength: Long) {
         var info: Mp3Info? = null
 
         //Read first mp3 frame only...  bind for CBR constant bit rate MP3s

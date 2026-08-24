@@ -36,7 +36,7 @@ fun BufferedImage.clone(
     height: Int = this.height,
     type: Int = AWT_INTERNAL_IMAGE_TYPE_PRE
 ): BufferedImage {
-	val out = BufferedImage(width, height, type)
+    val out = BufferedImage(width, height, type)
     when {
         this.raster.dataBuffer.dataType == out.raster.dataBuffer.dataType -> {
             val src = (this.raster.dataBuffer as DataBufferInt).data
@@ -66,7 +66,7 @@ fun BufferedImage.clone(
             //g.dispose()
         }
     }
-	return out
+    return out
 }
 
 fun Image.toBufferedImage(premultiplied: Boolean = true): BufferedImage {
@@ -144,10 +144,10 @@ class AwtNativeImage private constructor(val awtImage: BufferedImage, dummy: Uni
     val dataBuffer = awtImage.raster.dataBuffer as DataBufferInt
     override val awtData = dataBuffer.data
     constructor(awtImage: BufferedImage, out: BufferedImage? = null) : this(awtConvertImageIfRequired(awtImage, out), Unit)
-	override val name: String get() = "AwtNativeImage"
+    override val name: String get() = "AwtNativeImage"
     override val requireConv: Boolean = true
 
-	override fun getContext2d(antialiasing: Boolean): Context2d = Context2d(AwtContext2dRender(awtImage, antialiasing))
+    override fun getContext2d(antialiasing: Boolean): Context2d = Context2d(AwtContext2dRender(awtImage, antialiasing))
 }
 
 //fun createRenderingHints(antialiasing: Boolean): RenderingHints = RenderingHints(mapOf<RenderingHints.Key, Any>())
@@ -167,7 +167,7 @@ fun createRenderingHints(antialiasing: Boolean): RenderingHints = RenderingHints
 )
 
 fun BufferedImage.createGraphics(antialiasing: Boolean): Graphics2D = this.createGraphics().apply {
-	addRenderingHints(createRenderingHints(antialiasing))
+    addRenderingHints(createRenderingHints(antialiasing))
 }
 
 //private fun BufferedImage.scaled(scale: Double): BufferedImage {
@@ -177,36 +177,36 @@ fun BufferedImage.createGraphics(antialiasing: Boolean): Graphics2D = this.creat
 //}
 
 class AwtContext2dRender(val awtImage: BufferedImage, val antialiasing: Boolean = true, val warningProcessor: ((message: String) -> Unit)? = null) : korlibs.image.vector.renderer.Renderer() {
-	//val nativeImage = AwtNativeImage(awtImage)
-	override val width: Int get() = awtImage.width
-	override val height: Int get() = awtImage.height
-	val awtTransform = AffineTransform()
-	val g = awtImage.createGraphics(antialiasing = antialiasing)
+    //val nativeImage = AwtNativeImage(awtImage)
+    override val width: Int get() = awtImage.width
+    override val height: Int get() = awtImage.height
+    val awtTransform = AffineTransform()
+    val g = awtImage.createGraphics(antialiasing = antialiasing)
 
-	val hints = createRenderingHints(antialiasing)
+    val hints = createRenderingHints(antialiasing)
 
-	fun VectorPath.toJava2dPaths(winding: Winding?): List<java.awt.geom.Path2D.Double> {
-		if (this.isEmpty()) return listOf()
-		val winding = when (winding ?: this.winding) {
+    fun VectorPath.toJava2dPaths(winding: Winding?): List<java.awt.geom.Path2D.Double> {
+        if (this.isEmpty()) return listOf()
+        val winding = when (winding ?: this.winding) {
             Winding.EVEN_ODD -> java.awt.geom.GeneralPath.WIND_EVEN_ODD
             else -> java.awt.geom.GeneralPath.WIND_NON_ZERO
         }
-		//val winding = java.awt.geom.GeneralPath.WIND_NON_ZERO
-		//val winding = java.awt.geom.GeneralPath.WIND_EVEN_ODD
-		val polylines = ArrayList<java.awt.geom.Path2D.Double>()
-		var parts = 0
-		var polyline = java.awt.geom.Path2D.Double(winding)
-		//kotlin.io.println("---")
+        //val winding = java.awt.geom.GeneralPath.WIND_NON_ZERO
+        //val winding = java.awt.geom.GeneralPath.WIND_EVEN_ODD
+        val polylines = ArrayList<java.awt.geom.Path2D.Double>()
+        var parts = 0
+        var polyline = java.awt.geom.Path2D.Double(winding)
+        //kotlin.io.println("---")
 
-		fun flush() {
-			if (parts > 0) {
-				polylines += polyline
-				polyline = java.awt.geom.Path2D.Double(winding)
-			}
-			parts = 0
-		}
+        fun flush() {
+            if (parts > 0) {
+                polylines += polyline
+                polyline = java.awt.geom.Path2D.Double(winding)
+            }
+            parts = 0
+        }
 
-		this.visitCmds(
+        this.visitCmds(
             moveTo = {
                 //flush()
                 polyline.moveTo(it.x, it.y)
@@ -231,40 +231,40 @@ class AwtContext2dRender(val awtImage: BufferedImage, val antialiasing: Boolean 
                 parts++
             }
         )
-		flush()
-		return polylines
-	}
+        flush()
+        return polylines
+    }
 
-	fun VectorPath.toJava2dPath(winding: Winding?): java.awt.geom.Path2D.Double? {
-		return toJava2dPaths(winding).firstOrNull()
-	}
+    fun VectorPath.toJava2dPath(winding: Winding?): java.awt.geom.Path2D.Double? {
+        return toJava2dPaths(winding).firstOrNull()
+    }
 
-	//override fun renderShape(shape: Shape, transform: Matrix, shapeRasterizerMethod: ShapeRasterizerMethod) {
-	//	when (shapeRasterizerMethod) {
-	//		ShapeRasterizerMethod.NONE -> {
-	//			super.renderShape(shape, transform, shapeRasterizerMethod)
-	//		}
-	//		ShapeRasterizerMethod.X1, ShapeRasterizerMethod.X2, ShapeRasterizerMethod.X4 -> {
-	//			val scale = shapeRasterizerMethod.scale
-	//			val newBi = BufferedImage(Math.ceil(awtImage.width * scale).toInt(), Math.ceil(awtImage.height * scale).toInt(), awtImage.type)
-	//			val bi = Context2d(AwtContext2dRender(newBi, antialiasing = false))
-	//			bi.scale(scale, scale)
-	//			bi.transform(transform)
-	//			bi.draw(shape)
-	//			val renderBi = when (shapeRasterizerMethod) {
-	//				ShapeRasterizerMethod.X1 -> newBi
-	//				ShapeRasterizerMethod.X2 -> newBi.scaled(0.5)
-	//				ShapeRasterizerMethod.X4 -> newBi.scaled(0.5).scaled(0.5)
-	//				else -> newBi
-	//			}
-	//			this.g.drawImage(renderBi, 0, 0, null)
-	//		}
-	//	}
-	//}
+    //override fun renderShape(shape: Shape, transform: Matrix, shapeRasterizerMethod: ShapeRasterizerMethod) {
+    //	when (shapeRasterizerMethod) {
+    //		ShapeRasterizerMethod.NONE -> {
+    //			super.renderShape(shape, transform, shapeRasterizerMethod)
+    //		}
+    //		ShapeRasterizerMethod.X1, ShapeRasterizerMethod.X2, ShapeRasterizerMethod.X4 -> {
+    //			val scale = shapeRasterizerMethod.scale
+    //			val newBi = BufferedImage(Math.ceil(awtImage.width * scale).toInt(), Math.ceil(awtImage.height * scale).toInt(), awtImage.type)
+    //			val bi = Context2d(AwtContext2dRender(newBi, antialiasing = false))
+    //			bi.scale(scale, scale)
+    //			bi.transform(transform)
+    //			bi.draw(shape)
+    //			val renderBi = when (shapeRasterizerMethod) {
+    //				ShapeRasterizerMethod.X1 -> newBi
+    //				ShapeRasterizerMethod.X2 -> newBi.scaled(0.5)
+    //				ShapeRasterizerMethod.X4 -> newBi.scaled(0.5).scaled(0.5)
+    //				else -> newBi
+    //			}
+    //			this.g.drawImage(renderBi, 0, 0, null)
+    //		}
+    //	}
+    //}
 
     override fun drawImage(image: Bitmap, pos: korlibs.math.geom.Point, size: Size, transform: Matrix) {
-		//transform.toAwt()
-		//BufferedImageOp
+        //transform.toAwt()
+        //BufferedImageOp
 
         //AffineTransformOp(AffineTransformOp.TYPE_BICUBIC)
         this.g.keepTransform {
@@ -276,7 +276,7 @@ class AwtContext2dRender(val awtImage: BufferedImage, val antialiasing: Boolean 
                 null
             )
         }
-	}
+    }
 
     fun Paint.toAwt(transform: AffineTransform): java.awt.Paint = try {
         this.toAwtUnsafe(transform)
@@ -287,7 +287,7 @@ class AwtContext2dRender(val awtImage: BufferedImage, val antialiasing: Boolean 
 
     private val USE_ACCURATE_RADIAL_PAINT = true
 
-	fun Paint.toAwtUnsafe(transform: AffineTransform): java.awt.Paint = when (this) {
+    fun Paint.toAwtUnsafe(transform: AffineTransform): java.awt.Paint = when (this) {
         is ColorPaint -> convertColor(this.color)
         is TransformedPaint -> {
             val t1 = AffineTransform()
@@ -398,45 +398,45 @@ class AwtContext2dRender(val awtImage: BufferedImage, val antialiasing: Boolean 
                 else -> java.awt.Color(Colors.BLACK.value)
             }
         }
-		else -> java.awt.Color(Colors.BLACK.value)
-	}
+        else -> java.awt.Color(Colors.BLACK.value)
+    }
 
-	fun LineCap.toAwt() = when (this) {
+    fun LineCap.toAwt() = when (this) {
         LineCap.BUTT -> BasicStroke.CAP_BUTT
         LineCap.ROUND -> BasicStroke.CAP_ROUND
         LineCap.SQUARE -> BasicStroke.CAP_SQUARE
-	}
+    }
 
-	fun LineJoin.toAwt() = when (this) {
+    fun LineJoin.toAwt() = when (this) {
         LineJoin.BEVEL -> BasicStroke.JOIN_BEVEL
         LineJoin.MITER -> BasicStroke.JOIN_MITER
         LineJoin.ROUND -> BasicStroke.JOIN_ROUND
-	}
+    }
 
-	inline fun Graphics2D.keepTransform(callback: () -> Unit) {
-		val old = AffineTransform(this.transform)
-		try {
-			callback()
-		} finally {
-			this.transform = old
-		}
-	}
+    inline fun Graphics2D.keepTransform(callback: () -> Unit) {
+        val old = AffineTransform(this.transform)
+        try {
+            callback()
+        } finally {
+            this.transform = old
+        }
+    }
 
     private var oldClipState: VectorPath? = null
 
-	fun applyState(state: Context2d.State, fill: Boolean, winding: Winding?) {
-		val t = state.transform
-		awtTransform.setToMatrix(t)
-		//g.transform = awtTransform
+    fun applyState(state: Context2d.State, fill: Boolean, winding: Winding?) {
+        val t = state.transform
+        awtTransform.setToMatrix(t)
+        //g.transform = awtTransform
         //g.transform = AffineTransform()
         if (oldClipState != state.clip) {
             oldClipState = state.clip?.clone()
             g.clip = state.clip?.toJava2dPath(winding)
         }
-		if (fill) {
-			g.paint = state.fillStyle.toAwt(awtTransform)
-		} else {
-			g.stroke = BasicStroke(
+        if (fill) {
+            g.paint = state.fillStyle.toAwt(awtTransform)
+        } else {
+            g.stroke = BasicStroke(
                 state.scaledLineWidth.toFloat(),
                 state.lineCap.toAwt(),
                 state.lineJoin.toAwt(),
@@ -444,32 +444,32 @@ class AwtContext2dRender(val awtImage: BufferedImage, val antialiasing: Boolean 
                 state.lineDash?.mapFloat { it.toFloat() }?.toFloatArray(),
                 state.lineDashOffset.toFloat()
             )
-			g.paint = state.strokeStyle.toAwt(awtTransform)
-		}
-		val comp = AlphaComposite.SRC_OVER
-		g.composite = if (state.globalAlpha == 1.0) AlphaComposite.getInstance(comp) else AlphaComposite.getInstance(
+            g.paint = state.strokeStyle.toAwt(awtTransform)
+        }
+        val comp = AlphaComposite.SRC_OVER
+        g.composite = if (state.globalAlpha == 1.0) AlphaComposite.getInstance(comp) else AlphaComposite.getInstance(
             comp,
             state.globalAlpha.toFloat()
         )
-	}
+    }
 
-	override fun renderFinal(state: Context2d.State, fill: Boolean, winding: Winding?) {
-		if (state.path.isEmpty()) return
+    override fun renderFinal(state: Context2d.State, fill: Boolean, winding: Winding?) {
+        if (state.path.isEmpty()) return
 
         //println("AwtNativeImage.render: winding=$winding, state.path.winding=${state.path.winding}: ${state.path}")
 
-		applyState(state, fill, winding)
+        applyState(state, fill, winding)
 
-		val awtPaths = state.path.toJava2dPaths(winding)
-		for (awtPath in awtPaths) {
-			g.setRenderingHints(hints)
-			if (fill) {
-				g.fill(awtPath)
-			} else {
-				g.draw(awtPath)
-			}
-		}
-	}
+        val awtPaths = state.path.toJava2dPaths(winding)
+        for (awtPath in awtPaths) {
+            g.setRenderingHints(hints)
+            if (fill) {
+                g.fill(awtPath)
+            } else {
+                g.draw(awtPath)
+            }
+        }
+    }
 
 
     class AwtKorimGenericPaint(

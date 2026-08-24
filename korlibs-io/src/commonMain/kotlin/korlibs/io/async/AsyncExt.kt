@@ -78,28 +78,28 @@ fun suspendTestNoJs(preferSyncIo: Boolean? = DEFAULT_TEST_SYNC_IO, callback: sus
 val DEBUG_ASYNC_LAUNCH_ERRORS by lazy { Environment["DEBUG_ASYNC_LAUNCH_ERRORS"] == "true" }
 
 private fun CoroutineScope._launch(start: CoroutineStart, callback: suspend () -> Unit): Job = launch(coroutineContext, start = start) {
-	try {
-		callback()
-	} catch (e: CancellationException) {
-		throw e
-	} catch (e: Throwable) {
+    try {
+        callback()
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Throwable) {
         if (DEBUG_ASYNC_LAUNCH_ERRORS) {
             logger.error { "CoroutineScope._launch.catch:" }
             e.printStackTrace()
         }
-		throw e
-	}
+        throw e
+    }
 }
 
 private fun <T> CoroutineScope._async(start: CoroutineStart, callback: suspend () -> T): Deferred<T> = async(coroutineContext, start = start) {
-	try {
-		callback()
-	} catch (e: Throwable) {
+    try {
+        callback()
+    } catch (e: Throwable) {
         if (e is CancellationException) throw e
         if (DEBUG_ASYNC_LAUNCH_ERRORS) {
             logger.error { "CoroutineScope._async.catch:" }
             e.printStackTrace()
         }
-		throw e
-	}
+        throw e
+    }
 }

@@ -90,7 +90,7 @@ class AudioBufferSound(
     coroutineContext: CoroutineContext,
     override val name: String = "unknown"
 ) : Sound(coroutineContext) {
-	override val length: Duration = ((buffer.duration) ?: 0.0).seconds
+    override val length: Duration = ((buffer.duration) ?: 0.0).seconds
 
     override val nchannels: Int get() = buffer.numberOfChannels ?: 1
 
@@ -111,13 +111,13 @@ class AudioBufferSound(
         return AudioData(buffer.sampleRate, data)
     }
 
-	override fun play(coroutineContext: CoroutineContext, params: PlaybackParameters): SoundChannel {
+    override fun play(coroutineContext: CoroutineContext, params: PlaybackParameters): SoundChannel {
         val channel = if (buffer.isNotNull) HtmlSimpleSound.playSound(buffer, params, coroutineContext) else null
         HtmlSimpleSound.callOnUnlocked {
             channel?.play()
         }
 
-		return object : SoundChannel(this) {
+        return object : SoundChannel(this) {
 
             override var volume: Double
                 get() = channel?.volume ?: 1.0
@@ -162,6 +162,6 @@ class AudioBufferSound(
             //it.current = params.startTime
             it.copySoundPropsFrom(params)
         }
-	}
+    }
 }
 */

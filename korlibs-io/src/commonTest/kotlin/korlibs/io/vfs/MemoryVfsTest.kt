@@ -9,22 +9,22 @@ import kotlin.test.assertEquals
 import kotlinx.coroutines.delay
 
 class MemoryVfsTest {
-	@Test
-	fun name() = suspendTest {
-		val log = ArrayList<String>()
-		val mem = MemoryVfs()
+    @Test
+    fun name() = suspendTest {
+        val log = ArrayList<String>()
+        val mem = MemoryVfs()
 
-		mem.watch {
-			log += it.toString()
-		}
+        mem.watch {
+            log += it.toString()
+        }
 
-		mem["item.txt"].writeString("test")
-		mem["test"].mkdir()
-		mem["test"].delete()
-		delay(timeMillis = 100)
-		assertEquals(
-			"[MODIFIED(NodeVfs[/item.txt]), CREATED(NodeVfs[/test]), DELETED(NodeVfs[/test])]",
-			log.toString()
-		)
-	}
+        mem["item.txt"].writeString("test")
+        mem["test"].mkdir()
+        mem["test"].delete()
+        delay(timeMillis = 100)
+        assertEquals(
+            "[MODIFIED(NodeVfs[/item.txt]), CREATED(NodeVfs[/test]), DELETED(NodeVfs[/test])]",
+            log.toString()
+        )
+    }
 }

@@ -8,49 +8,49 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class UrlVfsTest {
-	@Test
-	fun name() = suspendTest {
-		assertEquals(
-			"http://test.com/demo/hello/world",
-			UrlVfs("http://test.com/")["demo"].jail()["hello/world"].absolutePath
-		)
-		assertEquals(
-			"http://test.com/demo/hello/world",
-			UrlVfs("http://test.com/")["/demo"].jail()["/hello/world"].absolutePath
-		)
-	}
+    @Test
+    fun name() = suspendTest {
+        assertEquals(
+            "http://test.com/demo/hello/world",
+            UrlVfs("http://test.com/")["demo"].jail()["hello/world"].absolutePath
+        )
+        assertEquals(
+            "http://test.com/demo/hello/world",
+            UrlVfs("http://test.com/")["/demo"].jail()["/hello/world"].absolutePath
+        )
+    }
 
-	@Test
-	fun testRightRequests() = suspendTest {
-		val httpClient = LogHttpClient()
-		val url = UrlVfs("http://google.es/", httpClient)
+    @Test
+    fun testRightRequests() = suspendTest {
+        val httpClient = LogHttpClient()
+        val url = UrlVfs("http://google.es/", httpClient)
         val result = url.readString()
-		//println(result)
-		assertEquals(
-			listOf("GET, http://google.es/, Headers(), null"),
-			httpClient.log
-		)
-	}
+        //println(result)
+        assertEquals(
+            listOf("GET, http://google.es/, Headers(), null"),
+            httpClient.log
+        )
+    }
 
-	@Test
-	fun requestRightUrl() = suspendTest {
-		val httpClient = LogHttpClient()
-		val url = UrlVfs("http://google.es/demo/file.png", httpClient)
+    @Test
+    fun requestRightUrl() = suspendTest {
+        val httpClient = LogHttpClient()
+        val url = UrlVfs("http://google.es/demo/file.png", httpClient)
         val result = url.readString()
-		//println(result)
-		assertEquals(
-			"[GET, http://google.es/demo/file.png, Headers(), null]",
-			httpClient.getAndClearLog().toString()
-		)
-	}
+        //println(result)
+        assertEquals(
+            "[GET, http://google.es/demo/file.png, Headers(), null]",
+            httpClient.getAndClearLog().toString()
+        )
+    }
 
-	@Test
-	fun testUrlParent() = suspendTest {
-		assertEquals(
-			"http://test.com/hello/",
-			UrlVfs("http://test.com/hello/world")[".."].jail().absolutePath
-		)
-	}
+    @Test
+    fun testUrlParent() = suspendTest {
+        assertEquals(
+            "http://test.com/hello/",
+            UrlVfs("http://test.com/hello/world")[".."].jail().absolutePath
+        )
+    }
 
     @Test
     fun testLength() = suspendTest {

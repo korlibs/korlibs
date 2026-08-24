@@ -4,14 +4,14 @@ import kotlinx.atomicfu.*
 import kotlin.test.*
 
 class AtomicTest {
-	@Test
-	fun test() {
-		val value = atomic(0)
-		assertEquals(1, value.incrementAndGet())
-		assertEquals(1, value.value++)
-		assertEquals(2, value.value)
-		assertEquals(3, ++value.value)
-	}
+    @Test
+    fun test() {
+        val value = atomic(0)
+        assertEquals(1, value.incrementAndGet())
+        assertEquals(1, value.value++)
+        assertEquals(2, value.value)
+        assertEquals(3, ++value.value)
+    }
 
     @Test
     fun testSingleton() {

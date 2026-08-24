@@ -22,29 +22,29 @@ class Bitmap32Context2d(val bmp: Bitmap32, val antialiasing: Boolean) : korlibs.
         //check(bmp.premultiplied) { error("Can't get a context2d from a non-premultiplied Bitmap32") }
     }
 
-	override val width: Int get() = bmp.width
-	override val height: Int get() = bmp.height
+    override val width: Int get() = bmp.width
+    override val height: Int get() = bmp.height
 
     val bounds = bmp.bounds.float
     val rasterizer = Rasterizer()
-	val colorFiller = ColorFiller()
-	val gradientFiller = GradientFiller()
-	val bitmapFiller = BitmapFiller()
+    val colorFiller = ColorFiller()
+    val gradientFiller = GradientFiller()
+    val bitmapFiller = BitmapFiller()
     val scanlineWriter = ScanlineWriter()
     //private val tempPath = VectorPath(winding = Winding.NON_ZERO)
     private val tempPath = VectorPath(winding = Winding.EVEN_ODD)
     private val tempFillStrokeTemp = StrokeToFill()
 
     override fun renderFinal(state: Context2d.State, fill: Boolean, winding: Winding?) {
-		//println("RENDER")
-		val style = if (fill) state.fillStyle else state.strokeStyle
-		val filler = when (style) {
-			is NonePaint -> NoneFiller
-			is ColorPaint -> colorFiller.set(style, state)
-			is GradientPaint -> gradientFiller.set(style, state)
-			is BitmapPaint -> bitmapFiller.set(style, state)
-			else -> TODO()
-		}
+        //println("RENDER")
+        val style = if (fill) state.fillStyle else state.strokeStyle
+        val filler = when (style) {
+            is NonePaint -> NoneFiller
+            is ColorPaint -> colorFiller.set(style, state)
+            is GradientPaint -> gradientFiller.set(style, state)
+            is BitmapPaint -> bitmapFiller.set(style, state)
+            else -> TODO()
+        }
 
         scanlineWriter.compositeMode = state.globalCompositeOperation
         rasterizer.reset()

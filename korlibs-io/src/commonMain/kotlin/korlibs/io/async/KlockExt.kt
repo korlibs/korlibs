@@ -8,9 +8,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.withTimeout
 
 suspend fun <T> withTimeoutNullable(time: Duration?, block: suspend CoroutineScope.() -> T): T {
-	return if (time == null || time.isNil) {
-		block(CoroutineScope(coroutineContext))
-	} else {
-		withTimeout(time, block)
-	}
+    return if (time == null || time.isNil) {
+        block(CoroutineScope(coroutineContext))
+    } else {
+        withTimeout(time, block)
+    }
 }

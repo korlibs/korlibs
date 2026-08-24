@@ -13,11 +13,13 @@ kotlinx-coroutines = "1.10.2"
 kover = "0.9.8"
 ksp = "2.3.6"
 mozilla-rhino = "1.9.1"
+spotless = "8.10.0"
 vanniktechMavenPublish = "0.36.0"
 
 [plugins]
 android-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "android-gradle-plugin" }
 google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+diffplug-spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
@@ -26,6 +28,7 @@ vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "
 [libraries]
 asm-asm = { module = "org.ow2.asm:asm", version.ref = "asm" }
 asm-utils = { module = "org.ow2.asm:asm-util", version.ref = "asm" }
+diffplug-spotless-gradlePlugin = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "spotless" }
 jna-platform = { module = "net.java.dev.jna:jna-platform", version.ref = "jna" }
 jna-jna = { module = "net.java.dev.jna:jna", version.ref = "jna" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }

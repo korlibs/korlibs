@@ -11,74 +11,74 @@ import korlibs.math.geom.*
 import kotlin.math.*
 
 data class NinePatchInfo constructor(
-	val xranges: List<Pair<Boolean, IntRange>>,
-	val yranges: List<Pair<Boolean, IntRange>>,
-	val width: Int,
-	val height: Int,
+    val xranges: List<Pair<Boolean, IntRange>>,
+    val yranges: List<Pair<Boolean, IntRange>>,
+    val width: Int,
+    val height: Int,
     val content: BmpSlice? = null
 ) {
-	constructor(
-		width: Int, height: Int,
-		left: Int, top: Int, right: Int, bottom: Int,
+    constructor(
+        width: Int, height: Int,
+        left: Int, top: Int, right: Int, bottom: Int,
         content: BmpSlice? = null
-	) : this(
-		listOf(false to (0 until left), true to (left until right), false to (right until width)),
-		listOf(false to (0 until top), true to (top until bottom), false to (bottom until height)),
-		width, height, content
-	)
+    ) : this(
+        listOf(false to (0 until left), true to (left until right), false to (right until width)),
+        listOf(false to (0 until top), true to (top until bottom), false to (bottom until height)),
+        width, height, content
+    )
 
-	class AxisSegment(val scaled: Boolean, val range: IntRange) {
-		val fixed: Boolean get() = !scaled
-		val length: Int get() = range.length
+    class AxisSegment(val scaled: Boolean, val range: IntRange) {
+        val fixed: Boolean get() = !scaled
+        val length: Int get() = range.length
 
-		fun computedLength(axis: AxisInfo, boundsLength: Int): Double {
-			val scale = (boundsLength.toDouble() / axis.totalLen.toDouble()).clamp(0.0, 1.0)
-			return if (fixed) {
-				length.toDouble() * scale
-			} else {
-				val variableSize = (boundsLength - (axis.fixedLen * scale))
-				variableSize.toDouble() * (length.toDouble() / axis.scaledLen.toDouble())
-			}
-		}
-	}
+        fun computedLength(axis: AxisInfo, boundsLength: Int): Double {
+            val scale = (boundsLength.toDouble() / axis.totalLen.toDouble()).clamp(0.0, 1.0)
+            return if (fixed) {
+                length.toDouble() * scale
+            } else {
+                val variableSize = (boundsLength - (axis.fixedLen * scale))
+                variableSize.toDouble() * (length.toDouble() / axis.scaledLen.toDouble())
+            }
+        }
+    }
 
-	data class AxisInfo(val ranges: List<Pair<Boolean, IntRange>>, val totalLen: Int) {
-		val segments = ranges.map { AxisSegment(it.first, it.second) }.toFastList()
-		val fixedLen = max(1, segments.filter { it.fixed }.sumOf { it.length })
-		val scaledLen = max(1, segments.filter { it.scaled }.sumOf { it.length })
-	}
+    data class AxisInfo(val ranges: List<Pair<Boolean, IntRange>>, val totalLen: Int) {
+        val segments = ranges.map { AxisSegment(it.first, it.second) }.toFastList()
+        val fixedLen = max(1, segments.filter { it.fixed }.sumOf { it.length })
+        val scaledLen = max(1, segments.filter { it.scaled }.sumOf { it.length })
+    }
 
-	val xaxis = AxisInfo(xranges, width)
-	val yaxis = AxisInfo(yranges, height)
+    val xaxis = AxisInfo(xranges, width)
+    val yaxis = AxisInfo(yranges, height)
 
-	val xsegments = xaxis.segments
-	val ysegments = yaxis.segments
+    val xsegments = xaxis.segments
+    val ysegments = yaxis.segments
 
-	val fixedWidth = xaxis.fixedLen
-	val fixedHeight = yaxis.fixedLen
+    val fixedWidth = xaxis.fixedLen
+    val fixedHeight = yaxis.fixedLen
 
     val totalSegments get() = xsegments.size * ysegments.size
 
-	val scaledWidth = xaxis.scaledLen
-	val scaledHeight = yaxis.scaledLen
+    val scaledWidth = xaxis.scaledLen
+    val scaledHeight = yaxis.scaledLen
 
-	class Segment(val info: NinePatchInfo, val rect: RectangleInt, val x: AxisSegment, val y: AxisSegment) : Extra by Extra.Mixin() {
-		val scaleX: Boolean = x.scaled
-		val scaleY: Boolean = y.scaled
+    class Segment(val info: NinePatchInfo, val rect: RectangleInt, val x: AxisSegment, val y: AxisSegment) : Extra by Extra.Mixin() {
+        val scaleX: Boolean = x.scaled
+        val scaleY: Boolean = y.scaled
 
         val bmpSlice = info.content?.slice(this.rect)
         val bmp by lazy { bmpSlice?.extract() }
-	}
+    }
 
-	val segments = ysegments.map { y ->
-		xsegments.map { x ->
-			Segment(
+    val segments = ysegments.map { y ->
+        xsegments.map { x ->
+            Segment(
                 this,
-				RectangleInt.fromBounds(x.range.first, y.range.first, x.range.last + 1, y.range.last + 1),
-				x, y
-			)
-		}.toFastList()
-	}.toFastList()
+                RectangleInt.fromBounds(x.range.first, y.range.first, x.range.last + 1, y.range.last + 1),
+                x, y
+            )
+        }.toFastList()
+    }.toFastList()
 
     //init { println("Created NinePatchInfo") }
 
@@ -88,31 +88,31 @@ data class NinePatchInfo constructor(
         callback: (segment: Segment, x: Int, y: Int, width: Int, height: Int) -> Unit
     ) = if (new) computeScaleNew(bounds, callback) else computeScaleOld(bounds, callback)
 
-	// Can be reused for textures using AG
-	fun computeScaleOld(
+    // Can be reused for textures using AG
+    fun computeScaleOld(
         bounds: RectangleInt,
         callback: (segment: Segment, x: Int, y: Int, width: Int, height: Int) -> Unit
-	) {
-		//println("scaleFixed=($scaleFixedX,$scaleFixedY)")
-		var ry = 0
-		for ((yindex, y) in ysegments.withIndex()) {
-			val segHeight = y.computedLength(this.yaxis, bounds.height).toInt()
-			var rx = 0
-			for ((xindex, x) in xsegments.withIndex()) {
-				val segWidth = x.computedLength(this.xaxis, bounds.width).toInt()
+    ) {
+        //println("scaleFixed=($scaleFixedX,$scaleFixedY)")
+        var ry = 0
+        for ((yindex, y) in ysegments.withIndex()) {
+            val segHeight = y.computedLength(this.yaxis, bounds.height).toInt()
+            var rx = 0
+            for ((xindex, x) in xsegments.withIndex()) {
+                val segWidth = x.computedLength(this.xaxis, bounds.width).toInt()
 
-				val seg = segments[yindex][xindex]
-				val segLeft = (rx + bounds.left).toInt()
-				val segTop = (ry + bounds.top).toInt()
+                val seg = segments[yindex][xindex]
+                val segLeft = (rx + bounds.left).toInt()
+                val segTop = (ry + bounds.top).toInt()
 
-				//println("($x,$y):($segWidth,$segHeight)")
-				callback(seg, segLeft, segTop, segWidth.toInt(), segHeight.toInt())
+                //println("($x,$y):($segWidth,$segHeight)")
+                callback(seg, segLeft, segTop, segWidth.toInt(), segHeight.toInt())
 
-				rx += segWidth
-			}
-			ry += segHeight
-		}
-	}
+                rx += segWidth
+            }
+            ry += segHeight
+        }
+    }
 
     private val xComputed = IntArray(64)
     private val yComputed = IntArray(64)
@@ -224,10 +224,10 @@ open class NinePatchBmpSlice(
         }
     }
 
-	val width: Int get() = bmpSlice.width
-	val height: Int get() = bmpSlice.height
+    val width: Int get() = bmpSlice.width
+    val height: Int get() = bmpSlice.height
     @Deprecated("", ReplaceWith("widthD")) val dwidth get() = widthD
-	@Deprecated("", ReplaceWith("heightD")) val dheight get() = heightD
+    @Deprecated("", ReplaceWith("heightD")) val dheight get() = heightD
     val widthD get() = width.toDouble()
     val heightD get() = height.toDouble()
     val widthF get() = width.toFloat()
@@ -235,24 +235,24 @@ open class NinePatchBmpSlice(
 
     fun getSegmentBmpSlice(segment: NinePatchInfo.Segment) = segment.bmpSlice!!
 
-	fun <T : Bitmap> drawTo(
+    fun <T : Bitmap> drawTo(
         other: T,
         bounds: RectangleInt,
         antialiased: Boolean = true,
         drawRegions: Boolean = false
-	): T {
-		other.context2d(antialiased) {
-			info.computeScale(bounds) { seg, segLeft, segTop, segWidth, segHeight ->
-				drawImage(seg.bmp!!, Point(segLeft, segTop), Size(segWidth, segHeight))
-				if (drawRegions) {
-					stroke(Colors.RED) { rect(segLeft, segTop, segWidth, segHeight) }
-				}
-			}
-		}
-		return other
-	}
+    ): T {
+        other.context2d(antialiased) {
+            info.computeScale(bounds) { seg, segLeft, segTop, segWidth, segHeight ->
+                drawImage(seg.bmp!!, Point(segLeft, segTop), Size(segWidth, segHeight))
+                if (drawRegions) {
+                    stroke(Colors.RED) { rect(segLeft, segTop, segWidth, segHeight) }
+                }
+            }
+        }
+        return other
+    }
 
-	fun renderedNative(width: Int, height: Int, antialiased: Boolean = true, drawRegions: Boolean = false): NativeImage = drawTo(
+    fun renderedNative(width: Int, height: Int, antialiased: Boolean = true, drawRegions: Boolean = false): NativeImage = drawTo(
         NativeImage(width, height),
         //Bitmap32(width, height),
         RectangleInt(0, 0, width, height),

@@ -6,12 +6,12 @@ import kotlin.test.assertEquals
 import org.junit.Test
 
 class SingleThreadedIoTest {
-	@Test
-	fun test() = suspendTest {
+    @Test
+    fun test() = suspendTest {
         val thread1 = NativeThread.current.id
-		localCurrentDirVfs["temp.txt"].writeString("temp")
+        localCurrentDirVfs["temp.txt"].writeString("temp")
         val thread2 = NativeThread.current.id
-		assertEquals(thread1, thread2)
-		localCurrentDirVfs["temp.txt"].delete()
-	}
+        assertEquals(thread1, thread2)
+        localCurrentDirVfs["temp.txt"].delete()
+    }
 }

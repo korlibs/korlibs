@@ -10,20 +10,20 @@ interface CompressionMethod {
 
     val level: Int get() = 6
 
-	suspend fun uncompress(i: AsyncInputStream, o: AsyncOutputStream): Unit = unsupported()
+    suspend fun uncompress(i: AsyncInputStream, o: AsyncOutputStream): Unit = unsupported()
 
-	suspend fun compress(
-		i: AsyncInputStream,
-		o: AsyncOutputStream,
-		context: CompressionContext = CompressionContext(level = this.level)
-	): Unit = unsupported()
+    suspend fun compress(
+        i: AsyncInputStream,
+        o: AsyncOutputStream,
+        context: CompressionContext = CompressionContext(level = this.level)
+    ): Unit = unsupported()
 
-	object Uncompressed : CompressionMethod {
+    object Uncompressed : CompressionMethod {
         override val name: String get() = "STORE"
 
-		override suspend fun uncompress(i: AsyncInputStream, o: AsyncOutputStream) { i.copyTo(o) }
-		override suspend fun compress(i: AsyncInputStream, o: AsyncOutputStream, context: CompressionContext) { i.copyTo(o) }
-	}
+        override suspend fun uncompress(i: AsyncInputStream, o: AsyncOutputStream) { i.copyTo(o) }
+        override suspend fun compress(i: AsyncInputStream, o: AsyncOutputStream, context: CompressionContext) { i.copyTo(o) }
+    }
 }
 
 data class CompressionMethodWithConfig(val method: CompressionMethod, override val level: Int) : CompressionMethod by method, Extra by Extra.Mixin()
@@ -31,11 +31,11 @@ data class CompressionMethodWithConfig(val method: CompressionMethod, override v
 fun CompressionMethod.withLevel(level: Int): CompressionMethodWithConfig = CompressionMethodWithConfig(this, level)
 
 fun CompressionMethod.uncompress(i: SyncInputStream, o: SyncOutputStream) = runBlockingNoSuspensions {
-	uncompress(i.toAsync(), o.toAsync())
+    uncompress(i.toAsync(), o.toAsync())
 }
 
 fun CompressionMethod.compress(i: SyncInputStream, o: SyncOutputStream, context: CompressionContext = CompressionContext(level = this.level)) = runBlockingNoSuspensions {
-	compress(i.toAsync(), o.toAsync(), context)
+    compress(i.toAsync(), o.toAsync(), context)
 }
 
 fun CompressionMethod.compress(bytes: ByteArray, context: CompressionContext = CompressionContext(level = this.level), outputSizeHint: Int = (bytes.size * 1.1).toInt()): ByteArray =
@@ -46,18 +46,18 @@ fun CompressionMethod.uncompress(bytes: ByteArray, outputSizeHint: Int = bytes.s
 fun ByteArray.uncompress(method: CompressionMethod, outputSizeHint: Int = this.size * 2): ByteArray =
     method.uncompress(this, outputSizeHint)
 fun ByteArray.compress(method: CompressionMethod, context: CompressionContext = CompressionContext(level = method.level), outputSizeHint: Int = (this.size * 1.1).toInt()): ByteArray =
-	method.compress(this, context, outputSizeHint)
+    method.compress(this, context, outputSizeHint)
 
 suspend fun CompressionMethod.uncompressStream(input: AsyncInputStream, bufferSize: Int = DEFAULT_MAX_SIZE): AsyncInputStream =
-	//input.readAll().uncompress(this).openAsync()
-	asyncStreamWriter(bufferSize, name = "uncompress:$this", lazy = false) { output -> uncompress(input, output) }
+    //input.readAll().uncompress(this).openAsync()
+    asyncStreamWriter(bufferSize, name = "uncompress:$this", lazy = false) { output -> uncompress(input, output) }
 suspend fun CompressionMethod.compressStream(
-	input: AsyncInputStream,
-	context: CompressionContext = CompressionContext(),
-	bufferSize: Int = DEFAULT_MAX_SIZE
+    input: AsyncInputStream,
+    context: CompressionContext = CompressionContext(),
+    bufferSize: Int = DEFAULT_MAX_SIZE
 ): AsyncInputStream =
-	//input.readAll().compress(this, context).openAsync()
-	asyncStreamWriter(bufferSize, name = "compress:$this", lazy = false) { output -> compress(input, output, context) }
+    //input.readAll().compress(this, context).openAsync()
+    asyncStreamWriter(bufferSize, name = "compress:$this", lazy = false) { output -> compress(input, output, context) }
 
 private const val DEFAULT_MAX_SIZE = 8 * 1024 * 1024
 

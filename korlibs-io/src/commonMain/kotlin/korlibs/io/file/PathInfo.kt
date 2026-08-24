@@ -41,7 +41,7 @@ val PathInfo.folder: String get() = fullPath.substring(0, fullPathNormalized.las
  * /path\to/file.ext -> /path/to/
  */
 val PathInfo.folderWithSlash: String
-	get() = fullPath.substring(0, fullPathNormalized.lastIndexOfOrNull('/')?.plus(1) ?: 0)
+    get() = fullPath.substring(0, fullPathNormalized.lastIndexOfOrNull('/')?.plus(1) ?: 0)
 
 /**
  * /path\to/file.ext -> file.ext
@@ -57,29 +57,29 @@ val PathInfo.parent: PathInfo get() = PathInfo(folder)
  * /path\to/file.ext -> /path\to/file
  */
 val PathInfo.fullPathWithoutExtension: String
-	get() {
-		val startIndex = fullPathNormalized.lastIndexOfOrNull('/')?.plus(1) ?: 0
-		return fullPath.substring(0, fullPathNormalized.indexOfOrNull('.', startIndex) ?: fullPathNormalized.length)
-	}
+    get() {
+        val startIndex = fullPathNormalized.lastIndexOfOrNull('/')?.plus(1) ?: 0
+        return fullPath.substring(0, fullPathNormalized.indexOfOrNull('.', startIndex) ?: fullPathNormalized.length)
+    }
 
 /**
  * /path\to/file.ext -> /path\to/file.newext
  */
 fun PathInfo.fullPathWithExtension(ext: String): String =
-	if (ext.isEmpty()) fullPathWithoutExtension else "$fullPathWithoutExtension.$ext"
+    if (ext.isEmpty()) fullPathWithoutExtension else "$fullPathWithoutExtension.$ext"
 
 /**
  * /path\to/file.1.ext -> file.1
  */
 val PathInfo.baseNameWithoutExtension: String get() = baseName.substringBeforeLast('.',
-	baseName
+    baseName
 )
 
 /**
  * /path\to/file.1.ext -> file
  */
 val PathInfo.baseNameWithoutCompoundExtension: String get() = baseName.substringBefore('.',
-	baseName
+    baseName
 )
 
 /**
@@ -96,13 +96,13 @@ val PathInfo.fullNameWithoutCompoundExtension: String get() = "$folderWithSlash$
  * /path\to/file.1.ext -> file.1.newext
  */
 fun PathInfo.baseNameWithExtension(ext: String): String =
-	if (ext.isEmpty()) baseNameWithoutExtension else "$baseNameWithoutExtension.$ext"
+    if (ext.isEmpty()) baseNameWithoutExtension else "$baseNameWithoutExtension.$ext"
 
 /**
  * /path\to/file.1.ext -> file.newext
  */
 fun PathInfo.baseNameWithCompoundExtension(ext: String): String =
-	if (ext.isEmpty()) baseNameWithoutCompoundExtension else "$baseNameWithoutCompoundExtension.$ext"
+    if (ext.isEmpty()) baseNameWithoutCompoundExtension else "$baseNameWithoutCompoundExtension.$ext"
 
 /**
  * /path\to/file.1.EXT -> EXT
@@ -133,16 +133,16 @@ fun PathInfo.getPathComponents(): List<String> = fullPathNormalized.split('/')
  * /path\to/file.1.ext -> listOf("/path", "/path/to", "/path/to/file.1.ext")
  */
 fun PathInfo.getPathFullComponents(): List<String> {
-	val out = arrayListOf<String>()
-	for (n in 0 until fullPathNormalized.length) {
-		when (fullPathNormalized[n]) {
-			'/', '\\' -> {
-				out += fullPathNormalized.substring(0, n)
-			}
-		}
-	}
-	out += fullPathNormalized
-	return out
+    val out = arrayListOf<String>()
+    for (n in 0 until fullPathNormalized.length) {
+        when (fullPathNormalized[n]) {
+            '/', '\\' -> {
+                out += fullPathNormalized.substring(0, n)
+            }
+        }
+    }
+    out += fullPathNormalized
+    return out
 }
 
 /**
@@ -151,7 +151,7 @@ fun PathInfo.getPathFullComponents(): List<String> {
 val PathInfo.fullName: String get() = fullPath
 
 interface Path {
-	val pathInfo: PathInfo
+    val pathInfo: PathInfo
 }
 
 val Path.fullPathNormalized: String get() = pathInfo.fullPathNormalized
@@ -201,51 +201,51 @@ fun PathInfo.normalize(removeEndSlash: Boolean = true): String {
 }
 
 fun PathInfo.combine(access: PathInfo): PathInfo {
-	val base = this.fullPath
-	val access = access.fullPath
-	return (if (access.pathInfo.isAbsolute()) access.pathInfo.normalize() else "$base/$access"
-		.pathInfo.normalize()).pathInfo
+    val base = this.fullPath
+    val access = access.fullPath
+    return (if (access.pathInfo.isAbsolute()) access.pathInfo.normalize() else "$base/$access"
+        .pathInfo.normalize()).pathInfo
 }
 
 fun PathInfo.lightCombine(access: PathInfo): PathInfo {
-	val base = this.fullPath
-	val access = access.fullPath
-	val res = if (base.isNotEmpty()) base.trimEnd('/') + "/" + access.trim('/') else access
-	return res.pathInfo
+    val base = this.fullPath
+    val access = access.fullPath
+    val res = if (base.isNotEmpty()) base.trimEnd('/') + "/" + access.trim('/') else access
+    return res.pathInfo
 }
 
 fun PathInfo.isAbsolute(): Boolean {
-	val base = this.fullPath
-	if (base.isEmpty()) return false
-	val b = base.replace('\\', '/').substringBefore('/')
-	if (b.isEmpty()) return true
-	if (b.contains(':')) return true
-	return false
+    val base = this.fullPath
+    if (base.isEmpty()) return false
+    val b = base.replace('\\', '/').substringBefore('/')
+    if (b.isEmpty()) return true
+    if (b.contains(':')) return true
+    return false
 }
 
 fun PathInfo.normalizeAbsolute(): PathInfo {
-	val path = this.fullPath
-	//val res = path.replace('/', File.separatorChar).trim(File.separatorChar)
-	//return if (OS.isUnix) "/$res" else res
-	return PathInfo(path.replace('/', File_separatorChar))
+    val path = this.fullPath
+    //val res = path.replace('/', File.separatorChar).trim(File.separatorChar)
+    //return if (OS.isUnix) "/$res" else res
+    return PathInfo(path.replace('/', File_separatorChar))
 }
 
 private fun String.indexOfOrNull(char: Char, startIndex: Int = 0): Int? =
-	this.indexOf(char, startIndex).takeIf { it >= 0 }
+    this.indexOf(char, startIndex).takeIf { it >= 0 }
 
 private fun String.lastIndexOfOrNull(char: Char, startIndex: Int = lastIndex): Int? =
-	this.lastIndexOf(char, startIndex).takeIf { it >= 0 }
+    this.lastIndexOf(char, startIndex).takeIf { it >= 0 }
 
 private inline fun count(cond: (index: Int) -> Boolean): Int {
-	var counter = 0
-	while (cond(counter)) counter++
-	return counter
+    var counter = 0
+    while (cond(counter)) counter++
+    return counter
 }
 
 private inline fun <T> List<T>.fastForEachWithIndex(callback: (index: Int, value: T) -> Unit) {
-	var n = 0
-	while (n < size) {
-		callback(n, this[n])
-		n++
-	}
+    var n = 0
+    while (n < size) {
+        callback(n, this[n])
+        n++
+    }
 }

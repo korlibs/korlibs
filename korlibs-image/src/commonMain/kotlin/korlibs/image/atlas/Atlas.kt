@@ -20,7 +20,7 @@ class Atlas(val textures: Map<String, BmpSlice>, val info: AtlasInfo = AtlasInfo
         val filename get() = info.name
     }
 
-	val entries = info.pages.flatMap { page ->
+    val entries = info.pages.flatMap { page ->
         page.regions.map { frame ->
             Entry(frame, page)
         }

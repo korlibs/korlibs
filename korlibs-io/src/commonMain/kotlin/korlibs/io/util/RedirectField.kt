@@ -5,33 +5,33 @@ import kotlin.reflect.KProperty
 import kotlin.reflect.KProperty0
 
 class RedirectField<V>(val redirect: KProperty0<V>) {
-	operator fun getValue(thisRef: Any?, property: KProperty<*>): V = redirect.get()
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): V = redirect.get()
 }
 
 class RedirectMutableField<V>(val redirect: KMutableProperty0<V>) {
-	operator fun getValue(thisRef: Any?, property: KProperty<*>): V = redirect.get()
-	operator fun setValue(thisRef: Any?, property: KProperty<*>, value: V) = redirect.set(value)
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): V = redirect.get()
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: V) = redirect.set(value)
 }
 
 class RedirectMutableFieldGen<V>(val redirect: () -> KMutableProperty0<V>) {
-	operator fun getValue(thisRef: Any?, property: KProperty<*>): V = redirect().get()
-	operator fun setValue(thisRef: Any?, property: KProperty<*>, value: V) = redirect().set(value)
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): V = redirect().get()
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: V) = redirect().set(value)
 }
 
 class RedirectFieldGen<V>(val redirect: () -> KProperty0<V>) {
-	operator fun getValue(thisRef: Any?, property: KProperty<*>): V = redirect().get()
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): V = redirect().get()
 }
 
 fun <V> (() -> KProperty0<V>).redirected() = RedirectFieldGen(this)
 fun <V> (() -> KMutableProperty0<V>).redirected() = RedirectMutableFieldGen(this)
 
 class TransformedField<V, R>(val prop: KProperty0<V>, val transform: (V) -> R) {
-	operator fun getValue(thisRef: Any?, property: KProperty<*>): R = transform(prop.get())
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): R = transform(prop.get())
 }
 
 class TransformedMutableField<V, R>(val prop: KMutableProperty0<V>, val transform: (V) -> R, val reverseTransform: (R) -> V) {
-	operator fun getValue(thisRef: Any?, property: KProperty<*>): R = transform(prop.get())
-	operator fun setValue(thisRef: Any?, property: KProperty<*>, value: R) = prop.set(reverseTransform(value))
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): R = transform(prop.get())
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: R) = prop.set(reverseTransform(value))
 }
 
 fun <V, R> KMutableProperty0<V>.transformed(transform: (V) -> R, reverseTransform: (R) -> V) = TransformedMutableField(this, transform, reverseTransform)

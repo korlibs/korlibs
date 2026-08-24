@@ -29,39 +29,39 @@ object BMP : ImageFormat("bmp") {
         var sizeImage: Int = 0
     }
 
-	override fun decodeHeader(s: SyncStream, props: ImageDecodingProps): BmImageInfo? {
-		if (s.readStringz(2) != "BM") return null
-		// FILE HEADER
-		val size = s.readS32LE()
-		val reserved1 = s.readS16LE()
-		val reserved2 = s.readS16LE()
-		val offBits = s.readS32LE()
-		// INFO HEADER
-		val bsize = s.readS32LE()
+    override fun decodeHeader(s: SyncStream, props: ImageDecodingProps): BmImageInfo? {
+        if (s.readStringz(2) != "BM") return null
+        // FILE HEADER
+        val size = s.readS32LE()
+        val reserved1 = s.readS16LE()
+        val reserved2 = s.readS16LE()
+        val offBits = s.readS32LE()
+        // INFO HEADER
+        val bsize = s.readS32LE()
         val ss = s.readFastByteArrayInputStream(bsize - 4)
-		val width = ss.readS32LE()
-		val height = ss.readS32LE()
-		val planes = ss.readS16LE()
-		val bitcount = ss.readS16LE()
+        val width = ss.readS32LE()
+        val height = ss.readS32LE()
+        val planes = ss.readS16LE()
+        val bitcount = ss.readS16LE()
         val compression = ss.readS32LE()
         val sizeImage = ss.readS32LE()
         val pixelsPerMeterX = ss.readS32LE()
         val pixelsPerMeterY = ss.readS32LE()
         val clrUsed = ss.readS32LE()
         val clrImportant = ss.readS32LE()
-		return BmImageInfo().apply {
+        return BmImageInfo().apply {
             this.compression = compression
             this.sizeImage = sizeImage
             this.flipX = width < 0
             this.flipY = height >= 0
-			this.width = abs(width)
-			this.height = abs(height)
-			this.bitsPerPixel = bitcount
-		}
-	}
+            this.width = abs(width)
+            this.height = abs(height)
+            this.bitsPerPixel = bitcount
+        }
+    }
 
-	override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
-		val h = decodeHeader(s, props) ?: throw IllegalArgumentException("Not a BMP file")
+    override fun readImageContainer(s: SyncStream, props: ImageDecodingProps): ImageDataContainer {
+        val h = decodeHeader(s, props) ?: throw IllegalArgumentException("Not a BMP file")
 
         when (h.compression) {
             0, 3 -> Unit
@@ -69,32 +69,32 @@ object BMP : ImageFormat("bmp") {
         }
 
         return when (h.bitsPerPixel) {
-			8 -> {
-				val out = Bitmap8(h.width, h.height)
-				for (n in 0 until 256) out.palette[n] = RGBA(s.readS32LE(), 0xFF)
-				for (n in 0 until h.height) out.setRow(h.height - n - 1, s.readBytes(h.width))
+            8 -> {
+                val out = Bitmap8(h.width, h.height)
+                for (n in 0 until 256) out.palette[n] = RGBA(s.readS32LE(), 0xFF)
+                for (n in 0 until h.height) out.setRow(h.height - n - 1, s.readBytes(h.width))
                 ImageDataContainer(out)
-			}
-			24, 32 -> {
-				val bytesPerRow = h.width * h.bitsPerPixel / 8
-				val out = Bitmap32(h.width, h.height, premultiplied = false)
-				val row = ByteArray(bytesPerRow)
-				val format = if (h.bitsPerPixel == 24) BGR else BGRA
-				val padding = 4 - (bytesPerRow % 4)
+            }
+            24, 32 -> {
+                val bytesPerRow = h.width * h.bitsPerPixel / 8
+                val out = Bitmap32(h.width, h.height, premultiplied = false)
+                val row = ByteArray(bytesPerRow)
+                val format = if (h.bitsPerPixel == 24) BGR else BGRA
+                val padding = 4 - (bytesPerRow % 4)
                 val flipY = h.flipY
-				for (n in 0 until h.height) {
-					val y = if (h.flipY) h.height - n - 1 else n
-					s.read(row)
-					format.decode(row, 0, RgbaArray(out.ints), out.index(0, y), h.width)
-					if (padding != 4) {
-						s.skip(padding)
-					}
-				}
+                for (n in 0 until h.height) {
+                    val y = if (h.flipY) h.height - n - 1 else n
+                    s.read(row)
+                    format.decode(row, 0, RgbaArray(out.ints), out.index(0, y), h.width)
+                    if (padding != 4) {
+                        s.skip(padding)
+                    }
+                }
                 ImageDataContainer(out)
-			}
-			else -> TODO("Unsupported bitsPerPixel=${h.bitsPerPixel}")
-		}
-	}
+            }
+            else -> TODO("Unsupported bitsPerPixel=${h.bitsPerPixel}")
+        }
+    }
 
     override fun writeImageContainer(image: ImageDataContainer, s: SyncStream, props: ImageEncodingProps) {
         val bmp = image.mainBitmap.toBMP32()

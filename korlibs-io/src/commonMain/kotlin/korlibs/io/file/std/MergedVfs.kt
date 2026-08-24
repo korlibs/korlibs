@@ -15,15 +15,15 @@ open class MergedVfs(vfsList: List<VfsFile> = listOf(), val name: String = "unkn
 
     constructor(vararg vfsList: VfsFile) : this(vfsList.toList())
 
-	private val vfsList = ArrayList(vfsList)
+    private val vfsList = ArrayList(vfsList)
 
-	operator fun plusAssign(other: VfsFile) {
-		vfsList += other
-	}
+    operator fun plusAssign(other: VfsFile) {
+        vfsList += other
+    }
 
-	operator fun minusAssign(other: VfsFile) {
-		vfsList -= other
-	}
+    operator fun minusAssign(other: VfsFile) {
+        vfsList -= other
+    }
 
     override suspend fun access(path: String): VfsFile {
         initOnce()
@@ -39,14 +39,14 @@ open class MergedVfs(vfsList: List<VfsFile> = listOf(), val name: String = "unkn
         }
     }
 
-	override suspend fun stat(path: String): VfsStat {
+    override suspend fun stat(path: String): VfsStat {
         initOnce()
-		vfsList.fastForEach { vfs ->
-			val result = vfs[path].stat()
-			if (result.exists) return result.copy(file = file(path))
-		}
-		return createNonExistsStat(path)
-	}
+        vfsList.fastForEach { vfs ->
+            val result = vfs[path].stat()
+            if (result.exists) return result.copy(file = file(path))
+        }
+        return createNonExistsStat(path)
+    }
 
     override suspend fun listFlow(path: String): Flow<VfsFile> {
         initOnce()
@@ -68,5 +68,5 @@ open class MergedVfs(vfsList: List<VfsFile> = listOf(), val name: String = "unkn
         }
     }
 
-	override fun toString(): String = "MergedVfs($vfsList)"
+    override fun toString(): String = "MergedVfs($vfsList)"
 }

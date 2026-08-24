@@ -36,6 +36,7 @@ plugins {
     alias(libs.plugins.android.multiplatform.library) apply false
     alias(libs.plugins.kotlinx.kover) apply false
     alias(libs.plugins.dokka)
+    alias(libs.plugins.diffplug.spotless) apply false
     alias(libs.plugins.vanniktech.mavenPublish)
 }
 

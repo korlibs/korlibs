@@ -33,29 +33,29 @@ class MapLikeStorageVfsTest {
     }
 
     @Test
-	fun name() = suspendTest {
-		val root = MySimpleStorage().toVfs()
+    fun name() = suspendTest {
+        val root = MySimpleStorage().toVfs()
 
-		assertEquals(listOf(), root.list().toList())
-		root["demo.txt"].writeBytes("hello".toByteArray())
-		assertEquals(listOf("/demo.txt"), root.list().toList().map { it.fullName })
-		assertEquals("hello", root["demo.txt"].readString())
-		root["demo"].mkdir()
-		root["demo"].mkdir()
-		assertEquals(listOf("/demo.txt", "/demo"), root.list().toList().map { it.fullName })
-		root["demo/hello/world/yay"].mkdir()
-		root["demo/hello/world/yay/file.txt"].writeString("DEMO")
+        assertEquals(listOf(), root.list().toList())
+        root["demo.txt"].writeBytes("hello".toByteArray())
+        assertEquals(listOf("/demo.txt"), root.list().toList().map { it.fullName })
+        assertEquals("hello", root["demo.txt"].readString())
+        root["demo"].mkdir()
+        root["demo"].mkdir()
+        assertEquals(listOf("/demo.txt", "/demo"), root.list().toList().map { it.fullName })
+        root["demo/hello/world/yay"].mkdir()
+        root["demo/hello/world/yay/file.txt"].writeString("DEMO")
 
-		assertEquals(
-			"[/demo.txt, /demo, /demo/hello, /demo/hello/world, /demo/hello/world/yay, /demo/hello/world/yay/file.txt]",
-			root.listRecursive().toList().map { it.fullName }.toString()
-		)
+        assertEquals(
+            "[/demo.txt, /demo, /demo/hello, /demo/hello/world, /demo/hello/world/yay, /demo/hello/world/yay/file.txt]",
+            root.listRecursive().toList().map { it.fullName }.toString()
+        )
 
-		assertEquals(true, root["demo.txt"].exists())
-		assertEquals(5, root["demo.txt"].size())
+        assertEquals(true, root["demo.txt"].exists())
+        assertEquals(5, root["demo.txt"].size())
 
-		assertEquals(false, root["unexistant"].exists())
-	}
+        assertEquals(false, root["unexistant"].exists())
+    }
 
     class MySimpleStorage : SimpleStorage {
         val map = LinkedHashMap<String, String>()

@@ -27,12 +27,12 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 data class VfsFile(
-	val vfs: Vfs,
-	val path: String
+    val vfs: Vfs,
+    val path: String
 ) : VfsNamed(path.pathInfo), AsyncInputOpenable, Extra by Extra.Mixin() {
     var cachedStat: VfsStat? = null
 
-	suspend fun isCaseSensitive(): Boolean = vfs.isCaseSensitive(path)
+    suspend fun isCaseSensitive(): Boolean = vfs.isCaseSensitive(path)
 
     fun relativePathTo(relative: VfsFile): String? {
         if (relative.vfs != this.vfs) return null
@@ -40,94 +40,94 @@ data class VfsFile(
     }
 
     val parent: VfsFile get() = VfsFile(vfs, folder)
-	val root: VfsFile get() = vfs.root
-	val absolutePath: String get() = vfs.getAbsolutePath(this.path)
+    val root: VfsFile get() = vfs.root
+    val absolutePath: String get() = vfs.getAbsolutePath(this.path)
     val absolutePathInfo: PathInfo get() = PathInfo(absolutePath)
 
-	operator fun get(path: String): VfsFile =
-		VfsFile(vfs, this.path.pathInfo.combine(path.pathInfo).fullPath)
+    operator fun get(path: String): VfsFile =
+        VfsFile(vfs, this.path.pathInfo.combine(path.pathInfo).fullPath)
 
-	// @TODO: Kotlin suspend operator not supported yet!
-	//suspend fun set(path: String, content: String) = run { this[path].put(content.toByteArray(UTF8).openAsync()) }
-	//suspend fun set(path: String, content: ByteArray) = run { this[path].put(content.openAsync()) }
-	//suspend fun set(path: String, content: AsyncStream) = run { this[path].writeStream(content) }
-	//suspend fun set(path: String, content: VfsFile) = run { this[path].writeFile(content) }
+    // @TODO: Kotlin suspend operator not supported yet!
+    //suspend fun set(path: String, content: String) = run { this[path].put(content.toByteArray(UTF8).openAsync()) }
+    //suspend fun set(path: String, content: ByteArray) = run { this[path].put(content.openAsync()) }
+    //suspend fun set(path: String, content: AsyncStream) = run { this[path].writeStream(content) }
+    //suspend fun set(path: String, content: VfsFile) = run { this[path].writeFile(content) }
 
-	suspend fun put(content: AsyncInputStream, attributes: List<Vfs.Attribute> = listOf()): Long = vfs.put(this.path, content, attributes)
-	suspend fun put(content: AsyncInputStream, vararg attributes: Vfs.Attribute): Long = vfs.put(this.path, content, attributes.toList())
-	suspend fun write(data: ByteArray, vararg attributes: Vfs.Attribute): Long = vfs.put(this.path, data, attributes.toList())
-	suspend fun writeBytes(data: ByteArray, vararg attributes: Vfs.Attribute): Long = vfs.put(this.path, data, attributes.toList())
+    suspend fun put(content: AsyncInputStream, attributes: List<Vfs.Attribute> = listOf()): Long = vfs.put(this.path, content, attributes)
+    suspend fun put(content: AsyncInputStream, vararg attributes: Vfs.Attribute): Long = vfs.put(this.path, content, attributes.toList())
+    suspend fun write(data: ByteArray, vararg attributes: Vfs.Attribute): Long = vfs.put(this.path, data, attributes.toList())
+    suspend fun writeBytes(data: ByteArray, vararg attributes: Vfs.Attribute): Long = vfs.put(this.path, data, attributes.toList())
 
-	suspend fun writeStream(src: AsyncInputStream, vararg attributes: Vfs.Attribute, autoClose: Boolean = true): Long {
-		try {
-			return put(src, *attributes)
-		} finally {
-			if (autoClose) src.close()
-		}
-	}
+    suspend fun writeStream(src: AsyncInputStream, vararg attributes: Vfs.Attribute, autoClose: Boolean = true): Long {
+        try {
+            return put(src, *attributes)
+        } finally {
+            if (autoClose) src.close()
+        }
+    }
 
-	suspend fun writeFile(file: VfsFile, vararg attributes: Vfs.Attribute): Long = file.copyTo(this, *attributes)
+    suspend fun writeFile(file: VfsFile, vararg attributes: Vfs.Attribute): Long = file.copyTo(this, *attributes)
 
-	suspend fun listNames(): List<String> = listSimple().map { it.baseName }
+    suspend fun listNames(): List<String> = listSimple().map { it.baseName }
 
-	fun withExtension(ext: String): VfsFile =
-		VfsFile(vfs, fullNameWithoutExtension + if (ext.isNotEmpty()) ".$ext" else "")
+    fun withExtension(ext: String): VfsFile =
+        VfsFile(vfs, fullNameWithoutExtension + if (ext.isNotEmpty()) ".$ext" else "")
 
-	fun withCompoundExtension(ext: String): VfsFile =
-		VfsFile(vfs, fullNameWithoutCompoundExtension + if (ext.isNotEmpty()) ".$ext" else "")
+    fun withCompoundExtension(ext: String): VfsFile =
+        VfsFile(vfs, fullNameWithoutCompoundExtension + if (ext.isNotEmpty()) ".$ext" else "")
 
-	fun appendExtension(ext: String): VfsFile =
-		VfsFile(vfs, "$fullName.$ext")
+    fun appendExtension(ext: String): VfsFile =
+        VfsFile(vfs, "$fullName.$ext")
 
-	suspend fun open(mode: VfsOpenMode = VfsOpenMode.READ): AsyncStream = vfs.open(this.path, mode)
-	suspend fun openInputStream(): AsyncInputStream = vfs.openInputStream(this.path)
+    suspend fun open(mode: VfsOpenMode = VfsOpenMode.READ): AsyncStream = vfs.open(this.path, mode)
+    suspend fun openInputStream(): AsyncInputStream = vfs.openInputStream(this.path)
 
-	override suspend fun openRead(): AsyncStream = open(VfsOpenMode.READ)
+    override suspend fun openRead(): AsyncStream = open(VfsOpenMode.READ)
 
-	suspend inline fun <T> openUse(mode: VfsOpenMode = VfsOpenMode.READ, callback: AsyncStream.() -> T): T = open(mode).use(callback)
+    suspend inline fun <T> openUse(mode: VfsOpenMode = VfsOpenMode.READ, callback: AsyncStream.() -> T): T = open(mode).use(callback)
     suspend inline fun <T> openUseIt(mode: VfsOpenMode = VfsOpenMode.READ, callback: (AsyncStream) -> T): T = open(mode).use(callback)
 
-	suspend fun readRangeBytes(range: LongRange): ByteArray = vfs.readRange(this.path, range)
-	suspend fun readRangeBytes(range: IntRange): ByteArray = vfs.readRange(this.path, range.toLongRange())
+    suspend fun readRangeBytes(range: LongRange): ByteArray = vfs.readRange(this.path, range)
+    suspend fun readRangeBytes(range: IntRange): ByteArray = vfs.readRange(this.path, range.toLongRange())
 
-	// Aliases
-	suspend fun readAll(): ByteArray = vfs.readRange(this.path, LONG_ZERO_TO_MAX_RANGE)
+    // Aliases
+    suspend fun readAll(): ByteArray = vfs.readRange(this.path, LONG_ZERO_TO_MAX_RANGE)
 
-	suspend fun read(): ByteArray = readAll()
-	suspend fun readBytes(): ByteArray = readAll()
+    suspend fun read(): ByteArray = readAll()
+    suspend fun readBytes(): ByteArray = readAll()
 
-	suspend fun readLines(charset: Charset = UTF8): Sequence<String> = readString(charset).lineSequence()
-	suspend fun writeLines(lines: Iterable<String>, charset: Charset = UTF8) =
-		writeString(lines.joinToString("\n"), charset = charset)
+    suspend fun readLines(charset: Charset = UTF8): Sequence<String> = readString(charset).lineSequence()
+    suspend fun writeLines(lines: Iterable<String>, charset: Charset = UTF8) =
+        writeString(lines.joinToString("\n"), charset = charset)
 
-	suspend fun readString(charset: Charset = UTF8): String = read().toString(charset)
+    suspend fun readString(charset: Charset = UTF8): String = read().toString(charset)
 
-	suspend fun writeString(data: String, vararg attributes: Vfs.Attribute, charset: Charset = UTF8): Unit =
-		run { write(data.toByteArray(charset), *attributes, Vfs.FileKind.STRING) }
+    suspend fun writeString(data: String, vararg attributes: Vfs.Attribute, charset: Charset = UTF8): Unit =
+        run { write(data.toByteArray(charset), *attributes, Vfs.FileKind.STRING) }
 
-	suspend fun readChunk(offset: Long, size: Int): ByteArray = vfs.readChunk(this.path, offset, size)
-	suspend fun writeChunk(data: ByteArray, offset: Long, resize: Boolean = false): Unit =
-		vfs.writeChunk(this.path, data, offset, resize)
+    suspend fun readChunk(offset: Long, size: Int): ByteArray = vfs.readChunk(this.path, offset, size)
+    suspend fun writeChunk(data: ByteArray, offset: Long, resize: Boolean = false): Unit =
+        vfs.writeChunk(this.path, data, offset, resize)
 
     suspend fun stat(): VfsStat = cachedStat ?: vfs.stat(this.path)
-	suspend fun touch(time: DateTime, atime: DateTime = time): Unit = vfs.touch(this.path, time, atime)
-	suspend fun size(): Long = vfs.stat(this.path).size
-	suspend fun exists(): Boolean = runIgnoringExceptions { vfs.stat(this.path).exists } ?: false
+    suspend fun touch(time: DateTime, atime: DateTime = time): Unit = vfs.touch(this.path, time, atime)
+    suspend fun size(): Long = vfs.stat(this.path).size
+    suspend fun exists(): Boolean = runIgnoringExceptions { vfs.stat(this.path).exists } ?: false
     suspend fun takeIfExists() = takeIf { it.exists() }
-	suspend fun isDirectory(): Boolean = stat().isDirectory
+    suspend fun isDirectory(): Boolean = stat().isDirectory
     suspend fun isFile(): Boolean = stat().isFile
-	suspend fun setSize(size: Long): Unit = vfs.setSize(this.path, size)
+    suspend fun setSize(size: Long): Unit = vfs.setSize(this.path, size)
 
-	suspend fun delete() = vfs.delete(this.path)
+    suspend fun delete() = vfs.delete(this.path)
 
-	suspend fun setAttributes(attributes: List<Vfs.Attribute>) = vfs.setAttributes(this.path, attributes)
-	suspend fun setAttributes(vararg attributes: Vfs.Attribute) = vfs.setAttributes(this.path, attributes.toList())
+    suspend fun setAttributes(attributes: List<Vfs.Attribute>) = vfs.setAttributes(this.path, attributes)
+    suspend fun setAttributes(vararg attributes: Vfs.Attribute) = vfs.setAttributes(this.path, attributes.toList())
     suspend fun getAttributes(): List<Vfs.Attribute> = vfs.getAttributes(this.path)
     suspend inline fun <reified T : Vfs.Attribute> getAttribute(): T? = getAttributes().filterIsInstance<T>().firstOrNull()
     suspend fun chmod(mode: Vfs.UnixPermissions): Unit = vfs.chmod(this.path, mode)
 
-	suspend fun mkdir(attributes: List<Vfs.Attribute>) = vfs.mkdir(this.path, attributes)
-	suspend fun mkdir(vararg attributes: Vfs.Attribute) = mkdir(attributes.toList())
+    suspend fun mkdir(attributes: List<Vfs.Attribute>) = vfs.mkdir(this.path, attributes)
+    suspend fun mkdir(vararg attributes: Vfs.Attribute) = mkdir(attributes.toList())
 
     suspend fun mkdirs(attributes: List<Vfs.Attribute>) = vfs.mkdirs(this.path, attributes)
     suspend fun mkdirs(vararg attributes: Vfs.Attribute) = mkdirs(attributes.toList())
@@ -139,26 +139,26 @@ data class VfsFile(
      * If the node is a directory, a tree structure with the same content will be created in the target destination.
      */
     suspend fun copyToRecursively(
-		target: VfsFile,
-		vararg attributes: Vfs.Attribute,
-		notify: suspend (Pair<VfsFile, VfsFile>) -> Unit = {}
-	) {
-		notify(this to target)
-		if (this.isDirectory()) {
-			target.mkdirs()
+        target: VfsFile,
+        vararg attributes: Vfs.Attribute,
+        notify: suspend (Pair<VfsFile, VfsFile>) -> Unit = {}
+    ) {
+        notify(this to target)
+        if (this.isDirectory()) {
+            target.mkdirs()
             list().collect { file ->
                 file.copyToRecursively(target[file.baseName], *attributes, notify = notify)
             }
-		} else {
-			//println("copyToTree: $this -> $target")
-			this.copyTo(target, *attributes)
-		}
-	}
+        } else {
+            //println("copyToTree: $this -> $target")
+            this.copyTo(target, *attributes)
+        }
+    }
 
-	suspend fun ensureParents() = this.apply { parent.mkdir() }
+    suspend fun ensureParents() = this.apply { parent.mkdir() }
 
     /** Renames this file into the [dstPath] relative to the root of this [vfs] */
-	suspend fun renameTo(dstPath: String) = vfs.rename(this.path, dstPath)
+    suspend fun renameTo(dstPath: String) = vfs.rename(this.path, dstPath)
 
     /** Renames the file determined by this plus [src] to this plus [dst] */
     suspend fun rename(src: String, dst: String) = vfs.rename("$path/$src", "$path/$dst")
@@ -166,19 +166,19 @@ data class VfsFile(
     suspend fun listSimple(): List<VfsFile> = vfs.listSimple(this.path)
     suspend fun list(): Flow<VfsFile> = vfs.listFlow(this.path)
 
-	suspend fun listRecursiveSimple(filter: (VfsFile) -> Boolean = { true }): List<VfsFile> = ArrayList<VfsFile>().apply {
-		for (file in listSimple()) {
-			if (filter(file)) {
-				add(file)
-				val stat = file.stat()
-				if (stat.isDirectory) {
-					addAll(file.listRecursiveSimple(filter))
-				}
-			}
-		}
-	}
+    suspend fun listRecursiveSimple(filter: (VfsFile) -> Boolean = { true }): List<VfsFile> = ArrayList<VfsFile>().apply {
+        for (file in listSimple()) {
+            if (filter(file)) {
+                add(file)
+                val stat = file.stat()
+                if (stat.isDirectory) {
+                    addAll(file.listRecursiveSimple(filter))
+                }
+            }
+        }
+    }
 
-	suspend fun listRecursive(filter: (VfsFile) -> Boolean = { true }): Flow<VfsFile> = flow {
+    suspend fun listRecursive(filter: (VfsFile) -> Boolean = { true }): Flow<VfsFile> = flow {
         list().collect { file ->
             if (filter(file)) {
                 emit(file)
@@ -190,11 +190,11 @@ data class VfsFile(
         }
     }
 
-	suspend fun exec(
-		cmdAndArgs: List<String>,
-		env: Map<String, String> = LinkedHashMap(),
-		handler: VfsProcessHandler = VfsProcessHandler()
-	): Int = vfs.exec(this.path, cmdAndArgs, env, handler)
+    suspend fun exec(
+        cmdAndArgs: List<String>,
+        env: Map<String, String> = LinkedHashMap(),
+        handler: VfsProcessHandler = VfsProcessHandler()
+    ): Int = vfs.exec(this.path, cmdAndArgs, env, handler)
 
     data class ProcessResult(val exitCode: Int, val stdout: String, val stderr: String)
 
@@ -224,13 +224,13 @@ data class VfsFile(
         return ProcessResult(result, outString, errString)
     }
 
-	suspend fun execToString(
-		cmdAndArgs: List<String>,
-		env: Map<String, String> = LinkedHashMap(),
-		charset: Charset = UTF8,
-		captureError: Boolean = false,
-		throwOnError: Boolean = true
-	): String {
+    suspend fun execToString(
+        cmdAndArgs: List<String>,
+        env: Map<String, String> = LinkedHashMap(),
+        charset: Charset = UTF8,
+        captureError: Boolean = false,
+        throwOnError: Boolean = true
+    ): String {
         val result = execProcess(cmdAndArgs, env, captureError, charset)
         if (throwOnError && result.exitCode != 0) {
             throw VfsProcessException("Process not returned 0, but ${result.exitCode}. Error: ${result.stderr}, Output: ${result.stdout}")
@@ -245,53 +245,53 @@ data class VfsFile(
         charset: Charset = UTF8,
     ): ProcessResult = execProcess(cmdAndArgs.toList(), env, captureError, charset)
 
-	suspend fun execToString(vararg cmdAndArgs: String, charset: Charset = UTF8): String =
-		execToString(cmdAndArgs.toList(), charset = charset)
+    suspend fun execToString(vararg cmdAndArgs: String, charset: Charset = UTF8): String =
+        execToString(cmdAndArgs.toList(), charset = charset)
 
-	suspend fun passthru(
-		cmdAndArgs: List<String>,
-		env: Map<String, String> = LinkedHashMap(),
-		charset: Charset = UTF8
-	): Int {
-		return exec(cmdAndArgs.toList(), env, object : VfsProcessHandler() {
-			override suspend fun onOut(data: ByteArray) = print(data.toString(charset))
-			override suspend fun onErr(data: ByteArray) = print(data.toString(charset))
-		}).also {
-			println()
-		}
-	}
+    suspend fun passthru(
+        cmdAndArgs: List<String>,
+        env: Map<String, String> = LinkedHashMap(),
+        charset: Charset = UTF8
+    ): Int {
+        return exec(cmdAndArgs.toList(), env, object : VfsProcessHandler() {
+            override suspend fun onOut(data: ByteArray) = print(data.toString(charset))
+            override suspend fun onErr(data: ByteArray) = print(data.toString(charset))
+        }).also {
+            println()
+        }
+    }
 
-	suspend fun passthru(
-		vararg cmdAndArgs: String,
-		env: Map<String, String> = LinkedHashMap(),
-		charset: Charset = UTF8
-	): Int = passthru(cmdAndArgs.toList(), env, charset)
+    suspend fun passthru(
+        vararg cmdAndArgs: String,
+        env: Map<String, String> = LinkedHashMap(),
+        charset: Charset = UTF8
+    ): Int = passthru(cmdAndArgs.toList(), env, charset)
 
-	suspend fun watch(handler: suspend (Vfs.FileEvent) -> Unit): AutoCloseable {
-		//val cc = coroutineContext
-		val cc = coroutineContext
-		return vfs.watch(this.path) { event -> CoroutineScope(cc).launch(cc) { handler(event) } }
-	}
+    suspend fun watch(handler: suspend (Vfs.FileEvent) -> Unit): AutoCloseable {
+        //val cc = coroutineContext
+        val cc = coroutineContext
+        return vfs.watch(this.path) { event -> CoroutineScope(cc).launch(cc) { handler(event) } }
+    }
 
-	suspend fun redirected(pathRedirector: suspend VfsFile.(String) -> String): VfsFile {
-		val actualFile = this
-		return VfsFile(object : Vfs.Proxy() {
-			override suspend fun access(path: String): VfsFile =
-				actualFile[actualFile.pathRedirector(path)]
+    suspend fun redirected(pathRedirector: suspend VfsFile.(String) -> String): VfsFile {
+        val actualFile = this
+        return VfsFile(object : Vfs.Proxy() {
+            override suspend fun access(path: String): VfsFile =
+                actualFile[actualFile.pathRedirector(path)]
 
-			override fun toString(): String = "VfsRedirected"
-		}, this.path)
-	}
+            override fun toString(): String = "VfsRedirected"
+        }, this.path)
+    }
 
-	suspend fun copyTo(target: AsyncOutputStream): Long = this.openUse {
-		this.copyTo(target)
-	}
-	suspend fun copyTo(target: VfsFile, vararg attributes: Vfs.Attribute): Long = this.openInputStream().use { target.writeStream(it, *attributes) }
+    suspend fun copyTo(target: AsyncOutputStream): Long = this.openUse {
+        this.copyTo(target)
+    }
+    suspend fun copyTo(target: VfsFile, vararg attributes: Vfs.Attribute): Long = this.openInputStream().use { target.writeStream(it, *attributes) }
 
-	fun jail(): VfsFile = JailVfs(this)
-	fun jailParent(): VfsFile = JailVfs(parent)[this.baseName]
+    fun jail(): VfsFile = JailVfs(this)
+    fun jailParent(): VfsFile = JailVfs(parent)[this.baseName]
 
-	override fun toString(): String = "$vfs[${this.path}]"
+    override fun toString(): String = "$vfs[${this.path}]"
 }
 
 suspend inline fun VfsFile.setUnixPermission(permissions: Vfs.UnixPermissions): Unit = setAttributes(permissions)
@@ -331,11 +331,11 @@ fun VfsFile.withOnce(once: suspend (VfsFile) -> Unit): VfsFile {
     var completed = false
     return proxied {
         it.also {
-			if (!completed) {
-				completed = true
-				once(file)
-			}
-		}
+            if (!completed) {
+                completed = true
+                once(file)
+            }
+        }
     }
 }
 

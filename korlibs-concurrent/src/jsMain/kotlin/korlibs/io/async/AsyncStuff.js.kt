@@ -27,18 +27,18 @@ actual fun <T> runBlockingNoJs(context: CoroutineContext, block: suspend Corouti
 
 /*
 actual fun asyncEntryPoint(callback: suspend () -> Unit): dynamic = kotlin.js.Promise<dynamic> { resolve, reject ->
-	callback.startCoroutine(object : Continuation<Unit> {
-		override val context: CoroutineContext = Dispatchers.Default
-		override fun resumeWith(result: Result<Unit>) {
-			val exception = result.exceptionOrNull()
-			if (exception != null) {
+    callback.startCoroutine(object : Continuation<Unit> {
+        override val context: CoroutineContext = Dispatchers.Default
+        override fun resumeWith(result: Result<Unit>) {
+            val exception = result.exceptionOrNull()
+            if (exception != null) {
                 println("WARNING:: EntryPoint exception")
-				reject(exception)
-			} else {
-				//resolve(undefined)
-				resolve(Unit)
-			}
-		}
-	})
+                reject(exception)
+            } else {
+                //resolve(undefined)
+                resolve(Unit)
+            }
+        }
+    })
 }
 */

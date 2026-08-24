@@ -372,37 +372,37 @@ abstract class BaseTtfFont(
     override fun toString(): String = "TtfFont(name=$name)"
 
     data class Table(val id: String, val checksum: Int, val offset: Int, val length: Int) {
-		var s: (() -> FastByteArrayInputStream)? = null
+        var s: (() -> FastByteArrayInputStream)? = null
         private val ss: FastByteArrayInputStream by lazy { s!!() }
 
-		fun open(): FastByteArrayInputStream = ss.clone()
-	}
+        fun open(): FastByteArrayInputStream = ss.clone()
+    }
 
-	@Suppress("unused")
-	enum class NameIds(val id: Int) {
-		COPYRIGHT(0), FONT_FAMILY_NAME(1), FONT_SUBFAMILY_NAME(2), UNIQUE_FONT_ID(3),
-		FULL_FONT_NAME(4), VERSION_STRING(5), POSTSCRIPT_NAME(6), TRADEMARK(7),
-		MANUFACTURER(8), DESIGNER(9), DESCRIPTION(10), URL_VENDOR(11),
-		URL_DESIGNER(12), LICENSE_DESCRIPTION(13), LICENSE_URL(14), RESERVED_15(15),
-		TYPO_FAMILY_NAME(16), TYPO_SUBFAMILY_NAME(17), COMPATIBLE_FULL(18), SAMPLE_TEXT(19),
-		POSTSCRIPT_CID(20), WWS_FAMILY_NAME(21), WWS_SUBFAMILY_NAME(22), LIGHT_BACKGROUND_PALETTE(23),
-		DARK_BACKGROUND_PALETTE(24), VARIATIONS_POSTSCRIPT_NAME_PREFIX(25);
+    @Suppress("unused")
+    enum class NameIds(val id: Int) {
+        COPYRIGHT(0), FONT_FAMILY_NAME(1), FONT_SUBFAMILY_NAME(2), UNIQUE_FONT_ID(3),
+        FULL_FONT_NAME(4), VERSION_STRING(5), POSTSCRIPT_NAME(6), TRADEMARK(7),
+        MANUFACTURER(8), DESIGNER(9), DESCRIPTION(10), URL_VENDOR(11),
+        URL_DESIGNER(12), LICENSE_DESCRIPTION(13), LICENSE_URL(14), RESERVED_15(15),
+        TYPO_FAMILY_NAME(16), TYPO_SUBFAMILY_NAME(17), COMPATIBLE_FULL(18), SAMPLE_TEXT(19),
+        POSTSCRIPT_CID(20), WWS_FAMILY_NAME(21), WWS_SUBFAMILY_NAME(22), LIGHT_BACKGROUND_PALETTE(23),
+        DARK_BACKGROUND_PALETTE(24), VARIATIONS_POSTSCRIPT_NAME_PREFIX(25);
 
-		companion object {
-			val names = entries.toTypedArray()
-		}
-	}
+        companion object {
+            val names = entries.toTypedArray()
+        }
+    }
 
     internal fun FastByteArrayInputStream.readFWord(): FWord = FWord(readU16BE())
     internal fun FastByteArrayInputStream.readFixed(): Int = Fixed(readS16BE(), readS16BE())
     internal fun FastByteArrayInputStream.readFixed2(): Fixed = Fixed(readS32BE())
-	data class HorMetric(val advanceWidth: Int, val lsb: Int)
+    data class HorMetric(val advanceWidth: Int, val lsb: Int)
 
     abstract fun getTable(name: String): Table?
     abstract fun getTableNames(): Set<String>
 
     @PublishedApi
-	internal fun openTable(name: String): FastByteArrayInputStream? = getTable(name)?.open()
+    internal fun openTable(name: String): FastByteArrayInputStream? = getTable(name)?.open()
 
 
     protected abstract fun readHeaderTables()
@@ -478,8 +478,8 @@ abstract class BaseTtfFont(
     }
 
     protected inline fun runTableUnit(name: String, callback: FastByteArrayInputStream.() -> Unit) {
-		openTable(name)?.callback()
-	}
+        openTable(name)?.callback()
+    }
 
     protected inline fun <T> runTable(name: String, callback: FastByteArrayInputStream.(Table) -> T): T? {
         val table = getTable(name) ?: return null
@@ -524,114 +524,114 @@ abstract class BaseTtfFont(
 
     protected fun readNames() = runTableUnit("name") {
         readNamesSection(this, namesi)
-	}
+    }
 
     data class NameInfo(val offset: Int, val length: Int, val charset: Charset)
 
     // https://docs.microsoft.com/en-us/typography/opentype/spec/loca
     protected fun readLoca() = runTableUnit("loca") {
-		val bytesPerEntry = when (indexToLocFormat) {
-			0 -> 2
-			1 -> 4
-			else -> invalidOp
-		}
+        val bytesPerEntry = when (indexToLocFormat) {
+            0 -> 2
+            1 -> 4
+            else -> invalidOp
+        }
 
         //println("LOCAL: numGlyphs=$numGlyphs, indexToLocFormat=$indexToLocFormat, bytesPerEntry=$bytesPerEntry");
-		val data = readBytesExact(bytesPerEntry * (numGlyphs + 1))
+        val data = readBytesExact(bytesPerEntry * (numGlyphs + 1))
 
-		locs = FastByteArrayInputStream(data).run {
+        locs = FastByteArrayInputStream(data).run {
 
-			when (indexToLocFormat) {
-				0 -> readCharArrayBE(numGlyphs + 1).mapInt { it.code * 2 }
-				1 -> readIntArrayBE(numGlyphs + 1)
-				else -> invalidOp
-			}
-		}
+            when (indexToLocFormat) {
+                0 -> readCharArrayBE(numGlyphs + 1).mapInt { it.code * 2 }
+                1 -> readIntArrayBE(numGlyphs + 1)
+                else -> invalidOp
+            }
+        }
         //for ((index, loc) in locs.withIndex()) println("LOC[$index] = ${(loc / 2).hex}")
-		//println("locs: ${locs.toList()}")
-	}
+        //println("locs: ${locs.toList()}")
+    }
 
     protected fun readHead() = runTableUnit("head") {
-		readU16BE().apply { if (this != 1) invalidOp("Invalid TTF") }
-		readU16BE().apply { if (this != 0) invalidOp("Invalid TTF") }
-		fontRev = readFixed()
-		val checkSumAdjustment = readS32BE()
-		readS32BE().apply { if (this != 0x5F0F3CF5) invalidOp("Invalid magic ${this.hex}") }
-		val flags = readU16BE()
-		unitsPerEm = readU16BE()
-		val created = readS64BE() * 1000L
-		val modified = readS64BE() * 1000L
-		xMin = readS16BE()
-		yMin = readS16BE()
-		xMax = readS16BE()
-		yMax = readS16BE()
-		macStyle = readU16BE()
-		lowestRecPPEM = readU16BE()
-		fontDirectionHint = readS16BE()
-		indexToLocFormat = readS16BE() // 0=Int16, 1=Int32
-		glyphDataFormat = readS16BE()
+        readU16BE().apply { if (this != 1) invalidOp("Invalid TTF") }
+        readU16BE().apply { if (this != 0) invalidOp("Invalid TTF") }
+        fontRev = readFixed()
+        val checkSumAdjustment = readS32BE()
+        readS32BE().apply { if (this != 0x5F0F3CF5) invalidOp("Invalid magic ${this.hex}") }
+        val flags = readU16BE()
+        unitsPerEm = readU16BE()
+        val created = readS64BE() * 1000L
+        val modified = readS64BE() * 1000L
+        xMin = readS16BE()
+        yMin = readS16BE()
+        xMax = readS16BE()
+        yMax = readS16BE()
+        macStyle = readU16BE()
+        lowestRecPPEM = readU16BE()
+        fontDirectionHint = readS16BE()
+        indexToLocFormat = readS16BE() // 0=Int16, 1=Int32
+        glyphDataFormat = readS16BE()
 
-		//println("unitsPerEm: $unitsPerEm")
-		//println("created: ${DateTime(created) - 76.years}")
-		//println("modified: ${DateTime(modified) - 76.years}")
-		//println("bounds: ($xMin, $yMin)-($xMax, $yMax)")
-	}
+        //println("unitsPerEm: $unitsPerEm")
+        //println("created: ${DateTime(created) - 76.years}")
+        //println("modified: ${DateTime(modified) - 76.years}")
+        //println("bounds: ($xMin, $yMin)-($xMax, $yMax)")
+    }
 
     protected fun readMaxp() = runTableUnit("maxp") {
-		val version = readFixed()
-		numGlyphs = readU16BE()
-		maxPoints = readU16BE()
-		maxContours = readU16BE()
-		maxCompositePoints = readU16BE()
-		maxCompositeContours = readU16BE()
-		maxZones = readU16BE()
-		maxTwilightPoints = readU16BE()
-		maxStorage = readU16BE()
-		maxFunctionDefs = readU16BE()
-		maxInstructionDefs = readU16BE()
-		maxStackElements = readU16BE()
-		maxSizeOfInstructions = readU16BE()
-		maxComponentElements = readU16BE()
-		maxComponentDepth = readU16BE()
-	}
+        val version = readFixed()
+        numGlyphs = readU16BE()
+        maxPoints = readU16BE()
+        maxContours = readU16BE()
+        maxCompositePoints = readU16BE()
+        maxCompositeContours = readU16BE()
+        maxZones = readU16BE()
+        maxTwilightPoints = readU16BE()
+        maxStorage = readU16BE()
+        maxFunctionDefs = readU16BE()
+        maxInstructionDefs = readU16BE()
+        maxStackElements = readU16BE()
+        maxSizeOfInstructions = readU16BE()
+        maxComponentElements = readU16BE()
+        maxComponentDepth = readU16BE()
+    }
 
     protected fun readHhea() = runTableUnit("hhea") {
-		hheaVersion = readFixed()
-		ascender = readS16BE()
-		descender = readS16BE()
-		lineGap = readS16BE()
-		advanceWidthMax = readU16BE()
-		minLeftSideBearing = readS16BE()
-		minRightSideBearing = readS16BE()
-		xMaxExtent = readS16BE()
-		caretSlopeRise = readS16BE()
-		caretSlopeRun = readS16BE()
-		caretOffset = readS16BE()
-		readS16BE() // reserved
-		readS16BE() // reserved
-		readS16BE() // reserved
-		readS16BE() // reserved
-		metricDataFormat = readS16BE()
-		numberOfHMetrics = readU16BE()
-	}
+        hheaVersion = readFixed()
+        ascender = readS16BE()
+        descender = readS16BE()
+        lineGap = readS16BE()
+        advanceWidthMax = readU16BE()
+        minLeftSideBearing = readS16BE()
+        minRightSideBearing = readS16BE()
+        xMaxExtent = readS16BE()
+        caretSlopeRise = readS16BE()
+        caretSlopeRun = readS16BE()
+        caretOffset = readS16BE()
+        readS16BE() // reserved
+        readS16BE() // reserved
+        readS16BE() // reserved
+        readS16BE() // reserved
+        metricDataFormat = readS16BE()
+        numberOfHMetrics = readU16BE()
+    }
 
     protected fun readHmtx() = runTableUnit("hmtx") {
-		val firstMetrics = (0 until numberOfHMetrics).map {
+        val firstMetrics = (0 until numberOfHMetrics).map {
             HorMetric(
                 readU16BE(),
                 readS16BE()
             )
         }
-		val lastAdvanceWidth = firstMetrics.last().advanceWidth
-		val compressedMetrics =
-			(0 until (numGlyphs - numberOfHMetrics)).map {
+        val lastAdvanceWidth = firstMetrics.last().advanceWidth
+        val compressedMetrics =
+            (0 until (numGlyphs - numberOfHMetrics)).map {
                 HorMetric(
                     lastAdvanceWidth,
                     readS16BE()
                 )
             }
-		horMetrics = firstMetrics + compressedMetrics
-	}
+        horMetrics = firstMetrics + compressedMetrics
+    }
 
     protected fun readCpal() = runTableUnit("CPAL") {
         val version = readU16BE()
@@ -1569,18 +1569,18 @@ abstract class BaseTtfFont(
         }
     }
 
-	protected fun readCmap() = runTableUnit("cmap") {
-		data class EncodingRecord(val platformId: Int, val encodingId: Int, val offset: Int)
+    protected fun readCmap() = runTableUnit("cmap") {
+        data class EncodingRecord(val platformId: Int, val encodingId: Int, val offset: Int)
 
-		val version = readU16BE()
-		val numTables = readU16BE()
-		val tables = (0 until numTables).map { EncodingRecord(readU16BE(), readU16BE(), readS32BE()) }
+        val version = readU16BE()
+        val numTables = readU16BE()
+        val tables = (0 until numTables).map { EncodingRecord(readU16BE(), readU16BE(), readS32BE()) }
 
         var index: Int = 0
 
         for (table in tables) {
-			sliceStart(table.offset).run {
-				val format = readU16BE()
+            sliceStart(table.offset).run {
+                val format = readU16BE()
                 try {
                     //println("TABLE FORMAT[${this@BaseTtfFont}]: $format")
                     when (format) {
@@ -1729,13 +1729,13 @@ abstract class BaseTtfFont(
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
-				//println("cmap.table.format: $format")
-			}
-		}
+                //println("cmap.table.format: $format")
+            }
+        }
         //println("${this@TtfFont.name}: $characterMaps")
 
         //println(tables)
-	}
+    }
 
     fun getCodePointFromCharIndexOrElse(charIndex: Int, default: Int = -1): Int = characterMapsReverse.getOrElse(charIndex) { default }
     fun getCodePointFromCharIndex(charIndex: Int): Int? = characterMapsReverse[charIndex]
@@ -1820,12 +1820,12 @@ abstract class BaseTtfFont(
     fun getAllGlyphs(cache: Boolean = false) = (0 until numGlyphs).mapNotNull { getGlyphByIndex(it, cache) }
 
     data class Contour(var x: Int = 0, var y: Int = 0, var onCurve: Boolean = false) {
-		fun copyFrom(that: Contour) {
-			this.x = that.x
-			this.y = that.y
-			this.onCurve = that.onCurve
-		}
-	}
+        fun copyFrom(that: Contour) {
+            this.x = that.x
+            this.y = that.y
+            this.onCurve = that.onCurve
+        }
+    }
 
     data class GlyphReference(
         val glyph: Glyph,
@@ -1834,7 +1834,7 @@ abstract class BaseTtfFont(
         val scale01: Float,
         val scale10: Float,
         val scaleY: Float
-	)
+    )
 
     inner class ColrLayerInfo(val glyphID: Int, val paletteIndex: Int) {
         fun color(pal: Int) = palettes.getCyclic(pal).colors.getOrElse(paletteIndex) { Colors.FUCHSIA }
@@ -1931,7 +1931,7 @@ abstract class BaseTtfFont(
         xMax: Int, yMax: Int,
         val refs: List<GlyphReference>,
         advanceWidth: Int
-	) : Glyph(index, xMin, yMin, xMax, yMax, advanceWidth) {
+    ) : Glyph(index, xMin, yMin, xMax, yMax, advanceWidth) {
         override fun toString(): String = "CompositeGlyph[$advanceWidth](${refs})"
 
         override val paths = refs.map { ref ->
@@ -1972,23 +1972,23 @@ abstract class BaseTtfFont(
 
     inner class SimpleGlyph constructor(
         index: Int,
-		xMin: Int, yMin: Int,
-		xMax: Int, yMax: Int,
-		val contoursIndices: IntArray,
-		val flags: IntArray,
-		val xPos: IntArray,
-		val yPos: IntArray,
-		advanceWidth: Int,
+        xMin: Int, yMin: Int,
+        xMax: Int, yMax: Int,
+        val contoursIndices: IntArray,
+        val flags: IntArray,
+        val xPos: IntArray,
+        val yPos: IntArray,
+        advanceWidth: Int,
         val dummy: Boolean = false
-	) : Glyph(index, xMin, yMin, xMax, yMax, advanceWidth) {
+    ) : Glyph(index, xMin, yMin, xMax, yMax, advanceWidth) {
         override fun toString(): String = "SimpleGlyph${if (dummy) "Dummy" else ""}[$index](advance=$advanceWidth) : $path"
         val npoints: Int get() = xPos.size
         protected fun onCurve(n: Int) = (flags[n] and 1) != 0
-		protected fun contour(n: Int, out: Contour = Contour()) = out.apply {
-			x = xPos[n]
-			y = yPos[n]
-			onCurve = onCurve(n)
-		}
+        protected fun contour(n: Int, out: Contour = Contour()) = out.apply {
+            x = xPos[n]
+            y = yPos[n]
+            onCurve = onCurve(n)
+        }
 
         // @TODO: Do not use by lazy, since this causes a crash on Kotlin/Native
         override val path: GlyphGraphicsPath = run {
@@ -2063,11 +2063,11 @@ abstract class BaseTtfFont(
     }
 
     protected fun FastByteArrayInputStream.readF2DOT14(): Float {
-		val v = readS16BE()
-		val i = v.extractSigned(14, 2)
-		val f = v.extract(0, 14)
-		return i.toFloat() + f.toFloat() / 16384f
-	}
+        val v = readS16BE()
+        val i = v.extractSigned(14, 2)
+        val f = v.extract(0, 14)
+        return i.toFloat() + f.toFloat() / 16384f
+    }
 
     protected fun FastByteArrayInputStream.readFIXED3(): Float {
         val v = readS32BE()
@@ -2076,149 +2076,149 @@ abstract class BaseTtfFont(
         return i.toFloat() + f.toFloat() / 65536f
     }
 
-	@Suppress("FunctionName")
+    @Suppress("FunctionName")
     protected fun FastByteArrayInputStream.readMixBE(signed: Boolean, word: Boolean): Int {
-		return when {
-			!word && signed -> readS8()
-			!word && !signed -> readU8()
-			word && signed -> readS16BE()
-			word && !signed -> readU16BE()
-			else -> invalidOp
-		}
-	}
+        return when {
+            !word && signed -> readS8()
+            !word && !signed -> readU8()
+            word && signed -> readS16BE()
+            word && !signed -> readU16BE()
+            else -> invalidOp
+        }
+    }
 
     protected fun FastByteArrayInputStream.readGlyph(index: Int): Glyph {
-		val ncontours = readS16BE()
-		val xMin = readS16BE()
-		val yMin = readS16BE()
-		val xMax = readS16BE()
-		val yMax = readS16BE()
+        val ncontours = readS16BE()
+        val xMin = readS16BE()
+        val yMin = readS16BE()
+        val xMax = readS16BE()
+        val yMax = readS16BE()
 
         //println("glyph[$index]: ncontours=$ncontours [${ncontours.hex}], xMin=$xMin, yMin=$yMin -- xMax=$xMax, yMax=$yMax")
 
         val advanceWidth = horMetrics[index].advanceWidth
 
         return if (ncontours < 0) {
-			//println("WARNING: readCompositeGlyph not implemented")
+            //println("WARNING: readCompositeGlyph not implemented")
 
-			val ARG_1_AND_2_ARE_WORDS = 0x0001
-			val ARGS_ARE_XY_VALUES = 0x0002
-			val ROUND_XY_TO_GRID = 0x0004
-			val WE_HAVE_A_SCALE = 0x0008
-			val MORE_COMPONENTS = 0x0020
-			val WE_HAVE_AN_X_AND_Y_SCALE = 0x0040
-			val WE_HAVE_A_TWO_BY_TWO = 0x0080
-			val WE_HAVE_INSTRUCTIONS = 0x0100
-			val USE_MY_METRICS = 0x0200
-			val OVERLAP_COMPOUND = 0x0400
-			val SCALED_COMPONENT_OFFSET = 0x0800
-			val UNSCALED_COMPONENT_OFFSET = 0x1000
+            val ARG_1_AND_2_ARE_WORDS = 0x0001
+            val ARGS_ARE_XY_VALUES = 0x0002
+            val ROUND_XY_TO_GRID = 0x0004
+            val WE_HAVE_A_SCALE = 0x0008
+            val MORE_COMPONENTS = 0x0020
+            val WE_HAVE_AN_X_AND_Y_SCALE = 0x0040
+            val WE_HAVE_A_TWO_BY_TWO = 0x0080
+            val WE_HAVE_INSTRUCTIONS = 0x0100
+            val USE_MY_METRICS = 0x0200
+            val OVERLAP_COMPOUND = 0x0400
+            val SCALED_COMPONENT_OFFSET = 0x0800
+            val UNSCALED_COMPONENT_OFFSET = 0x1000
 
-			val references = arrayListOf<GlyphReference>()
+            val references = arrayListOf<GlyphReference>()
 
-			do {
-				val flags = readU16BE()
-				val glyphIndex = readU16BE()
+            do {
+                val flags = readU16BE()
+                val glyphIndex = readU16BE()
                 //println("COMPOUND: flags=${flags.shex}, glyphIndex=$glyphIndex")
-				val signed = (flags and ARGS_ARE_XY_VALUES) != 0
-				val words = (flags and ARG_1_AND_2_ARE_WORDS) != 0
-				val x = readMixBE(signed, words)
-				val y = readMixBE(signed, words)
-				var scaleX = 1f
-				var scaleY = 1f
-				var scale01 = 0f
-				var scale10 = 0f
+                val signed = (flags and ARGS_ARE_XY_VALUES) != 0
+                val words = (flags and ARG_1_AND_2_ARE_WORDS) != 0
+                val x = readMixBE(signed, words)
+                val y = readMixBE(signed, words)
+                var scaleX = 1f
+                var scaleY = 1f
+                var scale01 = 0f
+                var scale10 = 0f
 
-				when {
-					(flags and WE_HAVE_A_SCALE) != 0 -> {
-						scaleX = readF2DOT14()
-						scaleY = scaleX
-					}
-					(flags and WE_HAVE_AN_X_AND_Y_SCALE) != 0 -> {
-						scaleX = readF2DOT14()
-						scaleY = readF2DOT14()
-					}
-					(flags and WE_HAVE_A_TWO_BY_TWO) != 0 -> {
-						scaleX = readF2DOT14()
-						scale01 = readF2DOT14()
-						scale10 = readF2DOT14()
-						scaleY = readF2DOT14()
-					}
-				}
+                when {
+                    (flags and WE_HAVE_A_SCALE) != 0 -> {
+                        scaleX = readF2DOT14()
+                        scaleY = scaleX
+                    }
+                    (flags and WE_HAVE_AN_X_AND_Y_SCALE) != 0 -> {
+                        scaleX = readF2DOT14()
+                        scaleY = readF2DOT14()
+                    }
+                    (flags and WE_HAVE_A_TWO_BY_TWO) != 0 -> {
+                        scaleX = readF2DOT14()
+                        scale01 = readF2DOT14()
+                        scale10 = readF2DOT14()
+                        scaleY = readF2DOT14()
+                    }
+                }
 
-				//val useMyMetrics = flags hasFlag USE_MY_METRICS
-				val ref = GlyphReference(
+                //val useMyMetrics = flags hasFlag USE_MY_METRICS
+                val ref = GlyphReference(
                     getGlyphByIndex(glyphIndex)!!, x, y,
                     scaleX, scale01, scale10, scaleY
                 )
-				//println("signed=$signed, words=$words, useMyMetrics=$useMyMetrics")
-				//println(ref)
-				references += ref
-			} while ((flags and MORE_COMPONENTS) != 0)
+                //println("signed=$signed, words=$words, useMyMetrics=$useMyMetrics")
+                //println(ref)
+                references += ref
+            } while ((flags and MORE_COMPONENTS) != 0)
 
             CompositeGlyph(index, xMin, yMin, xMax, yMax, references, advanceWidth)
-		} else {
-			val contoursIndices = IntArray(ncontours + 1)
-			contoursIndices[0] = -1
-			for (n in 1..ncontours) contoursIndices[n] = readU16BE()
-			val instructionLength = readU16BE()
+        } else {
+            val contoursIndices = IntArray(ncontours + 1)
+            contoursIndices[0] = -1
+            for (n in 1..ncontours) contoursIndices[n] = readU16BE()
+            val instructionLength = readU16BE()
             //println("instructionLength: $instructionLength, $available, ${this@TtfFont.s.length}")
-			val instructions = readBytesExact(instructionLength)
-			val numPoints = contoursIndices.lastOrNull()?.plus(1) ?: 0
-			val flags = IntArrayList()
+            val instructions = readBytesExact(instructionLength)
+            val numPoints = contoursIndices.lastOrNull()?.plus(1) ?: 0
+            val flags = IntArrayList()
 
-			var npos = 0
-			while (npos < numPoints) {
-				val cf = readU8()
-				flags.add(cf)
-				// Repeat
-				if ((cf and 8) != 0) {
-					val count = readU8()
-					for (n in 0 until count) flags.add(cf)
-					npos += count + 1
-				} else {
-					npos++
-				}
-			}
+            var npos = 0
+            while (npos < numPoints) {
+                val cf = readU8()
+                flags.add(cf)
+                // Repeat
+                if ((cf and 8) != 0) {
+                    val count = readU8()
+                    for (n in 0 until count) flags.add(cf)
+                    npos += count + 1
+                } else {
+                    npos++
+                }
+            }
 
-			val xPos = IntArray(numPoints)
-			val yPos = IntArray(numPoints)
+            val xPos = IntArray(numPoints)
+            val yPos = IntArray(numPoints)
 
-			//println("--------------: $numPoints flags=${flags.toList()}")
+            //println("--------------: $numPoints flags=${flags.toList()}")
 
-			for (xy in 0..1) {
-				val pos = if (xy == 0) xPos else yPos
+            for (xy in 0..1) {
+                val pos = if (xy == 0) xPos else yPos
                 var p = 0
-				for (n in 0 until numPoints) {
-					val flag = flags.getAt(n)
-					val b1 = ((flag ushr (1 + xy)) and 1) != 0
-					val b2 = ((flag ushr (4 + xy)) and 1) != 0
-					if (b1) {
-						val magnitude = readU8()
-						if (b2) p += magnitude else p -= magnitude
-					} else if (!b2) {
-						p += readS16BE()
-					}
-					pos[n] = p
-				}
-			}
+                for (n in 0 until numPoints) {
+                    val flag = flags.getAt(n)
+                    val b1 = ((flag ushr (1 + xy)) and 1) != 0
+                    val b2 = ((flag ushr (4 + xy)) and 1) != 0
+                    if (b1) {
+                        val magnitude = readU8()
+                        if (b2) p += magnitude else p -= magnitude
+                    } else if (!b2) {
+                        p += readS16BE()
+                    }
+                    pos[n] = p
+                }
+            }
 
 
-			//println(xPos.toList())
-			//println(yPos.toList())
-			SimpleGlyph(
+            //println(xPos.toList())
+            //println(yPos.toList())
+            SimpleGlyph(
                 index,
-				xMin, yMin,
-				xMax, yMax,
-				contoursIndices,
-				flags.toIntArray(),
-				xPos, yPos,
+                xMin, yMin,
+                xMax, yMax,
+                contoursIndices,
+                flags.toIntArray(),
+                xPos, yPos,
                 advanceWidth
-			)
-		}.also {
+            )
+        }.also {
             //println("GLYPH[$index]: ncontours=$ncontours, xyminmax=[$xMin, $yMax, $xMax, $yMax], advanceWidth=$advanceWidth, glyph=${it}")
         }
-	}
+    }
 }
 
 /** int16 that describes a quantity in font design units. */

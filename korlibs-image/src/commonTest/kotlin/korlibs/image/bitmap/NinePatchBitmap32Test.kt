@@ -112,7 +112,7 @@ class NinePatchBitmap32Test {
                  - Rectangle(x=0, y=108, width=90, height=92):0,0,0,0
                  - Rectangle(x=90, y=108, width=67, height=92):0,0,0,0
                  - Rectangle(x=157, y=108, width=43, height=92):0,0,0,0
-			""".trimIndent(),
+            """.trimIndent(),
             genComputeScale(new = true)
         )
 
@@ -158,7 +158,7 @@ class NinePatchBitmap32Test {
                  - Rectangle(x=0, y=108, width=90, height=92):0,0,0,0
                  - Rectangle(x=90, y=108, width=67, height=92):0,0,0,0
                  - Rectangle(x=157, y=108, width=43, height=92):0,0,0,0
-			""".trimIndent(),
+            """.trimIndent(),
             genComputeScale(new = false)
         )
 

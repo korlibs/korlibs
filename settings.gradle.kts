@@ -4,6 +4,7 @@ pluginManagement {
         google()
         gradlePluginPortal()
     }
+    includeBuild("build-logic")
 }
 
 rootProject.name = "korlibs"

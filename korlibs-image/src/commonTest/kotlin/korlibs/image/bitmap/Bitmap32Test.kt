@@ -8,33 +8,33 @@ import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
 class Bitmap32Test {
-	@Test
-	fun name() {
-		val c = Bitmap32(1, 1, premultiplied = false)
-		c[0, 0] = Colors.WHITE
-		// @TODO: RGBA inline java.lang.AssertionError: expected:<-1> but was:<#ffffffff>
-		//assertEquals(Colors.WHITE, c[0, 0])
-		assertEquals(Colors.WHITE.hexString, c[0, 0].hexString)
-	}
+    @Test
+    fun name() {
+        val c = Bitmap32(1, 1, premultiplied = false)
+        c[0, 0] = Colors.WHITE
+        // @TODO: RGBA inline java.lang.AssertionError: expected:<-1> but was:<#ffffffff>
+        //assertEquals(Colors.WHITE, c[0, 0])
+        assertEquals(Colors.WHITE.hexString, c[0, 0].hexString)
+    }
 
-	@Test
-	fun constructGen() {
-		val c = Bitmap32(1, 1, Colors.BLUE)
-		assertTrue(c.all { it == Colors.BLUE })
-	}
+    @Test
+    fun constructGen() {
+        val c = Bitmap32(1, 1, Colors.BLUE)
+        assertTrue(c.all { it == Colors.BLUE })
+    }
 
-	@Test
-	fun fill() {
-		val c = Bitmap32(16, 16, premultiplied = false)
-		c.fill(Colors.RED)
-		assertTrue(c.all { it == Colors.RED })
+    @Test
+    fun fill() {
+        val c = Bitmap32(16, 16, premultiplied = false)
+        c.fill(Colors.RED)
+        assertTrue(c.all { it == Colors.RED })
         assertTrue(c.any { it == Colors.RED })
         assertFalse(c.any { it == Colors.BLUE })
         c[0, 0] = Colors.BLUE
         assertFalse(c.all { it == Colors.RED })
         assertTrue(c.any { it == Colors.RED })
         assertTrue(c.any { it == Colors.BLUE })
-	}
+    }
 
     @Test
     fun bitmapsAreNotComparedNorHashedByContent() {

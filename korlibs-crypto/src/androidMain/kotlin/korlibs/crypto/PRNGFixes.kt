@@ -33,21 +33,21 @@ object PRNGFixes {
     private const val VERSION_CODE_JELLY_BEAN = 16
     private const val VERSION_CODE_JELLY_BEAN_MR2 = 18
     private val BUILD_FINGERPRINT_AND_DEVICE_SERIAL: ByteArray = run {
-		val result = StringBuilder()
-		val fingerprint = Build.FINGERPRINT
-		if (fingerprint != null) {
-			result.append(fingerprint)
-		}
-		val serial = deviceSerialNumber
-		if (serial != null) {
-			result.append(serial)
-		}
-		try {
-			result.toString().toByteArray(charset("UTF-8"))
-		} catch (e: UnsupportedEncodingException) {
-			throw RuntimeException("UTF-8 encoding not supported")
-		}
-	}
+        val result = StringBuilder()
+        val fingerprint = Build.FINGERPRINT
+        if (fingerprint != null) {
+            result.append(fingerprint)
+        }
+        val serial = deviceSerialNumber
+        if (serial != null) {
+            result.append(serial)
+        }
+        try {
+            result.toString().toByteArray(charset("UTF-8"))
+        } catch (e: UnsupportedEncodingException) {
+            throw RuntimeException("UTF-8 encoding not supported")
+        }
+    }
 
     /**
      * Gets the hardware serial number of this device.
@@ -58,10 +58,10 @@ object PRNGFixes {
     // since API Level 9 (Gingerbread, Android 2.3).
     val deviceSerialNumber: String?
         get() = try {
-			Build::class.java.getField("SERIAL").get(null) as String
-		} catch (ignored: Exception) {
-			null
-		}
+            Build::class.java.getField("SERIAL").get(null) as String
+        } catch (ignored: Exception) {
+            null
+        }
 
     /**
      * Applies all fixes.

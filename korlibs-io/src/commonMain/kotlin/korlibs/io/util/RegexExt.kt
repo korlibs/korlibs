@@ -9,7 +9,7 @@ fun Regex.Companion.isSpecial(c: Char): Boolean = when (c) {
 
 fun Regex.Companion.quote(str: String): String = str.eachBuilder { c ->
     if (Regex.isSpecial(c)) append('\\')
-	append(c)
+    append(c)
 }
 
 /**

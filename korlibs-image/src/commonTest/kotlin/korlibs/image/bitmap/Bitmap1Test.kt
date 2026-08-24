@@ -11,11 +11,11 @@ class Bitmap1Test {
         val bmp = Bitmap1(4, 4)
         assertEquals(
             """
-				....
-				....
-				....
-				....
-			""".trimIndent(),
+                ....
+                ....
+                ....
+                ....
+            """.trimIndent(),
             bmp.toLines(".X").joinToString("\n")
         )
 
@@ -26,11 +26,11 @@ class Bitmap1Test {
 
         assertEquals(
             """
-				X...
-				.X..
-				.X..
-				...X
-			""".trimIndent(),
+                X...
+                .X..
+                .X..
+                ...X
+            """.trimIndent(),
             bmp.toLines(".X").joinToString("\n")
         )
 

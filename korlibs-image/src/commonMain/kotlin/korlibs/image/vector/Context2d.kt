@@ -691,34 +691,34 @@ fun RGBA.toFill() = ColorPaint(this)
 fun Drawable.renderTo(ctx: Context2d) = ctx.draw(this)
 
 fun SizedDrawable.filled(paint: Paint): SizedDrawable {
-	return object : SizedDrawable by this {
-		override fun draw(c: Context2d) {
-			c.fillStyle = paint
-			this@filled.draw(c)
-			c.fill()
-		}
-	}
+    return object : SizedDrawable by this {
+        override fun draw(c: Context2d) {
+            c.fillStyle = paint
+            this@filled.draw(c)
+            c.fill()
+        }
+    }
 }
 
 fun SizedDrawable.scaled(sx: Number = 1.0, sy: Number = sx): SizedDrawable {
-	return object : SizedDrawable by this {
-		override val width: Int = abs(this@scaled.width.toDouble() * sx.toDouble()).toInt()
-		override val height: Int = abs(this@scaled.height.toDouble() * sy.toDouble()).toInt()
+    return object : SizedDrawable by this {
+        override val width: Int = abs(this@scaled.width.toDouble() * sx.toDouble()).toInt()
+        override val height: Int = abs(this@scaled.height.toDouble() * sy.toDouble()).toInt()
 
-		override fun draw(c: Context2d) {
-			c.scale(sx.toDouble(), sy.toDouble())
-			this@scaled.draw(c)
-		}
-	}
+        override fun draw(c: Context2d) {
+            c.scale(sx.toDouble(), sy.toDouble())
+            this@scaled.draw(c)
+        }
+    }
 }
 
 fun SizedDrawable.translated(tx: Number = 0.0, ty: Number = tx): SizedDrawable {
-	return object : SizedDrawable by this {
-		override fun draw(c: Context2d) {
-			c.translate(tx.toDouble(), ty.toDouble())
-			this@translated.draw(c)
-		}
-	}
+    return object : SizedDrawable by this {
+        override fun draw(c: Context2d) {
+            c.translate(tx.toDouble(), ty.toDouble())
+            this@translated.draw(c)
+        }
+    }
 }
 
 fun SizedDrawable.render(): NativeImage = render(native = true) as NativeImage

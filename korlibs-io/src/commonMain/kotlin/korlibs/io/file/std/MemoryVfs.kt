@@ -26,27 +26,27 @@ fun SingleFileMemoryVfs(data: ByteArray, ext: String = "bin", basename: String =
 fun SingleFileMemoryVfs(data: String, ext: String = "bin", charset: Charset = Charsets.UTF8, basename: String = "file") = VfsFileFromData(data, ext, charset, basename)
 
 fun MemoryVfs(items: Map<String, AsyncStream> = LinkedHashMap(), caseSensitive: Boolean = true): VfsFile {
-	val vfs = NodeVfs(caseSensitive)
-	for ((path, stream) in items) {
-		val info = PathInfo(path)
-		val folderNode = vfs.rootNode.access(info.folder, createFolders = true)
-		val fileNode = folderNode.createChild(info.baseName, isDirectory = false)
-		fileNode.stream = stream
-	}
-	return vfs.root
+    val vfs = NodeVfs(caseSensitive)
+    for ((path, stream) in items) {
+        val info = PathInfo(path)
+        val folderNode = vfs.rootNode.access(info.folder, createFolders = true)
+        val fileNode = folderNode.createChild(info.baseName, isDirectory = false)
+        fileNode.stream = stream
+    }
+    return vfs.root
 }
 
 fun MemoryVfsMix(
-	items: Map<String, Any> = LinkedHashMap(),
-	caseSensitive: Boolean = true,
-	charset: Charset = UTF8
+    items: Map<String, Any> = LinkedHashMap(),
+    caseSensitive: Boolean = true,
+    charset: Charset = UTF8
 ): VfsFile = MemoryVfs(items.mapValues { (_, v) ->
-	when (v) {
-		is SyncStream -> v.toAsync()
-		is ByteArray -> v.openAsync()
-		is String -> v.openAsync(charset)
-		else -> v.toString().toByteArray(charset).openAsync()
-	}
+    when (v) {
+        is SyncStream -> v.toAsync()
+        is ByteArray -> v.openAsync()
+        is String -> v.openAsync(charset)
+        else -> v.toString().toByteArray(charset).openAsync()
+    }
 }, caseSensitive)
 
 fun MemoryVfsMix(vararg items: Pair<String, Any>, caseSensitive: Boolean = true, charset: Charset = UTF8): VfsFile = MemoryVfsMix(items.toMap(), caseSensitive, charset)

@@ -6,10 +6,10 @@ import korlibs.image.format.*
 import korlibs.image.vector.*
 
 abstract class NativeImage(width: Int, height: Int, override val data: Any?, premultiplied: Boolean) : Bitmap(width, height, 32, premultiplied, null), NativeImageRef {
-	abstract val name: String
+    abstract val name: String
     open fun toUri(): String = "data:image/png;base64," + PNG.encode(this, ImageEncodingProps("out.png")).toBase64()
 
-	fun toNonNativeBmp(): Bitmap = toBMP32()
+    fun toNonNativeBmp(): Bitmap = toBMP32()
     override fun toBMP32(): Bitmap32 = Bitmap32(width, height, premultiplied).also { readPixelsUnsafe(0, 0, width, height, it.ints, 0) }
 
     abstract override fun readPixelsUnsafe(x: Int, y: Int, width: Int, height: Int, out: IntArray, offset: Int)
@@ -97,8 +97,8 @@ abstract class ForcedTexNativeImage(width: Int, height: Int, premultiplied: Bool
 fun Bitmap.mipmap(levels: Int): NativeImage = nativeImageFormatProvider.mipmap(this, levels)
 
 fun Bitmap.toUri(): String {
-	if (this is NativeImage) return this.toUri()
-	return "data:image/png;base64," + PNG.encode(this, ImageEncodingProps("out.png")).toBase64()
+    if (this is NativeImage) return this.toUri()
+    return "data:image/png;base64," + PNG.encode(this, ImageEncodingProps("out.png")).toBase64()
 }
 
 fun NativeImageOrBitmap32(width: Int, height: Int, native: Boolean = true, premultiplied: Boolean? = null) =
@@ -113,32 +113,32 @@ fun NativeImage(width: Int, height: Int, pixels: RgbaPremultipliedArray): Native
     nativeImageFormatProvider.create(width, height, pixels.ints, premultiplied = true)
 
 fun NativeImage(
-	width: Int,
-	height: Int,
-	d: Drawable,
-	scaleX: Double = 1.0,
-	scaleY: Double = scaleX
+    width: Int,
+    height: Int,
+    d: Drawable,
+    scaleX: Double = 1.0,
+    scaleY: Double = scaleX
 ): NativeImage {
-	val bmp = NativeImage(width, height)
-	try {
-		bmp.context2d {
+    val bmp = NativeImage(width, height)
+    try {
+        bmp.context2d {
             keep {
                 scale(scaleX, scaleY)
                 draw(d)
             }
         }
-	} catch (e: Throwable) {
+    } catch (e: Throwable) {
         imageLoadingLogger.error { e }
-	}
-	return bmp
+    }
+    return bmp
 }
 
 fun NativeImage(d: SizedDrawable, scaleX: Double = 1.0, scaleY: Double = scaleX): NativeImage =
     NativeImage((d.width * scaleX).toInt(), (d.height * scaleY).toInt(), d, scaleX, scaleY)
 
 fun Bitmap.ensureNative() = when (this) {
-	is NativeImage -> this
-	else -> nativeImageFormatProvider.copy(this)
+    is NativeImage -> this
+    else -> nativeImageFormatProvider.copy(this)
 }
 
 fun SizedDrawable.raster(scaleX: Double = 1.0, scaleY: Double = scaleX) = NativeImage(this, scaleX, scaleY)

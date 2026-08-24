@@ -18,21 +18,21 @@ value class RGBA(val value: Int) : Comparable<RGBA>, Interpolable<RGBA>, Paint {
     val color: RGBA get() = this
 
     val r: Int get() = value.extract8(RED_OFFSET)
-	val g: Int get() = value.extract8(GREEN_OFFSET)
-	val b: Int get() = value.extract8(BLUE_OFFSET)
-	val a: Int get() = value.extract8(ALPHA_OFFSET)
+    val g: Int get() = value.extract8(GREEN_OFFSET)
+    val b: Int get() = value.extract8(BLUE_OFFSET)
+    val a: Int get() = value.extract8(ALPHA_OFFSET)
 
-	val rf: Float get() = r.toFloat() / 255f
-	val gf: Float get() = g.toFloat() / 255f
-	val bf: Float get() = b.toFloat() / 255f
-	val af: Float get() = a.toFloat() / 255f
+    val rf: Float get() = r.toFloat() / 255f
+    val gf: Float get() = g.toFloat() / 255f
+    val bf: Float get() = b.toFloat() / 255f
+    val af: Float get() = a.toFloat() / 255f
 
-	val rd: Double get() = r.toDouble() / 255.0
-	val gd: Double get() = g.toDouble() / 255.0
-	val bd: Double get() = b.toDouble() / 255.0
-	val ad: Double get() = a.toDouble() / 255.0
+    val rd: Double get() = r.toDouble() / 255.0
+    val gd: Double get() = g.toDouble() / 255.0
+    val bd: Double get() = b.toDouble() / 255.0
+    val ad: Double get() = a.toDouble() / 255.0
 
-	val rgb: Int get() = value and 0xFFFFFF
+    val rgb: Int get() = value and 0xFFFFFF
 
     fun readFloat(out: FloatArray, index: Int = 0) {
         out[index + 0] = rf
@@ -44,14 +44,14 @@ value class RGBA(val value: Int) : Comparable<RGBA>, Interpolable<RGBA>, Paint {
     fun toRGBAf(): RGBAf = RGBAf(rf, gf, bf, af)
     fun toVector4(): Vector4F = Vector4F(rf, gf, bf, af)
 
-	fun withR(v: Int): RGBA = RGBA((value and (0xFF shl 0).inv()) or (v.clampUByte() shl RED_OFFSET))
-	fun withG(v: Int): RGBA = RGBA((value and (0xFF shl 8).inv()) or (v.clampUByte() shl GREEN_OFFSET))
-	fun withB(v: Int): RGBA = RGBA((value and (0xFF shl 16).inv()) or (v.clampUByte() shl BLUE_OFFSET))
-	fun withA(v: Int): RGBA = RGBA((value and (0xFF shl 24).inv()) or (v.clampUByte() shl ALPHA_OFFSET))
+    fun withR(v: Int): RGBA = RGBA((value and (0xFF shl 0).inv()) or (v.clampUByte() shl RED_OFFSET))
+    fun withG(v: Int): RGBA = RGBA((value and (0xFF shl 8).inv()) or (v.clampUByte() shl GREEN_OFFSET))
+    fun withB(v: Int): RGBA = RGBA((value and (0xFF shl 16).inv()) or (v.clampUByte() shl BLUE_OFFSET))
+    fun withA(v: Int): RGBA = RGBA((value and (0xFF shl 24).inv()) or (v.clampUByte() shl ALPHA_OFFSET))
     //fun withRGB(r: Int, g: Int, b: Int) = withR(r).withG(g).withB(b)
     fun withRGB(r: Int, g: Int, b: Int): RGBA =
         RGBA((value and 0x00FFFFFF.inv()) or (r.clampUByte() shl RED_OFFSET) or (g.clampUByte() shl GREEN_OFFSET) or (b.clampUByte() shl BLUE_OFFSET))
-	fun withRGB(rgb: Int): RGBA = RGBA(rgb, a)
+    fun withRGB(rgb: Int): RGBA = RGBA(rgb, a)
 
     fun withRGBUnclamped(r: Int, g: Int, b: Int): RGBA =
         RGBA((value and 0x00FFFFFF.inv()) or ((r and 0xFF) shl RED_OFFSET) or ((g and 0xFF) shl GREEN_OFFSET) or ((b and 0xFF) shl BLUE_OFFSET))
@@ -99,13 +99,13 @@ value class RGBA(val value: Int) : Comparable<RGBA>, Interpolable<RGBA>, Paint {
         appendHexByte(g)
         appendHexByte(b)
     }
-	val htmlColor: String get() = "rgba($r, $g, $b, ${af.niceStr})"
-	val htmlStringSimple: String get() = hexStringNoAlpha
+    val htmlColor: String get() = "rgba($r, $g, $b, ${af.niceStr})"
+    val htmlStringSimple: String get() = hexStringNoAlpha
 
-	override fun toString(): String = hexString
+    override fun toString(): String = hexString
 
-	operator fun plus(other: RGBA): RGBA = RGBA(this.r + other.r, this.g + other.g, this.b + other.b, this.a + other.a)
-	operator fun minus(other: RGBA): RGBA = RGBA(this.r - other.r, this.g - other.g, this.b - other.b, this.a - other.a)
+    operator fun plus(other: RGBA): RGBA = RGBA(this.r + other.r, this.g + other.g, this.b + other.b, this.a + other.a)
+    operator fun minus(other: RGBA): RGBA = RGBA(this.r - other.r, this.g - other.g, this.b - other.b, this.a - other.a)
 
     override operator fun compareTo(other: RGBA): Int = this.value.compareTo(other.value)
     override fun interpolateWith(ratio: Ratio, other: RGBA): RGBA = RGBA.interpolate(this, other, ratio)
@@ -158,19 +158,19 @@ value class RGBA(val value: Int) : Comparable<RGBA>, Interpolable<RGBA>, Paint {
         fun float(r: Float, g: Float, b: Float, a: Float): RGBA = unclamped(f2i(r), f2i(g), f2i(b), f2i(a))
         fun float(r: Double, g: Double, b: Double, a: Double): RGBA = unclamped(d2i(r), d2i(g), d2i(b), d2i(a))
         fun unclamped(r: Int, g: Int, b: Int, a: Int): RGBA = RGBA(packIntUnchecked(r, g, b, a))
-		operator fun invoke(r: Int, g: Int, b: Int, a: Int): RGBA = RGBA(packIntClamped(r, g, b, a))
+        operator fun invoke(r: Int, g: Int, b: Int, a: Int): RGBA = RGBA(packIntClamped(r, g, b, a))
         operator fun invoke(r: Int, g: Int, b: Int): RGBA = RGBA(packIntClamped(r, g, b, 0xFF))
-		operator fun invoke(rgb: Int, a: Int): RGBA = RGBA((rgb and 0xFFFFFF) or (a shl 24))
+        operator fun invoke(rgb: Int, a: Int): RGBA = RGBA((rgb and 0xFFFFFF) or (a shl 24))
         operator fun invoke(rgba: RGBA): RGBA = rgba
-		override fun getR(v: Int): Int = RGBA(v).r
-		override fun getG(v: Int): Int = RGBA(v).g
-		override fun getB(v: Int): Int = RGBA(v).b
-		override fun getA(v: Int): Int = RGBA(v).a
-		override fun pack(r: Int, g: Int, b: Int, a: Int): Int = RGBA(r, g, b, a).value
+        override fun getR(v: Int): Int = RGBA(v).r
+        override fun getG(v: Int): Int = RGBA(v).g
+        override fun getB(v: Int): Int = RGBA(v).b
+        override fun getA(v: Int): Int = RGBA(v).a
+        override fun pack(r: Int, g: Int, b: Int, a: Int): Int = RGBA(r, g, b, a).value
         fun packUnsafe(r: Int, g: Int, b: Int, a: Int): RGBA = RGBA(r or (g shl 8) or (b shl 16) or (a shl 24))
 
-		//fun mutliplyByAlpha(v: Int, alpha: Double): Int = korlibs.image.color.RGBA.pack(RGBA(v).r, RGBA(v).g, RGBA(v).b, (RGBA(v).a * alpha).toInt())
-		//fun depremultiply(v: RGBA): RGBA = v.asPremultiplied().depremultiplied
+        //fun mutliplyByAlpha(v: Int, alpha: Double): Int = korlibs.image.color.RGBA.pack(RGBA(v).r, RGBA(v).g, RGBA(v).b, (RGBA(v).a * alpha).toInt())
+        //fun depremultiply(v: RGBA): RGBA = v.asPremultiplied().depremultiplied
 
         fun mixRgbFactor256(c1: RGBA, c2: RGBA, factor256: Int): RGBA =
             RGBA(mixRgbFactor256(c1.value, c2.value, factor256))
@@ -182,7 +182,7 @@ value class RGBA(val value: Int) : Comparable<RGBA>, Interpolable<RGBA>, Paint {
                     ((((c1 and 0x00FF00) * ifactor256) + ((c2 and 0x00FF00) * factor256)) and 0x00FF0000))) ushr 8
 
         }
-		fun mixRgb(c1: RGBA, c2: RGBA, factor: Ratio): RGBA = mixRgbFactor256(c1, c2, (factor.toFloat() * 256).roundToInt())
+        fun mixRgb(c1: RGBA, c2: RGBA, factor: Ratio): RGBA = mixRgbFactor256(c1, c2, (factor.toFloat() * 256).roundToInt())
         fun mixRgba(c1: RGBA, c2: RGBA, factor: Ratio): RGBA = RGBA(mixRgb(c1, c2, factor).rgb, blendComponent(c1.a, c2.a, factor))
 
         fun mixRgba4(c00: RGBA, c10: RGBA, c01: RGBA, c11: RGBA, factorX: Ratio, factorY: Ratio): RGBA {
@@ -430,19 +430,19 @@ value class RgbaArray(val ints: IntArray) : List<RGBA> {
     }
 
     override fun subList(fromIndex: Int, toIndex: Int): List<RGBA> = GenericSubList(this, fromIndex, toIndex)
-	override fun contains(element: RGBA): Boolean = ints.contains(element.value)
-	override fun containsAll(elements: Collection<RGBA>): Boolean = elements.all { contains(it) }
-	override fun indexOf(element: RGBA): Int = ints.indexOf(element.value)
-	override fun lastIndexOf(element: RGBA): Int = ints.lastIndexOf(element.value)
-	override fun isEmpty(): Boolean = ints.isEmpty()
-	override fun iterator(): Iterator<RGBA> = listIterator(0)
-	override fun listIterator(): ListIterator<RGBA> = listIterator(0)
-	override fun listIterator(index: Int): ListIterator<RGBA> = GenericListIterator(this, index)
+    override fun contains(element: RGBA): Boolean = ints.contains(element.value)
+    override fun containsAll(elements: Collection<RGBA>): Boolean = elements.all { contains(it) }
+    override fun indexOf(element: RGBA): Int = ints.indexOf(element.value)
+    override fun lastIndexOf(element: RGBA): Int = ints.lastIndexOf(element.value)
+    override fun isEmpty(): Boolean = ints.isEmpty()
+    override fun iterator(): Iterator<RGBA> = listIterator(0)
+    override fun listIterator(): ListIterator<RGBA> = listIterator(0)
+    override fun listIterator(index: Int): ListIterator<RGBA> = GenericListIterator(this, index)
 
-	override val size get() = ints.size
-	override operator fun get(index: Int): RGBA = RGBA(ints[index])
-	operator fun set(index: Int, color: RGBA) { ints[index] = color.value }
-	fun fill(value: RGBA, start: Int = 0, end: Int = this.size): Unit = ints.fill(value.value, start, end)
+    override val size get() = ints.size
+    override operator fun get(index: Int): RGBA = RGBA(ints[index])
+    operator fun set(index: Int, color: RGBA) { ints[index] = color.value }
+    fun fill(value: RGBA, start: Int = 0, end: Int = this.size): Unit = ints.fill(value.value, start, end)
 
     fun premultiplyInplace(start: Int = 0, end: Int = size): RgbaPremultipliedArray {
         for (n in start until end) this.ints[n] = this[n].premultiplied.value

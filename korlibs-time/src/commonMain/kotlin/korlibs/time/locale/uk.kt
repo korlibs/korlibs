@@ -6,12 +6,12 @@ import korlibs.time.KlockLocale
 val KlockLocale.Companion.ukrainian get() = UkrainianKlockLocale
 
 open class UkrainianKlockLocale : KlockLocale() {
-	companion object : UkrainianKlockLocale()
+    companion object : UkrainianKlockLocale()
 
-	override val ISO639_1 = "uk"
-	override val h12Marker = listOf("ДП", "ПП")
+    override val ISO639_1 = "uk"
+    override val h12Marker = listOf("ДП", "ПП")
 
-	override val firstDayOfWeek: DayOfWeek = DayOfWeek.Monday
+    override val firstDayOfWeek: DayOfWeek = DayOfWeek.Monday
 
     override val daysOfWeek = listOf(
         "неділя", "понеділок", "вівторок", "середа", "четвер", "п'ятниця", "субота"
@@ -21,19 +21,19 @@ open class UkrainianKlockLocale : KlockLocale() {
         "нд", "пн", "вт", "ср", "чт", "пт", "сб"
     )
 
-	override val months = listOf(
-		"січня", "лютого", "березня", "квітня", "травня", "червня",
-		"липня", "серпня", "вересня", "жовтня", "листопада", "грудня"
-	)
+    override val months = listOf(
+        "січня", "лютого", "березня", "квітня", "травня", "червня",
+        "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"
+    )
 
-	override val formatDateTimeMedium = format("d MMM y р. H:mm:ss")
-	override val formatDateTimeShort = format("dd.MM.y H:mm")
+    override val formatDateTimeMedium = format("d MMM y р. H:mm:ss")
+    override val formatDateTimeShort = format("dd.MM.y H:mm")
 
-	override val formatDateFull = format("EEEE, d MMMM y р.")
-	override val formatDateLong = format("d MMMM y р.")
-	override val formatDateMedium = format("d MMM y р.")
-	override val formatDateShort = format("dd.MM.y")
+    override val formatDateFull = format("EEEE, d MMMM y р.")
+    override val formatDateLong = format("d MMMM y р.")
+    override val formatDateMedium = format("d MMM y р.")
+    override val formatDateShort = format("dd.MM.y")
 
-	override val formatTimeMedium = format("H:mm:ss")
-	override val formatTimeShort = format("H:mm")
+    override val formatTimeMedium = format("H:mm:ss")
+    override val formatTimeShort = format("H:mm")
 }
