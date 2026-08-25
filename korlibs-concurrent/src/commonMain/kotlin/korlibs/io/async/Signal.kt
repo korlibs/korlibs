@@ -2,13 +2,21 @@
 
 package korlibs.io.async
 
-import korlibs.datastructure.*
-import korlibs.io.lang.*
-import korlibs.time.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.*
-import kotlin.coroutines.*
-import kotlin.time.*
+import korlibs.io.lang.close
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.coroutineContext
+import kotlin.coroutines.resume
+import kotlin.time.Duration
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.produce
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 abstract class BaseSignal<T, THandler>(val onRegister: () -> Unit = {}) {
     inner class Node(val once: Boolean, val item: THandler) : AutoCloseable {
@@ -21,8 +29,8 @@ abstract class BaseSignal<T, THandler>(val onRegister: () -> Unit = {}) {
         }
     }
 
-    protected var handlers: MutableList<Node> = FastArrayList<Node>()
-    protected var handlersToRemove: MutableList<Node> = FastArrayList<Node>()
+    protected var handlers: MutableList<Node> = ArrayList()
+    protected var handlersToRemove: MutableList<Node> = ArrayList()
     val listenerCount: Int get() = handlers.size
     val hasListeners get() = listenerCount > 0
     fun clear() = handlers.clear()
@@ -127,7 +135,7 @@ fun <TI, TO> Signal<TI>.mapSignal(transform: (TI) -> TO): Signal<TO> {
 operator fun Signal<Unit>.invoke() = invoke(Unit)
 
 suspend fun Iterable<Signal<*>>.waitOne(): Any? = suspendCancellableCoroutine { c ->
-    val closes = FastArrayList<AutoCloseable>()
+    val closes = ArrayList<AutoCloseable>()
     for (signal in this) {
         closes += signal.once {
             closes.close()
