@@ -1,9 +1,18 @@
 package korlibs.time.core
 
-import korlibs.time.*
-import kotlinx.cinterop.*
-import platform.posix.*
-import kotlin.time.*
+import korlibs.time.seconds
+import kotlin.time.Duration
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.value
+import platform.posix.gettimeofday
+import platform.posix.localtime_r
+import platform.posix.time_tVar
+import platform.posix.timeval
+import platform.posix.tm
 
 @OptIn(ExperimentalForeignApi::class)
 actual var CoreTime: ICoreTime = object : ICoreTime {

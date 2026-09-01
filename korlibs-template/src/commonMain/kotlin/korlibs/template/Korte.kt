@@ -1,10 +1,15 @@
 package korlibs.template
 
-import korlibs.io.serialization.yaml.*
-import korlibs.template.dynamic.*
-import korlibs.template.internal.*
-import korlibs.template.util.*
-import kotlin.collections.set
+import korlibs.io.serialization.yaml.Yaml
+import korlibs.template.dynamic.KorteDynamic2
+import korlibs.template.dynamic.KorteDynamicContext
+import korlibs.template.dynamic.KorteMapper2
+import korlibs.template.dynamic.KorteObjectMapper2
+import korlibs.template.internal.KorteAsyncCache
+import korlibs.template.internal.Pool
+import korlibs.template.internal.htmlspecialchars
+import korlibs.template.util.KorteAsyncTextWriterContainer
+import korlibs.template.util.KorteListReader
 
 open class KorteTemplates(
     var root: KorteNewTemplateProvider,

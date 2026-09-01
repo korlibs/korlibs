@@ -1,6 +1,6 @@
 package korlibs.time
 
-import kotlin.time.*
+import kotlin.time.Duration
 
 /**
  * Class to count the number of times a sample was added in a timeWindow

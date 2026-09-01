@@ -1,10 +1,8 @@
 package korlibs.time
 
 import korlibs.Serializable
-import korlibs.time.core.*
-import korlibs.time.core.internal.*
-import korlibs.time.internal.Moduler
-import kotlin.time.*
+import korlibs.time.core.CoreTimeInternalApi
+import kotlin.time.Duration
 
 /**
  * Immutable structure representing a set of a [monthSpan] and a [duration].

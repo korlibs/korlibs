@@ -1,8 +1,8 @@
 package korlibs.image.format
 
-import korlibs.time.milliseconds
 import korlibs.io.async.suspendTestNoBrowser
 import korlibs.io.file.std.resourcesVfs
+import korlibs.time.milliseconds
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

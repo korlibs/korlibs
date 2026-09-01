@@ -1,15 +1,16 @@
 package korlibs.image.vector
 
-import korlibs.image.*
-import korlibs.image.color.*
-import korlibs.image.util.*
-import korlibs.image.vector.format.*
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import korlibs.math.geom.*
-import korlibs.math.range.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.image.color.Colors
+import korlibs.image.doTest
+import korlibs.image.util.NinePatchSlices
+import korlibs.image.util.NinePatchSlices2D
+import korlibs.image.vector.format.readSVG
+import korlibs.io.file.std.resourcesVfs
+import korlibs.math.geom.Size
+import korlibs.math.range.until
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class NinePatchShapeTest {
     @Test

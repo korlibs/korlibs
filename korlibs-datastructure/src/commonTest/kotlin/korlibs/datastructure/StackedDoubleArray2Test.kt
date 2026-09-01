@@ -1,7 +1,9 @@
 package korlibs.datastructure
 
-import korlibs.math.geom.*
-import kotlin.test.*
+import korlibs.math.geom.PointInt
+import korlibs.math.geom.SizeInt
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class StackedDoubleArray2Test {
     @Test

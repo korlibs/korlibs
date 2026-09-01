@@ -1,7 +1,8 @@
 package korlibs.time
 
-import korlibs.time.core.*
-import kotlin.time.*
+import korlibs.time.core.CoreTime
+import korlibs.time.core.CoreTimeInternalApi
+import kotlin.time.Duration
 
 /**
  * Class for measuring relative times with as much precision as possible.

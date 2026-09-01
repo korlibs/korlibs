@@ -1,8 +1,14 @@
 package korlibs.wasm
 
-import org.objectweb.asm.*
-import org.objectweb.asm.util.*
-import java.io.*
+import java.io.PrintWriter
+import org.objectweb.asm.ClassReader
+import org.objectweb.asm.ClassVisitor
+import org.objectweb.asm.ClassWriter
+import org.objectweb.asm.MethodVisitor
+import org.objectweb.asm.util.ASMifier
+import org.objectweb.asm.util.CheckClassAdapter
+import org.objectweb.asm.util.TraceClassVisitor
+import org.objectweb.asm.util.TraceMethodVisitor
 
 class WasmRunJVMOutputExt(OUTPUT_CLASS_NAME: String = "WasmProgram") : WasmRunJVMOutput(OUTPUT_CLASS_NAME) {
     override fun getClassVisitor(cw: ClassWriter, doValidate: Boolean): ClassVisitor {

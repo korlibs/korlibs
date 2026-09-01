@@ -1,7 +1,7 @@
 package korlibs.ffi
 
-import korlibs.memory.*
-import kotlin.reflect.*
+import korlibs.memory.Buffer
+import kotlin.reflect.KType
 
 actual fun <T> FFICreateProxyFunction(type: KType, handler: (args: Array<Any?>) -> Any?): T {
     TODO()

@@ -1,9 +1,11 @@
 package korlibs.image.text
 
-import korlibs.image.font.*
-import korlibs.io.lang.*
-import korlibs.math.geom.*
-import korlibs.math.interpolation.*
+import korlibs.image.font.FontMetrics
+import korlibs.image.font.GlyphMetrics
+import korlibs.io.lang.EnumLike
+import korlibs.math.geom.Anchor
+import korlibs.math.interpolation.interpolate
+import korlibs.math.interpolation.toRatio
 import kotlin.jvm.JvmInline
 
 data class TextAlignment(

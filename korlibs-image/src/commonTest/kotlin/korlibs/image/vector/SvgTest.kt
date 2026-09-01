@@ -1,10 +1,10 @@
 package korlibs.image.vector
 
-import korlibs.image.vector.format.*
-import korlibs.io.async.suspendTest
-import kotlinx.coroutines.test.*
+import korlibs.image.vector.format.SVG
+import korlibs.image.vector.format.SvgPath
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.coroutines.test.runTest
 
 class SvgTest {
     @Test

@@ -1,15 +1,21 @@
 package korlibs.image.font
 
-import korlibs.datastructure.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import korlibs.logger.*
-import korlibs.math.*
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
-import kotlin.collections.*
-import kotlin.math.*
-import kotlin.random.*
+import korlibs.datastructure.DoubleArrayList
+import korlibs.datastructure.mapInt
+import korlibs.datastructure.reverse
+import korlibs.datastructure.toIntMap
+import korlibs.io.lang.reserved
+import korlibs.io.lang.unreachable
+import korlibs.io.stream.FastByteArrayInputStream
+import korlibs.io.stream.openFastStream
+import korlibs.logger.Logger
+import korlibs.math.geom.Point
+import korlibs.math.geom.vector.VectorBuilder
+import korlibs.math.geom.vector.VectorPath
+import korlibs.math.toInt
+import kotlin.math.abs
+import kotlin.math.sqrt
+import kotlin.random.Random
 
 /**
  * Compact Font Format font representation (also known as a PostScript Type 1, or CIDFont)

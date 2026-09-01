@@ -2,7 +2,7 @@ package korlibs.image.font
 
 import korlibs.image.format.ImageDecodingProps
 import korlibs.io.file.VfsFile
-import korlibs.memory.*
+import korlibs.memory.getS32BE
 
 suspend fun VfsFile.readFont(preload: Boolean = false, props: ImageDecodingProps = ImageDecodingProps.DEFAULT, mipmaps: Boolean = true): Font {
     val header = readRangeBytes(0 until 16)

@@ -1,8 +1,12 @@
 package korlibs.image.bitmap
 
-import korlibs.image.color.*
-import korlibs.math.geom.*
-import kotlin.math.*
+import korlibs.image.color.RGBA
+import korlibs.math.geom.Anchor
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.ScaleMode
+import korlibs.math.geom.place
+import korlibs.math.geom.toFloat
+import kotlin.math.absoluteValue
 
 // -1 if dimensions do not match
 fun Bitmap.matchContentsDistinctCount(that: Bitmap): Int {

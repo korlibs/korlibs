@@ -1,10 +1,15 @@
 package korlibs.concurrent.thread
 
-import korlibs.time.*
-import kotlin.jvm.*
-import kotlin.time.*
+import korlibs.time.DateTime
+import korlibs.time.FastDuration
+import korlibs.time.compareTo
+import korlibs.time.fast
+import korlibs.time.fastMilliseconds
+import kotlin.jvm.JvmInline
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.TimeSource
 
 @JvmInline
 value class NativeThreadPriority(val ratio: Double) {

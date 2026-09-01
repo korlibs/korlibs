@@ -3,11 +3,10 @@ package korlibs.image.format
 import korlibs.image.bitmap.Bitmap
 import korlibs.image.bitmap.Bitmap32
 import korlibs.image.color.RgbaArray
-import korlibs.image.format.internal.*
-import korlibs.io.util.*
-import korlibs.io.util.arraycopy
-import korlibs.memory.*
-import org.khronos.webgl.*
+import korlibs.image.format.internal.toIntArray2
+import korlibs.memory.arraycopy
+import org.khronos.webgl.Int32Array
+import org.khronos.webgl.Uint8ClampedArray
 import org.w3c.dom.CanvasRenderingContext2D
 
 @JsFun("(array, index, value) => { array[index] = value }")

@@ -1,11 +1,11 @@
 package korlibs.template
 
-import korlibs.template.dynamic.*
+import korlibs.template.dynamic.KorteDynamicType
+import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class MultiThreadingTests {
     data class Model(val x: Int) : KorteDynamicType<Model> by KorteDynamicType({

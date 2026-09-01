@@ -1,9 +1,11 @@
 package korlibs.io.android
 
-import android.content.*
-import korlibs.io.file.std.*
-import kotlinx.coroutines.*
-import kotlin.coroutines.*
+import android.content.Context
+import korlibs.io.file.std.vfsInitWithAndroidContextOnce
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.coroutineContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.withContext
 
 class AndroidCoroutineContext(val context: Context) : CoroutineContext.Element {
     object Key : CoroutineContext.Key<AndroidCoroutineContext>

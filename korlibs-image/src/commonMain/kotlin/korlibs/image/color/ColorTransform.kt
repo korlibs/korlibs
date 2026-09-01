@@ -1,9 +1,12 @@
 package korlibs.image.color
 
-import korlibs.math.clamp
-import korlibs.math.interpolation.*
 import korlibs.encoding.shex
-import korlibs.number.*
+import korlibs.math.clamp
+import korlibs.math.interpolation.Interpolable
+import korlibs.math.interpolation.MutableInterpolable
+import korlibs.math.interpolation.Ratio
+import korlibs.math.interpolation.interpolate
+import korlibs.number.niceStr
 import kotlin.jvm.JvmInline
 
 data class ColorTransformMul(

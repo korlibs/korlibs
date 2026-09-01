@@ -2,9 +2,7 @@
 
 package korlibs.image.core
 
-import kotlin.io.encoding.*
-import korlibs.io.compression.*
-import korlibs.io.compression.deflate.*
+import kotlin.io.encoding.ExperimentalEncodingApi
 
 object StbiCoreImageFormatProvider : CoreImageFormatProvider {
     override suspend fun info(data: ByteArray): CoreImageInfo {

@@ -1,5 +1,9 @@
 package korlibs.time
 
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 import korlibs.time.locale.chinese
 import korlibs.time.locale.dutch
 import korlibs.time.locale.french
@@ -11,14 +15,10 @@ import korlibs.time.locale.portuguese
 import korlibs.time.locale.russian
 import korlibs.time.locale.spanish
 import korlibs.time.locale.swedish
-import korlibs.time.locale.ukrainian
 import korlibs.time.locale.turkish
-import org.junit.Test
-import java.time.LocalDateTime
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
-import java.util.*
+import korlibs.time.locale.ukrainian
 import kotlin.test.assertEquals
+import org.junit.Test
 
 class KlockLocaleTestJvm {
 

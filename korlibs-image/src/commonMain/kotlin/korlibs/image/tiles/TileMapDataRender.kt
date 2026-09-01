@@ -1,8 +1,12 @@
 package korlibs.image.tiles
 
-import korlibs.image.bitmap.*
-import korlibs.math.geom.*
-import korlibs.math.geom.slice.*
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.NativeImage
+import korlibs.image.bitmap.context2d
+import korlibs.image.bitmap.extract
+import korlibs.math.geom.Point
+import korlibs.math.geom.slice.SliceOrientation
 
 fun TileMapData.render(): Bitmap {
     val tileSet = this.tileSet

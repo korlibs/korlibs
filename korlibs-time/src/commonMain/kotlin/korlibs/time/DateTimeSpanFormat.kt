@@ -1,7 +1,7 @@
 package korlibs.time
 
 import korlibs.Serializable
-import kotlin.time.*
+import kotlin.time.Duration
 
 interface DateTimeSpanFormat : Serializable {
     fun format(dd: DateTimeSpan): String

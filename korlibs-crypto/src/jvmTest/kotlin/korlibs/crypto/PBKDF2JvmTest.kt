@@ -1,10 +1,10 @@
 package korlibs.crypto
 
-import org.junit.Test
 import java.security.MessageDigest
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.PBEKeySpec
 import kotlin.test.assertEquals
+import org.junit.Test
 
 class PBKDF2JvmTest {
     companion object {

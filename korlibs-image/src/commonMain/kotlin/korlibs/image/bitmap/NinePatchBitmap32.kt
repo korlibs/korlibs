@@ -1,14 +1,21 @@
 package korlibs.image.bitmap
 
-import korlibs.datastructure.*
-import korlibs.datastructure.iterators.*
-import korlibs.image.color.*
-import korlibs.image.format.*
-import korlibs.io.file.*
-import korlibs.io.util.*
-import korlibs.math.*
-import korlibs.math.geom.*
-import kotlin.math.*
+import korlibs.datastructure.Extra
+import korlibs.datastructure.FastArrayList
+import korlibs.datastructure.iterators.fastForEachWithIndex
+import korlibs.datastructure.toFastList
+import korlibs.image.color.Colors
+import korlibs.image.color.RgbaArray
+import korlibs.image.format.ImageDecodingProps
+import korlibs.image.format.ImageFormat
+import korlibs.image.format.readBitmap
+import korlibs.io.file.VfsFile
+import korlibs.math.clamp
+import korlibs.math.geom.Point
+import korlibs.math.geom.RectangleInt
+import korlibs.math.geom.Size
+import kotlin.math.max
+import kotlin.math.min
 
 data class NinePatchInfo constructor(
     val xranges: List<Pair<Boolean, IntRange>>,

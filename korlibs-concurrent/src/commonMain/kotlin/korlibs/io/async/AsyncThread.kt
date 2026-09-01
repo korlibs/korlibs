@@ -1,7 +1,11 @@
 package korlibs.io.async
 
-import kotlinx.coroutines.*
-import kotlin.coroutines.*
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.coroutineContext
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
 
 class AsyncThread() : AsyncInvokable {
     private var lastPromise: Deferred<*>? = null

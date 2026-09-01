@@ -1,6 +1,6 @@
 package korlibs.io.serialization.json
 
-import kotlin.test.*
+import kotlin.test.assertEquals
 
 class JsonTest {
     enum class MyEnum { DEMO, HELLO, WORLD }

@@ -20,9 +20,6 @@ import org.w3c.dom.HTMLAudioElement
 import org.w3c.dom.HTMLMediaElement
 import org.w3c.dom.events.Event
 import org.w3c.dom.webkitAudioContext
-import org.w3c.fetch.DEFAULT
-import org.w3c.fetch.RequestCache
-import org.w3c.fetch.RequestInit
 
 val AudioBuffer.durationOrNull: Double? get() = duration.takeIf { !it.isNaN() }
 val HTMLMediaElement.durationOrNull: Double? get() = duration.takeIf { !it.isNaN() }

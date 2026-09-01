@@ -1,6 +1,7 @@
 package korlibs.math.geom.vector
 
-import korlibs.math.geom.shape.*
+import korlibs.math.geom.shape.buildVectorPath
+import korlibs.math.geom.shape.cachedPoints
 
 class StrokeToFillTest {
     private inline fun path(stroke: Double = 2.0, crossinline block: VectorPath.() -> Unit) =

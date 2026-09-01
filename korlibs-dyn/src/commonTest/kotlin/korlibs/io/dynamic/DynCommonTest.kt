@@ -1,6 +1,8 @@
 package korlibs.io.dynamic
 
-import kotlin.test.*
+import kotlin.test.Ignore
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class DynCommonTest {
     val data1 = mapOf("a" to mapOf("b" to 10)).dyn

@@ -1,9 +1,15 @@
 package korlibs.image.core
 
-import kotlinx.coroutines.*
-import java.awt.image.*
-import java.io.*
-import javax.imageio.*
+import java.awt.image.BufferedImage
+import java.awt.image.DataBufferInt
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
+import javax.imageio.ImageIO
+import javax.imageio.ImageReader
+import javax.imageio.ImageTypeSpecifier
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 object AwtCoreImageFormatProvider : CoreImageFormatProvider {
     var dispatcher: CoroutineDispatcher = Dispatchers.IO

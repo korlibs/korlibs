@@ -1,7 +1,8 @@
 package korlibs.number
 
-import korlibs.math.*
-import kotlin.math.*
+import korlibs.math.isAlmostEquals
+import korlibs.math.roundDecimalPlaces
+import kotlin.math.round
 
 val Double.niceStr: String get() = niceStr(-1, zeroSuffix = false)
 fun Double.niceStr(decimalPlaces: Int, zeroSuffix: Boolean = false): String = buildString { appendNice(this@niceStr.roundDecimalPlaces(decimalPlaces), zeroSuffix = zeroSuffix && decimalPlaces > 0) }

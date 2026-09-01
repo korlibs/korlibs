@@ -1,8 +1,10 @@
 package korlibs.math.geom
 
-import korlibs.math.*
+import korlibs.math.IsAlmostEqualsF
+import korlibs.math.clamp
+import korlibs.math.umod
 import kotlin.jvm.JvmInline
-import kotlin.math.*
+import kotlin.math.absoluteValue
 
 /**
  * Rotations around Z axis, then X axis, then Y axis in that order.

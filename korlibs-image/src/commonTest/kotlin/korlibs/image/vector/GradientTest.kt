@@ -1,12 +1,11 @@
 package korlibs.image.vector
 
-import korlibs.memory.*
 import korlibs.image.bitmap.Bitmap32
 import korlibs.image.bitmap.NativeImageOrBitmap32
 import korlibs.image.bitmap.context2d
 import korlibs.image.color.Colors
 import korlibs.io.async.suspendTest
-import korlibs.platform.*
+import korlibs.platform.Platform
 import kotlin.test.Test
 
 class GradientTest {

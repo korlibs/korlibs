@@ -1,7 +1,7 @@
 package korlibs.io.async
 
-import kotlinx.coroutines.*
-import kotlin.coroutines.*
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.coroutineContext
 
 //class AsyncQueue(val context: CoroutineContext) {
 class AsyncQueue {

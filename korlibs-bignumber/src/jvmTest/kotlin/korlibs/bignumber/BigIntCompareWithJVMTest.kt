@@ -1,8 +1,9 @@
 package korlibs.bignumber
 
-import java.math.*
-import kotlin.test.*
-import kotlin.time.*
+import java.math.BigInteger
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.time.measureTimedValue
 
 abstract class AbstractBigIntCompareWithJVMTest {
     companion object {

@@ -1,6 +1,7 @@
 package korlibs.image.font
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class LazyBitmapFontTest {
     @Test

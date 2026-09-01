@@ -1,7 +1,7 @@
 package korlibs.time
 
-import korlibs.time.internal.*
-import kotlin.time.*
+import korlibs.time.internal.umod
+import kotlin.time.Duration
 
 data class DateComponents(
     /** How properties must be interpreted */

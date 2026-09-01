@@ -14,15 +14,12 @@ spotless {
         targetExclude("**/build/**", "**/generated/**")
 
         leadingTabsToSpaces(4)
-        // Uses automatically the .editorconfig from root project
-        // TODO Enable ktlint and include rules from .editorconfig
-        // ktlint()
+        ktlint()
     }
     kotlinGradle {
         leadingTabsToSpaces(4)
 
         target("*.gradle.kts")
-        // TODO Enable ktlint and include rules from .editorconfig
-        // ktlint()
+        ktlint()
     }
 }

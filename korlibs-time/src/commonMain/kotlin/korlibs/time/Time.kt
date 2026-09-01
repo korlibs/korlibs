@@ -3,7 +3,7 @@ package korlibs.time
 import korlibs.Serializable
 import kotlin.jvm.JvmInline
 import kotlin.math.abs
-import kotlin.time.*
+import kotlin.time.Duration
 
 /**
  * Represents a union of [millisecond], [second], [minute] and [hour].

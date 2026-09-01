@@ -1,6 +1,7 @@
 package korlibs.util
 
-import kotlinx.atomicfu.locks.*
+import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
 
 interface SimpleIndenter {
     fun clear()

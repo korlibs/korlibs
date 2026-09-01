@@ -1,6 +1,6 @@
 package korlibs.inject
 
-import kotlin.reflect.*
+import kotlin.reflect.KClass
 
 interface ObjectProvider<T> {
     fun get(injector: Injector): T

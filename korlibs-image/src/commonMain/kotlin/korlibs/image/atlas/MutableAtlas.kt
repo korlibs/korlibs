@@ -1,10 +1,19 @@
 package korlibs.image.atlas
 
-import korlibs.image.bitmap.*
-import korlibs.math.geom.*
-import korlibs.math.geom.binpack.*
-import kotlin.collections.set
-import kotlin.collections.toList
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.BmpSlice
+import korlibs.image.bitmap.BmpSlice32
+import korlibs.image.bitmap.bmp
+import korlibs.image.bitmap.bounds
+import korlibs.image.bitmap.expandBorder
+import korlibs.image.bitmap.extract
+import korlibs.image.bitmap.isFullyTransparent
+import korlibs.image.bitmap.slice
+import korlibs.image.bitmap.sliceWithBounds
+import korlibs.image.bitmap.sliceWithSize
+import korlibs.math.geom.MarginInt
+import korlibs.math.geom.RectangleInt
+import korlibs.math.geom.binpack.BinPacker
 
 typealias MutableAtlasUnit = MutableAtlas<Unit>
 

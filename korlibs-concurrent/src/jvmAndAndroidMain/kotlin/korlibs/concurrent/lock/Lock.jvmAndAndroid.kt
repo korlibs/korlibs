@@ -1,6 +1,6 @@
 package korlibs.concurrent.lock
 
-import korlibs.time.*
+import korlibs.time.FastDuration
 
 /*
 actual class Lock actual constructor() : LockImpl(), BaseLockWithNotifyAndWait {

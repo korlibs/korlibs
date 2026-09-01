@@ -1,9 +1,15 @@
 package korlibs.image.font
 
-import korlibs.image.bitmap.*
-import korlibs.image.vector.*
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.vector.Context2d
+import korlibs.image.vector.Drawable
+import korlibs.image.vector.Shape
+import korlibs.image.vector.draw
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Point
+import korlibs.math.geom.Scale
+import korlibs.math.geom.toFloat
+import korlibs.math.geom.vector.VectorPath
 
 data class GlyphPath(
     var path: VectorPath = VectorPath(),

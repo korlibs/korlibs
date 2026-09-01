@@ -1,8 +1,8 @@
 package korlibs.image.vector
 
-import korlibs.image.paint.*
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
+import korlibs.image.paint.Paint
+import korlibs.math.geom.Point
+import korlibs.math.geom.vector.ArrowCap
 
 fun Context2d.arrowCap(p0: Point, p1: Point, width: Double, paint: Paint, cap: ArrowCap) {
     if (cap.filled) {

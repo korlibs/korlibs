@@ -1,7 +1,8 @@
 package korlibs.math
 
-import korlibs.memory.*
-import kotlin.test.*
+import korlibs.memory.fastForEachOneBits
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class FastForEachOneBits {
     fun Int.listOneIndices(): List<Int> {

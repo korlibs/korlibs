@@ -1,18 +1,27 @@
 package korlibs.io.file.std
 
-import android.content.*
-import android.os.*
-import korlibs.io.android.*
-import korlibs.io.async.*
-import korlibs.io.file.*
-import korlibs.io.net.*
-import korlibs.io.stream.*
-import korlibs.io.util.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
-import java.io.*
+import android.content.Context
+import android.os.Build
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.IOException
 import java.net.URL
-import kotlin.math.*
+import korlibs.io.android.androidContext
+import korlibs.io.async.CIO
+import korlibs.io.file.Vfs
+import korlibs.io.file.VfsFile
+import korlibs.io.file.VfsOpenMode
+import korlibs.io.file.VfsStat
+import korlibs.io.net.doIo
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.openAsync
+import korlibs.io.util.LONG_ZERO_TO_MAX_RANGE
+import korlibs.io.util.endExclusiveClamped
+import kotlin.math.min
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 class AndroidDeferredVfs(private val generate: (Context) -> VfsFile) : Vfs.Proxy() {
     private var _generated: VfsFile? = null

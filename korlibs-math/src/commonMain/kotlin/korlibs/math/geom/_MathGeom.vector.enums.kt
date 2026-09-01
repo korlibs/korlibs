@@ -1,6 +1,6 @@
 package korlibs.math.geom.vector
 
-import korlibs.datastructure.*
+import korlibs.datastructure.DoubleList
 
 /**
  * Determines how the lines end or start

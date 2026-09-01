@@ -1,12 +1,19 @@
 package korlibs.audio.sound
 
-import korlibs.audio.format.*
-import korlibs.datastructure.*
-import korlibs.io.file.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import kotlin.math.*
-import kotlin.time.*
+import korlibs.audio.format.AudioDecodingProps
+import korlibs.audio.format.AudioEncodingProps
+import korlibs.audio.format.AudioFormat
+import korlibs.audio.format.AudioFormats
+import korlibs.audio.format.WAV
+import korlibs.audio.format.defaultAudioFormats
+import korlibs.datastructure.Extra
+import korlibs.io.file.VfsFile
+import korlibs.io.file.VfsOpenMode
+import korlibs.io.file.baseName
+import korlibs.io.lang.invalidOp
+import korlibs.io.stream.AsyncOutputStream
+import kotlin.math.min
+import kotlin.time.Duration
 
 enum class AudioConversionQuality { FAST }
 

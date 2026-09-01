@@ -1,7 +1,6 @@
 package korlibs.image.font
 
 import korlibs.datastructure.linkedHashMapOf
-import korlibs.io.compression.deflate.Deflate
 import korlibs.io.compression.deflate.ZLib
 import korlibs.io.compression.uncompress
 import korlibs.io.file.VfsFile

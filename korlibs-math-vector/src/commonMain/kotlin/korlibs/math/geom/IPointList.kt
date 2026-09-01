@@ -1,8 +1,10 @@
 package korlibs.math.geom
 
-import korlibs.math.*
-import korlibs.number.*
-import kotlin.math.*
+import korlibs.math.IsAlmostEquals
+import korlibs.math.isAlmostEquals
+import korlibs.number.appendGenericArray
+import korlibs.number.appendNice
+import kotlin.math.sqrt
 
 interface IGenericDoubleVector {
     val dimensions: Int

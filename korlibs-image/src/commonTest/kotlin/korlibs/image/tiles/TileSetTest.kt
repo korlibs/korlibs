@@ -1,13 +1,18 @@
 package korlibs.image.tiles
 
-import korlibs.datastructure.*
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.math.geom.*
-import korlibs.math.geom.collider.*
-import korlibs.math.geom.shape.*
-import korlibs.time.*
-import kotlin.test.*
+import korlibs.datastructure.intMapOf
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.context2d
+import korlibs.image.bitmap.getRgba
+import korlibs.image.bitmap.slice
+import korlibs.image.color.Colors
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.collider.HitTestDirectionFlags
+import korlibs.math.geom.shape.toShape2D
+import korlibs.time.fastSeconds
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class TileSetTest {
     @Test

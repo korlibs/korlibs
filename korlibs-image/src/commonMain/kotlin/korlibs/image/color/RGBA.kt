@@ -1,16 +1,28 @@
 package korlibs.image.color
 
-import korlibs.datastructure.*
-import korlibs.encoding.*
-import korlibs.image.internal.*
-import korlibs.image.paint.*
-import korlibs.math.*
-import korlibs.math.geom.*
-import korlibs.math.interpolation.*
-import korlibs.memory.*
-import korlibs.number.*
-import kotlin.jvm.*
-import kotlin.math.*
+import korlibs.datastructure.GenericListIterator
+import korlibs.datastructure.GenericSubList
+import korlibs.encoding.appendHexByte
+import korlibs.image.internal.d2i
+import korlibs.image.internal.f2i
+import korlibs.image.internal.packIntClamped
+import korlibs.image.internal.packIntUnchecked
+import korlibs.image.internal.sumPacked4MulR
+import korlibs.image.paint.Paint
+import korlibs.math.clamp01
+import korlibs.math.clampUByte
+import korlibs.math.geom.Vector4F
+import korlibs.math.interpolation.Interpolable
+import korlibs.math.interpolation.Ratio
+import korlibs.math.interpolation.interpolate
+import korlibs.math.interpolation.toRatio
+import korlibs.memory.arraycopy
+import korlibs.memory.extract8
+import korlibs.number.niceStr
+import kotlin.jvm.JvmInline
+import kotlin.jvm.JvmName
+import kotlin.math.pow
+import kotlin.math.roundToInt
 
 @JvmInline
 value class RGBA(val value: Int) : Comparable<RGBA>, Interpolable<RGBA>, Paint {

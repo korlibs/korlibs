@@ -2,10 +2,10 @@
 
 package korlibs.template.dynamic
 
-import korlibs.template.util.KorteDeferred
 import java.lang.reflect.Field
 import java.lang.reflect.Method
-import java.util.*
+import java.util.WeakHashMap
+import korlibs.template.util.KorteDeferred
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.coroutineContext
 import kotlin.coroutines.intrinsics.COROUTINE_SUSPENDED

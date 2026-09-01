@@ -1,9 +1,13 @@
 package korlibs.number
 
-import korlibs.number.internal.*
-import kotlin.contracts.*
+import korlibs.number.internal.mask
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 import kotlin.jvm.JvmInline
-import kotlin.math.*
+import kotlin.math.ceil
+import kotlin.math.floor
+import kotlin.math.pow
 
 @JvmInline
 value class Int53Array(val raw: DoubleArray) : Iterable<Int53> {

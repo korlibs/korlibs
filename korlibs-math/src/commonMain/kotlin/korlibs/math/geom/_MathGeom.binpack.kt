@@ -2,10 +2,13 @@
 
 package korlibs.math.geom.binpack
 
-import korlibs.datastructure.*
-import korlibs.datastructure.iterators.*
-import korlibs.math.geom.*
-import kotlin.collections.set
+import korlibs.datastructure.FastArrayList
+import korlibs.datastructure.fastArrayListOf
+import korlibs.datastructure.iterators.fastForEach
+import korlibs.math.geom.Point
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.Size
+import korlibs.math.geom.Sizeable
 
 class BinPacker(val size: Size, val algo: Algo = MaxRects(size)) {
     val width: Double get() = size.width

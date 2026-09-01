@@ -1,10 +1,14 @@
 package korlibs.inject.util
 
-import korlibs.inject.*
-import kotlinx.coroutines.*
+import java.io.File
+import korlibs.inject.Injector
+import korlibs.inject.Prototype
+import korlibs.inject.Singleton
+import korlibs.inject.jvmAutomapping
+import kotlin.test.assertNotSame
+import kotlin.test.assertSame
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import java.io.*
-import kotlin.test.*
 
 @Suppress("RemoveExplicitTypeArguments")
 class JvmAutomappingTest {

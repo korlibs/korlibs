@@ -1,15 +1,22 @@
 package korlibs.image.format
 
-import korlibs.image.*
-import korlibs.memory.*
-import korlibs.image.atlas.*
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import korlibs.platform.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.image.atlas.readAtlas
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.NativeImage
+import korlibs.image.bitmap.bmp
+import korlibs.image.bitmap.context2d
+import korlibs.image.color.Colors
+import korlibs.image.color.RGBA
+import korlibs.image.color.RGBAPremultiplied
+import korlibs.image.color.asPremultiplied
+import korlibs.image.doTest
+import korlibs.io.file.std.resourcesVfs
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
+import kotlinx.coroutines.test.runTest
 
 class NativeDecodingTest {
     val file = resourcesVfs["bubble-chat.9.png"]

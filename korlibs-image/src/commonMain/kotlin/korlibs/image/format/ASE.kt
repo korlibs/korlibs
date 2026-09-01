@@ -1,12 +1,29 @@
 package korlibs.image.format
 
-import korlibs.datastructure.*
-import korlibs.time.milliseconds
-import korlibs.math.clamp
-import korlibs.image.bitmap.*
+import korlibs.datastructure.FastArrayList
+import korlibs.datastructure.FastIntMap
+import korlibs.datastructure.IntArray2
+import korlibs.datastructure.IntMap
+import korlibs.datastructure.extraProperty
+import korlibs.datastructure.get
+import korlibs.datastructure.getExtra
+import korlibs.datastructure.getExtraTyped
+import korlibs.datastructure.set
+import korlibs.datastructure.toLinkedMap
+import korlibs.encoding.hex
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.Bitmap8
+import korlibs.image.bitmap.BmpSlice
+import korlibs.image.bitmap.Palette
+import korlibs.image.bitmap.asNinePatchSimple
+import korlibs.image.bitmap.slice
 import korlibs.image.color.Colors
 import korlibs.image.color.RGBA
 import korlibs.image.color.RgbaArray
+import korlibs.image.tiles.TileMapData
+import korlibs.image.tiles.TileSet
+import korlibs.image.tiles.TileSetTileInfo
 import korlibs.image.vector.BlendMode
 import korlibs.io.compression.deflate.ZLib
 import korlibs.io.compression.uncompress
@@ -20,11 +37,14 @@ import korlibs.io.stream.readString
 import korlibs.io.stream.readU16LE
 import korlibs.io.stream.readU32LE
 import korlibs.io.stream.readU8
-import korlibs.math.geom.slice.*
-import korlibs.encoding.hex
-import korlibs.image.tiles.*
-import korlibs.math.geom.*
-import korlibs.memory.*
+import korlibs.math.clamp
+import korlibs.math.geom.RectangleInt
+import korlibs.math.geom.slice.splitInRows
+import korlibs.memory.extract
+import korlibs.memory.getS32Array
+import korlibs.memory.getS32ArrayLE
+import korlibs.memory.hasBitSet
+import korlibs.time.milliseconds
 import kotlin.jvm.JvmInline
 
 // If this is true, only processes visible layers from the ASE file.

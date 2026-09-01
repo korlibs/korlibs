@@ -1,12 +1,13 @@
 package korlibs.wasm
 
-import android.content.*
-import android.os.*
-import android.webkit.*
-import korlibs.io.android.*
-import korlibs.io.lang.*
-import korlibs.io.serialization.json.*
-import kotlinx.coroutines.*
+import android.content.Context
+import android.os.Handler
+import android.webkit.JavascriptInterface
+import android.webkit.WebView
+import korlibs.io.android.androidContextOrNull
+import korlibs.io.serialization.json.Json
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.runBlocking
 
 actual open class WASMLib actual constructor(content: ByteArray) : IWASMLib by AndroidWASMLib(content)
 

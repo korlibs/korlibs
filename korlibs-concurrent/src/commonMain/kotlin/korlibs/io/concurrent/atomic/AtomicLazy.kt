@@ -1,6 +1,6 @@
 package korlibs.io.concurrent.atomic
 
-import kotlinx.atomicfu.*
+import kotlinx.atomicfu.atomic
 
 internal class AtomicLazyImpl<out T>(initializer: () -> T) : Lazy<T> {
     private object UNINITIALIZED

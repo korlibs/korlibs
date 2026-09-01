@@ -1,7 +1,5 @@
 package korlibs.time
 
-import kotlin.time.*
-
 // https://en.wikipedia.org/wiki/ISO_8601
 object ISO8601 : DateComponentsFormat {
     // Date Calendar Variants

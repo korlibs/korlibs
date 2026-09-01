@@ -1,10 +1,17 @@
 package korlibs.io.compression.deflate
 
-import korlibs.compression.deflate.*
+import korlibs.compression.deflate.BitReader
+import korlibs.compression.deflate.IDeflater
+import korlibs.compression.deflate.IDeflaterInternal
+import korlibs.compression.deflate.toDeflater
 import korlibs.io.compression.CompressionContext
 import korlibs.io.compression.CompressionMethod
 import korlibs.io.lang.invalidOp
-import korlibs.io.stream.*
+import korlibs.io.stream.AsyncInputStream
+import korlibs.io.stream.AsyncInputStreamWithLength
+import korlibs.io.stream.AsyncOutputStream
+import korlibs.io.stream.write32LE
+import korlibs.io.stream.write8
 import korlibs.io.util.checksum.CRC32
 
 open class GZIP(deflater: () -> IDeflater) : GZIPBase(true, deflater) {

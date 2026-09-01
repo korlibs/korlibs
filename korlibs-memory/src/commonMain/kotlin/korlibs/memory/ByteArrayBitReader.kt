@@ -2,7 +2,7 @@
 
 package korlibs.io.stream
 
-import korlibs.memory.internal.*
+import korlibs.memory.internal.extract
 
 class ByteArrayBitReader(val data: ByteArray) {
     private var dataPos: Int = 0

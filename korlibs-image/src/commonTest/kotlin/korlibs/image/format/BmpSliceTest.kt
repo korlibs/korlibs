@@ -1,13 +1,13 @@
 package korlibs.image.format
 
-import korlibs.image.*
-import korlibs.image.atlas.*
-import korlibs.image.bitmap.*
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import korlibs.math.geom.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.image.atlas.AtlasPacker
+import korlibs.image.atlas.MutableAtlasUnit
+import korlibs.image.bitmap.bounds
+import korlibs.image.doTest
+import korlibs.io.file.std.resourcesVfs
+import korlibs.math.geom.SizeInt
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class BmpSliceTest {
     val props = ImageDecodingProps(format = ImageFormats(PNG))

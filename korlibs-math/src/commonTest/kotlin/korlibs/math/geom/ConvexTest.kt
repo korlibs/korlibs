@@ -1,9 +1,10 @@
 package korlibs.math.geom
 
-import korlibs.math.geom.convex.*
-import korlibs.math.geom.shape.*
-import korlibs.math.geom.vector.*
-import kotlin.test.*
+import korlibs.math.geom.convex.Convex
+import korlibs.math.geom.shape.buildVectorPath
+import korlibs.math.geom.vector.VectorPath
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ConvexTest {
     @Test

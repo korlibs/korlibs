@@ -1,6 +1,6 @@
 package korlibs.image.format
 
-import korlibs.concurrent.lock.*
+import korlibs.concurrent.lock.NonRecursiveLock
 
 class ImageFormatsMutable() : ImageFormats() {
     @PublishedApi internal val lock = NonRecursiveLock()

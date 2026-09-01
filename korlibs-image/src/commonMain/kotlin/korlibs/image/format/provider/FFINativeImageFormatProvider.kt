@@ -1,7 +1,7 @@
 package korlibs.image.format.provider
 
-import korlibs.image.format.*
-import korlibs.platform.*
+import korlibs.image.format.BaseNativeImageFormatProvider
+import korlibs.platform.Platform
 
 val FFINativeImageFormatProviderOpt: BaseNativeImageFormatProvider? by lazy {
     when {

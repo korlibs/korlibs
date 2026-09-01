@@ -1,8 +1,10 @@
 package korlibs.inject
 
-import korlibs.inject.util.*
-import kotlinx.coroutines.delay
-import kotlin.test.*
+import korlibs.inject.util.suspendTest
+import korlibs.inject.util.suspendTestIgnoreJs
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 class AsyncInjectorTest {
     class Holder {

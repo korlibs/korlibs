@@ -1,7 +1,8 @@
 package korlibs.image.text
 
-import korlibs.image.font.*
-import kotlin.test.*
+import korlibs.image.font.DefaultTtfFont
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class RichTextDataTest {
     //val data = RichTextData(RichTextData.Node("hello, world", DefaultTtfFont, 16.0))

@@ -1,7 +1,6 @@
 package korlibs.io.lang
 
-import korlibs.platform.*
-import kotlin.collections.set
+import korlibs.platform.Platform
 
 private var customEnvironments: LinkedHashMap<String, String>? = null
 

@@ -1,6 +1,6 @@
 package korlibs.math.geom
 
-import kotlin.math.*
+import kotlin.math.absoluteValue
 
 enum class Orientation(val value: Int) {
     CLOCK_WISE(+1), COUNTER_CLOCK_WISE(-1), COLLINEAR(0);

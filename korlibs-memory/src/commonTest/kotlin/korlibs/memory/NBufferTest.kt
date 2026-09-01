@@ -1,16 +1,10 @@
 package korlibs.memory
 
-import korlibs.memory.asFloat32
-import korlibs.memory.asFloat64
-import korlibs.memory.asInt16
-import korlibs.memory.asInt32
-import korlibs.memory.asInt64
-import korlibs.memory.asInt8
-import korlibs.memory.asUInt16
-import korlibs.memory.asUInt8
-import korlibs.platform.*
+import korlibs.platform.Platform
 import kotlin.byteArrayOf
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 class NBufferTest : NBufferTestBase() {
     override val direct: Boolean get() = false

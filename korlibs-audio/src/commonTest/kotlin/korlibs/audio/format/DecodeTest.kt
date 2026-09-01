@@ -2,13 +2,13 @@
 
 package korlibs.audio.format
 
+import doIOTest
+import korlibs.encoding.hex
 import korlibs.io.async.suspendTest
 import korlibs.io.file.std.resourcesVfs
 import korlibs.io.stream.openAsync
 import korlibs.io.util.checksum.CRC32
 import korlibs.io.util.checksum.checksum
-import korlibs.encoding.hex
-import doIOTest
 import kotlin.test.assertEquals
 
 class DecodeTest {

@@ -1,8 +1,9 @@
 package korlibs.bignumber
 
-import korlibs.bignumber.*
-import korlibs.bignumber.ranges.*
-import kotlin.test.*
+import korlibs.bignumber.ranges.getProgressionLastElement
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 class ProgressionUtilTest {
     @Test

@@ -1,6 +1,6 @@
 package korlibs.math.geom
 
-import korlibs.number.*
+import korlibs.number.niceStr
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

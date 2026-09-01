@@ -1,7 +1,8 @@
 package korlibs.datastructure
 
-import korlibs.concurrent.thread.*
-import korlibs.time.*
+import korlibs.concurrent.thread.NativeThread
+import korlibs.concurrent.thread.sleep
+import korlibs.time.DateTime
 
 //val NativeThread.extra: Extra get() {
 //    if (this.userData == null) {

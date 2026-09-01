@@ -2,8 +2,11 @@
 
 package korlibs.image.format.cg
 
-import korlibs.math.geom.*
-import kotlinx.cinterop.*
+import korlibs.math.geom.MRectangle
+import korlibs.math.geom.Rectangle
+import kotlinx.cinterop.CValue
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
 import platform.CoreGraphics.CGRect
 import platform.CoreGraphics.CGRectMake
 

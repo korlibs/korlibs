@@ -1,7 +1,10 @@
 package korlibs.datastructure
 
-import korlibs.datastructure.ds.*
-import kotlin.math.*
+import korlibs.datastructure.ds.BVH
+import korlibs.datastructure.ds.BVHIntervals
+import korlibs.datastructure.ds.BVHRect
+import kotlin.math.max
+import kotlin.math.min
 
 abstract class SparseChunkedStackedArray2<TStackedArray2 : IStackedArray2Base>() : IStackedArray2Base {
     companion object {

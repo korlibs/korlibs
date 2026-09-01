@@ -1,7 +1,9 @@
 package korlibs.inject
 
-import korlibs.inject.util.*
-import kotlin.test.*
+import korlibs.inject.util.suspendTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 class AsyncInjectorSuspendContextTest {
     @Test

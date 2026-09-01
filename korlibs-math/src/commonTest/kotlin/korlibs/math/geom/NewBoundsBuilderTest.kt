@@ -1,7 +1,8 @@
 package korlibs.math.geom
 
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class NewBoundsBuilderTest {
     @Test

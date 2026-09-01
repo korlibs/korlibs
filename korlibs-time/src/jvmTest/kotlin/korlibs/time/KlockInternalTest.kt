@@ -1,9 +1,12 @@
 package korlibs.time
 
-import korlibs.time.core.*
+import korlibs.time.core.CoreTime
+import korlibs.time.core.CoreTimeInternalApi
+import korlibs.time.core.ICoreTime
+import korlibs.time.core.TestUnsafeSetTemporalCoreTime
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.time.*
+import kotlin.time.Duration
 
 @OptIn(CoreTimeInternalApi::class)
 class KlockInternalTest {

@@ -1,6 +1,7 @@
 package korlibs.math
 
-import kotlin.math.*
+import kotlin.math.pow
+import kotlin.math.round
 
 fun Float.roundDecimalPlaces(places: Int): Float {
     if (places < 0) return this

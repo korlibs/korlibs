@@ -1,6 +1,8 @@
 package korlibs.io.compression.deflate
 
-import korlibs.compression.deflate.*
+import korlibs.compression.deflate.DeflaterNative
+import korlibs.compression.deflate.DeflaterPortable
+import korlibs.compression.deflate.IDeflater
 
 @OptIn(ExperimentalStdlibApi::class)
 fun Deflate(windowBits: Int): IDeflater = DeflaterNative(windowBits)

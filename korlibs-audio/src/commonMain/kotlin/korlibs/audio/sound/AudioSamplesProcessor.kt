@@ -1,6 +1,8 @@
 package korlibs.audio.sound
 
-import kotlin.math.*
+import kotlin.math.absoluteValue
+import kotlin.math.max
+import kotlin.math.min
 
 @Deprecated("")
 class AudioSamplesProcessor(val channels: Int, val totalSamples: Int, val data: Array<FloatArray> = Array(channels) { FloatArray(totalSamples) })  {

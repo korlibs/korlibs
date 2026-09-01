@@ -2,16 +2,37 @@
 
 package korlibs.math.geom
 
-import korlibs.datastructure.*
-import korlibs.math.*
+import korlibs.datastructure.ConcurrentPool
+import korlibs.datastructure.Ref
+import korlibs.math.IsAlmostEquals
+import korlibs.math.almostEquals
+import korlibs.math.annotations.KormaExperimental
+import korlibs.math.annotations.KormaMutableApi
 import korlibs.math.clamp
+import korlibs.math.interpolation.Interpolable
+import korlibs.math.interpolation.MutableInterpolable
+import korlibs.math.interpolation.Ratio
+import korlibs.math.interpolation.interpolate
+import korlibs.math.interpolation.toRatio
 import korlibs.math.isAlmostEquals
+import korlibs.math.isAlmostZero
 import korlibs.math.roundDecimalPlaces
-import korlibs.math.annotations.*
-import korlibs.math.interpolation.*
-import korlibs.number.*
+import korlibs.math.toIntRound
+import korlibs.number.niceStr
 import kotlin.jvm.JvmInline
-import kotlin.math.*
+import kotlin.math.PI
+import kotlin.math.abs
+import kotlin.math.absoluteValue
+import kotlin.math.acos
+import kotlin.math.atan2
+import kotlin.math.ceil
+import kotlin.math.cos
+import kotlin.math.floor
+import kotlin.math.hypot
+import kotlin.math.round
+import kotlin.math.sign
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 @Deprecated("Use immutable BoundsBuilder instead")
 class MBoundsBuilder {

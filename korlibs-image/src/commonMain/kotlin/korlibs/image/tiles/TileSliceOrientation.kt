@@ -1,6 +1,6 @@
 package korlibs.image.tiles
 
-import korlibs.math.geom.slice.*
+import korlibs.math.geom.slice.SliceOrientation
 
 /**
  * Creates a [Tile] with the specified [tile] number, [orientation], [offsetX], and [offsetY].

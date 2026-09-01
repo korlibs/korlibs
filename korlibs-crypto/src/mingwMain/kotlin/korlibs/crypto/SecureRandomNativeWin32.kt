@@ -2,7 +2,13 @@
 
 package korlibs.crypto
 
-import kotlinx.cinterop.*
+import kotlinx.cinterop.CFunction
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.invoke
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.usePinned
 import platform.windows.BCRYPT_ALG_HANDLE
 import platform.windows.GetProcAddress
 import platform.windows.LoadLibraryA

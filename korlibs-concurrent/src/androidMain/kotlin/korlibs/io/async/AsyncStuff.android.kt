@@ -2,9 +2,12 @@ package korlibs.io.async
 
 import android.content.Context
 import korlibs.io.android.withAndroidContext
-import korlibs.io.file.std.*
-import kotlinx.coroutines.*
-import kotlin.coroutines.*
+import korlibs.io.file.std.vfsInitWithAndroidContextOnce
+import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 @Suppress("ACTUAL_WITHOUT_EXPECT", "ACTUAL_TYPE_ALIAS_TO_CLASS_WITH_DECLARATION_SITE_VARIANCE")
 actual typealias AsyncEntryPointResult = Unit

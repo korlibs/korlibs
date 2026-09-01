@@ -1,7 +1,12 @@
 package korlibs.bignumber
 
-import korlibs.bignumber.ranges.*
-import kotlin.test.*
+import korlibs.bignumber.ranges.BigIntProgression
+import korlibs.bignumber.ranges.BigIntProgressionIterator
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
 
 class BigIntProgressionTest {
     @Test

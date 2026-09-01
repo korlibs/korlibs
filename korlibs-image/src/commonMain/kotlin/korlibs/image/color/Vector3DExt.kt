@@ -1,6 +1,7 @@
 package korlibs.image.color
 
-import korlibs.math.geom.*
+import korlibs.math.geom.MVector4
+import korlibs.math.geom.Vector4F
 
 fun MVector4.setToColorPremultiplied(col: RGBA): MVector4 = this.apply { col.toPremultipliedVector3D(this) }
 fun MVector4.setToColor(col: RGBA): MVector4 = this.apply { col.toPremultipliedVector3D(this) }

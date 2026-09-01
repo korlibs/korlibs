@@ -1,7 +1,8 @@
 package korlibs.math.geom
 
-import korlibs.math.*
-import korlibs.number.*
+import korlibs.math.IsAlmostEquals
+import korlibs.math.isAlmostEquals
+import korlibs.number.niceStr
 
 /**
  * A [top], [right], [bottom], [left] pack with FixedShort (16-bit) in the range of +-3275.9 (3.3 integer digits + 1 decimal digit)

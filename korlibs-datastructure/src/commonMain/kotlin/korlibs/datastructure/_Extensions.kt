@@ -1,8 +1,9 @@
 package korlibs.datastructure
 
-import korlibs.math.*
+import korlibs.math.umod
 import kotlin.jvm.JvmInline
-import kotlin.math.*
+import kotlin.math.max
+import kotlin.math.min
 
 inline fun count(cond: (index: Int) -> Boolean): Int {
     var counter = 0

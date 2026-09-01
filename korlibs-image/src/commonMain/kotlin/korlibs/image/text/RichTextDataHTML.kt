@@ -1,9 +1,12 @@
 package korlibs.image.text
 
-import korlibs.datastructure.*
-import korlibs.image.color.*
-import korlibs.io.serialization.xml.*
-import korlibs.io.util.*
+import korlibs.datastructure.Stack
+import korlibs.datastructure.fastArrayListOf
+import korlibs.image.color.Colors
+import korlibs.image.color.toHtmlNamedString
+import korlibs.io.serialization.xml.Xml
+import korlibs.io.serialization.xml.isText
+import korlibs.io.util.htmlspecialchars
 
 fun RichTextData.Companion.fromHTML(
     // language=HTML prefix=<body> suffix=</body>

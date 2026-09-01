@@ -1,19 +1,16 @@
 package korlibs.image.bitmap
 
-import korlibs.logger.*
-import korlibs.memory.*
-import korlibs.image.color.*
+import korlibs.image.color.Colors
 import korlibs.image.format.ImageOrientation
-import korlibs.io.async.*
-import korlibs.io.util.*
-import korlibs.math.geom.*
-import korlibs.math.geom.slice.*
-import korlibs.math.geom.vector.*
-import korlibs.platform.*
-import kotlinx.coroutines.test.*
+import korlibs.logger.Logger
+import korlibs.math.geom.RectangleInt
+import korlibs.math.geom.SizeableInt
+import korlibs.math.geom.slice.RectSlice
+import korlibs.platform.Platform
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import kotlinx.coroutines.test.runTest
 
 class BitmapSliceTest {
     val logger = Logger("BitmapSliceTest")

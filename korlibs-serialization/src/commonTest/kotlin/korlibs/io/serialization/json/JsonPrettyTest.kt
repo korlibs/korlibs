@@ -1,6 +1,7 @@
 package korlibs.io.serialization.json
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class JsonPrettyTest {
     @Test

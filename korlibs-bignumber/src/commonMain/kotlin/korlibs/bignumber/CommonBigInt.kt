@@ -1,7 +1,9 @@
 package korlibs.bignumber
 
-import kotlin.math.*
-import kotlin.time.*
+import kotlin.math.absoluteValue
+import kotlin.math.max
+import kotlin.math.sign
+import kotlin.time.ExperimentalTime
 
 /**
  * @TODO: Use JVM BigInteger and JS BigInt

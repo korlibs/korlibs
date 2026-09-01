@@ -2,14 +2,22 @@
 
 package korlibs.math.geom.vector
 
-import korlibs.datastructure.*
-import korlibs.datastructure.iterators.*
-import korlibs.math.*
-import korlibs.math.annotations.*
-import korlibs.math.geom.*
-import korlibs.math.geom.bezier.*
-import korlibs.math.geom.shape.*
-import korlibs.math.interpolation.*
+import korlibs.datastructure.DoubleList
+import korlibs.datastructure.IntArrayList
+import korlibs.datastructure.iterators.fastForEach
+import korlibs.math.annotations.KormaExperimental
+import korlibs.math.clamp
+import korlibs.math.geom.Angle
+import korlibs.math.geom.MPoint
+import korlibs.math.geom.Point
+import korlibs.math.geom.PointIntArrayList
+import korlibs.math.geom.bezier.Bezier
+import korlibs.math.geom.bezier.toDashes
+import korlibs.math.geom.bezier.toVectorPath
+import korlibs.math.geom.degrees
+import korlibs.math.geom.shape.emitPoints2
+import korlibs.math.geom.toInt
+import korlibs.math.interpolation.Ratio
 
 // @TODO: Implement LineCap + LineJoin
 // @TODO: Use Curves and reuse code from [CurvesToStrokes]

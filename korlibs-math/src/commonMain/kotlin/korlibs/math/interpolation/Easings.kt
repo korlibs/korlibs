@@ -2,8 +2,11 @@
 
 package korlibs.math.interpolation
 
-import korlibs.math.*
-import kotlin.math.*
+import korlibs.math.clamp
+import kotlin.math.PI
+import kotlin.math.absoluteValue
+import kotlin.math.pow
+import kotlin.math.sin
 
 private const val BOUNCE_FACTOR = 1.70158f
 private const val HALF_PI = PI.toFloat() / 2f

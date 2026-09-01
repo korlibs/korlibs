@@ -1,6 +1,6 @@
 package korlibs.math
 
-import kotlin.math.*
+import kotlin.math.absoluteValue
 
 interface IsAlmostEquals<T> {
     fun isAlmostEquals(other: T, epsilon: Double = 0.000001): Boolean

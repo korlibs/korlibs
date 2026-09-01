@@ -1,6 +1,6 @@
 package korlibs.image.format
 
-import korlibs.time.milliseconds
+import korlibs.encoding.hex
 import korlibs.image.bitmap.Bitmap32
 import korlibs.image.color.Colors
 import korlibs.image.color.RGBA
@@ -10,7 +10,7 @@ import korlibs.io.stream.SyncStream
 import korlibs.io.stream.readBytes
 import korlibs.io.stream.readBytesExact
 import korlibs.io.stream.readU8
-import korlibs.encoding.hex
+import korlibs.time.milliseconds
 import korlibs.util.format
 import kotlin.math.max
 import kotlin.math.min

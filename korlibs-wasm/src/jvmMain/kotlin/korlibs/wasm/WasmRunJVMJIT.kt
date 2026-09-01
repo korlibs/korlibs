@@ -1,18 +1,34 @@
 package korlibs.wasm
 
-import korlibs.math.*
-import korlibs.memory.*
-import korlibs.wasm.*
+import java.lang.reflect.Constructor
+import java.lang.reflect.Field
+import java.lang.reflect.Member
+import java.lang.reflect.Method
+import java.lang.reflect.Modifier
+import java.security.SecureClassLoader
+import korlibs.math.divCeil
+import korlibs.math.unsigned
+import korlibs.memory.getF32LE
+import korlibs.memory.getF64LE
+import korlibs.memory.getS32LE
+import korlibs.memory.getS64LE
+import korlibs.memory.hasBits
 import korlibs.wasm.WasmRunJVMOutput.Companion.isStatic
-import korlibs.wasm.WasmSType.*
-import org.objectweb.asm.*
+import korlibs.wasm.WasmSType.ANYREF
+import korlibs.wasm.WasmSType.F32
+import korlibs.wasm.WasmSType.F64
+import korlibs.wasm.WasmSType.FUNCREF
+import korlibs.wasm.WasmSType.I32
+import korlibs.wasm.WasmSType.I64
+import korlibs.wasm.WasmSType.V128
+import korlibs.wasm.WasmSType.VOID
+import kotlin.reflect.KFunction
+import org.objectweb.asm.ClassVisitor
+import org.objectweb.asm.ClassWriter
+import org.objectweb.asm.Label
+import org.objectweb.asm.MethodVisitor
+import org.objectweb.asm.Opcodes
 import org.objectweb.asm.Type
-import java.io.*
-import java.lang.invoke.*
-import java.lang.reflect.*
-import java.security.*
-import kotlin.jvm.functions.*
-import kotlin.reflect.*
 
 open class WasmRunJVMJIT(module: WasmModule, memSize: Int, memMax: Int) : WasmRuntime(module, memSize, memMax) {
 

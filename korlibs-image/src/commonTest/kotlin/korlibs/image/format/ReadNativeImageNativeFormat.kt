@@ -1,11 +1,12 @@
 package korlibs.image.format
 
-import korlibs.image.*
-import korlibs.image.bitmap.*
-import korlibs.io.file.std.*
-import kotlinx.coroutines.test.*
-import kotlin.io.encoding.*
-import kotlin.test.*
+import korlibs.image.bitmap.ensureNative
+import korlibs.image.doTest
+import korlibs.io.file.std.resourcesVfs
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @ExperimentalEncodingApi
 class ReadNativeImageNativeFormat {

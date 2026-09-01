@@ -1,10 +1,15 @@
 package korlibs.memory
 
-import android.os.*
-import java.io.*
-import java.nio.*
+import android.os.Build
+import java.io.File
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
+import java.nio.DoubleBuffer
+import java.nio.FloatBuffer
+import java.nio.IntBuffer
+import java.nio.ShortBuffer
 import java.nio.channels.FileChannel
-import java.nio.file.*
+import java.nio.file.StandardOpenOption
 
 actual class Buffer(val buffer: ByteBuffer) : AutoCloseable {
     val bufferLE = buffer.duplicate().order(ByteOrder.LITTLE_ENDIAN)

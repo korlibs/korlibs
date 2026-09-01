@@ -1,8 +1,7 @@
 package korlibs.time
 
-import korlibs.time.DateTime.Companion.EPOCH
-import korlibs.time.core.*
-import korlibs.time.core.internal.*
+import korlibs.time.core.CoreTime
+import korlibs.time.core.CoreTimeInternalApi
 import korlibs.time.core.internal.CoreTimeInternal.MILLIS_PER_DAY
 import korlibs.time.core.internal.CoreTimeInternal.MILLIS_PER_HOUR
 import korlibs.time.core.internal.CoreTimeInternal.MILLIS_PER_MINUTE
@@ -15,8 +14,13 @@ import korlibs.time.core.internal.CoreTimeInternal.Year_days
 import korlibs.time.core.internal.CoreTimeInternal.Year_daysSinceOne
 import korlibs.time.core.internal.CoreTimeInternal.Year_fromDays
 import korlibs.time.core.internal.CoreTimeInternal.Year_isLeap
-import kotlin.jvm.*
-import kotlin.time.*
+import korlibs.time.core.internal.cycle
+import korlibs.time.core.internal.cycleSteps
+import korlibs.time.core.internal.toInt2
+import korlibs.time.core.internal.toIntMod
+import korlibs.time.core.internal.umod
+import kotlin.jvm.JvmInline
+import kotlin.time.Duration
 
 /**
  * Represents a Date in UTC (GMT+00) with millisecond precision.

@@ -2,8 +2,6 @@
 
 package korlibs.datastructure.map
 
-import kotlin.collections.set
-
 interface MutableMapExt<K, V> : MutableMap<K, V> {
     override fun isEmpty(): Boolean = size == 0
 

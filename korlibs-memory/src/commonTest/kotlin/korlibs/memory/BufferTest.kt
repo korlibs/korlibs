@@ -1,8 +1,8 @@
 package korlibs.memory
 
-import korlibs.memory.asFloat32
-import korlibs.platform.*
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 
 class BufferTest {
     @Test

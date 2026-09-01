@@ -1,11 +1,15 @@
 package korlibs.image.format
 
-import korlibs.image.bitmap.*
-import korlibs.io.stream.*
-import korlibs.math.geom.*
-import korlibs.memory.*
+import korlibs.image.bitmap.Bitmap32
+import korlibs.io.stream.SyncStream
+import korlibs.io.stream.readAll
+import korlibs.io.stream.readBytes
+import korlibs.math.geom.SizeInt
+import korlibs.memory.Buffer
+import korlibs.memory.getS32
 import korlibs.memory.getS32Array
-import kotlin.coroutines.*
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.coroutineContext
 
 object WEBP : ImageFormat("webp") {
     private val WebpWASM = WebpWASM()

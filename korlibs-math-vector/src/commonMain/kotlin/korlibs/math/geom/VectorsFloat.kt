@@ -2,9 +2,25 @@
 
 package korlibs.math.geom
 
-import korlibs.math.*
-import korlibs.number.*
-import kotlin.math.*
+import korlibs.math.IsAlmostEqualsF
+import korlibs.math.clamp
+import korlibs.math.isAlmostEquals
+import korlibs.math.isAlmostZero
+import korlibs.math.roundDecimalPlaces
+import korlibs.math.toIntCeil
+import korlibs.math.toIntFloor
+import korlibs.math.toIntRound
+import korlibs.number.niceStr
+import kotlin.math.abs
+import kotlin.math.acos
+import kotlin.math.ceil
+import kotlin.math.floor
+import kotlin.math.hypot
+import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.round
+import kotlin.math.roundToInt
+import kotlin.math.sqrt
 
 typealias Vector2 = Vector2F
 typealias Vector3 = Vector3F

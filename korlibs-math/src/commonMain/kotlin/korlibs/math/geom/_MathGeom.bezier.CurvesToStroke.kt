@@ -2,12 +2,29 @@
 
 package korlibs.math.geom.bezier
 
-import korlibs.datastructure.*
-import korlibs.math.*
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
-import korlibs.math.interpolation.*
-import kotlin.math.*
+import korlibs.datastructure.DoubleList
+import korlibs.datastructure.getCyclic
+import korlibs.math.clamp
+import korlibs.math.geom.Angle
+import korlibs.math.geom.DoubleVectorArrayList
+import korlibs.math.geom.MLine
+import korlibs.math.geom.Point
+import korlibs.math.geom.PointArrayList
+import korlibs.math.geom.PointList
+import korlibs.math.geom.degrees
+import korlibs.math.geom.fastForEachGeneric
+import korlibs.math.geom.interpolateAngleDenormalized
+import korlibs.math.geom.lineIntersectionPoint
+import korlibs.math.geom.projectedPoint
+import korlibs.math.geom.vector.LineCap
+import korlibs.math.geom.vector.LineJoin
+import korlibs.math.geom.vector.StrokeInfo
+import korlibs.math.geom.vector.VectorPath
+import korlibs.math.geom.vector.toCurvesList
+import korlibs.math.interpolation.Ratio
+import korlibs.math.interpolation.interpolate
+import korlibs.math.interpolation.toRatioClamped
+import kotlin.math.absoluteValue
 
 // @TODO
 //private fun Curves.toStrokeCurves(join: LineJoin, startCap: LineCap, endCap: LineCap): Curves {

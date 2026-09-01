@@ -1,11 +1,10 @@
 package korlibs.audio.format
 
-import korlibs.logger.*
-import korlibs.memory.*
+import doIOTest
 import korlibs.io.async.suspendTest
 import korlibs.io.file.std.resourcesVfs
-import doIOTest
-import korlibs.platform.*
+import korlibs.logger.Logger
+import korlibs.platform.Platform
 import kotlin.test.assertEquals
 
 class AudioFormatTest {

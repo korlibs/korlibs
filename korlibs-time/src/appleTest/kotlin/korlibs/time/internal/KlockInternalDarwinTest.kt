@@ -2,12 +2,34 @@
 
 package korlibs.time.internal
 
-import korlibs.time.*
-import korlibs.time.darwin.*
-import kotlinx.cinterop.*
-import platform.CoreFoundation.*
-import platform.Foundation.*
-import kotlin.test.*
+import korlibs.time.DateTime
+import korlibs.time.Month
+import korlibs.time.darwin.APPLE_REFERENCE_DATE
+import korlibs.time.darwin.cfAbsoluteTime
+import korlibs.time.darwin.fromCFAbsoluteTime
+import korlibs.time.darwin.getLocalTimezoneOffsetDarwin
+import korlibs.time.darwin.toDateTime
+import korlibs.time.darwin.toNSDate
+import korlibs.time.invoke
+import korlibs.time.minutes
+import korlibs.time.toStringDefault
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.toKStringFromUtf8
+import platform.CoreFoundation.CFArrayGetCount
+import platform.CoreFoundation.CFArrayGetValueAtIndex
+import platform.CoreFoundation.CFArrayRef
+import platform.CoreFoundation.CFStringCreateWithCString
+import platform.CoreFoundation.CFStringGetCStringPtr
+import platform.CoreFoundation.CFTimeZoneCopyKnownNames
+import platform.CoreFoundation.CFTimeZoneCreateWithName
+import platform.CoreFoundation.kCFStringEncodingUTF8
+import platform.Foundation.NSDate
+import platform.Foundation.timeIntervalSince1970
 
 @OptIn(ExperimentalForeignApi::class)
 class KlockInternalDarwinTest {

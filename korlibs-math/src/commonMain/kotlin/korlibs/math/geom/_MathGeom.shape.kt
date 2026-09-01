@@ -2,13 +2,36 @@
 
 package korlibs.math.geom.shape
 
-import korlibs.datastructure.*
-import korlibs.datastructure.iterators.*
-import korlibs.math.geom.*
-import korlibs.math.geom.bezier.*
-import korlibs.math.geom.vector.*
-import korlibs.math.interpolation.*
-import kotlin.math.*
+import korlibs.datastructure.Extra
+import korlibs.datastructure.iterators.fastForEach
+import korlibs.datastructure.sumOfDouble
+import korlibs.math.geom.Circle
+import korlibs.math.geom.Ellipse
+import korlibs.math.geom.IPointList
+import korlibs.math.geom.Line
+import korlibs.math.geom.MPoint
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Point
+import korlibs.math.geom.PointArrayList
+import korlibs.math.geom.PointList
+import korlibs.math.geom.Polygon
+import korlibs.math.geom.Polyline
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.RoundRectangle
+import korlibs.math.geom.Vector2D
+import korlibs.math.geom.bezier.Bezier
+import korlibs.math.geom.bezier.fastForEachBezier
+import korlibs.math.geom.deltaTransformed
+import korlibs.math.geom.fastForEach
+import korlibs.math.geom.toVectorPath
+import korlibs.math.geom.transformed
+import korlibs.math.geom.vector.VectorPath
+import korlibs.math.geom.vector.Winding
+import korlibs.math.geom.vector.getBVHBeziers
+import korlibs.math.geom.vector.getCurvesList
+import korlibs.math.geom.vector.path
+import korlibs.math.interpolation.Ratio
+import kotlin.math.max
 
 interface WithHitShape2D {
     val hitShape2d: Shape2D

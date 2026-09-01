@@ -1,8 +1,8 @@
 package korlibs.audio.sound
 
-import korlibs.datastructure.*
-import korlibs.math.*
-import korlibs.math.geom.*
+import korlibs.datastructure.Extra
+import korlibs.math.convertRangeClamped
+import korlibs.math.geom.Vector3
 
 interface SoundListenerProps {
     val listenerPosition: Vector3 get() = Vector3.ZERO

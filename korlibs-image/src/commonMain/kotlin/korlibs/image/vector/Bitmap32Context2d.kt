@@ -1,15 +1,31 @@
 package korlibs.image.vector
 
-import korlibs.datastructure.*
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.image.paint.*
-import korlibs.image.vector.rasterizer.*
-import korlibs.math.*
-import korlibs.math.geom.*
-import korlibs.math.geom.shape.*
-import korlibs.math.geom.vector.*
-import kotlin.math.*
+import korlibs.datastructure.intArrayListOf
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.color.RgbaArray
+import korlibs.image.color.RgbaPremultipliedArray
+import korlibs.image.color.depremultiply
+import korlibs.image.color.premultiply
+import korlibs.image.color.scale
+import korlibs.image.paint.BaseFiller
+import korlibs.image.paint.BitmapFiller
+import korlibs.image.paint.BitmapPaint
+import korlibs.image.paint.ColorFiller
+import korlibs.image.paint.ColorPaint
+import korlibs.image.paint.GradientFiller
+import korlibs.image.paint.GradientPaint
+import korlibs.image.paint.NoneFiller
+import korlibs.image.paint.NonePaint
+import korlibs.image.vector.rasterizer.Rasterizer
+import korlibs.math.clamp01
+import korlibs.math.geom.shape.emitPoints2
+import korlibs.math.geom.vector.RastScale
+import korlibs.math.geom.vector.StrokeToFill
+import korlibs.math.geom.vector.VectorPath
+import korlibs.math.geom.vector.Winding
+import korlibs.math.geom.vector.strokeToFill
+import kotlin.math.max
+import kotlin.math.min
 
 // References:
 // - https://github.com/memononen/nanosvg/blob/master/src/nanosvgrast.h

@@ -1,8 +1,19 @@
 package korlibs.math
 
-import korlibs.memory.*
-import kotlin.random.*
-import kotlin.test.*
+import korlibs.memory.bitsExponent
+import korlibs.memory.bitsMantissaHigh
+import korlibs.memory.bitsMantissaLow
+import korlibs.memory.bitsSign
+import korlibs.memory.fromLowHigh
+import korlibs.memory.fromParts
+import korlibs.memory.getLowHighBits
+import korlibs.memory.high
+import korlibs.memory.highBits
+import korlibs.memory.low
+import korlibs.memory.lowBits
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class DoubleBitsTest {
     @Test

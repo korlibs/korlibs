@@ -3,11 +3,20 @@
 package korlibs.image.format.ui
 
 import cnames.structs.CGContext
-import korlibs.image.bitmap.*
-import korlibs.image.format.cg.*
-import kotlinx.cinterop.*
-import platform.CoreGraphics.*
-import platform.UIKit.*
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.format.cg.CGRectMakeExt
+import korlibs.image.format.cg.transferBitmap32CGContext
+import korlibs.image.format.cg.transferBitmap32ToCGImage
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.useContents
+import platform.CoreGraphics.CGImageRelease
+import platform.UIKit.UIGraphicsBeginImageContext
+import platform.UIKit.UIGraphicsEndImageContext
+import platform.UIKit.UIGraphicsGetCurrentContext
+import platform.UIKit.UIImage
 
 fun Bitmap.toUIImage(): UIImage {
     val cgImage = transferBitmap32ToCGImage(this.toBMP32IfRequired())

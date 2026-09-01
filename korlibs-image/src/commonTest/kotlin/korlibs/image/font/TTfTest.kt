@@ -1,12 +1,13 @@
 package korlibs.image.font
 
-import korlibs.image.*
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import korlibs.io.lang.*
-import korlibs.math.geom.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.image.doTest
+import korlibs.io.file.std.resourcesVfs
+import korlibs.io.lang.WString
+import korlibs.io.lang.WStringReader
+import korlibs.math.geom.Rectangle
+import kotlin.test.Test
+import kotlin.test.assertContentEquals
+import kotlin.test.assertEquals
 
 class TTfTest {
     @Test

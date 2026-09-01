@@ -1,19 +1,25 @@
 package korlibs.image.bitmap
 
-import korlibs.datastructure.*
+import korlibs.datastructure.Extra
+import korlibs.datastructure.IntArray2
+import korlibs.datastructure.fastCastTo
 import korlibs.image.color.Colors
 import korlibs.image.color.RGBA
 import korlibs.image.color.RGBAPremultiplied
 import korlibs.image.color.RgbaArray
 import korlibs.image.color.asNonPremultiplied
 import korlibs.image.color.asPremultiplied
-import korlibs.image.format.*
 import korlibs.image.vector.Context2d
 import korlibs.io.lang.invalidOp
-import korlibs.math.*
-import korlibs.math.geom.*
-import korlibs.math.interpolation.*
-import korlibs.memory.*
+import korlibs.math.clamp
+import korlibs.math.fract
+import korlibs.math.geom.RectangleInt
+import korlibs.math.geom.SizeInt
+import korlibs.math.geom.SizeableInt
+import korlibs.math.interpolation.toRatio
+import korlibs.math.toInt
+import korlibs.math.toIntCeil
+import korlibs.math.toIntFloor
 import kotlin.math.min
 
 /**

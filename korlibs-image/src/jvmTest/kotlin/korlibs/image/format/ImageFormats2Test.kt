@@ -1,11 +1,12 @@
 package korlibs.image.format
 
-import korlibs.image.awt.*
-import korlibs.image.bitmap.*
-import korlibs.io.async.*
-import korlibs.io.file.*
-import korlibs.io.file.std.*
-import kotlin.test.*
+import korlibs.image.bitmap.matchContentsDistinctCount
+import korlibs.io.async.suspendTest
+import korlibs.io.file.VfsFile
+import korlibs.io.file.std.applicationVfs
+import korlibs.io.file.std.resourcesVfs
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ImageFormats2Test {
     val formats = ImageFormats(PNG, ICO)

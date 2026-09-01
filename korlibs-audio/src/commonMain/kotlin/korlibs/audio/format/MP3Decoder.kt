@@ -1,12 +1,20 @@
 package korlibs.audio.format
 
-import korlibs.audio.sound.*
-import korlibs.datastructure.*
-import korlibs.io.stream.*
-import korlibs.memory.*
-import korlibs.time.*
-import kotlin.math.*
-import kotlin.time.*
+import korlibs.audio.sound.AudioSampleArray
+import korlibs.audio.sound.AudioSamples
+import korlibs.audio.sound.AudioSamplesDeque
+import korlibs.audio.sound.AudioStream
+import korlibs.datastructure.ByteArrayDeque
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.FastByteArrayInputStream
+import korlibs.io.stream.readBytesUpTo
+import korlibs.memory.UByteArrayInt
+import korlibs.memory.arraycopy
+import korlibs.memory.hasFlags
+import korlibs.memory.indexOf
+import korlibs.time.seconds
+import kotlin.math.max
+import kotlin.time.Duration
 
 open class MP3Decoder() : AudioFormat("mp3") {
     companion object : MP3Decoder()

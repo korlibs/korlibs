@@ -1,10 +1,14 @@
 package korlibs.image.vector
 
-import korlibs.datastructure.*
-import korlibs.image.color.*
-import korlibs.image.util.*
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
+import korlibs.datastructure.fastArrayListOf
+import korlibs.image.color.Colors
+import korlibs.image.color.RGBA
+import korlibs.image.util.NinePatchSlices
+import korlibs.image.util.NinePatchSlices2D
+import korlibs.math.geom.Point
+import korlibs.math.geom.Size
+import korlibs.math.geom.toSize
+import korlibs.math.geom.vector.VectorPath
 
 class NinePatchShape(val shape: Shape, val slices: NinePatchSlices2D) {
     val size: Size = shape.bounds.bottomRight.toSize()

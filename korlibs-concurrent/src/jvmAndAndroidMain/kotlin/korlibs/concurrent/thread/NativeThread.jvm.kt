@@ -1,6 +1,6 @@
 package korlibs.concurrent.thread
 
-import korlibs.time.*
+import korlibs.time.FastDuration
 import kotlin.time.Duration.Companion.seconds
 
 private fun FastDuration.toMillisNanos(): Pair<Long, Int> {

@@ -1,10 +1,17 @@
 package korlibs.io.concurrent
 
-import korlibs.concurrent.lock.*
-import korlibs.concurrent.thread.*
-import korlibs.time.*
-import kotlin.test.*
-import kotlin.time.*
+import korlibs.concurrent.lock.Lock
+import korlibs.concurrent.lock.NonRecursiveLock
+import korlibs.concurrent.lock.waitForever
+import korlibs.concurrent.thread.NativeThread
+import korlibs.concurrent.thread.nativeThread
+import korlibs.concurrent.thread.sleepExact
+import korlibs.time.fastMilliseconds
+import korlibs.time.seconds
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFails
+import kotlin.time.measureTime
 
 class LockTest {
     @Test

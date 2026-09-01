@@ -1,7 +1,5 @@
 package korlibs.io.lang
 
-import korlibs.io.lang.*
-
 actual object SystemProperties : Properties() {
     // Uses querystring on JS/Browser, and proper env vars in the rest
     override operator fun get(key: String): String? = System.getProperty(key)

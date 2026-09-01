@@ -1,9 +1,19 @@
 package korlibs.math.geom.ds
 
-import korlibs.datastructure.ds.*
-import korlibs.math.geom.*
-import korlibs.platform.*
-import kotlin.test.*
+import korlibs.datastructure.ds.BVHIntervals
+import korlibs.datastructure.ds.BVHVector
+import korlibs.math.geom.AABB3D
+import korlibs.math.geom.Point
+import korlibs.math.geom.Ray
+import korlibs.math.geom.Ray3F
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.Vector2D
+import korlibs.math.geom.Vector3F
+import korlibs.math.geom.assertEqualsFloat
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 
 class BVHTest {
     @Test

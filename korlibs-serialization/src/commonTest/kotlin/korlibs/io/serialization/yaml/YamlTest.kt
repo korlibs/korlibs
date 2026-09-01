@@ -1,6 +1,7 @@
 package korlibs.io.serialization.yaml
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 // http://nodeca.github.io/js-yaml/
 class YamlTest {

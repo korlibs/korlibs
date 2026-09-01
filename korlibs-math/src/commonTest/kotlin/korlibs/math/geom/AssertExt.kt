@@ -1,9 +1,12 @@
 package korlibs.math.geom
 
-import korlibs.datastructure.*
-import korlibs.math.*
-import kotlin.math.*
-import kotlin.test.*
+import korlibs.datastructure.DoubleList
+import korlibs.datastructure.FloatList
+import korlibs.math.IsAlmostEquals
+import korlibs.math.IsAlmostEqualsF
+import korlibs.math.isAlmostEquals
+import kotlin.math.sqrt
+import kotlin.test.assertEquals
 
 fun <
     //@OnlyInputTypes

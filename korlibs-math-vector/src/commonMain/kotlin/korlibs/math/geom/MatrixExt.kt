@@ -1,6 +1,7 @@
 package korlibs.math.geom
 
-import kotlin.math.*
+import kotlin.math.ceil
+import kotlin.math.floor
 
 fun Matrix.scaled(scale: Scale): Matrix = scaled(scale.scaleX, scale.scaleY)
 fun Matrix.prescaled(scale: Scale): Matrix = prescaled(scale.scaleX, scale.scaleY)

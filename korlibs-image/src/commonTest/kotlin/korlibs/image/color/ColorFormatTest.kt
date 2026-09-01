@@ -1,8 +1,8 @@
 package korlibs.image.color
 
+import korlibs.encoding.hex
 import korlibs.image.bitmap.Bitmap32
 import korlibs.io.lang.splitInChunks
-import korlibs.encoding.hex
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

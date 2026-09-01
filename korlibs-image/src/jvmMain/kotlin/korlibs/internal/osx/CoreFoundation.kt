@@ -1,7 +1,9 @@
 package korlibs.internal.osx
 
-import com.sun.jna.*
-import korlibs.annotations.*
+import com.sun.jna.Native
+import com.sun.jna.NativeLibrary
+import com.sun.jna.Pointer
+import korlibs.annotations.KeepNames
 
 // @TODO: Change to a FFILib
 @KeepNames

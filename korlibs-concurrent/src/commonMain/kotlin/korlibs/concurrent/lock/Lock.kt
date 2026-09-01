@@ -2,11 +2,18 @@
 
 package korlibs.concurrent.lock
 
-import korlibs.concurrent.thread.*
-import korlibs.time.*
-import kotlinx.atomicfu.*
-import kotlinx.atomicfu.locks.*
-import kotlin.time.*
+import korlibs.concurrent.thread.NativeThread
+import korlibs.concurrent.thread.sleepWhile
+import korlibs.time.FastDuration
+import korlibs.time.compareTo
+import korlibs.time.fast
+import kotlin.time.Duration
+import kotlin.time.TimeSource
+import kotlinx.atomicfu.atomic
+import kotlinx.atomicfu.locks.ReentrantLock
+import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.reentrantLock
+import kotlinx.atomicfu.locks.synchronized
 
 interface BaseLock {
     companion object {

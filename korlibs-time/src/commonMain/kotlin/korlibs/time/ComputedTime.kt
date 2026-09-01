@@ -1,9 +1,9 @@
 package korlibs.time
 
-import korlibs.time.core.*
-import korlibs.time.core.internal.*
-import korlibs.time.internal.*
-import kotlin.time.*
+import korlibs.time.core.CoreTimeInternalApi
+import korlibs.time.core.internal.CoreTimeInternal
+import korlibs.time.internal.Moduler
+import kotlin.time.Duration
 
 @OptIn(CoreTimeInternalApi::class)
 class ComputedTime(val weeks: Int = 0, val days: Int = 0, val hours: Int = 0, val minutes: Int = 0, val seconds: Int = 0, val nanoseconds: Int = 0) {

@@ -1,8 +1,13 @@
 package korlibs.io.async
 
-import kotlinx.coroutines.*
-import java.util.concurrent.*
-import kotlin.coroutines.*
+import java.util.concurrent.Callable
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Future
+import java.util.concurrent.TimeUnit
+import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Runnable
+import kotlinx.coroutines.launch
 
 class EventLoopExecutorService(val context: CoroutineContext) : ExecutorService {
     var shutdown = false

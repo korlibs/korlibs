@@ -1,6 +1,11 @@
 package korlibs.bignumber
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
 
 abstract class AbstractBigIntTest {
     @Test

@@ -2,7 +2,7 @@ package korlibs.time
 
 import korlibs.Serializable
 import kotlin.jvm.JvmInline
-import kotlin.time.*
+import kotlin.time.Duration
 
 /**
  * Creates a [MonthSpan] representing these years.

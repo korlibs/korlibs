@@ -2,8 +2,14 @@
 
 package korlibs.platform
 
-import kotlinx.cinterop.*
-import platform.windows.*
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.get
+import kotlinx.cinterop.plus
+import kotlinx.cinterop.toKString
+import platform.windows.FreeEnvironmentStringsW
+import platform.windows.GetEnvironmentStringsW
+import platform.windows.WCHARVar
 
 internal actual val envs: Map<String, String> by lazy {
     val envs = GetEnvironmentStringsW() ?: return@lazy mapOf<String, String>()

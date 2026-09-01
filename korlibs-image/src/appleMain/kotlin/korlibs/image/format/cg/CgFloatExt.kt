@@ -2,9 +2,17 @@
 
 package korlibs.image.format.cg
 
-import korlibs.math.geom.*
-import kotlinx.cinterop.*
-import platform.CoreGraphics.*
+import korlibs.math.geom.Point
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.Size
+import kotlinx.cinterop.CValue
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
+import platform.CoreGraphics.CGFloat
+import platform.CoreGraphics.CGPoint
+import platform.CoreGraphics.CGRect
+import platform.CoreGraphics.CGRectMake
+import platform.CoreGraphics.CGSize
 
 @OptIn(UnsafeNumber::class)
 inline val Int.cg: CGFloat get() = this.toDouble().toCgFloat()

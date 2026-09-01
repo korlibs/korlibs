@@ -1,6 +1,6 @@
 package korlibs.image.atlas
 
-import korlibs.image.bitmap.*
+import korlibs.image.bitmap.BmpSlice
 import korlibs.image.format.ImageDecodingProps
 import korlibs.image.format.readBitmapSlice
 import korlibs.io.file.VfsFile

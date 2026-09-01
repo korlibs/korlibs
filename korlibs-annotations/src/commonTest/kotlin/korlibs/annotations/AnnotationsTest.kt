@@ -1,6 +1,6 @@
 package korlibs.annotations
 
-import kotlin.test.*
+import kotlin.test.Test
 
 @Keep
 @KeepNames

@@ -2,7 +2,7 @@
 
 package korlibs.io.util
 
-import korlibs.memory.*
+import korlibs.memory.arraycopy
 
 private inline fun <TArray> _join(items: List<TArray>, build: (Int) -> TArray, size: (TArray) -> Int, arraycopy: (TArray, Int, TArray, Int, Int) -> Unit): TArray {
     val out = build(items.sumOf { size(it) })

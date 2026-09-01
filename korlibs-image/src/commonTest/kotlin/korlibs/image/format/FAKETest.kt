@@ -1,11 +1,12 @@
 package korlibs.image.format
 
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import korlibs.math.geom.*
-import korlibs.platform.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.io.file.std.SingleFileMemoryVfs
+import korlibs.io.file.std.SingleFileMemoryVfsWithName
+import korlibs.math.geom.Size
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.coroutines.test.runTest
 
 class FAKETest {
     init {

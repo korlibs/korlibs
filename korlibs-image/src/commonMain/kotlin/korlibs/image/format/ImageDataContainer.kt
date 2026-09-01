@@ -1,6 +1,6 @@
 package korlibs.image.format
 
-import korlibs.image.bitmap.*
+import korlibs.image.bitmap.Bitmap
 
 open class ImageDataContainer(
     val imageDatas: List<ImageData>

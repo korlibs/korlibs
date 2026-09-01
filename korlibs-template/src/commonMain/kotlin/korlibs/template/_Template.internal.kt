@@ -3,9 +3,10 @@
 package korlibs.template.internal
 
 import korlibs.template.util.KorteDeferred
-import kotlinx.atomicfu.locks.*
 import kotlin.coroutines.coroutineContext
-import kotlin.reflect.*
+import kotlin.reflect.KProperty
+import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
 
 internal typealias Lock = SynchronizedObject
 internal inline operator fun <T> Lock.invoke(block: () -> T): T = synchronized(this@invoke) { block() }

@@ -1,8 +1,8 @@
 package korlibs.io.lang
 
-import kotlinx.coroutines.*
-import org.w3c.dom.*
-import kotlin.js.*
+import kotlin.js.Promise
+import kotlinx.coroutines.await
+import org.w3c.dom.WindowOrWorkerGlobalScope
 
 @JsName("globalThis") private external val jsGlobalThis: WindowOrWorkerGlobalScope
 

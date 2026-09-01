@@ -1,8 +1,9 @@
 package korlibs.io.lang
 
-import korlibs.io.async.*
-import kotlin.contracts.*
-import kotlin.coroutines.cancellation.*
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
+import kotlin.coroutines.cancellation.CancellationException
 
 object DummyAutoCloseable : AutoCloseable {
     override fun close() = Unit

@@ -1,14 +1,26 @@
 package korlibs.audio.sound
 
-import korlibs.io.lang.*
-import korlibs.memory.*
-import kotlinx.browser.*
-import kotlinx.coroutines.*
-import org.khronos.webgl.*
-import org.w3c.dom.*
-import org.w3c.dom.events.*
-import org.w3c.fetch.*
-import kotlin.coroutines.*
+import korlibs.io.lang.Cancellable
+import korlibs.memory.toByteArray
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
+import kotlinx.browser.document
+import kotlinx.browser.window
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.await
+import org.khronos.webgl.ArrayBuffer
+import org.khronos.webgl.Int8Array
+import org.khronos.webgl.set
+import org.w3c.dom.Audio
+import org.w3c.dom.AudioBuffer
+import org.w3c.dom.AudioContext
+import org.w3c.dom.BaseAudioContext
+import org.w3c.dom.HTMLAudioElement
+import org.w3c.dom.events.Event
+import org.w3c.fetch.Response
 
 private external interface WindowExSetTimeout : JsAny {
     fun setTimeout(block: () -> Unit, time: Int): Int

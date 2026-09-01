@@ -1,13 +1,11 @@
 package korlibs.image.vector
 
-import korlibs.image.bitmap.*
-import korlibs.image.format.*
-import korlibs.image.vector.format.*
 import korlibs.image.vector.format.SVG
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.image.vector.format.SvgPath
+import korlibs.image.vector.format.readSVG
+import korlibs.io.file.std.resourcesVfs
+import kotlin.test.Test
+import kotlinx.coroutines.test.runTest
 
 class SvgJvmTest {
     @Test

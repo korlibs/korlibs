@@ -1,7 +1,8 @@
 package korlibs.image.tiles
 
-import korlibs.memory.*
-import korlibs.number.*
+import korlibs.memory.Int64
+import korlibs.number.Int53
+import korlibs.number.toInt53
 import kotlin.jvm.JvmInline
 
 @JvmInline

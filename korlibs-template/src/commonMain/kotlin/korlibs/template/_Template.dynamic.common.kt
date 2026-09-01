@@ -2,9 +2,18 @@
 
 package korlibs.template.dynamic
 
-import korlibs.template.internal.*
-import kotlin.math.*
-import kotlin.reflect.*
+import korlibs.template.internal.quote
+import kotlin.math.pow
+import kotlin.reflect.KCallable
+import kotlin.reflect.KClass
+import kotlin.reflect.KFunction0
+import kotlin.reflect.KFunction1
+import kotlin.reflect.KFunction2
+import kotlin.reflect.KFunction3
+import kotlin.reflect.KFunction4
+import kotlin.reflect.KMutableProperty1
+import kotlin.reflect.KProperty
+import kotlin.reflect.KProperty1
 
 //expect class DynamicBase {
 //	//fun getFields(obj: Any?): List<String>

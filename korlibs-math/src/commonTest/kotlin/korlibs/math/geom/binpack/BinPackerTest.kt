@@ -1,7 +1,9 @@
 package korlibs.math.geom.binpack
 
-import korlibs.math.geom.*
-import kotlin.test.*
+import korlibs.math.geom.Size
+import korlibs.math.geom.Sizeable
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class BinPackerTest {
     @Test

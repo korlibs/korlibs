@@ -2,16 +2,27 @@
 
 package korlibs.audio.format
 
-import korlibs.audio.sound.*
-import korlibs.datastructure.*
-import korlibs.io.file.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import korlibs.number.*
-import korlibs.time.*
-import kotlinx.coroutines.*
+import korlibs.audio.sound.AudioData
+import korlibs.audio.sound.AudioStream
+import korlibs.audio.sound.toData
+import korlibs.datastructure.Extra
+import korlibs.io.file.PathInfo
+import korlibs.io.file.VfsFile
+import korlibs.io.file.extensionLC
+import korlibs.io.lang.unsupported
+import korlibs.io.stream.AsyncOutputStream
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.MemorySyncStreamToByteArray
+import korlibs.io.stream.openAsync
+import korlibs.io.stream.readBytesUpTo
+import korlibs.io.stream.toAsync
+import korlibs.number.niceStr
+import korlibs.time.milliseconds
+import korlibs.time.seconds
 import kotlin.coroutines.cancellation.CancellationException
-import kotlin.time.*
+import kotlin.time.Duration
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 
 open class AudioFormat(vararg exts: String) {
     open val extensions: Set<String> = exts.map { it.lowercase().trim() }.toSet()

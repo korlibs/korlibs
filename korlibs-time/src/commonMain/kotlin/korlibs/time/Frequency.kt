@@ -1,9 +1,9 @@
 package korlibs.time
 
 import korlibs.Serializable
-import korlibs.time.internal.*
-import kotlin.jvm.*
-import kotlin.time.*
+import korlibs.time.internal.umod
+import kotlin.jvm.JvmInline
+import kotlin.time.Duration
 
 val FastDuration.hz: Frequency get() = timesPerSecond
 val Duration.hz: Frequency get() = timesPerSecond

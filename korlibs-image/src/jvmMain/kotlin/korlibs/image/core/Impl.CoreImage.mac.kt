@@ -1,10 +1,13 @@
 package korlibs.image.core
 
-import com.sun.jna.*
-import korlibs.annotations.*
-import java.awt.image.*
-import java.io.*
-import kotlin.time.*
+import com.sun.jna.Memory
+import com.sun.jna.Native
+import com.sun.jna.NativeLibrary
+import com.sun.jna.Pointer
+import com.sun.jna.Structure
+import java.awt.image.BufferedImage
+import java.awt.image.DataBufferInt
+import korlibs.annotations.Keep
 
 object CoreGraphicsCoreImageFormatProvider : CoreImageFormatProvider {
     // @TODO: this is crashing

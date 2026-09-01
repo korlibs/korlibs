@@ -1,9 +1,17 @@
 package korlibs.concurrent.lock
 
-import korlibs.time.*
-import kotlinx.cinterop.*
-import platform.posix.*
-import kotlin.time.*
+import korlibs.time.nanoseconds
+import korlibs.time.seconds
+import kotlin.time.Duration
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.NativePlacement
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.ptr
+import platform.posix.CLOCK_REALTIME
+import platform.posix.clock_gettime
+import platform.posix.timespec
 
 /*
 actual class Lock actual constructor() : LockImpl(), BaseLockWithNotifyAndWait {

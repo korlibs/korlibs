@@ -1,6 +1,7 @@
 package korlibs.io.async
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 expect val Dispatchers.CIO: CoroutineDispatcher
 val Dispatchers.ResourceDecoder: CoroutineDispatcher get() = CIO

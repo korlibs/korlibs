@@ -1,8 +1,8 @@
 package korlibs.time.locale
 
+import korlibs.time.DayOfWeek
 import korlibs.time.KlockLocale
 import korlibs.time.KlockLocaleContext
-import korlibs.time.DayOfWeek
 
 val KlockLocale.Companion.german get() = GermanKlockLocale
 

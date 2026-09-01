@@ -1,7 +1,6 @@
 package korlibs.time
 
 import korlibs.time.internal.substr
-import kotlin.native.concurrent.ThreadLocal
 
 private var KlockLocale_default: KlockLocale? = null
 

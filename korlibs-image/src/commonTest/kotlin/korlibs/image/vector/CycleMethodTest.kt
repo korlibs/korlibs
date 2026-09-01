@@ -1,7 +1,7 @@
 package korlibs.image.vector
 
 import korlibs.math.roundDecimalPlaces
-import korlibs.number.*
+import korlibs.number.niceStr
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

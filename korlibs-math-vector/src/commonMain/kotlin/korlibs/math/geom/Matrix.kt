@@ -1,9 +1,14 @@
 package korlibs.math.geom
 
-import korlibs.math.*
-import korlibs.math.interpolation.*
-import korlibs.number.*
-import kotlin.math.*
+import korlibs.math.IsAlmostEquals
+import korlibs.math.interpolation.Ratio
+import korlibs.math.interpolation.interpolate
+import korlibs.math.isAlmostEquals
+import korlibs.number.niceStr
+import kotlin.math.PI
+import kotlin.math.abs
+import kotlin.math.atan2
+import kotlin.math.hypot
 
 
 //@KormaValueApi

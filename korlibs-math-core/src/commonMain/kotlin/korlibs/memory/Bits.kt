@@ -1,6 +1,6 @@
 package korlibs.memory
 
-import korlibs.math.*
+import korlibs.math.toInt
 import kotlin.jvm.JvmInline
 import kotlin.rotateLeft as rotateLeftKotlin
 import kotlin.rotateRight as rotateRightKotlin

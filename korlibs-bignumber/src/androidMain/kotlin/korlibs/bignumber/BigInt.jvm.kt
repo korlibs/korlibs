@@ -1,6 +1,6 @@
 package korlibs.bignumber
 
-import java.math.*
+import java.math.BigInteger
 
 /** Converts a [BigInteger] into a [BigInt] ([JvmBigInt]) */
 val BigInteger.bi: JvmBigInt get() = JvmBigInt(this)

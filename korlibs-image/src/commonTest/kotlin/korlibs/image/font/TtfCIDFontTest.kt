@@ -1,15 +1,13 @@
 package korlibs.image.font
 
 import korlibs.datastructure.doubleArrayListOf
-import korlibs.logger.*
-import korlibs.io.async.suspendTest
-import korlibs.io.file.std.resourcesVfs
-import korlibs.io.stream.openFastStream
-import korlibs.math.geom.vector.VectorPath
 import korlibs.encoding.unhex
 import korlibs.encoding.unhexIgnoreSpaces
-import korlibs.image.*
-import kotlinx.coroutines.test.*
+import korlibs.image.doTest
+import korlibs.io.file.std.resourcesVfs
+import korlibs.io.stream.openFastStream
+import korlibs.logger.Logger
+import korlibs.math.geom.vector.VectorPath
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull

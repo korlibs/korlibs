@@ -2,20 +2,32 @@
 
 package korlibs.image.bitmap.vector
 
-import korlibs.datastructure.*
-import korlibs.memory.*
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.image.format.*
-import korlibs.image.paint.*
-import korlibs.io.async.*
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
-import korlibs.encoding.*
-import korlibs.image.vector.*
-import korlibs.platform.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.datastructure.DoubleArrayList
+import korlibs.datastructure.IntArrayList
+import korlibs.datastructure.doubleArrayListOf
+import korlibs.encoding.fromBase64
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.NativeImage
+import korlibs.image.bitmap.context2d
+import korlibs.image.color.Colors
+import korlibs.image.format.PNG
+import korlibs.image.format.nativeImageFormatProvider
+import korlibs.image.paint.BitmapPaint
+import korlibs.image.paint.ColorPaint
+import korlibs.image.paint.GradientKind
+import korlibs.image.paint.GradientPaint
+import korlibs.image.vector.PolylineShape
+import korlibs.image.vector.Shape
+import korlibs.image.vector.buildShape
+import korlibs.io.async.suspendTest
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Point
+import korlibs.math.geom.degrees
+import korlibs.math.geom.vector.VectorBuilder
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.coroutines.test.runTest
 
 class Bitmap32Context2dTest {
     @Test

@@ -1,8 +1,30 @@
 package korlibs.image.core
 
-import kotlinx.cinterop.*
-import kotlinx.coroutines.*
-import stb_image.*
+import kotlinx.cinterop.COpaquePointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.IntVar
+import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.get
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.readBytes
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.staticCFunction
+import kotlinx.cinterop.usePinned
+import kotlinx.cinterop.value
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.withContext
+import stb_image.stbi_image_free
+import stb_image.stbi_info_from_memory
+import stb_image.stbi_load_from_memory
+import stb_image.stbi_write_bmp_to_func
+import stb_image.stbi_write_jpg_to_func
+import stb_image.stbi_write_png_to_func
+import stb_image.stbi_write_tga_to_func
 
 @OptIn(ExperimentalForeignApi::class)
 object StbiCoreImageFormatProvider : CoreImageFormatProvider {

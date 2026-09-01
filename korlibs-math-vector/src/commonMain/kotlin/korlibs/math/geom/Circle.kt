@@ -1,7 +1,7 @@
 package korlibs.math.geom
 
-import korlibs.math.geom.shape.*
-import kotlin.math.*
+import korlibs.math.geom.shape.SimpleShape2D
+import kotlin.math.PI
 
 data class Circle(override val center: Point, val radius: Double) : SimpleShape2D {
     companion object {

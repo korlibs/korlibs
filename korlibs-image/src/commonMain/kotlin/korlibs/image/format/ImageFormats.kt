@@ -1,14 +1,21 @@
 package korlibs.image.format
 
-import korlibs.encoding.*
-import korlibs.image.bitmap.*
-import korlibs.io.concurrent.atomic.*
-import korlibs.io.file.*
-import korlibs.io.lang.*
+import korlibs.encoding.hex
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.BmpSlice
+import korlibs.image.bitmap.extract
+import korlibs.io.file.PathInfo
+import korlibs.io.file.VfsFile
+import korlibs.io.file.extensionLC
 import korlibs.io.lang.ASCII
-import korlibs.io.stream.*
-import kotlinx.atomicfu.*
-import kotlin.coroutines.cancellation.*
+import korlibs.io.lang.toString
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.SyncStream
+import korlibs.io.stream.readBytes
+import korlibs.io.stream.readString
+import korlibs.io.stream.sliceStart
+import kotlin.coroutines.cancellation.CancellationException
+import kotlinx.atomicfu.atomic
 
 open class ImageFormats(formats: Iterable<ImageFormat>) : ImageFormat("") {
     constructor(vararg formats: ImageFormat) : this(formats.toList())

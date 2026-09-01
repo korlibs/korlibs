@@ -2,9 +2,11 @@
 
 package korlibs.math.geom.collider
 
-import korlibs.datastructure.iterators.*
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
+import korlibs.datastructure.iterators.fastForEach
+import korlibs.math.geom.Angle
+import korlibs.math.geom.Point
+import korlibs.math.geom.degrees
+import korlibs.math.geom.vector.VectorPath
 import kotlin.jvm.JvmInline
 
 fun interface HitTestable {

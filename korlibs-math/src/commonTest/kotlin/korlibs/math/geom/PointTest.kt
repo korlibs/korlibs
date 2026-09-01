@@ -1,8 +1,10 @@
 package korlibs.math.geom
 
-import korlibs.math.*
-import korlibs.math.annotations.*
-import kotlin.test.*
+import korlibs.math.annotations.KormaExperimental
+import korlibs.math.isAlmostEquals
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 @OptIn(KormaExperimental::class)
 class PointTest {

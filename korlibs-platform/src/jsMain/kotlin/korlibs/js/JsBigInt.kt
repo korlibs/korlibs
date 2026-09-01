@@ -1,6 +1,10 @@
 package korlibs.js
 
-import org.khronos.webgl.*
+import org.khronos.webgl.ArrayBuffer
+import org.khronos.webgl.ArrayBufferView
+import org.khronos.webgl.Int32Array
+import org.khronos.webgl.get
+import org.khronos.webgl.set
 
 @JsName("BigInt")
 external interface JsBigInt

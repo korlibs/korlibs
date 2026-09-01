@@ -1,7 +1,12 @@
 package korlibs.io.lang
 
-import korlibs.memory.*
-import org.khronos.webgl.*
+import korlibs.memory.ByteArrayBuilder
+import org.khronos.webgl.ArrayBuffer
+import org.khronos.webgl.ArrayBufferView
+import org.khronos.webgl.Int8Array
+import org.khronos.webgl.Uint8Array
+import org.khronos.webgl.get
+import org.khronos.webgl.set
 
 external class TextDecoder(charset: String) : JsAny {
     val encoding: String

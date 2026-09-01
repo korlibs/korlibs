@@ -1,7 +1,5 @@
 package korlibs.io.socket
 
-import kotlinx.coroutines.test.runTest
-import platform.Security.SSLSetSessionOption
 import kotlin.test.AfterTest
 import kotlin.test.Ignore
 import kotlin.test.Test
@@ -9,6 +7,8 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.coroutines.test.runTest
+import platform.Security.SSLSetSessionOption
 import platform.Security.kSSLSessionOptionBreakOnServerAuth
 
 /**

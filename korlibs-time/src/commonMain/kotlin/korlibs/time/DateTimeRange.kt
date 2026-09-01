@@ -1,7 +1,7 @@
 package korlibs.time
 
 import korlibs.Serializable
-import kotlin.time.*
+import kotlin.time.Duration
 
 /**
  * Represents a right-opened range between two dates.

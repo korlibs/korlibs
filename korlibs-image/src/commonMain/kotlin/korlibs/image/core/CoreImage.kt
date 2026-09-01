@@ -1,7 +1,7 @@
 package korlibs.image.core
 
 import kotlin.jvm.JvmInline
-import kotlin.math.*
+import kotlin.math.roundToInt
 
 /**
  * An image representation that can be used to encode/decode images in different formats.

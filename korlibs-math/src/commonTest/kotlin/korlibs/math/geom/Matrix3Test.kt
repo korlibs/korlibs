@@ -1,8 +1,10 @@
 package korlibs.math.geom
 
-import korlibs.datastructure.*
-import korlibs.platform.*
-import kotlin.test.*
+import korlibs.datastructure.identityHashCode
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 
 class Matrix3Test {
     @Test

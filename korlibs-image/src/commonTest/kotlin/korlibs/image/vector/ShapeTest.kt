@@ -1,10 +1,15 @@
 package korlibs.image.vector
 
-import korlibs.image.color.*
-import korlibs.math.geom.*
-import korlibs.math.geom.shape.*
-import korlibs.math.geom.vector.*
-import kotlin.test.*
+import korlibs.image.color.Colors
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Point
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.shape.buildVectorPath
+import korlibs.math.geom.vector.StrokeInfo
+import korlibs.math.geom.vector.VectorBuilder
+import korlibs.math.geom.vector.VectorPath
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ShapeTest {
     @Test

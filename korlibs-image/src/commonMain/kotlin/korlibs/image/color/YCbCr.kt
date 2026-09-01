@@ -1,8 +1,8 @@
 package korlibs.image.color
 
+import korlibs.image.internal.packIntClamped
 import korlibs.math.clampUByte
 import korlibs.memory.extract8
-import korlibs.image.internal.packIntClamped
 import kotlin.jvm.JvmInline
 
 // https://en.wikipedia.org/wiki/YCbCr

@@ -5,7 +5,7 @@ package korlibs.io.stream
 import korlibs.io.lang.Charset
 import korlibs.io.lang.UTF8
 import korlibs.io.lang.toString
-import korlibs.io.util.*
+import korlibs.io.util.indexOf
 import korlibs.math.nextAlignedTo
 import korlibs.memory.arraycopy
 import korlibs.memory.getF32ArrayBE

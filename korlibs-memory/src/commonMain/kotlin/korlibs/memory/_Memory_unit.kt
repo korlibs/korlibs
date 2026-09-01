@@ -3,7 +3,8 @@
 package korlibs.memory.unit
 
 import kotlin.jvm.JvmInline
-import kotlin.math.*
+import kotlin.math.pow
+import kotlin.math.roundToInt
 
 @JvmInline
 value class ByteUnits private constructor(val bytes: Double) {

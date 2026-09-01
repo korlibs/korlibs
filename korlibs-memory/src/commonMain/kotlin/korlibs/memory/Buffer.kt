@@ -2,8 +2,8 @@
 
 package korlibs.memory
 
-import korlibs.memory.internal.*
-import kotlin.jvm.*
+import korlibs.memory.internal.extract4
+import kotlin.jvm.JvmInline
 
 typealias DataView = Buffer
 

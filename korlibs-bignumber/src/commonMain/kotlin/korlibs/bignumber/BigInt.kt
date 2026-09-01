@@ -1,6 +1,6 @@
 package korlibs.bignumber
 
-import korlibs.bignumber.ranges.*
+import korlibs.bignumber.ranges.BigIntRange
 
 // Big Integer
 /** Converts this into a [BigInt] */

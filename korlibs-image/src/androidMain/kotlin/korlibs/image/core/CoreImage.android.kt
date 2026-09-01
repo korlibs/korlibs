@@ -1,10 +1,13 @@
 package korlibs.image.core
 
-import android.app.*
-import android.graphics.*
-import android.os.*
-import kotlinx.coroutines.*
-import java.io.*
+import android.app.ActivityManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.Build
+import java.io.ByteArrayOutputStream
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.invoke
+import kotlinx.coroutines.withContext
 
 actual val CoreImageFormatProvider_default: CoreImageFormatProvider = AndroidCoreImageFormatProvider
 

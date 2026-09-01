@@ -1,7 +1,11 @@
 package korlibs.image.format
 
-import korlibs.image.bitmap.*
-import korlibs.io.stream.*
+import korlibs.image.bitmap.Bitmap
+import korlibs.io.stream.SyncStream
+import korlibs.io.stream.eof
+import korlibs.io.stream.readBytes
+import korlibs.io.stream.readStringz
+import korlibs.io.stream.readU32BE
 
 /**
  * Apple Icon Image Format

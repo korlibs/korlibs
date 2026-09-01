@@ -1,6 +1,9 @@
 package korlibs.math.geom
 
-import korlibs.math.interpolation.*
+import korlibs.math.interpolation.Interpolable
+import korlibs.math.interpolation.Ratio
+import korlibs.math.interpolation.interpolate
+import korlibs.math.interpolation.toRatio
 
 typealias Anchor = Anchor2D
 typealias Anchor3 = Anchor3F

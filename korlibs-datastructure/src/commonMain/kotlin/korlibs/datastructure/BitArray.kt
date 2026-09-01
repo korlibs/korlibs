@@ -1,7 +1,8 @@
 package korlibs.datastructure
 
-import korlibs.math.*
-import kotlin.experimental.*
+import korlibs.math.divCeil
+import kotlin.experimental.and
+import kotlin.experimental.or
 
 /**
  * Equivalent to [BooleanArray] but tightly packed to consume less memory,

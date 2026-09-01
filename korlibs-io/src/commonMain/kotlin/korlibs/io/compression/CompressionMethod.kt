@@ -1,9 +1,17 @@
 package korlibs.io.compression
 
-import korlibs.datastructure.*
-import korlibs.io.async.*
+import korlibs.datastructure.Extra
+import korlibs.io.async.runBlockingNoSuspensions
 import korlibs.io.lang.unsupported
-import korlibs.io.stream.*
+import korlibs.io.stream.AsyncInputStream
+import korlibs.io.stream.AsyncOutputStream
+import korlibs.io.stream.MemorySyncStreamToByteArray
+import korlibs.io.stream.SyncInputStream
+import korlibs.io.stream.SyncOutputStream
+import korlibs.io.stream.asyncStreamWriter
+import korlibs.io.stream.copyTo
+import korlibs.io.stream.openSync
+import korlibs.io.stream.toAsync
 
 interface CompressionMethod {
     val name: String get() = "UNKNOWN"

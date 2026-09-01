@@ -1,10 +1,20 @@
 package korlibs.image.format.provider
 
-import korlibs.ffi.*
-import korlibs.image.bitmap.*
-import korlibs.image.format.*
-import korlibs.memory.*
-import kotlin.math.*
+import korlibs.ffi.FFILib
+import korlibs.ffi.FFIPointer
+import korlibs.ffi.FFIPointerArray
+import korlibs.ffi.castToFunc
+import korlibs.ffi.getAlignedFFIPointer
+import korlibs.ffi.getIntArray
+import korlibs.ffi.getUnalignedFFIPointer
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.format.BaseNativeImageFormatProvider
+import korlibs.image.format.BitmapNativeImage
+import korlibs.image.format.ImageDecodingProps
+import korlibs.image.format.NativeImageResult
+import korlibs.memory.Buffer
+import korlibs.memory.getS32
+import kotlin.math.absoluteValue
 
 // https://github.com/korlibs/korge/blob/2d6152c4aebb4120cf883dea8c85f053f86f5e2f/korim/src/mingwMain/kotlin/korlibs/image/format/GdiNativeImage.kt
 // https://github.com/korlibs/korge/blob/2d6152c4aebb4120cf883dea8c85f053f86f5e2f/korim/src/mingwMain/kotlin/korlibs/image/format/ImageDecoder.windows.kt

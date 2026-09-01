@@ -1,6 +1,7 @@
 package korlibs.audio.sound
 
-import korlibs.memory.*
+import korlibs.memory.getSampled
+import korlibs.memory.getSampledGeneric
 import kotlin.jvm.JvmInline
 
 @JvmInline

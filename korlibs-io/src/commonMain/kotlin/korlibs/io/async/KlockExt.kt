@@ -1,7 +1,6 @@
 package korlibs.io.async
 
 import korlibs.time.isNil
-import korlibs.time.millisecondsLong
 import kotlin.coroutines.coroutineContext
 import kotlin.time.Duration
 import kotlinx.coroutines.CoroutineScope

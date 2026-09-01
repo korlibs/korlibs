@@ -1,8 +1,12 @@
 package korlibs.math.interpolation
 
-import korlibs.datastructure.*
-import korlibs.math.geom.*
-import korlibs.number.*
+import korlibs.datastructure.fastCastTo
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.MatrixTransform
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.Scale
+import korlibs.math.geom.Size
+import korlibs.number.niceStr
 
 fun Ratio.interpolate(l: Size, r: Size): Size = Size(interpolate(l.width, r.width), interpolate(l.height, r.height))
 fun Ratio.interpolate(l: Scale, r: Scale): Scale = Scale(interpolate(l.scaleX, r.scaleX), interpolate(l.scaleY, r.scaleY))

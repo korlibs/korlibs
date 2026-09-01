@@ -1,6 +1,7 @@
 package korlibs.math.geom
 
-import korlibs.math.interpolation.*
+import korlibs.math.interpolation.Ratio
+import korlibs.math.interpolation.interpolate
 
 fun Vector2F.deltaTransformed(m: Matrix): Vector2F = m.deltaTransform(this)
 fun Vector2F.transformed(m: Matrix): Vector2F = m.transform(this)

@@ -2,9 +2,30 @@
 
 package korlibs.ffi
 
-import korlibs.memory.*
-import kotlinx.cinterop.*
-import kotlin.reflect.*
+import korlibs.memory.Buffer
+import korlibs.memory.startAddressOf
+import kotlin.reflect.KType
+import kotlinx.cinterop.Arena
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.COpaquePointerVar
+import kotlinx.cinterop.CPointed
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.DoubleVar
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.FloatVar
+import kotlinx.cinterop.IntVar
+import kotlinx.cinterop.LongVar
+import kotlinx.cinterop.NativePtr
+import kotlinx.cinterop.ShortVar
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.get
+import kotlinx.cinterop.plus
+import kotlinx.cinterop.rawValue
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.set
+import kotlinx.cinterop.sizeOf
+import kotlinx.cinterop.toCPointer
+import kotlinx.cinterop.usePinned
 
 actual fun FFILibSym(lib: FFILib): FFILibSym {
     return object : FFILibSym {

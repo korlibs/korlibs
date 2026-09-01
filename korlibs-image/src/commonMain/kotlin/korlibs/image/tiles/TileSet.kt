@@ -1,12 +1,29 @@
 package korlibs.image.tiles
 
-import korlibs.datastructure.*
-import korlibs.image.bitmap.*
-import korlibs.math.*
-import korlibs.math.geom.*
-import korlibs.time.*
-import kotlin.math.*
-import kotlin.time.*
+import korlibs.datastructure.Extra
+import korlibs.datastructure.FastIdentityMap
+import korlibs.datastructure.IntMap
+import korlibs.datastructure.getOrPut
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.BitmapCoords
+import korlibs.image.bitmap.BitmapSlice
+import korlibs.image.bitmap.Bitmaps
+import korlibs.image.bitmap.BmpSlice
+import korlibs.image.bitmap.BmpSlice32
+import korlibs.image.bitmap.bmp
+import korlibs.image.bitmap.extract
+import korlibs.image.bitmap.mipmaps
+import korlibs.image.bitmap.slice
+import korlibs.image.bitmap.sliceWithSize
+import korlibs.math.geom.SizeInt
+import korlibs.math.nextPowerOfTwo
+import korlibs.math.toIntCeil
+import korlibs.time.FastDuration
+import korlibs.time.fast
+import korlibs.time.toDuration
+import kotlin.math.sqrt
+import kotlin.time.Duration
 
 data class TileSetAnimationFrame(
     val tileId: Int,

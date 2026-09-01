@@ -1,15 +1,21 @@
 package korlibs.audio.impl.jna
 
-import korlibs.audio.format.*
-import korlibs.audio.sound.*
-import korlibs.time.seconds
+import korlibs.audio.format.AudioDecodingProps
+import korlibs.audio.format.MP3Decoder
+import korlibs.audio.format.readSoundInfo
+import korlibs.audio.sound.SoundChannelGroup
+import korlibs.audio.sound.await
+import korlibs.audio.sound.playbackTimes
+import korlibs.audio.sound.readAudioStream
+import korlibs.audio.sound.readSound
 import korlibs.io.file.VfsFile
 import korlibs.io.file.fullName
 import korlibs.io.file.std.MemoryVfs
 import korlibs.io.file.std.resourcesVfs
 import korlibs.io.stream.openAsync
-import kotlinx.coroutines.*
-import kotlin.io.println
+import korlibs.time.seconds
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
 fun ByteArray.asMemoryVfsFile(name: String = "temp.bin"): VfsFile = MemoryVfs(mapOf(name to openAsync()))[name]
 suspend fun VfsFile.cachedToMemory(): VfsFile = this.readAll().asMemoryVfsFile(this.fullName)

@@ -1,8 +1,8 @@
 package korlibs.time
 
-import korlibs.time.internal.*
-import kotlin.math.*
-import kotlin.time.*
+import korlibs.time.internal.padded
+import kotlin.math.floor
+import kotlin.time.Duration
 
 operator fun Duration.plus(other: MonthSpan): DateTimeSpan = DateTimeSpan(other, this)
 operator fun Duration.plus(other: DateTimeSpan): DateTimeSpan = DateTimeSpan(other.monthSpan, other.duration + this)

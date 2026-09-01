@@ -1,7 +1,9 @@
 package korlibs.image.bitmap
 
-import korlibs.datastructure.*
-import korlibs.image.color.*
+import korlibs.datastructure.IntIntMap
+import korlibs.image.color.RGBA
+import korlibs.image.color.RGBAPremultiplied
+import korlibs.image.color.RgbaArray
 
 fun BitmapIndexed.toBitmap8(): Bitmap8 = Bitmap8(width, height, data, palette)
 

@@ -1,8 +1,13 @@
 package korlibs.math.geom.bezier
 
-import korlibs.math.geom.*
-import korlibs.math.interpolation.*
-import kotlin.test.*
+import korlibs.math.geom.Point
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.assertEqualsFloat
+import korlibs.math.geom.pointArrayListOf
+import korlibs.math.interpolation.Ratio
+import korlibs.math.interpolation.toRatio
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class BezierCurveCubicTest {
     val b = Bezier(Point(0, 0), Point(0, 1), Point(1, 1), Point(1, 0))

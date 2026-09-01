@@ -2,7 +2,7 @@
 
 package korlibs.platform
 
-import kotlin.experimental.*
+import kotlin.experimental.ExperimentalNativeApi
 
 internal actual val currentOs: Os = when (kotlin.native.Platform.osFamily) {
     OsFamily.MACOSX -> Os.MACOSX

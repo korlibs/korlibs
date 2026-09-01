@@ -2,7 +2,11 @@
 
 package korlibs.memory
 
-import kotlinx.cinterop.*
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.IntVar
+import kotlinx.cinterop.toCPointer
+import kotlinx.cinterop.toLong
 
 public value class NInt(public val data: CPointer<IntVar>?) {
     public constructor(value: Int) : this(value.toLong().toCPointer<IntVar>())

@@ -2,7 +2,7 @@
 
 package korlibs.io.async
 
-import kotlinx.coroutines.*
-import kotlin.experimental.*
+import kotlin.experimental.ExperimentalNativeApi
+import kotlinx.coroutines.Dispatchers
 
 actual val Dispatchers.ConcurrencyLevel: Int get() = Platform.getAvailableProcessors()

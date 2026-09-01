@@ -1,6 +1,6 @@
 package korlibs.wasm
 
-import korlibs.io.stream.*
+import korlibs.io.stream.openSync
 
 open class InterpreterWASMLib(content: ByteArray) : BaseWASMLib(content) {
     //val interpreter = WasmRunInterpreter(WasmReaderBinary().read(content.openSync()).toModule())

@@ -1,11 +1,7 @@
 package korlibs.io.lang
 
-import android.annotation.*
-import android.os.*
-import android.webkit.*
-import korlibs.io.android.*
-import korlibs.io.serialization.json.*
-import kotlinx.coroutines.*
+import android.annotation.TargetApi
+import android.os.Build
 
 actual val JSEval = object : IJSEval {
     override val globalThis: Any? get() = null

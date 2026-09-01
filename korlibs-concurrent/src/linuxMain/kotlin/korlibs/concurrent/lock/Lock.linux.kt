@@ -1,11 +1,33 @@
 package korlibs.concurrent.lock
 
-import korlibs.time.*
-import kotlinx.atomicfu.*
-import kotlinx.atomicfu.locks.*
-import kotlinx.cinterop.*
-import platform.posix.*
-import kotlin.time.*
+import korlibs.time.FastDuration
+import korlibs.time.milliseconds
+import korlibs.time.slow
+import kotlinx.atomicfu.atomic
+import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
+import kotlinx.cinterop.Arena
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
+import platform.posix.ETIMEDOUT
+import platform.posix.PTHREAD_MUTEX_RECURSIVE
+import platform.posix.pthread_cond_destroy
+import platform.posix.pthread_cond_init
+import platform.posix.pthread_cond_signal
+import platform.posix.pthread_cond_t
+import platform.posix.pthread_cond_timedwait
+import platform.posix.pthread_mutex_destroy
+import platform.posix.pthread_mutex_init
+import platform.posix.pthread_mutex_lock
+import platform.posix.pthread_mutex_t
+import platform.posix.pthread_mutex_unlock
+import platform.posix.pthread_mutexattr_init
+import platform.posix.pthread_mutexattr_settype
+import platform.posix.pthread_mutexattr_t
 
 @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 actual class Lock actual constructor() : BaseLockWithNotifyAndWait {

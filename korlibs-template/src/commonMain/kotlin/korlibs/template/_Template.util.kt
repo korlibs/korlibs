@@ -2,8 +2,12 @@
 
 package korlibs.template.util
 
-import korlibs.template.internal.*
-import kotlin.coroutines.*
+import korlibs.template.internal.Lock
+import korlibs.template.internal.invoke
+import kotlin.coroutines.Continuation
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.startCoroutine
+import kotlin.coroutines.suspendCoroutine
 
 interface KorteAsyncTextWriterContainer {
     suspend fun write(writer: suspend (String) -> Unit)

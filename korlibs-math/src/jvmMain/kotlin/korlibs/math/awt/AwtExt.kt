@@ -1,7 +1,9 @@
 package korlibs.math.awt
 
-import korlibs.math.geom.*
 import java.awt.geom.Rectangle2D
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.RectangleInt
+import korlibs.math.geom.Size
 
 fun Rectangle.toAwt(out: Rectangle2D.Float = Rectangle2D.Float()): Rectangle2D.Float =
     out.also { it.setRect(this.x, this.y, this.width, this.height) }

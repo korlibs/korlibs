@@ -1,6 +1,8 @@
 package korlibs.math
 
-import kotlin.math.*
+import kotlin.math.ceil
+import kotlin.math.floor
+import kotlin.math.round
 
 ////////////////////
 ////////////////////

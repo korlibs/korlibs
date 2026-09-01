@@ -1,13 +1,14 @@
 package korlibs.io.concurrent
 
-import korlibs.io.async.*
+import korlibs.io.async.ConcurrencyLevel
+import korlibs.io.async._createFixedThreadDispatcher
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CloseableCoroutineDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.Runnable
-import kotlin.coroutines.CoroutineContext
 
 @Deprecated("", ReplaceWith("Dispatchers.ConcurrencyLevel", "kotlinx.coroutines.Dispatchers", "korlibs.io.async.ConcurrencyLevel"))
 val CONCURRENCY_COUNT: Int get() = Dispatchers.ConcurrencyLevel

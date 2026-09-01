@@ -1,12 +1,16 @@
 package korlibs.io.concurrent
 
-import korlibs.concurrent.thread.*
-import korlibs.io.async.*
-import korlibs.time.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
-import kotlin.time.*
+import korlibs.concurrent.thread.FixedPoolNativeThreadDispatcher
+import korlibs.concurrent.thread.NativeThread
+import korlibs.concurrent.thread.NativeThreadPriority
+import korlibs.io.async.CIO
+import korlibs.time.milliseconds
+import kotlin.test.Test
+import kotlin.time.measureTime
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withContext
 
 class DispatchersDelayTest {
     @Test

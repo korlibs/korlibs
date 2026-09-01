@@ -1,9 +1,13 @@
 package korlibs.math.geom
 
-import korlibs.math.*
-import korlibs.math.interpolation.*
+import korlibs.math.IsAlmostEqualsF
+import korlibs.math.interpolation.Ratio
+import korlibs.math.isAlmostEquals
 import korlibs.math.isAlmostZero
-import kotlin.math.*
+import kotlin.math.acos
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 // https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
 //@KormaValueApi

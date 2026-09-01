@@ -2,10 +2,22 @@
 
 package korlibs.math.geom.ds
 
-import korlibs.datastructure.*
-import korlibs.datastructure.ds.*
-import korlibs.math.annotations.*
-import korlibs.math.geom.*
+import korlibs.datastructure.Array2
+import korlibs.datastructure.FastArrayList
+import korlibs.datastructure.ds.BVH
+import korlibs.datastructure.ds.BVHIntervals
+import korlibs.datastructure.ds.BVHRay
+import korlibs.datastructure.ds.BVHRect
+import korlibs.datastructure.ds.BVHVector
+import korlibs.datastructure.fastArrayListOf
+import korlibs.math.geom.AABB3D
+import korlibs.math.geom.Point
+import korlibs.math.geom.PointInt
+import korlibs.math.geom.Ray
+import korlibs.math.geom.Ray3F
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.Vector2D
+import korlibs.math.geom.Vector3F
 
 operator fun <T> Array2<T>.get(p: Point): T = get(p.x.toInt(), p.y.toInt())
 operator fun <T> Array2<T>.set(p: Point, value: T) = set(p.x.toInt(), p.y.toInt(), value)

@@ -1,6 +1,6 @@
 package korlibs.number.internal
 
-import kotlin.math.*
+import kotlin.math.round
 
 internal fun Float.toIntRound(): Int = round(this).toInt()
 internal fun Double.toIntRound(): Int = round(this).toInt()

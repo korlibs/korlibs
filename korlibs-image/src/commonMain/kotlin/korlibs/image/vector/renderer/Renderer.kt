@@ -1,10 +1,18 @@
 package korlibs.image.vector.renderer
 
-import korlibs.image.bitmap.*
-import korlibs.image.paint.*
-import korlibs.image.vector.*
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.paint.BitmapPaint
+import korlibs.image.paint.Paint
+import korlibs.image.vector.Context2d
+import korlibs.image.vector.toBitmapPaint
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.MatrixType
+import korlibs.math.geom.Point
+import korlibs.math.geom.Size
+import korlibs.math.geom.scaled
+import korlibs.math.geom.toFloat
+import korlibs.math.geom.vector.VectorPath
+import korlibs.math.geom.vector.Winding
 
 abstract class Renderer {
     var debug: Boolean = false

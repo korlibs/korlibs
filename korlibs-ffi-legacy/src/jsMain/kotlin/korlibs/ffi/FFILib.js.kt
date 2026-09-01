@@ -1,14 +1,28 @@
 package korlibs.ffi
 
 import JsArray
-import korlibs.image.bitmap.*
-import korlibs.js.*
-import korlibs.memory.*
+import korlibs.image.bitmap.NativeImageRef
+import korlibs.js.Deno
+import korlibs.js.DenoPointer
+import korlibs.js.Deno_PointerObject
+import korlibs.js.Deno_isDeno
+import korlibs.js.JsBigInt
+import korlibs.js.jsObject
+import korlibs.js.pointer
+import korlibs.js.toJsBigInt
+import korlibs.js.toLong
 import korlibs.memory.Buffer
-import kotlinx.coroutines.*
-import org.khronos.webgl.*
+import korlibs.memory._high
+import korlibs.memory._low
+import korlibs.memory.fromLowHigh
 import kotlin.js.Promise
-import kotlin.reflect.*
+import kotlin.reflect.KClassifier
+import kotlin.reflect.KType
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.asDeferred
+import org.khronos.webgl.ArrayBuffer
+import org.khronos.webgl.Int8Array
+import org.khronos.webgl.Uint8Array
 
 fun KType.funcToDenoDef(): dynamic {
     val ftype = FFILib.extractTypeFunc(this)

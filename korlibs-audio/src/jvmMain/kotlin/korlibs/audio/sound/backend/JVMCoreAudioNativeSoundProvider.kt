@@ -1,13 +1,23 @@
 package korlibs.audio.sound.backend
 
-import com.sun.jna.*
-import korlibs.annotations.*
-import korlibs.audio.sound.*
-import korlibs.audio.sound.backend.JVMCoreAudioNativeSoundProvider.AudioQueueNewOutputCallback
-import korlibs.ffi.*
-import kotlinx.atomicfu.*
-import java.util.concurrent.*
+import com.sun.jna.Callback
+import com.sun.jna.CallbackThreadInitializer
+import com.sun.jna.Memory
+import com.sun.jna.Native
+import com.sun.jna.Pointer
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicLong
+import korlibs.annotations.Keep
+import korlibs.audio.sound.AudioPlatformOutput
+import korlibs.audio.sound.AudioPlatformOutputGen
+import korlibs.audio.sound.AudioSamplesInterleaved
+import korlibs.audio.sound.NativeSoundProvider
+import korlibs.ffi.FFIPointer
+import korlibs.ffi.FFIStructure
+import korlibs.ffi.address
+import korlibs.ffi.set
+import kotlinx.atomicfu.AtomicRef
+import kotlinx.atomicfu.atomic
 
 object JVMCoreAudioNativeSoundProvider : NativeSoundProvider() {
     @ExperimentalStdlibApi

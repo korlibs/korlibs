@@ -1,17 +1,23 @@
 package korlibs.image.font
 
-import korlibs.image.atlas.*
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.image.paint.*
-import korlibs.image.text.*
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import korlibs.logger.*
-import korlibs.math.geom.*
-import korlibs.platform.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.image.atlas.MutableAtlasUnit
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.context2d
+import korlibs.image.color.Colors
+import korlibs.image.paint.LinearGradientPaint
+import korlibs.image.text.CreateStringTextRenderer
+import korlibs.image.text.TextAlignment
+import korlibs.io.async.suspendTest
+import korlibs.io.async.suspendTestNoBrowser
+import korlibs.io.file.std.resourcesVfs
+import korlibs.logger.Logger
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Point
+import korlibs.math.geom.degrees
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.coroutines.test.runTest
 
 class FontTest {
     val logger = Logger("FontTest")

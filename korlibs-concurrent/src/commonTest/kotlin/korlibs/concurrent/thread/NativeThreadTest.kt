@@ -1,12 +1,20 @@
 package korlibs.concurrent.thread
 
-import korlibs.io.async.*
-import korlibs.time.*
-import kotlinx.atomicfu.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
-import kotlin.time.*
+import korlibs.io.async.CIO
+import korlibs.io.async.runBlockingNoJs
+import korlibs.time.milliseconds
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
+import kotlin.time.measureTime
+import kotlinx.atomicfu.atomic
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withContext
 
 class NativeThreadTest {
     @Test

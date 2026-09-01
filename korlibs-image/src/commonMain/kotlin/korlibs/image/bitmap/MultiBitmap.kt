@@ -1,7 +1,7 @@
 package korlibs.image.bitmap
 
-import korlibs.image.color.*
-import korlibs.io.lang.*
+import korlibs.image.color.RGBA
+import korlibs.io.lang.unsupported
 
 open class MultiBitmap(
     width: Int,

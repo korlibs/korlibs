@@ -1,8 +1,10 @@
 package korlibs.audio.sound
 
-import korlibs.audio.sound.backend.*
-import korlibs.concurrent.thread.*
-import korlibs.platform.*
+import korlibs.audio.sound.backend.AWTNativeSoundProvider
+import korlibs.audio.sound.backend.FFIALSANativeSoundProvider
+import korlibs.audio.sound.backend.FFIJVMWaveOutNativeSoundProvider
+import korlibs.audio.sound.backend.JVMCoreAudioNativeSoundProvider
+import korlibs.platform.Platform
 
 actual val nativeSoundProvider: NativeSoundProvider by lazy {
     try {

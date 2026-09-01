@@ -1,10 +1,8 @@
 package korlibs.image.bitmap
 
-import korlibs.image.color.*
-import korlibs.image.format.*
-import korlibs.io.file.std.*
-import kotlinx.coroutines.*
-import kotlin.test.*
+import korlibs.image.color.Colors
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class Bitmap32JvmTest {
     @Test

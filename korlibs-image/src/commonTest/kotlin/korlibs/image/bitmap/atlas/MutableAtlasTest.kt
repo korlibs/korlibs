@@ -1,9 +1,10 @@
 package korlibs.image.bitmap.atlas
 
 import korlibs.image.atlas.MutableAtlas
-import korlibs.image.bitmap.*
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.bounds
 import korlibs.image.color.Colors
-import korlibs.math.geom.*
+import korlibs.math.geom.RectangleInt
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals

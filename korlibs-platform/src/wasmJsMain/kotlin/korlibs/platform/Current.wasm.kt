@@ -1,8 +1,10 @@
 package korlibs.platform
 
-import korlibs.wasm.*
-import kotlinx.browser.*
-import org.khronos.webgl.*
+import kotlinx.browser.document
+import org.khronos.webgl.Uint32Array
+import org.khronos.webgl.Uint8Array
+import org.khronos.webgl.get
+import org.khronos.webgl.set
 
 @JsFun("() => { return (typeof Deno === 'object' && Deno.statSync !== undefined) }")
 internal external fun isDenoJs(): Boolean

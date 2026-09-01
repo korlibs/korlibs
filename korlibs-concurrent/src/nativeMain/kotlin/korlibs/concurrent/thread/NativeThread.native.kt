@@ -1,11 +1,22 @@
 package korlibs.concurrent.thread
 
-import korlibs.concurrent.lock.*
-import korlibs.time.*
-import kotlinx.atomicfu.locks.*
-import kotlinx.cinterop.*
-import platform.posix.*
-import kotlin.native.runtime.*
+import korlibs.time.FastDuration
+import kotlin.native.runtime.GC
+import kotlin.native.runtime.NativeRuntimeApi
+import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.withLock
+import kotlinx.cinterop.COpaquePointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
+import platform.posix.SCHED_OTHER
+import platform.posix.nanosleep
+import platform.posix.sched_yield
+import platform.posix.timespec
 
 actual typealias NativeNativeThread = Long
 

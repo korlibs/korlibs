@@ -1,10 +1,20 @@
 package korlibs.math.geom
 
-import korlibs.math.*
-import korlibs.math.geom.shape.*
-import korlibs.math.interpolation.*
-import korlibs.number.*
-import kotlin.math.*
+import korlibs.math.IsAlmostEquals
+import korlibs.math.geom.shape.SimpleShape2D
+import korlibs.math.interpolation.Ratio
+import korlibs.math.interpolation.interpolate
+import korlibs.math.isAlmostEquals
+import korlibs.math.roundDecimalPlaces
+import korlibs.math.toIntCeil
+import korlibs.math.toIntFloor
+import korlibs.math.toIntRound
+import korlibs.number.niceStr
+import kotlin.math.ceil
+import kotlin.math.floor
+import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.round
 
 typealias RectangleD = Rectangle
 

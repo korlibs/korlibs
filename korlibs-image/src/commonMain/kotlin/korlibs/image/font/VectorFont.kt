@@ -1,10 +1,11 @@
 package korlibs.image.font
 
-import korlibs.datastructure.*
-import korlibs.datastructure.iterators.*
-import korlibs.image.vector.*
-import korlibs.io.lang.*
-import korlibs.math.geom.*
+import korlibs.datastructure.Extra
+import korlibs.datastructure.iterators.fastForEach
+import korlibs.image.vector.Context2d
+import korlibs.io.lang.WStringReader
+import korlibs.io.lang.keep
+import korlibs.math.geom.Point
 
 interface VectorFont : Font {
     fun getGlyphPath(size: Double, codePoint: Int, path: GlyphPath = GlyphPath(), reader: WStringReader? = null): GlyphPath?

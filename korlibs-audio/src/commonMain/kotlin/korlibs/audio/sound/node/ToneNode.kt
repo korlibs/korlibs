@@ -1,7 +1,9 @@
 package korlibs.audio.sound.node
 
-import korlibs.audio.sound.*
-import kotlin.math.*
+import korlibs.audio.sound.AudioData
+import korlibs.audio.sound.AudioSample
+import kotlin.math.PI
+import kotlin.math.sin
 
 // @TODO: Enable this later
 internal class ToneNode(

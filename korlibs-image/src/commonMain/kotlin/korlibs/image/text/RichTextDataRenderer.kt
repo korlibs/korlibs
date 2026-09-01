@@ -1,10 +1,16 @@
 package korlibs.image.text
 
-import korlibs.datastructure.*
-import korlibs.image.font.*
-import korlibs.image.paint.*
-import korlibs.image.vector.*
-import korlibs.math.geom.*
+import korlibs.datastructure.FastArrayList
+import korlibs.datastructure.fastArrayListOf
+import korlibs.image.font.Font
+import korlibs.image.font.TextMetricsResult
+import korlibs.image.font.getTextBounds
+import korlibs.image.paint.Paint
+import korlibs.image.paint.Stroke
+import korlibs.image.vector.Context2d
+import korlibs.math.geom.BoundsBuilder
+import korlibs.math.geom.Point
+import korlibs.math.geom.Rectangle
 
 data class RichTextDataPlacements(
     val placements: FastArrayList<Placement> = fastArrayListOf()

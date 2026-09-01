@@ -1,6 +1,7 @@
 package korlibs.math.geom
 
-import kotlin.test.*
+import kotlin.test.Ignore
+import kotlin.test.Test
 
 class QuaternionTest {
     @Test

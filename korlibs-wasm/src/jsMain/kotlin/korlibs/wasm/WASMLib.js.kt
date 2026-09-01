@@ -1,8 +1,12 @@
 package korlibs.wasm
 
-import korlibs.js.*
-import org.khronos.webgl.*
-import kotlin.reflect.*
+import korlibs.js.jsObject
+import kotlin.reflect.KType
+import org.khronos.webgl.ArrayBuffer
+import org.khronos.webgl.DataView
+import org.khronos.webgl.Uint8Array
+import org.khronos.webgl.get
+import org.khronos.webgl.set
 
 private external val Deno: dynamic
 

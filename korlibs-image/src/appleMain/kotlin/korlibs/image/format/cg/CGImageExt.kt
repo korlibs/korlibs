@@ -2,9 +2,17 @@
 
 package korlibs.image.format.cg
 
-import korlibs.image.bitmap.*
-import kotlinx.cinterop.*
-import platform.CoreGraphics.*
+import korlibs.image.bitmap.Bitmap32
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.convert
+import platform.CoreGraphics.CGBitmapContextCreate
+import platform.CoreGraphics.CGColorSpaceCreateDeviceRGB
+import platform.CoreGraphics.CGContextDrawImage
+import platform.CoreGraphics.CGImageAlphaInfo
+import platform.CoreGraphics.CGImageGetHeight
+import platform.CoreGraphics.CGImageGetWidth
+import platform.CoreGraphics.CGImageRef
 
 fun Bitmap32.toCGImage(): CGImageRef? {
     return transferBitmap32ToCGImage(this, null)

@@ -1,6 +1,6 @@
 package korlibs.util
 
-import korlibs.io.stream.*
+import korlibs.io.stream.CharReader
 
 class StrReaderCharReader(val reader: SimpleStrReader) : CharReader {
     override fun read(out: StringBuilder, count: Int): Int {

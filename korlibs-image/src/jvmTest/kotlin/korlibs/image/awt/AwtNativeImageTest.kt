@@ -1,6 +1,6 @@
 package korlibs.image.awt
 
-import korlibs.math.geom.*
+import korlibs.math.geom.Matrix
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

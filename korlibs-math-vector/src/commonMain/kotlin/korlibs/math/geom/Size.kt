@@ -1,7 +1,8 @@
 package korlibs.math.geom
 
-import korlibs.number.*
-import kotlin.math.*
+import korlibs.number.niceStr
+import kotlin.math.max
+import kotlin.math.min
 
 typealias Size = Size2D
 typealias Size3 = Size2F

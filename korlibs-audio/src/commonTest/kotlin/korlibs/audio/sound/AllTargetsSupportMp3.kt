@@ -1,11 +1,13 @@
 package korlibs.audio.sound
 
 import doIOTest
-import korlibs.audio.format.*
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import korlibs.platform.*
-import kotlin.test.*
+import korlibs.audio.format.MP3
+import korlibs.io.async.suspendTest
+import korlibs.io.file.std.resourcesVfs
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class AllTargetsSupportMp3 {
     @Test

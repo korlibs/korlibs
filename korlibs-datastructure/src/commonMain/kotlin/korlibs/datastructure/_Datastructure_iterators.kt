@@ -2,17 +2,20 @@
 
 package korlibs.datastructure.iterators
 
-import korlibs.concurrent.thread.*
+import korlibs.concurrent.thread.NativeThread
 import korlibs.datastructure.DoubleArrayList
 import korlibs.datastructure.FastArrayList
 import korlibs.datastructure.FloatArrayList
 import korlibs.datastructure.IntArrayList
 import korlibs.datastructure.toFastList
-import korlibs.io.async.*
-import korlibs.io.concurrent.*
-import kotlinx.atomicfu.*
-import kotlinx.coroutines.*
-import kotlin.math.*
+import korlibs.io.async.ConcurrencyLevel
+import korlibs.io.concurrent.createFixedThreadDispatcher
+import kotlin.math.max
+import kotlinx.atomicfu.atomic
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Deprecated("", ReplaceWith("Dispatchers.ConcurrencyLevel", "kotlinx.coroutines.Dispatchers", "korlibs.io.async.ConcurrencyLevel"))
 val CONCURRENCY_COUNT: Int get() = Dispatchers.ConcurrencyLevel

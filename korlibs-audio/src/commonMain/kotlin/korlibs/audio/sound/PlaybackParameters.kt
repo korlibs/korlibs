@@ -1,9 +1,9 @@
 package korlibs.audio.sound
 
-import korlibs.math.geom.*
-import korlibs.time.*
+import korlibs.math.geom.Vector3
+import korlibs.time.seconds
 import kotlin.jvm.JvmInline
-import kotlin.time.*
+import kotlin.time.Duration
 
 data class PlaybackParameters(
     val times: PlaybackTimes = 1.playbackTimes,

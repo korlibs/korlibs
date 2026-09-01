@@ -2,18 +2,19 @@
 
 package korlibs.audio.format.mod
 
-import korlibs.datastructure.IntDeque
-import korlibs.memory.*
 import korlibs.audio.sound.NativeSoundProvider
 import korlibs.audio.sound.Sound
 import korlibs.audio.sound.nativeSoundProvider
+import korlibs.datastructure.IntDeque
 import korlibs.io.file.VfsFile
 import korlibs.io.stream.AsyncStream
 import korlibs.io.stream.readBytesExact
 import korlibs.io.stream.sliceStart
-import korlibs.math.*
+import korlibs.math.clamp
+import korlibs.memory.Uint8Buffer
+import korlibs.memory.arraycopy
 import kotlin.random.Random
-import kotlin.time.*
+import kotlin.time.measureTime
 
 /*
   (c) 2012-2021 Noora Halme et al. (see AUTHORS)

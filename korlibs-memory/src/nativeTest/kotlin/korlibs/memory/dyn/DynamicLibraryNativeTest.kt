@@ -1,9 +1,5 @@
 package korlibs.memory.dyn
 
-import korlibs.memory.*
-import kotlin.test.*
-import kotlinx.cinterop.invoke
-
 /*
 class DynamicLibraryCommonTest {
     //object C : DynamicLibrary(Platform.C_LIBRARY_NAME) {

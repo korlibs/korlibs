@@ -1,10 +1,19 @@
 package korlibs.image.paint
 
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.image.vector.*
-import korlibs.math.*
-import korlibs.math.geom.*
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.Bitmaps
+import korlibs.image.bitmap.bmp
+import korlibs.image.color.Colors
+import korlibs.image.color.RGBA
+import korlibs.image.color.RGBAPremultiplied
+import korlibs.image.color.RgbaPremultipliedArray
+import korlibs.image.vector.Context2d
+import korlibs.image.vector.CycleMethod
+import korlibs.image.vector.CycleMethodPair
+import korlibs.math.clamp01
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Point
+import korlibs.math.geom.RectangleInt
 
 abstract class BaseFiller {
     abstract fun getColor(x: Float, y: Float): RGBAPremultiplied

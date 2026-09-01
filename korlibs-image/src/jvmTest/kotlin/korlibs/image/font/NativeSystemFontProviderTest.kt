@@ -1,7 +1,7 @@
 package korlibs.image.font
 
+import kotlin.test.assertEquals
 import org.junit.Test
-import kotlin.test.*
 
 class NativeSystemFontProviderTest {
     @Test

@@ -1,10 +1,10 @@
 package korlibs.image.format
 
-import korlibs.datastructure.*
-import korlibs.image.atlas.*
-import korlibs.image.bitmap.*
-import korlibs.io.file.*
-import korlibs.math.geom.slice.*
+import korlibs.datastructure.Extra
+import korlibs.image.atlas.MutableAtlasUnit
+import korlibs.image.bitmap.BmpSlice
+import korlibs.io.file.VfsFile
+import korlibs.math.geom.slice.SliceOrientation
 
 typealias ImageOrientation = SliceOrientation
 

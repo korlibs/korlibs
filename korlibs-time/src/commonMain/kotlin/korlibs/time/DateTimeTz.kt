@@ -1,7 +1,7 @@
 package korlibs.time
 
 import korlibs.Serializable
-import kotlin.time.*
+import kotlin.time.Duration
 
 /** [DateTime] with an associated [TimezoneOffset] */
 class DateTimeTz private constructor(

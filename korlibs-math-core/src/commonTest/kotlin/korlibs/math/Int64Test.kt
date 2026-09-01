@@ -1,10 +1,19 @@
 package korlibs.math
 
-import korlibs.memory.*
-import korlibs.platform.*
-import kotlin.random.*
-import kotlin.test.*
-import kotlin.time.*
+import korlibs.memory.Int64
+import korlibs.memory.Int64Array
+import korlibs.memory.contentEquals
+import korlibs.memory.equalsRaw
+import korlibs.memory.fromLowHigh
+import korlibs.memory.int64ArrayOf
+import korlibs.memory.toInt64
+import korlibs.platform.Platform
+import kotlin.random.Random
+import kotlin.test.Ignore
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+import kotlin.time.measureTime
 
 class Int64Test {
     val random = Random(0L)

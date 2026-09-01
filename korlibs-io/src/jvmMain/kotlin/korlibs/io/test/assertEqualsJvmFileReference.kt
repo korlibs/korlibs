@@ -1,7 +1,7 @@
 package korlibs.io.test
 
-import korlibs.io.dynamic.*
-import java.io.*
+import java.io.File
+import korlibs.io.dynamic.Dyn
 
 /**
  * Checks that a string matches a file in `src/jvmTest/resources` or `src/commonTest/resources`.

@@ -1,10 +1,10 @@
 package korlibs.time
 
-import korlibs.time.internal.BSearchResult
 import korlibs.Serializable
+import korlibs.time.internal.BSearchResult
 import korlibs.time.internal.fastForEach
 import korlibs.time.internal.genericBinarySearch
-import kotlin.time.*
+import kotlin.time.Duration
 
 // Properties:
 //  - ranges are sorted

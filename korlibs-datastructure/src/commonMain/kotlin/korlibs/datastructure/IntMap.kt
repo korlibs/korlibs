@@ -2,13 +2,11 @@
 
 package korlibs.datastructure
 
-import korlibs.datastructure.internal.*
-import korlibs.datastructure.iterators.*
-import korlibs.math.*
-import kotlin.collections.component1
-import kotlin.collections.component2
-import kotlin.contracts.*
-import kotlin.math.*
+import korlibs.datastructure.internal.fill
+import korlibs.datastructure.iterators.fastForEach
+import korlibs.math.ilog2Ceil
+import kotlin.contracts.ExperimentalContracts
+import kotlin.math.max
 
 private fun _mask(value: Int, mask: Int) = (value + ((value ushr 8) and 0xFF) + ((value ushr 16) and 0xFF) + ((value shr 24) and 0xFF)) and mask
 //private fun _mask(value: Int, mask: Int) = (value + (value shr 16)) and mask

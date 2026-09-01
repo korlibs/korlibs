@@ -1,9 +1,17 @@
 package korlibs.audio.sound
 
-import korlibs.audio.format.*
-import korlibs.io.file.*
-import korlibs.io.stream.*
-import kotlin.coroutines.*
+import korlibs.audio.format.AudioDecodingProps
+import korlibs.audio.format.AudioFormats
+import korlibs.audio.format.WAV
+import korlibs.audio.format.defaultAudioFormats
+import korlibs.io.file.FinalVfsFile
+import korlibs.io.file.Vfs
+import korlibs.io.file.VfsFile
+import korlibs.io.file.baseName
+import korlibs.io.file.getUnderlyingUnscapedFile
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.openAsync
+import kotlin.coroutines.coroutineContext
 
 
 //suspend fun createNewPlatformAudioOutput(nchannels: Int, freq: Int = 44100, gen: AudioPlatformOutputGen): AudioPlatformOutput = createNewPlatformAudioOutput(coroutineContextKt, nchannels, freq, gen)

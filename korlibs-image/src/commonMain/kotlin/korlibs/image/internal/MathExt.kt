@@ -1,6 +1,8 @@
 package korlibs.image.internal
 
-import korlibs.math.*
+import korlibs.math.clamp01
+import korlibs.math.clampUByte
+import korlibs.math.toIntRound
 import kotlin.math.ceil
 import kotlin.math.floor
 

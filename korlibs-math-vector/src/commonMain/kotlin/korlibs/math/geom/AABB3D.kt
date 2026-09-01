@@ -1,7 +1,8 @@
 package korlibs.math.geom
 
-import korlibs.math.geom.shape.*
-import kotlin.math.*
+import korlibs.math.geom.shape.SimpleShape3D
+import kotlin.math.max
+import kotlin.math.min
 
 data class AABB3D(val min: Vector3F = Vector3F(), val max: Vector3F = Vector3F()) : SimpleShape3D {
     val minX: Float get() = min.x

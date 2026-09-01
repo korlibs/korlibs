@@ -1,8 +1,9 @@
 package korlibs.audio.sound
 
-import korlibs.time.*
-import kotlin.math.*
-import kotlin.time.*
+import korlibs.time.seconds
+import kotlin.math.PI
+import kotlin.math.sin
+import kotlin.time.Duration
 
 @Deprecated("")
 object AudioTone {

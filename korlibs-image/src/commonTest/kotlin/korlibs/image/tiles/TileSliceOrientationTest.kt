@@ -1,8 +1,9 @@
 package korlibs.image.tiles
 
-import korlibs.math.*
-import korlibs.math.geom.slice.*
-import kotlin.test.*
+import korlibs.math.geom.slice.SliceOrientation
+import korlibs.math.toInt
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class TileSliceOrientationTest {
     @Test

@@ -1,7 +1,10 @@
 package korlibs.memory
 
-import korlibs.platform.*
-import org.khronos.webgl.*
+import org.khronos.webgl.ArrayBuffer
+import org.khronos.webgl.Float64Array
+import org.khronos.webgl.Int32Array
+import org.khronos.webgl.get
+import org.khronos.webgl.set
 
 @PublishedApi internal val buffer = ArrayBuffer(8)
 @PublishedApi internal val f64 = Float64Array(buffer)

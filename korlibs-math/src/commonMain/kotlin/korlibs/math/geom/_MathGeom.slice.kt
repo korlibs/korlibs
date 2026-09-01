@@ -2,10 +2,19 @@
 
 package korlibs.math.geom.slice
 
-import korlibs.datastructure.*
-import korlibs.math.*
-import korlibs.math.geom.*
-import korlibs.memory.*
+import korlibs.datastructure.rotateRight
+import korlibs.datastructure.swap
+import korlibs.math.geom.MarginInt
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Matrix4
+import korlibs.math.geom.Point
+import korlibs.math.geom.PointInt
+import korlibs.math.geom.RectangleInt
+import korlibs.math.geom.SizeableInt
+import korlibs.math.geom.Vector4F
+import korlibs.math.umod
+import korlibs.memory.extract
+import korlibs.memory.insert
 import kotlin.jvm.JvmInline
 
 data class RectCoords(

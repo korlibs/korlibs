@@ -1,14 +1,24 @@
 package korlibs.audio.format.mod
 
-import korlibs.audio.format.*
-import korlibs.audio.sound.*
-import korlibs.io.file.*
-import korlibs.io.stream.*
-import korlibs.logger.*
-import korlibs.memory.*
-import korlibs.time.*
-import kotlin.math.*
-import kotlin.time.*
+import korlibs.audio.format.AudioDecodingProps
+import korlibs.audio.format.AudioFormat
+import korlibs.audio.sound.AudioSample
+import korlibs.audio.sound.AudioSamples
+import korlibs.audio.sound.AudioStream
+import korlibs.audio.sound.NativeSoundProvider
+import korlibs.audio.sound.Sound
+import korlibs.audio.sound.createStreamingSound
+import korlibs.audio.sound.nativeSoundProvider
+import korlibs.io.file.VfsFile
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.readAll
+import korlibs.logger.Logger
+import korlibs.memory.Uint8Buffer
+import korlibs.memory.toNBufferUInt8
+import korlibs.time.seconds
+import kotlin.math.min
+import kotlin.time.Duration
+import kotlin.time.measureTime
 
 abstract class BaseModuleTracker {
     companion object {

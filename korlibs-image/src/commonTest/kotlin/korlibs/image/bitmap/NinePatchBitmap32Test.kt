@@ -5,7 +5,7 @@ import korlibs.image.format.PNG
 import korlibs.image.format.readBitmap
 import korlibs.io.async.suspendTestNoBrowser
 import korlibs.io.file.std.resourcesVfs
-import korlibs.math.geom.*
+import korlibs.math.geom.RectangleInt
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

@@ -1,8 +1,9 @@
 package korlibs.io.file.std
 
-import android.content.*
-import korlibs.io.lang.*
-import java.io.*
+import android.content.Context
+import java.io.File
+import korlibs.io.lang.Environment
+import korlibs.io.lang.tempPath
 
 private var _vfsInitWithAndroidContextOnce: Boolean = false
 var absoluteCwd = File(".").absolutePath

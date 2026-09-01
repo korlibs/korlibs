@@ -1,8 +1,8 @@
 package korlibs.audio.sound
 
-import korlibs.io.async.*
-import kotlin.coroutines.*
-import kotlin.time.*
+import korlibs.io.async.onCancel
+import kotlin.coroutines.CoroutineContext
+import kotlin.time.Duration
 
 class SoundAudioData(
     coroutineContext: CoroutineContext,

@@ -1,6 +1,7 @@
 package korlibs.time.locale
 
-import korlibs.time.*
+import korlibs.time.Timezone
+import korlibs.time.TimezoneNames
 
 // @TODO: Should we include the most popular timezones increasing the artifact size? Maybe include a plugin mechanism and a registration in klock-locale?
 // @TODO: https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations

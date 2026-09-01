@@ -1,10 +1,9 @@
 package korlibs.datastructure
 
-import korlibs.datastructure.ds.*
 import korlibs.datastructure.internal.memory.Memory.arraycopy
-import korlibs.datastructure.iterators.*
-import korlibs.math.geom.*
-import kotlin.math.*
+import korlibs.datastructure.iterators.fastForEach
+import korlibs.math.geom.PointInt
+import korlibs.math.geom.SizeInt
 
 interface IStackedLongArray2 : IStackedArray2<Long> {
     /** The [empty] value that will be returned if the specified cell it out of bounds, or empty */

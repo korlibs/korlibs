@@ -1,7 +1,10 @@
 package korlibs.image.core
 
-import kotlinx.cinterop.*
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.useContents
 
 @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 class AppleCoreImageFormatProviderTest {

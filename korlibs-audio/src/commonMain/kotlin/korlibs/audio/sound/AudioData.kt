@@ -1,8 +1,8 @@
 package korlibs.audio.sound
 
-import korlibs.datastructure.*
-import korlibs.time.*
-import kotlin.time.*
+import korlibs.datastructure.Extra
+import korlibs.time.seconds
+import kotlin.time.Duration
 
 class AudioData(
     val rate: Int,

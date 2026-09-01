@@ -2,9 +2,10 @@
 
 package korlibs.memory
 
-import kotlinx.cinterop.*
 import kotlin.test.Test
 import kotlin.test.assertNotNull
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.usePinned
 
 class MemExtTest {
     @Test

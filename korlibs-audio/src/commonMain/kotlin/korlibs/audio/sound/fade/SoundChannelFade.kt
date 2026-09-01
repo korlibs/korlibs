@@ -1,13 +1,19 @@
 package korlibs.audio.sound.fade
 
-import korlibs.audio.sound.*
-import korlibs.datastructure.*
-import korlibs.io.async.*
-import korlibs.math.*
-import korlibs.math.interpolation.*
-import korlibs.time.*
-import kotlinx.coroutines.*
-import kotlin.time.*
+import korlibs.audio.sound.SoundChannelBase
+import korlibs.audio.sound.SoundProps
+import korlibs.audio.sound.paused
+import korlibs.datastructure.extraProperty
+import korlibs.io.async.AsyncThread
+import korlibs.math.clamp01
+import korlibs.math.interpolation.Easing
+import korlibs.math.interpolation.interpolate
+import korlibs.math.interpolation.toRatio
+import korlibs.time.DateTime
+import korlibs.time.milliseconds
+import korlibs.time.seconds
+import kotlin.time.Duration
+import kotlinx.coroutines.delay
 
 val DEFAULT_FADE_TIME get() = 0.5.seconds
 val DEFAULT_FADE_EASING get() = Easing.LINEAR

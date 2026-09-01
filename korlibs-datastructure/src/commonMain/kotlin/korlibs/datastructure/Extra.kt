@@ -1,7 +1,8 @@
 package korlibs.datastructure
 
-import kotlinx.atomicfu.locks.*
-import kotlin.reflect.*
+import kotlin.reflect.KProperty
+import kotlinx.atomicfu.locks.reentrantLock
+import kotlinx.atomicfu.locks.withLock
 
 class ExtraObject : MutableMap<String, Any?> {
     private val lock = reentrantLock()

@@ -1,6 +1,6 @@
 package korlibs.image.bitmap
 
-import korlibs.image.color.*
+import korlibs.image.color.RGBA
 
 open class NullBitmap(
     width: Int,

@@ -3,7 +3,6 @@ package korlibs.image.format
 import korlibs.datastructure.FastArrayList
 import korlibs.datastructure.extraProperty
 import korlibs.datastructure.fastArrayListOf
-import korlibs.memory.UByteArrayInt
 import korlibs.image.bitmap.Bitmap32
 import korlibs.image.bitmap.Bitmap8
 import korlibs.image.bitmap.BitmapChannel
@@ -11,7 +10,9 @@ import korlibs.io.async.runBlockingNoSuspensions
 import korlibs.io.file.std.ZipVfs
 import korlibs.io.lang.UTF8
 import korlibs.io.lang.toString
-import korlibs.io.serialization.xml.*
+import korlibs.io.serialization.xml.Xml
+import korlibs.io.serialization.xml.descendants
+import korlibs.io.serialization.xml.firstDescendant
 import korlibs.io.stream.SyncStream
 import korlibs.io.stream.hasMore
 import korlibs.io.stream.openSync
@@ -19,8 +20,8 @@ import korlibs.io.stream.readBytes
 import korlibs.io.stream.readBytesExact
 import korlibs.io.stream.readStringz
 import korlibs.io.stream.toAsync
+import korlibs.memory.UByteArrayInt
 import kotlin.math.max
-import kotlin.native.concurrent.ThreadLocal
 
 object KRA : ImageFormat("kra") {
     private const val mergedImagePng = "mergedimage.png"

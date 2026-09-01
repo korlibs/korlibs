@@ -1,9 +1,21 @@
 package korlibs.wasm
 
-import korlibs.memory.*
-import kotlinx.cinterop.*
-import platform.JavaScriptCore.*
-import platform.posix.*
+import korlibs.memory.startAddressOf
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.usePinned
+import platform.JavaScriptCore.JSContext
+import platform.JavaScriptCore.JSGlobalContextRef_
+import platform.JavaScriptCore.JSObjectGetTypedArrayBytesPtr
+import platform.JavaScriptCore.JSObjectMakeTypedArray
+import platform.JavaScriptCore.JSTypedArrayType
+import platform.JavaScriptCore.JSValue
+import platform.JavaScriptCore.JSValueRef_
+import platform.JavaScriptCore.objectForKeyedSubscript
+import platform.JavaScriptCore.setObject
+import platform.JavaScriptCore.valueWithJSValueRef
+import platform.posix.memcpy
 
 actual open class WASMLib actual constructor(content: ByteArray) : IWASMLib by NativeWASMLib(content)
 

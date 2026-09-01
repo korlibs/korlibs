@@ -1,9 +1,15 @@
 package korlibs.image.text
 
-import korlibs.datastructure.*
-import korlibs.image.color.*
-import korlibs.image.font.*
-import korlibs.io.lang.*
+import korlibs.datastructure.Deque
+import korlibs.datastructure.Extra
+import korlibs.datastructure.toDeque
+import korlibs.image.color.RGBA
+import korlibs.image.font.DefaultTtfFont
+import korlibs.image.font.Font
+import korlibs.image.font.TextMetrics
+import korlibs.image.font.getTextBounds
+import korlibs.io.lang.splitInChunks
+import korlibs.io.lang.splitKeep
 
 data class RichTextData(
     val lines: List<Line>,

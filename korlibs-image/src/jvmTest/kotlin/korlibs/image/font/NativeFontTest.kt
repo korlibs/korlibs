@@ -1,8 +1,8 @@
 package korlibs.image.font
 
-import korlibs.image.bitmap.*
-import korlibs.io.async.*
-import kotlin.test.*
+import korlibs.image.bitmap.Bitmap32
+import korlibs.io.async.suspendTest
+import kotlin.test.Test
 
 class NativeFontTest {
     @Test

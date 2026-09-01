@@ -1,8 +1,14 @@
 package korlibs.logger.test
 
-import korlibs.logger.*
-import kotlinx.coroutines.*
-import kotlin.test.*
+import korlibs.logger.Logger
+import kotlin.test.Test
+import kotlin.test.assertSame
+import kotlin.test.assertTrue
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 
 class LoggerMultithreadedTest {
     @Test

@@ -1,9 +1,12 @@
 package korlibs.template
 
-import korlibs.template.dynamic.*
-import korlibs.template.internal.*
-import korlibs.template.util.*
-import kotlin.coroutines.cancellation.*
+import korlibs.template.dynamic.KorteDynamic2
+import korlibs.template.dynamic.KorteDynamicContext
+import korlibs.template.internal.KorteStrReader
+import korlibs.template.internal.isLetterDigitOrUnderscore
+import korlibs.template.internal.unescape
+import korlibs.template.util.KorteListReader
+import kotlin.coroutines.cancellation.CancellationException
 
 interface KorteExprNode : KorteDynamicContext {
     suspend fun eval(context: KorteTemplate.EvalContext): Any?

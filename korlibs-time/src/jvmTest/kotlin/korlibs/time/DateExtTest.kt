@@ -1,11 +1,11 @@
 package korlibs.time
 
+import java.util.Date
+import java.util.TimeZone
 import korlibs.time.jvm.toDate
 import korlibs.time.jvm.toDateTime
-import org.junit.Test
-import java.util.*
-import java.util.Date
 import kotlin.test.assertEquals
+import org.junit.Test
 
 class DateExtTest {
     @Test

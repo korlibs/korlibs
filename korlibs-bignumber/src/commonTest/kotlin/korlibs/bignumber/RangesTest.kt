@@ -1,7 +1,10 @@
 package korlibs.bignumber
 
-import korlibs.bignumber.ranges.*
-import kotlin.test.*
+import korlibs.bignumber.ranges.ClosedBigNumRange
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class RangesTest {
     @Test

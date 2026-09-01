@@ -1,11 +1,16 @@
 package korlibs.image.bitmap
 
-import korlibs.memory.*
-import korlibs.image.color.*
-import korlibs.image.format.*
-import korlibs.math.*
-import korlibs.math.geom.*
-import korlibs.math.geom.slice.*
+import korlibs.image.color.RGBA
+import korlibs.image.color.RgbaArray
+import korlibs.math.clamp
+import korlibs.math.geom.MarginInt
+import korlibs.math.geom.RectangleInt
+import korlibs.math.geom.SizeableInt
+import korlibs.math.geom.slice.RectSlice
+import korlibs.math.geom.slice.SliceCoords
+import korlibs.math.geom.slice.SliceCoordsWithBase
+import korlibs.math.geom.slice.SliceOrientation
+import korlibs.math.geom.slice.SliceRotation
 
 typealias BmpCoords = SliceCoords
 typealias BmpSlice32 = RectSlice<out Bitmap32>

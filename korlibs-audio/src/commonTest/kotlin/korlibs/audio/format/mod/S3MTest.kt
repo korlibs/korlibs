@@ -1,9 +1,11 @@
 package korlibs.audio.format.mod
 
 import korlibs.io.stream.openAsync
-import korlibs.memory.*
+import korlibs.memory.Uint8Buffer
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import kotlinx.coroutines.test.runTest
-import kotlin.test.*
 
 class S3MTest {
 

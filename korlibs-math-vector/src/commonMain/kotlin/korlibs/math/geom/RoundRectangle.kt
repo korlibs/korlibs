@@ -1,6 +1,6 @@
 package korlibs.math.geom
 
-import korlibs.math.interpolation.*
+import korlibs.math.interpolation.times
 
 data class RoundRectangle(val rect: Rectangle, val corners: RectCorners) {
     companion object {
