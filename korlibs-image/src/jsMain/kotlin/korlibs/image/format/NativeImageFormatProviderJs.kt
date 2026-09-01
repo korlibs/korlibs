@@ -90,8 +90,11 @@ private fun bswap32(v: IntArray, offset: Int, size: Int) {
     for (n in offset until offset + size) v[n] = bswap32(v[n])
 }
 
-open class HtmlNativeImage(val texSourceBase: TexImageSource, width: Int, height: Int)
-    : NativeImage(width, height, texSourceBase, premultiplied = true) {
+open class HtmlNativeImage(
+    val texSourceBase: TexImageSource,
+    width: Int,
+    height: Int,
+) : NativeImage(width, height, texSourceBase, premultiplied = true) {
     override val name: String get() = "HtmlNativeImage"
     var texSource: TexImageSource = texSourceBase
         private set

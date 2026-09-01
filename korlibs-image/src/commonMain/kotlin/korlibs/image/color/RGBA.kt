@@ -190,8 +190,8 @@ value class RGBA(val value: Int) : Comparable<RGBA>, Interpolable<RGBA>, Paint {
         fun mixRgbFactor256(c1: Int, c2: Int, factor256: Int): Int {
             val ifactor256 = (256 - factor256)
             return ((((((c1 and 0xFF00FF) * ifactor256) +
-                    ((c2 and 0xFF00FF) * factor256)) and 0xFF00FF00.toInt()) or
-                    ((((c1 and 0x00FF00) * ifactor256) + ((c2 and 0x00FF00) * factor256)) and 0x00FF0000))) ushr 8
+                ((c2 and 0xFF00FF) * factor256)) and 0xFF00FF00.toInt()) or
+                ((((c1 and 0x00FF00) * ifactor256) + ((c2 and 0x00FF00) * factor256)) and 0x00FF0000))) ushr 8
 
         }
         fun mixRgb(c1: RGBA, c2: RGBA, factor: Ratio): RGBA = mixRgbFactor256(c1, c2, (factor.toFloat() * 256).roundToInt())

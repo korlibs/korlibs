@@ -41,7 +41,6 @@ class LockTest {
         if (!NativeThread.isSupported) return
 
         repeat(1) {
-        //repeat(1000) {
             val time = measureTime {
                 val lock = Lock()
                 var log = arrayListOf<String>()

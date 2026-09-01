@@ -182,7 +182,7 @@ open class WastReaderTest {
             )
             (assert_return (invoke "8u_bad" (i32.const 0)) (i32.const 0))
             ;;(assert_trap (invoke "8u_bad" (i32.const 0)) "out of bounds memory access")
-        """.trimIndent(), codeTrace = true)
+            """.trimIndent(), codeTrace = true)
     }
 
     fun runAssetsWast(file: String, codeTrace: Boolean = false) = suspendTest { runAssetsWastCode(resourcesVfs[file].readString(), codeTrace) }

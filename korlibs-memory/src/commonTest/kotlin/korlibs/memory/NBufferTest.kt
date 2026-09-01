@@ -249,7 +249,7 @@ open class NBufferTestBase {
                 ${array.getArray(0, size = array.size).data.joinToString(",")}
                 ${array.getArray(1).data.joinToString(",")}
                 ${array.getArray(2, size = 3).data.joinToString(",")}
-            """.trimIndent()
+                """.trimIndent()
             )
         }
 
@@ -263,7 +263,7 @@ open class NBufferTestBase {
                 ${array.getArray(0, size = array.size).data.joinToString(",")}
                 ${array.getArray(1).data.joinToString(",")}
                 ${array.getArray(2, size = 3).data.joinToString(",")}
-            """.trimIndent()
+                """.trimIndent()
             )
         }
 
@@ -277,7 +277,7 @@ open class NBufferTestBase {
                 ${array.getArray(0, size = array.size).joinToString(",")}
                 ${array.getArray(1).joinToString(",")}
                 ${array.getArray(2, size = 3).joinToString(",")}
-            """.trimIndent()
+                """.trimIndent()
             )
         }
 
@@ -291,7 +291,7 @@ open class NBufferTestBase {
                 ${array.getArray(0, size = array.size).joinToString(",")}
                 ${array.getArray(1).joinToString(",")}
                 ${array.getArray(2, size = 3).joinToString(",")}
-            """.trimIndent()
+                """.trimIndent()
             )
         }
 
@@ -305,7 +305,7 @@ open class NBufferTestBase {
                 ${array.getArray(0, size = array.size).joinToString(",")}
                 ${array.getArray(1).joinToString(",")}
                 ${array.getArray(2, size = 3).joinToString(",")}
-            """.trimIndent()
+                """.trimIndent()
             )
         }
 
@@ -319,7 +319,7 @@ open class NBufferTestBase {
                 ${array.getArray(0, size = array.size).joinToString(",")}
                 ${array.getArray(1).joinToString(",")}
                 ${array.getArray(2, size = 3).joinToString(",")}
-            """.trimIndent()
+                """.trimIndent()
             )
         }
 
@@ -333,7 +333,7 @@ open class NBufferTestBase {
                 ${array.getArray(0, size = array.size).map { it.toInt() }.joinToString(",")}
                 ${array.getArray(1).map { it.toInt() }.joinToString(",")}
                 ${array.getArray(2, size = 3).map { it.toInt() }.joinToString(",")}
-            """.trimIndent()
+                """.trimIndent()
             )
         }
 
@@ -347,7 +347,7 @@ open class NBufferTestBase {
                 ${array.getArray(0, size = array.size).map { it.toInt() }.joinToString(",")}
                 ${array.getArray(1).map { it.toInt() }.joinToString(",")}
                 ${array.getArray(2, size = 3).map { it.toInt() }.joinToString(",")}
-            """.trimIndent()
+                """.trimIndent()
             )
         }
     }

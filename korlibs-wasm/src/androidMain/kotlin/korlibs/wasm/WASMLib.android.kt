@@ -148,21 +148,21 @@ private class JavascriptIsolate(val context: Context, val trace: Boolean) {
         //return if (Looper.getMainLooper().isCurrentThread) {
         //    TODO()
         //} else {
-            return runBlocking {
-                val out = CompletableDeferred<T>()
-                if (trace) println("BEFORE RUN IN MAIN LOOPER!")
-                Handler(context.mainLooper).post {
+        return runBlocking {
+            val out = CompletableDeferred<T>()
+            if (trace) println("BEFORE RUN IN MAIN LOOPER!")
+            Handler(context.mainLooper).post {
                 //Handler(Looper.getMainLooper()).post {
-                    if (trace) println("RUN IN MAIN LOOPER!")
-                    out.complete(block().also {
-                        if (trace) println("RES RUN IN MAIN LOOPER! = $it")
-                    })
-                }
-                if (trace) println("WAITING!")
-                out.await().also {
-                    if (trace) println("WAITED! $it")
-                }
+                if (trace) println("RUN IN MAIN LOOPER!")
+                out.complete(block().also {
+                    if (trace) println("RES RUN IN MAIN LOOPER! = $it")
+                })
             }
+            if (trace) println("WAITING!")
+            out.await().also {
+                if (trace) println("WAITED! $it")
+            }
+        }
         //}
     }
 

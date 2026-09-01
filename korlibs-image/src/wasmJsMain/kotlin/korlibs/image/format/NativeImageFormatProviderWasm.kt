@@ -100,8 +100,11 @@ private fun bswap32(v: IntArray, offset: Int, size: Int) {
 
 external interface TexImageSourceJs : TexImageSource, JsAny
 
-open class WasmHtmlNativeImage(val texSourceBase: TexImageSourceJs, width: Int, height: Int)
-    : NativeImage(width, height, texSourceBase, premultiplied = true) {
+open class WasmHtmlNativeImage(
+    val texSourceBase: TexImageSourceJs,
+    width: Int,
+    height: Int,
+) : NativeImage(width, height, texSourceBase, premultiplied = true) {
     override val name: String get() = "HtmlNativeImage"
     var texSource: TexImageSourceJs = texSourceBase
         private set

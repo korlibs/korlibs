@@ -173,12 +173,12 @@ object GifDec {
     }
 
     fun discard_sub_blocks(gif: gd_GIF )
-    {
-        do {
-            val size = gif.fd.readU8()
-            lseek(gif.fd, size.toLong(), SEEK_CUR);
-        } while (size != 0);
-    }
+        {
+            do {
+                val size = gif.fd.readU8()
+                lseek(gif.fd, size.toLong(), SEEK_CUR);
+            } while (size != 0);
+        }
 
     fun read_plain_text_ext(gif: gd_GIF) {
         val plain_text = gif.plain_text
@@ -284,7 +284,7 @@ object GifDec {
         table.entries[table.nentries] = Entry(length = length, prefix = prefix, suffix = suffix)
         table.nentries++;
         if ((table.nentries and (table.nentries - 1)) == 0)
-        return 1;
+            return 1;
         return 0;
     }
 

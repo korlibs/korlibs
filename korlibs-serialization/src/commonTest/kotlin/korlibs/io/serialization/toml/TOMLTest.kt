@@ -72,7 +72,7 @@ class TOMLTest {
                 hello.test = 10
                 hello."demo" = 11
                 hello.'world' = 12
-            """.trimIndent()
+                """.trimIndent()
             )
         )
     }

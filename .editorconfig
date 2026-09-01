@@ -9,5 +9,6 @@ indent_size = 4
 ktlint_code_style = intellij_idea
 # TODO Enable standard once most rules are addressed
 ktlint_standard = disabled
+ktlint_standard_indent = enabled
 ktlint_standard_no-unused-imports = enabled
 ktlint_standard_no-wildcard-imports = enabled

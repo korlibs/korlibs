@@ -321,7 +321,7 @@ class CSS(val allRules: List<IRuleSet>, unit: Unit = Unit) {
                 }
             }
             return parseEasing(tokenize(str).map { it.str.lowercase() }.reader())
-       }
+        }
 
         fun parseSizeAsDouble(size: String): Double {
             return size.filter { it !in 'a'..'z' && it !in 'A'..'Z' }.toDoubleOrNull() ?: 16.0

@@ -8,9 +8,7 @@ import korlibs.math.isAlmostEquals
 import kotlin.math.sqrt
 import kotlin.test.assertEquals
 
-fun <
-    //@OnlyInputTypes
-T> assertEqualsFloat(
+fun <T> assertEqualsFloat(
     expected: T?,
     actual: T?,
     absoluteTolerance: Double = 0.001,

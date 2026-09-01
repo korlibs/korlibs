@@ -57,7 +57,7 @@ class DistanceBitmapTest {
             ...XXXXX..
             .....X....
             ..........
-        """.trimIndent())
+            """.trimIndent())
         val distance = bmp.sdf()
         val floats = distance.toFloatArray2()
 

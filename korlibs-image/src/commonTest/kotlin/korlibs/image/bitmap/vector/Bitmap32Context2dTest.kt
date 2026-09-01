@@ -154,7 +154,6 @@ class Bitmap32Context2dTest {
             assertEquals(doubleArrayListOf(20.0, 10.0), this.lineDash)
 
         }
-            //.showImageAndWait()
     }
 }
 

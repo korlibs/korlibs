@@ -37,7 +37,7 @@ class TemplateTest : BaseTest() {
             {% case "b" %}2
             {% default %}3
             {% endswitch %}
-        """.trimIndent()
+            """.trimIndent()
         )
         assertEquals("1", template(mapOf("value" to "a")).trim())
         assertEquals("2", template(mapOf("value" to "b")).trim())

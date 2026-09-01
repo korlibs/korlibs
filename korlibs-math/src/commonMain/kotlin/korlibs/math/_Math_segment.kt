@@ -113,7 +113,6 @@ class IntSegmentSet {
                     // Insert at a place
                     else -> {
                         for (m in findLeftBound(min).coerceAtLeast(1)..findRightBound(max)) {
-                        //for (m in 1..findRightBound(max)) {
                             val prevMax = this.max.getAt(m - 1)
                             val currMin = this.min.getAt(m)
                             if (min > prevMax && max < currMin) {

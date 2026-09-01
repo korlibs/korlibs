@@ -235,7 +235,6 @@ data class RichTextData(
                 when {
                     // Node doesn't fit the area, so we will have to split into smaller chunks
                     node is TextNode && (node.style.canBreak && (!fullyFitsInLine || splitLetters)) -> {
-                    //node.canBreak && !fullyFitsInLine -> {
                         val division = divide(node.text)
                         // No more divisions possible, let's add it even if overflows (possibly only a single letter)
                         if (division.size == 1) {

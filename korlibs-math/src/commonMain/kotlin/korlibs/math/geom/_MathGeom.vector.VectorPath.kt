@@ -336,11 +336,7 @@ class VectorPath(
     }
 
     fun getLineIntersection(line: Line, out: LineIntersection = LineIntersection()): LineIntersection? {
-        // Directs from outside the shape, to inside the shape
-//        if (this.containsPoint(line.b) && !this.containsPoint(line.a)) {
-            return this.scanline.getLineIntersection(line, out)
-        //}
-        //return null
+        return this.scanline.getLineIntersection(line, out)
     }
 
     //private val p1 = Point()

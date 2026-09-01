@@ -5,7 +5,7 @@ internal val CoreImageIsMAC = System.getProperty("os.name").let {
 }
 
 actual val CoreImageFormatProvider_default: CoreImageFormatProvider by lazy {
-     when {
+    when {
         CoreImageIsMAC -> CoreGraphicsCoreImageFormatProvider // In MacOS native decoder is 2x~5x faster than the one in the JVM
         else -> AwtCoreImageFormatProvider
     }

@@ -18,12 +18,7 @@ class AsyncQueue {
 
     operator fun invoke(context: CoroutineContext, func: suspend () -> Unit): AsyncQueue {
         thread.sync(context) {
-            //try {
-                func()
-            //} catch (e: Throwable) {
-            //    Console.error("AsyncQueue.invoke.catch")
-            //    e.printStackTrace()
-            //}
+            func()
         }
         return this
     }

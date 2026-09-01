@@ -336,7 +336,7 @@ object SevenZip {
                     val end = 1 shl kNumBits - i
                     for (j in start until end)
                         probPrices[j] = (i shl kNumBitPriceShiftBits) +
-                                (end - j shl kNumBitPriceShiftBits).ushr(kNumBits - i - 1)
+                            (end - j shl kNumBitPriceShiftBits).ushr(kNumBits - i - 1)
                 }
             }
 
@@ -619,7 +619,7 @@ object SevenZip {
                         }
                         if (len == 0) {
                             len = m_RepLenDecoder.decode(m_RangeDecoder, posState) +
-                                    LzmaBase.kMatchMinLen
+                                LzmaBase.kMatchMinLen
                             state = LzmaBase.stateUpdateRep(state)
                         }
                     } else {
@@ -1161,7 +1161,7 @@ object SevenZip {
 
             if (lenMain >= _numFastBytes) {
                 backRes = _matchDistances[numDistancePairs - 1] +
-                        LzmaBase.kNumRepDistances
+                    LzmaBase.kNumRepDistances
                 movePos(lenMain - 1)
                 return lenMain
             }
@@ -1181,11 +1181,11 @@ object SevenZip {
             _optimum[1].price = RangeEncoder.getPrice0(
                 _isMatch[(_state shl LzmaBase.kNumPosStatesBitsMax) + posState].toInt()
             ) +
-                    _literalEncoder.getSubCoder(ppos, _previousByte).getPrice(
-                        !LzmaBase.stateIsCharState(_state),
-                        matchByte,
-                        currentByte
-                    )
+                _literalEncoder.getSubCoder(ppos, _previousByte).getPrice(
+                    !LzmaBase.stateIsCharState(_state),
+                    matchByte,
+                    currentByte
+                )
             _optimum[1].makeAsChar()
 
             var matchPrice =
@@ -1219,8 +1219,8 @@ object SevenZip {
 
             var len = lenEnd
             do
-                _optimum[len--].price =
-                        kIfinityPrice
+            _optimum[len--].price =
+                kIfinityPrice
             while (len >= 2)
 
             i = 0
@@ -1262,7 +1262,7 @@ object SevenZip {
                         optimum.price = curAndLenPrice
                         optimum.posPrev = 0
                         optimum.backPrev = distance +
-                                LzmaBase.kNumRepDistances
+                            LzmaBase.kNumRepDistances
                         optimum.prev1IsChar = false
                     }
                     if (len == _matchDistances[offs]) {
@@ -1370,13 +1370,13 @@ object SevenZip {
                 posState = ppos and _posStateMask
 
                 val curAnd1Price = curPrice +
-                        RangeEncoder.getPrice0(
-                            _isMatch[(state shl LzmaBase.kNumPosStatesBitsMax) + posState].toInt()
-                        ) +
-                        _literalEncoder.getSubCoder(
-                            ppos,
-                            _matchFinder!!.getIndexByte(0 - 2)
-                        ).getPrice(!LzmaBase.stateIsCharState(state), matchByte, currentByte)
+                    RangeEncoder.getPrice0(
+                        _isMatch[(state shl LzmaBase.kNumPosStatesBitsMax) + posState].toInt()
+                    ) +
+                    _literalEncoder.getSubCoder(
+                        ppos,
+                        _matchFinder!!.getIndexByte(0 - 2)
+                    ).getPrice(!LzmaBase.stateIsCharState(state), matchByte, currentByte)
 
                 val nextOptimum = _optimum[cur + 1]
 
@@ -1389,13 +1389,13 @@ object SevenZip {
                 }
 
                 matchPrice = curPrice +
-                        RangeEncoder.getPrice1(
-                            _isMatch[(state shl LzmaBase.kNumPosStatesBitsMax) + posState].toInt()
-                        )
+                    RangeEncoder.getPrice1(
+                        _isMatch[(state shl LzmaBase.kNumPosStatesBitsMax) + posState].toInt()
+                    )
                 repMatchPrice = matchPrice +
-                        RangeEncoder.getPrice1(
-                            _isRep[state].toInt()
-                        )
+                    RangeEncoder.getPrice1(
+                        _isRep[state].toInt()
+                    )
 
                 if (matchByte == currentByte && !(nextOptimum.posPrev < cur && nextOptimum.backPrev == 0)) {
                     val shortRepPrice = repMatchPrice + getRepLen1Price(state, posState)
@@ -1424,17 +1424,17 @@ object SevenZip {
 
                         val posStateNext = ppos + 1 and _posStateMask
                         val nextRepMatchPrice = curAnd1Price +
-                                RangeEncoder.getPrice1(
-                                    _isMatch[(state2 shl LzmaBase.kNumPosStatesBitsMax) + posStateNext].toInt()
-                                ) +
-                                RangeEncoder.getPrice1(
-                                    _isRep[state2].toInt()
-                                )
+                            RangeEncoder.getPrice1(
+                                _isMatch[(state2 shl LzmaBase.kNumPosStatesBitsMax) + posStateNext].toInt()
+                            ) +
+                            RangeEncoder.getPrice1(
+                                _isRep[state2].toInt()
+                            )
                         run {
                             val offset = cur + 1 + lenTest2
                             while (lenEnd < offset)
                                 _optimum[++lenEnd].price =
-                                        kIfinityPrice
+                                    kIfinityPrice
                             val curAndLenPrice = nextRepMatchPrice + getRepPrice(
                                 0, lenTest2, state2, posStateNext
                             )
@@ -1460,7 +1460,7 @@ object SevenZip {
                     do {
                         while (lenEnd < cur + lenTest)
                             _optimum[++lenEnd].price =
-                                    kIfinityPrice
+                                kIfinityPrice
                         val curAndLenPrice = repMatchPrice + getRepPrice(repIndex, lenTest, state, posState)
                         val optimum = _optimum[cur + lenTest]
                         if (curAndLenPrice < optimum.price) {
@@ -1485,17 +1485,17 @@ object SevenZip {
 
                             var posStateNext = ppos + lenTest and _posStateMask
                             val curAndLenCharPrice = repMatchPrice + getRepPrice(repIndex, lenTest, state, posState) +
-                                    RangeEncoder.getPrice0(
-                                        _isMatch[(state2 shl LzmaBase.kNumPosStatesBitsMax) + posStateNext].toInt()
-                                    ) +
-                                    _literalEncoder.getSubCoder(
-                                        ppos + lenTest,
-                                        _matchFinder!!.getIndexByte(lenTest - 1 - 1)
-                                    ).getPrice(
-                                        true,
-                                        _matchFinder!!.getIndexByte(lenTest - 1 - (reps[repIndex] + 1)),
-                                        _matchFinder!!.getIndexByte(lenTest - 1)
-                                    )
+                                RangeEncoder.getPrice0(
+                                    _isMatch[(state2 shl LzmaBase.kNumPosStatesBitsMax) + posStateNext].toInt()
+                                ) +
+                                _literalEncoder.getSubCoder(
+                                    ppos + lenTest,
+                                    _matchFinder!!.getIndexByte(lenTest - 1 - 1)
+                                ).getPrice(
+                                    true,
+                                    _matchFinder!!.getIndexByte(lenTest - 1 - (reps[repIndex] + 1)),
+                                    _matchFinder!!.getIndexByte(lenTest - 1)
+                                )
                             state2 = LzmaBase.stateUpdateChar(state2)
                             posStateNext = ppos + lenTest + 1 and _posStateMask
                             val nextMatchPrice =
@@ -1512,7 +1512,7 @@ object SevenZip {
                                 val offset = lenTest + 1 + lenTest2
                                 while (lenEnd < cur + offset)
                                     _optimum[++lenEnd].price =
-                                            kIfinityPrice
+                                        kIfinityPrice
                                 val curAndLenPrice = nextRepMatchPrice + getRepPrice(0, lenTest2, state2, posStateNext)
                                 val optimum = _optimum[cur + offset]
                                 if (curAndLenPrice < optimum.price) {
@@ -1540,12 +1540,12 @@ object SevenZip {
                 }
                 if (newLen >= startLen) {
                     normalMatchPrice = matchPrice +
-                            RangeEncoder.getPrice0(
-                                _isRep[state].toInt()
-                            )
+                        RangeEncoder.getPrice0(
+                            _isRep[state].toInt()
+                        )
                     while (lenEnd < cur + newLen)
                         _optimum[++lenEnd].price =
-                                kIfinityPrice
+                            kIfinityPrice
 
                     var offs = 0
                     while (startLen > _matchDistances[offs])
@@ -1560,7 +1560,7 @@ object SevenZip {
                             optimum.price = curAndLenPrice
                             optimum.posPrev = cur
                             optimum.backPrev = curBack +
-                                    LzmaBase.kNumRepDistances
+                                LzmaBase.kNumRepDistances
                             optimum.prev1IsChar = false
                         }
 
@@ -1576,21 +1576,21 @@ object SevenZip {
 
                                     var posStateNext = ppos + lenTest and _posStateMask
                                     val curAndLenCharPrice = curAndLenPrice +
-                                            RangeEncoder.getPrice0(
-                                                _isMatch[(state2 shl LzmaBase.kNumPosStatesBitsMax) + posStateNext].toInt()
-                                            ) +
-                                            _literalEncoder.getSubCoder(
-                                                ppos + lenTest,
-                                                _matchFinder!!.getIndexByte(lenTest - 1 - 1)
-                                            ).getPrice(
-                                                true,
-                                                _matchFinder!!.getIndexByte(lenTest - (curBack + 1) - 1),
-                                                _matchFinder!!.getIndexByte(lenTest - 1)
-                                            )
+                                        RangeEncoder.getPrice0(
+                                            _isMatch[(state2 shl LzmaBase.kNumPosStatesBitsMax) + posStateNext].toInt()
+                                        ) +
+                                        _literalEncoder.getSubCoder(
+                                            ppos + lenTest,
+                                            _matchFinder!!.getIndexByte(lenTest - 1 - 1)
+                                        ).getPrice(
+                                            true,
+                                            _matchFinder!!.getIndexByte(lenTest - (curBack + 1) - 1),
+                                            _matchFinder!!.getIndexByte(lenTest - 1)
+                                        )
                                     state2 =
-                                            LzmaBase.stateUpdateChar(
-                                                state2
-                                            )
+                                        LzmaBase.stateUpdateChar(
+                                            state2
+                                        )
                                     posStateNext = ppos + lenTest + 1 and _posStateMask
                                     val nextMatchPrice =
                                         curAndLenCharPrice + RangeEncoder.getPrice1(
@@ -1604,7 +1604,7 @@ object SevenZip {
                                     val offset = lenTest + 1 + lenTest2
                                     while (lenEnd < cur + offset)
                                         _optimum[++lenEnd].price =
-                                                kIfinityPrice
+                                            kIfinityPrice
                                     curAndLenPrice = nextRepMatchPrice + getRepPrice(0, lenTest2, state2, posStateNext)
                                     optimum = _optimum[cur + offset]
                                     if (curAndLenPrice < optimum.price) {
@@ -1615,7 +1615,7 @@ object SevenZip {
                                         optimum.prev2 = true
                                         optimum.posPrev2 = cur
                                         optimum.backPrev2 = curBack +
-                                                LzmaBase.kNumRepDistances
+                                            LzmaBase.kNumRepDistances
                                     }
                                 }
                             }
@@ -2046,7 +2046,7 @@ object SevenZip {
                 kNumHashDirectBytes = 0
                 kMinMatchCheck = 4
                 kFixHashSize = kHash2Size +
-                        kHash3Size
+                    kHash3Size
             } else {
                 kNumHashDirectBytes = 2
                 kMinMatchCheck = 2 + 1
@@ -2271,7 +2271,7 @@ object SevenZip {
                 while (true) {
                     if (curMatch <= matchMinPos || count-- == 0) {
                         _son[ptr1] =
-                                kEmptyHashValue
+                            kEmptyHashValue
                         _son[ptr0] = _son[ptr1]
                         break
                     }

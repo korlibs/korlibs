@@ -22,7 +22,7 @@ class EulerRotationTest {
     ) {
         assertTrue(
             abs(expected.radians - actual.radians) < epsilon ||
-                    abs(abs(expected.radians - actual.radians) - (2 * PI.toFloat())) < epsilon,
+                abs(abs(expected.radians - actual.radians) - (2 * PI.toFloat())) < epsilon,
             "Expected angle $expected but got $actual. $message"
         )
     }
@@ -31,24 +31,24 @@ class EulerRotationTest {
         assertTrue(
             expected.isAlmostEquals(actual, epsilon),
             "Expected EulerRotation(roll=${expected.roll}, pitch=${expected.pitch}, yaw=${expected.yaw}) " +
-                    "but got EulerRotation(roll=${actual.roll}, pitch=${actual.pitch}, yaw=${actual.yaw})"
+                "but got EulerRotation(roll=${actual.roll}, pitch=${actual.pitch}, yaw=${actual.yaw})"
         )
     }
 
     private fun assertQuaternionAlmostEquals(expected: Quaternion, actual: Quaternion, epsilon: Float = EPSILON) {
         // Account for double-cover: q and -q represent the same rotation
         val direct = abs(expected.x - actual.x) < epsilon &&
-                abs(expected.y - actual.y) < epsilon &&
-                abs(expected.z - actual.z) < epsilon &&
-                abs(expected.w - actual.w) < epsilon
+            abs(expected.y - actual.y) < epsilon &&
+            abs(expected.z - actual.z) < epsilon &&
+            abs(expected.w - actual.w) < epsilon
         val negated = abs(expected.x + actual.x) < epsilon &&
-                abs(expected.y + actual.y) < epsilon &&
-                abs(expected.z + actual.z) < epsilon &&
-                abs(expected.w + actual.w) < epsilon
+            abs(expected.y + actual.y) < epsilon &&
+            abs(expected.z + actual.z) < epsilon &&
+            abs(expected.w + actual.w) < epsilon
         assertTrue(
             direct || negated,
             "Expected Quaternion(${expected.x}, ${expected.y}, ${expected.z}, ${expected.w}) " +
-                    "but got Quaternion(${actual.x}, ${actual.y}, ${actual.z}, ${actual.w})"
+                "but got Quaternion(${actual.x}, ${actual.y}, ${actual.z}, ${actual.w})"
         )
     }
 

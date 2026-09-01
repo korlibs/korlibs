@@ -25,7 +25,7 @@ class YamlTest {
             - 1
             - 2
             - 3
-            """.trimIndent()
+                """.trimIndent()
             )
         )
     }
@@ -39,7 +39,7 @@ class YamlTest {
                 hr:  65    # Home runs
                 avg: 0.278 # Batting average
                 rbi: 147   # Runs Batted In
-            """.trimIndent()
+                """.trimIndent()
             )
         )
     }
@@ -62,7 +62,7 @@ class YamlTest {
                 |	a: 1
                 |-
                 |	a: 2
-            """.trimMargin()
+                """.trimMargin()
             )
         )
     }
@@ -92,7 +92,7 @@ class YamlTest {
                 | name: Sammy Sosa
                 | hr:   63
                 | avg:  0.288
-            """.trimMargin()
+                """.trimMargin()
             )
         )
     }
@@ -113,7 +113,7 @@ class YamlTest {
                 |  # 1998 rbi ranking
                 |  - Sammy Sosa
                 |  - Ken Griffey
-            """.trimMargin()
+                """.trimMargin()
             )
         )
     }
@@ -132,7 +132,7 @@ class YamlTest {
                 |booleans: [ true, false ]
                 |string: '012345'
 
-            """.trimMargin()
+                """.trimMargin()
             )
         )
     }
@@ -225,7 +225,7 @@ class YamlTest {
                 thumbnail: http://1.bp.example.com/-lorem/ipsum/sit/AMEN-demo/s72-c/test.png
                 blogger_id: tag:blogger.com,1999:blog-1212121212121212121212122.post-12121212121212121212121
                 blogger_orig_url: http://blog.example.es/2009/05/demo-loreim-ip-sit-demo.html
-            """.trimIndent()
+                """.trimIndent()
             )
         )
     }
@@ -345,7 +345,7 @@ class YamlTest {
                     - https://github.com/korlibs/kproject.git/samples/demo2#95696dd942ebc8db4ee9d9f4835ce12d853ff16f
                     - https://github.com/korlibs/kproject.git/samples/demo2 #95696dd942ebc8db4ee9d9f4835ce12d853ff16f
                     # hello
-           """.trimIndent())
+            """.trimIndent())
         )
     }
 }

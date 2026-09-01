@@ -48,7 +48,7 @@ class KorauCatalogOverHttpVfsTest {
             GET /$catalog.json Headers()
             GET /placeholder.mp3 Headers((range, [bytes=0-32767]))
             GET /placeholder.mp3 Headers((range, [bytes=32768-36071]))
-        """.trimIndent(), log.joinToString("\n"))
+            """.trimIndent(), log.joinToString("\n"))
     }
 
     @Test
@@ -60,7 +60,7 @@ class KorauCatalogOverHttpVfsTest {
             $$"""
             GET /$catalog.json Headers()
             GET /placeholder.mp3 Headers()
-        """.trimIndent(), log.joinToString("\n"))
+            """.trimIndent(), log.joinToString("\n"))
     }
 
     @Test
@@ -74,7 +74,7 @@ class KorauCatalogOverHttpVfsTest {
             HEAD /placeholder.mp3 Headers()
             GET /placeholder.mp3 Headers((range, [bytes=0-32767]))
             GET /placeholder.mp3 Headers((range, [bytes=32768-36071]))
-        """.trimIndent(), log.joinToString("\n"))
+            """.trimIndent(), log.joinToString("\n"))
     }
 
     @Test
@@ -87,6 +87,6 @@ class KorauCatalogOverHttpVfsTest {
             GET /$catalog.json Headers()
             HEAD /placeholder.mp3 Headers()
             GET /placeholder.mp3 Headers()
-        """.trimIndent(), log.joinToString("\n"))
+            """.trimIndent(), log.joinToString("\n"))
     }
 }

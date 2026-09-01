@@ -18,8 +18,11 @@ class TemporalPool<T : Any>(private val reset: (T) -> Unit = {}, preallocate: In
     }
 }
 
-open class ConcurrentPool<T : Any>(private val reset: (T) -> Unit = {}, preallocate: Int = 0, private val gen: (Int) -> T)
-    : Pool<T>(reset, preallocate, gen) {
+open class ConcurrentPool<T : Any>(
+    private val reset: (T) -> Unit = {},
+    preallocate: Int = 0,
+    private val gen: (Int) -> T,
+) : Pool<T>(reset, preallocate, gen) {
     private val lock = NonRecursiveLock()
 
     override fun alloc(): T {

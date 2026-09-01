@@ -124,7 +124,7 @@ class Injector(val parent: Injector? = null, val level: Int = 0) {
         return (providersByClass[clazz]
             ?: parent?.getProviderOrNull<T>(clazz, ctx)
             ?: nearestFallbackProvider?.invoke(clazz, ctx)?.also { providersByClass[clazz] = it }
-        ) as? ObjectProvider<T>?
+            ) as? ObjectProvider<T>?
     }
 
     fun <T : Any> getProvider(

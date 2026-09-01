@@ -152,7 +152,6 @@ object Win32CoreImageFormatProvider : CoreImageFormatProvider {
             TODO()
         }
     }
-        //StbiCoreImageFormatProvider.encode(image, format, level)
 
     private var initializedGdiPlus = atomic(false)
     @OptIn(ExperimentalForeignApi::class)

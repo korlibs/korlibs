@@ -118,14 +118,8 @@ class FontTest {
         //    fillRect(0, 0, 100, 100)
         //}.showImageAndWait()
 
-        //val result = font.renderTextToBitmap(48.0, "Helló World!", paint, nativeRendering = false, renderer = CreateStringTextRenderer { text, n, c, c1, g, advance ->
         val result = font.renderTextToBitmap(48.0, "Helló World!", paint, nativeRendering = false, renderer = CreateStringTextRenderer { reader, c, g, advance ->
-        //val result = font.renderTextToBitmap(24.0, "llll", ColorPaint(Colors.RED), renderer = CreateStringTextRenderer { text, n, c, c1, g, advance ->
-        //val result = font.renderTextToBitmap(24.0, "Hello World!", renderer = CreateStringTextRenderer { text, n, c, c1, g, advance ->
-            //dy = -n.toDouble()
             val scale = 1f + reader.position * 0.1f
-            //val scale = 1.0
-            //transform.translate(0.0, scale)
             transform = Matrix().scaled(scale).rotated(25.degrees)
             put(reader, c)
             advance(advance * scale)
@@ -162,8 +156,8 @@ class FontTest {
     @Test
     fun testReadOpenTypeFont() = suspendTestNoBrowser {
         //assertFailsWith<UnsupportedOperationException> {
-            val font1 = resourcesVfs["helvetica.otf"].readTtfFont()
-            logger.debug { "font1=$font1" }
+        val font1 = resourcesVfs["helvetica.otf"].readTtfFont()
+        logger.debug { "font1=$font1" }
         //}
     }
 

@@ -138,7 +138,6 @@ class StrokePointsBuilder(
         //println("angle=$angle, currTangent=$currTangent, nextTangent=$nextTangent")
 
         if (kind != LineJoin.MITER || miterLength > miterLimit) {
-        //run {
             //val angle = Angle.between(nextTangent * 10.0, currTangent * 10.0)
             val p1 = if (direction <= 0.0) currLine0.projectedPoint(commonPoint) else nextLine1.projectedPoint(commonPoint)
             val p2 = if (direction <= 0.0) nextLine0.projectedPoint(commonPoint) else currLine1.projectedPoint(commonPoint)

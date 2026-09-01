@@ -151,7 +151,7 @@ class TemplateInheritanceTest {
                     name: Carlos
                     ---
                     {{ name }}
-                """.trimIndent()
+                    """.trimIndent()
                 )
             ).get("main")()
         )
@@ -165,20 +165,20 @@ class TemplateInheritanceTest {
                 KorteNewTemplateProvider(
                     "root" to KorteTemplateContent("""
                     <html>{{ content }}</html>
-                """.trimIndent()),
+                    """.trimIndent()),
                     "twocolumns" to KorteTemplateContent("""
                     ---
                     layout: root
                     ---
                     <div>side</div><div>{{ content }}</div>
-                """.trimIndent()),
+                    """.trimIndent()),
                     "main" to KorteTemplateContent("""
                     ---
                     layout: twocolumns
                     mycontent: Content
                     ---
                     <h1>{{ mycontent }}</h1>
-                """.trimIndent())
+                    """.trimIndent())
                 )
             ).get("main")()
         )

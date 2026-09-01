@@ -28,11 +28,11 @@ open class AudioFormat(vararg exts: String) {
     open val extensions: Set<String> = exts.map { it.lowercase().trim() }.toSet()
 
     data class Info(
-    var duration: Duration? = 0.seconds,
-    var channels: Int = 2,
-    var decodingTime: Duration? = null
+        var duration: Duration? = 0.seconds,
+        var channels: Int = 2,
+        var decodingTime: Duration? = null
     ) : Extra by Extra.Mixin() {
-    val durationNotNull: Duration get() = duration ?: 0.seconds
+        val durationNotNull: Duration get() = duration ?: 0.seconds
         override fun toString(): String = "Info(duration=${durationNotNull.milliseconds.niceStr}ms, channels=$channels)"
     }
 
@@ -154,7 +154,7 @@ class AudioFormats : AudioFormat() {
     override suspend fun encode(data: AudioData, out: AsyncOutputStream, filename: String, props: AudioEncodingProps) {
         val ext = PathInfo(filename).extensionLC
         val format = formats.firstOrNull { ext in it.extensions }
-                ?: throw UnsupportedOperationException("Don't know how to generate file for extension '$ext'")
+            ?: throw UnsupportedOperationException("Don't know how to generate file for extension '$ext'")
         return format.encode(data, out, filename)
     }
 

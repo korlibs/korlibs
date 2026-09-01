@@ -18,7 +18,7 @@ class HttpPortableTest {
         assertEquals(
             "GET / HTTP/1.1\r\n" +
                 "Hello: World\r\n" +
-            "\r\n",
+                "\r\n",
             SocketHttp.computeHeader(Http.Method.GET, URL("Http://localhost:8000/"), Http.Headers("Hello" to "World"))
         )
     }

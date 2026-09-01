@@ -18,8 +18,7 @@ class BitmapVector(
     height: Int = (bounds.height * scale).toInt(),
     premultiplied: Boolean,
     val native: Boolean = true
-)
-    : Bitmap(width, height, 32, premultiplied, null)
+) : Bitmap(width, height, 32, premultiplied, null)
 {
     // Displacements
     val left = bounds.x

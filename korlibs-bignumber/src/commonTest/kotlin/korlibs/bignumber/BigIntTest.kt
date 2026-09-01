@@ -67,7 +67,6 @@ abstract class AbstractBigIntTest {
     @Test
     fun testSubInt() {
         val res = (-9999999).bi - (-8888888).bi
-            //println("$res")
 
         val items = listOf(-9999999, -8888888, -100, -50, 0, +50, +100, +8888888, +9999999)
         for (l in items) for (r in items) {
@@ -315,7 +314,7 @@ abstract class AbstractBigIntTest {
         assertEquals(BigInt("123").hashCode(), BigInt("123").hashCode())
     }
 
-        // Big Integer
+    // Big Integer
     abstract val Long.bi: BigInt
     abstract val Int.bi: BigInt
     abstract val String.bi: BigInt

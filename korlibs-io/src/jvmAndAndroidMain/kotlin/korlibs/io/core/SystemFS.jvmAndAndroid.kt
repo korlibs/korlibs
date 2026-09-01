@@ -24,7 +24,6 @@ object JvmSyncSystemFS : SyncSystemFS {
     override val pathSeparatorChar: Char get() = File.pathSeparatorChar
     override fun realpath(path: String): String =
         File(path).canonicalPath
-        //File(path).toPath().toRealPath().pathString
 
     override fun readlink(path: String): String? =
         kotlin.runCatching { File(path).toPath().readSymbolicLink().pathString }.getOrNull()

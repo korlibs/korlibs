@@ -283,7 +283,7 @@ class WasmReaderBinary {
         val fimport = WasmImport(moduleName, name, indexSpace, index, type)
         when (indexSpace) {
             INDEX_FUNCTIONS -> functions[index] =
-                    WasmFunc(index, type as WasmType.Function, code = null, fimport = fimport)
+                WasmFunc(index, type as WasmType.Function, code = null, fimport = fimport)
             INDEX_GLOBALS -> globals[index] = WasmGlobal(type as WasmType, index, expr = null, gimport = fimport)
         }
         //println("$nm::$name = $type")

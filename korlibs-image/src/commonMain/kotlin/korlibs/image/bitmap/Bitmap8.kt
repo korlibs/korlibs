@@ -61,7 +61,7 @@ fun Bitmap.tryToExactBitmap8(): Bitmap8? {
     val colors = IntIntMap()
     var ncolor = 0
     for (color in bmpInts) {
-         if (!colors.contains(color)) {
+        if (!colors.contains(color)) {
             palette.colors[ncolor] = if (bmp.premultiplied) RGBAPremultiplied(color).depremultiplied else RGBA(color)
             colors[color] = ncolor++
         }
