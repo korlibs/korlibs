@@ -1,7 +1,10 @@
 package korlibs.datastructure
 
-import kotlin.math.*
-import korlibs.datastructure.internal.*
+import korlibs.datastructure.internal.containsAllCheck
+import korlibs.datastructure.internal.containsCheck
+import korlibs.datastructure.internal.indexOfCheck
+import korlibs.datastructure.internal.lastIndexOfCheck
+import kotlin.math.absoluteValue
 
 interface FloatList : Collection<Float> {
     operator fun get(index: Int): Float

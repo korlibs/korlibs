@@ -1,11 +1,20 @@
 package korlibs.math.geom
 
-import korlibs.datastructure.*
-import korlibs.datastructure.iterators.*
-import korlibs.math.*
-import korlibs.math.annotations.*
-import korlibs.number.*
-import kotlin.math.*
+import korlibs.datastructure.DoubleArrayList
+import korlibs.datastructure.Extra
+import korlibs.datastructure.FloatArrayList
+import korlibs.datastructure.IntArrayList
+import korlibs.datastructure.SortOps
+import korlibs.datastructure.fastArrayListOf
+import korlibs.datastructure.genericSort
+import korlibs.datastructure.iterators.fastForEach
+import korlibs.datastructure.iterators.fastForEachReverse
+import korlibs.datastructure.mapDouble
+import korlibs.math.annotations.KormaExperimental
+import korlibs.math.roundDecimalPlaces
+import korlibs.number.appendGenericArray
+import korlibs.number.appendNice
+import kotlin.math.round
 
 sealed interface PointList : DoubleVectorList, IPointList, Extra {
     override val dimensions: Int get() = 2

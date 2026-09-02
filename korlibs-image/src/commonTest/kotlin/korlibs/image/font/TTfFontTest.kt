@@ -210,7 +210,7 @@ private object TtfTestBuilder {
 
         // Build segments: one per code point for simplicity
         val segments = sorted.map { (cp, gi) -> Triple(cp, cp, gi - cp) } +
-                listOf(Triple(0xFFFF, 0xFFFF, 1))  // terminator
+            listOf(Triple(0xFFFF, 0xFFFF, 1))  // terminator
 
         val segCount = segments.size
         val searchRange16 = (1 shl (31 - segCount.countLeadingZeroBits())) * 2

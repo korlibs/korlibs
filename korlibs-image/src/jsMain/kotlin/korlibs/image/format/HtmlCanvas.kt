@@ -1,12 +1,11 @@
 package korlibs.image.format
 
-import korlibs.memory.*
-import korlibs.io.util.*
-import korlibs.platform.*
-import org.khronos.webgl.*
-import org.w3c.dom.*
-import org.w3c.files.*
-import kotlinx.browser.*
+import korlibs.platform.Platform
+import kotlinx.browser.document
+import org.khronos.webgl.TexImageSource
+import org.w3c.dom.HTMLCanvasElement
+import org.w3c.dom.RenderingContext
+import org.w3c.files.Blob
 
 external interface HTMLCanvasElementLike : TexImageSource {
     val width: Int

@@ -1,10 +1,21 @@
 package korlibs.ffi
 
-import korlibs.datastructure.*
-import korlibs.memory.*
-import kotlin.jvm.*
-import kotlin.properties.*
-import kotlin.reflect.*
+import korlibs.datastructure.fastCastTo
+import korlibs.memory.Buffer
+import korlibs.memory.ByteArrayBuilder
+import korlibs.memory.fromLowHigh
+import korlibs.memory.getS32
+import korlibs.memory.getS64
+import korlibs.memory.high
+import korlibs.memory.low
+import korlibs.memory.set32
+import korlibs.memory.set64
+import kotlin.jvm.JvmInline
+import kotlin.jvm.JvmName
+import kotlin.properties.ReadOnlyProperty
+import kotlin.reflect.KProperty
+import kotlin.reflect.KType
+import kotlin.reflect.typeOf
 
 expect fun <T> FFICreateProxyFunction(type: KType, handler: (args: Array<Any?>) -> Any?): T
 

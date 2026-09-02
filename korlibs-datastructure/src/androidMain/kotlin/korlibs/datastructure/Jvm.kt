@@ -2,7 +2,8 @@
 
 package korlibs.datastructure
 
-import java.util.*
+import java.util.IdentityHashMap
+import java.util.WeakHashMap
 
 actual class WeakMap<K : Any, V> {
     val wm = WeakHashMap<K, V>()

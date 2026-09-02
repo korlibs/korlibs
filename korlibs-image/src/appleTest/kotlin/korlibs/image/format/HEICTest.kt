@@ -1,11 +1,12 @@
 package korlibs.image.format
 
-import korlibs.image.bitmap.*
-import korlibs.io.async.*
-import korlibs.io.file.std.*
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.computePsnr
+import korlibs.io.file.std.resourcesVfs
 import korlibs.platform.Platform
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertTrue
+import kotlinx.coroutines.test.runTest
 
 class HEICTest {
     @Test

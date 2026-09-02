@@ -1,6 +1,6 @@
 package korlibs.math.geom
 
-import korlibs.number.*
+import korlibs.number.Fixed
 
 data class PointFixed(val x: Fixed, val y: Fixed) {
     operator fun unaryMinus(): PointFixed = PointFixed(-this.x, -this.y)

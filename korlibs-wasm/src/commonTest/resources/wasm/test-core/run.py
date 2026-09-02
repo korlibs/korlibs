@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
 from __future__ import print_function
+
 import argparse
+import glob
 import os
 import os.path
-import unittest
 import subprocess
-import glob
 import sys
-
+import unittest
 
 ownDir = os.path.dirname(os.path.abspath(sys.argv[0]))
 inputDir = ownDir

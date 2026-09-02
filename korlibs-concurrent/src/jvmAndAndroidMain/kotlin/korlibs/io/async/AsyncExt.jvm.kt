@@ -1,7 +1,8 @@
 package korlibs.io.async
 
-import kotlinx.coroutines.*
-import java.util.concurrent.*
+import java.util.concurrent.ExecutorService
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.runBlocking
 
 fun <T> Deferred<T>.jvmSyncAwait(): T = runBlocking { await() }
 

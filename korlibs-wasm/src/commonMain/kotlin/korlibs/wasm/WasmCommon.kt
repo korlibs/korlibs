@@ -1,7 +1,7 @@
 package korlibs.wasm
 
-import korlibs.io.lang.*
-import kotlin.reflect.*
+import korlibs.io.lang.invalidOp
+import kotlin.reflect.KClass
 
 /**
  * <https://pengowray.github.io/wasm-ops/>

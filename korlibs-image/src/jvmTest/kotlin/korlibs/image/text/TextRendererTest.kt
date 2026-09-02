@@ -1,10 +1,10 @@
 package korlibs.image.text
 
-import korlibs.image.font.*
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.image.font.readBitmapFont
+import korlibs.io.file.std.resourcesVfs
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.coroutines.test.runTest
 
 class TextRendererTest {
     @Test

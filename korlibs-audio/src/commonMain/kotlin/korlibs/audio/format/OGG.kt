@@ -1,8 +1,6 @@
 package korlibs.audio.format
 
-import korlibs.annotations.*
-import korlibs.time.microseconds
-import korlibs.memory.extract
+import korlibs.annotations.Keep
 import korlibs.io.lang.invalidOp
 import korlibs.io.stream.AsyncStream
 import korlibs.io.stream.readS32LE
@@ -11,6 +9,8 @@ import korlibs.io.stream.readS8
 import korlibs.io.stream.readStream
 import korlibs.io.stream.readString
 import korlibs.io.stream.readU8
+import korlibs.memory.extract
+import korlibs.time.microseconds
 import kotlin.coroutines.cancellation.CancellationException
 
 @Keep

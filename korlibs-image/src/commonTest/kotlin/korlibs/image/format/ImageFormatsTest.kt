@@ -1,6 +1,7 @@
 package korlibs.image.format
 
-import korlibs.image.bitmap.*
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.matchContentsDistinctCount
 import korlibs.io.async.suspendTestNoBrowser
 import korlibs.io.file.std.resourcesVfs
 import kotlin.test.Test

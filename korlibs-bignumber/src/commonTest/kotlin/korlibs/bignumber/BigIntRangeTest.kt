@@ -1,7 +1,11 @@
 package korlibs.bignumber
 
-import korlibs.bignumber.ranges.*
-import kotlin.test.*
+import korlibs.bignumber.ranges.BigIntRange
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
 
 class BigIntRangeTest {
     @Test

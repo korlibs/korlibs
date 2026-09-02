@@ -2,10 +2,17 @@
 
 package korlibs.math.random
 
-import korlibs.math.geom.*
-import korlibs.math.interpolation.*
-import kotlin.math.*
-import kotlin.random.*
+import korlibs.math.geom.Angle
+import korlibs.math.geom.Point
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.interpolateAngleDenormalized
+import korlibs.math.interpolation.Interpolable
+import korlibs.math.interpolation.MutableInterpolable
+import korlibs.math.interpolation.Ratio
+import korlibs.math.interpolation.interpolate
+import korlibs.math.interpolation.toRatio
+import kotlin.math.pow
+import kotlin.random.Random
 
 fun Random.ints(): Sequence<Int> = sequence { while (true) yield(nextInt()) }
 fun Random.ints(from: Int, until: Int): Sequence<Int> = sequence { while (true) yield(nextInt(from, until)) }

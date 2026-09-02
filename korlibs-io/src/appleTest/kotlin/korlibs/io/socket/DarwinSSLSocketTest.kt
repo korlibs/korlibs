@@ -3,13 +3,13 @@
 package korlibs.io.socket
 
 import korlibs.io.socket.DarwinSSLSocket.Companion.toKString
-import platform.CoreFoundation.CFRelease
-import platform.CoreFoundation.CFStringCreateWithCString
-import platform.CoreFoundation.kCFStringEncodingUTF8
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlinx.cinterop.ExperimentalForeignApi
+import platform.CoreFoundation.CFRelease
+import platform.CoreFoundation.CFStringCreateWithCString
 import platform.CoreFoundation.CFStringRef
+import platform.CoreFoundation.kCFStringEncodingUTF8
 
 /**
  * Pure-logic tests for [DarwinSSLSocket].

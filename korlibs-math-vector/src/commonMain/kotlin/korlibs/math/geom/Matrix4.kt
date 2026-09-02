@@ -1,8 +1,11 @@
 package korlibs.math.geom
 
-import korlibs.math.*
-import korlibs.math.geom.Matrix4.*
-import kotlin.math.*
+import korlibs.math.IsAlmostEqualsF
+import kotlin.math.abs
+import kotlin.math.floor
+import kotlin.math.sign
+import kotlin.math.sqrt
+import kotlin.math.tan
 
 
 // @TODO: WIP

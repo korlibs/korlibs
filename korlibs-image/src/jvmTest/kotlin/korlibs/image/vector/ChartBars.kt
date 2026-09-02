@@ -1,9 +1,18 @@
 package korlibs.image.vector
 
-import korlibs.image.color.*
-import korlibs.image.text.*
-import korlibs.math.geom.*
-import kotlin.math.*
+import korlibs.image.color.Colors
+import korlibs.image.color.RGBA
+import korlibs.image.text.HorizontalAlign
+import korlibs.image.text.TextAlignment
+import korlibs.image.text.VerticalAlign
+import korlibs.math.geom.Point
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.degrees
+import kotlin.math.ceil
+import kotlin.math.floor
+import kotlin.math.log10
+import kotlin.math.min
+import kotlin.math.pow
 
 open class ChartBars(val list: List<DataPoint>) : Chart() {
     companion object {

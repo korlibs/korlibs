@@ -1,7 +1,7 @@
 package korlibs.time
 
-import korlibs.time.internal.*
-import kotlin.time.*
+import korlibs.time.internal.MILLIS_PER_DAY
+import kotlin.time.Duration
 
 /**
  * Constructs a new [DateTime] from date and time information.

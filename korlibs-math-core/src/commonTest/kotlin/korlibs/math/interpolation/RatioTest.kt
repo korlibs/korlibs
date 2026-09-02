@@ -1,6 +1,7 @@
 package korlibs.math.interpolation
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class RatioTest {
     @Test

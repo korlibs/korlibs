@@ -2,7 +2,7 @@
 
 package korlibs.number
 
-import korlibs.number.internal.*
+import korlibs.number.internal.reinterpretAsFloat
 import kotlin.jvm.JvmInline
 
 /**

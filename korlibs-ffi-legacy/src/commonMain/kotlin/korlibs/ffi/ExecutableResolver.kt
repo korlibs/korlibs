@@ -1,6 +1,6 @@
 package korlibs.ffi
 
-import korlibs.platform.*
+import korlibs.platform.Platform
 
 open class ExecutableResolver internal constructor(internal val fs: FFISyncIO) {
     @OptIn(FFISyncIOAPI::class)

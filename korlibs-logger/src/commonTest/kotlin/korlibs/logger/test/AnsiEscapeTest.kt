@@ -1,7 +1,7 @@
 package korlibs.logger.test
 
-import korlibs.logger.*
-import kotlin.test.*
+import korlibs.logger.AnsiEscape
+import kotlin.test.Test
 
 class AnsiEscapeTest {
     @Test

@@ -1,6 +1,14 @@
 package korlibs.memory.wasm
 
-import org.khronos.webgl.*
+import org.khronos.webgl.ArrayBuffer
+import org.khronos.webgl.Float32Array
+import org.khronos.webgl.Float64Array
+import org.khronos.webgl.Int16Array
+import org.khronos.webgl.Int32Array
+import org.khronos.webgl.Int8Array
+import org.khronos.webgl.Uint8Array
+import org.khronos.webgl.get
+import org.khronos.webgl.set
 
 internal fun ArrayBuffer.toByteArray(): ByteArray = Int8Array(this).toByteArray()
 internal fun Uint8Array.toByteArray(): ByteArray {

@@ -1,7 +1,12 @@
 package korlibs.image.format
 
-import korlibs.image.bitmap.*
-import korlibs.image.tiles.*
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.BmpSlice
+import korlibs.image.bitmap.NinePatchBmpSlice
+import korlibs.image.bitmap.bmp
+import korlibs.image.bitmap.extract
+import korlibs.image.tiles.TileMapData
 
 /**
  * This class is used to store the layer image from e.g. an aseprite image file.

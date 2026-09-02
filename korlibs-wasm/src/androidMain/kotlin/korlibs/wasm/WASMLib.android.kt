@@ -1,12 +1,13 @@
 package korlibs.wasm
 
-import android.content.*
-import android.os.*
-import android.webkit.*
-import korlibs.io.android.*
-import korlibs.io.lang.*
-import korlibs.io.serialization.json.*
-import kotlinx.coroutines.*
+import android.content.Context
+import android.os.Handler
+import android.webkit.JavascriptInterface
+import android.webkit.WebView
+import korlibs.io.android.androidContextOrNull
+import korlibs.io.serialization.json.Json
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.runBlocking
 
 actual open class WASMLib actual constructor(content: ByteArray) : IWASMLib by AndroidWASMLib(content)
 
@@ -147,21 +148,21 @@ private class JavascriptIsolate(val context: Context, val trace: Boolean) {
         //return if (Looper.getMainLooper().isCurrentThread) {
         //    TODO()
         //} else {
-            return runBlocking {
-                val out = CompletableDeferred<T>()
-                if (trace) println("BEFORE RUN IN MAIN LOOPER!")
-                Handler(context.mainLooper).post {
+        return runBlocking {
+            val out = CompletableDeferred<T>()
+            if (trace) println("BEFORE RUN IN MAIN LOOPER!")
+            Handler(context.mainLooper).post {
                 //Handler(Looper.getMainLooper()).post {
-                    if (trace) println("RUN IN MAIN LOOPER!")
-                    out.complete(block().also {
-                        if (trace) println("RES RUN IN MAIN LOOPER! = $it")
-                    })
-                }
-                if (trace) println("WAITING!")
-                out.await().also {
-                    if (trace) println("WAITED! $it")
-                }
+                if (trace) println("RUN IN MAIN LOOPER!")
+                out.complete(block().also {
+                    if (trace) println("RES RUN IN MAIN LOOPER! = $it")
+                })
             }
+            if (trace) println("WAITING!")
+            out.await().also {
+                if (trace) println("WAITED! $it")
+            }
+        }
         //}
     }
 

@@ -1,17 +1,23 @@
 package korlibs.image.font
 
-import korlibs.image.atlas.*
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.image.paint.*
-import korlibs.image.text.*
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import korlibs.logger.*
-import korlibs.math.geom.*
-import korlibs.platform.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.image.atlas.MutableAtlasUnit
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.context2d
+import korlibs.image.color.Colors
+import korlibs.image.paint.LinearGradientPaint
+import korlibs.image.text.CreateStringTextRenderer
+import korlibs.image.text.TextAlignment
+import korlibs.io.async.suspendTest
+import korlibs.io.async.suspendTestNoBrowser
+import korlibs.io.file.std.resourcesVfs
+import korlibs.logger.Logger
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Point
+import korlibs.math.geom.degrees
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.coroutines.test.runTest
 
 class FontTest {
     val logger = Logger("FontTest")
@@ -112,14 +118,8 @@ class FontTest {
         //    fillRect(0, 0, 100, 100)
         //}.showImageAndWait()
 
-        //val result = font.renderTextToBitmap(48.0, "Helló World!", paint, nativeRendering = false, renderer = CreateStringTextRenderer { text, n, c, c1, g, advance ->
         val result = font.renderTextToBitmap(48.0, "Helló World!", paint, nativeRendering = false, renderer = CreateStringTextRenderer { reader, c, g, advance ->
-        //val result = font.renderTextToBitmap(24.0, "llll", ColorPaint(Colors.RED), renderer = CreateStringTextRenderer { text, n, c, c1, g, advance ->
-        //val result = font.renderTextToBitmap(24.0, "Hello World!", renderer = CreateStringTextRenderer { text, n, c, c1, g, advance ->
-            //dy = -n.toDouble()
             val scale = 1f + reader.position * 0.1f
-            //val scale = 1.0
-            //transform.translate(0.0, scale)
             transform = Matrix().scaled(scale).rotated(25.degrees)
             put(reader, c)
             advance(advance * scale)
@@ -156,8 +156,8 @@ class FontTest {
     @Test
     fun testReadOpenTypeFont() = suspendTestNoBrowser {
         //assertFailsWith<UnsupportedOperationException> {
-            val font1 = resourcesVfs["helvetica.otf"].readTtfFont()
-            logger.debug { "font1=$font1" }
+        val font1 = resourcesVfs["helvetica.otf"].readTtfFont()
+        logger.debug { "font1=$font1" }
         //}
     }
 

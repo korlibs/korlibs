@@ -1,6 +1,6 @@
 package korlibs.wasm
 
-import korlibs.datastructure.*
+import korlibs.datastructure.getCyclic
 
 interface WasmCodeVisitor {
     class Context(val func: WasmFunc, val module: WasmModule) {

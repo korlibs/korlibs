@@ -1,7 +1,6 @@
 package korlibs.image.format
 
-import korlibs.logger.Logger
-import korlibs.platform.Endian
+import korlibs.encoding.hex
 import korlibs.io.async.runBlockingNoSuspensions
 import korlibs.io.file.VfsFile
 import korlibs.io.file.VfsOpenMode
@@ -22,8 +21,10 @@ import korlibs.io.stream.skipToAlign
 import korlibs.io.stream.sliceHere
 import korlibs.io.stream.sliceStart
 import korlibs.io.stream.toAsyncStream
-import korlibs.encoding.hex
-import korlibs.memory.*
+import korlibs.logger.Logger
+import korlibs.memory.getS32
+import korlibs.memory.getU16
+import korlibs.platform.Endian
 
 // https://zpl.fi/exif-orientation-in-different-formats/
 // https://exiftool.org/TagNames/EXIF.html

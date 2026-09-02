@@ -2,7 +2,8 @@
 
 package korlibs.bignumber.ranges
 
-import korlibs.bignumber.*
+import korlibs.bignumber.BigInt
+import korlibs.bignumber.BigNum
 
 /**
  * Represents an inclusive range between two [BigNum] between [start]..[endInclusive].

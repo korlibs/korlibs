@@ -1,7 +1,8 @@
 package korlibs.datastructure
 
-import korlibs.math.geom.*
-import kotlin.test.*
+import korlibs.math.geom.RectangleInt
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class Array2ObservableTest {
     @Test

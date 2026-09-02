@@ -1,10 +1,11 @@
 package korlibs.audio.format.mp3
 
-import korlibs.audio.format.*
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import korlibs.io.stream.*
-import kotlin.test.*
+import korlibs.audio.format.MP3Base
+import korlibs.io.async.suspendTest
+import korlibs.io.file.std.resourcesVfs
+import korlibs.io.stream.openAsync
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class MP3SeekTable {
     @Test

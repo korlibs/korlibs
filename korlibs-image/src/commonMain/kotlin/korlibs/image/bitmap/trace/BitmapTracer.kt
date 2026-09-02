@@ -1,12 +1,16 @@
 package korlibs.image.bitmap.trace
 
-import korlibs.datastructure.*
-import korlibs.datastructure.algo.*
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.math.geom.*
-import korlibs.math.geom.shape.*
-import korlibs.math.geom.vector.*
+import korlibs.datastructure.Pool
+import korlibs.datastructure.algo.RLEComparer
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.Bitmap1
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.toBitmap1
+import korlibs.image.color.RGBA
+import korlibs.math.geom.Point
+import korlibs.math.geom.PointIntArrayList
+import korlibs.math.geom.shape.buildVectorPath
+import korlibs.math.geom.vector.VectorPath
 
 fun Bitmap.trace() = toBMP32().trace()
 inline fun Bitmap.trace(func: (RGBA) -> Boolean): VectorPath = toBMP32().trace(func)

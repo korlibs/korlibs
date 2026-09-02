@@ -1,8 +1,14 @@
 package korlibs.time
 
-import korlibs.time.internal.*
-import kotlin.math.*
-import kotlin.time.*
+import korlibs.time.internal.MicroStrReader
+import korlibs.time.internal.increment
+import korlibs.time.internal.padded
+import korlibs.time.internal.readRepeatedChar
+import korlibs.time.internal.readTimeZoneOffset
+import korlibs.time.internal.substr
+import korlibs.time.internal.umod
+import kotlin.math.absoluteValue
+import kotlin.time.Duration
 
 data class PatternDateComponentsFormat(
     val format: String,

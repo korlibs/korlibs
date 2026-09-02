@@ -1,16 +1,18 @@
 package korlibs.audio
 
-import korlibs.time.milliseconds
 import korlibs.audio.format.readSoundInfo
 import korlibs.io.async.suspendTest
-import korlibs.io.file.*
+import korlibs.io.file.VfsFile
 import korlibs.io.file.std.MemoryVfsMix
 import korlibs.io.file.std.UrlVfs
 import korlibs.io.file.std.resourcesVfs
 import korlibs.io.file.std.withCatalogJail
-import korlibs.io.net.http.*
-import org.junit.Test
+import korlibs.io.net.http.FakeHttpClientWithServer
+import korlibs.io.net.http.FakeHttpServerClient
+import korlibs.io.net.http.router
+import korlibs.time.milliseconds
 import kotlin.test.assertEquals
+import org.junit.Test
 
 class KorauCatalogOverHttpVfsTest {
     val log = arrayListOf<String>()
@@ -46,7 +48,7 @@ class KorauCatalogOverHttpVfsTest {
             GET /$catalog.json Headers()
             GET /placeholder.mp3 Headers((range, [bytes=0-32767]))
             GET /placeholder.mp3 Headers((range, [bytes=32768-36071]))
-        """.trimIndent(), log.joinToString("\n"))
+            """.trimIndent(), log.joinToString("\n"))
     }
 
     @Test
@@ -58,7 +60,7 @@ class KorauCatalogOverHttpVfsTest {
             $$"""
             GET /$catalog.json Headers()
             GET /placeholder.mp3 Headers()
-        """.trimIndent(), log.joinToString("\n"))
+            """.trimIndent(), log.joinToString("\n"))
     }
 
     @Test
@@ -72,7 +74,7 @@ class KorauCatalogOverHttpVfsTest {
             HEAD /placeholder.mp3 Headers()
             GET /placeholder.mp3 Headers((range, [bytes=0-32767]))
             GET /placeholder.mp3 Headers((range, [bytes=32768-36071]))
-        """.trimIndent(), log.joinToString("\n"))
+            """.trimIndent(), log.joinToString("\n"))
     }
 
     @Test
@@ -85,6 +87,6 @@ class KorauCatalogOverHttpVfsTest {
             GET /$catalog.json Headers()
             HEAD /placeholder.mp3 Headers()
             GET /placeholder.mp3 Headers()
-        """.trimIndent(), log.joinToString("\n"))
+            """.trimIndent(), log.joinToString("\n"))
     }
 }

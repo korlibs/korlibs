@@ -1,8 +1,15 @@
 package korlibs.io.async
 
-import korlibs.time.*
-import kotlinx.coroutines.*
-import kotlin.coroutines.*
+import korlibs.time.seconds
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 public expect class AsyncEntryPointResult
 

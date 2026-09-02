@@ -1,7 +1,10 @@
 package korlibs.datastructure
 
-import kotlin.math.*
-import korlibs.datastructure.internal.*
+import korlibs.datastructure.internal.containsAllCheck
+import korlibs.datastructure.internal.containsCheck
+import korlibs.datastructure.internal.indexOfCheck
+import korlibs.datastructure.internal.lastIndexOfCheck
+import kotlin.math.absoluteValue
 
 interface DoubleList : Collection<Double> {
     operator fun get(index: Int): Double

@@ -1,6 +1,11 @@
 package korlibs.time
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
+import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 class DateTimeTest {
     val HttpDate by lazy { DateFormat("EEE, dd MMM yyyy HH:mm:ss z") }

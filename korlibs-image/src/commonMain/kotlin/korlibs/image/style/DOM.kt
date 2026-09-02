@@ -1,11 +1,14 @@
 package korlibs.image.style
 
-import korlibs.datastructure.iterators.*
-import korlibs.image.annotation.*
-import korlibs.math.geom.*
-import korlibs.math.interpolation.*
-import kotlin.jvm.*
-import kotlin.reflect.*
+import korlibs.datastructure.iterators.fastForEach
+import korlibs.datastructure.iterators.fastForEachReverse
+import korlibs.image.annotation.KorimExperimental
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.MatrixTransform
+import korlibs.math.interpolation.Ratio
+import korlibs.math.interpolation.toRatio
+import kotlin.jvm.JvmName
+import kotlin.reflect.KMutableProperty1
 
 @KorimExperimental
 open class DOM(val css: CSS) {

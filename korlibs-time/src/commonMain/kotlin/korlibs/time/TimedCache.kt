@@ -1,7 +1,7 @@
 package korlibs.time
 
-import kotlin.reflect.*
-import kotlin.time.*
+import kotlin.reflect.KProperty
+import kotlin.time.Duration
 
 class TimedCache<T : Any>(var ttl: Duration, val timeProvider: TimeProvider = TimeProvider, val gen: () -> T) {
     private var cachedTime: DateTime = DateTime.EPOCH

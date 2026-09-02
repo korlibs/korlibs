@@ -1,7 +1,7 @@
 package korlibs.math.geom.slice
 
-import korlibs.math.geom.*
-import kotlin.test.*
+import korlibs.math.geom.PointInt
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class SliceOrientationTest {

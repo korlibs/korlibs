@@ -1,7 +1,11 @@
 package korlibs.math.geom
 
-import korlibs.math.interpolation.*
-import kotlin.test.*
+import korlibs.math.interpolation.Ratio
+import korlibs.math.interpolation.interpolate
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotSame
+import kotlin.test.assertTrue
 
 class MMatrixTest {
     private val identity: MMatrix = MMatrix(1, 0, 0, 1, 0, 0)

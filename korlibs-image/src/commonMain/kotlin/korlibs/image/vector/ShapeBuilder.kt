@@ -1,12 +1,24 @@
 package korlibs.image.vector
 
-import korlibs.image.bitmap.*
-import korlibs.image.font.*
-import korlibs.image.paint.*
-import korlibs.image.vector.renderer.*
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
-import kotlin.contracts.*
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.font.Font
+import korlibs.image.paint.BitmapPaint
+import korlibs.image.paint.Paint
+import korlibs.image.vector.renderer.DummyRenderer
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Point
+import korlibs.math.geom.Size
+import korlibs.math.geom.scaled
+import korlibs.math.geom.toFloat
+import korlibs.math.geom.vector.LineCap
+import korlibs.math.geom.vector.LineJoin
+import korlibs.math.geom.vector.LineScaleMode
+import korlibs.math.geom.vector.StrokeInfo
+import korlibs.math.geom.vector.VectorPath
+import korlibs.math.geom.vector.Winding
+import korlibs.math.geom.vector.write
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
 
 fun VectorPath.toFillShape(paint: Paint): Shape = buildShape { fill(paint) { write(this@toFillShape) } }
 fun VectorPath.toStrokeShape(paint: Paint, info: StrokeInfo = StrokeInfo()): Shape = buildShape { stroke(paint, info) { write(this@toStrokeShape) } }

@@ -1,9 +1,9 @@
 package korlibs.time
 
-import korlibs.time.core.*
-import korlibs.time.core.internal.*
-import korlibs.time.internal.*
-import kotlin.time.*
+import korlibs.time.core.CoreTimeInternalApi
+import korlibs.time.core.internal.CoreTimeInternal
+import korlibs.time.internal.Moduler
+import kotlin.time.Duration
 
 @OptIn(CoreTimeInternalApi::class)
 class ComputedTime(val weeks: Int = 0, val days: Int = 0, val hours: Int = 0, val minutes: Int = 0, val seconds: Int = 0, val nanoseconds: Int = 0) {
@@ -13,7 +13,7 @@ class ComputedTime(val weeks: Int = 0, val days: Int = 0, val hours: Int = 0, va
     val secondsIncludingMilliseconds: Double get() = seconds + milliseconds / CoreTimeInternal.MILLIS_PER_SECOND
 
     companion object {
-       operator fun invoke(time: Duration): ComputedTime = Moduler(time.milliseconds).run {
+        operator fun invoke(time: Duration): ComputedTime = Moduler(time.milliseconds).run {
             val weeks = int(CoreTimeInternal.MILLIS_PER_WEEK)
             val days = int(CoreTimeInternal.MILLIS_PER_DAY)
             val hours = int(CoreTimeInternal.MILLIS_PER_HOUR)

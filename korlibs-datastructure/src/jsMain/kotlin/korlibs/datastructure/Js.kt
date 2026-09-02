@@ -3,11 +3,8 @@
 package korlibs.datastructure
 
 import Array_from
-import JsArray
 import JsMap
 import JsWeakMap
-import get
-import set
 
 actual inline fun <T> Any?.fastCastTo(): T = this.unsafeCast<T>()
 

@@ -1,10 +1,16 @@
 package korlibs.template
 
-import korlibs.template.dynamic.*
-import korlibs.template.internal.*
-import korlibs.util.*
-import kotlin.coroutines.cancellation.*
-import kotlin.math.*
+import korlibs.template.dynamic.KorteDynamic2
+import korlibs.template.internal.Json_stringify
+import korlibs.template.internal.korteExtraProperty
+import korlibs.template.internal.quote
+import korlibs.template.internal.umod
+import korlibs.util.format
+import kotlin.coroutines.cancellation.CancellationException
+import kotlin.math.absoluteValue
+import kotlin.math.ceil
+import kotlin.math.floor
+import kotlin.math.round
 
 //@Suppress("unused")
 object KorteDefaultFilters {

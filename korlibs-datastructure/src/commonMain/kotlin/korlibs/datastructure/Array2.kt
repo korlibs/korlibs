@@ -3,9 +3,20 @@
 package korlibs.datastructure
 
 import korlibs.datastructure.IArray2.Companion.forEachPosRect
-import korlibs.math.geom.*
-import korlibs.memory.*
-import korlibs.number.*
+import korlibs.math.geom.PointInt
+import korlibs.math.geom.RectangleInt
+import korlibs.memory.Int64
+import korlibs.memory.Int64Array
+import korlibs.memory.contentEquals
+import korlibs.memory.contentHashCode
+import korlibs.memory.copyOf
+import korlibs.memory.getOrElse
+import korlibs.number.Int53
+import korlibs.number.Int53Array
+import korlibs.number.contentEquals
+import korlibs.number.contentHashCode
+import korlibs.number.copyOf
+import korlibs.number.getOrElse
 
 inline fun <TGen : Any, RGen : Any> IArray2<TGen>.map2(gen: (x: Int, y: Int, v: TGen) -> RGen) =
     Array2<RGen>(width, height) {

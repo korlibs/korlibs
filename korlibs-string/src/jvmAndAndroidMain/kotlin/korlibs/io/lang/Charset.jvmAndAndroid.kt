@@ -1,10 +1,10 @@
 package korlibs.io.lang
 
-import korlibs.memory.ByteArrayBuilder
 import java.nio.ByteBuffer
 import java.nio.CharBuffer
-import java.nio.charset.*
 import java.nio.charset.Charset as JCharset
+import java.nio.charset.CodingErrorAction
+import korlibs.memory.ByteArrayBuilder
 
 internal actual val platformCharsetProvider: CharsetProvider = CharsetProvider { normalizedName, name ->
     for (n in listOf(name, normalizedName)) {

@@ -1,6 +1,8 @@
 package korlibs.math.geom.vector
 
-import korlibs.math.geom.*
+import korlibs.math.geom.Point
+import korlibs.math.geom.assertEqualsFloat
+import korlibs.math.geom.degrees
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

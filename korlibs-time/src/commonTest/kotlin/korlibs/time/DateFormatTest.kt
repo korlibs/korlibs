@@ -2,8 +2,6 @@ package korlibs.time
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertNotEquals
 
 class DateFormatTest {
     @Test

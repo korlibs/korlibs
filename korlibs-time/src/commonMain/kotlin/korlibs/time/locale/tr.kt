@@ -1,6 +1,7 @@
 package korlibs.time.locale
 
-import korlibs.time.*
+import korlibs.time.DayOfWeek
+import korlibs.time.KlockLocale
 
 val KlockLocale.Companion.turkish get() = TurkishKlockLocale
 

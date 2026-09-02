@@ -1,8 +1,8 @@
 package korlibs.audio.sound
 
 import korlibs.audio.sound.HtmlSimpleSound.getUnlockedContextOrThrow
-import korlibs.platform.*
-import org.khronos.webgl.*
+import korlibs.platform.Platform
+import org.khronos.webgl.set
 
 actual val nativeSoundProvider: NativeSoundProvider by lazy {
     if (Platform.isJsBrowser) {

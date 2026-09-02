@@ -2,8 +2,11 @@
 
 package korlibs.datastructure.algo
 
-import korlibs.concurrent.lock.*
-import korlibs.datastructure.*
+import korlibs.concurrent.lock.NonRecursiveLock
+import korlibs.datastructure.FastArrayList
+import korlibs.datastructure.IntArrayList
+import korlibs.datastructure.IntIntMap
+import korlibs.datastructure.Pool
 
 /**
  * Supports getting a map determining the number of occurrences for different [Int]

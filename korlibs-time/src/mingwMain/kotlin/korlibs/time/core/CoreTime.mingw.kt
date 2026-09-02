@@ -1,10 +1,23 @@
 package korlibs.time.core
 
-import korlibs.time.*
-import kotlinx.cinterop.*
-import platform.posix.*
-import platform.windows.*
-import kotlin.time.*
+import korlibs.time.milliseconds
+import kotlin.time.Duration
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.NativePlacement
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
+import platform.posix.mingw_gettimeofday
+import platform.posix.timeval
+import platform.windows.FILETIME
+import platform.windows.FileTimeToSystemTime
+import platform.windows.GetTimeZoneInformation
+import platform.windows.SYSTEMTIME
+import platform.windows.SystemTimeToFileTime
+import platform.windows.SystemTimeToTzSpecificLocalTime
+import platform.windows.TIME_ZONE_INFORMATION
+import platform.windows.TzSpecificLocalTimeToSystemTime
 
 @OptIn(ExperimentalForeignApi::class)
 actual var CoreTime: ICoreTime = object : ICoreTime {

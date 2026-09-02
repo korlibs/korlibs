@@ -1,7 +1,8 @@
 package korlibs.math.internal
 
-import korlibs.math.*
-import kotlin.math.*
+import korlibs.math.umod
+import kotlin.math.ceil
+import kotlin.math.floor
 
 @PublishedApi
 internal fun floorCeil(v: Double): Double = if (v < 0.0) ceil(v) else floor(v)

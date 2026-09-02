@@ -2,14 +2,38 @@
 
 package korlibs.math.geom.vector
 
-import korlibs.datastructure.*
-import korlibs.math.*
-import korlibs.math.annotations.*
-import korlibs.math.geom.*
-import korlibs.math.geom.shape.*
-import korlibs.math.internal.*
-import korlibs.math.segment.*
-import kotlin.math.*
+import korlibs.datastructure.FastArrayList
+import korlibs.datastructure.FastIntMap
+import korlibs.datastructure.IntArrayList
+import korlibs.datastructure.Pool
+import korlibs.datastructure.SortOps
+import korlibs.datastructure.clear
+import korlibs.datastructure.fastForEach
+import korlibs.datastructure.genericSort
+import korlibs.datastructure.get
+import korlibs.datastructure.getOrPut
+import korlibs.datastructure.size
+import korlibs.math.annotations.KormaExperimental
+import korlibs.math.annotations.KormaMutableApi
+import korlibs.math.geom.Angle
+import korlibs.math.geom.BoundsBuilder
+import korlibs.math.geom.Line
+import korlibs.math.geom.LineIntersection
+import korlibs.math.geom.MLine
+import korlibs.math.geom.MPoint
+import korlibs.math.geom.Point
+import korlibs.math.geom.PointArrayList
+import korlibs.math.geom.PointInt
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.Vector2I
+import korlibs.math.geom.fastForEach
+import korlibs.math.geom.shape.emitPoints2
+import korlibs.math.internal.floorCeil
+import korlibs.math.segment.IntSegmentSet
+import kotlin.math.absoluteValue
+import kotlin.math.hypot
+import kotlin.math.max
+import kotlin.math.min
 
 // @TODO: Further optimize this
 // @TODO: We shouldn't propagate the complexity of coordinate scaling here. We should just support integers here and do the conversions outside.

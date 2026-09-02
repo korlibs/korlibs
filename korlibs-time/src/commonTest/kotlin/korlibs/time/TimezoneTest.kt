@@ -1,7 +1,8 @@
 package korlibs.time
 
-import korlibs.time.locale.*
-import kotlin.test.*
+import korlibs.time.locale.ExtendedTimezoneNames
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class TimezoneTest {
     @Test

@@ -1,9 +1,13 @@
 package korlibs.math.interpolation
 
-import korlibs.datastructure.*
-import korlibs.math.geom.*
-import korlibs.math.test.*
-import kotlin.test.*
+import korlibs.datastructure.DoubleArrayList
+import korlibs.datastructure.doubleArrayListOf
+import korlibs.datastructure.mapDouble
+import korlibs.math.geom.assertEqualsFloat
+import korlibs.math.test.toStringDecimal
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class EasingTest {
     fun numbers(vararg numbers: Number): DoubleArrayList = doubleArrayListOf(*numbers.mapDouble { it.toDouble() })

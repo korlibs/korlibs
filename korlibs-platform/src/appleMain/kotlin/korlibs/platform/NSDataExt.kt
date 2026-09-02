@@ -1,9 +1,17 @@
 package korlibs.platform
 
-import kotlinx.cinterop.*
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.usePinned
 import platform.CoreFoundation.CFRelease
 import platform.CoreFoundation.CFStringRef
-import platform.Foundation.*
+import platform.Foundation.CFBridgingRetain
+import platform.Foundation.NSData
+import platform.Foundation.NSMutableData
+import platform.Foundation.NSString
+import platform.Foundation.appendBytes
 import platform.posix.memcpy
 
 @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)

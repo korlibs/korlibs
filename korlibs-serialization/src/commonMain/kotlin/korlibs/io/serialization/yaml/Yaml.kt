@@ -1,7 +1,5 @@
 package korlibs.io.serialization.yaml
 
-import kotlin.collections.set
-
 object Yaml {
     fun decode(str: String): Any? = read(ListReader(tokenize(str)), level = 0)
     fun read(str: String): Any? = read(ListReader(tokenize(str)), level = 0)

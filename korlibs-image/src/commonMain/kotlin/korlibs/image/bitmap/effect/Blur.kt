@@ -2,10 +2,14 @@
 
 package korlibs.image.bitmap.effect
 
-import korlibs.image.bitmap.*
-import korlibs.math.*
-import korlibs.memory.*
-import kotlin.math.*
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.Bitmap8
+import korlibs.image.bitmap.BitmapChannel
+import korlibs.math.toIntFloor
+import korlibs.memory.arraycopy
+import korlibs.memory.getU8
+import kotlin.math.round
+import kotlin.math.sqrt
 
 fun Bitmap32.blur(r: Int): Bitmap32 {
     val out = Bitmap32(width + r * 2, height + r * 2, premultiplied = this.premultiplied)

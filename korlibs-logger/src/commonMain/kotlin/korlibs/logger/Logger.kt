@@ -1,8 +1,9 @@
 package korlibs.logger
 
-import korlibs.platform.*
-import kotlinx.atomicfu.locks.*
-import kotlin.time.*
+import korlibs.platform.Platform
+import kotlin.time.measureTimedValue
+import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
 
 /**
  * Utility to log messages.

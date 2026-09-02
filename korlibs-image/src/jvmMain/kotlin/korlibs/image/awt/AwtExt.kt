@@ -1,22 +1,42 @@
 package korlibs.image.awt
 
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.image.format.*
-import korlibs.io.async.*
-import korlibs.math.*
-import korlibs.math.awt.*
-import korlibs.math.geom.*
-import korlibs.memory.*
-import kotlinx.coroutines.*
-import java.awt.*
+import java.awt.Container
+import java.awt.Dimension
+import java.awt.Graphics
+import java.awt.Graphics2D
+import java.awt.GraphicsEnvironment
+import java.awt.HeadlessException
 import java.awt.Point
-import java.awt.event.*
-import java.awt.image.*
-import java.io.*
-import javax.imageio.*
-import javax.swing.*
-import kotlin.coroutines.*
+import java.awt.RenderingHints
+import java.awt.event.WindowAdapter
+import java.awt.event.WindowEvent
+import java.awt.image.BufferedImage
+import java.awt.image.DataBufferInt
+import java.io.ByteArrayInputStream
+import java.io.File
+import java.io.FileInputStream
+import java.io.InputStream
+import javax.imageio.ImageIO
+import javax.imageio.ImageTypeSpecifier
+import javax.swing.JFrame
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.color.BGRA
+import korlibs.image.format.ImageDecoderNotFoundException
+import korlibs.image.format.ImageDecodingProps
+import korlibs.io.async.ResourceDecoder
+import korlibs.math.awt.toKorma
+import korlibs.math.geom.Anchor
+import korlibs.math.geom.MPoint
+import korlibs.math.geom.ScaleMode
+import korlibs.math.geom.Size
+import korlibs.math.geom.place
+import korlibs.math.toIntRound
+import korlibs.memory.arraycopy
+import kotlin.coroutines.resume
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
 
 fun Bitmap32.toAwt(
     out: BufferedImage = BufferedImage(
@@ -150,8 +170,6 @@ fun ImageIOReadFormat(s: InputStream, type: Int = AWT_INTERNAL_IMAGE_TYPE_PRE): 
             reader.dispose()
         }
     }
-    // NOTE: This line seems to mess up grayscale jpeg images.
-    //.cloneIfRequired(type = type) // Clone is not required since just read directly in the right format
 
 fun awtReadImage(data: ByteArray): BufferedImage = ImageIOReadFormat(ByteArrayInputStream(data))
 

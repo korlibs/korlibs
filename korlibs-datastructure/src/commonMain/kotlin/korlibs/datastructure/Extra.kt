@@ -1,7 +1,8 @@
 package korlibs.datastructure
 
-import kotlinx.atomicfu.locks.*
-import kotlin.reflect.*
+import kotlin.reflect.KProperty
+import kotlinx.atomicfu.locks.reentrantLock
+import kotlinx.atomicfu.locks.withLock
 
 class ExtraObject : MutableMap<String, Any?> {
     private val lock = reentrantLock()
@@ -51,7 +52,7 @@ interface Extra {
             return res
         }
 
-         operator fun setValue(thisRef: Extra, property: KProperty<*>, value: T) {
+        operator fun setValue(thisRef: Extra, property: KProperty<*>, value: T) {
             //beforeSet(value)
             thisRef.setExtra(name ?: property.name, value)
             //afterSet(value)

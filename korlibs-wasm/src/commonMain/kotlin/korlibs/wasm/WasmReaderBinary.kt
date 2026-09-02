@@ -1,8 +1,20 @@
 package korlibs.wasm
 
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import korlibs.util.*
+import korlibs.io.lang.UTF8
+import korlibs.io.lang.invalidOp
+import korlibs.io.stream.SyncStream
+import korlibs.io.stream.eof
+import korlibs.io.stream.keepPosition
+import korlibs.io.stream.openSync
+import korlibs.io.stream.readBytesExact
+import korlibs.io.stream.readF32LE
+import korlibs.io.stream.readF64LE
+import korlibs.io.stream.readS32LE
+import korlibs.io.stream.readStream
+import korlibs.io.stream.readString
+import korlibs.io.stream.readStringVL
+import korlibs.io.stream.readU8
+import korlibs.util.format
 
 // https://webassembly.github.io/spec/core/_download/WebAssembly.pdf
 class WasmReaderBinary {
@@ -271,7 +283,7 @@ class WasmReaderBinary {
         val fimport = WasmImport(moduleName, name, indexSpace, index, type)
         when (indexSpace) {
             INDEX_FUNCTIONS -> functions[index] =
-                    WasmFunc(index, type as WasmType.Function, code = null, fimport = fimport)
+                WasmFunc(index, type as WasmType.Function, code = null, fimport = fimport)
             INDEX_GLOBALS -> globals[index] = WasmGlobal(type as WasmType, index, expr = null, gimport = fimport)
         }
         //println("$nm::$name = $type")

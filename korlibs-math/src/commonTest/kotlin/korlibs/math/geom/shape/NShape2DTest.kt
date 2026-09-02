@@ -1,7 +1,9 @@
 package korlibs.math.geom.shape
 
-import korlibs.math.geom.*
-import kotlin.test.*
+import korlibs.math.geom.Circle
+import korlibs.math.geom.Point
+import korlibs.math.geom.assertEqualsFloat
+import kotlin.test.Test
 
 class NShape2DTest {
     @Test

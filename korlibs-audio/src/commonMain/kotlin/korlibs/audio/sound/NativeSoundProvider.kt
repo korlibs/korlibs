@@ -1,7 +1,7 @@
 package korlibs.audio.sound
 
-import korlibs.datastructure.pauseable.*
-import korlibs.math.geom.*
+import korlibs.datastructure.pauseable.Pauseable
+import korlibs.math.geom.Vector3
 
 expect val nativeSoundProvider: NativeSoundProvider
 

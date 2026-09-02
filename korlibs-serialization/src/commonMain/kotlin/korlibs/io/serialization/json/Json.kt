@@ -2,10 +2,11 @@
 
 package korlibs.io.serialization.json
 
-import korlibs.datastructure.*
-import korlibs.io.util.*
-import korlibs.util.*
-import kotlin.collections.set
+import korlibs.datastructure.DoubleList
+import korlibs.io.util.NumberParser
+import korlibs.util.SimpleIndenter
+import korlibs.util.SimpleStrReader
+import korlibs.util.indent
 
 object JsonFast : Json() {
     override val optimizeNumbers: Boolean = true

@@ -2,9 +2,18 @@
 
 package korlibs.crypto
 
-import kotlinx.cinterop.*
-import platform.Security.*
-import platform.posix.*
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.get
+import kotlinx.cinterop.usePinned
+import platform.Security.SecRandomCopyBytes
+import platform.Security.errSecSuccess
+import platform.Security.kSecRandomDefault
+import platform.posix.fclose
+import platform.posix.fopen
+import platform.posix.fwrite
 
 // https://developer.apple.com/documentation/security/randomization_services
 actual fun fillRandomBytes(array: ByteArray) {

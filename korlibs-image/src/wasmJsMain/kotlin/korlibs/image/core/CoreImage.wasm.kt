@@ -1,13 +1,22 @@
 package korlibs.image.core
 
-import kotlinx.browser.*
-import kotlinx.coroutines.*
-import org.khronos.webgl.*
-import org.w3c.dom.*
-import org.w3c.dom.url.*
-import org.w3c.files.*
-import kotlin.coroutines.*
-import kotlin.io.encoding.*
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
+import kotlinx.browser.document
+import kotlinx.coroutines.suspendCancellableCoroutine
+import org.khronos.webgl.Int32Array
+import org.khronos.webgl.Int8Array
+import org.khronos.webgl.Uint8Array
+import org.khronos.webgl.get
+import org.khronos.webgl.set
+import org.w3c.dom.CanvasRenderingContext2D
+import org.w3c.dom.HTMLCanvasElement
+import org.w3c.dom.HTMLImageElement
+import org.w3c.dom.url.URL
+import org.w3c.files.Blob
+import org.w3c.files.BlobPropertyBag
 
 @JsFun("() => { return (typeof document !== 'undefined') }")
 private external fun hasDocument(): Boolean

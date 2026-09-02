@@ -1,10 +1,10 @@
 package korlibs.time
 
-import korlibs.time.core.*
 import korlibs.Serializable
-import korlibs.time.core.internal.*
+import korlibs.time.core.CoreTimeInternalApi
+import korlibs.time.core.internal.CoreTimeInternal
 import korlibs.time.core.internal.CoreTimeInternal.Year_leapCountSinceOne
-import kotlin.jvm.*
+import kotlin.jvm.JvmInline
 
 /**
  * Represents a Year in a typed way.

@@ -1,9 +1,10 @@
 package korlibs.image.format
 
-import korlibs.platform.*
-import kotlinx.browser.*
-import org.w3c.dom.*
-import org.w3c.files.*
+import korlibs.platform.Platform
+import kotlinx.browser.document
+import org.w3c.dom.HTMLCanvasElement
+import org.w3c.dom.RenderingContext
+import org.w3c.files.Blob
 
 external interface RenderingContextJs : RenderingContext, JsAny
 

@@ -1,12 +1,13 @@
 package korlibs.image.vector
 
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.image.vector.format.*
-import korlibs.io.async.*
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
-import kotlin.test.*
+import korlibs.image.bitmap.NativeImage
+import korlibs.image.color.Colors
+import korlibs.image.vector.format.SVG
+import korlibs.io.async.suspendTest
+import korlibs.math.geom.Point
+import korlibs.math.geom.vector.LineCap
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class Context2dTest {
     @Test

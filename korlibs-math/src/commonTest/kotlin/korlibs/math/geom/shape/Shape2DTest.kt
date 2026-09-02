@@ -1,10 +1,18 @@
 package korlibs.math.geom.shape
 
-import korlibs.math.*
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
-import korlibs.number.*
-import kotlin.test.*
+import korlibs.math.geom.Circle
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Point
+import korlibs.math.geom.assertEqualsFloat
+import korlibs.math.geom.map
+import korlibs.math.geom.pointArrayListOf
+import korlibs.math.geom.vector.VectorPath
+import korlibs.math.toIntRound
+import korlibs.number.niceStr
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class Shape2DTest {
     @Test

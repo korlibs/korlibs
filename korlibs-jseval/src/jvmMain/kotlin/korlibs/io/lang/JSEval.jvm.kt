@@ -1,6 +1,8 @@
 package korlibs.io.lang
 
-import javax.script.*
+import javax.script.ScriptContext
+import javax.script.ScriptEngine
+import javax.script.ScriptEngineManager
 
 actual val JSEval = object : IJSEval {
     override val globalThis: Any? get() = engine?.eval("globalThis")

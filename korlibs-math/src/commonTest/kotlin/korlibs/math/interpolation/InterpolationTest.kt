@@ -1,6 +1,12 @@
 package korlibs.math.interpolation
 
-import korlibs.math.geom.*
+import korlibs.math.geom.Anchor
+import korlibs.math.geom.Anchor2D
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.MatrixTransform
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.Scale
+import korlibs.math.geom.Size
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

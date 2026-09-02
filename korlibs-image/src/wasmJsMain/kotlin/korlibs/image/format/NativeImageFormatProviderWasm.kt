@@ -1,31 +1,79 @@
 package korlibs.image.format
 
-import korlibs.encoding.*
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.image.font.*
-import korlibs.image.format.internal.*
-import korlibs.image.paint.*
-import korlibs.image.vector.*
-import korlibs.image.vector.renderer.*
-import korlibs.io.file.*
-import korlibs.io.file.std.*
-import korlibs.io.util.*
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
-import korlibs.memory.*
-import korlibs.platform.*
-import korlibs.time.*
-import korlibs.wasm.*
-import kotlinx.browser.*
-import kotlinx.coroutines.*
-import org.khronos.webgl.*
-import org.w3c.dom.*
-import org.w3c.dom.url.*
-import org.w3c.files.*
-import kotlin.coroutines.*
-import kotlin.math.*
-import kotlin.time.*
+import korlibs.encoding.fromBase64
+import korlibs.encoding.toBase64
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.NativeImage
+import korlibs.image.bitmap.context2d
+import korlibs.image.bitmap.ensureNative
+import korlibs.image.color.RGBA
+import korlibs.image.color.RgbaArray
+import korlibs.image.color.RgbaPremultipliedArray
+import korlibs.image.color.depremultiply
+import korlibs.image.color.premultiply
+import korlibs.image.font.Font
+import korlibs.image.format.internal.toInt8Array2
+import korlibs.image.paint.BitmapPaint
+import korlibs.image.paint.ColorPaint
+import korlibs.image.paint.GradientKind
+import korlibs.image.paint.GradientPaint
+import korlibs.image.paint.NonePaint
+import korlibs.image.paint.Paint
+import korlibs.image.paint.TransformedPaint
+import korlibs.image.vector.BlendMode
+import korlibs.image.vector.CompositeMode
+import korlibs.image.vector.CompositeOperation
+import korlibs.image.vector.Context2d
+import korlibs.image.vector.renderer.Renderer
+import korlibs.io.file.Vfs
+import korlibs.io.file.std.LocalVfs
+import korlibs.io.file.std.UrlVfs
+import korlibs.io.util.arraycopy
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Point
+import korlibs.math.geom.Size
+import korlibs.math.geom.toFloat
+import korlibs.math.geom.vector.LineCap
+import korlibs.math.geom.vector.LineJoin
+import korlibs.math.geom.vector.VectorPath
+import korlibs.math.geom.vector.Winding
+import korlibs.memory.arraycopy
+import korlibs.memory.asInt32Array
+import korlibs.platform.Platform
+import korlibs.time.milliseconds
+import korlibs.wasm.jsArrayOf
+import korlibs.wasm.mapToJsArray
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.math.ceil
+import kotlin.time.TimeSource
+import kotlinx.browser.document
+import kotlinx.coroutines.suspendCancellableCoroutine
+import org.khronos.webgl.Int32Array
+import org.khronos.webgl.Int8Array
+import org.khronos.webgl.TexImageSource
+import org.khronos.webgl.Uint8Array
+import org.khronos.webgl.get
+import org.w3c.dom.BEVEL
+import org.w3c.dom.BUTT
+import org.w3c.dom.CanvasFillRule
+import org.w3c.dom.CanvasGradient
+import org.w3c.dom.CanvasImageSource
+import org.w3c.dom.CanvasLineCap
+import org.w3c.dom.CanvasLineJoin
+import org.w3c.dom.CanvasRenderingContext2D
+import org.w3c.dom.CanvasTransform
+import org.w3c.dom.EVENODD
+import org.w3c.dom.HTMLElement
+import org.w3c.dom.HTMLImageElement
+import org.w3c.dom.HTMLVideoElement
+import org.w3c.dom.MITER
+import org.w3c.dom.NONZERO
+import org.w3c.dom.ROUND
+import org.w3c.dom.SQUARE
+import org.w3c.dom.url.URL
+import org.w3c.files.Blob
+import org.w3c.files.BlobPropertyBag
 
 actual val nativeImageFormatProvider: NativeImageFormatProvider = when {
     Platform.isJsNodeJs -> NonBrowserNativeImageFormatProvider
@@ -52,8 +100,11 @@ private fun bswap32(v: IntArray, offset: Int, size: Int) {
 
 external interface TexImageSourceJs : TexImageSource, JsAny
 
-open class WasmHtmlNativeImage(val texSourceBase: TexImageSourceJs, width: Int, height: Int)
-    : NativeImage(width, height, texSourceBase, premultiplied = true) {
+open class WasmHtmlNativeImage(
+    val texSourceBase: TexImageSourceJs,
+    width: Int,
+    height: Int,
+) : NativeImage(width, height, texSourceBase, premultiplied = true) {
     override val name: String get() = "HtmlNativeImage"
     var texSource: TexImageSourceJs = texSourceBase
         private set

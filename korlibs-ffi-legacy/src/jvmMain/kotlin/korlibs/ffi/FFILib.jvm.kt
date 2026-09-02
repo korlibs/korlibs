@@ -1,40 +1,19 @@
 package korlibs.ffi
 
-import com.sun.jna.*
 import com.sun.jna.Function
+import com.sun.jna.Memory
+import com.sun.jna.Native
+import com.sun.jna.NativeLibrary
+import com.sun.jna.Pointer
+import java.lang.reflect.Proxy
+import java.nio.ByteBuffer
+import java.util.concurrent.Executors
 import korlibs.memory.Buffer
-import kotlinx.coroutines.*
-import java.lang.invoke.*
-import java.lang.reflect.*
-import java.nio.*
-import java.util.concurrent.*
-import kotlin.Any
-import kotlin.Array
-import kotlin.Boolean
-import kotlin.Byte
-import kotlin.ByteArray
-import kotlin.Double
-import kotlin.Float
-import kotlin.Int
-import kotlin.IntArray
-import kotlin.Long
-import kotlin.OptIn
-import kotlin.PublishedApi
-import kotlin.Short
-import kotlin.String
-import kotlin.Unit
-import kotlin.also
-import kotlin.arrayOf
-import kotlin.check
-import kotlin.emptyArray
-import kotlin.error
-import kotlin.getValue
-import kotlin.lazy
-import kotlin.let
-import kotlin.reflect.*
-import kotlin.runCatching
-import kotlin.to
-import kotlin.toString
+import kotlin.reflect.KClass
+import kotlin.reflect.KType
+import kotlin.reflect.typeOf
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Deferred
 
 
 actual fun FFILibSym(lib: FFILib): FFILibSym {

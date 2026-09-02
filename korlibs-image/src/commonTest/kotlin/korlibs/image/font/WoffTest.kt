@@ -1,9 +1,5 @@
 package korlibs.image.font
 
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import kotlin.test.*
-
 class WoffTest {
     /*
     @Test

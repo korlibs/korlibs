@@ -1,9 +1,19 @@
 package korlibs.math
 
-import korlibs.memory.*
-import kotlin.rotateLeft
-import kotlin.rotateRight
-import kotlin.test.*
+import korlibs.memory.IntMaskRange
+import korlibs.memory.bit
+import korlibs.memory.countLeadingZeros
+import korlibs.memory.countTrailingOnes
+import korlibs.memory.countTrailingZeros
+import korlibs.memory.reinterpretAsDouble
+import korlibs.memory.reinterpretAsFloat
+import korlibs.memory.reinterpretAsInt
+import korlibs.memory.reinterpretAsLong
+import korlibs.memory.reverseBits
+import korlibs.memory.setBits
+import korlibs.memory.unsetBits
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class BitsTest {
     @Test

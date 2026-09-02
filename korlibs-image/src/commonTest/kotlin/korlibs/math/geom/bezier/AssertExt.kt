@@ -1,7 +1,9 @@
 package korlibs.math.geom.bezier
 
-import korlibs.math.*
-import korlibs.math.geom.*
+import korlibs.math.geom.MPoint
+import korlibs.math.geom.Point
+import korlibs.math.geom.PointList
+import korlibs.math.isAlmostEquals
 
 fun <T : Any> assertEqualsFloat(
     expected: T?,

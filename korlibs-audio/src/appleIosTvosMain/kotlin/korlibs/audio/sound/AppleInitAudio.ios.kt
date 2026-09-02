@@ -2,9 +2,15 @@
 
 package korlibs.audio.sound
 
-import kotlinx.cinterop.*
-import platform.AVFAudio.*
-import platform.Foundation.*
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.ObjCObjectVar
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
+import platform.AVFAudio.AVAudioSession
+import platform.AVFAudio.AVAudioSessionCategoryAmbient
+import platform.AVFAudio.setActive
+import platform.Foundation.NSError
 
 internal actual val appleInitAudioOnce: Unit by lazy {
     memScoped {

@@ -1,11 +1,15 @@
 package korlibs.platform
 
-import korlibs.js.*
-import kotlinx.browser.*
+import korlibs.js.Deno
+import kotlinx.browser.document
+import kotlinx.browser.window
 import org.khronos.webgl.Uint32Array
 import org.khronos.webgl.Uint8Array
 import org.khronos.webgl.get
-import org.w3c.dom.*
+import org.w3c.dom.Document
+import org.w3c.dom.Navigator
+import org.w3c.dom.Window
+import org.w3c.dom.WindowOrWorkerGlobalScope
 
 internal val isDenoJs: Boolean by lazy { js("(typeof Deno === 'object' && Deno.statSync !== undefined)").unsafeCast<Boolean>() }
 internal val isWeb: Boolean by lazy { js("(typeof window === 'object')").unsafeCast<Boolean>() }

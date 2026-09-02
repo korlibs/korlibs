@@ -1,13 +1,19 @@
 package korlibs.image.font
 
-import korlibs.datastructure.*
-import korlibs.datastructure.iterators.*
-import korlibs.image.atlas.*
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.image.vector.*
-import korlibs.math.*
-import korlibs.math.geom.*
+import korlibs.datastructure.Extra
+import korlibs.datastructure.IntMap
+import korlibs.datastructure.iterators.fastForEach
+import korlibs.datastructure.toIntList
+import korlibs.image.atlas.MutableAtlasUnit
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.Bitmaps
+import korlibs.image.bitmap.mipmaps
+import korlibs.image.color.Colors
+import korlibs.image.vector.msdfBmp
+import korlibs.image.vector.sdfBmp
+import korlibs.math.geom.Rectangle
+import korlibs.math.toIntCeil
+import korlibs.math.toIntRound
 
 class LazyBitmapFont(
     val font: VectorFont,

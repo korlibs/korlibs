@@ -1,10 +1,12 @@
 package korlibs.image.bitmap.sdf
 
-import korlibs.datastructure.*
-import korlibs.memory.*
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.math.*
+import korlibs.datastructure.FloatArray2
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.color.RGBA
+import korlibs.math.clamp
+import korlibs.math.divCeil
+import korlibs.math.toIntRound
+import korlibs.memory.UShortArrayInt
 
 // Based on Tiny-SDF: https://github.com/mapbox/tiny-sdf/
 object NewSDF {

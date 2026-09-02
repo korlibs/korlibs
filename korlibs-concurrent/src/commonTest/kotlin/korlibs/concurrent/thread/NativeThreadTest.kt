@@ -1,12 +1,20 @@
 package korlibs.concurrent.thread
 
-import korlibs.io.async.*
-import korlibs.time.*
-import kotlinx.atomicfu.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
-import kotlin.time.*
+import korlibs.io.async.CIO
+import korlibs.io.async.runBlockingNoJs
+import korlibs.time.milliseconds
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
+import kotlin.time.measureTime
+import kotlinx.atomicfu.atomic
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withContext
 
 class NativeThreadTest {
     @Test
@@ -38,11 +46,7 @@ class NativeThreadTest {
         if (!NativeThread.isSupported) return@runTest
 
         val test = FixedPoolNativeThreadDispatcher(2, "TEST", priority = NativeThreadPriority.HIGHER, preciseTimings = true)
-        //val test = NativeThreadDispatcher("TEST", priority = NativeThreadPriority.HIGHER, preciseTimings = true)
-        //withContext(test) {
         repeat(1) {
-        //repeat(1000) {
-        //repeat(10000) {
             val time = measureTime {
                 val done2 = CompletableDeferred<Unit>()
                 val done1 = CompletableDeferred<Unit>()

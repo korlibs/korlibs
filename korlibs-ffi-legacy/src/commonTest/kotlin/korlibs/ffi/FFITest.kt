@@ -1,8 +1,10 @@
 package korlibs.ffi
 
-import korlibs.memory.*
-import korlibs.platform.*
-import kotlin.test.*
+import korlibs.memory.Buffer
+import korlibs.memory.setArray
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class FFITest {
     @Test

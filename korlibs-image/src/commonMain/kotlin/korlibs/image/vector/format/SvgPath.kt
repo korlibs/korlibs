@@ -1,11 +1,25 @@
 package korlibs.image.vector.format
 
-import korlibs.datastructure.*
-import korlibs.io.util.*
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
-import korlibs.util.*
-import kotlin.math.*
+import korlibs.datastructure.ListReader
+import korlibs.io.util.isDigit
+import korlibs.io.util.isWhitespaceFast
+import korlibs.io.util.toStringDecimal
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Point
+import korlibs.math.geom.vector.VectorBuilder
+import korlibs.math.geom.vector.VectorPath
+import korlibs.math.geom.vector.write
+import korlibs.util.SimpleStrReader
+import korlibs.util.readWhileBuilder
+import korlibs.util.skipWhile
+import kotlin.math.PI
+import kotlin.math.abs
+import kotlin.math.absoluteValue
+import kotlin.math.acos
+import kotlin.math.cos
+import kotlin.math.hypot
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 object SvgPath {
     fun parse(d: String, warningProcessor: ((message: String) -> Unit)? = null): VectorPath {

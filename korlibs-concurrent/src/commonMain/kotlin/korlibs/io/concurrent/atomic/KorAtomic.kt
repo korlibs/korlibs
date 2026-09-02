@@ -1,7 +1,12 @@
 package korlibs.io.concurrent.atomic
 
-import kotlinx.atomicfu.*
-import kotlin.js.*
+import kotlin.js.JsName
+import kotlinx.atomicfu.AtomicBoolean
+import kotlinx.atomicfu.AtomicInt
+import kotlinx.atomicfu.AtomicLong
+import kotlinx.atomicfu.AtomicRef
+import kotlinx.atomicfu.atomic
+import kotlinx.atomicfu.updateAndGet
 
 @JsName("korAtomicRef")
 @Deprecated("", ReplaceWith("atomic(initial)", "kotlinx.atomicfu.atomic"))

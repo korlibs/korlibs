@@ -1,9 +1,13 @@
 package korlibs.image.format
 
-import korlibs.image.awt.*
-import korlibs.image.bitmap.*
-import korlibs.image.core.*
-import java.awt.image.*
+import java.awt.image.BufferedImage
+import korlibs.image.awt.AwtNativeImage
+import korlibs.image.awt.awtShowImageAndWait
+import korlibs.image.awt.toAwt
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.NativeImage
+import korlibs.image.core.AwtCoreImage
+import korlibs.image.core.CoreImage
 
 actual val nativeImageFormatProvider: NativeImageFormatProvider = JvmNativeImageFormatProvider
 

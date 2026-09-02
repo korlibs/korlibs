@@ -1,11 +1,12 @@
 package korlibs.image.bitmap
 
 import korlibs.image.color.Colors
-import korlibs.io.async.suspendTest
-import korlibs.math.geom.*
-import kotlinx.coroutines.test.*
+import korlibs.math.geom.Anchor
+import korlibs.math.geom.ScaleMode
+import korlibs.math.geom.SizeInt
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.coroutines.test.runTest
 
 class BitmapResizedTest {
     @Test

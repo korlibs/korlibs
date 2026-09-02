@@ -1,14 +1,13 @@
 package korlibs.image.format
 
-import korlibs.image.*
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.io.async.*
-import korlibs.io.stream.*
-import korlibs.math.geom.*
-import korlibs.platform.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.color.Colors
+import korlibs.image.doTest
+import korlibs.io.stream.openSync
+import korlibs.math.geom.Size
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class NativeEncodingTest {
     @Test

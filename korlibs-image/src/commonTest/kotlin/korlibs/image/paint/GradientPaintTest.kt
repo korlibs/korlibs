@@ -5,7 +5,8 @@ import korlibs.image.color.RGBA
 import korlibs.image.color.RgbaArray
 import korlibs.image.vector.Context2d
 import korlibs.image.vector.CycleMethod
-import korlibs.math.geom.*
+import korlibs.math.geom.MMatrix
+import korlibs.math.geom.Matrix
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

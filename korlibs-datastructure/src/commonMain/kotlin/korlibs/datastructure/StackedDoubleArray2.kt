@@ -1,8 +1,9 @@
 package korlibs.datastructure
 
 import korlibs.datastructure.internal.memory.Memory.arraycopy
-import korlibs.datastructure.iterators.*
-import korlibs.math.geom.*
+import korlibs.datastructure.iterators.fastForEach
+import korlibs.math.geom.PointInt
+import korlibs.math.geom.SizeInt
 
 interface IStackedDoubleArray2 : IStackedArray2<Double> {
     /** The [empty] value that will be returned if the specified cell it out of bounds, or empty */

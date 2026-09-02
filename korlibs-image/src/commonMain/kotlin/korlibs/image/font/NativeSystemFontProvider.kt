@@ -1,24 +1,27 @@
 package korlibs.image.font
 
-import korlibs.datastructure.*
-import korlibs.image.format.*
-import korlibs.io.async.*
-import korlibs.io.concurrent.atomic.*
-import korlibs.io.file.*
-import korlibs.io.file.std.*
-import korlibs.io.lang.*
-import korlibs.logger.*
-import korlibs.math.geom.*
-import korlibs.platform.*
-import korlibs.time.*
-import kotlinx.atomicfu.*
-import kotlinx.coroutines.*
-import kotlin.collections.component1
-import kotlin.collections.component2
-import kotlin.collections.set
-import kotlin.coroutines.*
-import kotlin.time.*
+import korlibs.datastructure.cacheLazyNullable
+import korlibs.image.format.imageLoadingLogger
+import korlibs.io.async.runBlockingNoJs
+import korlibs.io.file.VfsFile
+import korlibs.io.file.baseName
+import korlibs.io.file.std.MemoryVfs
+import korlibs.io.file.std.VfsFileFromData
+import korlibs.io.file.std.localVfs
+import korlibs.io.lang.Environment
+import korlibs.io.lang.WStringReader
+import korlibs.io.lang.expand
+import korlibs.logger.Logger
+import korlibs.math.geom.Rectangle
+import korlibs.platform.Os
+import korlibs.platform.Platform
+import korlibs.time.milliseconds
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.coroutineContext
 import kotlin.time.measureTime
+import kotlin.time.measureTimedValue
+import kotlinx.atomicfu.atomic
+import kotlinx.coroutines.CancellationException
 
 internal fun createNativeSystemFontProvider(coroutineContext: CoroutineContext, platform: Platform = Platform): NativeSystemFontProvider = when {
     platform.runtime.isJs -> FallbackNativeSystemFontProvider(DefaultTtfFont)

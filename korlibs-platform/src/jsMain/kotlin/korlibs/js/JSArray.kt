@@ -1,7 +1,5 @@
 package korlibs.js
 
-import kotlin.js.*
-
 @JsName("Array")
 external class JSArray<T> {
     var length: Int

@@ -2,9 +2,17 @@ package korlibs.image.format
 
 import korlibs.datastructure.Extra
 import korlibs.datastructure.fastArrayListOf
-import korlibs.image.bitmap.*
-import korlibs.time.*
-import kotlin.time.*
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.Bitmaps
+import korlibs.image.bitmap.BmpSlice
+import korlibs.image.bitmap.bmp
+import korlibs.image.bitmap.slice
+import korlibs.time.FastDuration
+import korlibs.time.fast
+import korlibs.time.fastSeconds
+import korlibs.time.seconds
+import korlibs.time.toDuration
+import kotlin.time.Duration
 
 /**
  * This class defines one frame of a sprite object like e.g. an aseprite image file.

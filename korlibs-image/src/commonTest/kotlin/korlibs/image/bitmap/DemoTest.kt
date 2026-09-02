@@ -4,21 +4,17 @@ package korlibs.image.bitmap
 
 import korlibs.datastructure.IntMap
 import korlibs.datastructure.toIntMap
-import korlibs.image.bitmap.Bitmap32
-import korlibs.image.bitmap.slice
+import korlibs.encoding.fromBase64
 import korlibs.image.font.BitmapFont
 import korlibs.image.format.PNG
 import korlibs.image.format.readBitmap
-import korlibs.io.async.suspendTest
 import korlibs.io.async.suspendTestNoBrowser
 import korlibs.io.file.std.MemoryVfs
 import korlibs.io.stream.openAsync
-import korlibs.math.geom.*
-import korlibs.encoding.fromBase64
-import kotlinx.coroutines.test.*
-import kotlin.native.concurrent.ThreadLocal
+import korlibs.math.geom.SizeInt
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.coroutines.test.runTest
 
 class DemoTest {
     object DebugBitmapFont {

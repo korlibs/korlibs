@@ -1,16 +1,20 @@
 package korlibs.image.vector
 
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.image.format.*
-import korlibs.io.async.*
-import korlibs.io.file.*
-import korlibs.io.file.std.*
-import korlibs.math.geom.*
-import korlibs.memory.*
-import korlibs.platform.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.NativeImageOrBitmap32
+import korlibs.image.bitmap.context2d
+import korlibs.image.color.Colors
+import korlibs.image.format.PNG
+import korlibs.image.format.writeTo
+import korlibs.io.file.fullPathNormalized
+import korlibs.io.file.std.tempVfs
+import korlibs.math.geom.Point
+import korlibs.math.geom.degrees
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.coroutines.test.runTest
 
 class NativeRenderTest {
     @Test fun testNativeFill() = doTest(native = true, drawBitmap = false)

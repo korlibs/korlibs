@@ -1,8 +1,9 @@
 package korlibs.image.format
 
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import kotlin.test.*
+import korlibs.io.async.suspendTest
+import korlibs.io.file.std.resourcesVfs
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class KRAJvmTest {
     @Test

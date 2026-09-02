@@ -1,6 +1,8 @@
 package korlibs.time
 
-import kotlin.test.*
+import kotlin.test.Ignore
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class StopwatchTest {
     @Test

@@ -2,11 +2,15 @@
 
 package korlibs.math.geom.convex
 
-import korlibs.math.geom.*
-import korlibs.math.geom.bezier.*
-import korlibs.math.geom.vector.*
-import korlibs.math.interpolation.*
-import kotlin.math.*
+import korlibs.math.geom.Angle
+import korlibs.math.geom.PointList
+import korlibs.math.geom.bezier.Curves
+import korlibs.math.geom.bezier.toNonCurveSimplePointList
+import korlibs.math.geom.vector.VectorPath
+import korlibs.math.geom.vector.getCurvesList
+import korlibs.math.interpolation.Ratio
+import korlibs.math.interpolation.isAlmostEquals
+import kotlin.math.PI
 
 object Convex {
     fun isConvex(path: VectorPath): Boolean {

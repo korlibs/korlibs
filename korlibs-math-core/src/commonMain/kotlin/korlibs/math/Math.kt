@@ -1,7 +1,13 @@
 package korlibs.math
 
 import kotlin.jvm.JvmOverloads
-import kotlin.math.*
+import kotlin.math.PI
+import kotlin.math.abs
+import kotlin.math.absoluteValue
+import kotlin.math.ln
+import kotlin.math.log
+import kotlin.math.max
+import kotlin.math.min
 
 const val PIF = PI.toFloat()
 const val PI2F = (PI * 2).toFloat()

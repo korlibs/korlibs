@@ -1,12 +1,13 @@
 package korlibs.time
 
-import korlibs.time.core.*
-import korlibs.time.internal.MILLIS_PER_MINUTE
 import korlibs.Serializable
+import korlibs.time.core.CoreTime
+import korlibs.time.core.CoreTimeInternalApi
+import korlibs.time.internal.MILLIS_PER_MINUTE
 import korlibs.time.internal.padded
 import kotlin.jvm.JvmInline
 import kotlin.math.abs
-import kotlin.time.*
+import kotlin.time.Duration
 
 /**
  * Represents a time zone offset with millisecond precision. Usually minute is enough.

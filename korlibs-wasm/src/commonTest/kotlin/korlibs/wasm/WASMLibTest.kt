@@ -1,8 +1,10 @@
 package korlibs.wasm
 
-import korlibs.io.async.*
-import korlibs.platform.*
-import kotlin.test.*
+import korlibs.io.async.suspendTest
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertContentEquals
+import kotlin.test.assertEquals
 
 class WASMLibTest {
     @Test

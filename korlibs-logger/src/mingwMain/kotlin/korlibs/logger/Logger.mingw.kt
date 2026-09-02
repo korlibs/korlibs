@@ -1,8 +1,5 @@
 package korlibs.logger
 
-import kotlinx.cinterop.*
-import platform.windows.*
-
 actual object Console : BaseConsole()
 
 actual object DefaultLogOutput : Logger.Output {

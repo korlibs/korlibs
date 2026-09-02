@@ -1,8 +1,10 @@
 package korlibs.audio.sound
 
 import korlibs.io.async.suspendTest
-import korlibs.time.*
-import kotlin.test.*
+import korlibs.time.seconds
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class AudioDataTest {
     @Test

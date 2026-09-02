@@ -1,7 +1,9 @@
 package korlibs.math.geom
 
-import korlibs.math.interpolation.*
-import kotlin.test.*
+import korlibs.math.interpolation.Ratio
+import korlibs.math.interpolation.interpolate
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class AnchorTest {
     val rect = Rectangle(0, 0, 100, 100)

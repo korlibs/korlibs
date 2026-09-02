@@ -1,6 +1,10 @@
-import korlibs.io.lang.*
-import korlibs.memory.*
-import kotlin.test.*
+import korlibs.io.lang.Environment
+import korlibs.io.lang.tempPath
+import korlibs.memory.Buffer
+import korlibs.memory.BufferMapMode
+import korlibs.memory.asInt32
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class JvmBufferTest {
     @Test

@@ -1,10 +1,13 @@
 package korlibs.image.bitmap.trace
 
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
-import kotlin.test.*
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.context2d
+import korlibs.image.color.Colors
+import korlibs.math.geom.Point
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.vector.Winding
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class BitmapTracerTest {
     @Test

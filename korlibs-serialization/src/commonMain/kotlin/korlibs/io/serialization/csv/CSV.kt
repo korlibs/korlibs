@@ -2,7 +2,7 @@
 
 package korlibs.io.serialization.csv
 
-import korlibs.util.*
+import korlibs.util.SimpleStrReader
 
 class CSV(val lines: List<List<String>>, val names: List<String>? = null) : Collection<CSV.Record> {
     val namesToIndex: Map<String, Int> = names?.withIndex()?.associate { it.value to it.index } ?: emptyMap()

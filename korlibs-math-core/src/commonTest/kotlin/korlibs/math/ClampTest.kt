@@ -1,6 +1,7 @@
 package korlibs.math
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ClampTest {
     @Test

@@ -2,8 +2,8 @@
 
 package korlibs.math.geom
 
-import korlibs.math.*
-import kotlin.math.*
+import korlibs.math.IsAlmostEqualsF
+import kotlin.math.floor
 
 /**
  * Useful for representing rotations and scales.

@@ -2,16 +2,32 @@
 
 package korlibs.math.geom.vector
 
-import korlibs.datastructure.*
-import korlibs.datastructure.iterators.*
-import korlibs.math.*
-import korlibs.math.annotations.*
-import korlibs.math.geom.*
-import korlibs.math.geom.bezier.*
-import korlibs.math.geom.ds.*
-import korlibs.math.geom.shape.*
-import korlibs.math.geom.trapezoid.*
-import korlibs.number.*
+import korlibs.datastructure.DoubleArrayList
+import korlibs.datastructure.Extra
+import korlibs.datastructure.IntArrayList
+import korlibs.datastructure.extraProperty
+import korlibs.datastructure.iterators.fastForEach
+import korlibs.math.annotations.KormaExperimental
+import korlibs.math.geom.BoundsBuilder
+import korlibs.math.geom.Line
+import korlibs.math.geom.LineIntersection
+import korlibs.math.geom.MBoundsBuilder
+import korlibs.math.geom.MPoint
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Point
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.bezier.Bezier
+import korlibs.math.geom.bezier.Curves
+import korlibs.math.geom.bezier.fastForEachBezier
+import korlibs.math.geom.bezier.toCurves
+import korlibs.math.geom.ds.BVH2D
+import korlibs.math.geom.shape.AbstractShape2D
+import korlibs.math.geom.trapezoid.FTrapezoidsInt
+import korlibs.math.geom.trapezoid.SegmentIntToTrapezoidIntList
+import korlibs.math.geom.trapezoid.toSegments
+import korlibs.math.roundDecimalPlaces
+import korlibs.math.toIntRound
+import korlibs.number.niceStr
 
 interface IVectorPath : VectorBuilder {
     fun toSvgString(): String
@@ -320,11 +336,7 @@ class VectorPath(
     }
 
     fun getLineIntersection(line: Line, out: LineIntersection = LineIntersection()): LineIntersection? {
-        // Directs from outside the shape, to inside the shape
-//        if (this.containsPoint(line.b) && !this.containsPoint(line.a)) {
-            return this.scanline.getLineIntersection(line, out)
-        //}
-        //return null
+        return this.scanline.getLineIntersection(line, out)
     }
 
     //private val p1 = Point()

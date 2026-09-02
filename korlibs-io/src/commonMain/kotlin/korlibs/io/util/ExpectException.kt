@@ -17,5 +17,7 @@ suspend fun <T : Throwable> expectException(clazz: KClass<T>, callback: suspend 
 
 suspend inline fun <reified T : Throwable> expectException(noinline callback: suspend () -> Unit) = expectException(T::class, callback)
 
-class ExpectedException(val expectedClass: KClass<*>, val found: Throwable?)
-    : Exception(if (found != null) "Expected ${expectedClass.portableSimpleName} but found $found" else "Expected ${expectedClass.portableSimpleName} no exception was thrown")
+class ExpectedException(
+    val expectedClass: KClass<*>,
+    val found: Throwable?,
+) : Exception(if (found != null) "Expected ${expectedClass.portableSimpleName} but found $found" else "Expected ${expectedClass.portableSimpleName} no exception was thrown")

@@ -1,8 +1,9 @@
 package korlibs.image.vector
 
-import korlibs.math.geom.*
-import korlibs.math.geom.shape.*
-import kotlin.test.*
+import korlibs.math.geom.Size
+import korlibs.math.geom.shape.buildVectorPath
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class NinePatchVectorTest {
     @Test

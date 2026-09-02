@@ -39,7 +39,6 @@ class ZipBuilder {
             useFolderAsRoot: Boolean = true
         ): VfsFile {
             zipFile.openUse(VfsOpenMode.CREATE_OR_TRUNCATE) {
-            //zipFile.openUse(VfsOpenMode.CREATE) {
                 createZipFromTreeTo(folder, this, compression, useFolderAsRoot)
             }
             return zipFile
@@ -50,8 +49,8 @@ class ZipBuilder {
             val month = dt.month1
             val day = dt.dayOfMonth
             return (day and 0x1F) or
-                    ((month and 0x0F) shl 5) or
-                    ((year and 0x7F) shl 9)
+                ((month and 0x0F) shl 5) or
+                ((year and 0x7F) shl 9)
         }
 
         private fun dosTime(dt: DateTimeTz): Int {
@@ -59,8 +58,8 @@ class ZipBuilder {
             val minute = dt.minutes
             val second = dt.seconds / 2
             return (second and 0x1F) or
-                    ((minute and 0x3F) shl 5) or
-                    ((hour and 0x1F) shl 11)
+                ((minute and 0x3F) shl 5) or
+                ((hour and 0x1F) shl 11)
         }
 
         suspend fun createZipFromTreeTo(

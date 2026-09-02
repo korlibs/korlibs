@@ -1,6 +1,8 @@
 package korlibs.math
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 class ToIntExt {
     @Test

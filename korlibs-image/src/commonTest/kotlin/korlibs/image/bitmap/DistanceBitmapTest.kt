@@ -1,15 +1,16 @@
 package korlibs.image.bitmap
 
-import korlibs.image.vector.*
-import korlibs.io.async.*
-import korlibs.io.util.*
-import korlibs.logger.*
-import korlibs.math.geom.*
-import korlibs.math.geom.shape.*
-import korlibs.number.*
-import korlibs.platform.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.image.vector.msdf
+import korlibs.image.vector.sdf
+import korlibs.io.util.toStringDecimal
+import korlibs.logger.Logger
+import korlibs.math.geom.Point
+import korlibs.math.geom.shape.buildVectorPath
+import korlibs.number.niceStr
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.coroutines.test.runTest
 
 class DistanceBitmapTest {
     val logger = Logger("DistanceBitmapTest")
@@ -56,7 +57,7 @@ class DistanceBitmapTest {
             ...XXXXX..
             .....X....
             ..........
-        """.trimIndent())
+            """.trimIndent())
         val distance = bmp.sdf()
         val floats = distance.toFloatArray2()
 

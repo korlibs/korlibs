@@ -1,9 +1,9 @@
 package korlibs.io.lang
 
 import korlibs.platform.Platform
-import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.coroutines.test.runTest
 
 class JsEvalTest {
     @Test

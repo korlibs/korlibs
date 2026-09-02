@@ -2,21 +2,36 @@
 
 package korlibs.image.style
 
-import korlibs.datastructure.*
-import korlibs.ffi.osx.*
-import korlibs.image.annotation.*
-import korlibs.image.color.*
-import korlibs.io.lang.*
-import korlibs.io.util.*
-import korlibs.math.geom.*
-import korlibs.math.interpolation.*
-import korlibs.time.*
-import korlibs.util.*
-import kotlin.collections.component1
-import kotlin.collections.component2
-import kotlin.collections.set
-import kotlin.native.concurrent.*
-import kotlin.time.*
+import korlibs.datastructure.Extra
+import korlibs.datastructure.FastArrayList
+import korlibs.datastructure.ListReader
+import korlibs.datastructure.expect
+import korlibs.datastructure.extraPropertyThis
+import korlibs.datastructure.reader
+import korlibs.image.annotation.KorimExperimental
+import korlibs.image.color.Colors
+import korlibs.image.color.RGBA
+import korlibs.image.color.interpolate
+import korlibs.io.lang.invalidOp
+import korlibs.io.lang.substr
+import korlibs.math.geom.Angle
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.MatrixTransform
+import korlibs.math.geom.degrees
+import korlibs.math.geom.radians
+import korlibs.math.interpolation.EASE_CLAMP_END
+import korlibs.math.interpolation.EASE_CLAMP_START
+import korlibs.math.interpolation.Easing
+import korlibs.math.interpolation.Ratio
+import korlibs.math.interpolation.convertRange
+import korlibs.math.interpolation.cubic
+import korlibs.math.interpolation.interpolate
+import korlibs.math.interpolation.toRatio
+import korlibs.time.milliseconds
+import korlibs.time.seconds
+import korlibs.util.SimpleStrReader
+import korlibs.util.skipWhile
+import kotlin.time.Duration
 
 @KorimExperimental
 class CSS(val allRules: List<IRuleSet>, unit: Unit = Unit) {
@@ -306,7 +321,7 @@ class CSS(val allRules: List<IRuleSet>, unit: Unit = Unit) {
                 }
             }
             return parseEasing(tokenize(str).map { it.str.lowercase() }.reader())
-       }
+        }
 
         fun parseSizeAsDouble(size: String): Double {
             return size.filter { it !in 'a'..'z' && it !in 'A'..'Z' }.toDoubleOrNull() ?: 16.0

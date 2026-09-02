@@ -1,8 +1,14 @@
 package korlibs.image.format
 
-import korlibs.datastructure.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
+import korlibs.datastructure.Extra
+import korlibs.io.lang.invalidOp
+import korlibs.io.stream.SyncStream
+import korlibs.io.stream.openSync
+import korlibs.io.stream.readAll
+import korlibs.io.stream.readIntArrayLE
+import korlibs.io.stream.readS32LE
+import korlibs.io.stream.readStream
+import korlibs.io.stream.readString
 
 object DDS : ImageFormat("dds") {
     override fun decodeHeader(s: SyncStream, props: ImageDecodingProps): ImageInfo? {

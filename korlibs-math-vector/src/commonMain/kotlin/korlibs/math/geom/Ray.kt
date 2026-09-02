@@ -1,7 +1,7 @@
 package korlibs.math.geom
 
-import korlibs.math.*
-import korlibs.math.annotations.*
+import korlibs.math.IsAlmostEquals
+import korlibs.math.annotations.KormaMutableApi
 
 typealias Ray = Ray2D
 typealias Ray2 = Ray

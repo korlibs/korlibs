@@ -11,7 +11,7 @@ import org.khronos.webgl.toInt8Array
 val JS_UTF8 = object : UTC8CharsetBase("UTF-8") {
     val textDecoder: TextDecoder? = try {
         TextDecoder("utf-8")
-    //} catch (e: dynamic) { // @TODO: wasm?
+        //} catch (e: dynamic) { // @TODO: wasm?
     } catch (e: Throwable) {
         null
     } // Do not fail if not supported!

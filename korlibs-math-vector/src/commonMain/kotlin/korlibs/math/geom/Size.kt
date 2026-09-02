@@ -1,7 +1,8 @@
 package korlibs.math.geom
 
-import korlibs.number.*
-import kotlin.math.*
+import korlibs.number.niceStr
+import kotlin.math.max
+import kotlin.math.min
 
 typealias Size = Size2D
 typealias Size3 = Size2F
@@ -14,12 +15,12 @@ data class Size3D(val width: Double, val height: Double, val depth: Double)
  * A class representing a size with a [width] and a [height] as Float.
  */
 data class Size2D(val width: Double, val height: Double) {//: Sizeable {
-    companion object {
-        operator fun invoke(width: Number, height: Number): Size2D = Size2D(width.toDouble(), height.toDouble())
-        val ZERO = Size(0.0, 0.0)
-        fun square(value: Int): Size = Size(value, value)
-        fun square(value: Double): Size = Size(value, value)
-    }
+companion object {
+    operator fun invoke(width: Number, height: Number): Size2D = Size2D(width.toDouble(), height.toDouble())
+    val ZERO = Size(0.0, 0.0)
+    fun square(value: Int): Size = Size(value, value)
+    fun square(value: Double): Size = Size(value, value)
+}
 
     fun isEmpty(): Boolean = width == 0.0 || height == 0.0
 

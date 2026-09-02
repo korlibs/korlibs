@@ -1,9 +1,10 @@
 package korlibs.wasm
 
-import korlibs.datastructure.*
-import korlibs.io.lang.*
-import korlibs.io.util.*
-import kotlin.math.*
+import korlibs.datastructure.ListReader
+import korlibs.datastructure.mapWhile
+import korlibs.io.lang.invalidOp
+import korlibs.io.lang.substringEquals
+import kotlin.math.min
 
 /**
  * <https://webassembly.github.io/wabt/demo/wat2wasm/>

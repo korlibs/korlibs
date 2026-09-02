@@ -1,9 +1,10 @@
 package korlibs.image.style
 
-import korlibs.image.annotation.*
-import korlibs.logger.*
-import korlibs.math.geom.*
-import kotlin.test.*
+import korlibs.image.annotation.KorimExperimental
+import korlibs.logger.Logger
+import korlibs.math.geom.Matrix
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @OptIn(KorimExperimental::class)
 class CSSTest {

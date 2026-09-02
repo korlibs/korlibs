@@ -1,6 +1,11 @@
 package korlibs.wasm
 
-import org.khronos.webgl.*
+import org.khronos.webgl.ArrayBuffer
+import org.khronos.webgl.ArrayBufferView
+import org.khronos.webgl.DataView
+import org.khronos.webgl.Uint8Array
+import org.khronos.webgl.get
+import org.khronos.webgl.set
 
 actual open class WASMLib actual constructor(content: ByteArray) : IWASMLib by WASMWASMLib(content)
 

@@ -1,8 +1,11 @@
 package korlibs.datastructure.iterators
 
-import korlibs.datastructure.*
+import korlibs.datastructure.mapInt
+import korlibs.datastructure.toIntArrayList
 import korlibs.io.async.ConcurrencyLevel
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import kotlinx.coroutines.Dispatchers
 
 class ParallelTest {

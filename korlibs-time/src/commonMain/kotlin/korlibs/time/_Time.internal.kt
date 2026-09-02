@@ -2,10 +2,18 @@
 
 package korlibs.time.internal
 
-import korlibs.time.*
-import kotlin.jvm.*
-import kotlin.math.*
-import kotlin.time.*
+import korlibs.time.TimezoneNames
+import korlibs.time.hours
+import korlibs.time.minutes
+import korlibs.time.unaryPlus
+import kotlin.jvm.JvmInline
+import kotlin.math.abs
+import kotlin.math.absoluteValue
+import kotlin.math.floor
+import kotlin.math.pow
+import kotlin.math.round
+import kotlin.math.sign
+import kotlin.time.Duration
 
 internal inline fun Int.chainComparison(comparer: () -> Int): Int = if (this == 0) comparer() else this
 

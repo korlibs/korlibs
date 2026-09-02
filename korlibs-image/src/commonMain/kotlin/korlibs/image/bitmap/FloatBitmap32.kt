@@ -2,8 +2,11 @@ package korlibs.image.bitmap
 
 import korlibs.image.color.RGBA
 import korlibs.image.color.RGBAf
-import korlibs.math.*
-import kotlin.math.*
+import korlibs.math.clamp
+import korlibs.math.convertRange
+import korlibs.math.toInt
+import kotlin.math.absoluteValue
+import kotlin.math.max
 
 class FloatBitmap32(
     width: Int,

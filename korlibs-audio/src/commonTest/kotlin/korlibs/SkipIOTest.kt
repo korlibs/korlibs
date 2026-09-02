@@ -1,4 +1,4 @@
-import korlibs.platform.*
+import korlibs.platform.Platform
 
 //val skipIOTest: Boolean get() = Platform.isJs || Platform.isWasm || Platform.isAndroid
 val skipIOTest: Boolean get() = Platform.isJs || Platform.isAndroid

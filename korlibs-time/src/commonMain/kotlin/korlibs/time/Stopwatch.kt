@@ -1,6 +1,6 @@
 package korlibs.time
 
-import kotlin.time.*
+import kotlin.time.Duration
 
 class Stopwatch(val nanosecondProvider: () -> Double = { PerformanceCounter.nanoseconds }) {
     constructor(timeProvider: TimeProvider) : this({ timeProvider.now().unixMillis.fastMilliseconds.nanoseconds })

@@ -1,8 +1,10 @@
 package korlibs.image.vector
 
 import korlibs.image.util.NinePatchSlices2D
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
+import korlibs.math.geom.Point
+import korlibs.math.geom.PointArrayList
+import korlibs.math.geom.Size
+import korlibs.math.geom.vector.VectorPath
 
 class NinePatchVector(
     val path: VectorPath,

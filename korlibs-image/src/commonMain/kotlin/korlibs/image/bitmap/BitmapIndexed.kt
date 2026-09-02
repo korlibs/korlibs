@@ -2,8 +2,12 @@ package korlibs.image.bitmap
 
 import korlibs.image.color.RGBA
 import korlibs.image.color.RgbaArray
-import korlibs.math.*
-import korlibs.memory.*
+import korlibs.math.ilog2
+import korlibs.math.toInt
+import korlibs.memory.UByteArrayInt
+import korlibs.memory.arraycopy
+import korlibs.memory.extract
+import korlibs.memory.insert
 import kotlin.math.max
 
 abstract class BitmapIndexed(

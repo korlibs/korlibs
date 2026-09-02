@@ -1,10 +1,17 @@
 package korlibs.image.atlas
 
 import korlibs.datastructure.iterators.fastForEach
-import korlibs.math.nextPowerOfTwo
-import korlibs.image.bitmap.*
-import korlibs.math.geom.*
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.BmpSlice
+import korlibs.image.bitmap.BmpSlice32
+import korlibs.image.bitmap.extract
+import korlibs.image.bitmap.slice
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.RectangleInt
+import korlibs.math.geom.Size
+import korlibs.math.geom.SizeInt
 import korlibs.math.geom.binpack.BinPacker
+import korlibs.math.nextPowerOfTwo
 import kotlin.jvm.JvmName
 
 object AtlasPacker {

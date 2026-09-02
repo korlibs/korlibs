@@ -1,6 +1,7 @@
 package korlibs.datastructure
 
-import korlibs.math.geom.*
+import korlibs.math.geom.PointInt
+import korlibs.math.geom.RectangleInt
 
 // Note: Due to autoboxing, the get()/set() methods are implemented in the typed implementations
 // without an override (meaning we don't require the interface to have get/set methods).

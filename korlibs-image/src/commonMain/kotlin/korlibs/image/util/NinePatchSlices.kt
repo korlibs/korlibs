@@ -1,7 +1,8 @@
 package korlibs.image.util
 
-import korlibs.datastructure.*
-import korlibs.math.range.*
+import korlibs.datastructure.DoubleArrayList
+import korlibs.math.range.DoubleRangeExclusive
+import korlibs.math.range.until
 
 class NinePatchSlices private constructor(val ranges: List<DoubleRangeExclusive>, dummy: Unit) {
     constructor(ranges: List<DoubleRangeExclusive>) : this(ranges.sortedBy { it.start }, Unit)

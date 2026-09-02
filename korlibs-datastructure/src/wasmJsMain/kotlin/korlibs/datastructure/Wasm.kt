@@ -2,8 +2,6 @@
 
 package korlibs.datastructure
 
-import korlibs.datastructure.internal.memory.Memory.arraycopy
-
 actual inline fun <T> Any?.fastCastTo(): T = this as T
 
 //@JsName("Map")

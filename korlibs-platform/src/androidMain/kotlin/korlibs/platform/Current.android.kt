@@ -1,8 +1,7 @@
 package korlibs.platform
 
-import android.os.*
-import korlibs.platform.*
-import java.nio.*
+import android.os.Build
+import java.nio.ByteOrder
 
 internal actual val currentOs: Os = Os.ANDROID
 internal actual val currentRuntime: Runtime = Runtime.ANDROID

@@ -1,6 +1,6 @@
 package korlibs.math.geom
 
-import kotlin.test.*
+import kotlin.test.Test
 
 class RayTest {
     val ray = Ray(Point(100, 100), Vector2D(+1, 0))

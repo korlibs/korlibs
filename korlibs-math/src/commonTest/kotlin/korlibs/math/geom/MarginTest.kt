@@ -1,8 +1,9 @@
 package korlibs.math.geom
 
-import korlibs.number.*
-import korlibs.platform.*
-import kotlin.test.*
+import korlibs.number.toFixedShort
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class MarginTest {
     @Test

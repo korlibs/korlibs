@@ -1,9 +1,20 @@
 package korlibs.io.compression.lzma
 
-import korlibs.compression.lzma.*
+import korlibs.compression.lzma.SevenZip
 import korlibs.io.compression.CompressionContext
 import korlibs.io.compression.CompressionMethod
-import korlibs.io.stream.*
+import korlibs.io.stream.AsyncInputStream
+import korlibs.io.stream.AsyncOutputStream
+import korlibs.io.stream.MemorySyncStreamToByteArray
+import korlibs.io.stream.SyncInputStream
+import korlibs.io.stream.SyncOutputStream
+import korlibs.io.stream.openSync
+import korlibs.io.stream.readAll
+import korlibs.io.stream.readBytesExact
+import korlibs.io.stream.readS64LE
+import korlibs.io.stream.write64LE
+import korlibs.io.stream.write8
+import korlibs.io.stream.writeBytes
 
 /**
  * @TODO: Streaming! (right now loads the whole stream in-memory)

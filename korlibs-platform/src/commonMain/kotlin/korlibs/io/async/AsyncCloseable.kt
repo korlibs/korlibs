@@ -1,6 +1,8 @@
 package korlibs.io.async
 
-import kotlin.contracts.*
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 /** An interface that allows to close resources asynchronously. */
 interface AsyncCloseable {

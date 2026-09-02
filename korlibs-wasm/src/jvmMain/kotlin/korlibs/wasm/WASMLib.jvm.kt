@@ -1,8 +1,6 @@
 package korlibs.wasm
 
-import korlibs.io.stream.*
-import java.lang.reflect.*
-import kotlin.reflect.*
+import korlibs.io.stream.openSync
 
 //actual open class WASMLib actual constructor(content: ByteArray) : IWASMLib by DenoWASMLib(content)
 //actual open class WASMLib actual constructor(content: ByteArray) : IWASMLib by InterpreterWASMLib(content)

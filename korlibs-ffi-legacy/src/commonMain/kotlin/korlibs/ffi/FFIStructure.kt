@@ -1,8 +1,8 @@
 package korlibs.ffi
 
 import kotlin.jvm.JvmInline
-import kotlin.math.*
-import kotlin.reflect.*
+import kotlin.math.max
+import kotlin.reflect.KProperty
 
 open class FFIStructure(var ptr: FFIPointer?) {
     val ptrSure: FFIPointer get() = ptr!!

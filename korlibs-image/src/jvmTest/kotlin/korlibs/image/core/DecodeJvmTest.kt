@@ -1,9 +1,10 @@
 package korlibs.image.core
 
-import junit.framework.TestCase.*
-import kotlinx.coroutines.test.*
-import kotlin.io.encoding.*
+import junit.framework.TestCase.assertEquals
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
 import kotlin.test.Test
+import kotlinx.coroutines.test.runTest
 
 @OptIn(ExperimentalEncodingApi::class)
 class DecodeJvmTest {

@@ -1,7 +1,9 @@
 package korlibs.datastructure
 
-import korlibs.memory.*
-import korlibs.number.*
+import korlibs.memory.Int64
+import korlibs.memory.toInt64
+import korlibs.number.Int53
+import korlibs.number.toInt53
 
 open class BaseDelegatedStackedArray2(val other: IStackedArray2Base) : IStackedArray2Base by other
 

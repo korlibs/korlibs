@@ -1,6 +1,6 @@
 package korlibs.image.bitmap
 
-import korlibs.math.geom.*
+import korlibs.math.geom.RectangleInt
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

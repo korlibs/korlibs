@@ -1,6 +1,8 @@
 package korlibs.math.geom.shape
 
-import korlibs.math.geom.*
+import korlibs.math.geom.Point
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.Vector2D
 
 interface SimpleShape2D {
     val closed: Boolean

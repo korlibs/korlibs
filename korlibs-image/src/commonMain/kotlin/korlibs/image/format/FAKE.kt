@@ -1,10 +1,14 @@
 package korlibs.image.format
 
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.io.file.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.color.Colors
+import korlibs.io.file.extensionLC
+import korlibs.io.file.pathInfo
+import korlibs.io.lang.Charsets
+import korlibs.io.lang.toString
+import korlibs.io.stream.SyncStream
+import korlibs.io.stream.readBytes
 
 object FAKE : ImageFormat("fake") {
     override fun decodeHeader(s: SyncStream, props: ImageDecodingProps): ImageInfo? {

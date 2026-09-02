@@ -1,9 +1,15 @@
 package korlibs.image.bitmap
 
-import korlibs.encoding.*
-import korlibs.image.color.*
-import korlibs.image.format.*
-import korlibs.image.vector.*
+import korlibs.encoding.toBase64
+import korlibs.image.color.RGBA
+import korlibs.image.color.RgbaArray
+import korlibs.image.color.RgbaPremultipliedArray
+import korlibs.image.format.ImageEncodingProps
+import korlibs.image.format.PNG
+import korlibs.image.format.imageLoadingLogger
+import korlibs.image.format.nativeImageFormatProvider
+import korlibs.image.vector.Drawable
+import korlibs.image.vector.SizedDrawable
 
 abstract class NativeImage(width: Int, height: Int, override val data: Any?, premultiplied: Boolean) : Bitmap(width, height, 32, premultiplied, null), NativeImageRef {
     abstract val name: String

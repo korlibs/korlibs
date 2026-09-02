@@ -1,12 +1,17 @@
 package korlibs.image.format
 
-import korlibs.memory.UByteArrayInt
 import korlibs.image.bitmap.Bitmap32
 import korlibs.image.bitmap.matchContentsDistinctCount
 import korlibs.io.async.suspendTestNoBrowser
 import korlibs.io.file.std.resourcesVfs
-import kotlin.test.*
-import kotlin.time.*
+import korlibs.memory.UByteArrayInt
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
+import kotlin.test.assertNotSame
+import kotlin.test.assertSame
+import kotlin.time.measureTimedValue
 
 class QOITest {
     val formats = ImageFormats(PNG, QOI)

@@ -1,9 +1,7 @@
 package korlibs.image.format
 
-import korlibs.image.*
-import korlibs.io.async.suspendTest
+import korlibs.image.doTest
 import korlibs.io.file.std.resourcesVfs
-import kotlinx.coroutines.test.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

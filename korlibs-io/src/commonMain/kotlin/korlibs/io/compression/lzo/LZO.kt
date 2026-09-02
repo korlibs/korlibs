@@ -1,12 +1,28 @@
 package korlibs.io.compression.lzo
 
+import korlibs.compression.lzo.LzoConstants
+import korlibs.compression.lzo.LzoRawCompressor
+import korlibs.compression.lzo.LzoRawDecompressor
 import korlibs.io.compression.CompressionContext
 import korlibs.io.compression.CompressionMethod
 import korlibs.io.lang.UTF8
 import korlibs.io.lang.toByteArray
-import korlibs.compression.lzo.*
-import korlibs.io.stream.*
-import korlibs.memory.*
+import korlibs.io.stream.AsyncInputStream
+import korlibs.io.stream.AsyncOutputStream
+import korlibs.io.stream.readAll
+import korlibs.io.stream.readBytesExact
+import korlibs.io.stream.readS32BE
+import korlibs.io.stream.readS32LE
+import korlibs.io.stream.readString
+import korlibs.io.stream.readU16BE
+import korlibs.io.stream.readU8
+import korlibs.io.stream.write16BE
+import korlibs.io.stream.write32BE
+import korlibs.io.stream.write32LE
+import korlibs.io.stream.write8
+import korlibs.io.stream.writeBytes
+import korlibs.io.stream.writeString
+import korlibs.memory.hasFlags
 
 // @TODO: We might want to support a raw version without headers?
 @OptIn(ExperimentalStdlibApi::class)

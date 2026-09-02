@@ -2,7 +2,9 @@
 
 package korlibs.platform
 
-import kotlinx.cinterop.*
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.get
+import kotlinx.cinterop.toKString
 
 internal actual val envs: Map<String, String> by lazy {
     val out = LinkedHashMap<String, String>()

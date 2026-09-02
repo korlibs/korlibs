@@ -1,16 +1,10 @@
 package korlibs.memory
 
-import korlibs.memory.asFloat32
-import korlibs.memory.asFloat64
-import korlibs.memory.asInt16
-import korlibs.memory.asInt32
-import korlibs.memory.asInt64
-import korlibs.memory.asInt8
-import korlibs.memory.asUInt16
-import korlibs.memory.asUInt8
-import korlibs.platform.*
+import korlibs.platform.Platform
 import kotlin.byteArrayOf
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 class NBufferTest : NBufferTestBase() {
     override val direct: Boolean get() = false
@@ -255,7 +249,7 @@ open class NBufferTestBase {
                 ${array.getArray(0, size = array.size).data.joinToString(",")}
                 ${array.getArray(1).data.joinToString(",")}
                 ${array.getArray(2, size = 3).data.joinToString(",")}
-            """.trimIndent()
+                """.trimIndent()
             )
         }
 
@@ -269,7 +263,7 @@ open class NBufferTestBase {
                 ${array.getArray(0, size = array.size).data.joinToString(",")}
                 ${array.getArray(1).data.joinToString(",")}
                 ${array.getArray(2, size = 3).data.joinToString(",")}
-            """.trimIndent()
+                """.trimIndent()
             )
         }
 
@@ -283,7 +277,7 @@ open class NBufferTestBase {
                 ${array.getArray(0, size = array.size).joinToString(",")}
                 ${array.getArray(1).joinToString(",")}
                 ${array.getArray(2, size = 3).joinToString(",")}
-            """.trimIndent()
+                """.trimIndent()
             )
         }
 
@@ -297,7 +291,7 @@ open class NBufferTestBase {
                 ${array.getArray(0, size = array.size).joinToString(",")}
                 ${array.getArray(1).joinToString(",")}
                 ${array.getArray(2, size = 3).joinToString(",")}
-            """.trimIndent()
+                """.trimIndent()
             )
         }
 
@@ -311,7 +305,7 @@ open class NBufferTestBase {
                 ${array.getArray(0, size = array.size).joinToString(",")}
                 ${array.getArray(1).joinToString(",")}
                 ${array.getArray(2, size = 3).joinToString(",")}
-            """.trimIndent()
+                """.trimIndent()
             )
         }
 
@@ -325,7 +319,7 @@ open class NBufferTestBase {
                 ${array.getArray(0, size = array.size).joinToString(",")}
                 ${array.getArray(1).joinToString(",")}
                 ${array.getArray(2, size = 3).joinToString(",")}
-            """.trimIndent()
+                """.trimIndent()
             )
         }
 
@@ -339,7 +333,7 @@ open class NBufferTestBase {
                 ${array.getArray(0, size = array.size).map { it.toInt() }.joinToString(",")}
                 ${array.getArray(1).map { it.toInt() }.joinToString(",")}
                 ${array.getArray(2, size = 3).map { it.toInt() }.joinToString(",")}
-            """.trimIndent()
+                """.trimIndent()
             )
         }
 
@@ -353,7 +347,7 @@ open class NBufferTestBase {
                 ${array.getArray(0, size = array.size).map { it.toInt() }.joinToString(",")}
                 ${array.getArray(1).map { it.toInt() }.joinToString(",")}
                 ${array.getArray(2, size = 3).map { it.toInt() }.joinToString(",")}
-            """.trimIndent()
+                """.trimIndent()
             )
         }
     }

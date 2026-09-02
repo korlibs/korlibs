@@ -1,10 +1,9 @@
 package korlibs.image.font
 
-import korlibs.encoding.*
-import korlibs.io.compression.*
-import korlibs.io.compression.deflate.*
-import korlibs.time.*
-import kotlin.time.*
+import korlibs.encoding.fromBase64
+import korlibs.io.compression.deflate.ZLib
+import korlibs.io.compression.uncompress
+import kotlin.time.measureTimedValue
 
 // Sani Trixie Sans
 // 1.6.1 - December 3, 2014

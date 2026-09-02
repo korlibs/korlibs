@@ -1,12 +1,14 @@
 package korlibs.image.format.ui
 
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.image.format.*
-import korlibs.encoding.*
+import korlibs.encoding.hex
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.color.Colors
+import korlibs.image.color.RgbaArray
+import korlibs.image.format.PNG
 import korlibs.platform.toByteArray
-import platform.UIKit.*
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertTrue
+import platform.UIKit.UIImagePNGRepresentation
 
 class UIImageExtTest {
     @Test

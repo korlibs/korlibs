@@ -5,18 +5,19 @@
 
 package korlibs.audio.format.mod
 
-import korlibs.datastructure.IntDeque
-import korlibs.memory.*
 import korlibs.audio.sound.NativeSoundProvider
 import korlibs.audio.sound.Sound
 import korlibs.audio.sound.nativeSoundProvider
+import korlibs.datastructure.IntDeque
 import korlibs.io.file.VfsFile
 import korlibs.io.stream.AsyncStream
 import korlibs.io.stream.readBytesExact
-import korlibs.math.*
+import korlibs.math.toInt
+import korlibs.memory.Uint8Buffer
+import korlibs.memory.toNBufferUInt8
 import kotlin.math.pow
 import kotlin.random.Random
-import kotlin.time.*
+import kotlin.time.measureTime
 
 /*
   https://github.com/electronoora/webaudio-mod-player

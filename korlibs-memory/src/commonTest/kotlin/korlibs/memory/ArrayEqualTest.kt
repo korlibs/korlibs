@@ -1,6 +1,7 @@
 package korlibs.memory
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ArrayEqualTest {
     fun arrayequal64(src: Buffer, srcPos: Int, dst: Buffer, dstPos: Int, size: Int): Boolean = Buffer.equalsCommon(src, srcPos, dst, dstPos, size, use64 = true)

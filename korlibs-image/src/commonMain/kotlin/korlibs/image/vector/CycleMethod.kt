@@ -1,8 +1,12 @@
 package korlibs.image.vector
 
-import korlibs.math.*
-import korlibs.memory.*
-import korlibs.math.geom.*
+import korlibs.math.clamp01
+import korlibs.math.fract
+import korlibs.math.geom.Anchor
+import korlibs.math.geom.Point
+import korlibs.math.umod
+import korlibs.memory.extract8
+import korlibs.memory.insert8
 import kotlin.jvm.JvmInline
 
 @JvmInline

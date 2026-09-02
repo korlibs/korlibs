@@ -1,9 +1,10 @@
 package korlibs.image.atlas
 
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import korlibs.platform.*
-import kotlin.test.*
+import korlibs.io.async.suspendTest
+import korlibs.io.file.std.resourcesVfs
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class AtlasInfoTest {
     @Test

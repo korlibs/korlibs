@@ -1,11 +1,11 @@
 package korlibs.image.text
 
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.io.async.*
-import korlibs.math.geom.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.image.bitmap.NativeImage
+import korlibs.image.bitmap.context2d
+import korlibs.image.color.Colors
+import korlibs.math.geom.Rectangle
+import kotlin.test.Test
+import kotlinx.coroutines.test.runTest
 
 class RichTextDataRendererText {
     @Test

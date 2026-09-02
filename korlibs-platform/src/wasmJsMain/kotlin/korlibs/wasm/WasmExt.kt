@@ -2,10 +2,14 @@
 
 package korlibs.wasm
 
-import org.khronos.webgl.*
-import org.w3c.dom.*
-import org.w3c.dom.events.*
-import org.w3c.performance.*
+import org.khronos.webgl.ArrayBuffer
+import org.khronos.webgl.Int8Array
+import org.khronos.webgl.Uint8Array
+import org.khronos.webgl.get
+import org.khronos.webgl.set
+import org.w3c.dom.WindowOrWorkerGlobalScope
+import org.w3c.dom.events.EventTarget
+import org.w3c.performance.GlobalPerformance
 
 fun <T, R : JsAny?> List<T>.mapToJsArray(key: (T) -> R): JsArray<R> {
     return jsArrayOf(*this.map { key(it) }.toTypedArray())

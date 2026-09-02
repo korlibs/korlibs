@@ -1,14 +1,23 @@
 package korlibs.image.format
 
-import korlibs.image.atlas.*
-import korlibs.image.bitmap.*
-import korlibs.image.vector.*
-import korlibs.image.vector.format.*
-import korlibs.io.file.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import korlibs.logger.*
-import kotlinx.coroutines.*
+import korlibs.image.atlas.MutableAtlas
+import korlibs.image.atlas.MutableAtlasUnit
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.BmpSlice
+import korlibs.image.bitmap.BmpSlice32
+import korlibs.image.bitmap.NativeImage
+import korlibs.image.bitmap.asumePremultiplied
+import korlibs.image.bitmap.slice
+import korlibs.image.vector.SizedDrawable
+import korlibs.image.vector.format.readSVG
+import korlibs.io.file.VfsFile
+import korlibs.io.file.VfsOpenMode
+import korlibs.io.lang.FileNotFoundException
+import korlibs.io.stream.AsyncInputStream
+import korlibs.io.stream.openSync
+import korlibs.io.stream.readAll
+import korlibs.logger.Logger
+import kotlinx.coroutines.CancellationException
 
 suspend fun displayImage(bmp: Bitmap, kind: Int = 0) = nativeImageFormatProvider.display(bmp, kind)
 

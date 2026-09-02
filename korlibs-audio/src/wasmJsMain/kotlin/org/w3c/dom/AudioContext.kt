@@ -2,7 +2,7 @@ package org.w3c.dom
 
 import org.khronos.webgl.ArrayBuffer
 import org.khronos.webgl.Float32Array
-import org.w3c.dom.events.*
+import org.w3c.dom.events.Event
 
 external interface AudioParam {
     val defaultValue: Double

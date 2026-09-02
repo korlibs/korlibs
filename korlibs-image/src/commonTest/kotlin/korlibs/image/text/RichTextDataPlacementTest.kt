@@ -1,13 +1,15 @@
 package korlibs.image.text
 
-import korlibs.image.*
-import korlibs.image.font.*
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import korlibs.logger.*
-import korlibs.math.geom.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.image.doTest
+import korlibs.image.font.readBitmapFont
+import korlibs.image.font.readTtfFont
+import korlibs.image.font.toLazyBitmapFont
+import korlibs.io.file.std.resourcesVfs
+import korlibs.logger.Logger
+import korlibs.math.geom.Point
+import korlibs.math.geom.Rectangle
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class RichTextDataPlacementTest {
     val logger = Logger("RichTextDataPlacementTest")

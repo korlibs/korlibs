@@ -1,6 +1,6 @@
 package korlibs.io.lang
 
-import korlibs.concurrent.thread.*
+import korlibs.concurrent.thread.NativeThread
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

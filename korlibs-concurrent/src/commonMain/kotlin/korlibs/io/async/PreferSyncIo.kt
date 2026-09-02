@@ -1,6 +1,6 @@
 package korlibs.io.async
 
-import kotlin.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 val CoroutineContext.preferSyncIo: Boolean get() = this[PreferSyncIo]?.preferSyncIo == true
 

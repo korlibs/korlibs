@@ -1,6 +1,7 @@
 package korlibs.util
 
-import korlibs.io.util.*
+import korlibs.io.util.isLetterDigitOrUnderscore
+import korlibs.io.util.isWhitespaceFast
 
 val SimpleStrReader.eof: Boolean get() = !hasMore
 

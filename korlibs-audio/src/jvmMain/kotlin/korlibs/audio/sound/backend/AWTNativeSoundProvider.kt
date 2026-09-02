@@ -1,8 +1,14 @@
 package korlibs.audio.sound.backend
 
-import korlibs.audio.sound.*
-import korlibs.memory.*
-import javax.sound.sampled.*
+import javax.sound.sampled.AudioFormat
+import javax.sound.sampled.AudioSystem
+import javax.sound.sampled.DataLine
+import javax.sound.sampled.SourceDataLine
+import korlibs.audio.sound.AudioPlatformOutput
+import korlibs.audio.sound.AudioPlatformOutputGen
+import korlibs.audio.sound.AudioPlatformOutputSimple
+import korlibs.audio.sound.NativeSoundProvider
+import korlibs.memory.setArrayLE
 
 private val mixer by lazy { AudioSystem.getMixer(null) }
 

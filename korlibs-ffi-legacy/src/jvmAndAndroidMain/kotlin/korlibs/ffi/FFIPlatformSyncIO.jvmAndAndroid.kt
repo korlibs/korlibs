@@ -1,6 +1,6 @@
 package korlibs.ffi
 
-import java.io.*
+import java.io.File
 
 internal actual val FFIPlatformSyncIO: FFISyncIO = object : FFISyncIO {
     override fun exists(path: String): Boolean = File(path).exists()

@@ -1,17 +1,41 @@
 package korlibs.image.text
 
-import korlibs.datastructure.*
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.image.font.*
-import korlibs.image.paint.*
-import korlibs.io.lang.*
-import korlibs.math.geom.*
-import korlibs.math.geom.bezier.*
-import korlibs.math.geom.vector.*
-import korlibs.number.*
-import kotlin.math.*
-import kotlin.native.concurrent.*
+import korlibs.datastructure.doubleArrayListOf
+import korlibs.datastructure.keep
+import korlibs.image.bitmap.Bitmaps
+import korlibs.image.bitmap.BmpSlice
+import korlibs.image.color.Colors
+import korlibs.image.color.RGBA
+import korlibs.image.font.BitmapFont
+import korlibs.image.font.Font
+import korlibs.image.font.FontMetrics
+import korlibs.image.font.GlyphMetrics
+import korlibs.image.font.GlyphPath
+import korlibs.image.font.VectorFont
+import korlibs.image.paint.Paint
+import korlibs.io.lang.WString
+import korlibs.io.lang.WStringReader
+import korlibs.io.lang.keep
+import korlibs.math.geom.Angle
+import korlibs.math.geom.BoundsBuilder
+import korlibs.math.geom.DoubleVectorArrayList
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.MatrixTransform
+import korlibs.math.geom.Point
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.bezier.Curve
+import korlibs.math.geom.bezier.toVectorPath
+import korlibs.math.geom.degrees
+import korlibs.math.geom.fastForEachGeneric
+import korlibs.math.geom.immutable
+import korlibs.math.geom.radians
+import korlibs.math.geom.vector.VectorBuilder
+import korlibs.math.geom.vector.VectorPath
+import korlibs.math.geom.vector.getCurves
+import korlibs.math.geom.vector.path
+import korlibs.number.niceStr
+import kotlin.math.max
+import kotlin.math.min
 
 interface ITextRendererActions {
     var pos: Point

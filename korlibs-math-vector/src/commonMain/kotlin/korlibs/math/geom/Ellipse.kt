@@ -1,7 +1,10 @@
 package korlibs.math.geom
 
-import korlibs.math.geom.shape.*
-import kotlin.math.*
+import korlibs.math.geom.shape.SimpleShape2D
+import kotlin.math.PI
+import kotlin.math.min
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 data class Ellipse(override val center: Point, val radius: Size) : SimpleShape2D {
     override val area: Double get() = (PI * radius.width * radius.height)

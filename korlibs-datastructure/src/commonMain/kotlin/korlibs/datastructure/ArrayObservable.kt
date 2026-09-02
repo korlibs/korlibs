@@ -1,7 +1,8 @@
 package korlibs.datastructure
 
-import korlibs.math.geom.*
-import kotlinx.atomicfu.*
+import korlibs.math.geom.PointInt
+import korlibs.math.geom.RectangleInt
+import kotlinx.atomicfu.atomic
 
 fun <T> Array<T>.observe(updated: ObservableArray<T>.(IntRange) -> Unit): ObservableArray<T> = ObservableArray<T>(this, updated)
 fun IntArray.observe(updated: ObservableIntArray.(IntRange) -> Unit): ObservableIntArray = ObservableIntArray(this, updated)

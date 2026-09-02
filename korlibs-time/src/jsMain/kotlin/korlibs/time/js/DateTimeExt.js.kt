@@ -2,7 +2,7 @@
 
 package korlibs.time.js
 
-import korlibs.time.*
+import korlibs.time.DateTime
 import kotlin.js.Date
 
 fun Date.toDateTime(): DateTime = DateTime(this.getTime())

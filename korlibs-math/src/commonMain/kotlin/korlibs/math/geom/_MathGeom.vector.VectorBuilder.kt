@@ -2,9 +2,30 @@
 
 package korlibs.math.geom.vector
 
-import korlibs.math.annotations.*
-import korlibs.math.geom.*
-import korlibs.math.geom.bezier.*
+import korlibs.math.annotations.KorDslMarker
+import korlibs.math.annotations.KormaExperimental
+import korlibs.math.annotations.RootViewDslMarker
+import korlibs.math.annotations.VectorDslMarker
+import korlibs.math.annotations.ViewDslMarker
+import korlibs.math.geom.Angle
+import korlibs.math.geom.Circle
+import korlibs.math.geom.Ellipse
+import korlibs.math.geom.IPointList
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Point
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.RectangleInt
+import korlibs.math.geom.RoundRectangle
+import korlibs.math.geom.Size
+import korlibs.math.geom.Vector2D
+import korlibs.math.geom.bezier.Arc
+import korlibs.math.geom.bezier.Bezier
+import korlibs.math.geom.bezier.Curves
+import korlibs.math.geom.bezier.toVectorPath
+import korlibs.math.geom.degrees
+import korlibs.math.geom.minus
+import korlibs.math.geom.pointArrayListOf
+import korlibs.math.geom.toPointArrayList
 
 @KorDslMarker
 @ViewDslMarker

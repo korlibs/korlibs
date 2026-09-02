@@ -1,7 +1,7 @@
 package korlibs.ffi.osx
 
-import korlibs.ffi.*
-import kotlin.text.toCharArray
+import korlibs.ffi.FFILib
+import korlibs.ffi.FFIPointer
 
 fun NSObject.Companion.cast(value: Any): NSObject {
     return when (value) {

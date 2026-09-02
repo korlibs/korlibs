@@ -1,11 +1,11 @@
 package korlibs.image.bitmap
 
-import korlibs.image.*
-import korlibs.memory.*
-import korlibs.image.color.*
-import korlibs.io.async.*
-import korlibs.platform.*
-import kotlin.test.*
+import korlibs.image.color.Colors
+import korlibs.image.color.RgbaArray
+import korlibs.io.async.suspendTest
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class Context2DCommonTest {
     @Test

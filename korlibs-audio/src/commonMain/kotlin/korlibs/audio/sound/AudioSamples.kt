@@ -1,6 +1,6 @@
 package korlibs.audio.sound
 
-import kotlin.math.*
+import kotlin.math.min
 
 class AudioSamples(
     val channels: Int,

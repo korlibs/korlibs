@@ -1,10 +1,10 @@
 package korlibs.datastructure
 
 import korlibs.datastructure.internal.memory.Memory.arraycopy
-import korlibs.datastructure.iterators.*
-import korlibs.math.geom.*
-import korlibs.memory.*
-import korlibs.number.*
+import korlibs.datastructure.iterators.fastForEach
+import korlibs.math.geom.PointInt
+import korlibs.math.geom.SizeInt
+import korlibs.number.Int53
 
 interface IStackedInt53Array2 : IStackedArray2<Int53> {
     /** The [empty] value that will be returned if the specified cell it out of bounds, or empty */

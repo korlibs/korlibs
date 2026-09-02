@@ -1,12 +1,25 @@
 package korlibs.image.format
 
-import korlibs.datastructure.*
-import korlibs.image.bitmap.*
-import korlibs.io.async.*
-import korlibs.io.file.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import kotlin.math.*
+import korlibs.datastructure.Extra
+import korlibs.datastructure.ExtraType
+import korlibs.datastructure.extraProperty
+import korlibs.image.bitmap.Bitmap
+import korlibs.io.async.runBlockingNoSuspensionsNullable
+import korlibs.io.file.PathInfo
+import korlibs.io.file.VfsFile
+import korlibs.io.file.baseName
+import korlibs.io.file.extensionLC
+import korlibs.io.file.readAsSyncStream
+import korlibs.io.lang.runIgnoringExceptions
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.MemorySyncStreamToByteArray
+import korlibs.io.stream.SyncStream
+import korlibs.io.stream.openSync
+import korlibs.io.stream.readAll
+import korlibs.io.stream.sliceHere
+import korlibs.io.stream.toAsync
+import korlibs.io.stream.toSyncOrNull
+import kotlin.math.max
 
 interface ImageFormatDecoder {
     suspend fun decode(file: VfsFile, props: ImageDecodingProps = ImageDecodingProps.DEFAULT): Bitmap

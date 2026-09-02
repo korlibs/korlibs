@@ -2,10 +2,23 @@
 
 package korlibs.memory
 
-import korlibs.memory.internal.*
-import kotlinx.cinterop.*
-import platform.posix.*
-import kotlin.experimental.*
+import korlibs.memory.internal.reinterpretAsDouble
+import korlibs.memory.internal.reinterpretAsFloat
+import korlibs.memory.internal.reinterpretAsInt
+import korlibs.memory.internal.reinterpretAsLong
+import korlibs.memory.internal.reverseBytes
+import kotlin.experimental.ExperimentalNativeApi
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.Pinned
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.pin
+import kotlinx.cinterop.plus
+import kotlinx.cinterop.usePinned
+import platform.posix.memcmp
 
 @OptIn(ExperimentalNativeApi::class)
 actual class Buffer(val data: ByteArray, val offset: Int, val size: Int, dummy: Unit) : AutoCloseable {

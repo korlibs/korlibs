@@ -1,7 +1,7 @@
 package korlibs.io.async
 
-import kotlinx.coroutines.*
-import kotlin.coroutines.*
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.coroutineContext
 
 //class AsyncQueue(val context: CoroutineContext) {
 class AsyncQueue {
@@ -18,12 +18,7 @@ class AsyncQueue {
 
     operator fun invoke(context: CoroutineContext, func: suspend () -> Unit): AsyncQueue {
         thread.sync(context) {
-            //try {
-                func()
-            //} catch (e: Throwable) {
-            //    Console.error("AsyncQueue.invoke.catch")
-            //    e.printStackTrace()
-            //}
+            func()
         }
         return this
     }

@@ -1,8 +1,10 @@
 package korlibs.image.font
 
-import korlibs.math.geom.*
-import korlibs.number.*
-import kotlin.math.*
+import korlibs.math.geom.Rectangle
+import korlibs.number.niceStr
+import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.roundToInt
 
 /**
  *                              ... [top] (Positive)

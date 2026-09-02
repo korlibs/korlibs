@@ -1,7 +1,7 @@
 package korlibs.bignumber
 
-import korlibs.bignumber.ranges.*
-import kotlin.math.*
+import korlibs.bignumber.ranges.ClosedBigNumRange
+import kotlin.math.max
 
 // Big Number
 /** Converts this into a [BigNum] */

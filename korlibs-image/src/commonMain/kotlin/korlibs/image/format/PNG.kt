@@ -1,7 +1,11 @@
 package korlibs.image.format
 
-import korlibs.memory.*
-import korlibs.image.bitmap.*
+import korlibs.encoding.hex
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.Bitmap8
+import korlibs.image.bitmap.BitmapIndexed
+import korlibs.image.bitmap.tryToExactBitmap8
 import korlibs.image.color.RGB
 import korlibs.image.color.RGBA
 import korlibs.image.color.RgbaArray
@@ -25,9 +29,18 @@ import korlibs.io.stream.write32BE
 import korlibs.io.stream.write8
 import korlibs.io.stream.writeBytes
 import korlibs.io.util.checksum.CRC32
-import korlibs.encoding.hex
-import korlibs.math.*
-import kotlin.math.*
+import korlibs.math.convertRangeClamped
+import korlibs.math.divCeil
+import korlibs.memory.ByteArrayBuilder
+import korlibs.memory.UByteArrayInt
+import korlibs.memory.arraycopy
+import korlibs.memory.asByteArray
+import korlibs.memory.extract
+import korlibs.memory.set8
+import kotlin.math.abs
+import kotlin.math.log2
+import kotlin.math.max
+import kotlin.math.sqrt
 
 @Suppress("MemberVisibilityCanBePrivate")
 object PNG : ImageFormat("png") {

@@ -1,6 +1,6 @@
 package korlibs.audio.sound
 
-import korlibs.math.*
+import korlibs.math.clamp01
 
 //inline class AudioAmplitude(val value: Short)
 

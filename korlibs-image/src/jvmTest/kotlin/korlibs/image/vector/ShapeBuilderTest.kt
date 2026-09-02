@@ -1,10 +1,12 @@
 package korlibs.image.vector
 
-import korlibs.image.color.*
-import korlibs.image.vector.format.*
-import korlibs.logger.*
-import korlibs.math.geom.vector.*
-import kotlin.test.*
+import korlibs.image.color.Colors
+import korlibs.image.vector.format.SVG
+import korlibs.logger.Logger
+import korlibs.math.geom.vector.StrokeInfo
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertIs
 
 class ShapeBuilderTest {
     val logger = Logger("ShapeBuilderTest")

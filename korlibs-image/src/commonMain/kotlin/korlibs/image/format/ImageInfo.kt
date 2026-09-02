@@ -1,7 +1,8 @@
 package korlibs.image.format
 
-import korlibs.datastructure.*
-import korlibs.math.geom.*
+import korlibs.datastructure.Extra
+import korlibs.math.geom.Size
+import korlibs.math.geom.Sizeable
 
 open class ImageInfo : Sizeable, Extra by Extra.Mixin() {
     var width: Int = 0

@@ -1,7 +1,8 @@
 package korlibs.math.geom
 
-import korlibs.number.*
-import kotlin.test.*
+import korlibs.number.fixed
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class PointFixedTest {
     @Test

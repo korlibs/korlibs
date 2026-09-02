@@ -1,8 +1,10 @@
 package korlibs.audio.sound
 
-import korlibs.concurrent.thread.*
-import korlibs.platform.*
-import kotlinx.coroutines.*
+import korlibs.concurrent.thread.FixedPoolNativeThreadDispatcher
+import korlibs.concurrent.thread.NativeThreadPriority
+import korlibs.platform.Platform
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 val Dispatchers.AUDIO: CoroutineDispatcher by lazy {
     when {

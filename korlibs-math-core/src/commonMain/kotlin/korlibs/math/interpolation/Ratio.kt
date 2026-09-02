@@ -1,8 +1,12 @@
 package korlibs.math.interpolation
 
-import korlibs.math.*
+import korlibs.math.clamp01
+import korlibs.math.convertRange
+import korlibs.math.convertRangeClamped
+import korlibs.math.isAlmostEquals
+import korlibs.math.roundDecimalPlaces
 import kotlin.jvm.JvmInline
-import kotlin.math.*
+import kotlin.math.absoluteValue
 
 //inline class Ratio(val valueD: Double) : Comparable<Ratio> {
 //    constructor(ratio: Float) : this(ratio.toDouble())

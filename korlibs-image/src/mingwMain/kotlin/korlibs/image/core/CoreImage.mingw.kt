@@ -2,12 +2,53 @@
 
 package korlibs.image.core
 
-import kotlinx.atomicfu.*
-import kotlinx.cinterop.*
-import kotlinx.coroutines.*
-import platform.gdiplus.*
-import platform.posix.*
-import platform.windows.*
+import kotlinx.atomicfu.atomic
+import kotlinx.cinterop.COpaquePointerVar
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.FloatVar
+import kotlinx.cinterop.IntVar
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.get
+import kotlinx.cinterop.invoke
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.plus
+import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.set
+import kotlinx.cinterop.sizeOf
+import kotlinx.cinterop.toCPointer
+import kotlinx.cinterop.toKStringFromUtf16
+import kotlinx.cinterop.toLong
+import kotlinx.cinterop.usePinned
+import kotlinx.cinterop.value
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.withContext
+import platform.gdiplus.BitmapData
+import platform.gdiplus.GdipBitmapLockBits
+import platform.gdiplus.GdipBitmapUnlockBits
+import platform.gdiplus.GdipCreateBitmapFromStream
+import platform.gdiplus.GdipDisposeImage
+import platform.gdiplus.GdipGetImageDimension
+import platform.gdiplus.GdipGetImageEncoders
+import platform.gdiplus.GdipGetImageEncodersSize
+import platform.gdiplus.GdiplusStartup
+import platform.gdiplus.GdiplusStartupInput
+import platform.gdiplus.GpRect
+import platform.gdiplus.ImageCodecInfo
+import platform.gdiplus.ImageLockModeRead
+import platform.gdiplus.Ok
+import platform.gdiplus.PixelFormat32bppARGB
+import platform.gdiplus.PixelFormat32bppPARGB
+import platform.posix.memcpy
+import platform.windows.FALSE
+import platform.windows.SHCreateMemStream
+import platform.windows.UINTVar
+import platform.windows.ULONG_PTRVar
 
 actual val CoreImageFormatProvider_default: CoreImageFormatProvider = Win32CoreImageFormatProvider
 
@@ -111,7 +152,6 @@ object Win32CoreImageFormatProvider : CoreImageFormatProvider {
             TODO()
         }
     }
-        //StbiCoreImageFormatProvider.encode(image, format, level)
 
     private var initializedGdiPlus = atomic(false)
     @OptIn(ExperimentalForeignApi::class)

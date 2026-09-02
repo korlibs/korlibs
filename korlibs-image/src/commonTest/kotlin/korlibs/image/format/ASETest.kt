@@ -1,15 +1,21 @@
 package korlibs.image.format
 
-import korlibs.datastructure.*
-import korlibs.image.*
-import korlibs.image.atlas.*
-import korlibs.image.bitmap.*
-import korlibs.image.tiles.*
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import korlibs.math.geom.*
-import korlibs.platform.*
-import kotlin.test.*
+import korlibs.datastructure.ExtraTypeCreate
+import korlibs.datastructure.setExtra
+import korlibs.image.atlas.MutableAtlasUnit
+import korlibs.image.bitmap.NinePatchInfo
+import korlibs.image.bitmap.bmp
+import korlibs.image.bitmap.bounds
+import korlibs.image.tiles.toStringListSimplified
+import korlibs.io.async.suspendTest
+import korlibs.io.file.std.resourcesVfs
+import korlibs.math.geom.RectangleInt
+import korlibs.math.geom.SizeInt
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 class ASETest {
     val ASEDecoder = ImageDecodingProps(format = ASE)

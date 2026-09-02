@@ -1,8 +1,9 @@
 package korlibs.js
 
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
-import kotlin.js.*
+import kotlin.js.Promise
+import kotlinx.coroutines.await
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 suspend fun <T> JSAsyncIterable<T>.toFlow(): Flow<T> = flow {
     val iterator = (this@toFlow.asDynamic())[Symbol_asyncIterator]

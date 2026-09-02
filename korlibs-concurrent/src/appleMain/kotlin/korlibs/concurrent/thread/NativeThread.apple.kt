@@ -2,8 +2,37 @@
 
 package korlibs.concurrent.thread
 
-import kotlinx.cinterop.*
-import platform.posix.*
+import kotlinx.cinterop.COpaquePointerVar
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.IntVar
+import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.staticCFunction
+import kotlinx.cinterop.toCPointer
+import kotlinx.cinterop.toLong
+import kotlinx.cinterop.value
+import platform.posix.PTHREAD_EXPLICIT_SCHED
+import platform.posix._opaque_pthread_t
+import platform.posix.pthread_attr_destroy
+import platform.posix.pthread_attr_init
+import platform.posix.pthread_attr_setinheritsched
+import platform.posix.pthread_attr_setschedparam
+import platform.posix.pthread_attr_setschedpolicy
+import platform.posix.pthread_attr_t
+import platform.posix.pthread_cancel
+import platform.posix.pthread_create
+import platform.posix.pthread_getschedparam
+import platform.posix.pthread_join
+import platform.posix.pthread_self
+import platform.posix.pthread_setschedparam
+import platform.posix.pthread_tVar
+import platform.posix.sched_get_priority_max
+import platform.posix.sched_get_priority_min
+import platform.posix.sched_param
 
 val NativeNativeThread.pthread: CPointer<_opaque_pthread_t>? get() = toCPointer<_opaque_pthread_t>()
 

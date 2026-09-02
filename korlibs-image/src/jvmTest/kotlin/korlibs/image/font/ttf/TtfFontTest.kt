@@ -1,13 +1,16 @@
 package korlibs.image.font.ttf
 
-import korlibs.image.font.*
-import korlibs.image.vector.format.*
-import korlibs.io.async.*
-import korlibs.io.file.*
-import korlibs.io.file.std.*
-import korlibs.io.lang.*
-import korlibs.logger.*
-import kotlin.test.*
+import korlibs.image.font.DefaultTtfFont
+import korlibs.image.font.SystemFont
+import korlibs.image.vector.format.toSvgPathString
+import korlibs.io.async.suspendTest
+import korlibs.io.file.VfsFile
+import korlibs.io.file.std.applicationVfs
+import korlibs.io.file.std.resourcesVfs
+import korlibs.io.lang.WString
+import korlibs.logger.Logger
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class TtfFontTest {
     val logger = Logger("TtfFontTest")

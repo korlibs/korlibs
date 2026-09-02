@@ -1,13 +1,20 @@
 package korlibs.image.vector
 
-import korlibs.datastructure.*
-import korlibs.datastructure.iterators.*
-import korlibs.image.bitmap.*
-import korlibs.image.bitmap.sdf.*
-import korlibs.image.color.*
-import korlibs.math.geom.*
-import korlibs.math.geom.bezier.*
-import korlibs.math.geom.vector.*
+import korlibs.datastructure.FloatArray2
+import korlibs.datastructure.iterators.fastForEach
+import korlibs.datastructure.iterators.fastForEachWithIndex
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.FloatBitmap32
+import korlibs.image.bitmap.NativeImageContext2d
+import korlibs.image.bitmap.sdf.NewSDF
+import korlibs.image.color.Colors
+import korlibs.image.color.RGBA
+import korlibs.math.geom.MPoint
+import korlibs.math.geom.Point
+import korlibs.math.geom.bezier.Bezier
+import korlibs.math.geom.vector.VectorPath
+import korlibs.math.geom.vector.toCurvesList
+import korlibs.math.geom.vector.write
 
 fun VectorPath.sdf(width: Int, height: Int): FloatArray2 = sdf(FloatArray2(width, height, 0f))
 

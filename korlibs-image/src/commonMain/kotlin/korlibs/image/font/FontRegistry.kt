@@ -1,7 +1,8 @@
 package korlibs.image.font
 
-import korlibs.concurrent.lock.*
-import kotlin.coroutines.*
+import korlibs.concurrent.lock.Lock
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.coroutineContext
 
 interface FontRegistry {
     operator fun get(name: String?): Font

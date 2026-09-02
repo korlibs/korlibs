@@ -1,10 +1,10 @@
 package korlibs.image.bitmap
 
-import korlibs.datastructure.*
-import korlibs.math.clamp01
-import korlibs.math.convertRange
+import korlibs.datastructure.FloatArray2
 import korlibs.image.color.RGBA
 import korlibs.image.color.RgbaArray
+import korlibs.math.clamp01
+import korlibs.math.convertRange
 import kotlin.math.max
 import kotlin.math.min
 

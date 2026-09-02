@@ -1,6 +1,9 @@
 package korlibs.image.format.internal
 
-import org.khronos.webgl.*
+import org.khronos.webgl.Int32Array
+import org.khronos.webgl.Int8Array
+import org.khronos.webgl.get
+import org.khronos.webgl.set
 
 internal fun Int32Array.toIntArray2(): IntArray {
     //val tout = this.asDynamic()

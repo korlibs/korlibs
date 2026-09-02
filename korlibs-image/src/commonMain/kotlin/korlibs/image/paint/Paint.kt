@@ -1,15 +1,27 @@
 package korlibs.image.paint
 
-import korlibs.datastructure.*
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.image.vector.*
-import korlibs.math.*
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
-import korlibs.math.interpolation.*
-import korlibs.memory.*
-import kotlin.math.*
+import korlibs.datastructure.DoubleArrayList
+import korlibs.datastructure.DoubleList
+import korlibs.datastructure.IntArrayList
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.color.Colors
+import korlibs.image.color.RGBA
+import korlibs.image.color.RGBAPremultiplied
+import korlibs.image.color.RgbaArray
+import korlibs.image.color.RgbaPremultipliedArray
+import korlibs.image.vector.CycleMethod
+import korlibs.math.clamp
+import korlibs.math.geom.Angle
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Point
+import korlibs.math.geom.degrees
+import korlibs.math.geom.vector.LineCap
+import korlibs.math.geom.vector.LineJoin
+import korlibs.math.geom.vector.LineScaleMode
+import korlibs.math.geom.vector.StrokeInfo
+import korlibs.math.geom.vector.VectorPath
+import korlibs.math.interpolation.Ratio
+import kotlin.math.sqrt
 
 interface Paint {
     fun clone(): Paint

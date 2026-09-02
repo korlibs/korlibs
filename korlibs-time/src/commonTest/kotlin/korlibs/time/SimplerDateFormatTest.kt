@@ -1,6 +1,9 @@
 package korlibs.time
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertNotEquals
 
 class SimplerDateFormatTest {
     // Sun, 06 Nov 1994 08:49:37 GMT

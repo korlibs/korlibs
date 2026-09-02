@@ -1,8 +1,9 @@
 package korlibs.number
 
-import korlibs.number.internal.*
+import korlibs.number.internal.toLongRound
 import kotlin.jvm.JvmInline
-import kotlin.math.*
+import kotlin.math.absoluteValue
+import kotlin.math.sign
 
 /**
  * Fixed point class, to handle decimal values with a fixed precision.

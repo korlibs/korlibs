@@ -3,7 +3,8 @@ package korlibs.image.format
 import korlibs.image.bitmap.Bitmap
 import korlibs.image.bitmap.Bitmap32
 import korlibs.image.color.RgbaArray
-import org.khronos.webgl.*
+import org.khronos.webgl.Int32Array
+import org.khronos.webgl.set
 import org.w3c.dom.CanvasRenderingContext2D
 
 // @TODO: BrowserImage and HtmlImage should be combined!

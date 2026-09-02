@@ -1,7 +1,8 @@
 package korlibs.ffi
 
-import korlibs.js.*
 import korlibs.js.Deno
+import korlibs.js.Deno_isDeno
+import korlibs.js.toArray
 
 internal actual val FFIPlatformSyncIO: FFISyncIO = when {
     Deno_isDeno -> object : FFISyncIO {

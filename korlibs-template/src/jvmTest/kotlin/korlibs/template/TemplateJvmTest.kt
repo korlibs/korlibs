@@ -1,8 +1,9 @@
 package korlibs.template
 
-import korlibs.template.dynamic.*
 import java.time.LocalDate
 import java.time.Month
+import korlibs.template.dynamic.KorteMapper2
+import korlibs.template.dynamic.KorteObjectMapper2
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

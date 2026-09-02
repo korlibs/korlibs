@@ -1,6 +1,7 @@
 package korlibs.memory
 
-import korlibs.memory.internal.*
+import korlibs.memory.internal.reinterpretAsFloat
+import korlibs.memory.internal.reinterpretAsInt
 import kotlin.jvm.JvmInline
 
 private inline fun _arraycmp(srcPos: Int, dstPos: Int, size: Int, cmp: (Int, Int) -> Int): Int {

@@ -3,7 +3,7 @@ package korlibs.image.vector.rasterizer
 import korlibs.datastructure.IntArrayList
 import korlibs.datastructure.iterators.fastForEach
 import korlibs.math.annotations.KormaExperimental
-import korlibs.math.geom.*
+import korlibs.math.geom.Rectangle
 import korlibs.math.geom.vector.PolygonScanline
 import korlibs.math.geom.vector.RastScale
 import korlibs.math.geom.vector.Winding

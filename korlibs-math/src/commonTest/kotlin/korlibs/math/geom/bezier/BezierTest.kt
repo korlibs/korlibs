@@ -1,12 +1,17 @@
 package korlibs.math.geom.bezier
 
-import korlibs.math.*
-import korlibs.math.geom.*
-import korlibs.math.geom.shape.*
-import korlibs.math.geom.vector.*
-import korlibs.math.interpolation.*
-import kotlin.math.*
-import kotlin.test.*
+import korlibs.math.geom.Point
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.assertEqualsFloat
+import korlibs.math.geom.map
+import korlibs.math.geom.shape.buildVectorPath
+import korlibs.math.geom.vector.getCurves
+import korlibs.math.geom.vector.getCurvesList
+import korlibs.math.interpolation.Ratio
+import korlibs.math.roundDecimalPlaces
+import kotlin.math.roundToInt
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class BezierTest {
     @Test

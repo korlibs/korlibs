@@ -1,6 +1,7 @@
 package korlibs.math.geom
 
-import korlibs.number.*
+import korlibs.number.FixedShort
+import korlibs.number.toFixedShort
 
 val Margin.topFixed: FixedShort get() = top.toFixedShort()
 val Margin.rightFixed: FixedShort get() = right.toFixedShort()

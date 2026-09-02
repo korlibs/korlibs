@@ -1,10 +1,8 @@
 package korlibs.image.format
 
-import korlibs.image.*
-import korlibs.io.async.suspendTest
+import korlibs.image.doTest
 import korlibs.io.file.std.resourcesVfs
-import korlibs.math.geom.*
-import kotlinx.coroutines.test.*
+import korlibs.math.geom.Size
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull

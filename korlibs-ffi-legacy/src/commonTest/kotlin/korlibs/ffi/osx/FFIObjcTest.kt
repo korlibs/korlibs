@@ -1,9 +1,10 @@
 package korlibs.ffi.osx
 
-import korlibs.ffi.*
-import korlibs.platform.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.ffi.FFILib
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.coroutines.test.runTest
 
 class FFIObjcTest {
     @Test

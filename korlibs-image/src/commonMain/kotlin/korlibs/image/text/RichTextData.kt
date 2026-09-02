@@ -1,9 +1,15 @@
 package korlibs.image.text
 
-import korlibs.datastructure.*
-import korlibs.image.color.*
-import korlibs.image.font.*
-import korlibs.io.lang.*
+import korlibs.datastructure.Deque
+import korlibs.datastructure.Extra
+import korlibs.datastructure.toDeque
+import korlibs.image.color.RGBA
+import korlibs.image.font.DefaultTtfFont
+import korlibs.image.font.Font
+import korlibs.image.font.TextMetrics
+import korlibs.image.font.getTextBounds
+import korlibs.io.lang.splitInChunks
+import korlibs.io.lang.splitKeep
 
 data class RichTextData(
     val lines: List<Line>,
@@ -229,7 +235,6 @@ data class RichTextData(
                 when {
                     // Node doesn't fit the area, so we will have to split into smaller chunks
                     node is TextNode && (node.style.canBreak && (!fullyFitsInLine || splitLetters)) -> {
-                    //node.canBreak && !fullyFitsInLine -> {
                         val division = divide(node.text)
                         // No more divisions possible, let's add it even if overflows (possibly only a single letter)
                         if (division.size == 1) {

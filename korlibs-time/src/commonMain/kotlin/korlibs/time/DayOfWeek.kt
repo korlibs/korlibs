@@ -1,14 +1,7 @@
 package korlibs.time
 
 import korlibs.Serializable
-import korlibs.time.DayOfWeek.Friday
-import korlibs.time.DayOfWeek.Monday
-import korlibs.time.DayOfWeek.Saturday
-import korlibs.time.DayOfWeek.Sunday
-import korlibs.time.DayOfWeek.Thursday
-import korlibs.time.DayOfWeek.Tuesday
-import korlibs.time.DayOfWeek.Wednesday
-import korlibs.time.internal.*
+import korlibs.time.internal.umod
 
 /** Represents the day of the week. [Sunday], [Monday], [Tuesday], [Wednesday], [Thursday], [Friday], [Saturday]. */
 enum class DayOfWeek(

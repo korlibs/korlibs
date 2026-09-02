@@ -2,8 +2,12 @@
 
 package korlibs.io.socket
 
-import kotlinx.cinterop.*
-import platform.posix.*
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.refTo
+import platform.posix.FIONREAD
+import platform.posix.ioctl
 
 internal actual fun ioctlSocketFionRead(sockfd: Int): Int {
     val v = uintArrayOf(0u)

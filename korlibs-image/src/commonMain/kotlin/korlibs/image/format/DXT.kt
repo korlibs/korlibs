@@ -1,11 +1,20 @@
 package korlibs.image.format
 
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.io.file.*
-import korlibs.io.stream.*
-import korlibs.memory.*
-import kotlin.math.*
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.color.BGR_565
+import korlibs.image.color.Colors
+import korlibs.image.color.RGBA
+import korlibs.image.color.RgbaArray
+import korlibs.image.color.toRGBA
+import korlibs.io.file.PathInfo
+import korlibs.io.file.extensionLC
+import korlibs.io.stream.SyncStream
+import korlibs.io.stream.readAll
+import korlibs.memory.getS32LE
+import korlibs.memory.getU16LE
+import korlibs.memory.getU32LE
+import korlibs.memory.getU8
+import kotlin.math.sqrt
 
 // https://en.wikipedia.org/wiki/S3_Texture_Compression
 object DXT1 : DXT1Base("dxt1", premultiplied = true)

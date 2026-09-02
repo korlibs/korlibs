@@ -1,25 +1,8 @@
 package korlibs.io.dynamic
 
-import korlibs.datastructure.*
-import kotlin.collections.Iterable
-import kotlin.collections.LinkedHashMap
-import kotlin.collections.List
-import kotlin.collections.Map
-import kotlin.collections.MutableList
-import kotlin.collections.MutableMap
-import kotlin.collections.Set
-import kotlin.collections.contains
-import kotlin.collections.joinToString
-import kotlin.collections.listOf
-import kotlin.collections.map
-import kotlin.collections.plus
-import kotlin.collections.set
-import kotlin.collections.toDoubleArray
-import kotlin.collections.toFloatArray
-import kotlin.collections.toIntArray
-import kotlin.collections.toList
-import kotlin.collections.toLongArray
-import kotlin.collections.toMap
+import korlibs.datastructure.DoubleList
+import korlibs.datastructure.FloatList
+import korlibs.datastructure.IntList
 import kotlin.jvm.JvmInline
 import kotlin.math.pow
 

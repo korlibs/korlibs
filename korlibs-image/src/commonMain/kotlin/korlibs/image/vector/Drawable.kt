@@ -1,8 +1,15 @@
 package korlibs.image.vector
 
-import korlibs.image.bitmap.*
-import korlibs.math.*
-import korlibs.math.geom.*
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.BitmapWithHotspot
+import korlibs.image.bitmap.NativeImageOrBitmap32
+import korlibs.image.bitmap.context2d
+import korlibs.math.clamp
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.ScaleMode
+import korlibs.math.geom.Size
+import korlibs.math.geom.Vector2I
+import korlibs.math.toIntCeil
 
 interface Drawable {
     fun draw(c: Context2d)

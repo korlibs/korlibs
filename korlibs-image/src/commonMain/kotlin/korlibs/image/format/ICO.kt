@@ -1,8 +1,29 @@
 package korlibs.image.format
 
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.io.stream.*
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.Bitmap1
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.Bitmap4
+import korlibs.image.bitmap.Bitmap8
+import korlibs.image.color.BGRA
+import korlibs.image.color.RGBA
+import korlibs.image.color.RgbaArray
+import korlibs.image.color.toRgbaArray
+import korlibs.io.stream.MemorySyncStream
+import korlibs.io.stream.SyncStream
+import korlibs.io.stream.readBytes
+import korlibs.io.stream.readS16LE
+import korlibs.io.stream.readS32LE
+import korlibs.io.stream.readU16LE
+import korlibs.io.stream.readU32BE
+import korlibs.io.stream.readU8
+import korlibs.io.stream.sliceStart
+import korlibs.io.stream.sliceWithSize
+import korlibs.io.stream.toByteArray
+import korlibs.io.stream.write16LE
+import korlibs.io.stream.write32LE
+import korlibs.io.stream.write8
+import korlibs.io.stream.writeBytes
 
 @Suppress("UNUSED_VARIABLE")
 object ICO : ImageFormat("ico") {

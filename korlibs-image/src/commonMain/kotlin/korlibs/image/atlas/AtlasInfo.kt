@@ -1,11 +1,14 @@
 package korlibs.image.atlas
 
-import korlibs.datastructure.*
-import korlibs.image.format.*
-import korlibs.io.dynamic.*
-import korlibs.io.serialization.json.*
-import korlibs.io.serialization.xml.*
-import korlibs.math.geom.*
+import korlibs.datastructure.ListReader
+import korlibs.image.format.ImageOrientation
+import korlibs.io.dynamic.Dyn
+import korlibs.io.dynamic.dyn
+import korlibs.io.serialization.json.Json
+import korlibs.io.serialization.xml.Xml
+import korlibs.math.geom.Point
+import korlibs.math.geom.RectangleInt
+import korlibs.math.geom.SizeInt
 
 //e: java.lang.UnsupportedOperationException: Class literal annotation arguments are not yet supported: Factory
 //@AsyncFactoryClass(AtlasInfo.Factory::class)

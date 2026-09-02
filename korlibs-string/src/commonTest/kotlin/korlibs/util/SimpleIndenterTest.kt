@@ -1,6 +1,7 @@
 package korlibs.util
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class SimpleIndenterTest {
     @Test

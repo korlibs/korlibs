@@ -1,9 +1,9 @@
 package korlibs.image
 
-import korlibs.io.util.*
-import korlibs.number.*
-import korlibs.platform.*
-import kotlin.test.*
+import korlibs.number.niceStr
+import korlibs.platform.Platform
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class QualityTest {
     @Test

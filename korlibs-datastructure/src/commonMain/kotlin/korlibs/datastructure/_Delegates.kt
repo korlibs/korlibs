@@ -1,6 +1,8 @@
 package korlibs.datastructure
 
-import kotlin.reflect.*
+import kotlin.reflect.KMutableProperty0
+import kotlin.reflect.KProperty
+import kotlin.reflect.KProperty1
 
 class Computed<K : Computed.WithParent<K>, T>(val prop: KProperty1<K, T?>, val default: () -> T) {
     interface WithParent<T> {

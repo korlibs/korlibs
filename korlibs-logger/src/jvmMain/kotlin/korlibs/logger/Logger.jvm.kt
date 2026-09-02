@@ -1,9 +1,11 @@
 package korlibs.logger
 
-import korlibs.logger.Console.color
 import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.logging.*
+import java.util.logging.Handler
+import java.util.logging.Level
+import java.util.logging.LogRecord
+import korlibs.logger.Console.color
 
 actual object Console : BaseConsole() {
     override fun logInternal(kind: Kind, vararg msg: Any?) {

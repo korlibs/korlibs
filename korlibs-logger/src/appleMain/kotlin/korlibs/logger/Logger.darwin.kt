@@ -1,6 +1,6 @@
 package korlibs.logger
 
-import platform.Foundation.*
+import platform.Foundation.NSLog
 
 actual object Console : BaseConsole() {
     override fun logInternal(kind: Kind, vararg msg: Any?) {

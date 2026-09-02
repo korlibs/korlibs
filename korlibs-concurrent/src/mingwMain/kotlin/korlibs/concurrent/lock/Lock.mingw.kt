@@ -1,14 +1,29 @@
 package korlibs.concurrent.lock
 
-import korlibs.concurrent.thread.*
-import korlibs.time.*
-import korlibs.time.core.*
-import kotlinx.atomicfu.*
-import kotlinx.atomicfu.locks.*
-import kotlinx.cinterop.*
-import platform.posix.*
-import platform.windows.*
-import kotlin.time.*
+import korlibs.concurrent.thread.NativeThread
+import korlibs.concurrent.thread.sleepWhile
+import korlibs.time.FastDuration
+import korlibs.time.millisecondsInt
+import korlibs.time.slow
+import kotlin.time.TimeSource
+import kotlinx.atomicfu.atomic
+import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
+import kotlinx.cinterop.Arena
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
+import platform.windows.CONDITION_VARIABLE
+import platform.windows.CRITICAL_SECTION
+import platform.windows.DeleteCriticalSection
+import platform.windows.EnterCriticalSection
+import platform.windows.InitializeConditionVariable
+import platform.windows.InitializeCriticalSection
+import platform.windows.LeaveCriticalSection
+import platform.windows.SleepConditionVariableCS
+import platform.windows.WakeConditionVariable
 
 @OptIn(ExperimentalForeignApi::class)
 actual class Lock actual constructor() : BaseLockWithNotifyAndWait {

@@ -1,7 +1,8 @@
 package korlibs.io.async
 
-import korlibs.io.concurrent.*
-import kotlinx.coroutines.*
+import korlibs.io.concurrent.createRedirectedDispatcher
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 actual val Dispatchers.CIO: CoroutineDispatcher get() = Dispatchers.Unconfined
 

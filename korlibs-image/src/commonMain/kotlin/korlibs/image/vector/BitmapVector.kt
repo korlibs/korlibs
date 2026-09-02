@@ -5,7 +5,8 @@ import korlibs.image.bitmap.Bitmap32
 import korlibs.image.bitmap.NativeImageOrBitmap32
 import korlibs.image.bitmap.context2d
 import korlibs.image.color.RGBA
-import korlibs.math.geom.*
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.RectangleInt
 
 class BitmapVector(
     val shape: BoundsDrawable,
@@ -17,8 +18,7 @@ class BitmapVector(
     height: Int = (bounds.height * scale).toInt(),
     premultiplied: Boolean,
     val native: Boolean = true
-)
-    : Bitmap(width, height, 32, premultiplied, null)
+) : Bitmap(width, height, 32, premultiplied, null)
 {
     // Displacements
     val left = bounds.x

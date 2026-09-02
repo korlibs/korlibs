@@ -1,7 +1,7 @@
 package korlibs.image.bitmap
 
-import korlibs.math.divCeil
 import korlibs.image.color.RgbaArray
+import korlibs.math.divCeil
 
 class Bitmap2(
     width: Int,

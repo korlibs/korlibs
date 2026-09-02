@@ -1,9 +1,10 @@
 package korlibs.image.font
 
-import korlibs.datastructure.*
-import korlibs.io.lang.*
-import korlibs.io.resources.*
-import kotlin.coroutines.*
+import korlibs.datastructure.Extra
+import korlibs.io.lang.WStringReader
+import korlibs.io.resources.Resourceable
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.coroutineContext
 
 suspend fun SystemFont(name: String): SystemFont = SystemFont(name, coroutineContext)
 

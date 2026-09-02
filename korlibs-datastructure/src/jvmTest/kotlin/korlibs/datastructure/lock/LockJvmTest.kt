@@ -1,8 +1,10 @@
 package korlibs.datastructure.lock
 
-import korlibs.concurrent.thread.*
-import korlibs.time.*
-import kotlin.test.*
+import korlibs.concurrent.thread.NativeThread
+import korlibs.concurrent.thread.nativeThread
+import korlibs.time.fastMilliseconds
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class LockJvmTest {
     @Test

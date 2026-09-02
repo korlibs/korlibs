@@ -5,7 +5,7 @@ package korlibs.math.segment
 import korlibs.datastructure.BSearchResult
 import korlibs.datastructure.IntArrayList
 import korlibs.datastructure.genericBinarySearch
-import korlibs.math.annotations.*
+import korlibs.math.annotations.KormaExperimental
 import kotlin.math.max
 import kotlin.math.min
 
@@ -113,7 +113,6 @@ class IntSegmentSet {
                     // Insert at a place
                     else -> {
                         for (m in findLeftBound(min).coerceAtLeast(1)..findRightBound(max)) {
-                        //for (m in 1..findRightBound(max)) {
                             val prevMax = this.max.getAt(m - 1)
                             val currMin = this.min.getAt(m)
                             if (min > prevMax && max < currMin) {

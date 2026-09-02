@@ -1,12 +1,16 @@
 package korlibs.image.bitmap
 
-import korlibs.image.color.*
-import korlibs.image.vector.*
-import korlibs.io.async.*
-import korlibs.math.geom.*
-import korlibs.math.geom.vector.*
-import kotlinx.coroutines.test.*
-import kotlin.test.*
+import korlibs.image.color.Colors
+import korlibs.image.color.RGBA
+import korlibs.image.color.RgbaArray
+import korlibs.image.vector.buildShape
+import korlibs.image.vector.render
+import korlibs.math.geom.Point
+import korlibs.math.geom.SizeInt
+import korlibs.math.geom.vector.Winding
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.coroutines.test.runTest
 
 class NativeImageTest {
     @Test

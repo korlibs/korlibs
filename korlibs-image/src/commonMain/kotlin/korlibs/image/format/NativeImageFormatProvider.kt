@@ -1,16 +1,40 @@
 package korlibs.image.format
 
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.image.core.*
-import korlibs.image.vector.*
-import korlibs.io.async.*
-import korlibs.io.file.*
-import korlibs.io.stream.*
-import korlibs.math.geom.*
-import kotlinx.coroutines.*
-import kotlin.coroutines.*
-import kotlin.math.*
+import korlibs.image.bitmap.Bitmap
+import korlibs.image.bitmap.Bitmap32
+import korlibs.image.bitmap.BmpSlice
+import korlibs.image.bitmap.NativeImage
+import korlibs.image.bitmap.asumePremultiplied
+import korlibs.image.bitmap.context2d
+import korlibs.image.bitmap.ensureNative
+import korlibs.image.bitmap.extract
+import korlibs.image.color.RGBA
+import korlibs.image.core.CoreImage
+import korlibs.image.core.CoreImage32
+import korlibs.image.core.CoreImageFormat
+import korlibs.image.core.CoreImageInfo
+import korlibs.image.core.decodeBytes
+import korlibs.image.core.encode
+import korlibs.image.core.info
+import korlibs.image.vector.Context2d
+import korlibs.image.vector.SizedDrawable
+import korlibs.image.vector.render
+import korlibs.io.async.CIO
+import korlibs.io.async.preferSyncIo
+import korlibs.io.file.FinalVfsFile
+import korlibs.io.file.Vfs
+import korlibs.io.file.VfsFile
+import korlibs.io.file.extensionLC
+import korlibs.io.file.getUnderlyingUnscapedFile
+import korlibs.io.file.pathInfo
+import korlibs.io.stream.openAsync
+import korlibs.math.geom.Point
+import korlibs.math.geom.Size
+import kotlin.coroutines.coroutineContext
+import kotlin.math.ceil
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 expect val nativeImageFormatProvider: NativeImageFormatProvider
 

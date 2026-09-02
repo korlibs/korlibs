@@ -5,8 +5,8 @@ import korlibs.image.color.RGBA
 import korlibs.image.color.RGBA_4444
 import korlibs.image.color.packRGBA
 import korlibs.image.color.unpackToRGBA
-import korlibs.math.*
-import korlibs.memory.*
+import korlibs.math.toInt
+import korlibs.memory.arraycopy
 
 class Bitmap16(
     width: Int,

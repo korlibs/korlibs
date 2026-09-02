@@ -1,7 +1,7 @@
 package korlibs.image.color
 
-import korlibs.datastructure.*
-import korlibs.io.lang.*
+import korlibs.datastructure.toIntMap
+import korlibs.io.lang.substr
 
 @Suppress("MemberVisibilityCanBePrivate")
 object Colors {

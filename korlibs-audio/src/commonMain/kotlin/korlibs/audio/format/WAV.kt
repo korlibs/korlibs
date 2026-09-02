@@ -2,16 +2,35 @@
 
 package korlibs.audio.format
 
-import korlibs.annotations.*
-import korlibs.audio.sound.*
-import korlibs.io.async.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import korlibs.math.*
-import korlibs.memory.*
-import korlibs.time.*
-import kotlin.coroutines.cancellation.*
-import kotlin.time.*
+import korlibs.annotations.Keep
+import korlibs.audio.sound.AudioData
+import korlibs.audio.sound.AudioSample
+import korlibs.audio.sound.AudioSamples
+import korlibs.audio.sound.AudioStream
+import korlibs.audio.sound.interleaved
+import korlibs.io.async.runBlockingNoSuspensions
+import korlibs.io.lang.invalidOp
+import korlibs.io.stream.AsyncOutputStream
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.MemorySyncStream
+import korlibs.io.stream.readBytesUpTo
+import korlibs.io.stream.readS16LE
+import korlibs.io.stream.readS32LE
+import korlibs.io.stream.readStream
+import korlibs.io.stream.readString
+import korlibs.io.stream.readU32LE
+import korlibs.io.stream.toAsync
+import korlibs.io.stream.write16LE
+import korlibs.io.stream.write32LE
+import korlibs.io.stream.writeShortArrayLE
+import korlibs.io.stream.writeString
+import korlibs.math.toShortClamped
+import korlibs.memory.getS16LE
+import korlibs.memory.getS24LE
+import korlibs.memory.getU8
+import korlibs.time.microseconds
+import kotlin.coroutines.cancellation.CancellationException
+import kotlin.time.Duration
 
 @Keep
 open class WAV : AudioFormat("wav") {

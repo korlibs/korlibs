@@ -1,9 +1,11 @@
 package korlibs.math.geom
 
-import korlibs.math.*
-import korlibs.math.annotations.*
-import korlibs.math.geom.shape.*
-import kotlin.math.*
+import korlibs.math.almostEquals
+import korlibs.math.annotations.KormaExperimental
+import korlibs.math.clamp
+import korlibs.math.geom.shape.SimpleShape2D
+import korlibs.math.isAlmostZero
+import kotlin.math.sign
 
 typealias Line2 = Line
 typealias Line = Line2D

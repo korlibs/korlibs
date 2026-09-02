@@ -1,6 +1,6 @@
 package korlibs.io.util
 
-import kotlin.math.*
+import kotlin.math.pow
 
 object NumberParser {
     const val END = '\u0000'

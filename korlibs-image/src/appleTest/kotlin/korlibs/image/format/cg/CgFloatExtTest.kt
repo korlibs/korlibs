@@ -2,8 +2,9 @@
 
 package korlibs.image.format.cg
 
-import kotlinx.cinterop.*
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.cinterop.UnsafeNumber
 
 class CgFloatExtTest {
     @Test

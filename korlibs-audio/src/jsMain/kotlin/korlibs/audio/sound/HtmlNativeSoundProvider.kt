@@ -1,9 +1,9 @@
 package korlibs.audio.sound
 
-import korlibs.io.lang.*
-import korlibs.platform.*
-import org.khronos.webgl.*
-import org.w3c.dom.*
+import korlibs.io.lang.cancel
+import korlibs.platform.Platform
+import org.khronos.webgl.set
+import org.w3c.dom.ScriptProcessorNode
 
 actual val nativeSoundProvider: NativeSoundProvider by lazy {
     if (Platform.isJsBrowser) {

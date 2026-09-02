@@ -2,16 +2,22 @@
 
 package korlibs.math.geom.trapezoid
 
-import korlibs.datastructure.*
-import korlibs.datastructure.iterators.*
-import korlibs.math.*
-import korlibs.math.annotations.*
-import korlibs.math.geom.*
-import korlibs.math.geom.bezier.*
-import korlibs.math.geom.vector.*
-import korlibs.math.interpolation.*
-import kotlin.jvm.*
-import kotlin.math.*
+import korlibs.datastructure.IntArrayList
+import korlibs.datastructure.fastArrayListOf
+import korlibs.datastructure.genericBinarySearchResult
+import korlibs.datastructure.genericSort
+import korlibs.datastructure.intArrayListOf
+import korlibs.datastructure.iterators.fastForEach
+import korlibs.math.annotations.KormaMutableApi
+import korlibs.math.geom.Point
+import korlibs.math.geom.Vector2I
+import korlibs.math.geom.bezier.Bezier
+import korlibs.math.geom.vector.VectorPath
+import korlibs.math.geom.vector.Winding
+import korlibs.math.interpolation.Ratio
+import korlibs.math.toIntRound
+import kotlin.jvm.JvmInline
+import kotlin.math.sign
 
 /**
  * https://en.wikipedia.org/wiki/Trapezoid

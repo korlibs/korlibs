@@ -1,6 +1,5 @@
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.gradle.internal.extensions.stdlib.capitalized
-import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType

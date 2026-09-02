@@ -2,8 +2,34 @@
 
 package korlibs.concurrent.thread
 
-import kotlinx.cinterop.*
-import platform.windows.*
+import kotlinx.cinterop.COpaquePointer
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.staticCFunction
+import kotlinx.cinterop.toLong
+import kotlinx.cinterop.value
+import platform.windows.CloseHandle
+import platform.windows.CreateThread
+import platform.windows.DELETE
+import platform.windows.DWORD
+import platform.windows.DWORDVar
+import platform.windows.GetCurrentThreadId
+import platform.windows.GetThreadPriority
+import platform.windows.HANDLE
+import platform.windows.INFINITE
+import platform.windows.OpenThread
+import platform.windows.READ_CONTROL
+import platform.windows.SECURITY_ATTRIBUTES
+import platform.windows.SYNCHRONIZE
+import platform.windows.SetThreadPriority
+import platform.windows.THREAD_PRIORITY_HIGHEST
+import platform.windows.THREAD_PRIORITY_LOWEST
+import platform.windows.TerminateThread
+import platform.windows.WaitForSingleObject
 
 fun <T> NativeNativeThread.useHandle(block: (HANDLE?) -> T): T {
     val thread = OpenThread(((READ_CONTROL or SYNCHRONIZE or DELETE).convert()) , 0, this.convert())

@@ -1,7 +1,12 @@
 package korlibs.time
 
-import kotlin.contracts.*
-import kotlin.time.*
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
+import kotlin.time.Duration
+import kotlin.time.TimedValue
+import kotlin.time.measureTime
+import kotlin.time.measureTimedValue
 
 ///**
 // * Executes a [callback] and measure the time it takes to complete.

@@ -1,7 +1,8 @@
 package korlibs.concurrent.thread
 
-import korlibs.time.*
-import kotlin.time.*
+import korlibs.time.FastDuration
+import korlibs.time.compareTo
+import kotlin.time.TimeSource
 
 actual typealias NativeNativeThread = Long
 

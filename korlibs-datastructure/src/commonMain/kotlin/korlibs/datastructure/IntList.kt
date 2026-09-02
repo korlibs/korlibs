@@ -1,6 +1,9 @@
 package korlibs.datastructure
 
-import korlibs.datastructure.internal.*
+import korlibs.datastructure.internal.containsAllCheck
+import korlibs.datastructure.internal.containsCheck
+import korlibs.datastructure.internal.indexOfCheck
+import korlibs.datastructure.internal.lastIndexOfCheck
 
 interface IntList : Collection<Int> {
     operator fun get(index: Int): Int

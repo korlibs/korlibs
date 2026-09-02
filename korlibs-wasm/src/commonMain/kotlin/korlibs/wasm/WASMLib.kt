@@ -1,10 +1,16 @@
 package korlibs.wasm
 
-import korlibs.io.compression.*
-import korlibs.io.compression.deflate.*
-import korlibs.memory.*
-import kotlin.coroutines.*
-import kotlin.io.encoding.*
+import korlibs.io.compression.deflate.Deflate
+import korlibs.io.compression.deflate.GZIP
+import korlibs.io.compression.deflate.ZLib
+import korlibs.io.compression.uncompress
+import korlibs.memory.getS16LE
+import korlibs.memory.getS32LE
+import korlibs.memory.set16LE
+import korlibs.memory.set32LE
+import kotlin.coroutines.CoroutineContext
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
 
 @OptIn(ExperimentalEncodingApi::class)
 open class Base64ZlibWASMLib(content: String) : WASMLib(Base64.decode(content).uncompress(ZLib))

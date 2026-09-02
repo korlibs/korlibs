@@ -1,8 +1,12 @@
 package korlibs.math.geom
 
-import korlibs.datastructure.*
-import kotlin.math.*
-import kotlin.test.*
+import korlibs.datastructure.Ref
+import kotlin.math.abs
+import kotlin.math.pow
+import kotlin.math.round
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class Matrix3D2Test {
     val transMat = MMatrix3D.fromRows(

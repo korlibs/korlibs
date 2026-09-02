@@ -1,10 +1,11 @@
 package korlibs.image.tiles
 
-import korlibs.math.geom.*
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.Point
 import korlibs.math.geom.collider.HitTestDirection
 import korlibs.math.geom.collider.HitTestDirectionFlags
 import korlibs.math.geom.collider.HitTestable
-import korlibs.math.geom.shape.*
+import korlibs.math.geom.shape.Shape2D
 
 interface TileShapeInfo : HitTestable {
     fun hitTestAny(shape2d: Shape2D, matrix: Matrix, direction: HitTestDirection): Boolean

@@ -1,6 +1,7 @@
 package korlibs.io.serialization.json
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class JsonPrettyTest {
     @Test
@@ -23,7 +24,7 @@ class JsonPrettyTest {
             |	2,
             |	3
             |]
-        """.trimMargin(), Json.stringify(listOf(1, 2, 3), pretty = true)
+            """.trimMargin(), Json.stringify(listOf(1, 2, 3), pretty = true)
         )
 
         assertEquals(
@@ -32,7 +33,7 @@ class JsonPrettyTest {
             |	"a": 1,
             |	"b": 2
             |}
-        """.trimMargin(), Json.stringify(linkedMapOf("a" to 1, "b" to 2), pretty = true)
+            """.trimMargin(), Json.stringify(linkedMapOf("a" to 1, "b" to 2), pretty = true)
         )
     }
 

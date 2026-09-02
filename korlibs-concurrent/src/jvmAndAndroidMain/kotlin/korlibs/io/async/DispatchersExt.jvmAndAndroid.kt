@@ -1,7 +1,5 @@
 package korlibs.io.async
 
-import korlibs.io.concurrent.*
-import kotlinx.coroutines.*
-import kotlin.math.*
+import kotlinx.coroutines.Dispatchers
 
 actual val Dispatchers.ConcurrencyLevel: Int get() = maxOf(1, java.lang.Runtime.getRuntime().availableProcessors())

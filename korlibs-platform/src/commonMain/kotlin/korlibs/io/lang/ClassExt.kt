@@ -1,6 +1,6 @@
 package korlibs.io.lang
 
-import kotlin.reflect.*
+import kotlin.reflect.KClass
 
 /**
  * Like [KClass.simpleName] but guaranteed to work on all the targets.

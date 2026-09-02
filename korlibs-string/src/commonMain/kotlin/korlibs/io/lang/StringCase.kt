@@ -1,8 +1,7 @@
 package korlibs.io.lang
 
-import korlibs.io.util.*
-import kotlin.jvm.*
-import kotlin.text.isDigit
+import korlibs.io.util.isWhitespaceFast
+import kotlin.jvm.JvmInline
 
 @Deprecated("Use StringCase instead")
 typealias TextCase = StringCase

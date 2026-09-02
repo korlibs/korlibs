@@ -1,7 +1,7 @@
 package korlibs.inject
 
-import java.lang.reflect.*
-import kotlin.reflect.*
+import java.lang.reflect.Modifier
+import kotlin.reflect.KClass
 
 @Target(AnnotationTarget.CLASS)
 annotation class Prototype

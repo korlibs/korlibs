@@ -2,7 +2,10 @@
 
 package korlibs.io.util
 
-import kotlin.math.*
+import kotlin.math.absoluteValue
+import kotlin.math.min
+import kotlin.math.pow
+import kotlin.math.round
 
 //private fun Double.normalizeZero(): Double = if (this.isAlmostZero()) 0.0 else this
 private val MINUS_ZERO_D = -0.0

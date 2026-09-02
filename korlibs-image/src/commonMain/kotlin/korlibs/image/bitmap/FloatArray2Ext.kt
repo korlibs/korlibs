@@ -1,9 +1,12 @@
 package korlibs.image.bitmap
 
-import korlibs.datastructure.*
-import korlibs.image.color.*
-import korlibs.math.*
-import kotlin.math.*
+import korlibs.datastructure.FloatArray2
+import korlibs.image.color.RGBA
+import korlibs.math.clamp
+import korlibs.math.convertRange
+import kotlin.math.absoluteValue
+import kotlin.math.max
+import kotlin.math.min
 
 inline fun FloatArray2.forEachValue(block: (x: Int, y: Int, v: Float) -> Unit) {
     for (y in 0 until height) {

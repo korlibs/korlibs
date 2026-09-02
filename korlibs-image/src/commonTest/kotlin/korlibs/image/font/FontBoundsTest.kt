@@ -1,8 +1,8 @@
 package korlibs.image.font
 
-import korlibs.image.text.*
-import korlibs.logger.*
-import kotlin.test.*
+import korlibs.image.text.TextAlignment
+import korlibs.logger.Logger
+import kotlin.test.Test
 
 class FontBoundsTest {
     val logger = Logger("FontBoundsTest")

@@ -1,6 +1,6 @@
 package korlibs.audio.sound
 
-import kotlin.time.*
+import kotlin.time.Duration
 
 @Deprecated("Use nodes")
 fun AudioStream.withProcessor(block: suspend (inp: AudioStream, outp: AudioSamplesDeque) -> Unit): AudioStream {

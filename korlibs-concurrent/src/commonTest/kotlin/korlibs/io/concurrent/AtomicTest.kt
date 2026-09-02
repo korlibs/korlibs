@@ -1,7 +1,8 @@
 package korlibs.io.concurrent
 
-import kotlinx.atomicfu.*
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlinx.atomicfu.atomic
 
 class AtomicTest {
     @Test

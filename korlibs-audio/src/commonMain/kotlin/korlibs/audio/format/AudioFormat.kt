@@ -2,26 +2,37 @@
 
 package korlibs.audio.format
 
-import korlibs.audio.sound.*
-import korlibs.datastructure.*
-import korlibs.io.file.*
-import korlibs.io.lang.*
-import korlibs.io.stream.*
-import korlibs.number.*
-import korlibs.time.*
-import kotlinx.coroutines.*
+import korlibs.audio.sound.AudioData
+import korlibs.audio.sound.AudioStream
+import korlibs.audio.sound.toData
+import korlibs.datastructure.Extra
+import korlibs.io.file.PathInfo
+import korlibs.io.file.VfsFile
+import korlibs.io.file.extensionLC
+import korlibs.io.lang.unsupported
+import korlibs.io.stream.AsyncOutputStream
+import korlibs.io.stream.AsyncStream
+import korlibs.io.stream.MemorySyncStreamToByteArray
+import korlibs.io.stream.openAsync
+import korlibs.io.stream.readBytesUpTo
+import korlibs.io.stream.toAsync
+import korlibs.number.niceStr
+import korlibs.time.milliseconds
+import korlibs.time.seconds
 import kotlin.coroutines.cancellation.CancellationException
-import kotlin.time.*
+import kotlin.time.Duration
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 
 open class AudioFormat(vararg exts: String) {
     open val extensions: Set<String> = exts.map { it.lowercase().trim() }.toSet()
 
     data class Info(
-    var duration: Duration? = 0.seconds,
-    var channels: Int = 2,
-    var decodingTime: Duration? = null
+        var duration: Duration? = 0.seconds,
+        var channels: Int = 2,
+        var decodingTime: Duration? = null
     ) : Extra by Extra.Mixin() {
-    val durationNotNull: Duration get() = duration ?: 0.seconds
+        val durationNotNull: Duration get() = duration ?: 0.seconds
         override fun toString(): String = "Info(duration=${durationNotNull.milliseconds.niceStr}ms, channels=$channels)"
     }
 
@@ -143,7 +154,7 @@ class AudioFormats : AudioFormat() {
     override suspend fun encode(data: AudioData, out: AsyncOutputStream, filename: String, props: AudioEncodingProps) {
         val ext = PathInfo(filename).extensionLC
         val format = formats.firstOrNull { ext in it.extensions }
-                ?: throw UnsupportedOperationException("Don't know how to generate file for extension '$ext'")
+            ?: throw UnsupportedOperationException("Don't know how to generate file for extension '$ext'")
         return format.encode(data, out, filename)
     }
 

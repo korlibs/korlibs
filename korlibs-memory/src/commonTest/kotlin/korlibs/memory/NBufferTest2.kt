@@ -1,10 +1,5 @@
 package korlibs.memory
 
-import korlibs.memory.asInt32
-import korlibs.memory.asInt8
-import korlibs.memory.getS16Array
-import korlibs.memory.getS8Array
-import korlibs.memory.setArray
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

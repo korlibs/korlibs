@@ -1,10 +1,11 @@
 package korlibs.image.style
 
-import korlibs.image.annotation.*
-import korlibs.image.vector.format.*
-import korlibs.math.interpolation.*
-import korlibs.time.*
-import kotlin.time.*
+import korlibs.image.annotation.KorimExperimental
+import korlibs.image.vector.format.SVG
+import korlibs.math.interpolation.toRatio
+import korlibs.time.rem
+import korlibs.time.seconds
+import kotlin.time.Duration
 
 @KorimExperimental
 class DOMAnimator(val dom: DOM) {

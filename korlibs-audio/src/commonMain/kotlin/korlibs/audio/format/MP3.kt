@@ -2,12 +2,12 @@
 
 package korlibs.audio.format
 
-import korlibs.annotations.*
+import korlibs.annotations.Keep
 import korlibs.datastructure.DoubleArrayList
 import korlibs.datastructure.binarySearch
-import korlibs.time.microseconds
-import korlibs.time.seconds
-import korlibs.io.lang.*
+import korlibs.io.lang.Charsets
+import korlibs.io.lang.invalidOp
+import korlibs.io.lang.readStringz
 import korlibs.io.stream.AsyncStream
 import korlibs.io.stream.openSync
 import korlibs.io.stream.readBytesExact
@@ -15,8 +15,15 @@ import korlibs.io.stream.readBytesUpTo
 import korlibs.io.stream.readStream
 import korlibs.io.stream.readString
 import korlibs.io.stream.toSyncOrNull
-import korlibs.memory.*
-import kotlin.time.*
+import korlibs.memory.UByteArrayInt
+import korlibs.memory.extract
+import korlibs.memory.extract2
+import korlibs.memory.extract4
+import korlibs.memory.getU8
+import korlibs.time.microseconds
+import korlibs.time.seconds
+import kotlin.time.Duration
+import kotlin.time.measureTimedValue
 
 @Keep
 open class MP3 : MP3Base() {

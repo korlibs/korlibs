@@ -1,8 +1,8 @@
 package korlibs.image.color
 
-import korlibs.math.*
-import korlibs.math.geom.*
-import korlibs.number.*
+import korlibs.math.clamp01
+import korlibs.math.geom.Vector4F
+import korlibs.number.niceStr
 import kotlin.jvm.JvmInline
 
 //inline class RGBAf private constructor(

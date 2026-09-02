@@ -5,9 +5,9 @@ package korlibs.time.benchmark
 import korlibs.time.Stopwatch
 import korlibs.time.milliseconds
 import korlibs.time.nanoseconds
-import kotlin.time.measureTime
 import kotlin.jvm.JvmName
 import kotlin.math.pow
+import kotlin.time.measureTime
 
 data class BenchmarkResult(
     val timePerCallNanoseconds: Long,

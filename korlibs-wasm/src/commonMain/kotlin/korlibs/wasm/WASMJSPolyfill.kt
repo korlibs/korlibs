@@ -1,8 +1,9 @@
 package korlibs.wasm
 
-import korlibs.io.compression.*
-import korlibs.io.compression.deflate.*
-import kotlin.io.encoding.*
+import korlibs.io.compression.deflate.ZLib
+import korlibs.io.compression.uncompress
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
 
 // https://github.com/evanw/polywasm/tree/main/src
 // esbuild --bundle index.ts --minify --format=esm | ~/go/bin/zlib | base64

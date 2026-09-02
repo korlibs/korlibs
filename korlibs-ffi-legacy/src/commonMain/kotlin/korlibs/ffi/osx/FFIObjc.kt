@@ -1,12 +1,24 @@
 
 package korlibs.ffi.osx
 
-import korlibs.annotations.*
-import korlibs.concurrent.lock.*
-import korlibs.ffi.*
+import korlibs.annotations.KeepNames
+import korlibs.concurrent.lock.Lock
+import korlibs.ffi.FFICallback
+import korlibs.ffi.FFICreateProxyFunction
+import korlibs.ffi.FFILib
+import korlibs.ffi.FFIPointer
+import korlibs.ffi.FFIVarargs
+import korlibs.ffi.FFI_POINTER_SIZE
+import korlibs.ffi.address
+import korlibs.ffi.ffiScoped
+import korlibs.ffi.getFFIPointer
+import korlibs.ffi.getS64
+import korlibs.ffi.getStringz
 import kotlin.jvm.JvmInline
-import kotlin.properties.*
-import kotlin.reflect.*
+import kotlin.properties.ReadOnlyProperty
+import kotlin.reflect.KProperty
+import kotlin.reflect.KType
+import kotlin.reflect.typeOf
 
 typealias ID = Long
 

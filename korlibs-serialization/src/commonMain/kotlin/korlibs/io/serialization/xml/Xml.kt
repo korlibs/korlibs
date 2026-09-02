@@ -2,11 +2,19 @@
 
 package korlibs.io.serialization.xml
 
-import korlibs.io.stream.*
-import korlibs.io.util.*
-import korlibs.util.*
+import korlibs.io.stream.CharReader
+import korlibs.io.util.isWhitespaceFast
 import korlibs.util.CharReaderStrReader
-import kotlin.collections.set
+import korlibs.util.SimpleIndenter
+import korlibs.util.SimpleStrReader
+import korlibs.util.eof
+import korlibs.util.indent
+import korlibs.util.matchIdentifier
+import korlibs.util.matchSingleOrDoubleQuoteString
+import korlibs.util.readUntilBuilder
+import korlibs.util.skipExpect
+import korlibs.util.skipSpaces
+import korlibs.util.tryExpect
 
 data class Xml(
     val type: Type,

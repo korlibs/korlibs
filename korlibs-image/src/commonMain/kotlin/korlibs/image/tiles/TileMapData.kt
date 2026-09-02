@@ -1,9 +1,15 @@
 package korlibs.image.tiles
 
-import korlibs.datastructure.*
-import korlibs.math.*
-import korlibs.math.geom.*
-import korlibs.memory.*
+import korlibs.datastructure.BaseDelegatedStackedArray2
+import korlibs.datastructure.IStackedArray2
+import korlibs.datastructure.IStackedInt53Array2
+import korlibs.datastructure.IntArray2
+import korlibs.datastructure.StackedInt53Array2
+import korlibs.datastructure.each
+import korlibs.math.geom.PointInt
+import korlibs.math.umod
+import korlibs.memory.IntMaskRange
+import korlibs.memory.mask
 
 data class TileMapData(
     val data: IStackedInt53Array2,

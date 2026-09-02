@@ -1,11 +1,10 @@
 package korlibs.time
 
 import korlibs.Serializable
-import korlibs.time.Month.*
-import korlibs.time.core.*
-import korlibs.time.core.internal.*
+import korlibs.time.core.CoreTimeInternalApi
+import korlibs.time.core.internal.CoreTimeInternal
 import korlibs.time.internal.umod
-import kotlin.math.*
+import kotlin.math.abs
 
 /** Represents one of the twelve months of the year. */
 @OptIn(CoreTimeInternalApi::class)

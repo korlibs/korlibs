@@ -1,6 +1,9 @@
 package korlibs.math
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class MathTest {
     @Test

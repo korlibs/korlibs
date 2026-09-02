@@ -36,13 +36,13 @@ class Int53Test {
         assertEquals(0x6789ABCD, bits.low)
         assertEquals(0x6789ABCD, bits.extract(0, 32))
         //for (n in 0 until 1000000) {
-            assertEquals(0xCD, bits.extract(0, 8))
-            assertEquals(0xAB, bits.extract(8, 8))
-            assertEquals(0x89, bits.extract(16, 8))
-            assertEquals(0x67, bits.extract(24, 8))
-            assertEquals(0x45, bits.extract(32, 8))
-            assertEquals(0x23, bits.extract(40, 8))
-            assertEquals(0x01, bits.extract(48, 8))
+        assertEquals(0xCD, bits.extract(0, 8))
+        assertEquals(0xAB, bits.extract(8, 8))
+        assertEquals(0x89, bits.extract(16, 8))
+        assertEquals(0x67, bits.extract(24, 8))
+        assertEquals(0x45, bits.extract(32, 8))
+        assertEquals(0x23, bits.extract(40, 8))
+        assertEquals(0x01, bits.extract(48, 8))
 
         //}
     }

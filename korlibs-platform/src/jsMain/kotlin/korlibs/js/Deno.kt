@@ -1,7 +1,10 @@
 package korlibs.js
 
-import org.khronos.webgl.*
-import kotlin.js.*
+import kotlin.js.Date
+import kotlin.js.Promise
+import org.khronos.webgl.ArrayBuffer
+import org.khronos.webgl.ArrayBufferView
+import org.khronos.webgl.Uint8Array
 
 val Deno_isDeno: Boolean get() = js("('Deno' in window)").unsafeCast<Boolean>()
 

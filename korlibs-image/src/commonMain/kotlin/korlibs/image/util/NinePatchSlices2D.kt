@@ -1,7 +1,11 @@
 package korlibs.image.util
 
-import korlibs.math.geom.*
-import kotlin.math.*
+import korlibs.math.geom.Point
+import korlibs.math.geom.PointArrayList
+import korlibs.math.geom.Size
+import korlibs.math.geom.pointArrayListOf
+import kotlin.math.absoluteValue
+import kotlin.math.sign
 
 data class NinePatchSlices2D(val x: NinePatchSlices, val y: NinePatchSlices) {
     constructor() : this(NinePatchSlices(), NinePatchSlices())

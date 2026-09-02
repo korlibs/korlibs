@@ -2,8 +2,10 @@
 
 package korlibs.datastructure.sync
 
-import korlibs.concurrent.lock.*
-import korlibs.datastructure.*
+import korlibs.concurrent.lock.NonRecursiveLock
+import korlibs.datastructure.BaseMutableList
+import korlibs.datastructure.BaseMutableMap
+import korlibs.datastructure.BaseSubMutableList
 
 open class SynchronizedCollection<T>(
     protected val base: MutableCollection<T>,

@@ -1,16 +1,20 @@
 package korlibs.audio.format.mp3
 
 import doIOTest
-import korlibs.audio.format.*
-import korlibs.audio.sound.*
-import korlibs.crypto.*
-import korlibs.io.async.*
-import korlibs.io.file.std.*
-import korlibs.logger.*
-import korlibs.math.*
-import korlibs.time.*
-import kotlin.test.*
-import kotlin.time.*
+import korlibs.audio.format.AudioDecodingProps
+import korlibs.audio.format.AudioFormats
+import korlibs.audio.format.MP3Decoder
+import korlibs.audio.sound.AudioData
+import korlibs.audio.sound.readAudioData
+import korlibs.audio.sound.samplesInterleaved
+import korlibs.crypto.sha1
+import korlibs.io.async.suspendTest
+import korlibs.io.file.std.resourcesVfs
+import korlibs.logger.Logger
+import korlibs.math.divRound
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.time.measureTimedValue
 
 class SoftMp3DecoderTest {
     val formats = AudioFormats(MP3Decoder)
@@ -57,7 +61,6 @@ class SoftMp3DecoderTest {
     }
 
     @Test fun snowland() = suspendTest({ doIOTest }) {
-    //@Test fun snowland() = suspendTest(timeout = 3.seconds) {
         assertEquals(
             "2,48000,565920,36945a5c28a37e4f860b951fe397f03ba1bd187d",
             resourcesVfs["Snowland.mp3"].readAudioData(formats).toFingerprintString(),

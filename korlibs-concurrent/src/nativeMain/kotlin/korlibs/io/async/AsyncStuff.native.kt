@@ -2,11 +2,13 @@
 
 package korlibs.io.async
 
-import kotlinx.cinterop.*
-import kotlinx.coroutines.*
-import platform.posix.*
-import kotlin.coroutines.*
-import kotlin.experimental.*
+import kotlin.coroutines.CoroutineContext
+import kotlin.experimental.ExperimentalNativeApi
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.runBlocking
+import platform.posix.LC_ALL
+import platform.posix.setlocale
 
 @Suppress("ACTUAL_WITHOUT_EXPECT", "ACTUAL_TYPE_ALIAS_TO_CLASS_WITH_DECLARATION_SITE_VARIANCE")
 actual typealias AsyncEntryPointResult = Unit

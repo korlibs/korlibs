@@ -1,18 +1,41 @@
 package korlibs.image.vector
 
-import korlibs.datastructure.iterators.*
-import korlibs.image.bitmap.*
-import korlibs.image.color.*
-import korlibs.image.font.*
-import korlibs.image.paint.*
-import korlibs.image.text.*
-import korlibs.image.vector.format.*
-import korlibs.io.serialization.xml.*
-import korlibs.math.geom.*
-import korlibs.math.geom.bezier.*
-import korlibs.math.geom.vector.*
-import korlibs.number.*
-import kotlin.math.*
+import korlibs.datastructure.iterators.fastForEach
+import korlibs.image.bitmap.toUri
+import korlibs.image.color.RGBA
+import korlibs.image.font.Font
+import korlibs.image.font.drawText
+import korlibs.image.paint.BitmapPaint
+import korlibs.image.paint.ColorPaint
+import korlibs.image.paint.GradientKind
+import korlibs.image.paint.GradientPaint
+import korlibs.image.paint.NonePaint
+import korlibs.image.paint.Paint
+import korlibs.image.text.HorizontalAlign
+import korlibs.image.text.TextAlignment
+import korlibs.image.text.VerticalAlign
+import korlibs.image.vector.format.SVG
+import korlibs.image.vector.format.SvgPath
+import korlibs.io.serialization.xml.Xml
+import korlibs.math.geom.BoundsBuilder
+import korlibs.math.geom.MMatrix
+import korlibs.math.geom.Matrix
+import korlibs.math.geom.MatrixType
+import korlibs.math.geom.Point
+import korlibs.math.geom.Rectangle
+import korlibs.math.geom.bezier.Curves
+import korlibs.math.geom.bezier.isConvex
+import korlibs.math.geom.immutable
+import korlibs.math.geom.mutable
+import korlibs.math.geom.vector.StrokeInfo
+import korlibs.math.geom.vector.VectorPath
+import korlibs.math.geom.vector.applyTransform
+import korlibs.math.geom.vector.plus
+import korlibs.math.geom.vector.strokeToFill
+import korlibs.math.geom.vector.toCurvesList
+import korlibs.number.niceStr
+import kotlin.math.max
+import kotlin.math.round
 
 /*
 <svg width="80px" height="30px" viewBox="0 0 80 30"

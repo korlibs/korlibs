@@ -1,7 +1,6 @@
 package korlibs.image.format
 
 import korlibs.datastructure.IntMap
-import korlibs.logger.Logger
 import korlibs.io.lang.LATIN1
 import korlibs.io.stream.AsyncStream
 import korlibs.io.stream.ByteArrayBitReader
@@ -21,6 +20,7 @@ import korlibs.io.stream.slice
 import korlibs.io.stream.sliceHere
 import korlibs.io.stream.sliceWithSize
 import korlibs.io.stream.toAsyncStream
+import korlibs.logger.Logger
 
 // AVIF & HEIC metadata extractor
 object AVIFInfo : ISOBMFF("avif")

@@ -1,7 +1,7 @@
 package korlibs.time.core
 
-import korlibs.time.*
-import kotlin.time.*
+import korlibs.time.minutes
+import kotlin.time.Duration
 
 actual var CoreTime: ICoreTime = object : ICoreTime {
     override fun currentTimeMillisDouble(): Double = Date_now()

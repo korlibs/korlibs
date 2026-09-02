@@ -1,8 +1,8 @@
 package korlibs.inject
 
-import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.coroutineContext
+import kotlinx.coroutines.withContext
 
 suspend fun <T> withInjector(injector: Injector, block: suspend () -> T): T =
     withContext(InjectorContext(injector)) {
