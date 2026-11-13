@@ -68,7 +68,7 @@ jobs:
           key: "${{ runner.os }}-konan"
           restore-keys: "${{ runner.os }}-konan"
       - name: "Run check"
-        run: "./gradlew check"
+        run: "./gradlew --parallel --max-workers=8 check"
       - name: "Enable KVM"
         if: "${{ matrix.enableAndroid }}"
         run: |
@@ -171,7 +171,7 @@ jobs:
         run: ./gradlew --no-configuration-cache
       - name: "Publish Korlibs to Maven Local"
         run: |
-          ./gradlew --no-configuration-cache --parallel --max-workers=8 \
+          ./gradlew --no-configuration-cache --parallel --max-workers=16 \
           publishLinuxX64PublicationToMavenLocal publishLinuxArm64PublicationToMavenLocal \
           publishMingwX64PublicationToMavenLocal \
           publishAndroidPublicationToMavenLocal \
@@ -179,7 +179,7 @@ jobs:
           publishJsPublicationToMavenLocal publishWasmJsPublicationToMavenLocal
 
       - name: "Run Korge check for JVM, JS and Browser targets"
-        run: cd deps-korge && ./gradlew jvmTest jsTest jsBrowserTest
+        run: cd deps-korge && ./gradlew --parallel --max-workers=8 jvmTest jsTest jsBrowserTest
         env:
           EGL_LOG_LEVEL: debug
           LIBGL_DEBUG: verbose
